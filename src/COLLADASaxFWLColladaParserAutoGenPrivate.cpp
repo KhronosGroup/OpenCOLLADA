@@ -93,7 +93,7 @@ attributeData->platform = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES, 0, attributeValue))
             {return false;}
     }
     }
@@ -553,7 +553,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->meter = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_UNIT, HASH_ATTRIBUTE_METER, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_UNIT, HASH_ATTRIBUTE_METER, attributeValue))
 {return false;}
     break;
     }
@@ -566,7 +566,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_UNIT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_UNIT, 0, attributeValue))
             {return false;}
     }
     }
@@ -627,7 +627,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__up_axis(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_UP_AXIS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_UP_AXIS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -753,7 +753,7 @@ attributeData->format = attributeValue;
     {
 bool failed;
 attributeData->height = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLES__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLES__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
 {return false;}
     break;
     }
@@ -761,7 +761,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->width = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLES__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLES__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
 {return false;}
     break;
     }
@@ -769,13 +769,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->depth = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLES__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLES__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES__IMAGE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES__IMAGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -948,7 +948,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IMAGE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IMAGE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -1047,7 +1047,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EXTRA__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EXTRA__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -1119,7 +1119,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES__NEWPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES__NEWPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -1188,7 +1188,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__ANNOTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__ANNOTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -1249,7 +1249,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__annotate__bool(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__BOOL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__BOOL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -1392,7 +1392,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__annotate__int(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__INT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__INT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -1535,7 +1535,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__annotate__float(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -1828,7 +1828,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__modifier(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MODIFIER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MODIFIER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -1915,7 +1915,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__bool(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__BOOL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__BOOL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -2046,7 +2046,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__int(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__INT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__INT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -2177,7 +2177,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__float(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -2311,7 +2311,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__float1x1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT1X1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT1X1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -2808,13 +2808,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->type = Utils::toEnum<fx_surface_type_enum, StringHash, fx_surface_type_enum__COUNT>(attributeValue, failed, fx_surface_type_enumMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NEWPARAM__SURFACE, HASH_ATTRIBUTE_TYPE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NEWPARAM__SURFACE, HASH_ATTRIBUTE_TYPE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__SURFACE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__SURFACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -3012,7 +3012,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_CUBE__ALL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_CUBE__ALL, 0, attributeValue))
             {return false;}
     }
     }
@@ -3081,7 +3081,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_CUBE__PRIMARY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_CUBE__PRIMARY, 0, attributeValue))
             {return false;}
     }
     }
@@ -3142,7 +3142,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__order(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORDER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORDER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -3240,7 +3240,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_CUBE__FACE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_CUBE__FACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -3336,7 +3336,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_VOLUME__ALL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_VOLUME__ALL, 0, attributeValue))
             {return false;}
     }
     }
@@ -3402,7 +3402,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_VOLUME__PRIMARY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_VOLUME__PRIMARY, 0, attributeValue))
             {return false;}
     }
     }
@@ -3498,7 +3498,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_PLANAR__ALL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_PLANAR__ALL, 0, attributeValue))
             {return false;}
     }
     }
@@ -3568,7 +3568,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->mip = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SURFACE__INIT_FROM, HASH_ATTRIBUTE_MIP, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SURFACE__INIT_FROM, HASH_ATTRIBUTE_MIP, attributeValue))
 {return false;}
     break;
     }
@@ -3576,7 +3576,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->slice = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SURFACE__INIT_FROM, HASH_ATTRIBUTE_SLICE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SURFACE__INIT_FROM, HASH_ATTRIBUTE_SLICE, attributeValue))
 {return false;}
     break;
     }
@@ -3584,13 +3584,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->face = Utils::toEnum<fx_surface_face_enum, StringHash, fx_surface_face_enum__COUNT>(attributeValue, failed, fx_surface_face_enumMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SURFACE__INIT_FROM, HASH_ATTRIBUTE_FACE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SURFACE__INIT_FROM, HASH_ATTRIBUTE_FACE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SURFACE__INIT_FROM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SURFACE__INIT_FROM, 0, attributeValue))
             {return false;}
     }
     }
@@ -3711,7 +3711,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__channels(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CHANNELS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CHANNELS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -3801,7 +3801,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__range(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_RANGE, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_RANGE, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -3891,7 +3891,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__precision(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PRECISION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PRECISION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -3981,7 +3981,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__option(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_OPTION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_OPTION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -4087,7 +4087,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORMAT_HINT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORMAT_HINT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -4208,7 +4208,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__mip_levels(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIP_LEVELS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIP_LEVELS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -4261,7 +4261,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__mipmap_generate(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIPMAP_GENERATE, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIPMAP_GENERATE, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -4330,7 +4330,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SURFACE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SURFACE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -4399,7 +4399,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__TEXTURE_PIPELINE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__TEXTURE_PIPELINE, 0, attributeValue))
             {return false;}
     }
     }
@@ -4499,7 +4499,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXCOMBINER__CONSTANT, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXCOMBINER__CONSTANT, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -4512,7 +4512,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXCOMBINER__CONSTANT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXCOMBINER__CONSTANT, 0, attributeValue))
             {return false;}
     }
     }
@@ -4589,7 +4589,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->_operator = Utils::toEnum<gles_texcombiner_operatorRGB_enums, StringHash, gles_texcombiner_operatorRGB_enums__COUNT>(attributeValue, failed, gles_texcombiner_operatorRGB_enumsMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RGB, HASH_ATTRIBUTE__OPERATOR, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RGB, HASH_ATTRIBUTE__OPERATOR, attributeValue))
 {return false;}
     break;
     }
@@ -4597,13 +4597,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->scale = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RGB, HASH_ATTRIBUTE_SCALE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RGB, HASH_ATTRIBUTE_SCALE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RGB, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RGB, 0, attributeValue))
             {return false;}
     }
     }
@@ -4712,7 +4712,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->source = Utils::toEnum<gles_texcombiner_source_enums, StringHash, gles_texcombiner_source_enums__COUNT>(attributeValue, failed, gles_texcombiner_source_enumsMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RGB__ARGUMENT, HASH_ATTRIBUTE_SOURCE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RGB__ARGUMENT, HASH_ATTRIBUTE_SOURCE, attributeValue))
 {return false;}
     break;
     }
@@ -4720,7 +4720,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->operand = Utils::toEnum<gles_texcombiner_operandRGB_enums, StringHash, gles_texcombiner_operandRGB_enums__COUNT>(attributeValue, failed, gles_texcombiner_operandRGB_enumsMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RGB__ARGUMENT, HASH_ATTRIBUTE_OPERAND, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RGB__ARGUMENT, HASH_ATTRIBUTE_OPERAND, attributeValue))
 {return false;}
     break;
     }
@@ -4733,7 +4733,7 @@ attributeData->unit = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RGB__ARGUMENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RGB__ARGUMENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -4869,7 +4869,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->_operator = Utils::toEnum<gles_texcombiner_operatorAlpha_enums, StringHash, gles_texcombiner_operatorAlpha_enums__COUNT>(attributeValue, failed, gles_texcombiner_operatorAlpha_enumsMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXCOMBINER__ALPHA, HASH_ATTRIBUTE__OPERATOR, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXCOMBINER__ALPHA, HASH_ATTRIBUTE__OPERATOR, attributeValue))
 {return false;}
     break;
     }
@@ -4877,13 +4877,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->scale = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXCOMBINER__ALPHA, HASH_ATTRIBUTE_SCALE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXCOMBINER__ALPHA, HASH_ATTRIBUTE_SCALE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXCOMBINER__ALPHA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXCOMBINER__ALPHA, 0, attributeValue))
             {return false;}
     }
     }
@@ -4980,7 +4980,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->source = Utils::toEnum<gles_texcombiner_source_enums, StringHash, gles_texcombiner_source_enums__COUNT>(attributeValue, failed, gles_texcombiner_source_enumsMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA__ARGUMENT, HASH_ATTRIBUTE_SOURCE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA__ARGUMENT, HASH_ATTRIBUTE_SOURCE, attributeValue))
 {return false;}
     break;
     }
@@ -4988,7 +4988,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->operand = Utils::toEnum<gles_texcombiner_operandAlpha_enums, StringHash, gles_texcombiner_operandAlpha_enums__COUNT>(attributeValue, failed, gles_texcombiner_operandAlpha_enumsMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA__ARGUMENT, HASH_ATTRIBUTE_OPERAND, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA__ARGUMENT, HASH_ATTRIBUTE_OPERAND, attributeValue))
 {return false;}
     break;
     }
@@ -5001,7 +5001,7 @@ attributeData->unit = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ALPHA__ARGUMENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ALPHA__ARGUMENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -5101,7 +5101,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->_operator = Utils::toEnum<gles_texenv_mode_enums, StringHash, gles_texenv_mode_enums__COUNT>(attributeValue, failed, gles_texenv_mode_enumsMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXTURE_PIPELINE__TEXENV, HASH_ATTRIBUTE__OPERATOR, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXTURE_PIPELINE__TEXENV, HASH_ATTRIBUTE__OPERATOR, attributeValue))
 {return false;}
     break;
     }
@@ -5114,7 +5114,7 @@ attributeData->unit = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_PIPELINE__TEXENV, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_PIPELINE__TEXENV, 0, attributeValue))
             {return false;}
     }
     }
@@ -5208,7 +5208,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXENV__CONSTANT, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXENV__CONSTANT, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -5221,7 +5221,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXENV__CONSTANT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXENV__CONSTANT, 0, attributeValue))
             {return false;}
     }
     }
@@ -5305,7 +5305,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_PIPELINE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_PIPELINE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -5374,7 +5374,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__SAMPLER_STATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__SAMPLER_STATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -5435,7 +5435,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler_state__wrap_s(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -5525,7 +5525,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler_state__wrap_t(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -5579,7 +5579,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler_state__minfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -5669,7 +5669,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler_state__magfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -5723,7 +5723,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler_state__mipfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -5777,7 +5777,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler_state__mipmap_maxlevel(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -5830,7 +5830,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler_state__mipmap_bias(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER_STATE__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -5899,7 +5899,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER_STATE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER_STATE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -5968,7 +5968,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__TEXTURE_UNIT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__TEXTURE_UNIT, 0, attributeValue))
             {return false;}
     }
     }
@@ -6094,7 +6094,7 @@ attributeData->semantic = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXCOORD, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXCOORD, 0, attributeValue))
             {return false;}
     }
     }
@@ -6171,7 +6171,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_UNIT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_UNIT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -6274,7 +6274,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -6364,7 +6364,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__ANNOTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__ANNOTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -6443,7 +6443,7 @@ attributeData->format = attributeValue;
     {
 bool failed;
 attributeData->height = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
 {return false;}
     break;
     }
@@ -6451,7 +6451,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->width = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
 {return false;}
     break;
     }
@@ -6459,13 +6459,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->depth = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__IMAGE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__IMAGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -6528,7 +6528,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__NEWPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__NEWPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -6597,7 +6597,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__SETPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__SETPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -6660,7 +6660,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__ANNOTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__ANNOTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -6718,7 +6718,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__bool(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__BOOL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__BOOL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -6849,7 +6849,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__int(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__INT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__INT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -6980,7 +6980,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__float(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -7111,7 +7111,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__float1x1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT1X1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT1X1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -7566,13 +7566,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->type = Utils::toEnum<fx_surface_type_enum, StringHash, fx_surface_type_enum__COUNT>(attributeValue, failed, fx_surface_type_enumMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SETPARAM__SURFACE, HASH_ATTRIBUTE_TYPE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SETPARAM__SURFACE, HASH_ATTRIBUTE_TYPE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__SURFACE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__SURFACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -7635,7 +7635,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__TEXTURE_PIPELINE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__TEXTURE_PIPELINE, 0, attributeValue))
             {return false;}
     }
     }
@@ -7698,7 +7698,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__SAMPLER_STATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__SAMPLER_STATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -7761,7 +7761,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__TEXTURE_UNIT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__TEXTURE_UNIT, 0, attributeValue))
             {return false;}
     }
     }
@@ -7857,7 +7857,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PASS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PASS, 0, attributeValue))
             {return false;}
     }
     }
@@ -7920,7 +7920,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PASS__ANNOTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PASS__ANNOTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -8101,7 +8101,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__depth_clear(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DEPTH_CLEAR, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DEPTH_CLEAR, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -8154,7 +8154,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__stencil_clear(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_STENCIL_CLEAR, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_STENCIL_CLEAR, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -8270,7 +8270,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_func_type, StringHash, gl_func_type__COUNT>(attributeValue, failed, gl_func_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA_FUNC__FUNC, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA_FUNC__FUNC, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -8283,7 +8283,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ALPHA_FUNC__FUNC, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ALPHA_FUNC__FUNC, 0, attributeValue))
             {return false;}
     }
     }
@@ -8383,7 +8383,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA_FUNC__VALUE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA_FUNC__VALUE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -8396,7 +8396,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ALPHA_FUNC__VALUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ALPHA_FUNC__VALUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -8490,7 +8490,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_blend_type, StringHash, gl_blend_type__COUNT>(attributeValue, failed, gl_blend_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SRC, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SRC, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -8503,7 +8503,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SRC, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SRC, 0, attributeValue))
             {return false;}
     }
     }
@@ -8603,7 +8603,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_blend_type, StringHash, gl_blend_type__COUNT>(attributeValue, failed, gl_blend_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEST, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEST, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -8616,7 +8616,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEST, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEST, 0, attributeValue))
             {return false;}
     }
     }
@@ -8680,7 +8680,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLEAR_COLOR, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLEAR_COLOR, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -8693,7 +8693,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLEAR_COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLEAR_COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -8764,7 +8764,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLEAR_STENCIL, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLEAR_STENCIL, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -8777,7 +8777,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLEAR_STENCIL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLEAR_STENCIL, 0, attributeValue))
             {return false;}
     }
     }
@@ -8841,7 +8841,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLEAR_DEPTH, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLEAR_DEPTH, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -8854,7 +8854,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLEAR_DEPTH, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLEAR_DEPTH, 0, attributeValue))
             {return false;}
     }
     }
@@ -8921,7 +8921,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2BoolList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -8936,13 +8936,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLIP_PLANE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLIP_PLANE, 0, attributeValue))
             {return false;}
     }
     }
@@ -9013,7 +9013,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2BoolList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLOR_MASK, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLOR_MASK, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9026,7 +9026,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLOR_MASK, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLOR_MASK, 0, attributeValue))
             {return false;}
     }
     }
@@ -9097,7 +9097,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_face_type, StringHash, gl_face_type__COUNT>(attributeValue, failed, gl_face_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CULL_FACE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CULL_FACE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9110,7 +9110,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CULL_FACE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CULL_FACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -9210,7 +9210,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_func_type, StringHash, gl_func_type__COUNT>(attributeValue, failed, gl_func_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEPTH_FUNC, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEPTH_FUNC, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9223,7 +9223,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEPTH_FUNC, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEPTH_FUNC, 0, attributeValue))
             {return false;}
     }
     }
@@ -9287,7 +9287,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEPTH_MASK, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEPTH_MASK, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9300,7 +9300,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEPTH_MASK, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEPTH_MASK, 0, attributeValue))
             {return false;}
     }
     }
@@ -9364,7 +9364,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEPTH_RANGE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEPTH_RANGE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9377,7 +9377,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEPTH_RANGE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEPTH_RANGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -9448,7 +9448,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_COLOR, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_COLOR, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9461,7 +9461,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -9532,7 +9532,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_DENSITY, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_DENSITY, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9545,7 +9545,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_DENSITY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_DENSITY, 0, attributeValue))
             {return false;}
     }
     }
@@ -9609,7 +9609,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_fog_type, StringHash, gl_fog_type__COUNT>(attributeValue, failed, gl_fog_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_MODE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_MODE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9622,7 +9622,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_MODE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_MODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -9722,7 +9722,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_START, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_START, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9735,7 +9735,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_START, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_START, 0, attributeValue))
             {return false;}
     }
     }
@@ -9799,7 +9799,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_END, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_END, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9812,7 +9812,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_END, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_END, 0, attributeValue))
             {return false;}
     }
     }
@@ -9876,7 +9876,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_front_face_type, StringHash, gl_front_face_type__COUNT>(attributeValue, failed, gl_front_face_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FRONT_FACE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FRONT_FACE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -9889,7 +9889,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FRONT_FACE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FRONT_FACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -9991,7 +9991,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PASS__TEXTURE_PIPELINE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PASS__TEXTURE_PIPELINE, 0, attributeValue))
             {return false;}
     }
     }
@@ -10054,7 +10054,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_PIPELINE__VALUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_PIPELINE__VALUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -10139,7 +10139,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->_operator = Utils::toEnum<gles_texenv_mode_enums, StringHash, gles_texenv_mode_enums__COUNT>(attributeValue, failed, gles_texenv_mode_enumsMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VALUE__TEXENV, HASH_ATTRIBUTE__OPERATOR, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VALUE__TEXENV, HASH_ATTRIBUTE__OPERATOR, attributeValue))
 {return false;}
     break;
     }
@@ -10152,7 +10152,7 @@ attributeData->unit = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VALUE__TEXENV, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VALUE__TEXENV, 0, attributeValue))
             {return false;}
     }
     }
@@ -10229,7 +10229,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VALUE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VALUE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -10293,7 +10293,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_logic_op_type, StringHash, gl_logic_op_type__COUNT>(attributeValue, failed, gl_logic_op_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LOGIC_OP, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LOGIC_OP, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -10306,7 +10306,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LOGIC_OP, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LOGIC_OP, 0, attributeValue))
             {return false;}
     }
     }
@@ -10406,7 +10406,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -10421,13 +10421,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_AMBIENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_AMBIENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -10498,7 +10498,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -10513,13 +10513,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_DIFFUSE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_DIFFUSE, 0, attributeValue))
             {return false;}
     }
     }
@@ -10590,7 +10590,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -10605,13 +10605,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_SPECULAR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_SPECULAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -10682,7 +10682,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -10697,13 +10697,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_POSITION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_POSITION, 0, attributeValue))
             {return false;}
     }
     }
@@ -10774,7 +10774,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -10789,13 +10789,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -10859,7 +10859,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -10874,13 +10874,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -10944,7 +10944,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -10959,13 +10959,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -11029,7 +11029,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_CUTOFF, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_CUTOFF, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11044,13 +11044,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_CUTOFF, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_CUTOFF, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_SPOT_CUTOFF, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_SPOT_CUTOFF, 0, attributeValue))
             {return false;}
     }
     }
@@ -11114,7 +11114,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11129,13 +11129,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, 0, attributeValue))
             {return false;}
     }
     }
@@ -11206,7 +11206,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_EXPONENT, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_EXPONENT, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11221,13 +11221,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_EXPONENT, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_SPOT_EXPONENT, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_SPOT_EXPONENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_SPOT_EXPONENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -11291,7 +11291,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_MODEL_AMBIENT, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_MODEL_AMBIENT, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11304,7 +11304,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_MODEL_AMBIENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_MODEL_AMBIENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -11375,7 +11375,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINE_WIDTH, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINE_WIDTH, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11388,7 +11388,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINE_WIDTH, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINE_WIDTH, 0, attributeValue))
             {return false;}
     }
     }
@@ -11452,7 +11452,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_AMBIENT, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_AMBIENT, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11465,7 +11465,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_AMBIENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_AMBIENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -11536,7 +11536,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_DIFFUSE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_DIFFUSE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11549,7 +11549,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_DIFFUSE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_DIFFUSE, 0, attributeValue))
             {return false;}
     }
     }
@@ -11620,7 +11620,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_EMISSION, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_EMISSION, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11633,7 +11633,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_EMISSION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_EMISSION, 0, attributeValue))
             {return false;}
     }
     }
@@ -11704,7 +11704,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_SHININESS, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_SHININESS, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11717,7 +11717,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_SHININESS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_SHININESS, 0, attributeValue))
             {return false;}
     }
     }
@@ -11781,7 +11781,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_SPECULAR, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL_SPECULAR, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11794,7 +11794,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_SPECULAR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL_SPECULAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -11865,7 +11865,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MODEL_VIEW_MATRIX, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MODEL_VIEW_MATRIX, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11878,7 +11878,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MODEL_VIEW_MATRIX, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MODEL_VIEW_MATRIX, 0, attributeValue))
             {return false;}
     }
     }
@@ -11949,7 +11949,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_DISTANCE_ATTENUATION, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_DISTANCE_ATTENUATION, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -11962,7 +11962,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_DISTANCE_ATTENUATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_DISTANCE_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -12033,7 +12033,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_FADE_THRESHOLD_SIZE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_FADE_THRESHOLD_SIZE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12046,7 +12046,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_FADE_THRESHOLD_SIZE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_FADE_THRESHOLD_SIZE, 0, attributeValue))
             {return false;}
     }
     }
@@ -12110,7 +12110,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_SIZE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_SIZE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12123,7 +12123,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_SIZE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_SIZE, 0, attributeValue))
             {return false;}
     }
     }
@@ -12187,7 +12187,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_SIZE_MIN, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_SIZE_MIN, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12200,7 +12200,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_SIZE_MIN, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_SIZE_MIN, 0, attributeValue))
             {return false;}
     }
     }
@@ -12264,7 +12264,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_SIZE_MAX, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_SIZE_MAX, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12277,7 +12277,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_SIZE_MAX, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_SIZE_MAX, 0, attributeValue))
             {return false;}
     }
     }
@@ -12341,7 +12341,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGON_OFFSET, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGON_OFFSET, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12354,7 +12354,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGON_OFFSET, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGON_OFFSET, 0, attributeValue))
             {return false;}
     }
     }
@@ -12425,7 +12425,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2DoubleList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROJECTION_MATRIX, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROJECTION_MATRIX, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12438,7 +12438,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROJECTION_MATRIX, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROJECTION_MATRIX, 0, attributeValue))
             {return false;}
     }
     }
@@ -12509,7 +12509,7 @@ if ( attributeArray )
     {
 
 bool failed = characterData2LongList(attributeValue, attributeData->value);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SCISSOR, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SCISSOR, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12522,7 +12522,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCISSOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCISSOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -12593,7 +12593,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_shade_model_type, StringHash, gl_shade_model_type__COUNT>(attributeValue, failed, gl_shade_model_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SHADE_MODEL, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SHADE_MODEL, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12606,7 +12606,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHADE_MODEL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHADE_MODEL, 0, attributeValue))
             {return false;}
     }
     }
@@ -12733,7 +12733,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gl_func_type, StringHash, gl_func_type__COUNT>(attributeValue, failed, gl_func_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_FUNC__FUNC, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_FUNC__FUNC, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12746,7 +12746,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_FUNC__FUNC, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_FUNC__FUNC, 0, attributeValue))
             {return false;}
     }
     }
@@ -12810,7 +12810,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toUnsignedShort(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_FUNC__REF, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_FUNC__REF, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12823,7 +12823,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_FUNC__REF, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_FUNC__REF, 0, attributeValue))
             {return false;}
     }
     }
@@ -12887,7 +12887,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toUnsignedShort(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_FUNC__MASK, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_FUNC__MASK, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12900,7 +12900,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_FUNC__MASK, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_FUNC__MASK, 0, attributeValue))
             {return false;}
     }
     }
@@ -12964,7 +12964,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_MASK, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_MASK, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -12977,7 +12977,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_MASK, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_MASK, 0, attributeValue))
             {return false;}
     }
     }
@@ -13071,7 +13071,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gles_stencil_op_type, StringHash, gles_stencil_op_type__COUNT>(attributeValue, failed, gles_stencil_op_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_OP__FAIL, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_OP__FAIL, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13084,7 +13084,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_OP__FAIL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_OP__FAIL, 0, attributeValue))
             {return false;}
     }
     }
@@ -13184,7 +13184,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gles_stencil_op_type, StringHash, gles_stencil_op_type__COUNT>(attributeValue, failed, gles_stencil_op_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_OP__ZFAIL, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_OP__ZFAIL, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13197,7 +13197,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_OP__ZFAIL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_OP__ZFAIL, 0, attributeValue))
             {return false;}
     }
     }
@@ -13261,7 +13261,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = Utils::toEnum<gles_stencil_op_type, StringHash, gles_stencil_op_type__COUNT>(attributeValue, failed, gles_stencil_op_typeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_OP__ZPASS, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_OP__ZPASS, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13274,7 +13274,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_OP__ZPASS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_OP__ZPASS, 0, attributeValue))
             {return false;}
     }
     }
@@ -13338,7 +13338,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA_TEST_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ALPHA_TEST_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13351,7 +13351,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ALPHA_TEST_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ALPHA_TEST_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -13415,7 +13415,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BLEND_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BLEND_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13428,7 +13428,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BLEND_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BLEND_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -13492,7 +13492,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLIP_PLANE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLIP_PLANE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13507,13 +13507,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLIP_PLANE_ENABLE, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CLIP_PLANE_ENABLE, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLIP_PLANE_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CLIP_PLANE_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -13577,7 +13577,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLOR_LOGIC_OP_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLOR_LOGIC_OP_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13590,7 +13590,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLOR_LOGIC_OP_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLOR_LOGIC_OP_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -13654,7 +13654,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLOR_MATERIAL_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLOR_MATERIAL_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13667,7 +13667,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLOR_MATERIAL_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLOR_MATERIAL_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -13731,7 +13731,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CULL_FACE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CULL_FACE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13744,7 +13744,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CULL_FACE_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CULL_FACE_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -13808,7 +13808,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEPTH_TEST_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DEPTH_TEST_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13821,7 +13821,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEPTH_TEST_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DEPTH_TEST_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -13885,7 +13885,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DITHER_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DITHER_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13898,7 +13898,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DITHER_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DITHER_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -13962,7 +13962,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FOG_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -13975,7 +13975,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FOG_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14039,7 +14039,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXTURE_PIPELINE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TEXTURE_PIPELINE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14052,7 +14052,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_PIPELINE_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE_PIPELINE_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14116,7 +14116,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14131,13 +14131,13 @@ attributeData->param = attributeValue;
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_ENABLE, HASH_ATTRIBUTE_INDEX, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_ENABLE, HASH_ATTRIBUTE_INDEX, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14201,7 +14201,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHTING_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHTING_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14214,7 +14214,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHTING_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHTING_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14278,7 +14278,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14291,7 +14291,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14355,7 +14355,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINE_SMOOTH_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINE_SMOOTH_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14368,7 +14368,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINE_SMOOTH_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINE_SMOOTH_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14432,7 +14432,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MULTISAMPLE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MULTISAMPLE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14445,7 +14445,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MULTISAMPLE_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MULTISAMPLE_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14509,7 +14509,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NORMALIZE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NORMALIZE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14522,7 +14522,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NORMALIZE_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NORMALIZE_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14586,7 +14586,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_SMOOTH_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT_SMOOTH_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14599,7 +14599,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_SMOOTH_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT_SMOOTH_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14663,7 +14663,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGON_OFFSET_FILL_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGON_OFFSET_FILL_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14676,7 +14676,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGON_OFFSET_FILL_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGON_OFFSET_FILL_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14740,7 +14740,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RESCALE_NORMAL_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RESCALE_NORMAL_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14753,7 +14753,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RESCALE_NORMAL_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RESCALE_NORMAL_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14817,7 +14817,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14830,7 +14830,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14894,7 +14894,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14907,7 +14907,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14971,7 +14971,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLE_COVERAGE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLE_COVERAGE_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -14984,7 +14984,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLE_COVERAGE_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLE_COVERAGE_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -15048,7 +15048,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SCISSOR_TEST_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SCISSOR_TEST_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -15061,7 +15061,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCISSOR_TEST_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCISSOR_TEST_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -15125,7 +15125,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_TEST_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STENCIL_TEST_ENABLE, HASH_ATTRIBUTE_VALUE, attributeValue))
 {return false;}
     break;
     }
@@ -15138,7 +15138,7 @@ attributeData->param = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_TEST_ENABLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STENCIL_TEST_ENABLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -15215,7 +15215,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PASS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PASS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -15292,7 +15292,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -15369,7 +15369,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -15436,7 +15436,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->version = Utils::toEnum<VersionType, StringHash, VersionType__COUNT>(attributeValue, failed, VersionTypeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLLADA, HASH_ATTRIBUTE_VERSION, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLLADA, HASH_ATTRIBUTE_VERSION, attributeValue))
 {return false;}
     break;
     }
@@ -15449,7 +15449,7 @@ attributeData->base = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLLADA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLLADA, 0, attributeValue))
             {return false;}
     }
     }
@@ -15588,7 +15588,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATIONS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATIONS, 0, attributeValue))
             {return false;}
     }
     }
@@ -15691,7 +15691,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATIONS__ANIMATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATIONS__ANIMATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -15794,7 +15794,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION__SOURCE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -15902,13 +15902,13 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_IDREF_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_IDREF_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IDREF_ARRAY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IDREF_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -15986,13 +15986,13 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NAME_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NAME_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NAME_ARRAY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NAME_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -16070,13 +16070,13 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BOOL_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BOOL_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BOOL_ARRAY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BOOL_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -16160,7 +16160,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FLOAT_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FLOAT_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -16168,7 +16168,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->digits = GeneratedSaxParser::Utils::toInt(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FLOAT_ARRAY, HASH_ATTRIBUTE_DIGITS, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FLOAT_ARRAY, HASH_ATTRIBUTE_DIGITS, attributeValue))
 {return false;}
     break;
     }
@@ -16176,13 +16176,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->magnitude = GeneratedSaxParser::Utils::toInt(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FLOAT_ARRAY, HASH_ATTRIBUTE_MAGNITUDE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FLOAT_ARRAY, HASH_ATTRIBUTE_MAGNITUDE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FLOAT_ARRAY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FLOAT_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -16266,7 +16266,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INT_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INT_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -16274,7 +16274,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->minInclusive = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INT_ARRAY, HASH_ATTRIBUTE_MININCLUSIVE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INT_ARRAY, HASH_ATTRIBUTE_MININCLUSIVE, attributeValue))
 {return false;}
     break;
     }
@@ -16282,13 +16282,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->maxInclusive = GeneratedSaxParser::Utils::toLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INT_ARRAY, HASH_ATTRIBUTE_MAXINCLUSIVE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INT_ARRAY, HASH_ATTRIBUTE_MAXINCLUSIVE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INT_ARRAY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INT_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -16388,7 +16388,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -16396,7 +16396,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_OFFSET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_OFFSET, attributeValue))
 {return false;}
     break;
     }
@@ -16411,13 +16411,13 @@ attributeData->source = attributeValue;
     {
 bool failed;
 attributeData->stride = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_STRIDE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_STRIDE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ACCESSOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ACCESSOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -16507,7 +16507,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ACCESSOR__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ACCESSOR__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -16570,7 +16570,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SOURCE__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SOURCE__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -16639,7 +16639,7 @@ attributeData->id = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER, 0, attributeValue))
             {return false;}
     }
     }
@@ -16715,7 +16715,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -16794,7 +16794,7 @@ attributeData->target = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CHANNEL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CHANNEL, 0, attributeValue))
             {return false;}
     }
     }
@@ -16864,7 +16864,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION__ANIMATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION__ANIMATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -16941,7 +16941,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -17018,7 +17018,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATIONS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATIONS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -17094,7 +17094,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -17205,7 +17205,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->start = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANIMATION_CLIP, HASH_ATTRIBUTE_START, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANIMATION_CLIP, HASH_ATTRIBUTE_START, attributeValue))
 {return false;}
     break;
     }
@@ -17213,13 +17213,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->end = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANIMATION_CLIP, HASH_ATTRIBUTE_END, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANIMATION_CLIP, HASH_ATTRIBUTE_END, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION_CLIP, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION_CLIP, 0, attributeValue))
             {return false;}
     }
     }
@@ -17332,7 +17332,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_ANIMATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_ANIMATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -17409,7 +17409,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_ANIMATION__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_ANIMATION__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -17486,7 +17486,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION_CLIP__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION_CLIP__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -17563,7 +17563,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -17639,7 +17639,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CAMERAS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CAMERAS, 0, attributeValue))
             {return false;}
     }
     }
@@ -17742,7 +17742,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CAMERA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CAMERA, 0, attributeValue))
             {return false;}
     }
     }
@@ -17937,7 +17937,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_XMAG, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_XMAG, 0, attributeValue))
             {return false;}
     }
     }
@@ -17956,7 +17956,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__xmag(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XMAG, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XMAG, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18029,7 +18029,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_YMAG, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_YMAG, 0, attributeValue))
             {return false;}
     }
     }
@@ -18048,7 +18048,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__ymag(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YMAG, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YMAG, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18121,7 +18121,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO, 0, attributeValue))
             {return false;}
     }
     }
@@ -18140,7 +18140,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__orthographic__aspect_ratio(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18213,7 +18213,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -18232,7 +18232,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__orthographic__znear(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18305,7 +18305,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ORTHOGRAPHIC__ZFAR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ORTHOGRAPHIC__ZFAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -18324,7 +18324,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__orthographic__zfar(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZFAR, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZFAR, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18427,7 +18427,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_XFOV, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_XFOV, 0, attributeValue))
             {return false;}
     }
     }
@@ -18446,7 +18446,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__xfov(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XFOV, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XFOV, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18519,7 +18519,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_YFOV, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_YFOV, 0, attributeValue))
             {return false;}
     }
     }
@@ -18538,7 +18538,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__yfov(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YFOV, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YFOV, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18605,7 +18605,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO, 0, attributeValue))
             {return false;}
     }
     }
@@ -18624,7 +18624,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__perspective__aspect_ratio(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18691,7 +18691,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PERSPECTIVE__ZNEAR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PERSPECTIVE__ZNEAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -18710,7 +18710,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__perspective__znear(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZNEAR, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZNEAR, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18777,7 +18777,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PERSPECTIVE__ZFAR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PERSPECTIVE__ZFAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -18796,7 +18796,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__perspective__zfar(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZFAR, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZFAR, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -18851,7 +18851,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_OPTICS__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_OPTICS__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -18928,7 +18928,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_OPTICS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_OPTICS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -19021,7 +19021,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IMAGER__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IMAGER__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -19098,7 +19098,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IMAGER__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IMAGER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -19175,7 +19175,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CAMERA__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CAMERA__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -19252,7 +19252,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CAMERAS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CAMERAS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -19328,7 +19328,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CONTROLLERS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CONTROLLERS, 0, attributeValue))
             {return false;}
     }
     }
@@ -19431,7 +19431,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROLLER, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROLLER, 0, attributeValue))
             {return false;}
     }
     }
@@ -19527,7 +19527,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKIN, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKIN, 0, attributeValue))
             {return false;}
     }
     }
@@ -19627,7 +19627,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKIN__SOURCE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKIN__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -19727,7 +19727,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_JOINTS__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_JOINTS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -19804,7 +19804,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_JOINTS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_JOINTS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -19868,13 +19868,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTEX_WEIGHTS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTEX_WEIGHTS, 0, attributeValue))
             {return false;}
     }
     }
@@ -19938,7 +19938,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
 {return false;}
     break;
     }
@@ -19960,13 +19960,13 @@ attributeData->source = attributeValue;
     {
 bool failed;
 attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTEX_WEIGHTS__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTEX_WEIGHTS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -20103,7 +20103,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTEX_WEIGHTS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTEX_WEIGHTS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -20180,7 +20180,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKIN__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKIN__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -20247,7 +20247,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->method = Utils::toEnum<MorphMethodType, StringHash, MorphMethodType__COUNT>(attributeValue, failed, MorphMethodTypeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MORPH, HASH_ATTRIBUTE_METHOD, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MORPH, HASH_ATTRIBUTE_METHOD, attributeValue))
 {return false;}
     break;
     }
@@ -20260,7 +20260,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MORPH, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MORPH, 0, attributeValue))
             {return false;}
     }
     }
@@ -20366,7 +20366,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MORPH__SOURCE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MORPH__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -20466,7 +20466,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TARGETS__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TARGETS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -20543,7 +20543,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TARGETS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TARGETS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -20620,7 +20620,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MORPH__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MORPH__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -20697,7 +20697,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROLLER__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROLLER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -20774,7 +20774,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CONTROLLERS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CONTROLLERS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -20850,7 +20850,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_GEOMETRIES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_GEOMETRIES, 0, attributeValue))
             {return false;}
     }
     }
@@ -20953,7 +20953,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GEOMETRY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GEOMETRY, 0, attributeValue))
             {return false;}
     }
     }
@@ -21052,7 +21052,7 @@ attributeData->convex_hull_of = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH, 0, attributeValue))
             {return false;}
     }
     }
@@ -21122,7 +21122,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__SOURCE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -21198,7 +21198,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__VERTICES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__VERTICES, 0, attributeValue))
             {return false;}
     }
     }
@@ -21268,7 +21268,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTICES__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTICES__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -21345,7 +21345,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTICES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTICES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21419,7 +21419,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__LINES, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__LINES, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -21432,7 +21432,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__LINES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__LINES, 0, attributeValue))
             {return false;}
     }
     }
@@ -21490,7 +21490,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINES__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINES__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
 {return false;}
     break;
     }
@@ -21512,13 +21512,13 @@ attributeData->source = attributeValue;
     {
 bool failed;
 attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINES__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINES__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINES__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINES__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -21625,7 +21625,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21696,7 +21696,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__LINESTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__LINESTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -21709,7 +21709,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__LINESTRIPS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__LINESTRIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -21767,7 +21767,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINESTRIPS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINESTRIPS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
 {return false;}
     break;
     }
@@ -21789,13 +21789,13 @@ attributeData->source = attributeValue;
     {
 bool failed;
 attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINESTRIPS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINESTRIPS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINESTRIPS__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINESTRIPS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -21899,7 +21899,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINESTRIPS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINESTRIPS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21970,7 +21970,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__POLYGONS, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__POLYGONS, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -21983,7 +21983,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__POLYGONS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__POLYGONS, 0, attributeValue))
             {return false;}
     }
     }
@@ -22041,7 +22041,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGONS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGONS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
 {return false;}
     break;
     }
@@ -22063,13 +22063,13 @@ attributeData->source = attributeValue;
     {
 bool failed;
 attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGONS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGONS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGONS__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGONS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -22260,7 +22260,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGONS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGONS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -22331,7 +22331,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__POLYLIST, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__POLYLIST, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -22344,7 +22344,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__POLYLIST, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__POLYLIST, 0, attributeValue))
             {return false;}
     }
     }
@@ -22402,7 +22402,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYLIST__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYLIST__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
 {return false;}
     break;
     }
@@ -22424,13 +22424,13 @@ attributeData->source = attributeValue;
     {
 bool failed;
 attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYLIST__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYLIST__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYLIST__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYLIST__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -22561,7 +22561,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYLIST__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYLIST__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -22632,7 +22632,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRIANGLES, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRIANGLES, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -22645,7 +22645,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__TRIANGLES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__TRIANGLES, 0, attributeValue))
             {return false;}
     }
     }
@@ -22703,7 +22703,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIANGLES__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIANGLES__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
 {return false;}
     break;
     }
@@ -22725,13 +22725,13 @@ attributeData->source = attributeValue;
     {
 bool failed;
 attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIANGLES__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIANGLES__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIANGLES__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIANGLES__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -22835,7 +22835,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIANGLES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIANGLES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -22906,7 +22906,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRIFANS, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRIFANS, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -22919,7 +22919,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__TRIFANS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__TRIFANS, 0, attributeValue))
             {return false;}
     }
     }
@@ -22977,7 +22977,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIFANS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIFANS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
 {return false;}
     break;
     }
@@ -22999,13 +22999,13 @@ attributeData->source = attributeValue;
     {
 bool failed;
 attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIFANS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIFANS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIFANS__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIFANS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -23109,7 +23109,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIFANS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIFANS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -23180,7 +23180,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRISTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRISTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -23193,7 +23193,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__TRISTRIPS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__TRISTRIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -23251,7 +23251,7 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRISTRIPS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRISTRIPS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
 {return false;}
     break;
     }
@@ -23273,13 +23273,13 @@ attributeData->source = attributeValue;
     {
 bool failed;
 attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRISTRIPS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRISTRIPS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRISTRIPS__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRISTRIPS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -23383,7 +23383,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRISTRIPS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRISTRIPS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -23460,7 +23460,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -23560,7 +23560,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__SOURCE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -23630,7 +23630,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__VERTICES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__VERTICES, 0, attributeValue))
             {return false;}
     }
     }
@@ -23695,7 +23695,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__LINES, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__LINES, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -23708,7 +23708,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__LINES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__LINES, 0, attributeValue))
             {return false;}
     }
     }
@@ -23773,7 +23773,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__LINESTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__LINESTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -23786,7 +23786,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__LINESTRIPS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__LINESTRIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -23851,7 +23851,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__POLYGONS, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__POLYGONS, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -23864,7 +23864,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__POLYGONS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__POLYGONS, 0, attributeValue))
             {return false;}
     }
     }
@@ -23929,7 +23929,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__POLYLIST, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__POLYLIST, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -23942,7 +23942,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__POLYLIST, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__POLYLIST, 0, attributeValue))
             {return false;}
     }
     }
@@ -24007,7 +24007,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRIANGLES, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRIANGLES, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -24020,7 +24020,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__TRIANGLES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__TRIANGLES, 0, attributeValue))
             {return false;}
     }
     }
@@ -24085,7 +24085,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRIFANS, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRIFANS, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -24098,7 +24098,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__TRIFANS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__TRIFANS, 0, attributeValue))
             {return false;}
     }
     }
@@ -24163,7 +24163,7 @@ attributeData->name = attributeValue;
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRISTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRISTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
 {return false;}
     break;
     }
@@ -24176,7 +24176,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__TRISTRIPS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__TRISTRIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -24253,7 +24253,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24320,13 +24320,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->closed = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPLINE, HASH_ATTRIBUTE_CLOSED, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPLINE, HASH_ATTRIBUTE_CLOSED, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPLINE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPLINE, 0, attributeValue))
             {return false;}
     }
     }
@@ -24396,7 +24396,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPLINE__SOURCE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPLINE__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -24496,7 +24496,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROL_VERTICES__INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROL_VERTICES__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -24573,7 +24573,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROL_VERTICES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROL_VERTICES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24650,7 +24650,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPLINE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPLINE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24727,7 +24727,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GEOMETRY__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GEOMETRY__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24804,7 +24804,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_GEOMETRIES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_GEOMETRIES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24880,7 +24880,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_EFFECTS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_EFFECTS, 0, attributeValue))
             {return false;}
     }
     }
@@ -24983,7 +24983,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT, 0, attributeValue))
             {return false;}
     }
     }
@@ -25073,7 +25073,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__ANNOTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__ANNOTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -25152,7 +25152,7 @@ attributeData->format = attributeValue;
     {
 bool failed;
 attributeData->height = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
 {return false;}
     break;
     }
@@ -25160,7 +25160,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->width = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
 {return false;}
     break;
     }
@@ -25168,13 +25168,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->depth = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__IMAGE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__IMAGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -25240,7 +25240,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__NEWPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__NEWPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -25355,7 +25355,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler1D__wrap_s(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -25442,7 +25442,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler1D__minfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -25493,7 +25493,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler1D__magfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -25544,7 +25544,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler1D__mipfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -25625,7 +25625,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler1D__mipmap_maxlevel(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -25675,7 +25675,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler1D__mipmap_bias(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -25744,7 +25744,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER1D__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER1D__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -25859,7 +25859,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler2D__wrap_s(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -25910,7 +25910,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler2D__wrap_t(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -25961,7 +25961,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler2D__minfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26012,7 +26012,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler2D__magfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26063,7 +26063,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler2D__mipfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26141,7 +26141,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler2D__mipmap_maxlevel(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26191,7 +26191,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler2D__mipmap_bias(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26260,7 +26260,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER2D__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER2D__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -26375,7 +26375,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler3D__wrap_s(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26426,7 +26426,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler3D__wrap_t(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26480,7 +26480,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler3D__wrap_p(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__WRAP_P, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__WRAP_P, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26531,7 +26531,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler3D__minfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26582,7 +26582,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler3D__magfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26633,7 +26633,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler3D__mipfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26711,7 +26711,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler3D__mipmap_maxlevel(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26761,7 +26761,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sampler3D__mipmap_bias(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26830,7 +26830,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER3D__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER3D__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -26945,7 +26945,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerCUBE__wrap_s(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -26996,7 +26996,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerCUBE__wrap_t(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27047,7 +27047,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerCUBE__wrap_p(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__WRAP_P, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__WRAP_P, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27098,7 +27098,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerCUBE__minfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27149,7 +27149,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerCUBE__magfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27200,7 +27200,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerCUBE__mipfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27278,7 +27278,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerCUBE__mipmap_maxlevel(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27328,7 +27328,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerCUBE__mipmap_bias(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27397,7 +27397,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLERCUBE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLERCUBE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -27512,7 +27512,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerRECT__wrap_s(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27563,7 +27563,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerRECT__wrap_t(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27614,7 +27614,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerRECT__minfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27665,7 +27665,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerRECT__magfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27716,7 +27716,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerRECT__mipfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27794,7 +27794,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerRECT__mipmap_maxlevel(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27844,7 +27844,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerRECT__mipmap_bias(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -27913,7 +27913,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLERRECT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLERRECT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -28028,7 +28028,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerDEPTH__wrap_s(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERDEPTH__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERDEPTH__WRAP_S, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -28079,7 +28079,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerDEPTH__wrap_t(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERDEPTH__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERDEPTH__WRAP_T, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -28130,7 +28130,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerDEPTH__minfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERDEPTH__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERDEPTH__MINFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -28181,7 +28181,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__samplerDEPTH__magfilter(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERDEPTH__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERDEPTH__MAGFILTER, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -28251,7 +28251,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLERDEPTH__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLERDEPTH__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -28358,7 +28358,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -28435,7 +28435,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_EFFECTS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_EFFECTS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -28511,7 +28511,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_FORCE_FIELDS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_FORCE_FIELDS, 0, attributeValue))
             {return false;}
     }
     }
@@ -28614,7 +28614,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORCE_FIELD, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORCE_FIELD, 0, attributeValue))
             {return false;}
     }
     }
@@ -28704,7 +28704,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORCE_FIELD__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORCE_FIELD__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -28781,7 +28781,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORCE_FIELD__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORCE_FIELD__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -28858,7 +28858,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_FORCE_FIELDS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_FORCE_FIELDS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -28934,7 +28934,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_IMAGES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_IMAGES, 0, attributeValue))
             {return false;}
     }
     }
@@ -29040,7 +29040,7 @@ attributeData->format = attributeValue;
     {
 bool failed;
 attributeData->height = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
 {return false;}
     break;
     }
@@ -29048,7 +29048,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->width = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
 {return false;}
     break;
     }
@@ -29056,13 +29056,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->depth = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -29139,7 +29139,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_IMAGES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_IMAGES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -29215,7 +29215,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_LIGHTS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_LIGHTS, 0, attributeValue))
             {return false;}
     }
     }
@@ -29318,7 +29318,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT, 0, attributeValue))
             {return false;}
     }
     }
@@ -29471,7 +29471,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_AMBIENT__COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_AMBIENT__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -29564,7 +29564,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DIRECTIONAL__COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DIRECTIONAL__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -29657,7 +29657,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -29738,7 +29738,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__CONSTANT_ATTENUATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__CONSTANT_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -29757,7 +29757,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__point__constant_attenuation(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__CONSTANT_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__CONSTANT_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -29830,7 +29830,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__LINEAR_ATTENUATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__LINEAR_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -29849,7 +29849,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__point__linear_attenuation(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__LINEAR_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__LINEAR_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -29922,7 +29922,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -29941,7 +29941,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__point__quadratic_attenuation(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -30026,7 +30026,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -30101,7 +30101,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -30120,7 +30120,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__spot__constant_attenuation(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -30187,7 +30187,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__LINEAR_ATTENUATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__LINEAR_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -30206,7 +30206,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__spot__linear_attenuation(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__LINEAR_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__LINEAR_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -30273,7 +30273,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -30292,7 +30292,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__spot__quadratic_attenuation(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -30365,7 +30365,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FALLOFF_ANGLE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FALLOFF_ANGLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -30384,7 +30384,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__falloff_angle(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_ANGLE, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_ANGLE, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -30457,7 +30457,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FALLOFF_EXPONENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FALLOFF_EXPONENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -30476,7 +30476,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__falloff_exponent(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_EXPONENT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_EXPONENT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -30531,7 +30531,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -30608,7 +30608,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -30685,7 +30685,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_LIGHTS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_LIGHTS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -30761,7 +30761,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_MATERIALS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_MATERIALS, 0, attributeValue))
             {return false;}
     }
     }
@@ -30864,7 +30864,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -30974,7 +30974,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL__INSTANCE_EFFECT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL__INSTANCE_EFFECT, 0, attributeValue))
             {return false;}
     }
     }
@@ -31057,7 +31057,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_HINT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_HINT, 0, attributeValue))
             {return false;}
     }
     }
@@ -31123,7 +31123,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_EFFECT__SETPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_EFFECT__SETPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -31362,7 +31362,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_EFFECT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_EFFECT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -31439,7 +31439,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -31516,7 +31516,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_MATERIALS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_MATERIALS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -31592,7 +31592,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_NODES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_NODES, 0, attributeValue))
             {return false;}
     }
     }
@@ -31707,7 +31707,7 @@ attributeData->sid = attributeValue;
     {
 bool failed;
 attributeData->type = Utils::toEnum<NodeType, StringHash, NodeType__COUNT>(attributeValue, failed, NodeTypeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_NODES__NODE, HASH_ATTRIBUTE_TYPE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_NODES__NODE, HASH_ATTRIBUTE_TYPE, attributeValue))
 {return false;}
     break;
     }
@@ -31720,7 +31720,7 @@ attributeData->layer = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_NODES__NODE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_NODES__NODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -31852,7 +31852,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LOOKAT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LOOKAT, 0, attributeValue))
             {return false;}
     }
     }
@@ -31921,7 +31921,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATRIX, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATRIX, 0, attributeValue))
             {return false;}
     }
     }
@@ -31990,7 +31990,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__ROTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -32059,7 +32059,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCALE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCALE, 0, attributeValue))
             {return false;}
     }
     }
@@ -32128,7 +32128,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKEW, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKEW, 0, attributeValue))
             {return false;}
     }
     }
@@ -32197,7 +32197,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__TRANSLATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -32280,7 +32280,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CAMERA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CAMERA, 0, attributeValue))
             {return false;}
     }
     }
@@ -32357,7 +32357,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CAMERA__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CAMERA__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -32440,7 +32440,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CONTROLLER, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CONTROLLER, 0, attributeValue))
             {return false;}
     }
     }
@@ -32584,7 +32584,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_MATERIAL__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_MATERIAL__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -32704,7 +32704,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_MATERIAL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -32780,7 +32780,7 @@ attributeData->target = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_MATERIAL__BIND, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_MATERIAL__BIND, 0, attributeValue))
             {return false;}
     }
     }
@@ -32864,13 +32864,13 @@ attributeData->input_semantic = attributeValue;
     {
 bool failed;
 attributeData->input_set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BIND_VERTEX_INPUT, HASH_ATTRIBUTE_INPUT_SET, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BIND_VERTEX_INPUT, HASH_ATTRIBUTE_INPUT_SET, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_VERTEX_INPUT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_VERTEX_INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -32947,7 +32947,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_MATERIAL__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -33010,7 +33010,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_MATERIAL__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_MATERIAL__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -33087,7 +33087,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_MATERIAL__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -33164,7 +33164,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CONTROLLER__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CONTROLLER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -33247,7 +33247,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__INSTANCE_GEOMETRY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__INSTANCE_GEOMETRY, 0, attributeValue))
             {return false;}
     }
     }
@@ -33351,7 +33351,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_GEOMETRY__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_GEOMETRY__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -33434,7 +33434,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_LIGHT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_LIGHT, 0, attributeValue))
             {return false;}
     }
     }
@@ -33511,7 +33511,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_LIGHT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_LIGHT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -33594,7 +33594,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_NODE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_NODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -33671,7 +33671,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_NODE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_NODE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -33750,7 +33750,7 @@ attributeData->sid = attributeValue;
     {
 bool failed;
 attributeData->type = Utils::toEnum<NodeType, StringHash, NodeType__COUNT>(attributeValue, failed, NodeTypeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NODE__NODE, HASH_ATTRIBUTE_TYPE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NODE__NODE, HASH_ATTRIBUTE_TYPE, attributeValue))
 {return false;}
     break;
     }
@@ -33763,7 +33763,7 @@ attributeData->layer = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__NODE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__NODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -33840,7 +33840,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -33917,7 +33917,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_NODES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_NODES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -33993,7 +33993,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS, 0, attributeValue))
             {return false;}
     }
     }
@@ -34096,7 +34096,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__PHYSICS_MATERIAL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -34231,7 +34231,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DYNAMIC_FRICTION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DYNAMIC_FRICTION, 0, attributeValue))
             {return false;}
     }
     }
@@ -34250,7 +34250,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__dynamic_friction(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC_FRICTION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC_FRICTION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -34323,7 +34323,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RESTITUTION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RESTITUTION, 0, attributeValue))
             {return false;}
     }
     }
@@ -34342,7 +34342,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__restitution(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_RESTITUTION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_RESTITUTION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -34415,7 +34415,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STATIC_FRICTION, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STATIC_FRICTION, 0, attributeValue))
             {return false;}
     }
     }
@@ -34434,7 +34434,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__static_friction(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_STATIC_FRICTION, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_STATIC_FRICTION, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -34489,7 +34489,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MATERIAL__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MATERIAL__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -34566,7 +34566,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MATERIAL__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -34643,7 +34643,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -34719,7 +34719,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MODELS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MODELS, 0, attributeValue))
             {return false;}
     }
     }
@@ -34822,7 +34822,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MODEL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MODEL, 0, attributeValue))
             {return false;}
     }
     }
@@ -34925,7 +34925,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_BODY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_BODY, 0, attributeValue))
             {return false;}
     }
     }
@@ -35033,7 +35033,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DYNAMIC, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DYNAMIC, 0, attributeValue))
             {return false;}
     }
     }
@@ -35052,7 +35052,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__dynamic(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -35125,7 +35125,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_COMMON__MASS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_COMMON__MASS, 0, attributeValue))
             {return false;}
     }
     }
@@ -35144,7 +35144,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__technique_common__mass(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TECHNIQUE_COMMON__MASS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TECHNIQUE_COMMON__MASS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -35229,7 +35229,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MASS_FRAME__TRANSLATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MASS_FRAME__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -35292,7 +35292,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MASS_FRAME__ROTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MASS_FRAME__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -35361,7 +35361,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INERTIA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INERTIA, 0, attributeValue))
             {return false;}
     }
     }
@@ -35444,7 +35444,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_COMMON__INSTANCE_PHYSICS_MATERIAL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_COMMON__INSTANCE_PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -35521,7 +35521,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -35591,7 +35591,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_COMMON__PHYSICS_MATERIAL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_COMMON__PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -35702,7 +35702,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_HOLLOW, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_HOLLOW, 0, attributeValue))
             {return false;}
     }
     }
@@ -35721,7 +35721,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__hollow(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_HOLLOW, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_HOLLOW, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -35788,7 +35788,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__MASS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__MASS, 0, attributeValue))
             {return false;}
     }
     }
@@ -35807,7 +35807,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__shape__mass(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SHAPE__MASS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SHAPE__MASS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -35880,7 +35880,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DENSITY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DENSITY, 0, attributeValue))
             {return false;}
     }
     }
@@ -35899,7 +35899,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__density(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DENSITY, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DENSITY, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -35968,7 +35968,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__INSTANCE_PHYSICS_MATERIAL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__INSTANCE_PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -36038,7 +36038,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__PHYSICS_MATERIAL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -36115,7 +36115,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__INSTANCE_GEOMETRY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__INSTANCE_GEOMETRY, 0, attributeValue))
             {return false;}
     }
     }
@@ -36252,7 +36252,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PLANE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PLANE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -36389,7 +36389,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BOX__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BOX__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -36480,7 +36480,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__sphere__radius(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPHERE__RADIUS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPHERE__RADIUS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -36549,7 +36549,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPHERE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPHERE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -36640,7 +36640,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__cylinder__height(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CYLINDER__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CYLINDER__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -36736,7 +36736,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CYLINDER__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CYLINDER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -36824,7 +36824,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__tapered_cylinder__height(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CYLINDER__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CYLINDER__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -36953,7 +36953,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TAPERED_CYLINDER__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TAPERED_CYLINDER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -37041,7 +37041,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__capsule__height(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CAPSULE__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CAPSULE__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -37137,7 +37137,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CAPSULE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CAPSULE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -37225,7 +37225,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__tapered_capsule__height(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CAPSULE__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CAPSULE__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -37348,7 +37348,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TAPERED_CAPSULE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TAPERED_CAPSULE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -37411,7 +37411,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__TRANSLATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -37474,7 +37474,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__ROTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -37551,7 +37551,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -37614,7 +37614,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_BODY__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_BODY__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -37691,7 +37691,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_BODY__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_BODY__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -37767,7 +37767,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_CONSTRAINT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_CONSTRAINT, 0, attributeValue))
             {return false;}
     }
     }
@@ -37839,7 +37839,7 @@ attributeData->rigid_body = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -37902,7 +37902,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT__TRANSLATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -37965,7 +37965,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT__ROTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -38042,7 +38042,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -38111,7 +38111,7 @@ attributeData->rigid_body = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -38174,7 +38174,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT__TRANSLATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -38237,7 +38237,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT__ROTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -38314,7 +38314,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -38422,7 +38422,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ENABLED, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ENABLED, 0, attributeValue))
             {return false;}
     }
     }
@@ -38441,7 +38441,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__enabled(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ENABLED, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ENABLED, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -38514,7 +38514,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INTERPENETRATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INTERPENETRATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -38533,7 +38533,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__interpenetrate(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_INTERPENETRATE, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_INTERPENETRATE, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -38654,7 +38654,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SWING_CONE_AND_TWIST__MIN, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SWING_CONE_AND_TWIST__MIN, 0, attributeValue))
             {return false;}
     }
     }
@@ -38723,7 +38723,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SWING_CONE_AND_TWIST__MAX, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SWING_CONE_AND_TWIST__MAX, 0, attributeValue))
             {return false;}
     }
     }
@@ -38816,7 +38816,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__MIN, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__MIN, 0, attributeValue))
             {return false;}
     }
     }
@@ -38879,7 +38879,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__MAX, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__MAX, 0, attributeValue))
             {return false;}
     }
     }
@@ -39020,7 +39020,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANGULAR__STIFFNESS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANGULAR__STIFFNESS, 0, attributeValue))
             {return false;}
     }
     }
@@ -39039,7 +39039,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__angular__stiffness(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__STIFFNESS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__STIFFNESS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -39112,7 +39112,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANGULAR__DAMPING, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANGULAR__DAMPING, 0, attributeValue))
             {return false;}
     }
     }
@@ -39131,7 +39131,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__angular__damping(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__DAMPING, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__DAMPING, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -39204,7 +39204,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANGULAR__TARGET_VALUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANGULAR__TARGET_VALUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -39223,7 +39223,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__angular__target_value(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__TARGET_VALUE, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__TARGET_VALUE, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -39317,7 +39317,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__STIFFNESS, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__STIFFNESS, 0, attributeValue))
             {return false;}
     }
     }
@@ -39336,7 +39336,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__linear__stiffness(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__STIFFNESS, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__STIFFNESS, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -39403,7 +39403,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__DAMPING, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__DAMPING, 0, attributeValue))
             {return false;}
     }
     }
@@ -39422,7 +39422,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__linear__damping(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__DAMPING, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__DAMPING, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -39489,7 +39489,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__TARGET_VALUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__TARGET_VALUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -39508,7 +39508,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__linear__target_value(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__TARGET_VALUE, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__TARGET_VALUE, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -39563,7 +39563,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -39640,7 +39640,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_CONSTRAINT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_CONSTRAINT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -39733,7 +39733,7 @@ attributeData->parent = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MODEL__INSTANCE_PHYSICS_MODEL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MODEL__INSTANCE_PHYSICS_MODEL, 0, attributeValue))
             {return false;}
     }
     }
@@ -39816,7 +39816,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__INSTANCE_FORCE_FIELD, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__INSTANCE_FORCE_FIELD, 0, attributeValue))
             {return false;}
     }
     }
@@ -39893,7 +39893,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_FORCE_FIELD__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_FORCE_FIELD__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -39986,7 +39986,7 @@ attributeData->target = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_BODY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_BODY, 0, attributeValue))
             {return false;}
     }
     }
@@ -40136,7 +40136,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -40213,7 +40213,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_BODY__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_BODY__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -40299,7 +40299,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT, 0, attributeValue))
             {return false;}
     }
     }
@@ -40376,7 +40376,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -40453,7 +40453,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -40530,7 +40530,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MODEL__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MODEL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -40607,7 +40607,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MODELS__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MODELS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -40683,7 +40683,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_SCENES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_SCENES, 0, attributeValue))
             {return false;}
     }
     }
@@ -40786,7 +40786,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -40890,7 +40890,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_FORCE_FIELD, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_FORCE_FIELD, 0, attributeValue))
             {return false;}
     }
     }
@@ -40974,7 +40974,7 @@ attributeData->parent = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_PHYSICS_MODEL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_PHYSICS_MODEL, 0, attributeValue))
             {return false;}
     }
     }
@@ -41070,7 +41070,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GRAVITY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GRAVITY, 0, attributeValue))
             {return false;}
     }
     }
@@ -41151,7 +41151,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TIME_STEP, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TIME_STEP, 0, attributeValue))
             {return false;}
     }
     }
@@ -41170,7 +41170,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__time_step(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TIME_STEP, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TIME_STEP, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -41225,7 +41225,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -41302,7 +41302,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -41379,7 +41379,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_SCENES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_SCENES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -41455,7 +41455,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_VISUAL_SCENES, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_VISUAL_SCENES, 0, attributeValue))
             {return false;}
     }
     }
@@ -41558,7 +41558,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VISUAL_SCENE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VISUAL_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -41664,7 +41664,7 @@ attributeData->sid = attributeValue;
     {
 bool failed;
 attributeData->type = Utils::toEnum<NodeType, StringHash, NodeType__COUNT>(attributeValue, failed, NodeTypeMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VISUAL_SCENE__NODE, HASH_ATTRIBUTE_TYPE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VISUAL_SCENE__NODE, HASH_ATTRIBUTE_TYPE, attributeValue))
 {return false;}
     break;
     }
@@ -41677,7 +41677,7 @@ attributeData->layer = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VISUAL_SCENE__NODE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VISUAL_SCENE__NODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -41746,7 +41746,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EVALUATE_SCENE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EVALUATE_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -41818,7 +41818,7 @@ attributeData->camera_node = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RENDER, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RENDER, 0, attributeValue))
             {return false;}
     }
     }
@@ -41925,7 +41925,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RENDER__INSTANCE_EFFECT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RENDER__INSTANCE_EFFECT, 0, attributeValue))
             {return false;}
     }
     }
@@ -42002,7 +42002,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VISUAL_SCENE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VISUAL_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -42079,7 +42079,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_VISUAL_SCENES__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_VISUAL_SCENES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -42192,7 +42192,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_SCENE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -42269,7 +42269,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_SCENE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -42352,7 +42352,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_VISUAL_SCENE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_VISUAL_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -42429,7 +42429,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_VISUAL_SCENE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_VISUAL_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -42506,7 +42506,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCENE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -42583,7 +42583,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLLADA__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLLADA__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -42649,7 +42649,7 @@ attributeData->id = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL, 0, attributeValue))
             {return false;}
     }
     }
@@ -42745,7 +42745,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__CODE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__CODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -42821,7 +42821,7 @@ attributeData->url = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__INCLUDE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__INCLUDE, 0, attributeValue))
             {return false;}
     }
     }
@@ -42900,7 +42900,7 @@ attributeData->format = attributeValue;
     {
 bool failed;
 attributeData->height = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLSL__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLSL__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
 {return false;}
     break;
     }
@@ -42908,7 +42908,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->width = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLSL__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLSL__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
 {return false;}
     break;
     }
@@ -42916,13 +42916,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->depth = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLSL__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_GLSL__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__IMAGE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__IMAGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -42988,7 +42988,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__NEWPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__NEWPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -43055,13 +43055,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->length = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NEWPARAM__ARRAY, HASH_ATTRIBUTE_LENGTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NEWPARAM__ARRAY, HASH_ATTRIBUTE_LENGTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__ARRAY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -43119,7 +43119,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__bool(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__BOOL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__BOOL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -43250,7 +43250,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__float(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -43462,7 +43462,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__int(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__INT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__INT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -43596,13 +43596,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->type = Utils::toEnum<fx_surface_type_enum, StringHash, fx_surface_type_enum__COUNT>(attributeValue, failed, fx_surface_type_enumMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ARRAY__SURFACE, HASH_ATTRIBUTE_TYPE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ARRAY__SURFACE, HASH_ATTRIBUTE_TYPE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ARRAY__SURFACE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ARRAY__SURFACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -43695,7 +43695,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__ANNOTATE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__ANNOTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -43758,7 +43758,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__CODE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__CODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -43828,7 +43828,7 @@ attributeData->url = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__INCLUDE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__INCLUDE, 0, attributeValue))
             {return false;}
     }
     }
@@ -43897,7 +43897,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__NAME, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__NAME, 0, attributeValue))
             {return false;}
     }
     }
@@ -43963,7 +43963,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__SETPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GENERATOR__SETPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -44210,13 +44210,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->length = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ARRAY__ARRAY, HASH_ATTRIBUTE_LENGTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ARRAY__ARRAY, HASH_ATTRIBUTE_LENGTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ARRAY__ARRAY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ARRAY__ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -44289,7 +44289,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -44352,7 +44352,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__CODE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__CODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -44422,7 +44422,7 @@ attributeData->url = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__INCLUDE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE__INCLUDE, 0, attributeValue))
             {return false;}
     }
     }
@@ -44499,7 +44499,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_GLSL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -44572,7 +44572,7 @@ attributeData->platform = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG, 0, attributeValue))
             {return false;}
     }
     }
@@ -44662,7 +44662,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__CODE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__CODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -44732,7 +44732,7 @@ attributeData->url = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__INCLUDE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__INCLUDE, 0, attributeValue))
             {return false;}
     }
     }
@@ -44811,7 +44811,7 @@ attributeData->format = attributeValue;
     {
 bool failed;
 attributeData->height = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_CG__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_CG__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
 {return false;}
     break;
     }
@@ -44819,7 +44819,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->width = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_CG__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_CG__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
 {return false;}
     break;
     }
@@ -44827,13 +44827,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->depth = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_CG__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_CG__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__IMAGE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__IMAGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -44899,7 +44899,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__NEWPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__NEWPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -44960,7 +44960,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__bool1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__BOOL1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__BOOL1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -45493,7 +45493,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__float1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -45546,7 +45546,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__int1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__INT1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__INT1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -46079,7 +46079,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__half(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__HALF, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__HALF, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -46132,7 +46132,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__half1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__HALF1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__HALF1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -46755,7 +46755,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__fixed(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FIXED, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FIXED, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -46808,7 +46808,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__newparam__fixed1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FIXED1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FIXED1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -47473,7 +47473,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__USERTYPE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__USERTYPE, 0, attributeValue))
             {return false;}
     }
     }
@@ -47531,7 +47531,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__bool(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__BOOL, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__BOOL, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -47581,7 +47581,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__bool1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__BOOL1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__BOOL1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -48144,7 +48144,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__float(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -48194,7 +48194,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__float1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__FLOAT1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__FLOAT1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -48757,7 +48757,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__int(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__INT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__INT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -48807,7 +48807,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__int1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__INT1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__INT1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -49370,7 +49370,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__half(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__HALF, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__HALF, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -49420,7 +49420,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__half1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__HALF1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__HALF1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -49983,7 +49983,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__fixed(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__FIXED, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__FIXED, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -50033,7 +50033,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__usertype__fixed1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__FIXED1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_USERTYPE__FIXED1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -50599,13 +50599,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->type = Utils::toEnum<fx_surface_type_enum, StringHash, fx_surface_type_enum__COUNT>(attributeValue, failed, fx_surface_type_enumMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_USERTYPE__SURFACE, HASH_ATTRIBUTE_TYPE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_USERTYPE__SURFACE, HASH_ATTRIBUTE_TYPE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__SURFACE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__SURFACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -50882,13 +50882,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->length = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_USERTYPE__ARRAY, HASH_ATTRIBUTE_LENGTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_USERTYPE__ARRAY, HASH_ATTRIBUTE_LENGTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__ARRAY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -50946,7 +50946,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__bool1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__BOOL1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__BOOL1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -51428,7 +51428,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__float1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__FLOAT1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__FLOAT1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -51829,7 +51829,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__int1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__INT1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__INT1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -52311,7 +52311,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__half(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__HALF, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__HALF, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -52361,7 +52361,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__half1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__HALF1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__HALF1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -52924,7 +52924,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__fixed(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__FIXED, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__FIXED, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -52974,7 +52974,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__array__fixed1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__FIXED1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ARRAY__FIXED1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -53576,7 +53576,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ARRAY__USERTYPE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ARRAY__USERTYPE, 0, attributeValue))
             {return false;}
     }
     }
@@ -53646,7 +53646,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__USERTYPE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__USERTYPE, 0, attributeValue))
             {return false;}
     }
     }
@@ -53715,7 +53715,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__CONNECT_PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__CONNECT_PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -53791,7 +53791,7 @@ attributeData->program = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__SETPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_USERTYPE__SETPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -53849,7 +53849,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__bool1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__BOOL1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__BOOL1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -54331,7 +54331,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__float1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -54381,7 +54381,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__int1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__INT1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__INT1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -54863,7 +54863,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__half(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__HALF, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__HALF, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -54913,7 +54913,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__half1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__HALF1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__HALF1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -55476,7 +55476,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__fixed(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FIXED, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FIXED, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -55526,7 +55526,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__setparam__fixed1(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FIXED1, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FIXED1, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -56128,7 +56128,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__USERTYPE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__USERTYPE, 0, attributeValue))
             {return false;}
     }
     }
@@ -56186,13 +56186,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->length = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SETPARAM__ARRAY, HASH_ATTRIBUTE_LENGTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SETPARAM__ARRAY, HASH_ATTRIBUTE_LENGTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__ARRAY, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -56255,7 +56255,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__CONNECT_PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__CONNECT_PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -56328,7 +56328,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -56405,7 +56405,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_CG__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -56471,7 +56471,7 @@ attributeData->id = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON, 0, attributeValue))
             {return false;}
     }
     }
@@ -56577,7 +56577,7 @@ attributeData->format = attributeValue;
     {
 bool failed;
 attributeData->height = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_COMMON__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_COMMON__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
 {return false;}
     break;
     }
@@ -56585,7 +56585,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->width = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_COMMON__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_COMMON__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
 {return false;}
     break;
     }
@@ -56593,13 +56593,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRI
     {
 bool failed;
 attributeData->depth = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_COMMON__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PROFILE_COMMON__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON__IMAGE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON__IMAGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -56665,7 +56665,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON__NEWPARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON__NEWPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -56738,7 +56738,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON__TECHNIQUE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -56861,7 +56861,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EMISSION__COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EMISSION__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -56927,7 +56927,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EMISSION__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EMISSION__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -57009,7 +57009,7 @@ attributeData->texcoord = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EMISSION__TEXTURE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EMISSION__TEXTURE, 0, attributeValue))
             {return false;}
     }
     }
@@ -57086,7 +57086,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TEXTURE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -57179,7 +57179,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVE__COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVE__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -57242,7 +57242,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVE__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVE__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -57312,7 +57312,7 @@ attributeData->texcoord = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVE__TEXTURE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVE__TEXTURE, 0, attributeValue))
             {return false;}
     }
     }
@@ -57420,7 +57420,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVITY__FLOAT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVITY__FLOAT, 0, attributeValue))
             {return false;}
     }
     }
@@ -57439,7 +57439,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__reflectivity__float(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_REFLECTIVITY__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_REFLECTIVITY__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -57497,7 +57497,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVITY__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REFLECTIVITY__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -57564,13 +57564,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->opaque = Utils::toEnum<fx_opaque_enum, StringHash, fx_opaque_enum__COUNT>(attributeValue, failed, fx_opaque_enumMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONSTANT__TRANSPARENT, HASH_ATTRIBUTE_OPAQUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONSTANT__TRANSPARENT, HASH_ATTRIBUTE_OPAQUE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONSTANT__TRANSPARENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONSTANT__TRANSPARENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -57669,7 +57669,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENT__COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENT__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -57732,7 +57732,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENT__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENT__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -57802,7 +57802,7 @@ attributeData->texcoord = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENT__TEXTURE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENT__TEXTURE, 0, attributeValue))
             {return false;}
     }
     }
@@ -57907,7 +57907,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENCY__FLOAT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENCY__FLOAT, 0, attributeValue))
             {return false;}
     }
     }
@@ -57926,7 +57926,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__transparency__float(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TRANSPARENCY__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TRANSPARENCY__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -57981,7 +57981,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENCY__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRANSPARENCY__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -58086,7 +58086,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INDEX_OF_REFRACTION__FLOAT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INDEX_OF_REFRACTION__FLOAT, 0, attributeValue))
             {return false;}
     }
     }
@@ -58105,7 +58105,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__index_of_refraction__float(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_INDEX_OF_REFRACTION__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_INDEX_OF_REFRACTION__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -58160,7 +58160,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INDEX_OF_REFRACTION__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INDEX_OF_REFRACTION__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -58307,7 +58307,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_AMBIENT__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_AMBIENT__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -58377,7 +58377,7 @@ attributeData->texcoord = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_AMBIENT__TEXTURE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_AMBIENT__TEXTURE, 0, attributeValue))
             {return false;}
     }
     }
@@ -58470,7 +58470,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DIFFUSE__COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DIFFUSE__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -58533,7 +58533,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DIFFUSE__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DIFFUSE__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -58603,7 +58603,7 @@ attributeData->texcoord = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DIFFUSE__TEXTURE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DIFFUSE__TEXTURE, 0, attributeValue))
             {return false;}
     }
     }
@@ -58715,13 +58715,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->opaque = Utils::toEnum<fx_opaque_enum, StringHash, fx_opaque_enum__COUNT>(attributeValue, failed, fx_opaque_enumMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LAMBERT__TRANSPARENT, HASH_ATTRIBUTE_OPAQUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LAMBERT__TRANSPARENT, HASH_ATTRIBUTE_OPAQUE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LAMBERT__TRANSPARENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LAMBERT__TRANSPARENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -58979,7 +58979,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPECULAR__COLOR, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPECULAR__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -59042,7 +59042,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPECULAR__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPECULAR__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -59112,7 +59112,7 @@ attributeData->texcoord = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPECULAR__TEXTURE, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPECULAR__TEXTURE, 0, attributeValue))
             {return false;}
     }
     }
@@ -59217,7 +59217,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHININESS__FLOAT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHININESS__FLOAT, 0, attributeValue))
             {return false;}
     }
     }
@@ -59236,7 +59236,7 @@ bool returnValue;
 if (!failed)
     returnValue = mImpl->data__shininess__float(parameter);
 else
-    returnValue = !handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SHININESS__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+    returnValue = !handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SHININESS__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
 if (mLastIncompleteFragmentInCharacterData)
     mStackMemoryManager.deleteObject();
 mLastIncompleteFragmentInCharacterData = 0;
@@ -59291,7 +59291,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHININESS__PARAM, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHININESS__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -59403,13 +59403,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->opaque = Utils::toEnum<fx_opaque_enum, StringHash, fx_opaque_enum__COUNT>(attributeValue, failed, fx_opaque_enumMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHONG__TRANSPARENT, HASH_ATTRIBUTE_OPAQUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHONG__TRANSPARENT, HASH_ATTRIBUTE_OPAQUE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHONG__TRANSPARENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHONG__TRANSPARENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -59740,13 +59740,13 @@ if ( attributeArray )
     {
 bool failed;
 attributeData->opaque = Utils::toEnum<fx_opaque_enum, StringHash, fx_opaque_enum__COUNT>(attributeValue, failed, fx_opaque_enumMap, Utils::calculateStringHash);
-if ( failed && handleError(ParserError::SEVERITY_ERROR2,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BLINN__TRANSPARENT, HASH_ATTRIBUTE_OPAQUE, attributeValue))
+if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BLINN__TRANSPARENT, HASH_ATTRIBUTE_OPAQUE, attributeValue))
 {return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BLINN__TRANSPARENT, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BLINN__TRANSPARENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -59877,7 +59877,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR2, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON__EXTRA, 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PROFILE_COMMON__EXTRA, 0, attributeValue))
             {return false;}
     }
     }

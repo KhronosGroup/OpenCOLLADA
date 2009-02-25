@@ -32,7 +32,7 @@ namespace COLLADASaxFWL
 	IError::Severity SaxParserError::getSeverity() const
 	{
 		bool isCritical = mError.getSeverity()== GeneratedSaxParser::ParserError::SEVERITY_CRITICAL;
-		return isCritical ? IError::SEVERITY_CRITICAL : IError::SEVERITY_ERROR1;
+		return isCritical ? IError::SEVERITY_CRITICAL : IError::SEVERITY_ERROR_NONCRITICAL;
 	}
 
 } // namespace COLLADASaxFWL
