@@ -268,6 +268,12 @@ public:
 		fprintf(mFile,"\"%s.rlc[%i]\"",mName.c_str(),rlc_i);
 
 	}
+	void getLayerChildren()const
+	{
+
+		fprintf(mFile,"\"%s.rlc\"",mName.c_str());
+
+	}
 	void getRenderPassInfo()const
 	{
 		fprintf(mFile,"\"%s.rp\"",mName.c_str());
@@ -318,9 +324,21 @@ public:
 		fprintf(mFile,"\"%s.adjs[%i]\"",mName.c_str(),adjs_i);
 
 	}
+	void getAdjustments()const
+	{
+
+		fprintf(mFile,"\"%s.adjs\"",mName.c_str());
+
+	}
 	void getPlug(size_t adjs_i)const
 	{
 		fprintf(mFile,"\"%s.adjs[%i].plg\"",mName.c_str(),adjs_i);
+
+	}
+	void getPlug()const
+	{
+
+		fprintf(mFile,"\"%s.adjs.plg\"",mName.c_str());
 
 	}
 	void getValue(size_t adjs_i)const
@@ -328,9 +346,21 @@ public:
 		fprintf(mFile,"\"%s.adjs[%i].val\"",mName.c_str(),adjs_i);
 
 	}
+	void getValue()const
+	{
+
+		fprintf(mFile,"\"%s.adjs.val\"",mName.c_str());
+
+	}
 	void getOutAdjustments(size_t oajs_i)const
 	{
 		fprintf(mFile,"\"%s.oajs[%i]\"",mName.c_str(),oajs_i);
+
+	}
+	void getOutAdjustments()const
+	{
+
+		fprintf(mFile,"\"%s.oajs\"",mName.c_str());
 
 	}
 	void getOutPlug(size_t oajs_i)const
@@ -338,9 +368,21 @@ public:
 		fprintf(mFile,"\"%s.oajs[%i].opg\"",mName.c_str(),oajs_i);
 
 	}
+	void getOutPlug()const
+	{
+
+		fprintf(mFile,"\"%s.oajs.opg\"",mName.c_str());
+
+	}
 	void getOutValue(size_t oajs_i)const
 	{
 		fprintf(mFile,"\"%s.oajs[%i].ovl\"",mName.c_str(),oajs_i);
+
+	}
+	void getOutValue()const
+	{
+
+		fprintf(mFile,"\"%s.oajs.ovl\"",mName.c_str());
 
 	}
 	void getShadingGroupOverride()const

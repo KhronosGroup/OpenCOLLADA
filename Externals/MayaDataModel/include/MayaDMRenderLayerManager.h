@@ -71,6 +71,12 @@ public:
 		fprintf(mFile,"\"%s.rlmi[%i]\"",mName.c_str(),rlmi_i);
 
 	}
+	void getRenderLayerId()const
+	{
+
+		fprintf(mFile,"\"%s.rlmi\"",mName.c_str());
+
+	}
 protected:
 	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DependNode(file, name, parent, nodeType, create) {}

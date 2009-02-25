@@ -33,6 +33,12 @@ public:
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
+	void getInputSurface()const
+	{
+
+		fprintf(mFile,"\"%s.is\"",mName.c_str());
+
+	}
 	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());

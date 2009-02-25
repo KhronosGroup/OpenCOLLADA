@@ -64,7 +64,7 @@ namespace COLLADAMaya
         * The map holds the unique ids of the light nodes to the maya specific nodes. 
         * Need for the instances.
         */
-        UniqueIdMayaNodesMap mMayaLightNodesMap;
+        UniqueIdMayaNodeMap mMayaLightNodesMap;
 
         /**
         * The map holds the maya light objects for the connections.

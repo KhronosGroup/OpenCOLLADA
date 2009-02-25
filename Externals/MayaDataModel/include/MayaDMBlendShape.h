@@ -278,9 +278,21 @@ public:
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
 
 	}
+	void getWeight()const
+	{
+
+		fprintf(mFile,"\"%s.w\"",mName.c_str());
+
+	}
 	void getIcon(size_t icn_i)const
 	{
 		fprintf(mFile,"\"%s.icn[%i]\"",mName.c_str(),icn_i);
+
+	}
+	void getIcon()const
+	{
+
+		fprintf(mFile,"\"%s.icn\"",mName.c_str());
 
 	}
 	void getInputTarget(size_t it_i)const
@@ -288,9 +300,21 @@ public:
 		fprintf(mFile,"\"%s.it[%i]\"",mName.c_str(),it_i);
 
 	}
+	void getInputTarget()const
+	{
+
+		fprintf(mFile,"\"%s.it\"",mName.c_str());
+
+	}
 	void getInputTargetGroup(size_t it_i,size_t itg_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i]\"",mName.c_str(),it_i,itg_i);
+
+	}
+	void getInputTargetGroup(size_t itg_i)const
+	{
+
+		fprintf(mFile,"\"%s.it.itg[%i]\"",mName.c_str(),itg_i);
 
 	}
 	void getInputTargetItem(size_t it_i,size_t itg_i,size_t iti_i)const
@@ -298,9 +322,21 @@ public:
 		fprintf(mFile,"\"%s.it[%i].itg[%i].iti[%i]\"",mName.c_str(),it_i,itg_i,iti_i);
 
 	}
+	void getInputTargetItem(size_t itg_i,size_t iti_i)const
+	{
+
+		fprintf(mFile,"\"%s.it.itg[%i].iti[%i]\"",mName.c_str(),itg_i,iti_i);
+
+	}
 	void getInputGeomTarget(size_t it_i,size_t itg_i,size_t iti_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i].iti[%i].igt\"",mName.c_str(),it_i,itg_i,iti_i);
+
+	}
+	void getInputGeomTarget(size_t itg_i,size_t iti_i)const
+	{
+
+		fprintf(mFile,"\"%s.it.itg[%i].iti[%i].igt\"",mName.c_str(),itg_i,iti_i);
 
 	}
 	void getInputPointsTarget(size_t it_i,size_t itg_i,size_t iti_i)const
@@ -308,14 +344,32 @@ public:
 		fprintf(mFile,"\"%s.it[%i].itg[%i].iti[%i].ipt\"",mName.c_str(),it_i,itg_i,iti_i);
 
 	}
+	void getInputPointsTarget(size_t itg_i,size_t iti_i)const
+	{
+
+		fprintf(mFile,"\"%s.it.itg[%i].iti[%i].ipt\"",mName.c_str(),itg_i,iti_i);
+
+	}
 	void getInputComponentsTarget(size_t it_i,size_t itg_i,size_t iti_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i].iti[%i].ict\"",mName.c_str(),it_i,itg_i,iti_i);
 
 	}
+	void getInputComponentsTarget(size_t itg_i,size_t iti_i)const
+	{
+
+		fprintf(mFile,"\"%s.it.itg[%i].iti[%i].ict\"",mName.c_str(),itg_i,iti_i);
+
+	}
 	void getTargetWeights(size_t it_i,size_t itg_i,size_t tw_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i].tw[%i]\"",mName.c_str(),it_i,itg_i,tw_i);
+
+	}
+	void getTargetWeights(size_t itg_i,size_t tw_i)const
+	{
+
+		fprintf(mFile,"\"%s.it.itg[%i].tw[%i]\"",mName.c_str(),itg_i,tw_i);
 
 	}
 	void getOrigin()const

@@ -79,9 +79,21 @@ public:
 		fprintf(mFile,"\"%s.wl[%i]\"",mName.c_str(),wl_i);
 
 	}
+	void getWeightList()const
+	{
+
+		fprintf(mFile,"\"%s.wl\"",mName.c_str());
+
+	}
 	void getWeights(size_t wl_i,size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.wl[%i].w[%i]\"",mName.c_str(),wl_i,w_i);
+
+	}
+	void getWeights(size_t w_i)const
+	{
+
+		fprintf(mFile,"\"%s.wl.w[%i]\"",mName.c_str(),w_i);
 
 	}
 protected:

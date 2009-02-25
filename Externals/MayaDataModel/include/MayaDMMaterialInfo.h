@@ -43,6 +43,12 @@ public:
 		fprintf(mFile,"\"%s.t[%i]\"",mName.c_str(),t_i);
 
 	}
+	void getTexture()const
+	{
+
+		fprintf(mFile,"\"%s.t\"",mName.c_str());
+
+	}
 	void getTextureChannel()const
 	{
 		fprintf(mFile,"\"%s.tc\"",mName.c_str());

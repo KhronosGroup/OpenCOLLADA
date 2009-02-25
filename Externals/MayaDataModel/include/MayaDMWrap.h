@@ -190,9 +190,21 @@ public:
 		fprintf(mFile,"\"%s.dp[%i]\"",mName.c_str(),dp_i);
 
 	}
+	void getDriverPoints()const
+	{
+
+		fprintf(mFile,"\"%s.dp\"",mName.c_str());
+
+	}
 	void getBasePoints(size_t bp_i)const
 	{
 		fprintf(mFile,"\"%s.bp[%i]\"",mName.c_str(),bp_i);
+
+	}
+	void getBasePoints()const
+	{
+
+		fprintf(mFile,"\"%s.bp\"",mName.c_str());
 
 	}
 	void getDropoff(size_t dr_i)const
@@ -200,9 +212,21 @@ public:
 		fprintf(mFile,"\"%s.dr[%i]\"",mName.c_str(),dr_i);
 
 	}
+	void getDropoff()const
+	{
+
+		fprintf(mFile,"\"%s.dr\"",mName.c_str());
+
+	}
 	void getSmoothness(size_t smt_i)const
 	{
 		fprintf(mFile,"\"%s.smt[%i]\"",mName.c_str(),smt_i);
+
+	}
+	void getSmoothness()const
+	{
+
+		fprintf(mFile,"\"%s.smt\"",mName.c_str());
 
 	}
 	void getInflType(size_t it_i)const
@@ -210,9 +234,21 @@ public:
 		fprintf(mFile,"\"%s.it[%i]\"",mName.c_str(),it_i);
 
 	}
+	void getInflType()const
+	{
+
+		fprintf(mFile,"\"%s.it\"",mName.c_str());
+
+	}
 	void getNurbsSamples(size_t ns_i)const
 	{
 		fprintf(mFile,"\"%s.ns[%i]\"",mName.c_str(),ns_i);
+
+	}
+	void getNurbsSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ns\"",mName.c_str());
 
 	}
 	void getWeightThreshold()const

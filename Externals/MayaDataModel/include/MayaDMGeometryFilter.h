@@ -53,9 +53,21 @@ public:
 		fprintf(mFile,"\"%s.ip[%i]\"",mName.c_str(),ip_i);
 
 	}
+	void getInput()const
+	{
+
+		fprintf(mFile,"\"%s.ip\"",mName.c_str());
+
+	}
 	void getInputGeometry(size_t ip_i)const
 	{
 		fprintf(mFile,"\"%s.ip[%i].ig\"",mName.c_str(),ip_i);
+
+	}
+	void getInputGeometry()const
+	{
+
+		fprintf(mFile,"\"%s.ip.ig\"",mName.c_str());
 
 	}
 	void getGroupId(size_t ip_i)const
@@ -63,9 +75,21 @@ public:
 		fprintf(mFile,"\"%s.ip[%i].gi\"",mName.c_str(),ip_i);
 
 	}
+	void getGroupId()const
+	{
+
+		fprintf(mFile,"\"%s.ip.gi\"",mName.c_str());
+
+	}
 	void getOutputGeometry(size_t og_i)const
 	{
 		fprintf(mFile,"\"%s.og[%i]\"",mName.c_str(),og_i);
+
+	}
+	void getOutputGeometry()const
+	{
+
+		fprintf(mFile,"\"%s.og\"",mName.c_str());
 
 	}
 	void getEnvelope()const

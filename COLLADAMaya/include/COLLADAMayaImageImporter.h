@@ -31,7 +31,6 @@ namespace COLLADAMaya
 
         /** The standard name for image without name. */
         static const String IMAGE_NAME;
-        static const String PLACE_2D_TEXTURE_NAME;
         static const String DEFAULT_TEXTURE_LIST;
 
     private:
@@ -43,11 +42,6 @@ namespace COLLADAMaya
         * The list of the unique maya image names.
         */
         COLLADABU::IDList mImageIdList;
-
-        /**
-         * The list with the unique maya place2dtexture names.
-         */
-        COLLADABU::IDList mPlace2dTextureIdList;
 
         /**
          * The map holds the Maya image file objects for the unique image file ids.
@@ -72,15 +66,15 @@ namespace COLLADAMaya
          */
         void writeConnections ();
 
-	private:
-
         /**
          * Returns a pointer to the maya image file with the given image id, 
          * or NULL, if it is not in the list.
          */
         const MayaDM::File* findMayaImageFile ( const COLLADAFW::UniqueId& imageId );
 
-	};
+    private:
+
+    };
 
 } // namespace COLLADAMAYA
 

@@ -2925,6 +2925,12 @@ public:
 		fprintf(mFile,"\"%s.ls[%i]\"",mName.c_str(),ls_i);
 
 	}
+	void getLengthSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ls\"",mName.c_str());
+
+	}
 	void getLengthMap()const
 	{
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
@@ -2968,6 +2974,12 @@ public:
 	void getInclinationSamples(size_t ins_i)const
 	{
 		fprintf(mFile,"\"%s.ins[%i]\"",mName.c_str(),ins_i);
+
+	}
+	void getInclinationSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ins\"",mName.c_str());
 
 	}
 	void getInclinationMap()const
@@ -3015,6 +3027,12 @@ public:
 		fprintf(mFile,"\"%s.rls[%i]\"",mName.c_str(),rls_i);
 
 	}
+	void getRollSamples()const
+	{
+
+		fprintf(mFile,"\"%s.rls\"",mName.c_str());
+
+	}
 	void getRollMap()const
 	{
 		fprintf(mFile,"\"%s.rlm\"",mName.c_str());
@@ -3058,6 +3076,12 @@ public:
 	void getPolarSamples(size_t pos_i)const
 	{
 		fprintf(mFile,"\"%s.pos[%i]\"",mName.c_str(),pos_i);
+
+	}
+	void getPolarSamples()const
+	{
+
+		fprintf(mFile,"\"%s.pos\"",mName.c_str());
 
 	}
 	void getPolarMap()const
@@ -3105,6 +3129,12 @@ public:
 		fprintf(mFile,"\"%s.bs[%i]\"",mName.c_str(),bs_i);
 
 	}
+	void getBaldnessSamples()const
+	{
+
+		fprintf(mFile,"\"%s.bs\"",mName.c_str());
+
+	}
 	void getBaldnessMap()const
 	{
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
@@ -3148,6 +3178,12 @@ public:
 	void getBaseOpacitySamples(size_t bos_i)const
 	{
 		fprintf(mFile,"\"%s.bos[%i]\"",mName.c_str(),bos_i);
+
+	}
+	void getBaseOpacitySamples()const
+	{
+
+		fprintf(mFile,"\"%s.bos\"",mName.c_str());
 
 	}
 	void getBaseOpacityMap()const
@@ -3195,6 +3231,12 @@ public:
 		fprintf(mFile,"\"%s.tos[%i]\"",mName.c_str(),tos_i);
 
 	}
+	void getTipOpacitySamples()const
+	{
+
+		fprintf(mFile,"\"%s.tos\"",mName.c_str());
+
+	}
 	void getTipOpacityMap()const
 	{
 		fprintf(mFile,"\"%s.tom\"",mName.c_str());
@@ -3238,6 +3280,12 @@ public:
 	void getBaseCurlSamples(size_t bcls_i)const
 	{
 		fprintf(mFile,"\"%s.bcls[%i]\"",mName.c_str(),bcls_i);
+
+	}
+	void getBaseCurlSamples()const
+	{
+
+		fprintf(mFile,"\"%s.bcls\"",mName.c_str());
 
 	}
 	void getBaseCurlMap()const
@@ -3285,6 +3333,12 @@ public:
 		fprintf(mFile,"\"%s.tcls[%i]\"",mName.c_str(),tcls_i);
 
 	}
+	void getTipCurlSamples()const
+	{
+
+		fprintf(mFile,"\"%s.tcls\"",mName.c_str());
+
+	}
 	void getTipCurlMap()const
 	{
 		fprintf(mFile,"\"%s.tclm\"",mName.c_str());
@@ -3328,6 +3382,12 @@ public:
 	void getBaseWidthSamples(size_t bws_i)const
 	{
 		fprintf(mFile,"\"%s.bws[%i]\"",mName.c_str(),bws_i);
+
+	}
+	void getBaseWidthSamples()const
+	{
+
+		fprintf(mFile,"\"%s.bws\"",mName.c_str());
 
 	}
 	void getBaseWidthMap()const
@@ -3375,6 +3435,12 @@ public:
 		fprintf(mFile,"\"%s.tws[%i]\"",mName.c_str(),tws_i);
 
 	}
+	void getTipWidthSamples()const
+	{
+
+		fprintf(mFile,"\"%s.tws\"",mName.c_str());
+
+	}
 	void getTipWidthMap()const
 	{
 		fprintf(mFile,"\"%s.twm\"",mName.c_str());
@@ -3418,6 +3484,12 @@ public:
 	void getScraggleSamples(size_t ss_i)const
 	{
 		fprintf(mFile,"\"%s.ss[%i]\"",mName.c_str(),ss_i);
+
+	}
+	void getScraggleSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
 	void getScraggleMap()const
@@ -3465,6 +3537,12 @@ public:
 		fprintf(mFile,"\"%s.scos[%i]\"",mName.c_str(),scos_i);
 
 	}
+	void getScraggleCorrelationSamples()const
+	{
+
+		fprintf(mFile,"\"%s.scos\"",mName.c_str());
+
+	}
 	void getScraggleCorrelationMap()const
 	{
 		fprintf(mFile,"\"%s.scom\"",mName.c_str());
@@ -3508,6 +3586,12 @@ public:
 	void getScraggleFrequencySamples(size_t scfs_i)const
 	{
 		fprintf(mFile,"\"%s.scfs[%i]\"",mName.c_str(),scfs_i);
+
+	}
+	void getScraggleFrequencySamples()const
+	{
+
+		fprintf(mFile,"\"%s.scfs\"",mName.c_str());
 
 	}
 	void getScraggleFrequencyMap()const
@@ -3555,6 +3639,12 @@ public:
 		fprintf(mFile,"\"%s.segs[%i]\"",mName.c_str(),segs_i);
 
 	}
+	void getSegmentsSamples()const
+	{
+
+		fprintf(mFile,"\"%s.segs\"",mName.c_str());
+
+	}
 	void getSegmentsMap()const
 	{
 		fprintf(mFile,"\"%s.segm\"",mName.c_str());
@@ -3598,6 +3688,12 @@ public:
 	void getAttractionSamples(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i]\"",mName.c_str(),ats_i);
+
+	}
+	void getAttractionSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ats\"",mName.c_str());
 
 	}
 	void getAttractionMap()const
@@ -3645,6 +3741,12 @@ public:
 		fprintf(mFile,"\"%s.ofss[%i]\"",mName.c_str(),ofss_i);
 
 	}
+	void getOffsetSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ofss\"",mName.c_str());
+
+	}
 	void getOffsetMap()const
 	{
 		fprintf(mFile,"\"%s.ofsm\"",mName.c_str());
@@ -3688,6 +3790,12 @@ public:
 	void getClumpingSamples(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i]\"",mName.c_str(),cs_i);
+
+	}
+	void getClumpingSamples()const
+	{
+
+		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
 	void getClumpingMap()const
@@ -3735,6 +3843,12 @@ public:
 		fprintf(mFile,"\"%s.cfs[%i]\"",mName.c_str(),cfs_i);
 
 	}
+	void getClumpingFrequencySamples()const
+	{
+
+		fprintf(mFile,"\"%s.cfs\"",mName.c_str());
+
+	}
 	void getClumpingFrequencyMap()const
 	{
 		fprintf(mFile,"\"%s.cfm\"",mName.c_str());
@@ -3778,6 +3892,12 @@ public:
 	void getClumpingShapeSamples(size_t css_i)const
 	{
 		fprintf(mFile,"\"%s.css[%i]\"",mName.c_str(),css_i);
+
+	}
+	void getClumpingShapeSamples()const
+	{
+
+		fprintf(mFile,"\"%s.css\"",mName.c_str());
 
 	}
 	void getClumpingShapeMap()const
@@ -3840,6 +3960,12 @@ public:
 		fprintf(mFile,"\"%s.bcs[%i]\"",mName.c_str(),bcs_i);
 
 	}
+	void getBaseColorSamples()const
+	{
+
+		fprintf(mFile,"\"%s.bcs\"",mName.c_str());
+
+	}
 	void getBaseColorMap()const
 	{
 		fprintf(mFile,"\"%s.bcm\"",mName.c_str());
@@ -3890,6 +4016,12 @@ public:
 		fprintf(mFile,"\"%s.tcs[%i]\"",mName.c_str(),tcs_i);
 
 	}
+	void getTipColorSamples()const
+	{
+
+		fprintf(mFile,"\"%s.tcs\"",mName.c_str());
+
+	}
 	void getTipColorMap()const
 	{
 		fprintf(mFile,"\"%s.tcm\"",mName.c_str());
@@ -3923,6 +4055,12 @@ public:
 	void getRadiusSamples(size_t ars_i)const
 	{
 		fprintf(mFile,"\"%s.ars[%i]\"",mName.c_str(),ars_i);
+
+	}
+	void getRadiusSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ars\"",mName.c_str());
 
 	}
 	void getRadiusMap()const
@@ -3970,6 +4108,12 @@ public:
 		fprintf(mFile,"\"%s.aps[%i]\"",mName.c_str(),aps_i);
 
 	}
+	void getPowerSamples()const
+	{
+
+		fprintf(mFile,"\"%s.aps\"",mName.c_str());
+
+	}
 	void getPowerMap()const
 	{
 		fprintf(mFile,"\"%s.apm\"",mName.c_str());
@@ -4013,6 +4157,12 @@ public:
 	void getInfluenceSamples(size_t ais_i)const
 	{
 		fprintf(mFile,"\"%s.ais[%i]\"",mName.c_str(),ais_i);
+
+	}
+	void getInfluenceSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ais\"",mName.c_str());
 
 	}
 	void getInfluenceMap()const
@@ -4060,6 +4210,12 @@ public:
 		fprintf(mFile,"\"%s.asls[%i]\"",mName.c_str(),asls_i);
 
 	}
+	void getStartLengthSamples()const
+	{
+
+		fprintf(mFile,"\"%s.asls\"",mName.c_str());
+
+	}
 	void getStartLengthMap()const
 	{
 		fprintf(mFile,"\"%s.aslm\"",mName.c_str());
@@ -4103,6 +4259,12 @@ public:
 	void getEndLengthSamples(size_t aels_i)const
 	{
 		fprintf(mFile,"\"%s.aels[%i]\"",mName.c_str(),aels_i);
+
+	}
+	void getEndLengthSamples()const
+	{
+
+		fprintf(mFile,"\"%s.aels\"",mName.c_str());
 
 	}
 	void getEndLengthMap()const
@@ -4150,6 +4312,12 @@ public:
 		fprintf(mFile,"\"%s.atls[%i]\"",mName.c_str(),atls_i);
 
 	}
+	void getThresholdLengthSamples()const
+	{
+
+		fprintf(mFile,"\"%s.atls\"",mName.c_str());
+
+	}
 	void getThresholdLengthMap()const
 	{
 		fprintf(mFile,"\"%s.atlm\"",mName.c_str());
@@ -4195,6 +4363,12 @@ public:
 		fprintf(mFile,"\"%s.uns[%i]\"",mName.c_str(),uns_i);
 
 	}
+	void getUnusedSamples()const
+	{
+
+		fprintf(mFile,"\"%s.uns\"",mName.c_str());
+
+	}
 	void getUnusedMap()const
 	{
 		fprintf(mFile,"\"%s.unm\"",mName.c_str());
@@ -4233,6 +4407,12 @@ public:
 	void getEqualizerSamples(size_t ems_i)const
 	{
 		fprintf(mFile,"\"%s.ems[%i]\"",mName.c_str(),ems_i);
+
+	}
+	void getEqualizerSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ems\"",mName.c_str());
 
 	}
 	void getEqualizerMap()const

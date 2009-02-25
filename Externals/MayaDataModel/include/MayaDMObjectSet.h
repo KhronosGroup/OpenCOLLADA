@@ -77,9 +77,21 @@ public:
 		fprintf(mFile,"\"%s.dsm[%i]\"",mName.c_str(),dsm_i);
 
 	}
+	void getDagSetMembers()const
+	{
+
+		fprintf(mFile,"\"%s.dsm\"",mName.c_str());
+
+	}
 	void getDnSetMembers(size_t dnsm_i)const
 	{
 		fprintf(mFile,"\"%s.dnsm[%i]\"",mName.c_str(),dnsm_i);
+
+	}
+	void getDnSetMembers()const
+	{
+
+		fprintf(mFile,"\"%s.dnsm\"",mName.c_str());
 
 	}
 	void getMemberWireframeColor()const
@@ -97,9 +109,21 @@ public:
 		fprintf(mFile,"\"%s.gn[%i]\"",mName.c_str(),gn_i);
 
 	}
+	void getGroupNodes()const
+	{
+
+		fprintf(mFile,"\"%s.gn\"",mName.c_str());
+
+	}
 	void getUsedBy(size_t ub_i)const
 	{
 		fprintf(mFile,"\"%s.ub[%i]\"",mName.c_str(),ub_i);
+
+	}
+	void getUsedBy()const
+	{
+
+		fprintf(mFile,"\"%s.ub\"",mName.c_str());
 
 	}
 protected:

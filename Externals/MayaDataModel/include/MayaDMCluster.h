@@ -152,6 +152,12 @@ public:
 		fprintf(mFile,"\"%s.gm[%i]\"",mName.c_str(),gm_i);
 
 	}
+	void getGeomMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.gm\"",mName.c_str());
+
+	}
 	void getMatrix()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());

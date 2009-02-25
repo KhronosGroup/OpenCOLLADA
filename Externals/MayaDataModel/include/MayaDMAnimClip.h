@@ -164,9 +164,21 @@ public:
 		fprintf(mFile,"\"%s.ac[%i]\"",mName.c_str(),ac_i);
 
 	}
+	void getAbsoluteChannel()const
+	{
+
+		fprintf(mFile,"\"%s.ac\"",mName.c_str());
+
+	}
 	void getChannelOffset(size_t co_i)const
 	{
 		fprintf(mFile,"\"%s.co[%i]\"",mName.c_str(),co_i);
+
+	}
+	void getChannelOffset()const
+	{
+
+		fprintf(mFile,"\"%s.co\"",mName.c_str());
 
 	}
 	void getStartFrame()const

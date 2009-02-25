@@ -236,9 +236,21 @@ public:
 		fprintf(mFile,"\"%s.pmt[%i]\"",mName.c_str(),pmt_i);
 
 	}
+	void getPositionMarkerTime()const
+	{
+
+		fprintf(mFile,"\"%s.pmt\"",mName.c_str());
+
+	}
 	void getOrientationMarkerTime(size_t omt_i)const
 	{
 		fprintf(mFile,"\"%s.omt[%i]\"",mName.c_str(),omt_i);
+
+	}
+	void getOrientationMarkerTime()const
+	{
+
+		fprintf(mFile,"\"%s.omt\"",mName.c_str());
 
 	}
 	void getNormal()const

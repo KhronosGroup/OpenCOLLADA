@@ -41,6 +41,12 @@ public:
 		fprintf(mFile,"\"%s.st[%i]\"",mName.c_str(),st_i);
 
 	}
+	void getSets()const
+	{
+
+		fprintf(mFile,"\"%s.st\"",mName.c_str());
+
+	}
 	void getEnvironment()const
 	{
 		fprintf(mFile,"\"%s.envr\"",mName.c_str());

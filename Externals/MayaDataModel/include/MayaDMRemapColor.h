@@ -224,9 +224,21 @@ public:
 		fprintf(mFile,"\"%s.r[%i]\"",mName.c_str(),r_i);
 
 	}
+	void getRed()const
+	{
+
+		fprintf(mFile,"\"%s.r\"",mName.c_str());
+
+	}
 	void getRed_Position(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i].rp\"",mName.c_str(),r_i);
+
+	}
+	void getRed_Position()const
+	{
+
+		fprintf(mFile,"\"%s.r.rp\"",mName.c_str());
 
 	}
 	void getRed_FloatValue(size_t r_i)const
@@ -234,9 +246,21 @@ public:
 		fprintf(mFile,"\"%s.r[%i].rfv\"",mName.c_str(),r_i);
 
 	}
+	void getRed_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.r.rfv\"",mName.c_str());
+
+	}
 	void getRed_Interp(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i].ri\"",mName.c_str(),r_i);
+
+	}
+	void getRed_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.r.ri\"",mName.c_str());
 
 	}
 	void getGreen(size_t g_i)const
@@ -244,9 +268,21 @@ public:
 		fprintf(mFile,"\"%s.g[%i]\"",mName.c_str(),g_i);
 
 	}
+	void getGreen()const
+	{
+
+		fprintf(mFile,"\"%s.g\"",mName.c_str());
+
+	}
 	void getGreen_Position(size_t g_i)const
 	{
 		fprintf(mFile,"\"%s.g[%i].gp\"",mName.c_str(),g_i);
+
+	}
+	void getGreen_Position()const
+	{
+
+		fprintf(mFile,"\"%s.g.gp\"",mName.c_str());
 
 	}
 	void getGreen_FloatValue(size_t g_i)const
@@ -254,9 +290,21 @@ public:
 		fprintf(mFile,"\"%s.g[%i].gfv\"",mName.c_str(),g_i);
 
 	}
+	void getGreen_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.g.gfv\"",mName.c_str());
+
+	}
 	void getGreen_Interp(size_t g_i)const
 	{
 		fprintf(mFile,"\"%s.g[%i].gi\"",mName.c_str(),g_i);
+
+	}
+	void getGreen_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.g.gi\"",mName.c_str());
 
 	}
 	void getBlue(size_t b_i)const
@@ -264,9 +312,21 @@ public:
 		fprintf(mFile,"\"%s.b[%i]\"",mName.c_str(),b_i);
 
 	}
+	void getBlue()const
+	{
+
+		fprintf(mFile,"\"%s.b\"",mName.c_str());
+
+	}
 	void getBlue_Position(size_t b_i)const
 	{
 		fprintf(mFile,"\"%s.b[%i].bp\"",mName.c_str(),b_i);
+
+	}
+	void getBlue_Position()const
+	{
+
+		fprintf(mFile,"\"%s.b.bp\"",mName.c_str());
 
 	}
 	void getBlue_FloatValue(size_t b_i)const
@@ -274,9 +334,21 @@ public:
 		fprintf(mFile,"\"%s.b[%i].bfv\"",mName.c_str(),b_i);
 
 	}
+	void getBlue_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.b.bfv\"",mName.c_str());
+
+	}
 	void getBlue_Interp(size_t b_i)const
 	{
 		fprintf(mFile,"\"%s.b[%i].bi\"",mName.c_str(),b_i);
+
+	}
+	void getBlue_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.b.bi\"",mName.c_str());
 
 	}
 	void getOutColor()const

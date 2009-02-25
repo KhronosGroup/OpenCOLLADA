@@ -433,9 +433,21 @@ public:
 		fprintf(mFile,"\"%s.vt[%i]\"",mName.c_str(),vt_i);
 
 	}
+	void getVertex()const
+	{
+
+		fprintf(mFile,"\"%s.vt\"",mName.c_str());
+
+	}
 	void getSingleVertex(size_t vt_i,size_t svt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].svt[%i]\"",mName.c_str(),vt_i,svt_i);
+
+	}
+	void getSingleVertex(size_t svt_i)const
+	{
+
+		fprintf(mFile,"\"%s.vt.svt[%i]\"",mName.c_str(),svt_i);
 
 	}
 	void getSingleVertexX(size_t vt_i,size_t svt_i)const
@@ -443,9 +455,21 @@ public:
 		fprintf(mFile,"\"%s.vt[%i].svt[%i].svx\"",mName.c_str(),vt_i,svt_i);
 
 	}
+	void getSingleVertexX(size_t svt_i)const
+	{
+
+		fprintf(mFile,"\"%s.vt.svt[%i].svx\"",mName.c_str(),svt_i);
+
+	}
 	void getSingleVertexY(size_t vt_i,size_t svt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].svt[%i].svy\"",mName.c_str(),vt_i,svt_i);
+
+	}
+	void getSingleVertexY(size_t svt_i)const
+	{
+
+		fprintf(mFile,"\"%s.vt.svt[%i].svy\"",mName.c_str(),svt_i);
 
 	}
 	void getSingleVertexZ(size_t vt_i,size_t svt_i)const
@@ -453,9 +477,21 @@ public:
 		fprintf(mFile,"\"%s.vt[%i].svt[%i].svz\"",mName.c_str(),vt_i,svt_i);
 
 	}
+	void getSingleVertexZ(size_t svt_i)const
+	{
+
+		fprintf(mFile,"\"%s.vt.svt[%i].svz\"",mName.c_str(),svt_i);
+
+	}
 	void getVertexTweak(size_t vtw_i)const
 	{
 		fprintf(mFile,"\"%s.vtw[%i]\"",mName.c_str(),vtw_i);
+
+	}
+	void getVertexTweak()const
+	{
+
+		fprintf(mFile,"\"%s.vtw\"",mName.c_str());
 
 	}
 	void getSingleVertexTweak(size_t vtw_i,size_t stw_i)const
@@ -463,9 +499,21 @@ public:
 		fprintf(mFile,"\"%s.vtw[%i].stw[%i]\"",mName.c_str(),vtw_i,stw_i);
 
 	}
+	void getSingleVertexTweak(size_t stw_i)const
+	{
+
+		fprintf(mFile,"\"%s.vtw.stw[%i]\"",mName.c_str(),stw_i);
+
+	}
 	void getSingleVertexTweakX(size_t vtw_i,size_t stw_i)const
 	{
 		fprintf(mFile,"\"%s.vtw[%i].stw[%i].stwx\"",mName.c_str(),vtw_i,stw_i);
+
+	}
+	void getSingleVertexTweakX(size_t stw_i)const
+	{
+
+		fprintf(mFile,"\"%s.vtw.stw[%i].stwx\"",mName.c_str(),stw_i);
 
 	}
 	void getSingleVertexTweakY(size_t vtw_i,size_t stw_i)const
@@ -473,9 +521,21 @@ public:
 		fprintf(mFile,"\"%s.vtw[%i].stw[%i].stwy\"",mName.c_str(),vtw_i,stw_i);
 
 	}
+	void getSingleVertexTweakY(size_t stw_i)const
+	{
+
+		fprintf(mFile,"\"%s.vtw.stw[%i].stwy\"",mName.c_str(),stw_i);
+
+	}
 	void getSingleVertexTweakZ(size_t vtw_i,size_t stw_i)const
 	{
 		fprintf(mFile,"\"%s.vtw[%i].stw[%i].stwz\"",mName.c_str(),vtw_i,stw_i);
+
+	}
+	void getSingleVertexTweakZ(size_t stw_i)const
+	{
+
+		fprintf(mFile,"\"%s.vtw.stw[%i].stwz\"",mName.c_str(),stw_i);
 
 	}
 	void getOutSubdiv()const
@@ -486,6 +546,12 @@ public:
 	void getWorldSubdiv(size_t ws_i)const
 	{
 		fprintf(mFile,"\"%s.ws[%i]\"",mName.c_str(),ws_i);
+
+	}
+	void getWorldSubdiv()const
+	{
+
+		fprintf(mFile,"\"%s.ws\"",mName.c_str());
 
 	}
 	void getEdgeCrease()const
@@ -501,6 +567,12 @@ public:
 	void getFaceUVIds(size_t fuv_i)const
 	{
 		fprintf(mFile,"\"%s.fuv[%i]\"",mName.c_str(),fuv_i);
+
+	}
+	void getFaceUVIds()const
+	{
+
+		fprintf(mFile,"\"%s.fuv\"",mName.c_str());
 
 	}
 	void getNormalsDisplayScale()const

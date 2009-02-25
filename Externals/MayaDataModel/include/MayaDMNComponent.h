@@ -237,6 +237,12 @@ public:
 		fprintf(mFile,"\"%s.ci[%i]\"",mName.c_str(),ci_i);
 
 	}
+	void getComponentIndices()const
+	{
+
+		fprintf(mFile,"\"%s.ci\"",mName.c_str());
+
+	}
 	void getOutComponent()const
 	{
 		fprintf(mFile,"\"%s.ocp\"",mName.c_str());

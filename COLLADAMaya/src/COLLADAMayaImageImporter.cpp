@@ -11,7 +11,6 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaImageImporter.h"
 
-#include <MayaDMPlace2dTexture.h>
 #include <MayaDMDefaultTextureList.h>
 
 
@@ -19,7 +18,6 @@ namespace COLLADAMaya
 {
 
     const String ImageImporter::IMAGE_NAME = "Image";
-    const String ImageImporter::PLACE_2D_TEXTURE_NAME = "place2dTexture";
     const String ImageImporter::DEFAULT_TEXTURE_LIST = ":defaultTextureList1";
 
 
@@ -45,6 +43,7 @@ namespace COLLADAMaya
         String imageName = image->getName ();
         if ( COLLADABU::Utils::equals ( imageName, "" ) ) 
             imageName = IMAGE_NAME;
+        imageName = DocumentImporter::frameworkNameToMayaName ( imageName );
         imageName = mImageIdList.addId ( imageName );
 
         // Get the maya ascii file.
@@ -54,7 +53,7 @@ namespace COLLADAMaya
         const COLLADABU::URI& imageURI = image->getImageURI ();
 
         //createNode file -name "file1";
-        //    setAttr ".fileTextureName" -type "string" "C:/netallied/projekte/COLLADA/TestdataMaya/Themes/Textures/tex/checkerRGB.jpg";
+        //    setAttr ".fileTextureName" -type "string" "./tex/checkerRGB.jpg";
         MayaDM::File mayaImage ( file, imageName );
         mayaImage.setFileTextureName ( imageURI.getURIString () );
 
@@ -80,11 +79,6 @@ namespace COLLADAMaya
         // Get the maya ascii file.
         FILE* file = getDocumentImporter ()->getFile ();
 
-        // TODO Create this in depend on the texture mapping of effects.
-        // createNode place2dTexture -n "place2dTexture1";
-        String place2dTextureName = mPlace2dTextureIdList.addId ( PLACE_2D_TEXTURE_NAME );
-        MayaDM::Place2dTexture place2dTexture ( file, place2dTextureName );
-
         //  Create the defaultTextureList object
         MayaDM::DefaultTextureList defaultTextureList ( file, DEFAULT_TEXTURE_LIST, "", false );
 
@@ -97,16 +91,21 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& imageId = it->first;
             const MayaDM::File& imageFile = it->second;
 
-            //connectAttr "file1.message" ":defaultTextureList1.textures" -nextAvailable;
+            // connectAttr "file1.message" ":defaultTextureList1.textures" -nextAvailable;
             connectAttr ( file, imageFile.getMessage (), defaultTextureList.getTextures ( textureIndex ) );
             ++textureIndex;
 
-            //connectAttr "file1.outColor" ":lambert1.color";
+            // Connect the image file out color with the material's texture attribute.
+            // connectAttr "file1.outColor" "lambert2.color";
+
+            //mSamplerIdShaderNodesMap
+
+            // Connect the image file message with the materials materialInfo texture attribute.
+            // connectAttr "file1.message" "materialInfo1.texture" -nextAvailable;
+
             // TODO Get all effects, which use this image file.
 //            findImageEffects ( imageId );
 //            connectAttr ( file, imageFile.getOutColor (), effect.getColor () );
-
-            //connectAttr "file1.message" ":initialMaterialInfo.texture" -nextAvailable;
 
             ++it;
         }

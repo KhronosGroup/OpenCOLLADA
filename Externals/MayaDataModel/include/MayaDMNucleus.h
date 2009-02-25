@@ -229,9 +229,21 @@ public:
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
+	void getInputStart()const
+	{
+
+		fprintf(mFile,"\"%s.is\"",mName.c_str());
+
+	}
 	void getInputCurrent(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
+
+	}
+	void getInputCurrent()const
+	{
+
+		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
 	void getInputActive(size_t niao_i)const
@@ -239,9 +251,21 @@ public:
 		fprintf(mFile,"\"%s.niao[%i]\"",mName.c_str(),niao_i);
 
 	}
+	void getInputActive()const
+	{
+
+		fprintf(mFile,"\"%s.niao\"",mName.c_str());
+
+	}
 	void getInputPassive(size_t nipo_i)const
 	{
 		fprintf(mFile,"\"%s.nipo[%i]\"",mName.c_str(),nipo_i);
+
+	}
+	void getInputPassive()const
+	{
+
+		fprintf(mFile,"\"%s.nipo\"",mName.c_str());
 
 	}
 	void getInputActiveStart(size_t nias_i)const
@@ -249,14 +273,32 @@ public:
 		fprintf(mFile,"\"%s.nias[%i]\"",mName.c_str(),nias_i);
 
 	}
+	void getInputActiveStart()const
+	{
+
+		fprintf(mFile,"\"%s.nias\"",mName.c_str());
+
+	}
 	void getInputPassiveStart(size_t nips_i)const
 	{
 		fprintf(mFile,"\"%s.nips[%i]\"",mName.c_str(),nips_i);
 
 	}
+	void getInputPassiveStart()const
+	{
+
+		fprintf(mFile,"\"%s.nips\"",mName.c_str());
+
+	}
 	void getOutputObjects(size_t noao_i)const
 	{
 		fprintf(mFile,"\"%s.noao[%i]\"",mName.c_str(),noao_i);
+
+	}
+	void getOutputObjects()const
+	{
+
+		fprintf(mFile,"\"%s.noao\"",mName.c_str());
 
 	}
 	void getCurrentTime()const

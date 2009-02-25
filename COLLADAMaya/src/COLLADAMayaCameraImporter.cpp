@@ -32,6 +32,14 @@ namespace COLLADAMaya
     //------------------------------
 	CameraImporter::~CameraImporter()
 	{
+        UniqueIdMayaNodeMap::iterator it = mMayaCameraNodesMap.begin ();
+        while ( it != mMayaCameraNodesMap.end () )
+        {
+            MayaNode* mayaNode = it->second;
+            delete mayaNode;
+            ++it;
+        }
+        mMayaCameraNodesMap.clear ();
 	}
 
     //------------------------------
@@ -43,26 +51,33 @@ namespace COLLADAMaya
 
         // Get the transform nodes, which work with this camera instance.
         VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
-        const UniqueIdVec* transformNodes = visualSceneImporter->findCameraTransformIds ( cameraId );
-        if ( transformNodes == 0 )
+        const UniqueIdVec* transformNodeIds = visualSceneImporter->findCameraTransformIds ( cameraId );
+        if ( transformNodeIds == 0 )
         {
             MGlobal::displayError ( "No camera node which implements this camera!" );
             std::cerr << "No camera node which implements this camera!" << endl;
         }
 
-        UniqueIdVec::const_iterator nodesIter = transformNodes->begin ();
-        while ( nodesIter != transformNodes->end () )
+        UniqueIdVec::const_iterator nodesIter = transformNodeIds->begin ();
+        while ( nodesIter != transformNodeIds->end () )
         {
             // Get the maya node of the current transform node.
             const COLLADAFW::UniqueId& transformNodeId = *nodesIter;
-            MayaNode* mayaTransformNode = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+            MayaNodesList* mayaTransformNodes = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+            if ( mayaTransformNodes->size () == 0 )
+            {
+                MGlobal::displayError ( "The referenced transform node doesn't exist!" );
+                std::cerr << "The referenced transform node doesn't exist!" << endl;
+                return;
+            }
+            MayaNode* mayaTransformNode = (*mayaTransformNodes) [0];
             String transformNodeName = mayaTransformNode->getName ();
 
             // Get the path to the parent transform node.
             String transformNodePath = mayaTransformNode->getNodePath ();
 
             // The first reference is a direct one, the others are instances.
-            if ( nodesIter == transformNodes->begin() )
+            if ( nodesIter == transformNodeIds->begin() )
             {
                 // Create the current mesh node.
                 createCamera ( camera, mayaTransformNode );
@@ -91,11 +106,12 @@ namespace COLLADAMaya
         String cameraName = camera->getName ();
         if ( COLLADABU::Utils::equals ( cameraName, "" ) ) 
             cameraName = CAMERA_NAME;
+        cameraName = DocumentImporter::frameworkNameToMayaName ( cameraName );
         cameraName = mCameraIdList.addId ( cameraName );
 
         // Create a maya node object of the current node and push it into the map.
         const COLLADAFW::UniqueId& cameraId = camera->getUniqueId ();
-        MayaNode mayaMeshNode ( cameraId, cameraName, mayaTransformNode );
+        MayaNode* mayaMeshNode = new MayaNode ( cameraId, cameraName, mayaTransformNode );
         mMayaCameraNodesMap [ cameraId ] = mayaMeshNode;
 
         // Create the maya camera object and write it into the maya ascii file.
@@ -256,9 +272,9 @@ namespace COLLADAMaya
     // --------------------------------------------
     MayaNode* CameraImporter::findMayaCameraNode ( const COLLADAFW::UniqueId& cameraId ) 
     {
-        UniqueIdMayaNodesMap::iterator it = mMayaCameraNodesMap.find ( cameraId );
+        UniqueIdMayaNodeMap::iterator it = mMayaCameraNodesMap.find ( cameraId );
         if ( it != mMayaCameraNodesMap.end () )
-            return &(*it).second;
+            return it->second;
 
         return 0;
     }

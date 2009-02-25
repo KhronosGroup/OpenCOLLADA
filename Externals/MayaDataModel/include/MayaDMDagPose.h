@@ -140,14 +140,32 @@ public:
 		fprintf(mFile,"\"%s.wm[%i]\"",mName.c_str(),wm_i);
 
 	}
+	void getWorldMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.wm\"",mName.c_str());
+
+	}
 	void getMembers(size_t m_i)const
 	{
 		fprintf(mFile,"\"%s.m[%i]\"",mName.c_str(),m_i);
 
 	}
+	void getMembers()const
+	{
+
+		fprintf(mFile,"\"%s.m\"",mName.c_str());
+
+	}
 	void getParents(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
+
+	}
+	void getParents()const
+	{
+
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
 	void getWorld()const

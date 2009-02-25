@@ -352,9 +352,21 @@ public:
 		fprintf(mFile,"\"%s.dds[%i]\"",mName.c_str(),dds_i);
 
 	}
+	void getDropoffDistance()const
+	{
+
+		fprintf(mFile,"\"%s.dds\"",mName.c_str());
+
+	}
 	void getScale(size_t sc_i)const
 	{
 		fprintf(mFile,"\"%s.sc[%i]\"",mName.c_str(),sc_i);
+
+	}
+	void getScale()const
+	{
+
+		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
 	void getWireLocatorPercentage(size_t wlpc_i)const
@@ -362,9 +374,21 @@ public:
 		fprintf(mFile,"\"%s.wlpc[%i]\"",mName.c_str(),wlpc_i);
 
 	}
+	void getWireLocatorPercentage()const
+	{
+
+		fprintf(mFile,"\"%s.wlpc\"",mName.c_str());
+
+	}
 	void getWireLocatorParameter(size_t wlp_i)const
 	{
 		fprintf(mFile,"\"%s.wlp[%i]\"",mName.c_str(),wlp_i);
+
+	}
+	void getWireLocatorParameter()const
+	{
+
+		fprintf(mFile,"\"%s.wlp\"",mName.c_str());
 
 	}
 	void getWireLocatorEnvelope(size_t wle_i)const
@@ -372,9 +396,21 @@ public:
 		fprintf(mFile,"\"%s.wle[%i]\"",mName.c_str(),wle_i);
 
 	}
+	void getWireLocatorEnvelope()const
+	{
+
+		fprintf(mFile,"\"%s.wle\"",mName.c_str());
+
+	}
 	void getWireLocatorTwist(size_t wlt_i)const
 	{
 		fprintf(mFile,"\"%s.wlt[%i]\"",mName.c_str(),wlt_i);
+
+	}
+	void getWireLocatorTwist()const
+	{
+
+		fprintf(mFile,"\"%s.wlt\"",mName.c_str());
 
 	}
 	void getDeformedWire(size_t dw_i)const
@@ -382,14 +418,32 @@ public:
 		fprintf(mFile,"\"%s.dw[%i]\"",mName.c_str(),dw_i);
 
 	}
+	void getDeformedWire()const
+	{
+
+		fprintf(mFile,"\"%s.dw\"",mName.c_str());
+
+	}
 	void getBaseWire(size_t bw_i)const
 	{
 		fprintf(mFile,"\"%s.bw[%i]\"",mName.c_str(),bw_i);
 
 	}
+	void getBaseWire()const
+	{
+
+		fprintf(mFile,"\"%s.bw\"",mName.c_str());
+
+	}
 	void getHolder(size_t ho_i)const
 	{
 		fprintf(mFile,"\"%s.ho[%i]\"",mName.c_str(),ho_i);
+
+	}
+	void getHolder()const
+	{
+
+		fprintf(mFile,"\"%s.ho\"",mName.c_str());
 
 	}
 protected:

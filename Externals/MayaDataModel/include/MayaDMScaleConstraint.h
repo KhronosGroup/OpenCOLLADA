@@ -119,9 +119,21 @@ public:
 		fprintf(mFile,"\"%s.tg[%i]\"",mName.c_str(),tg_i);
 
 	}
+	void getTarget()const
+	{
+
+		fprintf(mFile,"\"%s.tg\"",mName.c_str());
+
+	}
 	void getTargetScale(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetScale()const
+	{
+
+		fprintf(mFile,"\"%s.tg.ts\"",mName.c_str());
 
 	}
 	void getTargetScaleX(size_t tg_i)const
@@ -129,9 +141,21 @@ public:
 		fprintf(mFile,"\"%s.tg[%i].ts.tsx\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetScaleX()const
+	{
+
+		fprintf(mFile,"\"%s.tg.ts.tsx\"",mName.c_str());
+
+	}
 	void getTargetScaleY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts.tsy\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetScaleY()const
+	{
+
+		fprintf(mFile,"\"%s.tg.ts.tsy\"",mName.c_str());
 
 	}
 	void getTargetScaleZ(size_t tg_i)const
@@ -139,14 +163,32 @@ public:
 		fprintf(mFile,"\"%s.tg[%i].ts.tsz\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetScaleZ()const
+	{
+
+		fprintf(mFile,"\"%s.tg.ts.tsz\"",mName.c_str());
+
+	}
 	void getTargetParentMatrix(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tpm\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetParentMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tpm\"",mName.c_str());
+
+	}
 	void getTargetWeight(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tw\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetWeight()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tw\"",mName.c_str());
 
 	}
 	void getConstraintParentInverseMatrix()const

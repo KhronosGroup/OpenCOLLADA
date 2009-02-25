@@ -176,9 +176,21 @@ public:
 		fprintf(mFile,"\"%s.cuv[%i]\"",mName.c_str(),cuv_i);
 
 	}
+	void getCachedUVs()const
+	{
+
+		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
+
+	}
 	void getUvPoints(size_t cuv_i,size_t uvp_i)const
 	{
 		fprintf(mFile,"\"%s.cuv[%i].uvp[%i]\"",mName.c_str(),cuv_i,uvp_i);
+
+	}
+	void getUvPoints(size_t uvp_i)const
+	{
+
+		fprintf(mFile,"\"%s.cuv.uvp[%i]\"",mName.c_str(),uvp_i);
 
 	}
 	void getUvPointsU(size_t cuv_i,size_t uvp_i)const
@@ -186,9 +198,21 @@ public:
 		fprintf(mFile,"\"%s.cuv[%i].uvp[%i].uvu\"",mName.c_str(),cuv_i,uvp_i);
 
 	}
+	void getUvPointsU(size_t uvp_i)const
+	{
+
+		fprintf(mFile,"\"%s.cuv.uvp[%i].uvu\"",mName.c_str(),uvp_i);
+
+	}
 	void getUvPointsV(size_t cuv_i,size_t uvp_i)const
 	{
 		fprintf(mFile,"\"%s.cuv[%i].uvp[%i].uvv\"",mName.c_str(),cuv_i,uvp_i);
+
+	}
+	void getUvPointsV(size_t uvp_i)const
+	{
+
+		fprintf(mFile,"\"%s.cuv.uvp[%i].uvv\"",mName.c_str(),uvp_i);
 
 	}
 	void getPreserveVertexOrdering()const

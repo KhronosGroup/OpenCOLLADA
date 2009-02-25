@@ -472,9 +472,21 @@ public:
 		fprintf(mFile,"\"%s.igm[%i]\"",mName.c_str(),igm_i);
 
 	}
+	void getInputGeometryMsg()const
+	{
+
+		fprintf(mFile,"\"%s.igm\"",mName.c_str());
+
+	}
 	void getFieldConnections(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i]\"",mName.c_str(),fc_i);
+
+	}
+	void getFieldConnections()const
+	{
+
+		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
 	void getRunUpCache()const
@@ -512,9 +524,21 @@ public:
 		fprintf(mFile,"\"%s.cnn[%i]\"",mName.c_str(),cnn_i);
 
 	}
+	void getContactName()const
+	{
+
+		fprintf(mFile,"\"%s.cnn\"",mName.c_str());
+
+	}
 	void getInterpenetrateWith(size_t itw_i)const
 	{
 		fprintf(mFile,"\"%s.itw[%i]\"",mName.c_str(),itw_i);
+
+	}
+	void getInterpenetrateWith()const
+	{
+
+		fprintf(mFile,"\"%s.itw\"",mName.c_str());
 
 	}
 	void getInitialPositionX()const
@@ -837,9 +861,21 @@ public:
 		fprintf(mFile,"\"%s.cnp[%i]\"",mName.c_str(),cnp_i);
 
 	}
+	void getContactPosition()const
+	{
+
+		fprintf(mFile,"\"%s.cnp\"",mName.c_str());
+
+	}
 	void getContactX(size_t cnp_i)const
 	{
 		fprintf(mFile,"\"%s.cnp[%i].cnx\"",mName.c_str(),cnp_i);
+
+	}
+	void getContactX()const
+	{
+
+		fprintf(mFile,"\"%s.cnp.cnx\"",mName.c_str());
 
 	}
 	void getContactY(size_t cnp_i)const
@@ -847,9 +883,21 @@ public:
 		fprintf(mFile,"\"%s.cnp[%i].cny\"",mName.c_str(),cnp_i);
 
 	}
+	void getContactY()const
+	{
+
+		fprintf(mFile,"\"%s.cnp.cny\"",mName.c_str());
+
+	}
 	void getContactZ(size_t cnp_i)const
 	{
 		fprintf(mFile,"\"%s.cnp[%i].cnz\"",mName.c_str(),cnp_i);
+
+	}
+	void getContactZ()const
+	{
+
+		fprintf(mFile,"\"%s.cnp.cnz\"",mName.c_str());
 
 	}
 	void getForce()const
@@ -922,14 +970,32 @@ public:
 		fprintf(mFile,"\"%s.ifr[%i]\"",mName.c_str(),ifr_i);
 
 	}
+	void getInputForce()const
+	{
+
+		fprintf(mFile,"\"%s.ifr\"",mName.c_str());
+
+	}
 	void getInputForceType(size_t ift_i)const
 	{
 		fprintf(mFile,"\"%s.ift[%i]\"",mName.c_str(),ift_i);
 
 	}
+	void getInputForceType()const
+	{
+
+		fprintf(mFile,"\"%s.ift\"",mName.c_str());
+
+	}
 	void getCollisionRecords(size_t crc_i)const
 	{
 		fprintf(mFile,"\"%s.crc[%i]\"",mName.c_str(),crc_i);
+
+	}
+	void getCollisionRecords()const
+	{
+
+		fprintf(mFile,"\"%s.crc\"",mName.c_str());
 
 	}
 	void getGeneralForce()const

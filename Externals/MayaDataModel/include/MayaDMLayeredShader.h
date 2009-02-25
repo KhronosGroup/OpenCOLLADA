@@ -367,9 +367,21 @@ public:
 		fprintf(mFile,"\"%s.cs[%i]\"",mName.c_str(),cs_i);
 
 	}
+	void getInputs()const
+	{
+
+		fprintf(mFile,"\"%s.cs\"",mName.c_str());
+
+	}
 	void getColor(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].c\"",mName.c_str(),cs_i);
+
+	}
+	void getColor()const
+	{
+
+		fprintf(mFile,"\"%s.cs.c\"",mName.c_str());
 
 	}
 	void getColorR(size_t cs_i)const
@@ -377,9 +389,21 @@ public:
 		fprintf(mFile,"\"%s.cs[%i].c.cr\"",mName.c_str(),cs_i);
 
 	}
+	void getColorR()const
+	{
+
+		fprintf(mFile,"\"%s.cs.c.cr\"",mName.c_str());
+
+	}
 	void getColorG(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].c.cg\"",mName.c_str(),cs_i);
+
+	}
+	void getColorG()const
+	{
+
+		fprintf(mFile,"\"%s.cs.c.cg\"",mName.c_str());
 
 	}
 	void getColorB(size_t cs_i)const
@@ -387,9 +411,21 @@ public:
 		fprintf(mFile,"\"%s.cs[%i].c.cb\"",mName.c_str(),cs_i);
 
 	}
+	void getColorB()const
+	{
+
+		fprintf(mFile,"\"%s.cs.c.cb\"",mName.c_str());
+
+	}
 	void getTransparency(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].t\"",mName.c_str(),cs_i);
+
+	}
+	void getTransparency()const
+	{
+
+		fprintf(mFile,"\"%s.cs.t\"",mName.c_str());
 
 	}
 	void getTransparencyR(size_t cs_i)const
@@ -397,9 +433,21 @@ public:
 		fprintf(mFile,"\"%s.cs[%i].t.tr\"",mName.c_str(),cs_i);
 
 	}
+	void getTransparencyR()const
+	{
+
+		fprintf(mFile,"\"%s.cs.t.tr\"",mName.c_str());
+
+	}
 	void getTransparencyG(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].t.tg\"",mName.c_str(),cs_i);
+
+	}
+	void getTransparencyG()const
+	{
+
+		fprintf(mFile,"\"%s.cs.t.tg\"",mName.c_str());
 
 	}
 	void getTransparencyB(size_t cs_i)const
@@ -407,9 +455,21 @@ public:
 		fprintf(mFile,"\"%s.cs[%i].t.tb\"",mName.c_str(),cs_i);
 
 	}
+	void getTransparencyB()const
+	{
+
+		fprintf(mFile,"\"%s.cs.t.tb\"",mName.c_str());
+
+	}
 	void getGlowColor(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].g\"",mName.c_str(),cs_i);
+
+	}
+	void getGlowColor()const
+	{
+
+		fprintf(mFile,"\"%s.cs.g\"",mName.c_str());
 
 	}
 	void getGlowColorR(size_t cs_i)const
@@ -417,14 +477,32 @@ public:
 		fprintf(mFile,"\"%s.cs[%i].g.gr\"",mName.c_str(),cs_i);
 
 	}
+	void getGlowColorR()const
+	{
+
+		fprintf(mFile,"\"%s.cs.g.gr\"",mName.c_str());
+
+	}
 	void getGlowColorG(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].g.gg\"",mName.c_str(),cs_i);
 
 	}
+	void getGlowColorG()const
+	{
+
+		fprintf(mFile,"\"%s.cs.g.gg\"",mName.c_str());
+
+	}
 	void getGlowColorB(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].g.gb\"",mName.c_str(),cs_i);
+
+	}
+	void getGlowColorB()const
+	{
+
+		fprintf(mFile,"\"%s.cs.g.gb\"",mName.c_str());
 
 	}
 	void getHardwareShader()const

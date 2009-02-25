@@ -19,6 +19,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 #include "COLLADAMayaNode.h"
+#include "COLLADAMayaShadingBinding.h"
 
 #include "COLLADAFWMesh.h"
 
@@ -53,32 +54,22 @@ namespace COLLADAMaya
         * Assign the group to the unique geometry id, the transform node 
         * to the mesh instance and the index of the geometry's primitives.
         */
-        class GroupIdAssignment
+        class GroupAssignment
         {
         private:
             MayaDM::GroupId mGroupId;
-            COLLADAFW::UniqueId mGeometryId;
+            COLLADAFW::MaterialId mShadingEngineId;
             size_t mGeometryInstanceIndex;
             size_t mPrimitiveIndex;
         public:
-            GroupIdAssignment () {}
-            GroupIdAssignment ( 
-                MayaDM::GroupId& groupId, 
-                const COLLADAFW::UniqueId& geometryId, 
-                const size_t geometryInstanceIndex,
-                const size_t primitiveIndex )
-                : mGroupId (groupId)
-                , mGeometryId (geometryId)
-                , mGeometryInstanceIndex (geometryInstanceIndex)
-                , mPrimitiveIndex (primitiveIndex)
-            {}
-            virtual ~GroupIdAssignment () {}
+            GroupAssignment () {}
+            virtual ~GroupAssignment () {}
 
             const MayaDM::GroupId& getGroupId () const { return mGroupId; }
             void setGroupId ( MayaDM::GroupId& val ) { mGroupId = val; }
 
-            const COLLADAFW::UniqueId& getGeometryId () const { return mGeometryId; }
-            void setGeometryId ( const COLLADAFW::UniqueId& val ) { mGeometryId = val; }
+            const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
+            void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }
 
             const size_t getGeometryInstanceIndex () const { return mGeometryInstanceIndex; }
             void setGeometryInstanceIndex ( const size_t val ) { mGeometryInstanceIndex = val; }
@@ -86,7 +77,7 @@ namespace COLLADAMaya
             const size_t getPrimitiveIndex () const { return mPrimitiveIndex; }
             void setPrimitiveIndex ( const size_t val ) { mPrimitiveIndex = val; }
         };
-        typedef std::vector<GroupIdAssignment> GroupIdAssignments;
+
 
     private:
 
@@ -103,7 +94,7 @@ namespace COLLADAMaya
         /** 
          * The map holds the unique ids of the geometry nodes to the maya specific nodes. 
          */
-        UniqueIdMayaNodesMap mMayaMeshNodesMap;
+        UniqueIdMayaNodeMap mMayaMeshNodesMap;
 
         /** 
         * The map holds the unique ids of the nodes to the  specific nodes. 
@@ -118,9 +109,9 @@ namespace COLLADAMaya
 
         /**
          * Assign the group to the unique geometry id, the transform node 
-         * to the mesh instance and the index of the geometry's primitives.
+         * to the mesh instance and the shading engine.
          */
-        GroupIdAssignments mGroupIdAssignments;
+        ShadingBindingGroupInfoMap mShadingBindingGroupMap;
 
     public:
 
@@ -128,7 +119,7 @@ namespace COLLADAMaya
         GeometryImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
-        virtual ~GeometryImporter () {}
+        virtual ~GeometryImporter ();
 
         /** Imports the geometry element. */
         void importGeometry ( const COLLADAFW::Geometry* geometry );
@@ -153,6 +144,11 @@ namespace COLLADAMaya
         */
         const MayaDM::Mesh* findMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
 
+        /** 
+        * The map holds the unique ids of the nodes to the  specific nodes. 
+        */
+        const UniqueIdMayaDMMeshMap& getMayaDMMeshNodesMap () const { return mMayaDMMeshNodesMap; }
+
         /**
          * Returns a pointer to the vector of indices of the given geometry and shading engine.
          * The map holds for every geometry's shading engine a list of the index values of the 
@@ -166,7 +162,21 @@ namespace COLLADAMaya
         * Assign the group to the unique geometry id, the transform node 
         * to the mesh instance and the index of the geometry's primitives.
         */
-        const GroupIdAssignments& getGroupIdAssignments () const { return mGroupIdAssignments; }
+        const ShadingBindingGroupInfoMap& getShadingBindingGroupMap () const { return mShadingBindingGroupMap; }
+
+        /**
+        * Get the groupId assignement data for the current geometry under the transform.
+        */
+        std::vector<GroupInfo>* findShadingBindingGroups ( 
+            const COLLADAFW::UniqueId& geometryId, 
+            const COLLADAFW::UniqueId& transformId, 
+            const COLLADAFW::MaterialId& shadingEngineId );
+
+        /**
+        * Get the groupId assignement data for the current geometry under the transform.
+        */
+        std::vector<GroupInfo>* findShadingBindingGroups ( 
+            const ShadingBinding& shadingBinding );
 
     private:
 
@@ -188,7 +198,8 @@ namespace COLLADAMaya
          */
         void createGroupNodes ( 
             const COLLADAFW::Mesh* mesh, 
-            const size_t geometryInstanceIndex );
+            const COLLADAFW::UniqueId& transformNodeId, 
+            size_t& geometryInstanceIndex );
 
         /**
          * Create the object group instances and the object groups and write it into the maya file.
@@ -196,7 +207,7 @@ namespace COLLADAMaya
         void writeObjectGroups ( 
             const COLLADAFW::Mesh* mesh, 
             MayaDM::Mesh &meshNode, 
-            size_t numNodeInstances );
+            const COLLADAFW::UniqueId& transformNodeId );
 
         /**
          * Iterates over the mesh primitives and reads the edge indices.

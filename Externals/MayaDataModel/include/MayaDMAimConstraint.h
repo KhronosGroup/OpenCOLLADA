@@ -404,9 +404,21 @@ public:
 		fprintf(mFile,"\"%s.tg[%i]\"",mName.c_str(),tg_i);
 
 	}
+	void getTarget()const
+	{
+
+		fprintf(mFile,"\"%s.tg\"",mName.c_str());
+
+	}
 	void getTargetTranslate(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tt\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetTranslate()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tt\"",mName.c_str());
 
 	}
 	void getTargetTranslateX(size_t tg_i)const
@@ -414,9 +426,21 @@ public:
 		fprintf(mFile,"\"%s.tg[%i].tt.ttx\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetTranslateX()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tt.ttx\"",mName.c_str());
+
+	}
 	void getTargetTranslateY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tt.tty\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetTranslateY()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tt.tty\"",mName.c_str());
 
 	}
 	void getTargetTranslateZ(size_t tg_i)const
@@ -424,9 +448,21 @@ public:
 		fprintf(mFile,"\"%s.tg[%i].tt.ttz\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetTranslateZ()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tt.ttz\"",mName.c_str());
+
+	}
 	void getTargetRotatePivot(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trp\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetRotatePivot()const
+	{
+
+		fprintf(mFile,"\"%s.tg.trp\"",mName.c_str());
 
 	}
 	void getTargetRotatePivotX(size_t tg_i)const
@@ -434,9 +470,21 @@ public:
 		fprintf(mFile,"\"%s.tg[%i].trp.trpx\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetRotatePivotX()const
+	{
+
+		fprintf(mFile,"\"%s.tg.trp.trpx\"",mName.c_str());
+
+	}
 	void getTargetRotatePivotY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trp.trpy\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetRotatePivotY()const
+	{
+
+		fprintf(mFile,"\"%s.tg.trp.trpy\"",mName.c_str());
 
 	}
 	void getTargetRotatePivotZ(size_t tg_i)const
@@ -444,9 +492,21 @@ public:
 		fprintf(mFile,"\"%s.tg[%i].trp.trpz\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetRotatePivotZ()const
+	{
+
+		fprintf(mFile,"\"%s.tg.trp.trpz\"",mName.c_str());
+
+	}
 	void getTargetRotateTranslate(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trt\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetRotateTranslate()const
+	{
+
+		fprintf(mFile,"\"%s.tg.trt\"",mName.c_str());
 
 	}
 	void getTargetRotateTranslateX(size_t tg_i)const
@@ -454,9 +514,21 @@ public:
 		fprintf(mFile,"\"%s.tg[%i].trt.trtx\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetRotateTranslateX()const
+	{
+
+		fprintf(mFile,"\"%s.tg.trt.trtx\"",mName.c_str());
+
+	}
 	void getTargetRotateTranslateY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trt.trty\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetRotateTranslateY()const
+	{
+
+		fprintf(mFile,"\"%s.tg.trt.trty\"",mName.c_str());
 
 	}
 	void getTargetRotateTranslateZ(size_t tg_i)const
@@ -464,14 +536,32 @@ public:
 		fprintf(mFile,"\"%s.tg[%i].trt.trtz\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetRotateTranslateZ()const
+	{
+
+		fprintf(mFile,"\"%s.tg.trt.trtz\"",mName.c_str());
+
+	}
 	void getTargetParentMatrix(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tpm\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetParentMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tpm\"",mName.c_str());
+
+	}
 	void getTargetWeight(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tw\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetWeight()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tw\"",mName.c_str());
 
 	}
 	void getConstraintParentInverseMatrix()const

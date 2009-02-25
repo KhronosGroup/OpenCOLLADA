@@ -269,6 +269,12 @@ public:
 		fprintf(mFile,"\"%s.gm[%i]\"",mName.c_str(),gm_i);
 
 	}
+	void getGeomMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.gm\"",mName.c_str());
+
+	}
 	void getMatrix()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
@@ -284,9 +290,21 @@ public:
 		fprintf(mFile,"\"%s.fc[%i]\"",mName.c_str(),fc_i);
 
 	}
+	void getFalloffCurve()const
+	{
+
+		fprintf(mFile,"\"%s.fc\"",mName.c_str());
+
+	}
 	void getFalloffCurve_Position(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fcp\"",mName.c_str(),fc_i);
+
+	}
+	void getFalloffCurve_Position()const
+	{
+
+		fprintf(mFile,"\"%s.fc.fcp\"",mName.c_str());
 
 	}
 	void getFalloffCurve_FloatValue(size_t fc_i)const
@@ -294,9 +312,21 @@ public:
 		fprintf(mFile,"\"%s.fc[%i].fcfv\"",mName.c_str(),fc_i);
 
 	}
+	void getFalloffCurve_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.fc.fcfv\"",mName.c_str());
+
+	}
 	void getFalloffCurve_Interp(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fci\"",mName.c_str(),fc_i);
+
+	}
+	void getFalloffCurve_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.fc.fci\"",mName.c_str());
 
 	}
 	void getFalloffRadius()const

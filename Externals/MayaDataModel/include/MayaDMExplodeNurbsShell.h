@@ -32,6 +32,12 @@ public:
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
 
 	}
+	void getOutputSurface()const
+	{
+
+		fprintf(mFile,"\"%s.os\"",mName.c_str());
+
+	}
 protected:
 	ExplodeNurbsShell(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:AbstractBaseCreate(file, name, parent, nodeType, create) {}

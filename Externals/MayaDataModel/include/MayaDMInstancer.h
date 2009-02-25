@@ -68,6 +68,12 @@ public:
 		fprintf(mFile,"\"%s.inh[%i]\"",mName.c_str(),inh_i);
 
 	}
+	void getInputHierarchy()const
+	{
+
+		fprintf(mFile,"\"%s.inh\"",mName.c_str());
+
+	}
 	void getRotationOrder()const
 	{
 		fprintf(mFile,"\"%s.ror\"",mName.c_str());

@@ -3324,9 +3324,21 @@ public:
 		fprintf(mFile,"\"%s.lcl[%i]\"",mName.c_str(),lcl_i);
 
 	}
+	void getLeafCurl()const
+	{
+
+		fprintf(mFile,"\"%s.lcl\"",mName.c_str());
+
+	}
 	void getLeafCurl_Position(size_t lcl_i)const
 	{
 		fprintf(mFile,"\"%s.lcl[%i].lclp\"",mName.c_str(),lcl_i);
+
+	}
+	void getLeafCurl_Position()const
+	{
+
+		fprintf(mFile,"\"%s.lcl.lclp\"",mName.c_str());
 
 	}
 	void getLeafCurl_FloatValue(size_t lcl_i)const
@@ -3334,9 +3346,21 @@ public:
 		fprintf(mFile,"\"%s.lcl[%i].lclfv\"",mName.c_str(),lcl_i);
 
 	}
+	void getLeafCurl_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.lcl.lclfv\"",mName.c_str());
+
+	}
 	void getLeafCurl_Interp(size_t lcl_i)const
 	{
 		fprintf(mFile,"\"%s.lcl[%i].lcli\"",mName.c_str(),lcl_i);
+
+	}
+	void getLeafCurl_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.lcl.lcli\"",mName.c_str());
 
 	}
 	void getLeafTwirl()const
@@ -3534,9 +3558,21 @@ public:
 		fprintf(mFile,"\"%s.pcl[%i]\"",mName.c_str(),pcl_i);
 
 	}
+	void getPetalCurl()const
+	{
+
+		fprintf(mFile,"\"%s.pcl\"",mName.c_str());
+
+	}
 	void getPetalCurl_Position(size_t pcl_i)const
 	{
 		fprintf(mFile,"\"%s.pcl[%i].pclp\"",mName.c_str(),pcl_i);
+
+	}
+	void getPetalCurl_Position()const
+	{
+
+		fprintf(mFile,"\"%s.pcl.pclp\"",mName.c_str());
 
 	}
 	void getPetalCurl_FloatValue(size_t pcl_i)const
@@ -3544,9 +3580,21 @@ public:
 		fprintf(mFile,"\"%s.pcl[%i].pclfv\"",mName.c_str(),pcl_i);
 
 	}
+	void getPetalCurl_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.pcl.pclfv\"",mName.c_str());
+
+	}
 	void getPetalCurl_Interp(size_t pcl_i)const
 	{
 		fprintf(mFile,"\"%s.pcl[%i].pcli\"",mName.c_str(),pcl_i);
+
+	}
+	void getPetalCurl_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.pcl.pcli\"",mName.c_str());
 
 	}
 	void getPetalTwirl()const
@@ -3959,9 +4007,21 @@ public:
 		fprintf(mFile,"\"%s.wsc[%i]\"",mName.c_str(),wsc_i);
 
 	}
+	void getWidthScale()const
+	{
+
+		fprintf(mFile,"\"%s.wsc\"",mName.c_str());
+
+	}
 	void getWidthScale_Position(size_t wsc_i)const
 	{
 		fprintf(mFile,"\"%s.wsc[%i].wscp\"",mName.c_str(),wsc_i);
+
+	}
+	void getWidthScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.wsc.wscp\"",mName.c_str());
 
 	}
 	void getWidthScale_FloatValue(size_t wsc_i)const
@@ -3969,9 +4029,21 @@ public:
 		fprintf(mFile,"\"%s.wsc[%i].wscfv\"",mName.c_str(),wsc_i);
 
 	}
+	void getWidthScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.wsc.wscfv\"",mName.c_str());
+
+	}
 	void getWidthScale_Interp(size_t wsc_i)const
 	{
 		fprintf(mFile,"\"%s.wsc[%i].wsci\"",mName.c_str(),wsc_i);
+
+	}
+	void getWidthScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.wsc.wsci\"",mName.c_str());
 
 	}
 	void getLeafWidthScale(size_t lws_i)const
@@ -3979,9 +4051,21 @@ public:
 		fprintf(mFile,"\"%s.lws[%i]\"",mName.c_str(),lws_i);
 
 	}
+	void getLeafWidthScale()const
+	{
+
+		fprintf(mFile,"\"%s.lws\"",mName.c_str());
+
+	}
 	void getLeafWidthScale_Position(size_t lws_i)const
 	{
 		fprintf(mFile,"\"%s.lws[%i].lwsp\"",mName.c_str(),lws_i);
+
+	}
+	void getLeafWidthScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.lws.lwsp\"",mName.c_str());
 
 	}
 	void getLeafWidthScale_FloatValue(size_t lws_i)const
@@ -3989,9 +4073,21 @@ public:
 		fprintf(mFile,"\"%s.lws[%i].lwsfv\"",mName.c_str(),lws_i);
 
 	}
+	void getLeafWidthScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.lws.lwsfv\"",mName.c_str());
+
+	}
 	void getLeafWidthScale_Interp(size_t lws_i)const
 	{
 		fprintf(mFile,"\"%s.lws[%i].lwsi\"",mName.c_str(),lws_i);
+
+	}
+	void getLeafWidthScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.lws.lwsi\"",mName.c_str());
 
 	}
 	void getPetalWidthScale(size_t pws_i)const
@@ -3999,9 +4095,21 @@ public:
 		fprintf(mFile,"\"%s.pws[%i]\"",mName.c_str(),pws_i);
 
 	}
+	void getPetalWidthScale()const
+	{
+
+		fprintf(mFile,"\"%s.pws\"",mName.c_str());
+
+	}
 	void getPetalWidthScale_Position(size_t pws_i)const
 	{
 		fprintf(mFile,"\"%s.pws[%i].pwsp\"",mName.c_str(),pws_i);
+
+	}
+	void getPetalWidthScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.pws.pwsp\"",mName.c_str());
 
 	}
 	void getPetalWidthScale_FloatValue(size_t pws_i)const
@@ -4009,9 +4117,21 @@ public:
 		fprintf(mFile,"\"%s.pws[%i].pwsfv\"",mName.c_str(),pws_i);
 
 	}
+	void getPetalWidthScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.pws.pwsfv\"",mName.c_str());
+
+	}
 	void getPetalWidthScale_Interp(size_t pws_i)const
 	{
 		fprintf(mFile,"\"%s.pws[%i].pwsi\"",mName.c_str(),pws_i);
+
+	}
+	void getPetalWidthScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.pws.pwsi\"",mName.c_str());
 
 	}
 	void getTwigLengthScale(size_t tls_i)const
@@ -4019,9 +4139,21 @@ public:
 		fprintf(mFile,"\"%s.tls[%i]\"",mName.c_str(),tls_i);
 
 	}
+	void getTwigLengthScale()const
+	{
+
+		fprintf(mFile,"\"%s.tls\"",mName.c_str());
+
+	}
 	void getTwigLengthScale_Position(size_t tls_i)const
 	{
 		fprintf(mFile,"\"%s.tls[%i].tlsp\"",mName.c_str(),tls_i);
+
+	}
+	void getTwigLengthScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.tls.tlsp\"",mName.c_str());
 
 	}
 	void getTwigLengthScale_FloatValue(size_t tls_i)const
@@ -4029,9 +4161,21 @@ public:
 		fprintf(mFile,"\"%s.tls[%i].tlsfv\"",mName.c_str(),tls_i);
 
 	}
+	void getTwigLengthScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.tls.tlsfv\"",mName.c_str());
+
+	}
 	void getTwigLengthScale_Interp(size_t tls_i)const
 	{
 		fprintf(mFile,"\"%s.tls[%i].tlsi\"",mName.c_str(),tls_i);
+
+	}
+	void getTwigLengthScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.tls.tlsi\"",mName.c_str());
 
 	}
 	void getBranchThorns()const
@@ -4129,9 +4273,21 @@ public:
 		fprintf(mFile,"\"%s.env[%i]\"",mName.c_str(),env_i);
 
 	}
+	void getEnvironment()const
+	{
+
+		fprintf(mFile,"\"%s.env\"",mName.c_str());
+
+	}
 	void getEnvironment_Position(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envp\"",mName.c_str(),env_i);
+
+	}
+	void getEnvironment_Position()const
+	{
+
+		fprintf(mFile,"\"%s.env.envp\"",mName.c_str());
 
 	}
 	void getEnvironment_Color(size_t env_i)const
@@ -4139,9 +4295,21 @@ public:
 		fprintf(mFile,"\"%s.env[%i].envc\"",mName.c_str(),env_i);
 
 	}
+	void getEnvironment_Color()const
+	{
+
+		fprintf(mFile,"\"%s.env.envc\"",mName.c_str());
+
+	}
 	void getEnvironment_ColorR(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envc.envcr\"",mName.c_str(),env_i);
+
+	}
+	void getEnvironment_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.env.envc.envcr\"",mName.c_str());
 
 	}
 	void getEnvironment_ColorG(size_t env_i)const
@@ -4149,9 +4317,21 @@ public:
 		fprintf(mFile,"\"%s.env[%i].envc.envcg\"",mName.c_str(),env_i);
 
 	}
+	void getEnvironment_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.env.envc.envcg\"",mName.c_str());
+
+	}
 	void getEnvironment_ColorB(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envc.envcb\"",mName.c_str(),env_i);
+
+	}
+	void getEnvironment_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.env.envc.envcb\"",mName.c_str());
 
 	}
 	void getEnvironment_Interp(size_t env_i)const
@@ -4159,9 +4339,21 @@ public:
 		fprintf(mFile,"\"%s.env[%i].envi\"",mName.c_str(),env_i);
 
 	}
+	void getEnvironment_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.env.envi\"",mName.c_str());
+
+	}
 	void getReflectionRolloff(size_t rro_i)const
 	{
 		fprintf(mFile,"\"%s.rro[%i]\"",mName.c_str(),rro_i);
+
+	}
+	void getReflectionRolloff()const
+	{
+
+		fprintf(mFile,"\"%s.rro\"",mName.c_str());
 
 	}
 	void getReflectionRolloff_Position(size_t rro_i)const
@@ -4169,14 +4361,32 @@ public:
 		fprintf(mFile,"\"%s.rro[%i].rrop\"",mName.c_str(),rro_i);
 
 	}
+	void getReflectionRolloff_Position()const
+	{
+
+		fprintf(mFile,"\"%s.rro.rrop\"",mName.c_str());
+
+	}
 	void getReflectionRolloff_FloatValue(size_t rro_i)const
 	{
 		fprintf(mFile,"\"%s.rro[%i].rrofv\"",mName.c_str(),rro_i);
 
 	}
+	void getReflectionRolloff_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.rro.rrofv\"",mName.c_str());
+
+	}
 	void getReflectionRolloff_Interp(size_t rro_i)const
 	{
 		fprintf(mFile,"\"%s.rro[%i].rroi\"",mName.c_str(),rro_i);
+
+	}
+	void getReflectionRolloff_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.rro.rroi\"",mName.c_str());
 
 	}
 	void getBranchReflectivity()const

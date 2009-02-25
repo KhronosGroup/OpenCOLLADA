@@ -129,6 +129,12 @@ public:
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
+	void getInputCurve()const
+	{
+
+		fprintf(mFile,"\"%s.ic\"",mName.c_str());
+
+	}
 	void getUniform()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
@@ -159,6 +165,12 @@ public:
 		fprintf(mFile,"\"%s.r[%i]\"",mName.c_str(),r_i);
 
 	}
+	void getReverse()const
+	{
+
+		fprintf(mFile,"\"%s.r\"",mName.c_str());
+
+	}
 	void getReverseSurfaceNormals()const
 	{
 		fprintf(mFile,"\"%s.rsn\"",mName.c_str());
@@ -172,6 +184,12 @@ public:
 	void getCreateCusp(size_t cc_i)const
 	{
 		fprintf(mFile,"\"%s.cc[%i]\"",mName.c_str(),cc_i);
+
+	}
+	void getCreateCusp()const
+	{
+
+		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 
 	}
 protected:

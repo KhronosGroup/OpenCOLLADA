@@ -64,6 +64,12 @@ public:
 		fprintf(mFile,"\"%s.m[%i]\"",mName.c_str(),m_i);
 
 	}
+	void getMember()const
+	{
+
+		fprintf(mFile,"\"%s.m\"",mName.c_str());
+
+	}
 protected:
 	CharacterMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DependNode(file, name, parent, nodeType, create) {}

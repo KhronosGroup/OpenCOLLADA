@@ -82,6 +82,12 @@ public:
 		fprintf(mFile,"\"%s.ed[%i]\"",mName.c_str(),ed_i);
 
 	}
+	void getEdge()const
+	{
+
+		fprintf(mFile,"\"%s.ed\"",mName.c_str());
+
+	}
 protected:
 	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:PolyModifierWorld(file, name, parent, nodeType, create) {}

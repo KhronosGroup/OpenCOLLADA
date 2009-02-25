@@ -122,9 +122,21 @@ public:
 		fprintf(mFile,"\"%s.cs[%i]\"",mName.c_str(),cs_i);
 
 	}
+	void getInputs()const
+	{
+
+		fprintf(mFile,"\"%s.cs\"",mName.c_str());
+
+	}
 	void getColor(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].c\"",mName.c_str(),cs_i);
+
+	}
+	void getColor()const
+	{
+
+		fprintf(mFile,"\"%s.cs.c\"",mName.c_str());
 
 	}
 	void getColorR(size_t cs_i)const
@@ -132,9 +144,21 @@ public:
 		fprintf(mFile,"\"%s.cs[%i].c.cr\"",mName.c_str(),cs_i);
 
 	}
+	void getColorR()const
+	{
+
+		fprintf(mFile,"\"%s.cs.c.cr\"",mName.c_str());
+
+	}
 	void getColorG(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].c.cg\"",mName.c_str(),cs_i);
+
+	}
+	void getColorG()const
+	{
+
+		fprintf(mFile,"\"%s.cs.c.cg\"",mName.c_str());
 
 	}
 	void getColorB(size_t cs_i)const
@@ -142,9 +166,21 @@ public:
 		fprintf(mFile,"\"%s.cs[%i].c.cb\"",mName.c_str(),cs_i);
 
 	}
+	void getColorB()const
+	{
+
+		fprintf(mFile,"\"%s.cs.c.cb\"",mName.c_str());
+
+	}
 	void getAlpha(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].a\"",mName.c_str(),cs_i);
+
+	}
+	void getAlpha()const
+	{
+
+		fprintf(mFile,"\"%s.cs.a\"",mName.c_str());
 
 	}
 	void getBlendMode(size_t cs_i)const
@@ -152,9 +188,21 @@ public:
 		fprintf(mFile,"\"%s.cs[%i].bm\"",mName.c_str(),cs_i);
 
 	}
+	void getBlendMode()const
+	{
+
+		fprintf(mFile,"\"%s.cs.bm\"",mName.c_str());
+
+	}
 	void getIsVisible(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].iv\"",mName.c_str(),cs_i);
+
+	}
+	void getIsVisible()const
+	{
+
+		fprintf(mFile,"\"%s.cs.iv\"",mName.c_str());
 
 	}
 	void getOutColor()const

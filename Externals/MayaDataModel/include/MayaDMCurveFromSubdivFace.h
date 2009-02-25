@@ -93,9 +93,21 @@ public:
 		fprintf(mFile,"\"%s.fil[%i]\"",mName.c_str(),fil_i);
 
 	}
+	void getFaceIndexL()const
+	{
+
+		fprintf(mFile,"\"%s.fil\"",mName.c_str());
+
+	}
 	void getFaceIndexR(size_t fir_i)const
 	{
 		fprintf(mFile,"\"%s.fir[%i]\"",mName.c_str(),fir_i);
+
+	}
+	void getFaceIndexR()const
+	{
+
+		fprintf(mFile,"\"%s.fir\"",mName.c_str());
 
 	}
 protected:

@@ -166,6 +166,12 @@ public:
 		fprintf(mFile,"\"%s.wts[%i]\"",mName.c_str(),wts_i);
 
 	}
+	void getWeights()const
+	{
+
+		fprintf(mFile,"\"%s.wts\"",mName.c_str());
+
+	}
 	void getVertexWeights()const
 	{
 		fprintf(mFile,"\"%s.vwt\"",mName.c_str());

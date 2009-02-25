@@ -27,13 +27,11 @@ namespace COLLADAFW
 	{
 		if ( mClassId < rhs.mClassId )
 			return true;
-
 		if ( mClassId > rhs.mClassId )
 			return false;
 
 		if ( mObjectId < rhs.mObjectId )
 			return true;
-
 		if ( mObjectId > rhs.mObjectId )
 			return false;
 
@@ -41,11 +39,35 @@ namespace COLLADAFW
 	}
 
     //-------------------------------
+    bool UniqueId::operator>( const UniqueId& rhs ) const
+    {
+        if ( mClassId > rhs.mClassId )
+            return true;
+        if ( mClassId < rhs.mClassId )
+            return false;
+
+        if ( mObjectId > rhs.mObjectId )
+            return true;
+        if ( mObjectId < rhs.mObjectId )
+            return false;
+
+        return false;
+    }
+
+    //-------------------------------
     bool UniqueId::operator== ( const UniqueId& uid ) const
     {
-        if (mClassId != uid.getClassId ()) return false;
-        if (mObjectId != uid.getObjectId ()) return false;
+        if ( mClassId != uid.getClassId () ) return false;
+        if ( mObjectId != uid.getObjectId () ) return false;
         return true;
+    }
+
+    //-------------------------------
+    bool UniqueId::operator!= ( const UniqueId& uid ) const
+    {
+        if ( mClassId != uid.getClassId () ) return true;
+        if ( mObjectId != uid.getObjectId () ) return true;
+        return false;
     }
 
 } // namespace COLLADAFW

@@ -124,9 +124,21 @@ public:
 		fprintf(mFile,"\"%s.th[%i]\"",mName.c_str(),th_i);
 
 	}
+	void getThreshold()const
+	{
+
+		fprintf(mFile,"\"%s.th\"",mName.c_str());
+
+	}
 	void getDisplayLevel(size_t dl_i)const
 	{
 		fprintf(mFile,"\"%s.dl[%i]\"",mName.c_str(),dl_i);
+
+	}
+	void getDisplayLevel()const
+	{
+
+		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
 	void getMinMaxDistance()const
@@ -157,6 +169,12 @@ public:
 	void getOutput(size_t o_i)const
 	{
 		fprintf(mFile,"\"%s.o[%i]\"",mName.c_str(),o_i);
+
+	}
+	void getOutput()const
+	{
+
+		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:

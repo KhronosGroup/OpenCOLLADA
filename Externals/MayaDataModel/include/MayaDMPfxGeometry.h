@@ -212,6 +212,12 @@ public:
 		fprintf(mFile,"\"%s.clc[%i]\"",mName.c_str(),clc_i);
 
 	}
+	void getControlCurve()const
+	{
+
+		fprintf(mFile,"\"%s.clc\"",mName.c_str());
+
+	}
 	void getOutMainMesh()const
 	{
 		fprintf(mFile,"\"%s.omm\"",mName.c_str());
@@ -232,14 +238,32 @@ public:
 		fprintf(mFile,"\"%s.wmm[%i]\"",mName.c_str(),wmm_i);
 
 	}
+	void getWorldMainMesh()const
+	{
+
+		fprintf(mFile,"\"%s.wmm\"",mName.c_str());
+
+	}
 	void getWorldLeafMesh(size_t wlm_i)const
 	{
 		fprintf(mFile,"\"%s.wlm[%i]\"",mName.c_str(),wlm_i);
 
 	}
+	void getWorldLeafMesh()const
+	{
+
+		fprintf(mFile,"\"%s.wlm\"",mName.c_str());
+
+	}
 	void getWorldFlowerMesh(size_t wfm_i)const
 	{
 		fprintf(mFile,"\"%s.wfm[%i]\"",mName.c_str(),wfm_i);
+
+	}
+	void getWorldFlowerMesh()const
+	{
+
+		fprintf(mFile,"\"%s.wfm\"",mName.c_str());
 
 	}
 	void getMainVertBufSize()const
@@ -302,6 +326,12 @@ public:
 		fprintf(mFile,"\"%s.lmd[%i]\"",mName.c_str(),lmd_i);
 
 	}
+	void getLineModifier()const
+	{
+
+		fprintf(mFile,"\"%s.lmd\"",mName.c_str());
+
+	}
 	void getMaxDrawSegments()const
 	{
 		fprintf(mFile,"\"%s.mdsg\"",mName.c_str());
@@ -352,14 +382,32 @@ public:
 		fprintf(mFile,"\"%s.omc[%i]\"",mName.c_str(),omc_i);
 
 	}
+	void getOutMainCurves()const
+	{
+
+		fprintf(mFile,"\"%s.omc\"",mName.c_str());
+
+	}
 	void getOutLeafCurves(size_t olc_i)const
 	{
 		fprintf(mFile,"\"%s.olc[%i]\"",mName.c_str(),olc_i);
 
 	}
+	void getOutLeafCurves()const
+	{
+
+		fprintf(mFile,"\"%s.olc\"",mName.c_str());
+
+	}
 	void getOutFlowerCurves(size_t ofc_i)const
 	{
 		fprintf(mFile,"\"%s.ofc[%i]\"",mName.c_str(),ofc_i);
+
+	}
+	void getOutFlowerCurves()const
+	{
+
+		fprintf(mFile,"\"%s.ofc\"",mName.c_str());
 
 	}
 protected:

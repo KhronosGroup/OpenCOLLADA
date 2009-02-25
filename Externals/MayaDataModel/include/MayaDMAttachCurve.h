@@ -79,6 +79,12 @@ public:
 		fprintf(mFile,"\"%s.ics[%i]\"",mName.c_str(),ics_i);
 
 	}
+	void getInputCurves()const
+	{
+
+		fprintf(mFile,"\"%s.ics\"",mName.c_str());
+
+	}
 	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());

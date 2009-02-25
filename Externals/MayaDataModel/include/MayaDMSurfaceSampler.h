@@ -89,6 +89,12 @@ public:
 		fprintf(mFile,"\"%s.S01[%i]\"",mName.c_str(),S01_i);
 
 	}
+	void getEnvelopes()const
+	{
+
+		fprintf(mFile,"\"%s.S01\"",mName.c_str());
+
+	}
 	void getEnveloperSearch()const
 	{
 		fprintf(mFile,"\"%s.S02\"",mName.c_str());
@@ -132,6 +138,12 @@ public:
 	void getSources(size_t S10_i)const
 	{
 		fprintf(mFile,"\"%s.S10[%i]\"",mName.c_str(),S10_i);
+
+	}
+	void getSources()const
+	{
+
+		fprintf(mFile,"\"%s.S10\"",mName.c_str());
 
 	}
 protected:

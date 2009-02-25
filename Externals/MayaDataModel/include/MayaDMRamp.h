@@ -157,9 +157,21 @@ public:
 		fprintf(mFile,"\"%s.cel[%i]\"",mName.c_str(),cel_i);
 
 	}
+	void getColorEntryList()const
+	{
+
+		fprintf(mFile,"\"%s.cel\"",mName.c_str());
+
+	}
 	void getPosition(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].ep\"",mName.c_str(),cel_i);
+
+	}
+	void getPosition()const
+	{
+
+		fprintf(mFile,"\"%s.cel.ep\"",mName.c_str());
 
 	}
 	void getColor(size_t cel_i)const
@@ -167,9 +179,21 @@ public:
 		fprintf(mFile,"\"%s.cel[%i].ec\"",mName.c_str(),cel_i);
 
 	}
+	void getColor()const
+	{
+
+		fprintf(mFile,"\"%s.cel.ec\"",mName.c_str());
+
+	}
 	void getColorR(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].ec.ecr\"",mName.c_str(),cel_i);
+
+	}
+	void getColorR()const
+	{
+
+		fprintf(mFile,"\"%s.cel.ec.ecr\"",mName.c_str());
 
 	}
 	void getColorG(size_t cel_i)const
@@ -177,9 +201,21 @@ public:
 		fprintf(mFile,"\"%s.cel[%i].ec.ecg\"",mName.c_str(),cel_i);
 
 	}
+	void getColorG()const
+	{
+
+		fprintf(mFile,"\"%s.cel.ec.ecg\"",mName.c_str());
+
+	}
 	void getColorB(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].ec.ecb\"",mName.c_str(),cel_i);
+
+	}
+	void getColorB()const
+	{
+
+		fprintf(mFile,"\"%s.cel.ec.ecb\"",mName.c_str());
 
 	}
 	void getUWave()const

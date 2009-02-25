@@ -397,7 +397,7 @@ namespace COLLADAMaya
         MFileIO::importFile ( mayaAsciiFileName.c_str () );
         MGlobal::displayInfo ( "Maya ascii file opened.");
 
-//         mayaAsciiFileURI.setPathExtension ( ".netallied.import.mb" );
+//         mayaAsciiFileURI.setPathExtension ( ".nextgen.mb" );
 //         mayaFileName = mayaAsciiFileURI.getURIString ();
 //         MFileIO::saveAs ( mayaFileName.c_str () );
 //         MGlobal::displayInfo ( "File saved as maya binary: " );

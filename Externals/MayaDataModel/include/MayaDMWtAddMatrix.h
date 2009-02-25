@@ -58,14 +58,32 @@ public:
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
+	void getWtMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
+
+	}
 	void getMatrixIn(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].m\"",mName.c_str(),i_i);
 
 	}
+	void getMatrixIn()const
+	{
+
+		fprintf(mFile,"\"%s.i.m\"",mName.c_str());
+
+	}
 	void getWeightIn(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].w\"",mName.c_str(),i_i);
+
+	}
+	void getWeightIn()const
+	{
+
+		fprintf(mFile,"\"%s.i.w\"",mName.c_str());
 
 	}
 	void getMatrixSum()const

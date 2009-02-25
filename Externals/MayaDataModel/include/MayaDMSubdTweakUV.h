@@ -74,14 +74,32 @@ public:
 		fprintf(mFile,"\"%s.uvtk[%i]\"",mName.c_str(),uvtk_i);
 
 	}
+	void getUvTweak()const
+	{
+
+		fprintf(mFile,"\"%s.uvtk\"",mName.c_str());
+
+	}
 	void getUvTweakU(size_t uvtk_i)const
 	{
 		fprintf(mFile,"\"%s.uvtk[%i].tu\"",mName.c_str(),uvtk_i);
 
 	}
+	void getUvTweakU()const
+	{
+
+		fprintf(mFile,"\"%s.uvtk.tu\"",mName.c_str());
+
+	}
 	void getUvTweakV(size_t uvtk_i)const
 	{
 		fprintf(mFile,"\"%s.uvtk[%i].tv\"",mName.c_str(),uvtk_i);
+
+	}
+	void getUvTweakV()const
+	{
+
+		fprintf(mFile,"\"%s.uvtk.tv\"",mName.c_str());
 
 	}
 protected:

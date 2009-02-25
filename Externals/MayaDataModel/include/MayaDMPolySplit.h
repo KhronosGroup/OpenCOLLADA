@@ -163,9 +163,21 @@ public:
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
 
 	}
+	void getVertices()const
+	{
+
+		fprintf(mFile,"\"%s.v\"",mName.c_str());
+
+	}
 	void getVtxx(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vx\"",mName.c_str(),v_i);
+
+	}
+	void getVtxx()const
+	{
+
+		fprintf(mFile,"\"%s.v.vx\"",mName.c_str());
 
 	}
 	void getVtxy(size_t v_i)const
@@ -173,9 +185,21 @@ public:
 		fprintf(mFile,"\"%s.v[%i].vy\"",mName.c_str(),v_i);
 
 	}
+	void getVtxy()const
+	{
+
+		fprintf(mFile,"\"%s.v.vy\"",mName.c_str());
+
+	}
 	void getVtxz(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vz\"",mName.c_str(),v_i);
+
+	}
+	void getVtxz()const
+	{
+
+		fprintf(mFile,"\"%s.v.vz\"",mName.c_str());
 
 	}
 	void getEdge(size_t e_i)const
@@ -183,9 +207,21 @@ public:
 		fprintf(mFile,"\"%s.e[%i]\"",mName.c_str(),e_i);
 
 	}
+	void getEdge()const
+	{
+
+		fprintf(mFile,"\"%s.e\"",mName.c_str());
+
+	}
 	void getDesc(size_t d_i)const
 	{
 		fprintf(mFile,"\"%s.d[%i]\"",mName.c_str(),d_i);
+
+	}
+	void getDesc()const
+	{
+
+		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
 	void getSubdivision()const

@@ -326,9 +326,21 @@ public:
 		fprintf(mFile,"\"%s.covi[%i]\"",mName.c_str(),covi_i);
 
 	}
+	void getCollisionOffsetVelocityIncrement()const
+	{
+
+		fprintf(mFile,"\"%s.covi\"",mName.c_str());
+
+	}
 	void getCollisionOffsetVelocityIncrement_Position(size_t covi_i)const
 	{
 		fprintf(mFile,"\"%s.covi[%i].covip\"",mName.c_str(),covi_i);
+
+	}
+	void getCollisionOffsetVelocityIncrement_Position()const
+	{
+
+		fprintf(mFile,"\"%s.covi.covip\"",mName.c_str());
 
 	}
 	void getCollisionOffsetVelocityIncrement_FloatValue(size_t covi_i)const
@@ -336,9 +348,21 @@ public:
 		fprintf(mFile,"\"%s.covi[%i].covifv\"",mName.c_str(),covi_i);
 
 	}
+	void getCollisionOffsetVelocityIncrement_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.covi.covifv\"",mName.c_str());
+
+	}
 	void getCollisionOffsetVelocityIncrement_Interp(size_t covi_i)const
 	{
 		fprintf(mFile,"\"%s.covi[%i].covii\"",mName.c_str(),covi_i);
+
+	}
+	void getCollisionOffsetVelocityIncrement_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.covi.covii\"",mName.c_str());
 
 	}
 	void getCollisionDepthVelocityIncrement(size_t cdvi_i)const
@@ -346,9 +370,21 @@ public:
 		fprintf(mFile,"\"%s.cdvi[%i]\"",mName.c_str(),cdvi_i);
 
 	}
+	void getCollisionDepthVelocityIncrement()const
+	{
+
+		fprintf(mFile,"\"%s.cdvi\"",mName.c_str());
+
+	}
 	void getCollisionDepthVelocityIncrement_Position(size_t cdvi_i)const
 	{
 		fprintf(mFile,"\"%s.cdvi[%i].cdvip\"",mName.c_str(),cdvi_i);
+
+	}
+	void getCollisionDepthVelocityIncrement_Position()const
+	{
+
+		fprintf(mFile,"\"%s.cdvi.cdvip\"",mName.c_str());
 
 	}
 	void getCollisionDepthVelocityIncrement_FloatValue(size_t cdvi_i)const
@@ -356,9 +392,21 @@ public:
 		fprintf(mFile,"\"%s.cdvi[%i].cdvifv\"",mName.c_str(),cdvi_i);
 
 	}
+	void getCollisionDepthVelocityIncrement_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.cdvi.cdvifv\"",mName.c_str());
+
+	}
 	void getCollisionDepthVelocityIncrement_Interp(size_t cdvi_i)const
 	{
 		fprintf(mFile,"\"%s.cdvi[%i].cdvii\"",mName.c_str(),cdvi_i);
+
+	}
+	void getCollisionDepthVelocityIncrement_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.cdvi.cdvii\"",mName.c_str());
 
 	}
 	void getCollisionOffsetVelocityMultiplier(size_t covm_i)const
@@ -366,9 +414,21 @@ public:
 		fprintf(mFile,"\"%s.covm[%i]\"",mName.c_str(),covm_i);
 
 	}
+	void getCollisionOffsetVelocityMultiplier()const
+	{
+
+		fprintf(mFile,"\"%s.covm\"",mName.c_str());
+
+	}
 	void getCollisionOffsetVelocityMultiplier_Position(size_t covm_i)const
 	{
 		fprintf(mFile,"\"%s.covm[%i].covmp\"",mName.c_str(),covm_i);
+
+	}
+	void getCollisionOffsetVelocityMultiplier_Position()const
+	{
+
+		fprintf(mFile,"\"%s.covm.covmp\"",mName.c_str());
 
 	}
 	void getCollisionOffsetVelocityMultiplier_FloatValue(size_t covm_i)const
@@ -376,9 +436,21 @@ public:
 		fprintf(mFile,"\"%s.covm[%i].covmfv\"",mName.c_str(),covm_i);
 
 	}
+	void getCollisionOffsetVelocityMultiplier_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.covm.covmfv\"",mName.c_str());
+
+	}
 	void getCollisionOffsetVelocityMultiplier_Interp(size_t covm_i)const
 	{
 		fprintf(mFile,"\"%s.covm[%i].covmi\"",mName.c_str(),covm_i);
+
+	}
+	void getCollisionOffsetVelocityMultiplier_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.covm.covmi\"",mName.c_str());
 
 	}
 	void getCollisionDepthVelocityMultiplier(size_t cdvm_i)const
@@ -386,9 +458,21 @@ public:
 		fprintf(mFile,"\"%s.cdvm[%i]\"",mName.c_str(),cdvm_i);
 
 	}
+	void getCollisionDepthVelocityMultiplier()const
+	{
+
+		fprintf(mFile,"\"%s.cdvm\"",mName.c_str());
+
+	}
 	void getCollisionDepthVelocityMultiplier_Position(size_t cdvm_i)const
 	{
 		fprintf(mFile,"\"%s.cdvm[%i].cdvmp\"",mName.c_str(),cdvm_i);
+
+	}
+	void getCollisionDepthVelocityMultiplier_Position()const
+	{
+
+		fprintf(mFile,"\"%s.cdvm.cdvmp\"",mName.c_str());
 
 	}
 	void getCollisionDepthVelocityMultiplier_FloatValue(size_t cdvm_i)const
@@ -396,9 +480,21 @@ public:
 		fprintf(mFile,"\"%s.cdvm[%i].cdvmfv\"",mName.c_str(),cdvm_i);
 
 	}
+	void getCollisionDepthVelocityMultiplier_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.cdvm.cdvmfv\"",mName.c_str());
+
+	}
 	void getCollisionDepthVelocityMultiplier_Interp(size_t cdvm_i)const
 	{
 		fprintf(mFile,"\"%s.cdvm[%i].cdvmi\"",mName.c_str(),cdvm_i);
+
+	}
+	void getCollisionDepthVelocityMultiplier_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.cdvm.cdvmi\"",mName.c_str());
 
 	}
 protected:

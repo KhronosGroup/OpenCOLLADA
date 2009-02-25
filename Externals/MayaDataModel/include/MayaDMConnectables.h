@@ -373,5 +373,15 @@ enum ConnectableType
     fprintf(file, " ");                 \
     dst;                                \
     fprintf(file, ";\n"); }
+
+/** Macro to connect compatible attributes.*/
+    #define connectNextAttr(file, src, dst) {   \
+    fprintf(file, "connectAttr ");      \
+    src;                                \
+    fprintf(file, " ");                 \
+    dst;                                \
+    fprintf(file, " -nextAvailable"); \
+    fprintf(file, ";\n"); }
+
 }//namespace MayaDM
 #endif//__MayaDM_CONNECTABLES_H__

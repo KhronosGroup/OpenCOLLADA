@@ -913,9 +913,21 @@ public:
 		fprintf(mFile,"\"%s.clr[%i]\"",mName.c_str(),clr_i);
 
 	}
+	void getColor()const
+	{
+
+		fprintf(mFile,"\"%s.clr\"",mName.c_str());
+
+	}
 	void getColor_Position(size_t clr_i)const
 	{
 		fprintf(mFile,"\"%s.clr[%i].clrp\"",mName.c_str(),clr_i);
+
+	}
+	void getColor_Position()const
+	{
+
+		fprintf(mFile,"\"%s.clr.clrp\"",mName.c_str());
 
 	}
 	void getColor_Color(size_t clr_i)const
@@ -923,9 +935,21 @@ public:
 		fprintf(mFile,"\"%s.clr[%i].clrc\"",mName.c_str(),clr_i);
 
 	}
+	void getColor_Color()const
+	{
+
+		fprintf(mFile,"\"%s.clr.clrc\"",mName.c_str());
+
+	}
 	void getColor_ColorR(size_t clr_i)const
 	{
 		fprintf(mFile,"\"%s.clr[%i].clrc.clrcr\"",mName.c_str(),clr_i);
+
+	}
+	void getColor_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.clr.clrc.clrcr\"",mName.c_str());
 
 	}
 	void getColor_ColorG(size_t clr_i)const
@@ -933,14 +957,32 @@ public:
 		fprintf(mFile,"\"%s.clr[%i].clrc.clrcg\"",mName.c_str(),clr_i);
 
 	}
+	void getColor_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.clr.clrc.clrcg\"",mName.c_str());
+
+	}
 	void getColor_ColorB(size_t clr_i)const
 	{
 		fprintf(mFile,"\"%s.clr[%i].clrc.clrcb\"",mName.c_str(),clr_i);
 
 	}
+	void getColor_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.clr.clrc.clrcb\"",mName.c_str());
+
+	}
 	void getColor_Interp(size_t clr_i)const
 	{
 		fprintf(mFile,"\"%s.clr[%i].clri\"",mName.c_str(),clr_i);
+
+	}
+	void getColor_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.clr.clri\"",mName.c_str());
 
 	}
 	void getColorInput()const
@@ -983,9 +1025,21 @@ public:
 		fprintf(mFile,"\"%s.it[%i]\"",mName.c_str(),it_i);
 
 	}
+	void getTransparency()const
+	{
+
+		fprintf(mFile,"\"%s.it\"",mName.c_str());
+
+	}
 	void getTransparency_Position(size_t it_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itp\"",mName.c_str(),it_i);
+
+	}
+	void getTransparency_Position()const
+	{
+
+		fprintf(mFile,"\"%s.it.itp\"",mName.c_str());
 
 	}
 	void getTransparency_Color(size_t it_i)const
@@ -993,9 +1047,21 @@ public:
 		fprintf(mFile,"\"%s.it[%i].itc\"",mName.c_str(),it_i);
 
 	}
+	void getTransparency_Color()const
+	{
+
+		fprintf(mFile,"\"%s.it.itc\"",mName.c_str());
+
+	}
 	void getTransparency_ColorR(size_t it_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itc.itcr\"",mName.c_str(),it_i);
+
+	}
+	void getTransparency_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.it.itc.itcr\"",mName.c_str());
 
 	}
 	void getTransparency_ColorG(size_t it_i)const
@@ -1003,14 +1069,32 @@ public:
 		fprintf(mFile,"\"%s.it[%i].itc.itcg\"",mName.c_str(),it_i);
 
 	}
+	void getTransparency_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.it.itc.itcg\"",mName.c_str());
+
+	}
 	void getTransparency_ColorB(size_t it_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itc.itcb\"",mName.c_str(),it_i);
 
 	}
+	void getTransparency_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.it.itc.itcb\"",mName.c_str());
+
+	}
 	void getTransparency_Interp(size_t it_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].iti\"",mName.c_str(),it_i);
+
+	}
+	void getTransparency_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.it.iti\"",mName.c_str());
 
 	}
 	void getAmbientColor()const
@@ -1038,9 +1122,21 @@ public:
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
+	void getIncandescence()const
+	{
+
+		fprintf(mFile,"\"%s.ic\"",mName.c_str());
+
+	}
 	void getIncandescence_Position(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i].icp\"",mName.c_str(),ic_i);
+
+	}
+	void getIncandescence_Position()const
+	{
+
+		fprintf(mFile,"\"%s.ic.icp\"",mName.c_str());
 
 	}
 	void getIncandescence_Color(size_t ic_i)const
@@ -1048,9 +1144,21 @@ public:
 		fprintf(mFile,"\"%s.ic[%i].icc\"",mName.c_str(),ic_i);
 
 	}
+	void getIncandescence_Color()const
+	{
+
+		fprintf(mFile,"\"%s.ic.icc\"",mName.c_str());
+
+	}
 	void getIncandescence_ColorR(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i].icc.iccr\"",mName.c_str(),ic_i);
+
+	}
+	void getIncandescence_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.ic.icc.iccr\"",mName.c_str());
 
 	}
 	void getIncandescence_ColorG(size_t ic_i)const
@@ -1058,14 +1166,32 @@ public:
 		fprintf(mFile,"\"%s.ic[%i].icc.iccg\"",mName.c_str(),ic_i);
 
 	}
+	void getIncandescence_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.ic.icc.iccg\"",mName.c_str());
+
+	}
 	void getIncandescence_ColorB(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i].icc.iccb\"",mName.c_str(),ic_i);
 
 	}
+	void getIncandescence_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.ic.icc.iccb\"",mName.c_str());
+
+	}
 	void getIncandescence_Interp(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i].ici\"",mName.c_str(),ic_i);
+
+	}
+	void getIncandescence_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.ic.ici\"",mName.c_str());
 
 	}
 	void getTranslucence()const
@@ -1143,9 +1269,21 @@ public:
 		fprintf(mFile,"\"%s.sro[%i]\"",mName.c_str(),sro_i);
 
 	}
+	void getSpecularRollOff()const
+	{
+
+		fprintf(mFile,"\"%s.sro\"",mName.c_str());
+
+	}
 	void getSpecularRollOff_Position(size_t sro_i)const
 	{
 		fprintf(mFile,"\"%s.sro[%i].srop\"",mName.c_str(),sro_i);
+
+	}
+	void getSpecularRollOff_Position()const
+	{
+
+		fprintf(mFile,"\"%s.sro.srop\"",mName.c_str());
 
 	}
 	void getSpecularRollOff_FloatValue(size_t sro_i)const
@@ -1153,9 +1291,21 @@ public:
 		fprintf(mFile,"\"%s.sro[%i].srofv\"",mName.c_str(),sro_i);
 
 	}
+	void getSpecularRollOff_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.sro.srofv\"",mName.c_str());
+
+	}
 	void getSpecularRollOff_Interp(size_t sro_i)const
 	{
 		fprintf(mFile,"\"%s.sro[%i].sroi\"",mName.c_str(),sro_i);
+
+	}
+	void getSpecularRollOff_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.sro.sroi\"",mName.c_str());
 
 	}
 	void getReflectionLimit()const
@@ -1168,9 +1318,21 @@ public:
 		fprintf(mFile,"\"%s.sc[%i]\"",mName.c_str(),sc_i);
 
 	}
+	void getSpecularColor()const
+	{
+
+		fprintf(mFile,"\"%s.sc\"",mName.c_str());
+
+	}
 	void getSpecularColor_Position(size_t sc_i)const
 	{
 		fprintf(mFile,"\"%s.sc[%i].scp\"",mName.c_str(),sc_i);
+
+	}
+	void getSpecularColor_Position()const
+	{
+
+		fprintf(mFile,"\"%s.sc.scp\"",mName.c_str());
 
 	}
 	void getSpecularColor_Color(size_t sc_i)const
@@ -1178,9 +1340,21 @@ public:
 		fprintf(mFile,"\"%s.sc[%i].scc\"",mName.c_str(),sc_i);
 
 	}
+	void getSpecularColor_Color()const
+	{
+
+		fprintf(mFile,"\"%s.sc.scc\"",mName.c_str());
+
+	}
 	void getSpecularColor_ColorR(size_t sc_i)const
 	{
 		fprintf(mFile,"\"%s.sc[%i].scc.sccr\"",mName.c_str(),sc_i);
+
+	}
+	void getSpecularColor_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.sc.scc.sccr\"",mName.c_str());
 
 	}
 	void getSpecularColor_ColorG(size_t sc_i)const
@@ -1188,9 +1362,21 @@ public:
 		fprintf(mFile,"\"%s.sc[%i].scc.sccg\"",mName.c_str(),sc_i);
 
 	}
+	void getSpecularColor_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.sc.scc.sccg\"",mName.c_str());
+
+	}
 	void getSpecularColor_ColorB(size_t sc_i)const
 	{
 		fprintf(mFile,"\"%s.sc[%i].scc.sccb\"",mName.c_str(),sc_i);
+
+	}
+	void getSpecularColor_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.sc.scc.sccb\"",mName.c_str());
 
 	}
 	void getSpecularColor_Interp(size_t sc_i)const
@@ -1198,9 +1384,21 @@ public:
 		fprintf(mFile,"\"%s.sc[%i].sci\"",mName.c_str(),sc_i);
 
 	}
+	void getSpecularColor_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.sc.sci\"",mName.c_str());
+
+	}
 	void getReflectivity(size_t rfl_i)const
 	{
 		fprintf(mFile,"\"%s.rfl[%i]\"",mName.c_str(),rfl_i);
+
+	}
+	void getReflectivity()const
+	{
+
+		fprintf(mFile,"\"%s.rfl\"",mName.c_str());
 
 	}
 	void getReflectivity_Position(size_t rfl_i)const
@@ -1208,9 +1406,21 @@ public:
 		fprintf(mFile,"\"%s.rfl[%i].rflp\"",mName.c_str(),rfl_i);
 
 	}
+	void getReflectivity_Position()const
+	{
+
+		fprintf(mFile,"\"%s.rfl.rflp\"",mName.c_str());
+
+	}
 	void getReflectivity_FloatValue(size_t rfl_i)const
 	{
 		fprintf(mFile,"\"%s.rfl[%i].rflfv\"",mName.c_str(),rfl_i);
+
+	}
+	void getReflectivity_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.rfl.rflfv\"",mName.c_str());
 
 	}
 	void getReflectivity_Interp(size_t rfl_i)const
@@ -1218,9 +1428,21 @@ public:
 		fprintf(mFile,"\"%s.rfl[%i].rfli\"",mName.c_str(),rfl_i);
 
 	}
+	void getReflectivity_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.rfl.rfli\"",mName.c_str());
+
+	}
 	void getEnvironment(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i]\"",mName.c_str(),env_i);
+
+	}
+	void getEnvironment()const
+	{
+
+		fprintf(mFile,"\"%s.env\"",mName.c_str());
 
 	}
 	void getEnvironment_Position(size_t env_i)const
@@ -1228,9 +1450,21 @@ public:
 		fprintf(mFile,"\"%s.env[%i].envp\"",mName.c_str(),env_i);
 
 	}
+	void getEnvironment_Position()const
+	{
+
+		fprintf(mFile,"\"%s.env.envp\"",mName.c_str());
+
+	}
 	void getEnvironment_Color(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envc\"",mName.c_str(),env_i);
+
+	}
+	void getEnvironment_Color()const
+	{
+
+		fprintf(mFile,"\"%s.env.envc\"",mName.c_str());
 
 	}
 	void getEnvironment_ColorR(size_t env_i)const
@@ -1238,9 +1472,21 @@ public:
 		fprintf(mFile,"\"%s.env[%i].envc.envcr\"",mName.c_str(),env_i);
 
 	}
+	void getEnvironment_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.env.envc.envcr\"",mName.c_str());
+
+	}
 	void getEnvironment_ColorG(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envc.envcg\"",mName.c_str(),env_i);
+
+	}
+	void getEnvironment_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.env.envc.envcg\"",mName.c_str());
 
 	}
 	void getEnvironment_ColorB(size_t env_i)const
@@ -1248,9 +1494,21 @@ public:
 		fprintf(mFile,"\"%s.env[%i].envc.envcb\"",mName.c_str(),env_i);
 
 	}
+	void getEnvironment_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.env.envc.envcb\"",mName.c_str());
+
+	}
 	void getEnvironment_Interp(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envi\"",mName.c_str(),env_i);
+
+	}
+	void getEnvironment_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.env.envi\"",mName.c_str());
 
 	}
 	void getReflectedColor()const
@@ -1408,9 +1666,21 @@ public:
 		fprintf(mFile,"\"%s.ltd[%i]\"",mName.c_str(),ltd_i);
 
 	}
+	void getLightDataArray()const
+	{
+
+		fprintf(mFile,"\"%s.ltd\"",mName.c_str());
+
+	}
 	void getLightDirection(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].ld\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirection()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.ld\"",mName.c_str());
 
 	}
 	void getLightDirectionX(size_t ltd_i)const
@@ -1418,9 +1688,21 @@ public:
 		fprintf(mFile,"\"%s.ltd[%i].ld.ldx\"",mName.c_str(),ltd_i);
 
 	}
+	void getLightDirectionX()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.ld.ldx\"",mName.c_str());
+
+	}
 	void getLightDirectionY(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].ld.ldy\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionY()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.ld.ldy\"",mName.c_str());
 
 	}
 	void getLightDirectionZ(size_t ltd_i)const
@@ -1428,9 +1710,21 @@ public:
 		fprintf(mFile,"\"%s.ltd[%i].ld.ldz\"",mName.c_str(),ltd_i);
 
 	}
+	void getLightDirectionZ()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.ld.ldz\"",mName.c_str());
+
+	}
 	void getLightIntensity(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].li\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensity()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.li\"",mName.c_str());
 
 	}
 	void getLightIntensityR(size_t ltd_i)const
@@ -1438,9 +1732,21 @@ public:
 		fprintf(mFile,"\"%s.ltd[%i].li.lir\"",mName.c_str(),ltd_i);
 
 	}
+	void getLightIntensityR()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.li.lir\"",mName.c_str());
+
+	}
 	void getLightIntensityG(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].li.lig\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityG()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.li.lig\"",mName.c_str());
 
 	}
 	void getLightIntensityB(size_t ltd_i)const
@@ -1448,9 +1754,21 @@ public:
 		fprintf(mFile,"\"%s.ltd[%i].li.lib\"",mName.c_str(),ltd_i);
 
 	}
+	void getLightIntensityB()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.li.lib\"",mName.c_str());
+
+	}
 	void getLightAmbient(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].la\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightAmbient()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.la\"",mName.c_str());
 
 	}
 	void getLightDiffuse(size_t ltd_i)const
@@ -1458,9 +1776,21 @@ public:
 		fprintf(mFile,"\"%s.ltd[%i].ldf\"",mName.c_str(),ltd_i);
 
 	}
+	void getLightDiffuse()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.ldf\"",mName.c_str());
+
+	}
 	void getLightSpecular(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].ls\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightSpecular()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.ls\"",mName.c_str());
 
 	}
 	void getLightShadowFraction(size_t ltd_i)const
@@ -1468,14 +1798,32 @@ public:
 		fprintf(mFile,"\"%s.ltd[%i].lsf\"",mName.c_str(),ltd_i);
 
 	}
+	void getLightShadowFraction()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.lsf\"",mName.c_str());
+
+	}
 	void getPreShadowIntensity(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].psi\"",mName.c_str(),ltd_i);
 
 	}
+	void getPreShadowIntensity()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.psi\"",mName.c_str());
+
+	}
 	void getLightBlindData(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].lbd\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightBlindData()const
+	{
+
+		fprintf(mFile,"\"%s.ltd.lbd\"",mName.c_str());
 
 	}
 	void getMatteOpacityMode()const

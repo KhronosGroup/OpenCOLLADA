@@ -212,9 +212,21 @@ public:
 		fprintf(mFile,"\"%s.ind[%i]\"",mName.c_str(),ind_i);
 
 	}
+	void getInputData()const
+	{
+
+		fprintf(mFile,"\"%s.ind\"",mName.c_str());
+
+	}
 	void getInputPositions(size_t ind_i)const
 	{
 		fprintf(mFile,"\"%s.ind[%i].inp\"",mName.c_str(),ind_i);
+
+	}
+	void getInputPositions()const
+	{
+
+		fprintf(mFile,"\"%s.ind.inp\"",mName.c_str());
 
 	}
 	void getInputVelocities(size_t ind_i)const
@@ -222,9 +234,21 @@ public:
 		fprintf(mFile,"\"%s.ind[%i].inv\"",mName.c_str(),ind_i);
 
 	}
+	void getInputVelocities()const
+	{
+
+		fprintf(mFile,"\"%s.ind.inv\"",mName.c_str());
+
+	}
 	void getInputMass(size_t ind_i)const
 	{
 		fprintf(mFile,"\"%s.ind[%i].inm\"",mName.c_str(),ind_i);
+
+	}
+	void getInputMass()const
+	{
+
+		fprintf(mFile,"\"%s.ind.inm\"",mName.c_str());
 
 	}
 	void getDeltaTime(size_t ind_i)const
@@ -232,14 +256,32 @@ public:
 		fprintf(mFile,"\"%s.ind[%i].dt\"",mName.c_str(),ind_i);
 
 	}
+	void getDeltaTime()const
+	{
+
+		fprintf(mFile,"\"%s.ind.dt\"",mName.c_str());
+
+	}
 	void getInputForce(size_t inf_i)const
 	{
 		fprintf(mFile,"\"%s.inf[%i]\"",mName.c_str(),inf_i);
 
 	}
+	void getInputForce()const
+	{
+
+		fprintf(mFile,"\"%s.inf\"",mName.c_str());
+
+	}
 	void getOutputForce(size_t of_i)const
 	{
 		fprintf(mFile,"\"%s.of[%i]\"",mName.c_str(),of_i);
+
+	}
+	void getOutputForce()const
+	{
+
+		fprintf(mFile,"\"%s.of\"",mName.c_str());
 
 	}
 	void getVolumeShape()const
@@ -287,6 +329,12 @@ public:
 		fprintf(mFile,"\"%s.ppda[%i]\"",mName.c_str(),ppda_i);
 
 	}
+	void getInputPPData()const
+	{
+
+		fprintf(mFile,"\"%s.ppda\"",mName.c_str());
+
+	}
 	void getOwnerPPData()const
 	{
 		fprintf(mFile,"\"%s.oppd\"",mName.c_str());
@@ -297,9 +345,21 @@ public:
 		fprintf(mFile,"\"%s.fc[%i]\"",mName.c_str(),fc_i);
 
 	}
+	void getFalloffCurve()const
+	{
+
+		fprintf(mFile,"\"%s.fc\"",mName.c_str());
+
+	}
 	void getFalloffCurve_Position(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fcp\"",mName.c_str(),fc_i);
+
+	}
+	void getFalloffCurve_Position()const
+	{
+
+		fprintf(mFile,"\"%s.fc.fcp\"",mName.c_str());
 
 	}
 	void getFalloffCurve_FloatValue(size_t fc_i)const
@@ -307,9 +367,21 @@ public:
 		fprintf(mFile,"\"%s.fc[%i].fcfv\"",mName.c_str(),fc_i);
 
 	}
+	void getFalloffCurve_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.fc.fcfv\"",mName.c_str());
+
+	}
 	void getFalloffCurve_Interp(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fci\"",mName.c_str(),fc_i);
+
+	}
+	void getFalloffCurve_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.fc.fci\"",mName.c_str());
 
 	}
 protected:

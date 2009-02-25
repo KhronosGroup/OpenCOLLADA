@@ -53,8 +53,10 @@ namespace COLLADAMaya
         , mLightImporter (0)
         , mImageImporter (0)
         , mSceneGraphWritten (false)
+        , mLibraryNodesWritten (false)
         , mAssetWritten (false)
         , mSceneGraphRead (false)
+        , mLibraryNodesRead (false)
         , mGeometryRead (false)
         , mCameraRead (false)
         , mLightRead (false)
@@ -125,7 +127,7 @@ namespace COLLADAMaya
     {
         // TODO
         mMayaAsciiFileURI.set ( mColladaFileName );
-        mMayaAsciiFileURI.setPathExtension ( ".netallied.import.ma" );
+        mMayaAsciiFileURI.setPathExtension ( ".nextgen.ma" );
         String mayaAsciiFileName = mMayaAsciiFileURI.getURIString ();
 
         // Check if the file already exist.
@@ -177,13 +179,36 @@ namespace COLLADAMaya
     void DocumentImporter::start ()
     {
         // Create the maya file.
-        bool retValue = createMayaAsciiFile();
+        bool retValue = createMayaAsciiFile ();
         assert ( retValue );
     }
 
     //-----------------------------
     void DocumentImporter::finish ()
     {
+        // There has not to be a <library_nodes> tag in the document!
+        if ( mAssetWritten && mSceneGraphWritten && !mLibraryNodesWritten )
+        {
+            mLibraryNodesWritten = true;
+
+            // Write the node instances, when all nodes of the visual scene 
+            // and the library nodes are already imported!
+            if ( mSceneGraphWritten && mLibraryNodesWritten )
+            {
+                // Write all the node instances
+                mVisualSceneImporter->writeNodeInstances ();
+            }
+
+            if ( mGeometryRead || mCameraRead || mLightRead || mImageRead )
+            {
+                mGeometryRead = false;
+                mCameraRead = false;
+                mLightRead = false;
+                mImageRead = false;
+                readColladaDocument ();
+            }
+        }
+
         // If the last read is ready, we can write the connections and close the file.
         --mNumDocumentParses;
         if ( mNumDocumentParses == 0 ) 
@@ -201,7 +226,7 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::readColladaDocument ()
     {
-        COLLADASaxFWL::Loader loader;
+        COLLADASaxFWL::Loader loader ( &mSaxParserErrorHandler );
         COLLADAFW::Root root ( &loader, this );
         String filename = getColladaFilename ();
         String fileUriString = URI::nativePathToUri ( filename );
@@ -404,9 +429,10 @@ namespace COLLADAMaya
 
         mAssetWritten = true;
 
-        if ( mSceneGraphRead || mGeometryRead || mCameraRead || mLightRead || mImageRead )
+        if ( mSceneGraphRead || mLibraryNodesRead || mGeometryRead || mCameraRead || mLightRead || mImageRead )
         {
             mSceneGraphRead = false;
+            mLibraryNodesRead = false;
             mGeometryRead = false;
             mCameraRead = false;
             mLightRead = false;
@@ -420,7 +446,7 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
-        // Order: asset, scene graph, geometry
+        // Order: asset, scene graph, others
         if ( !mAssetWritten ) 
         {
             mSceneGraphRead = true;
@@ -434,6 +460,52 @@ namespace COLLADAMaya
         // Import the data.
         mVisualSceneImporter->importVisualScene ( visualScene );
         mSceneGraphWritten = true;
+
+        // Write the node instances, when all nodes of the visual scene 
+        // and the library nodes are already imported!
+        if ( mSceneGraphWritten && mLibraryNodesWritten )
+        {
+            // Write all the node instances
+            mVisualSceneImporter->writeNodeInstances ();
+        }
+
+        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead )
+        {
+            mGeometryRead = false;
+            mCameraRead = false;
+            mLightRead = false;
+            mImageRead = false;
+            readColladaDocument ();
+        }
+
+        return true;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
+    {
+        // Order: asset, scene graph, library nodes, others
+        if ( !mAssetWritten ) 
+        {
+            mLibraryNodesRead = true;
+            return true;
+        }
+        if ( mLibraryNodesWritten ) return true;
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        // Import the data.
+        mVisualSceneImporter->importLibraryNodes ( libraryNodes );
+        mLibraryNodesWritten = true;
+
+        // Write the node instances, when all nodes of the visual scene 
+        // and the library nodes are already imported!
+        if ( mSceneGraphWritten && mLibraryNodesWritten )
+        {
+            // Write all the node instances
+            mVisualSceneImporter->writeNodeInstances ();
+        }
 
         if ( mGeometryRead || mCameraRead || mLightRead || mImageRead )
         {
@@ -450,8 +522,8 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeGeometry ( const COLLADAFW::Geometry* geometry )
     {
-        // Order: asset, scene graph, geometry
-        if ( !mAssetWritten || !mSceneGraphWritten ) 
+        // Order: asset, scene graph, library nodes, others
+        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
         {
             mGeometryRead = true;
             return true;
@@ -463,13 +535,6 @@ namespace COLLADAMaya
         // Import the data.
         mGeometryImporter->importGeometry ( geometry );
 
-        return true;
-    }
-
-    //-----------------------------
-    bool DocumentImporter::writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
-    {
-        // TODO 
         return true;
     }
 
@@ -500,8 +565,8 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeCamera ( const COLLADAFW::Camera* camera )
     {
-        // Order: asset, scene graph, others
-        if ( !mAssetWritten || !mSceneGraphWritten ) 
+        // Order: asset, scene graph, library nodes, others
+        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
         {
             mCameraRead = true;
             return true;
@@ -519,8 +584,8 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeLight ( const COLLADAFW::Light* light )
     {
-        // Order: asset, scene graph, others
-        if ( !mAssetWritten || !mSceneGraphWritten ) 
+        // Order: asset, scene graph, library nodes, others
+        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
         {
             mLightRead = true;
             return true;
@@ -538,8 +603,8 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeImage ( const COLLADAFW::Image* image )
     {
-        // Order: asset, scene graph, others
-        if ( !mAssetWritten || !mSceneGraphWritten ) 
+        // Order: asset, scene graph, library nodes, others
+        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
         {
             mImageRead = true;
             return true;

@@ -284,9 +284,21 @@ public:
 		fprintf(mFile,"\"%s.ctr[%i]\"",mName.c_str(),ctr_i);
 
 	}
+	void getCenter()const
+	{
+
+		fprintf(mFile,"\"%s.ctr\"",mName.c_str());
+
+	}
 	void getCenterX(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i].ctx\"",mName.c_str(),ctr_i);
+
+	}
+	void getCenterX()const
+	{
+
+		fprintf(mFile,"\"%s.ctr.ctx\"",mName.c_str());
 
 	}
 	void getCenterY(size_t ctr_i)const
@@ -294,14 +306,32 @@ public:
 		fprintf(mFile,"\"%s.ctr[%i].cty\"",mName.c_str(),ctr_i);
 
 	}
+	void getCenterY()const
+	{
+
+		fprintf(mFile,"\"%s.ctr.cty\"",mName.c_str());
+
+	}
 	void getCenterZ(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i].ctz\"",mName.c_str(),ctr_i);
 
 	}
+	void getCenterZ()const
+	{
+
+		fprintf(mFile,"\"%s.ctr.ctz\"",mName.c_str());
+
+	}
 	void getObjectWorldMatrix(size_t owmx_i)const
 	{
 		fprintf(mFile,"\"%s.owmx[%i]\"",mName.c_str(),owmx_i);
+
+	}
+	void getObjectWorldMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.owmx\"",mName.c_str());
 
 	}
 	void getOutBaseMatrix()const

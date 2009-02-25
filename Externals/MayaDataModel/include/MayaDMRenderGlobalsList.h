@@ -27,14 +27,32 @@ public:
 		fprintf(mFile,"\"%s.rg[%i]\"",mName.c_str(),rg_i);
 
 	}
+	void getRenderGlobals()const
+	{
+
+		fprintf(mFile,"\"%s.rg\"",mName.c_str());
+
+	}
 	void getRenderQualities(size_t rq_i)const
 	{
 		fprintf(mFile,"\"%s.rq[%i]\"",mName.c_str(),rq_i);
 
 	}
+	void getRenderQualities()const
+	{
+
+		fprintf(mFile,"\"%s.rq\"",mName.c_str());
+
+	}
 	void getRenderResolutions(size_t rr_i)const
 	{
 		fprintf(mFile,"\"%s.rr[%i]\"",mName.c_str(),rr_i);
+
+	}
+	void getRenderResolutions()const
+	{
+
+		fprintf(mFile,"\"%s.rr\"",mName.c_str());
 
 	}
 protected:

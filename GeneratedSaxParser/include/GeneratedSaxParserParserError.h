@@ -23,7 +23,7 @@ namespace GeneratedSaxParser
 	public:
 		enum Severity
 		{
-			SEVERITY_ERROR,
+			SEVERITY_ERROR2,
 			SEVERITY_CRITICAL,
 		};
 

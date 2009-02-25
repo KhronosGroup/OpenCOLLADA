@@ -315,9 +315,21 @@ public:
 		fprintf(mFile,"\"%s.opos[%i]\"",mName.c_str(),opos_i);
 
 	}
+	void getObjectPositions()const
+	{
+
+		fprintf(mFile,"\"%s.opos\"",mName.c_str());
+
+	}
 	void getObjectVelocities(size_t ovel_i)const
 	{
 		fprintf(mFile,"\"%s.ovel[%i]\"",mName.c_str(),ovel_i);
+
+	}
+	void getObjectVelocities()const
+	{
+
+		fprintf(mFile,"\"%s.ovel\"",mName.c_str());
 
 	}
 	void getObjectMass(size_t omas_i)const
@@ -325,9 +337,21 @@ public:
 		fprintf(mFile,"\"%s.omas[%i]\"",mName.c_str(),omas_i);
 
 	}
+	void getObjectMass()const
+	{
+
+		fprintf(mFile,"\"%s.omas\"",mName.c_str());
+
+	}
 	void getDeltaTime(size_t dt_i)const
 	{
 		fprintf(mFile,"\"%s.dt[%i]\"",mName.c_str(),dt_i);
+
+	}
+	void getDeltaTime()const
+	{
+
+		fprintf(mFile,"\"%s.dt\"",mName.c_str());
 
 	}
 	void getOutputForce(size_t of_i)const
@@ -335,9 +359,21 @@ public:
 		fprintf(mFile,"\"%s.of[%i]\"",mName.c_str(),of_i);
 
 	}
+	void getOutputForce()const
+	{
+
+		fprintf(mFile,"\"%s.of\"",mName.c_str());
+
+	}
 	void getIdMapping(size_t idm_i)const
 	{
 		fprintf(mFile,"\"%s.idm[%i]\"",mName.c_str(),idm_i);
+
+	}
+	void getIdMapping()const
+	{
+
+		fprintf(mFile,"\"%s.idm\"",mName.c_str());
 
 	}
 	void getSortedId(size_t idm_i)const
@@ -345,9 +381,21 @@ public:
 		fprintf(mFile,"\"%s.idm[%i].sid\"",mName.c_str(),idm_i);
 
 	}
+	void getSortedId()const
+	{
+
+		fprintf(mFile,"\"%s.idm.sid\"",mName.c_str());
+
+	}
 	void getIdIndex(size_t idm_i)const
 	{
 		fprintf(mFile,"\"%s.idm[%i].idix\"",mName.c_str(),idm_i);
+
+	}
+	void getIdIndex()const
+	{
+
+		fprintf(mFile,"\"%s.idm.idix\"",mName.c_str());
 
 	}
 	void getCount()const
@@ -358,6 +406,12 @@ public:
 	void getObjects(size_t obj_i)const
 	{
 		fprintf(mFile,"\"%s.obj[%i]\"",mName.c_str(),obj_i);
+
+	}
+	void getObjects()const
+	{
+
+		fprintf(mFile,"\"%s.obj\"",mName.c_str());
 
 	}
 	void getObjCount()const

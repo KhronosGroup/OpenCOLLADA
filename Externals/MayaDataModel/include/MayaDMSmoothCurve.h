@@ -76,6 +76,12 @@ public:
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
+	void getIndex()const
+	{
+
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
+
+	}
 	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());

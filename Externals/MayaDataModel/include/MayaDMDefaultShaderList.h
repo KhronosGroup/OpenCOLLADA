@@ -27,6 +27,12 @@ public:
 		fprintf(mFile,"\"%s.s[%i]\"",mName.c_str(),s_i);
 
 	}
+	void getShaders()const
+	{
+
+		fprintf(mFile,"\"%s.s\"",mName.c_str());
+
+	}
 protected:
 	DefaultShaderList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DependNode(file, name, parent, nodeType, create) {}

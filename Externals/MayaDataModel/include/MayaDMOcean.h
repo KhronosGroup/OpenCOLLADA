@@ -265,9 +265,21 @@ public:
 		fprintf(mFile,"\"%s.wh[%i]\"",mName.c_str(),wh_i);
 
 	}
+	void getWaveHeight()const
+	{
+
+		fprintf(mFile,"\"%s.wh\"",mName.c_str());
+
+	}
 	void getWaveHeight_Position(size_t wh_i)const
 	{
 		fprintf(mFile,"\"%s.wh[%i].whp\"",mName.c_str(),wh_i);
+
+	}
+	void getWaveHeight_Position()const
+	{
+
+		fprintf(mFile,"\"%s.wh.whp\"",mName.c_str());
 
 	}
 	void getWaveHeight_FloatValue(size_t wh_i)const
@@ -275,9 +287,21 @@ public:
 		fprintf(mFile,"\"%s.wh[%i].whfv\"",mName.c_str(),wh_i);
 
 	}
+	void getWaveHeight_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.wh.whfv\"",mName.c_str());
+
+	}
 	void getWaveHeight_Interp(size_t wh_i)const
 	{
 		fprintf(mFile,"\"%s.wh[%i].whi\"",mName.c_str(),wh_i);
+
+	}
+	void getWaveHeight_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.wh.whi\"",mName.c_str());
 
 	}
 	void getWaveTurbulence(size_t wtb_i)const
@@ -285,9 +309,21 @@ public:
 		fprintf(mFile,"\"%s.wtb[%i]\"",mName.c_str(),wtb_i);
 
 	}
+	void getWaveTurbulence()const
+	{
+
+		fprintf(mFile,"\"%s.wtb\"",mName.c_str());
+
+	}
 	void getWaveTurbulence_Position(size_t wtb_i)const
 	{
 		fprintf(mFile,"\"%s.wtb[%i].wtbp\"",mName.c_str(),wtb_i);
+
+	}
+	void getWaveTurbulence_Position()const
+	{
+
+		fprintf(mFile,"\"%s.wtb.wtbp\"",mName.c_str());
 
 	}
 	void getWaveTurbulence_FloatValue(size_t wtb_i)const
@@ -295,9 +331,21 @@ public:
 		fprintf(mFile,"\"%s.wtb[%i].wtbfv\"",mName.c_str(),wtb_i);
 
 	}
+	void getWaveTurbulence_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.wtb.wtbfv\"",mName.c_str());
+
+	}
 	void getWaveTurbulence_Interp(size_t wtb_i)const
 	{
 		fprintf(mFile,"\"%s.wtb[%i].wtbi\"",mName.c_str(),wtb_i);
+
+	}
+	void getWaveTurbulence_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.wtb.wtbi\"",mName.c_str());
 
 	}
 	void getWavePeaking(size_t wp_i)const
@@ -305,9 +353,21 @@ public:
 		fprintf(mFile,"\"%s.wp[%i]\"",mName.c_str(),wp_i);
 
 	}
+	void getWavePeaking()const
+	{
+
+		fprintf(mFile,"\"%s.wp\"",mName.c_str());
+
+	}
 	void getWavePeaking_Position(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpp\"",mName.c_str(),wp_i);
+
+	}
+	void getWavePeaking_Position()const
+	{
+
+		fprintf(mFile,"\"%s.wp.wpp\"",mName.c_str());
 
 	}
 	void getWavePeaking_FloatValue(size_t wp_i)const
@@ -315,9 +375,21 @@ public:
 		fprintf(mFile,"\"%s.wp[%i].wpfv\"",mName.c_str(),wp_i);
 
 	}
+	void getWavePeaking_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.wp.wpfv\"",mName.c_str());
+
+	}
 	void getWavePeaking_Interp(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpi\"",mName.c_str(),wp_i);
+
+	}
+	void getWavePeaking_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.wp.wpi\"",mName.c_str());
 
 	}
 	void getFoamEmission()const

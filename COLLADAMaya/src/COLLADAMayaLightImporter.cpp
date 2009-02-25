@@ -51,7 +51,19 @@ namespace COLLADAMaya
         {
             MayaDM::Light* light = it->second;
             delete light;
+            ++it;
         }
+        mMayaLightMap.clear ();
+
+        UniqueIdMayaNodeMap::iterator it2 = mMayaLightNodesMap.begin ();
+        while ( it2 != mMayaLightNodesMap.end () )
+        {
+            MayaNode* mayaNode = it2->second;
+            delete mayaNode;
+            ++it2;
+        }
+        mMayaLightNodesMap.clear ();
+
 	}
 
     //------------------------------
@@ -89,7 +101,14 @@ namespace COLLADAMaya
         {
             // Get the maya node of the current transform node.
             const COLLADAFW::UniqueId& transformNodeId = *nodesIter;
-            MayaNode* mayaTransformNode = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+            MayaNodesList* mayaNodesList = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+            if ( mayaNodesList == 0 ) 
+            {
+                MGlobal::displayError ( "Cant find transform node!");
+                std::cerr << "Cant find transform node!" << endl;
+                return;
+            }
+            MayaNode* mayaTransformNode = (*mayaNodesList) [0];
             String transformNodeName = mayaTransformNode->getName ();
 
             // Get the path to the parent transform node.
@@ -128,11 +147,12 @@ namespace COLLADAMaya
         String lightName = light->getName ();
         if ( COLLADABU::Utils::equals ( lightName, "" ) ) 
             lightName = LIGHT_NAME;
+        lightName = DocumentImporter::frameworkNameToMayaName ( lightName );
         lightName = mLightIdList.addId ( lightName );
 
         // Create a maya node object of the current node and push it into the map.
-        MayaNode mayaMeshNode ( lightId, lightName, mayaTransformNode );
-        mMayaLightNodesMap [ lightId ] = mayaMeshNode;
+        MayaNode* mayaLightNode = new MayaNode ( lightId, lightName, mayaTransformNode );
+        mMayaLightNodesMap [ lightId ] = mayaLightNode;
 
         FILE* file = getDocumentImporter ()->getFile ();
 
@@ -178,9 +198,9 @@ namespace COLLADAMaya
     // --------------------------------------------
     MayaNode* LightImporter::findMayaLightNode ( const COLLADAFW::UniqueId& lightId ) 
     {
-        UniqueIdMayaNodesMap::iterator it = mMayaLightNodesMap.find ( lightId );
+        UniqueIdMayaNodeMap::iterator it = mMayaLightNodesMap.find ( lightId );
         if ( it != mMayaLightNodesMap.end () )
-            return &(*it).second;
+            return it->second;
 
         return 0;
     }
@@ -283,7 +303,7 @@ namespace COLLADAMaya
         while ( it != shadingDataMap.end () )
         {
             MaterialImporter::ShadingData* shadingData = it->second;
-            MayaDM::ShadingEngine* shadingEngine = shadingData->getShadingEngine ();
+            const MayaDM::ShadingEngine& shadingEngine = shadingData->getShadingEngine ();
 
             // Connect the the default light set message with the next light linker link's light
             // connectAttr ":defaultLightSet.message" "lightLinker1.link[0].light";
@@ -291,7 +311,7 @@ namespace COLLADAMaya
 
             // Connect the current shading engine's message with the next light linker link's object.
             // connectAttr "lambert2SG.message" "lightLinker1.link[0].object";
-            connectAttr ( file, shadingEngine->getMessage (), mLightLinker->getObject ( lightLinkerLinkIndex ) );
+            connectAttr ( file, shadingEngine.getMessage (), mLightLinker->getObject ( lightLinkerLinkIndex ) );
 
             // Connect the the default light set message with the next light linker shadow link's shadow light
             // connectAttr ":defaultLightSet.message" "lightLinker1.shadowLink[0].shadowLight";
@@ -299,7 +319,7 @@ namespace COLLADAMaya
 
             // Connect the current shading engine's message with the next light linker shadow link's shadow object.
             // connectAttr "lambert2SG.message" "lightLinker1.shadowLink[0].shadowObject";
-            connectAttr ( file, shadingEngine->getMessage (), mLightLinker->getShadowObject ( lightLinkerLinkIndex ) );
+            connectAttr ( file, shadingEngine.getMessage (), mLightLinker->getShadowObject ( lightLinkerLinkIndex ) );
 
             // Increment the light linker index
             ++lightLinkerLinkIndex;
@@ -348,15 +368,15 @@ namespace COLLADAMaya
 
         size_t lightIndex = 0;
         size_t lightSetIndex = 0;
-        UniqueIdMayaNodesMap::iterator it = mMayaLightNodesMap.begin ();
+        UniqueIdMayaNodeMap::iterator it = mMayaLightNodesMap.begin ();
         while ( it != mMayaLightNodesMap.end () )
         {
             const COLLADAFW::UniqueId& lightId = it->first;
-            MayaNode& mayaNode = it->second;
+            MayaNode* mayaNode = it->second;
 
             MayaDM::DependNode* dependNode = findMayaLight ( lightId );
             MayaDM::Light* lightNode = ( MayaDM::Light* ) dependNode;
-            dependNode->setName ( mayaNode.getNodePath () );
+            dependNode->setName ( mayaNode->getNodePath () );
 
             // Connect the light data of the lights (just real ones, no instances), with the light list.
             //connectAttr "|spotLight1|spotLightShape1.lightData" ":lightList1.lights" -nextAvailable;
@@ -378,9 +398,16 @@ namespace COLLADAMaya
             UniqueIdVec::const_iterator nodesIter = transformNodes->begin ();
             while ( nodesIter != transformNodes->end () )
             {
-                // Get the transform node.
+                // Get the maya transform nodes and read the path.
                 const COLLADAFW::UniqueId& transformNodeId = *nodesIter;
-                MayaNode* mayaTransformNode = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+                MayaNodesList* transformNodes = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+                if ( transformNodes->size () == 0 )
+                {
+                    MGlobal::displayError ( "The referenced transform node doesn't exist!" );
+                    std::cerr << "The referenced transform node doesn't exist!" << endl;
+                    return;
+                }
+                MayaNode* mayaTransformNode = (*transformNodes) [0];
                 String transformNodeName = mayaTransformNode->getName ();
                 String transformNodePath = mayaTransformNode->getNodePath ();
                 MayaDM::Transform transformNode ( file, transformNodePath, "", false );

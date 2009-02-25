@@ -208,9 +208,21 @@ public:
 		fprintf(mFile,"\"%s.ocd[%i]\"",mName.c_str(),ocd_i);
 
 	}
+	void getOutColorData()const
+	{
+
+		fprintf(mFile,"\"%s.ocd\"",mName.c_str());
+
+	}
 	void getOutColor(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i].oc\"",mName.c_str(),ocd_i);
+
+	}
+	void getOutColor()const
+	{
+
+		fprintf(mFile,"\"%s.ocd.oc\"",mName.c_str());
 
 	}
 	void getOutColorR(size_t ocd_i)const
@@ -218,9 +230,21 @@ public:
 		fprintf(mFile,"\"%s.ocd[%i].oc.ocr\"",mName.c_str(),ocd_i);
 
 	}
+	void getOutColorR()const
+	{
+
+		fprintf(mFile,"\"%s.ocd.oc.ocr\"",mName.c_str());
+
+	}
 	void getOutColorG(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i].oc.ocg\"",mName.c_str(),ocd_i);
+
+	}
+	void getOutColorG()const
+	{
+
+		fprintf(mFile,"\"%s.ocd.oc.ocg\"",mName.c_str());
 
 	}
 	void getOutColorB(size_t ocd_i)const
@@ -228,9 +252,21 @@ public:
 		fprintf(mFile,"\"%s.ocd[%i].oc.ocb\"",mName.c_str(),ocd_i);
 
 	}
+	void getOutColorB()const
+	{
+
+		fprintf(mFile,"\"%s.ocd.oc.ocb\"",mName.c_str());
+
+	}
 	void getOutAlpha(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i].oa\"",mName.c_str(),ocd_i);
+
+	}
+	void getOutAlpha()const
+	{
+
+		fprintf(mFile,"\"%s.ocd.oa\"",mName.c_str());
 
 	}
 	void getOutSegFace(size_t ofm_i)const
@@ -238,9 +274,21 @@ public:
 		fprintf(mFile,"\"%s.ofm[%i]\"",mName.c_str(),ofm_i);
 
 	}
+	void getOutSegFace()const
+	{
+
+		fprintf(mFile,"\"%s.ofm\"",mName.c_str());
+
+	}
 	void getSegGroupIds(size_t sgi_i)const
 	{
 		fprintf(mFile,"\"%s.sgi[%i]\"",mName.c_str(),sgi_i);
+
+	}
+	void getSegGroupIds()const
+	{
+
+		fprintf(mFile,"\"%s.sgi\"",mName.c_str());
 
 	}
 	void getInputMesh()const

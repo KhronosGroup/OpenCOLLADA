@@ -154,9 +154,21 @@ public:
 		fprintf(mFile,"\"%s.cel[%i]\"",mName.c_str(),cel_i);
 
 	}
+	void getClipEvalList()const
+	{
+
+		fprintf(mFile,"\"%s.cel\"",mName.c_str());
+
+	}
 	void getClipEval(size_t cel_i,size_t cev_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i]\"",mName.c_str(),cel_i,cev_i);
+
+	}
+	void getClipEval(size_t cev_i)const
+	{
+
+		fprintf(mFile,"\"%s.cel.cev[%i]\"",mName.c_str(),cev_i);
 
 	}
 	void getClipEval_Raw(size_t cel_i,size_t cev_i)const
@@ -164,9 +176,21 @@ public:
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevr\"",mName.c_str(),cel_i,cev_i);
 
 	}
+	void getClipEval_Raw(size_t cev_i)const
+	{
+
+		fprintf(mFile,"\"%s.cel.cev[%i].cevr\"",mName.c_str(),cev_i);
+
+	}
 	void getClipEval_Inmap(size_t cel_i,size_t cev_i,size_t cevi_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevi[%i]\"",mName.c_str(),cel_i,cev_i,cevi_i);
+
+	}
+	void getClipEval_Inmap(size_t cev_i,size_t cevi_i)const
+	{
+
+		fprintf(mFile,"\"%s.cel.cev[%i].cevi[%i]\"",mName.c_str(),cev_i,cevi_i);
 
 	}
 	void getClipEval_InmapTo(size_t cel_i,size_t cev_i,size_t cevi_i)const
@@ -174,9 +198,21 @@ public:
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevi[%i].cevit\"",mName.c_str(),cel_i,cev_i,cevi_i);
 
 	}
+	void getClipEval_InmapTo(size_t cev_i,size_t cevi_i)const
+	{
+
+		fprintf(mFile,"\"%s.cel.cev[%i].cevi[%i].cevit\"",mName.c_str(),cev_i,cevi_i);
+
+	}
 	void getClipEval_InmapFrom(size_t cel_i,size_t cev_i,size_t cevi_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevi[%i].cevif\"",mName.c_str(),cel_i,cev_i,cevi_i);
+
+	}
+	void getClipEval_InmapFrom(size_t cev_i,size_t cevi_i)const
+	{
+
+		fprintf(mFile,"\"%s.cel.cev[%i].cevi[%i].cevif\"",mName.c_str(),cev_i,cevi_i);
 
 	}
 	void getClipEval_Outmap(size_t cel_i,size_t cev_i,size_t cevo_i)const
@@ -184,14 +220,32 @@ public:
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevo[%i]\"",mName.c_str(),cel_i,cev_i,cevo_i);
 
 	}
+	void getClipEval_Outmap(size_t cev_i,size_t cevo_i)const
+	{
+
+		fprintf(mFile,"\"%s.cel.cev[%i].cevo[%i]\"",mName.c_str(),cev_i,cevo_i);
+
+	}
 	void getClipEval_OutmapTo(size_t cel_i,size_t cev_i,size_t cevo_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevo[%i].cevot\"",mName.c_str(),cel_i,cev_i,cevo_i);
 
 	}
+	void getClipEval_OutmapTo(size_t cev_i,size_t cevo_i)const
+	{
+
+		fprintf(mFile,"\"%s.cel.cev[%i].cevo[%i].cevot\"",mName.c_str(),cev_i,cevo_i);
+
+	}
 	void getClipEval_OutmapFrom(size_t cel_i,size_t cev_i,size_t cevo_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevo[%i].cevof\"",mName.c_str(),cel_i,cev_i,cevo_i);
+
+	}
+	void getClipEval_OutmapFrom(size_t cev_i,size_t cevo_i)const
+	{
+
+		fprintf(mFile,"\"%s.cel.cev[%i].cevo[%i].cevof\"",mName.c_str(),cev_i,cevo_i);
 
 	}
 	void getClipFunction()const
@@ -204,9 +258,21 @@ public:
 		fprintf(mFile,"\"%s.cd[%i]\"",mName.c_str(),cd_i);
 
 	}
+	void getCharacterdata()const
+	{
+
+		fprintf(mFile,"\"%s.cd\"",mName.c_str());
+
+	}
 	void getCharacterMapping(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].cm\"",mName.c_str(),cd_i);
+
+	}
+	void getCharacterMapping()const
+	{
+
+		fprintf(mFile,"\"%s.cd.cm\"",mName.c_str());
 
 	}
 	void getClipIndexMapping(size_t cd_i)const
@@ -214,9 +280,21 @@ public:
 		fprintf(mFile,"\"%s.cd[%i].cim\"",mName.c_str(),cd_i);
 
 	}
+	void getClipIndexMapping()const
+	{
+
+		fprintf(mFile,"\"%s.cd.cim\"",mName.c_str());
+
+	}
 	void getClipName(size_t cn_i)const
 	{
 		fprintf(mFile,"\"%s.cn[%i]\"",mName.c_str(),cn_i);
+
+	}
+	void getClipName()const
+	{
+
+		fprintf(mFile,"\"%s.cn\"",mName.c_str());
 
 	}
 	void getStart(size_t st_i)const
@@ -224,9 +302,21 @@ public:
 		fprintf(mFile,"\"%s.st[%i]\"",mName.c_str(),st_i);
 
 	}
+	void getStart()const
+	{
+
+		fprintf(mFile,"\"%s.st\"",mName.c_str());
+
+	}
 	void getDuration(size_t du_i)const
 	{
 		fprintf(mFile,"\"%s.du[%i]\"",mName.c_str(),du_i);
+
+	}
+	void getDuration()const
+	{
+
+		fprintf(mFile,"\"%s.du\"",mName.c_str());
 
 	}
 	void getSourceClip(size_t sc_i)const
@@ -234,9 +324,21 @@ public:
 		fprintf(mFile,"\"%s.sc[%i]\"",mName.c_str(),sc_i);
 
 	}
+	void getSourceClip()const
+	{
+
+		fprintf(mFile,"\"%s.sc\"",mName.c_str());
+
+	}
 	void getClip(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i]\"",mName.c_str(),cl_i);
+
+	}
+	void getClip()const
+	{
+
+		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
 protected:

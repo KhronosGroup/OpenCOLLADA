@@ -111,9 +111,21 @@ public:
 		fprintf(mFile,"\"%s.hyp[%i]\"",mName.c_str(),hyp_i);
 
 	}
+	void getHyperPosition()const
+	{
+
+		fprintf(mFile,"\"%s.hyp\"",mName.c_str());
+
+	}
 	void getPositionX(size_t hyp_i)const
 	{
 		fprintf(mFile,"\"%s.hyp[%i].x\"",mName.c_str(),hyp_i);
+
+	}
+	void getPositionX()const
+	{
+
+		fprintf(mFile,"\"%s.hyp.x\"",mName.c_str());
 
 	}
 	void getPositionY(size_t hyp_i)const
@@ -121,9 +133,21 @@ public:
 		fprintf(mFile,"\"%s.hyp[%i].y\"",mName.c_str(),hyp_i);
 
 	}
+	void getPositionY()const
+	{
+
+		fprintf(mFile,"\"%s.hyp.y\"",mName.c_str());
+
+	}
 	void getIsCollapsed(size_t hyp_i)const
 	{
 		fprintf(mFile,"\"%s.hyp[%i].isc\"",mName.c_str(),hyp_i);
+
+	}
+	void getIsCollapsed()const
+	{
+
+		fprintf(mFile,"\"%s.hyp.isc\"",mName.c_str());
 
 	}
 	void getIsFreeform(size_t hyp_i)const
@@ -131,9 +155,21 @@ public:
 		fprintf(mFile,"\"%s.hyp[%i].isf\"",mName.c_str(),hyp_i);
 
 	}
+	void getIsFreeform()const
+	{
+
+		fprintf(mFile,"\"%s.hyp.isf\"",mName.c_str());
+
+	}
 	void getDependNode(size_t hyp_i)const
 	{
 		fprintf(mFile,"\"%s.hyp[%i].dn\"",mName.c_str(),hyp_i);
+
+	}
+	void getDependNode()const
+	{
+
+		fprintf(mFile,"\"%s.hyp.dn\"",mName.c_str());
 
 	}
 	void getImageName()const

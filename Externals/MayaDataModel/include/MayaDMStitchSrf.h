@@ -353,9 +353,21 @@ public:
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
+	void getInputCurve()const
+	{
+
+		fprintf(mFile,"\"%s.ic\"",mName.c_str());
+
+	}
 	void getInputMatchCurve(size_t imc_i)const
 	{
 		fprintf(mFile,"\"%s.imc[%i]\"",mName.c_str(),imc_i);
+
+	}
+	void getInputMatchCurve()const
+	{
+
+		fprintf(mFile,"\"%s.imc\"",mName.c_str());
 
 	}
 	void getInputReferenceCOS(size_t ir_i)const
@@ -363,9 +375,21 @@ public:
 		fprintf(mFile,"\"%s.ir[%i]\"",mName.c_str(),ir_i);
 
 	}
+	void getInputReferenceCOS()const
+	{
+
+		fprintf(mFile,"\"%s.ir\"",mName.c_str());
+
+	}
 	void getPositionalContinuity(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.pc[%i]\"",mName.c_str(),pc_i);
+
+	}
+	void getPositionalContinuity()const
+	{
+
+		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
 	void getTangentialContinuity(size_t tc_i)const
@@ -373,9 +397,21 @@ public:
 		fprintf(mFile,"\"%s.tc[%i]\"",mName.c_str(),tc_i);
 
 	}
+	void getTangentialContinuity()const
+	{
+
+		fprintf(mFile,"\"%s.tc\"",mName.c_str());
+
+	}
 	void getToggleTolerance(size_t tt_i)const
 	{
 		fprintf(mFile,"\"%s.tt[%i]\"",mName.c_str(),tt_i);
+
+	}
+	void getToggleTolerance()const
+	{
+
+		fprintf(mFile,"\"%s.tt\"",mName.c_str());
 
 	}
 	void getTolerance(size_t tol_i)const
@@ -383,9 +419,21 @@ public:
 		fprintf(mFile,"\"%s.tol[%i]\"",mName.c_str(),tol_i);
 
 	}
+	void getTolerance()const
+	{
+
+		fprintf(mFile,"\"%s.tol\"",mName.c_str());
+
+	}
 	void getStepCount(size_t sc_i)const
 	{
 		fprintf(mFile,"\"%s.sc[%i]\"",mName.c_str(),sc_i);
+
+	}
+	void getStepCount()const
+	{
+
+		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
 	void getParameterU(size_t u_i)const
@@ -393,9 +441,21 @@ public:
 		fprintf(mFile,"\"%s.u[%i]\"",mName.c_str(),u_i);
 
 	}
+	void getParameterU()const
+	{
+
+		fprintf(mFile,"\"%s.u\"",mName.c_str());
+
+	}
 	void getParameterV(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
+
+	}
+	void getParameterV()const
+	{
+
+		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
 	void getPosition(size_t p_i)const
@@ -403,9 +463,21 @@ public:
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
+	void getPosition()const
+	{
+
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
+
+	}
 	void getPositionX(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].px\"",mName.c_str(),p_i);
+
+	}
+	void getPositionX()const
+	{
+
+		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
 	void getPositionY(size_t p_i)const
@@ -413,9 +485,21 @@ public:
 		fprintf(mFile,"\"%s.p[%i].py\"",mName.c_str(),p_i);
 
 	}
+	void getPositionY()const
+	{
+
+		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
+
+	}
 	void getPositionZ(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pz\"",mName.c_str(),p_i);
+
+	}
+	void getPositionZ()const
+	{
+
+		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
 	void getNormal(size_t n_i)const
@@ -423,9 +507,21 @@ public:
 		fprintf(mFile,"\"%s.n[%i]\"",mName.c_str(),n_i);
 
 	}
+	void getNormal()const
+	{
+
+		fprintf(mFile,"\"%s.n\"",mName.c_str());
+
+	}
 	void getNormalX(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i].nx\"",mName.c_str(),n_i);
+
+	}
+	void getNormalX()const
+	{
+
+		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
 	void getNormalY(size_t n_i)const
@@ -433,9 +529,21 @@ public:
 		fprintf(mFile,"\"%s.n[%i].ny\"",mName.c_str(),n_i);
 
 	}
+	void getNormalY()const
+	{
+
+		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
+
+	}
 	void getNormalZ(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i].nz\"",mName.c_str(),n_i);
+
+	}
+	void getNormalZ()const
+	{
+
+		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
 	void getTogglePointNormals()const
@@ -453,9 +561,21 @@ public:
 		fprintf(mFile,"\"%s.ci[%i]\"",mName.c_str(),ci_i);
 
 	}
+	void getCvIthIndex()const
+	{
+
+		fprintf(mFile,"\"%s.ci\"",mName.c_str());
+
+	}
 	void getCvJthIndex(size_t cj_i)const
 	{
 		fprintf(mFile,"\"%s.cj[%i]\"",mName.c_str(),cj_i);
+
+	}
+	void getCvJthIndex()const
+	{
+
+		fprintf(mFile,"\"%s.cj\"",mName.c_str());
 
 	}
 	void getCvPosition(size_t cv_i)const
@@ -463,9 +583,21 @@ public:
 		fprintf(mFile,"\"%s.cv[%i]\"",mName.c_str(),cv_i);
 
 	}
+	void getCvPosition()const
+	{
+
+		fprintf(mFile,"\"%s.cv\"",mName.c_str());
+
+	}
 	void getCvpositionX(size_t cv_i)const
 	{
 		fprintf(mFile,"\"%s.cv[%i].cvx\"",mName.c_str(),cv_i);
+
+	}
+	void getCvpositionX()const
+	{
+
+		fprintf(mFile,"\"%s.cv.cvx\"",mName.c_str());
 
 	}
 	void getCvpositionY(size_t cv_i)const
@@ -473,9 +605,21 @@ public:
 		fprintf(mFile,"\"%s.cv[%i].cvy\"",mName.c_str(),cv_i);
 
 	}
+	void getCvpositionY()const
+	{
+
+		fprintf(mFile,"\"%s.cv.cvy\"",mName.c_str());
+
+	}
 	void getCvpositionZ(size_t cv_i)const
 	{
 		fprintf(mFile,"\"%s.cv[%i].cvz\"",mName.c_str(),cv_i);
+
+	}
+	void getCvpositionZ()const
+	{
+
+		fprintf(mFile,"\"%s.cv.cvz\"",mName.c_str());
 
 	}
 	void getBias()const

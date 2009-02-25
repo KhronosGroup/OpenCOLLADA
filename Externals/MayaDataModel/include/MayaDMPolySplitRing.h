@@ -175,9 +175,21 @@ public:
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
+	void getProfileCurve()const
+	{
+
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
+
+	}
 	void getProfileCurve_Position(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pp\"",mName.c_str(),p_i);
+
+	}
+	void getProfileCurve_Position()const
+	{
+
+		fprintf(mFile,"\"%s.p.pp\"",mName.c_str());
 
 	}
 	void getProfileCurve_FloatValue(size_t p_i)const
@@ -185,9 +197,21 @@ public:
 		fprintf(mFile,"\"%s.p[%i].pfv\"",mName.c_str(),p_i);
 
 	}
+	void getProfileCurve_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.p.pfv\"",mName.c_str());
+
+	}
 	void getProfileCurve_Interp(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pi\"",mName.c_str(),p_i);
+
+	}
+	void getProfileCurve_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.p.pi\"",mName.c_str());
 
 	}
 	void getProfileCurveInputOffset()const

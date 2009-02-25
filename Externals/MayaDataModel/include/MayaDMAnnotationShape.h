@@ -103,6 +103,12 @@ public:
 		fprintf(mFile,"\"%s.dom[%i]\"",mName.c_str(),dom_i);
 
 	}
+	void getDagObjectMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.dom\"",mName.c_str());
+
+	}
 	void getDisplayArrow()const
 	{
 		fprintf(mFile,"\"%s.daro\"",mName.c_str());

@@ -33,9 +33,21 @@ public:
 		fprintf(mFile,"\"%s.cr[%i]\"",mName.c_str(),cr_i);
 
 	}
+	void getCreate()const
+	{
+
+		fprintf(mFile,"\"%s.cr\"",mName.c_str());
+
+	}
 	void getLocal(size_t l_i)const
 	{
 		fprintf(mFile,"\"%s.l[%i]\"",mName.c_str(),l_i);
+
+	}
+	void getLocal()const
+	{
+
+		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
 	void getDisplaySmoothness()const

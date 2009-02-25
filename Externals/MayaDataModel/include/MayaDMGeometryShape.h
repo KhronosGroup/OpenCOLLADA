@@ -300,14 +300,32 @@ public:
 		fprintf(mFile,"\"%s.ciog[%i]\"",mName.c_str(),ciog_i);
 
 	}
+	void getCompInstObjGroups()const
+	{
+
+		fprintf(mFile,"\"%s.ciog\"",mName.c_str());
+
+	}
 	void getCompObjectGroups(size_t ciog_i,size_t cog_i)const
 	{
 		fprintf(mFile,"\"%s.ciog[%i].cog[%i]\"",mName.c_str(),ciog_i,cog_i);
 
 	}
+	void getCompObjectGroups(size_t cog_i)const
+	{
+
+		fprintf(mFile,"\"%s.ciog.cog[%i]\"",mName.c_str(),cog_i);
+
+	}
 	void getCompObjectGroupId(size_t ciog_i,size_t cog_i)const
 	{
 		fprintf(mFile,"\"%s.ciog[%i].cog[%i].cgid\"",mName.c_str(),ciog_i,cog_i);
+
+	}
+	void getCompObjectGroupId(size_t cog_i)const
+	{
+
+		fprintf(mFile,"\"%s.ciog.cog[%i].cgid\"",mName.c_str(),cog_i);
 
 	}
 protected:

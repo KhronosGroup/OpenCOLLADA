@@ -161,6 +161,12 @@ public:
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
 
 	}
+	void getValue()const
+	{
+
+		fprintf(mFile,"\"%s.v\"",mName.c_str());
+
+	}
 	void getFunction()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());

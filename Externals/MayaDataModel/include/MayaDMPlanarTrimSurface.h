@@ -45,6 +45,12 @@ public:
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
+	void getInputCurve()const
+	{
+
+		fprintf(mFile,"\"%s.ic\"",mName.c_str());
+
+	}
 	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());

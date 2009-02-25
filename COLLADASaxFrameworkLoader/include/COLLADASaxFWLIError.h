@@ -23,8 +23,8 @@ namespace COLLADASaxFWL
 	public:
 		enum Severity
 		{
-			SEVERITY_ERROR,
-			SEVERITY_CRITICAL,
+			SEVERITY_ERROR1,
+            SEVERITY_CRITICAL
 		};
 
 		enum ErrorType

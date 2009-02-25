@@ -45,7 +45,7 @@ namespace COLLADAMaya
         /** 
         * The map holds the unique ids of the camera nodes to the maya specific nodes. 
         */
-        UniqueIdMayaNodesMap mMayaCameraNodesMap;
+        UniqueIdMayaNodeMap mMayaCameraNodesMap;
 
     public:
 

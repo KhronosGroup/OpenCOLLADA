@@ -140,6 +140,51 @@ public:
 		fprintf(mFile,"\"%s.ac.wto\"",mName.c_str());
 
 	}
+	void getPointPositionXYZ(size_t pc_i)const
+	{
+		fprintf(mFile,"\"%s.ac.pc[%i].xyz\"",mName.c_str(),pc_i);
+
+	}
+	void getPointPositionX(size_t pc_i)const
+	{
+		fprintf(mFile,"\"%s.ac.pc[%i].xyz.ppx\"",mName.c_str(),pc_i);
+
+	}
+	void getPointPositionY(size_t pc_i)const
+	{
+		fprintf(mFile,"\"%s.ac.pc[%i].xyz.ppy\"",mName.c_str(),pc_i);
+
+	}
+	void getPointPositionZ(size_t pc_i)const
+	{
+		fprintf(mFile,"\"%s.ac.pc[%i].xyz.ppz\"",mName.c_str(),pc_i);
+
+	}
+	void getPointConstraintUVW(size_t pc_i)const
+	{
+		fprintf(mFile,"\"%s.ac.pc[%i].puv\"",mName.c_str(),pc_i);
+
+	}
+	void getPointConstraintU(size_t pc_i)const
+	{
+		fprintf(mFile,"\"%s.ac.pc[%i].puv.pcu\"",mName.c_str(),pc_i);
+
+	}
+	void getPointConstraintV(size_t pc_i)const
+	{
+		fprintf(mFile,"\"%s.ac.pc[%i].puv.pcv\"",mName.c_str(),pc_i);
+
+	}
+	void getPointConstraintW(size_t pc_i)const
+	{
+		fprintf(mFile,"\"%s.ac.pc[%i].puv.pcw\"",mName.c_str(),pc_i);
+
+	}
+	void getPointWeight(size_t pc_i)const
+	{
+		fprintf(mFile,"\"%s.ac.pc[%i].pw\"",mName.c_str(),pc_i);
+
+	}
 	void getOutputNurbsObject()const
 	{
 		fprintf(mFile,"\"%s.ac.ono\"",mName.c_str());

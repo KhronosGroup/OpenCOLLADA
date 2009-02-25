@@ -137,9 +137,21 @@ public:
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
+	void getInputSurfaces()const
+	{
+
+		fprintf(mFile,"\"%s.is\"",mName.c_str());
+
+	}
 	void getWeight(size_t wt_i)const
 	{
 		fprintf(mFile,"\"%s.wt[%i]\"",mName.c_str(),wt_i);
+
+	}
+	void getWeight()const
+	{
+
+		fprintf(mFile,"\"%s.wt\"",mName.c_str());
 
 	}
 	void getParameterU(size_t u_i)const
@@ -147,9 +159,21 @@ public:
 		fprintf(mFile,"\"%s.u[%i]\"",mName.c_str(),u_i);
 
 	}
+	void getParameterU()const
+	{
+
+		fprintf(mFile,"\"%s.u\"",mName.c_str());
+
+	}
 	void getParameterV(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
+
+	}
+	void getParameterV()const
+	{
+
+		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
 	void getTurnOnPercentage()const

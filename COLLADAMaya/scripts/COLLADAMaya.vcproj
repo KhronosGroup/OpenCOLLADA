@@ -2687,6 +2687,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMayaGeometryBinding.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMayaGeometryImporter.cpp"
 					>
 				</File>
@@ -2704,6 +2708,14 @@
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaNode.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaSaxParserErrorHandler.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaShadingBinding.cpp"
 					>
 				</File>
 				<File
@@ -3528,6 +3540,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\COLLADAMayaGeometryBinding.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\COLLADAMayaGeometryImporter.h"
 					>
 					<FileConfiguration
@@ -3937,6 +3953,14 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaNode.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaSaxParserErrorHandler.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaShadingBinding.h"
 					>
 				</File>
 				<File

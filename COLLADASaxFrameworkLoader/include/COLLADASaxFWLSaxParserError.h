@@ -25,7 +25,7 @@ namespace COLLADASaxFWL
 
     /** Error reported by the generated sax parser. These are mainly validation errors. */
 	class SaxParserError : public IError 
-		{
+	{
 	private:
 		const GeneratedSaxParser::ParserError& mError;
 	
@@ -42,6 +42,9 @@ namespace COLLADASaxFWL
 
 		/** Returns the severity of the error.*/
 		Severity getSeverity() const;
+
+        /** Returns the current error to get the error message. */
+        const GeneratedSaxParser::ParserError& getError () { return mError; }
 
 	private:
 

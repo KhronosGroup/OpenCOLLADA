@@ -227,9 +227,21 @@ public:
 		fprintf(mFile,"\"%s.scl[%i]\"",mName.c_str(),scl_i);
 
 	}
+	void getStuCacheList()const
+	{
+
+		fprintf(mFile,"\"%s.scl\"",mName.c_str());
+
+	}
 	void getStuCache(size_t scl_i,size_t stu_i)const
 	{
 		fprintf(mFile,"\"%s.scl[%i].stu[%i]\"",mName.c_str(),scl_i,stu_i);
+
+	}
+	void getStuCache(size_t stu_i)const
+	{
+
+		fprintf(mFile,"\"%s.scl.stu[%i]\"",mName.c_str(),stu_i);
 
 	}
 	void getPartialResolution()const

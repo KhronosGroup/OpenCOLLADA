@@ -425,9 +425,21 @@ public:
 		fprintf(mFile,"\"%s.sts[%i]\"",mName.c_str(),sts_i);
 
 	}
+	void getStiffnessScale()const
+	{
+
+		fprintf(mFile,"\"%s.sts\"",mName.c_str());
+
+	}
 	void getStiffnessScale_Position(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsp\"",mName.c_str(),sts_i);
+
+	}
+	void getStiffnessScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.sts.stsp\"",mName.c_str());
 
 	}
 	void getStiffnessScale_FloatValue(size_t sts_i)const
@@ -435,9 +447,21 @@ public:
 		fprintf(mFile,"\"%s.sts[%i].stsfv\"",mName.c_str(),sts_i);
 
 	}
+	void getStiffnessScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.sts.stsfv\"",mName.c_str());
+
+	}
 	void getStiffnessScale_Interp(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsi\"",mName.c_str(),sts_i);
+
+	}
+	void getStiffnessScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.sts.stsi\"",mName.c_str());
 
 	}
 	void getLengthFlex()const
@@ -455,9 +479,21 @@ public:
 		fprintf(mFile,"\"%s.cws[%i]\"",mName.c_str(),cws_i);
 
 	}
+	void getClumpWidthScale()const
+	{
+
+		fprintf(mFile,"\"%s.cws\"",mName.c_str());
+
+	}
 	void getClumpWidthScale_Position(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsp\"",mName.c_str(),cws_i);
+
+	}
+	void getClumpWidthScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.cws.cwsp\"",mName.c_str());
 
 	}
 	void getClumpWidthScale_FloatValue(size_t cws_i)const
@@ -465,9 +501,21 @@ public:
 		fprintf(mFile,"\"%s.cws[%i].cwsfv\"",mName.c_str(),cws_i);
 
 	}
+	void getClumpWidthScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.cws.cwsfv\"",mName.c_str());
+
+	}
 	void getClumpWidthScale_Interp(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsi\"",mName.c_str(),cws_i);
+
+	}
+	void getClumpWidthScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.cws.cwsi\"",mName.c_str());
 
 	}
 	void getStartCurveAttract()const
@@ -480,9 +528,21 @@ public:
 		fprintf(mFile,"\"%s.ats[%i]\"",mName.c_str(),ats_i);
 
 	}
+	void getAttractionScale()const
+	{
+
+		fprintf(mFile,"\"%s.ats\"",mName.c_str());
+
+	}
 	void getAttractionScale_Position(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsp\"",mName.c_str(),ats_i);
+
+	}
+	void getAttractionScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.ats.atsp\"",mName.c_str());
 
 	}
 	void getAttractionScale_FloatValue(size_t ats_i)const
@@ -490,9 +550,21 @@ public:
 		fprintf(mFile,"\"%s.ats[%i].atsfv\"",mName.c_str(),ats_i);
 
 	}
+	void getAttractionScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.ats.atsfv\"",mName.c_str());
+
+	}
 	void getAttractionScale_Interp(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsi\"",mName.c_str(),ats_i);
+
+	}
+	void getAttractionScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.ats.atsi\"",mName.c_str());
 
 	}
 	void getAttractionDamp()const

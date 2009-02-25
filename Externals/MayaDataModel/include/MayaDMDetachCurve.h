@@ -98,14 +98,32 @@ public:
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
 
 	}
+	void getOutputCurve()const
+	{
+
+		fprintf(mFile,"\"%s.oc\"",mName.c_str());
+
+	}
 	void getParameter(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
+	void getParameter()const
+	{
+
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
+
+	}
 	void getKeep(size_t k_i)const
 	{
 		fprintf(mFile,"\"%s.k[%i]\"",mName.c_str(),k_i);
+
+	}
+	void getKeep()const
+	{
+
+		fprintf(mFile,"\"%s.k\"",mName.c_str());
 
 	}
 protected:

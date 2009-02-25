@@ -161,6 +161,12 @@ public:
 		fprintf(mFile,"\"%s.src[%i]\"",mName.c_str(),src_i);
 
 	}
+	void getSource()const
+	{
+
+		fprintf(mFile,"\"%s.src\"",mName.c_str());
+
+	}
 	void getTransferPositions()const
 	{
 		fprintf(mFile,"\"%s.pos\"",mName.c_str());

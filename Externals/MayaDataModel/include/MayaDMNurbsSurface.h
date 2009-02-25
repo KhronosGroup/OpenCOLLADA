@@ -458,6 +458,12 @@ public:
 		fprintf(mFile,"\"%s.ws[%i]\"",mName.c_str(),ws_i);
 
 	}
+	void getWorldSpace()const
+	{
+
+		fprintf(mFile,"\"%s.ws\"",mName.c_str());
+
+	}
 	void getDivisionsU()const
 	{
 		fprintf(mFile,"\"%s.dvu\"",mName.c_str());
@@ -611,6 +617,12 @@ public:
 	void getPatchUVIds(size_t pu_i)const
 	{
 		fprintf(mFile,"\"%s.pu[%i]\"",mName.c_str(),pu_i);
+
+	}
+	void getPatchUVIds()const
+	{
+
+		fprintf(mFile,"\"%s.pu\"",mName.c_str());
 
 	}
 	void getInPlace()const

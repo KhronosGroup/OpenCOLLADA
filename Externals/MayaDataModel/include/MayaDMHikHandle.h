@@ -1275,6 +1275,12 @@ public:
 		fprintf(mFile,"\"%s.eff[%i]\"",mName.c_str(),eff_i);
 
 	}
+	void getEffectors()const
+	{
+
+		fprintf(mFile,"\"%s.eff\"",mName.c_str());
+
+	}
 	void getLeftFootGroundPlane()const
 	{
 		fprintf(mFile,"\"%s.lfg\"",mName.c_str());
@@ -1320,9 +1326,21 @@ public:
 		fprintf(mFile,"\"%s.jt[%i]\"",mName.c_str(),jt_i);
 
 	}
+	void getJoints()const
+	{
+
+		fprintf(mFile,"\"%s.jt\"",mName.c_str());
+
+	}
 	void getFkjoints(size_t fj_i)const
 	{
 		fprintf(mFile,"\"%s.fj[%i]\"",mName.c_str(),fj_i);
+
+	}
+	void getFkjoints()const
+	{
+
+		fprintf(mFile,"\"%s.fj\"",mName.c_str());
 
 	}
 	void getTime()const
@@ -1335,9 +1353,21 @@ public:
 		fprintf(mFile,"\"%s.dm[%i]\"",mName.c_str(),dm_i);
 
 	}
+	void getDefaultMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.dm\"",mName.c_str());
+
+	}
 	void getStancePoseMatrix(size_t sm_i)const
 	{
 		fprintf(mFile,"\"%s.sm[%i]\"",mName.c_str(),sm_i);
+
+	}
+	void getStancePoseMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.sm\"",mName.c_str());
 
 	}
 	void getUsingMB55Rig()const

@@ -368,6 +368,12 @@ public:
 		fprintf(mFile,"\"%s.ga[%i]\"",mName.c_str(),ga_i);
 
 	}
+	void getGain()const
+	{
+
+		fprintf(mFile,"\"%s.ga\"",mName.c_str());
+
+	}
 protected:
 	PolyMoveVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:PolyModifierWorld(file, name, parent, nodeType, create) {}

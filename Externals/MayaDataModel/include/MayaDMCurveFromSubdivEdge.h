@@ -93,9 +93,21 @@ public:
 		fprintf(mFile,"\"%s.eil[%i]\"",mName.c_str(),eil_i);
 
 	}
+	void getEdgeIndexL()const
+	{
+
+		fprintf(mFile,"\"%s.eil\"",mName.c_str());
+
+	}
 	void getEdgeIndexR(size_t eir_i)const
 	{
 		fprintf(mFile,"\"%s.eir[%i]\"",mName.c_str(),eir_i);
+
+	}
+	void getEdgeIndexR()const
+	{
+
+		fprintf(mFile,"\"%s.eir\"",mName.c_str());
 
 	}
 protected:

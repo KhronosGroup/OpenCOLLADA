@@ -33,9 +33,21 @@ public:
 		fprintf(mFile,"\"%s.ip[%i]\"",mName.c_str(),ip_i);
 
 	}
+	void getInputPoly()const
+	{
+
+		fprintf(mFile,"\"%s.ip\"",mName.c_str());
+
+	}
 	void getInputMat(size_t im_i)const
 	{
 		fprintf(mFile,"\"%s.im[%i]\"",mName.c_str(),im_i);
+
+	}
+	void getInputMat()const
+	{
+
+		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
 protected:

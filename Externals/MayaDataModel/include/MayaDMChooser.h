@@ -93,14 +93,32 @@ public:
 		fprintf(mFile,"\"%s.il[%i]\"",mName.c_str(),il_i);
 
 	}
+	void getInLevel()const
+	{
+
+		fprintf(mFile,"\"%s.il\"",mName.c_str());
+
+	}
 	void getDisplayLevel(size_t dl_i)const
 	{
 		fprintf(mFile,"\"%s.dl[%i]\"",mName.c_str(),dl_i);
 
 	}
+	void getDisplayLevel()const
+	{
+
+		fprintf(mFile,"\"%s.dl\"",mName.c_str());
+
+	}
 	void getOutput(size_t o_i)const
 	{
 		fprintf(mFile,"\"%s.o[%i]\"",mName.c_str(),o_i);
+
+	}
+	void getOutput()const
+	{
+
+		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:

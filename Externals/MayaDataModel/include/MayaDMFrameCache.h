@@ -39,9 +39,21 @@ public:
 		fprintf(mFile,"\"%s.f[%i]\"",mName.c_str(),f_i);
 
 	}
+	void getFuture()const
+	{
+
+		fprintf(mFile,"\"%s.f\"",mName.c_str());
+
+	}
 	void getPast(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
+
+	}
+	void getPast()const
+	{
+
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
 	void getVarying()const

@@ -81,14 +81,32 @@ public:
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
 
 	}
+	void getOutputSurface()const
+	{
+
+		fprintf(mFile,"\"%s.os\"",mName.c_str());
+
+	}
 	void getTrimCurveOnPrimary(size_t tcp_i)const
 	{
 		fprintf(mFile,"\"%s.tcp[%i]\"",mName.c_str(),tcp_i);
 
 	}
+	void getTrimCurveOnPrimary()const
+	{
+
+		fprintf(mFile,"\"%s.tcp\"",mName.c_str());
+
+	}
 	void getTrimCurveOnSecondary(size_t tcs_i)const
 	{
 		fprintf(mFile,"\"%s.tcs[%i]\"",mName.c_str(),tcs_i);
+
+	}
+	void getTrimCurveOnSecondary()const
+	{
+
+		fprintf(mFile,"\"%s.tcs\"",mName.c_str());
 
 	}
 protected:

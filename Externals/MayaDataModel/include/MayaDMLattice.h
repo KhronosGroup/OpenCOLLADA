@@ -94,6 +94,12 @@ public:
 		fprintf(mFile,"\"%s.wl[%i]\"",mName.c_str(),wl_i);
 
 	}
+	void getWorldLattice()const
+	{
+
+		fprintf(mFile,"\"%s.wl\"",mName.c_str());
+
+	}
 	void getLatticeInput()const
 	{
 		fprintf(mFile,"\"%s.li\"",mName.c_str());

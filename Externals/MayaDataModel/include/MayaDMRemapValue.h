@@ -174,9 +174,21 @@ public:
 		fprintf(mFile,"\"%s.vl[%i]\"",mName.c_str(),vl_i);
 
 	}
+	void getValue()const
+	{
+
+		fprintf(mFile,"\"%s.vl\"",mName.c_str());
+
+	}
 	void getValue_Position(size_t vl_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vlp\"",mName.c_str(),vl_i);
+
+	}
+	void getValue_Position()const
+	{
+
+		fprintf(mFile,"\"%s.vl.vlp\"",mName.c_str());
 
 	}
 	void getValue_FloatValue(size_t vl_i)const
@@ -184,9 +196,21 @@ public:
 		fprintf(mFile,"\"%s.vl[%i].vlfv\"",mName.c_str(),vl_i);
 
 	}
+	void getValue_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.vl.vlfv\"",mName.c_str());
+
+	}
 	void getValue_Interp(size_t vl_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vli\"",mName.c_str(),vl_i);
+
+	}
+	void getValue_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.vl.vli\"",mName.c_str());
 
 	}
 	void getColor(size_t cl_i)const
@@ -194,9 +218,21 @@ public:
 		fprintf(mFile,"\"%s.cl[%i]\"",mName.c_str(),cl_i);
 
 	}
+	void getColor()const
+	{
+
+		fprintf(mFile,"\"%s.cl\"",mName.c_str());
+
+	}
 	void getColor_Position(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].clp\"",mName.c_str(),cl_i);
+
+	}
+	void getColor_Position()const
+	{
+
+		fprintf(mFile,"\"%s.cl.clp\"",mName.c_str());
 
 	}
 	void getColor_Color(size_t cl_i)const
@@ -204,9 +240,21 @@ public:
 		fprintf(mFile,"\"%s.cl[%i].clc\"",mName.c_str(),cl_i);
 
 	}
+	void getColor_Color()const
+	{
+
+		fprintf(mFile,"\"%s.cl.clc\"",mName.c_str());
+
+	}
 	void getColor_ColorR(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].clc.clcr\"",mName.c_str(),cl_i);
+
+	}
+	void getColor_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.cl.clc.clcr\"",mName.c_str());
 
 	}
 	void getColor_ColorG(size_t cl_i)const
@@ -214,14 +262,32 @@ public:
 		fprintf(mFile,"\"%s.cl[%i].clc.clcg\"",mName.c_str(),cl_i);
 
 	}
+	void getColor_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.cl.clc.clcg\"",mName.c_str());
+
+	}
 	void getColor_ColorB(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].clc.clcb\"",mName.c_str(),cl_i);
 
 	}
+	void getColor_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.cl.clc.clcb\"",mName.c_str());
+
+	}
 	void getColor_Interp(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].cli\"",mName.c_str(),cl_i);
+
+	}
+	void getColor_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.cl.cli\"",mName.c_str());
 
 	}
 	void getOutValue()const

@@ -60,6 +60,12 @@ public:
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
 
 	}
+	void getWeight()const
+	{
+
+		fprintf(mFile,"\"%s.w\"",mName.c_str());
+
+	}
 protected:
 	BlendWeighted(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:Blend(file, name, parent, nodeType, create) {}

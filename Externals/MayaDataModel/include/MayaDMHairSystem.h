@@ -1027,9 +1027,21 @@ public:
 		fprintf(mFile,"\"%s.ih[%i]\"",mName.c_str(),ih_i);
 
 	}
+	void getInputHair()const
+	{
+
+		fprintf(mFile,"\"%s.ih\"",mName.c_str());
+
+	}
 	void getInputHairPin(size_t ihp_i)const
 	{
 		fprintf(mFile,"\"%s.ihp[%i]\"",mName.c_str(),ihp_i);
+
+	}
+	void getInputHairPin()const
+	{
+
+		fprintf(mFile,"\"%s.ihp\"",mName.c_str());
 
 	}
 	void getCollide()const
@@ -1067,9 +1079,21 @@ public:
 		fprintf(mFile,"\"%s.sts[%i]\"",mName.c_str(),sts_i);
 
 	}
+	void getStiffnessScale()const
+	{
+
+		fprintf(mFile,"\"%s.sts\"",mName.c_str());
+
+	}
 	void getStiffnessScale_Position(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsp\"",mName.c_str(),sts_i);
+
+	}
+	void getStiffnessScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.sts.stsp\"",mName.c_str());
 
 	}
 	void getStiffnessScale_FloatValue(size_t sts_i)const
@@ -1077,9 +1101,21 @@ public:
 		fprintf(mFile,"\"%s.sts[%i].stsfv\"",mName.c_str(),sts_i);
 
 	}
+	void getStiffnessScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.sts.stsfv\"",mName.c_str());
+
+	}
 	void getStiffnessScale_Interp(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsi\"",mName.c_str(),sts_i);
+
+	}
+	void getStiffnessScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.sts.stsi\"",mName.c_str());
 
 	}
 	void getLengthFlex()const
@@ -1182,9 +1218,21 @@ public:
 		fprintf(mFile,"\"%s.ats[%i]\"",mName.c_str(),ats_i);
 
 	}
+	void getAttractionScale()const
+	{
+
+		fprintf(mFile,"\"%s.ats\"",mName.c_str());
+
+	}
 	void getAttractionScale_Position(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsp\"",mName.c_str(),ats_i);
+
+	}
+	void getAttractionScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.ats.atsp\"",mName.c_str());
 
 	}
 	void getAttractionScale_FloatValue(size_t ats_i)const
@@ -1192,9 +1240,21 @@ public:
 		fprintf(mFile,"\"%s.ats[%i].atsfv\"",mName.c_str(),ats_i);
 
 	}
+	void getAttractionScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.ats.atsfv\"",mName.c_str());
+
+	}
 	void getAttractionScale_Interp(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsi\"",mName.c_str(),ats_i);
+
+	}
+	void getAttractionScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.ats.atsi\"",mName.c_str());
 
 	}
 	void getMotionDrag()const
@@ -1227,9 +1287,21 @@ public:
 		fprintf(mFile,"\"%s.cws[%i]\"",mName.c_str(),cws_i);
 
 	}
+	void getClumpWidthScale()const
+	{
+
+		fprintf(mFile,"\"%s.cws\"",mName.c_str());
+
+	}
 	void getClumpWidthScale_Position(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsp\"",mName.c_str(),cws_i);
+
+	}
+	void getClumpWidthScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.cws.cwsp\"",mName.c_str());
 
 	}
 	void getClumpWidthScale_FloatValue(size_t cws_i)const
@@ -1237,9 +1309,21 @@ public:
 		fprintf(mFile,"\"%s.cws[%i].cwsfv\"",mName.c_str(),cws_i);
 
 	}
+	void getClumpWidthScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.cws.cwsfv\"",mName.c_str());
+
+	}
 	void getClumpWidthScale_Interp(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsi\"",mName.c_str(),cws_i);
+
+	}
+	void getClumpWidthScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.cws.cwsi\"",mName.c_str());
 
 	}
 	void getClumpTwist()const
@@ -1252,9 +1336,21 @@ public:
 		fprintf(mFile,"\"%s.clc[%i]\"",mName.c_str(),clc_i);
 
 	}
+	void getClumpCurl()const
+	{
+
+		fprintf(mFile,"\"%s.clc\"",mName.c_str());
+
+	}
 	void getClumpCurl_Position(size_t clc_i)const
 	{
 		fprintf(mFile,"\"%s.clc[%i].clcp\"",mName.c_str(),clc_i);
+
+	}
+	void getClumpCurl_Position()const
+	{
+
+		fprintf(mFile,"\"%s.clc.clcp\"",mName.c_str());
 
 	}
 	void getClumpCurl_FloatValue(size_t clc_i)const
@@ -1262,9 +1358,21 @@ public:
 		fprintf(mFile,"\"%s.clc[%i].clcfv\"",mName.c_str(),clc_i);
 
 	}
+	void getClumpCurl_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.clc.clcfv\"",mName.c_str());
+
+	}
 	void getClumpCurl_Interp(size_t clc_i)const
 	{
 		fprintf(mFile,"\"%s.clc[%i].clci\"",mName.c_str(),clc_i);
+
+	}
+	void getClumpCurl_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.clc.clci\"",mName.c_str());
 
 	}
 	void getClumpFlatness(size_t cfl_i)const
@@ -1272,9 +1380,21 @@ public:
 		fprintf(mFile,"\"%s.cfl[%i]\"",mName.c_str(),cfl_i);
 
 	}
+	void getClumpFlatness()const
+	{
+
+		fprintf(mFile,"\"%s.cfl\"",mName.c_str());
+
+	}
 	void getClumpFlatness_Position(size_t cfl_i)const
 	{
 		fprintf(mFile,"\"%s.cfl[%i].cflp\"",mName.c_str(),cfl_i);
+
+	}
+	void getClumpFlatness_Position()const
+	{
+
+		fprintf(mFile,"\"%s.cfl.cflp\"",mName.c_str());
 
 	}
 	void getClumpFlatness_FloatValue(size_t cfl_i)const
@@ -1282,9 +1402,21 @@ public:
 		fprintf(mFile,"\"%s.cfl[%i].cflfv\"",mName.c_str(),cfl_i);
 
 	}
+	void getClumpFlatness_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.cfl.cflfv\"",mName.c_str());
+
+	}
 	void getClumpFlatness_Interp(size_t cfl_i)const
 	{
 		fprintf(mFile,"\"%s.cfl[%i].cfli\"",mName.c_str(),cfl_i);
+
+	}
+	void getClumpFlatness_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.cfl.cfli\"",mName.c_str());
 
 	}
 	void getBendFollow()const
@@ -1302,9 +1434,21 @@ public:
 		fprintf(mFile,"\"%s.hws[%i]\"",mName.c_str(),hws_i);
 
 	}
+	void getHairWidthScale()const
+	{
+
+		fprintf(mFile,"\"%s.hws\"",mName.c_str());
+
+	}
 	void getHairWidthScale_Position(size_t hws_i)const
 	{
 		fprintf(mFile,"\"%s.hws[%i].hwsp\"",mName.c_str(),hws_i);
+
+	}
+	void getHairWidthScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.hws.hwsp\"",mName.c_str());
 
 	}
 	void getHairWidthScale_FloatValue(size_t hws_i)const
@@ -1312,9 +1456,21 @@ public:
 		fprintf(mFile,"\"%s.hws[%i].hwsfv\"",mName.c_str(),hws_i);
 
 	}
+	void getHairWidthScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.hws.hwsfv\"",mName.c_str());
+
+	}
 	void getHairWidthScale_Interp(size_t hws_i)const
 	{
 		fprintf(mFile,"\"%s.hws[%i].hwsi\"",mName.c_str(),hws_i);
+
+	}
+	void getHairWidthScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.hws.hwsi\"",mName.c_str());
 
 	}
 	void getBaldnessMap()const
@@ -1352,9 +1508,21 @@ public:
 		fprintf(mFile,"\"%s.hcs[%i]\"",mName.c_str(),hcs_i);
 
 	}
+	void getHairColorScale()const
+	{
+
+		fprintf(mFile,"\"%s.hcs\"",mName.c_str());
+
+	}
 	void getHairColorScale_Position(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsp\"",mName.c_str(),hcs_i);
+
+	}
+	void getHairColorScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.hcs.hcsp\"",mName.c_str());
 
 	}
 	void getHairColorScale_Color(size_t hcs_i)const
@@ -1362,9 +1530,21 @@ public:
 		fprintf(mFile,"\"%s.hcs[%i].hcsc\"",mName.c_str(),hcs_i);
 
 	}
+	void getHairColorScale_Color()const
+	{
+
+		fprintf(mFile,"\"%s.hcs.hcsc\"",mName.c_str());
+
+	}
 	void getHairColorScale_ColorR(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsc.hcscr\"",mName.c_str(),hcs_i);
+
+	}
+	void getHairColorScale_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.hcs.hcsc.hcscr\"",mName.c_str());
 
 	}
 	void getHairColorScale_ColorG(size_t hcs_i)const
@@ -1372,14 +1552,32 @@ public:
 		fprintf(mFile,"\"%s.hcs[%i].hcsc.hcscg\"",mName.c_str(),hcs_i);
 
 	}
+	void getHairColorScale_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.hcs.hcsc.hcscg\"",mName.c_str());
+
+	}
 	void getHairColorScale_ColorB(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsc.hcscb\"",mName.c_str(),hcs_i);
 
 	}
+	void getHairColorScale_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.hcs.hcsc.hcscb\"",mName.c_str());
+
+	}
 	void getHairColorScale_Interp(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsi\"",mName.c_str(),hcs_i);
+
+	}
+	void getHairColorScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.hcs.hcsi\"",mName.c_str());
 
 	}
 	void getHairsPerClump()const
@@ -1477,9 +1675,21 @@ public:
 		fprintf(mFile,"\"%s.dsc[%i]\"",mName.c_str(),dsc_i);
 
 	}
+	void getDisplacementScale()const
+	{
+
+		fprintf(mFile,"\"%s.dsc\"",mName.c_str());
+
+	}
 	void getDisplacementScale_Position(size_t dsc_i)const
 	{
 		fprintf(mFile,"\"%s.dsc[%i].dscp\"",mName.c_str(),dsc_i);
+
+	}
+	void getDisplacementScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.dsc.dscp\"",mName.c_str());
 
 	}
 	void getDisplacementScale_FloatValue(size_t dsc_i)const
@@ -1487,9 +1697,21 @@ public:
 		fprintf(mFile,"\"%s.dsc[%i].dscfv\"",mName.c_str(),dsc_i);
 
 	}
+	void getDisplacementScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.dsc.dscfv\"",mName.c_str());
+
+	}
 	void getDisplacementScale_Interp(size_t dsc_i)const
 	{
 		fprintf(mFile,"\"%s.dsc[%i].dsci\"",mName.c_str(),dsc_i);
+
+	}
+	void getDisplacementScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.dsc.dsci\"",mName.c_str());
 
 	}
 	void getCurl()const
@@ -1590,6 +1812,12 @@ public:
 	void getInputForce(size_t ifc_i)const
 	{
 		fprintf(mFile,"\"%s.ifc[%i]\"",mName.c_str(),ifc_i);
+
+	}
+	void getInputForce()const
+	{
+
+		fprintf(mFile,"\"%s.ifc\"",mName.c_str());
 
 	}
 	void getFieldData()const
@@ -1765,6 +1993,12 @@ public:
 	void getOutputHair(size_t oh_i)const
 	{
 		fprintf(mFile,"\"%s.oh[%i]\"",mName.c_str(),oh_i);
+
+	}
+	void getOutputHair()const
+	{
+
+		fprintf(mFile,"\"%s.oh\"",mName.c_str());
 
 	}
 	void getOutputRenderHairs()const

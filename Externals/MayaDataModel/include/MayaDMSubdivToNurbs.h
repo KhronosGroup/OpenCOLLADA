@@ -44,6 +44,12 @@ public:
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
 
 	}
+	void getOutputSurfaces()const
+	{
+
+		fprintf(mFile,"\"%s.os\"",mName.c_str());
+
+	}
 	void getOutputType()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());

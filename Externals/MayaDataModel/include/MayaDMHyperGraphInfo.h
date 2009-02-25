@@ -27,6 +27,12 @@ public:
 		fprintf(mFile,"\"%s.b[%i]\"",mName.c_str(),b_i);
 
 	}
+	void getBookmarks()const
+	{
+
+		fprintf(mFile,"\"%s.b\"",mName.c_str());
+
+	}
 protected:
 	HyperGraphInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DependNode(file, name, parent, nodeType, create) {}

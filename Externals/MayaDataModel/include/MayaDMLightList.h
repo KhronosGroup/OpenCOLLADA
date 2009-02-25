@@ -27,9 +27,21 @@ public:
 		fprintf(mFile,"\"%s.l[%i]\"",mName.c_str(),l_i);
 
 	}
+	void getLights()const
+	{
+
+		fprintf(mFile,"\"%s.l\"",mName.c_str());
+
+	}
 	void getLinkNodes(size_t ln_i)const
 	{
 		fprintf(mFile,"\"%s.ln[%i]\"",mName.c_str(),ln_i);
+
+	}
+	void getLinkNodes()const
+	{
+
+		fprintf(mFile,"\"%s.ln\"",mName.c_str());
 
 	}
 protected:

@@ -312,6 +312,12 @@ public:
 		fprintf(mFile,"\"%s.cid[%i]\"",mName.c_str(),cid_i);
 
 	}
+	void getComponentIds()const
+	{
+
+		fprintf(mFile,"\"%s.cid\"",mName.c_str());
+
+	}
 	void getConstraintMethod()const
 	{
 		fprintf(mFile,"\"%s.cm\"",mName.c_str());
@@ -352,9 +358,21 @@ public:
 		fprintf(mFile,"\"%s.cdnr[%i]\"",mName.c_str(),cdnr_i);
 
 	}
+	void getConnectionDensityRange()const
+	{
+
+		fprintf(mFile,"\"%s.cdnr\"",mName.c_str());
+
+	}
 	void getConnectionDensityRange_Position(size_t cdnr_i)const
 	{
 		fprintf(mFile,"\"%s.cdnr[%i].cdnrp\"",mName.c_str(),cdnr_i);
+
+	}
+	void getConnectionDensityRange_Position()const
+	{
+
+		fprintf(mFile,"\"%s.cdnr.cdnrp\"",mName.c_str());
 
 	}
 	void getConnectionDensityRange_FloatValue(size_t cdnr_i)const
@@ -362,9 +380,21 @@ public:
 		fprintf(mFile,"\"%s.cdnr[%i].cdnrfv\"",mName.c_str(),cdnr_i);
 
 	}
+	void getConnectionDensityRange_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.cdnr.cdnrfv\"",mName.c_str());
+
+	}
 	void getConnectionDensityRange_Interp(size_t cdnr_i)const
 	{
 		fprintf(mFile,"\"%s.cdnr[%i].cdnri\"",mName.c_str(),cdnr_i);
+
+	}
+	void getConnectionDensityRange_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.cdnr.cdnri\"",mName.c_str());
 
 	}
 	void getDisplayConnections()const
@@ -447,9 +477,21 @@ public:
 		fprintf(mFile,"\"%s.sdp[%i]\"",mName.c_str(),sdp_i);
 
 	}
+	void getStrengthDropoff()const
+	{
+
+		fprintf(mFile,"\"%s.sdp\"",mName.c_str());
+
+	}
 	void getStrengthDropoff_Position(size_t sdp_i)const
 	{
 		fprintf(mFile,"\"%s.sdp[%i].sdpp\"",mName.c_str(),sdp_i);
+
+	}
+	void getStrengthDropoff_Position()const
+	{
+
+		fprintf(mFile,"\"%s.sdp.sdpp\"",mName.c_str());
 
 	}
 	void getStrengthDropoff_FloatValue(size_t sdp_i)const
@@ -457,9 +499,21 @@ public:
 		fprintf(mFile,"\"%s.sdp[%i].sdpfv\"",mName.c_str(),sdp_i);
 
 	}
+	void getStrengthDropoff_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.sdp.sdpfv\"",mName.c_str());
+
+	}
 	void getStrengthDropoff_Interp(size_t sdp_i)const
 	{
 		fprintf(mFile,"\"%s.sdp[%i].sdpi\"",mName.c_str(),sdp_i);
+
+	}
+	void getStrengthDropoff_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.sdp.sdpi\"",mName.c_str());
 
 	}
 	void getMaxDistance()const
@@ -512,9 +566,21 @@ public:
 		fprintf(mFile,"\"%s.evs[%i]\"",mName.c_str(),evs_i);
 
 	}
+	void getEvalStart()const
+	{
+
+		fprintf(mFile,"\"%s.evs\"",mName.c_str());
+
+	}
 	void getEvalCurrent(size_t evc_i)const
 	{
 		fprintf(mFile,"\"%s.evc[%i]\"",mName.c_str(),evc_i);
+
+	}
+	void getEvalCurrent()const
+	{
+
+		fprintf(mFile,"\"%s.evc\"",mName.c_str());
 
 	}
 	void getIterations()const

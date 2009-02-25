@@ -64,6 +64,12 @@ public:
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
+	void getMatrixIn()const
+	{
+
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
+
+	}
 	void getMatrixSum()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());

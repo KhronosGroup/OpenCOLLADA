@@ -343,14 +343,32 @@ public:
 		fprintf(mFile,"\"%s.wl[%i]\"",mName.c_str(),wl_i);
 
 	}
+	void getWeightList()const
+	{
+
+		fprintf(mFile,"\"%s.wl\"",mName.c_str());
+
+	}
 	void getWeights(size_t wl_i,size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.wl[%i].w[%i]\"",mName.c_str(),wl_i,w_i);
 
 	}
+	void getWeights(size_t w_i)const
+	{
+
+		fprintf(mFile,"\"%s.wl.w[%i]\"",mName.c_str(),w_i);
+
+	}
 	void getBindPreMatrix(size_t pm_i)const
 	{
 		fprintf(mFile,"\"%s.pm[%i]\"",mName.c_str(),pm_i);
+
+	}
+	void getBindPreMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.pm\"",mName.c_str());
 
 	}
 	void getGeomMatrix()const
@@ -363,6 +381,12 @@ public:
 		fprintf(mFile,"\"%s.ma[%i]\"",mName.c_str(),ma_i);
 
 	}
+	void getMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.ma\"",mName.c_str());
+
+	}
 	void getDropoffRate()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
@@ -373,14 +397,32 @@ public:
 		fprintf(mFile,"\"%s.dpf[%i]\"",mName.c_str(),dpf_i);
 
 	}
+	void getDropoff()const
+	{
+
+		fprintf(mFile,"\"%s.dpf\"",mName.c_str());
+
+	}
 	void getSmoothness(size_t smt_i)const
 	{
 		fprintf(mFile,"\"%s.smt[%i]\"",mName.c_str(),smt_i);
 
 	}
+	void getSmoothness()const
+	{
+
+		fprintf(mFile,"\"%s.smt\"",mName.c_str());
+
+	}
 	void getLockWeights(size_t lw_i)const
 	{
 		fprintf(mFile,"\"%s.lw[%i]\"",mName.c_str(),lw_i);
+
+	}
+	void getLockWeights()const
+	{
+
+		fprintf(mFile,"\"%s.lw\"",mName.c_str());
 
 	}
 	void getMaintainMaxInfluences()const
@@ -403,9 +445,21 @@ public:
 		fprintf(mFile,"\"%s.drp[%i]\"",mName.c_str(),drp_i);
 
 	}
+	void getDriverPoints()const
+	{
+
+		fprintf(mFile,"\"%s.drp\"",mName.c_str());
+
+	}
 	void getBasePoints(size_t bsp_i)const
 	{
 		fprintf(mFile,"\"%s.bsp[%i]\"",mName.c_str(),bsp_i);
+
+	}
+	void getBasePoints()const
+	{
+
+		fprintf(mFile,"\"%s.bsp\"",mName.c_str());
 
 	}
 	void getBaseDirty()const
@@ -436,6 +490,12 @@ public:
 	void getNurbsSamples(size_t ns_i)const
 	{
 		fprintf(mFile,"\"%s.ns[%i]\"",mName.c_str(),ns_i);
+
+	}
+	void getNurbsSamples()const
+	{
+
+		fprintf(mFile,"\"%s.ns\"",mName.c_str());
 
 	}
 	void getUseComponentsMatrix()const

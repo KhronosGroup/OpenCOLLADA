@@ -234,9 +234,21 @@ public:
 		fprintf(mFile,"\"%s.cls[%i]\"",mName.c_str(),cls_i);
 
 	}
+	void getColorScale()const
+	{
+
+		fprintf(mFile,"\"%s.cls\"",mName.c_str());
+
+	}
 	void getColorScale_Position(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsp\"",mName.c_str(),cls_i);
+
+	}
+	void getColorScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.cls.clsp\"",mName.c_str());
 
 	}
 	void getColorScale_Color(size_t cls_i)const
@@ -244,9 +256,21 @@ public:
 		fprintf(mFile,"\"%s.cls[%i].clsc\"",mName.c_str(),cls_i);
 
 	}
+	void getColorScale_Color()const
+	{
+
+		fprintf(mFile,"\"%s.cls.clsc\"",mName.c_str());
+
+	}
 	void getColorScale_ColorR(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsc.clscr\"",mName.c_str(),cls_i);
+
+	}
+	void getColorScale_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.cls.clsc.clscr\"",mName.c_str());
 
 	}
 	void getColorScale_ColorG(size_t cls_i)const
@@ -254,14 +278,32 @@ public:
 		fprintf(mFile,"\"%s.cls[%i].clsc.clscg\"",mName.c_str(),cls_i);
 
 	}
+	void getColorScale_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.cls.clsc.clscg\"",mName.c_str());
+
+	}
 	void getColorScale_ColorB(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsc.clscb\"",mName.c_str(),cls_i);
 
 	}
+	void getColorScale_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.cls.clsc.clscb\"",mName.c_str());
+
+	}
 	void getColorScale_Interp(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsi\"",mName.c_str(),cls_i);
+
+	}
+	void getColorScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.cls.clsi\"",mName.c_str());
 
 	}
 	void getSpecularPower()const

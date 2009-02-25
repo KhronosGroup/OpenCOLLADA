@@ -66,6 +66,12 @@ public:
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
+	void getInput()const
+	{
+
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
+
+	}
 	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());

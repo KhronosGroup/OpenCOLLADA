@@ -224,9 +224,21 @@ public:
 		fprintf(mFile,"\"%s.h[%i]\"",mName.c_str(),h_i);
 
 	}
+	void getHue()const
+	{
+
+		fprintf(mFile,"\"%s.h\"",mName.c_str());
+
+	}
 	void getHue_Position(size_t h_i)const
 	{
 		fprintf(mFile,"\"%s.h[%i].hp\"",mName.c_str(),h_i);
+
+	}
+	void getHue_Position()const
+	{
+
+		fprintf(mFile,"\"%s.h.hp\"",mName.c_str());
 
 	}
 	void getHue_FloatValue(size_t h_i)const
@@ -234,9 +246,21 @@ public:
 		fprintf(mFile,"\"%s.h[%i].hfv\"",mName.c_str(),h_i);
 
 	}
+	void getHue_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.h.hfv\"",mName.c_str());
+
+	}
 	void getHue_Interp(size_t h_i)const
 	{
 		fprintf(mFile,"\"%s.h[%i].hi\"",mName.c_str(),h_i);
+
+	}
+	void getHue_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.h.hi\"",mName.c_str());
 
 	}
 	void getSaturation(size_t s_i)const
@@ -244,9 +268,21 @@ public:
 		fprintf(mFile,"\"%s.s[%i]\"",mName.c_str(),s_i);
 
 	}
+	void getSaturation()const
+	{
+
+		fprintf(mFile,"\"%s.s\"",mName.c_str());
+
+	}
 	void getSaturation_Position(size_t s_i)const
 	{
 		fprintf(mFile,"\"%s.s[%i].sp\"",mName.c_str(),s_i);
+
+	}
+	void getSaturation_Position()const
+	{
+
+		fprintf(mFile,"\"%s.s.sp\"",mName.c_str());
 
 	}
 	void getSaturation_FloatValue(size_t s_i)const
@@ -254,9 +290,21 @@ public:
 		fprintf(mFile,"\"%s.s[%i].sfv\"",mName.c_str(),s_i);
 
 	}
+	void getSaturation_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.s.sfv\"",mName.c_str());
+
+	}
 	void getSaturation_Interp(size_t s_i)const
 	{
 		fprintf(mFile,"\"%s.s[%i].si\"",mName.c_str(),s_i);
+
+	}
+	void getSaturation_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.s.si\"",mName.c_str());
 
 	}
 	void getValue(size_t v_i)const
@@ -264,9 +312,21 @@ public:
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
 
 	}
+	void getValue()const
+	{
+
+		fprintf(mFile,"\"%s.v\"",mName.c_str());
+
+	}
 	void getValue_Position(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vp\"",mName.c_str(),v_i);
+
+	}
+	void getValue_Position()const
+	{
+
+		fprintf(mFile,"\"%s.v.vp\"",mName.c_str());
 
 	}
 	void getValue_FloatValue(size_t v_i)const
@@ -274,9 +334,21 @@ public:
 		fprintf(mFile,"\"%s.v[%i].vfv\"",mName.c_str(),v_i);
 
 	}
+	void getValue_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.v.vfv\"",mName.c_str());
+
+	}
 	void getValue_Interp(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vi\"",mName.c_str(),v_i);
+
+	}
+	void getValue_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.v.vi\"",mName.c_str());
 
 	}
 	void getOutColor()const

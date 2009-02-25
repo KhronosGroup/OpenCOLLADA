@@ -80,9 +80,21 @@ public:
 		fprintf(mFile,"\"%s.in[%i]\"",mName.c_str(),in_i);
 
 	}
+	void getInput()const
+	{
+
+		fprintf(mFile,"\"%s.in\"",mName.c_str());
+
+	}
 	void getOutput(size_t out_i)const
 	{
 		fprintf(mFile,"\"%s.out[%i]\"",mName.c_str(),out_i);
+
+	}
+	void getOutput()const
+	{
+
+		fprintf(mFile,"\"%s.out\"",mName.c_str());
 
 	}
 	void getObject()const

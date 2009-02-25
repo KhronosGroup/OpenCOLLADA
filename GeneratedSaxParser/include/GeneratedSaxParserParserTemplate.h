@@ -295,7 +295,7 @@ namespace GeneratedSaxParser
             mEndOfDataInCurrentObjectOnStack;
 			if ( failed )
 			{
-				if ( handleError(ParserError::SEVERITY_ERROR, 
+				if ( handleError(ParserError::SEVERITY_ERROR2, 
 					             ParserError::ERROR_TEXTDATA_PARSING_FAILED,
 					             0,
 					             mLastIncompleteFragmentInCharacterData))
@@ -359,7 +359,7 @@ namespace GeneratedSaxParser
 			size_t length = std::min(20, (int)(bufferEnd-dataBufferPos));
 			memcpy(dataBufferError, dataBufferPos, length);
 			dataBufferError[length] = '\0';
-			if ( handleError(ParserError::SEVERITY_ERROR, 
+			if ( handleError(ParserError::SEVERITY_ERROR2, 
 				     	     ParserError::ERROR_TEXTDATA_PARSING_FAILED,
 				             0,
 				             dataBufferError))
@@ -411,7 +411,7 @@ namespace GeneratedSaxParser
             mEndOfDataInCurrentObjectOnStack;
             if ( failed )
             {
-                if ( handleError(ParserError::SEVERITY_ERROR, 
+                if ( handleError(ParserError::SEVERITY_ERROR2, 
                     ParserError::ERROR_TEXTDATA_PARSING_FAILED,
                     0,
                     mLastIncompleteFragmentInCharacterData))
@@ -475,7 +475,7 @@ namespace GeneratedSaxParser
             size_t length = std::min(20, (int)(bufferEnd-dataBufferPos));
             memcpy(dataBufferError, dataBufferPos, length);
             dataBufferError[length] = '\0';
-            if ( handleError(ParserError::SEVERITY_ERROR, 
+            if ( handleError(ParserError::SEVERITY_ERROR2, 
                 ParserError::ERROR_TEXTDATA_PARSING_FAILED,
                 0,
                 dataBufferError))
@@ -538,7 +538,7 @@ namespace GeneratedSaxParser
             size_t length = std::min(20, bufferLength);
             memcpy(dataBufferError, dataBufferPos, length);
             dataBufferError[length] = '\0';
-            if ( handleError(ParserError::SEVERITY_ERROR, 
+            if ( handleError(ParserError::SEVERITY_ERROR2, 
                 ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
                 0,
                 dataBufferError))
@@ -669,7 +669,7 @@ namespace GeneratedSaxParser
 					size_t length = std::min(20, bufferLength);
 					memcpy(dataBufferError, bufferBegin, length);
 					dataBufferError[length] = '\0';
-					if ( handleError(ParserError::SEVERITY_ERROR, 
+					if ( handleError(ParserError::SEVERITY_ERROR2, 
 						ParserError::ERROR_TEXTDATA_PARSING_FAILED,
 						0,
 						dataBufferError))
@@ -720,7 +720,7 @@ namespace GeneratedSaxParser
                     size_t length = std::min(20, bufferLength);
                     memcpy(dataBufferError, bufferBegin, length);
                     dataBufferError[length] = '\0';
-                    if ( handleError(ParserError::SEVERITY_ERROR, 
+                    if ( handleError(ParserError::SEVERITY_ERROR2, 
                         ParserError::ERROR_TEXTDATA_PARSING_FAILED,
                         0,
                         dataBufferError))
@@ -913,7 +913,7 @@ namespace GeneratedSaxParser
 		ElementFunctionMap::iterator it = mElementFunctionMap.find(combinedHash);
 		if ( it == mElementFunctionMap.end() )
 		{
-			if ( handleError(ParserError::SEVERITY_ERROR, 
+			if ( handleError(ParserError::SEVERITY_ERROR2, 
 							 ParserError::ERROR_UNKNOWN_ELEMENT,
 				             0,
 				             elementName))

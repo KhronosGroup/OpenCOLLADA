@@ -87,6 +87,12 @@ public:
 		fprintf(mFile,"\"%s.out[%i]\"",mName.c_str(),out_i);
 
 	}
+	void getOutputGeom()const
+	{
+
+		fprintf(mFile,"\"%s.out\"",mName.c_str());
+
+	}
 	void getInputMatrix()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());

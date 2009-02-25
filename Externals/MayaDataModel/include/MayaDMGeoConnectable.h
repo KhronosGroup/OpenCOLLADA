@@ -27,6 +27,12 @@ public:
 		fprintf(mFile,"\"%s.ct[%i]\"",mName.c_str(),ct_i);
 
 	}
+	void getConnectionsToMe()const
+	{
+
+		fprintf(mFile,"\"%s.ct\"",mName.c_str());
+
+	}
 	void getAuxiliariesOwned()const
 	{
 		fprintf(mFile,"\"%s.ao\"",mName.c_str());
@@ -62,9 +68,21 @@ public:
 		fprintf(mFile,"\"%s.cpp[%i]\"",mName.c_str(),cpp_i);
 
 	}
+	void getComponentPositions()const
+	{
+
+		fprintf(mFile,"\"%s.cpp\"",mName.c_str());
+
+	}
 	void getGroupId(size_t gri_i)const
 	{
 		fprintf(mFile,"\"%s.gri[%i]\"",mName.c_str(),gri_i);
+
+	}
+	void getGroupId()const
+	{
+
+		fprintf(mFile,"\"%s.gri\"",mName.c_str());
 
 	}
 	void getInputGeometryMsg()const

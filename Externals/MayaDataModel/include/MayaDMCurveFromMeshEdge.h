@@ -60,6 +60,12 @@ public:
 		fprintf(mFile,"\"%s.ei[%i]\"",mName.c_str(),ei_i);
 
 	}
+	void getEdgeIndex()const
+	{
+
+		fprintf(mFile,"\"%s.ei\"",mName.c_str());
+
+	}
 protected:
 	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:CurveFromMesh(file, name, parent, nodeType, create) {}

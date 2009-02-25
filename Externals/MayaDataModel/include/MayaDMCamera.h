@@ -869,6 +869,12 @@ public:
 		fprintf(mFile,"\"%s.ip[%i]\"",mName.c_str(),ip_i);
 
 	}
+	void getImagePlane()const
+	{
+
+		fprintf(mFile,"\"%s.ip\"",mName.c_str());
+
+	}
 	void getHomeCommand()const
 	{
 		fprintf(mFile,"\"%s.hc\"",mName.c_str());
@@ -877,6 +883,12 @@ public:
 	void getBookmarks(size_t b_i)const
 	{
 		fprintf(mFile,"\"%s.b[%i]\"",mName.c_str(),b_i);
+
+	}
+	void getBookmarks()const
+	{
+
+		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
 	void getLocatorScale()const

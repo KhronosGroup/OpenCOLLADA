@@ -27,9 +27,21 @@ public:
 		fprintf(mFile,"\"%s.lda[%i]\"",mName.c_str(),lda_i);
 
 	}
+	void getLightDataArray()const
+	{
+
+		fprintf(mFile,"\"%s.lda\"",mName.c_str());
+
+	}
 	void getLightDirection(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].ld\"",mName.c_str(),lda_i);
+
+	}
+	void getLightDirection()const
+	{
+
+		fprintf(mFile,"\"%s.lda.ld\"",mName.c_str());
 
 	}
 	void getLightDirectionX(size_t lda_i)const
@@ -37,9 +49,21 @@ public:
 		fprintf(mFile,"\"%s.lda[%i].ld.ldx\"",mName.c_str(),lda_i);
 
 	}
+	void getLightDirectionX()const
+	{
+
+		fprintf(mFile,"\"%s.lda.ld.ldx\"",mName.c_str());
+
+	}
 	void getLightDirectionY(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].ld.ldy\"",mName.c_str(),lda_i);
+
+	}
+	void getLightDirectionY()const
+	{
+
+		fprintf(mFile,"\"%s.lda.ld.ldy\"",mName.c_str());
 
 	}
 	void getLightDirectionZ(size_t lda_i)const
@@ -47,9 +71,21 @@ public:
 		fprintf(mFile,"\"%s.lda[%i].ld.ldz\"",mName.c_str(),lda_i);
 
 	}
+	void getLightDirectionZ()const
+	{
+
+		fprintf(mFile,"\"%s.lda.ld.ldz\"",mName.c_str());
+
+	}
 	void getLightIntensity(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].li\"",mName.c_str(),lda_i);
+
+	}
+	void getLightIntensity()const
+	{
+
+		fprintf(mFile,"\"%s.lda.li\"",mName.c_str());
 
 	}
 	void getLightIntensityR(size_t lda_i)const
@@ -57,9 +93,21 @@ public:
 		fprintf(mFile,"\"%s.lda[%i].li.lir\"",mName.c_str(),lda_i);
 
 	}
+	void getLightIntensityR()const
+	{
+
+		fprintf(mFile,"\"%s.lda.li.lir\"",mName.c_str());
+
+	}
 	void getLightIntensityG(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].li.lig\"",mName.c_str(),lda_i);
+
+	}
+	void getLightIntensityG()const
+	{
+
+		fprintf(mFile,"\"%s.lda.li.lig\"",mName.c_str());
 
 	}
 	void getLightIntensityB(size_t lda_i)const
@@ -67,9 +115,21 @@ public:
 		fprintf(mFile,"\"%s.lda[%i].li.lib\"",mName.c_str(),lda_i);
 
 	}
+	void getLightIntensityB()const
+	{
+
+		fprintf(mFile,"\"%s.lda.li.lib\"",mName.c_str());
+
+	}
 	void getLightAmbient(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].la\"",mName.c_str(),lda_i);
+
+	}
+	void getLightAmbient()const
+	{
+
+		fprintf(mFile,"\"%s.lda.la\"",mName.c_str());
 
 	}
 	void getLightDiffuse(size_t lda_i)const
@@ -77,9 +137,21 @@ public:
 		fprintf(mFile,"\"%s.lda[%i].ldf\"",mName.c_str(),lda_i);
 
 	}
+	void getLightDiffuse()const
+	{
+
+		fprintf(mFile,"\"%s.lda.ldf\"",mName.c_str());
+
+	}
 	void getLightSpecular(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].ls\"",mName.c_str(),lda_i);
+
+	}
+	void getLightSpecular()const
+	{
+
+		fprintf(mFile,"\"%s.lda.ls\"",mName.c_str());
 
 	}
 	void getLightShadowFraction(size_t lda_i)const
@@ -87,14 +159,32 @@ public:
 		fprintf(mFile,"\"%s.lda[%i].lsf\"",mName.c_str(),lda_i);
 
 	}
+	void getLightShadowFraction()const
+	{
+
+		fprintf(mFile,"\"%s.lda.lsf\"",mName.c_str());
+
+	}
 	void getPreShadowIntensity(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].psi\"",mName.c_str(),lda_i);
 
 	}
+	void getPreShadowIntensity()const
+	{
+
+		fprintf(mFile,"\"%s.lda.psi\"",mName.c_str());
+
+	}
 	void getLightBlindData(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].lbd\"",mName.c_str(),lda_i);
+
+	}
+	void getLightBlindData()const
+	{
+
+		fprintf(mFile,"\"%s.lda.lbd\"",mName.c_str());
 
 	}
 	void getLightData()const

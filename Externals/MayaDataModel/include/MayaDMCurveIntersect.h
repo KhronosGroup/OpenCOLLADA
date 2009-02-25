@@ -104,9 +104,21 @@ public:
 		fprintf(mFile,"\"%s.p1[%i]\"",mName.c_str(),p1_i);
 
 	}
+	void getParameter1()const
+	{
+
+		fprintf(mFile,"\"%s.p1\"",mName.c_str());
+
+	}
 	void getParameter2(size_t p2_i)const
 	{
 		fprintf(mFile,"\"%s.p2[%i]\"",mName.c_str(),p2_i);
+
+	}
+	void getParameter2()const
+	{
+
+		fprintf(mFile,"\"%s.p2\"",mName.c_str());
 
 	}
 protected:

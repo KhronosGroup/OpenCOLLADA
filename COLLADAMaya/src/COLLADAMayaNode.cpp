@@ -21,7 +21,42 @@
 namespace COLLADAMaya
 {
 
-    // ------------------------------------
+    // -----------------------------
+    MayaNode::MayaNode () : mParent (0), mName (""), mPath (""), mIsCorrectPositioned (true)
+    {
+
+    }
+
+    // -----------------------------
+    MayaNode::MayaNode ( 
+        const COLLADAFW::UniqueId uniqueId, 
+        const String name, 
+        MayaNode* parent /*= NULL*/, 
+        const bool isCorrectPositioned/*=true */ ) 
+        : mUniqueId ( uniqueId )
+        , mName ( name )
+        , mParent ( parent ) 
+        , mPath ("")
+        , mIsCorrectPositioned (isCorrectPositioned)
+    {
+
+    }
+
+    // -----------------------------
+    void MayaNode::setParent ( MayaNode* val )
+    {
+        mParent = val; 
+        mPath = "";
+    }
+
+    // -----------------------------
+    void MayaNode::setName ( COLLADAMaya::String val )
+    {
+        mName = val; 
+        mPath = "";
+    }
+
+    // -----------------------------
     const COLLADAMaya::String MayaNode::getNodePath () 
     {
         if ( COLLADABU::Utils::equals ( mPath, "") ) 

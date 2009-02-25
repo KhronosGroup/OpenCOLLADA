@@ -46,9 +46,21 @@ public:
 		fprintf(mFile,"\"%s.gu[%i]\"",mName.c_str(),gu_i);
 
 	}
+	void getGroupIdUpperBindSkin()const
+	{
+
+		fprintf(mFile,"\"%s.gu\"",mName.c_str());
+
+	}
 	void getGroupIdLowerBindSkin(size_t gl_i)const
 	{
 		fprintf(mFile,"\"%s.gl[%i]\"",mName.c_str(),gl_i);
+
+	}
+	void getGroupIdLowerBindSkin()const
+	{
+
+		fprintf(mFile,"\"%s.gl\"",mName.c_str());
 
 	}
 	void getUpperBindSkinNode()const

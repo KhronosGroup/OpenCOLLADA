@@ -71,6 +71,12 @@ public:
 		fprintf(mFile,"\"%s.dli[%i]\"",mName.c_str(),dli_i);
 
 	}
+	void getDisplayLayerId()const
+	{
+
+		fprintf(mFile,"\"%s.dli\"",mName.c_str());
+
+	}
 protected:
 	DisplayLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DependNode(file, name, parent, nodeType, create) {}

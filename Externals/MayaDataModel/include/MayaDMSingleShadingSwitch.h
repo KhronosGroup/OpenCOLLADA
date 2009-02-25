@@ -53,14 +53,32 @@ public:
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
+	void getInput()const
+	{
+
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
+
+	}
 	void getInSingle(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].it\"",mName.c_str(),i_i);
 
 	}
+	void getInSingle()const
+	{
+
+		fprintf(mFile,"\"%s.i.it\"",mName.c_str());
+
+	}
 	void getInShape(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].is\"",mName.c_str(),i_i);
+
+	}
+	void getInShape()const
+	{
+
+		fprintf(mFile,"\"%s.i.is\"",mName.c_str());
 
 	}
 	void getDefault()const

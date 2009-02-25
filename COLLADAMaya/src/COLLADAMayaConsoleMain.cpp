@@ -56,12 +56,14 @@ int main(int argc,char** argv)
     g_argv=argv;
 #endif
 
-    // Activate the error logging
+    // Activate the error logging. The default name of this file is OpenMayaErrorLog located in 
+    // the current directory ( "$(MAYA_LOCATION)/bin/OpenMayaErrorLog.txt" ).
     MGlobal::startErrorLogging();
 
-    // The default name of this file is OpenMayaErrorLog located in the 
-    // current directory. This can be changed, however, by calling:
-    MGlobal::setErrorLogPathName("$(MAYA_LOCATION)");
+//     // The default name of this file is OpenMayaErrorLog located in the 
+//     // current directory. This can be changed, however, by calling:
+//     std::string pathName = "C:/Temp/OpenMayaErrorLog.txt"; //MGlobal::errorLogPathName ().asChar ();
+//     MGlobal::setErrorLogPathName ( pathName.c_str () );
 
     char inFileName[MAX_FILENAME_LEN]={0};
     char outFileName[MAX_FILENAME_LEN]={0};

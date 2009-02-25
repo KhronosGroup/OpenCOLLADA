@@ -100,6 +100,12 @@ public:
 		fprintf(mFile,"\"%s.cr[%i]\"",mName.c_str(),cr_i);
 
 	}
+	void getCrease()const
+	{
+
+		fprintf(mFile,"\"%s.cr\"",mName.c_str());
+
+	}
 	void getInputVertexComponents()const
 	{
 		fprintf(mFile,"\"%s.ivc\"",mName.c_str());
@@ -108,6 +114,12 @@ public:
 	void getCreaseVertex(size_t crv_i)const
 	{
 		fprintf(mFile,"\"%s.crv[%i]\"",mName.c_str(),crv_i);
+
+	}
+	void getCreaseVertex()const
+	{
+
+		fprintf(mFile,"\"%s.crv\"",mName.c_str());
 
 	}
 protected:

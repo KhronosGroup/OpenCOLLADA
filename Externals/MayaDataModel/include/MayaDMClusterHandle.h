@@ -57,9 +57,21 @@ public:
 		fprintf(mFile,"\"%s.x[%i]\"",mName.c_str(),x_i);
 
 	}
+	void getClusterTransforms()const
+	{
+
+		fprintf(mFile,"\"%s.x\"",mName.c_str());
+
+	}
 	void getPreWeightedMatrixTransform(size_t x_i)const
 	{
 		fprintf(mFile,"\"%s.x[%i].pre\"",mName.c_str(),x_i);
+
+	}
+	void getPreWeightedMatrixTransform()const
+	{
+
+		fprintf(mFile,"\"%s.x.pre\"",mName.c_str());
 
 	}
 	void getWeightedMatrixTransform(size_t x_i)const
@@ -67,9 +79,21 @@ public:
 		fprintf(mFile,"\"%s.x[%i].wt\"",mName.c_str(),x_i);
 
 	}
+	void getWeightedMatrixTransform()const
+	{
+
+		fprintf(mFile,"\"%s.x.wt\"",mName.c_str());
+
+	}
 	void getPostWeightedMatrixTransform(size_t x_i)const
 	{
 		fprintf(mFile,"\"%s.x[%i].post\"",mName.c_str(),x_i);
+
+	}
+	void getPostWeightedMatrixTransform()const
+	{
+
+		fprintf(mFile,"\"%s.x.post\"",mName.c_str());
 
 	}
 	void getOrigin()const

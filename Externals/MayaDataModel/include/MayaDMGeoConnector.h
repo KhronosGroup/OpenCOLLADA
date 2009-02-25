@@ -160,6 +160,12 @@ public:
 		fprintf(mFile,"\"%s.ifc[%i]\"",mName.c_str(),ifc_i);
 
 	}
+	void getInputForce()const
+	{
+
+		fprintf(mFile,"\"%s.ifc\"",mName.c_str());
+
+	}
 	void getOwnerCentroid()const
 	{
 		fprintf(mFile,"\"%s.ocd\"",mName.c_str());
@@ -205,9 +211,21 @@ public:
 		fprintf(mFile,"\"%s.gri[%i]\"",mName.c_str(),gri_i);
 
 	}
+	void getGroupId()const
+	{
+
+		fprintf(mFile,"\"%s.gri\"",mName.c_str());
+
+	}
 	void getComponentPositions(size_t cpp_i)const
 	{
 		fprintf(mFile,"\"%s.cpp[%i]\"",mName.c_str(),cpp_i);
+
+	}
+	void getComponentPositions()const
+	{
+
+		fprintf(mFile,"\"%s.cpp\"",mName.c_str());
 
 	}
 	void getComponentVelocities(size_t cpv_i)const
@@ -215,9 +233,21 @@ public:
 		fprintf(mFile,"\"%s.cpv[%i]\"",mName.c_str(),cpv_i);
 
 	}
+	void getComponentVelocities()const
+	{
+
+		fprintf(mFile,"\"%s.cpv\"",mName.c_str());
+
+	}
 	void getComponentCentroid(size_t cpc_i)const
 	{
 		fprintf(mFile,"\"%s.cpc[%i]\"",mName.c_str(),cpc_i);
+
+	}
+	void getComponentCentroid()const
+	{
+
+		fprintf(mFile,"\"%s.cpc\"",mName.c_str());
 
 	}
 	void getComponentCentroidX(size_t cpc_i)const
@@ -225,9 +255,21 @@ public:
 		fprintf(mFile,"\"%s.cpc[%i].ccx\"",mName.c_str(),cpc_i);
 
 	}
+	void getComponentCentroidX()const
+	{
+
+		fprintf(mFile,"\"%s.cpc.ccx\"",mName.c_str());
+
+	}
 	void getComponentCentroidY(size_t cpc_i)const
 	{
 		fprintf(mFile,"\"%s.cpc[%i].ccy\"",mName.c_str(),cpc_i);
+
+	}
+	void getComponentCentroidY()const
+	{
+
+		fprintf(mFile,"\"%s.cpc.ccy\"",mName.c_str());
 
 	}
 	void getComponentCentroidZ(size_t cpc_i)const
@@ -235,9 +277,21 @@ public:
 		fprintf(mFile,"\"%s.cpc[%i].ccz\"",mName.c_str(),cpc_i);
 
 	}
+	void getComponentCentroidZ()const
+	{
+
+		fprintf(mFile,"\"%s.cpc.ccz\"",mName.c_str());
+
+	}
 	void getComponentCentroidLocal(size_t ccl_i)const
 	{
 		fprintf(mFile,"\"%s.ccl[%i]\"",mName.c_str(),ccl_i);
+
+	}
+	void getComponentCentroidLocal()const
+	{
+
+		fprintf(mFile,"\"%s.ccl\"",mName.c_str());
 
 	}
 	void getComponentCentroidLocalX(size_t ccl_i)const
@@ -245,14 +299,32 @@ public:
 		fprintf(mFile,"\"%s.ccl[%i].cclx\"",mName.c_str(),ccl_i);
 
 	}
+	void getComponentCentroidLocalX()const
+	{
+
+		fprintf(mFile,"\"%s.ccl.cclx\"",mName.c_str());
+
+	}
 	void getComponentCentroidLocalY(size_t ccl_i)const
 	{
 		fprintf(mFile,"\"%s.ccl[%i].clcy\"",mName.c_str(),ccl_i);
 
 	}
+	void getComponentCentroidLocalY()const
+	{
+
+		fprintf(mFile,"\"%s.ccl.clcy\"",mName.c_str());
+
+	}
 	void getComponentCentroidLocalZ(size_t ccl_i)const
 	{
 		fprintf(mFile,"\"%s.ccl[%i].clcz\"",mName.c_str(),ccl_i);
+
+	}
+	void getComponentCentroidLocalZ()const
+	{
+
+		fprintf(mFile,"\"%s.ccl.clcz\"",mName.c_str());
 
 	}
 	void getSweptGeometry()const
@@ -268,6 +340,12 @@ public:
 	void getRatePPIn(size_t rpi_i)const
 	{
 		fprintf(mFile,"\"%s.rpi[%i]\"",mName.c_str(),rpi_i);
+
+	}
+	void getRatePPIn()const
+	{
+
+		fprintf(mFile,"\"%s.rpi\"",mName.c_str());
 
 	}
 	void getRatePPOut()const

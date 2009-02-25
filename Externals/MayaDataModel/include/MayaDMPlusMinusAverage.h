@@ -171,9 +171,21 @@ public:
 		fprintf(mFile,"\"%s.i1[%i]\"",mName.c_str(),i1_i);
 
 	}
+	void getInput1D()const
+	{
+
+		fprintf(mFile,"\"%s.i1\"",mName.c_str());
+
+	}
 	void getInput2D(size_t i2_i)const
 	{
 		fprintf(mFile,"\"%s.i2[%i]\"",mName.c_str(),i2_i);
+
+	}
+	void getInput2D()const
+	{
+
+		fprintf(mFile,"\"%s.i2\"",mName.c_str());
 
 	}
 	void getInput2Dx(size_t i2_i)const
@@ -181,9 +193,21 @@ public:
 		fprintf(mFile,"\"%s.i2[%i].i2x\"",mName.c_str(),i2_i);
 
 	}
+	void getInput2Dx()const
+	{
+
+		fprintf(mFile,"\"%s.i2.i2x\"",mName.c_str());
+
+	}
 	void getInput2Dy(size_t i2_i)const
 	{
 		fprintf(mFile,"\"%s.i2[%i].i2y\"",mName.c_str(),i2_i);
+
+	}
+	void getInput2Dy()const
+	{
+
+		fprintf(mFile,"\"%s.i2.i2y\"",mName.c_str());
 
 	}
 	void getInput3D(size_t i3_i)const
@@ -191,9 +215,21 @@ public:
 		fprintf(mFile,"\"%s.i3[%i]\"",mName.c_str(),i3_i);
 
 	}
+	void getInput3D()const
+	{
+
+		fprintf(mFile,"\"%s.i3\"",mName.c_str());
+
+	}
 	void getInput3Dx(size_t i3_i)const
 	{
 		fprintf(mFile,"\"%s.i3[%i].i3x\"",mName.c_str(),i3_i);
+
+	}
+	void getInput3Dx()const
+	{
+
+		fprintf(mFile,"\"%s.i3.i3x\"",mName.c_str());
 
 	}
 	void getInput3Dy(size_t i3_i)const
@@ -201,9 +237,21 @@ public:
 		fprintf(mFile,"\"%s.i3[%i].i3y\"",mName.c_str(),i3_i);
 
 	}
+	void getInput3Dy()const
+	{
+
+		fprintf(mFile,"\"%s.i3.i3y\"",mName.c_str());
+
+	}
 	void getInput3Dz(size_t i3_i)const
 	{
 		fprintf(mFile,"\"%s.i3[%i].i3z\"",mName.c_str(),i3_i);
+
+	}
+	void getInput3Dz()const
+	{
+
+		fprintf(mFile,"\"%s.i3.i3z\"",mName.c_str());
 
 	}
 	void getOutput1D()const

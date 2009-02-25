@@ -9,7 +9,7 @@ set mayaFilename=%~nx1
 set mayaFilenamePath=%~f1
 
 set stripped=%mayaFilename:.mb=%
-set daeFilename=%filename%.maya.netallied.dae
+set daeFilename=%filename%.nextgen.dae
 set daeFilenamePath=%filepath%%daeFilename%
 
 ECHO Creating %daeFilename% file from %mayaFilename%...

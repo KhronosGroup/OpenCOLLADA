@@ -19,14 +19,10 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaNode.h"
+#include "COLLADAMayaSaxParserErrorHandler.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWFileInfo.h"
-// #include "COLLADAFWVisualScene.h"
-// #include "COLLADAFWGeometry.h"
-// #include "COLLADAFWMaterial.h"
-// #include "COLLADAFWEffect.h"
-// #include "COLLADAFWCamera.h"
 
 #include "MayaDMMesh.h"
 
@@ -75,8 +71,10 @@ namespace COLLADAMaya
 
         bool mAssetWritten;
         bool mSceneGraphWritten;
+        bool mLibraryNodesWritten;
 
         bool mSceneGraphRead;
+        bool mLibraryNodesRead;
         bool mGeometryRead;
         bool mCameraRead;
         bool mLightRead;
@@ -105,6 +103,9 @@ namespace COLLADAMaya
 
         /** The variable tells, how many times the document is read. */
         size_t mNumDocumentParses;
+
+        /** The error handler for the sax parser. */
+        SaxParserErrorHandler mSaxParserErrorHandler;
 
     public:
 
@@ -163,6 +164,10 @@ namespace COLLADAMaya
         /** Pointer to the light importer. */
         LightImporter* getLightImporter () { return mLightImporter; }
         const LightImporter* getLightImporter () const { return mLightImporter; }
+
+        /** Pointer to the image importer. */
+        ImageImporter* getImageImporter () { return mImageImporter; }
+        const ImageImporter* getImageImporter () const { return mImageImporter; }
 
         /** This method will be called if an error in the loading process occurred and the loader 
         cannot continue to to load. The writer should undo all operations that have been performed.

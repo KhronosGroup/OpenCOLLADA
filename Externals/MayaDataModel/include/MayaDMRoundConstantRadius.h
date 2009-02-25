@@ -290,9 +290,21 @@ public:
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
+	void getInputSurface()const
+	{
+
+		fprintf(mFile,"\"%s.is\"",mName.c_str());
+
+	}
 	void getRadius(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i]\"",mName.c_str(),r_i);
+
+	}
+	void getRadius()const
+	{
+
+		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
 	void getInputCurveA(size_t e_i,size_t ica_i)const
@@ -300,9 +312,21 @@ public:
 		fprintf(mFile,"\"%s.e[%i].ica[%i]\"",mName.c_str(),e_i,ica_i);
 
 	}
+	void getInputCurveA(size_t ica_i)const
+	{
+
+		fprintf(mFile,"\"%s.e.ica[%i]\"",mName.c_str(),ica_i);
+
+	}
 	void getInputCurveB(size_t e_i,size_t icb_i)const
 	{
 		fprintf(mFile,"\"%s.e[%i].icb[%i]\"",mName.c_str(),e_i,icb_i);
+
+	}
+	void getInputCurveB(size_t icb_i)const
+	{
+
+		fprintf(mFile,"\"%s.e.icb[%i]\"",mName.c_str(),icb_i);
 
 	}
 	void getTolerance()const
@@ -315,9 +339,21 @@ public:
 		fprintf(mFile,"\"%s.fis[%i]\"",mName.c_str(),fis_i);
 
 	}
+	void getFilletStatus()const
+	{
+
+		fprintf(mFile,"\"%s.fis\"",mName.c_str());
+
+	}
 	void getOriginalSurface(size_t os_i)const
 	{
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
+
+	}
+	void getOriginalSurface()const
+	{
+
+		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 	void getFilletSurface(size_t fs_i)const
@@ -325,9 +361,21 @@ public:
 		fprintf(mFile,"\"%s.fs[%i]\"",mName.c_str(),fs_i);
 
 	}
+	void getFilletSurface()const
+	{
+
+		fprintf(mFile,"\"%s.fs\"",mName.c_str());
+
+	}
 	void getCornerSurface(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i]\"",mName.c_str(),cs_i);
+
+	}
+	void getCornerSurface()const
+	{
+
+		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
 protected:

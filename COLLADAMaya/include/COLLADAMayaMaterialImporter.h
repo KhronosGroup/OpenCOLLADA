@@ -18,6 +18,8 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
+#include "COLLADAMayaShadingBinding.h"
+#include "COLLADAMayaGeometryBinding.h"
 
 #include "COLLADABUIDList.h"
 
@@ -64,58 +66,26 @@ namespace COLLADAMaya
 
         /**
          * The maya shading engine and material info.
+         * Holds the shadingEngine and the materialInfo.
          */
         class ShadingData
         {
         private:
-            MayaDM::ShadingEngine* mShadingEngine; 
-            MayaDM::MaterialInfo* mMaterialInfo;
+            MayaDM::ShadingEngine mShadingEngine; 
+            MayaDM::MaterialInfo mMaterialInfo;
 
         public:
-            ShadingData () : mShadingEngine (0), mMaterialInfo (0) {}
-            ShadingData ( 
-                MayaDM::ShadingEngine* shadingEngine, 
-                MayaDM::MaterialInfo* materialInfo ) 
+            ShadingData () {}
+            ShadingData ( const MayaDM::ShadingEngine& shadingEngine, const MayaDM::MaterialInfo& materialInfo ) 
                 : mShadingEngine ( shadingEngine )
                 , mMaterialInfo ( materialInfo )
             {}
-            virtual ~ShadingData() 
-            {
-                delete mShadingEngine;
-                delete mMaterialInfo;
-            }
 
-            MayaDM::ShadingEngine* getShadingEngine () const { return mShadingEngine; }
-            MayaDM::MaterialInfo* getMaterialInfo () const { return mMaterialInfo; }
+            const MayaDM::ShadingEngine& getShadingEngine () const { return mShadingEngine; }
+            const MayaDM::MaterialInfo& getMaterialInfo () const { return mMaterialInfo; }
         };
+        /** Holds for a material id the shadingEngine and materialInfo. */
         typedef std::map<COLLADAFW::UniqueId, ShadingData*> ShadingDataMap;
-
-    private:
-
-        /**
-         * The binding of a geometry instance to a material.
-         */
-        class ShadingBinding
-        {
-        private:
-            COLLADAFW::UniqueId mGeometryId;
-            COLLADAFW::UniqueId mTransformNodeId;
-            COLLADAFW::UniqueId mMaterialId;
-
-        public:
-            ShadingBinding () {}
-            virtual ~ShadingBinding () {}
-
-            const COLLADAFW::UniqueId& getGeometryId () const { return mGeometryId; }
-            void setGeometryId ( const COLLADAFW::UniqueId& val ) { mGeometryId = val; }
-
-            const COLLADAFW::UniqueId& getTransformNodeId () const { return mTransformNodeId; }
-            void setTransformNodeId ( const COLLADAFW::UniqueId& val ) { mTransformNodeId = val; }
-
-            const COLLADAFW::UniqueId& getMaterialId () const { return mMaterialId; }
-            void setMaterialId ( const COLLADAFW::UniqueId& val ) { mMaterialId = val; }
-        };
-        typedef std::map<COLLADAFW::MaterialId, std::set<ShadingBinding*>> ShadingEngineBindingMap;
 
     private:
 
@@ -153,7 +123,7 @@ namespace COLLADAMaya
         /**
          * The map holds for every shader engine a list of geometry ids, which use this shader engine.
          */
-        ShadingEngineBindingMap mShadingEngineBindingMap;
+        GeometryBindingMaterialInfosMap mGeometryBindingMaterialInfosMap;
 
     public:
 
@@ -168,7 +138,6 @@ namespace COLLADAMaya
 
         /** Write the shader data into the maya file. */
         void writeShaderData ( 
-            const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding, 
             const COLLADAFW::UniqueId& transformNodeId, 
             const COLLADAFW::InstanceGeometry* instanceGeometry );
 
@@ -189,14 +158,20 @@ namespace COLLADAMaya
 
     private:
 
-        /** Connect the material with the shading engine and the material info. */
+        /** 
+         * Connect the material with the shading engine and the material info. 
+         */
         void connectShadingEngines ();
 
-        /** Connect the material with the depending geometries. */
-        void connectGeometries ();
+        /**
+         * Connects the shading engines with the object groups.
+         */
+        void connectShadingEngineObjectGroups ();
 
-        /** If there are some object groups, we have to connect them with the geometries. */
-        void connectGeometryGroups ();
+        /** 
+         * Connects the material with the depending geometries. 
+         */
+        void connectGeometries ();
 
         /**
          * Connects the default shader list with the materials.
@@ -219,30 +194,27 @@ namespace COLLADAMaya
         const COLLADABU::IDList& getShadingEngineIdList () const { return mShadingEngineIdList; }
 
         /**
+         * Get the shading binding material.
+         */
+        const std::vector<MaterialInfo>* findGeometryBindingMaterialInfos ( 
+            const COLLADAFW::UniqueId& geometryId, 
+            const COLLADAFW::UniqueId& transformId );
+
+        /**
+        * Get the shading binding material.
+        */
+        const std::vector<MaterialInfo>* findGeometryBindingMaterialInfos ( 
+            const GeometryBinding& geometryBinding );
+
+        /**
         * The map with the unique ids of the shading engine to the shading engines itself. 
         */
-        ShadingData* findShaderData ( const COLLADAFW::UniqueId& val );
+        ShadingData* findShaderData ( const COLLADAFW::UniqueId& shadingEngineId );
 
         /**
          * Returns the effect id of the material.
          */
         const COLLADAFW::UniqueId* findEffectId ( const COLLADAFW::UniqueId& materialId );
-
-        /**
-        * The map with the unique ids of the shading engine to the shading engines itself. 
-        */
-        void appendShaderData ( 
-            const COLLADAFW::UniqueId& uniqueMaterialId, 
-            MayaDM::ShadingEngine* shadingEngine, 
-            MayaDM::MaterialInfo* materialInfo );
-
-        /**
-        * Find the index of the transform node of the current geometry instance.
-        * This is the geometry instance index we use to set the current connection to.
-        */
-        size_t getGeometryInstanceIndex ( 
-            const COLLADAFW::UniqueId& geometryId, 
-            const COLLADAFW::UniqueId& transformNodeId );
 
     };
 }

@@ -261,9 +261,21 @@ public:
 		fprintf(mFile,"\"%s.uv[%i]\"",mName.c_str(),uv_i);
 
 	}
+	void getUnitlessValues()const
+	{
+
+		fprintf(mFile,"\"%s.uv\"",mName.c_str());
+
+	}
 	void getLinearValues(size_t lv_i)const
 	{
 		fprintf(mFile,"\"%s.lv[%i]\"",mName.c_str(),lv_i);
+
+	}
+	void getLinearValues()const
+	{
+
+		fprintf(mFile,"\"%s.lv\"",mName.c_str());
 
 	}
 	void getAngularValues(size_t av_i)const
@@ -271,9 +283,21 @@ public:
 		fprintf(mFile,"\"%s.av[%i]\"",mName.c_str(),av_i);
 
 	}
+	void getAngularValues()const
+	{
+
+		fprintf(mFile,"\"%s.av\"",mName.c_str());
+
+	}
 	void getTimeValues(size_t tv_i)const
 	{
 		fprintf(mFile,"\"%s.tv[%i]\"",mName.c_str(),tv_i);
+
+	}
+	void getTimeValues()const
+	{
+
+		fprintf(mFile,"\"%s.tv\"",mName.c_str());
 
 	}
 	void getAnimationMapping()const

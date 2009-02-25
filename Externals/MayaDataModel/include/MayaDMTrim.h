@@ -111,6 +111,12 @@ public:
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
+	void getInputCurve()const
+	{
+
+		fprintf(mFile,"\"%s.ic\"",mName.c_str());
+
+	}
 	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
@@ -121,9 +127,21 @@ public:
 		fprintf(mFile,"\"%s.lu[%i]\"",mName.c_str(),lu_i);
 
 	}
+	void getLocatorU()const
+	{
+
+		fprintf(mFile,"\"%s.lu\"",mName.c_str());
+
+	}
 	void getLocatorV(size_t lv_i)const
 	{
 		fprintf(mFile,"\"%s.lv[%i]\"",mName.c_str(),lv_i);
+
+	}
+	void getLocatorV()const
+	{
+
+		fprintf(mFile,"\"%s.lv\"",mName.c_str());
 
 	}
 	void getSelected()const
@@ -144,6 +162,12 @@ public:
 	void getUsedCurves(size_t uc_i)const
 	{
 		fprintf(mFile,"\"%s.uc[%i]\"",mName.c_str(),uc_i);
+
+	}
+	void getUsedCurves()const
+	{
+
+		fprintf(mFile,"\"%s.uc\"",mName.c_str());
 
 	}
 	void getSplitSurface()const

@@ -32,18 +32,32 @@ namespace COLLADAMaya
          */
         MayaNode* mParent;
 
+        /**
+         * The flag, if the node is positioned at the right place. Default is true.
+         * But if a node from <library_nodes> is created, we have to move it later 
+         * (the right position in the scene graph depends on the first implementation from there).
+         */
+        bool mIsCorrectPositioned;
+
 	public:
 
-        MayaNode () : mParent (0), mName (""), mPath ("") {}
-        MayaNode ( COLLADAFW::UniqueId uniqueId, const String name, MayaNode* parent = NULL ) 
-            : mUniqueId ( uniqueId )
-            , mName ( name )
-            , mParent ( parent ) 
-            , mPath ("")
-        {}
+        MayaNode ();
+
+        /**
+         * Constructor.
+         * Copy the uniqueId!
+         */
+        MayaNode ( 
+            const COLLADAFW::UniqueId uniqueId, 
+            const String name, 
+            MayaNode* parent = NULL, 
+            const bool isCorrectPositioned=true );
+
         virtual ~MayaNode() {}
 
-        /** Returns the unique id of the object.*/
+        /** 
+         * Returns the unique id of the object.
+         */
         const COLLADAFW::UniqueId& getUniqueId() const { return mUniqueId; }
 
         /**
@@ -51,28 +65,26 @@ namespace COLLADAMaya
         */
         MayaNode* getParent () { return mParent; }
         const MayaNode* getParent () const { return mParent; }
-        void setParent ( MayaNode* val ) 
-        { 
-            mParent = val; 
-            mPath = "";
-        }
+        void setParent ( MayaNode* val );
 
         /**
         * The name attribute is the text string name of this element. 
         * Optional attribute.
         */
         const COLLADAMaya::String getName () const { return mName; }
-        void setName ( COLLADAMaya::String val ) 
-        { 
-            mName = val; 
-            mPath = "";
-        }
+        void setName ( COLLADAMaya::String val );
 
         /**
          * Get's the node path of the current maya node.
          */
         const String getNodePath ();
         void setNodePath ( const COLLADAMaya::String& val ) { mPath = val; }
+
+        /**
+        * The flag, if the node is already created. Default is true;
+        */
+        const bool getIsCorrectPositioned () const { return mIsCorrectPositioned; }
+        void setIsCorrectPositioned ( const bool val ) { mIsCorrectPositioned = val; }
 
 	};
 } // namespace COLLADAMAYA

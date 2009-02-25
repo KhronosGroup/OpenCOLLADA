@@ -96,6 +96,12 @@ public:
 		fprintf(mFile,"\"%s.cin[%i]\"",mName.c_str(),cin_i);
 
 	}
+	void getCurveIndices()const
+	{
+
+		fprintf(mFile,"\"%s.cin\"",mName.c_str());
+
+	}
 	void getConstraintMethod()const
 	{
 		fprintf(mFile,"\"%s.cm\"",mName.c_str());
@@ -129,6 +135,12 @@ public:
 	void getOutPin(size_t opn_i)const
 	{
 		fprintf(mFile,"\"%s.opn[%i]\"",mName.c_str(),opn_i);
+
+	}
+	void getOutPin()const
+	{
+
+		fprintf(mFile,"\"%s.opn\"",mName.c_str());
 
 	}
 protected:

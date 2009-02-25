@@ -80,9 +80,21 @@ public:
 		fprintf(mFile,"\"%s.tk[%i]\"",mName.c_str(),tk_i);
 
 	}
+	void getTweak()const
+	{
+
+		fprintf(mFile,"\"%s.tk\"",mName.c_str());
+
+	}
 	void getTweakX(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i].tx\"",mName.c_str(),tk_i);
+
+	}
+	void getTweakX()const
+	{
+
+		fprintf(mFile,"\"%s.tk.tx\"",mName.c_str());
 
 	}
 	void getTweakY(size_t tk_i)const
@@ -90,9 +102,21 @@ public:
 		fprintf(mFile,"\"%s.tk[%i].ty\"",mName.c_str(),tk_i);
 
 	}
+	void getTweakY()const
+	{
+
+		fprintf(mFile,"\"%s.tk.ty\"",mName.c_str());
+
+	}
 	void getTweakZ(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i].tz\"",mName.c_str(),tk_i);
+
+	}
+	void getTweakZ()const
+	{
+
+		fprintf(mFile,"\"%s.tk.tz\"",mName.c_str());
 
 	}
 protected:

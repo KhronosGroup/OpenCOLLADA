@@ -94,9 +94,21 @@ public:
 		fprintf(mFile,"\"%s.sp[%i].is\"",mName.c_str(),sp_i);
 
 	}
+	void getInputSurface()const
+	{
+
+		fprintf(mFile,"\"%s.sp.is\"",mName.c_str());
+
+	}
 	void getWeight(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i].wt\"",mName.c_str(),sp_i);
+
+	}
+	void getWeight()const
+	{
+
+		fprintf(mFile,"\"%s.sp.wt\"",mName.c_str());
 
 	}
 	void getParameterU(size_t sp_i)const
@@ -104,9 +116,21 @@ public:
 		fprintf(mFile,"\"%s.sp[%i].u\"",mName.c_str(),sp_i);
 
 	}
+	void getParameterU()const
+	{
+
+		fprintf(mFile,"\"%s.sp.u\"",mName.c_str());
+
+	}
 	void getParameterV(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i].v\"",mName.c_str(),sp_i);
+
+	}
+	void getParameterV()const
+	{
+
+		fprintf(mFile,"\"%s.sp.v\"",mName.c_str());
 
 	}
 	void getCvIthIndex(size_t sp_i)const
@@ -114,9 +138,21 @@ public:
 		fprintf(mFile,"\"%s.sp[%i].ci\"",mName.c_str(),sp_i);
 
 	}
+	void getCvIthIndex()const
+	{
+
+		fprintf(mFile,"\"%s.sp.ci\"",mName.c_str());
+
+	}
 	void getCvJthIndex(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i].cj\"",mName.c_str(),sp_i);
+
+	}
+	void getCvJthIndex()const
+	{
+
+		fprintf(mFile,"\"%s.sp.cj\"",mName.c_str());
 
 	}
 	void getResult()const

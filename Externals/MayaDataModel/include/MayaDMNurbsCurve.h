@@ -74,9 +74,21 @@ public:
 		fprintf(mFile,"\"%s.ws[%i]\"",mName.c_str(),ws_i);
 
 	}
+	void getWorldSpace()const
+	{
+
+		fprintf(mFile,"\"%s.ws\"",mName.c_str());
+
+	}
 	void getWorldNormal(size_t wn_i)const
 	{
 		fprintf(mFile,"\"%s.wn[%i]\"",mName.c_str(),wn_i);
+
+	}
+	void getWorldNormal()const
+	{
+
+		fprintf(mFile,"\"%s.wn\"",mName.c_str());
 
 	}
 	void getWorldNormalX(size_t wn_i)const
@@ -84,14 +96,32 @@ public:
 		fprintf(mFile,"\"%s.wn[%i].wnx\"",mName.c_str(),wn_i);
 
 	}
+	void getWorldNormalX()const
+	{
+
+		fprintf(mFile,"\"%s.wn.wnx\"",mName.c_str());
+
+	}
 	void getWorldNormalY(size_t wn_i)const
 	{
 		fprintf(mFile,"\"%s.wn[%i].wny\"",mName.c_str(),wn_i);
 
 	}
+	void getWorldNormalY()const
+	{
+
+		fprintf(mFile,"\"%s.wn.wny\"",mName.c_str());
+
+	}
 	void getWorldNormalZ(size_t wn_i)const
 	{
 		fprintf(mFile,"\"%s.wn[%i].wnz\"",mName.c_str(),wn_i);
+
+	}
+	void getWorldNormalZ()const
+	{
+
+		fprintf(mFile,"\"%s.wn.wnz\"",mName.c_str());
 
 	}
 	void getForm()const
@@ -114,9 +144,21 @@ public:
 		fprintf(mFile,"\"%s.eps[%i]\"",mName.c_str(),eps_i);
 
 	}
+	void getEditPoints()const
+	{
+
+		fprintf(mFile,"\"%s.eps\"",mName.c_str());
+
+	}
 	void getXValueEp(size_t eps_i)const
 	{
 		fprintf(mFile,"\"%s.eps[%i].xve\"",mName.c_str(),eps_i);
+
+	}
+	void getXValueEp()const
+	{
+
+		fprintf(mFile,"\"%s.eps.xve\"",mName.c_str());
 
 	}
 	void getYValueEp(size_t eps_i)const
@@ -124,9 +166,21 @@ public:
 		fprintf(mFile,"\"%s.eps[%i].yve\"",mName.c_str(),eps_i);
 
 	}
+	void getYValueEp()const
+	{
+
+		fprintf(mFile,"\"%s.eps.yve\"",mName.c_str());
+
+	}
 	void getZValueEp(size_t eps_i)const
 	{
 		fprintf(mFile,"\"%s.eps[%i].zve\"",mName.c_str(),eps_i);
+
+	}
+	void getZValueEp()const
+	{
+
+		fprintf(mFile,"\"%s.eps.zve\"",mName.c_str());
 
 	}
 	void getCached()const

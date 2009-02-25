@@ -180,9 +180,21 @@ public:
 		fprintf(mFile,"\"%s.pl[%i]\"",mName.c_str(),pl_i);
 
 	}
+	void getPlist()const
+	{
+
+		fprintf(mFile,"\"%s.pl\"",mName.c_str());
+
+	}
 	void getControlPoints(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i]\"",mName.c_str(),pl_i,cp_i);
+
+	}
+	void getControlPoints(size_t cp_i)const
+	{
+
+		fprintf(mFile,"\"%s.pl.cp[%i]\"",mName.c_str(),cp_i);
 
 	}
 	void getXValue(size_t pl_i,size_t cp_i)const
@@ -190,9 +202,21 @@ public:
 		fprintf(mFile,"\"%s.pl[%i].cp[%i].xv\"",mName.c_str(),pl_i,cp_i);
 
 	}
+	void getXValue(size_t cp_i)const
+	{
+
+		fprintf(mFile,"\"%s.pl.cp[%i].xv\"",mName.c_str(),cp_i);
+
+	}
 	void getYValue(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i].yv\"",mName.c_str(),pl_i,cp_i);
+
+	}
+	void getYValue(size_t cp_i)const
+	{
+
+		fprintf(mFile,"\"%s.pl.cp[%i].yv\"",mName.c_str(),cp_i);
 
 	}
 	void getZValue(size_t pl_i,size_t cp_i)const
@@ -200,9 +224,21 @@ public:
 		fprintf(mFile,"\"%s.pl[%i].cp[%i].zv\"",mName.c_str(),pl_i,cp_i);
 
 	}
+	void getZValue(size_t cp_i)const
+	{
+
+		fprintf(mFile,"\"%s.pl.cp[%i].zv\"",mName.c_str(),cp_i);
+
+	}
 	void getVlist(size_t vl_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i]\"",mName.c_str(),vl_i);
+
+	}
+	void getVlist()const
+	{
+
+		fprintf(mFile,"\"%s.vl\"",mName.c_str());
 
 	}
 	void getVertex(size_t vl_i,size_t vt_i)const
@@ -210,9 +246,21 @@ public:
 		fprintf(mFile,"\"%s.vl[%i].vt[%i]\"",mName.c_str(),vl_i,vt_i);
 
 	}
+	void getVertex(size_t vt_i)const
+	{
+
+		fprintf(mFile,"\"%s.vl.vt[%i]\"",mName.c_str(),vt_i);
+
+	}
 	void getXVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i].vx\"",mName.c_str(),vl_i,vt_i);
+
+	}
+	void getXVertex(size_t vt_i)const
+	{
+
+		fprintf(mFile,"\"%s.vl.vt[%i].vx\"",mName.c_str(),vt_i);
 
 	}
 	void getYVertex(size_t vl_i,size_t vt_i)const
@@ -220,9 +268,21 @@ public:
 		fprintf(mFile,"\"%s.vl[%i].vt[%i].vy\"",mName.c_str(),vl_i,vt_i);
 
 	}
+	void getYVertex(size_t vt_i)const
+	{
+
+		fprintf(mFile,"\"%s.vl.vt[%i].vy\"",mName.c_str(),vt_i);
+
+	}
 	void getZVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i].vz\"",mName.c_str(),vl_i,vt_i);
+
+	}
+	void getZVertex(size_t vt_i)const
+	{
+
+		fprintf(mFile,"\"%s.vl.vt[%i].vz\"",mName.c_str(),vt_i);
 
 	}
 protected:

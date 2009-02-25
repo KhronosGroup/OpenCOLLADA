@@ -45,6 +45,12 @@ public:
 		fprintf(mFile,"\"%s.ib[%i]\"",mName.c_str(),ib_i);
 
 	}
+	void getInputBoundaries()const
+	{
+
+		fprintf(mFile,"\"%s.ib\"",mName.c_str());
+
+	}
 	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());

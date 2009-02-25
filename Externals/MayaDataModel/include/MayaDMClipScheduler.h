@@ -513,9 +513,21 @@ public:
 		fprintf(mFile,"\"%s.bl[%i]\"",mName.c_str(),bl_i);
 
 	}
+	void getBlendList()const
+	{
+
+		fprintf(mFile,"\"%s.bl\"",mName.c_str());
+
+	}
 	void getBlendList_Raw(size_t bl_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].blr\"",mName.c_str(),bl_i);
+
+	}
+	void getBlendList_Raw()const
+	{
+
+		fprintf(mFile,"\"%s.bl.blr\"",mName.c_str());
 
 	}
 	void getBlendList_Inmap(size_t bl_i,size_t bli_i)const
@@ -523,9 +535,21 @@ public:
 		fprintf(mFile,"\"%s.bl[%i].bli[%i]\"",mName.c_str(),bl_i,bli_i);
 
 	}
+	void getBlendList_Inmap(size_t bli_i)const
+	{
+
+		fprintf(mFile,"\"%s.bl.bli[%i]\"",mName.c_str(),bli_i);
+
+	}
 	void getBlendList_InmapTo(size_t bl_i,size_t bli_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].bli[%i].blit\"",mName.c_str(),bl_i,bli_i);
+
+	}
+	void getBlendList_InmapTo(size_t bli_i)const
+	{
+
+		fprintf(mFile,"\"%s.bl.bli[%i].blit\"",mName.c_str(),bli_i);
 
 	}
 	void getBlendList_InmapFrom(size_t bl_i,size_t bli_i)const
@@ -533,9 +557,21 @@ public:
 		fprintf(mFile,"\"%s.bl[%i].bli[%i].blif\"",mName.c_str(),bl_i,bli_i);
 
 	}
+	void getBlendList_InmapFrom(size_t bli_i)const
+	{
+
+		fprintf(mFile,"\"%s.bl.bli[%i].blif\"",mName.c_str(),bli_i);
+
+	}
 	void getBlendList_Outmap(size_t bl_i,size_t blo_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].blo[%i]\"",mName.c_str(),bl_i,blo_i);
+
+	}
+	void getBlendList_Outmap(size_t blo_i)const
+	{
+
+		fprintf(mFile,"\"%s.bl.blo[%i]\"",mName.c_str(),blo_i);
 
 	}
 	void getBlendList_OutmapTo(size_t bl_i,size_t blo_i)const
@@ -543,9 +579,21 @@ public:
 		fprintf(mFile,"\"%s.bl[%i].blo[%i].blot\"",mName.c_str(),bl_i,blo_i);
 
 	}
+	void getBlendList_OutmapTo(size_t blo_i)const
+	{
+
+		fprintf(mFile,"\"%s.bl.blo[%i].blot\"",mName.c_str(),blo_i);
+
+	}
 	void getBlendList_OutmapFrom(size_t bl_i,size_t blo_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].blo[%i].blof\"",mName.c_str(),bl_i,blo_i);
+
+	}
+	void getBlendList_OutmapFrom(size_t blo_i)const
+	{
+
+		fprintf(mFile,"\"%s.bl.blo[%i].blof\"",mName.c_str(),blo_i);
 
 	}
 	void getClipEvaluate()const
@@ -598,9 +646,21 @@ public:
 		fprintf(mFile,"\"%s.cl[%i]\"",mName.c_str(),cl_i);
 
 	}
+	void getClip()const
+	{
+
+		fprintf(mFile,"\"%s.cl\"",mName.c_str());
+
+	}
 	void getStart(size_t st_i)const
 	{
 		fprintf(mFile,"\"%s.st[%i]\"",mName.c_str(),st_i);
+
+	}
+	void getStart()const
+	{
+
+		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
 	void getSourceStart(size_t ss_i)const
@@ -608,9 +668,21 @@ public:
 		fprintf(mFile,"\"%s.ss[%i]\"",mName.c_str(),ss_i);
 
 	}
+	void getSourceStart()const
+	{
+
+		fprintf(mFile,"\"%s.ss\"",mName.c_str());
+
+	}
 	void getSourceEnd(size_t se_i)const
 	{
 		fprintf(mFile,"\"%s.se[%i]\"",mName.c_str(),se_i);
+
+	}
+	void getSourceEnd()const
+	{
+
+		fprintf(mFile,"\"%s.se\"",mName.c_str());
 
 	}
 	void getScale(size_t sc_i)const
@@ -618,9 +690,21 @@ public:
 		fprintf(mFile,"\"%s.sc[%i]\"",mName.c_str(),sc_i);
 
 	}
+	void getScale()const
+	{
+
+		fprintf(mFile,"\"%s.sc\"",mName.c_str());
+
+	}
 	void getHold(size_t h_i)const
 	{
 		fprintf(mFile,"\"%s.h[%i]\"",mName.c_str(),h_i);
+
+	}
+	void getHold()const
+	{
+
+		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
 	void getWeight(size_t w_i)const
@@ -628,9 +712,21 @@ public:
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
 
 	}
+	void getWeight()const
+	{
+
+		fprintf(mFile,"\"%s.w\"",mName.c_str());
+
+	}
 	void getWeightStyle(size_t ws_i)const
 	{
 		fprintf(mFile,"\"%s.ws[%i]\"",mName.c_str(),ws_i);
+
+	}
+	void getWeightStyle()const
+	{
+
+		fprintf(mFile,"\"%s.ws\"",mName.c_str());
 
 	}
 	void getPreCycle(size_t cb_i)const
@@ -638,9 +734,21 @@ public:
 		fprintf(mFile,"\"%s.cb[%i]\"",mName.c_str(),cb_i);
 
 	}
+	void getPreCycle()const
+	{
+
+		fprintf(mFile,"\"%s.cb\"",mName.c_str());
+
+	}
 	void getPostCycle(size_t ca_i)const
 	{
 		fprintf(mFile,"\"%s.ca[%i]\"",mName.c_str(),ca_i);
+
+	}
+	void getPostCycle()const
+	{
+
+		fprintf(mFile,"\"%s.ca\"",mName.c_str());
 
 	}
 	void getEnable(size_t ea_i)const
@@ -648,9 +756,21 @@ public:
 		fprintf(mFile,"\"%s.ea[%i]\"",mName.c_str(),ea_i);
 
 	}
+	void getEnable()const
+	{
+
+		fprintf(mFile,"\"%s.ea\"",mName.c_str());
+
+	}
 	void getCycle(size_t cy_i)const
 	{
 		fprintf(mFile,"\"%s.cy[%i]\"",mName.c_str(),cy_i);
+
+	}
+	void getCycle()const
+	{
+
+		fprintf(mFile,"\"%s.cy\"",mName.c_str());
 
 	}
 	void getStartPercent(size_t sp_i)const
@@ -658,14 +778,32 @@ public:
 		fprintf(mFile,"\"%s.sp[%i]\"",mName.c_str(),sp_i);
 
 	}
+	void getStartPercent()const
+	{
+
+		fprintf(mFile,"\"%s.sp\"",mName.c_str());
+
+	}
 	void getAbsolute(size_t a_i)const
 	{
 		fprintf(mFile,"\"%s.a[%i]\"",mName.c_str(),a_i);
 
 	}
+	void getAbsolute()const
+	{
+
+		fprintf(mFile,"\"%s.a\"",mName.c_str());
+
+	}
 	void getAbsoluteRotations(size_t ar_i)const
 	{
 		fprintf(mFile,"\"%s.ar[%i]\"",mName.c_str(),ar_i);
+
+	}
+	void getAbsoluteRotations()const
+	{
+
+		fprintf(mFile,"\"%s.ar\"",mName.c_str());
 
 	}
 protected:

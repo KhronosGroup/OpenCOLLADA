@@ -49,6 +49,12 @@ public:
 		fprintf(mFile,"\"%s.sol[%i]\"",mName.c_str(),sol_i);
 
 	}
+	void getIkSolver()const
+	{
+
+		fprintf(mFile,"\"%s.sol\"",mName.c_str());
+
+	}
 protected:
 	IkSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DependNode(file, name, parent, nodeType, create) {}

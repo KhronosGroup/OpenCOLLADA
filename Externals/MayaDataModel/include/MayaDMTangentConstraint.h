@@ -275,14 +275,32 @@ public:
 		fprintf(mFile,"\"%s.tg[%i]\"",mName.c_str(),tg_i);
 
 	}
+	void getTarget()const
+	{
+
+		fprintf(mFile,"\"%s.tg\"",mName.c_str());
+
+	}
 	void getTargetGeometry(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tgm\"",mName.c_str(),tg_i);
 
 	}
+	void getTargetGeometry()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tgm\"",mName.c_str());
+
+	}
 	void getTargetWeight(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tw\"",mName.c_str(),tg_i);
+
+	}
+	void getTargetWeight()const
+	{
+
+		fprintf(mFile,"\"%s.tg.tw\"",mName.c_str());
 
 	}
 	void getConstraintParentInverseMatrix()const

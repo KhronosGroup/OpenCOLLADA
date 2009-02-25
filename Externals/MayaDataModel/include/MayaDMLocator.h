@@ -105,9 +105,21 @@ public:
 		fprintf(mFile,"\"%s.wp[%i]\"",mName.c_str(),wp_i);
 
 	}
+	void getWorldPosition()const
+	{
+
+		fprintf(mFile,"\"%s.wp\"",mName.c_str());
+
+	}
 	void getWorldPositionX(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpx\"",mName.c_str(),wp_i);
+
+	}
+	void getWorldPositionX()const
+	{
+
+		fprintf(mFile,"\"%s.wp.wpx\"",mName.c_str());
 
 	}
 	void getWorldPositionY(size_t wp_i)const
@@ -115,9 +127,21 @@ public:
 		fprintf(mFile,"\"%s.wp[%i].wpy\"",mName.c_str(),wp_i);
 
 	}
+	void getWorldPositionY()const
+	{
+
+		fprintf(mFile,"\"%s.wp.wpy\"",mName.c_str());
+
+	}
 	void getWorldPositionZ(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpz\"",mName.c_str(),wp_i);
+
+	}
+	void getWorldPositionZ()const
+	{
+
+		fprintf(mFile,"\"%s.wp.wpz\"",mName.c_str());
 
 	}
 	void getLocalScale()const

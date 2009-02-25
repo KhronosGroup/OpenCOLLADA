@@ -504,14 +504,32 @@ public:
 		fprintf(mFile,"\"%s.ins[%i]\"",mName.c_str(),ins_i);
 
 	}
+	void getInputSurface()const
+	{
+
+		fprintf(mFile,"\"%s.ins\"",mName.c_str());
+
+	}
 	void getSurface(size_t ins_i)const
 	{
 		fprintf(mFile,"\"%s.ins[%i].srf\"",mName.c_str(),ins_i);
 
 	}
+	void getSurface()const
+	{
+
+		fprintf(mFile,"\"%s.ins.srf\"",mName.c_str());
+
+	}
 	void getInputWorldMatrix(size_t ins_i)const
 	{
 		fprintf(mFile,"\"%s.ins[%i].iwm\"",mName.c_str(),ins_i);
+
+	}
+	void getInputWorldMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.ins.iwm\"",mName.c_str());
 
 	}
 	void getDisplayInViewport()const
@@ -674,9 +692,21 @@ public:
 		fprintf(mFile,"\"%s.cwd[%i]\"",mName.c_str(),cwd_i);
 
 	}
+	void getCurvatureWidth()const
+	{
+
+		fprintf(mFile,"\"%s.cwd\"",mName.c_str());
+
+	}
 	void getCurvatureWidth_Position(size_t cwd_i)const
 	{
 		fprintf(mFile,"\"%s.cwd[%i].cwdp\"",mName.c_str(),cwd_i);
+
+	}
+	void getCurvatureWidth_Position()const
+	{
+
+		fprintf(mFile,"\"%s.cwd.cwdp\"",mName.c_str());
 
 	}
 	void getCurvatureWidth_FloatValue(size_t cwd_i)const
@@ -684,9 +714,21 @@ public:
 		fprintf(mFile,"\"%s.cwd[%i].cwdfv\"",mName.c_str(),cwd_i);
 
 	}
+	void getCurvatureWidth_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.cwd.cwdfv\"",mName.c_str());
+
+	}
 	void getCurvatureWidth_Interp(size_t cwd_i)const
 	{
 		fprintf(mFile,"\"%s.cwd[%i].cwdi\"",mName.c_str(),cwd_i);
+
+	}
+	void getCurvatureWidth_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.cwd.cwdi\"",mName.c_str());
 
 	}
 	void getProfileWidthModulation()const
@@ -917,6 +959,12 @@ public:
 	void getOutProfileMesh(size_t opm_i)const
 	{
 		fprintf(mFile,"\"%s.opm[%i]\"",mName.c_str(),opm_i);
+
+	}
+	void getOutProfileMesh()const
+	{
+
+		fprintf(mFile,"\"%s.opm\"",mName.c_str());
 
 	}
 protected:

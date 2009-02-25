@@ -75,9 +75,21 @@ public:
 		fprintf(mFile,"\"%s.lc[%i]\"",mName.c_str(),lc_i);
 
 	}
+	void getLeftCurve()const
+	{
+
+		fprintf(mFile,"\"%s.lc\"",mName.c_str());
+
+	}
 	void getRightCurve(size_t rc_i)const
 	{
 		fprintf(mFile,"\"%s.rc[%i]\"",mName.c_str(),rc_i);
+
+	}
+	void getRightCurve()const
+	{
+
+		fprintf(mFile,"\"%s.rc\"",mName.c_str());
 
 	}
 	void getPositionTolerance()const

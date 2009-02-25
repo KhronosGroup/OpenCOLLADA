@@ -93,9 +93,21 @@ public:
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
+	void getInput()const
+	{
+
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
+
+	}
 	void getInTriple(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].it\"",mName.c_str(),i_i);
+
+	}
+	void getInTriple()const
+	{
+
+		fprintf(mFile,"\"%s.i.it\"",mName.c_str());
 
 	}
 	void getInComp1(size_t i_i)const
@@ -103,9 +115,21 @@ public:
 		fprintf(mFile,"\"%s.i[%i].it.ic1\"",mName.c_str(),i_i);
 
 	}
+	void getInComp1()const
+	{
+
+		fprintf(mFile,"\"%s.i.it.ic1\"",mName.c_str());
+
+	}
 	void getInComp2(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].it.ic2\"",mName.c_str(),i_i);
+
+	}
+	void getInComp2()const
+	{
+
+		fprintf(mFile,"\"%s.i.it.ic2\"",mName.c_str());
 
 	}
 	void getInComp3(size_t i_i)const
@@ -113,9 +137,21 @@ public:
 		fprintf(mFile,"\"%s.i[%i].it.ic3\"",mName.c_str(),i_i);
 
 	}
+	void getInComp3()const
+	{
+
+		fprintf(mFile,"\"%s.i.it.ic3\"",mName.c_str());
+
+	}
 	void getInShape(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].is\"",mName.c_str(),i_i);
+
+	}
+	void getInShape()const
+	{
+
+		fprintf(mFile,"\"%s.i.is\"",mName.c_str());
 
 	}
 	void getDefault()const

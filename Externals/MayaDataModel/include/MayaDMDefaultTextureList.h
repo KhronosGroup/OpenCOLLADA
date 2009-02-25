@@ -27,6 +27,12 @@ public:
 		fprintf(mFile,"\"%s.tx[%i]\"",mName.c_str(),tx_i);
 
 	}
+	void getTextures()const
+	{
+
+		fprintf(mFile,"\"%s.tx\"",mName.c_str());
+
+	}
 protected:
 	DefaultTextureList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DependNode(file, name, parent, nodeType, create) {}

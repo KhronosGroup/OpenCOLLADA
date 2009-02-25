@@ -77,6 +77,12 @@ public:
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
+	void getParameter()const
+	{
+
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
+
+	}
 	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());

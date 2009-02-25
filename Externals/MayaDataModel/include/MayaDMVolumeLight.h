@@ -169,9 +169,21 @@ public:
 		fprintf(mFile,"\"%s.crg[%i]\"",mName.c_str(),crg_i);
 
 	}
+	void getColorRange()const
+	{
+
+		fprintf(mFile,"\"%s.crg\"",mName.c_str());
+
+	}
 	void getColorRange_Position(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i].crgp\"",mName.c_str(),crg_i);
+
+	}
+	void getColorRange_Position()const
+	{
+
+		fprintf(mFile,"\"%s.crg.crgp\"",mName.c_str());
 
 	}
 	void getColorRange_Color(size_t crg_i)const
@@ -179,9 +191,21 @@ public:
 		fprintf(mFile,"\"%s.crg[%i].crgc\"",mName.c_str(),crg_i);
 
 	}
+	void getColorRange_Color()const
+	{
+
+		fprintf(mFile,"\"%s.crg.crgc\"",mName.c_str());
+
+	}
 	void getColorRange_ColorR(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i].crgc.crgcr\"",mName.c_str(),crg_i);
+
+	}
+	void getColorRange_ColorR()const
+	{
+
+		fprintf(mFile,"\"%s.crg.crgc.crgcr\"",mName.c_str());
 
 	}
 	void getColorRange_ColorG(size_t crg_i)const
@@ -189,9 +213,21 @@ public:
 		fprintf(mFile,"\"%s.crg[%i].crgc.crgcg\"",mName.c_str(),crg_i);
 
 	}
+	void getColorRange_ColorG()const
+	{
+
+		fprintf(mFile,"\"%s.crg.crgc.crgcg\"",mName.c_str());
+
+	}
 	void getColorRange_ColorB(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i].crgc.crgcb\"",mName.c_str(),crg_i);
+
+	}
+	void getColorRange_ColorB()const
+	{
+
+		fprintf(mFile,"\"%s.crg.crgc.crgcb\"",mName.c_str());
 
 	}
 	void getColorRange_Interp(size_t crg_i)const
@@ -199,9 +235,21 @@ public:
 		fprintf(mFile,"\"%s.crg[%i].crgi\"",mName.c_str(),crg_i);
 
 	}
+	void getColorRange_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.crg.crgi\"",mName.c_str());
+
+	}
 	void getPenumbra(size_t pen_i)const
 	{
 		fprintf(mFile,"\"%s.pen[%i]\"",mName.c_str(),pen_i);
+
+	}
+	void getPenumbra()const
+	{
+
+		fprintf(mFile,"\"%s.pen\"",mName.c_str());
 
 	}
 	void getPenumbra_Position(size_t pen_i)const
@@ -209,14 +257,32 @@ public:
 		fprintf(mFile,"\"%s.pen[%i].penp\"",mName.c_str(),pen_i);
 
 	}
+	void getPenumbra_Position()const
+	{
+
+		fprintf(mFile,"\"%s.pen.penp\"",mName.c_str());
+
+	}
 	void getPenumbra_FloatValue(size_t pen_i)const
 	{
 		fprintf(mFile,"\"%s.pen[%i].penfv\"",mName.c_str(),pen_i);
 
 	}
+	void getPenumbra_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.pen.penfv\"",mName.c_str());
+
+	}
 	void getPenumbra_Interp(size_t pen_i)const
 	{
 		fprintf(mFile,"\"%s.pen[%i].peni\"",mName.c_str(),pen_i);
+
+	}
+	void getPenumbra_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.pen.peni\"",mName.c_str());
 
 	}
 	void getEmitAmbient()const

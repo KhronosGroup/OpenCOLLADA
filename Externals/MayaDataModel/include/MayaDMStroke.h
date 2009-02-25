@@ -341,9 +341,21 @@ public:
 		fprintf(mFile,"\"%s.pcv[%i]\"",mName.c_str(),pcv_i);
 
 	}
+	void getPathCurve()const
+	{
+
+		fprintf(mFile,"\"%s.pcv\"",mName.c_str());
+
+	}
 	void getCurve(size_t pcv_i)const
 	{
 		fprintf(mFile,"\"%s.pcv[%i].crv\"",mName.c_str(),pcv_i);
+
+	}
+	void getCurve()const
+	{
+
+		fprintf(mFile,"\"%s.pcv.crv\"",mName.c_str());
 
 	}
 	void getSamples(size_t pcv_i)const
@@ -351,9 +363,21 @@ public:
 		fprintf(mFile,"\"%s.pcv[%i].smp\"",mName.c_str(),pcv_i);
 
 	}
+	void getSamples()const
+	{
+
+		fprintf(mFile,"\"%s.pcv.smp\"",mName.c_str());
+
+	}
 	void getOpposite(size_t pcv_i)const
 	{
 		fprintf(mFile,"\"%s.pcv[%i].opp\"",mName.c_str(),pcv_i);
+
+	}
+	void getOpposite()const
+	{
+
+		fprintf(mFile,"\"%s.pcv.opp\"",mName.c_str());
 
 	}
 	void getOutPoint(size_t opt_i)const
@@ -361,9 +385,21 @@ public:
 		fprintf(mFile,"\"%s.opt[%i]\"",mName.c_str(),opt_i);
 
 	}
+	void getOutPoint()const
+	{
+
+		fprintf(mFile,"\"%s.opt\"",mName.c_str());
+
+	}
 	void getOutPointX(size_t opt_i)const
 	{
 		fprintf(mFile,"\"%s.opt[%i].ox\"",mName.c_str(),opt_i);
+
+	}
+	void getOutPointX()const
+	{
+
+		fprintf(mFile,"\"%s.opt.ox\"",mName.c_str());
 
 	}
 	void getOutPointY(size_t opt_i)const
@@ -371,9 +407,21 @@ public:
 		fprintf(mFile,"\"%s.opt[%i].oy\"",mName.c_str(),opt_i);
 
 	}
+	void getOutPointY()const
+	{
+
+		fprintf(mFile,"\"%s.opt.oy\"",mName.c_str());
+
+	}
 	void getOutPointZ(size_t opt_i)const
 	{
 		fprintf(mFile,"\"%s.opt[%i].oz\"",mName.c_str(),opt_i);
+
+	}
+	void getOutPointZ()const
+	{
+
+		fprintf(mFile,"\"%s.opt.oz\"",mName.c_str());
 
 	}
 	void getOutNormal(size_t onm_i)const
@@ -381,9 +429,21 @@ public:
 		fprintf(mFile,"\"%s.onm[%i]\"",mName.c_str(),onm_i);
 
 	}
+	void getOutNormal()const
+	{
+
+		fprintf(mFile,"\"%s.onm\"",mName.c_str());
+
+	}
 	void getOutNormalX(size_t onm_i)const
 	{
 		fprintf(mFile,"\"%s.onm[%i].onx\"",mName.c_str(),onm_i);
+
+	}
+	void getOutNormalX()const
+	{
+
+		fprintf(mFile,"\"%s.onm.onx\"",mName.c_str());
 
 	}
 	void getOutNormalY(size_t onm_i)const
@@ -391,9 +451,21 @@ public:
 		fprintf(mFile,"\"%s.onm[%i].ony\"",mName.c_str(),onm_i);
 
 	}
+	void getOutNormalY()const
+	{
+
+		fprintf(mFile,"\"%s.onm.ony\"",mName.c_str());
+
+	}
 	void getOutNormalZ(size_t onm_i)const
 	{
 		fprintf(mFile,"\"%s.onm[%i].onz\"",mName.c_str(),onm_i);
+
+	}
+	void getOutNormalZ()const
+	{
+
+		fprintf(mFile,"\"%s.onm.onz\"",mName.c_str());
 
 	}
 	void getPressureMap1()const
@@ -446,9 +518,21 @@ public:
 		fprintf(mFile,"\"%s.psc[%i]\"",mName.c_str(),psc_i);
 
 	}
+	void getPressureScale()const
+	{
+
+		fprintf(mFile,"\"%s.psc\"",mName.c_str());
+
+	}
 	void getPressureScale_Position(size_t psc_i)const
 	{
 		fprintf(mFile,"\"%s.psc[%i].pscp\"",mName.c_str(),psc_i);
+
+	}
+	void getPressureScale_Position()const
+	{
+
+		fprintf(mFile,"\"%s.psc.pscp\"",mName.c_str());
 
 	}
 	void getPressureScale_FloatValue(size_t psc_i)const
@@ -456,9 +540,21 @@ public:
 		fprintf(mFile,"\"%s.psc[%i].pscfv\"",mName.c_str(),psc_i);
 
 	}
+	void getPressureScale_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.psc.pscfv\"",mName.c_str());
+
+	}
 	void getPressureScale_Interp(size_t psc_i)const
 	{
 		fprintf(mFile,"\"%s.psc[%i].psci\"",mName.c_str(),psc_i);
+
+	}
+	void getPressureScale_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.psc.psci\"",mName.c_str());
 
 	}
 	void getPressure(size_t psr_i)const
@@ -466,9 +562,21 @@ public:
 		fprintf(mFile,"\"%s.psr[%i]\"",mName.c_str(),psr_i);
 
 	}
+	void getPressure()const
+	{
+
+		fprintf(mFile,"\"%s.psr\"",mName.c_str());
+
+	}
 	void getUvSetName(size_t uvsetn_i)const
 	{
 		fprintf(mFile,"\"%s.uvsetn[%i]\"",mName.c_str(),uvsetn_i);
+
+	}
+	void getUvSetName()const
+	{
+
+		fprintf(mFile,"\"%s.uvsetn\"",mName.c_str());
 
 	}
 protected:

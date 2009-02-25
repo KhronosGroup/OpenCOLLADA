@@ -350,9 +350,21 @@ public:
 		fprintf(mFile,"\"%s.drp[%i]\"",mName.c_str(),drp_i);
 
 	}
+	void getDropoff()const
+	{
+
+		fprintf(mFile,"\"%s.drp\"",mName.c_str());
+
+	}
 	void getDropoff_Position(size_t drp_i)const
 	{
 		fprintf(mFile,"\"%s.drp[%i].drpp\"",mName.c_str(),drp_i);
+
+	}
+	void getDropoff_Position()const
+	{
+
+		fprintf(mFile,"\"%s.drp.drpp\"",mName.c_str());
 
 	}
 	void getDropoff_FloatValue(size_t drp_i)const
@@ -360,14 +372,32 @@ public:
 		fprintf(mFile,"\"%s.drp[%i].drpfv\"",mName.c_str(),drp_i);
 
 	}
+	void getDropoff_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.drp.drpfv\"",mName.c_str());
+
+	}
 	void getDropoff_Interp(size_t drp_i)const
 	{
 		fprintf(mFile,"\"%s.drp[%i].drpi\"",mName.c_str(),drp_i);
 
 	}
+	void getDropoff_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.drp.drpi\"",mName.c_str());
+
+	}
 	void getOutLineModifier(size_t olm_i)const
 	{
 		fprintf(mFile,"\"%s.olm[%i]\"",mName.c_str(),olm_i);
+
+	}
+	void getOutLineModifier()const
+	{
+
+		fprintf(mFile,"\"%s.olm\"",mName.c_str());
 
 	}
 protected:

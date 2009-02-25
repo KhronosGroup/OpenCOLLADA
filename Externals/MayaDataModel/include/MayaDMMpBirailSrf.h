@@ -39,6 +39,12 @@ public:
 		fprintf(mFile,"\"%s.ip[%i]\"",mName.c_str(),ip_i);
 
 	}
+	void getInputProfile()const
+	{
+
+		fprintf(mFile,"\"%s.ip\"",mName.c_str());
+
+	}
 	void getTangentContinuityProfile1()const
 	{
 		fprintf(mFile,"\"%s.tp1\"",mName.c_str());

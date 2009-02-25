@@ -423,9 +423,21 @@ public:
 		fprintf(mFile,"\"%s.wm[%i]\"",mName.c_str(),wm_i);
 
 	}
+	void getWorldMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.wm\"",mName.c_str());
+
+	}
 	void getWorldInverseMatrix(size_t wim_i)const
 	{
 		fprintf(mFile,"\"%s.wim[%i]\"",mName.c_str(),wim_i);
+
+	}
+	void getWorldInverseMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.wim\"",mName.c_str());
 
 	}
 	void getParentMatrix(size_t pm_i)const
@@ -433,9 +445,21 @@ public:
 		fprintf(mFile,"\"%s.pm[%i]\"",mName.c_str(),pm_i);
 
 	}
+	void getParentMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.pm\"",mName.c_str());
+
+	}
 	void getParentInverseMatrix(size_t pim_i)const
 	{
 		fprintf(mFile,"\"%s.pim[%i]\"",mName.c_str(),pim_i);
+
+	}
+	void getParentInverseMatrix()const
+	{
+
+		fprintf(mFile,"\"%s.pim\"",mName.c_str());
 
 	}
 	void getVisibility()const
@@ -463,9 +487,21 @@ public:
 		fprintf(mFile,"\"%s.iog[%i]\"",mName.c_str(),iog_i);
 
 	}
+	void getInstObjGroups()const
+	{
+
+		fprintf(mFile,"\"%s.iog\"",mName.c_str());
+
+	}
 	void getObjectGroups(size_t iog_i,size_t og_i)const
 	{
 		fprintf(mFile,"\"%s.iog[%i].og[%i]\"",mName.c_str(),iog_i,og_i);
+
+	}
+	void getObjectGroups(size_t og_i)const
+	{
+
+		fprintf(mFile,"\"%s.iog.og[%i]\"",mName.c_str(),og_i);
 
 	}
 	void getObjectGroupId(size_t iog_i,size_t og_i)const
@@ -473,9 +509,21 @@ public:
 		fprintf(mFile,"\"%s.iog[%i].og[%i].gid\"",mName.c_str(),iog_i,og_i);
 
 	}
+	void getObjectGroupId(size_t og_i)const
+	{
+
+		fprintf(mFile,"\"%s.iog.og[%i].gid\"",mName.c_str(),og_i);
+
+	}
 	void getObjectGrpColor(size_t iog_i,size_t og_i)const
 	{
 		fprintf(mFile,"\"%s.iog[%i].og[%i].gco\"",mName.c_str(),iog_i,og_i);
+
+	}
+	void getObjectGrpColor(size_t og_i)const
+	{
+
+		fprintf(mFile,"\"%s.iog.og[%i].gco\"",mName.c_str(),og_i);
 
 	}
 	void getUseObjectColor()const
@@ -563,9 +611,21 @@ public:
 		fprintf(mFile,"\"%s.rlio[%i]\"",mName.c_str(),rlio_i);
 
 	}
+	void getRenderLayerInfo()const
+	{
+
+		fprintf(mFile,"\"%s.rlio\"",mName.c_str());
+
+	}
 	void getRenderLayerId(size_t rlio_i)const
 	{
 		fprintf(mFile,"\"%s.rlio[%i].rli\"",mName.c_str(),rlio_i);
+
+	}
+	void getRenderLayerId()const
+	{
+
+		fprintf(mFile,"\"%s.rlio.rli\"",mName.c_str());
 
 	}
 	void getRenderLayerRenderable(size_t rlio_i)const
@@ -573,9 +633,21 @@ public:
 		fprintf(mFile,"\"%s.rlio[%i].rlr\"",mName.c_str(),rlio_i);
 
 	}
+	void getRenderLayerRenderable()const
+	{
+
+		fprintf(mFile,"\"%s.rlio.rlr\"",mName.c_str());
+
+	}
 	void getRenderLayerColor(size_t rlio_i)const
 	{
 		fprintf(mFile,"\"%s.rlio[%i].rlc\"",mName.c_str(),rlio_i);
+
+	}
+	void getRenderLayerColor()const
+	{
+
+		fprintf(mFile,"\"%s.rlio.rlc\"",mName.c_str());
 
 	}
 	void getGhostingControl()const

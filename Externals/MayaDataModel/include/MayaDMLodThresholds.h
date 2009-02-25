@@ -195,6 +195,12 @@ public:
 		fprintf(mFile,"\"%s.th[%i]\"",mName.c_str(),th_i);
 
 	}
+	void getThreshold()const
+	{
+
+		fprintf(mFile,"\"%s.th\"",mName.c_str());
+
+	}
 	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
@@ -208,6 +214,12 @@ public:
 	void getOutLevel(size_t ol_i)const
 	{
 		fprintf(mFile,"\"%s.ol[%i]\"",mName.c_str(),ol_i);
+
+	}
+	void getOutLevel()const
+	{
+
+		fprintf(mFile,"\"%s.ol\"",mName.c_str());
 
 	}
 protected:

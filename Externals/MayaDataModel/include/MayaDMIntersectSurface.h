@@ -43,14 +43,32 @@ public:
 		fprintf(mFile,"\"%s.cs1[%i]\"",mName.c_str(),cs1_i);
 
 	}
+	void getCurveOnSurface1()const
+	{
+
+		fprintf(mFile,"\"%s.cs1\"",mName.c_str());
+
+	}
 	void getCurveOnSurface2(size_t cs2_i)const
 	{
 		fprintf(mFile,"\"%s.cs2[%i]\"",mName.c_str(),cs2_i);
 
 	}
+	void getCurveOnSurface2()const
+	{
+
+		fprintf(mFile,"\"%s.cs2\"",mName.c_str());
+
+	}
 	void getOutput3dCurve(size_t oc_i)const
 	{
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
+
+	}
+	void getOutput3dCurve()const
+	{
+
+		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 	void getTolerance()const

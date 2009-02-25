@@ -33,6 +33,12 @@ public:
 		fprintf(mFile,"\"%s.dr[%i]\"",mName.c_str(),dr_i);
 
 	}
+	void getDriver()const
+	{
+
+		fprintf(mFile,"\"%s.dr\"",mName.c_str());
+
+	}
 	void getCurrentDriver()const
 	{
 		fprintf(mFile,"\"%s.cdr\"",mName.c_str());
@@ -41,6 +47,12 @@ public:
 	void getFlexorNodes(size_t fn_i)const
 	{
 		fprintf(mFile,"\"%s.fn[%i]\"",mName.c_str(),fn_i);
+
+	}
+	void getFlexorNodes()const
+	{
+
+		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
 protected:

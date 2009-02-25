@@ -95,9 +95,21 @@ public:
 		fprintf(mFile,"\"%s.fn[%i]\"",mName.c_str(),fn_i);
 
 	}
+	void getFileNames()const
+	{
+
+		fprintf(mFile,"\"%s.fn\"",mName.c_str());
+
+	}
 	void getConnectionList(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i]\"",mName.c_str(),cl_i);
+
+	}
+	void getConnectionList()const
+	{
+
+		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
 	void getConnectionAttr(size_t cl_i)const
@@ -105,9 +117,21 @@ public:
 		fprintf(mFile,"\"%s.cl[%i].ca\"",mName.c_str(),cl_i);
 
 	}
+	void getConnectionAttr()const
+	{
+
+		fprintf(mFile,"\"%s.cl.ca\"",mName.c_str());
+
+	}
 	void getConnection(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].c\"",mName.c_str(),cl_i);
+
+	}
+	void getConnection()const
+	{
+
+		fprintf(mFile,"\"%s.cl.c\"",mName.c_str());
 
 	}
 	void getSetAttrList(size_t sl_i)const
@@ -115,9 +139,21 @@ public:
 		fprintf(mFile,"\"%s.sl[%i]\"",mName.c_str(),sl_i);
 
 	}
+	void getSetAttrList()const
+	{
+
+		fprintf(mFile,"\"%s.sl\"",mName.c_str());
+
+	}
 	void getAddAttrList(size_t al_i)const
 	{
 		fprintf(mFile,"\"%s.al[%i]\"",mName.c_str(),al_i);
+
+	}
+	void getAddAttrList()const
+	{
+
+		fprintf(mFile,"\"%s.al\"",mName.c_str());
 
 	}
 	void getDeleteAttrList(size_t dl_i)const
@@ -125,14 +161,32 @@ public:
 		fprintf(mFile,"\"%s.dl[%i]\"",mName.c_str(),dl_i);
 
 	}
+	void getDeleteAttrList()const
+	{
+
+		fprintf(mFile,"\"%s.dl\"",mName.c_str());
+
+	}
 	void getBrokenConnectionList(size_t bl_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i]\"",mName.c_str(),bl_i);
 
 	}
+	void getBrokenConnectionList()const
+	{
+
+		fprintf(mFile,"\"%s.bl\"",mName.c_str());
+
+	}
 	void getParentList(size_t pl_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i]\"",mName.c_str(),pl_i);
+
+	}
+	void getParentList()const
+	{
+
+		fprintf(mFile,"\"%s.pl\"",mName.c_str());
 
 	}
 	void getFosterParent()const
@@ -145,9 +199,21 @@ public:
 		fprintf(mFile,"\"%s.fs[%i]\"",mName.c_str(),fs_i);
 
 	}
+	void getFosterSiblings()const
+	{
+
+		fprintf(mFile,"\"%s.fs\"",mName.c_str());
+
+	}
 	void getPlaceHolderList(size_t phl_i)const
 	{
 		fprintf(mFile,"\"%s.phl[%i]\"",mName.c_str(),phl_i);
+
+	}
+	void getPlaceHolderList()const
+	{
+
+		fprintf(mFile,"\"%s.phl\"",mName.c_str());
 
 	}
 	void getMultiParentList(size_t mpl_i)const
@@ -155,9 +221,21 @@ public:
 		fprintf(mFile,"\"%s.mpl[%i]\"",mName.c_str(),mpl_i);
 
 	}
+	void getMultiParentList()const
+	{
+
+		fprintf(mFile,"\"%s.mpl\"",mName.c_str());
+
+	}
 	void getMultiParent(size_t mpl_i,size_t mp_i)const
 	{
 		fprintf(mFile,"\"%s.mpl[%i].mp[%i]\"",mName.c_str(),mpl_i,mp_i);
+
+	}
+	void getMultiParent(size_t mp_i)const
+	{
+
+		fprintf(mFile,"\"%s.mpl.mp[%i]\"",mName.c_str(),mp_i);
 
 	}
 	void getEdits()const

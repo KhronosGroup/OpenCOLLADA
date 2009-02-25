@@ -118,9 +118,21 @@ public:
 		fprintf(mFile,"\"%s.c[%i]\"",mName.c_str(),c_i);
 
 	}
+	void getTaperCurve()const
+	{
+
+		fprintf(mFile,"\"%s.c\"",mName.c_str());
+
+	}
 	void getTaperCurve_Position(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i].cp\"",mName.c_str(),c_i);
+
+	}
+	void getTaperCurve_Position()const
+	{
+
+		fprintf(mFile,"\"%s.c.cp\"",mName.c_str());
 
 	}
 	void getTaperCurve_FloatValue(size_t c_i)const
@@ -128,9 +140,21 @@ public:
 		fprintf(mFile,"\"%s.c[%i].cfv\"",mName.c_str(),c_i);
 
 	}
+	void getTaperCurve_FloatValue()const
+	{
+
+		fprintf(mFile,"\"%s.c.cfv\"",mName.c_str());
+
+	}
 	void getTaperCurve_Interp(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i].ci\"",mName.c_str(),c_i);
+
+	}
+	void getTaperCurve_Interp()const
+	{
+
+		fprintf(mFile,"\"%s.c.ci\"",mName.c_str());
 
 	}
 	void getSmoothingAngle()const

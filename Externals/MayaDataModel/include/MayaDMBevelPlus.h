@@ -141,6 +141,12 @@ public:
 		fprintf(mFile,"\"%s.ics[%i]\"",mName.c_str(),ics_i);
 
 	}
+	void getInputCurves()const
+	{
+
+		fprintf(mFile,"\"%s.ics\"",mName.c_str());
+
+	}
 	void getOuterStyleCurve()const
 	{
 		fprintf(mFile,"\"%s.osc\"",mName.c_str());
@@ -171,9 +177,21 @@ public:
 		fprintf(mFile,"\"%s.os1[%i]\"",mName.c_str(),os1_i);
 
 	}
+	void getOutputSurfaces()const
+	{
+
+		fprintf(mFile,"\"%s.os1\"",mName.c_str());
+
+	}
 	void getCount(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i]\"",mName.c_str(),c_i);
+
+	}
+	void getCount()const
+	{
+
+		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
 	void getPosition(size_t p_i)const
@@ -181,9 +199,21 @@ public:
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
+	void getPosition()const
+	{
+
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
+
+	}
 	void getPositionX(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].px\"",mName.c_str(),p_i);
+
+	}
+	void getPositionX()const
+	{
+
+		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
 	void getPositionY(size_t p_i)const
@@ -191,9 +221,21 @@ public:
 		fprintf(mFile,"\"%s.p[%i].py\"",mName.c_str(),p_i);
 
 	}
+	void getPositionY()const
+	{
+
+		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
+
+	}
 	void getPositionZ(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pz\"",mName.c_str(),p_i);
+
+	}
+	void getPositionZ()const
+	{
+
+		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
 	void getTolerance()const

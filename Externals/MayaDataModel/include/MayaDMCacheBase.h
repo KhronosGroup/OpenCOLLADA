@@ -27,6 +27,12 @@ public:
 		fprintf(mFile,"\"%s.ocd[%i]\"",mName.c_str(),ocd_i);
 
 	}
+	void getOutCacheData()const
+	{
+
+		fprintf(mFile,"\"%s.ocd\"",mName.c_str());
+
+	}
 	void getInRange()const
 	{
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());

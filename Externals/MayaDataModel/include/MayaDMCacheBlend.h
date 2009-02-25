@@ -117,14 +117,32 @@ public:
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
+	void getInCache()const
+	{
+
+		fprintf(mFile,"\"%s.ic\"",mName.c_str());
+
+	}
 	void getVectorArray(size_t ic_i,size_t va_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i].va[%i]\"",mName.c_str(),ic_i,va_i);
 
 	}
+	void getVectorArray(size_t va_i)const
+	{
+
+		fprintf(mFile,"\"%s.ic.va[%i]\"",mName.c_str(),va_i);
+
+	}
 	void getPerPtWeights(size_t ic_i,size_t ppw_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i].ppw[%i]\"",mName.c_str(),ic_i,ppw_i);
+
+	}
+	void getPerPtWeights(size_t ppw_i)const
+	{
+
+		fprintf(mFile,"\"%s.ic.ppw[%i]\"",mName.c_str(),ppw_i);
 
 	}
 	void getDisableAll()const
@@ -137,9 +155,21 @@ public:
 		fprintf(mFile,"\"%s.cd[%i]\"",mName.c_str(),cd_i);
 
 	}
+	void getCacheData()const
+	{
+
+		fprintf(mFile,"\"%s.cd\"",mName.c_str());
+
+	}
 	void getStart(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].st\"",mName.c_str(),cd_i);
+
+	}
+	void getStart()const
+	{
+
+		fprintf(mFile,"\"%s.cd.st\"",mName.c_str());
 
 	}
 	void getEnd(size_t cd_i)const
@@ -147,14 +177,32 @@ public:
 		fprintf(mFile,"\"%s.cd[%i].e\"",mName.c_str(),cd_i);
 
 	}
+	void getEnd()const
+	{
+
+		fprintf(mFile,"\"%s.cd.e\"",mName.c_str());
+
+	}
 	void getRange(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].ra\"",mName.c_str(),cd_i);
 
 	}
+	void getRange()const
+	{
+
+		fprintf(mFile,"\"%s.cd.ra\"",mName.c_str());
+
+	}
 	void getWeight(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].w\"",mName.c_str(),cd_i);
+
+	}
+	void getWeight()const
+	{
+
+		fprintf(mFile,"\"%s.cd.w\"",mName.c_str());
 
 	}
 protected:

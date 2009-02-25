@@ -27,9 +27,21 @@ public:
 		fprintf(mFile,"\"%s.a[%i]\"",mName.c_str(),a_i);
 
 	}
+	void getAffects()const
+	{
+
+		fprintf(mFile,"\"%s.a\"",mName.c_str());
+
+	}
 	void getAffectedBy(size_t ab_i)const
 	{
 		fprintf(mFile,"\"%s.ab[%i]\"",mName.c_str(),ab_i);
+
+	}
+	void getAffectedBy()const
+	{
+
+		fprintf(mFile,"\"%s.ab\"",mName.c_str());
 
 	}
 protected:

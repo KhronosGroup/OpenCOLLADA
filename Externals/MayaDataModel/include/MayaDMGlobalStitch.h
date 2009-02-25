@@ -102,6 +102,12 @@ public:
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
+	void getInputSurface()const
+	{
+
+		fprintf(mFile,"\"%s.is\"",mName.c_str());
+
+	}
 	void getStitchCorners()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
@@ -142,6 +148,12 @@ public:
 		fprintf(mFile,"\"%s.lk[%i]\"",mName.c_str(),lk_i);
 
 	}
+	void getLockSurface()const
+	{
+
+		fprintf(mFile,"\"%s.lk\"",mName.c_str());
+
+	}
 	void getShouldBeLast()const
 	{
 		fprintf(mFile,"\"%s.sbl\"",mName.c_str());
@@ -152,14 +164,32 @@ public:
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
 
 	}
+	void getOutputSurface()const
+	{
+
+		fprintf(mFile,"\"%s.os\"",mName.c_str());
+
+	}
 	void getConnectedEdges(size_t ce_i)const
 	{
 		fprintf(mFile,"\"%s.ce[%i]\"",mName.c_str(),ce_i);
 
 	}
+	void getConnectedEdges()const
+	{
+
+		fprintf(mFile,"\"%s.ce\"",mName.c_str());
+
+	}
 	void getUnconnectedEdges(size_t ue_i)const
 	{
 		fprintf(mFile,"\"%s.ue[%i]\"",mName.c_str(),ue_i);
+
+	}
+	void getUnconnectedEdges()const
+	{
+
+		fprintf(mFile,"\"%s.ue\"",mName.c_str());
 
 	}
 protected:

@@ -189,6 +189,12 @@ public:
 		fprintf(mFile,"\"%s.rnd[%i]\"",mName.c_str(),rnd_i);
 
 	}
+	void getRootNode()const
+	{
+
+		fprintf(mFile,"\"%s.rnd\"",mName.c_str());
+
+	}
 	void getFullName()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());

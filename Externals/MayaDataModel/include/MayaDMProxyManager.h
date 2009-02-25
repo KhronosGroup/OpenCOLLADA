@@ -27,6 +27,12 @@ public:
 		fprintf(mFile,"\"%s.plst[%i]\"",mName.c_str(),plst_i);
 
 	}
+	void getProxyList()const
+	{
+
+		fprintf(mFile,"\"%s.plst\"",mName.c_str());
+
+	}
 	void getActiveProxy()const
 	{
 		fprintf(mFile,"\"%s.aprx\"",mName.c_str());

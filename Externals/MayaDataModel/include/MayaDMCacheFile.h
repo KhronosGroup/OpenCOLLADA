@@ -181,6 +181,12 @@ public:
 		fprintf(mFile,"\"%s.ch[%i]\"",mName.c_str(),ch_i);
 
 	}
+	void getChannel()const
+	{
+
+		fprintf(mFile,"\"%s.ch\"",mName.c_str());
+
+	}
 	void getCacheWeights()const
 	{
 		fprintf(mFile,"\"%s.cw\"",mName.c_str());
@@ -189,6 +195,12 @@ public:
 	void getPerPtWeights(size_t ppw_i)const
 	{
 		fprintf(mFile,"\"%s.ppw[%i]\"",mName.c_str(),ppw_i);
+
+	}
+	void getPerPtWeights()const
+	{
+
+		fprintf(mFile,"\"%s.ppw\"",mName.c_str());
 
 	}
 	void getOriginalStart()const

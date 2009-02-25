@@ -108,6 +108,12 @@ public:
 		fprintf(mFile,"\"%s.ia[%i]\"",mName.c_str(),ia_i);
 
 	}
+	void getInputAngle()const
+	{
+
+		fprintf(mFile,"\"%s.ia\"",mName.c_str());
+
+	}
 	void getOutputAngle()const
 	{
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
@@ -116,6 +122,12 @@ public:
 	void getInputLinear(size_t il_i)const
 	{
 		fprintf(mFile,"\"%s.il[%i]\"",mName.c_str(),il_i);
+
+	}
+	void getInputLinear()const
+	{
+
+		fprintf(mFile,"\"%s.il\"",mName.c_str());
 
 	}
 	void getOutputLinear()const

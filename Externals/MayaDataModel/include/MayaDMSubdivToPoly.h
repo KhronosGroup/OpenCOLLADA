@@ -295,9 +295,21 @@ public:
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
 
 	}
+	void getOutSubdCVId()const
+	{
+
+		fprintf(mFile,"\"%s.os\"",mName.c_str());
+
+	}
 	void getOutSubdCVIdLeft(size_t os_i)const
 	{
 		fprintf(mFile,"\"%s.os[%i].osl\"",mName.c_str(),os_i);
+
+	}
+	void getOutSubdCVIdLeft()const
+	{
+
+		fprintf(mFile,"\"%s.os.osl\"",mName.c_str());
 
 	}
 	void getOutSubdCVIdRight(size_t os_i)const
@@ -305,9 +317,21 @@ public:
 		fprintf(mFile,"\"%s.os[%i].osr\"",mName.c_str(),os_i);
 
 	}
+	void getOutSubdCVIdRight()const
+	{
+
+		fprintf(mFile,"\"%s.os.osr\"",mName.c_str());
+
+	}
 	void getInSubdCVId(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
+
+	}
+	void getInSubdCVId()const
+	{
+
+		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
 	void getInSubdCVIdLeft(size_t is_i)const
@@ -315,9 +339,21 @@ public:
 		fprintf(mFile,"\"%s.is[%i].isl\"",mName.c_str(),is_i);
 
 	}
+	void getInSubdCVIdLeft()const
+	{
+
+		fprintf(mFile,"\"%s.is.isl\"",mName.c_str());
+
+	}
 	void getInSubdCVIdRight(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i].isr\"",mName.c_str(),is_i);
+
+	}
+	void getInSubdCVIdRight()const
+	{
+
+		fprintf(mFile,"\"%s.is.isr\"",mName.c_str());
 
 	}
 	void getPreserveVertexOrdering()const
@@ -328,6 +364,12 @@ public:
 	void getOutv(size_t ov_i)const
 	{
 		fprintf(mFile,"\"%s.ov[%i]\"",mName.c_str(),ov_i);
+
+	}
+	void getOutv()const
+	{
+
+		fprintf(mFile,"\"%s.ov\"",mName.c_str());
 
 	}
 	void getApplyMatrixToResult()const

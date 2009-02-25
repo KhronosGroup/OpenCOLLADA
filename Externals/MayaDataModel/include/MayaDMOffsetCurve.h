@@ -198,6 +198,12 @@ public:
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
 
 	}
+	void getOutputCurve()const
+	{
+
+		fprintf(mFile,"\"%s.oc\"",mName.c_str());
+
+	}
 protected:
 	OffsetCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:AbstractBaseCreate(file, name, parent, nodeType, create) {}

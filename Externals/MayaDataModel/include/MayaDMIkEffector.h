@@ -38,6 +38,12 @@ public:
 		fprintf(mFile,"\"%s.hp[%i]\"",mName.c_str(),hp_i);
 
 	}
+	void getHandlePath()const
+	{
+
+		fprintf(mFile,"\"%s.hp\"",mName.c_str());
+
+	}
 protected:
 	IkEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:Transform(file, name, parent, nodeType, create) {}

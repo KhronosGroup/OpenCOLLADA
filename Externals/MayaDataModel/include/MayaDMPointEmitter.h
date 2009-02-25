@@ -495,9 +495,21 @@ public:
 		fprintf(mFile,"\"%s.inh[%i]\"",mName.c_str(),inh_i);
 
 	}
+	void getInheritFactor()const
+	{
+
+		fprintf(mFile,"\"%s.inh\"",mName.c_str());
+
+	}
 	void getIsFull(size_t full_i)const
 	{
 		fprintf(mFile,"\"%s.full[%i]\"",mName.c_str(),full_i);
+
+	}
+	void getIsFull()const
+	{
+
+		fprintf(mFile,"\"%s.full\"",mName.c_str());
 
 	}
 	void getStartTime(size_t stt_i)const
@@ -505,14 +517,32 @@ public:
 		fprintf(mFile,"\"%s.stt[%i]\"",mName.c_str(),stt_i);
 
 	}
+	void getStartTime()const
+	{
+
+		fprintf(mFile,"\"%s.stt\"",mName.c_str());
+
+	}
 	void getDeltaTime(size_t dt_i)const
 	{
 		fprintf(mFile,"\"%s.dt[%i]\"",mName.c_str(),dt_i);
 
 	}
+	void getDeltaTime()const
+	{
+
+		fprintf(mFile,"\"%s.dt\"",mName.c_str());
+
+	}
 	void getEmitCountRemainder(size_t ecr_i)const
 	{
 		fprintf(mFile,"\"%s.ecr[%i]\"",mName.c_str(),ecr_i);
+
+	}
+	void getEmitCountRemainder()const
+	{
+
+		fprintf(mFile,"\"%s.ecr\"",mName.c_str());
 
 	}
 	void getRatePP()const
@@ -535,9 +565,21 @@ public:
 		fprintf(mFile,"\"%s.ot[%i]\"",mName.c_str(),ot_i);
 
 	}
+	void getOutput()const
+	{
+
+		fprintf(mFile,"\"%s.ot\"",mName.c_str());
+
+	}
 	void getSeed(size_t sd_i)const
 	{
 		fprintf(mFile,"\"%s.sd[%i]\"",mName.c_str(),sd_i);
+
+	}
+	void getSeed()const
+	{
+
+		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
 	void getEnableTextureRate()const

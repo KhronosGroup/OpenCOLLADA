@@ -50,9 +50,27 @@ namespace COLLADAMaya
     {}
 
     // -----------------------------------
-    bool VisualSceneImporter::importVisualScene ( const COLLADAFW::VisualScene* visualScene )
+    VisualSceneImporter::~VisualSceneImporter ()
     {
-        // Iterate over the root nodes of the current visual scene
+        UniqueIdMayaNodesMap::iterator it = mMayaTransformNodesMap.begin ();
+        while ( it != mMayaTransformNodesMap.end () )
+        {
+            MayaNodesList mayaNodes = it->second;
+            for ( size_t i=0; i<mayaNodes.size (); ++i )
+            {
+                MayaNode* mayaNode = mayaNodes[i];
+                delete mayaNode;
+            }
+            mayaNodes.clear ();
+            ++it;
+        }
+        mMayaTransformNodesMap.clear ();
+    }
+
+    // -----------------------------------
+    void VisualSceneImporter::importVisualScene ( const COLLADAFW::VisualScene* visualScene )
+    {
+        // Iterate over the root nodes of the current visual scene.
         const COLLADAFW::NodeArray& rootNodes = visualScene->getRootNodes ();
         size_t count = rootNodes.getCount ();
         for ( size_t i=0; i<count; ++i )
@@ -60,29 +78,34 @@ namespace COLLADAMaya
             COLLADAFW::Node* rootNode = rootNodes [i];
             importNode ( rootNode );
         }
+    }
 
-        // Write all the node instances
-        writeNodeInstances ();
-
-        return true;
+    // -----------------------------------
+    void VisualSceneImporter::importLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
+    {
+        // TODO A library node is always instanciated from the visual scene!
+        // So we can't create the nodes on root!
+        const COLLADAFW::NodePointerArray& nodes = libraryNodes->getNodes ();
+        size_t numNodes = nodes.getCount ();
+        for ( size_t i=0; i<numNodes; ++i )
+        {
+            COLLADAFW::Node* node = nodes [i];
+            importNode ( node, 0, false );
+        }
     }
 
     // -----------------------------------
     void VisualSceneImporter::importNode ( 
         const COLLADAFW::Node* node, 
-        const COLLADAFW::UniqueId* parentTransformNodeId )
+        MayaNode* parentMayaNode /*= NULL*/, 
+        const COLLADAFW::UniqueId* parentTransformNodeId /*= NULL*/, 
+        const bool createNode /*= true*/ )
     {
-
         // Check for a parent node name
-        MayaNode* parentMayaNode = NULL;
         String parentNodeName = ""; 
-        if ( parentTransformNodeId != NULL ) 
-        {
-            parentMayaNode = findMayaTransformNode ( *parentTransformNodeId );
-            assert ( parentMayaNode != NULL );
+        if ( parentMayaNode != 0 )
             parentNodeName = parentMayaNode->getName ();
-        }
-
+        
         // Get the unique node name
         String nodeName = node->getName ();
         if ( COLLADABU::Utils::equals ( nodeName, "" ) )
@@ -90,17 +113,20 @@ namespace COLLADAMaya
         nodeName = DocumentImporter::frameworkNameToMayaName ( nodeName );
         nodeName = mTransformNodeIdList.addId ( nodeName );
 
-        // Create the node object (joint or node)
-        MayaDM::Transform* transformNode = createNode ( node, nodeName, parentNodeName );
-
         // Create a maya node object of the current node and push it into the map.
         const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
-        MayaNode mayaNode ( transformNodeId, nodeName, parentMayaNode );
-        mMayaTransformNodesMap [ transformNodeId ] = mayaNode;
+        MayaNode* mayaNode = new MayaNode ( transformNodeId, nodeName, parentMayaNode, createNode );
+        mMayaTransformNodesMap [ transformNodeId ].push_back ( mayaNode );
 
-        // Import the tranformations.
+        // Create the node object (joint or node)
+        MayaDM::Transform* transformNode = createMayaNode ( node, nodeName, parentNodeName );
+
+        // Import the transformations.
         importTransformations ( node, transformNode );
 
+        // Destroy the node object.
+        delete transformNode;
+        
         // Import the instances.
         readNodeInstances ( node );
         readGeometryInstances ( node );
@@ -113,10 +139,8 @@ namespace COLLADAMaya
         for ( size_t i=0; i<numChildNodes; ++i )
         {
             COLLADAFW::Node* childNode = childNodes [i];
-            importNode ( childNode, &transformNodeId );
+            importNode ( childNode, mayaNode, &transformNodeId, createNode );
         }
-
-        delete transformNode;
     }
 
     // -----------------------------------
@@ -221,27 +245,27 @@ namespace COLLADAMaya
 
         MStatus status;
         MVector transVec = tm.getTranslation ( MSpace::kTransform, &status );
-        transformNode->setTranslate ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ));
+        transformNode->setTranslate ( toLinearUnit ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
 
         double rotation[3];
         MTransformationMatrix::RotationOrder order;
         tm.getRotation ( rotation, order, MSpace::kTransform );
         if ( ! ( MVector (0,0,0) == MVector ( rotation ) ) )
-            transformNode->setRotate ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) );
+            transformNode->setRotate ( toAngularUnit ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) ) );
 
         double scale[3];
         tm.getScale ( scale, MSpace::kTransform );
         if ( ! ( MVector (1,1,1) == MVector ( scale ) ) )
-            transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
+            transformNode->setScale ( toUpAxisType ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
 
         double shear[3];
         tm.getShear ( shear, MSpace::kTransform );
         if ( ! ( MVector (0,0,0) == MVector ( shear ) ) )
-            transformNode->setShear ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) );
+            transformNode->setShear ( toUpAxisType ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
     }
 
     // -----------------------------------
-    MayaDM::Transform* VisualSceneImporter::createNode ( 
+    MayaDM::Transform* VisualSceneImporter::createMayaNode ( 
         const COLLADAFW::Node* node, 
         const String& nodeName, 
         const String& parentNodeName )
@@ -608,12 +632,12 @@ namespace COLLADAMaya
         if ( translate != MVector (0, 0, 0) )
             transformNode->setTranslate ( toLinearUnit ( MayaDM::double3 ( translate.x , translate.y, translate.z ) ) );
         if ( rotation != MVector (0, 0, 0) )
-            transformNode->setRotate ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation.x), COLLADABU::Math::Utils::radToDeg(rotation.y), COLLADABU::Math::Utils::radToDeg(rotation.z) ) );
+            transformNode->setRotate ( toAngularUnit ( MayaDM::double3 ( rotation.x, rotation.y, rotation.z ) ) );
         if ( scale != MVector (1, 1, 1) )
-            transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
+            transformNode->setScale ( toUpAxisType ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
 
         if ( skew != MVector (0, 0, 0))
-            transformNode->setShear ( MayaDM::double3 ( skew.x, skew.y, skew.z ) );
+            transformNode->setShear ( toUpAxisType ( MayaDM::double3 ( skew.x, skew.y, skew.z ) ) );
 
         if ( rotatePivot != MVector (0, 0, 0) )
             transformNode->setRotatePivot ( toLinearUnit ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) ) );
@@ -652,22 +676,23 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    const MayaNode* VisualSceneImporter::findMayaTransformNode ( 
-        const COLLADAFW::UniqueId& uniqueId ) const
+    const BaseImporter::MayaNodesList* VisualSceneImporter::findMayaTransformNode ( 
+        const COLLADAFW::UniqueId& transformId ) const
     {
-        UniqueIdMayaNodesMap::const_iterator it = mMayaTransformNodesMap.find ( uniqueId );
+        UniqueIdMayaNodesMap::const_iterator it = mMayaTransformNodesMap.find ( transformId );
         if ( it != mMayaTransformNodesMap.end () )
-            return &(*it).second;
+            return &(it->second);
 
         return 0;
     }
 
     // -----------------------------------
-    MayaNode* VisualSceneImporter::findMayaTransformNode ( const COLLADAFW::UniqueId& uniqueId )
+    BaseImporter::MayaNodesList* VisualSceneImporter::findMayaTransformNode ( 
+        const COLLADAFW::UniqueId& transformId )
     {
-        UniqueIdMayaNodesMap::iterator it = mMayaTransformNodesMap.find ( uniqueId );
+        UniqueIdMayaNodesMap::iterator it = mMayaTransformNodesMap.find ( transformId );
         if ( it != mMayaTransformNodesMap.end () )
-            return &(*it).second;
+            return &(it->second);
 
         return 0;
     }
@@ -743,43 +768,6 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    void VisualSceneImporter::writeNodeInstances ()
-    {
-        UniqueIdUniqueIdsMap::iterator it = mTransformInstancesMap.begin ();
-        while ( it != mTransformInstancesMap.end() )
-        {
-            const COLLADAFW::UniqueId& instanceNodeId = it->first;
-
-            BaseImporter::UniqueIdVec& parentNodes = it->second;
-            size_t numInstances = parentNodes.size ();
-            for ( size_t i=0; i<numInstances; ++i )
-            {
-                const COLLADAFW::UniqueId& parentNodeId = parentNodes [i];
-
-                // TODO Check if the original node is already generated!
-                MayaNode* mayaChildNode = findMayaTransformNode ( instanceNodeId );
-                if ( mayaChildNode == 0 )
-                {
-                    MGlobal::displayError ( "The referenced transform node doesn't exist!" );
-                    std::cerr << "The referenced transform node doesn't exist!" << endl;
-                }
-                String childNodeName = mayaChildNode->getName ();
-                String childNodePath = mayaChildNode->getNodePath ();
-
-                // Get the pathes.
-                MayaNode* mayaParentNode = findMayaTransformNode ( parentNodeId );
-                String parentNodePath = mayaParentNode->getNodePath ();
-
-                // parent -shape -noConnections -relative -addObject "|node1|node2" "|rootNode";
-                FILE* file = getDocumentImporter ()->getFile ();
-                MayaDM::parentShape ( file, childNodePath, parentNodePath, false, true, true, true  );
-            }
-
-            ++it;
-        }
-    }
-
-    // -----------------------------------
     bool VisualSceneImporter::readGeometryInstances ( const COLLADAFW::Node* node )
     {
         // Get the unique id of the current node.
@@ -808,19 +796,9 @@ namespace COLLADAMaya
         const COLLADAFW::UniqueId& transformNodeId, 
         const COLLADAFW::InstanceGeometry* instanceGeometry )
     {
-        // Get the material importer
+        // Write the shader data.
         MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
-
-        // Go through the bound materials
-        const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindingsArray = instanceGeometry->getMaterialBindings ();
-        size_t numOfBindings = materialBindingsArray.getCount ();
-        for ( size_t i=0; i<numOfBindings; ++i )
-        {
-            const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindingsArray [i];
-
-            // Write the shader data into the maya file.
-            materialImporter->writeShaderData ( materialBinding, transformNodeId, instanceGeometry );
-        }
+        materialImporter->writeShaderData ( transformNodeId, instanceGeometry );
     }
 
     // -----------------------------------
@@ -864,4 +842,149 @@ namespace COLLADAMaya
 
         return true;
     }
+
+    // -----------------------------------
+    void VisualSceneImporter::writeNodeInstances ()
+    {
+        // A pointer to the current maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // Go through the transform instances and copy / move the instantiated nodes.
+        UniqueIdUniqueIdsMap::iterator it = mTransformInstancesMap.begin ();
+        while ( it != mTransformInstancesMap.end() )
+        {
+            const COLLADAFW::UniqueId& instanceNodeId = it->first;
+            BaseImporter::UniqueIdVec& parentNodes = it->second;
+
+            // Get the maya child node and read the path.
+            MayaNodesList* childTransformNodes = findMayaTransformNode ( instanceNodeId );
+            if ( childTransformNodes->size () == 0 )
+            {
+                MGlobal::displayError ( "The referenced transform node doesn't exist!" );
+                std::cerr << "The referenced transform node doesn't exist!" << endl;
+                return;
+            }
+            MayaNode* mayaChildNode = (*childTransformNodes) [0];
+            const COLLADAFW::UniqueId& childTransformId = mayaChildNode->getUniqueId ();
+            String childNodeName = mayaChildNode->getName ();
+            String childNodePath = mayaChildNode->getNodePath ();
+
+            // Go through the instances.
+            size_t numInstances = parentNodes.size ();
+            for ( size_t i=0; i<numInstances; ++i )
+            {
+                const COLLADAFW::UniqueId& parentTransformId = parentNodes [i];
+
+                // Get the maya parent nodes and read the path.
+                MayaNodesList* parentTransformNodes = findMayaTransformNode ( parentTransformId );
+                if ( parentTransformNodes == 0 )
+                {
+                    MGlobal::displayError ( "The referenced transform node doesn't exist!" );
+                    std::cerr << "The referenced transform node doesn't exist!" << endl;
+                    return;
+                }
+                // Multiple parent instances...
+                MayaNode* mayaParentNode = (*parentTransformNodes) [0];
+                String parentNodeName = mayaParentNode->getName ();
+                String parentNodePath = mayaParentNode->getNodePath ();
+
+                // This flag is set, if the node is not from the visual scene, 
+                // but from the library nodes. We don't have to create a new instance, 
+                // instead of this we have to move the node!
+                bool isCorrectPositioned = mayaChildNode->getIsCorrectPositioned ();
+                if ( !isCorrectPositioned )
+                {
+                    // parent -shape -noConnections -relative "|node1|node2" "|rootNode";
+                    MayaDM::parent ( file, childNodePath, parentNodePath, false, false, true, true  );
+                    mayaChildNode->setIsCorrectPositioned ( true );
+                    mayaChildNode->setParent ( mayaParentNode );
+
+                    // TODO Remove this node from the instances list.
+                    const UniqueIdVec* instanceTransformIds = findTransformInstances ( childTransformId );
+                    size_t numInstances = instanceTransformIds->size ();
+                }
+                else
+                {
+                    // parent -shape -noConnections -relative -addObject "|node1|node2" "|rootNode";
+                    MayaDM::parent ( file, childNodePath, parentNodePath, false, true, true, true  );
+
+                    // Create the maya transform nodes for the internal transform graph of this
+                    // node instance and all child nodes.
+                    MayaNode* mayaInstanceNode = new MayaNode ( instanceNodeId, childNodeName, mayaParentNode );
+                    mMayaTransformNodesMap [ instanceNodeId ].push_back ( mayaInstanceNode );
+                }
+            }
+
+            ++it;
+        }
+    }
+
+    // --------------------------------------------
+    size_t VisualSceneImporter::getNumTransformInstances ( 
+        const COLLADAFW::UniqueId& transformId, 
+        const bool recursive /*= false*/ )
+    {
+        // There is always one instance!
+        size_t numNodeInstances = 0;
+        if ( !recursive ) ++numNodeInstances;
+
+        MayaNodesList* nodeInstances = findMayaTransformNode ( transformId );
+        if ( nodeInstances != 0 )
+        {
+            size_t nodeCounter = nodeInstances->size ();
+            numNodeInstances += nodeCounter - 1;
+            for ( size_t i=0; i<nodeCounter; ++i )
+            {
+                MayaNode* mayaNodeInstance = (*nodeInstances) [i];
+                String name = mayaNodeInstance->getName ();
+                String path = mayaNodeInstance->getNodePath ();
+
+                MayaNode* parentMayaNode = mayaNodeInstance->getParent ();
+                if ( parentMayaNode != 0 )
+                {
+                    const COLLADAFW::UniqueId& parentTransformNodeId = parentMayaNode->getUniqueId ();
+                    numNodeInstances += getNumTransformInstances ( parentTransformNodeId, true );
+                }
+            }
+        }
+
+        return numNodeInstances;
+    }
+
+    // --------------------------------------------
+    void VisualSceneImporter::getTransformPathes ( 
+        std::vector<String>& transformPathes, 
+        const COLLADAFW::UniqueId& transformId, 
+        const String childSubPath /*= ""*/ )
+    {
+        MayaNodesList* transformInstances = findMayaTransformNode ( transformId );
+        if ( transformInstances != 0 )
+        {
+            size_t nodeCounter = transformInstances->size ();
+            for ( size_t i=0; i<nodeCounter; ++i )
+            {
+                MayaNode* mayaTransformInstanceNode = (*transformInstances) [i];
+                String transformInstancePath = mayaTransformInstanceNode->getNodePath ();
+
+                // The first instance in the list is always the original. 
+                // The path of the first instance has to be stored only once!
+                if ( i > 0 || COLLADABU::Utils::equals (childSubPath,"") )
+                {
+                    // Push the path of the instance in the list of node pathes.
+                    String transformPath = transformInstancePath + childSubPath;
+                    transformPathes.push_back ( transformPath );
+                }
+
+                // Get the child path, to append on the parent instance path.
+                MayaNode* parentMayaNode = mayaTransformInstanceNode->getParent ();
+                if ( parentMayaNode != 0 )
+                {
+                    String parentChildSubPath =  "|" + mayaTransformInstanceNode->getName () + childSubPath;
+                    const COLLADAFW::UniqueId& parentTransformId = parentMayaNode->getUniqueId ();
+                    getTransformPathes ( transformPathes, parentTransformId, parentChildSubPath );
+                }
+            }
+        }
+    }
+
 }

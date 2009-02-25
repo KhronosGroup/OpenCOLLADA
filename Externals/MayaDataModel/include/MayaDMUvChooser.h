@@ -228,6 +228,12 @@ public:
 		fprintf(mFile,"\"%s.uvs[%i]\"",mName.c_str(),uvs_i);
 
 	}
+	void getUvSets()const
+	{
+
+		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
+
+	}
 	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());

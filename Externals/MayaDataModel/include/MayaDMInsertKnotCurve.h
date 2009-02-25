@@ -110,9 +110,21 @@ public:
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
+	void getParameter()const
+	{
+
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
+
+	}
 	void getNumberOfKnots(size_t nk_i)const
 	{
 		fprintf(mFile,"\"%s.nk[%i]\"",mName.c_str(),nk_i);
+
+	}
+	void getNumberOfKnots()const
+	{
+
+		fprintf(mFile,"\"%s.nk\"",mName.c_str());
 
 	}
 	void getAddKnots()const

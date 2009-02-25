@@ -165,6 +165,12 @@ public:
 		fprintf(mFile,"\"%s.ha[%i]\"",mName.c_str(),ha_i);
 
 	}
+	void getHandle()const
+	{
+
+		fprintf(mFile,"\"%s.ha\"",mName.c_str());
+
+	}
 	void getEffectorID()const
 	{
 		fprintf(mFile,"\"%s.ei\"",mName.c_str());
@@ -173,6 +179,12 @@ public:
 	void getPivots(size_t pvt_i)const
 	{
 		fprintf(mFile,"\"%s.pvt[%i]\"",mName.c_str(),pvt_i);
+
+	}
+	void getPivots()const
+	{
+
+		fprintf(mFile,"\"%s.pvt\"",mName.c_str());
 
 	}
 	void getPivotOffset()const

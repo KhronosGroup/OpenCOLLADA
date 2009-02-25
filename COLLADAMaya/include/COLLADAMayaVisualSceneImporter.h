@@ -23,6 +23,7 @@
 #include "MayaDMTransform.h"
 
 #include "COLLADAFWVisualScene.h"
+#include "COLLADAFWLibraryNodes.h"
 #include "COLLADAFWSkew.h"
 
 #include "COLLADABUIDList.h"
@@ -140,22 +141,32 @@ namespace COLLADAMaya
         VisualSceneImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
-        virtual ~VisualSceneImporter () {}
+        virtual ~VisualSceneImporter ();
 
         /** 
          * Import the current visual scene with all scene nodes and transforms. 
          */
-        bool importVisualScene ( const COLLADAFW::VisualScene* visualScene );
+        void importVisualScene ( const COLLADAFW::VisualScene* visualScene );
+
+        /** 
+        * Import the library nodes with all nodes. 
+        */
+        void importLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes );
+
+        /**
+        * Write the parenting informations about node instances into the maya ascii file.
+        */
+        void writeNodeInstances ();
 
         /** 
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
-        const MayaNode* findMayaTransformNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+        const MayaNodesList* findMayaTransformNode ( const COLLADAFW::UniqueId& transformId ) const;
 
         /** 
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
-        MayaNode* findMayaTransformNode ( const COLLADAFW::UniqueId& uniqueId );
+        MayaNodesList* findMayaTransformNode ( const COLLADAFW::UniqueId& transformId );
 
         /**
          * The map holds for every transform node a list of all existing parent transform nodes
@@ -184,6 +195,21 @@ namespace COLLADAMaya
         */
         const UniqueIdVec* findLightTransformIds ( const COLLADAFW::UniqueId& lightId ) const;
 
+        /**
+         * Determines the number of transform node instances.
+         */
+        size_t getNumTransformInstances ( 
+            const COLLADAFW::UniqueId& transformId, 
+            const bool recursive = false );
+
+        /**
+         * Returns a filled list of all existing pathes to all instances to the current node.
+         */
+        void getTransformPathes ( 
+            std::vector<String>& transformPathes, 
+            const COLLADAFW::UniqueId& transformId, 
+            const String childSubPath = "" );
+
     private:
 
         /*
@@ -191,7 +217,9 @@ namespace COLLADAMaya
         */
         void importNode ( 
             const COLLADAFW::Node* rootNode, 
-            const COLLADAFW::UniqueId* parentNodeId = NULL );
+            MayaNode* parentMayaNode = NULL, 
+            const COLLADAFW::UniqueId* parentNodeId = NULL, 
+            const bool createNode = true );
 
         /**
          *	Save the transformation ids to the geometry ids.
@@ -219,11 +247,6 @@ namespace COLLADAMaya
          * Handle the node instances. 
          */
         bool readNodeInstances ( const COLLADAFW::Node* node );
-
-        /**
-         * Write the parenting informations about node instances into the maya ascii file.
-         */
-        void writeNodeInstances ();
 
         /*
          *	Transform the input matrix and convert it in a double[4][4] matrix.
@@ -269,7 +292,7 @@ namespace COLLADAMaya
         /**
         * Creates a node or joint object.
         */
-        MayaDM::Transform* createNode ( 
+        MayaDM::Transform* createMayaNode ( 
             const COLLADAFW::Node* node, 
             const String& nodeName, 
             const String& parentNodeName );

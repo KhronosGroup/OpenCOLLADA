@@ -37,9 +37,21 @@ public:
 		fprintf(mFile,"\"%s.cp[%i]\"",mName.c_str(),cp_i);
 
 	}
+	void getControlPoints()const
+	{
+
+		fprintf(mFile,"\"%s.cp\"",mName.c_str());
+
+	}
 	void getXValue(size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.cp[%i].xv\"",mName.c_str(),cp_i);
+
+	}
+	void getXValue()const
+	{
+
+		fprintf(mFile,"\"%s.cp.xv\"",mName.c_str());
 
 	}
 	void getYValue(size_t cp_i)const
@@ -47,9 +59,21 @@ public:
 		fprintf(mFile,"\"%s.cp[%i].yv\"",mName.c_str(),cp_i);
 
 	}
+	void getYValue()const
+	{
+
+		fprintf(mFile,"\"%s.cp.yv\"",mName.c_str());
+
+	}
 	void getZValue(size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.cp[%i].zv\"",mName.c_str(),cp_i);
+
+	}
+	void getZValue()const
+	{
+
+		fprintf(mFile,"\"%s.cp.zv\"",mName.c_str());
 
 	}
 	void getWeights(size_t wt_i)const
@@ -57,9 +81,21 @@ public:
 		fprintf(mFile,"\"%s.wt[%i]\"",mName.c_str(),wt_i);
 
 	}
+	void getWeights()const
+	{
+
+		fprintf(mFile,"\"%s.wt\"",mName.c_str());
+
+	}
 	void getKnots(size_t kn_i)const
 	{
 		fprintf(mFile,"\"%s.kn[%i]\"",mName.c_str(),kn_i);
+
+	}
+	void getKnots()const
+	{
+
+		fprintf(mFile,"\"%s.kn\"",mName.c_str());
 
 	}
 protected:

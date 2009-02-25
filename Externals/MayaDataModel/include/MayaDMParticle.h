@@ -969,6 +969,12 @@ public:
 		fprintf(mFile,"\"%s.ifc[%i]\"",mName.c_str(),ifc_i);
 
 	}
+	void getInputForce()const
+	{
+
+		fprintf(mFile,"\"%s.ifc\"",mName.c_str());
+
+	}
 	void getWorldPosition()const
 	{
 		fprintf(mFile,"\"%s.wps\"",mName.c_str());
@@ -1189,6 +1195,12 @@ public:
 		fprintf(mFile,"\"%s.npt[%i]\"",mName.c_str(),npt_i);
 
 	}
+	void getNewParticles()const
+	{
+
+		fprintf(mFile,"\"%s.npt\"",mName.c_str());
+
+	}
 	void getLifespanMode()const
 	{
 		fprintf(mFile,"\"%s.lfm\"",mName.c_str());
@@ -1214,9 +1226,21 @@ public:
 		fprintf(mFile,"\"%s.xi[%i]\"",mName.c_str(),xi_i);
 
 	}
+	void getInput()const
+	{
+
+		fprintf(mFile,"\"%s.xi\"",mName.c_str());
+
+	}
 	void getOutput(size_t xo_i)const
 	{
 		fprintf(mFile,"\"%s.xo[%i]\"",mName.c_str(),xo_i);
+
+	}
+	void getOutput()const
+	{
+
+		fprintf(mFile,"\"%s.xo\"",mName.c_str());
 
 	}
 	void getTime()const
@@ -1287,6 +1311,12 @@ public:
 	void getSeed(size_t sd_i)const
 	{
 		fprintf(mFile,"\"%s.sd[%i]\"",mName.c_str(),sd_i);
+
+	}
+	void getSeed()const
+	{
+
+		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
 	void getFieldData()const
@@ -1414,9 +1444,21 @@ public:
 		fprintf(mFile,"\"%s.ggeo[%i]\"",mName.c_str(),ggeo_i);
 
 	}
+	void getGoalGeometry()const
+	{
+
+		fprintf(mFile,"\"%s.ggeo\"",mName.c_str());
+
+	}
 	void getGoalWeight(size_t gw_i)const
 	{
 		fprintf(mFile,"\"%s.gw[%i]\"",mName.c_str(),gw_i);
+
+	}
+	void getGoalWeight()const
+	{
+
+		fprintf(mFile,"\"%s.gw\"",mName.c_str());
 
 	}
 	void getGoalActive(size_t ga_i)const
@@ -1424,9 +1466,21 @@ public:
 		fprintf(mFile,"\"%s.ga[%i]\"",mName.c_str(),ga_i);
 
 	}
+	void getGoalActive()const
+	{
+
+		fprintf(mFile,"\"%s.ga\"",mName.c_str());
+
+	}
 	void getGoalUvSetName(size_t guv_i)const
 	{
 		fprintf(mFile,"\"%s.guv[%i]\"",mName.c_str(),guv_i);
+
+	}
+	void getGoalUvSetName()const
+	{
+
+		fprintf(mFile,"\"%s.guv\"",mName.c_str());
 
 	}
 	void getCacheData()const
@@ -1494,9 +1548,21 @@ public:
 		fprintf(mFile,"\"%s.etg[%i]\"",mName.c_str(),etg_i);
 
 	}
+	void getEventTarget()const
+	{
+
+		fprintf(mFile,"\"%s.etg\"",mName.c_str());
+
+	}
 	void getEventName(size_t evn_i)const
 	{
 		fprintf(mFile,"\"%s.evn[%i]\"",mName.c_str(),evn_i);
+
+	}
+	void getEventName()const
+	{
+
+		fprintf(mFile,"\"%s.evn\"",mName.c_str());
 
 	}
 	void getEventValid(size_t evv_i)const
@@ -1504,9 +1570,21 @@ public:
 		fprintf(mFile,"\"%s.evv[%i]\"",mName.c_str(),evv_i);
 
 	}
+	void getEventValid()const
+	{
+
+		fprintf(mFile,"\"%s.evv\"",mName.c_str());
+
+	}
 	void getEventCount(size_t ecp_i)const
 	{
 		fprintf(mFile,"\"%s.ecp[%i]\"",mName.c_str(),ecp_i);
+
+	}
+	void getEventCount()const
+	{
+
+		fprintf(mFile,"\"%s.ecp\"",mName.c_str());
 
 	}
 	void getEventEmit(size_t eve_i)const
@@ -1514,9 +1592,21 @@ public:
 		fprintf(mFile,"\"%s.eve[%i]\"",mName.c_str(),eve_i);
 
 	}
+	void getEventEmit()const
+	{
+
+		fprintf(mFile,"\"%s.eve\"",mName.c_str());
+
+	}
 	void getEventSplit(size_t evs_i)const
 	{
 		fprintf(mFile,"\"%s.evs[%i]\"",mName.c_str(),evs_i);
+
+	}
+	void getEventSplit()const
+	{
+
+		fprintf(mFile,"\"%s.evs\"",mName.c_str());
 
 	}
 	void getEventDie(size_t evd_i)const
@@ -1524,9 +1614,21 @@ public:
 		fprintf(mFile,"\"%s.evd[%i]\"",mName.c_str(),evd_i);
 
 	}
+	void getEventDie()const
+	{
+
+		fprintf(mFile,"\"%s.evd\"",mName.c_str());
+
+	}
 	void getEventRandom(size_t evr_i)const
 	{
 		fprintf(mFile,"\"%s.evr[%i]\"",mName.c_str(),evr_i);
+
+	}
+	void getEventRandom()const
+	{
+
+		fprintf(mFile,"\"%s.evr\"",mName.c_str());
 
 	}
 	void getEventSpread(size_t esp_i)const
@@ -1534,9 +1636,21 @@ public:
 		fprintf(mFile,"\"%s.esp[%i]\"",mName.c_str(),esp_i);
 
 	}
+	void getEventSpread()const
+	{
+
+		fprintf(mFile,"\"%s.esp\"",mName.c_str());
+
+	}
 	void getEventProc(size_t epr_i)const
 	{
 		fprintf(mFile,"\"%s.epr[%i]\"",mName.c_str(),epr_i);
+
+	}
+	void getEventProc()const
+	{
+
+		fprintf(mFile,"\"%s.epr\"",mName.c_str());
 
 	}
 	void getInstanceData(size_t idt_i)const
@@ -1544,9 +1658,21 @@ public:
 		fprintf(mFile,"\"%s.idt[%i]\"",mName.c_str(),idt_i);
 
 	}
+	void getInstanceData()const
+	{
+
+		fprintf(mFile,"\"%s.idt\"",mName.c_str());
+
+	}
 	void getInstancePointData(size_t idt_i)const
 	{
 		fprintf(mFile,"\"%s.idt[%i].ipd\"",mName.c_str(),idt_i);
+
+	}
+	void getInstancePointData()const
+	{
+
+		fprintf(mFile,"\"%s.idt.ipd\"",mName.c_str());
 
 	}
 	void getNumberOfEvents()const
@@ -1564,14 +1690,32 @@ public:
 		fprintf(mFile,"\"%s.fc[%i]\"",mName.c_str(),fc_i);
 
 	}
+	void getFieldConnections()const
+	{
+
+		fprintf(mFile,"\"%s.fc\"",mName.c_str());
+
+	}
 	void getCollisionConnections(size_t cc_i)const
 	{
 		fprintf(mFile,"\"%s.cc[%i]\"",mName.c_str(),cc_i);
 
 	}
+	void getCollisionConnections()const
+	{
+
+		fprintf(mFile,"\"%s.cc\"",mName.c_str());
+
+	}
 	void getConnectionsToMe(size_t ct_i)const
 	{
 		fprintf(mFile,"\"%s.ct[%i]\"",mName.c_str(),ct_i);
+
+	}
+	void getConnectionsToMe()const
+	{
+
+		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
 	void getAuxiliariesOwned()const
@@ -1582,6 +1726,12 @@ public:
 	void getEmitterConnections(size_t ec_i)const
 	{
 		fprintf(mFile,"\"%s.ec[%i]\"",mName.c_str(),ec_i);
+
+	}
+	void getEmitterConnections()const
+	{
+
+		fprintf(mFile,"\"%s.ec\"",mName.c_str());
 
 	}
 	void getInheritColor()const
@@ -1739,9 +1889,21 @@ public:
 		fprintf(mFile,"\"%s.ppfd[%i]\"",mName.c_str(),ppfd_i);
 
 	}
+	void getPpFieldData()const
+	{
+
+		fprintf(mFile,"\"%s.ppfd\"",mName.c_str());
+
+	}
 	void getOwnerPPFieldData(size_t opfd_i)const
 	{
 		fprintf(mFile,"\"%s.opfd[%i]\"",mName.c_str(),opfd_i);
+
+	}
+	void getOwnerPPFieldData()const
+	{
+
+		fprintf(mFile,"\"%s.opfd\"",mName.c_str());
 
 	}
 	void getDeformedPosition()const

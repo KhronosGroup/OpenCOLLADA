@@ -1192,6 +1192,12 @@ public:
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
 
 	}
+	void getWorldMesh()const
+	{
+
+		fprintf(mFile,"\"%s.w\"",mName.c_str());
+
+	}
 	void getOutSmoothMesh()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
@@ -1337,9 +1343,21 @@ public:
 		fprintf(mFile,"\"%s.pt[%i]\"",mName.c_str(),pt_i);
 
 	}
+	void getPnts()const
+	{
+
+		fprintf(mFile,"\"%s.pt\"",mName.c_str());
+
+	}
 	void getPntx(size_t pt_i)const
 	{
 		fprintf(mFile,"\"%s.pt[%i].px\"",mName.c_str(),pt_i);
+
+	}
+	void getPntx()const
+	{
+
+		fprintf(mFile,"\"%s.pt.px\"",mName.c_str());
 
 	}
 	void getPnty(size_t pt_i)const
@@ -1347,9 +1365,21 @@ public:
 		fprintf(mFile,"\"%s.pt[%i].py\"",mName.c_str(),pt_i);
 
 	}
+	void getPnty()const
+	{
+
+		fprintf(mFile,"\"%s.pt.py\"",mName.c_str());
+
+	}
 	void getPntz(size_t pt_i)const
 	{
 		fprintf(mFile,"\"%s.pt[%i].pz\"",mName.c_str(),pt_i);
+
+	}
+	void getPntz()const
+	{
+
+		fprintf(mFile,"\"%s.pt.pz\"",mName.c_str());
 
 	}
 	void getVrtx(size_t vt_i)const
@@ -1357,9 +1387,21 @@ public:
 		fprintf(mFile,"\"%s.vt[%i].vx\"",mName.c_str(),vt_i);
 
 	}
+	void getVrtx()const
+	{
+
+		fprintf(mFile,"\"%s.vt.vx\"",mName.c_str());
+
+	}
 	void getVrty(size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].vy\"",mName.c_str(),vt_i);
+
+	}
+	void getVrty()const
+	{
+
+		fprintf(mFile,"\"%s.vt.vy\"",mName.c_str());
 
 	}
 	void getVrtz(size_t vt_i)const
@@ -1367,9 +1409,21 @@ public:
 		fprintf(mFile,"\"%s.vt[%i].vz\"",mName.c_str(),vt_i);
 
 	}
+	void getVrtz()const
+	{
+
+		fprintf(mFile,"\"%s.vt.vz\"",mName.c_str());
+
+	}
 	void getEdg1(size_t ed_i)const
 	{
 		fprintf(mFile,"\"%s.ed[%i].e1\"",mName.c_str(),ed_i);
+
+	}
+	void getEdg1()const
+	{
+
+		fprintf(mFile,"\"%s.ed.e1\"",mName.c_str());
 
 	}
 	void getEdg2(size_t ed_i)const
@@ -1377,9 +1431,21 @@ public:
 		fprintf(mFile,"\"%s.ed[%i].e2\"",mName.c_str(),ed_i);
 
 	}
+	void getEdg2()const
+	{
+
+		fprintf(mFile,"\"%s.ed.e2\"",mName.c_str());
+
+	}
 	void getEdgh(size_t ed_i)const
 	{
 		fprintf(mFile,"\"%s.ed[%i].eh\"",mName.c_str(),ed_i);
+
+	}
+	void getEdgh()const
+	{
+
+		fprintf(mFile,"\"%s.ed.eh\"",mName.c_str());
 
 	}
 	void getUvpx(size_t uv_i)const
@@ -1387,9 +1453,21 @@ public:
 		fprintf(mFile,"\"%s.uv[%i].ux\"",mName.c_str(),uv_i);
 
 	}
+	void getUvpx()const
+	{
+
+		fprintf(mFile,"\"%s.uv.ux\"",mName.c_str());
+
+	}
 	void getUvpy(size_t uv_i)const
 	{
 		fprintf(mFile,"\"%s.uv[%i].uy\"",mName.c_str(),uv_i);
+
+	}
+	void getUvpy()const
+	{
+
+		fprintf(mFile,"\"%s.uv.uy\"",mName.c_str());
 
 	}
 	void getColorPerVertex()const
@@ -1602,9 +1680,21 @@ public:
 		fprintf(mFile,"\"%s.pii[%i]\"",mName.c_str(),pii_i);
 
 	}
+	void getPerInstanceIndex()const
+	{
+
+		fprintf(mFile,"\"%s.pii\"",mName.c_str());
+
+	}
 	void getPerInstanceTag(size_t pit_i)const
 	{
 		fprintf(mFile,"\"%s.pit[%i]\"",mName.c_str(),pit_i);
+
+	}
+	void getPerInstanceTag()const
+	{
+
+		fprintf(mFile,"\"%s.pit\"",mName.c_str());
 
 	}
 	void getMentalRayControls()const

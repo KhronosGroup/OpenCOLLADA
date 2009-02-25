@@ -74,6 +74,12 @@ public:
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
 
 	}
+	void getOutputCurve()const
+	{
+
+		fprintf(mFile,"\"%s.oc\"",mName.c_str());
+
+	}
 	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
