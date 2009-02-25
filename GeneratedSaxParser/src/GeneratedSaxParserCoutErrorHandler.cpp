@@ -27,7 +27,7 @@ namespace GeneratedSaxParser
 
 	bool CoutErrorHandler::handleError( const ParserError& error )
 	{
-		if ( error.getSeverity() == ParserError::SEVERITY_ERROR2 )
+		if ( error.getSeverity() == ParserError::SEVERITY_ERROR_NONCRITICAL )
 			mHasErrors = true;
 		else
 			mHasCriticalError = true;
