@@ -78,6 +78,7 @@ namespace COLLADASaxFWL
 	bool LibraryImagesLoader::end__image__init_from()
 	{
 		String imageUriString( mCurrentImageURIPart.getData(), mCurrentImageURIPart.getCount() );
+		mCurrentImageURIPart.setCount(0);
 		COLLADABU::URI imageUri( imageUriString );
 		mCurrentImage->setImageURI( imageUri );
 		return true;
