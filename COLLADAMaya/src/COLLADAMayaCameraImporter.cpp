@@ -111,8 +111,8 @@ namespace COLLADAMaya
 
         // Create a maya node object of the current node and push it into the map.
         const COLLADAFW::UniqueId& cameraId = camera->getUniqueId ();
-        MayaNode* mayaMeshNode = new MayaNode ( cameraId, cameraName, mayaTransformNode );
-        mMayaCameraNodesMap [ cameraId ] = mayaMeshNode;
+        MayaNode* mayaCameraNode = new MayaNode ( cameraId, cameraName, mayaTransformNode );
+        mMayaCameraNodesMap [ cameraId ] = mayaCameraNode;
 
         // Create the maya camera object and write it into the maya ascii file.
         FILE* file = getDocumentImporter ()->getFile ();
@@ -122,10 +122,10 @@ namespace COLLADAMaya
         switch ( cameraType )
         {
         case COLLADAFW::Camera::ORTHOGRAPHIC:
-            setOrthographicCameraAttributes ( camera, mayaCamera );
+            setOrthographicCameraAttributes ( camera, mayaCameraNode, mayaCamera );
             break;
         case COLLADAFW::Camera::PERSPECTIVE:
-            setPerspectiveCameraAttributes ( camera, mayaCamera );
+            setPerspectiveCameraAttributes ( camera, mayaCameraNode, mayaCamera );
             break;
         default:
             std::cerr << "Unknown camera type!" << endl;
@@ -138,6 +138,7 @@ namespace COLLADAMaya
     //------------------------------
     void CameraImporter::setPerspectiveCameraAttributes ( 
         const COLLADAFW::Camera* camera,
+        MayaNode* mayaCameraNode, 
         MayaDM::Camera& mayaCamera )
     {
         mayaCamera.setOrthographic ( false );
@@ -158,43 +159,43 @@ namespace COLLADAMaya
         case COLLADAFW::Camera::ASPECTRATIO_AND_X:
             {
                 double aspectRatio = camera->getAspectRatio ();
-                MayaDM::editCameraAspectRatio ( file, mayaCamera.getName (), aspectRatio );
+                MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
 
                 double horizontalFieldOfView = camera->getXFov ();
-                MayaDM::editCameraHorizontalFieldOfView ( file, mayaCamera.getName (), horizontalFieldOfView );
+                MayaDM::editCameraHorizontalFieldOfView ( file, mayaCameraNode->getNodePath (), horizontalFieldOfView );
             }
             break;
         case COLLADAFW::Camera::ASPECTRATIO_AND_Y:
             {
                 double aspectRatio = camera->getAspectRatio ();
-                MayaDM::editCameraAspectRatio ( file, mayaCamera.getName (), aspectRatio );
+                MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
 
                 double verticalFieldOfView = camera->getYFov ();
-                MayaDM::editCameraVerticalFieldOfView ( file, mayaCamera.getName (), verticalFieldOfView );
+                MayaDM::editCameraVerticalFieldOfView ( file, mayaCameraNode->getNodePath (), verticalFieldOfView );
             }
             break;
         case COLLADAFW::Camera::SINGLE_X:
             {
                 double horizontalFieldOfView = camera->getXFov ();
-                MayaDM::editCameraHorizontalFieldOfView ( file, mayaCamera.getName (), horizontalFieldOfView );
+                MayaDM::editCameraHorizontalFieldOfView ( file, mayaCameraNode->getNodePath (), horizontalFieldOfView );
             }
             break;
         case COLLADAFW::Camera::SINGLE_Y:
             {
                 double verticalFieldOfView = camera->getYFov ();
-                MayaDM::editCameraVerticalFieldOfView ( file, mayaCamera.getName (), verticalFieldOfView );
+                MayaDM::editCameraVerticalFieldOfView ( file, mayaCameraNode->getNodePath (), verticalFieldOfView );
             }
             break;
         case COLLADAFW::Camera::X_AND_Y:
             {
                 double aspectRatio = camera->getXFov () / camera->getYFov ();
-                MayaDM::editCameraAspectRatio ( file, mayaCamera.getName (), aspectRatio );
+                MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
 
                 double horizontalFieldOfView = camera->getXFov ();
-                MayaDM::editCameraHorizontalFieldOfView ( file, mayaCamera.getName (), horizontalFieldOfView );
+                MayaDM::editCameraHorizontalFieldOfView ( file, mayaCameraNode->getNodePath (), horizontalFieldOfView );
 
                 double verticalFieldOfView = camera->getYFov ();
-                MayaDM::editCameraVerticalFieldOfView ( file, mayaCamera.getName (), verticalFieldOfView );
+                MayaDM::editCameraVerticalFieldOfView ( file, mayaCameraNode->getNodePath (), verticalFieldOfView );
             }
             break;
         default:
@@ -208,6 +209,7 @@ namespace COLLADAMaya
     //------------------------------
     void CameraImporter::setOrthographicCameraAttributes ( 
         const COLLADAFW::Camera* camera, 
+        MayaNode* mayaCameraNode, 
         MayaDM::Camera& mayaCamera )
     {
         mayaCamera.setOrthographic ( true );
@@ -219,7 +221,7 @@ namespace COLLADAMaya
         double farClipPlane = camera->getFarClippingPlane ();
         farClipPlane = toLinearUnit ( farClipPlane );
         mayaCamera.setFarClipPlane ( farClipPlane );
-
+        
         FILE* file = getDocumentImporter ()->getFile ();
 
         COLLADAFW::Camera::DescriptionType description = camera->getDescriptionType ();
@@ -228,37 +230,37 @@ namespace COLLADAMaya
         case COLLADAFW::Camera::ASPECTRATIO_AND_X:
             {
                 double aspectRatio = camera->getAspectRatio ();
-                MayaDM::editCameraAspectRatio ( file, mayaCamera.getName (), aspectRatio );
+                MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
 
                 double orthographicWidth = camera->getXMag () / 2;
-                MayaDM::editCameraOrthographicWidth ( file, mayaCamera.getName (), orthographicWidth );
+                MayaDM::editCameraOrthographicWidth ( file, mayaCameraNode->getNodePath (), orthographicWidth );
             }
             break;
         case COLLADAFW::Camera::ASPECTRATIO_AND_Y:
             {
                 double aspectRatio = camera->getAspectRatio ();
-                MayaDM::editCameraAspectRatio ( file, mayaCamera.getName (), aspectRatio );
+                MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
 
                 double orthographicHeight = camera->getYMag () / 2;
-                MayaDM::editCameraOrthographicHeight ( file, mayaCamera.getName (), orthographicHeight );
+                MayaDM::editCameraOrthographicHeight ( file, mayaCameraNode->getNodePath (), orthographicHeight );
             }
             break;
         case COLLADAFW::Camera::SINGLE_X:
             {
                 double orthographicWidth = camera->getXMag () / 2;
-                MayaDM::editCameraOrthographicWidth ( file, mayaCamera.getName (), orthographicWidth );
+                MayaDM::editCameraOrthographicWidth ( file, mayaCameraNode->getNodePath (), orthographicWidth );
             }
             break;
         case COLLADAFW::Camera::SINGLE_Y:
             {
                 double orthographicHeight = camera->getYMag () / 2;
-                MayaDM::editCameraOrthographicHeight ( file, mayaCamera.getName (), orthographicHeight );
+                MayaDM::editCameraOrthographicHeight ( file, mayaCameraNode->getNodePath (), orthographicHeight );
             }
             break;
         case COLLADAFW::Camera::X_AND_Y:
             {
                 double aspectRatio = camera->getXMag () / camera->getYMag ();
-                MayaDM::editCameraAspectRatio ( file, mayaCamera.getName (), aspectRatio );
+                MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
             }
             break;
         default:

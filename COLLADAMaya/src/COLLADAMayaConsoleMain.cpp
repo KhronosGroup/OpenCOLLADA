@@ -173,7 +173,7 @@ int main(int argc,char** argv)
 
             // Get the start time 
             clock_t startClock, endClock;
-            startClock = clock();
+            startClock = clock();   
 
             // Actually export the document
 			COLLADASW::NativeString nativeOutFileName(outFileName);

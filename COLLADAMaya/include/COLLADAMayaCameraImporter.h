@@ -69,10 +69,12 @@ namespace COLLADAMaya
 
         void setPerspectiveCameraAttributes ( 
             const COLLADAFW::Camera* camera, 
+            MayaNode* mayaCameraNode, 
             MayaDM::Camera& mayaCamera );
 
         void setOrthographicCameraAttributes ( 
             const COLLADAFW::Camera* camera, 
+            MayaNode* mayaCameraNode, 
             MayaDM::Camera& mayaCamera );
         
         MayaNode* findMayaCameraNode ( const COLLADAFW::UniqueId& cameraId );
