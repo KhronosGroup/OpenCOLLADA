@@ -41,6 +41,88 @@ namespace COLLADAMax
 	}
 
 
+	void setMaterialIdentifierMapChannel( const COLLADAFW::ColorOrTexture& colorOrTexture,
+										  const COLLADAFW::InstanceGeometry::TextureCoordinateBindingArray& texCoordBindings,
+										  const DocumentImporter::SetMapChannelMap& setMapChannelMap,
+										  MaterialCreator::MaterialIdentifier::SlotFlags slot,
+										  unsigned char& slotFlags,
+										  unsigned char& mapChannel)
+	{
+		if ( !colorOrTexture.isTexture() )
+		{
+			mapChannel = 0;
+			return;
+		}
+
+		slotFlags |= slot;
+
+		const COLLADAFW::Texture& texture = colorOrTexture.getTexture();
+
+		COLLADAFW::TextureMapId mapId = texture.getTextureMapId();
+
+		// find the map id in the list of bind texture coordinates
+		size_t texCoordBindingsCount = texCoordBindings.getCount();
+		size_t setIndex;
+		bool found = false;
+		for ( size_t i = 0; i < texCoordBindingsCount; ++i)
+		{
+			const COLLADAFW::InstanceGeometry::TextureCoordinateBinding& texCoordBinding = texCoordBindings[i];
+			if ( texCoordBinding.textureMapId == mapId )
+			{
+				setIndex = texCoordBinding.setIndex;
+				found = true;
+				break;
+			}
+		}
+
+		if ( !found || setMapChannelMap.empty() )
+		{
+			// if we could not resolve we need to guess and chose 1.*/
+			mapChannel = 1;
+		}
+		else
+		{
+			DocumentImporter::SetMapChannelMap::const_iterator it = setMapChannelMap.find( setIndex );
+			if ( it == setMapChannelMap.end() )
+			{
+				// could not find a map channel, take the first
+				mapChannel = setMapChannelMap.begin()->second;
+			}
+			else
+			{
+				mapChannel = (unsigned char) it->second;
+			}
+		}
+	}
+
+	/** Creates an material identifier for the first EffectCommon in @a effect. It is assumed, that there is at least
+	one EffectCommon.*/
+	MaterialCreator::MaterialIdentifier getMaterialIdentifier( const COLLADAFW::Effect& effect,
+															   const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding,
+															   const DocumentImporter::SetMapChannelMap& setMapChannelMap)
+	{
+		assert( !effect.getCommonEffects().empty() );
+		MaterialCreator::MaterialIdentifier materialIdentifier;
+		materialIdentifier.slotFlags = 0;
+
+		const COLLADAFW::UniqueId& effectUniqueId = effect.getUniqueId();
+
+		materialIdentifier.effectUniqueId = effect.getUniqueId();
+
+		const COLLADAFW::EffectCommon* commonEffect = effect.getCommonEffects()[0];
+
+		const COLLADAFW::InstanceGeometry::TextureCoordinateBindingArray& texCoordBindings =  materialBinding.getTextureCoordinateBindingArray();
+
+		setMaterialIdentifierMapChannel( commonEffect->getAmbient(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::AMBIENT, materialIdentifier.slotFlags, materialIdentifier.ambientMapChannel);
+		setMaterialIdentifierMapChannel( commonEffect->getDiffuse(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::DIFFUSE, materialIdentifier.slotFlags, materialIdentifier.diffuseMapChannel);
+		setMaterialIdentifierMapChannel( commonEffect->getSpecular(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::SPECULAR, materialIdentifier.slotFlags, materialIdentifier.specularMapChannel);
+//		setMaterialIdentifierMapChannel( commonEffect->getShininess(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::SHININESS, materialIdentifier.slotFlags, materialIdentifier.shininessMapChannel);
+		setMaterialIdentifierMapChannel( commonEffect->getEmission(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::EMISSION, materialIdentifier.slotFlags, materialIdentifier.emissionMapChannel);
+		setMaterialIdentifierMapChannel( commonEffect->getTransparent(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::OPACITY, materialIdentifier.slotFlags, materialIdentifier.opacityMapChannel);
+		return materialIdentifier;
+	}
+
+
 
 	//------------------------------
 	bool MaterialCreator::MaterialIdentifier::operator<( const MaterialIdentifier& rhs ) const
@@ -50,12 +132,12 @@ namespace COLLADAMax
 		if ( effectUniqueId > rhs.effectUniqueId )
 			return false;
 
-		if ( slotflags < rhs.slotflags )
+		if ( slotFlags < rhs.slotFlags )
 			return true;
-		if ( slotflags > rhs.slotflags )
+		if ( slotFlags > rhs.slotFlags )
 			return false;
 
-		if ( (slotflags & AMBIENT) == AMBIENT )
+		if ( (slotFlags & AMBIENT) == AMBIENT )
 		{
 			if ( ambientMapChannel < rhs.ambientMapChannel )
 				return true;
@@ -63,7 +145,7 @@ namespace COLLADAMax
 				return false;
 		}
 
-		if ( (slotflags & DIFFUSE) == DIFFUSE )
+		if ( (slotFlags & DIFFUSE) == DIFFUSE )
 		{
 			if ( diffuseMapChannel < rhs.diffuseMapChannel )
 				return true;
@@ -71,7 +153,7 @@ namespace COLLADAMax
 				return false;
 		}
 
-		if ( (slotflags & SPECULAR) == SPECULAR )
+		if ( (slotFlags & SPECULAR) == SPECULAR )
 		{
 			if ( specularMapChannel < rhs.specularMapChannel )
 				return true;
@@ -79,7 +161,7 @@ namespace COLLADAMax
 				return false;
 		}
 
-		if ( (slotflags & SHININESS) == SHININESS )
+		if ( (slotFlags & SHININESS) == SHININESS )
 		{
 			if ( shininessMapChannel < rhs.shininessMapChannel )
 				return true;
@@ -87,7 +169,7 @@ namespace COLLADAMax
 				return false;
 		}
 
-		if ( (slotflags & EMISSION) == EMISSION )
+		if ( (slotFlags & EMISSION) == EMISSION )
 		{
 			if ( emissionMapChannel < rhs.emissionMapChannel )
 				return true;
@@ -95,7 +177,7 @@ namespace COLLADAMax
 				return false;
 		}
 
-		if ( (slotflags & OPACITY) == OPACITY )
+		if ( (slotFlags & OPACITY) == OPACITY )
 		{
 			if ( opacityMapChannel < rhs.opacityMapChannel )
 				return true;
@@ -142,13 +224,16 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	bool MaterialCreator::createAndAssingMaxMaterial( const DocumentImporter::NodeMaterialBindingsPair& materialBinding )
+	bool MaterialCreator::createAndAssingMaxMaterial( const DocumentImporter::NodeMaterialBindingsPair& materialBindingPair )
 	{
-		const DocumentImporter::MaterialBindingVector& materialBindings = materialBinding.materialBindings;
-		INode* maxNode = materialBinding.maxNode;
+		const DocumentImporter::MaterialBindingVector& materialBindings = materialBindingPair.materialBindings;
+		INode* maxNode = materialBindingPair.maxNode;
 
 		if ( materialBindings.size() == 0 )
 			return true;
+
+		const COLLADAFW::UniqueId& geometryUniqueId = getUniqueIdByObjectINode( maxNode );
+		assert( geometryUniqueId.isValid() );
 
 		// calculate largest material id
 		int largestMaterialId = 0;
@@ -157,7 +242,6 @@ namespace COLLADAMax
 		for ( ; it != materialBindings.end(); ++it)
 		{
 			int materialId = (int)it->getMaterialId();
-			if ( materialId > largestMaterialId )
 				largestMaterialId = materialId;
 		}
 
@@ -167,14 +251,15 @@ namespace COLLADAMax
 			const COLLADAFW::Effect* effect = getEffect(materialBinding);
 			if ( !effect )
 				return true;
-			Mtl* newMaterial = getMaxMaterial(*effect);
+			Mtl* newMaterial = getMaxMaterial(*effect, materialBinding, geometryUniqueId);
 			maxNode->SetMtl( newMaterial );
 			return true;
 		}
 
 		MultiMtl * multiMaterial = NewDefaultMultiMtl();
 		multiMaterial->SetNumSubMtls( largestMaterialId + 1 );
-		multiMaterial->SetName("MultiMaterial");
+		String multiMaterialName = String(maxNode->GetName()) + "-MultiMaterial";
+		multiMaterial->SetName(multiMaterialName.c_str());
 
 		it = materialBindings.begin();
 		for ( ; it != materialBindings.end(); ++it)
@@ -183,7 +268,7 @@ namespace COLLADAMax
 			const COLLADAFW::Effect* effect = getEffect(materialBinding);
 			if ( !effect )
 				continue;
-			Mtl* newMaterial = getMaxMaterial(*effect);
+			Mtl* newMaterial = getMaxMaterial(*effect, materialBinding, geometryUniqueId);
 			multiMaterial->SetSubMtl( materialBinding.getMaterialId(), newMaterial);
 		}
 		maxNode->SetMtl( multiMaterial );
@@ -192,27 +277,30 @@ namespace COLLADAMax
 
 
 	//------------------------------
-	Mtl* MaterialCreator::createMaxMaterial( const COLLADAFW::Effect& effect )
+	Mtl* MaterialCreator::createMaxMaterial( const COLLADAFW::Effect& effect, const MaterialCreator::MaterialIdentifier& materialIdentifier )
 	{
 		const COLLADAFW::CommonEffectPointerArray& commonEffects = effect.getCommonEffects();
 		if ( commonEffects.getCount() > 0)
 		{
-			return createStandardMaterial(*commonEffects[0], effect.getName());
+			return createStandardMaterial(*commonEffects[0], effect.getName(), materialIdentifier);
 		}
 
 		return 0;
 	}
 
 	//------------------------------
-	Mtl* MaterialCreator::getMaxMaterial( const COLLADAFW::Effect& effect )
+	Mtl* MaterialCreator::getMaxMaterial( const COLLADAFW::Effect& effect, const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding, const COLLADAFW::UniqueId& geometryUniqueId )
 	{
-		const COLLADAFW::UniqueId& effectUniqueId = effect.getUniqueId();
-		UniqueIdMaxMaterialMap::const_iterator it = mUniqueIdMaxMaterialMap.find(effectUniqueId);
-		if ( it == mUniqueIdMaxMaterialMap.end() )
+		const DocumentImporter::SetMapChannelMap& setMapChannelMap = getSetMapChannelByGeometryUniqueId( geometryUniqueId );
+
+		MaterialCreator::MaterialIdentifier materialIdentifier = getMaterialIdentifier( effect, materialBinding, setMapChannelMap );
+
+		MaterialIdentifierMaxMaterialMap::const_iterator it = mMaterialIdentifierMaxMaterialMap.find(materialIdentifier);
+		if ( it == mMaterialIdentifierMaxMaterialMap.end() )
 		{
 			// we need to create a new material
-			Mtl* newMaterial = createMaxMaterial(effect);
-			mUniqueIdMaxMaterialMap.insert(std::pair<COLLADAFW::UniqueId, Mtl*>(effectUniqueId, newMaterial));
+			Mtl* newMaterial = createMaxMaterial( effect, materialIdentifier );
+			mMaterialIdentifierMaxMaterialMap.insert(std::make_pair(materialIdentifier, newMaterial));
 			return newMaterial;
 		}
 		else
@@ -223,7 +311,7 @@ namespace COLLADAMax
 
 
 	//------------------------------
-	StdMat2* MaterialCreator::createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name )
+	StdMat2* MaterialCreator::createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name, const MaterialCreator::MaterialIdentifier& materialIdentifier )
 	{
 		StdMat2* material = NewDefaultStdMat();
 
@@ -321,6 +409,8 @@ namespace COLLADAMax
 		if ( colorOrTexture.isTexture() )
 		{
 			BitmapTex* texture = createTexture( effectCommon, colorOrTexture.getTexture() );
+			texture->GetUVGen()->SetMapChannel( materialIdentifier.diffuseMapChannel );
+
 			assignTextureToMaterial(material, ID_DI, texture);
 		}
 
@@ -357,11 +447,11 @@ namespace COLLADAMax
 
 		if ( !image )
 			return 0;
+
 		COLLADABU::URI imageUri( getFileInfo().absoluteFileUri, image->getImageURI().getURIString() );
 		COLLADABU::NativeString imageFileName( imageUri.toNativePath().c_str(), COLLADABU::NativeString::ENCODING_UTF8 );
 		bitmapTexture->SetMapName(const_cast<char*>(imageFileName.c_str()));
 		bitmapTexture->LoadMapFiles(0);
-
 
 		return bitmapTexture;
 	}
@@ -369,7 +459,38 @@ namespace COLLADAMax
 	//------------------------------
 	void MaterialCreator::assignTextureToMaterial( Mtl* material, int slot, BitmapTex* texture )
 	{
+		if ( !material ) 
+			return;
 
+		assert( (slot >= 0) && (slot < NTEXMAPS) );
+
+		// Assign it to the material
+		material->SetSubTexmap(slot, texture);
+
+		// For diffuse textures, view them in the viewport
+		if (slot == ID_DI)
+		{
+			// From Sparks Knowledge-base: "Topic: How to Activate a Texmap in viewport using API ??"
+			material->SetActiveTexmap(texture);
+			material->SetMtlFlag(MTL_TEX_DISPLAY_ENABLED);
+			material->NotifyDependents(FOREVER, (PartID) PART_ALL, REFMSG_CHANGE);
+		}
+
+		// Read in the transparency mode for opacity textures
+		if (slot == ID_OP)
+		{
+			//				BOOL isAlphaTranslucency = effect->GetTransparencyMode() == FCDEffectStandard::A_ONE;
+			//				texture->SetAlphaAsMono(isAlphaTranslucency);
+			//				texture->SetAlphaAsRGB(!isAlphaTranslucency); // [glaforte 22-08-2006] Are both calls needed? This is a radio box in the UI.
+		}
+
+		if (material->ClassID().PartA() == DMTL2_CLASS_ID || material->ClassID().PartA() == DMTL_CLASS_ID)
+		{
+			StdMat2* stdMat = (StdMat2*) material;
+			// Override the default amount set here, the final amount will
+			// be decided by the amount multipliers on the textures them selves
+			stdMat->SetTexmapAmt(slot, 1.0f, 0);
+		}
 	}
 
 } // namespace COLLADAMax

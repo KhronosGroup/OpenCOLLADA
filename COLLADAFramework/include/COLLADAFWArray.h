@@ -154,7 +154,7 @@ namespace COLLADAFW
         }
 
 		/** Returns true if the array is empty, false otherwise.*/
-		bool empty() { return mCount == 0; }
+		bool empty() const { return mCount == 0; }
 
 		/** Return s the index'th element in the array. No check is performed, if the index is out of bounds.*/
         Type& operator[] ( size_t index ) { return mData[index]; }

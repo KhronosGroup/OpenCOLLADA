@@ -997,6 +997,18 @@ namespace COLLADAMax
 				break;
 		}
 
+		// fill the setMapChannelMap for this geometry
+		DocumentImporter::SetMapChannelMap& setMapChannelMap = getSetMapChannelByGeometryUniqueId( mGeometry->getUniqueId() );
+		SetSourcePairMapChannelMap::const_iterator it = mSetSourcePairMapChannelMap.begin();
+		for ( ; it != mSetSourcePairMapChannelMap.end(); ++it )
+		{
+			const SetSourcePair& setSourcePair = it->first;
+			long setIndex = setSourcePair.first;
+			if ( setIndex >= 0)
+			{
+				setMapChannelMap[setIndex] = it->second;
+			}
+		}
 	}
 
 	template<bool isColorChannel, bool isFirstTry>

@@ -47,7 +47,7 @@ namespace COLLADAMax
 			COLLADAFW::UniqueId effectUniqueId;
 
 			/** Flags indication which slot uses a mac channel.*/
-			unsigned char slotflags;
+			unsigned char slotFlags;
 
 			unsigned char ambientMapChannel;
 			unsigned char diffuseMapChannel;
@@ -60,12 +60,12 @@ namespace COLLADAMax
 		};
 
 		/** Maps framework effects to max materials.*/
-		typedef std::map<COLLADAFW::UniqueId, Mtl*> UniqueIdMaxMaterialMap;
+		typedef std::map<MaterialIdentifier, Mtl*> MaterialIdentifierMaxMaterialMap;
 	private:
 
 		/** Maps all the framework effects already created a max material for, to the max 
 		material.*/
-		UniqueIdMaxMaterialMap mUniqueIdMaxMaterialMap;
+		MaterialIdentifierMaxMaterialMap mMaterialIdentifierMaxMaterialMap;
 	
 	public:
 
@@ -84,14 +84,14 @@ namespace COLLADAMax
 		bool createAndAssingMaxMaterial( const DocumentImporter::NodeMaterialBindingsPair& materialBinding );
 
 		/** Creates a standard material from @a effectCommon.*/ 
-		StdMat2* createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name);
+		StdMat2* createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name, const MaterialCreator::MaterialIdentifier& materialIdentifier);
 
 		/** Creates a material from @a effect.*/
-		Mtl* createMaxMaterial( const COLLADAFW::Effect& effect);
+		Mtl* createMaxMaterial( const COLLADAFW::Effect& effect, const MaterialCreator::MaterialIdentifier& materialIdentifier);
 
 		/** Returns the material created for @a effect. If for the same effect a max material has already been 
 		created for, the formally created one is returned, otherwise a new one is created.*/
-		Mtl* getMaxMaterial( const COLLADAFW::Effect& effect);
+		Mtl* getMaxMaterial( const COLLADAFW::Effect& effect, const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding, const COLLADAFW::UniqueId& geometryUniqueId );
 
 		/** Returns the effect used by @a materialBinding. It resolves first the material and than the effect.
 		If the effect could not be resolved, null is returned.*/

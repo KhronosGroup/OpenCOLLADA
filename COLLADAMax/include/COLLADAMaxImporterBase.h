@@ -181,9 +181,13 @@ namespace COLLADAMax
 		/** Returns the list of all nodes that have a material and their material bindings.*/ 
 		const DocumentImporter::NodeMaterialBindingsList& getNodeMaterialBindings();
 
-		/** Returns the material id of geometry with @a uniqueId. If it is not already in the map, a new
+		/** Returns the material id map of geometry with @a uniqueId. If it is not already in the map, a new
 		one is created.*/ 
 		DocumentImporter::FWMaterialIdMaxMtlIdMap& getMaterialIdMapByGeometryUniqueId( const COLLADAFW::UniqueId& uniqueId);
+
+		/** Returns the SetMapChannelMap of geometry with @a uniqueId. If it is not already in the map, a new
+		one is created.*/ 
+		DocumentImporter::SetMapChannelMap& getSetMapChannelByGeometryUniqueId( const COLLADAFW::UniqueId& uniqueId );
 
 		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
 		When ever an inode is cloned, the cloned one and itself should be added to that list.*/ 

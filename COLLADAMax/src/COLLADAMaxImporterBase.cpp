@@ -274,6 +274,13 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	DocumentImporter::SetMapChannelMap& ImporterBase::getSetMapChannelByGeometryUniqueId( const COLLADAFW::UniqueId& uniqueId )
+	{
+		return mDocumentImporter->getGeometrySetMapChannelMap()[uniqueId];
+	}
+
+
+	//------------------------------
 	const DocumentImporter::INodeINodePairList& ImporterBase::getClonedINodeOriginalINodePairList()
 	{
 		return mDocumentImporter->getClonedINodeOriginalINodePairList();

@@ -100,6 +100,12 @@ namespace COLLADAMax
 		/** Maps the unique id of a geometry to the material id mapping.*/
 		typedef std::map<COLLADAFW::UniqueId, FWMaterialIdMaxMtlIdMap > GeometryMaterialIdMapMap;
 
+		/** Maps sets ( index for multiple texcoords) to the max map channel this set of tex coordinates has been saved in.*/
+		typedef std::map<size_t /* Set index*/, int /* Max map channel*/ > SetMapChannelMap;
+
+		/** Maps each geometry to its  SetMapChannelMap.*/
+		typedef std::map<COLLADAFW::UniqueId /* geometry unique id*/, SetMapChannelMap > GeometrySetMapChannelMap;
+
 		/** List of inode inode pairs.*/
 		typedef std::vector<std::pair<INode*, INode*>> INodeINodePairList;
 
@@ -176,6 +182,9 @@ namespace COLLADAMax
 
 		/** Maps the unique id of a geometry to the material id mapping.*/
 		GeometryMaterialIdMapMap mGeometryMaterialIdMapMap;
+
+		/** Maps each geometry to its  SetMapChannelMap.*/
+		GeometrySetMapChannelMap mGeometrySetMapChannelMap;
 
 		/** List of pairs of cloned nodes and their originals. This is used to assign materials. When ever
 		an inode is cloned, the cloned one and itself should be added to that list.*/
@@ -308,6 +317,9 @@ namespace COLLADAMax
 
 		/** Return the GeometryMaterialIdMapMap.*/
 		GeometryMaterialIdMapMap& getGeometryMaterialIdMapMap() { return  mGeometryMaterialIdMapMap; }
+
+		/** Returns the GeometrySetMapChannelMap.*/
+		GeometrySetMapChannelMap& getGeometrySetMapChannelMap() { return mGeometrySetMapChannelMap; }
 
 		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
 		When ever an inode is cloned, the cloned one and itself should be added to that list.*/
