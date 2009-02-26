@@ -55,15 +55,15 @@ namespace COLLADABU
 		dest[ wideString.length() ] = 0; // null termination
 		this->assign( dest );
 		delete[] dest;
-#elif defined (COLLADABU_OS_LINUX)
-# error check if this really works on linux
+#elif defined (COLLADABU_OS_LINUX || COLLADABU_OS_MAC)
+//# error check if this really works on linux
 		size_t maxStringLength = wcstombs( 0, wideString.c_str(), 0 ) + 1; // wideString.length()*MB_CUR_MAX + 1;
 		char* dest = new char[ maxStringLength ];
 		size_t bytes = wcstombs( dest, wideString.c_str(), maxStringLength );
 
 		if ( bytes == -1 )
 		{
-			throw Exception(Exception::ERROR_WIDE_2_NATIVE, "Could not convert from wide string to native string.");
+			//throw Exception(Exception::ERROR_WIDE_2_NATIVE, "Could not convert from wide string to native string.");
 		}
 
 
@@ -84,16 +84,16 @@ namespace COLLADABU
 		WideString returnValue( dest );
 		delete[] dest;
 		return returnValue;
-#elif defined(COLLADABU_OS_LINUX)
-# error check if this really works on linux
+#elif defined (COLLADABU_OS_LINUX || COLLADABU_OS_MAC)
+//# error check if this really works on linux
 
-		size_t maxStringLength = string.length() + 1;
+		size_t maxStringLength = length() + 1;
 		wchar_t* dest = new wchar_t[ maxStringLength ];
 		size_t bytes = mbstowcs( dest, string.c_str(), maxStringLength );
 
 		if ( bytes == -1 )
 		{
-			throw Exception(Exception::ERROR_NATIVE_2_WIDE, "Could not convert from native string to wide string.");
+			//throw Exception(Exception::ERROR_NATIVE_2_WIDE, "Could not convert from native string to wide string.");
 		}
 
 		WideString returnValue( dest );

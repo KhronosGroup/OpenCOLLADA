@@ -18,8 +18,8 @@
 
 #include "COLLADAMayaPrerequisites.h"
 
-#include "Math\COLLADABUMathMatrix4.h"
-#include "Math\COLLADABUMathUtils.h"
+#include "Math/COLLADABUMathMatrix4.h"
+#include "Math/COLLADABUMathUtils.h"
 
 
 namespace COLLADAMaya

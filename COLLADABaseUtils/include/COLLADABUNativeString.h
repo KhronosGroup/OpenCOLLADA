@@ -68,7 +68,7 @@ namespace COLLADABU
 		referred by iterator end.
 		*/
 		template<class InputIterator> 
-		NativeString (InputIterator begin, InputIterator end) : String() {begin, end}
+		NativeString (InputIterator begin, InputIterator end) : String(begin, end) {}
 
 		/** Returns the string as unicode encoded wide string.*/
 		WideString toWideString()const;
