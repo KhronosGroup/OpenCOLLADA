@@ -174,6 +174,7 @@ namespace COLLADASaxFWL
 				colorOrTexture->setType(COLLADAFW::ColorOrTexture::TEXTURE);
 				COLLADAFW::Texture& texture = colorOrTexture->getTexture();
 				texture.setSamplerId( samplerInfo.id );
+				texture.setTextureMapId( getTextureMapIdBySematic( attributeData.texcoord) );
 				break;
 			}
 		}

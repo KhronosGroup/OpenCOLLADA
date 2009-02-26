@@ -20,6 +20,7 @@ namespace COLLADASaxFWL
         : FilePartLoader ( callingFilePartLoader )
         , mAsset ( new COLLADAFW::FileInfo () )
 	{
+		mAsset->setAbsoluteFileUri( callingFilePartLoader->getFileUri() );
 	}
 	
     //------------------------------

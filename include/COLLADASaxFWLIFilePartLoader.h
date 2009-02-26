@@ -87,6 +87,9 @@ namespace COLLADASaxFWL
 		the map and returned.*/
 		GeometryMaterialIdInfo& getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId);
 
+		/** Returns TextureMapId for @a semantic. Successive call with same semantic return the same TextureMapId.*/
+		COLLADAFW::TextureMapId getTextureMapIdBySematic( const String& semantic );
+
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
 		void setMeAsParser();
@@ -99,6 +102,27 @@ namespace COLLADASaxFWL
 
 		/** Returns the absolute uri of the currently parsed file*/
 		virtual const COLLADABU::URI& getFileUri()=0;
+
+		/** Copies the contents of the STL container @a stlContainer into the framework array
+		@a clonedArray.*/
+		template<class StlContainer, class Array >
+		static void copyStlContainerToArray( const StlContainer& stlContainer, Array& clonedArray)
+		{
+			size_t stlContainerSize = stlContainer.size();
+			if ( stlContainerSize > 0 )
+			{
+				clonedArray.allocMemory( stlContainerSize);
+				StlContainer::const_iterator it = stlContainer.begin();
+				size_t index = 0;
+				for (; it != stlContainer.end(); ++it, ++index)
+				{
+					clonedArray[index] = *it;
+				}
+				clonedArray.setCount(stlContainerSize);
+			}
+		}
+
+
 
 	protected:
 		/** Deletes the part loader mPartLoader, if it is not needed anymore. Always call this method, 

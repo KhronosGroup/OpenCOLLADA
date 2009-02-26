@@ -27,6 +27,7 @@ namespace COLLADASaxFWL
 
 	Loader::Loader( IErrorHandler* errorHandler )
 		: mErrorHandler(errorHandler)
+		, mNextTextureMapId(0)
 	{
 	}
 
@@ -93,6 +94,20 @@ namespace COLLADASaxFWL
 	GeometryMaterialIdInfo& Loader::getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId )
 	{
 		return mGeometryMeshMaterialIdInfoMapMap[uniqueId];
+	}
+
+	//---------------------------------
+	COLLADAFW::TextureMapId Loader::getTextureMapIdBySematic( const String& semantic )
+	{
+		StringTextureMapIdMap::iterator it = mTextureMapSemanticTextureMapIdMap.find(semantic);
+		if ( it == mTextureMapSemanticTextureMapIdMap.end() )
+		{
+			return mTextureMapSemanticTextureMapIdMap[semantic] = mNextTextureMapId++;
+		}
+		else
+		{
+			return it->second;
+		}
 	}
 
 } // namespace COLLADA
