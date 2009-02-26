@@ -42,6 +42,71 @@ namespace COLLADAMax
 
 
 
+	//------------------------------
+	bool MaterialCreator::MaterialIdentifier::operator<( const MaterialIdentifier& rhs ) const
+	{
+		if ( effectUniqueId < rhs.effectUniqueId )
+			return true;
+		if ( effectUniqueId > rhs.effectUniqueId )
+			return false;
+
+		if ( slotflags < rhs.slotflags )
+			return true;
+		if ( slotflags > rhs.slotflags )
+			return false;
+
+		if ( (slotflags & AMBIENT) == AMBIENT )
+		{
+			if ( ambientMapChannel < rhs.ambientMapChannel )
+				return true;
+			if ( ambientMapChannel > rhs.ambientMapChannel )
+				return false;
+		}
+
+		if ( (slotflags & DIFFUSE) == DIFFUSE )
+		{
+			if ( diffuseMapChannel < rhs.diffuseMapChannel )
+				return true;
+			if ( diffuseMapChannel > rhs.diffuseMapChannel )
+				return false;
+		}
+
+		if ( (slotflags & SPECULAR) == SPECULAR )
+		{
+			if ( specularMapChannel < rhs.specularMapChannel )
+				return true;
+			if ( specularMapChannel > rhs.specularMapChannel )
+				return false;
+		}
+
+		if ( (slotflags & SHININESS) == SHININESS )
+		{
+			if ( shininessMapChannel < rhs.shininessMapChannel )
+				return true;
+			if ( shininessMapChannel > rhs.shininessMapChannel )
+				return false;
+		}
+
+		if ( (slotflags & EMISSION) == EMISSION )
+		{
+			if ( emissionMapChannel < rhs.emissionMapChannel )
+				return true;
+			if ( emissionMapChannel > rhs.emissionMapChannel )
+				return false;
+		}
+
+		if ( (slotflags & OPACITY) == OPACITY )
+		{
+			if ( opacityMapChannel < rhs.opacityMapChannel )
+				return true;
+			if ( opacityMapChannel > rhs.opacityMapChannel )
+				return false;
+		}
+
+		return false;
+	}
+
+
 	MaterialCreator::MaterialCreator( DocumentImporter* documentImporter )
 		: ImporterBase(documentImporter)
 	{
@@ -154,7 +219,6 @@ namespace COLLADAMax
 		{
 			return it->second;
 		}
-
 	}
 
 
@@ -241,7 +305,6 @@ namespace COLLADAMax
 			const COLLADAFW::ColorOrTexture& ambient = effectCommon.getAmbient();
 			if ( ambient.isColor() )
 				material->SetAmbient( toMaxColor(ambient), 0);
-		//	ANIM->ImportAnimatedFRGBA(shaderParameters, FSStandardMaterial::shdr_ambient, *ambientColor);
 		}
 		else
 		{
@@ -251,6 +314,15 @@ namespace COLLADAMax
 		}
 
 		//TODO specular
+
+		//create and assign textures
+
+		const COLLADAFW::ColorOrTexture& colorOrTexture = effectCommon.getDiffuse();
+		if ( colorOrTexture.isTexture() )
+		{
+			BitmapTex* texture = createTexture( effectCommon, colorOrTexture.getTexture() );
+			assignTextureToMaterial(material, ID_DI, texture);
+		}
 
 		return material;
 	}
@@ -271,6 +343,33 @@ namespace COLLADAMax
 			return 0;
 
 		return getFWEffectByUniqueId(effectUniqueId);
+	}
+
+	//------------------------------
+	BitmapTex* MaterialCreator::createTexture( const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::Texture& texture )
+	{
+		BitmapTex* bitmapTexture = NewDefaultBitmapTex();
+		COLLADAFW::SamplerID samplerId = texture.getSamplerId();
+		const COLLADAFW::Sampler* sampler = effectCommon.getSamplerPointerArray()[ samplerId ];
+
+		const COLLADAFW::UniqueId& imageUniqueId = sampler->getSourceImage();
+		const COLLADAFW::Image* image = getFWImageByUniqueId( imageUniqueId );
+
+		if ( !image )
+			return 0;
+		COLLADABU::URI imageUri( getFileInfo().absoluteFileUri, image->getImageURI().getURIString() );
+		COLLADABU::NativeString imageFileName( imageUri.toNativePath().c_str(), COLLADABU::NativeString::ENCODING_UTF8 );
+		bitmapTexture->SetMapName(const_cast<char*>(imageFileName.c_str()));
+		bitmapTexture->LoadMapFiles(0);
+
+
+		return bitmapTexture;
+	}
+
+	//------------------------------
+	void MaterialCreator::assignTextureToMaterial( Mtl* material, int slot, BitmapTex* texture )
+	{
+
 	}
 
 } // namespace COLLADAMax

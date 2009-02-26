@@ -24,6 +24,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWMaterial.h"
 #include "COLLADAFWEffect.h"
 #include "COLLADAFWColor.h"
+#include "COLLADAFWImage.h"
 #include "COLLADAFWInstanceGeometry.h"
 
 #include <list>
@@ -74,6 +75,9 @@ namespace COLLADAMax
 		/** Maps unique ids of framework materials to the corresponding framework material.*/
 		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::Material> UniqueIdFWMaterialMap;
 
+		/** Maps unique ids of framework images to the corresponding framework image.*/
+		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::Image> UniqueIdFWImageMap;
+
 		/** Maps unique ids of framework effects to the corresponding framework material.*/
 		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::Effect> UniqueIdFWEffectMap;
 
@@ -102,6 +106,11 @@ namespace COLLADAMax
 		/** Maps an object to its name.*/
 		typedef std::map<Object*, String > ObjectObjectNameMap;
 
+		struct FileInfo
+		{
+			COLLADABU::URI absoluteFileUri;
+
+		};
 
 	private:
 		/** Max interface.*/
@@ -156,8 +165,11 @@ namespace COLLADAMax
 		/** Maps unique ids of framework materials to the corresponding framework material.*/
 		UniqueIdFWMaterialMap mUniqueIdFWMaterialMap;
 
-		/** Maps unique ids of framework effects to the corresponding framework material.*/
+		/** Maps unique ids of framework effects to the corresponding framework effect.*/
 		UniqueIdFWEffectMap mUniqueIdFWEffectMap;
+
+		/** Maps unique ids of framework images to the corresponding framework image.*/
+		UniqueIdFWImageMap mUniqueIdFWImageMap;
 
 		/** of all max nodes that reference a material and their material bindings.*/
 		NodeMaterialBindingsList mNodeMaterialBindingsList;
@@ -171,6 +183,9 @@ namespace COLLADAMax
 
 		/** Maps an object to its name. Whenever an object is created, add it with its name to this map.*/
 		ObjectObjectNameMap mObjectObjectNameMap;
+
+		/** Holds informations about the entire file being loaded.*/
+		FileInfo mFileInfo;
 
 	public:
 		/** Constructor .
@@ -212,7 +227,7 @@ namespace COLLADAMax
 
 		/** When this method is called, the writer must write the global document asset.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
-		virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset ) { return true; };
+		virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset );;
 
 		/** Writes the entire visual scene.
 		@return True on succeeded, false otherwise.*/
@@ -285,6 +300,9 @@ namespace COLLADAMax
 		/** Returns the UniqueIdFWEffectMap.*/
 		UniqueIdFWEffectMap& getUniqueIdFWEffectMap() { return mUniqueIdFWEffectMap; }
 
+		/** Returns the UniqueIdFWImageMap.*/
+		UniqueIdFWImageMap& getUniqueIdFWImageMap() { return mUniqueIdFWImageMap; }
+
 		/** Returns the NodeMaterialBindingsList.*/
 		NodeMaterialBindingsList& getNodeMaterialBindingsList() { return mNodeMaterialBindingsList; }
 
@@ -298,6 +316,9 @@ namespace COLLADAMax
 		/** Returns the map, that maps an object to its name. Whenever an object is created, add it with 
 		its name to this map.*/
 		ObjectObjectNameMap& getObjectObjectNameMap() { return mObjectObjectNameMap; }
+
+		/** Returns informations about the entire file being loaded.*/
+		const FileInfo& getFileInfo() const { return mFileInfo; }
 
 		friend class ImporterBase;
 

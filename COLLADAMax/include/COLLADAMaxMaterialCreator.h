@@ -25,10 +25,40 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAMax
 {
 
-    /** TODO Documentation */
+    /** Creates and assigns all material previously been stored by the material and affect importers.*/
 	class MaterialCreator : public ImporterBase 
 	{
 	public:
+		/** A struct that uniquely identifies material created in Max.*/
+		struct MaterialIdentifier
+		{
+			enum SlotFlags
+			{
+				NONE        = 0,
+				AMBIENT     = 1,
+				DIFFUSE     = 1<<1,
+				SPECULAR    = 1<<2,
+				SHININESS   = 1<<3,
+				EMISSION    = 1<<4,   //self-illumination
+				OPACITY     = 1<<5
+			};
+
+			/** The unique id of the frame work effect this material has been created from.*/
+			COLLADAFW::UniqueId effectUniqueId;
+
+			/** Flags indication which slot uses a mac channel.*/
+			unsigned char slotflags;
+
+			unsigned char ambientMapChannel;
+			unsigned char diffuseMapChannel;
+			unsigned char specularMapChannel;
+			unsigned char shininessMapChannel;
+			unsigned char emissionMapChannel;
+			unsigned char opacityMapChannel;
+
+			bool operator<( const MaterialIdentifier& rhs ) const;
+		};
+
 		/** Maps framework effects to max materials.*/
 		typedef std::map<COLLADAFW::UniqueId, Mtl*> UniqueIdMaxMaterialMap;
 	private:
@@ -74,6 +104,12 @@ namespace COLLADAMax
 
         /** Disable default assignment operator. */
 		const MaterialCreator& operator= ( const MaterialCreator& pre );
+
+		/** Creates a max texture from the frame work texture @a texture.*/
+		BitmapTex* createTexture( const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::Texture& texture );
+
+		/** Assigns @a texture to @a slot of @a material.*/
+		void assignTextureToMaterial(  Mtl* material, int slot, BitmapTex* texture);
 
 	};
 

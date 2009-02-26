@@ -18,12 +18,19 @@
 namespace COLLADAFW
 {
 
-    /** TODO Documentation */
+    /** A Texture. It only specifies the sampler that should be used for the texture and the texture map.
+	The samplers are contained in an array of the parent EffectCommon.*/
 	class Texture 	
 	{
 	private:
-		/** The id of the sampler used by the texture.*/
+		/** The index of the sampler used by the texture, i.e. the index of the sampler in the array of 
+		samplers in the parent EffectCommon. */
 		SamplerID mSamplerId;
+
+		/** The id of the texture map, that should be used by this texture. It must be binded to a set of 
+		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
+		in InstanceGeometry*/
+		TextureMapId mTextureMapId;
 
 	public:
 
@@ -42,6 +49,17 @@ namespace COLLADAFW
 
 		/** Sets the id of the sampler.*/
 		void setSamplerId(SamplerID samplerId) { mSamplerId = samplerId; }
+
+		/** Returns the id of the texture map, that should be used by this texture. It must be binded to a set of 
+		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
+		in InstanceGeometry*/
+		TextureMapId getTextureMapId() const { return mTextureMapId; }
+
+		/** Returns the id of the texture map, that should be used by this texture. It must be binded to a set of 
+		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
+		in InstanceGeometry*/
+		void setTextureMapId( TextureMapId textureMapId ) { mTextureMapId = textureMapId; }
+
 
 		bool isValid() const { return true; }
 	};

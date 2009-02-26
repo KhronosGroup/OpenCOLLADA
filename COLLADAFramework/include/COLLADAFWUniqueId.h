@@ -46,7 +46,7 @@ namespace COLLADAFW
 		/** Returns the class id of the class the object is instantiated from.*/
 		ClassId getClassId() const { return mClassId; }
 
-		/** Returns the object id that uniquely identifies the object in the set of all objects of the same Type.*/
+		/** Returns the objec t id that uniquely identifies the object in the set of all objects of the same Type.*/
 		ObjectId getObjectId() const { return mObjectId; }
 
 		/** Returns true if the unique id is valid, false otherwise.*/

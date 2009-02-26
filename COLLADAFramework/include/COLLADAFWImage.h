@@ -78,7 +78,8 @@ namespace COLLADAFW
 
 		/** Contains a sequence of hexadecimal encoded binary octets composing the embedded
 		image data.*/
-		CharacterArray mData;
+		// Disable until we really need it to avoid problems with copy/assignemnet operators
+		//CharacterArray mData;
 
 
 	public:
@@ -113,7 +114,7 @@ namespace COLLADAFW
         nonstandard format that cannot be identified by its file extension. For example, if
         <data> in a COLLADA document contains the digital contents of a JPEG file, then set
         this attribute to "JPG". Optional. */
-        void setFormat( const String format ) { mFormat = format; }
+        void setFormat( const String& format ) { mFormat = format; }
 
 		/** Returns the height of the image in pixels. */
         unsigned int getHeight() const { return mHeight; }
@@ -141,19 +142,12 @@ namespace COLLADAFW
 
 		/** Returns a sequence of hexadecimal encoded binary octets composing the embedded
 		image data.*/
-		const CharacterArray& getData() const { return mData; }
+//		const CharacterArray& getData() const { return mData; }
 
 		/** Returns a sequence of hexadecimal encoded binary octets composing the embedded
 		image data.*/
-		CharacterArray& getData() { return mData; }
+//		CharacterArray& getData() { return mData; }
 
-	private:
-
-        /** Disable default copy ctor. */
-		Image( const Image& pre );
-
-        /** Disable default assignment operator. */
-		const Image& operator=( const Image& pre );
 
 	};
 

@@ -13,6 +13,46 @@ http://www.opensource.org/licenses/mit-license.php
 
 namespace COLLADAFW
 {
+
+	// ----------------------------------
+	bool InstanceGeometry::TextureCoordinateBinding::operator<( const TextureCoordinateBinding& rhs ) const
+	{
+		if ( textureMapId < rhs.textureMapId )
+			return true;
+
+		if ( textureMapId > rhs.textureMapId )
+			return false;
+
+		if ( setIndex < rhs.setIndex )
+			return true;
+
+		if ( setIndex > rhs.setIndex )
+			return false;
+
+		return false;
+	}
+
+
+	// ----------------------------------
+	InstanceGeometry::MaterialBinding::MaterialBinding( const InstanceGeometry::MaterialBinding& pre )
+		: mMaterialId( pre.mMaterialId )
+		, mReferencedMaterial( pre.mReferencedMaterial )
+		, mName( pre.mName )
+		, mTextureCoordinateBindingArray()
+	{
+		pre.mTextureCoordinateBindingArray.cloneArray(mTextureCoordinateBindingArray);
+	}
+
+	// ----------------------------------
+	const InstanceGeometry::MaterialBinding& InstanceGeometry::MaterialBinding::operator= ( const InstanceGeometry::MaterialBinding& pre )
+	{
+		mMaterialId = pre.mMaterialId;
+		mReferencedMaterial = pre.mReferencedMaterial;
+		mName = pre.mName;
+		pre.mTextureCoordinateBindingArray.cloneArray(mTextureCoordinateBindingArray);
+		return *this;
+	}
+
 	
     // ----------------------------------
 	InstanceGeometry::InstanceGeometry( UniqueId instanciatedGeometryId )
@@ -25,11 +65,7 @@ namespace COLLADAFW
 		: SceneGraphInstance(pre)
 		, mMaterialBindings()
 	{
-		mMaterialBindings.allocMemory(pre.mMaterialBindings.getCapacity());
-		size_t count = pre.mMaterialBindings.getCount();
-		mMaterialBindings.setCount(count);
-		for ( size_t i = 0; i < count; ++i)
-			mMaterialBindings[i] = pre.mMaterialBindings[i];
+		pre.mMaterialBindings.cloneArray(mMaterialBindings);
 	}
 
 	// ----------------------------------
@@ -43,4 +79,7 @@ namespace COLLADAFW
 		, mReferencedMaterial(referencedMaterial)
 	{
 	}
+
+
+
 } // namespace COLLADAFW

@@ -33,7 +33,8 @@ namespace COLLADASaxFWL
 		mCurrentTransformation(0),
 		mTransformationNumbersReceived(0),
 		mCurrentInstanceGeometry(0),
-		mCurrentMaterialInfo(0)
+		mCurrentMaterialInfo(0),
+		mCurrentMaterialBinding(0)
 	{
 	}
 
@@ -345,22 +346,11 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+
 	//------------------------------
 	bool NodeLoader::end__node__instance_geometry()
 	{
-		size_t materialBindingsCount = mCurrentMaterialBindings.size();
-		if ( materialBindingsCount > 0 )
-		{
-			COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings = mCurrentInstanceGeometry->getMaterialBindings();
-			materialBindings.allocMemory( materialBindingsCount);
-			MaterialBindingsSet::const_iterator it = mCurrentMaterialBindings.begin();
-			size_t index = 0;
-			for (; it != mCurrentMaterialBindings.end(); ++it, ++index)
-			{
-				materialBindings[index] = *it;
-			}
-			materialBindings.setCount(materialBindingsCount);
-		}
+		copyStlContainerToArray( mCurrentMaterialBindings, mCurrentInstanceGeometry->getMaterialBindings());
 		
 		mCurrentInstanceGeometry = 0;
 		mCurrentMaterialInfo = 0;
@@ -372,17 +362,47 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::begin__instance_material( const instance_material__AttributeData& attributeData )
 	{
+		// remove this, as soon as we support controllers
+		if ( !mCurrentInstanceGeometry )
+			return true;
+
 		COLLADAFW::MaterialId materialId = attributeData.symbol ? mCurrentMaterialInfo->getMaterialId((const char*)attributeData.symbol) : 0;
-		COLLADAFW::InstanceGeometry::MaterialBinding materialBinding(materialId, getUniqueIdFromUrl(attributeData.target, COLLADAFW::Material::ID()));
+		mCurrentMaterialBinding = new COLLADAFW::InstanceGeometry::MaterialBinding(materialId, getUniqueIdFromUrl(attributeData.target, COLLADAFW::Material::ID()));
 
         if ( attributeData.symbol )
-            materialBinding.setName((const char*)attributeData.symbol);
+            mCurrentMaterialBinding->setName((const char*)attributeData.symbol);
 
-        mCurrentMaterialBindings.insert(materialBinding);
 		return true;
 	}
 
 
+	//------------------------------
+	bool NodeLoader::end__instance_material()
+	{
+		// remove this, as soon as we support controllers
+		if ( !mCurrentInstanceGeometry )
+			return true;
+
+		copyStlContainerToArray( mCurrentTextureCoordinateBindings, mCurrentMaterialBinding->getTextureCoordinateBindingArray());
+		mCurrentMaterialBindings.insert(*mCurrentMaterialBinding);
+		mCurrentMaterialBinding = 0;
+		mCurrentTextureCoordinateBindings.clear();
+		return true;
+	}
+
+	//------------------------------
+	bool NodeLoader::begin__bind_vertex_input( const bind_vertex_input__AttributeData& attributeData )
+	{
+		// remove this, as soon as we support controllers
+		if ( !mCurrentInstanceGeometry )
+			return true;
+
+		COLLADAFW::InstanceGeometry::TextureCoordinateBinding texCoordinateBinding;
+		texCoordinateBinding.setIndex = (size_t)attributeData.input_set;
+		texCoordinateBinding.textureMapId = getTextureMapIdBySematic( attributeData.semantic );
+		mCurrentTextureCoordinateBindings.insert(texCoordinateBinding);
+		return true;
+	}
 
 	//------------------------------
 	bool NodeLoader::begin__instance_node( const instance_node__AttributeData& attributeData )

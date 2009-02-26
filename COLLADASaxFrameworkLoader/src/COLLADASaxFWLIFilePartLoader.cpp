@@ -27,7 +27,6 @@ namespace COLLADASaxFWL
 	{
 	}
 
-
 	//-----------------------------
 	COLLADAFW::IWriter* IFilePartLoader::writer()
 	{
@@ -37,8 +36,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueId( const String& uriString, COLLADAFW::ClassId classId )
 	{
-		if ( !getColladaLoader() )
-			return COLLADAFW::UniqueId::INVALID;
+		assert( getColladaLoader() );
 		
 		COLLADABU::URI uri(getFileUri(), uriString);
 
@@ -48,8 +46,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	COLLADAFW::UniqueId IFilePartLoader::getUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId )
 	{
-		if ( !getColladaLoader() ) 
-			return COLLADAFW::UniqueId::INVALID;
+		assert( getColladaLoader() );
 
 		if ( !colladaId || !(*colladaId) )
 			return getUniqueId(classId);
@@ -63,7 +60,8 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId )
 	{
-		if ( !getColladaLoader() || !url || !(*url) )
+		assert( getColladaLoader() );
+		if ( !url || !(*url) )
 			return COLLADAFW::UniqueId::INVALID;
 
 		COLLADABU::URI uri(getFileUri(), String((const char *)url));
@@ -75,9 +73,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	COLLADAFW::UniqueId IFilePartLoader::getUniqueId( COLLADAFW::ClassId classId )
 	{
-		if ( !getColladaLoader() )
-			return COLLADAFW::UniqueId::INVALID;
-
+		assert( getColladaLoader() );
 		return getColladaLoader()->getUniqueId(classId);
 	}
 
@@ -97,11 +93,18 @@ namespace COLLADASaxFWL
 		setParser(this);
 	}
 
+	//------------------------------
 	GeometryMaterialIdInfo& IFilePartLoader::getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId )
 	{
 		assert(getColladaLoader());
 		return getColladaLoader()->getMeshMaterialIdInfo(uniqueId);
 	}
 
+	//------------------------------
+	COLLADAFW::TextureMapId IFilePartLoader::getTextureMapIdBySematic( const String& semantic )
+	{
+		assert( getColladaLoader() );
+		return getColladaLoader()->getTextureMapIdBySematic(semantic);
+	}
 
 } // namespace COLLADASaxFWL

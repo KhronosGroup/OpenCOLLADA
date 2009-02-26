@@ -42,6 +42,8 @@ namespace COLLADASaxFWL
 		/** Maps the unique id of each geometry to the corresponding ColladaSymbolMaterialIdMap.*/
 		typedef std::map<COLLADAFW::UniqueId, GeometryMaterialIdInfo> UniqueIdMeshMaterialIdInfoMap;
 
+		typedef std::map<String, COLLADAFW::TextureMapId> StringTextureMapIdMap;
+
 	private:
 		typedef COLLADABU::HashMap<COLLADABU::URI, COLLADAFW::UniqueId, unsigned long, COLLADABU::calculateHash> URIUniqueIdMap;
 
@@ -60,6 +62,12 @@ namespace COLLADASaxFWL
 
 		/** The error handler to pass the errors to.*/
 		IErrorHandler* mErrorHandler;
+
+		/** The TextureMapId that will be assigned to the next unknown texture map semantic.*/
+		COLLADAFW::TextureMapId mNextTextureMapId;
+
+		/** Maps the semantic name of a texture map to the TextureMapId used in the framework.*/
+		StringTextureMapIdMap mTextureMapSemanticTextureMapIdMap;
 	
 	public:
 
@@ -95,6 +103,10 @@ namespace COLLADASaxFWL
 		not been called before with the same uniqueId, an empty GeometryMaterialIdInfo is created, added to
 		the map and returned.*/
 		GeometryMaterialIdInfo& getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId);
+
+		/** Returns TextureMapId for @a semantic. Successive call with same semantic return the same TextureMapId.*/
+		COLLADAFW::TextureMapId getTextureMapIdBySematic( const String& semantic );
+
 
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer(){ return mWriter; }

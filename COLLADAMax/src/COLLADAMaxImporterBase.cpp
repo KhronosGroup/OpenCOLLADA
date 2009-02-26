@@ -148,6 +148,12 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	void ImporterBase::addUniqueIdFWImagePair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Image& Image )
+	{
+		mDocumentImporter->getUniqueIdFWImageMap().insert(std::pair<COLLADAFW::UniqueId, COLLADAFW::Image>(uniqueId, Image));;
+	}
+
+	//------------------------------
 	DocumentImporter::NodeMaterialBindingsPair& ImporterBase::createAndAddNodeMaterialBindingsPair( INode* node )
 	{
 		DocumentImporter::NodeMaterialBindingsPair newPair;
@@ -239,6 +245,17 @@ namespace COLLADAMax
 		const DocumentImporter::UniqueIdFWEffectMap& uniqueIdFWEffectMap = mDocumentImporter->getUniqueIdFWEffectMap();
 		DocumentImporter::UniqueIdFWEffectMap::const_iterator it = uniqueIdFWEffectMap.find(uniqueId);
 		if ( it == uniqueIdFWEffectMap.end() )
+			return 0;
+		else
+			return &it->second;
+	}
+
+	//------------------------------
+	const COLLADAFW::Image* ImporterBase::getFWImageByUniqueId( const COLLADAFW::UniqueId& uniqueId )
+	{
+		const DocumentImporter::UniqueIdFWImageMap& uniqueIdFWImageMap = mDocumentImporter->getUniqueIdFWImageMap();
+		DocumentImporter::UniqueIdFWImageMap::const_iterator it = uniqueIdFWImageMap.find(uniqueId);
+		if ( it == uniqueIdFWImageMap.end() )
 			return 0;
 		else
 			return &it->second;

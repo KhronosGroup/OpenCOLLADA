@@ -14,6 +14,8 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayPrimitiveType.h"
 
+#include "COLLADABUURI.h"
+
 
 namespace COLLADAFW
 {
@@ -231,6 +233,9 @@ namespace COLLADAFW
         to the right, and which is considered inward. */
         UpAxisType mUpAxisType;
 
+		/** The absolute file uri.*/
+		COLLADABU::URI mAbsoluteFileUri;
+
         /** A pair where you can hold file informations. */
         ValuePairArray mValuePairArray;
 
@@ -271,7 +276,7 @@ namespace COLLADAFW
         /** 
         * Sets the linear unit meter.
         */
-        void setLinearUnitMeter ( const double linearUnitMeter )
+        void setLinearUnitMeter ( double linearUnitMeter )
         {
             mUnit.setLinearUnitMeter ( linearUnitMeter );
         }
@@ -289,7 +294,7 @@ namespace COLLADAFW
         }
 
         /** Sets the up axis of the document. */
-        void setUpAxisType ( const UpAxisType& upAxisType )
+        void setUpAxisType ( UpAxisType upAxisType )
         {
             mUpAxisType = upAxisType;
         }
@@ -298,10 +303,16 @@ namespace COLLADAFW
         void setUpAxisType ( const String& upAxis );
 
         /** Returns the up axis. */
-        const UpAxisType& getUpAxisType() const
+        UpAxisType getUpAxisType() const
         {
             return mUpAxisType;
         }
+
+		/** Returns the absolute uri of the file.*/
+		const COLLADABU::URI& getAbsoluteFileUri() const { return mAbsoluteFileUri; }
+
+		/** Sets the absolute uri of the file.*/
+		void setAbsoluteFileUri( const COLLADABU::URI& absoluteFileUri) { mAbsoluteFileUri = absoluteFileUri; }
 
 	private:
 

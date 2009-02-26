@@ -93,15 +93,17 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::begin__data()
 	{
-		mCurrentImage->setSourceType( COLLADAFW::Image::SOURCE_TYPE_DATA);
+		// disabled see COLALDAFW::Image
+		//mCurrentImage->setSourceType( COLLADAFW::Image::SOURCE_TYPE_DATA);
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryImagesLoader::data__data( const ParserChar* data, size_t length )
 	{
-		COLLADAFW::Image::CharacterArray& dataArray = mCurrentImage->getData();
-		dataArray.appendValues( (char *)data, length );
+		// disabled see COLALDAFW::Image
+		//COLLADAFW::Image::CharacterArray& dataArray = mCurrentImage->getData();
+		//dataArray.appendValues( (char *)data, length );
 		return true;
 	}
 

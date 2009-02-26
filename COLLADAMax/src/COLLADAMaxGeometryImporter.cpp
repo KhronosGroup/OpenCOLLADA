@@ -35,7 +35,7 @@ namespace COLLADAMax
 		:	ImporterBase(documentImporter)
 		, mGeometry(geometry)
 		, mTotalTrianglesCount(0)
-		, mMapChannelCount(0)
+		, mLargestMapChannel(0)
 
 	{
 
@@ -429,16 +429,16 @@ namespace COLLADAMax
 
 		Mesh& triangleMesh = triangleObject->GetMesh();
 
-		triangleMesh.setNumMaps( mMapChannelCount );
+		triangleMesh.setNumMaps( mLargestMapChannel + 1 );
 
 		int facesCount = (int)mTotalTrianglesCount;
 
 		// reset all texture indices of all used maps
-		for ( int i = 0; i < mMapChannelCount; ++i )
+		for ( int i = 0; i <= mLargestMapChannel; ++i )
 		{
 			MeshMap& meshMap = triangleMesh.Map(i);
 			meshMap.setNumFaces( facesCount );
-			memset( meshMap.tv, 0, sizeof(UVVert) * facesCount);
+			memset( meshMap.tf, 0, sizeof(TVFace) * facesCount);
 		}
 
 		const COLLADAFW::MeshVertexData& uvCoordinates = mesh->getUVCoords();
@@ -453,6 +453,7 @@ namespace COLLADAMax
 			if ( setSourcePair.first < 0 )
 				continue;
 			int mapChannel = it->second;
+			triangleMesh.setMapSupport(mapChannel, true);
 
 			const COLLADAFW::MeshVertexData::InputInfos* inputInfo = inputInfos[ sourceIndex ];
 
@@ -503,6 +504,8 @@ namespace COLLADAMax
 				SetSourcePair setSourcePair( (long)setIndex, sourceIndex);
 				int mapChannel = mSetSourcePairMapChannelMap[ setSourcePair ];
 
+				unsigned int initialIndex = (unsigned int)uvIndexList.getInitialIndex();
+
 				const COLLADAFW::UIntValuesArray& uvIndices =  uvIndexList.getIndices();
 
 				MeshMap& meshMap = triangleMesh.Map(mapChannel);
@@ -516,7 +519,7 @@ namespace COLLADAMax
 						for ( size_t j = 0, count = uvIndices.getCount() ; j < count; j+=3 )
 						{
 							TVFace& face = meshMap.tf[currentFaceIndex];
-							face.setTVerts(uvIndices[j], uvIndices[j + 1], uvIndices[j + 2]);
+							face.setTVerts( uvIndices[j] - initialIndex, uvIndices[j + 1] - initialIndex, uvIndices[j + 2] - initialIndex);
 							++currentFaceIndex;
 						}
 						break;
@@ -535,12 +538,12 @@ namespace COLLADAMax
 								TVFace& face = meshMap.tf[currentFaceIndex];
 								if ( switchOrientation )
 								{
-									face.setTVerts(uvIndices[j - 1], uvIndices[j - 2], uvIndices[j]);
+									face.setTVerts( uvIndices[j - 1]  - initialIndex, uvIndices[j - 2] - initialIndex, uvIndices[j] - initialIndex);
 									switchOrientation = false;
 								}
 								else
 								{
-									face.setTVerts(uvIndices[j - 2], uvIndices[j - 1], uvIndices[j]);
+									face.setTVerts( uvIndices[j - 2] - initialIndex, uvIndices[j - 1] - initialIndex, uvIndices[j] - initialIndex);
 									switchOrientation = true;
 								}
 								++currentFaceIndex;
@@ -557,11 +560,11 @@ namespace COLLADAMax
 						for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 						{
 							unsigned int faceVertexCount = faceVertexCountArray[k];
-							unsigned int commonVertexIndex = uvIndices[nextTrifanStartIndex];
+							unsigned int commonVertexIndex = uvIndices[nextTrifanStartIndex] - initialIndex;
 							for ( size_t j = nextTrifanStartIndex + 2, lastVertex = nextTrifanStartIndex +  faceVertexCount; j < lastVertex; ++j )
 							{
 								TVFace& face = meshMap.tf[currentFaceIndex];
-								face.setTVerts(commonVertexIndex, uvIndices[j - 1], uvIndices[j]);
+								face.setTVerts( commonVertexIndex, uvIndices[j - 1] - initialIndex, uvIndices[j] - initialIndex);
 								++currentFaceIndex;
 							}
 							nextTrifanStartIndex += faceVertexCount;
@@ -957,11 +960,11 @@ namespace COLLADAMax
 
 		const COLLADAFW::MeshVertexData& uvCoords = mesh->getUVCoords();
 		const COLLADAFW::MeshVertexData::InputInfosArray& uVInputInfos = uvCoords.getInputInfosArray();
-		size_t uVInitialIndex;
+		size_t uVInitialIndex = 0;
 		for ( size_t i = 0, count = uVInputInfos.getCount(); i < count; ++i)
 		{
-			const COLLADAFW::MeshVertexData::InputInfos* inputInfo = uVInputInfos[i];
 			size_t& sourceIndex = i;
+			const COLLADAFW::MeshVertexData::InputInfos* inputInfo = uVInputInfos[sourceIndex];
 			mUVInitialIndexSourceIndexMap.insert(std::make_pair(uVInitialIndex, sourceIndex));
 			mUVSourceIndexInitialIndexMap.insert(std::make_pair(sourceIndex, uVInitialIndex));
 			uVInitialIndex += (inputInfo->mLength / inputInfo->mStride);
@@ -1014,7 +1017,7 @@ namespace COLLADAMax
 
 			// check if we have already assigned a map channel to this color set/ source combination
 			if ( it != mSetSourcePairMapChannelMap.end() )
-				break; 
+				continue; 
 
 			// assign a map channel
 			int favoredMapChannel = isColorChannel ? ((setIndex == 1) ? 0 : (int)setIndex) : ((setIndex == 0) ? 1 : (int)setIndex);
@@ -1027,8 +1030,8 @@ namespace COLLADAMax
 					{
 						mSetSourcePairMapChannelMap.insert( std::make_pair(setSourcePair, favoredMapChannel));
 						
-						if ( favoredMapChannel > mMapChannelCount )
-							mMapChannelCount = favoredMapChannel;
+						if ( favoredMapChannel > mLargestMapChannel )
+							mLargestMapChannel = favoredMapChannel;
 						
 						usedMapChannels[favoredMapChannel + NUM_HIDDENMAPS] = true;
 					}
@@ -1049,8 +1052,8 @@ namespace COLLADAMax
 					{
 						mSetSourcePairMapChannelMap.insert( std::make_pair(setSourcePair, mapChannelIndex));
 
-						if ( mapChannelIndex > mMapChannelCount )
-							mMapChannelCount = mapChannelIndex;
+						if ( mapChannelIndex > mLargestMapChannel )
+							mLargestMapChannel = mapChannelIndex;
 
 						usedMapChannels[mapChannelIndex + NUM_HIDDENMAPS] = true;
 						break;

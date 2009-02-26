@@ -39,6 +39,9 @@ namespace COLLADASaxFWL
 		/** Set of MaterialBindings*/
 		typedef std::set<COLLADAFW::InstanceGeometry::MaterialBinding> MaterialBindingsSet;
 
+		/** Set of TextureCoordinateBinding*/
+		typedef std::set<COLLADAFW::InstanceGeometry::TextureCoordinateBinding> TextureCoordinateBindingSet;
+
 		/** Stack of nodes to traverse back in node hierarchy. Array and contents will be delete in destructor.*/
 		NodeStack mNodeStack;
 
@@ -53,8 +56,14 @@ namespace COLLADASaxFWL
 		/** Instance geometry currently being filled.*/
 		COLLADAFW::InstanceGeometry* mCurrentInstanceGeometry;
 
+		/** Material binding currently being filled.*/
+		COLLADAFW::InstanceGeometry::MaterialBinding* mCurrentMaterialBinding;
+
 		/** Set of all material bindings of the current instance geometry.*/
 		MaterialBindingsSet mCurrentMaterialBindings;
+
+		/** Set of all TextureCoordinate bindings of the current instance geometry.*/
+		TextureCoordinateBindingSet mCurrentTextureCoordinateBindings;
 
 		/** The material info of the geometry instantiated in the current instance geometry.*/
 		GeometryMaterialIdInfo* mCurrentMaterialInfo;
@@ -166,11 +175,18 @@ namespace COLLADASaxFWL
 		/** We do not need to do anything here.*/
 		virtual bool end__bind_material__technique_common(){return true;}
 
-		/** We store all instance_material informations in a set.*/
+		/** Create new current bind material and set basic attributes.*/
 		virtual bool begin__instance_material( const instance_material__AttributeData& attributeData );
 		
+		/** We store all instance_material informations in a set.*/
+		virtual bool end__instance_material();
+
+
+		/** We store all bind vertex informations in a set.*/
+		virtual bool begin__bind_vertex_input( const bind_vertex_input__AttributeData& attributeData );
+
 		/** We do not need to do anything here.*/
-		virtual bool end__instance_material(){return true;}
+		virtual bool end__bind_vertex_input(){ return true; }
 
 
 		/** Sax callback function for the beginning of an instance node element.*/

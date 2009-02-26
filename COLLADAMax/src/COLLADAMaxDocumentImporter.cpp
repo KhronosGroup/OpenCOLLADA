@@ -25,11 +25,13 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxEffectImporter.h"
 #include "COLLADAMaxCameraImporter.h"
 #include "COLLADAMaxLightImporter.h"
+#include "COLLADAMaxImageImporter.h"
 #include "COLLADAMaxFWLErrorHandler.h"
 
-#include "COLLADAFWLibraryNodes.h"
+#include "COLLADAFWFileInfo.h"
 
 #include "COLLADAFWLibraryNodes.h"
+
 
 #include "COLLADASaxFWLLoader.h"
 #include "COLLADAFWRoot.h"
@@ -100,6 +102,13 @@ namespace COLLADAMax
 	}
 
 	//---------------------------------------------------------------
+	bool DocumentImporter::writeGlobalAsset( const COLLADAFW::FileInfo* asset )
+	{
+		mFileInfo.absoluteFileUri = asset->getAbsoluteFileUri();
+		return true;
+	}
+
+	//---------------------------------------------------------------
 	bool DocumentImporter::writeVisualScene( const COLLADAFW::VisualScene* visualScene )
 	{
 		VisualSceneImporter visualSceneImporter(this, visualScene);
@@ -144,8 +153,8 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeImage( const COLLADAFW::Image* image )
 	{
-		int gg=1;
-		return true;
+		ImageImporter imageImporter(this, image);
+		return imageImporter.import();
 	}
 
 	//---------------------------------------------------------------

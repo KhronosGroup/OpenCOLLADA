@@ -72,7 +72,7 @@ namespace COLLADAMax
 		SourceIndexInitialIndexMap mColorSourceIndexInitialIndexMap;
 
 		/** The number of the largest map channel used.*/
-		int mMapChannelCount;
+		int mLargestMapChannel;
 
 	public:
 

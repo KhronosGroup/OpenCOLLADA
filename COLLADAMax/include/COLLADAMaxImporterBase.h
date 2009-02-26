@@ -131,6 +131,10 @@ namespace COLLADAMax
 		For every received effect that is in a library effect this method should be called. */
 		void addUniqueIdFWEffectPair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Effect& effect );
 
+		/** Adds UniqueId frame work image pair to the UniqueIdFWImageMap. 
+		For every received image that is in a library image this method should be called. */
+		void addUniqueIdFWImagePair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Image& image );
+
 		/** Creates a new NodeMaterialBindingsPair with maxNode set to @a node and an empty material bindings 
 		vector and adds it to the NodeMaterialBindingsList. 
 		For every max node that references a geometry with set material this method should be called. */
@@ -170,6 +174,10 @@ namespace COLLADAMax
 		received effect, null otherwise.*/
 		const COLLADAFW::Effect* getFWEffectByUniqueId( const COLLADAFW::UniqueId& uniqueId );
 
+		/** Returns the frame work image with unique id @a uniqueId, if this node is in an already 
+		received image, null otherwise.*/
+		const COLLADAFW::Image* getFWImageByUniqueId( const COLLADAFW::UniqueId& uniqueId );
+
 		/** Returns the list of all nodes that have a material and their material bindings.*/ 
 		const DocumentImporter::NodeMaterialBindingsList& getNodeMaterialBindings();
 
@@ -183,6 +191,9 @@ namespace COLLADAMax
 
 		/** Returns the name of @a object.*/
 		const String& getObjectNameByObject( Object* object ) const;
+
+		/** Returns informations about the entire file being loaded.*/
+		const DocumentImporter::FileInfo& getFileInfo() const { return mDocumentImporter->getFileInfo(); }
 
 	private:
 

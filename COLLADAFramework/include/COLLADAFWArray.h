@@ -168,6 +168,16 @@ namespace COLLADAFW
 		/** Returns a reference to the last element in the array. The array must not be empty.*/
 		const Type& back() const { assert(mData && (mCount > 0)); return mData[mCount - 1]; }
 
+		/** Clones the array inti @a clonedArray.*/
+		void cloneArray( Array<Type>& clonedArray ) const
+		{
+			clonedArray.allocMemory(getCapacity());
+			size_t count = getCount();
+			clonedArray.setCount(count);
+			for ( size_t i = 0; i < count; ++i)
+				clonedArray[i] = (*this)[i];
+		}
+
         /** Disable default copy ctor. */
 		Array( const Array& pre );
 

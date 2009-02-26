@@ -35,6 +35,8 @@ namespace COLLADAFW
 
 	typedef unsigned long MaterialId;
 
+	typedef unsigned long TextureMapId;
+
 
 	/** Data type to reference sampler. Used by texture.*/
 	typedef size_t SamplerID;
