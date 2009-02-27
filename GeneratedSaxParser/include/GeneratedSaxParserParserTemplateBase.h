@@ -33,7 +33,7 @@ namespace GeneratedSaxParser
 	{
 	public:
 
-		static const size_t STACKSIZE = 1024*1024;
+		static const size_t STACK_SIZE = 1024*1024;
 
 		/** Number of floats that fit into the buffer, used to convert text data to a float array.*/
 		static const size_t TYPED_VALUES_BUFFER_SIZE = 1000;
@@ -75,7 +75,7 @@ namespace GeneratedSaxParser
 	public:
 		ParserTemplateBase(IErrorHandler* errorHandler)
 			: Parser(errorHandler),
-			mStackMemoryManager(STACKSIZE),
+			mStackMemoryManager(STACK_SIZE),
 			mLastIncompleteFragmentInCharacterData(0){}
 		virtual ~ParserTemplateBase(){};
 
