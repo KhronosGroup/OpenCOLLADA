@@ -481,7 +481,7 @@ namespace COLLADASaxFWL
 
                         // Write the values.
                         COLLADAFW::IndexList* texCoordIndices = mCurrentMeshPrimitive->getUVCoordIndices ( j );
-                        texCoordIndices->getIndices().append ( index + texCoord.mInitialIndex );
+                        texCoordIndices->getIndices().append ( index + (unsigned int)texCoord.mInitialIndex );
                     }
                 }
 
