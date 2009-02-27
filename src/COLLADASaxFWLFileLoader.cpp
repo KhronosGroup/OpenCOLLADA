@@ -3,7 +3,7 @@
 
     This file is part of COLLADASaxFrameworkLoader.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -25,7 +25,9 @@
 
 #include "COLLADAFWObject.h"
 
+#if defined(COLLADABU_OS_WIN)
 #pragma warning(disable:4355)
+#endif
 
 
 namespace COLLADASaxFWL
@@ -40,7 +42,7 @@ namespace COLLADASaxFWL
 	{
 		setCallbackObject(this);
 	}
-	
+
 	//-----------------------------
 	FileLoader::~FileLoader()
 	{
@@ -50,7 +52,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::load()
 	{
-		bool success = mLibxmlSaxParse.parseFile(mFileURI.toNativePath().c_str()); 
+		bool success = mLibxmlSaxParse.parseFile(mFileURI.toNativePath().c_str());
 		return success;
 	}
 

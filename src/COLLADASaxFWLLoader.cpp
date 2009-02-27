@@ -3,7 +3,7 @@ Copyright (c) 2008 NetAllied Systems GmbH
 
 This file is part of COLLADASaxFrameworkLoader.
 
-Licensed under the MIT Open Source License, 
+Licensed under the MIT Open Source License,
 for details please see LICENSE file or the website
 http://www.opensource.org/licenses/mit-license.php
 */
@@ -37,7 +37,7 @@ namespace COLLADASaxFWL
 	}
 
 
-   
+
     //---------------------------------
 	const COLLADAFW::UniqueId& Loader::getUniqueId( const COLLADABU::URI& uri, COLLADAFW::ClassId classId )
 	{
@@ -65,27 +65,11 @@ namespace COLLADASaxFWL
 		if ( !writer )
 			return false;
 		mWriter = writer;
-		
+
 		SaxParserErrorHandler saxParserErrorHandler(mErrorHandler);
-
-#pragma warning(disable: 4996)
-		_timeb startTimeBuffer;
-		_ftime( &startTimeBuffer );
-		double startTime = (double)startTimeBuffer.time + (double)startTimeBuffer.millitm / 1000;
-
 
 		FileLoader fileLoader(this, COLLADABU::URI::URI(COLLADABU::URI::nativePathToUri(fileName)), &saxParserErrorHandler);
 		fileLoader.load();
-
-		_timeb endTimeBuffer;
-		_ftime(&endTimeBuffer);
-#pragma warning(default: 4996)
-
-		std::ofstream s;
-		s.open("c:\\temp\\out");
-		double endTime = (double)endTimeBuffer.time + (double)endTimeBuffer.millitm / 1000;
-
-		s << endTime - startTime;
 
 		return true;
 	}

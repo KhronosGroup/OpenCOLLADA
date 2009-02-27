@@ -23,8 +23,8 @@ const char* ColladaParserAutoGenPrivate::PARENT_CHILD_ELEMENT_SEPARATOR = "__";
 
 
 //---------------------------------------------------------------------
-ColladaParserAutoGenPrivate::ColladaParserAutoGenPrivate( COLLADASaxFWL::ColladaParserAutoGen* impl, GeneratedSaxParser::IErrorHandler* errorHandler 
-)    : ParserTemplate<ColladaParserAutoGenPrivate, ColladaParserAutoGen>(impl, errorHandler)
+ColladaParserAutoGenPrivate::ColladaParserAutoGenPrivate( COLLADASaxFWL::ColladaParserAutoGen* impl, GeneratedSaxParser::IErrorHandler* errorHandler
+)    : GeneratedSaxParser::ParserTemplate<ColladaParserAutoGenPrivate, ColladaParserAutoGen>(impl, errorHandler)
 {
     initFunctionMap();
     initNameMap();
@@ -65,7 +65,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -537,7 +537,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -716,7 +716,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -913,7 +913,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -1026,7 +1026,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -1098,7 +1098,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -1167,7 +1167,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -2792,7 +2792,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -2991,7 +2991,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -3060,7 +3060,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -3219,7 +3219,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -3315,7 +3315,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -3381,7 +3381,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -3477,7 +3477,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -3552,7 +3552,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -4052,7 +4052,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -4295,7 +4295,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -4378,7 +4378,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -4483,7 +4483,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -4573,7 +4573,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -4696,7 +4696,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -4853,7 +4853,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -4964,7 +4964,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -5085,7 +5085,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -5192,7 +5192,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -5270,7 +5270,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -5353,7 +5353,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -5864,7 +5864,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -5947,7 +5947,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -6073,7 +6073,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -6136,7 +6136,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -6246,7 +6246,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -6343,7 +6343,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -6406,7 +6406,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -6507,7 +6507,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -6576,7 +6576,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -6639,7 +6639,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -7550,7 +7550,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -7614,7 +7614,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -7677,7 +7677,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -7740,7 +7740,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -7836,7 +7836,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -7899,7 +7899,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -8254,7 +8254,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -8367,7 +8367,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -8474,7 +8474,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -8587,7 +8587,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -8664,7 +8664,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -8748,7 +8748,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -8825,7 +8825,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -8905,7 +8905,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -8997,7 +8997,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9081,7 +9081,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9194,7 +9194,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9271,7 +9271,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9348,7 +9348,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9432,7 +9432,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9516,7 +9516,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9593,7 +9593,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9706,7 +9706,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9783,7 +9783,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9860,7 +9860,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -9970,7 +9970,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10033,7 +10033,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10123,7 +10123,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10194,7 +10194,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10277,7 +10277,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10390,7 +10390,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10482,7 +10482,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10574,7 +10574,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10666,7 +10666,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10758,7 +10758,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10843,7 +10843,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -10928,7 +10928,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11013,7 +11013,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11098,7 +11098,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11190,7 +11190,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11275,7 +11275,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11359,7 +11359,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11436,7 +11436,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11520,7 +11520,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11604,7 +11604,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11688,7 +11688,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11765,7 +11765,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11849,7 +11849,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -11933,7 +11933,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12017,7 +12017,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12094,7 +12094,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12171,7 +12171,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12248,7 +12248,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12325,7 +12325,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12409,7 +12409,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12493,7 +12493,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12577,7 +12577,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12717,7 +12717,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12794,7 +12794,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12871,7 +12871,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -12948,7 +12948,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13055,7 +13055,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13168,7 +13168,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13245,7 +13245,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13322,7 +13322,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13399,7 +13399,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13476,7 +13476,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13561,7 +13561,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13638,7 +13638,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13715,7 +13715,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13792,7 +13792,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13869,7 +13869,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -13946,7 +13946,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14023,7 +14023,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14100,7 +14100,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14185,7 +14185,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14262,7 +14262,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14339,7 +14339,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14416,7 +14416,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14493,7 +14493,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14570,7 +14570,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14647,7 +14647,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14724,7 +14724,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14801,7 +14801,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14878,7 +14878,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -14955,7 +14955,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15032,7 +15032,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15109,7 +15109,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15180,7 +15180,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15257,7 +15257,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15334,7 +15334,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15420,7 +15420,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15560,7 +15560,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15663,7 +15663,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15766,7 +15766,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15872,7 +15872,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -15956,7 +15956,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16040,7 +16040,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16130,7 +16130,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16236,7 +16236,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16372,7 +16372,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16465,7 +16465,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16549,7 +16549,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16618,7 +16618,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16687,7 +16687,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16766,7 +16766,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16836,7 +16836,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16906,7 +16906,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -16983,7 +16983,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -17066,7 +17066,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -17175,7 +17175,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -17297,7 +17297,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -17374,7 +17374,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -17451,7 +17451,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -17528,7 +17528,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -17611,7 +17611,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -17714,7 +17714,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -17916,7 +17916,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18008,7 +18008,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18100,7 +18100,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18192,7 +18192,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18284,7 +18284,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18406,7 +18406,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18498,7 +18498,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18584,7 +18584,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18670,7 +18670,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18756,7 +18756,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18830,7 +18830,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -18893,7 +18893,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19000,7 +19000,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19063,7 +19063,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19140,7 +19140,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19217,7 +19217,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19300,7 +19300,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19403,7 +19403,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19506,7 +19506,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19599,7 +19599,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19699,7 +19699,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19769,7 +19769,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19852,7 +19852,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -19922,7 +19922,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20068,7 +20068,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20145,7 +20145,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20231,7 +20231,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20338,7 +20338,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20438,7 +20438,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20508,7 +20508,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20585,7 +20585,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20662,7 +20662,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20739,7 +20739,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20822,7 +20822,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -20925,7 +20925,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21031,7 +21031,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21094,7 +21094,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21170,7 +21170,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21240,7 +21240,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21310,7 +21310,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21396,7 +21396,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21474,7 +21474,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21590,7 +21590,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21673,7 +21673,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21751,7 +21751,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21864,7 +21864,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -21947,7 +21947,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22025,7 +22025,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22225,7 +22225,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22308,7 +22308,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22386,7 +22386,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22526,7 +22526,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22609,7 +22609,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22687,7 +22687,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22800,7 +22800,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22883,7 +22883,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -22961,7 +22961,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23074,7 +23074,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23157,7 +23157,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23235,7 +23235,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23348,7 +23348,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23425,7 +23425,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23532,7 +23532,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23602,7 +23602,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23672,7 +23672,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23750,7 +23750,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23828,7 +23828,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23906,7 +23906,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -23984,7 +23984,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24062,7 +24062,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24140,7 +24140,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24218,7 +24218,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24304,7 +24304,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24368,7 +24368,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24468,7 +24468,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24538,7 +24538,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24615,7 +24615,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24692,7 +24692,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24769,7 +24769,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24852,7 +24852,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -24955,7 +24955,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -25052,7 +25052,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -25115,7 +25115,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -25219,7 +25219,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -25709,7 +25709,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -26225,7 +26225,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -26795,7 +26795,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -27362,7 +27362,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -27878,7 +27878,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -28216,7 +28216,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -28323,7 +28323,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -28400,7 +28400,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -28483,7 +28483,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -28586,7 +28586,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -28683,7 +28683,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -28746,7 +28746,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -28823,7 +28823,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -28906,7 +28906,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29003,7 +29003,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29104,7 +29104,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29187,7 +29187,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29290,7 +29290,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29450,7 +29450,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29543,7 +29543,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29636,7 +29636,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29717,7 +29717,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29809,7 +29809,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -29901,7 +29901,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30005,7 +30005,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30080,7 +30080,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30166,7 +30166,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30252,7 +30252,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30344,7 +30344,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30436,7 +30436,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30510,7 +30510,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30573,7 +30573,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30650,7 +30650,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30733,7 +30733,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30836,7 +30836,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -30939,7 +30939,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31022,7 +31022,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31102,7 +31102,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31327,7 +31327,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31404,7 +31404,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31481,7 +31481,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31564,7 +31564,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31670,7 +31670,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31831,7 +31831,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31900,7 +31900,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -31969,7 +31969,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32038,7 +32038,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32107,7 +32107,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32176,7 +32176,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32245,7 +32245,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32322,7 +32322,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32405,7 +32405,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32542,7 +32542,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32662,7 +32662,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32752,7 +32752,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32834,7 +32834,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32912,7 +32912,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -32989,7 +32989,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33052,7 +33052,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33129,7 +33129,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33212,7 +33212,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33316,7 +33316,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33399,7 +33399,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33476,7 +33476,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33559,7 +33559,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33636,7 +33636,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33713,7 +33713,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33805,7 +33805,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33882,7 +33882,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -33965,7 +33965,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34068,7 +34068,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34210,7 +34210,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34302,7 +34302,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34394,7 +34394,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34468,7 +34468,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34531,7 +34531,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34608,7 +34608,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34691,7 +34691,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34794,7 +34794,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -34897,7 +34897,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35012,7 +35012,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35104,7 +35104,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35208,7 +35208,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35271,7 +35271,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35340,7 +35340,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35409,7 +35409,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35486,7 +35486,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35563,7 +35563,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35681,7 +35681,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35767,7 +35767,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35859,7 +35859,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -35933,7 +35933,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -36010,7 +36010,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -36080,7 +36080,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -36217,7 +36217,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -36354,7 +36354,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -36514,7 +36514,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -36701,7 +36701,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -36918,7 +36918,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37102,7 +37102,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37313,7 +37313,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37390,7 +37390,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37453,7 +37453,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37516,7 +37516,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37593,7 +37593,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37656,7 +37656,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37739,7 +37739,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37818,7 +37818,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37881,7 +37881,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -37944,7 +37944,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38007,7 +38007,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38090,7 +38090,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38153,7 +38153,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38216,7 +38216,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38279,7 +38279,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38401,7 +38401,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38493,7 +38493,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38633,7 +38633,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38702,7 +38702,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38795,7 +38795,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38858,7 +38858,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -38999,7 +38999,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39091,7 +39091,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39183,7 +39183,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39296,7 +39296,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39382,7 +39382,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39468,7 +39468,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39542,7 +39542,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39605,7 +39605,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39691,7 +39691,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39781,7 +39781,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39858,7 +39858,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -39944,7 +39944,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40115,7 +40115,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40178,7 +40178,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40264,7 +40264,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40341,7 +40341,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40418,7 +40418,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40495,7 +40495,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40572,7 +40572,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40655,7 +40655,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40758,7 +40758,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40855,7 +40855,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -40932,7 +40932,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41049,7 +41049,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41130,7 +41130,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41204,7 +41204,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41267,7 +41267,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41344,7 +41344,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41427,7 +41427,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41530,7 +41530,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41627,7 +41627,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41725,7 +41725,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41797,7 +41797,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41890,7 +41890,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -41967,7 +41967,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42044,7 +42044,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42157,7 +42157,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42234,7 +42234,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42317,7 +42317,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42394,7 +42394,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42471,7 +42471,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42548,7 +42548,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42628,7 +42628,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42724,7 +42724,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42793,7 +42793,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42863,7 +42863,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -42967,7 +42967,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -43039,7 +43039,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -43580,7 +43580,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -43674,7 +43674,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -43737,7 +43737,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -43800,7 +43800,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -43876,7 +43876,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -43942,7 +43942,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44194,7 +44194,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44261,7 +44261,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44331,7 +44331,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44394,7 +44394,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44464,7 +44464,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44544,7 +44544,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44641,7 +44641,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44704,7 +44704,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44774,7 +44774,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -44878,7 +44878,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -47445,7 +47445,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -50583,7 +50583,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -50866,7 +50866,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -53548,7 +53548,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -53618,7 +53618,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -53694,7 +53694,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -53763,7 +53763,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56100,7 +56100,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56170,7 +56170,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56234,7 +56234,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56300,7 +56300,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56370,7 +56370,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56450,7 +56450,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56540,7 +56540,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56644,7 +56644,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56710,7 +56710,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56840,7 +56840,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56906,7 +56906,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -56981,7 +56981,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57051,7 +57051,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57158,7 +57158,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57221,7 +57221,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57284,7 +57284,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57399,7 +57399,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57476,7 +57476,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57548,7 +57548,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57648,7 +57648,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57711,7 +57711,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57774,7 +57774,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57886,7 +57886,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -57960,7 +57960,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -58065,7 +58065,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -58139,7 +58139,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -58286,7 +58286,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -58349,7 +58349,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -58449,7 +58449,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -58512,7 +58512,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -58575,7 +58575,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -58699,7 +58699,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -58958,7 +58958,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -59021,7 +59021,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -59084,7 +59084,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -59196,7 +59196,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -59270,7 +59270,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -59387,7 +59387,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -59724,7 +59724,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
@@ -59842,7 +59842,7 @@ if ( attributeArray )
     while (true)
     {
         const ParserChar * attribute = *attributeArray;
-        if ( !attribute ) 
+        if ( !attribute )
             break;
         StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;

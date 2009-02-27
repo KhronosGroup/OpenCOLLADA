@@ -3,7 +3,7 @@
 
     This file is part of COLLADASaxFrameworkLoader.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -13,6 +13,7 @@
 
 #include <string>
 #include <cassert>
+#include "COLLADABUPlatform.h"
 
 namespace COLLADASaxFWL
 {
