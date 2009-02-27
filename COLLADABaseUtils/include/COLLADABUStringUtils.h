@@ -2,8 +2,8 @@
     Copyright (c) 2008 NetAllied Systems GmbH
 
 	This file is part of COLLADABaseUtils.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -169,7 +169,7 @@ namespace COLLADABU
 		static void stringFindAndReplace ( StringType &source, const StringType searchString, const StringType replaceString )
 		{
 			size_t found = source.find ( searchString );
-			if ( found != StringType::npos ) 
+			if ( found != StringType::npos )
 			{
 				size_t searchStrLength = searchString.length();
 				size_t replaceStrLength = replaceString.length();

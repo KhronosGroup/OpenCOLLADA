@@ -3,13 +3,15 @@
 
     This file is part of GeneratedSaxParser.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
 
 #include "GeneratedSaxParserParserTemplateBase.h"
 #include "GeneratedSaxParserIErrorHandler.h"
+
+#include <string.h>
 
 namespace GeneratedSaxParser
 {
@@ -106,7 +108,6 @@ namespace GeneratedSaxParser
 	{
 		const ParserChar* prefixBufferPos = prefixedBuffer;
 		const ParserChar* prefixBufferStartPos = 0;
-		bool onlyWhiteSpaceFound = true;
         while ( prefixBufferPos != prefixedBufferEnd )
 		{
 			if (!Utils::isWhiteSpace(*prefixBufferPos ) && !prefixBufferStartPos)
@@ -118,7 +119,7 @@ namespace GeneratedSaxParser
 		if ( !prefixBufferStartPos )
 			return toData(buffer, bufferEnd, failed);
 
-		//find first whitespace in buffer 
+		//find first whitespace in buffer
 		const ParserChar* bufferPos = *buffer;
 		while ( !Utils::isWhiteSpace(*bufferPos) )
 			++bufferPos;
@@ -138,39 +139,40 @@ namespace GeneratedSaxParser
 	}
 
 	//--------------------------------------------------------------------
-	bool ParserTemplateBase::handleError( ParserError::Severity severity, 
-												 ParserError::ErrorType errorType, 
-												 StringHash elementHash, 
-												 StringHash attributeHash, 
+	bool ParserTemplateBase::handleError( ParserError::Severity severity,
+												 ParserError::ErrorType errorType,
+												 StringHash elementHash,
+												 StringHash attributeHash,
 												 const ParserChar* additionalText /*= ""*/ )
 	{
 		IErrorHandler* errorHandler = getErrorHandler();
 		if ( !errorHandler )
 			return (severity == ParserError::SEVERITY_CRITICAL) ? true : false;
-		
-		bool handlerWantsToAbort = errorHandler->handleError(ParserError(severity, 
-																		  errorType, 
-																		  getNameByStringHash(elementHash), 
-																		  getNameByStringHash(attributeHash), 
-																		  getLineNumber(),
-																		  getColumnNumber(),
-																		  additionalText ? (const char*)additionalText : ""));
+
+		ParserError error(severity,
+				  errorType,
+				  getNameByStringHash(elementHash),
+				  getNameByStringHash(attributeHash),
+				  getLineNumber(),
+				  getColumnNumber(),
+				  additionalText ? (const char*)additionalText : "");
+		bool handlerWantsToAbort = errorHandler->handleError(error);
 
 		return (severity == ParserError::SEVERITY_CRITICAL) ? true : handlerWantsToAbort;
 	}
 
 	//--------------------------------------------------------------------
-	bool ParserTemplateBase::handleError( ParserError::Severity severity, 
-												 ParserError::ErrorType errorType, 
-												 StringHash attributeHash, 
+	bool ParserTemplateBase::handleError( ParserError::Severity severity,
+												 ParserError::ErrorType errorType,
+												 StringHash attributeHash,
 												 const ParserChar* additionalText )
 	{
-		StringHash elementHash = mElementDataStack.empty() ? 0 : mElementDataStack.top().elementHash; 
+		StringHash elementHash = mElementDataStack.empty() ? 0 : mElementDataStack.top().elementHash;
 
-		return handleError(severity, 
-			errorType, 
-			elementHash, 
-			attributeHash, 
+		return handleError(severity,
+			errorType,
+			elementHash,
+			attributeHash,
 			additionalText);
 	}
 
@@ -182,7 +184,7 @@ namespace GeneratedSaxParser
 		ElementNameMap::const_iterator it = mHashNameMap.find(hash);
 		if ( it == mHashNameMap.end() )
 			return 0;
-		else 
+		else
 			return it->second;
 	}
 

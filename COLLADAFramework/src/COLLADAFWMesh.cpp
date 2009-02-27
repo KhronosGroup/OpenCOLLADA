@@ -3,7 +3,7 @@
 
     This file is part of COLLADAFramework.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -16,7 +16,7 @@ namespace COLLADAFW
 {
 
     //----------------------------------
-    Mesh::Mesh( ObjectId objectId ) 
+    Mesh::Mesh( ObjectId objectId )
         : Geometry ( objectId, Geometry::GEO_TYPE_MESH )
         , mMeshPrimitives(MeshPrimitiveArray::OWNER)
     {
@@ -78,12 +78,14 @@ namespace COLLADAFW
 					}
 				case MeshPrimitive::TRIANGLE_FANS:
 					{
-						
+
 						// TODO not implemented
 						//Tristrips* tristrips = (Tristrips*)primitive;
 						//primitiveCount += tristrips->getTristripCount();
 					}
-
+				case MeshPrimitive::UNDEFINED_PRIMITIVE_TYPE:
+				default:
+					break;
 				}
 			}
 		}
@@ -156,7 +158,7 @@ namespace COLLADAFW
         // The number of normals in the current mesh.
         size_t numNormals = 0;
 
-        // We have to go through every mesh primitive. 
+        // We have to go through every mesh primitive.
         const COLLADAFW::MeshPrimitiveArray& meshPrimitives = this->getMeshPrimitives ();
         size_t count = meshPrimitives.getCount ();
         for ( size_t i=0; i<count; ++i )
@@ -180,7 +182,7 @@ namespace COLLADAFW
         // The number of normals in the current mesh.
         size_t numFaces = 0;
 
-        // We have to go through every mesh primitive. 
+        // We have to go through every mesh primitive.
         const COLLADAFW::MeshPrimitiveArray& meshPrimitives = this->getMeshPrimitives ();
         size_t count = meshPrimitives.getCount ();
         for ( size_t i=0; i<count; ++i )

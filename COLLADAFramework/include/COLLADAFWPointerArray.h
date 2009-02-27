@@ -3,7 +3,7 @@
 
     This file is part of COLLADAFramework.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -18,23 +18,23 @@
 namespace COLLADAFW
 {
 
-	/** 
+	/**
 	This array stores pointers to objects of type @T
-	The memory will be allocated with malloc, freed with free and resized with realloc. 
-	In contrast to the base template ArrayPrimitiveType it provides a copy constructor and 
+	The memory will be allocated with malloc, freed with free and resized with realloc.
+	In contrast to the base template ArrayPrimitiveType it provides a copy constructor and
 	an assignment operator. Type T must have public copy constructor and assignment operator.
 	It must also implement a public member T* clone() that clones the object.
 	The array is always the owner the pointers.
-	*/	
+	*/
 	template<class T>
 	class PointerArray 	: public ArrayPrimitiveType<T*>
 	{
 	private:
-	
+
 	public:
 
         /** Constructor. */
-		PointerArray() : ArrayPrimitiveType(OWNER){}
+		PointerArray() : ArrayPrimitiveType<T*>(Array<T*>::OWNER){}
 
         /** Destructor. */
 		virtual ~PointerArray()
@@ -44,7 +44,7 @@ namespace COLLADAFW
 
         /** Disable default copy ctor. */
 		PointerArray( const PointerArray& pre )
-			: ArrayPrimitiveType(OWNER)
+			: ArrayPrimitiveType<T*>(Array<T*>::OWNER)
 		{
 			// clone the array contents
 			cloneContents(pre);
@@ -68,16 +68,16 @@ namespace COLLADAFW
 		void cloneContents(const PointerArray& pre)
 		{
 			size_t newCount = pre.getCount();
-			reallocMemory(newCount);
+			ArrayPrimitiveType<T*>::reallocMemory(newCount);
 			for ( size_t i = 0; i < newCount; ++i)
 				(*this)[i] = pre[i]->clone();
-			mCount = newCount;
+			ArrayPrimitiveType<T*>::mCount = newCount;
 		}
 
 		/** Deletes the contents of this array.*/
 		void deleteContents()
 		{
-			size_t oldCount = getCount();
+			size_t oldCount = ArrayPrimitiveType<T*>::getCount();
 			for ( size_t i = 0; i < oldCount; ++i)
 				delete (*this)[i];
 		}

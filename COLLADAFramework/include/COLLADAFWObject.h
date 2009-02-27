@@ -3,7 +3,7 @@ Copyright (c) 2008 NetAllied Systems GmbH
 
 This file is part of COLLADAFramework.
 
-Licensed under the MIT Open Source License, 
+Licensed under the MIT Open Source License,
 for details please see LICENSE file or the website
 http://www.opensource.org/licenses/mit-license.php
 */
@@ -20,7 +20,7 @@ namespace COLLADAFW
 
 
 	/** Base class of all classes that can be referenced in the model.*/
-	class Object 	
+	class Object
 	{
 	private:
 //		Object* mParent;
@@ -84,7 +84,7 @@ namespace COLLADAFW
 	ObjectType* objectSafeCast(Object* object)
 	{
 		if ( object->getClassId() == ObjectType::ID() )
-			return (ObjectType*)object
+			return (ObjectType*)object;
 		else
 			return 0;
 	}

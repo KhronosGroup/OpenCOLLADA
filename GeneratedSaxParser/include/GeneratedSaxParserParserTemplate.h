@@ -3,7 +3,7 @@
 
     This file is part of GeneratedSaxParser.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -31,7 +31,7 @@ namespace GeneratedSaxParser
 	@param ImplClass The class that receives the events from the parser, i.e. the
 	class that contains the memebers that need to be implemented by the user.*/
 	template<class DerivedClass, class ImplClass>
-	class ParserTemplate : public ParserTemplateBase	
+	class ParserTemplate : public ParserTemplateBase
 	{
 	public:
 
@@ -43,13 +43,13 @@ namespace GeneratedSaxParser
 
 		typedef bool ( ImplClass::*ShortDataFunctionPtr ) (const short* text, size_t textLength );
 		typedef bool ( ImplClass::*UnsignedShortDataFunctionPtr ) (const unsigned short* text, size_t textLength );
-		
+
 		typedef bool ( ImplClass::*IntDataFunctionPtr ) (const int* text, size_t textLength );
 		typedef bool ( ImplClass::*UnsignedIntDataFunctionPtr ) (const unsigned int* text, size_t textLength );
-		
+
 		typedef bool ( ImplClass::*LongDataFunctionPtr ) (const long* text, size_t textLength );
 		typedef bool ( ImplClass::*UnsignedLongDataFunctionPtr ) (const unsigned long* text, size_t textLength );
-		
+
 		typedef bool ( ImplClass::*LongLongDataFunctionPtr ) (const long long* text, size_t textLength );
 		typedef bool ( ImplClass::*UnsignedLongLongDataFunctionPtr ) (const unsigned long long* text, size_t textLength );
 
@@ -64,7 +64,7 @@ namespace GeneratedSaxParser
         typedef bool ( DerivedClass::*FreeAttributesFunctionPtr ) ( void* attributeData );
 
 
-		struct FunctionStruct 
+		struct FunctionStruct
 		{
 			FunctionStruct()
 				: beginFunction(0),
@@ -75,10 +75,10 @@ namespace GeneratedSaxParser
 				freeAttributesFunction(0)
 			{}
 
-			FunctionStruct( ElementBeginFunctionPtr _beginFunction, 
-				TextDataFunctionPtr _textDataFunction, 
-				ElementEndFunctionPtr _endFunction, 
-				ElementValidateBeginFunctionPtr _validateBeginFunction, 
+			FunctionStruct( ElementBeginFunctionPtr _beginFunction,
+				TextDataFunctionPtr _textDataFunction,
+				ElementEndFunctionPtr _endFunction,
+				ElementValidateBeginFunctionPtr _validateBeginFunction,
 				ElementValidateEndFunctionPtr _validateEndFunction,
                 FreeAttributesFunctionPtr _freeAttributesFunction)
 				: beginFunction(_beginFunction),
@@ -110,8 +110,8 @@ namespace GeneratedSaxParser
 
 
 	public:
-		ParserTemplate(ImplClass* impl, IErrorHandler* errorHandler) 
-			: 
+		ParserTemplate(ImplClass* impl, IErrorHandler* errorHandler)
+			:
 		  ParserTemplateBase(errorHandler),
 			  mIgnoreElements(0),
 			  mImpl(impl)
@@ -131,7 +131,7 @@ namespace GeneratedSaxParser
 
 
 	protected:
-		template<class DataType, 
+		template<class DataType,
 				 DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed),
 				 DataType (ParserTemplateBase::*toDataWithPrefix)(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
 		bool characterData2Data(const ParserChar* text, size_t textLength, bool ( ImplClass::*dataFunction ) (const DataType* data, size_t dataLength ) );
@@ -190,7 +190,7 @@ namespace GeneratedSaxParser
         * @param list Output parameter. Must be freed by caller.
         * @return True on success, false on failure.
         */
-        template<typename DataType, 
+        template<typename DataType,
             DataType (*toData)(const ParserChar** buffer, bool& failed)>
             bool characterData2List(const ParserChar* text, XSList<DataType>& list);
 
@@ -232,10 +232,10 @@ namespace GeneratedSaxParser
         bool characterData2EnumData(const ParserChar* text, size_t textLength, bool ( ImplClass::*dataFunction ) (const EnumType* data, size_t dataLength ),
             const std::pair<BaseType, EnumType>* enumMap,
             BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
-            , 
-            EnumType (*toEnum)(const ParserChar** buffer, 
+            ,
+            EnumType (*toEnum)(const ParserChar** buffer,
                 const ParserChar* bufferEnd,
-                bool& failed, 
+                bool& failed,
                 const std::pair<BaseType, EnumType>* enumMap,
                 BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
             ),
@@ -255,9 +255,9 @@ namespace GeneratedSaxParser
         bool dataEnumEnd(bool ( ImplClass::*dataFunction ) (const EnumType* data, size_t dataLength ),
             const std::pair<BaseType, EnumType>* enumMap,
             BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed),
-            EnumType (*toEnum)( const ParserChar** buffer, 
+            EnumType (*toEnum)( const ParserChar** buffer,
             const ParserChar* bufferEnd,
-            bool& failed, 
+            bool& failed,
             const std::pair<BaseType, EnumType>* enumMap,
             BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed))
         );
@@ -273,7 +273,7 @@ namespace GeneratedSaxParser
 
     //--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
-	template<class DataType, 
+	template<class DataType,
 		     DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed),
 			 DataType (ParserTemplateBase::*toDataWithPrefix)(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Data(const ParserChar* text, size_t textLength, bool ( ImplClass::*dataFunction ) (const DataType* data, size_t dataLength ) )
@@ -295,7 +295,7 @@ namespace GeneratedSaxParser
             mEndOfDataInCurrentObjectOnStack;
 			if ( failed )
 			{
-				if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, 
+				if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 					             ParserError::ERROR_TEXTDATA_PARSING_FAILED,
 					             0,
 					             mLastIncompleteFragmentInCharacterData))
@@ -359,7 +359,7 @@ namespace GeneratedSaxParser
 			size_t length = std::min(20, (int)(bufferEnd-dataBufferPos));
 			memcpy(dataBufferError, dataBufferPos, length);
 			dataBufferError[length] = '\0';
-			if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, 
+			if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 				     	     ParserError::ERROR_TEXTDATA_PARSING_FAILED,
 				             0,
 				             dataBufferError))
@@ -380,10 +380,10 @@ namespace GeneratedSaxParser
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2EnumData(const ParserChar* text, size_t textLength, bool ( ImplClass::*dataFunction ) (const EnumType* data, size_t dataLength ),
         const std::pair<BaseType, EnumType>* enumMap,
         BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
-        , 
-        EnumType (*toEnum)(const ParserChar** buffer, 
+        ,
+        EnumType (*toEnum)(const ParserChar** buffer,
         const ParserChar* bufferEnd,
-        bool& failed, 
+        bool& failed,
         const std::pair<BaseType, EnumType>* enumMap,
         BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
         ),
@@ -411,7 +411,7 @@ namespace GeneratedSaxParser
             mEndOfDataInCurrentObjectOnStack;
             if ( failed )
             {
-                if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, 
+                if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
                     ParserError::ERROR_TEXTDATA_PARSING_FAILED,
                     0,
                     mLastIncompleteFragmentInCharacterData))
@@ -475,7 +475,7 @@ namespace GeneratedSaxParser
             size_t length = std::min(20, (int)(bufferEnd-dataBufferPos));
             memcpy(dataBufferError, dataBufferPos, length);
             dataBufferError[length] = '\0';
-            if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, 
+            if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
                 ParserError::ERROR_TEXTDATA_PARSING_FAILED,
                 0,
                 dataBufferError))
@@ -491,7 +491,7 @@ namespace GeneratedSaxParser
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
-    template<class DataType, 
+    template<class DataType,
         DataType (*toData)(const ParserChar** buffer, bool& failed)>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2List(const ParserChar* text, XSList<DataType>& list)
     {
@@ -538,7 +538,7 @@ namespace GeneratedSaxParser
             size_t length = std::min(20, bufferLength);
             memcpy(dataBufferError, dataBufferPos, length);
             dataBufferError[length] = '\0';
-            if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, 
+            if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
                 ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
                 0,
                 dataBufferError))
@@ -581,7 +581,7 @@ namespace GeneratedSaxParser
 	{
 		return characterData2Data<unsigned char, Utils::toUnsignedChar, &ParserTemplateBase::toUnsignedCharPrefix>(text, textLength, unsignedCharDataFunction);
 	}
-	
+
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2ShortData( const ParserChar* text, size_t textLength, ShortDataFunctionPtr shortDataFunction )
@@ -669,7 +669,7 @@ namespace GeneratedSaxParser
 					size_t length = std::min(20, bufferLength);
 					memcpy(dataBufferError, bufferBegin, length);
 					dataBufferError[length] = '\0';
-					if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, 
+					if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 						ParserError::ERROR_TEXTDATA_PARSING_FAILED,
 						0,
 						dataBufferError))
@@ -695,9 +695,9 @@ namespace GeneratedSaxParser
     bool ParserTemplate<DerivedClass, ImplClass>::dataEnumEnd(bool ( ImplClass::*dataFunction ) (const EnumType* data, size_t dataLength ),
         const std::pair<BaseType, EnumType>* enumMap,
         BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed),
-        EnumType (*toEnum)( const ParserChar** buffer, 
+        EnumType (*toEnum)( const ParserChar** buffer,
             const ParserChar* bufferEnd,
-            bool& failed, 
+            bool& failed,
             const std::pair<BaseType, EnumType>* enumMap,
             BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed))
     )
@@ -720,7 +720,7 @@ namespace GeneratedSaxParser
                     size_t length = std::min(20, bufferLength);
                     memcpy(dataBufferError, bufferBegin, length);
                     dataBufferError[length] = '\0';
-                    if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, 
+                    if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
                         ParserError::ERROR_TEXTDATA_PARSING_FAILED,
                         0,
                         dataBufferError))
@@ -833,7 +833,7 @@ namespace GeneratedSaxParser
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
-	bool ParserTemplate<DerivedClass, ImplClass>::textData(const ParserChar* text, 
+	bool ParserTemplate<DerivedClass, ImplClass>::textData(const ParserChar* text,
 															  size_t textLength)
 	{
 		if ( mIgnoreElements > 0)
@@ -843,7 +843,7 @@ namespace GeneratedSaxParser
 			return false;
 		ElementData elementData = mElementDataStack.top();
 
-		ElementFunctionMap::iterator it = mElementFunctionMap.find(elementData.combinedElementHash);
+		typename ElementFunctionMap::iterator it = mElementFunctionMap.find(elementData.combinedElementHash);
 		if ( it == mElementFunctionMap.end() )
 			return true;
 		FunctionStruct& functions = it->second;
@@ -869,7 +869,7 @@ namespace GeneratedSaxParser
 			return false;
 		ElementData elementData = mElementDataStack.top();
 
-		ElementFunctionMap::iterator it = mElementFunctionMap.find(elementData.combinedElementHash);
+		typename ElementFunctionMap::iterator it = mElementFunctionMap.find(elementData.combinedElementHash);
 		if ( it == mElementFunctionMap.end() )
 			return false;
 		FunctionStruct& functions = it->second;
@@ -890,7 +890,7 @@ namespace GeneratedSaxParser
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
-	bool ParserTemplate<DerivedClass, ImplClass>::elementBegin( const ParserChar* elementName, 
+	bool ParserTemplate<DerivedClass, ImplClass>::elementBegin( const ParserChar* elementName,
 																   const ParserAttributes& attributes)
 	{
 		if ( mIgnoreElements > 0)
@@ -898,7 +898,7 @@ namespace GeneratedSaxParser
 			++mIgnoreElements;
 			return true;
 		}
-		
+
 		StringHash combinedHash = 0;
 		StringHash elementHash = Utils::calculateStringHash(elementName);
 		if ( !mElementDataStack.empty() )
@@ -910,10 +910,10 @@ namespace GeneratedSaxParser
 			combinedHash = elementHash;
 		}
 
-		ElementFunctionMap::iterator it = mElementFunctionMap.find(combinedHash);
+		typename ElementFunctionMap::iterator it = mElementFunctionMap.find(combinedHash);
 		if ( it == mElementFunctionMap.end() )
 		{
-			if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, 
+			if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 							 ParserError::ERROR_UNKNOWN_ELEMENT,
 				             0,
 				             elementName))

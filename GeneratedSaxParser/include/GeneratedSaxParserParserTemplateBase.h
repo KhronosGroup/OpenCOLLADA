@@ -3,7 +3,7 @@
 
     This file is part of GeneratedSaxParser.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -20,6 +20,7 @@
 
 #include <map>
 #include <stack>
+#include <string.h>
 
 
 
@@ -28,7 +29,7 @@ namespace GeneratedSaxParser
 	class IErrorHandler;
 
 
-	class ParserTemplateBase : public Parser	
+	class ParserTemplateBase : public Parser
 	{
 	public:
 
@@ -37,7 +38,7 @@ namespace GeneratedSaxParser
 		/** Number of floats that fit into the buffer, used to convert text data to a float array.*/
 		static const size_t TYPED_VALUES_BUFFER_SIZE = 1000;
 
-		struct ElementData 
+		struct ElementData
 		{
 			StringHash elementHash;
 			StringHash combinedElementHash;
@@ -62,7 +63,7 @@ namespace GeneratedSaxParser
          */
 		ParserChar* mLastIncompleteFragmentInCharacterData;
 
-        /** 
+        /**
          * When an object is allocated on mem manager stack and the containing
          * data don't fill out whole object, this pointer points to the end of
          * the data inside the object on stack.
@@ -73,7 +74,7 @@ namespace GeneratedSaxParser
 
 	public:
 		ParserTemplateBase(IErrorHandler* errorHandler)
-			: Parser(errorHandler), 
+			: Parser(errorHandler),
 			mStackMemoryManager(STACKSIZE),
 			mLastIncompleteFragmentInCharacterData(0){}
 		virtual ~ParserTemplateBase(){};
@@ -84,136 +85,136 @@ namespace GeneratedSaxParser
 
 
 	protected:
-		/** Converts the first string representing a float within a ParserChar buffer with prefixedBuffer 
-		prefixed to a float and advances the character pointer to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing a float within a ParserChar buffer with prefixedBuffer
+		prefixed to a float and advances the character pointer to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		float toFloatPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
-		/** Converts the first string representing a double within a ParserChar buffer with prefixedBuffer 
-		prefixed to a double and advances the character pointer to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing a double within a ParserChar buffer with prefixedBuffer
+		prefixed to a double and advances the character pointer to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		double toDoublePrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
-		/** Converts the first string representing a char within a ParserChar buffer with prefixedBuffer 
-		prefixed to a char and advances the character interpreted to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing a char within a ParserChar buffer with prefixedBuffer
+		prefixed to a char and advances the character interpreted to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		char toCharPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
-		/** Converts the first string representing an unsigned char within a ParserChar buffer with prefixedBuffer 
-		prefixed to an unsigned char and advances the character char to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing an unsigned char within a ParserChar buffer with prefixedBuffer
+		prefixed to an unsigned char and advances the character char to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		unsigned char toUnsignedCharPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
-		/** Converts the first string representing a short within a ParserChar buffer with prefixedBuffer 
-		prefixed to a short and advances the character interpreted to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing a short within a ParserChar buffer with prefixedBuffer
+		prefixed to a short and advances the character interpreted to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		short toShortPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
-		/** Converts the first string representing an unsigned short within a ParserChar buffer with prefixedBuffer 
-		prefixed to an unsigned short and advances the character short to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing an unsigned short within a ParserChar buffer with prefixedBuffer
+		prefixed to an unsigned short and advances the character short to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		unsigned short toUnsignedShortPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
-		/** Converts the first string representing an integer within a ParserChar buffer with prefixedBuffer 
-		prefixed to an integer and advances the character pointer to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing an integer within a ParserChar buffer with prefixedBuffer
+		prefixed to an integer and advances the character pointer to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		int toIntPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
-		/** Converts the first string representing an unsigned integer within a ParserChar buffer with prefixedBuffer 
-		prefixed to an unsigned integer and advances the character pointer to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing an unsigned integer within a ParserChar buffer with prefixedBuffer
+		prefixed to an unsigned integer and advances the character pointer to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		unsigned int toUnsignedIntPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
-		/** Converts the first string representing an integer within a ParserChar buffer with prefixedBuffer 
-		prefixed to an integer and advances the character pointer to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing an integer within a ParserChar buffer with prefixedBuffer
+		prefixed to an integer and advances the character pointer to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		long toLongPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
-		/** Converts the first string representing an unsigned integer within a ParserChar buffer with prefixedBuffer 
-		prefixed to an unsigned integer and advances the character pointer to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing an unsigned integer within a ParserChar buffer with prefixedBuffer
+		prefixed to an unsigned integer and advances the character pointer to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		unsigned long toUnsignedLongPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
-		/** Converts the first string representing a long long within a ParserChar buffer with prefixedBuffer 
-		prefixed to a long long and advances the character pointer to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing a long long within a ParserChar buffer with prefixedBuffer
+		prefixed to a long long and advances the character pointer to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		long long toLongLongPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
-		/** Converts the first string representing an unsigned long long  within a ParserChar buffer with prefixedBuffer 
-		prefixed to an unsigned long long and advances the character pointer to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing an unsigned long long  within a ParserChar buffer with prefixedBuffer
+		prefixed to an unsigned long long and advances the character pointer to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		unsigned long long toUnsignedLongLongPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
-		/** Converts the first string representing a bool within a ParserChar buffer with prefixedBuffer 
-		prefixed to a bool and advances the character interpreted to the first position after the last 
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		/** Converts the first string representing a bool within a ParserChar buffer with prefixedBuffer
+		prefixed to a bool and advances the character interpreted to the first position after the last
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
 		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
+		@param buffer Pointer to the first character in the buffer. Will be set to the first
+		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
 		bool toBoolPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
@@ -224,9 +225,9 @@ namespace GeneratedSaxParser
          * @see toDataPrefix
          */
         template<class EnumType, class BaseType, EnumType EnumMapCount,
-            EnumType (*toEnum)(const ParserChar** buffer, 
+            EnumType (*toEnum)(const ParserChar** buffer,
             const ParserChar* bufferEnd,
-            bool& failed, 
+            bool& failed,
             const std::pair<BaseType, EnumType>* enumMap,
             BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
             )
@@ -238,10 +239,10 @@ namespace GeneratedSaxParser
 
 
 
-		/** Creates a new object of type @a DataType and sets the member variables to the default ones, using 
+		/** Creates a new object of type @a DataType and sets the member variables to the default ones, using
 		a static member of type @a DataType called DEFAULT. @a data is set to the created object and @a dataPtr
 		to the address of the created object.
-		@param DataType The type of the object, that should be created. Must have a static member of type @ DataType 
+		@param DataType The type of the object, that should be created. Must have a static member of type @ DataType
 		called DEFAULT.
 		@param data Will be set to the location of the created object.
 		@param dataPtr Will be set to the address of the created object.*/
@@ -257,10 +258,10 @@ namespace GeneratedSaxParser
 		@param additionalText Additional text describing the error.
         @return True when abort required, false when continue is possible.
         */
-		bool handleError(ParserError::Severity severity, 
-						 ParserError::ErrorType errorType, 
-						 StringHash elementHash, 
-						 StringHash attributeHash, 
+		bool handleError(ParserError::Severity severity,
+						 ParserError::ErrorType errorType,
+						 StringHash elementHash,
+						 StringHash attributeHash,
 						 const ParserChar* additionalText);
 
 
@@ -272,9 +273,9 @@ namespace GeneratedSaxParser
 		@param additionalText Additional text describing the error.
         @return True when abort required, false when continue is possible.
         */
-		bool handleError(ParserError::Severity severity, 
-        			     ParserError::ErrorType errorType, 
-			             StringHash attributeHash, 
+		bool handleError(ParserError::Severity severity,
+        			     ParserError::ErrorType errorType,
+			             StringHash attributeHash,
 			             const ParserChar* additionalText);
 
 
@@ -305,9 +306,9 @@ namespace GeneratedSaxParser
 
     //--------------------------------------------------------------------
     template<class EnumType, class BaseType, EnumType EnumMapCount,
-        EnumType (*toEnum)(const ParserChar** buffer, 
+        EnumType (*toEnum)(const ParserChar** buffer,
         const ParserChar* bufferEnd,
-        bool& failed, 
+        bool& failed,
         const std::pair<BaseType, EnumType>* enumMap,
         BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
         )
@@ -330,7 +331,7 @@ namespace GeneratedSaxParser
         if ( !prefixBufferStartPos )
             return toEnum(buffer, bufferEnd, failed, enumMap, baseConversionFunctionPtr);
 
-        //find first whitespace in buffer 
+        //find first whitespace in buffer
         const ParserChar* bufferPos = *buffer;
         while ( !Utils::isWhiteSpace(*bufferPos) )
             ++bufferPos;

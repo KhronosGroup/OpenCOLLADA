@@ -3,7 +3,7 @@
 
     This file is part of COLLADAFramework.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -28,18 +28,18 @@ namespace COLLADAFW
         size_t mInitialIndex;
 
     public:
-        IndexList () 
-            : mSetIndex (0)
-            , mName ("")
+        IndexList ()
+            : mName ("")
             , mIndices (0)
-            , mStride (0) 
+            , mStride (0)
+            , mSetIndex (0)
             , mInitialIndex (0)
         {}
         IndexList ( size_t setIndex, size_t stride, UIntValuesArray& indices )
-            : mSetIndex (setIndex)
-            , mName ("")
+            : mName ("")
             , mIndices (indices)
-            , mStride (stride) 
+            , mStride (stride)
+            , mSetIndex (setIndex)
             , mInitialIndex (0)
         {}
         virtual ~IndexList () {}
@@ -48,10 +48,10 @@ namespace COLLADAFW
 		const UIntValuesArray& getIndices () const { return mIndices; }
         unsigned int getIndex ( size_t index ) const { return mIndices [index]; }
         size_t getIndicesCount () const { return mIndices.getCount (); }
-        
+
         void setSetIndex ( size_t inputSet ) { mSetIndex = inputSet; }
         size_t getSetIndex () const { return mSetIndex; }
-        
+
         void setStride ( size_t stride ) { mStride = stride; }
         size_t getStride () const { return mStride; }
 

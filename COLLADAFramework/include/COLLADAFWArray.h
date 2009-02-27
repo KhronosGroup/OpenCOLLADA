@@ -3,7 +3,7 @@ Copyright (c) 2008 NetAllied Systems GmbH
 
 This file is part of COLLADAFramework.
 
-Licensed under the MIT Open Source License, 
+Licensed under the MIT Open Source License,
 for details please see LICENSE file or the website
 http://www.opensource.org/licenses/mit-license.php
 */
@@ -18,7 +18,7 @@ namespace COLLADAFW
 {
 	/** Array template that simplifies handling of C-arrays.*/
 	template<class Type>
-	class Array 	
+	class Array
 	{
 	public:
 		/** Flags to control the behavior of the array.*/
@@ -26,7 +26,7 @@ namespace COLLADAFW
 		{
 			NO_FLAGS						= 0x0000,
 
-			/** The memory will be released in the destructor. The memory must be allocated using 
+			/** The memory will be released in the destructor. The memory must be allocated using
 			allocateMemory()*/
 			RELEASE_MEMORY					= 0x0001,
 			/** Keep the ownership of the data, when this array is assigned to another one, i.e.
@@ -63,23 +63,23 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Array() 
+		Array()
             : mData (0)
             , mCount (0)
             , mCapacity (0)
-            , mFlags(DEFAULT_CONSTRUCTOR_FLAGS) 
+            , mFlags(DEFAULT_CONSTRUCTOR_FLAGS)
         {}
 
 		/** Constructor. */
-		Array(int flags) 
+		Array(int flags)
 			: mData (0)
 			, mCount (0)
 			, mCapacity (0)
-			, mFlags(flags) 
+			, mFlags(flags)
 		{}
 
 		/** Constructor. */
-        Array ( Type* data, size_t count ) 
+        Array ( Type* data, size_t count )
             : mData ( data )
             , mCapacity ( count )
             , mCount ( count )
@@ -107,17 +107,17 @@ namespace COLLADAFW
 
 		/** Set the C-style data array.*/
 		void setData ( Type* data, const size_t count )
-        { 
-            mData = data; 
-            mCount = count; 
+        {
+            mData = data;
+            mCount = count;
             mCapacity = count;
         }
 
 		/** Set the C-style data array and count.*/
 		void setData ( Type* data, const size_t count, const size_t capacity )
-        { 
-            mData = data; 
-            mCount = count; 
+        {
+            mData = data;
+            mCount = count;
             mCapacity = capacity;
         }
 
@@ -134,8 +134,8 @@ namespace COLLADAFW
         /** The number of elements, for which is currently memory allocated. */
         void setCapacity ( const size_t capacity ) { mCapacity = capacity; }
 
-		/** Allocates memory for @a size elements of type DataType. 
-        Must not be called more than once, without calling releaseMemory() in between. 
+		/** Allocates memory for @a size elements of type DataType.
+        Must not be called more than once, without calling releaseMemory() in between.
 		The memory must be released using releaseMemory().
 		@param size The size of the array
 		@param flags Flags that allow to control, how the memory should be released.*/
@@ -145,12 +145,12 @@ namespace COLLADAFW
             mFlags |= flags;
         }
 
-		/** Releases the memory that has been allocated by allocateMemory(). 
+		/** Releases the memory that has been allocated by allocateMemory().
         Must not be called, if the memory has not been allocated by allocateMemory().*/
 		void releaseMemory ()
-        { 
-            delete[] mData; 
-            setData ( 0, 0, 0 ); 
+        {
+            delete[] mData;
+            setData ( 0, 0, 0 );
         }
 
 		/** Returns true if the array is empty, false otherwise.*/

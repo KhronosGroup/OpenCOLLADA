@@ -3,7 +3,7 @@
 
     This file is part of GeneratedSaxParser.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -11,6 +11,7 @@
 #include "GeneratedSaxParserUtils.h"
 #include <math.h>
 #include <memory>
+#include <string.h>
 
 namespace GeneratedSaxParser
 {
@@ -38,7 +39,7 @@ namespace GeneratedSaxParser
         StringHash g;
         const ParserChar* bufferPos = *text;
 
-        if ( !bufferPos ) 
+        if ( !bufferPos )
         {
             failed = true;
             *text = bufferPos;
@@ -52,9 +53,9 @@ namespace GeneratedSaxParser
             return 0;
         }
         // Skip leading white spaces
-        while ( isWhiteSpace(*bufferPos) ) 
+        while ( isWhiteSpace(*bufferPos) )
         {
-            ++bufferPos; 
+            ++bufferPos;
             if ( bufferPos == bufferEnd )
             {
                 failed = true;
@@ -131,7 +132,7 @@ namespace GeneratedSaxParser
 	FloatingPointType Utils::toFloatingPoint(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
 	{
 		const ParserChar* s = *buffer;
-		if ( !s ) 
+		if ( !s )
 		{
 			failed = true;
 			return 0.0f;
@@ -145,9 +146,9 @@ namespace GeneratedSaxParser
 		}
 
 		// Skip leading white spaces
-		while ( isWhiteSpace(*s) ) 
+		while ( isWhiteSpace(*s) )
 		{
-			++s; 
+			++s;
 			if ( s == bufferEnd )
 			{
 				failed = true;
@@ -158,11 +159,11 @@ namespace GeneratedSaxParser
 
 		double value = 0.0;
 		FloatingPointType sign = 1.0;
-		if (*s == '-') 
-		{ 
-			++s; 
-			sign = -1.0; 
-		} 
+		if (*s == '-')
+		{
+			++s;
+			sign = -1.0;
+		}
 		else if (*s == '+')
 		{
 			++s;
@@ -190,12 +191,12 @@ namespace GeneratedSaxParser
 				}
 			}
 
-			if ( isdigit(*s) ) 
+			if ( isdigit(*s) )
 			{
 				value = value * 10 + (*s - '0');
 				charBeforeDecimalPoint = true;
 			}
-			else 
+			else
 				break;
 			++s;
 		}
@@ -223,13 +224,13 @@ namespace GeneratedSaxParser
 				}
 			}
 
-			if ( isdigit(*s) ) 
+			if ( isdigit(*s) )
 			{
 				value = value * 10 + (*s - '0');
 				--power;
 				charAfterDecimalPoint = true;
 			}
-			else 
+			else
 				break;
 			++s;
 		}
@@ -267,7 +268,7 @@ namespace GeneratedSaxParser
 	FloatingPointType Utils::toFloatingPoint(const ParserChar* buffer, bool& failed)
 	{
 		const ParserChar* s = buffer;
-		if ( !s ) 
+		if ( !s )
 		{
 			failed = true;
 			return 0.0f;
@@ -280,9 +281,9 @@ namespace GeneratedSaxParser
 		}
 
 		// Skip leading white spaces
-		while ( isWhiteSpace(*s) ) 
+		while ( isWhiteSpace(*s) )
 		{
-			++s; 
+			++s;
 			if ( *s == '\0' )
 			{
 				failed = true;
@@ -292,11 +293,11 @@ namespace GeneratedSaxParser
 
 		double value = 0.0;
 		FloatingPointType sign = 1.0;
-		if (*s == '-') 
-		{ 
-			++s; 
-			sign = -1.0; 
-		} 
+		if (*s == '-')
+		{
+			++s;
+			sign = -1.0;
+		}
 		else if (*s == '+')
 		{
 			++s;
@@ -314,12 +315,12 @@ namespace GeneratedSaxParser
 				return (FloatingPointType)value * sign;
 			}
 
-			if ( isdigit(*s) ) 
+			if ( isdigit(*s) )
 			{
 				value = value * 10 + (*s - '0');
 				charBeforeDecimalPoint = true;
 			}
-			else 
+			else
 				break;
 			++s;
 		}
@@ -345,13 +346,13 @@ namespace GeneratedSaxParser
 				}
 			}
 
-			if ( isdigit(*s) ) 
+			if ( isdigit(*s) )
 			{
 				value = value * 10 + (*s - '0');
 				--power;
 				charAfterDecimalPoint = true;
 			}
-			else 
+			else
 				break;
 			++s;
 		}
@@ -385,7 +386,7 @@ namespace GeneratedSaxParser
     FloatingPointType Utils::toFloatingPoint(const ParserChar** buffer, bool& failed)
     {
         const ParserChar* s = *buffer;
-        if ( !s ) 
+        if ( !s )
         {
             failed = true;
             return 0.0f;
@@ -399,9 +400,9 @@ namespace GeneratedSaxParser
         }
 
         // Skip leading white spaces
-        while ( isWhiteSpace(*s) ) 
+        while ( isWhiteSpace(*s) )
         {
-            ++s; 
+            ++s;
             if ( *s == '\0' )
             {
                 failed = true;
@@ -412,11 +413,11 @@ namespace GeneratedSaxParser
 
         double value = 0.0;
         FloatingPointType sign = 1.0;
-        if (*s == '-') 
-        { 
-            ++s; 
-            sign = -1.0; 
-        } 
+        if (*s == '-')
+        {
+            ++s;
+            sign = -1.0;
+        }
         else if (*s == '+')
         {
             ++s;
@@ -444,12 +445,12 @@ namespace GeneratedSaxParser
                 }
             }
 
-            if ( isdigit(*s) ) 
+            if ( isdigit(*s) )
             {
                 value = value * 10 + (*s - '0');
                 charBeforeDecimalPoint = true;
             }
-            else 
+            else
                 break;
             ++s;
         }
@@ -477,13 +478,13 @@ namespace GeneratedSaxParser
                 }
             }
 
-            if ( isdigit(*s) ) 
+            if ( isdigit(*s) )
             {
                 value = value * 10 + (*s - '0');
                 --power;
                 charAfterDecimalPoint = true;
             }
-            else 
+            else
                 break;
             ++s;
         }
@@ -562,7 +563,7 @@ namespace GeneratedSaxParser
 	IntegerType Utils::toInteger(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
 	{
 		const ParserChar* s = *buffer;
-		if ( !s ) 
+		if ( !s )
 		{
 			failed = true;
 			return 0;
@@ -576,9 +577,9 @@ namespace GeneratedSaxParser
 		}
 
 		// Skip leading white spaces
-		while ( isWhiteSpace(*s) ) 
+		while ( isWhiteSpace(*s) )
 		{
-			++s; 
+			++s;
 			if ( s == bufferEnd )
 			{
 				failed = true;
@@ -591,17 +592,17 @@ namespace GeneratedSaxParser
 		IntegerType sign = 1;
 		if ( signedInteger )
 		{
-			if (*s == '-') 
-			{ 
-				++s; 
-				sign = -1; 
-			} 
+			if (*s == '-')
+			{
+				++s;
+				sign = -1;
+			}
 			else if (*s == '+')
 			{
 				++s;
 			}
 		}
-		
+
 		bool digitFound = false;
 		while (true)
 		{
@@ -624,12 +625,12 @@ namespace GeneratedSaxParser
 				}
 			}
 
-			if ( isdigit(*s) ) 
+			if ( isdigit(*s) )
 			{
 				value = value * 10 + (*s - '0');
 				digitFound = true;
 			}
-			else 
+			else
 				break;
 			++s;
 		}
@@ -656,7 +657,7 @@ namespace GeneratedSaxParser
 	IntegerType Utils::toInteger(const ParserChar* buffer, bool& failed)
 	{
 		const ParserChar* s = buffer;
-		if ( !s ) 
+		if ( !s )
 		{
 			failed = true;
 			return 0;
@@ -669,9 +670,9 @@ namespace GeneratedSaxParser
 		}
 
 		// Skip leading white spaces
-		while ( isWhiteSpace(*s) ) 
+		while ( isWhiteSpace(*s) )
 		{
-			++s; 
+			++s;
 			if ( *s == '\0' )
 			{
 				failed = true;
@@ -683,11 +684,11 @@ namespace GeneratedSaxParser
 		IntegerType sign = 1;
 		if ( signedInteger )
 		{
-			if (*s == '-') 
-			{ 
-				++s; 
-				sign = -1; 
-			} 
+			if (*s == '-')
+			{
+				++s;
+				sign = -1;
+			}
 			else if (*s == '+')
 			{
 				++s;
@@ -703,12 +704,12 @@ namespace GeneratedSaxParser
 				return value * sign;
 			}
 
-			if ( isdigit(*s) ) 
+			if ( isdigit(*s) )
 			{
 				value = value * 10 + (*s - '0');
 				digitFound = true;
 			}
-			else 
+			else
 			{
 				break;
 			}
@@ -734,7 +735,7 @@ namespace GeneratedSaxParser
     IntegerType Utils::toInteger(const ParserChar** buffer, bool& failed)
     {
         const ParserChar* s = *buffer;
-        if ( !s ) 
+        if ( !s )
         {
             failed = true;
             return 0;
@@ -748,9 +749,9 @@ namespace GeneratedSaxParser
         }
 
         // Skip leading white spaces
-        while ( isWhiteSpace(*s) ) 
+        while ( isWhiteSpace(*s) )
         {
-            ++s; 
+            ++s;
             if ( *s == '\0' )
             {
                 failed = true;
@@ -763,11 +764,11 @@ namespace GeneratedSaxParser
         IntegerType sign = 1;
         if ( signedInteger )
         {
-            if (*s == '-') 
-            { 
-                ++s; 
-                sign = -1; 
-            } 
+            if (*s == '-')
+            {
+                ++s;
+                sign = -1;
+            }
             else if (*s == '+')
             {
                 ++s;
@@ -796,12 +797,12 @@ namespace GeneratedSaxParser
                 }
             }
 
-            if ( isdigit(*s) ) 
+            if ( isdigit(*s) )
             {
                 value = value * 10 + (*s - '0');
                 digitFound = true;
             }
-            else 
+            else
                 break;
             ++s;
         }
@@ -1005,7 +1006,7 @@ namespace GeneratedSaxParser
 
 	//--------------------------------------------------------------------
 	bool Utils::toBool( const ParserChar* buffer, bool& failed  )
-	{	
+	{
 		if ( (strcmp((char*)buffer, "1") == 0) || (strcmp((char*)buffer, "true") == 0) )
 		{
 			failed = false;
@@ -1024,7 +1025,7 @@ namespace GeneratedSaxParser
 
 	//--------------------------------------------------------------------
 	bool Utils::toBool( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed  )
-	{	
+	{
 		const ParserChar* s = *buffer;
 		if ( s == bufferEnd )
 		{
@@ -1033,9 +1034,9 @@ namespace GeneratedSaxParser
 		}
 
 		// Skip leading white spaces
-		while ( isWhiteSpace(*s) ) 
+		while ( isWhiteSpace(*s) )
 		{
-			++s; 
+			++s;
 			if ( s == bufferEnd )
 			{
 				failed = true;
@@ -1121,14 +1122,14 @@ namespace GeneratedSaxParser
 				}
 			}
 		}
-			
+
 		failed = true;
 		return false;
 	}
 
     //--------------------------------------------------------------------
     bool Utils::toBool( const ParserChar** buffer, bool& failed  )
-    {	
+    {
         const ParserChar* s = *buffer;
         if ( *s == '\0' )
         {
@@ -1137,9 +1138,9 @@ namespace GeneratedSaxParser
         }
 
         // Skip leading white spaces
-        while ( isWhiteSpace(*s) ) 
+        while ( isWhiteSpace(*s) )
         {
-            ++s; 
+            ++s;
             if ( *s == '\0' )
             {
                 failed = true;

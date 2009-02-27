@@ -3,7 +3,7 @@
 
     This file is part of GeneratedSaxParser.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -18,7 +18,7 @@
 namespace GeneratedSaxParser
 {
 
-	xmlSAXHandler LibxmlSaxParser::SAXHANDLER = 
+	xmlSAXHandler LibxmlSaxParser::SAXHANDLER =
 	{
 		0,                 		           //internalSubsetSAXFunc internalSubset;
 		0,                 		           //isStandaloneSAXFunc isStandalone;
@@ -54,7 +54,7 @@ namespace GeneratedSaxParser
 		mParserContext(0)
 	{
 	}
-	
+
 	//--------------------------------------------------------------------
 	LibxmlSaxParser::~LibxmlSaxParser()
 	{
@@ -66,17 +66,16 @@ namespace GeneratedSaxParser
 
 			if ( !mParserContext )
 			{
-				getParser()->getErrorHandler()->handleError(ParserError(ParserError::SEVERITY_CRITICAL, 
-					ParserError::ERROR_COULD_NOT_OPEN_FILE, 
-					0,
-					0,
-					0,
-					0,
-					fileName));
+				ParserError error(ParserError::SEVERITY_CRITICAL,
+						ParserError::ERROR_COULD_NOT_OPEN_FILE,
+						0,
+						0,
+						0,
+						0,
+						fileName);
+				getParser()->getErrorHandler()->handleError(error);
 				return false;
 			}
-
-			xmlSAXHandlerPtr oldSaxContext = mParserContext->sax;
 
 			if (mParserContext->sax != (xmlSAXHandlerPtr) &xmlDefaultSAXHandler)
 			{
@@ -91,7 +90,7 @@ namespace GeneratedSaxParser
 
 			mParserContext->sax = 0;
 
-			if ( mParserContext->myDoc ) 
+			if ( mParserContext->myDoc )
 			{
 				xmlFreeDoc(mParserContext->myDoc);
 				mParserContext->myDoc = 0;
@@ -154,13 +153,14 @@ namespace GeneratedSaxParser
 	{
 		xmlParserCtxtPtr context = (xmlParserCtxtPtr)ctx;
 		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)(context->userData);
-		thisObject->getParser()->getErrorHandler()->handleError(ParserError(ParserError::SEVERITY_CRITICAL, 
-			ParserError::ERROR_XML_PERSER_ERROR, 
-			0,
-			0,
-			0,
-			0,
-			msg));
+		ParserError error(ParserError::SEVERITY_CRITICAL,
+					ParserError::ERROR_XML_PERSER_ERROR,
+					0,
+					0,
+					0,
+					0,
+					msg);
+		thisObject->getParser()->getErrorHandler()->handleError(error);
 	}
 
 } // namespace GeneratedSaxParser

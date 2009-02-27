@@ -3,7 +3,7 @@
 
     This file is part of COLLADAFramework.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -22,26 +22,26 @@ namespace COLLADAFW
 
 
     //-----------------------------
-	MeshPrimitive::MeshPrimitive() 
-		: mMaterialId(0)
-	    , mPrimitiveType ( UNDEFINED_PRIMITIVE_TYPE )
+	MeshPrimitive::MeshPrimitive()
+		: mPrimitiveType ( UNDEFINED_PRIMITIVE_TYPE )
+	    , mFaceCount ( 0 )
+		, mMaterialId(0)
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
 		, mColorIndicesArray(UIntValuesArray::OWNER)
 		, mUVCoordIndicesArray(UIntValuesArray::OWNER)
-		, mFaceCount ( 0 )
 	{
 	}
 
     //-----------------------------
-	MeshPrimitive::MeshPrimitive( PrimitiveType primitiveType ) 
-		: mMaterialId(0)
-		,  mPrimitiveType ( primitiveType )
+	MeshPrimitive::MeshPrimitive( PrimitiveType primitiveType )
+		: mPrimitiveType ( primitiveType )
+		, mFaceCount ( 0 )
+		, mMaterialId(0)
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
 		, mColorIndicesArray(UIntValuesArray::OWNER)
 		, mUVCoordIndicesArray(UIntValuesArray::OWNER)
-		, mFaceCount ( 0 )
 	{
 	}
 
@@ -51,7 +51,7 @@ namespace COLLADAFW
         switch ( mPrimitiveType )
         {
         case TRIANGLES:
-            return 3; 
+            return 3;
             break;
         case TRIANGLE_FANS:
             return ((Trifans*)this)->getGroupedVerticesVertexCount ( faceIndex );
@@ -77,18 +77,18 @@ namespace COLLADAFW
     }
 
     //-----------------------------
-    void MeshPrimitive::appendEdgeIndices ( 
-        std::vector<Edge>& edgeIndices, 
+    void MeshPrimitive::appendEdgeIndices (
+        std::vector<Edge>& edgeIndices,
         std::map<Edge,size_t>& edgeIndicesMap )
     {
         COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = this->getPrimitiveType ();
         switch ( primitiveType )
         {
         case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
-            appendTrifansEdgeIndices ( edgeIndices, edgeIndicesMap ); 
+            appendTrifansEdgeIndices ( edgeIndices, edgeIndicesMap );
             break;
         case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
-            appendTristripsEdgeIndices ( edgeIndices, edgeIndicesMap ); 
+            appendTristripsEdgeIndices ( edgeIndices, edgeIndicesMap );
             break;
         case COLLADAFW::MeshPrimitive::POLYGONS:
         case COLLADAFW::MeshPrimitive::POLYLIST:
@@ -102,8 +102,8 @@ namespace COLLADAFW
     }
 
     //-----------------------------
-    void MeshPrimitive::appendPolygonEdgeIndices ( 
-        std::vector<Edge>& edgeIndices, 
+    void MeshPrimitive::appendPolygonEdgeIndices (
+        std::vector<Edge>& edgeIndices,
         std::map<Edge,size_t>& edgeIndicesMap )
     {
         // Get the number of grouped vertex elements (faces, holes, tristrips or trifans).
@@ -124,7 +124,7 @@ namespace COLLADAFW
         // Iterate over the faces and get the edges.
         for ( int faceIndex=0; faceIndex<groupedVertexElementsCount; ++faceIndex )
         {
-            // The number of edges is always the same 
+            // The number of edges is always the same
             // than the number of vertices in the current face.
             int numEdges = getGroupedVerticesVertexCount ( (size_t)faceIndex );
 
@@ -144,7 +144,7 @@ namespace COLLADAFW
 
                 Edge edge ( edgeStartVertexIndex, edgeEndVertexIndex );
 
-                // Appends the data of an edge to the edgeIndices list, 
+                // Appends the data of an edge to the edgeIndices list,
                 // if it is not already in the list.
                 appendEdge ( edge, edgeIndices, edgeIndicesMap );
             }
@@ -156,8 +156,8 @@ namespace COLLADAFW
     }
 
     //-----------------------------
-    void MeshPrimitive::appendTrifansEdgeIndices ( 
-        std::vector<Edge>& edgeIndices, 
+    void MeshPrimitive::appendTrifansEdgeIndices (
+        std::vector<Edge>& edgeIndices,
         std::map<Edge,size_t>& edgeIndicesMap )
     {
         // Get the position indices.
@@ -172,7 +172,7 @@ namespace COLLADAFW
 
         // Iterate over the grouped vertices and get the edges for every group.
         COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) this;
-        COLLADAFW::Trifans::VertexCountArray& vertexCountArray = 
+        COLLADAFW::Trifans::VertexCountArray& vertexCountArray =
             trifans->getGroupedVerticesVertexCountArray ();
         size_t groupedVertexElementsCount = vertexCountArray.getCount ();
         for ( size_t groupedVerticesIndex=0; groupedVerticesIndex<groupedVertexElementsCount; ++groupedVerticesIndex )
@@ -202,12 +202,12 @@ namespace COLLADAFW
 
                 Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
 
-                // Appends the data of an edge to the edgeIndices list, 
+                // Appends the data of an edge to the edgeIndices list,
                 // if it is not already in the list.
                 appendEdge ( edge, edgeIndices, edgeIndicesMap );
 
                 // Reset the edge counter, if we have all three edges of a triangle.
-                if ( triangleEdgeCounter == 3 ) 
+                if ( triangleEdgeCounter == 3 )
                 {
                     triangleEdgeCounter = 0;
                     --positionIndex;
@@ -221,8 +221,8 @@ namespace COLLADAFW
     }
 
     //-----------------------------
-    void MeshPrimitive::appendTristripsEdgeIndices ( 
-        std::vector<Edge>& edgeIndices, 
+    void MeshPrimitive::appendTristripsEdgeIndices (
+        std::vector<Edge>& edgeIndices,
         std::map<Edge,size_t>& edgeIndicesMap )
     {
         // Get the position indices.
@@ -237,7 +237,7 @@ namespace COLLADAFW
 
         // Iterate over the grouped vertices and get the edges for every group.
         COLLADAFW::Tristrips* trifans = (COLLADAFW::Tristrips*) this;
-        COLLADAFW::Tristrips::VertexCountArray& vertexCountArray = 
+        COLLADAFW::Tristrips::VertexCountArray& vertexCountArray =
             trifans->getGroupedVerticesVertexCountArray ();
         size_t groupedVertexElementsCount = vertexCountArray.getCount ();
         for ( size_t groupedVerticesIndex=0; groupedVerticesIndex<groupedVertexElementsCount; ++groupedVerticesIndex )
@@ -265,12 +265,12 @@ namespace COLLADAFW
 
                 Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
 
-                // Appends the data of an edge to the edgeIndices list, 
+                // Appends the data of an edge to the edgeIndices list,
                 // if it is not already in the list.
                 appendEdge ( edge, edgeIndices, edgeIndicesMap );
 
                 // Reset the edge counter, if we have all three edges of a triangle.
-                if ( triangleEdgeCounter == 3 ) 
+                if ( triangleEdgeCounter == 3 )
                 {
                     triangleEdgeCounter = 0;
                     --positionIndex;
@@ -314,7 +314,7 @@ namespace COLLADAFW
         case COLLADAFW::MeshPrimitive::POLYLIST:
             {
                 COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) this;
-                COLLADAFW::Polygons::VertexCountArray& vertexCountArray = 
+                COLLADAFW::Polygons::VertexCountArray& vertexCountArray =
                     polygons->getGroupedVerticesVertexCountArray ();
                 groupedVertexElementsCount = (int) vertexCountArray.getCount ();
             }
@@ -329,9 +329,9 @@ namespace COLLADAFW
     }
 
     //-----------------------------
-    void MeshPrimitive::appendEdge ( 
-        const Edge& edge, 
-        std::vector<Edge>& edgeIndices, 
+    void MeshPrimitive::appendEdge (
+        const Edge& edge,
+        std::vector<Edge>& edgeIndices,
         std::map<Edge,size_t>& edgeIndicesMap )
     {
         // Check if the current edge already exists in the map of edges.
@@ -342,7 +342,7 @@ namespace COLLADAFW
         edgeIndicesMap[edge] = edgeIndices.size ();
 
         // Push the new edge into the vector of edge indices.
-        // We use it to write the list of edges into 
+        // We use it to write the list of edges into
         // the maya file. The vector is already sorted.
         edgeIndices.push_back ( edge );
     }

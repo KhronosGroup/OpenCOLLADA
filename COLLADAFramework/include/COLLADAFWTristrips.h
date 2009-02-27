@@ -3,7 +3,7 @@
 
     This file is part of COLLADAFramework.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -18,7 +18,7 @@
 namespace COLLADAFW
 {
 
-	/** The Tristrips class holds an arbitrary number of tristrips. 
+	/** The Tristrips class holds an arbitrary number of tristrips.
 	Data Format:
 	The UIntValuesArray returned by getFaceVertexCountArray() contains the number of vertices of each tristrip.
 	*/
@@ -27,11 +27,11 @@ namespace COLLADAFW
 	private:
 		/** The number of tristrips.*/
 		size_t mTristripCount;
-	
+
 	public:
 
         /** Constructor. */
-		Tristrips() : MeshPrimitiveWithFaceVertexCount(TRIANGLE_STRIPS), mTristripCount(0){}
+		Tristrips() : MeshPrimitiveWithFaceVertexCount<unsigned int>(TRIANGLE_STRIPS), mTristripCount(0){}
 
         /** Destructor. */
 		virtual ~Tristrips(){}

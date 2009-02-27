@@ -3,7 +3,7 @@
 
     This file is part of COLLADAStreamWriter.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -12,6 +12,7 @@
 #include "COLLADABUUtils.h"
 #include "COLLADABUPlatform.h"
 
+#include <string.h>
 
 namespace COLLADABU
 {
@@ -79,31 +80,31 @@ namespace COLLADABU
     //---------------------------------
     String Utils::translateToXML ( const String &srcString )
     {
-        String returnString = ""; 
+        String returnString = "";
 
         for ( unsigned int i=0; i<srcString.length(); ++i )
         {
             switch ( srcString[i])
             {
-            case '\r':  
+            case '\r':
                 returnString += "&#13";
                 break;
-            case '<':  
+            case '<':
                 returnString += "&lt;";
                 break;
-            case '>': 
+            case '>':
                 returnString += "&gt;";
                 break;
-            case '&':  
+            case '&':
                 returnString += "&amp;";
                 break;
-            case '"':  
+            case '"':
                 returnString += "&quot;";
                 break;
-            case '\'':  
+            case '\'':
                 returnString += "&apos;";
                 break;
-            default :   
+            default :
                 returnString += srcString[i];
             }
         }
@@ -133,7 +134,7 @@ namespace COLLADABU
     void Utils::stringFindAndReplace ( String &source, const String searchString, const String replaceString )
     {
         size_t found = source.find ( searchString );
-        if ( found != String::npos ) 
+        if ( found != String::npos )
         {
             size_t searchStrLength = searchString.length();
             size_t replaceStrLength = replaceString.length();
@@ -153,24 +154,24 @@ namespace COLLADABU
     }
 
     //--------------------------------
-    bool Utils::equalsIgnoreCase ( const String& s1, const String& s2 ) 
+    bool Utils::equalsIgnoreCase ( const String& s1, const String& s2 )
     {
         String::const_iterator it1=s1.begin();
         String::const_iterator it2=s2.begin();
 
         // has the end of at least one of the strings been reached?
-        while ( (it1!=s1.end()) && (it2!=s2.end()) ) 
-        { 
+        while ( (it1!=s1.end()) && (it2!=s2.end()) )
+        {
             if(::toupper(*it1) != ::toupper(*it2)) //letters differ?
                 // return -1 to indicate 'smaller than', 1 otherwise
-                return false; 
+                return false;
             // proceed to the next character in each string
             ++it1;
             ++it2;
         }
         size_t size1=s1.size(), size2=s2.size();// cache lengths
         //return -1,0 or 1 according to strings' lengths
-        if (size1==size2) 
+        if (size1==size2)
             return true;
         return false;
     }
@@ -192,7 +193,7 @@ namespace COLLADABU
         size_t start, stop;
 
         start = text.find_first_not_of(separators);
-        while ((start >= 0) && (start < n)) 
+        while ((start >= 0) && (start < n))
         {
             stop = text.find_first_of(separators, start);
             if ((stop < 0) || (stop > n)) stop = n;

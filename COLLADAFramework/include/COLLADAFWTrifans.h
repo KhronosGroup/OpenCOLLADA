@@ -3,7 +3,7 @@
 
     This file is part of COLLADAFramework.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -25,11 +25,11 @@ namespace COLLADAFW
 		/** The number of trifans.*/
 		size_t mTrifanCount;
 
-	
+
 	public:
 
         /** Constructor. */
-		Trifans() : MeshPrimitiveWithFaceVertexCount(TRIANGLE_FANS), mTrifanCount(0){}
+		Trifans() : MeshPrimitiveWithFaceVertexCount<unsigned int>(TRIANGLE_FANS), mTrifanCount(0){}
 
         /** Destructor. */
 		virtual ~Trifans(){}

@@ -3,7 +3,7 @@
 
     This file is part of COLLADASaxFrameworkLoader.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -41,7 +41,7 @@ namespace COLLADASaxFWL
 
 
 	public:
-	
+
 		/** Returns a pointer to the collada loader. */
 		virtual Loader* getColladaLoader () =0;
 
@@ -51,38 +51,38 @@ namespace COLLADASaxFWL
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer();
 
-		/** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been 
-		passed to this method before, the same 	COLLADAFW::UniqueId will be returned, if not, a 
+		/** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been
+		passed to this method before, the same 	COLLADAFW::UniqueId will be returned, if not, a
 		new one is created.
 		@param uri The uri of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
 		const COLLADAFW::UniqueId& getUniqueId(const String& uriString, COLLADAFW::ClassId classId);
 
-		/** Returns the COLLADAFW::UniqueId of the element with id  @a colladaId in the current file. 
-		If the id within this file has been passed to this method before, the same 	COLLADAFW::UniqueId 
+		/** Returns the COLLADAFW::UniqueId of the element with id  @a colladaId in the current file.
+		If the id within this file has been passed to this method before, the same 	COLLADAFW::UniqueId
 		will be returned, if not, a new one is created.
 		@param id The collada id of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
 		COLLADAFW::UniqueId getUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId );
 
-		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has 
-		been passed to this method before, the same COLLADAFW::UniqueId will be returned, if not, 
+		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has
+		been passed to this method before, the same COLLADAFW::UniqueId will be returned, if not,
 		a new one is created.
 		@param url The url of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
 		const COLLADAFW::UniqueId& getUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId );
 
-		/** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new 
+		/** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new
 		COLLADAFW::UniqueId will be created and returned. Use this member for collada elements that
 		do not have an id.
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
 		COLLADAFW::UniqueId getUniqueId(COLLADAFW::ClassId classId);
 
-		/** Returns the GeometryMaterialIdInfo object of the geometry with @a uniqueId. If this method has 
+		/** Returns the GeometryMaterialIdInfo object of the geometry with @a uniqueId. If this method has
 		not been called before with the same uniqueId, an empty GeometryMaterialIdInfo is created, added to
 		the map and returned.*/
 		GeometryMaterialIdInfo& getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId);
@@ -112,7 +112,7 @@ namespace COLLADASaxFWL
 			if ( stlContainerSize > 0 )
 			{
 				clonedArray.allocMemory( stlContainerSize);
-				StlContainer::const_iterator it = stlContainer.begin();
+				typename StlContainer::const_iterator it = stlContainer.begin();
 				size_t index = 0;
 				for (; it != stlContainer.end(); ++it, ++index)
 				{
@@ -125,7 +125,7 @@ namespace COLLADASaxFWL
 
 
 	protected:
-		/** Deletes the part loader mPartLoader, if it is not needed anymore. Always call this method, 
+		/** Deletes the part loader mPartLoader, if it is not needed anymore. Always call this method,
 		when creating a new FilePartLoader and switching to it.*/
 		void deleteFilePartLoader();
 

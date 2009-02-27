@@ -3,7 +3,7 @@
 
     This file is part of COLLADAFramework.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -18,22 +18,22 @@
 namespace COLLADAFW
 {
 
-    /** The Polygons class holds an arbitrary number of polygons. They can be convex or concave 
+    /** The Polygons class holds an arbitrary number of polygons. They can be convex or concave
 	and can have holes.
 	Data Format:
 	The IntValuesArray returned by getFaceVertexCountArray() contains the number of vertices of each polygon
-	or hole, respectively. Positive numbers indicate the number of vertices of a polygon, negative numbers the 
-	the number of vertices of holes. Each hole belongs to the last polygon found before itself. A polygon can 
+	or hole, respectively. Positive numbers indicate the number of vertices of a polygon, negative numbers the
+	the number of vertices of holes. Each hole belongs to the last polygon found before itself. A polygon can
 	have an arbitrary number of holes. The first value in the IntValuesArray must always be positive.
 	*/
 	class Polygons : public MeshPrimitiveWithFaceVertexCount<int>
 	{
 	private:
-	
+
 	public:
 
         /** Constructor. */
-		Polygons() : MeshPrimitiveWithFaceVertexCount(POLYGONS){}
+		Polygons() : MeshPrimitiveWithFaceVertexCount<int>(POLYGONS){}
 
         /** Destructor. */
 		virtual ~Polygons(){}

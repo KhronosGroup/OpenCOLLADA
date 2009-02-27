@@ -3,7 +3,7 @@
 
     This file is part of COLLADAFramework.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -29,7 +29,7 @@ namespace COLLADAFW
         enum DataType
         {
             DATA_TYPE_FLOAT,
-            DATA_TYPE_DOUBLE, 
+            DATA_TYPE_DOUBLE,
             DATA_TYPE_UNKNOWN
         };
 
@@ -62,22 +62,22 @@ namespace COLLADAFW
 
         /** Constructor. */
         MeshVertexData ()
-            : mType ( DATA_TYPE_UNKNOWN )
+            : mInputInfosArray (0)
+            , mType ( DATA_TYPE_UNKNOWN )
             , mValuesF(FloatArray::OWNER)
             , mValuesD(DoubleArray::OWNER)
-            , mInputInfosArray (0)
         {}
 
         /** Constructor. */
 		MeshVertexData ( DataType type )
-            : mType ( type )
+            : mInputInfosArray (0)
+            , mType ( type )
             , mValuesF(FloatArray::OWNER)
             , mValuesD(DoubleArray::OWNER)
-            , mInputInfosArray (0)
         {}
 
         /** Destructor. */
-        virtual ~MeshVertexData() 
+        virtual ~MeshVertexData()
         {
             for ( size_t i=0; i<mInputInfosArray.getCount(); ++i )
             {
@@ -149,24 +149,24 @@ namespace COLLADAFW
         }
 
         /** The stride at the specified index. */
-        String getName ( size_t index ) const 
-        { 
-            assert ( index <= mInputInfosArray.getCount() ); 
-            return mInputInfosArray[index]->mName; 
+        String getName ( size_t index ) const
+        {
+            assert ( index <= mInputInfosArray.getCount() );
+            return mInputInfosArray[index]->mName;
         }
 
         /** The stride at the specified index. */
-        size_t getStride ( size_t index ) const 
-        { 
-            assert ( index <= mInputInfosArray.getCount() ); 
-            return mInputInfosArray[index]->mStride; 
+        size_t getStride ( size_t index ) const
+        {
+            assert ( index <= mInputInfosArray.getCount() );
+            return mInputInfosArray[index]->mStride;
         }
 
         /** The stride can differ, so we have to set. */
-        size_t getLength ( size_t index ) const 
-        { 
-            assert ( index <= mInputInfosArray.getCount() ); 
-            return mInputInfosArray[index]->mLength; 
+        size_t getLength ( size_t index ) const
+        {
+            assert ( index <= mInputInfosArray.getCount() );
+            return mInputInfosArray[index]->mLength;
         }
 
         /** Returns the position values array as a template array. */
@@ -179,17 +179,17 @@ namespace COLLADAFW
         }
 
         /** Returns the position values array as a float array. */
-        const FloatArray* getFloatValues () const 
+        const FloatArray* getFloatValues () const
         {
-            if ( mType == DATA_TYPE_FLOAT ) 
+            if ( mType == DATA_TYPE_FLOAT )
                 return ( ArrayPrimitiveType<float>* ) &mValuesF;
             return 0;
         }
 
         /** Returns the position values array as a double array. */
-        const DoubleArray* getDoubleValues () const 
+        const DoubleArray* getDoubleValues () const
         {
-            if ( mType == DATA_TYPE_DOUBLE ) 
+            if ( mType == DATA_TYPE_DOUBLE )
                 return ( ArrayPrimitiveType<double>* ) &mValuesD;
             return 0;
         }
@@ -197,7 +197,7 @@ namespace COLLADAFW
         /** Returns the position values array as a float array. */
         FloatArray* getFloatValues ()
         {
-            if ( mType == DATA_TYPE_FLOAT ) 
+            if ( mType == DATA_TYPE_FLOAT )
                 return ( ArrayPrimitiveType<float>* ) &mValuesF;
             return 0;
         }
@@ -205,49 +205,49 @@ namespace COLLADAFW
         /** Returns the position values array as a double array. */
         DoubleArray* getDoubleValues ()
         {
-            if ( mType == DATA_TYPE_DOUBLE ) 
+            if ( mType == DATA_TYPE_DOUBLE )
                 return ( ArrayPrimitiveType<double>* ) &mValuesD;
             return 0;
         }
 
-//         /** Appends the values of the input array to the end of values array. 
-//         The programmer must ensure, that the memory allocated, 
+//         /** Appends the values of the input array to the end of values array.
+//         The programmer must ensure, that the memory allocated,
 //         was large enough to hold another element. No new memory is allocated.*/
 //         template <class Type>
 //         bool appendValues ( const ArrayPrimitiveType <Type>& valuesArray ) const
 //         {
-//             if ( mType == DATA_TYPE_DOUBLE ) 
+//             if ( mType == DATA_TYPE_DOUBLE )
 //             {
 //                 mValuesD->appendValues ( valuesArray );
 //                 return true;
 //             }
-//             else if ( mType == DATA_TYPE_FLOAT ) 
+//             else if ( mType == DATA_TYPE_FLOAT )
 //             {
 //                 mValuesF->appendValues ( valuesArray );
 //                 return true;
 //             }
-// 
+//
 //             return false;
 //         }
 
         /** Set the C-style data array.*/
         void setData ( float* data, const size_t count )
-        { 
+        {
             if ( mType == DATA_TYPE_FLOAT ) mValuesF.setData ( data, count );
         }
 
         /** Set the C-style data array.*/
         void setData ( double* data, const size_t count )
-        { 
+        {
             if ( mType == DATA_TYPE_DOUBLE ) mValuesD.setData ( data, count );
         }
 
-        /** Appends the values of the input array to the end of values array. 
-        The programmer must ensure, that the memory allocated, 
+        /** Appends the values of the input array to the end of values array.
+        The programmer must ensure, that the memory allocated,
         was large enough to hold another element. No new memory is allocated.*/
-        bool appendValues ( const FloatArray& valuesArray ) 
+        bool appendValues ( const FloatArray& valuesArray )
         {
-            if ( mType == DATA_TYPE_FLOAT ) 
+            if ( mType == DATA_TYPE_FLOAT )
             {
                 mValuesF.appendValues ( valuesArray );
                 return true;
@@ -256,12 +256,12 @@ namespace COLLADAFW
             return false;
         }
 
-        /** Appends the values of the input array to the end of values array. 
-        The programmer must ensure, that the memory allocated, 
+        /** Appends the values of the input array to the end of values array.
+        The programmer must ensure, that the memory allocated,
         was large enough to hold another element. No new memory is allocated.*/
-        bool appendValues ( const DoubleArray& valuesArray ) 
+        bool appendValues ( const DoubleArray& valuesArray )
         {
-            if ( mType == DATA_TYPE_DOUBLE ) 
+            if ( mType == DATA_TYPE_DOUBLE )
             {
                 mValuesD.appendValues ( valuesArray );
                 return true;

@@ -3,7 +3,7 @@
 
     This file is part of COLLADABaseUtils.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -14,6 +14,7 @@
 #include "COLLADABUMathPrerequisites.h"
 #include "COLLADABUMathVector3.h"
 #include <memory>
+#include <string.h>
 
 // NOTE.  The (x,y,z) coordinate system is assumed to be right-handed.
 // Coordinate axis rotation matrices are of the form

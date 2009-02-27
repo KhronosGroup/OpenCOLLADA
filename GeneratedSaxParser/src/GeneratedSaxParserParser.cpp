@@ -3,7 +3,7 @@
 
     This file is part of GeneratedSaxParser.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -24,7 +24,7 @@ namespace GeneratedSaxParser
 		, mErrorHandler(errorHandler)
 	{
 	}
-	
+
 	//--------------------------------------------------------------------
 	Parser::~Parser()
 	{
@@ -36,7 +36,6 @@ namespace GeneratedSaxParser
 	{
 		if ( !string )
 			return 0;
-		size_t length = 0;
 		const xmlChar* pos = string;
 		while ( *pos != 0)
 			pos++;

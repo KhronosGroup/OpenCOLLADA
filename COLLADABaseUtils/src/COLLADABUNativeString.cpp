@@ -3,7 +3,7 @@
 
     This file is part of COLLADABaseUtils.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -12,6 +12,8 @@
 #include "COLLADABUNativeString.h"
 #include "COLLADABUStringUtils.h"
 #include "COLLADABUPlatform.h"
+
+#include <string>
 
 #ifdef COLLADABU_OS_WIN
 #include <Windows.h>
@@ -55,17 +57,11 @@ namespace COLLADABU
 		dest[ wideString.length() ] = 0; // null termination
 		this->assign( dest );
 		delete[] dest;
-#elif defined (COLLADABU_OS_LINUX || COLLADABU_OS_MAC)
+#elif defined (COLLADABU_OS_LINUX) || defined (COLLADABU_OS_MAC)
 //# error check if this really works on linux
 		size_t maxStringLength = wcstombs( 0, wideString.c_str(), 0 ) + 1; // wideString.length()*MB_CUR_MAX + 1;
 		char* dest = new char[ maxStringLength ];
-		size_t bytes = wcstombs( dest, wideString.c_str(), maxStringLength );
-
-		if ( bytes == -1 )
-		{
-			//throw Exception(Exception::ERROR_WIDE_2_NATIVE, "Could not convert from wide string to native string.");
-		}
-
+		wcstombs( dest, wideString.c_str(), maxStringLength );
 
 		this->assign( dest );
 		delete[] dest;
@@ -84,17 +80,12 @@ namespace COLLADABU
 		WideString returnValue( dest );
 		delete[] dest;
 		return returnValue;
-#elif defined (COLLADABU_OS_LINUX || COLLADABU_OS_MAC)
+#elif defined (COLLADABU_OS_LINUX) || defined (COLLADABU_OS_MAC)
 //# error check if this really works on linux
 
 		size_t maxStringLength = length() + 1;
 		wchar_t* dest = new wchar_t[ maxStringLength ];
-		size_t bytes = mbstowcs( dest, string.c_str(), maxStringLength );
-
-		if ( bytes == -1 )
-		{
-			//throw Exception(Exception::ERROR_NATIVE_2_WIDE, "Could not convert from native string to wide string.");
-		}
+		mbstowcs( dest, this->c_str(), maxStringLength );
 
 		WideString returnValue( dest );
 
