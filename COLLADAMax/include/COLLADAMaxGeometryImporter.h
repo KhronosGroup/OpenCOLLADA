@@ -22,6 +22,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxImporterBase.h"
 #include "COLLADAFWMeshPrimitive.h"
 
+class MNMap;
+
 namespace COLLADAFW
 {
 	class Geometry;
@@ -155,7 +157,16 @@ namespace COLLADAMax
 		@param startPosition The index of the first vertexs first component in the uvArray
 		@param vertsCount the number of vertices to copy. Must be equal to the number set with MeshMap::setNumFaces()*/
 		template<class NumberArray>
-		void setUVVertices(const NumberArray& uvArray, MeshMap& meshMap, size_t stride, size_t startPosition, size_t vertsCount);
+		void setTriangleMeshUVVertices(const NumberArray& uvArray, MeshMap& meshMap, size_t stride, size_t startPosition, size_t vertsCount);
+
+		/** Sets the uv vertices stored in uvArray into @a meshMap. 
+		@param uvArray The vertices source
+		@param meshMap The mesh map to be filled 
+		@param stride The size of the uv vertex tuples
+		@param startPosition The index of the first vertexs first component in the uvArray
+		@param vertsCount the number of vertices to copy. Must be equal to the number set with MeshMap::setNumFaces()*/
+		template<class NumberArray> 
+		void setPolygonMeshUVVertices(const NumberArray& uvArray, MNMap* meshMap, size_t stride, size_t startPosition, size_t vertsCount);
 
 
 	};
