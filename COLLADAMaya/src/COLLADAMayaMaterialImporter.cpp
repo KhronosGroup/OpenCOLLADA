@@ -173,11 +173,13 @@ namespace COLLADAMaya
              {
                  // Get the unique shading engine name.
                  String shadingEngineName = materialBinding.getName ();
-                 if ( COLLADABU::Utils::equals ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING ))
+                 if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING ))
                      shadingEngineName = SHADING_ENGINE_NAME;
                  shadingEngineName = DocumentImporter::frameworkNameToMayaName ( shadingEngineName );
                  shadingEngineName = mShadingEngineIdList.addId ( shadingEngineName );
-
+                 if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, "initialShadingGroup" ) )
+                     shadingEngineName = INITIAL_SHADING_ENGINE;
+                 
                  // Create a shading engine, if we not already have one.
                  FILE* file = getDocumentImporter ()->getFile ();
                  MayaDM::ShadingEngine shadingEngine ( file, shadingEngineName.c_str () );
@@ -536,7 +538,8 @@ namespace COLLADAMaya
             MayaDM::DependNode* dependNode = it->second;
 
             // connectAttr "lambert2.message" ":defaultShaderList1.shaders" -nextAvailable;
-            connectAttr ( file, dependNode->getMessage (), defaultShaderList.getShaders (shaderIndex) );
+//            connectAttr ( file, dependNode->getMessage (), defaultShaderList.getShaders (shaderIndex) );
+            connectNextAttr ( file, dependNode->getMessage (), defaultShaderList.getShaders () );
             ++shaderIndex;
             ++it;
         }
