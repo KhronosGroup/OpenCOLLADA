@@ -322,11 +322,8 @@ namespace COLLADAMaya
                 // on the number of primitive elements in the geometry.
                 std::vector<GroupInfo>* shadingBindingGroups;
                 shadingBindingGroups = geometryImporter->findShadingBindingGroups ( geometryId, transformId, shadingEngineId );
-                if ( shadingBindingGroups == 0 )    {
-                    MGlobal::displayError ( "No shading binding group defined!" );
-                    std::cerr << "No shading binding group defined!" << endl;
-                    continue;
-                }
+                // There has NOT to be some shading groups!
+                if ( shadingBindingGroups == 0 ) continue;
                 size_t numPrimitiveElements = shadingBindingGroups->size ();
 
                 // Get the maya shading engine object.
@@ -462,10 +459,6 @@ namespace COLLADAMaya
                         {
                             MGlobal::displayError ( "No valid object group for current transform geometry instance!\n" );
                         }
-                    }
-                    else
-                    {
-                        MGlobal::displayError ( "No object group for the transform geometry!\n" );
                     }
 
                     // Reset the name of the mesh object.

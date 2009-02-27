@@ -324,18 +324,23 @@ namespace COLLADAMaya
         // Create the file, if not already done.
         if ( mFile == 0 ) start();
 
-        // TODO
+        // The maya version
         String mayaVersion ( MGlobal::mayaVersion ().asChar () );
         fprintf_s ( mFile, "//Maya ASCII %s scene\n", mayaVersion.c_str () );
-        //         fprintf_s ( mFile, "//Name: %s\n", mMayaAsciiFileURI.getPathFile ().c_str () );
 
-        //         std::stringstream curDate;
-        //         getCurrentDate ( curDate );
-        //         fprintf_s ( mFile, "//Last modified: %s\n", curDate.str () );
-        //         String codeset ( MGlobal::executeCommandStringResult ( "about -codeset" ).asChar () );
-        //         fprintf_s ( mFile, "//Codeset: %s\n", codeset.c_str() );
-
-        fprintf_s ( mFile, "requires maya \"%s\";\n", mayaVersion.c_str () );
+        // We have to change the name on 64 bit machines. 
+        // For example from "2008 x64" to "2008" (64bit Maya doesn't understand it's own version).
+        std::vector<String> words;
+        String separator (" ");
+        COLLADABU::Utils::split ( mayaVersion, separator, words );
+        if ( words.size () == 2 && COLLADABU::Utils::equalsIgnoreCase ( words[1], "x64") ) 
+        {
+            fprintf_s ( mFile, "requires maya \"%s\";\n", words[0].c_str () );
+        }
+        else
+        {
+            fprintf_s ( mFile, "requires maya \"%s\";\n", mayaVersion.c_str () );
+        }
 
         // Get the unit informations.
         const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
