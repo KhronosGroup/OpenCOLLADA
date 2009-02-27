@@ -449,16 +449,23 @@ namespace COLLADAMaya
                     // If there are some object groups, we have to connect them with the geometries.
                     if ( shadingBindingGroups != 0 ) 
                     {
-                        for ( size_t i=0; i<shadingBindingGroups->size (); ++i )
+                        if ( shadingBindingGroups->size () > transformInstance )
                         {
-                            const GroupInfo& groupInfo = (*shadingBindingGroups) [i];
+                            const GroupInfo& groupInfo = (*shadingBindingGroups) [transformInstance];
                             const MayaDM::GroupId& groupId = groupInfo.getGroupId ();
                             const COLLADAFW::MaterialId& currentShadingEngineId = groupInfo.getShadingEngineId ();
 
                             // connectAttr "groupId1.groupId" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGroupId";
                             connectAttr ( file, groupId.getGroupId (), mesh->getObjectGroupId ( primitiveIndex ) );
                         }
-
+                        else
+                        {
+                            MGlobal::displayError ( "No valid object group for current transform geometry instance!\n" );
+                        }
+                    }
+                    else
+                    {
+                        MGlobal::displayError ( "No object group for the transform geometry!\n" );
                     }
 
                     // Reset the name of the mesh object.
