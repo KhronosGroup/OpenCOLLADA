@@ -252,6 +252,11 @@ namespace COLLADAMaya
         // Index of refraction 
         const COLLADAFW::FloatOrParam& indexOfRefraction = commonEffect->getIndexOfRefraction ();
         if ( indexOfRefraction > 0 ) shaderNode->setRefractiveIndex ( indexOfRefraction );
+//         if ( indexOfRefraction.getType () == COLLADAFW::FloatOrParam::FLOAT )
+//         {
+//             float val = indexOfRefraction.getFloatValue (); 
+//             if ( val > 0 ) shaderNode->setRefractiveIndex ( val );
+//         }
 
         // TODO What about the opaque mode???
         // Transparency
@@ -286,6 +291,11 @@ namespace COLLADAMaya
         // Shininess
         const COLLADAFW::FloatOrParam& shininess = commonEffect->getShininess ();
         if ( shininess > 0 ) shaderNode->setEccentricity ( shininess );
+//         if ( shininess.getType () == COLLADAFW::FloatOrParam::FLOAT )
+//         {
+//             float val = shininess.getFloatValue (); 
+//             if ( val > 0 ) shaderNode->setEccentricity ( val );
+//         }
     }
 
     // --------------------------
@@ -296,6 +306,11 @@ namespace COLLADAMaya
         // Shininess
         const COLLADAFW::FloatOrParam& shininess = commonEffect->getShininess ();
         if ( shininess > 0 ) shaderNode->setCosinePower ( shininess );
+//         if ( shininess.getType () == COLLADAFW::FloatOrParam::FLOAT )
+//         {
+//             float val = shininess.getFloatValue (); 
+//             if ( val > 0 ) shaderNode->setCosinePower ( val );
+//         }
     }
 
     // --------------------------
@@ -327,6 +342,12 @@ namespace COLLADAMaya
         // Reflectivity
         const COLLADAFW::FloatOrParam& reflectivity = commonEffect->getReflectivity ();
         if ( reflectivity > 0 ) shaderNode->setReflectivity ( reflectivity );
+//         if ( reflectivity.getType () == COLLADAFW::FloatOrParam::FLOAT )
+//         {
+//             float val = reflectivity.getFloatValue (); 
+//             if ( val > 0 ) shaderNode->setReflectivity ( val );
+//         }
+
 
         // TODO
 //         const COLLADAFW::FloatOrParam::Type& type = reflectivity.getType ();
@@ -411,13 +432,14 @@ namespace COLLADAMaya
 
         const COLLADAFW::SamplerPointerArray& samplers = commonEffect->getSamplerPointerArray ();
         size_t numSamplers = samplers.getCount ();
-        for ( size_t i=0; i<numSamplers; ++i )
+        for ( size_t samplerId=0; samplerId<numSamplers; ++samplerId )
         {
-            COLLADAFW::Sampler* sampler = samplers [i];
+            COLLADAFW::Sampler* sampler = samplers [samplerId];
 
-            size_t samplerId = i;
             const COLLADAFW::UniqueId& imageId = sampler->getSourceImage ();
             COLLADAFW::Sampler::SamplerType samplerType = sampler->getSamplerType ();
+
+            // Push the sampler id in a list of image ids 
 
             switch ( samplerType )
             {
@@ -435,13 +457,14 @@ namespace COLLADAMaya
                     sampler->getMipFilter ();
                     sampler->getMipmapBias ();
                     sampler->getMipmapMaxlevel ();
-                    place2dTexture->setWrapU ( sampler->getWrapP () );
-                    place2dTexture->setWrapV ( sampler->getWrapS () );
+//                     place2dTexture->setWrapU ( sampler->getWrapP () );
+//                     place2dTexture->setWrapV ( sampler->getWrapS () );
                     sampler->getWrapT ();
 
                     // TODO Push the texure placement informations in a list.
                     TexturePlacement* texturePlacement = new TexturePlacement ();
                     texturePlacement->mImageId = imageId;
+                    texturePlacement->mSamplerId = samplerId;
                     texturePlacement->mSamplerType = samplerType;
                     texturePlacement->mTexturePlacementNode = place2dTexture;
                     
@@ -476,6 +499,7 @@ namespace COLLADAMaya
         {
             TexturePlacement* texturePlacement = mTexturePlacements [i];
 
+            size_t samplerId = texturePlacement->mSamplerId;
             COLLADAFW::UniqueId& imageId = texturePlacement->mImageId;
             ImageImporter* imageImporter = getDocumentImporter ()->getImageImporter ();
             const MayaDM::File* imageFile = imageImporter->findMayaImageFile ( imageId );

@@ -117,6 +117,7 @@ namespace COLLADAMaya
         struct TexturePlacement
         {
             COLLADAFW::UniqueId mImageId;
+            size_t mSamplerId;
             COLLADAFW::Sampler::SamplerType mSamplerType;
             MayaDM::DependNode* mTexturePlacementNode;
         };

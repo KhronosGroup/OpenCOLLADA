@@ -509,7 +509,7 @@ namespace COLLADAMaya
                 unsigned int normalIndex = normalIndices [ j ];
 
                 // Get the position in the values list to read.
-                unsigned int pos = normalIndex * stride;
+                unsigned int pos = normalIndex * (unsigned int)stride;
 
                 // Write the normal values on the index values.
                 const COLLADAFW::MeshVertexData::DataType type = normals.getType ();
@@ -547,7 +547,7 @@ namespace COLLADAMaya
         const COLLADAFW::MeshVertexData& uvCoords = mesh->getUVCoords ();
         size_t sumUVSetPoints = uvCoords.getNumInputInfos ();
         if ( sumUVSetPoints == 0 ) return;
-        meshNode.setUvSize ( sumUVSetPoints );
+        meshNode.setUvSize ( (double)sumUVSetPoints );
 
         // Write the values 
         size_t initialIndex = 0;
@@ -1191,7 +1191,7 @@ namespace COLLADAMaya
                 unsigned int currentIndex = indexList->getIndex ( currentIndexPosition );
                 // Decrement the index values
                 size_t initialIndex = indexList->getInitialIndex ();
-                polyFace.mu[i].uvIdValue [j] = currentIndex - initialIndex;
+                polyFace.mu[i].uvIdValue [j] = currentIndex - (unsigned int)initialIndex;
             }
         }
         // Increment the current uv set index for the number of edges.
@@ -1228,7 +1228,7 @@ namespace COLLADAMaya
                 unsigned int currentIndex = indexList->getIndex ( currentIndexPosition );
                 // Decrement the index values
                 size_t initialIndex = indexList->getInitialIndex ();
-                polyFace.mc[i].colorIdValue [j] = currentIndex - initialIndex;
+                polyFace.mc[i].colorIdValue [j] = currentIndex - (unsigned int)initialIndex;
             }
         }
         // Increment the current uv set index for the number of edges.

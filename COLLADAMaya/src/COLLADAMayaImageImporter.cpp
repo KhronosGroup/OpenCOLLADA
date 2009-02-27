@@ -92,7 +92,7 @@ namespace COLLADAMaya
             const MayaDM::File& imageFile = it->second;
 
             // connectAttr "file1.message" ":defaultTextureList1.textures" -nextAvailable;
-            connectAttr ( file, imageFile.getMessage (), defaultTextureList.getTextures ( textureIndex ) );
+            connectNextAttr ( file, imageFile.getMessage (), defaultTextureList.getTextures () );
             ++textureIndex;
 
             // Connect the image file out color with the material's texture attribute.
@@ -104,7 +104,7 @@ namespace COLLADAMaya
             // connectAttr "file1.message" "materialInfo1.texture" -nextAvailable;
 
             // TODO Get all effects, which use this image file.
-//            findImageEffects ( imageId );
+            //findImageEffects ( imageId );
 //            connectAttr ( file, imageFile.getOutColor (), effect.getColor () );
 
             ++it;

@@ -24,7 +24,7 @@
 namespace COLLADAMaya
 {
 
-    /** TODO Documentation */
+    /** Imports the image textures. */
 	class ImageImporter : BaseImporter
     {
     private:

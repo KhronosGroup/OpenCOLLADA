@@ -76,6 +76,16 @@ namespace COLLADAFW
         /** The type of the current element. */
         const COLLADAFW::FloatOrParam::Type& getType () const { return mType; }
 
+        /** The value is represented by a literal floating-point scalar, for example:
+        <float> 3.14 </float>. The sid attribute is optional. */
+        const float getFloatValue () const { return mFloatValue; }
+        void setFloatValue ( const float val ) { mFloatValue = val; }
+
+        /** The value is represented by a reference to a previously defined parameter that can be 
+        directly cast to a floatingpoint scalar. See main entry. */
+        const COLLADAFW::Param& getParam () const { return mParam; }
+        void setParam ( const COLLADAFW::Param& val ) { mParam = val; }
+
 	private:
 
         /** Disable default copy ctor. */
