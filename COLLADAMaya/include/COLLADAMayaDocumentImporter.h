@@ -46,6 +46,11 @@ namespace COLLADAMaya
 
     private:
 
+        static const String ASCII_PATH_EXTENSION;
+        static const String ASCII_PATH_EXTENSION_DEBUG;
+
+    private:
+
         /** The name of the collada file. */
         String mColladaFileName;
 

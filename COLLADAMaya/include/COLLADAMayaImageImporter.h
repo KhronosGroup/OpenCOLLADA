@@ -13,6 +13,7 @@
 
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaBaseImporter.h"
+#include "COLLADAMayaEffectImporter.h"
 
 #include "COLLADABUIDList.h"
 
@@ -31,11 +32,11 @@ namespace COLLADAMaya
 
         /** The standard name for image without name. */
         static const String IMAGE_NAME;
-        static const String DEFAULT_TEXTURE_LIST;
 
     private:
 
         typedef std::map<COLLADAFW::UniqueId, MayaDM::File> UniqueIdMayaImagesMap;
+
 	private:
 	
         /**
@@ -61,18 +62,13 @@ namespace COLLADAMaya
         */
         void importImage ( const COLLADAFW::Image* image );
 
-        /**
-         * Write the connections between files and defaultTextureList and effects.
-         */
-        void writeConnections ();
+    public:
 
         /**
          * Returns a pointer to the maya image file with the given image id, 
          * or NULL, if it is not in the list.
          */
         const MayaDM::File* findMayaImageFile ( const COLLADAFW::UniqueId& imageId );
-
-    private:
 
     };
 

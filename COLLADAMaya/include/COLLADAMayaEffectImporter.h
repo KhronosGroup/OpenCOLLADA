@@ -22,6 +22,7 @@
 #include "MayaDMLambert.h"
 #include "MayaDMBlinn.h"
 #include "MayaDMPhong.h"
+#include "MayaDMFile.h"
 
 
 namespace COLLADAMaya
@@ -41,11 +42,10 @@ namespace COLLADAMaya
         /** The standard name for a place2dTexture. */
         static const String PLACE_3D_TEXTURE_NAME;
 
+        /** The name of the default texture list. */
+        static const String DEFAULT_TEXTURE_LIST;
+
     public:
-
-        typedef std::map<COLLADAFW::UniqueId, MayaDM::Lambert*> UniqueIdLambertMap;
-
-    private:
 
         /**
          * The enumeration of valid shader attributes. 
@@ -77,16 +77,42 @@ namespace COLLADAMaya
          * The type of the effect depends on the attribute. 
          * It's either an lambert, blinn or phong shader.
          */
-        struct TextureAttribute
+        struct ShaderNodeAttribute
         {
+            size_t mSamplerId;
             MayaDM::Lambert* mShaderNode;
             ShaderType mShaderType;
             ShaderAttribute mShaderAttribute;
         };
 
-    private:
+        /**
+         * Texture placement infos.
+         */
+        struct TexturePlacement
+        {
+            COLLADAFW::UniqueId mImageId;
+            size_t mSamplerId;
+            COLLADAFW::Sampler::SamplerType mSamplerType;
+            MayaDM::DependNode* mTexturePlacementNode;
+        };
 
-        typedef std::map<COLLADAFW::SamplerID, std::vector<TextureAttribute>> SamplerIdShaderNodesMap;
+        /**
+         * Sampler infos.
+         */
+        struct SamplerInfo
+        {
+            COLLADAFW::SamplerID mSamplerId;
+            COLLADAFW::UniqueId mImageId;
+        };
+
+    public:
+
+        typedef std::map<COLLADAFW::UniqueId, std::vector<ShaderNodeAttribute>> UniqueIdShaderNodesMap;
+
+        typedef std::map<COLLADAFW::UniqueId, MayaDM::Lambert*> UniqueIdLambertMap;
+
+        typedef std::vector<SamplerInfo> SamplerInfos;
+        typedef std::map<COLLADAFW::UniqueId, SamplerInfos> UniqueIdSamplerInfosMap;
 
     private:
 
@@ -111,23 +137,24 @@ namespace COLLADAMaya
         UniqueIdLambertMap mMayaEffectMap;
 
         /**
+        * The map holds the unique material id to a effect id.
+        */
+        UniqueIdUniqueIdMap mEffectIdMaterialIdMap;
+
+        /**
          * The map holds for every unique image id the list of placed2dTextures, which use this image.
          */
-        // TODO Push the texure placement in the list of texture placements of the image.
-        struct TexturePlacement
-        {
-            COLLADAFW::UniqueId mImageId;
-            size_t mSamplerId;
-            COLLADAFW::Sampler::SamplerType mSamplerType;
-            MayaDM::DependNode* mTexturePlacementNode;
-        };
         std::vector<TexturePlacement*> mTexturePlacements;
 
         /**
-         * The map holds for every sampler id the shader node attributes, 
-         * which use this sampler image file.
+         * The map holds for every effect the shader node attributes with the sampler image file.
          */
-        SamplerIdShaderNodesMap mSamplerIdShaderNodesMap;
+        UniqueIdShaderNodesMap mEffectShaderNodesMap;
+
+        /**
+         * Holds for every effect a list with sampler infos.
+         */
+        UniqueIdSamplerInfosMap mEffectSamplerInfosMap;
 
     public:
 
@@ -141,7 +168,7 @@ namespace COLLADAMaya
         bool importEffect ( const COLLADAFW::Effect* effect );
 
         /**
-         * Writes the connections of the effect texture placements to the image files.  
+         * Write the connections between files and defaultTextureList and effects.
          */
         void writeConnections ();
 
@@ -155,24 +182,31 @@ namespace COLLADAMaya
         */
         const UniqueIdLambertMap& getMayaEffectMap () const { return mMayaEffectMap; }
 
+        /**
+        * Assigns the given material to the current effect.
+        */
+        void assignMaterial ( const COLLADAFW::UniqueId& effectId, const COLLADAFW::UniqueId& materialId );
+
 	private:
 
         /**
         * Import shader data by type.
         */
         void importShaderData ( 
-            const COLLADAFW::EffectCommon* commonEffect, 
-            const COLLADAFW::Effect* effect );
+            const COLLADAFW::Effect* effect, 
+            const COLLADAFW::EffectCommon* commonEffect );
 
         /**
         * Create the texture placement and push it to the image in a map.
         */
-        void importTexturePlacement ( const COLLADAFW::EffectCommon* commonEffect );
+        void importTexturePlacement ( 
+            const COLLADAFW::Effect* effect, 
+            const COLLADAFW::EffectCommon* commonEffect );
 
         /**
         * The map holds the maya material objects.
         */
-        void appendEffect ( const COLLADAFW::UniqueId& efefctId, MayaDM::Lambert* effectNode );
+        void appendEffect ( const COLLADAFW::UniqueId& effectId, MayaDM::Lambert* effectNode );
 
         /**
          * Imports a blinn shader effect.
@@ -208,6 +242,7 @@ namespace COLLADAMaya
         void importLambertShaderAttributes ( 
             const ShaderType& shaderType, 
             MayaDM::Lambert* shaderNode,
+            const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect );
 
         /**
@@ -216,6 +251,7 @@ namespace COLLADAMaya
         void importReflectShaderAttributes ( 
             const ShaderType& shaderType, 
             MayaDM::Reflect* shaderNode, 
+            const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect );
 
         /**
@@ -237,16 +273,43 @@ namespace COLLADAMaya
          * to the current sampler file id.
          */
         void appendTextureAttribute ( 
-            const COLLADAFW::Texture &texture, 
+            const COLLADAFW::Effect* effect, 
+            const COLLADAFW::Texture& texture, 
             const ShaderType& shaderType, 
             const ShaderAttribute& shaderAttribute, 
             MayaDM::Lambert* shaderNode );
 
-        /** Disable default copy ctor. */
-		EffectImporter( const EffectImporter& pre );
+        /**
+        * The map holds the unique material id to a effect id.
+        */
+        const COLLADAFW::UniqueId* findMaterialId ( const COLLADAFW::UniqueId& effectId );
 
-        /** Disable default assignment operator. */
-		const EffectImporter& operator= ( const EffectImporter& pre );
+        /**
+        * The map holds for every effect the shader node attributes with the sampler image file.
+        */
+        const UniqueIdShaderNodesMap& getEffectShaderNodesMap () const { return mEffectShaderNodesMap; }
+
+        /**
+        * Returns the effect's sampler infos list.
+        */
+        const SamplerInfos* findEffectSamplerInfos ( const COLLADAFW::UniqueId& effectId );
+
+        /**
+        * Writes the connections of the effect texture placements to the image files.  
+        */
+        void connectTexturePlacements ();
+
+        /**
+        * Writes the connections of the textures to the effects.  
+        */
+        void connectTextures ();
+
+        /**
+        * Connects the image file with the shader node attribute.
+        */
+        void connectTextureAttribute ( 
+            const EffectImporter::ShaderNodeAttribute& shaderNodeAttribute, 
+            const MayaDM::File* imageFile );
 
 	};
 

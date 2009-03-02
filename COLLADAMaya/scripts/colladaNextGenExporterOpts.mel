@@ -96,15 +96,15 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 							-ncb 1
 							-v1 false 
 							-l1 "Sampling"
-							-on1 "textFieldGrp -e -en true colladaSamplingFunction; checkBoxGrp -e -en1 true colladaAnimOpts2;"
-							-of1 "textFieldGrp -e -en false colladaSamplingFunction; checkBoxGrp -e -en1 false colladaAnimOpts2;"
+							-on1 "checkBoxGrp -e -en1 true colladaAnimOpts2;"
+							-of1 "checkBoxGrp -e -en1 false colladaAnimOpts2;"
 							colladaIsSampling;
 					
-					textFieldGrp
-							-l "Sampling function"
-							-en false
-							-tx ""
-							colladaSamplingFunction;
+//					textFieldGrp
+//							-l "Sampling function"
+//							-en false
+//							-tx ""
+//							colladaSamplingFunction;
 
 					checkBoxGrp
 							-l " "
@@ -114,9 +114,9 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 							-en1 false
 							colladaAnimOpts2;
 
-					text
-							-l "Read the documentation on how to use the variable sampling function."
-							colladaSamplingInformation;
+//					text
+//							-l "Read the documentation on how to use the variable sampling function."
+//							colladaSamplingInformation;
 
 				setParent ..; // columnLayout
 			setParent ..; // frameLayout
@@ -309,7 +309,7 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaIsSampling;
 					checkBoxGrp -e -en1 $intVal colladaAnimOpts2;
-					textFieldGrp -e -en $intVal colladaSamplingFunction;
+//					textFieldGrp -e -en $intVal colladaSamplingFunction;
 				}
 				else if ( $optionBreakDown[0] == "curveConstrainSampling" )
 				{
@@ -323,7 +323,7 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 				}
 				else if ( $optionBreakDown[0] == "samplingFunction" )
 				{
-					textFieldGrp -e -tx $optionBreakDown[1] colladaSamplingFunction;
+//					textFieldGrp -e -tx $optionBreakDown[1] colladaSamplingFunction;
 				}
 				
 // Export filter
@@ -479,7 +479,7 @@ global proc int colladaNextGenExporterOpts ( string $parent,
  		$currentOptions = $currentOptions + "isSampling=" + `checkBoxGrp -q -v1 colladaIsSampling` + ";";
  		$currentOptions = $currentOptions + "curveConstrainSampling=" + `checkBoxGrp -q -v1 colladaAnimOpts2` + ";";
  		$currentOptions = $currentOptions + "removeStaticCurves=" + `checkBoxGrp -q -v2 colladaAnimOpts2` + ";";
- 		$currentOptions = $currentOptions + "samplingFunction=" + `textFieldGrp -q -tx colladaSamplingFunction` + ";";
+// 		$currentOptions = $currentOptions + "samplingFunction=" + `textFieldGrp -q -tx colladaSamplingFunction` + ";";
 
 // Query filter options
 //

@@ -44,4 +44,25 @@ namespace COLLADAFW
         return true;
     }
 
+    //-------------------------------
+    bool Color::operator== ( const Color& uid ) const
+    {
+        if ( mR != uid.getRed () ) return false;
+        if ( mG != uid.getGreen () ) return false;
+        if ( mB != uid.getBlue () ) return false;
+        if ( mA != uid.getAlpha () ) return false;
+        return true;
+    }
+
+    //-------------------------------
+    bool Color::operator!= ( const Color& uid ) const
+    {
+        if ( mR != uid.getRed () ) return true;
+        if ( mG != uid.getGreen () ) return true;
+        if ( mB != uid.getBlue () ) return true;
+        if ( mA != uid.getAlpha () ) return true;
+        return false;
+    }
+
+
 } // namespace COLLADAFW

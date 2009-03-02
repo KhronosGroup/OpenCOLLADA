@@ -72,14 +72,14 @@ namespace COLLADAMaya
 
         /** True, if the texture files should be copied to the destination folder. */
         mCopyTextures = false;
-
+        
         mIsSampling = false;
         mCurveConstrainSampling = false;
         mRemoveStaticCurves = true;
         mSamplingFunction.clear();
         mExportCameraAsLookat = false;
         mExportTriangles = false;
-
+        
         mExportPolygonMeshes = true;
         mExportLights = true;
         mExportCameras = true;

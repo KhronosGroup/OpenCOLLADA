@@ -11,11 +11,13 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaEffectImporter.h"
 #include "COLLADAMayaImageImporter.h"
+#include "COLLADAMayaMaterialImporter.h"
 
 #include "COLLADAFWEffect.h"
 
 #include <MayaDMPlace2dTexture.h>
 #include <MayaDMPlace3dTexture.h>
+#include <MayaDMDefaultTextureList.h>
 
 
 namespace COLLADAMaya
@@ -24,6 +26,7 @@ namespace COLLADAMaya
     const String EffectImporter::EFFECT_NAME = "Effect";
     const String EffectImporter::PLACE_2D_TEXTURE_NAME = "place2dTexture";
     const String EffectImporter::PLACE_3D_TEXTURE_NAME = "place3dTexture";
+    const String EffectImporter::DEFAULT_TEXTURE_LIST = ":defaultTextureList1";
 
 
     //------------------------------
@@ -67,10 +70,10 @@ namespace COLLADAMaya
             COLLADAFW::EffectCommon* commonEffect = commonEffects [i];
 
             // Import shader data by type.
-            importShaderData ( commonEffect, effect );
+            importShaderData ( effect, commonEffect );
 
             // Create the texture placement and push it to the image in a map.
-            importTexturePlacement ( commonEffect );
+            importTexturePlacement ( effect, commonEffect );
         }
 
         return true;
@@ -78,8 +81,8 @@ namespace COLLADAMaya
 
     // --------------------------
     void EffectImporter::importShaderData ( 
-        const COLLADAFW::EffectCommon* commonEffect, 
-        const COLLADAFW::Effect* effect )
+        const COLLADAFW::Effect* effect, 
+        const COLLADAFW::EffectCommon* commonEffect )
     {
         const COLLADAFW::EffectCommon::ShaderType& shaderType = commonEffect->getShaderType ();
         switch ( shaderType )
@@ -100,6 +103,7 @@ namespace COLLADAMaya
         case COLLADAFW::EffectCommon::SHADER_UNKNOWN:
         default:
             // Import as a lambert shader.
+            MGlobal::displayWarning ( "Unknown shader type!");
             importLambertShader ( effect, commonEffect );
             break;
         }
@@ -126,8 +130,8 @@ namespace COLLADAMaya
 
         // Import the shader attributes.
         importStandardShaderAttributes ( blinn, effect );
-        importLambertShaderAttributes ( SHADER_BLINN, blinn, commonEffect );
-        importReflectShaderAttributes ( SHADER_BLINN, blinn, commonEffect );
+        importLambertShaderAttributes ( SHADER_BLINN, blinn, effect, commonEffect );
+        importReflectShaderAttributes ( SHADER_BLINN, blinn, effect, commonEffect );
         importBlinnShaderAttributes ( blinn, commonEffect );
 
         // Push it into the map.
@@ -155,8 +159,8 @@ namespace COLLADAMaya
 
         // Import the shader attributes.
         importStandardShaderAttributes ( phong, effect );
-        importLambertShaderAttributes ( SHADER_PHONG, phong, commonEffect );
-        importReflectShaderAttributes ( SHADER_PHONG, phong, commonEffect );
+        importLambertShaderAttributes ( SHADER_PHONG, phong, effect, commonEffect );
+        importReflectShaderAttributes ( SHADER_PHONG, phong, effect, commonEffect );
         importPhongShaderAttributes ( phong, commonEffect );
 
         // Push it into the map.
@@ -184,7 +188,7 @@ namespace COLLADAMaya
 
         // Import the shader attributes.
         importStandardShaderAttributes ( lambert, effect );
-        importLambertShaderAttributes ( SHADER_LAMBERT, lambert, commonEffect );
+        importLambertShaderAttributes ( SHADER_LAMBERT, lambert, effect, commonEffect );
 
         // Push it into the map.
         appendEffect ( effectId, lambert );
@@ -197,7 +201,7 @@ namespace COLLADAMaya
     {
         // Get the color and set it into the shader node (if it is a valid color).
         const COLLADAFW::Color& standardColor = effect->getStandardColor ();
-        if ( standardColor.isValid () )
+        if ( standardColor.isValid () && standardColor != COLLADAFW::Color::BLACK )
         {
             shaderNode->setColor ( MayaDM::float3 ( (float)standardColor.getRed (), (float)standardColor.getGreen (), (float)standardColor.getBlue ()) );
         }
@@ -207,6 +211,7 @@ namespace COLLADAMaya
     void EffectImporter::importLambertShaderAttributes ( 
         const ShaderType& shaderType, 
         MayaDM::Lambert* shaderNode, 
+        const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
         // Diffuse color
@@ -215,10 +220,10 @@ namespace COLLADAMaya
         {
             // Get the color and set it into the shader node (if it is a valid color).
             const COLLADAFW::Color& color = diffuse.getColor ();
-            if ( color.isValid () )
+            if ( color.isValid () && color != COLLADAFW::Color::BLACK )
                 shaderNode->setColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
         }
-        else 
+        else if ( diffuse.isTexture () )
         {
             // Get the texure and the current shader attribute.
             const COLLADAFW::Texture& texture = diffuse.getTexture ();
@@ -226,7 +231,7 @@ namespace COLLADAMaya
 
             // Create a shader node attribute and append it on the list of shader node 
             // attributes to the current sampler file id.
-            appendTextureAttribute ( texture, shaderType, shaderAttribute, shaderNode );
+            appendTextureAttribute ( effect, texture, shaderType, shaderAttribute, shaderNode );
         }
 
         // Emission
@@ -235,10 +240,10 @@ namespace COLLADAMaya
         {
             // Get the color and set it into the shader node (if it is a valid color).
             const COLLADAFW::Color& color = emission.getColor ();
-            if ( color.isValid () )
+            if ( color.isValid () && color != COLLADAFW::Color::BLACK )
                 shaderNode->setIncandescence ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
         }
-        else
+        else if ( emission.isTexture () )
         {
             // Get the texure and the current shader attribute.
             const COLLADAFW::Texture& texture = diffuse.getTexture ();
@@ -246,7 +251,7 @@ namespace COLLADAMaya
 
             // Create a shader node attribute and append it on the list of shader node 
             // attributes to the current sampler file id.
-            appendTextureAttribute ( texture, shaderType, shaderAttribute, shaderNode );
+            appendTextureAttribute ( effect, texture, shaderType, shaderAttribute, shaderNode );
         }
 
         // Index of refraction 
@@ -268,10 +273,10 @@ namespace COLLADAMaya
         {
             // Get the color and set it into the shader node (if it is a valid color).
             const COLLADAFW::Color& color = transparent.getColor ();
-            if ( color.isValid () )
+            if ( color.isValid () && color != COLLADAFW::Color::BLACK )
                 shaderNode->setTransparency ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
         }
-        else
+        else if ( transparent.isTexture () )
         {
             // Get the texure and the current shader attribute.
             const COLLADAFW::Texture& texture = diffuse.getTexture ();
@@ -279,7 +284,7 @@ namespace COLLADAMaya
 
             // Create a shader node attribute and append it on the list of shader node 
             // attributes to the current sampler file id.
-            appendTextureAttribute ( texture, shaderType, shaderAttribute, shaderNode );
+            appendTextureAttribute ( effect, texture, shaderType, shaderAttribute, shaderNode );
         }
     }
 
@@ -317,6 +322,7 @@ namespace COLLADAMaya
     void EffectImporter::importReflectShaderAttributes ( 
         const ShaderType& shaderType, 
         MayaDM::Reflect* shaderNode, 
+        const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
         // Reflective
@@ -325,10 +331,10 @@ namespace COLLADAMaya
         {
             // Get the color and set it into the shader node (if it is a valid color).
             const COLLADAFW::Color& color = reflective.getColor ();
-            if ( color.isValid () )
+            if ( color.isValid () && color != COLLADAFW::Color::BLACK )
                 shaderNode->setReflectedColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
         }
-        else
+        else if ( reflective.isTexture () )
         {
             // Get the texure and the current shader attribute.
             const COLLADAFW::Texture& texture = reflective.getTexture ();
@@ -336,7 +342,7 @@ namespace COLLADAMaya
 
             // Create a shader node attribute and append it on the list of shader node 
             // attributes to the current sampler file id.
-            appendTextureAttribute ( texture, shaderType, shaderAttribute, shaderNode );
+            appendTextureAttribute ( effect, texture, shaderType, shaderAttribute, shaderNode );
         }
 
         // Reflectivity
@@ -369,10 +375,10 @@ namespace COLLADAMaya
         {
             // Get the color and set it into the shader node (if it is a valid color).
             const COLLADAFW::Color& color = specular.getColor ();
-            if ( color.isValid () )
+            if ( color.isValid () && color != COLLADAFW::Color::BLACK )
                 shaderNode->setSpecularColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
         }
-        else
+        else if ( specular.isTexture () )
         {
             // Get the texure and the current shader attribute.
             const COLLADAFW::Texture& texture = specular.getTexture ();
@@ -380,7 +386,7 @@ namespace COLLADAMaya
 
             // Create a shader node attribute and append it on the list of shader node 
             // attributes to the current sampler file id.
-            appendTextureAttribute ( texture, shaderType, shaderAttribute, shaderNode );
+            appendTextureAttribute ( effect, texture, shaderType, shaderAttribute, shaderNode );
         }
     }
 
@@ -395,6 +401,18 @@ namespace COLLADAMaya
         return 0;
     }
 
+    // -----------------------------------
+    const COLLADAFW::UniqueId* EffectImporter::findMaterialId ( const COLLADAFW::UniqueId& effectId )
+    {
+        UniqueIdUniqueIdMap::const_iterator it = mEffectIdMaterialIdMap.find ( effectId );
+        if ( it == mEffectIdMaterialIdMap.end () )
+        {
+            return 0;
+        }
+
+        return &(it->second);
+    }
+
     // --------------------------
     void EffectImporter::appendEffect ( 
         const COLLADAFW::UniqueId& effectId, 
@@ -404,27 +422,42 @@ namespace COLLADAMaya
     }
 
     // --------------------------
+    void EffectImporter::assignMaterial ( 
+        const COLLADAFW::UniqueId& effectId, 
+        const COLLADAFW::UniqueId& materialId )
+    {
+        mEffectIdMaterialIdMap [effectId] = materialId;
+    }
+
+    // --------------------------
     void EffectImporter::appendTextureAttribute ( 
+        const COLLADAFW::Effect* effect, 
         const COLLADAFW::Texture &texture, 
         const ShaderType& shaderType, 
         const ShaderAttribute& shaderAttribute, 
         MayaDM::Lambert* shaderNode )
     {
+        // Get the effect id.
+        const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
+
         // Get the current sampler id.
         COLLADAFW::SamplerID samplerId = texture.getSamplerId ();
 
         // Save the samplerId to this effect, so we can do the connection one time later.
-        TextureAttribute shaderNodeAttribute;
+        ShaderNodeAttribute shaderNodeAttribute;
+        shaderNodeAttribute.mSamplerId = samplerId;
         shaderNodeAttribute.mShaderType = shaderType;
         shaderNodeAttribute.mShaderAttribute = shaderAttribute;
         shaderNodeAttribute.mShaderNode = shaderNode;
 
-        // Push the shader node attribute data in the map to the sampler id.
-        mSamplerIdShaderNodesMap [ samplerId ].push_back ( shaderNodeAttribute );
+        // Push the shader node attribute data in the map to the effect.
+        mEffectShaderNodesMap [ effectId ].push_back ( shaderNodeAttribute );
+
     }
 
     // --------------------------
     void EffectImporter::importTexturePlacement ( 
+        const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
         // Get the maya ascii file.
@@ -435,11 +468,18 @@ namespace COLLADAMaya
         for ( size_t samplerId=0; samplerId<numSamplers; ++samplerId )
         {
             COLLADAFW::Sampler* sampler = samplers [samplerId];
-
+            
             const COLLADAFW::UniqueId& imageId = sampler->getSourceImage ();
             COLLADAFW::Sampler::SamplerType samplerType = sampler->getSamplerType ();
 
-            // Push the sampler id in a list of image ids 
+            // Create a sampler info object.
+            SamplerInfo samplerInfo;
+            samplerInfo.mImageId = imageId;
+            samplerInfo.mSamplerId = samplerId;
+
+            // Push the sampler info in the effect's list of sampler infos.
+            const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
+            mEffectSamplerInfosMap [effectId].push_back (samplerInfo);
 
             switch ( samplerType )
             {
@@ -488,7 +528,29 @@ namespace COLLADAMaya
     }
 
     // --------------------------
+    const EffectImporter::SamplerInfos* EffectImporter::findEffectSamplerInfos ( 
+        const COLLADAFW::UniqueId& effectId )
+    {
+        UniqueIdSamplerInfosMap::const_iterator it = mEffectSamplerInfosMap.find ( effectId );
+        if ( it == mEffectSamplerInfosMap.end () )
+        {
+            return 0;
+        }
+        return &(it->second);
+    }
+
+    // --------------------------
     void EffectImporter::writeConnections ()
+    {
+        // Connect the texture placements.
+        connectTexturePlacements ();
+        
+        // Connect the file textures and the effects.
+        connectTextures ();
+    }
+
+    // --------------------------
+    void EffectImporter::connectTexturePlacements ()
     {
         // Get the maya ascii file.
         FILE* file = getDocumentImporter ()->getFile ();
@@ -499,10 +561,11 @@ namespace COLLADAMaya
         {
             TexturePlacement* texturePlacement = mTexturePlacements [i];
 
-            size_t samplerId = texturePlacement->mSamplerId;
             COLLADAFW::UniqueId& imageId = texturePlacement->mImageId;
             ImageImporter* imageImporter = getDocumentImporter ()->getImageImporter ();
             const MayaDM::File* imageFile = imageImporter->findMayaImageFile ( imageId );
+
+            size_t samplerId = texturePlacement->mSamplerId;
 
             COLLADAFW::Sampler::SamplerType samplerType = texturePlacement->mSamplerType;
             switch ( samplerType )
@@ -544,5 +607,172 @@ namespace COLLADAMaya
             }
         }
     }
+
+    //------------------------------
+    void EffectImporter::connectTextures ()
+    {
+        // Get the maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // Get the current image importer.
+        ImageImporter* imageImporter = getDocumentImporter ()->getImageImporter ();
+
+        //  Create the defaultTextureList object
+        MayaDM::DefaultTextureList defaultTextureList ( file, DEFAULT_TEXTURE_LIST, "", false );
+
+        EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
+        const UniqueIdShaderNodesMap& effectShaderNodesMap = effectImporter->getEffectShaderNodesMap ();
+        UniqueIdShaderNodesMap::const_iterator it = effectShaderNodesMap.begin ();
+        while ( it != effectShaderNodesMap.end () )
+        {
+            const COLLADAFW::UniqueId& effectId = it->first;
+
+            const std::vector<ShaderNodeAttribute>& shaderNodeAttributes = it->second;
+            for ( size_t i=0; i<shaderNodeAttributes.size (); ++i )
+            {
+                // Get the current shader node attribute.
+                const ShaderNodeAttribute& shaderNodeAttribute = shaderNodeAttributes [i];
+
+                // Get the current sampler id.
+                const COLLADAFW::SamplerID& samplerId = shaderNodeAttribute.mSamplerId;
+
+                // Get the effect's sampler infos
+                const SamplerInfos* samplerInfos = effectImporter->findEffectSamplerInfos ( effectId );
+                if ( samplerInfos == 0 )
+                {
+                    MGlobal::displayError ( "No sampler info for effect available! ");
+                    continue;
+                }
+
+                size_t numSamplers = samplerInfos->size ();
+                for ( size_t i=0; i<numSamplers; ++i )
+                {
+                    const SamplerInfo samplerInfo = (*samplerInfos) [i];
+
+                    if ( samplerId == samplerInfo.mSamplerId )
+                    {
+                        const COLLADAFW::UniqueId& imageId = samplerInfo.mImageId;
+                        const MayaDM::File* imageFile = imageImporter->findMayaImageFile ( imageId );
+
+                        // connectAttr "file1.message" ":defaultTextureList1.textures" -nextAvailable;
+                        connectNextAttr ( file, imageFile->getMessage (), defaultTextureList.getTextures () );
+
+                        // Connect the image file out color with the material's texture attribute.
+                        // connectAttr "file1.outColor" "lambert2.color";
+                        connectTextureAttribute ( shaderNodeAttribute, imageFile );
+
+                        // Get the current effect's material materialInfo object.
+                        const COLLADAFW::UniqueId* materialId = effectImporter->findMaterialId ( effectId );
+                        if ( materialId == 0 )
+                        {
+                            MGlobal::displayError ( "No material for the current effect! ");
+                            continue;
+                        }
+
+                        // Get the maya materialInfo object.
+                        MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
+                        MaterialImporter::ShadingData* shadingData = materialImporter->findShaderData ( *materialId );
+                        if ( shadingData == 0 ) 
+                        {
+                            MGlobal::displayError ( "No material info for current material!" );
+                            continue;
+                        }
+                        const MayaDM::MaterialInfo& materialInfo = shadingData->getMaterialInfo ();
+
+                        // Connect the image file message with the materials materialInfo texture attribute.
+                        // connectAttr "file1.message" "materialInfo1.texture" -nextAvailable;
+                        connectNextAttr ( file, imageFile->getMessage (), materialInfo.getTexture () );
+                    }
+                }
+            }
+
+            ++it;
+        }
+    }
+
+    //------------------------------
+    void EffectImporter::connectTextureAttribute ( 
+        const ShaderNodeAttribute& shaderNodeAttribute, 
+        const MayaDM::File* imageFile )
+    {
+        // Get the maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        const EffectImporter::ShaderAttribute& shaderAttribute = shaderNodeAttribute.mShaderAttribute;
+        switch ( shaderAttribute )
+        {
+        case EffectImporter::ATTR_COLOR:
+            {
+                MayaDM::Lambert* shaderNode = shaderNodeAttribute.mShaderNode;
+                connectAttr ( file, imageFile->getOutColor (), shaderNode->getColor () );
+                break;
+            }
+        case EffectImporter::ATTR_INCANDESCENE:
+            {
+                MayaDM::Lambert* shaderNode = shaderNodeAttribute.mShaderNode;
+                connectAttr ( file, imageFile->getOutColor(), shaderNode->getIncandescence () );
+                break;
+            }
+        case EffectImporter::ATTR_REFLECTIVE:
+            {
+                MayaDM::Lambert* shaderNode = shaderNodeAttribute.mShaderNode;
+                switch ( shaderNodeAttribute.mShaderType )
+                {
+                case EffectImporter::SHADER_BLINN:
+                    {
+                        MayaDM::Blinn* blinnNode = ( MayaDM::Blinn* ) shaderNode;
+                        connectAttr ( file, imageFile->getOutColor (), blinnNode->getReflectedColor () );
+                        break;
+                    }
+                case EffectImporter::SHADER_PHONG:
+                    {
+                        MayaDM::Phong* phongNode = ( MayaDM::Phong* ) shaderNode;
+                        connectAttr ( file, imageFile->getOutColor (), phongNode->getReflectedColor () );
+                        break;
+                    }
+                default:
+                    MGlobal::displayWarning ( "No valid shader type for shader node attribute ATTR_REFLECTIVE.\n");
+                    break;
+                }
+                break;
+            }
+        case EffectImporter::ATTR_SPECULAR:
+            {
+                MayaDM::Lambert* shaderNode = shaderNodeAttribute.mShaderNode;
+                switch ( shaderNodeAttribute.mShaderType )
+                {
+                case EffectImporter::SHADER_BLINN:
+                    {
+                        MayaDM::Blinn* blinnNode = ( MayaDM::Blinn* ) shaderNode;
+                        connectAttr ( file, imageFile->getOutColor (), blinnNode->getSpecularColor () );
+                        break;
+                    }
+                case EffectImporter::SHADER_PHONG:
+                    {
+                        MayaDM::Phong* phongNode = ( MayaDM::Phong* ) shaderNode;
+                        connectAttr ( file, imageFile->getOutColor (), phongNode->getSpecularColor () );
+                        break;
+                    }
+                default:
+                    MGlobal::displayWarning ( "No valid shader type for shader node attribute ATTR_SPECULAR.\n");
+                    break;
+                }
+                break;
+            }
+        case EffectImporter::ATTR_TRANSPARENT:
+            {
+                MayaDM::Lambert* shaderNode = shaderNodeAttribute.mShaderNode;
+                connectAttr ( file, imageFile->getOutColor (), shaderNode->getTransparency () );
+                break;
+            }
+        case EffectImporter::ATTR_UNKNOWN:
+        default:
+            {
+                MGlobal::displayWarning ( "No valid shader node attribute!\n");
+                break;
+            }
+        }
+    }
+
 
 } // namespace COLLADAMaya

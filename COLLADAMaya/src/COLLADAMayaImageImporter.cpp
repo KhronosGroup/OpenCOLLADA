@@ -10,15 +10,13 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaImageImporter.h"
-
-#include <MayaDMDefaultTextureList.h>
+#include "COLLADAMayaMaterialImporter.h"
 
 
 namespace COLLADAMaya
 {
 
     const String ImageImporter::IMAGE_NAME = "Image";
-    const String ImageImporter::DEFAULT_TEXTURE_LIST = ":defaultTextureList1";
 
 
     //------------------------------
@@ -61,54 +59,15 @@ namespace COLLADAMaya
         mImageIdMayaImageFileMap [ imageId ] = mayaImage;
     }
 
-    // -----------------------------------
+    //------------------------------
     const MayaDM::File* ImageImporter::findMayaImageFile ( const COLLADAFW::UniqueId& imageId )
     {
         UniqueIdMayaImagesMap::const_iterator it = mImageIdMayaImageFileMap.find ( imageId );
-        if ( it == mImageIdMayaImageFileMap.end () )
+        if ( it != mImageIdMayaImageFileMap.end () )
         {
-            return 0;
+            return &(it->second);
         }
-
-        return &(it->second);
+        return 0;
     }
 
-    //------------------------------
-    void ImageImporter::writeConnections ()
-    {
-        // Get the maya ascii file.
-        FILE* file = getDocumentImporter ()->getFile ();
-
-        //  Create the defaultTextureList object
-        MayaDM::DefaultTextureList defaultTextureList ( file, DEFAULT_TEXTURE_LIST, "", false );
-
-        size_t textureIndex = 0;
-
-        // Get the created images.
-        UniqueIdMayaImagesMap::iterator it = mImageIdMayaImageFileMap.begin ();
-        while ( it != mImageIdMayaImageFileMap.end () )
-        {
-            const COLLADAFW::UniqueId& imageId = it->first;
-            const MayaDM::File& imageFile = it->second;
-
-            // connectAttr "file1.message" ":defaultTextureList1.textures" -nextAvailable;
-            connectNextAttr ( file, imageFile.getMessage (), defaultTextureList.getTextures () );
-            ++textureIndex;
-
-            // Connect the image file out color with the material's texture attribute.
-            // connectAttr "file1.outColor" "lambert2.color";
-
-            //mSamplerIdShaderNodesMap
-
-            // Connect the image file message with the materials materialInfo texture attribute.
-            // connectAttr "file1.message" "materialInfo1.texture" -nextAvailable;
-
-            // TODO Get all effects, which use this image file.
-            //findImageEffects ( imageId );
-//            connectAttr ( file, imageFile.getOutColor (), effect.getColor () );
-
-            ++it;
-        }
-
-    }
 } // namespace COLLADAMaya

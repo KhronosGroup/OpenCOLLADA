@@ -88,7 +88,8 @@ namespace COLLADAMaya
                 // the same and the y component of all the tangents is 0. 
                 if ( ExportOptions::removeStaticCurves() )
                 {
-                    if ( result == kISANIM_Curve && curveFn.isStatic() ) result = kISANIM_None;
+                    if ( result == kISANIM_Curve && curveFn.isStatic() ) 
+                        result = kISANIM_None;
                 }
 
                 return result;
@@ -193,7 +194,7 @@ namespace COLLADAMaya
     {
         mSamplingTimes.clear();
 
-        // [NMartz] Avoid any potential precision accumulation problems by using the MTime class as an iterator
+        // Avoid any potential precision accumulation problems by using the MTime class as an iterator
         MTime startT = animationStartTime();
         MTime endT = animationEndTime();
         for ( MTime currentT = startT; currentT <= endT; ++currentT )
@@ -202,6 +203,7 @@ namespace COLLADAMaya
         }
     }
 
+    // -------------------------------------------
     // Sample animated values for a given plug
     bool AnimationHelper::sampleAnimatedPlug ( 
         AnimationSampleCache* cache,
@@ -277,8 +279,6 @@ namespace COLLADAMaya
 
         return true;
     }
-
-
 
     // -------------------------------------------
     bool AnimationHelper::sampleAnimatedTransform ( AnimationSampleCache* cache,

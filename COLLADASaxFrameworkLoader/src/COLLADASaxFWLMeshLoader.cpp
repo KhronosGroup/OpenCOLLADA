@@ -446,73 +446,71 @@ namespace COLLADASaxFWL
 			}
 
 
+            // Look if the current offset is a texcoord offset.
+            size_t numTexCoordinates = mTexCoordList.size ();
+            for ( size_t j=0; j<numTexCoordinates; ++j )
             {
-                // Look if the current offset is a texcoord offset.
-                size_t numTexCoordinates = mTexCoordList.size ();
-                for ( size_t j=0; j<numTexCoordinates; ++j )
+                PrimitiveInput& texCoord = mTexCoordList [j];
+                if ( mCurrentOffset == texCoord.mOffset )
                 {
-                    PrimitiveInput& texCoord = mTexCoordList [j];
-                    if ( mCurrentOffset == texCoord.mOffset )
+                    COLLADAFW::ArrayPrimitiveType<COLLADAFW::IndexList*>& texCoordIndicesArray = 
+                        mCurrentMeshPrimitive->getUVCoordIndicesArray ();
+
+                    // Resize the array if necessary
+                    if ( texCoordIndicesArray.getCount () != numTexCoordinates ) 
                     {
-                        COLLADAFW::ArrayPrimitiveType<COLLADAFW::IndexList*>& texCoordIndicesArray = 
-                            mCurrentMeshPrimitive->getUVCoordIndicesArray ();
-
-                        // Resize the array if necessary
-                        if ( texCoordIndicesArray.getCount () != numTexCoordinates ) 
+                        // Be careful: no constructor is called!
+                        texCoordIndicesArray.reallocMemory ( numTexCoordinates );
+                        for ( size_t k=0; k<numTexCoordinates; ++k )
                         {
-                            // Be careful: no constructor is called!
-                            texCoordIndicesArray.reallocMemory ( numTexCoordinates );
-                            for ( size_t k=0; k<numTexCoordinates; ++k )
-                            {
-                                COLLADAFW::IndexList* texCoordIndices = new COLLADAFW::IndexList ();
-                                PrimitiveInput& tex = mTexCoordList [k];
-                                texCoordIndices->setSetIndex ( tex.mSetIndex );
-                                texCoordIndices->setName ( tex.mName );
-                                texCoordIndices->setStride ( tex.mStride );
-                                texCoordIndices->setInitialIndex ( tex.mInitialIndex );
+                            COLLADAFW::IndexList* texCoordIndices = new COLLADAFW::IndexList ();
+                            PrimitiveInput& tex = mTexCoordList [k];
+                            texCoordIndices->setSetIndex ( tex.mSetIndex );
+                            texCoordIndices->setName ( tex.mName );
+                            texCoordIndices->setStride ( tex.mStride );
+                            texCoordIndices->setInitialIndex ( tex.mInitialIndex );
 
-                                texCoordIndicesArray.append ( texCoordIndices );
-                            }
+                            texCoordIndicesArray.append ( texCoordIndices );
                         }
-
-                        // Write the values.
-                        COLLADAFW::IndexList* texCoordIndices = mCurrentMeshPrimitive->getUVCoordIndices ( j );
-                        texCoordIndices->getIndices().append ( index + (unsigned int)texCoord.mInitialIndex );
                     }
+
+                    // Write the values.
+                    COLLADAFW::IndexList* texCoordIndices = mCurrentMeshPrimitive->getUVCoordIndices ( j );
+                    texCoordIndices->getIndices().append ( index + (unsigned int)texCoord.mInitialIndex );
                 }
+            }
 
-                // Look if the current offset is a texcoord offset.
-                size_t numColors = mColorList.size ();
-                for ( size_t j=0; j<numColors; ++j )
+            // Look if the current offset is a texcoord offset.
+            size_t numColors = mColorList.size ();
+            for ( size_t j=0; j<numColors; ++j )
+            {
+                PrimitiveInput& color = mColorList [j];
+                if ( mCurrentOffset == color.mOffset )
                 {
-                    PrimitiveInput& color = mColorList [j];
-                    if ( mCurrentOffset == color.mOffset )
+                    COLLADAFW::ArrayPrimitiveType<COLLADAFW::IndexList*>& colorIndicesArray = 
+                        mCurrentMeshPrimitive->getColorIndicesArray ();
+
+                    // Resize the array if necessary
+                    if ( colorIndicesArray.getCount () != numColors ) 
                     {
-                        COLLADAFW::ArrayPrimitiveType<COLLADAFW::IndexList*>& colorIndicesArray = 
-                            mCurrentMeshPrimitive->getColorIndicesArray ();
-
-                        // Resize the array if necessary
-                        if ( colorIndicesArray.getCount () != numColors ) 
+                        // Be careful: no constructor is called!
+                        colorIndicesArray.reallocMemory ( numColors );
+                        for ( size_t k=0; k<numColors; ++k )
                         {
-                            // Be careful: no constructor is called!
-                            colorIndicesArray.reallocMemory ( numColors );
-                            for ( size_t k=0; k<numColors; ++k )
-                            {
-                                COLLADAFW::IndexList* colorIndices = new COLLADAFW::IndexList ();
-                                PrimitiveInput& col = mColorList [k];
-                                colorIndices->setSetIndex ( col.mSetIndex );
-                                colorIndices->setName ( col.mName );
-                                colorIndices->setStride ( col.mStride );
-                                colorIndices->setInitialIndex ( col.mInitialIndex );
+                            COLLADAFW::IndexList* colorIndices = new COLLADAFW::IndexList ();
+                            PrimitiveInput& col = mColorList [k];
+                            colorIndices->setSetIndex ( col.mSetIndex );
+                            colorIndices->setName ( col.mName );
+                            colorIndices->setStride ( col.mStride );
+                            colorIndices->setInitialIndex ( col.mInitialIndex );
 
-                                colorIndicesArray.append ( colorIndices );
-                            }
+                            colorIndicesArray.append ( colorIndices );
                         }
-
-                        // Write the values.
-                        COLLADAFW::IndexList* colorIndices = mCurrentMeshPrimitive->getColorIndices ( j );
-                        colorIndices->getIndices().append ( index + color.mInitialIndex );
                     }
+
+                    // Write the values.
+                    COLLADAFW::IndexList* colorIndices = mCurrentMeshPrimitive->getColorIndices ( j );
+                    colorIndices->getIndices().append ( index + color.mInitialIndex );
                 }
             }
 

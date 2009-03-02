@@ -301,7 +301,7 @@ namespace COLLADAMaya
         getEdgeIndices ( mesh, edgeIndices, edgeIndicesMap );
 
         // Write the edge indices of all primitive elements into the maya file.
-        writeEdges ( edgeIndices, meshNode );
+        writeEdges ( mesh, edgeIndices, meshNode );
 
         // Write the face informations of all primitive elements into the maya file.
         writeFaces ( mesh, edgeIndicesMap, meshNode );
@@ -702,14 +702,18 @@ namespace COLLADAMaya
 
     // --------------------------------------------
     void GeometryImporter::writeEdges (  
+        const COLLADAFW::Mesh* mesh, 
         const std::vector<COLLADAFW::Edge> &edgeIndices, 
         MayaDM::Mesh &meshNode )
     {
         size_t numEdges = edgeIndices.size ();
         if ( numEdges > 0 )
         {
-            // We tell allways, that we have hard edges, so every vertex has a normal.
-            int edgh = 0;
+            // Without normals, we need to use soft edges (1),
+            // with normals, we have to use hard edges (0).
+            int edgh = 1;
+            if ( mesh->getNormalsCount () > 0 )
+                edgh = 0;
 
             // Go through the edges and write them
             meshNode.startEdge ( 0, numEdges-1 );

@@ -328,7 +328,7 @@ namespace COLLADAMaya
         }
 
         // Create the dummy object of the initial shading group.
-        MayaDM::ShadingEngine initialShadingEngine ( file, MaterialImporter::INITIAL_SHADING_ENGINE, "", false );
+        MayaDM::ShadingEngine initialShadingEngine ( file, ":" + MaterialImporter::INITIAL_SHADING_ENGINE_NAME, "", false );
 
         // Connect the default light set message with the next light linker link's light
         // connectAttr ":defaultLightSet.message" "lightLinker1.link[1].light";

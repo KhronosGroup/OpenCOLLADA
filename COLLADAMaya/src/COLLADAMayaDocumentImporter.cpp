@@ -40,6 +40,11 @@
 
 namespace COLLADAMaya
 {
+
+    const String DocumentImporter::ASCII_PATH_EXTENSION = ".ma";
+    const String DocumentImporter::ASCII_PATH_EXTENSION_DEBUG = ".nextgen.ma";
+
+
     //---------------------------------
     DocumentImporter::DocumentImporter ( const String& fileName )
         : mColladaFileName ( fileName )
@@ -127,7 +132,13 @@ namespace COLLADAMaya
     {
         // TODO
         mMayaAsciiFileURI.set ( mColladaFileName );
-        mMayaAsciiFileURI.setPathExtension ( ".nextgen.ma" );
+
+#ifdef NDEBUG
+        mMayaAsciiFileURI.setPathExtension ( ASCII_PATH_EXTENSION );
+#else
+        mMayaAsciiFileURI.setPathExtension ( ASCII_PATH_EXTENSION_DEBUG );
+#endif
+
         String mayaAsciiFileName = mMayaAsciiFileURI.getURIString ();
 
         // Check if the file already exist.
@@ -218,6 +229,7 @@ namespace COLLADAMaya
             // the connections can be written into the maya file.
             mMaterialImporter->writeConnections ();
             mLightImporter->writeConnections ();
+            mEffectImporter->writeConnections ();
 
             // Close the file
             closeMayaAsciiFile ();

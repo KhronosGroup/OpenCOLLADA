@@ -318,6 +318,7 @@ namespace COLLADAMaya
          *	Write the edges into the maya file.
          */
         void writeEdges ( 
+            const COLLADAFW::Mesh* mesh, 
             const std::vector<COLLADAFW::Edge> &edgeIndices, 
             MayaDM::Mesh &meshNode );
 

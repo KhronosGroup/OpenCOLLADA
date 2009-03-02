@@ -35,7 +35,7 @@ namespace COLLADAMaya
     const String MaterialImporter::SHADING_ENGINE_NAME = "ShadingEngine";
     const String MaterialImporter::MATERIAL_INFO_NAME = "MaterialInfo";
     const String MaterialImporter::DEFAULT_SHADER_LIST = ":defaultShaderList1";
-    const String MaterialImporter::INITIAL_SHADING_ENGINE = ":initialShadingGroup";
+    const String MaterialImporter::INITIAL_SHADING_ENGINE_NAME = "initialShadingGroup";
     const String MaterialImporter::ATTR_SHADERS = "shaders";
     
 
@@ -47,82 +47,43 @@ namespace COLLADAMaya
     // --------------------------
     MaterialImporter::~MaterialImporter ()
     {
-//         // Delete the shadingBindings
-//         {
-//             ShadingBindingList::iterator iter = mShadingBindingList.begin ();
-//             while ( iter != mShadingBindingList.end () )
-//             {
-//                 std::set<ShadingBinding*>& geometryInstances = iter->second;
-// 
-//                 std::set<ShadingBinding*>::iterator iter2 = geometryInstances.begin ();
-//                 while ( iter2 != geometryInstances.end () )
-//                 {
-//                     ShadingBinding* geometryInstance = *iter2;
-//                     delete geometryInstance;
-//                     ++iter2;
-//                 }
-//                 ++iter;
-//             }
-//         }
-
         // Delete the shader datas
+        ShadingDataMap::iterator iter = mShaderDataMap.begin ();
+        while ( iter != mShaderDataMap.end () )
         {
-            ShadingDataMap::iterator iter = mShaderDataMap.begin ();
-            while ( iter != mShaderDataMap.end () )
-            {
-                ShadingData* shadingData = iter->second;
-                delete shadingData;
-                ++iter;
-            }
+            ShadingData* shadingData = iter->second;
+            delete shadingData;
+            ++iter;
         }
     }
 
     // --------------------------
     bool MaterialImporter::importMaterial ( const COLLADAFW::Material* material )
     {
-        // Check if the current material is already imported.
-        const COLLADAFW::UniqueId& materialId = material->getUniqueId ();
-        if ( findMayaMaterial ( materialId ) != 0 ) return false;
-
-        // Get the material name.
-        String materialName ( material->getName () );
-        if ( COLLADABU::Utils::equals ( materialName, COLLADABU::Utils::EMPTY_STRING ) )
-            materialName = MATERIAL_NAME;
-        materialName = DocumentImporter::frameworkNameToMayaName ( materialName );
-        materialName = mMaterialIdList.addId ( materialName );
+//         // Get the material name.
+//         String materialName ( material->getName () );
+//         if ( COLLADABU::Utils::equals ( materialName, COLLADABU::Utils::EMPTY_STRING ) )
+//             materialName = MATERIAL_NAME;
+//         materialName = DocumentImporter::frameworkNameToMayaName ( materialName );
+//         materialName = mMaterialIdList.addId ( materialName );
         
-        // Store the material name.
-        mMayaMaterialNamesMap [materialId] = materialName;
-
         // Store the effect id of the current material id.
+        const COLLADAFW::UniqueId& materialId = material->getUniqueId ();
         const COLLADAFW::UniqueId& effectId = material->getInstantiatedEffect ();
         mMaterialIdEffectIdMap [materialId] = effectId;
+
+        // Store the data also in the other direction, for faster search.
+        EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
+        effectImporter->assignMaterial ( effectId, materialId );
 
         return true;
      }
 
-     // --------------------------
-     MayaDM::DependNode* MaterialImporter::findMayaMaterial ( const COLLADAFW::UniqueId& materialId ) const
-     {
-         UniqueIdMayaMaterialMap::const_iterator it = mMayaMaterialMap.find ( materialId );
-         if ( it != mMayaMaterialMap.end () )
-         {
-             return it->second;
-         }
-         return 0;
-     }
-
-     // --------------------------
-     void MaterialImporter::appendMaterial ( const COLLADAFW::UniqueId& id, MayaDM::DependNode* materialNode )
-     {
-         mMayaMaterialMap [id] = materialNode;
-     }
-
      // -----------------------------------
      MaterialImporter::ShadingData* MaterialImporter::findShaderData ( 
-         const COLLADAFW::UniqueId& val )
+         const COLLADAFW::UniqueId& materialId )
      {
-         ShadingDataMap::const_iterator it = mShaderDataMap.find ( val );
+         ShadingDataMap::const_iterator it = mShaderDataMap.find ( materialId );
          if ( it == mShaderDataMap.end () )
          {
              return 0;
@@ -173,9 +134,18 @@ namespace COLLADAMaya
              {
                  // Get the unique shading engine name.
                  String shadingEngineName = materialBinding.getName ();
-                 if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING )
-                     || COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, "initialShadingGroup" ) )
+
+                 // TODO What to do with the "initialShadingGroup"?
+                 bool importToInitialShadingEngine = false;
+                 if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, INITIAL_SHADING_ENGINE_NAME ) )
+                 {
+                     importToInitialShadingEngine = true;
                      shadingEngineName = SHADING_ENGINE_NAME;
+                 }
+
+                 if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING ) )
+                     shadingEngineName = SHADING_ENGINE_NAME;
+
                  shadingEngineName = DocumentImporter::frameworkNameToMayaName ( shadingEngineName );
                  shadingEngineName = mShadingEngineIdList.addId ( shadingEngineName );
                  
@@ -527,19 +497,17 @@ namespace COLLADAMaya
 
         EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
         const EffectImporter::UniqueIdLambertMap& effectMap = effectImporter->getMayaEffectMap ();
-        EffectImporter::UniqueIdLambertMap::const_iterator it = effectMap.begin ();
 
         MayaDM::DefaultShaderList defaultShaderList ( file, DEFAULT_SHADER_LIST, "", false );
 
-        size_t shaderIndex = 0;
+        EffectImporter::UniqueIdLambertMap::const_iterator it = effectMap.begin ();
         while ( it != effectMap.end () )
         {
             MayaDM::DependNode* dependNode = it->second;
 
             // connectAttr "lambert2.message" ":defaultShaderList1.shaders" -nextAvailable;
-//            connectAttr ( file, dependNode->getMessage (), defaultShaderList.getShaders (shaderIndex) );
             connectNextAttr ( file, dependNode->getMessage (), defaultShaderList.getShaders () );
-            ++shaderIndex;
+
             ++it;
         }
     }
