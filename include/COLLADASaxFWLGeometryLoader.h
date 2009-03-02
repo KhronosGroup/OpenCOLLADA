@@ -62,24 +62,6 @@ namespace COLLADASaxFWL
 		/** Sax callback function for the ending of a geometry.*/
 		bool end__geometry();
 
-
-
-#if 0
-        /**
-        * Returns the source element of the source array with the given id or 0 if it not exist.
-        * @param sourceId The source id of the searched source element.
-        * @return COLLADAFW::Source The source element with the given id or 0 if it not exist.
-        */
-        const SourceBase* getSourceById ( const String& sourceId ) const;
-
-        /**
-        * Returns the source element of the source array with the given id or 0 if it not exist.
-        * @param sourceId The source id of the searched source element.
-        * @return COLLADAFW::Source The source element with the given id or 0 if it not exist.
-        */
-        SourceBase* getSourceById ( const String& sourceId );
-#endif
-
 	private:
 
         /** Disable default copy ctor. */
