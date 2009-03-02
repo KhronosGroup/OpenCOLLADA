@@ -433,23 +433,19 @@ namespace COLLADASaxFWL
 			unsigned int index = (unsigned int)data [i];
 
 			// Write the indices
-			if ( mCurrentOffset == mPositionsOffset )
+			if ( mUsePositions && (mCurrentOffset == mPositionsOffset) )
 			{
-                if ( mUsePositions )
-                {
-                    COLLADAFW::UIntValuesArray& positionIndices = mCurrentMeshPrimitive->getPositionIndices ();
-                    positionIndices.append ( index + mPositionsIndexOffset );
-                }
+				COLLADAFW::UIntValuesArray& positionIndices = mCurrentMeshPrimitive->getPositionIndices ();
+				positionIndices.append ( index + mPositionsIndexOffset );
 			}
-			else if ( mCurrentOffset == mNormalsOffset )
+
+			if ( mUseNormals && (mCurrentOffset == mNormalsOffset) )
 			{
-                if ( mUseNormals )
-                {
-                    COLLADAFW::UIntValuesArray& normalIndices = mCurrentMeshPrimitive->getNormalIndices ();
-                    normalIndices.append ( index + mNormalsIndexOffset );
-                }
+				COLLADAFW::UIntValuesArray& normalIndices = mCurrentMeshPrimitive->getNormalIndices ();
+				normalIndices.append ( index + mNormalsIndexOffset );
 			}
-			else 
+
+
             {
                 // Look if the current offset is a texcoord offset.
                 size_t numTexCoordinates = mTexCoordList.size ();
@@ -536,84 +532,6 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-
-#if 0
-	//------------------------------
-    bool MeshLoader::initializeIndexLists ( 
-        COLLADAFW::MeshPrimitive* primitiveElement, 
-        const InputList* polyBaseElement )
-    {
-        // Get the index lists.
-        COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
-        COLLADAFW::UIntValuesArray& normalIndices = primitiveElement->getNormalIndices ();
-        COLLADAFW::UIntValuesArray& colorIndices = primitiveElement->getColorIndices ();
-        COLLADAFW::UIntValuesArray& uvCoordIndices = primitiveElement->getUVCoordIndices ();
-
-        // We need the maximum offset value of the input elements to calculate the 
-        // number of indices for each index list.
-        const size_t maxOffset = polyBaseElement->getInputArrayMaxOffset ();
-
-        // Get the number of all indices in all p elements in the current primitive element.
-//        size_t numPIndices = polyBaseElement->getIndexCount ();
-  //      if ( numPIndices == 0 ) numPIndices = getNumOfPrimitiveIndices ( polyBaseElement );
-		assert(false);
-
-        // Get the number of index elements in the index list for each input element.
-        size_t numElements = numPIndices / maxOffset;
-
-        // The offset values of the input elements.
-        const InputShared* input = polyBaseElement->getPositionInput ();
-        if ( input == 0 ) 
-        {
-            throw new ColladaSaxFrameworkLoaderException ( "No positions input element!" );
-            return false;
-        }
-        // Get the offset value, the initial index values and alloc the memory.
-        mPositionsOffset = input->getOffset ();
-        COLLADABU::URI inputUrl = input->getSource ();
-        String sourceId = inputUrl.getFragment ();
-        const SourceBase* sourceBase = getSourceById ( sourceId );
-        if ( sourceBase == 0 ) 
-        {   
-            // TODO error handling!
-            return false;
-        }
-        positionIndices.reallocMemory ( numElements );
-
-        // Check for using normals
-        input = polyBaseElement->getNormalInput ();
-        if ( input != 0 ) 
-        {
-            // Get the offset value, the initial index values and alloc the memory.
-            mNormalsOffset = input->getOffset ();
-            sourceBase = getSourceById ( input->getSource ().getFragment () );
-            normalIndices.reallocMemory ( numElements );
-            mUseNormals = true;
-        }
-
-        // Check for using colors
-        input = polyBaseElement->getColorInput ();
-        if ( input != 0 ) 
-        {
-            // Get the offset value and alloc the memory.
-            mColorsOffset = input->getOffset ();
-            colorIndices.reallocMemory ( numElements );
-            mUseColors = true;
-        }
-
-        // Check for using uv coordinates 
-        input = polyBaseElement->getUVCoordInput ();
-        if ( input != 0 ) 
-        {
-            // Get the offset value and alloc the memory.
-            mUVCoordsOffset = input->getOffset ();
-            uvCoordIndices.reallocMemory ( numElements );
-            mUseUVCoords = true;
-        }
-
-        return true;
-    }
-#endif
 
 	//------------------------------
 	void MeshLoader::initializeOffsets()
@@ -755,164 +673,6 @@ namespace COLLADASaxFWL
         }
     }
 
-
-#if 0
-    //------------------------------
-    void MeshLoader::loadFaceVertexCountArray ( 
-        COLLADAFW::MeshPrimitive* primitiveElement, 
-        const PolyBase* polyBaseElement )
-    {
-        // TODO Not all types implemented!
-        COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = polyBaseElement->getPrimitiveType ();
-
-        switch ( primitiveType )
-        {
-        case COLLADAFW::MeshPrimitive::POLYGONS:
-            {
-                // Calculate to get the polygonal face vertex counts 
-                // and push them in the face vertex count list.
-
-                // Allocate the necessary memory
-                COLLADAFW::UIntValuesArray& faceVertexCountArray = primitiveElement->getFaceVertexCountArray ();
-                faceVertexCountArray.allocMemory ( polyBaseElement->getFaceCount () );
-
-                // Write the number of vertices for every face in the list of face vertex counts.
-                Polygons* polygons = ( Polygons* ) polyBaseElement;
-
-                // The current index in the face vertex count array.
-                size_t index = 0;
-
-                // TODO What's about the order of the elements? 
-                const PArray& pArray = polyBaseElement->getPArray ();
-                size_t numPElements = pArray.getCount ();
-                for ( size_t j=0; j<numPElements; ++j )
-                {
-                    // Count the number of p elements.
-                    PElement* pElement = pArray [j];
-                    faceVertexCountArray [ index++ ] = pElement->getCount();
-                }
-                // Every ph element has exact one p element.
-                Polygons* polygonsElement = ( Polygons* ) polyBaseElement;
-                const PHArray& phArray = polygonsElement->getPHArray ();
-                size_t numPHElements = phArray.getCount ();
-                for ( size_t j=0; j<numPHElements; ++j )
-                {
-                    // Count the number of p elements.
-                    const PHElement* phElement = phArray [j];
-                    const PElement& pElement = phElement->getPElement ();
-                    faceVertexCountArray [ index++ ] = pElement.getCount();
-                }
-
-                break;
-            }
-        case COLLADAFW::MeshPrimitive::POLYLIST:
-            {
-                // A POLYLIST element should already has set the face vertex count array. 
-                Polylist* polylist = ( Polylist* ) polyBaseElement;
-                COLLADAFW::UIntValuesArray& vCountArray = polylist->getVCountArray ();
-
-                COLLADAFW::UIntValuesArray& faceVertexCountArray = primitiveElement->getFaceVertexCountArray ();
-                faceVertexCountArray.setData ( vCountArray.getData (), vCountArray.getCount (), vCountArray.getCapacity () );
-                break;
-            }
-        case COLLADAFW::MeshPrimitive::TRIANGLES:
-            // TODO Always three, we don't need to store!?
-            break;
-        default:
-            std::cerr << "Type not implemented! " << std::endl;
-            return;
-        }
-    }
-#endif 
-
-#if 0
-    //------------------------------
-    void MeshLoader::loadIndexLists ( 
-        COLLADAFW::MeshPrimitive* primitiveElement, 
-        const PolyBase* polyBaseElement )
-    {
-        // TODO Not all types implemented!
-        COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = polyBaseElement->getPrimitiveType ();
-
-        switch ( primitiveType )
-        {
-        case COLLADAFW::MeshPrimitive::POLYGONS:
-        case COLLADAFW::MeshPrimitive::POLYLIST:
-        case COLLADAFW::MeshPrimitive::TRIANGLES:
-            {
-                // Initialize the size of the index lists, check for used source elements and get 
-                // the offset values of the index lists.
-                if ( initializeIndexLists ( primitiveElement, polyBaseElement) == false ) return;
-
-                // TODO Iterate over all existing p elements and get the index values.
-                // (not about triangles and polylists, but about the polygons)
-
-                // Get the maximum offset value in the input list.
-                const size_t maxOffset = polyBaseElement->getInputArrayMaxOffset ();
-
-                // Write the indexes of p elements of the p array.
-                const PArray& pArray = polyBaseElement->getPArray ();
-                size_t numPElements = pArray.getCount ();
-                for ( size_t j=0; j<numPElements; ++j )
-                {
-                    const PElement* pElement = pArray [j];
-                    writePElementIndices( pElement, primitiveElement, maxOffset );
-                }
-
-                if ( primitiveType == COLLADAFW::MeshPrimitive::POLYGONS )
-                {
-                    // Write the indexes of the p elements of each ph element in the the ph array.
-                    Polygons* polygonsElement = ( Polygons* ) polyBaseElement;
-                    const PHArray& phArray = polygonsElement->getPHArray ();
-                    size_t numPHElements = phArray.getCount ();
-                    for ( size_t j=0; j<numPHElements; ++j )
-                    {
-                        // Count the number of p elements.
-                        const PHElement* phElement = phArray [j];
-                        const PElement& pElement = phElement->getPElement ();
-                        writePElementIndices( &pElement, primitiveElement, maxOffset );
-                    }
-                }
-
-                // Output
-                std::ofstream outFile;
-                outFile.open ( "C:\\Temp\\DebugLog.txt", std::ios_base::out );
-
-                // Get the index lists.
-                COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
-                COLLADAFW::UIntValuesArray& normalIndices = primitiveElement->getNormalIndices ();
-                COLLADAFW::UIntValuesArray& colorIndices = primitiveElement->getColorIndices ();
-                COLLADAFW::UIntValuesArray& uvCoordIndices = primitiveElement->getUVCoordIndices ();
-
-                outFile << "position indices = ";
-                for ( size_t p=0; p<positionIndices.getCount (); ++p )
-                    outFile << positionIndices[p] << ", ";
-                outFile << std::endl;
-
-                outFile << "normal indices = ";
-                for ( size_t p=0; p<normalIndices.getCount (); ++p )
-                    outFile << normalIndices[p] << ", ";
-                outFile << std::endl;
-
-                outFile << "color indices = ";
-                for ( size_t p=0; p<colorIndices.getCount (); ++p )
-                    outFile << colorIndices[p] << ", ";
-                outFile << std::endl;
-
-                outFile << "uv coord indices = ";
-                for ( size_t p=0; p<uvCoordIndices.getCount (); ++p )
-                    outFile << uvCoordIndices[p] << ", ";
-                outFile << std::endl;
-
-                break;
-            }
-        default:
-            // No more implementations.
-            std::cerr << "Primitive type " << primitiveType << " not implemented!";
-            return;
-        }
-    }
-#endif
 
 	//------------------------------
 	void MeshLoader::initCurrentValues()
