@@ -1069,8 +1069,10 @@ namespace COLLADAMax
         {
 
             BMMGetFullFilename ( &bitmapInfo );
-            fullFileName  = NativeString(bitmapInfo.Name());
-            String fullFileNameURI = Utils::FILE_PROTOCOL + URI::uriEncode ( fullFileName );
+            NativeString fullNativeFileName  = NativeString(bitmapInfo.Name());
+			COLLADABU::URI fullFileNameURI = URI::nativePathToUri( fullNativeFileName.toUtf8String() );
+			if ( fullFileNameURI.getScheme().empty() )
+				fullFileNameURI.setScheme(COLLADASW::URI::SCHEME_FILE);
             String imageId;
             // Export the equivalent <image> node in the image library and add
             // the <init_from> element to the sampler's surface definition.

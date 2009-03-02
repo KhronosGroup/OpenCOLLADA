@@ -21,6 +21,8 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
+#include "COLLADABUURI.h"
+
 #include <vector>
 #include <map>
 #include <set>
@@ -44,7 +46,7 @@ namespace COLLADAMax
     typedef std::map<Mtl*, String> EffectMap;
 
     /**map<filename,imageID>*/
-    typedef std::map<String, String> ExportedImageMap;
+	typedef std::map<COLLADABU::URI, String> ExportedImageMap;
 
 	/** List of INodes*/
 	typedef std::vector<INode*> INodeList;
