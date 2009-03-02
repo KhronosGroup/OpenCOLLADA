@@ -311,6 +311,23 @@ namespace COLLADAMax
 
 
 	//------------------------------
+	void MaterialCreator::createAndAssignTexture( Mtl* material, 
+												  const COLLADAFW::EffectCommon& effectCommon, 
+												  const COLLADAFW::ColorOrTexture& (COLLADAFW::EffectCommon::*f)() const, 
+												  int slot,
+												  unsigned char mapChannel)
+	{
+		const COLLADAFW::ColorOrTexture& colorOrTexture = (effectCommon.*f)();
+		if ( colorOrTexture.isTexture() )
+		{
+			BitmapTex* texture = createTexture( effectCommon, colorOrTexture.getTexture() );
+			texture->GetUVGen()->SetMapChannel( mapChannel );
+
+			assignTextureToMaterial(material, slot, texture);
+		}
+	}
+
+	//------------------------------
 	StdMat2* MaterialCreator::createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name, const MaterialCreator::MaterialIdentifier& materialIdentifier )
 	{
 		StdMat2* material = NewDefaultStdMat();
@@ -401,18 +418,13 @@ namespace COLLADAMax
 				material->SetSpecular( toMaxColor(diffuse), 0 );
 		}
 
-		//TODO specular
 
 		//create and assign textures
-
-		const COLLADAFW::ColorOrTexture& colorOrTexture = effectCommon.getDiffuse();
-		if ( colorOrTexture.isTexture() )
-		{
-			BitmapTex* texture = createTexture( effectCommon, colorOrTexture.getTexture() );
-			texture->GetUVGen()->SetMapChannel( materialIdentifier.diffuseMapChannel );
-
-			assignTextureToMaterial(material, ID_DI, texture);
-		}
+		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getAmbient, ID_AM, materialIdentifier.ambientMapChannel);
+		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getDiffuse, ID_DI, materialIdentifier.diffuseMapChannel);
+		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getSpecular, ID_SP, materialIdentifier.specularMapChannel);
+		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getEmission, ID_SI, materialIdentifier.emissionMapChannel);
+		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getTransparent, ID_OP, materialIdentifier.opacityMapChannel);
 
 		return material;
 	}

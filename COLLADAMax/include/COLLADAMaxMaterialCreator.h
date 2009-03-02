@@ -110,7 +110,8 @@ namespace COLLADAMax
 
 		/** Assigns @a texture to @a slot of @a material.*/
 		void assignTextureToMaterial(  Mtl* material, int slot, BitmapTex* texture);
-
+	
+	void createAndAssignTexture( Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::ColorOrTexture& (COLLADAFW::EffectCommon::*f)()const, int slot, unsigned char mapChannel);
 	};
 
 } // namespace COLLADAMAX
