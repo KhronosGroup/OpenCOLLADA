@@ -22,6 +22,10 @@
 #include "COLLADAMaxPrerequisites.h"
 
 #include "max.h"
+#include "cs/phyexp.h"
+
+#define PHYSIQUE_CLASSID Class_ID(PHYSIQUE_CLASS_ID_A, PHYSIQUE_CLASS_ID_B)
+
 
 #include <vector>
 #include <memory>
@@ -94,17 +98,19 @@ namespace COLLADAMax
 
 	typedef std::vector<Controller*> Controllers;
 
+	class ISkinInterface;
 
 	class SkinController : public Controller
 	{
 	public:
-		SkinController(IDerivedObject * object, int modifierIndex, bool enabled) : Controller(object, modifierIndex, enabled, SKIN){}
+		SkinController(IDerivedObject * object, int modifierIndex, bool enabled) 
+			: Controller(object, modifierIndex, enabled, SKIN){}
 
 		/** Returns true, if the modifier is as skin controller.*/
 		static bool isSkinController(Modifier * modifier);
 
 		/** Returns the skin controller.*/
-		ISkin* getSkin()const;
+		ISkinInterface* getSkinInterface( INode *node );
 
 	};
 
@@ -122,7 +128,6 @@ namespace COLLADAMax
 		MorphR3* getMorph()const;
 
 	};
-
 
 }
 

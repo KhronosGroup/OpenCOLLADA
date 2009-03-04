@@ -99,7 +99,7 @@ namespace COLLADAMax
 		static String getNodeId(const ExportNode& exportNode);
 
 		/** Returns the world transformation matrix at the animation start time*/
-		static Matrix3 getWorldTransform(INode* node);
+		static Matrix3 getWorldTransform(INode* node, TimeValue time);
 
 
 	private:

@@ -78,10 +78,8 @@ namespace COLLADAMax
 		/** Exports @a skinController.*/
 		void exportSkinController( ExportNode* exportNode, SkinController* skinController, const String& controllerId, const String& skinSource);
 
-#if 0
-		/** Returns the @a ISkinContextData from an ISkin object using a @a SkinController object instead of an @a INode.*/
-		ISkinContextData *getISkinContextInterface(SkinController* skinController);
-#endif 
+		/** Gets the correct ISkinInterface and is XRef aware.*/
+		ISkinInterface* getISkinInterface( ExportNode* exportNode, SkinController* skinController );
 
 		/** Exports @a morphController.*/
 		void exportMorphController( ExportNode* exportNode, MorphController* morphController, const String& controllerId, const String& morphSource);

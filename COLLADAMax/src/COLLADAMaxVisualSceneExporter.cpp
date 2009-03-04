@@ -196,6 +196,10 @@ namespace COLLADAMax
 
         INode *parent = iNode->GetParentNode();
 
+		ExportNode::Type nodeType = exportNode->getType();
+
+		bool exportObjectOffsetMatrix = !( (nodeType == ExportNode::BONE) || (nodeType == ExportNode::HELPER) );
+
 		// Add the inverse of the parents object transformation matrix, if its not  identity
 		if ( !objectOffsetTransformationMatrix.IsIdentity() )
 		{
@@ -203,7 +207,8 @@ namespace COLLADAMax
 			inverseObjectOffsetTransformationMatrix.Invert();
 			double matrix[ 4 ][ 4 ] ;
 			matrix3ToDouble4x4 ( matrix, inverseObjectOffsetTransformationMatrix );
-			colladaNode.addMatrix ( matrix );
+			if ( exportObjectOffsetMatrix )
+				colladaNode.addMatrix ( matrix );
 		}
 			
 
@@ -363,7 +368,8 @@ namespace COLLADAMax
 			{
 				double matrix[ 4 ][ 4 ] ;
 				matrix3ToDouble4x4 ( matrix, thisNodeObjectOffsetTransformationMatrix );
-				colladaNode.addMatrix ( matrix );
+				if ( exportObjectOffsetMatrix )
+					colladaNode.addMatrix ( matrix );
 			}
 		}
 
@@ -430,6 +436,11 @@ namespace COLLADAMax
 		return NODE_ID_PRAEFIX + exportNode.getId();
 	}
 
+	//---------------------------------------------------------------
+	Matrix3 VisualSceneExporter::getWorldTransform( INode* node, TimeValue time )
+	{
+		return node->GetNodeTM( time );
+	}
 
 	//---------------------------------------------------------------
 	void COLLADAMax::VisualSceneExporter::fillInstanceMaterialList( COLLADASW::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode )

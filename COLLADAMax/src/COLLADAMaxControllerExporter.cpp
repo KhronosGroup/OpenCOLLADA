@@ -24,6 +24,8 @@
 #include "COLLADAMaxAnimationExporter.h"
 #include "COLLADAMaxTypes.h"
 #include "COLLADAMaxConversionFunctor.h"
+#include "COLLADAMaxISkinInterface.h"
+
 
 #include "COLLADASWSource.h"
 #include "COLLADASWBaseInputElement.h"
@@ -141,23 +143,29 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void ControllerExporter::exportSkinController( ExportNode* exportNode, SkinController* skinController, const String& controllerId, const String& skinSource )
 	{
-		ISkin* skin = skinController->getSkin();
+		INode* iNode = exportNode->getINode();
 
-		if ( !skin )
+		if ( !skinController )
+			return;
+
+		// We cannot use skin->GetContextInterface to get ISkinContextData if we are exporting an XRef, since we cannot access
+		// the INode the object belongs to in the referenced file. To solve this problem, we temporarily create an INode, that references
+		// the object and delete it immediately. 
+		ISkinInterface* skinInterface = getISkinInterface( exportNode, skinController );
+
+		if ( !skinInterface )
 			return;
 
 		openSkin(controllerId, skinSource);
 	
-		INode* iNode = exportNode->getINode();
-
 		Matrix3 bindShapeTransformationMatrix;
-		skin->GetSkinInitTM(iNode, bindShapeTransformationMatrix, true);	
+		skinInterface->getSkinInitTM(bindShapeTransformationMatrix, true);	
 		double  bindShapeTransformationArray[4][4];
 		VisualSceneExporter::matrix3ToDouble4x4(bindShapeTransformationArray, bindShapeTransformationMatrix);
 
 		addBindShapeTransform(bindShapeTransformationArray);
 
-		int jointCount = skin->GetNumBones();
+		int jointCount = skinInterface->getNumBones();
 		INodeList boneINodes;
 
 
@@ -175,7 +183,7 @@ namespace COLLADAMax
 		{
 			// there should not be any null bone.
 			// the ISkin::GetBone, not GetBoneFlat, function is called here.
-			INode* boneNode = skin->GetBone(i);
+			INode* boneNode = skinInterface->getBone(i);
 			assert(boneNode);
 			boneINodes.push_back(boneNode);
 
@@ -208,8 +216,10 @@ namespace COLLADAMax
 			INode* boneNode = boneINodes[i];
 
 			Matrix3 bindPose;
-			int success = skin->GetBoneInitTM(boneNode, bindPose);
-			assert(success == SKIN_OK);
+			if ( !skinInterface->getBoneInitTM(boneNode, bindPose) )
+			{
+				bindPose = VisualSceneExporter::getWorldTransform( boneNode, mDocumentExporter->getOptions().getAnimationStart() );
+			}
 			bindPose.Invert();
 
 			double bindPoseArray[4][4];
@@ -218,33 +228,16 @@ namespace COLLADAMax
 		}
 		inverseBindMatrixSource.finish();
 
-		// We cannot use skin->GetContextInterface to get ISkinContextData if we are exporting an XRef, since we cannot access
-		// the INode the object belongs to in the referenced file. To solve this problem, we temporarily create an INode, that references
-		// the object and delete it immediately. 
-		ISkinContextData* contextData;
-		if ( exportNode->getIsXRefObject() )
-		{
-			INode* helperNode = mDocumentExporter->getMaxInterface()->CreateObjectNode(skinController->getDerivedObject());
-			contextData = skin->GetContextInterface(helperNode);
-			mDocumentExporter->getMaxInterface()->DeleteNode(helperNode);
-		}
-		else
-		{
-			contextData = skin->GetContextInterface(iNode);
-		}
-
-		assert(contextData);
-
-		int vertexCount = contextData->GetNumPoints();
+		int vertexCount = skinInterface->getNumVertices();
 		
 		//count weights, excluding the ones equals one
 		int weightsCount = 1;
 		for (int i = 0; i < vertexCount; ++i)
 		{
-			int jointCount = contextData->GetNumAssignedBones(i);
+			int jointCount = skinInterface->getNumAssignedBones(i);
 			for (int p = 0; p < jointCount; ++p)
 			{
-				float weight = contextData->GetBoneWeight(i, p);
+				float weight = skinInterface->getBoneWeight(i, p);
 				if ( !COLLADASW::MathUtils::equals(weight, 1.0f) )
 					weightsCount++;
 			}
@@ -263,10 +256,10 @@ namespace COLLADAMax
 		weightsSource.appendValues(1.0);
 		for (int i = 0; i < vertexCount; ++i)
 		{
-			int jointCount = contextData->GetNumAssignedBones(i);
+			int jointCount = skinInterface->getNumAssignedBones(i);
 			for (int p = 0; p < jointCount; ++p)
 			{
-				float weight = contextData->GetBoneWeight(i, p);
+				float weight = skinInterface->getBoneWeight(i, p);
 				if ( !COLLADASW::MathUtils::equals(weight, 1.0f) )
 					weightsSource.appendValues(weight);
 			}
@@ -287,18 +280,18 @@ namespace COLLADAMax
 		vertexWeights.prepareToAppendVCountValues();
 
 		for (int i = 0; i < vertexCount; ++i)
-			vertexWeights.appendValues(contextData->GetNumAssignedBones(i));
+			vertexWeights.appendValues(skinInterface->getNumAssignedBones(i));
 
 		vertexWeights.CloseVCountAndOpenVElement();
 
 		int currentIndex = 1;
 		for (int i = 0; i < vertexCount; ++i)
 		{
-			int jointCount = contextData->GetNumAssignedBones(i);
+			int jointCount = skinInterface->getNumAssignedBones(i);
 			for (int p = 0; p < jointCount; ++p)
 			{
-				vertexWeights.appendValues(contextData->GetAssignedBone(i, p));
-				float weight = contextData->GetBoneWeight(i, p);
+				vertexWeights.appendValues(skinInterface->getAssignedBone(i, p));
+				float weight = skinInterface->getBoneWeight(i, p);
 				if ( !COLLADASW::MathUtils::equals(weight, 1.0f) )
 				{
 					vertexWeights.appendValues(currentIndex++);
@@ -309,31 +302,9 @@ namespace COLLADAMax
 				}
 			}
 		}
-
-
-
 		vertexWeights.finish();
-
-
-#if 0
-		int vertexCount = iskin->GetNumVertices();
-		colladaSkin->SetInfluenceCount(vertexCount);
-		for (int i = 0; i < vertexCount; ++i)
-		{
-			FCDSkinControllerVertex* vertex = colladaSkin->GetVertexInfluence(i);
-			int pairCount = iskin->GetNumAssignedBones(i);
-			vertex->SetPairCount(pairCount);
-			for (int p = 0; p < pairCount; ++p)
-			{
-				FCDJointWeightPair* pair = vertex->GetPair(p);
-				pair->weight = iskin->GetBoneWeight(i, p);
-				pair->jointIndex = iskin->GetAssignedBone(i, p);
-			}
-		}
-
-
-#endif
 		closeSkin();
+		skinInterface->releaseMe();
 	}
 
 
@@ -462,9 +433,9 @@ namespace COLLADAMax
 
 	void ControllerExporter::determineReferencedJoints(ExportNode* exportNode, SkinController* skinController)
 	{
-		ISkin* skin = skinController->getSkin();
+		ISkinInterface* skinInterface = getISkinInterface( exportNode, skinController);
 
-		int jointCount = skin->GetNumBones();
+		int jointCount = skinInterface->getNumBones();
 
 		ExportNodeSet referencedJoints;
 
@@ -472,16 +443,18 @@ namespace COLLADAMax
 		{
 			// there should not be any null bone.
 			// the ISkin::GetBone, not GetBoneFlat, function is called here.
-			INode* boneNode = skin->GetBone(i);
+			INode* boneNode = skinInterface->getBone(i);
 			assert(boneNode);
 
 			ExportNode* jointExportNode = mExportSceneGraph->getExportNode(boneNode);
 			assert(jointExportNode);
+			jointExportNode->setIsInVisualScene( true );
 
 			referencedJoints.insert(jointExportNode);
 		}
 
 		determineSkeletonRoots(referencedJoints, exportNode->getControllerList());
+		skinInterface->releaseMe();
 	}
 
 
@@ -511,4 +484,20 @@ namespace COLLADAMax
 		return isOneParentInSet(parentNode, jointSet);
 	}
 
+	//---------------------------------------------------------------
+	ISkinInterface* ControllerExporter::getISkinInterface( ExportNode* exportNode, SkinController* skinController)
+	{
+		ISkinInterface* skinInterface;
+		if ( exportNode->getIsXRefObject() )
+		{
+			INode* helperNode = mDocumentExporter->getMaxInterface()->CreateObjectNode(skinController->getDerivedObject());
+			skinInterface = skinController->getSkinInterface( helperNode );
+			mDocumentExporter->getMaxInterface()->DeleteNode(helperNode);
+		}
+		else
+		{
+			skinInterface = skinController->getSkinInterface( exportNode->getINode() );
+		}
+		return skinInterface;
+	}
 }

@@ -19,6 +19,9 @@
 #include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxController.h"
+#include "COLLADAMaxISkinInterface.h"
+#include "COLLADAMaxSkinInterface.h"
+#include "COLLADAMaxPhysiqueSkinInterface.h"
 
 #include <max.h>
 #include <iskin.h> 
@@ -79,7 +82,6 @@ namespace COLLADAMax
 	}
 
 
-
 	//---------------------------------------------------------------
 	bool SkinController::isSkinController( Modifier * modifier )
 	{
@@ -91,18 +93,29 @@ namespace COLLADAMax
 				return false;
 			return skin->GetNumBonesFlat() > 0;
 		}
-//		else 
-//			return classId == PHYSIQUE_CLASSID;
+		else 
+			return (classId == PHYSIQUE_CLASSID) != false;
 
 		return false;
 	}
 
 	//---------------------------------------------------------------
-	ISkin* SkinController::getSkin() const
+/*	ISkin* SkinController::getSkin() const
 	{
 		Modifier* modifier = getModifier();
 		if ( modifier )
 			return (ISkin *)modifier->GetInterface(I_SKIN);
+		return 0;
+	}
+*/
+	//---------------------------------------------------------------
+	ISkinInterface* SkinController::getSkinInterface( INode *node ) 
+	{
+		Modifier *m = getModifier();
+		if (m->ClassID() == SKIN_CLASSID)
+			return new SkinInterface(m, node );
+		if (m->ClassID() == PHYSIQUE_CLASSID)
+			return new PhysiqueSkinInterface(m, node);
 		return 0;
 	}
 

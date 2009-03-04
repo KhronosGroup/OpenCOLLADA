@@ -1799,6 +1799,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxPhysiqueSkinInterface.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxSkinInterface.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxTexTangentCalculator.cpp"
 					>
 				</File>
@@ -2233,6 +2241,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\COLLADAMaxISkinInterface.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\COLLADAMaxLightExporter.h"
 					>
 				</File>
@@ -2246,6 +2258,14 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxOptions.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxPhysiqueSkinInterface.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxSkinInterface.h"
 					>
 				</File>
 				<File

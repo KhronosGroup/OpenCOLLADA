@@ -111,12 +111,29 @@ namespace COLLADAMax
 		exportNode->setId ( mNodeIdList.addId ( NativeString(iNode->GetName()) ) );
 		mINodeExportNodeMap[iNode] = exportNode;
 		exportNode->createControllerList();
+		//createBones(exportNode);
 		exportNode->setIsInVisualScene(isInVisualScene);
 
 		return exportNode;
     }
 
+	/*
+	void ExportSceneGraph::createBones(INode *iNode, ExportNode* exportNode, bool& isInVisualScene)
+	{
+		if ( !exportNode->getType() == ExportNode::MESH )
+			return;
 
+		ControllerList* controllers = exportNode->getControllerList();
+		size_t controllerCount = controllers->getControllerCount();
+		for ( size_t i = 0; i < controllerCount; ++i)
+		{
+			Controller* controller = controllers->getReferencedJoints()
+		}
+
+		
+		
+	}
+*/
     //---------------------------------------------------------------
     bool ExportSceneGraph::isNodeInVisualScene ( INode * iNode )
     {
