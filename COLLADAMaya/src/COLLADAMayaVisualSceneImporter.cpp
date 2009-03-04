@@ -249,27 +249,27 @@ namespace COLLADAMaya
         
         MStatus status;
         MVector transVec = tm.getTranslation ( MSpace::kTransform, &status );
-        transformNode->setTranslate ( ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
-        //transformNode->setTranslate ( toLinearUnit ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
+        //transformNode->setTranslate ( ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
+        transformNode->setTranslate ( toLinearUnit ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
 
         double rotation[3];
         MTransformationMatrix::RotationOrder order;
         tm.getRotation ( rotation, order, MSpace::kTransform );
         if ( ! ( MVector (0,0,0) == MVector ( rotation ) ) )
-            transformNode->setRotate ( ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation[0]), COLLADABU::Math::Utils::radToDeg(rotation[1]), COLLADABU::Math::Utils::radToDeg(rotation[2]) ) ) );
-            //transformNode->setRotate ( toAngularUnit ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) ) );
+            //transformNode->setRotate ( ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation[0]), COLLADABU::Math::Utils::radToDeg(rotation[1]), COLLADABU::Math::Utils::radToDeg(rotation[2]) ) ) );
+            transformNode->setRotate ( toAngularUnit ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) ) );
 
         double scale[3];
         tm.getScale ( scale, MSpace::kTransform );
         if ( ! ( MVector (1,1,1) == MVector ( scale ) ) )
-            transformNode->setScale ( ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
-            //transformNode->setScale ( toUpAxisTypeFactor ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
+            //transformNode->setScale ( ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
+            transformNode->setScale ( toUpAxisTypeFactor ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
 
         double shear[3];
         tm.getShear ( shear, MSpace::kTransform );
         if ( ! ( MVector (0,0,0) == MVector ( shear ) ) )
-            transformNode->setShear ( ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
-            //transformNode->setShear ( toUpAxisTypeAxis ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
+            //transformNode->setShear ( ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
+            transformNode->setShear ( toUpAxisTypeAxis ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
 
     }
 
@@ -670,17 +670,17 @@ namespace COLLADAMaya
 
         // Unit conversion.
         const COLLADABU::Math::Vector3& rotateAxis = skew->getRotateAxis();
-        //MayaDM::double3 rotate ( toUpAxisTypeAxis ( MayaDM::double3 ( rotateAxis.x, rotateAxis.y, rotateAxis.z ) ) );
+        MayaDM::double3 rotate ( toUpAxisTypeAxis ( MayaDM::double3 ( rotateAxis.x, rotateAxis.y, rotateAxis.z ) ) );
 
         const COLLADABU::Math::Vector3& translateAxis = skew->getTranslateAxis();
-        //MayaDM::double3 translate ( toUpAxisTypeAxis ( MayaDM::double3 ( translateAxis.x, translateAxis.y, translateAxis.z ) ) );
+        MayaDM::double3 translate ( toUpAxisTypeAxis ( MayaDM::double3 ( translateAxis.x, translateAxis.y, translateAxis.z ) ) );
 
         for ( int row = 0; row < 3; ++row )
         {
             for ( int col = 0; col < 3; ++col )
             {
-                matrix[col][row] = ((row == col) ? 1.0f : 0.0f) + s * (float)rotateAxis [col] * (float)translateAxis [row];
-                //matrix[col][row] = ((row == col) ? 1.0f : 0.0f) + s * (float)rotate [col] * (float)translate [row];
+                //matrix[col][row] = ((row == col) ? 1.0f : 0.0f) + s * (float)rotateAxis [col] * (float)translateAxis [row];
+                matrix[col][row] = ((row == col) ? 1.0f : 0.0f) + s * (float)rotate [col] * (float)translate [row];
             }
         }
 
