@@ -54,6 +54,7 @@ namespace COLLADAMaya
         typedef std::vector<size_t> IndicesVector;
         typedef std::map<CombinedId, IndicesVector> CombinedIdIndicesMap;
 
+        typedef std::map<COLLADAFW::UniqueId, size_t> UniqueIdElementCountMap;
 
     private:
 
@@ -87,7 +88,12 @@ namespace COLLADAMaya
         /**
          * In depend on the up axis, the order of the values will be changed.
          */
-        MayaDM::double3 toUpAxisType ( const MayaDM::double3& val );
+        MayaDM::double3 toUpAxisTypeAxis ( const MayaDM::double3& val );
+
+        /**
+        * In depend on the up axis, the order of the values will be changed.
+        */
+        MayaDM::double3 toUpAxisTypeFactor ( const MayaDM::double3& val );
 
         /**
         * Converts the given value to the linear unit in meters.

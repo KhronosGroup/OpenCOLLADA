@@ -201,7 +201,7 @@ namespace COLLADAMaya
     {
         // Get the color and set it into the shader node (if it is a valid color).
         const COLLADAFW::Color& standardColor = effect->getStandardColor ();
-        if ( standardColor.isValid () && standardColor != COLLADAFW::Color::BLACK )
+        if ( standardColor.isValid () && standardColor != COLLADAFW::Color::GREY )
         {
             shaderNode->setColor ( MayaDM::float3 ( (float)standardColor.getRed (), (float)standardColor.getGreen (), (float)standardColor.getBlue ()) );
         }
@@ -214,6 +214,26 @@ namespace COLLADAMaya
         const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
+        // Ambient color
+        const COLLADAFW::ColorOrTexture& ambientColor = commonEffect->getAmbient ();
+        if ( ambientColor.isColor () )
+        {
+            // Get the color and set it into the shader node (if it is a valid color).
+            const COLLADAFW::Color& color = ambientColor.getColor ();
+            if ( color.isValid () && color != COLLADAFW::Color::BLACK )
+                shaderNode->setAmbientColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
+        }
+        else if ( ambientColor.isTexture () )
+        {
+            // Get the texure and the current shader attribute.
+            const COLLADAFW::Texture& texture = ambientColor.getTexture ();
+            ShaderAttribute shaderAttribute = ATTR_AMBIENT;
+
+            // Create a shader node attribute and append it on the list of shader node 
+            // attributes to the current sampler file id.
+            appendTextureAttribute ( effect, texture, shaderType, shaderAttribute, shaderNode );
+        }
+
         // Diffuse color
         const COLLADAFW::ColorOrTexture& diffuse = commonEffect->getDiffuse ();
         if ( diffuse.isColor () )
@@ -263,20 +283,21 @@ namespace COLLADAMaya
 //             if ( val > 0 ) shaderNode->setRefractiveIndex ( val );
 //         }
 
-        // TODO What about the opaque mode???
-        // Transparency
-        const COLLADAFW::FloatOrParam& transparency = commonEffect->getTransparency ();
 
-        // Transparent color
-        const COLLADAFW::ColorOrTexture& transparent = commonEffect->getTransparent();
-        if ( transparent.isColor () )
+        // Opaque color
+        const COLLADAFW::ColorOrTexture& opaque = commonEffect->getOpacity();
+        if ( opaque.isColor () )
         {
             // Get the color and set it into the shader node (if it is a valid color).
-            const COLLADAFW::Color& color = transparent.getColor ();
-            if ( color.isValid () && color != COLLADAFW::Color::BLACK )
-                shaderNode->setTransparency ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
+            const COLLADAFW::Color& color = opaque.getColor ();
+            if ( color.isValid () && color != COLLADAFW::Color::WHITE )
+            {
+                // Maya handels the transparency, not the opaque, so we have to invert the color.
+                COLLADAFW::Color transparency ( 1-color.getRed (), 1-color.getGreen (), 1-color.getBlue (), color.getAlpha () );
+                shaderNode->setTransparency ( MayaDM::float3 ( (float)transparency.getRed (), (float)transparency.getGreen (), (float)transparency.getBlue ()) );
+            }
         }
-        else if ( transparent.isTexture () )
+        else if ( opaque.isTexture () )
         {
             // Get the texure and the current shader attribute.
             const COLLADAFW::Texture& texture = diffuse.getTexture ();
@@ -375,7 +396,7 @@ namespace COLLADAMaya
         {
             // Get the color and set it into the shader node (if it is a valid color).
             const COLLADAFW::Color& color = specular.getColor ();
-            if ( color.isValid () && color != COLLADAFW::Color::BLACK )
+            if ( color.isValid () && color != COLLADAFW::Color::GREY )
                 shaderNode->setSpecularColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
         }
         else if ( specular.isTexture () )
@@ -705,6 +726,12 @@ namespace COLLADAMaya
             {
                 MayaDM::Lambert* shaderNode = shaderNodeAttribute.mShaderNode;
                 connectAttr ( file, imageFile->getOutColor (), shaderNode->getColor () );
+                break;
+            }
+        case EffectImporter::ATTR_AMBIENT:
+            {
+                MayaDM::Lambert* shaderNode = shaderNodeAttribute.mShaderNode;
+                connectAttr ( file, imageFile->getOutColor (), shaderNode->getAmbientColor () );
                 break;
             }
         case EffectImporter::ATTR_INCANDESCENE:

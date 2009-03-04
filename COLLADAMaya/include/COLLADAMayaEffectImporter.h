@@ -54,6 +54,7 @@ namespace COLLADAMaya
         enum ShaderAttribute
         {
             ATTR_COLOR, 
+            ATTR_AMBIENT, 
             ATTR_INCANDESCENE,
             ATTR_TRANSPARENT,
             ATTR_REFLECTIVE,

@@ -78,7 +78,6 @@ namespace COLLADAMaya
             void setPrimitiveIndex ( const size_t val ) { mPrimitiveIndex = val; }
         };
 
-
     private:
 
         /**
@@ -97,9 +96,14 @@ namespace COLLADAMaya
         UniqueIdMayaNodeMap mMayaMeshNodesMap;
 
         /** 
-        * The map holds the unique ids of the nodes to the  specific nodes. 
+        * The map holds the unique ids of the geometry nodes to the  specific nodes. 
         */
         UniqueIdMayaDMMeshMap mMayaDMMeshNodesMap;
+
+        /** 
+         * The map holds the number of primitive elements to the geometry id.
+         */
+        UniqueIdElementCountMap mGeometryIdPrimitivesCountMap;
 
         /**
          * The map holds for every geometry's shading engine a list of 
@@ -143,6 +147,11 @@ namespace COLLADAMaya
         * The map holds the unique ids of the nodes to the  specific nodes. 
         */
         const MayaDM::Mesh* findMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+
+        /** 
+        * The map holds the number of primitive elements to the geometry id.
+        */
+        const size_t findPrimitivesCount ( const COLLADAFW::UniqueId& geometryId );
 
         /** 
         * The map holds the unique ids of the nodes to the  specific nodes. 

@@ -249,8 +249,10 @@ namespace COLLADAMaya
         asset.getContributor().mComments = optstr.asChar();
 
         // Up axis
-        if ( MGlobal::isYAxisUp() ) asset.setUpAxisType ( COLLADASW::Asset::Y_UP );
-        else if ( MGlobal::isZAxisUp() ) asset.setUpAxisType ( COLLADASW::Asset::Z_UP );
+        if ( MGlobal::isYAxisUp() ) 
+            asset.setUpAxisType ( COLLADASW::Asset::Y_UP );
+        else if ( MGlobal::isZAxisUp() ) 
+            asset.setUpAxisType ( COLLADASW::Asset::Z_UP );
 
         // Retrieve the linear unit name
         MString mayaLinearUnitName;

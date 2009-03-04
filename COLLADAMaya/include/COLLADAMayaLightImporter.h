@@ -16,6 +16,8 @@
 
 #include "COLLADABUIDList.h"
 
+#include <MayaDMLightList.h>
+#include <MayaDMObjectSet.h>
 #include <MayaDMSpotLight.h>
 #include <MayaDMPointLight.h>
 #include <MayaDMLightLinker.h>
@@ -35,11 +37,11 @@ namespace COLLADAMaya
         static const String LIGHT_NAME;
 
         /** The name of maya's default light list and set. */
-        static const String INITIAL_LIGHT_LIST;
-        static const String DEFAULT_LIGHT_SET;
+        static const String DEFAULT_LIGHT_LIST_NAME;
+        static const String DEFAULT_LIGHT_SET_NAME;
 
         /** The name of the light linker to link all the light objects. */
-        static const String LIGHT_LINKER_NAME;
+        static const String DEFAULT_LIGHT_LINKER_NAME;
 
     private:
 
@@ -53,7 +55,17 @@ namespace COLLADAMaya
          * light to the "light" child of the "link" compound will cause it to illuminate the object 
          * connected to the "object" child of the same index of the "link" compound.
          */
-        MayaDM::LightLinker* mLightLinker;
+        MayaDM::LightLinker mDefaultLightLinker;
+
+        /**
+         * The default light list object.
+         */
+        MayaDM::LightList mDefaultLightList; 
+
+        /**
+         * The default light set object.
+         */
+        MayaDM::ObjectSet mDefaultLightSet;
 
         /**
         * The list of the unique maya light names.
@@ -89,16 +101,17 @@ namespace COLLADAMaya
          */
         void writeConnections ();
 
+        /**
+         * Write the light connections.
+         */
         void connectLightObjects ();
-    private:
 
         /**
-         * If we have one or more lights, we need a light linker.
-         * This node defines light linking relationships between lights and objects. Connecting a 
-         * light to the "light" child of the "link" compound will cause it to illuminate the object 
-         * connected to the "object" child of the same index of the "link" compound.
+         * Creates the maya default light linker, light set and light list objects.
          */
-        void createLightLinker ();
+        void initialiseDefaultLightObjects ();
+
+    private:
 
         /**
          * Creates a light.

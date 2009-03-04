@@ -54,8 +54,9 @@ namespace COLLADAMaya
         const UniqueIdVec* transformNodeIds = visualSceneImporter->findCameraTransformIds ( cameraId );
         if ( transformNodeIds == 0 )
         {
-            MGlobal::displayError ( "No camera node which implements this camera!" );
+            MGlobal::displayWarning ( "No camera node which implements this camera!" );
             std::cerr << "No camera node which implements this camera!" << endl;
+            return;
         }
 
         UniqueIdVec::const_iterator nodesIter = transformNodeIds->begin ();

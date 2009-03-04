@@ -37,6 +37,7 @@ namespace COLLADAMaya
         static bool mImportUpAxis;
         static bool mImportUnits;
         static bool mImportNormals;
+        static bool mImportSoftEdges;
 
     public:
 
@@ -55,6 +56,8 @@ namespace COLLADAMaya
         static bool importUnits();
 
         static bool importNormals();
+
+        static bool importSoftEdges();
 
         static void setErrorFlag();
 

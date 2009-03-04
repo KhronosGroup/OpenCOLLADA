@@ -86,6 +86,7 @@ namespace COLLADAFW
             {
                 std::cerr << "Face index out of range: " << faceIndex << std::endl;
                 assert ( "Face index out of range: " + faceIndex );
+                return -1;
             }
 
             return mGroupedVerticesVertexCountArray [ faceIndex ];

@@ -18,6 +18,7 @@ namespace COLLADAFW
     //---------------------------------------------------------------
     const Color Color::WHITE = Color ( 1.0, 1.0, 1.0, 1.0 );
     const Color Color::BLACK = Color ( 0.0, 0.0, 0.0, 1.0 );
+    const Color Color::GREY = Color ( 0.5, 0.5, 0.5, 1.0 );
 
     //---------------------------------------------------------------
     void Color::set ( double r, double g, double b, double a, String sid )

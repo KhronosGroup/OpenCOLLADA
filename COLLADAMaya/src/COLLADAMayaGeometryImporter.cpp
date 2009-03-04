@@ -17,6 +17,7 @@
 #include "COLLADAMayaGeometryImporter.h"
 #include "ColladaMayaException.h"
 #include "COLLADAMayaVisualSceneImporter.h"
+#include "COLLADAMayaImportOptions.h"
 
 #include <maya/MFnMesh.h>
 #include <maya/MFnTransform.h>
@@ -177,7 +178,7 @@ namespace COLLADAMaya
         size_t numTransformInstances = visualSceneImporter->getNumTransformInstances ( transformNodeId );
 
         // Iterate over the instances and create the group nodes.
-        for ( size_t i=0; i<numTransformInstances; ++i )
+        for ( size_t transformInstanceIndex=0; transformInstanceIndex<numTransformInstances; ++transformInstanceIndex )
         {
             // We have to go through every mesh primitive.
             const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
@@ -198,9 +199,9 @@ namespace COLLADAMaya
                 ShadingBinding shadingBinding ( geometryId, transformNodeId, shadingEngineId );
 
                 // Create a groupInfo object.
-                GroupInfo* groupInfo = 0;;
+                GroupInfo* groupInfo = 0;
 
-//                 // Have a look, if there is already a group of another primitive index, 
+//                 // TODO Have a look, if there is already a group of another primitive index, 
 //                 // which uses the same shadingEngineId and materialId.
 //                 ShadingBindingGroupInfoMap::iterator it = mShadingBindingGroupMap.find ( shadingBinding );
 //                 if ( it != mShadingBindingGroupMap.end () )
@@ -224,7 +225,7 @@ namespace COLLADAMaya
                     FILE* file = getDocumentImporter ()->getFile ();
                     MayaDM::GroupId groupId ( file, groupName );
 
-                    groupInfo = new GroupInfo ( groupId, shadingEngineId );
+                    groupInfo = new GroupInfo ( groupId, shadingEngineId, transformInstanceIndex, primitiveIndex );
                 }
 
                 mShadingBindingGroupMap [shadingBinding].push_back ( *groupInfo );
@@ -277,7 +278,10 @@ namespace COLLADAMaya
         writeVertexPositions ( mesh, meshNode );
 
         // Write the normals. 
-        writeNormals ( mesh, meshNode );
+        if ( ImportOptions::importNormals () )
+        {
+            writeNormals ( mesh, meshNode );
+        }
 
         // Write the uv corrdinates.
         writeUVSets ( mesh, meshNode );
@@ -306,8 +310,8 @@ namespace COLLADAMaya
         // Write the face informations of all primitive elements into the maya file.
         writeFaces ( mesh, edgeIndicesMap, meshNode );
 
-        // Fills the ShadingEnginePrimitivesMap. Used to create the connections between the 
-        // shading engines and the geometries.
+        // Fills the PrimitivesMap and the ShadingEnginePrimitivesMap. 
+        // Used to create the connections between the shading engines and the geometries.
         setMeshPrimitiveShadingEngines ( mesh );
     }
 
@@ -364,12 +368,13 @@ namespace COLLADAMaya
                 const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
 
                 // TODO Is this also with trifans, etc. the right number???
-                size_t numFaces = meshPrimitive->getGroupedVertexElementsCount ();
-//                 COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) primitiveElement;
-//                 COLLADAFW::Trifans::VertexCountArray& vertexCountArray = 
-//                     trifans->getGroupedVerticesVertexCountArray ();
-//                 meshPrimitive->getFaceCount ();
-//                 meshPrimitive->getGroupedVerticesVertexCount ();
+//              size_t numFaces = meshPrimitive->getGroupedVertexElementsCount ();
+                size_t numFaces = meshPrimitive->getFaceCount ();
+
+//                COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) primitiveElement;
+//                COLLADAFW::Trifans::VertexCountArray& vertexCountArray = 
+//                    trifans->getGroupedVerticesVertexCountArray ();
+//                size_t faceCount2 = meshPrimitive->getGroupedVerticesVertexCount (i);
 
                 // Create the string with the face informations for the component list.
                 String val = "f[" + COLLADABU::Utils::toString ( initialFaceIndex ) 
@@ -391,12 +396,17 @@ namespace COLLADAMaya
     // --------------------------------------------
     void GeometryImporter::setMeshPrimitiveShadingEngines ( const COLLADAFW::Mesh* mesh )
     {
+        // Get the geometry id.
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
 
         // We have to go through every mesh primitive.
         const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
         size_t meshPrimitivesCount = meshPrimitives.getCount ();
 
+        // Push the number of primitive elements to the geometry in the map.
+        mGeometryIdPrimitivesCountMap [geometryId] = meshPrimitivesCount;
+
+        // Iterate over the mesh primitive elements and set the shading engines.
         for ( size_t primitiveIndex=0; primitiveIndex<meshPrimitivesCount; ++primitiveIndex )
         {
             // Get the current primitive element.
@@ -423,6 +433,8 @@ namespace COLLADAMaya
         size_t stride = 3;
 
         const COLLADAFW::MeshVertexData& positions = mesh->getPositions ();
+        if ( positions.getValuesCount () == 0 ) return;
+
         const COLLADAFW::MeshVertexData::DataType type = positions.getType ();
         switch ( type )
         {
@@ -709,13 +721,21 @@ namespace COLLADAMaya
         size_t numEdges = edgeIndices.size ();
         if ( numEdges > 0 )
         {
-            // Without normals, we need to use soft edges (1),
-            // with normals, we have to use hard edges (0).
+            // We always have per vertex normals.
+            // With normals, it doesn't matter if we have hard or soft edges, 
+            // because the normals make the edge smoothing.
             int edgh = 1;
-            if ( mesh->getNormalsCount () > 0 )
+            if ( !ImportOptions::importSoftEdges () )
+            {
                 edgh = 0;
+            }
+            
+            // Without normals, we need to use soft edges (1) (per vertex normals),
+            // with normals, we have to use hard edges (0) (per face normals).
+//             if ( mesh->getNormalsCount () > 0 )
+//                 edgh = 0;
 
-            // Go through the edges and write them
+            // Go through the edges and write them.
             meshNode.startEdge ( 0, numEdges-1 );
             for ( size_t k=0; k<numEdges; ++k )
             {
@@ -912,12 +932,18 @@ namespace COLLADAMaya
             // The number of vertices in the current vertex group.
             unsigned int vertexCount = vertexCountArray [groupedVerticesIndex];
 
+            // TODO We have to turn the direction of every second triangle!
+            bool changeDirection = true;
+
             // Determine the number of edges and iterate over it.
             unsigned int numEdges = ( vertexCount - 3 ) * 3 + 3;
             for ( unsigned int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
             {
                 if ( triangleEdgeCounter == 0 )
                 {
+                    // Change the direction for every second triangle.
+                    changeDirection = !changeDirection;
+
                     // Handle the edge informations.
                     polyFace.f.faceEdgeCount = 3;
                     polyFace.f.edgeIdValue = new int[3];
@@ -944,7 +970,21 @@ namespace COLLADAMaya
                 getEdgeIndex ( edge, edgeIndicesMap, edgeIndexValue );
 
                 // Set the edge list index into the poly face
-                polyFace.f.edgeIdValue[triangleEdgeCounter-1] = edgeIndexValue;
+                if ( changeDirection )
+                {
+                    edgeIndexValue = -( edgeIndexValue + 1 );
+
+                    if ( triangleEdgeCounter == 1 ) 
+                        polyFace.f.edgeIdValue[0] = edgeIndexValue;
+                    if ( triangleEdgeCounter == 2 ) 
+                        polyFace.f.edgeIdValue[2] = edgeIndexValue;
+                    if ( triangleEdgeCounter == 3 ) 
+                        polyFace.f.edgeIdValue[1] = edgeIndexValue;
+                }
+                else
+                {
+                    polyFace.f.edgeIdValue[triangleEdgeCounter-1] = edgeIndexValue;
+                }
 
                 // Reset the edge counter, if we have all three edges of a triangle.
                 if ( triangleEdgeCounter == 3 ) 
@@ -1454,5 +1494,15 @@ namespace COLLADAMaya
         return &(it->second);
     }
 
+    // --------------------------------------------
+    const size_t GeometryImporter::findPrimitivesCount ( const COLLADAFW::UniqueId& geometryId )
+    {
+        UniqueIdElementCountMap::const_iterator it = mGeometryIdPrimitivesCountMap.find ( geometryId );
+        if ( it == mGeometryIdPrimitivesCountMap.end () )
+        {
+            return 0;
+        }
+        return it->second;
+    }
 
 }

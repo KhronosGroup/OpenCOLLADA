@@ -92,7 +92,7 @@ namespace COLLADAFW
     }
 
     //------------------------------
-    void FileInfo::Unit::setLinearUnit ( const String& val )
+    void FileInfo::Unit::setLinearUnitName ( const String& val )
     {
         mLinearUnitName = val;
 

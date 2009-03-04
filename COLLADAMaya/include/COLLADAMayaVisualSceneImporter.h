@@ -299,7 +299,7 @@ namespace COLLADAMaya
         /**
         * Converts the skew into a matrix.
         */
-        void skewValuesToMayaMatrix ( const COLLADAFW::Skew* skew, MMatrix& matrix ) const;
+        void skewValuesToMayaMatrix ( const COLLADAFW::Skew* skew, MMatrix& matrix );
 
     };
 }

@@ -363,15 +363,12 @@ namespace COLLADAMaya
             size_t numTransformInstances = transformPathes.size ();
             for ( size_t transformInstance=0; transformInstance<numTransformInstances; ++transformInstance )
             {
-                for ( size_t primitiveIndex=0; primitiveIndex<numMaterialInfos; ++primitiveIndex )
+                for ( size_t materialIndex=0; materialIndex<numMaterialInfos; ++materialIndex )
                 {
-                    const MaterialInfo& materialInfo = materialInfosList [primitiveIndex];
+                    const MaterialInfo& materialInfo = materialInfosList [materialIndex];
                     const COLLADAFW::MaterialId& shadingEngineId = materialInfo.getShadingEngineId ();
                     const COLLADAFW::UniqueId& materialId = materialInfo.getMaterialId ();
                 
-                    //size_t numPrimitiveElements = shadingBindingGroups->size ();
-                    size_t numPrimitiveElements = numMaterialInfos;
-
                     // Get the maya shading engine object.
                     ShadingData* shaderData = findShaderData ( materialId );
                     if ( shaderData == 0 )  {
@@ -388,19 +385,37 @@ namespace COLLADAMaya
                         return;
                     }
                     MayaNode* mayaMeshNode = geometryImporter->findMayaMeshNode ( geometryId );
+
                     // Set the current transformation path.
                     String meshName = mesh->getName ();
                     String meshPath = transformPathes [transformInstance] + "|" + meshName;
                     mesh->setName ( meshPath );
 
-                    // We just need connections to objectGroups, if we have multiple mesh primitive elements.
-                    if ( numPrimitiveElements > 1 )
-                    {
-                        // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
-                        connectNextAttr ( file, mesh->getObjectGroups ( primitiveIndex ), shadingEngine.getDagSetMembers () );
+                    //std::vector<GroupInfo>* groupInfos = geometryImporter->findShadingBindingGroups ( geometryId, transformId, shadingEngineId );
+                    //size_t numPrimitiveElements = groupInfos->size ();
+                    //size_t numPrimitiveElements = shadingBindingGroups->size ();
+                    //size_t numPrimitiveElements = numMaterialInfos;
 
-                        // connectAttr "lambert2SG.memberWireframeColor" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGrpColor";
-                        connectAttr ( file, shadingEngine.getMemberWireframeColor (), mesh->getObjectGrpColor ( primitiveIndex ) );
+                    // We just need connections to objectGroups, if we have multiple geometry 
+                    // instances or multiple mesh primitive elements.
+                    size_t numPrimitiveElements = geometryImporter->findPrimitivesCount ( geometryId );
+                    if ( numPrimitiveElements > 1 )
+                    //if ( numPrimitiveElements > 1 || numTransformInstances > 1 )
+                    //if ( geometryImporter->getShadingBindingGroupMap ().size () > 0 )
+                    {
+                        // Do the connection to this shading engine for every primitive element, 
+                        // which use this shading engine.
+                        std::vector<size_t>* primitiveIndices = geometryImporter->getShadingEnginePrimitiveIndices ( geometryId, shadingEngineId );
+                        for ( size_t i=0; i<primitiveIndices->size (); ++i )
+                        {
+                            const size_t primitiveIndex = (*primitiveIndices) [i];
+
+                            // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
+                            connectNextAttr ( file, mesh->getObjectGroups ( primitiveIndex ), shadingEngine.getDagSetMembers () );
+
+                            // connectAttr "lambert2SG.memberWireframeColor" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGrpColor";
+                            connectAttr ( file, shadingEngine.getMemberWireframeColor (), mesh->getObjectGrpColor ( primitiveIndex ) );
+                        }
                     }
                     else
                     {
@@ -409,26 +424,28 @@ namespace COLLADAMaya
                     }
 
                     // Get the groupId objects of the current geometry in the transform.
-                    // The number of groupId objects depends on the number of geometry instances and 
-                    // on the number of primitive elements in the geometry.
+                    // The number of groupId objects depends on the number of geometry instances 
+                    // from instance node and on the number of primitive elements in the geometry.
                     std::vector<GroupInfo>* shadingBindingGroups;
                     shadingBindingGroups = geometryImporter->findShadingBindingGroups ( geometryId, transformId, shadingEngineId );
 
                     // If there are some object groups, we have to connect them with the geometries.
                     if ( shadingBindingGroups != 0 ) 
                     {
-                        if ( shadingBindingGroups->size () > transformInstance )
+                        for ( size_t i=0; i<shadingBindingGroups->size (); ++i )
                         {
-                            const GroupInfo& groupInfo = (*shadingBindingGroups) [transformInstance];
+                            const GroupInfo& groupInfo = (*shadingBindingGroups) [i];
+
                             const MayaDM::GroupId& groupId = groupInfo.getGroupId ();
                             const COLLADAFW::MaterialId& currentShadingEngineId = groupInfo.getShadingEngineId ();
+                            const size_t transformInstanceIndex = groupInfo.getTransformInstanceIndex ();
+                            const size_t primitiveIndex = groupInfo.getPrimitiveIndex ();
 
-                            // connectAttr "groupId1.groupId" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGroupId";
-                            connectAttr ( file, groupId.getGroupId (), mesh->getObjectGroupId ( primitiveIndex ) );
-                        }
-                        else
-                        {
-                            MGlobal::displayError ( "No valid object group for current transform geometry instance!\n" );
+                            if ( transformInstanceIndex == transformInstance )
+                            {
+                                // connectAttr "groupId1.groupId" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGroupId";
+                                connectAttr ( file, groupId.getGroupId (), mesh->getObjectGroupId ( primitiveIndex ) );
+                            }
                         }
                     }
 

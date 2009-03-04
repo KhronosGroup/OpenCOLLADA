@@ -103,24 +103,33 @@ namespace COLLADAFW
 		*/
 		FloatOrParam mReflectivity;
 
-		/** Declares the color of perfectly refracted light. 
-		Used by the following shaders:
-		Blinn
-		Constant
-		Phong
-		Lambert
-		*/
-		ColorOrTexture mTransparent;
+        /** Declares the opaque color. 
+        Used by the following shaders:
+        Blinn
+        Constant
+        Phong
+        Lambert
+        */
+        ColorOrTexture mOpacity;
 
-		/** Declares the amount of perfectly refracted light added to the reflected color as a 
-		scalar value between 0.0 and 1.0. 
-		Used by the following shaders:
-		Blinn
-		Constant
-		Phong
-		Lambert
-		*/
-		FloatOrParam mTransparency;
+//         /** Declares the color of perfectly refracted light. 
+// 		Used by the following shaders:
+// 		Blinn
+// 		Constant
+// 		Phong
+// 		Lambert
+// 		*/
+// 		ColorOrTexture mTransparent;
+// 
+// 		/** Declares the amount of perfectly refracted light added to the reflected color as a 
+// 		scalar value between 0.0 and 1.0. 
+// 		Used by the following shaders:
+// 		Blinn
+// 		Constant
+// 		Phong
+// 		Lambert
+// 		*/
+// 		FloatOrParam mTransparency;
 
 		/** Declares the index of refraction for perfectly refracted light as a single scalar index. 
 		Used by the following shaders:
@@ -330,64 +339,32 @@ namespace COLLADAFW
 		*/
 		void setReflectivity( const FloatOrParam& Reflectivity ) { mReflectivity = Reflectivity; }
 
+        /** Declares the opaque color. 
+        Used by the following shaders:
+        Blinn
+        Constant
+        Phong
+        Lambert
+        */
+        COLLADAFW::ColorOrTexture& getOpacity () { return mOpacity; }
 
-		/** Declares the color of perfectly refracted light. 
-		Used by the following shaders:
-		Blinn
-		Phong
-		Lambert
-		*/
-		const ColorOrTexture& getTransparent() const { return mTransparent; }
+        /** Declares the opaque color. 
+        Used by the following shaders:
+        Blinn
+        Constant
+        Phong
+        Lambert
+        */
+        const COLLADAFW::ColorOrTexture& getOpacity () const { return mOpacity; }
 
-		/** Declares the color of perfectly refracted light. 
-		Used by the following shaders:
-		Blinn
-		Constant
-		Phong
-		Lambert
-		*/
-		ColorOrTexture& getTransparent() { return mTransparent; }
-
-		/** Declares the color of perfectly refracted light. 
-		Used by the following shaders:
-		Blinn
-		Constant
-		Phong
-		Lambert
-		*/
-		void setTransparent( const ColorOrTexture& Transparent ) { mTransparent = Transparent; }
-
-
-		/** Declares the amount of perfectly refracted light added to the reflected color as a 
-		scalar value between 0.0 and 1.0. 
-		Used by the following shaders:
-		Blinn
-		Constant
-		Phong
-		Lambert
-		*/
-		const FloatOrParam& getTransparency() const { return mTransparency; }
-
-		/** Declares the amount of perfectly refracted light added to the reflected color as a 
-		scalar value between 0.0 and 1.0. 
-		Used by the following shaders:
-		Blinn
-		Constant
-		Phong
-		Lambert
-		*/
-		FloatOrParam& getTransparency() { return mTransparency; }
-
-		/** Declares the amount of perfectly refracted light added to the reflected color as a 
-		scalar value between 0.0 and 1.0. 
-		Used by the following shaders:
-		Blinn
-		Constant
-		Phong
-		Lambert
-		*/
-		void setTransparency( const FloatOrParam& Transparency ) { mTransparency = Transparency; }
-
+        /** Declares the opaque color. 
+        Used by the following shaders:
+        Blinn
+        Constant
+        Phong
+        Lambert
+        */
+        void setOpacity ( const COLLADAFW::ColorOrTexture& val ) { mOpacity = val; }
 
 		/** Declares the index of refraction for perfectly refracted light as a single scalar index. 
 		Used by the following shaders:

@@ -78,6 +78,9 @@ namespace COLLADAFW
         /** A black color object*/
         static const Color BLACK;
 
+        /** A grey color object*/
+        static const Color GREY;
+
         /** Operator overloading. */
         bool operator==(const Color& uid) const;
         bool operator!=(const Color& uid) const;

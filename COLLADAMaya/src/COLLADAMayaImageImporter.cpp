@@ -49,12 +49,14 @@ namespace COLLADAMaya
 
         // Get the image uri
         const COLLADABU::URI& imageURI = image->getImageURI ();
-
+        String fileTextureName = imageURI.toNativePath ();
+        COLLADABU::Utils::stringFindAndReplace ( fileTextureName, "\\", "/" );
+        
         //createNode file -name "file1";
         //    setAttr ".fileTextureName" -type "string" "./tex/checkerRGB.jpg";
         MayaDM::File mayaImage ( file, imageName );
-        mayaImage.setFileTextureName ( imageURI.getURIString () );
-
+        mayaImage.setFileTextureName ( fileTextureName );
+        
         // Push the maya image file in the map to the unique image id.
         mImageIdMayaImageFileMap [ imageId ] = mayaImage;
     }

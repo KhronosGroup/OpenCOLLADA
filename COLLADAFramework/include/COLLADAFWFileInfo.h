@@ -160,8 +160,8 @@ namespace COLLADAFW
             * "meter", "centimeter", "inches", or "parsec". This can be the
             * real name of a measurement, or an imaginary name.
             */
-            const String& getLinearUnit () const { return mLinearUnitName; }
-            void setLinearUnit ( const String& val );
+            const String& getLinearUnitName () const { return mLinearUnitName; }
+            void setLinearUnitName ( const String& val );
 
             /**
              * Initializes the linear unit unit with the specified enum value
@@ -270,7 +270,7 @@ namespace COLLADAFW
         */
         void setLinearUnit ( const String& linearUnit )
         {
-            mUnit.setLinearUnit ( linearUnit );
+            mUnit.setLinearUnitName ( linearUnit );
         }
 
         /**

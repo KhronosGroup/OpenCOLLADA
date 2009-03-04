@@ -67,12 +67,24 @@ namespace COLLADAMaya
     private:
         MayaDM::GroupId mGroupId;
         COLLADAFW::MaterialId mShadingEngineId;
+        size_t mTransformInstanceIndex;
+        size_t mPrimitiveIndex;
 
     public:
-        GroupInfo () {}
-        GroupInfo ( const MayaDM::GroupId& groupId, const COLLADAFW::MaterialId& shadingEngineId ) 
+        GroupInfo () 
+            : mTransformInstanceIndex (0)
+            , mPrimitiveIndex (0)
+        {}
+
+        GroupInfo ( 
+            const MayaDM::GroupId& groupId, 
+            const COLLADAFW::MaterialId& shadingEngineId, 
+            const size_t transformInstanceIndex, 
+            const size_t primitiveIndex ) 
             : mGroupId ( groupId )
             , mShadingEngineId ( shadingEngineId )
+            , mTransformInstanceIndex ( transformInstanceIndex )
+            , mPrimitiveIndex ( primitiveIndex )
         {}
         virtual ~GroupInfo () {}
 
@@ -81,7 +93,14 @@ namespace COLLADAMaya
 
         const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
         void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }
+
+        const size_t getTransformInstanceIndex () const { return mTransformInstanceIndex; }
+        void setTransformInstanceIndex ( const size_t val ) { mTransformInstanceIndex = val; }
+
+        const size_t getPrimitiveIndex () const { return mPrimitiveIndex; }
+        void setPrimitiveIndex ( const size_t val ) { mPrimitiveIndex = val; }
     };
+
     /**
     * The group binding per primitive element for a geometry, transform node and shading engine. 
     */

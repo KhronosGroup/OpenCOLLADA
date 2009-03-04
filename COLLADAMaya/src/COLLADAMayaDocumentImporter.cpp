@@ -66,8 +66,9 @@ namespace COLLADAMaya
         , mCameraRead (false)
         , mLightRead (false)
         , mImageRead (false)
-        , mLinearUnitMeter (1)
         , mNumDocumentParses (0)
+        , mUpAxisType ( COLLADAFW::FileInfo::Y_UP )
+        , mLinearUnitMeter ( COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER )
     {
     }
 
@@ -193,6 +194,12 @@ namespace COLLADAMaya
         // Create the maya file.
         bool retValue = createMayaAsciiFile ();
         assert ( retValue );
+
+        // TODO Initialise the maya default objects.
+        if ( retValue ) 
+        {
+            mLightImporter->initialiseDefaultLightObjects ();
+        }
     }
 
     //-----------------------------
@@ -357,93 +364,143 @@ namespace COLLADAMaya
         // Get the unit informations.
         const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
 
-        // TODO Default values for the units!
-        String linearUnitName = unit.getLinearUnit ();
-        double linearUnitMeter = unit.getLinearUnitMeter ();
-
-        // Set the linear unit in meters.
-        // Maya knows: millimeter, centimeter, meter, foot, inch and yard.
-        switch ( unit.getLinearUnitUnit () )
+        // Set the default value to meters.
+        String linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+        if ( ImportOptions::importUnits () )
         {
-        case COLLADAFW::FileInfo::Unit::KILOMETER:
+            linearUnitName = unit.getLinearUnitName ();
+            mLinearUnitMeter = unit.getLinearUnitMeter ();
+
+            // Set the linear unit in meters.
+            // Maya knows: millimeter, centimeter, meter, foot, inch and yard.
+            switch ( unit.getLinearUnitUnit () )
             {
-                // Convert to meters
-                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                linearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;;
-                break;
-            }
-        case COLLADAFW::FileInfo::Unit::METER:
-            {
-                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
-                break;
-            }
-        case COLLADAFW::FileInfo::Unit::DECIMETER:
-            {
-                // Convert to meters
-                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                linearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER;
-                break;
-            }
-        case COLLADAFW::FileInfo::Unit::CENTIMETER:
-            {
-                // Don't convert 
-                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
-                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
-                break;
-            }
-        case COLLADAFW::FileInfo::Unit::MILLIMETER:
-            {
-                // Convert to centimeters
-                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
-                linearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_MILLIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
-                break;
-            }
-        case COLLADAFW::FileInfo::Unit::FOOT:
-            {
-                // Don't convert 
-                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT_NAME;
-                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT;
-                break;
-            }
-        case COLLADAFW::FileInfo::Unit::INCH:
-            {
-                // Don't convert 
-                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH_NAME;
-                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH;
-                break;
-            }
-        case COLLADAFW::FileInfo::Unit::YARD:
-            {
-                // Don't convert 
-                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD_NAME;
-                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD;
-                break;
-            }
-        default:
-            {
-                // Set to meters
-                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                linearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
-                break;
+            case COLLADAFW::FileInfo::Unit::KILOMETER:
+                {
+                    // Convert to meters
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;;
+                    break;
+                }
+            case COLLADAFW::FileInfo::Unit::METER:
+                {
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
+                    break;
+                }
+            case COLLADAFW::FileInfo::Unit::DECIMETER:
+                {
+                    // Convert to meters
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER;
+                    break;
+                }
+            case COLLADAFW::FileInfo::Unit::CENTIMETER:
+                {
+                    // Don't convert 
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
+                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
+                    break;
+                }
+            case COLLADAFW::FileInfo::Unit::MILLIMETER:
+                {
+                    // Convert to centimeters
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
+                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_MILLIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
+                    break;
+                }
+            case COLLADAFW::FileInfo::Unit::FOOT:
+                {
+                    // Don't convert 
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT_NAME;
+                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT;
+                    break;
+                }
+            case COLLADAFW::FileInfo::Unit::INCH:
+                {
+                    // Don't convert 
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH_NAME;
+                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH;
+                    break;
+                }
+            case COLLADAFW::FileInfo::Unit::YARD:
+                {
+                    // Don't convert 
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD_NAME;
+                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD;
+                    break;
+                }
+            default:
+                {
+                    // Set to meters
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
+                    break;
+                }
             }
         }
 
         fprintf_s ( mFile, "currentUnit -l %s -a %s -t %s;\n", 
             linearUnitName.c_str (), unit.getAngularUnitName ().c_str (), unit.getTimeUnitName ().c_str () );
 
-        mLinearUnitMeter = linearUnitMeter;
-        mUpAxisType = asset->getUpAxisType ();
+        if ( ImportOptions::importUpAxis () )
+        {
+            mUpAxisType = asset->getUpAxisType ();
+        }
+        else
+        {
+            mUpAxisType = COLLADAFW::FileInfo::Y_UP;
 
-        //         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
-        //         fprintf_s ( mFile, "fileInfo \"application\" \"%s\";\n", application.c_str () );
-        //         String product ( MGlobal::executeCommandStringResult ( "about -product" ).asChar () );
-        //         fprintf_s ( mFile, "fileInfo \"product\" \"%s\";\n", product.c_str () );
-        //         fprintf_s ( mFile, "fileInfo \"version\" \"%s\";\n", mayaVersion.c_str () );
-        //         String cutIdentifier ( MGlobal::executeCommandStringResult ( "product -cutIdentifier" ).asChar () );
-        //         fprintf_s ( mFile, "fileInfo \"cutIdentifier\" \"%s\";\n", cutIdentifier.c_str () );
-        //         String operatingSystemVersion ( MGlobal::executeCommandStringResult ( "product -operatingSystemVersion" ).asChar () );
-        //         fprintf_s ( mFile, "fileInfo \"osv\" \"%s\";\n", operatingSystemVersion.c_str () );
+            if ( asset->getUpAxisType () == COLLADAFW::FileInfo::Z_UP )
+            {
+//                 // TODO Create a root node with the global transformation.
+//                 double convertMatrix[4][4] = { {1,0,0,0}, {0,0,1,0}, {0,-1,0,0}, {0,0,0,1} };
+// 
+//                 // Convert the matrix to a maya matrix.
+//                 MMatrix matrix ( convertMatrix );
+//                 MTransformationMatrix tm ( matrix );
+// 
+//                 // Create a transform node of the specific type.
+//                 MayaDM::Transform transformNode ( mFile, "unitConversion" );
+// 
+//                 // TODO Add the name in the list of node names!
+//                 // TODO No unique id! We have to push in list! (other node pathes)
+// 
+//                 MStatus status;
+//                 MVector transVec = tm.getTranslation ( MSpace::kTransform, &status );
+//                 transformNode.setTranslate ( ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
+//                 //transformNode.setTranslate ( toLinearUnit ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
+// 
+//                 double rotation[3];
+//                 MTransformationMatrix::RotationOrder order;
+//                 tm.getRotation ( rotation, order, MSpace::kTransform );
+//                 if ( ! ( MVector (0,0,0) == MVector ( rotation ) ) )
+//                     transformNode.setRotate ( ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation[0]), COLLADABU::Math::Utils::radToDeg(rotation[1]), COLLADABU::Math::Utils::radToDeg(rotation[2]) ) ) );
+//                 //transformNode.setRotate ( toAngularUnit ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) ) );
+// 
+//                 double scale[3];
+//                 tm.getScale ( scale, MSpace::kTransform );
+//                 if ( ! ( MVector (1,1,1) == MVector ( scale ) ) )
+//                     transformNode.setScale ( ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
+//                 //transformNode.setScale ( toUpAxisTypeFactor ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
+// 
+//                 double shear[3];
+//                 tm.getShear ( shear, MSpace::kTransform );
+//                 if ( ! ( MVector (0,0,0) == MVector ( shear ) ) )
+//                     transformNode.setShear ( ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
+//                 //transformNode.setShear ( toUpAxisTypeAxis ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
+            }
+        }
+
+//         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
+//         fprintf_s ( mFile, "fileInfo \"application\" \"%s\";\n", application.c_str () );
+//         String product ( MGlobal::executeCommandStringResult ( "about -product" ).asChar () );
+//         fprintf_s ( mFile, "fileInfo \"product\" \"%s\";\n", product.c_str () );
+//         fprintf_s ( mFile, "fileInfo \"version\" \"%s\";\n", mayaVersion.c_str () );
+//         String cutIdentifier ( MGlobal::executeCommandStringResult ( "product -cutIdentifier" ).asChar () );
+//         fprintf_s ( mFile, "fileInfo \"cutIdentifier\" \"%s\";\n", cutIdentifier.c_str () );
+//         String operatingSystemVersion ( MGlobal::executeCommandStringResult ( "product -operatingSystemVersion" ).asChar () );
+//         fprintf_s ( mFile, "fileInfo \"osv\" \"%s\";\n", operatingSystemVersion.c_str () );
 
         mAssetWritten = true;
 

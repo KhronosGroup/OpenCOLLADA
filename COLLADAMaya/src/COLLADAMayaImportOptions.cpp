@@ -24,18 +24,20 @@ namespace COLLADAMaya
     bool ImportOptions::mFileLoadDeferRefOptionVar = false;
     bool ImportOptions::mHasError = false;
 
-    bool ImportOptions::mImportUpAxis = true;
+    bool ImportOptions::mImportUpAxis = false;
     bool ImportOptions::mImportUnits = true;
     bool ImportOptions::mImportNormals = false;
-
-
+    bool ImportOptions::mImportSoftEdges = true;
+    
+    
     /** Parse the options String */
     void ImportOptions::set ( const MString& optionsString, MPxFileTranslator::FileAccessMode mode )
     {
         // Default option values
-        mImportUpAxis = true;
+        mImportUpAxis = false;
         mImportUnits = true;
         mImportNormals = false;
+        mImportSoftEdges = true;
 
         mHasError = false;
 
@@ -101,6 +103,7 @@ namespace COLLADAMaya
                 if ( optionName == "importUpAxis" ) mImportUpAxis = value;
                 else if ( optionName == "importUnits" ) mImportUnits = value;
                 else if ( optionName == "importNormals" ) mImportNormals = value;
+                else if ( optionName == "importSoftEdges" ) mImportSoftEdges = value;
             }
         }
 
@@ -145,6 +148,11 @@ namespace COLLADAMaya
         return mImportNormals;
     }
 
+    bool ImportOptions::importSoftEdges()
+    {
+        return mImportSoftEdges;
+    }
+    
     void ImportOptions::setErrorFlag()
     {
         mHasError = true;
