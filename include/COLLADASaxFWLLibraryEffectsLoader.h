@@ -16,6 +16,8 @@
 #include "COLLADAFWEffectCommon.h"
 
 #include "COLLADAFWTypes.h"
+#include "COLLADAFWColorOrTexture.h"
+
 
 namespace COLLADAFW
 {
@@ -52,7 +54,7 @@ namespace COLLADASaxFWL
 			SHADER_PARAMETER_SHININESS,
 			SHADER_PARAMETER_REFLECTIVE,
 			SHADER_PARAMETER_REFLECTIVITY,
-			SHADER_PARAMETER_TRANSPARANT,
+			SHADER_PARAMETER_TRANSPARENT,
 			SHADER_PARAMETER_TRANSPARANCY,
 			SHADER_PARAMETER_INDEX_OF_REFRECTION,
 			UNKNOWN_SHADER_TYPE
@@ -82,10 +84,41 @@ namespace COLLADASaxFWL
 
 		typedef std::map<String, SamplerInfo> SidSamplerInfoMap;
 
+        /**
+        * There is a transparent color and a transparency value with an opaque mode in collada.
+        * We have to calculate with this the opaque color for the framework.
+        */
+        enum Opaque
+        {
+            UNSPECIFIED_OPAQUE,
+            A_ONE,
+            RGB_ZERO,
+            A_ZERO,
+            RGB_ONE
+        };
 
 	private:
+
 		/** The effect currently being imported.*/
 		COLLADAFW::Effect* mCurrentEffect;
+
+        /**
+         * There is a transparent color and a transparency value with an opaque mode in collada.
+         * We have to calculate with this the opaque color for the framework.
+         */
+		COLLADAFW::ColorOrTexture mTransparent;
+
+        /**
+        * There is a transparent color and a transparency value with an opaque mode in collada.
+        * We have to calculate with this the opaque color for the framework.
+        */
+		COLLADAFW::FloatOrParam mTransparency;
+
+        /**
+        * There is a transparent color and a transparency value with an opaque mode in collada.
+        * We have to calculate with this the opaque color for the framework.
+        */
+        Opaque mOpaqueMode;
 
 		/** The current profile.*/
 		Profile mCurrentProfile;
@@ -354,6 +387,15 @@ namespace COLLADASaxFWL
 
 		/** Stores texture data into the @a shaderParameterType texture object.*/
 		bool handleTexture( const texture__AttributeData& attributeData,  ShaderParameterTypes shaderParameterType);
+
+        /**
+         * Luminance is the function, based on the ISO/CIE color standards (see ITU-R 
+         * Recommendation BT.709-4), that averages the color channels into one value.
+         */
+        double calculateLuminance ( const COLLADAFW::Color& color );
+
+        /** Calculates the framework opacity value from the collada transparent and transparency values. */
+        void calculateOpacity ();
 
 	private:
 
