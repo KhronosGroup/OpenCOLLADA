@@ -118,6 +118,9 @@ namespace COLLADAMax
 
 		};
 
+		/** List of unique ids.*/
+		typedef std::vector< COLLADAFW::UniqueId > UniqueIdList;
+			
 	private:
 		/** Max interface.*/
 		Interface* mMaxInterface;
@@ -192,6 +195,10 @@ namespace COLLADAMax
 
 		/** Maps an object to its name. Whenever an object is created, add it with its name to this map.*/
 		ObjectObjectNameMap mObjectObjectNameMap;
+
+		/** List of unique ids of objects that use vertex color. When ever a geometry that uses vertex color is created,
+		its unique id should be added to this list.*/
+		UniqueIdList mVertexColorObjects;
 
 		/** Holds informations about the entire file being loaded.*/
 		FileInfo mFileInfo;
@@ -328,6 +335,11 @@ namespace COLLADAMax
 		/** Returns the map, that maps an object to its name. Whenever an object is created, add it with 
 		its name to this map.*/
 		ObjectObjectNameMap& getObjectObjectNameMap() { return mObjectObjectNameMap; }
+
+		/** Returns the list of unique ids of objects that use vertex color. When ever a geometry that uses vertex color is created,
+		its unique id should be added to this list.*/
+		UniqueIdList& getVertexColorObjects() { return  mVertexColorObjects; }
+
 
 		/** Returns informations about the entire file being loaded.*/
 		const FileInfo& getFileInfo() const { return mFileInfo; }

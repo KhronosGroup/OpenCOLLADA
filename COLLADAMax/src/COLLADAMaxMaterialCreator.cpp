@@ -219,6 +219,7 @@ namespace COLLADAMax
 			itClone->first->SetMtl(itClone->second->GetMtl());
 		}
 		
+		setVertexColorFlag();
 
 		return true;
 	}
@@ -504,5 +505,28 @@ namespace COLLADAMax
 			stdMat->SetTexmapAmt(slot, 1.0f, 0);
 		}
 	}
+
+	//------------------------------
+	void MaterialCreator::setVertexColorFlag()
+	{
+		const DocumentImporter::UniqueIdList& vertexColorObjects = getVertexColorObjects();
+		DocumentImporter::UniqueIdList::const_iterator it = vertexColorObjects.begin();
+		for (; it != vertexColorObjects.end(); ++it)
+		{
+			const COLLADAFW::UniqueId& uniqueId = *it;
+			INodeList iNodes;
+			getObjectINodesByUniqueId( uniqueId, iNodes );
+			INodeList::iterator nodeIt = iNodes.begin();
+			for ( ; nodeIt != iNodes.end(); ++nodeIt )
+			{
+				INode* vertexObjectINode = *nodeIt;
+				vertexObjectINode->SetCVertMode(true);
+				vertexObjectINode->SetShadeCVerts(true);
+			}
+			
+		}
+		
+	}
+
 
 } // namespace COLLADAMax

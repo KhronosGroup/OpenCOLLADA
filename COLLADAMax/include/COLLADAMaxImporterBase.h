@@ -150,6 +150,10 @@ namespace COLLADAMax
 		add it using this method.*/
 		void addObjectObjectNamePair( Object* object, const String& name);
 
+		/** Adds @a vertexColorObjectuniqueId to the list of unique ids of objects that use vertex color. 
+		When ever a geometry that uses vertex color is created,	its unique id should be added to this list.*/
+		void addVertexColorObjects(const COLLADAFW::UniqueId& vertexColorObjectuniqueId);
+
 		/** Returns the object that was created from the imported object with UniqueId @a uniqueId. If 
 		@a uniqueId has not been added using addUniqueIdObjectPair, null is returned.*/
 		Object* getObjectByUniqueId( const COLLADAFW::UniqueId& uniqueId);
@@ -192,6 +196,9 @@ namespace COLLADAMax
 		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
 		When ever an inode is cloned, the cloned one and itself should be added to that list.*/ 
 		const DocumentImporter::INodeINodePairList& getClonedINodeOriginalINodePairList();
+
+		/** Returns the list of unique ids of objects that use vertex color. */
+		const DocumentImporter::UniqueIdList& getVertexColorObjects();
 
 		/** Returns the name of @a object.*/
 		const String& getObjectNameByObject( Object* object ) const;

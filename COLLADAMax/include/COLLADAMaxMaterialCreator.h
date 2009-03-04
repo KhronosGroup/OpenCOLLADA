@@ -111,7 +111,11 @@ namespace COLLADAMax
 		/** Assigns @a texture to @a slot of @a material.*/
 		void assignTextureToMaterial(  Mtl* material, int slot, BitmapTex* texture);
 	
-	void createAndAssignTexture( Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::ColorOrTexture& (COLLADAFW::EffectCommon::*f)()const, int slot, unsigned char mapChannel);
+    	void createAndAssignTexture( Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::ColorOrTexture& (COLLADAFW::EffectCommon::*f)()const, int slot, unsigned char mapChannel);
+
+
+		/** Sets the vertex color flag for all nodes that use evrtex color.*/
+		void setVertexColorFlag();
 	};
 
 } // namespace COLLADAMAX

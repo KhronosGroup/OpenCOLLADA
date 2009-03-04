@@ -22,6 +22,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxImporterBase.h"
 #include "COLLADAFWMeshPrimitive.h"
 
+#include "COLLADAFWMeshVertexData.h"
+
 class MNMap;
 
 namespace COLLADAFW
@@ -47,6 +49,7 @@ namespace COLLADAMax
 		/** Maps index of the source to the initial indices from index list of multiple texture or color inputs*/
 		typedef std::map<size_t /* Source index*/, size_t /* initial index*/> SourceIndexInitialIndexMap;
 
+		/** set index -1 corresponds to color channel.*/
 		typedef std::pair<long/*set index negative for color positive for uv*/,size_t /* initial index*/> SetSourcePair;
 		typedef std::map<SetSourcePair, int /* max map channel*/> SetSourcePairMapChannelMap;
 
@@ -75,6 +78,9 @@ namespace COLLADAMax
 
 		/** The number of the largest map channel used.*/
 		int mLargestMapChannel;
+
+		/** True, if the geometry has per vertex color.*/
+		bool mHasVertexColor;
 
 	public:
 
@@ -168,7 +174,13 @@ namespace COLLADAMax
 		template<class NumberArray> 
 		void setPolygonMeshUVVertices(const NumberArray& uvArray, MNMap* meshMap, size_t stride, size_t startPosition, size_t vertsCount);
 
+		void GeometryImporter::setPolygonMeshUVVerticesPerPrimitiveAndChannel( const COLLADAFW::MeshPrimitive* meshPrimitive, MNMap* meshMap, const COLLADAFW::UIntValuesArray& uvIndices, unsigned int initialIndex, size_t& currentFaceIndex);
 
+		void GeometryImporter::fillPolygonMeshMapPerSet( const COLLADAFW::MeshVertexData& uvCoordinates, const COLLADAFW::MeshVertexData::InputInfosArray& inputInfos, size_t sourceIndex, MNMap* meshMap);
+	
+		void GeometryImporter::setTriangleMeshUVVerticesPerPrimitiveAndChannel( const COLLADAFW::MeshPrimitive* meshPrimitive, MeshMap& meshMap, const COLLADAFW::UIntValuesArray& uvIndices, unsigned int initialIndex, size_t& currentFaceIndex);
+	
+		void GeometryImporter::fillTriangleMeshMapPerSet( const COLLADAFW::MeshVertexData& uvCoordinates, const COLLADAFW::MeshVertexData::InputInfosArray& inputInfos, size_t sourceIndex, MeshMap& meshMap);
 	};
 
 } // namespace COLLADAMAX

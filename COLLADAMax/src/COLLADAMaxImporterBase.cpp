@@ -184,6 +184,13 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	void ImporterBase::addVertexColorObjects(const COLLADAFW::UniqueId& vertexColorObjectuniqueId)
+	{
+		DocumentImporter::UniqueIdList& vertexColorObjects = mDocumentImporter->getVertexColorObjects();
+		vertexColorObjects.push_back(vertexColorObjectuniqueId);
+	}
+
+	//------------------------------
 	Object* ImporterBase::getObjectByUniqueId( const COLLADAFW::UniqueId& uniqueId )
 	{
 		const DocumentImporter::UniqueIdObjectMap& uniqueIdObjectMap = mDocumentImporter->getUniqueIdObjectMap();
@@ -297,4 +304,9 @@ namespace COLLADAMax
 			return it->second;
 	}
 
+	//------------------------------
+	const DocumentImporter::UniqueIdList& ImporterBase::getVertexColorObjects()
+	{
+		return  mDocumentImporter->getVertexColorObjects();
+	}
 } // namespace COLLADAMax
