@@ -100,7 +100,7 @@ namespace COLLADAMax
 
 		const TCHAR * ClassName()
 		{
-			return "NewCollada";
+			return "ColladaNextGenImporter";
 		}
 
 		SClass_ID SuperClassID()
