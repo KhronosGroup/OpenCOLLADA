@@ -234,6 +234,8 @@ namespace COLLADAMax
 
         openEffect ( effectId );
 
+		setExtraTechnique(this);
+
 		COLLADASW::EffectProfile effectProfile ( LibraryEffects::mSW );
 
 
@@ -272,7 +274,7 @@ namespace COLLADAMax
 
         addEffectProfile ( effectProfile );
 
-		addMaxExtraTechniques();
+		addExtraTechniques(ElementWriter::mSW);
 
         closeEffect();
 
@@ -773,6 +775,7 @@ namespace COLLADAMax
             String effectId = getEffectId ( color );
 
             openEffect ( effectId );
+			setExtraTechnique(this);
 
 			COLLADASW::EffectProfile effectProfile ( LibraryEffects::mSW );
             effectProfile.setShaderType ( COLLADASW::EffectProfile::PHONG );
@@ -787,7 +790,7 @@ namespace COLLADAMax
 
             addEffectProfile ( effectProfile );
 
-			addMaxExtraTechniques();
+			addExtraTechniques(ElementWriter::mSW);
 
             closeEffect();
 

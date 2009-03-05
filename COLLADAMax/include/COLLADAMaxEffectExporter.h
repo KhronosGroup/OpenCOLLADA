@@ -63,7 +63,7 @@ namespace COLLADAMax
 
 
     /** Class to export all used materials in a max scene to the library effect in COLLADASW*/
-	class EffectExporter : public COLLADASW::LibraryEffects, public Extra
+	class EffectExporter : public COLLADASW::LibraryEffects, public Extra, public COLLADASW::BaseExtraTechnique
     {
 
     private:
@@ -184,6 +184,7 @@ namespace COLLADAMax
 
 		/** Maps material and channels to the IParamBlock of the corresponding StdUVGen*/
 		MaterialChannelPairParamBlockMap mMaterialChannelPairParamBlockMap;
+
 
     public:
         /** Constructor

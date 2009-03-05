@@ -32,10 +32,10 @@ namespace COLLADAMax
 
     //---------------------------------------------------------------
     Extra::Extra ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter )
-            : COLLADASW::BaseExtraTechnique ( ),
-			mSW(streamWriter),
+            :mSW(streamWriter),
 			mAnimationExporter(documentExporter->getAnimationExporter()),
-			mOptions(documentExporter->getOptions())
+			mOptions(documentExporter->getOptions()),
+			mExtraTechnique(0)
     {}
 
 
@@ -59,29 +59,29 @@ namespace COLLADAMax
 		switch (parameterType)
 		{
 		case TYPE_BOOL:
-			addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart)!= false);
+			mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart)!= false);
 			// NO ANIMATION ON BOOLEANS
 			break;
 		case TYPE_INT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart) , parameterName);
+				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart) , parameterName);
 				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, baseId, parameterName, 0);
 			}
 			else
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart));
+				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart));
 			}
 			break;
 		case TYPE_FLOAT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart), parameterName);
+				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart), parameterName);
 				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, baseId, parameterName, 0);
 			}
 			else
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart));
+				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart));
 			}
 			break;
 		default:
@@ -108,29 +108,29 @@ namespace COLLADAMax
 		switch (parameterType)
 		{
 		case TYPE_BOOL:
-			addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart)!= false);
+			mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart)!= false);
 			// NO ANIMATION ON BOOLEANS
 			break;
 		case TYPE_INT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart) , parameterName);
+				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart) , parameterName);
 				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, baseId, parameterName, 0);
 			}
 			else
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart));
+				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart));
 			}
 			break;
 		case TYPE_FLOAT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart), parameterName);
+				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart), parameterName);
 				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, baseId, parameterName, 0);
 			}
 			else
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart));
+				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart));
 			}
 			break;
 		default:
@@ -158,12 +158,6 @@ namespace COLLADAMax
 			const ExtraParameter & parameter = extraParameters[ i ];
 			addAnimatedExtraParameter ( parameter.paramName, elementName, paramBlock, parameter.paramId, baseId );
 		}
-	}
-
-	//---------------------------------------------------------------
-	void Extra::addMaxExtraTechniques()
-	{
-		addExtraTechniques(mSW);
 	}
 
 	void Extra::writeParameterBlockInfo( const String& fileName, IParamBlock* parameters )

@@ -118,7 +118,7 @@ namespace COLLADAMax
 		setMaterialIdentifierMapChannel( commonEffect->getSpecular(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::SPECULAR, materialIdentifier.slotFlags, materialIdentifier.specularMapChannel);
 //		setMaterialIdentifierMapChannel( commonEffect->getShininess(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::SHININESS, materialIdentifier.slotFlags, materialIdentifier.shininessMapChannel);
 		setMaterialIdentifierMapChannel( commonEffect->getEmission(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::EMISSION, materialIdentifier.slotFlags, materialIdentifier.emissionMapChannel);
-		setMaterialIdentifierMapChannel( commonEffect->getTransparent(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::OPACITY, materialIdentifier.slotFlags, materialIdentifier.opacityMapChannel);
+		setMaterialIdentifierMapChannel( commonEffect->getOpacity(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::OPACITY, materialIdentifier.slotFlags, materialIdentifier.opacityMapChannel);
 		return materialIdentifier;
 	}
 
@@ -377,24 +377,13 @@ namespace COLLADAMax
 
 
 		// TODO: handle opacity a bit smarter (evaluate opacity)
-		float opacity;
-		float transparency = (float)effectCommon.getTransparency();
-		const COLLADAFW::ColorOrTexture& transparent = effectCommon.getTransparent();
-		if ( transparent.isColor() )
+		float opacity = 1;
+		const COLLADAFW::ColorOrTexture& opacityColorOrTexture = effectCommon.getOpacity();
+		if ( opacityColorOrTexture.isColor() )
 		{
-			const COLLADAFW::Color& transparentColor = transparent.getColor(); 
-			float averageTransparent = (float)(transparentColor.getRed() + transparentColor.getGreen() + transparentColor.getBlue())/3; 
-			if ( transparency > 0)
-				opacity = averageTransparent * transparency;
-			else
-				opacity = averageTransparent;
-		}
-		else
-		{
-			if ( transparency > 0)
-				opacity = transparency;
-			else
-				opacity = 0;
+			const COLLADAFW::Color& opacityColor = opacityColorOrTexture.getColor(); 
+			float averageTransparent = (float)(opacityColor.getRed() + opacityColor.getGreen() + opacityColor.getBlue())/3; 
+			opacity = averageTransparent;
 		}
 		// todo include and fix
 	//	material->SetOpacity( opacity, 0);
@@ -425,7 +414,7 @@ namespace COLLADAMax
 		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getDiffuse, ID_DI, materialIdentifier.diffuseMapChannel);
 		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getSpecular, ID_SP, materialIdentifier.specularMapChannel);
 		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getEmission, ID_SI, materialIdentifier.emissionMapChannel);
-		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getTransparent, ID_OP, materialIdentifier.opacityMapChannel);
+		createAndAssignTexture( material, effectCommon, &COLLADAFW::EffectCommon::getOpacity, ID_OP, materialIdentifier.opacityMapChannel);
 
 		return material;
 	}

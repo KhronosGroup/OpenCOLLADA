@@ -194,7 +194,7 @@ namespace COLLADAMax
 
 
 			COLLADASW::Camera colladaCamera(COLLADASW::LibraryCameras::mSW, optics, cameraId, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));
-			addCamera(colladaCamera);
+			setExtraTechnique(&colladaCamera);
 
 
 			// Retrieve the camera target
@@ -231,7 +231,7 @@ namespace COLLADAMax
 					}
 				}
 			}
-			addMaxExtraTechniques();
+			addCamera(colladaCamera);
 		
 			delete optics;
 		}

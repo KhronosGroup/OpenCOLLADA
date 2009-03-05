@@ -283,6 +283,7 @@ namespace COLLADAMax
 			colladaLight->setConstantAttenuation(1.0f);
 		}
 
+		setExtraTechnique(colladaLight);
 
 
 		if ( parameters )
@@ -339,8 +340,6 @@ namespace COLLADAMax
 				addExtraChildParameter(SKYLIGHT_ELEMENT, SKYLIGHT_COLORMAP_ELEMENT, "#" + imageId);
 			}
 		}
-
-		addMaxExtraTechniques();
 
 		addLight(*colladaLight);
 

@@ -388,6 +388,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     GeometryExtra::GeometryExtra ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter, Object * object, const String& geometryId )
             : Extra ( streamWriter,  documentExporter),
+			mStreamWriter(streamWriter),
             mObject ( object ),
 			mGeometryId(geometryId)
     {}
@@ -397,6 +398,7 @@ namespace COLLADAMax
     {
         Class_ID id = mObject->ClassID();
 
+		setExtraTechnique(this);
 
         if ( id == Class_ID ( BOXOBJ_CLASS_ID, 0 ) )
             exportParamBlock ( ELEMENT_BOX, BOXPARAMETERS, BOXPARAMETERSCOUNT );
@@ -533,8 +535,7 @@ namespace COLLADAMax
         fb.close();
 
 #endif
-		
-		addMaxExtraTechniques();
+		addExtraTechniques(mStreamWriter);
     }
 
 

@@ -33,7 +33,7 @@ namespace COLLADAMax
     /** Class to export extra tags of geometries. Currently extra tags for primitives
     like box, sphere... are exported.*/
 
-    class GeometryExtra : public Extra
+	class GeometryExtra : public Extra , public COLLADASW::BaseExtraTechnique
     {
 
     private:
@@ -42,6 +42,8 @@ namespace COLLADAMax
 
 		/** The id of the geometry the extra tags are exported for.*/
 		const String mGeometryId;
+
+		COLLADASW::StreamWriter * mStreamWriter;
 
         /* Element names of the primitives*/
         static const String ELEMENT_BOX;

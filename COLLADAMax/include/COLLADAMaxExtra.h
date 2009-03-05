@@ -36,7 +36,7 @@ namespace COLLADAMax
 	class Options;
 
 	/** Base class to export extra tags in max.*/
-    class Extra : public COLLADASW::BaseExtraTechnique
+    class Extra //: public COLLADASW::BaseExtraTechnique
     {
 
 	protected:
@@ -61,6 +61,9 @@ namespace COLLADAMax
 		AnimationExporter * mAnimationExporter;
 		const Options& mOptions;
 
+		/** The extra technique to fill.*/
+		COLLADASW::BaseExtraTechnique* mExtraTechnique;
+
     public:
         /** Constructor
          @param streamWriter the stream the extra tags should be written to.*/
@@ -73,12 +76,15 @@ namespace COLLADAMax
 
     protected:
 
+		/** Sets the extra technique to fill.*/
+		void setExtraTechnique( COLLADASW::BaseExtraTechnique* extraTechnique) { mExtraTechnique = extraTechnique; }
+
 		/** Adds a parameter with name @a paramName, value @a value and optional sid @a paramSid to the list 
 		of parameters in the max profile.*/
 		template<class ValueType> 
 		void addExtraParameter ( const String& paramName, const ValueType &value, const String &paramSid="" )
 		{
-			addExtraTechniqueParameter (TECHNIQUE_PROFILE_3DSMAX , paramName, value, paramSid );
+			mExtraTechnique->addExtraTechniqueParameter (TECHNIQUE_PROFILE_3DSMAX , paramName, value, paramSid );
 		}
 
 
@@ -87,7 +93,7 @@ namespace COLLADAMax
 		template<class ValueType> 
 		void addExtraChildParameter ( const String& childName, const String& paramName, const ValueType &value, const String &paramSid="" )
 		{
-			addExtraTechniqueChildParameter (TECHNIQUE_PROFILE_3DSMAX, childName, paramName, value, paramSid );
+			mExtraTechnique->addExtraTechniqueChildParameter (TECHNIQUE_PROFILE_3DSMAX, childName, paramName, value, paramSid );
 		}
 
 
@@ -128,8 +134,6 @@ namespace COLLADAMax
 		@param baseId The id of element this extra tag is written to. It is used to reference the parameter and to generate 
 		ids for the animation.*/
 		void addParamBlockAnimatedExtraParameters ( const String & childElementName, const ExtraParameter extraParameters[], int extraParametersCount, IParamBlock2 * paramBlock, const String& baseId );
-
-		void addMaxExtraTechniques();
 
 		/** Writes all information of the IParamBlock2 @a parameters to the file @a fileName. For development purposes
 		only.
