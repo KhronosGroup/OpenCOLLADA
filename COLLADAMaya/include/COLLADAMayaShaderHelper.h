@@ -101,14 +101,4 @@ namespace COLLADAMaya
 }
 
 
-//
-// Helper Macro
-//
-#define CHECK_STATUS(rc, errorString) \
- if ((rc) != MStatus::kSuccess)\
- {\
-  MGlobal::displayError(MString(errorString));\
-  return MObject::kNullObj;\
- }\
- 
 #endif // __COLLADA_MAYA_SHADER_HELPER_H__

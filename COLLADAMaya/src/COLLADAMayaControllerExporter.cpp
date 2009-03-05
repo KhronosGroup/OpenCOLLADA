@@ -406,18 +406,18 @@ namespace COLLADAMaya
 
         // Retrieve the data objects for the vertex list.
         MObject pointArrayData, componentListData;
-        CHECK_STATUS ( targetVertexListPlug.getValue ( pointArrayData ) );
+        CHECK_STAT ( targetVertexListPlug.getValue ( pointArrayData ) );
         if ( pointArrayData.isNull() ) return ;
 
-        CHECK_STATUS ( targetComponentListPlug.getValue ( componentListData ) );
+        CHECK_STAT ( targetComponentListPlug.getValue ( componentListData ) );
         if ( componentListData.isNull() ) return ;
 
-        MFnPointArrayData vlistFn ( pointArrayData, &status ); CHECK_STATUS ( status );
-        uint relativePointCount = vlistFn.length(&status); CHECK_STATUS ( status );
+        MFnPointArrayData vlistFn ( pointArrayData, &status ); CHECK_STAT ( status );
+        uint relativePointCount = vlistFn.length(&status); CHECK_STAT ( status );
         if ( relativePointCount == 0 ) return ;
 
-        MFnComponentListData componentListFn ( componentListData, &status ); CHECK_STATUS ( status );
-        uint componentCount = componentListFn.length ( &status ); CHECK_STATUS ( status );
+        MFnComponentListData componentListFn ( componentListData, &status ); CHECK_STAT ( status );
+        uint componentCount = componentListFn.length ( &status ); CHECK_STAT ( status );
         if ( componentCount == 0 ) return ;
 
 
@@ -918,7 +918,7 @@ namespace COLLADAMaya
 
         // Attach a function set to the controller node.
         MFnMesh fnMesh ( outputShape, &status );
-        CHECK_STATUS (status);
+        CHECK_STAT (status);
 
         uint idx = clusterFn.indexForOutputShape(outputShape.node());
         if (idx == ~0u)
@@ -932,7 +932,7 @@ namespace COLLADAMaya
                 MItDependencyGraph::kBreadthFirst,
                 MItDependencyGraph::kNodeLevel,
                 &status);
-            CHECK_MSTATUS_AND_RETURN(status, NULL);
+            CHECK_STAT(status);
             dgIt.disablePruningOnFilter();
 
             for (; ! dgIt.isDone(); dgIt.next())

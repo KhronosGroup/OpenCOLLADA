@@ -982,7 +982,8 @@ namespace COLLADAMaya
         if ( plug.node().isNull() ) return;
 
 #if MAYA_API_VERSION >= 800
-        CHECK_STATUS ( plug.setNumElements ( size ) );
+        MStatus status = plug.setNumElements ( size );
+        CHECK_STAT ( status );
 
 #else
         MObject node = plug.node();

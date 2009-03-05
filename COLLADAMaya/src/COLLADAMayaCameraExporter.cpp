@@ -99,7 +99,7 @@ namespace COLLADAMaya
 
         // Retrieve the Maya camera object
         MStatus status;
-        MFnCamera cameraFn(cameraNode, &status); CHECK_STATUS(status);
+        MFnCamera cameraFn(cameraNode, &status); CHECK_STAT(status);
         if (status != MStatus::kSuccess) return false;
 
         // Get the stream writer
@@ -113,14 +113,14 @@ namespace COLLADAMaya
         bool animated = false;
 
         // Set the orthographic and perspective-specific parameters
-        bool isOrthographic = cameraFn.isOrtho ( &status ); CHECK_STATUS(status);
+        bool isOrthographic = cameraFn.isOrtho ( &status ); CHECK_STAT(status);
         if (isOrthographic)
         {
             // Create a orthographic projection optic
             optics = new COLLADASW::OrthographicOptic ( streamWriter );
 
-            double width = cameraFn.orthoWidth(&status); CHECK_STATUS(status);
-            optics->setAspectRatio( (float) cameraFn.aspectRatio( &status ) ); CHECK_STATUS(status);
+            double width = cameraFn.orthoWidth(&status); CHECK_STAT(status);
+            optics->setAspectRatio( (float) cameraFn.aspectRatio( &status ) ); CHECK_STAT(status);
 
             animated = anim->addNodeAnimation( cameraFn.object(), XMAG_SID, ATTR_ORTHOGRAPHIC_WIDTH, kSingle );
             optics->setXMag ( (float) width / 2.0f, animated );
@@ -157,18 +157,18 @@ namespace COLLADAMaya
             }
             if ( !ExportOptions::cameraXFov() || !ExportOptions::cameraYFov() )
             {
-                optics->setAspectRatio ( (float) cameraFn.aspectRatio(&status) ); CHECK_STATUS(status);
+                optics->setAspectRatio ( (float) cameraFn.aspectRatio(&status) ); CHECK_STAT(status);
             }
         }
 
         // Add the camera common parameters.
         // Convert the  maya internal unit type from centimeters into the working units of the current scene!
-        double zNear = MDistance::internalToUI ( cameraFn.nearClippingPlane ( &status ) ); CHECK_STATUS ( status );
+        double zNear = MDistance::internalToUI ( cameraFn.nearClippingPlane ( &status ) ); CHECK_STAT ( status );
         animated = anim->addNodeAnimation( cameraFn.object(), NEAR_CLIP_SID, ATTR_NEAR_CLIP_PLANE, ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, true );
         optics->setZNear ( (float) zNear, animated ); 
 
         // Convert the  maya internal unit type from centimeters into the working units of the current scene!
-        double zFar = MDistance::internalToUI ( cameraFn.farClippingPlane ( &status ) ); CHECK_STATUS ( status );
+        double zFar = MDistance::internalToUI ( cameraFn.farClippingPlane ( &status ) ); CHECK_STAT ( status );
         animated = anim->addNodeAnimation( cameraFn.object(), FAR_CLIP_SID, ATTR_FAR_CLIP_PLANE, ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, true );
         optics->setZFar ( (float) zFar, animated ); 
 
@@ -181,24 +181,24 @@ namespace COLLADAMaya
         String paramSid = "";
 
         // Add the Maya-specific parameters
-        double vAperture = cameraFn.verticalFilmAperture ( &status ) * 2.54f; CHECK_STATUS(status);
+        double vAperture = cameraFn.verticalFilmAperture ( &status ) * 2.54f; CHECK_STAT(status);
         animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_APERTURE_SID, ATTR_VERTICAL_FILM_APERTURE, 
             ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, false, -1, false, new ConversionScaleFunctor(2.54f) );
         paramSid = ""; if ( animated ) paramSid = VERTICAL_APERTURE_SID;
         camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_VAPERTURE_PARAMETER, vAperture, paramSid );
 
-        double hAperture = cameraFn.horizontalFilmAperture ( &status ) * 2.54f; CHECK_STATUS(status);
+        double hAperture = cameraFn.horizontalFilmAperture ( &status ) * 2.54f; CHECK_STAT(status);
         animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_APERTURE_SID, ATTR_HORIZONTAL_FILM_APERTURE, 
             ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, false, -1, false, new ConversionScaleFunctor(2.54f) );
         paramSid = ""; if ( animated ) paramSid = HORIZONTAL_APERTURE_SID;
         camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_HAPERTURE_PARAMETER, hAperture, paramSid );
  
-        double lensSqueeze = cameraFn.lensSqueezeRatio ( &status ); CHECK_STATUS(status);
+        double lensSqueeze = cameraFn.lensSqueezeRatio ( &status ); CHECK_STAT(status);
         animated = anim->addNodeAnimation( cameraFn.object(), LENS_SQUEEZE_SID, ATTR_LENS_SQUEEZE_RATIO, kSingle );
         paramSid = ""; if ( animated ) paramSid = LENS_SQUEEZE_SID;
         camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze, paramSid );
 
-        int filmFit = cameraFn.filmFit ( &status ); CHECK_STATUS(status);
+        int filmFit = cameraFn.filmFit ( &status ); CHECK_STAT(status);
         camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_FILM_FIT_PARAMETER, filmFit ); 
 
         double filmFitOffset = cameraFn.filmFitOffset ();

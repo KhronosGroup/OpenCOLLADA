@@ -100,7 +100,7 @@ namespace COLLADAMaya
 
         // Retrieve the Maya light object
         MStatus status;
-        MFnLight lightFn(lightNode, &status); CHECK_STATUS(status);
+        MFnLight lightFn(lightNode, &status); CHECK_STAT(status);
         if (status != MStatus::kSuccess) return false;
 
         // Generate a COLLADA id for the new light object
@@ -138,12 +138,12 @@ namespace COLLADAMaya
         bool animated = false;
         
         // Color/Intensity are the common attributes of all lights
-        MColor mayaColor = lightFn.color ( &status ); CHECK_STATUS(status);
+        MColor mayaColor = lightFn.color ( &status ); CHECK_STAT(status);
         COLLADASW::Color lightColor ( mayaColor.r, mayaColor.g, mayaColor.b, mayaColor.a );
         animated = anim->addNodeAnimation ( lightNode, ATTR_COLOR, kColour );
         light->setColor( lightColor, animated );
 
-        float intensity = lightFn.intensity ( &status ); CHECK_STATUS(status);
+        float intensity = lightFn.intensity ( &status ); CHECK_STAT(status);
         animated = anim->addNodeAnimation ( lightNode, ATTR_INTENSITY, kSingle );
         light->setIntensity( intensity, animated );
 
@@ -153,7 +153,7 @@ namespace COLLADAMaya
             // Needed Point and Spot light types parameters: Attenuation and Attenuation_Scale
             // Attenuation in COLLADA is equal to Decay in Maya.
             MFnNonAmbientLight naLightFn(lightNode);
-            int decayRate = naLightFn.decayRate(&status); CHECK_STATUS(status);
+            int decayRate = naLightFn.decayRate(&status); CHECK_STAT(status);
             decayRate = std::min ( decayRate, 2 ); 
             decayRate = std::max ( decayRate, 0 );
 
@@ -177,13 +177,13 @@ namespace COLLADAMaya
             // Put in the needed spot light type attributes : Falloff, Falloff_Scale and Angle
             MFnSpotLight spotFn(lightNode);
 
-            float fallOffAngle = COLLADABU::Math::Utils::radToDegF ( (float)spotFn.coneAngle( &status ) ); CHECK_STATUS(status);
+            float fallOffAngle = COLLADABU::Math::Utils::radToDegF ( (float)spotFn.coneAngle( &status ) ); CHECK_STAT(status);
             animated = anim->addNodeAnimation ( lightNode, ATTR_CONE_ANGLE, ( SampleType ) ( kSingle | kAngle ) );
             light->setFallOffAngle ( fallOffAngle, animated );
 
             light->setFallOffExponent ( 1.0f );
 
-            float penumbraValue = COLLADABU::Math::Utils::radToDegF ( (float)spotFn.penumbraAngle( &status ) ); CHECK_STATUS(status);
+            float penumbraValue = COLLADABU::Math::Utils::radToDegF ( (float)spotFn.penumbraAngle( &status ) ); CHECK_STAT(status);
             animated = anim->addNodeAnimation ( lightNode, ATTR_PENUMBRA_ANGLE, ( SampleType ) ( kSingle | kAngle ) );
             // TODO
 //            FCDLightTools::LoadPenumbra(light, penumbraValue, colladaLight->GetOuterAngle().GetAnimated());

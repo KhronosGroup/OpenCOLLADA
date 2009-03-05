@@ -467,7 +467,7 @@ namespace COLLADAMaya
                 String materialName = DocumentExporter::mayaNameToColladaName ( shadingEngineFn.name() );
 
                 MStatus status;
-                uint instanceNumber = dagPath.instanceNumber( &status ); CHECK_STATUS( status );
+                uint instanceNumber = dagPath.instanceNumber( &status ); CHECK_STAT( status );
 
                 // To get the right shader name, we have to take the correct mesh instance.
                 if ( instanceNumber > 0 )

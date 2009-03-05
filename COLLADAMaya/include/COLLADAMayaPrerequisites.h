@@ -39,11 +39,24 @@ namespace COLLADAMaya
     typedef 0 NULL
 #endif
 
+//
+// Helper Macro
+//
 #define CHECK_STAT(X) \
     if ( (X) != MS::kSuccess) { \
     MGlobal::displayError ( status.errorString() ); \
-    return (X); \
     }
+
+//
+// Helper Macro
+//
+#define CHECK_STATUS(rc, errorString) \
+    if ((rc) != MStatus::kSuccess)\
+    {\
+    MGlobal::displayError(MString(errorString));\
+    return MObject::kNullObj;\
+    }\
+
 
 //#ifndef max
 //#define max(a,b)            (((a) > (b)) ? (a) : (b))
