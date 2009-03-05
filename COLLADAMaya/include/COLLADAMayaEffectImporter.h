@@ -115,6 +115,10 @@ namespace COLLADAMaya
         typedef std::vector<SamplerInfo> SamplerInfos;
         typedef std::map< COLLADAFW::UniqueId, SamplerInfos > UniqueIdSamplerInfosMap;
 
+        typedef std::pair<COLLADAFW::UniqueId,size_t> UniqueIdSamplerIdPair;
+        typedef std::vector<TexturePlacement> TexturePlacements;
+        typedef std::map< UniqueIdSamplerIdPair, TexturePlacements > TexturePlacementsMap;
+
     private:
 
         /**
@@ -145,7 +149,7 @@ namespace COLLADAMaya
         /**
          * The map holds for every unique image id the list of placed2dTextures, which use this image.
          */
-        std::vector<TexturePlacement*> mTexturePlacements;
+        TexturePlacementsMap mTexturePlacementsMap;
 
         /**
          * The map holds for every effect the shader node attributes with the sampler image file.
@@ -294,6 +298,11 @@ namespace COLLADAMaya
         * Returns the effect's sampler infos list.
         */
         const SamplerInfos* findEffectSamplerInfos ( const COLLADAFW::UniqueId& effectId );
+
+        /**
+        * The map holds for every unique image id the list of placed2dTextures, which use this image.
+        */
+        TexturePlacements* findTexturePlacements ( const UniqueIdSamplerIdPair& key );
 
         /**
         * Writes the connections of the effect texture placements to the image files.  

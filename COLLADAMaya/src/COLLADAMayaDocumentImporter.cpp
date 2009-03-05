@@ -37,6 +37,8 @@
 #include <fstream>
 #include <time.h>
 
+#include "MayaDMScript.h"
+
 
 namespace COLLADAMaya
 {
@@ -450,47 +452,27 @@ namespace COLLADAMaya
         }
         else
         {
-            mUpAxisType = COLLADAFW::FileInfo::Y_UP;
-
-            if ( asset->getUpAxisType () == COLLADAFW::FileInfo::Z_UP )
+            mUpAxisType = asset->getUpAxisType ();
+            String upAxis = "y";
+            switch ( mUpAxisType )
             {
-//                 // TODO Create a root node with the global transformation.
-//                 double convertMatrix[4][4] = { {1,0,0,0}, {0,0,1,0}, {0,-1,0,0}, {0,0,0,1} };
-// 
-//                 // Convert the matrix to a maya matrix.
-//                 MMatrix matrix ( convertMatrix );
-//                 MTransformationMatrix tm ( matrix );
-// 
-//                 // Create a transform node of the specific type.
-//                 MayaDM::Transform transformNode ( mFile, "unitConversion" );
-// 
-//                 // TODO Add the name in the list of node names!
-//                 // TODO No unique id! We have to push in list! (other node pathes)
-// 
-//                 MStatus status;
-//                 MVector transVec = tm.getTranslation ( MSpace::kTransform, &status );
-//                 transformNode.setTranslate ( ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
-//                 //transformNode.setTranslate ( toLinearUnit ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
-// 
-//                 double rotation[3];
-//                 MTransformationMatrix::RotationOrder order;
-//                 tm.getRotation ( rotation, order, MSpace::kTransform );
-//                 if ( ! ( MVector (0,0,0) == MVector ( rotation ) ) )
-//                     transformNode.setRotate ( ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation[0]), COLLADABU::Math::Utils::radToDeg(rotation[1]), COLLADABU::Math::Utils::radToDeg(rotation[2]) ) ) );
-//                 //transformNode.setRotate ( toAngularUnit ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) ) );
-// 
-//                 double scale[3];
-//                 tm.getScale ( scale, MSpace::kTransform );
-//                 if ( ! ( MVector (1,1,1) == MVector ( scale ) ) )
-//                     transformNode.setScale ( ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
-//                 //transformNode.setScale ( toUpAxisTypeFactor ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
-// 
-//                 double shear[3];
-//                 tm.getShear ( shear, MSpace::kTransform );
-//                 if ( ! ( MVector (0,0,0) == MVector ( shear ) ) )
-//                     transformNode.setShear ( ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
-//                 //transformNode.setShear ( toUpAxisTypeAxis ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
+            case COLLADAFW::FileInfo::Y_UP:
+                upAxis = "y"; break;
+            case COLLADAFW::FileInfo::Z_UP:
+                upAxis = "z"; break;
+            default:
+                upAxis = "y"; break;
             }
+            // createNode script -name "upAxisScriptNode";
+            //      setAttr ".before" -type "string" "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \"z\") { upAxis -ax \"z\"; viewSet -home persp; }";
+            //      setAttr ".scriptType" 2;
+            MayaDM::Script scriptNode ( mFile, "upAxisScriptNode" );
+            String scriptValue = "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \\\""                 + upAxis + "\\\") { upAxis -ax \\\"" + upAxis + "\\\"; viewSet -home persp; }"; // -rv
+            scriptNode.setBefore ( scriptValue );
+            scriptNode.setScriptType ( 2 );
+
+            // Set the conversion to y, so no data will be changed...
+            mUpAxisType = COLLADAFW::FileInfo::Y_UP;
         }
 
 //         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );

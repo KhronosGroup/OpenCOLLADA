@@ -1448,7 +1448,7 @@ namespace COLLADAMaya
         const COLLADAFW::UniqueId& geometryId, 
         const COLLADAFW::MaterialId shadingEngineId )
     {
-        CombinedId combinedId ( geometryId, shadingEngineId );
+        UniqueIdMaterialIdPair combinedId ( geometryId, shadingEngineId );
         CombinedIdIndicesMap::iterator it = mShadingEnginePrimitivesMap.find ( combinedId );
         if ( it == mShadingEnginePrimitivesMap.end () )
         {
@@ -1463,7 +1463,7 @@ namespace COLLADAMaya
         const COLLADAFW::MaterialId shadingEngineId, 
         const size_t primitiveIndex )
     {
-        CombinedId combinedId ( geometryId, shadingEngineId );
+        UniqueIdMaterialIdPair combinedId ( geometryId, shadingEngineId );
         mShadingEnginePrimitivesMap [combinedId].push_back ( primitiveIndex );
     }
 

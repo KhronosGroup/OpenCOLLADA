@@ -95,13 +95,6 @@ namespace COLLADAMaya
 #   define COLLADAMaya_ARCH_TYPE COLLADAMaya_ARCHITECTURE_32
 #endif
 
-    // For generating compiler warnings - should work on any compiler
-    // As a side note, if you start your message with 'Warning: ', the MSVC
-    // IDE actually does catch a warning :)
-#define COLLADAMaya_QUOTE_INPLACE(x) # x
-#define COLLADAMaya_QUOTE(x) COLLADAMaya_QUOTE_INPLACE(x)
-#define COLLADAMaya_WARN( x )  message( __FILE__ "(" QUOTE( __LINE__ ) ") : " x "\n" )
-
     //----------------------------------------------------------------------------
     // Windows Settings
 #if COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_WIN32

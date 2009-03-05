@@ -36,31 +36,19 @@ namespace COLLADAMaya
     //-----------------------------
     MayaDM::double3 BaseImporter::toLinearUnit ( const MayaDM::double3& val )
     {
-        if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::X_UP )
-            return ( MayaDM::double3 ( toLinearUnit ( val[1]*(-1) ), toLinearUnit ( val[0] ), toLinearUnit ( val[2] ) ) );
-        else if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::Z_UP )
-            return ( MayaDM::double3 ( toLinearUnit ( val[0] ), toLinearUnit ( val[2] ), toLinearUnit ( val[1]*(-1) ) ) );
-        else return ( MayaDM::double3 ( toLinearUnit ( val[0] ), toLinearUnit ( val[1] ), toLinearUnit ( val[2] ) ) );
+        return ( MayaDM::double3 ( toLinearUnit ( val[0] ), toLinearUnit ( val[1] ), toLinearUnit ( val[2] ) ) );
     }
 
     //-----------------------------
     MayaDM::double3 BaseImporter::toAngularUnit ( const MayaDM::double3& val )
     {
-        if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::X_UP )
-            return ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg ( val[1]*(-1) ), COLLADABU::Math::Utils::radToDeg ( val[0] ), COLLADABU::Math::Utils::radToDeg ( val[2] ) ) );
-        else if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::Z_UP )
-            return ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg ( val[0] ), COLLADABU::Math::Utils::radToDeg ( val[2] ), COLLADABU::Math::Utils::radToDeg ( val[1]*(-1) ) ) );
-        else return ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg ( val[0] ), COLLADABU::Math::Utils::radToDeg ( val[1] ), COLLADABU::Math::Utils::radToDeg ( val[2] ) ) );
+        return ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg ( val[0] ), COLLADABU::Math::Utils::radToDeg ( val[1] ), COLLADABU::Math::Utils::radToDeg ( val[2] ) ) );
     }
 
     //-----------------------------
     MayaDM::double3 BaseImporter::toUpAxisTypeAxis ( const MayaDM::double3& val )
     {
-        if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::X_UP )
-            return ( MayaDM::double3 ( val[1]*(-1), val[0], val[2] ) );
-        else if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::Z_UP )
-            return ( MayaDM::double3 ( val[0], val[2], val[1]*(-1) ) );
-        else return ( MayaDM::double3 ( val[0], val[1], val[2] ) );
+        return ( MayaDM::double3 ( val[0], val[1], val[2] ) );
     }
 
     //-----------------------------

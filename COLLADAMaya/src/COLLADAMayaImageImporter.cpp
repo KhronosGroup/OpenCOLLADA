@@ -59,6 +59,9 @@ namespace COLLADAMaya
         
         // Push the maya image file in the map to the unique image id.
         mImageIdMayaImageFileMap [ imageId ] = mayaImage;
+
+        // TODO Create a texture placement for every image.
+
     }
 
     //------------------------------

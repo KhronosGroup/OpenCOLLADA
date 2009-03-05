@@ -45,14 +45,20 @@ namespace COLLADAMaya
             ++it;
         }
 
-        for ( size_t i=0; i<mTexturePlacements.size (); ++i )
+        TexturePlacementsMap::iterator it2 = mTexturePlacementsMap.begin ();
+        while ( it2 != mTexturePlacementsMap.end () )
         {
-            TexturePlacement* texturePlacementAssignment = mTexturePlacements [i];
-            MayaDM::DependNode* dependNode = texturePlacementAssignment->mTexturePlacementNode;
-            delete dependNode;
-            delete texturePlacementAssignment;
+            std::vector<TexturePlacement>& texturePlacements = it2->second;
+            for ( size_t i=0; i<texturePlacements.size (); ++i )
+            {
+                TexturePlacement& texturePlacement = texturePlacements [i];
+                MayaDM::DependNode* dependNode = texturePlacement.mTexturePlacementNode;
+                delete dependNode;
+            }
+            texturePlacements.clear ();
+            ++it2;
         }
-        mTexturePlacements.clear ();
+        mTexturePlacementsMap.clear ();
     }
 
     //------------------------------
@@ -502,48 +508,53 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
             mEffectSamplerInfosMap [effectId].push_back (samplerInfo);
 
-            switch ( samplerType )
+            // Every image needs one texture placement for every sampler, which use this image.
+            UniqueIdSamplerIdPair uniquePair ( imageId, samplerId );
+            if ( findTexturePlacements ( uniquePair ) == 0 )
             {
-            case COLLADAFW::Sampler::SAMPLER_TYPE_2D:
+                switch ( samplerType )
                 {
-                    // TODO Create this in depend on the texture mapping of effects.
-                    // createNode place2dTexture -n "place2dTexture1";
-                    String place2dTextureName = mPlace2dTextureIdList.addId ( PLACE_2D_TEXTURE_NAME );
-                    MayaDM::Place2dTexture* place2dTexture = new MayaDM::Place2dTexture ( file, place2dTextureName );
+                case COLLADAFW::Sampler::SAMPLER_TYPE_2D:
+                    {
+                        // TODO Create this in depend on the texture mapping of effects.
+                        // createNode place2dTexture -n "place2dTexture1";
+                        String place2dTextureName = mPlace2dTextureIdList.addId ( PLACE_2D_TEXTURE_NAME );
+                        MayaDM::Place2dTexture* place2dTexture = new MayaDM::Place2dTexture ( file, place2dTextureName );
 
-                    // TODO What to do with this attributes???
-                    sampler->getBorderColor ();
-                    sampler->getMagFilter ();
-                    sampler->getMinFilter ();
-                    sampler->getMipFilter ();
-                    sampler->getMipmapBias ();
-                    sampler->getMipmapMaxlevel ();
-//                     place2dTexture->setWrapU ( sampler->getWrapP () );
-//                     place2dTexture->setWrapV ( sampler->getWrapS () );
-                    sampler->getWrapT ();
+                        // TODO What to do with this attributes???
+                        sampler->getBorderColor ();
+                        sampler->getMagFilter ();
+                        sampler->getMinFilter ();
+                        sampler->getMipFilter ();
+                        sampler->getMipmapBias ();
+                        sampler->getMipmapMaxlevel ();
+                        //                     place2dTexture->setWrapU ( sampler->getWrapP () );
+                        //                     place2dTexture->setWrapV ( sampler->getWrapS () );
+                        sampler->getWrapT ();
 
-                    // TODO Push the texure placement informations in a list.
-                    TexturePlacement* texturePlacement = new TexturePlacement ();
-                    texturePlacement->mImageId = imageId;
-                    texturePlacement->mSamplerId = samplerId;
-                    texturePlacement->mSamplerType = samplerType;
-                    texturePlacement->mTexturePlacementNode = place2dTexture;
-                    
-                    mTexturePlacements.push_back ( texturePlacement );
+                        // TODO Push the texure placement informations in a list.
+                        TexturePlacement texturePlacement;
+                        texturePlacement.mImageId = imageId;
+                        texturePlacement.mSamplerId = samplerId;
+                        texturePlacement.mSamplerType = samplerType;
+                        texturePlacement.mTexturePlacementNode = place2dTexture;
+
+                        mTexturePlacementsMap [uniquePair].push_back ( texturePlacement );
+                        break;
+                    }
+                case COLLADAFW::Sampler::SAMPLER_TYPE_1D:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_3D:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_CUBE:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_DEPTH:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_RECT:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_STATE:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_UNSPECIFIED:
+                default:
+                    MGlobal::displayError ( "Sampler type not implemented: " + samplerType );
+                    MGlobal::doErrorLogEntry ( "Sampler type not implemented: " + samplerType );
+                    std::cerr << "Sampler type not implemented: " << samplerType << endl;
                     break;
                 }
-            case COLLADAFW::Sampler::SAMPLER_TYPE_1D:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_3D:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_CUBE:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_DEPTH:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_RECT:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_STATE:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_UNSPECIFIED:
-            default:
-                MGlobal::displayError ( "Sampler type not implemented: " + samplerType );
-                MGlobal::doErrorLogEntry ( "Sampler type not implemented: " + samplerType );
-                std::cerr << "Sampler type not implemented: " << samplerType << endl;
-                break;
             }
         }
     }
@@ -558,6 +569,18 @@ namespace COLLADAMaya
             return 0;
         }
         return &(it->second);
+    }
+
+    //------------------------------
+    EffectImporter::TexturePlacements* EffectImporter::findTexturePlacements ( 
+        const UniqueIdSamplerIdPair& key )
+    {
+        TexturePlacementsMap::iterator it = mTexturePlacementsMap.find ( key );
+        if ( it != mTexturePlacementsMap.end () )
+        {
+            return &(it->second);
+        }
+        return 0;
     }
 
     // --------------------------
@@ -577,55 +600,60 @@ namespace COLLADAMaya
         FILE* file = getDocumentImporter ()->getFile ();
 
         // Writes the connections of the effect texture placements to the image files.  
-        size_t numPlacements = mTexturePlacements.size ();
-        for ( size_t i=0; i<numPlacements; ++i )
+        TexturePlacementsMap::const_iterator it = mTexturePlacementsMap.begin ();
+        while ( it != mTexturePlacementsMap.end () )
         {
-            TexturePlacement* texturePlacement = mTexturePlacements [i];
-
-            COLLADAFW::UniqueId& imageId = texturePlacement->mImageId;
-            ImageImporter* imageImporter = getDocumentImporter ()->getImageImporter ();
-            const MayaDM::File* imageFile = imageImporter->findMayaImageFile ( imageId );
-
-            size_t samplerId = texturePlacement->mSamplerId;
-
-            COLLADAFW::Sampler::SamplerType samplerType = texturePlacement->mSamplerType;
-            switch ( samplerType )
+            const std::vector<TexturePlacement>& texturePlacements = it->second;
+            for ( size_t i=0; i<texturePlacements.size (); ++i )
             {
-            case COLLADAFW::Sampler::SAMPLER_TYPE_2D:
+                const TexturePlacement& texturePlacement = texturePlacements [i];
+
+                const COLLADAFW::UniqueId& imageId = texturePlacement.mImageId;
+                ImageImporter* imageImporter = getDocumentImporter ()->getImageImporter ();
+                const MayaDM::File* imageFile = imageImporter->findMayaImageFile ( imageId );
+
+                const size_t samplerId = texturePlacement.mSamplerId;
+
+                const COLLADAFW::Sampler::SamplerType samplerType = texturePlacement.mSamplerType;
+                switch ( samplerType )
                 {
-                    MayaDM::Place2dTexture* place2dTexture = ( MayaDM::Place2dTexture* ) texturePlacement->mTexturePlacementNode;
-                    connectAttr ( file, place2dTexture->getOutUV (), imageFile->getUvCoord () );
-                    connectAttr ( file, place2dTexture->getOutUvFilterSize (), imageFile->getUvFilterSize () );
-                    connectAttr ( file, place2dTexture->getVertexUvOne (), imageFile->getVertexUvOne () );
-                    connectAttr ( file, place2dTexture->getVertexUvTwo (), imageFile->getVertexUvTwo () );
-                    connectAttr ( file, place2dTexture->getVertexUvThree (), imageFile->getVertexUvThree () );
-                    connectAttr ( file, place2dTexture->getVertexCameraOne (), imageFile->getVertexCameraOne () );
-                    connectAttr ( file, place2dTexture->getOffset (), imageFile->getOffset () );
-                    connectAttr ( file, place2dTexture->getStagger (), imageFile->getStagger () );
-                    connectAttr ( file, place2dTexture->getCoverage (), imageFile->getCoverage () );
-                    connectAttr ( file, place2dTexture->getTranslateFrame (), imageFile->getTranslateFrame () );
-                    connectAttr ( file, place2dTexture->getMirrorU (), imageFile->getMirrorU () );
-                    connectAttr ( file, place2dTexture->getMirrorV (), imageFile->getMirrorV () );
-                    connectAttr ( file, place2dTexture->getWrapU (), imageFile->getWrapU () );
-                    connectAttr ( file, place2dTexture->getWrapV (), imageFile->getWrapV () );
-                    connectAttr ( file, place2dTexture->getNoiseUV (), imageFile->getNoiseUV () );
-                    connectAttr ( file, place2dTexture->getRotateUV (), imageFile->getRotateUV () );
-                    connectAttr ( file, place2dTexture->getRepeatUV (), imageFile->getRepeatUV () );
+                case COLLADAFW::Sampler::SAMPLER_TYPE_2D:
+                    {
+                        MayaDM::Place2dTexture* place2dTexture = ( MayaDM::Place2dTexture* ) texturePlacement.mTexturePlacementNode;
+                        connectAttr ( file, place2dTexture->getOutUV (), imageFile->getUvCoord () );
+                        connectAttr ( file, place2dTexture->getOutUvFilterSize (), imageFile->getUvFilterSize () );
+                        connectAttr ( file, place2dTexture->getVertexUvOne (), imageFile->getVertexUvOne () );
+                        connectAttr ( file, place2dTexture->getVertexUvTwo (), imageFile->getVertexUvTwo () );
+                        connectAttr ( file, place2dTexture->getVertexUvThree (), imageFile->getVertexUvThree () );
+                        connectAttr ( file, place2dTexture->getVertexCameraOne (), imageFile->getVertexCameraOne () );
+                        connectAttr ( file, place2dTexture->getOffset (), imageFile->getOffset () );
+                        connectAttr ( file, place2dTexture->getStagger (), imageFile->getStagger () );
+                        connectAttr ( file, place2dTexture->getCoverage (), imageFile->getCoverage () );
+                        connectAttr ( file, place2dTexture->getTranslateFrame (), imageFile->getTranslateFrame () );
+                        connectAttr ( file, place2dTexture->getMirrorU (), imageFile->getMirrorU () );
+                        connectAttr ( file, place2dTexture->getMirrorV (), imageFile->getMirrorV () );
+                        connectAttr ( file, place2dTexture->getWrapU (), imageFile->getWrapU () );
+                        connectAttr ( file, place2dTexture->getWrapV (), imageFile->getWrapV () );
+                        connectAttr ( file, place2dTexture->getNoiseUV (), imageFile->getNoiseUV () );
+                        connectAttr ( file, place2dTexture->getRotateUV (), imageFile->getRotateUV () );
+                        connectAttr ( file, place2dTexture->getRepeatUV (), imageFile->getRepeatUV () );
+                        break;
+                    }
+                case COLLADAFW::Sampler::SAMPLER_TYPE_1D:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_3D:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_CUBE:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_DEPTH:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_RECT:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_STATE:
+                case COLLADAFW::Sampler::SAMPLER_TYPE_UNSPECIFIED:
+                default:
+                    MGlobal::displayError ( "Sampler type not implemented: " + samplerType );
+                    MGlobal::doErrorLogEntry ( "Sampler type not implemented: " + samplerType );
+                    std::cerr << "Sampler type not implemented: " << samplerType << endl;
                     break;
                 }
-            case COLLADAFW::Sampler::SAMPLER_TYPE_1D:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_3D:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_CUBE:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_DEPTH:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_RECT:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_STATE:
-            case COLLADAFW::Sampler::SAMPLER_TYPE_UNSPECIFIED:
-            default:
-                MGlobal::displayError ( "Sampler type not implemented: " + samplerType );
-                MGlobal::doErrorLogEntry ( "Sampler type not implemented: " + samplerType );
-                std::cerr << "Sampler type not implemented: " << samplerType << endl;
-                break;
             }
+            ++it;
         }
     }
 
@@ -675,6 +703,7 @@ namespace COLLADAMaya
                         const COLLADAFW::UniqueId& imageId = samplerInfo.mImageId;
                         const MayaDM::File* imageFile = imageImporter->findMayaImageFile ( imageId );
 
+                        // TODO Check if this connection already exist.
                         // connectAttr "file1.message" ":defaultTextureList1.textures" -nextAvailable;
                         connectNextAttr ( file, imageFile->getMessage (), defaultTextureList.getTextures () );
 
@@ -800,6 +829,5 @@ namespace COLLADAMaya
             }
         }
     }
-
 
 } // namespace COLLADAMaya
