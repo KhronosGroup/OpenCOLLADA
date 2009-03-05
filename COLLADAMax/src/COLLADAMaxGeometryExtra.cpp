@@ -49,33 +49,33 @@ namespace COLLADAMax
 
 
 
-    const String GeometryExtra::ELEMENT_BOX = "box";
-    const String GeometryExtra::ELEMENT_SPHERE = "sphere";
-    const String GeometryExtra::ELEMENT_CYLINDER = "cylinder";
-    const String GeometryExtra::ELEMENT_TORUS = "torus";
-    const String GeometryExtra::ELEMENT_TEAPOT = "teapot";
-    const String GeometryExtra::ELEMENT_CONE = "cone";
-    const String GeometryExtra::ELEMENT_TUBE = "tube";
-    const String GeometryExtra::ELEMENT_GEOSPHERE = "geosphere";
-    const String GeometryExtra::ELEMENT_PYRAMID = "pyramid";
-    const String GeometryExtra::ELEMENT_PLANE = "plane";
-    const String GeometryExtra::ELEMENT_HEDRA = "hedra";
-    const String GeometryExtra::ELEMENT_CHAMFERBOX = "chamferbox";
-    const String GeometryExtra::ELEMENT_OILTANK = "oiltank";
-    const String GeometryExtra::ELEMENT_SPINDLE = "spindle";
-    const String GeometryExtra::ELEMENT_GENGON = "gengon";
-    const String GeometryExtra::ELEMENT_RINGWAVE = "ringwave";
-    const String GeometryExtra::ELEMENT_PRISM = "prism";
-    const String GeometryExtra::ELEMENT_TORUSKNOT = "torusknot";
-    const String GeometryExtra::ELEMENT_CHAMFERCYL = "chamfercyl";
-    const String GeometryExtra::ELEMENT_CAPSULE = "capsule";
-    const String GeometryExtra::ELEMENT_L_EXT = "l_ext";
-    const String GeometryExtra::ELEMENT_C_EXT = "c_ext";
-    const String GeometryExtra::ELEMENT_HOSE = "hose";
-    const String GeometryExtra::ELEMENT_LTYPESTAIR = "ltypestair";
-    const String GeometryExtra::ELEMENT_STRAIGHTSTAIR = "straigthstair";
-    const String GeometryExtra::ELEMENT_SPIRALSTAIR = "spiralstair";
-    const String GeometryExtra::ELEMENT_UTYPESTAIR = "utypestair";
+    const String GeometryExtra::ELEMENT_BOX = "max_box";
+    const String GeometryExtra::ELEMENT_SPHERE = "max_sphere";
+    const String GeometryExtra::ELEMENT_CYLINDER = "max_cylinder";
+    const String GeometryExtra::ELEMENT_TORUS = "max_torus";
+    const String GeometryExtra::ELEMENT_TEAPOT = "max_teapot";
+    const String GeometryExtra::ELEMENT_CONE = "max_cone";
+    const String GeometryExtra::ELEMENT_TUBE = "max_tube";
+    const String GeometryExtra::ELEMENT_GEOSPHERE = "max_geosphere";
+    const String GeometryExtra::ELEMENT_PYRAMID = "max_pyramid";
+    const String GeometryExtra::ELEMENT_PLANE = "max_plane";
+    const String GeometryExtra::ELEMENT_HEDRA = "max_hedra";
+    const String GeometryExtra::ELEMENT_CHAMFERBOX = "max_chamferbox";
+    const String GeometryExtra::ELEMENT_OILTANK = "max_oiltank";
+    const String GeometryExtra::ELEMENT_SPINDLE = "max_spindle";
+    const String GeometryExtra::ELEMENT_GENGON = "max_gengon";
+    const String GeometryExtra::ELEMENT_RINGWAVE = "max_ringwave";
+    const String GeometryExtra::ELEMENT_PRISM = "max_prism";
+    const String GeometryExtra::ELEMENT_TORUSKNOT = "max_torusknot";
+    const String GeometryExtra::ELEMENT_CHAMFERCYL = "max_chamfercyl";
+    const String GeometryExtra::ELEMENT_CAPSULE = "max_capsule";
+    const String GeometryExtra::ELEMENT_L_EXT = "max_l_ext";
+    const String GeometryExtra::ELEMENT_C_EXT = "max_c_ext";
+    const String GeometryExtra::ELEMENT_HOSE = "max_hose";
+    const String GeometryExtra::ELEMENT_LTYPESTAIR = "max_ltypestair";
+    const String GeometryExtra::ELEMENT_STRAIGHTSTAIR = "max_straigthstair";
+    const String GeometryExtra::ELEMENT_SPIRALSTAIR = "max_spiralstair";
+    const String GeometryExtra::ELEMENT_UTYPESTAIR = "max_utypestair";
 
 
 

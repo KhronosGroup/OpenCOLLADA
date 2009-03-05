@@ -37,7 +37,7 @@ namespace COLLADAMax
 	const String LightExporter::LIGHT_ID_SUFFIX = "-light";
 
 
-	const String LightExporter::LIGHT_ELEMENT = "light";
+	const String LightExporter::LIGHT_ELEMENT = "max_light";
 	const String LightExporter::LIGHT_MAP_ELEMENT = "light_map";
 	const int LightExporter::LIGHT_PARAMETER_COUNT = 18;
 	const Extra::ExtraParameter LightExporter::LIGHT_PARAMETERS[] =
@@ -283,7 +283,6 @@ namespace COLLADAMax
 			colladaLight->setConstantAttenuation(1.0f);
 		}
 
-		addLight(*colladaLight);
 
 
 		if ( parameters )
@@ -342,6 +341,8 @@ namespace COLLADAMax
 		}
 
 		addMaxExtraTechniques();
+
+		addLight(*colladaLight);
 
 		delete colladaLight;
 
