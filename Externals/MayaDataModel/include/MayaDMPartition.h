@@ -18,39 +18,36 @@ class Partition : public Entity
 {
 public:
 public:
+
 	Partition():Entity(){}
 	Partition(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Entity(file, name, parent, "partition", create){}
 	virtual ~Partition(){}
+
 	void setAnnotation(const string& an)
 	{
 		if(an == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".an\" -type \"string\" ");
 		an.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setPartitionType(unsigned int pt)
 	{
 		if(pt == 0) return;
 		fprintf(mFile,"\tsetAttr \".pt\" %i;\n", pt);
-
 	}
 	void getSets(size_t st_i)const
 	{
 		fprintf(mFile,"\"%s.st[%i]\"",mName.c_str(),st_i);
-
 	}
 	void getSets()const
 	{
 
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
-
 	}
 	void getEnvironment()const
 	{
 		fprintf(mFile,"\"%s.envr\"",mName.c_str());
-
 	}
 protected:
 	Partition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

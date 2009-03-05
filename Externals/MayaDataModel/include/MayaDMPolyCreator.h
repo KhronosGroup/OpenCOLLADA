@@ -17,10 +17,12 @@ namespace MayaDM
 class PolyCreator : public PolyBase
 {
 public:
+
 	PolyCreator():PolyBase(){}
 	PolyCreator(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyBase(file, name, parent, "polyCreator", create){}
 	virtual ~PolyCreator(){}
+
 protected:
 	PolyCreator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:PolyBase(file, name, parent, nodeType, create) {}

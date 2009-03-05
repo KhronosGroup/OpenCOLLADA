@@ -48,16 +48,17 @@ public:
 	struct PointSymbolicIndex{
 	};
 public:
+
 	LeastSquaresModifier():AbstractBaseCreate(){}
 	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "leastSquaresModifier", create){}
 	virtual ~LeastSquaresModifier(){}
+
 	void setAttributeCollection(const AttributeCollection& ac)
 	{
 		fprintf(mFile,"\tsetAttr \".ac\" ");
 		ac.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setWorldSpaceToObjectSpace(const matrix& wto)
 	{
@@ -65,130 +66,107 @@ public:
 		fprintf(mFile,"\tsetAttr \".ac.wto\" -type \"matrix\" ");
 		wto.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setPointConstraint(size_t pc_i,const AttributeCollection::PointConstraint& pc)
 	{
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i]\" ",pc_i);
 		pc.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setPointPositionXYZ(size_t pc_i,const double3& xyz)
 	{
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].xyz\" -type \"double3\" ",pc_i);
 		xyz.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setPointPositionX(size_t pc_i,double ppx)
 	{
 		if(ppx == 1) return;
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].xyz.ppx\" %f;\n", pc_i,ppx);
-
 	}
 	void setPointPositionY(size_t pc_i,double ppy)
 	{
 		if(ppy == 1) return;
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].xyz.ppy\" %f;\n", pc_i,ppy);
-
 	}
 	void setPointPositionZ(size_t pc_i,double ppz)
 	{
 		if(ppz == 1) return;
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].xyz.ppz\" %f;\n", pc_i,ppz);
-
 	}
 	void setPointConstraintUVW(size_t pc_i,const double3& puv)
 	{
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].puv\" -type \"double3\" ",pc_i);
 		puv.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setPointConstraintU(size_t pc_i,double pcu)
 	{
 		if(pcu == -100000.0) return;
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].puv.pcu\" %f;\n", pc_i,pcu);
-
 	}
 	void setPointConstraintV(size_t pc_i,double pcv)
 	{
 		if(pcv == -100000.0) return;
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].puv.pcv\" %f;\n", pc_i,pcv);
-
 	}
 	void setPointConstraintW(size_t pc_i,double pcw)
 	{
 		if(pcw == -100000.0) return;
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].puv.pcw\" %f;\n", pc_i,pcw);
-
 	}
 	void setPointWeight(size_t pc_i,double pw)
 	{
 		if(pw == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].pw\" %f;\n", pc_i,pw);
-
 	}
 	void getInputNurbsObject()const
 	{
 		fprintf(mFile,"\"%s.ac.ino\"",mName.c_str());
-
 	}
 	void getWorldSpaceToObjectSpace()const
 	{
 		fprintf(mFile,"\"%s.ac.wto\"",mName.c_str());
-
 	}
 	void getPointPositionXYZ(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.ac.pc[%i].xyz\"",mName.c_str(),pc_i);
-
 	}
 	void getPointPositionX(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.ac.pc[%i].xyz.ppx\"",mName.c_str(),pc_i);
-
 	}
 	void getPointPositionY(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.ac.pc[%i].xyz.ppy\"",mName.c_str(),pc_i);
-
 	}
 	void getPointPositionZ(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.ac.pc[%i].xyz.ppz\"",mName.c_str(),pc_i);
-
 	}
 	void getPointConstraintUVW(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.ac.pc[%i].puv\"",mName.c_str(),pc_i);
-
 	}
 	void getPointConstraintU(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.ac.pc[%i].puv.pcu\"",mName.c_str(),pc_i);
-
 	}
 	void getPointConstraintV(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.ac.pc[%i].puv.pcv\"",mName.c_str(),pc_i);
-
 	}
 	void getPointConstraintW(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.ac.pc[%i].puv.pcw\"",mName.c_str(),pc_i);
-
 	}
 	void getPointWeight(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.ac.pc[%i].pw\"",mName.c_str(),pc_i);
-
 	}
 	void getOutputNurbsObject()const
 	{
 		fprintf(mFile,"\"%s.ac.ono\"",mName.c_str());
-
 	}
 protected:
 	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

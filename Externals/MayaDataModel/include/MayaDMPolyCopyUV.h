@@ -18,22 +18,22 @@ class PolyCopyUV : public PolyModifierUV
 {
 public:
 public:
+
 	PolyCopyUV():PolyModifierUV(){}
 	PolyCopyUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifierUV(file, name, parent, "polyCopyUV", create){}
 	virtual ~PolyCopyUV(){}
+
 	void setUvSetNameInput(const string& uvi)
 	{
 		if(uvi == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".uvi\" -type \"string\" ");
 		uvi.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getUvSetNameInput()const
 	{
 		fprintf(mFile,"\"%s.uvi\"",mName.c_str());
-
 	}
 protected:
 	PolyCopyUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

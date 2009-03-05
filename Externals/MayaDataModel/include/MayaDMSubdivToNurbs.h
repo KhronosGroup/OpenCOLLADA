@@ -18,47 +18,42 @@ class SubdivToNurbs : public AbstractBaseCreate
 {
 public:
 public:
+
 	SubdivToNurbs():AbstractBaseCreate(){}
 	SubdivToNurbs(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "subdivToNurbs", create){}
 	virtual ~SubdivToNurbs(){}
+
 	void setOutputType(unsigned int ot)
 	{
 		if(ot == 0) return;
 		fprintf(mFile,"\tsetAttr \".ot\" %i;\n", ot);
-
 	}
 	void setApplyMatrixToResult(bool amr)
 	{
 		if(amr == true) return;
 		fprintf(mFile,"\tsetAttr \".amr\" %i;\n", amr);
-
 	}
 	void getInSubdiv()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 	void getOutputSurfaces(size_t os_i)const
 	{
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
-
 	}
 	void getOutputSurfaces()const
 	{
 
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
-
 	}
 	void getOutputType()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
-
 	}
 	void getApplyMatrixToResult()const
 	{
 		fprintf(mFile,"\"%s.amr\"",mName.c_str());
-
 	}
 protected:
 	SubdivToNurbs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

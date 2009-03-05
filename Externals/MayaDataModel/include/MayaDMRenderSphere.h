@@ -17,10 +17,12 @@ namespace MayaDM
 class RenderSphere : public ImplicitSphere
 {
 public:
+
 	RenderSphere():ImplicitSphere(){}
 	RenderSphere(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:ImplicitSphere(file, name, parent, "renderSphere", create){}
 	virtual ~RenderSphere(){}
+
 protected:
 	RenderSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:ImplicitSphere(file, name, parent, nodeType, create) {}

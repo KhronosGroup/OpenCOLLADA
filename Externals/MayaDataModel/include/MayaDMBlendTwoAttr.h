@@ -18,20 +18,20 @@ class BlendTwoAttr : public Blend
 {
 public:
 public:
+
 	BlendTwoAttr():Blend(){}
 	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Blend(file, name, parent, "blendTwoAttr", create){}
 	virtual ~BlendTwoAttr(){}
+
 	void setAttributesBlender(float ab)
 	{
 		if(ab == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".ab\" %f;\n", ab);
-
 	}
 	void getAttributesBlender()const
 	{
 		fprintf(mFile,"\"%s.ab\"",mName.c_str());
-
 	}
 protected:
 	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

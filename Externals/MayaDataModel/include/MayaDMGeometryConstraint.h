@@ -25,22 +25,22 @@ public:
 		}
 	};
 public:
+
 	GeometryConstraint():Constraint(){}
 	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Constraint(file, name, parent, "geometryConstraint", create){}
 	virtual ~GeometryConstraint(){}
+
 	void setTarget(size_t tg_i,const Target& tg)
 	{
 		fprintf(mFile,"\tsetAttr \".tg[%i]\" ",tg_i);
 		tg.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setTargetWeight(size_t tg_i,double tw)
 	{
 		if(tw == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
-
 	}
 	void setConstraintParentInverseMatrix(const matrix& cpim)
 	{
@@ -48,50 +48,41 @@ public:
 		fprintf(mFile,"\tsetAttr \".cpim\" -type \"matrix\" ");
 		cpim.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getTarget(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i]\"",mName.c_str(),tg_i);
-
 	}
 	void getTarget()const
 	{
 
 		fprintf(mFile,"\"%s.tg\"",mName.c_str());
-
 	}
 	void getTargetGeometry(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tgm\"",mName.c_str(),tg_i);
-
 	}
 	void getTargetGeometry()const
 	{
 
 		fprintf(mFile,"\"%s.tg.tgm\"",mName.c_str());
-
 	}
 	void getTargetWeight(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tw\"",mName.c_str(),tg_i);
-
 	}
 	void getTargetWeight()const
 	{
 
 		fprintf(mFile,"\"%s.tg.tw\"",mName.c_str());
-
 	}
 	void getConstraintParentInverseMatrix()const
 	{
 		fprintf(mFile,"\"%s.cpim\"",mName.c_str());
-
 	}
 	void getConstraintGeometry()const
 	{
 		fprintf(mFile,"\"%s.cgm\"",mName.c_str());
-
 	}
 protected:
 	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

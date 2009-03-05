@@ -18,20 +18,20 @@ class AnimBlendInOut : public AnimBlend
 {
 public:
 public:
+
 	AnimBlendInOut():AnimBlend(){}
 	AnimBlendInOut(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AnimBlend(file, name, parent, "animBlendInOut", create){}
 	virtual ~AnimBlendInOut(){}
+
 	void setRotationBlend(unsigned int rb)
 	{
 		if(rb == 0) return;
 		fprintf(mFile,"\tsetAttr \".rb\" %i;\n", rb);
-
 	}
 	void getRotationBlend()const
 	{
 		fprintf(mFile,"\"%s.rb\"",mName.c_str());
-
 	}
 protected:
 	AnimBlendInOut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

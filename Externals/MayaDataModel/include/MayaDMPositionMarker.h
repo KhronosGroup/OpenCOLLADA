@@ -18,14 +18,15 @@ class PositionMarker : public Locator
 {
 public:
 public:
+
 	PositionMarker():Locator(){}
 	PositionMarker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Locator(file, name, parent, "positionMarker", create){}
 	virtual ~PositionMarker(){}
+
 	void getTime()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
-
 	}
 protected:
 	PositionMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

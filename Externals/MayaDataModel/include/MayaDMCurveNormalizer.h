@@ -18,20 +18,20 @@ class CurveNormalizer : public DependNode
 {
 public:
 public:
+
 	CurveNormalizer():DependNode(){}
 	CurveNormalizer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "curveNormalizer", create){}
 	virtual ~CurveNormalizer(){}
+
 	void setScalar(double sc)
 	{
 		if(sc == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".sc\" %f;\n", sc);
-
 	}
 	void getScalar()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
-
 	}
 protected:
 	CurveNormalizer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

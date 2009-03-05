@@ -18,30 +18,28 @@ class FitBspline : public AbstractBaseCreate
 {
 public:
 public:
+
 	FitBspline():AbstractBaseCreate(){}
 	FitBspline(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "fitBspline", create){}
 	virtual ~FitBspline(){}
+
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
 		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
-
 	}
 	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
-
 	}
 	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
-
 	}
 	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
-
 	}
 protected:
 	FitBspline(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

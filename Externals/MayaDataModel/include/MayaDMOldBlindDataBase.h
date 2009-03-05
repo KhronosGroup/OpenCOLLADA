@@ -18,20 +18,20 @@ class OldBlindDataBase : public DependNode
 {
 public:
 public:
+
 	OldBlindDataBase():DependNode(){}
 	OldBlindDataBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "oldBlindDataBase", create){}
 	virtual ~OldBlindDataBase(){}
+
 	void setTypeId(int tid)
 	{
 		if(tid == 0) return;
 		fprintf(mFile,"\tsetAttr \".tid\" %i;\n", tid);
-
 	}
 	void getTypeId()const
 	{
 		fprintf(mFile,"\"%s.tid\"",mName.c_str());
-
 	}
 protected:
 	OldBlindDataBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -17,10 +17,12 @@ namespace MayaDM
 class Entity : public DependNode
 {
 public:
+
 	Entity():DependNode(){}
 	Entity(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "entity", create){}
 	virtual ~Entity(){}
+
 protected:
 	Entity(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DependNode(file, name, parent, nodeType, create) {}

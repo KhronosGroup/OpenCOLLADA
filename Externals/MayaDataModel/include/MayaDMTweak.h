@@ -42,29 +42,28 @@ public:
 		}
 	};
 public:
+
 	Tweak():GeometryFilter(){}
 	Tweak(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:GeometryFilter(file, name, parent, "tweak", create){}
 	virtual ~Tweak(){}
+
 	void setRelativeTweak(bool rtw)
 	{
 		if(rtw == true) return;
 		fprintf(mFile,"\tsetAttr \".rtw\" %i;\n", rtw);
-
 	}
 	void setPlist(size_t pl_i,const Plist& pl)
 	{
 		fprintf(mFile,"\tsetAttr \".pl[%i]\" ",pl_i);
 		pl.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setControlPoints(size_t pl_i,size_t cp_i,const double3& cp)
 	{
 		fprintf(mFile,"\tsetAttr \".pl[%i].cp[%i]\" -type \"double3\" ",pl_i,cp_i);
 		cp.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setControlPoints(size_t pl_i,size_t cp_start,size_t cp_end,double* cp)
 	{
@@ -76,54 +75,45 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startControlPoints(size_t pl_i,size_t cp_start,size_t cp_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".pl[%i].cp[%i:%i]\"",pl_i,cp_start,cp_end);
-
 	}
 	void appendControlPoints(double cp)const
 	{
 		fprintf(mFile," %f",cp);
-
 	}
 	void endControlPoints()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setXValue(size_t pl_i,size_t cp_i,double xv)
 	{
 		if(xv == 0) return;
 		fprintf(mFile,"\tsetAttr \".pl[%i].cp[%i].xv\" %f;\n", pl_i,cp_i,xv);
-
 	}
 	void setYValue(size_t pl_i,size_t cp_i,double yv)
 	{
 		if(yv == 0) return;
 		fprintf(mFile,"\tsetAttr \".pl[%i].cp[%i].yv\" %f;\n", pl_i,cp_i,yv);
-
 	}
 	void setZValue(size_t pl_i,size_t cp_i,double zv)
 	{
 		if(zv == 0) return;
 		fprintf(mFile,"\tsetAttr \".pl[%i].cp[%i].zv\" %f;\n", pl_i,cp_i,zv);
-
 	}
 	void setVlist(size_t vl_i,const Vlist& vl)
 	{
 		fprintf(mFile,"\tsetAttr \".vl[%i]\" ",vl_i);
 		vl.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setVertex(size_t vl_i,size_t vt_i,const float3& vt)
 	{
 		fprintf(mFile,"\tsetAttr \".vl[%i].vt[%i]\" -type \"float3\" ",vl_i,vt_i);
 		vt.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setVertex(size_t vl_i,size_t vt_start,size_t vt_end,float* vt)
 	{
@@ -135,155 +125,127 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startVertex(size_t vl_i,size_t vt_start,size_t vt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".vl[%i].vt[%i:%i]\"",vl_i,vt_start,vt_end);
-
 	}
 	void appendVertex(float vt)const
 	{
 		fprintf(mFile," %f",vt);
-
 	}
 	void endVertex()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setXVertex(size_t vl_i,size_t vt_i,float vx)
 	{
 		if(vx == 0) return;
 		fprintf(mFile,"\tsetAttr \".vl[%i].vt[%i].vx\" %f;\n", vl_i,vt_i,vx);
-
 	}
 	void setYVertex(size_t vl_i,size_t vt_i,float vy)
 	{
 		if(vy == 0) return;
 		fprintf(mFile,"\tsetAttr \".vl[%i].vt[%i].vy\" %f;\n", vl_i,vt_i,vy);
-
 	}
 	void setZVertex(size_t vl_i,size_t vt_i,float vz)
 	{
 		if(vz == 0) return;
 		fprintf(mFile,"\tsetAttr \".vl[%i].vt[%i].vz\" %f;\n", vl_i,vt_i,vz);
-
 	}
 	void getRelativeTweak()const
 	{
 		fprintf(mFile,"\"%s.rtw\"",mName.c_str());
-
 	}
 	void getPlist(size_t pl_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i]\"",mName.c_str(),pl_i);
-
 	}
 	void getPlist()const
 	{
 
 		fprintf(mFile,"\"%s.pl\"",mName.c_str());
-
 	}
 	void getControlPoints(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i]\"",mName.c_str(),pl_i,cp_i);
-
 	}
 	void getControlPoints(size_t cp_i)const
 	{
 
 		fprintf(mFile,"\"%s.pl.cp[%i]\"",mName.c_str(),cp_i);
-
 	}
 	void getXValue(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i].xv\"",mName.c_str(),pl_i,cp_i);
-
 	}
 	void getXValue(size_t cp_i)const
 	{
 
 		fprintf(mFile,"\"%s.pl.cp[%i].xv\"",mName.c_str(),cp_i);
-
 	}
 	void getYValue(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i].yv\"",mName.c_str(),pl_i,cp_i);
-
 	}
 	void getYValue(size_t cp_i)const
 	{
 
 		fprintf(mFile,"\"%s.pl.cp[%i].yv\"",mName.c_str(),cp_i);
-
 	}
 	void getZValue(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i].zv\"",mName.c_str(),pl_i,cp_i);
-
 	}
 	void getZValue(size_t cp_i)const
 	{
 
 		fprintf(mFile,"\"%s.pl.cp[%i].zv\"",mName.c_str(),cp_i);
-
 	}
 	void getVlist(size_t vl_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i]\"",mName.c_str(),vl_i);
-
 	}
 	void getVlist()const
 	{
 
 		fprintf(mFile,"\"%s.vl\"",mName.c_str());
-
 	}
 	void getVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i]\"",mName.c_str(),vl_i,vt_i);
-
 	}
 	void getVertex(size_t vt_i)const
 	{
 
 		fprintf(mFile,"\"%s.vl.vt[%i]\"",mName.c_str(),vt_i);
-
 	}
 	void getXVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i].vx\"",mName.c_str(),vl_i,vt_i);
-
 	}
 	void getXVertex(size_t vt_i)const
 	{
 
 		fprintf(mFile,"\"%s.vl.vt[%i].vx\"",mName.c_str(),vt_i);
-
 	}
 	void getYVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i].vy\"",mName.c_str(),vl_i,vt_i);
-
 	}
 	void getYVertex(size_t vt_i)const
 	{
 
 		fprintf(mFile,"\"%s.vl.vt[%i].vy\"",mName.c_str(),vt_i);
-
 	}
 	void getZVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i].vz\"",mName.c_str(),vl_i,vt_i);
-
 	}
 	void getZVertex(size_t vt_i)const
 	{
 
 		fprintf(mFile,"\"%s.vl.vt[%i].vz\"",mName.c_str(),vt_i);
-
 	}
 protected:
 	Tweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

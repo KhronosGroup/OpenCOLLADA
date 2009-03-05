@@ -18,21 +18,21 @@ class RenderLayerManager : public DependNode
 {
 public:
 public:
+
 	RenderLayerManager():DependNode(){}
 	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "renderLayerManager", create){}
 	virtual ~RenderLayerManager(){}
+
 	void setCurrentRenderLayer(short crl)
 	{
 		if(crl == 0) return;
 		fprintf(mFile,"\tsetAttr \".crl\" %i;\n", crl);
-
 	}
 	void setRenderLayerId(size_t rlmi_i,short rlmi)
 	{
 		if(rlmi == 0) return;
 		fprintf(mFile,"\tsetAttr \".rlmi[%i]\" %i;\n", rlmi_i,rlmi);
-
 	}
 	void setRenderLayerId(size_t rlmi_start,size_t rlmi_end,short* rlmi)
 	{
@@ -44,38 +44,31 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startRenderLayerId(size_t rlmi_start,size_t rlmi_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".rlmi[%i:%i]\"",rlmi_start,rlmi_end);
-
 	}
 	void appendRenderLayerId(short rlmi)const
 	{
 		fprintf(mFile," %i",rlmi);
-
 	}
 	void endRenderLayerId()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void getCurrentRenderLayer()const
 	{
 		fprintf(mFile,"\"%s.crl\"",mName.c_str());
-
 	}
 	void getRenderLayerId(size_t rlmi_i)const
 	{
 		fprintf(mFile,"\"%s.rlmi[%i]\"",mName.c_str(),rlmi_i);
-
 	}
 	void getRenderLayerId()const
 	{
 
 		fprintf(mFile,"\"%s.rlmi\"",mName.c_str());
-
 	}
 protected:
 	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

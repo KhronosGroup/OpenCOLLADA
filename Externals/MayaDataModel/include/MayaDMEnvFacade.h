@@ -17,10 +17,12 @@ namespace MayaDM
 class EnvFacade : public Facade
 {
 public:
+
 	EnvFacade():Facade(){}
 	EnvFacade(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Facade(file, name, parent, "envFacade", create){}
 	virtual ~EnvFacade(){}
+
 protected:
 	EnvFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:Facade(file, name, parent, nodeType, create) {}

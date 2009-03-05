@@ -18,20 +18,20 @@ class PolyMergeUV : public PolyModifierUV
 {
 public:
 public:
+
 	PolyMergeUV():PolyModifierUV(){}
 	PolyMergeUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifierUV(file, name, parent, "polyMergeUV", create){}
 	virtual ~PolyMergeUV(){}
+
 	void setDistance(float d)
 	{
 		if(d == 10000) return;
 		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
-
 	}
 	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
-
 	}
 protected:
 	PolyMergeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

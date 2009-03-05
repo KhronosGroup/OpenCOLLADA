@@ -18,15 +18,16 @@ class CurveFromSubdivEdge : public CurveFromSubdiv
 {
 public:
 public:
+
 	CurveFromSubdivEdge():CurveFromSubdiv(){}
 	CurveFromSubdivEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:CurveFromSubdiv(file, name, parent, "curveFromSubdivEdge", create){}
 	virtual ~CurveFromSubdivEdge(){}
+
 	void setEdgeIndexL(size_t eil_i,int eil)
 	{
 		if(eil == 0) return;
 		fprintf(mFile,"\tsetAttr \".eil[%i]\" %i;\n", eil_i,eil);
-
 	}
 	void setEdgeIndexL(size_t eil_start,size_t eil_end,int* eil)
 	{
@@ -38,28 +39,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startEdgeIndexL(size_t eil_start,size_t eil_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".eil[%i:%i]\"",eil_start,eil_end);
-
 	}
 	void appendEdgeIndexL(int eil)const
 	{
 		fprintf(mFile," %i",eil);
-
 	}
 	void endEdgeIndexL()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setEdgeIndexR(size_t eir_i,int eir)
 	{
 		if(eir == 0) return;
 		fprintf(mFile,"\tsetAttr \".eir[%i]\" %i;\n", eir_i,eir);
-
 	}
 	void setEdgeIndexR(size_t eir_start,size_t eir_end,int* eir)
 	{
@@ -71,44 +67,36 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startEdgeIndexR(size_t eir_start,size_t eir_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".eir[%i:%i]\"",eir_start,eir_end);
-
 	}
 	void appendEdgeIndexR(int eir)const
 	{
 		fprintf(mFile," %i",eir);
-
 	}
 	void endEdgeIndexR()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void getEdgeIndexL(size_t eil_i)const
 	{
 		fprintf(mFile,"\"%s.eil[%i]\"",mName.c_str(),eil_i);
-
 	}
 	void getEdgeIndexL()const
 	{
 
 		fprintf(mFile,"\"%s.eil\"",mName.c_str());
-
 	}
 	void getEdgeIndexR(size_t eir_i)const
 	{
 		fprintf(mFile,"\"%s.eir[%i]\"",mName.c_str(),eir_i);
-
 	}
 	void getEdgeIndexR()const
 	{
 
 		fprintf(mFile,"\"%s.eir\"",mName.c_str());
-
 	}
 protected:
 	CurveFromSubdivEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

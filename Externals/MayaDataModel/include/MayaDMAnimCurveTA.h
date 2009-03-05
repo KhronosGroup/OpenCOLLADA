@@ -25,42 +25,38 @@ public:
 		}
 	};
 public:
+
 	AnimCurveTA():AnimCurve(){}
 	AnimCurveTA(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AnimCurve(file, name, parent, "animCurveTA", create){}
 	virtual ~AnimCurveTA(){}
+
 	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv)
 	{
 		fprintf(mFile,"\tsetAttr \".ktv[%i]\" ",ktv_i);
 		ktv.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setKeyValue(size_t ktv_i,double kv)
 	{
 		if(kv == 0) return;
 		fprintf(mFile,"\tsetAttr \".ktv[%i].kv\" %f;\n", ktv_i,kv);
-
 	}
 	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
-
 	}
 	void getQuaternionW()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
-
 	}
 	void getRawValue()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
-
 	}
 protected:
 	AnimCurveTA(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

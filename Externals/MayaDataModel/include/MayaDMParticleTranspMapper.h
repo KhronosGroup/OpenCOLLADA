@@ -18,54 +18,48 @@ class ParticleTranspMapper : public DependNode
 {
 public:
 public:
+
 	ParticleTranspMapper():DependNode(){}
 	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "particleTranspMapper", create){}
 	virtual ~ParticleTranspMapper(){}
+
 	void setParticleTransparency(const float3& pt)
 	{
 		fprintf(mFile,"\tsetAttr \".pt\" -type \"float3\" ");
 		pt.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setParticleTransparencyR(float ptr)
 	{
 		if(ptr == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".pt.ptr\" %f;\n", ptr);
-
 	}
 	void setParticleTransparencyG(float ptg)
 	{
 		if(ptg == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".pt.ptg\" %f;\n", ptg);
-
 	}
 	void setParticleTransparencyB(float ptb)
 	{
 		if(ptb == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".pt.ptb\" %f;\n", ptb);
-
 	}
 	void getParticleTransparency()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
-
 	}
 	void getParticleTransparencyR()const
 	{
 		fprintf(mFile,"\"%s.pt.ptr\"",mName.c_str());
-
 	}
 	void getParticleTransparencyG()const
 	{
 		fprintf(mFile,"\"%s.pt.ptg\"",mName.c_str());
-
 	}
 	void getParticleTransparencyB()const
 	{
 		fprintf(mFile,"\"%s.pt.ptb\"",mName.c_str());
-
 	}
 protected:
 	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

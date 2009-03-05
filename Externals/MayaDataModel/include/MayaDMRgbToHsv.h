@@ -18,75 +18,65 @@ class RgbToHsv : public DependNode
 {
 public:
 public:
+
 	RgbToHsv():DependNode(){}
 	RgbToHsv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "rgbToHsv", create){}
 	virtual ~RgbToHsv(){}
+
 	void setInRgb(const float3& i_)
 	{
 		if(i_ == float3(0.0f,0.0f,0.0f)) return;
 		fprintf(mFile,"\tsetAttr \".i\" -type \"float3\" ");
 		i_.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setInRgbR(float ir)
 	{
 		if(ir == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".i.ir\" %f;\n", ir);
-
 	}
 	void setInRgbG(float ig)
 	{
 		if(ig == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".i.ig\" %f;\n", ig);
-
 	}
 	void setInRgbB(float ib)
 	{
 		if(ib == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".i.ib\" %f;\n", ib);
-
 	}
 	void getInRgb()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 	void getInRgbR()const
 	{
 		fprintf(mFile,"\"%s.i.ir\"",mName.c_str());
-
 	}
 	void getInRgbG()const
 	{
 		fprintf(mFile,"\"%s.i.ig\"",mName.c_str());
-
 	}
 	void getInRgbB()const
 	{
 		fprintf(mFile,"\"%s.i.ib\"",mName.c_str());
-
 	}
 	void getOutHsv()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
-
 	}
 	void getOutHsvH()const
 	{
 		fprintf(mFile,"\"%s.o.oh\"",mName.c_str());
-
 	}
 	void getOutHsvS()const
 	{
 		fprintf(mFile,"\"%s.o.os\"",mName.c_str());
-
 	}
 	void getOutHsvV()const
 	{
 		fprintf(mFile,"\"%s.o.ov\"",mName.c_str());
-
 	}
 protected:
 	RgbToHsv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

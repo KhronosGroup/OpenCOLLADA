@@ -18,15 +18,16 @@ class SubdHierBlind : public BlindDataTemplate
 {
 public:
 public:
+
 	SubdHierBlind():BlindDataTemplate(){}
 	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:BlindDataTemplate(file, name, parent, "subdHierBlind", create){}
 	virtual ~SubdHierBlind(){}
+
 	void setWhichOneIndex(int woi)
 	{
 		if(woi == -1) return;
 		fprintf(mFile,"\tsetAttr \".woi\" %i;\n", woi);
-
 	}
 protected:
 	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

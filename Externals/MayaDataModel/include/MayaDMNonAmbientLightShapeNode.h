@@ -18,42 +18,38 @@ class NonAmbientLightShapeNode : public RenderLight
 {
 public:
 public:
+
 	NonAmbientLightShapeNode():RenderLight(){}
 	NonAmbientLightShapeNode(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:RenderLight(file, name, parent, "nonAmbientLightShapeNode", create){}
 	virtual ~NonAmbientLightShapeNode(){}
+
 	void setDecayRate(unsigned int de)
 	{
 		if(de == 0) return;
 		fprintf(mFile,"\tsetAttr \".de\" %i;\n", de);
-
 	}
 	void setEmitDiffuse(bool edi)
 	{
 		if(edi == true) return;
 		fprintf(mFile,"\tsetAttr \".edi\" %i;\n", edi);
-
 	}
 	void setEmitSpecular(bool esp)
 	{
 		if(esp == true) return;
 		fprintf(mFile,"\tsetAttr \".esp\" %i;\n", esp);
-
 	}
 	void getDecayRate()const
 	{
 		fprintf(mFile,"\"%s.de\"",mName.c_str());
-
 	}
 	void getEmitDiffuse()const
 	{
 		fprintf(mFile,"\"%s.edi\"",mName.c_str());
-
 	}
 	void getEmitSpecular()const
 	{
 		fprintf(mFile,"\"%s.esp\"",mName.c_str());
-
 	}
 protected:
 	NonAmbientLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

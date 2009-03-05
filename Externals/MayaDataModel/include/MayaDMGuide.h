@@ -18,24 +18,24 @@ class Guide : public DependNode
 {
 public:
 public:
+
 	Guide():DependNode(){}
 	Guide(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "guide", create){}
 	virtual ~Guide(){}
+
 	void setJointAboveMatrix(const matrix& am)
 	{
 		if(am == identity) return;
 		fprintf(mFile,"\tsetAttr \".am\" -type \"matrix\" ");
 		am.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setJointXformMatrix(const matrix& jm)
 	{
 		fprintf(mFile,"\tsetAttr \".jm\" -type \"matrix\" ");
 		jm.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setJointBelowMatrix(const matrix& bm)
 	{
@@ -43,88 +43,71 @@ public:
 		fprintf(mFile,"\tsetAttr \".bm\" -type \"matrix\" ");
 		bm.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setJointGuideAxis(unsigned int ga)
 	{
 		if(ga == 0) return;
 		fprintf(mFile,"\tsetAttr \".ga\" %i;\n", ga);
-
 	}
 	void getJointAboveMatrix()const
 	{
 		fprintf(mFile,"\"%s.am\"",mName.c_str());
-
 	}
 	void getJointXformMatrix()const
 	{
 		fprintf(mFile,"\"%s.jm\"",mName.c_str());
-
 	}
 	void getJointBelowMatrix()const
 	{
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
-
 	}
 	void getJointGuideAxis()const
 	{
 		fprintf(mFile,"\"%s.ga\"",mName.c_str());
-
 	}
 	void getBendVector()const
 	{
 		fprintf(mFile,"\"%s.bv\"",mName.c_str());
-
 	}
 	void getBendVectorX()const
 	{
 		fprintf(mFile,"\"%s.bv.bx\"",mName.c_str());
-
 	}
 	void getBendVectorY()const
 	{
 		fprintf(mFile,"\"%s.bv.by\"",mName.c_str());
-
 	}
 	void getBendVectorZ()const
 	{
 		fprintf(mFile,"\"%s.bv.bz\"",mName.c_str());
-
 	}
 	void getBendAngle()const
 	{
 		fprintf(mFile,"\"%s.ba\"",mName.c_str());
-
 	}
 	void getBendMagnitude()const
 	{
 		fprintf(mFile,"\"%s.mg\"",mName.c_str());
-
 	}
 	void getRotateX()const
 	{
 		fprintf(mFile,"\"%s.rx\"",mName.c_str());
-
 	}
 	void getRotateY()const
 	{
 		fprintf(mFile,"\"%s.ry\"",mName.c_str());
-
 	}
 	void getRotateZ()const
 	{
 		fprintf(mFile,"\"%s.rz\"",mName.c_str());
-
 	}
 	void getMaxXYZ()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
-
 	}
 	void getAutoGuide()const
 	{
 		fprintf(mFile,"\"%s.ag\"",mName.c_str());
-
 	}
 protected:
 	Guide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

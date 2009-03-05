@@ -18,31 +18,29 @@ class DropoffLocator : public Locator
 {
 public:
 public:
+
 	DropoffLocator():Locator(){}
 	DropoffLocator(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Locator(file, name, parent, "dropoffLocator", create){}
 	virtual ~DropoffLocator(){}
+
 	void setPercent(float pc)
 	{
 		if(pc == 1) return;
 		fprintf(mFile,"\tsetAttr \".pc\" %f;\n", pc);
-
 	}
 	void setParam(float pr)
 	{
 		if(pr == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".pr\" %f;\n", pr);
-
 	}
 	void getPercent()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
-
 	}
 	void getParam()const
 	{
 		fprintf(mFile,"\"%s.pr\"",mName.c_str());
-
 	}
 protected:
 	DropoffLocator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

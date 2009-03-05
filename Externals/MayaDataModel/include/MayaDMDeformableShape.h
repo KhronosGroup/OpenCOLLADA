@@ -17,10 +17,12 @@ namespace MayaDM
 class DeformableShape : public GeometryShape
 {
 public:
+
 	DeformableShape():GeometryShape(){}
 	DeformableShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:GeometryShape(file, name, parent, "deformableShape", create){}
 	virtual ~DeformableShape(){}
+
 protected:
 	DeformableShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:GeometryShape(file, name, parent, nodeType, create) {}

@@ -18,15 +18,16 @@ class Blend : public DependNode
 {
 public:
 public:
+
 	Blend():DependNode(){}
 	Blend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "blend", create){}
 	virtual ~Blend(){}
+
 	void setInput(size_t i_i,double i_)
 	{
 		if(i_ == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".i[%i]\" %f;\n", i_i,i_);
-
 	}
 	void setInput(size_t i_start,size_t i_end,double* i_)
 	{
@@ -38,44 +39,36 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startInput(size_t i_start,size_t i_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
-
 	}
 	void appendInput(double i)const
 	{
 		fprintf(mFile," %f",i);
-
 	}
 	void endInput()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setCurrent(int c)
 	{
 		if(c == 0) return;
 		fprintf(mFile,"\tsetAttr \".c\" %i;\n", c);
-
 	}
 	void getInput(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
-
 	}
 	void getInput()const
 	{
 
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
-
 	}
 protected:
 	Blend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

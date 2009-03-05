@@ -18,14 +18,15 @@ class ShellTessellate : public ParentTessellate
 {
 public:
 public:
+
 	ShellTessellate():ParentTessellate(){}
 	ShellTessellate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:ParentTessellate(file, name, parent, "shellTessellate", create){}
 	virtual ~ShellTessellate(){}
+
 	void getInputShell()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
-
 	}
 protected:
 	ShellTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

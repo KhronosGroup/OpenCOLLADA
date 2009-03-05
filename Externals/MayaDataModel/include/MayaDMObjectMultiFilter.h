@@ -18,25 +18,24 @@ class ObjectMultiFilter : public ObjectFilter
 {
 public:
 public:
+
 	ObjectMultiFilter():ObjectFilter(){}
 	ObjectMultiFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:ObjectFilter(file, name, parent, "objectMultiFilter", create){}
 	virtual ~ObjectMultiFilter(){}
+
 	void setFilterType(unsigned int ftyp)
 	{
 		if(ftyp == 0) return;
 		fprintf(mFile,"\tsetAttr \".ftyp\" %i;\n", ftyp);
-
 	}
 	void getResultList()const
 	{
 		fprintf(mFile,"\"%s.res\"",mName.c_str());
-
 	}
 	void getFilterType()const
 	{
 		fprintf(mFile,"\"%s.ftyp\"",mName.c_str());
-
 	}
 protected:
 	ObjectMultiFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

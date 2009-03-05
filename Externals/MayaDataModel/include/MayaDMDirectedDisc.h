@@ -17,10 +17,12 @@ namespace MayaDM
 class DirectedDisc : public GeometryShape
 {
 public:
+
 	DirectedDisc():GeometryShape(){}
 	DirectedDisc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:GeometryShape(file, name, parent, "directedDisc", create){}
 	virtual ~DirectedDisc(){}
+
 protected:
 	DirectedDisc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:GeometryShape(file, name, parent, nodeType, create) {}

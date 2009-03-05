@@ -18,42 +18,38 @@ class CurveFromSurfaceBnd : public CurveFromSurface
 {
 public:
 public:
+
 	CurveFromSurfaceBnd():CurveFromSurface(){}
 	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:CurveFromSurface(file, name, parent, "curveFromSurfaceBnd", create){}
 	virtual ~CurveFromSurfaceBnd(){}
+
 	void setFace(int f)
 	{
 		if(f == 0) return;
 		fprintf(mFile,"\tsetAttr \".f\" %i;\n", f);
-
 	}
 	void setBoundary(int b)
 	{
 		if(b == 0) return;
 		fprintf(mFile,"\tsetAttr \".b\" %i;\n", b);
-
 	}
 	void setEdge(int e)
 	{
 		if(e == -1) return;
 		fprintf(mFile,"\tsetAttr \".e\" %i;\n", e);
-
 	}
 	void getFace()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
-
 	}
 	void getBoundary()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
-
 	}
 	void getEdge()const
 	{
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
-
 	}
 protected:
 	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,36 +18,33 @@ class ImplicitCone : public GeometryShape
 {
 public:
 public:
+
 	ImplicitCone():GeometryShape(){}
 	ImplicitCone(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:GeometryShape(file, name, parent, "implicitCone", create){}
 	virtual ~ImplicitCone(){}
+
 	void setConeAngle(double ca)
 	{
 		if(ca == 4) return;
 		fprintf(mFile,"\tsetAttr \".ca\" %f;\n", ca);
-
 	}
 	void setConeCap(double cap)
 	{
 		if(cap == 10.0) return;
 		fprintf(mFile,"\tsetAttr \".cap\" %f;\n", cap);
-
 	}
 	void getCone()const
 	{
 		fprintf(mFile,"\"%s.cn\"",mName.c_str());
-
 	}
 	void getConeAngle()const
 	{
 		fprintf(mFile,"\"%s.ca\"",mName.c_str());
-
 	}
 	void getConeCap()const
 	{
 		fprintf(mFile,"\"%s.cap\"",mName.c_str());
-
 	}
 protected:
 	ImplicitCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

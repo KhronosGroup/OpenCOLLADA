@@ -17,10 +17,12 @@ namespace MayaDM
 class PolySplitEdge : public PolyModifier
 {
 public:
+
 	PolySplitEdge():PolyModifier(){}
 	PolySplitEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polySplitEdge", create){}
 	virtual ~PolySplitEdge(){}
+
 protected:
 	PolySplitEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:PolyModifier(file, name, parent, nodeType, create) {}

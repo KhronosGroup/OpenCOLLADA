@@ -43,7 +43,7 @@ struct short2
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%i %i", values[0], values[1]);
+		fprintf(file, "%i %i", values[0], values[1]);
 	}
 };
 
@@ -77,7 +77,7 @@ struct short3
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%i %i %i", values[0], values[1], values[2]);
+		fprintf(file, "%i %i %i", values[0], values[1], values[2]);
 	}
 };
 
@@ -118,7 +118,7 @@ struct long2
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%i %i", values[0], values[1]);
+		fprintf(file, "%i %i", values[0], values[1]);
 	}
 };
 
@@ -158,7 +158,7 @@ struct long3
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%i %i %i", values[0], values[1], values[2]);
+		fprintf(file, "%i %i %i", values[0], values[1], values[2]);
 	}
 };
 
@@ -198,8 +198,8 @@ struct int32Array
 	{
 		for(size_t i=0; i<size; ++i)
 		{
-			fprintf_s(file, "%i", values[i]);
-			if(i+1<size) fprintf_s(file, " ");
+			fprintf(file, "%i", values[i]);
+			if(i+1<size) fprintf(file, " ");
 		}		
 	}
 };
@@ -232,7 +232,7 @@ struct float2
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%f %f", values[0], values[1]);
+		fprintf(file, "%f %f", values[0], values[1]);
 	}
 };
 
@@ -272,7 +272,7 @@ struct float3
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%f %f %f", values[0], values[1], values[2]);
+		fprintf(file, "%f %f %f", values[0], values[1], values[2]);
 	}
 };
 
@@ -313,7 +313,7 @@ struct double2
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%f %f", values[0], values[1]);
+		fprintf(file, "%f %f", values[0], values[1]);
 	}
 };
 
@@ -353,7 +353,7 @@ struct double3
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%f %f %f", values[0], values[1], values[2]);
+		fprintf(file,"%f %f %f", values[0], values[1], values[2]);
 	}
 };
 
@@ -399,7 +399,7 @@ struct double4
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%f %f %f %f", values[0], values[1], values[2], values[3]);
+		fprintf(file,"%f %f %f %f", values[0], values[1], values[2], values[3]);
 	}
 };
 
@@ -444,8 +444,8 @@ struct doubleArray
 	{
 		for(size_t i=0; i<size; ++i)
 		{
-			fprintf_s(file,"%f", values[i]);
-			if(i+1<size) fprintf_s(file," ");
+			fprintf(file,"%f", values[i]);
+			if(i+1<size) fprintf(file," ");
 		}		
 	}
 };
@@ -538,10 +538,10 @@ struct matrix
 
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%f %f %f %f ", m[0][0], m[0][1], m[0][2], m[0][3]);
-		fprintf_s(file,"%f %f %f %f ", m[1][0], m[1][1], m[1][2], m[1][3]);
-		fprintf_s(file,"%f %f %f %f ", m[2][0], m[2][1], m[2][2], m[2][3]);
-		fprintf_s(file,"%f %f %f %f", m[3][0], m[3][1], m[3][2], m[3][3]);
+		fprintf(file,"%f %f %f %f ", m[0][0], m[0][1], m[0][2], m[0][3]);
+		fprintf(file,"%f %f %f %f ", m[1][0], m[1][1], m[1][2], m[1][3]);
+		fprintf(file,"%f %f %f %f ", m[2][0], m[2][1], m[2][2], m[2][3]);
+		fprintf(file,"%f %f %f %f", m[3][0], m[3][1], m[3][2], m[3][3]);
 	}
 };
 
@@ -577,7 +577,7 @@ struct point
 	double w;
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%f %f %f %f", x, y, z, w);
+		fprintf(file,"%f %f %f %f", x, y, z, w);
 	}
 };
 struct pointArray
@@ -601,7 +601,7 @@ struct pointArray
 		for(size_t i=0; i<size; ++i)
 		{
 			values[i].write(file);
-			if(i+1<size) fprintf_s(file," ");
+			if(i+1<size) fprintf(file," ");
 		}		
 	}
 };
@@ -619,7 +619,7 @@ struct vector
 	double z;
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%f %f %f %f", x, y, z);
+		fprintf(file,"%f %f %f %f", x, y, z);
 	}
 };
 struct vectorArray
@@ -643,7 +643,7 @@ struct vectorArray
 		for(size_t i=0; i<size; ++i)
 		{
 			values[i].write(file);
-			if(i+1<size) fprintf_s(file," ");
+			if(i+1<size) fprintf(file," ");
 		}		
 	}
 };
@@ -677,7 +677,7 @@ struct string
 	}
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "\"%s\"", str.c_str());
+		fprintf(file, "\"%s\"", str.c_str());
 	}
 };
 
@@ -713,7 +713,7 @@ struct stringArray
 		for(size_t i=0; i<size; ++i)
 		{
 			values[i].write(file);
-			if(i+1<size) fprintf_s(file," ");
+			if(i+1<size) fprintf(file," ");
 		}		
 	}
 };
@@ -729,7 +729,7 @@ struct sphere
 	double radius;
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%f", radius);
+		fprintf(file,"%f", radius);
 	}
 };
 
@@ -745,7 +745,7 @@ struct cone
 	double coneCap;
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%f %f", coneAngle, coneCap);
+		fprintf(file, "%f %f", coneAngle, coneCap);
 	}
 };
 
@@ -762,7 +762,7 @@ struct reflectanceRGB
 	double blueReflect;
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%f %f %f", redReflect, greenReflect, blueReflect);
+		fprintf(file, "%f %f %f", redReflect, greenReflect, blueReflect);
 	}
 };
 
@@ -779,7 +779,7 @@ struct spectrumRGB
 	double blueSpectrum;
 	void write(FILE* file) const
 	{
-		fprintf_s(file, "%f %f %f", redSpectrum, greenSpectrum, blueSpectrum);
+		fprintf(file, "%f %f %f", redSpectrum, greenSpectrum, blueSpectrum);
 	}
 };
 
@@ -797,11 +797,11 @@ public:
 	~componentList(){}
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%i ", size());
+		fprintf(file,"%i ", size());
 		for(size_t i=0; i<size(); ++i)
 		{
 			at(i).write(file);
-			if(i+1<size()) fprintf_s(file," ");
+			if(i+1<size()) fprintf(file," ");
 		}		
 	}
 };
@@ -865,20 +865,20 @@ struct nurbsCurve
 
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%i %i %i %i %i %i ", degree, spans, form, isRational, dimension, knotCount);
+		fprintf(file,"%i %i %i %i %i %i ", degree, spans, form, isRational, dimension, knotCount);
 		for(int i=0; i<knotCount; ++i)
 		{
-			fprintf_s(file, "%f ", knotValues[i]);
+			fprintf(file, "%f ", knotValues[i]);
 		}
-		fprintf_s(file, "%i ", cvCount);
+		fprintf(file, "%i ", cvCount);
 		size_t numElements = 2;		
 		if(dimension == 3) numElements++;
 		if(isRational) 	numElements++;
 		size_t size = cvCount * numElements;
 		for(size_t i=0; i<size; ++i)
 		{
-			fprintf_s(file, "%f", cvValues[i]);
-			if(i+1<size) fprintf_s(file," ");
+			fprintf(file, "%f", cvValues[i]);
+			if(i+1<size) fprintf(file," ");
 		}
 	}
 };
@@ -952,30 +952,30 @@ struct nurbsSurface
 
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%i %i %i %i %i %i ", uDegree, vDegree, uForm, vForm, isRational, uKnotCount);
+		fprintf(file,"%i %i %i %i %i %i ", uDegree, vDegree, uForm, vForm, isRational, uKnotCount);
 		for(int i=0; i<uKnotCount; ++i)
 		{
-			fprintf_s(file, "%f ", uKnotValues[i]);
+			fprintf(file, "%f ", uKnotValues[i]);
 		}
-		fprintf_s(file,"%i ", vKnotCount);
+		fprintf(file,"%i ", vKnotCount);
 		for(int i=0; i<uKnotCount; ++i)
 		{
-			fprintf_s(file, "%f ", uKnotValues[i]);
+			fprintf(file, "%f ", uKnotValues[i]);
 		}	
 		if(trim == TRIM){
-			fprintf_s(file, "\"%s\" ", "TRIM");
+			fprintf(file, "\"%s\" ", "TRIM");
 		} else
 		{
-			fprintf_s(file, "\"%s\" ", "NOTRIM");
+			fprintf(file, "\"%s\" ", "NOTRIM");
 		}
-		fprintf_s(file, "%i ", cvCount);
+		fprintf(file, "%i ", cvCount);
 		size_t numElements = 3;		
 		if(isRational) 	numElements++;
 		size_t size = cvCount * numElements;
 		for(size_t i=0; i<size; ++i)
 		{
-			fprintf_s(file, "%f", cvValues[i]);
-			if(i+1<size) fprintf_s(file," ");
+			fprintf(file, "%f", cvValues[i]);
+			if(i+1<size) fprintf(file," ");
 		}
 	}
 };
@@ -1013,7 +1013,7 @@ struct nurbsTrimface
 				
 				void write(FILE* file) const
 				{
-					fprintf_s(file, "%i %i %i", edgeTolerance, isEdgeReversed, geometricContinuity);
+					fprintf(file, "%i %i %i", edgeTolerance, isEdgeReversed, geometricContinuity);
 				}
 			} *splinesOnEdge;
 			
@@ -1027,7 +1027,7 @@ struct nurbsTrimface
 			
 				void write(FILE* file) const
 				{
-					fprintf_s(file, "%i %i", isMonotone, pedgeTolerance);
+					fprintf(file, "%i %i", isMonotone, pedgeTolerance);
 				}
 			} *splinesOnPedge;
 
@@ -1044,17 +1044,17 @@ struct nurbsTrimface
 
 			void write(FILE* file) const
 			{
-				fprintf_s(file,"%i ", splineCountOnEdge);
+				fprintf(file,"%i ", splineCountOnEdge);
 				for(int i=0; i<splineCountOnEdge; ++i)
 				{
 					splinesOnEdge[i].write(file);
-					if(i+1<splineCountOnEdge) fprintf_s(file, " ");
+					if(i+1<splineCountOnEdge) fprintf(file, " ");
 				}
-				fprintf_s(file,"%i ", splineCountOnPedge);
+				fprintf(file,"%i ", splineCountOnPedge);
 				for(int i=0; i<splineCountOnPedge; ++i)
 				{
 					splinesOnPedge[i].write(file);
-					if(i+1<splineCountOnPedge) fprintf_s(file, " ");
+					if(i+1<splineCountOnPedge) fprintf(file, " ");
 				}
 			}
 		} *edges;
@@ -1070,11 +1070,11 @@ struct nurbsTrimface
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"%i %i ", boundaryType, tedgeCountOnBoundary);
+			fprintf(file,"%i %i ", boundaryType, tedgeCountOnBoundary);
 			for(int i=0; i<tedgeCountOnBoundary; ++i)
 			{
 				edges[i].write(file);
-				if(i+1<tedgeCountOnBoundary) fprintf_s(file, " ");
+				if(i+1<tedgeCountOnBoundary) fprintf(file, " ");
 			}
 		}
 	} *boundaries;
@@ -1090,11 +1090,11 @@ struct nurbsTrimface
 
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%i %i ", flipNormal, boundaryCount);
+		fprintf(file,"%i %i ", flipNormal, boundaryCount);
 		for(int i=0; i<boundaryCount; ++i)
 		{
 			boundaries[i].write(file);
-			if(i+1<boundaryCount) fprintf_s(file, " ");
+			if(i+1<boundaryCount) fprintf(file, " ");
 		}
 	}
 };
@@ -1155,11 +1155,11 @@ struct polyFaces
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\t\tf %i ", faceEdgeCount);
+			fprintf(file,"\t\tf %i ", faceEdgeCount);
 			for(int i=0; i<faceEdgeCount; ++i)
 			{
-				fprintf_s(file,"%i", edgeIdValue[i]);
-				if(i+1<faceEdgeCount) fprintf_s(file, " ");
+				fprintf(file,"%i", edgeIdValue[i]);
+				if(i+1<faceEdgeCount) fprintf(file, " ");
 			}
 		}
 	}f;
@@ -1187,11 +1187,11 @@ struct polyFaces
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\t\th %i ", holeEdgeCount);
+			fprintf(file,"\t\th %i ", holeEdgeCount);
 			for(int i=0; i<holeEdgeCount; ++i)
 			{
-				fprintf_s(file,"%i", edgeIdValue[i]);
-				if(i+1<holeEdgeCount) fprintf_s(file, " ");
+				fprintf(file,"%i", edgeIdValue[i]);
+				if(i+1<holeEdgeCount) fprintf(file, " ");
 			}
 		}
 	}h;
@@ -1219,11 +1219,11 @@ struct polyFaces
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\t\tmf %i ", faceUVCount);
+			fprintf(file,"\t\tmf %i ", faceUVCount);
 			for(int i=0; i<faceUVCount; ++i)
 			{
-				fprintf_s(file,"%i", uvIdValue[i]);
-				if(i+1<faceUVCount) fprintf_s(file, " ");
+				fprintf(file,"%i", uvIdValue[i]);
+				if(i+1<faceUVCount) fprintf(file, " ");
 			}
 		}
 	}mf;
@@ -1251,11 +1251,11 @@ struct polyFaces
 		}
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\t\tmh %i ", holeUVCount);
+			fprintf(file,"\t\tmh %i ", holeUVCount);
 			for(int i=0; i<holeUVCount; ++i)
 			{
-				fprintf_s(file,"%i", uvIdValue[i]);
-				if(i+1<holeUVCount) fprintf_s(file, " ");
+				fprintf(file,"%i", uvIdValue[i]);
+				if(i+1<holeUVCount) fprintf(file, " ");
 			}
 		}
 	}mh;
@@ -1291,12 +1291,12 @@ struct polyFaces
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\t\tmu %i ", uvSet);
-			fprintf_s(file,"%i ", faceUVCount);
+			fprintf(file,"\t\tmu %i ", uvSet);
+			fprintf(file,"%i ", faceUVCount);
 			for(int i=0; i<faceUVCount; ++i)
 			{
-				fprintf_s(file,"%i", uvIdValue[i]);
-				if(i+1<faceUVCount) fprintf_s(file, " ");
+				fprintf(file,"%i", uvIdValue[i]);
+				if(i+1<faceUVCount) fprintf(file, " ");
 			}
 		}
 	};
@@ -1334,12 +1334,12 @@ struct polyFaces
 
         void write(FILE* file) const
         {
-            fprintf_s(file,"\t\tmc %i ", colorSet);
-            fprintf_s(file,"%i ", faceColorCount);
+            fprintf(file,"\t\tmc %i ", colorSet);
+            fprintf(file,"%i ", faceColorCount);
             for(int i=0; i<faceColorCount; ++i)
             {
-                fprintf_s(file,"%i", colorIdValue[i]);
-                if(i+1<faceColorCount) fprintf_s(file, " ");
+                fprintf(file,"%i", colorIdValue[i]);
+                if(i+1<faceColorCount) fprintf(file, " ");
             }
         }
     };
@@ -1369,11 +1369,11 @@ struct polyFaces
 		
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\t\tfc %i ", faceColorCount);
+			fprintf(file,"\t\tfc %i ", faceColorCount);
 			for(int i=0; i<faceColorCount; ++i)
 			{
-				fprintf_s(file,"%i", colorIndexValue[i]);
-				if(i+1<faceColorCount) fprintf_s(file, " ");
+				fprintf(file,"%i", colorIndexValue[i]);
+				if(i+1<faceColorCount) fprintf(file, " ");
 			}
 		}
 	}fc;
@@ -1402,18 +1402,18 @@ struct polyFaces
 		}
 		if(h.holeEdgeCount)
 		{
-			fprintf_s(file, "\n");
+			fprintf(file, "\n");
 			h.write(file);
 			
 		}
 		if(mf.faceUVCount)
 		{
-			fprintf_s(file, "\n");
+			fprintf(file, "\n");
 			mf.write(file);			
 		}
 		if(mh.holeUVCount)
 		{
-			fprintf_s(file, "\n");
+			fprintf(file, "\n");
 			mh.write(file);			
 		}
         if ( muCount > 0 )
@@ -1422,7 +1422,7 @@ struct polyFaces
             {
                 if(mu[i].faceUVCount)
                 {
-                    fprintf_s(file, "\n");
+                    fprintf(file, "\n");
                     mu[i].write(file);			
                 }
             }
@@ -1433,14 +1433,14 @@ struct polyFaces
             {
                 if(mc[i].faceColorCount)
                 {
-                    fprintf_s(file, "\n");
+                    fprintf(file, "\n");
                     mc[i].write(file);			
                 }
             }
         }
 		if(fc.faceColorCount)
 		{
-			fprintf_s(file, "\n");
+			fprintf(file, "\n");
 			fc.write(file);
 		}		
 	}
@@ -1489,12 +1489,12 @@ struct mesh
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"v\" %i ", vertexCount);
+			fprintf(file,"\"v\" %i ", vertexCount);
 			size_t size = vertexCount * 3;
 			for(size_t i=0; i<size; ++i)
 			{
-				fprintf_s(file,"%f", vertices[i]);
-				if(i+1<size) fprintf_s(file," ");
+				fprintf(file,"%f", vertices[i]);
+				if(i+1<size) fprintf(file," ");
 			}
 		}
 	}v;
@@ -1519,12 +1519,12 @@ struct mesh
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"vn\" %i ", normalCount);
+			fprintf(file,"\"vn\" %i ", normalCount);
 			size_t size = normalCount * 3;
 			for(size_t i=0; i<size; ++i)
 			{
-				fprintf_s(file,"%f", normals[i]);
-				if(i+1<size) fprintf_s(file," ");
+				fprintf(file,"%f", normals[i]);
+				if(i+1<size) fprintf(file," ");
 			}
 		}
 	}vn;
@@ -1549,12 +1549,12 @@ struct mesh
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"vt\" %i ", uvCount);
+			fprintf(file,"\"vt\" %i ", uvCount);
 			size_t size = uvCount * 2;
 			for(size_t i=0; i<size; ++i)
 			{
-				fprintf_s(file,"%f", uvValues[i]);
-				if(i+1<size) fprintf_s(file," ");
+				fprintf(file,"%f", uvValues[i]);
+				if(i+1<size) fprintf(file," ");
 			}
 		}
 	}vt;
@@ -1575,13 +1575,13 @@ struct mesh
 
 			void write(FILE* file) const
 			{
-				fprintf_s(file, "%f %f ", startVertex, endVertex);
+				fprintf(file, "%f %f ", startVertex, endVertex);
 				if(type == HARD)
 				{
-					fprintf_s(file, "\"hard\"");	
+					fprintf(file, "\"hard\"");	
 				}else
 				{
-					fprintf_s(file, "\"smooth\"");	
+					fprintf(file, "\"smooth\"");	
 				}
 			}
 		}*edges;
@@ -1600,11 +1600,11 @@ struct mesh
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"e\" %i ", edgeCount);
+			fprintf(file,"\"e\" %i ", edgeCount);
 			for(int i=0; i<edgeCount; ++i)
 			{
 				edges[i].write(file);
-				if(i+1<edgeCount) fprintf_s(file," ");
+				if(i+1<edgeCount) fprintf(file," ");
 			}
 		}
 	}e;
@@ -1614,22 +1614,22 @@ struct mesh
 		if(v.vertexCount)
 		{
 			v.write(file);
-			fprintf_s(file, " ");
+			fprintf(file, " ");
 		}
 		if(vn.normalCount)
 		{
 			vn.write(file);
-			fprintf_s(file, " ");
+			fprintf(file, " ");
 		}
 		if(vt.uvCount)
 		{
 			vt.write(file);
-			fprintf_s(file, " ");
+			fprintf(file, " ");
 		}
 		if(e.edgeCount)
 		{
 			v.write(file);
-			fprintf_s(file, " ");
+			fprintf(file, " ");
 		}
 	}
 };
@@ -1687,12 +1687,12 @@ struct lattice
 	
 	void write(FILE* file) const
 	{
-		fprintf_s(file,"%i %i %i %i ", sDivisionCount, tDivisionCount, uDivisionCount, pointCount);
+		fprintf(file,"%i %i %i %i ", sDivisionCount, tDivisionCount, uDivisionCount, pointCount);
 		size_t size = pointCount*3;
 		for(size_t i; i<size; ++i)
 		{
-			fprintf_s(file, "%f", points[i]);
-			if(i+1<size) fprintf_s(file, " ");
+			fprintf(file, "%f", points[i]);
+			if(i+1<size) fprintf(file, " ");
 		}
 	}
 };

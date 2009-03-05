@@ -18,20 +18,20 @@ class NRigid : public NParticle
 {
 public:
 public:
+
 	NRigid():NParticle(){}
 	NRigid(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:NParticle(file, name, parent, "nRigid", create){}
 	virtual ~NRigid(){}
+
 	void setSolverDisplay(unsigned int svds)
 	{
 		if(svds == 0) return;
 		fprintf(mFile,"\tsetAttr \".svds\" %i;\n", svds);
-
 	}
 	void getSolverDisplay()const
 	{
 		fprintf(mFile,"\"%s.svds\"",mName.c_str());
-
 	}
 protected:
 	NRigid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

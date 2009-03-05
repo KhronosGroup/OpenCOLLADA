@@ -18,19 +18,19 @@ class ReverseCurve : public AbstractBaseCreate
 {
 public:
 public:
+
 	ReverseCurve():AbstractBaseCreate(){}
 	ReverseCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "reverseCurve", create){}
 	virtual ~ReverseCurve(){}
+
 	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
-
 	}
 	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
-
 	}
 protected:
 	ReverseCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

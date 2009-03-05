@@ -18,31 +18,29 @@ class LightList : public DependNode
 {
 public:
 public:
+
 	LightList():DependNode(){}
 	LightList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "lightList", create){}
 	virtual ~LightList(){}
+
 	void getLights(size_t l_i)const
 	{
 		fprintf(mFile,"\"%s.l[%i]\"",mName.c_str(),l_i);
-
 	}
 	void getLights()const
 	{
 
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
-
 	}
 	void getLinkNodes(size_t ln_i)const
 	{
 		fprintf(mFile,"\"%s.ln[%i]\"",mName.c_str(),ln_i);
-
 	}
 	void getLinkNodes()const
 	{
 
 		fprintf(mFile,"\"%s.ln\"",mName.c_str());
-
 	}
 protected:
 	LightList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

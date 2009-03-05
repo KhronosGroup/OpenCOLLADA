@@ -18,31 +18,29 @@ class Bulge : public Texture2d
 {
 public:
 public:
+
 	Bulge():Texture2d(){}
 	Bulge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Texture2d(file, name, parent, "bulge", create){}
 	virtual ~Bulge(){}
+
 	void setUWidth(float uw)
 	{
 		if(uw == 0.1) return;
 		fprintf(mFile,"\tsetAttr \".uw\" %f;\n", uw);
-
 	}
 	void setVWidth(float vw)
 	{
 		if(vw == 0.1) return;
 		fprintf(mFile,"\tsetAttr \".vw\" %f;\n", vw);
-
 	}
 	void getUWidth()const
 	{
 		fprintf(mFile,"\"%s.uw\"",mName.c_str());
-
 	}
 	void getVWidth()const
 	{
 		fprintf(mFile,"\"%s.vw\"",mName.c_str());
-
 	}
 protected:
 	Bulge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

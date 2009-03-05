@@ -18,17 +18,18 @@ class CopyUVSet : public DependNode
 {
 public:
 public:
+
 	CopyUVSet():DependNode(){}
 	CopyUVSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "copyUVSet", create){}
 	virtual ~CopyUVSet(){}
+
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setUvSetName2(const string& uv2)
 	{
@@ -36,27 +37,22 @@ public:
 		fprintf(mFile,"\tsetAttr \".uv2\" -type \"string\" ");
 		uv2.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
-
 	}
 	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
-
 	}
 	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
-
 	}
 	void getUvSetName2()const
 	{
 		fprintf(mFile,"\"%s.uv2\"",mName.c_str());
-
 	}
 protected:
 	CopyUVSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -17,10 +17,12 @@ namespace MayaDM
 class SubdModifierUV : public SubdModifierWorld
 {
 public:
+
 	SubdModifierUV():SubdModifierWorld(){}
 	SubdModifierUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:SubdModifierWorld(file, name, parent, "subdModifierUV", create){}
 	virtual ~SubdModifierUV(){}
+
 protected:
 	SubdModifierUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:SubdModifierWorld(file, name, parent, nodeType, create) {}

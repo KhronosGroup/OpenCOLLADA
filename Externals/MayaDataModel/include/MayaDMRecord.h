@@ -18,20 +18,20 @@ class Record : public DependNode
 {
 public:
 public:
+
 	Record():DependNode(){}
 	Record(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "record", create){}
 	virtual ~Record(){}
+
 	void setInput(double i_)
 	{
 		if(i_ == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".i\" %f;\n", i_);
-
 	}
 	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 protected:
 	Record(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

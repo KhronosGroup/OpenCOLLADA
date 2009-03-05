@@ -18,20 +18,20 @@ class PolyDelEdge : public PolyModifier
 {
 public:
 public:
+
 	PolyDelEdge():PolyModifier(){}
 	PolyDelEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyDelEdge", create){}
 	virtual ~PolyDelEdge(){}
+
 	void setCleanVertices(bool cv)
 	{
 		if(cv == false) return;
 		fprintf(mFile,"\tsetAttr \".cv\" %i;\n", cv);
-
 	}
 	void getCleanVertices()const
 	{
 		fprintf(mFile,"\"%s.cv\"",mName.c_str());
-
 	}
 protected:
 	PolyDelEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

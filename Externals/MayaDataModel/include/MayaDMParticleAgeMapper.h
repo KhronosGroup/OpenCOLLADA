@@ -18,67 +18,58 @@ class ParticleAgeMapper : public DependNode
 {
 public:
 public:
+
 	ParticleAgeMapper():DependNode(){}
 	ParticleAgeMapper(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "particleAgeMapper", create){}
 	virtual ~ParticleAgeMapper(){}
+
 	void setRelativeAge(bool rea)
 	{
 		if(rea == false) return;
 		fprintf(mFile,"\tsetAttr \".rea\" %i;\n", rea);
-
 	}
 	void setTimeScale(float ts)
 	{
 		if(ts == 1) return;
 		fprintf(mFile,"\tsetAttr \".ts\" %f;\n", ts);
-
 	}
 	void setFoldAtEnd(bool fae)
 	{
 		if(fae == false) return;
 		fprintf(mFile,"\tsetAttr \".fae\" %i;\n", fae);
-
 	}
 	void getOutUvCoord()const
 	{
 		fprintf(mFile,"\"%s.ouv\"",mName.c_str());
-
 	}
 	void getOutUCoord()const
 	{
 		fprintf(mFile,"\"%s.ouv.ouc\"",mName.c_str());
-
 	}
 	void getOutVCoord()const
 	{
 		fprintf(mFile,"\"%s.ouv.ovc\"",mName.c_str());
-
 	}
 	void getParticleAge()const
 	{
 		fprintf(mFile,"\"%s.pa\"",mName.c_str());
-
 	}
 	void getParticleLifespan()const
 	{
 		fprintf(mFile,"\"%s.pls\"",mName.c_str());
-
 	}
 	void getRelativeAge()const
 	{
 		fprintf(mFile,"\"%s.rea\"",mName.c_str());
-
 	}
 	void getTimeScale()const
 	{
 		fprintf(mFile,"\"%s.ts\"",mName.c_str());
-
 	}
 	void getFoldAtEnd()const
 	{
 		fprintf(mFile,"\"%s.fae\"",mName.c_str());
-
 	}
 protected:
 	ParticleAgeMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

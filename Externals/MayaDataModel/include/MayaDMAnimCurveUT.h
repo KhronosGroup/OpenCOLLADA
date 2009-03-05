@@ -25,32 +25,30 @@ public:
 		}
 	};
 public:
+
 	AnimCurveUT():AnimCurve(){}
 	AnimCurveUT(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AnimCurve(file, name, parent, "animCurveUT", create){}
 	virtual ~AnimCurveUT(){}
+
 	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv)
 	{
 		fprintf(mFile,"\tsetAttr \".ktv[%i]\" ",ktv_i);
 		ktv.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setKeyTime(size_t ktv_i,double kt)
 	{
 		if(kt == 0) return;
 		fprintf(mFile,"\tsetAttr \".ktv[%i].kt\" %f;\n", ktv_i,kt);
-
 	}
 	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
-
 	}
 protected:
 	AnimCurveUT(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

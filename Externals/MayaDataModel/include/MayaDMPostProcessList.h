@@ -18,20 +18,20 @@ class PostProcessList : public DependNode
 {
 public:
 public:
+
 	PostProcessList():DependNode(){}
 	PostProcessList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "postProcessList", create){}
 	virtual ~PostProcessList(){}
+
 	void getPostProcesses(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
-
 	}
 	void getPostProcesses()const
 	{
 
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
-
 	}
 protected:
 	PostProcessList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

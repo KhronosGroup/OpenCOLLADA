@@ -23,15 +23,16 @@ public:
 		}
 	};
 public:
+
 	AvgSurfacePoints():AbstractBaseCreate(){}
 	AvgSurfacePoints(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "avgSurfacePoints", create){}
 	virtual ~AvgSurfacePoints(){}
+
 	void setWeight(size_t wt_i,double wt)
 	{
 		if(wt == 0.5) return;
 		fprintf(mFile,"\tsetAttr \".wt[%i]\" %f;\n", wt_i,wt);
-
 	}
 	void setWeight(size_t wt_start,size_t wt_end,double* wt)
 	{
@@ -43,28 +44,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startWeight(size_t wt_start,size_t wt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".wt[%i:%i]\"",wt_start,wt_end);
-
 	}
 	void appendWeight(double wt)const
 	{
 		fprintf(mFile," %f",wt);
-
 	}
 	void endWeight()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setParameterU(size_t u_i,double u)
 	{
 		if(u == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".u[%i]\" %f;\n", u_i,u);
-
 	}
 	void setParameterU(size_t u_start,size_t u_end,double* u)
 	{
@@ -76,28 +72,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startParameterU(size_t u_start,size_t u_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".u[%i:%i]\"",u_start,u_end);
-
 	}
 	void appendParameterU(double u)const
 	{
 		fprintf(mFile," %f",u);
-
 	}
 	void endParameterU()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setParameterV(size_t v_i,double v)
 	{
 		if(v == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".v[%i]\" %f;\n", v_i,v);
-
 	}
 	void setParameterV(size_t v_start,size_t v_end,double* v)
 	{
@@ -109,122 +100,99 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startParameterV(size_t v_start,size_t v_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".v[%i:%i]\"",v_start,v_end);
-
 	}
 	void appendParameterV(double v)const
 	{
 		fprintf(mFile," %f",v);
-
 	}
 	void endParameterV()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setTurnOnPercentage(bool top)
 	{
 		if(top == false) return;
 		fprintf(mFile,"\tsetAttr \".top\" %i;\n", top);
-
 	}
 	void getInputSurfaces(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
-
 	}
 	void getInputSurfaces()const
 	{
 
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
-
 	}
 	void getWeight(size_t wt_i)const
 	{
 		fprintf(mFile,"\"%s.wt[%i]\"",mName.c_str(),wt_i);
-
 	}
 	void getWeight()const
 	{
 
 		fprintf(mFile,"\"%s.wt\"",mName.c_str());
-
 	}
 	void getParameterU(size_t u_i)const
 	{
 		fprintf(mFile,"\"%s.u[%i]\"",mName.c_str(),u_i);
-
 	}
 	void getParameterU()const
 	{
 
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
-
 	}
 	void getParameterV(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
-
 	}
 	void getParameterV()const
 	{
 
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
-
 	}
 	void getTurnOnPercentage()const
 	{
 		fprintf(mFile,"\"%s.top\"",mName.c_str());
-
 	}
 	void getResult()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
-
 	}
 	void getPosition()const
 	{
 		fprintf(mFile,"\"%s.r.p\"",mName.c_str());
-
 	}
 	void getPositionX()const
 	{
 		fprintf(mFile,"\"%s.r.p.px\"",mName.c_str());
-
 	}
 	void getPositionY()const
 	{
 		fprintf(mFile,"\"%s.r.p.py\"",mName.c_str());
-
 	}
 	void getPositionZ()const
 	{
 		fprintf(mFile,"\"%s.r.p.pz\"",mName.c_str());
-
 	}
 	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.r.n\"",mName.c_str());
-
 	}
 	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.r.n.nx\"",mName.c_str());
-
 	}
 	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.r.n.ny\"",mName.c_str());
-
 	}
 	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.r.n.nz\"",mName.c_str());
-
 	}
 protected:
 	AvgSurfacePoints(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

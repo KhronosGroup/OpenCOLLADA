@@ -54,60 +54,54 @@ public:
 		}
 	};
 public:
+
 	Character():ObjectSet(){}
 	Character(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:ObjectSet(file, name, parent, "character", create){}
 	virtual ~Character(){}
+
 	void setClipEvaluate(const ClipEvaluate& ce)
 	{
 		fprintf(mFile,"\tsetAttr \".ce\" ");
 		ce.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setClipEvaluate_Inmap(size_t cei_i,const ClipEvaluate::ClipEvaluate_Inmap& cei)
 	{
 		fprintf(mFile,"\tsetAttr \".ce.cei[%i]\" ",cei_i);
 		cei.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setClipEvaluate_InmapTo(size_t cei_i,short ceit)
 	{
 		if(ceit == 0) return;
 		fprintf(mFile,"\tsetAttr \".ce.cei[%i].ceit\" %i;\n", cei_i,ceit);
-
 	}
 	void setClipEvaluate_InmapFrom(size_t cei_i,short ceif)
 	{
 		if(ceif == 0) return;
 		fprintf(mFile,"\tsetAttr \".ce.cei[%i].ceif\" %i;\n", cei_i,ceif);
-
 	}
 	void setClipEvaluate_Outmap(size_t ceo_i,const ClipEvaluate::ClipEvaluate_Outmap& ceo)
 	{
 		fprintf(mFile,"\tsetAttr \".ce.ceo[%i]\" ",ceo_i);
 		ceo.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setClipEvaluate_OutmapTo(size_t ceo_i,short ceot)
 	{
 		if(ceot == 0) return;
 		fprintf(mFile,"\tsetAttr \".ce.ceo[%i].ceot\" %i;\n", ceo_i,ceot);
-
 	}
 	void setClipEvaluate_OutmapFrom(size_t ceo_i,short ceof)
 	{
 		if(ceof == 0) return;
 		fprintf(mFile,"\tsetAttr \".ce.ceo[%i].ceof\" %i;\n", ceo_i,ceof);
-
 	}
 	void setUnitlessValues(size_t uv_i,double uv)
 	{
 		if(uv == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".uv[%i]\" %f;\n", uv_i,uv);
-
 	}
 	void setUnitlessValues(size_t uv_start,size_t uv_end,double* uv)
 	{
@@ -119,28 +113,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startUnitlessValues(size_t uv_start,size_t uv_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".uv[%i:%i]\"",uv_start,uv_end);
-
 	}
 	void appendUnitlessValues(double uv)const
 	{
 		fprintf(mFile," %f",uv);
-
 	}
 	void endUnitlessValues()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setLinearValues(size_t lv_i,double lv)
 	{
 		if(lv == 0) return;
 		fprintf(mFile,"\tsetAttr \".lv[%i]\" %f;\n", lv_i,lv);
-
 	}
 	void setLinearValues(size_t lv_start,size_t lv_end,double* lv)
 	{
@@ -152,28 +141,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startLinearValues(size_t lv_start,size_t lv_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".lv[%i:%i]\"",lv_start,lv_end);
-
 	}
 	void appendLinearValues(double lv)const
 	{
 		fprintf(mFile," %f",lv);
-
 	}
 	void endLinearValues()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setAngularValues(size_t av_i,double av)
 	{
 		if(av == 0) return;
 		fprintf(mFile,"\tsetAttr \".av[%i]\" %f;\n", av_i,av);
-
 	}
 	void setAngularValues(size_t av_start,size_t av_end,double* av)
 	{
@@ -185,22 +169,18 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startAngularValues(size_t av_start,size_t av_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".av[%i:%i]\"",av_start,av_end);
-
 	}
 	void appendAngularValues(double av)const
 	{
 		fprintf(mFile," %f",av);
-
 	}
 	void endAngularValues()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setClipIndexMap(const intArray& cim)
 	{
@@ -208,112 +188,91 @@ public:
 		fprintf(mFile,"\tsetAttr \".cim\" -type \"intArray\" ");
 		cim.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setActiveClipConnected(bool acc)
 	{
 		if(acc == 0) return;
 		fprintf(mFile,"\tsetAttr \".acc\" %i;\n", acc);
-
 	}
 	void getClipEvaluate()const
 	{
 		fprintf(mFile,"\"%s.ce\"",mName.c_str());
-
 	}
 	void getClipEvaluate_Raw()const
 	{
 		fprintf(mFile,"\"%s.ce.cer\"",mName.c_str());
-
 	}
 	void getClipEvaluate_Inmap(size_t cei_i)const
 	{
 		fprintf(mFile,"\"%s.ce.cei[%i]\"",mName.c_str(),cei_i);
-
 	}
 	void getClipEvaluate_InmapTo(size_t cei_i)const
 	{
 		fprintf(mFile,"\"%s.ce.cei[%i].ceit\"",mName.c_str(),cei_i);
-
 	}
 	void getClipEvaluate_InmapFrom(size_t cei_i)const
 	{
 		fprintf(mFile,"\"%s.ce.cei[%i].ceif\"",mName.c_str(),cei_i);
-
 	}
 	void getClipEvaluate_Outmap(size_t ceo_i)const
 	{
 		fprintf(mFile,"\"%s.ce.ceo[%i]\"",mName.c_str(),ceo_i);
-
 	}
 	void getClipEvaluate_OutmapTo(size_t ceo_i)const
 	{
 		fprintf(mFile,"\"%s.ce.ceo[%i].ceot\"",mName.c_str(),ceo_i);
-
 	}
 	void getClipEvaluate_OutmapFrom(size_t ceo_i)const
 	{
 		fprintf(mFile,"\"%s.ce.ceo[%i].ceof\"",mName.c_str(),ceo_i);
-
 	}
 	void getUnitlessValues(size_t uv_i)const
 	{
 		fprintf(mFile,"\"%s.uv[%i]\"",mName.c_str(),uv_i);
-
 	}
 	void getUnitlessValues()const
 	{
 
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
-
 	}
 	void getLinearValues(size_t lv_i)const
 	{
 		fprintf(mFile,"\"%s.lv[%i]\"",mName.c_str(),lv_i);
-
 	}
 	void getLinearValues()const
 	{
 
 		fprintf(mFile,"\"%s.lv\"",mName.c_str());
-
 	}
 	void getAngularValues(size_t av_i)const
 	{
 		fprintf(mFile,"\"%s.av[%i]\"",mName.c_str(),av_i);
-
 	}
 	void getAngularValues()const
 	{
 
 		fprintf(mFile,"\"%s.av\"",mName.c_str());
-
 	}
 	void getTimeValues(size_t tv_i)const
 	{
 		fprintf(mFile,"\"%s.tv[%i]\"",mName.c_str(),tv_i);
-
 	}
 	void getTimeValues()const
 	{
 
 		fprintf(mFile,"\"%s.tv\"",mName.c_str());
-
 	}
 	void getAnimationMapping()const
 	{
 		fprintf(mFile,"\"%s.am\"",mName.c_str());
-
 	}
 	void getReferenceMapping()const
 	{
 		fprintf(mFile,"\"%s.rm\"",mName.c_str());
-
 	}
 	void getOffsetNode()const
 	{
 		fprintf(mFile,"\"%s.ofn\"",mName.c_str());
-
 	}
 protected:
 	Character(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

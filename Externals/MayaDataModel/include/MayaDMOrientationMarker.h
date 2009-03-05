@@ -18,42 +18,38 @@ class OrientationMarker : public PositionMarker
 {
 public:
 public:
+
 	OrientationMarker():PositionMarker(){}
 	OrientationMarker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PositionMarker(file, name, parent, "orientationMarker", create){}
 	virtual ~OrientationMarker(){}
+
 	void setFrontTwist(double ft)
 	{
 		if(ft == 0) return;
 		fprintf(mFile,"\tsetAttr \".ft\" %f;\n", ft);
-
 	}
 	void setUpTwist(double ut)
 	{
 		if(ut == 0) return;
 		fprintf(mFile,"\tsetAttr \".ut\" %f;\n", ut);
-
 	}
 	void setSideTwist(double st)
 	{
 		if(st == 0) return;
 		fprintf(mFile,"\tsetAttr \".st\" %f;\n", st);
-
 	}
 	void getFrontTwist()const
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
-
 	}
 	void getUpTwist()const
 	{
 		fprintf(mFile,"\"%s.ut\"",mName.c_str());
-
 	}
 	void getSideTwist()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
-
 	}
 protected:
 	OrientationMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

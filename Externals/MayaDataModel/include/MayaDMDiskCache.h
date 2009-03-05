@@ -18,15 +18,16 @@ class DiskCache : public DependNode
 {
 public:
 public:
+
 	DiskCache():DependNode(){}
 	DiskCache(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "diskCache", create){}
 	virtual ~DiskCache(){}
+
 	void setEnable(bool ebl)
 	{
 		if(ebl == true) return;
 		fprintf(mFile,"\tsetAttr \".ebl\" %i;\n", ebl);
-
 	}
 	void setCacheName(const string& cn)
 	{
@@ -34,7 +35,6 @@ public:
 		fprintf(mFile,"\tsetAttr \".cn\" -type \"string\" ");
 		cn.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setCacheType(const string& ct)
 	{
@@ -42,7 +42,6 @@ public:
 		fprintf(mFile,"\tsetAttr \".ct\" -type \"string\" ");
 		ct.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setHiddenCacheName(const string& hcn)
 	{
@@ -50,63 +49,51 @@ public:
 		fprintf(mFile,"\tsetAttr \".hcn\" -type \"string\" ");
 		hcn.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setCopyLocally(bool cpl)
 	{
 		if(cpl == true) return;
 		fprintf(mFile,"\tsetAttr \".cpl\" %i;\n", cpl);
-
 	}
 	void getDiskCache()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
-
 	}
 	void getEnable()const
 	{
 		fprintf(mFile,"\"%s.ebl\"",mName.c_str());
-
 	}
 	void getCacheName()const
 	{
 		fprintf(mFile,"\"%s.cn\"",mName.c_str());
-
 	}
 	void getStartTime()const
 	{
 		fprintf(mFile,"\"%s.stim\"",mName.c_str());
-
 	}
 	void getEndTime()const
 	{
 		fprintf(mFile,"\"%s.etim\"",mName.c_str());
-
 	}
 	void getSamplingType()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
-
 	}
 	void getSamplingRate()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
-
 	}
 	void getCacheType()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
-
 	}
 	void getHiddenCacheName()const
 	{
 		fprintf(mFile,"\"%s.hcn\"",mName.c_str());
-
 	}
 	void getCopyLocally()const
 	{
 		fprintf(mFile,"\"%s.cpl\"",mName.c_str());
-
 	}
 protected:
 	DiskCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

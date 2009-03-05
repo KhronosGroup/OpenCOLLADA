@@ -18,31 +18,29 @@ class SubdModifier : public SubdBase
 {
 public:
 public:
+
 	SubdModifier():SubdBase(){}
 	SubdModifier(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:SubdBase(file, name, parent, "subdModifier", create){}
 	virtual ~SubdModifier(){}
+
 	void setInputComponents(const componentList& ics)
 	{
 		fprintf(mFile,"\tsetAttr \".ics\" -type \"componentList\" ");
 		ics.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getInSubdiv()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
-
 	}
 	void getCachedSubdiv()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
-
 	}
 	void getInputComponents()const
 	{
 		fprintf(mFile,"\"%s.ics\"",mName.c_str());
-
 	}
 protected:
 	SubdModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

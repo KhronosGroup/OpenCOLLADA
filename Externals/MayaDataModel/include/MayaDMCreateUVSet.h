@@ -18,32 +18,30 @@ class CreateUVSet : public DependNode
 {
 public:
 public:
+
 	CreateUVSet():DependNode(){}
 	CreateUVSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "createUVSet", create){}
 	virtual ~CreateUVSet(){}
+
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
-
 	}
 	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
-
 	}
 	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
-
 	}
 protected:
 	CreateUVSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

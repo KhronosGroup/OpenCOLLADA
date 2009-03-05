@@ -18,24 +18,23 @@ class ResultCurve : public AnimCurve
 {
 public:
 public:
+
 	ResultCurve():AnimCurve(){}
 	ResultCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AnimCurve(file, name, parent, "resultCurve", create){}
 	virtual ~ResultCurve(){}
+
 	void getStart()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
-
 	}
 	void getEnd()const
 	{
 		fprintf(mFile,"\"%s.et\"",mName.c_str());
-
 	}
 	void getSampleBy()const
 	{
 		fprintf(mFile,"\"%s.sby\"",mName.c_str());
-
 	}
 protected:
 	ResultCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,17 +18,18 @@ class ObjectNameFilter : public ObjectFilter
 {
 public:
 public:
+
 	ObjectNameFilter():ObjectFilter(){}
 	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:ObjectFilter(file, name, parent, "objectNameFilter", create){}
 	virtual ~ObjectNameFilter(){}
+
 	void setRegExp(const string& rex)
 	{
 		if(rex == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".rex\" -type \"string\" ");
 		rex.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setNameStrings(const stringArray& nstr)
 	{
@@ -36,28 +37,23 @@ public:
 		fprintf(mFile,"\tsetAttr \".nstr\" -type \"stringArray\" ");
 		nstr.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setAttrName(bool attr)
 	{
 		if(attr == false) return;
 		fprintf(mFile,"\tsetAttr \".attr\" %i;\n", attr);
-
 	}
 	void getRegExp()const
 	{
 		fprintf(mFile,"\"%s.rex\"",mName.c_str());
-
 	}
 	void getNameStrings()const
 	{
 		fprintf(mFile,"\"%s.nstr\"",mName.c_str());
-
 	}
 	void getAttrName()const
 	{
 		fprintf(mFile,"\"%s.attr\"",mName.c_str());
-
 	}
 protected:
 	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

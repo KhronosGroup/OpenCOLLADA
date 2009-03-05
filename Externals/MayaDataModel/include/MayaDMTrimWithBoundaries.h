@@ -18,63 +18,55 @@ class TrimWithBoundaries : public AbstractBaseCreate
 {
 public:
 public:
+
 	TrimWithBoundaries():AbstractBaseCreate(){}
 	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "trimWithBoundaries", create){}
 	virtual ~TrimWithBoundaries(){}
+
 	void setFlipNormal(bool fn)
 	{
 		if(fn == false) return;
 		fprintf(mFile,"\tsetAttr \".fn\" %i;\n", fn);
-
 	}
 	void setTolerancePE(double tpe)
 	{
 		if(tpe == 0) return;
 		fprintf(mFile,"\tsetAttr \".tpe\" %f;\n", tpe);
-
 	}
 	void setToleranceE(double te)
 	{
 		if(te == 0) return;
 		fprintf(mFile,"\tsetAttr \".te\" %f;\n", te);
-
 	}
 	void getInputBoundaries(size_t ib_i)const
 	{
 		fprintf(mFile,"\"%s.ib[%i]\"",mName.c_str(),ib_i);
-
 	}
 	void getInputBoundaries()const
 	{
 
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
-
 	}
 	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
-
 	}
 	void getFlipNormal()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
-
 	}
 	void getTolerancePE()const
 	{
 		fprintf(mFile,"\"%s.tpe\"",mName.c_str());
-
 	}
 	void getToleranceE()const
 	{
 		fprintf(mFile,"\"%s.te\"",mName.c_str());
-
 	}
 	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
-
 	}
 protected:
 	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,17 +18,18 @@ class Snapshot : public DependNode
 {
 public:
 public:
+
 	Snapshot():DependNode(){}
 	Snapshot(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "snapshot", create){}
 	virtual ~Snapshot(){}
+
 	void setInputMatrix(const matrix& im)
 	{
 		if(im == identity) return;
 		fprintf(mFile,"\tsetAttr \".im\" -type \"matrix\" ");
 		im.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setLocalPosition(const double3& lp)
 	{
@@ -36,107 +37,87 @@ public:
 		fprintf(mFile,"\tsetAttr \".lp\" -type \"double3\" ");
 		lp.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setLocalPositionX(double lpx)
 	{
 		if(lpx == 0) return;
 		fprintf(mFile,"\tsetAttr \".lp.lpx\" %f;\n", lpx);
-
 	}
 	void setLocalPositionY(double lpy)
 	{
 		if(lpy == 0) return;
 		fprintf(mFile,"\tsetAttr \".lp.lpy\" %f;\n", lpy);
-
 	}
 	void setLocalPositionZ(double lpz)
 	{
 		if(lpz == 0) return;
 		fprintf(mFile,"\tsetAttr \".lp.lpz\" %f;\n", lpz);
-
 	}
 	void setUpdate(unsigned int up)
 	{
 		if(up == 1) return;
 		fprintf(mFile,"\tsetAttr \".up\" %i;\n", up);
-
 	}
 	void getStartTime()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
-
 	}
 	void getEndTime()const
 	{
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
-
 	}
 	void getIncrement()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
-
 	}
 	void getInputGeom()const
 	{
 		fprintf(mFile,"\"%s.in\"",mName.c_str());
-
 	}
 	void getOutputGeom(size_t out_i)const
 	{
 		fprintf(mFile,"\"%s.out[%i]\"",mName.c_str(),out_i);
-
 	}
 	void getOutputGeom()const
 	{
 
 		fprintf(mFile,"\"%s.out\"",mName.c_str());
-
 	}
 	void getInputMatrix()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
-
 	}
 	void getLocalPosition()const
 	{
 		fprintf(mFile,"\"%s.lp\"",mName.c_str());
-
 	}
 	void getLocalPositionX()const
 	{
 		fprintf(mFile,"\"%s.lp.lpx\"",mName.c_str());
-
 	}
 	void getLocalPositionY()const
 	{
 		fprintf(mFile,"\"%s.lp.lpy\"",mName.c_str());
-
 	}
 	void getLocalPositionZ()const
 	{
 		fprintf(mFile,"\"%s.lp.lpz\"",mName.c_str());
-
 	}
 	void getPoints()const
 	{
 		fprintf(mFile,"\"%s.pts\"",mName.c_str());
-
 	}
 	void getFrames()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
-
 	}
 	void getAnimCurveChanged()const
 	{
 		fprintf(mFile,"\"%s.acc\"",mName.c_str());
-
 	}
 	void getUpdate()const
 	{
 		fprintf(mFile,"\"%s.up\"",mName.c_str());
-
 	}
 protected:
 	Snapshot(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

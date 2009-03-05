@@ -17,10 +17,12 @@ namespace MayaDM
 class PolyDelFacet : public PolyModifier
 {
 public:
+
 	PolyDelFacet():PolyModifier(){}
 	PolyDelFacet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyDelFacet", create){}
 	virtual ~PolyDelFacet(){}
+
 protected:
 	PolyDelFacet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:PolyModifier(file, name, parent, nodeType, create) {}

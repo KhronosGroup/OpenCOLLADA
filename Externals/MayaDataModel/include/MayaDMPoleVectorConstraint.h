@@ -18,22 +18,22 @@ class PoleVectorConstraint : public PointConstraint
 {
 public:
 public:
+
 	PoleVectorConstraint():PointConstraint(){}
 	PoleVectorConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PointConstraint(file, name, parent, "poleVectorConstraint", create){}
 	virtual ~PoleVectorConstraint(){}
+
 	void setPivotSpace(const matrix& ps)
 	{
 		if(ps == identity) return;
 		fprintf(mFile,"\tsetAttr \".ps\" -type \"matrix\" ");
 		ps.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getPivotSpace()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
-
 	}
 protected:
 	PoleVectorConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

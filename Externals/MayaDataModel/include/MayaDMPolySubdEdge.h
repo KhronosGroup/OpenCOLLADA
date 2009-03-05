@@ -18,31 +18,29 @@ class PolySubdEdge : public PolyModifierWorld
 {
 public:
 public:
+
 	PolySubdEdge():PolyModifierWorld(){}
 	PolySubdEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifierWorld(file, name, parent, "polySubdEdge", create){}
 	virtual ~PolySubdEdge(){}
+
 	void setDivisions(int dv)
 	{
 		if(dv == 1) return;
 		fprintf(mFile,"\tsetAttr \".dv\" %i;\n", dv);
-
 	}
 	void setSize(double s)
 	{
 		if(s == 0) return;
 		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
-
 	}
 	void getDivisions()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
-
 	}
 	void getSize()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
-
 	}
 protected:
 	PolySubdEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

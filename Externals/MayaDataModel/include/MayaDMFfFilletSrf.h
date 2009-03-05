@@ -18,68 +18,59 @@ class FfFilletSrf : public AbstractBaseCreate
 {
 public:
 public:
+
 	FfFilletSrf():AbstractBaseCreate(){}
 	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "ffFilletSrf", create){}
 	virtual ~FfFilletSrf(){}
+
 	void setPositionTolerance(double pt)
 	{
 		if(pt == 0.1) return;
 		fprintf(mFile,"\tsetAttr \".pt\" %f;\n", pt);
-
 	}
 	void setTangentTolerance(double tt)
 	{
 		if(tt == 0.1) return;
 		fprintf(mFile,"\tsetAttr \".tt\" %f;\n", tt);
-
 	}
 	void setDepth(double d)
 	{
 		if(d == 0.5) return;
 		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
-
 	}
 	void setBias(double b)
 	{
 		if(b == 0.5) return;
 		fprintf(mFile,"\tsetAttr \".b\" %f;\n", b);
-
 	}
 	void getLeftCurve()const
 	{
 		fprintf(mFile,"\"%s.lc\"",mName.c_str());
-
 	}
 	void getRightCurve()const
 	{
 		fprintf(mFile,"\"%s.rc\"",mName.c_str());
-
 	}
 	void getPositionTolerance()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
-
 	}
 	void getTangentTolerance()const
 	{
 		fprintf(mFile,"\"%s.tt\"",mName.c_str());
-
 	}
 	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
-
 	}
 	void getBias()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
-
 	}
 	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
-
 	}
 protected:
 	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

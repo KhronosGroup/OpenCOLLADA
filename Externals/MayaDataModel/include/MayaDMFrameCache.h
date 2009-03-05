@@ -18,58 +18,51 @@ class FrameCache : public DependNode
 {
 public:
 public:
+
 	FrameCache():DependNode(){}
 	FrameCache(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "frameCache", create){}
 	virtual ~FrameCache(){}
+
 	void setVaryTime(double vt)
 	{
 		if(vt == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".vt\" %f;\n", vt);
-
 	}
 	void setStream(double s)
 	{
 		if(s == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
-
 	}
 	void getFuture(size_t f_i)const
 	{
 		fprintf(mFile,"\"%s.f[%i]\"",mName.c_str(),f_i);
-
 	}
 	void getFuture()const
 	{
 
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
-
 	}
 	void getPast(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
-
 	}
 	void getPast()const
 	{
 
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
-
 	}
 	void getVarying()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
-
 	}
 	void getVaryTime()const
 	{
 		fprintf(mFile,"\"%s.vt\"",mName.c_str());
-
 	}
 	void getStream()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
-
 	}
 protected:
 	FrameCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

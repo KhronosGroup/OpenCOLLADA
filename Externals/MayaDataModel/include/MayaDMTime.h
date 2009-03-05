@@ -18,14 +18,15 @@ class Time : public DependNode
 {
 public:
 public:
+
 	Time():DependNode(){}
 	Time(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "time", create){}
 	virtual ~Time(){}
+
 	void getOutTime()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
-
 	}
 protected:
 	Time(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

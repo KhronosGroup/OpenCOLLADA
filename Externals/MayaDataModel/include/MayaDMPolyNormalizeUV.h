@@ -18,31 +18,29 @@ class PolyNormalizeUV : public PolyModifierUV
 {
 public:
 public:
+
 	PolyNormalizeUV():PolyModifierUV(){}
 	PolyNormalizeUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifierUV(file, name, parent, "polyNormalizeUV", create){}
 	virtual ~PolyNormalizeUV(){}
+
 	void setNormalizeType(unsigned int nt)
 	{
 		if(nt == 1) return;
 		fprintf(mFile,"\tsetAttr \".nt\" %i;\n", nt);
-
 	}
 	void setPreserveAspectRatio(bool pa)
 	{
 		if(pa == true) return;
 		fprintf(mFile,"\tsetAttr \".pa\" %i;\n", pa);
-
 	}
 	void getNormalizeType()const
 	{
 		fprintf(mFile,"\"%s.nt\"",mName.c_str());
-
 	}
 	void getPreserveAspectRatio()const
 	{
 		fprintf(mFile,"\"%s.pa\"",mName.c_str());
-
 	}
 protected:
 	PolyNormalizeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

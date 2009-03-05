@@ -18,21 +18,21 @@ class PolySeparate : public DependNode
 {
 public:
 public:
+
 	PolySeparate():DependNode(){}
 	PolySeparate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "polySeparate", create){}
 	virtual ~PolySeparate(){}
+
 	void setUseOldPolyArchitecture(bool uopa)
 	{
 		if(uopa == false) return;
 		fprintf(mFile,"\tsetAttr \".uopa\" %i;\n", uopa);
-
 	}
 	void setIcount(int ic)
 	{
 		if(ic == -1) return;
 		fprintf(mFile,"\tsetAttr \".ic\" %i;\n", ic);
-
 	}
 	void setRemShells(const intArray& rs)
 	{
@@ -40,33 +40,27 @@ public:
 		fprintf(mFile,"\tsetAttr \".rs\" -type \"intArray\" ");
 		rs.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getInputPoly()const
 	{
 		fprintf(mFile,"\"%s.ip\"",mName.c_str());
-
 	}
 	void getIcount()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
-
 	}
 	void getRemShells()const
 	{
 		fprintf(mFile,"\"%s.rs\"",mName.c_str());
-
 	}
 	void getOutput(size_t out_i)const
 	{
 		fprintf(mFile,"\"%s.out[%i]\"",mName.c_str(),out_i);
-
 	}
 	void getOutput()const
 	{
 
 		fprintf(mFile,"\"%s.out\"",mName.c_str());
-
 	}
 protected:
 	PolySeparate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

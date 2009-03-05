@@ -17,10 +17,12 @@ namespace MayaDM
 class Shape : public DagNode
 {
 public:
+
 	Shape():DagNode(){}
 	Shape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DagNode(file, name, parent, "shape", create){}
 	virtual ~Shape(){}
+
 protected:
 	Shape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DagNode(file, name, parent, nodeType, create) {}

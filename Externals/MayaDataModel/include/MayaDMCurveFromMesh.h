@@ -18,19 +18,19 @@ class CurveFromMesh : public DependNode
 {
 public:
 public:
+
 	CurveFromMesh():DependNode(){}
 	CurveFromMesh(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "curveFromMesh", create){}
 	virtual ~CurveFromMesh(){}
+
 	void getInputMesh()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
-
 	}
 	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
-
 	}
 protected:
 	CurveFromMesh(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

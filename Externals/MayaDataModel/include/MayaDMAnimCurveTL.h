@@ -25,32 +25,30 @@ public:
 		}
 	};
 public:
+
 	AnimCurveTL():AnimCurve(){}
 	AnimCurveTL(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AnimCurve(file, name, parent, "animCurveTL", create){}
 	virtual ~AnimCurveTL(){}
+
 	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv)
 	{
 		fprintf(mFile,"\tsetAttr \".ktv[%i]\" ",ktv_i);
 		ktv.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setKeyValue(size_t ktv_i,double kv)
 	{
 		if(kv == 0) return;
 		fprintf(mFile,"\tsetAttr \".ktv[%i].kv\" %f;\n", ktv_i,kv);
-
 	}
 	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
-
 	}
 protected:
 	AnimCurveTL(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

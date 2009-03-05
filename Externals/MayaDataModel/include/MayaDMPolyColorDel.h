@@ -18,22 +18,22 @@ class PolyColorDel : public PolyModifier
 {
 public:
 public:
+
 	PolyColorDel():PolyModifier(){}
 	PolyColorDel(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyColorDel", create){}
 	virtual ~PolyColorDel(){}
+
 	void setColorSetName(const string& cls)
 	{
 		if(cls == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".cls\" -type \"string\" ");
 		cls.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getColorSetName()const
 	{
 		fprintf(mFile,"\"%s.cls\"",mName.c_str());
-
 	}
 protected:
 	PolyColorDel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

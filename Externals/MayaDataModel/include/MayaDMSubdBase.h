@@ -18,14 +18,15 @@ class SubdBase : public DependNode
 {
 public:
 public:
+
 	SubdBase():DependNode(){}
 	SubdBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "subdBase", create){}
 	virtual ~SubdBase(){}
+
 	void getOutSubdiv()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
-
 	}
 protected:
 	SubdBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,25 +18,24 @@ class CurveNormalizerLinear : public CurveNormalizer
 {
 public:
 public:
+
 	CurveNormalizerLinear():CurveNormalizer(){}
 	CurveNormalizerLinear(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:CurveNormalizer(file, name, parent, "curveNormalizerLinear", create){}
 	virtual ~CurveNormalizerLinear(){}
+
 	void setAnimInput(double ai)
 	{
 		if(ai == 0) return;
 		fprintf(mFile,"\tsetAttr \".ai\" %f;\n", ai);
-
 	}
 	void getAnimInput()const
 	{
 		fprintf(mFile,"\"%s.ai\"",mName.c_str());
-
 	}
 	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
-
 	}
 protected:
 	CurveNormalizerLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

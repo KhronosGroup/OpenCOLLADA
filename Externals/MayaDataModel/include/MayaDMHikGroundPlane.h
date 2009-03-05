@@ -18,20 +18,20 @@ class HikGroundPlane : public Transform
 {
 public:
 public:
+
 	HikGroundPlane():Transform(){}
 	HikGroundPlane(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Transform(file, name, parent, "hikGroundPlane", create){}
 	virtual ~HikGroundPlane(){}
+
 	void setLength(double leng)
 	{
 		if(leng == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".leng\" %f;\n", leng);
-
 	}
 	void getLength()const
 	{
 		fprintf(mFile,"\"%s.leng\"",mName.c_str());
-
 	}
 protected:
 	HikGroundPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -17,10 +17,12 @@ namespace MayaDM
 class SubdAddTopology : public SubdModifier
 {
 public:
+
 	SubdAddTopology():SubdModifier(){}
 	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:SubdModifier(file, name, parent, "subdAddTopology", create){}
 	virtual ~SubdAddTopology(){}
+
 protected:
 	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:SubdModifier(file, name, parent, nodeType, create) {}

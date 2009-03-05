@@ -17,10 +17,12 @@ namespace MayaDM
 class PolyCloseBorder : public PolyModifier
 {
 public:
+
 	PolyCloseBorder():PolyModifier(){}
 	PolyCloseBorder(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyCloseBorder", create){}
 	virtual ~PolyCloseBorder(){}
+
 protected:
 	PolyCloseBorder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:PolyModifier(file, name, parent, nodeType, create) {}

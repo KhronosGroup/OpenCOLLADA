@@ -18,75 +18,65 @@ class DeformSine : public DeformFunc
 {
 public:
 public:
+
 	DeformSine():DeformFunc(){}
 	DeformSine(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DeformFunc(file, name, parent, "deformSine", create){}
 	virtual ~DeformSine(){}
+
 	void setLowBound(double lb)
 	{
 		if(lb == -1.0) return;
 		fprintf(mFile,"\tsetAttr \".lb\" %f;\n", lb);
-
 	}
 	void setHighBound(double hb)
 	{
 		if(hb == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".hb\" %f;\n", hb);
-
 	}
 	void setAmplitude(double amp)
 	{
 		if(amp == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".amp\" %f;\n", amp);
-
 	}
 	void setWavelength(double wav)
 	{
 		if(wav == 2.0) return;
 		fprintf(mFile,"\tsetAttr \".wav\" %f;\n", wav);
-
 	}
 	void setDropoff(double dr)
 	{
 		if(dr == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".dr\" %f;\n", dr);
-
 	}
 	void setOffset(double off)
 	{
 		if(off == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".off\" %f;\n", off);
-
 	}
 	void getLowBound()const
 	{
 		fprintf(mFile,"\"%s.lb\"",mName.c_str());
-
 	}
 	void getHighBound()const
 	{
 		fprintf(mFile,"\"%s.hb\"",mName.c_str());
-
 	}
 	void getAmplitude()const
 	{
 		fprintf(mFile,"\"%s.amp\"",mName.c_str());
-
 	}
 	void getWavelength()const
 	{
 		fprintf(mFile,"\"%s.wav\"",mName.c_str());
-
 	}
 	void getDropoff()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
-
 	}
 	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
-
 	}
 protected:
 	DeformSine(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

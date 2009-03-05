@@ -17,10 +17,12 @@ namespace MayaDM
 class RenderBox : public ImplicitBox
 {
 public:
+
 	RenderBox():ImplicitBox(){}
 	RenderBox(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:ImplicitBox(file, name, parent, "renderBox", create){}
 	virtual ~RenderBox(){}
+
 protected:
 	RenderBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:ImplicitBox(file, name, parent, nodeType, create) {}

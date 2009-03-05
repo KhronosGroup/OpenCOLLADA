@@ -17,10 +17,12 @@ namespace MayaDM
 class SubdMapCut : public SubdModifier
 {
 public:
+
 	SubdMapCut():SubdModifier(){}
 	SubdMapCut(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:SubdModifier(file, name, parent, "subdMapCut", create){}
 	virtual ~SubdMapCut(){}
+
 protected:
 	SubdMapCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:SubdModifier(file, name, parent, nodeType, create) {}

@@ -18,31 +18,29 @@ class UnitToTimeConversion : public DependNode
 {
 public:
 public:
+
 	UnitToTimeConversion():DependNode(){}
 	UnitToTimeConversion(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "unitToTimeConversion", create){}
 	virtual ~UnitToTimeConversion(){}
+
 	void setInput(double i_)
 	{
 		if(i_ == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".i\" %f;\n", i_);
-
 	}
 	void setConversionFactor(double cf)
 	{
 		if(cf == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".cf\" %f;\n", cf);
-
 	}
 	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
-
 	}
 protected:
 	UnitToTimeConversion(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,25 +18,24 @@ class TimeFunction : public DependNode
 {
 public:
 public:
+
 	TimeFunction():DependNode(){}
 	TimeFunction(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "timeFunction", create){}
 	virtual ~TimeFunction(){}
+
 	void setInput(double i_)
 	{
 		if(i_ == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".i\" %f;\n", i_);
-
 	}
 	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
-
 	}
 protected:
 	TimeFunction(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -99,117 +99,102 @@ public:
 		}
 	};
 public:
+
 	ClipScheduler():DependNode(){}
 	ClipScheduler(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "clipScheduler", create){}
 	virtual ~ClipScheduler(){}
+
 	void setBlendList(size_t bl_i,const BlendList& bl)
 	{
 		fprintf(mFile,"\tsetAttr \".bl[%i]\" ",bl_i);
 		bl.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setBlendList_Inmap(size_t bl_i,size_t bli_i,const BlendList::BlendList_Inmap& bli)
 	{
 		fprintf(mFile,"\tsetAttr \".bl[%i].bli[%i]\" ",bl_i,bli_i);
 		bli.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setBlendList_InmapTo(size_t bl_i,size_t bli_i,short blit)
 	{
 		if(blit == 0) return;
 		fprintf(mFile,"\tsetAttr \".bl[%i].bli[%i].blit\" %i;\n", bl_i,bli_i,blit);
-
 	}
 	void setBlendList_InmapFrom(size_t bl_i,size_t bli_i,short blif)
 	{
 		if(blif == 0) return;
 		fprintf(mFile,"\tsetAttr \".bl[%i].bli[%i].blif\" %i;\n", bl_i,bli_i,blif);
-
 	}
 	void setBlendList_Outmap(size_t bl_i,size_t blo_i,const BlendList::BlendList_Outmap& blo)
 	{
 		fprintf(mFile,"\tsetAttr \".bl[%i].blo[%i]\" ",bl_i,blo_i);
 		blo.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setBlendList_OutmapTo(size_t bl_i,size_t blo_i,short blot)
 	{
 		if(blot == 0) return;
 		fprintf(mFile,"\tsetAttr \".bl[%i].blo[%i].blot\" %i;\n", bl_i,blo_i,blot);
-
 	}
 	void setBlendList_OutmapFrom(size_t bl_i,size_t blo_i,short blof)
 	{
 		if(blof == 0) return;
 		fprintf(mFile,"\tsetAttr \".bl[%i].blo[%i].blof\" %i;\n", bl_i,blo_i,blof);
-
 	}
 	void setBlendClips(size_t bc_i,const BlendClips& bc)
 	{
 		fprintf(mFile,"\tsetAttr \".bc[%i]\" ",bc_i);
 		bc.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setFirstClip(size_t bc_i,int fcl)
 	{
 		if(fcl == 0) return;
 		fprintf(mFile,"\tsetAttr \".bc[%i].fcl\" %i;\n", bc_i,fcl);
-
 	}
 	void setSecondClip(size_t bc_i,int scl)
 	{
 		if(scl == 0) return;
 		fprintf(mFile,"\tsetAttr \".bc[%i].scl\" %i;\n", bc_i,scl);
-
 	}
 	void setClipFunction_Inmap(size_t cfi_i,const ClipFunction::ClipFunction_Inmap& cfi)
 	{
 		fprintf(mFile,"\tsetAttr \".cf.cfi[%i]\" ",cfi_i);
 		cfi.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setClipFunction_InmapTo(size_t cfi_i,short cfit)
 	{
 		if(cfit == 0) return;
 		fprintf(mFile,"\tsetAttr \".cf.cfi[%i].cfit\" %i;\n", cfi_i,cfit);
-
 	}
 	void setClipFunction_InmapFrom(size_t cfi_i,short cfif)
 	{
 		if(cfif == 0) return;
 		fprintf(mFile,"\tsetAttr \".cf.cfi[%i].cfif\" %i;\n", cfi_i,cfif);
-
 	}
 	void setClipFunction_Outmap(size_t cfo_i,const ClipFunction::ClipFunction_Outmap& cfo)
 	{
 		fprintf(mFile,"\tsetAttr \".cf.cfo[%i]\" ",cfo_i);
 		cfo.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setClipFunction_OutmapTo(size_t cfo_i,short cfot)
 	{
 		if(cfot == 0) return;
 		fprintf(mFile,"\tsetAttr \".cf.cfo[%i].cfot\" %i;\n", cfo_i,cfot);
-
 	}
 	void setClipFunction_OutmapFrom(size_t cfo_i,short cfof)
 	{
 		if(cfof == 0) return;
 		fprintf(mFile,"\tsetAttr \".cf.cfo[%i].cfof\" %i;\n", cfo_i,cfof);
-
 	}
 	void setScale(size_t sc_i,double sc)
 	{
 		if(sc == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".sc[%i]\" %f;\n", sc_i,sc);
-
 	}
 	void setScale(size_t sc_start,size_t sc_end,double* sc)
 	{
@@ -221,28 +206,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startScale(size_t sc_start,size_t sc_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".sc[%i:%i]\"",sc_start,sc_end);
-
 	}
 	void appendScale(double sc)const
 	{
 		fprintf(mFile," %f",sc);
-
 	}
 	void endScale()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setWeight(size_t w_i,double w)
 	{
 		if(w == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".w[%i]\" %f;\n", w_i,w);
-
 	}
 	void setWeight(size_t w_start,size_t w_end,double* w)
 	{
@@ -254,28 +234,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startWeight(size_t w_start,size_t w_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".w[%i:%i]\"",w_start,w_end);
-
 	}
 	void appendWeight(double w)const
 	{
 		fprintf(mFile," %f",w);
-
 	}
 	void endWeight()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setWeightStyle(size_t ws_i,unsigned int ws)
 	{
 		if(ws == 0) return;
 		fprintf(mFile,"\tsetAttr \".ws[%i]\" %i;\n", ws_i,ws);
-
 	}
 	void setWeightStyle(size_t ws_start,size_t ws_end,unsigned int* ws)
 	{
@@ -287,28 +262,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startWeightStyle(size_t ws_start,size_t ws_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ws[%i:%i]\"",ws_start,ws_end);
-
 	}
 	void appendWeightStyle(unsigned int ws)const
 	{
 		fprintf(mFile," %i",ws);
-
 	}
 	void endWeightStyle()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setPreCycle(size_t cb_i,double cb)
 	{
 		if(cb == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".cb[%i]\" %f;\n", cb_i,cb);
-
 	}
 	void setPreCycle(size_t cb_start,size_t cb_end,double* cb)
 	{
@@ -320,28 +290,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startPreCycle(size_t cb_start,size_t cb_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cb[%i:%i]\"",cb_start,cb_end);
-
 	}
 	void appendPreCycle(double cb)const
 	{
 		fprintf(mFile," %f",cb);
-
 	}
 	void endPreCycle()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setPostCycle(size_t ca_i,double ca)
 	{
 		if(ca == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".ca[%i]\" %f;\n", ca_i,ca);
-
 	}
 	void setPostCycle(size_t ca_start,size_t ca_end,double* ca)
 	{
@@ -353,28 +318,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startPostCycle(size_t ca_start,size_t ca_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ca[%i:%i]\"",ca_start,ca_end);
-
 	}
 	void appendPostCycle(double ca)const
 	{
 		fprintf(mFile," %f",ca);
-
 	}
 	void endPostCycle()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setEnable(size_t ea_i,bool ea)
 	{
 		if(ea == 1) return;
 		fprintf(mFile,"\tsetAttr \".ea[%i]\" %i;\n", ea_i,ea);
-
 	}
 	void setEnable(size_t ea_start,size_t ea_end,bool* ea)
 	{
@@ -386,28 +346,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startEnable(size_t ea_start,size_t ea_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ea[%i:%i]\"",ea_start,ea_end);
-
 	}
 	void appendEnable(bool ea)const
 	{
 		fprintf(mFile," %i",ea);
-
 	}
 	void endEnable()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setTrack(size_t tr_i,short tr)
 	{
 		if(tr == 0) return;
 		fprintf(mFile,"\tsetAttr \".tr[%i]\" %i;\n", tr_i,tr);
-
 	}
 	void setTrack(size_t tr_start,size_t tr_end,short* tr)
 	{
@@ -419,28 +374,23 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startTrack(size_t tr_start,size_t tr_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tr[%i:%i]\"",tr_start,tr_end);
-
 	}
 	void appendTrack(short tr)const
 	{
 		fprintf(mFile," %i",tr);
-
 	}
 	void endTrack()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setTrackState(size_t ts_i,short ts)
 	{
 		if(ts == 0) return;
 		fprintf(mFile,"\tsetAttr \".ts[%i]\" %i;\n", ts_i,ts);
-
 	}
 	void setTrackState(size_t ts_start,size_t ts_end,short* ts)
 	{
@@ -452,34 +402,28 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startTrackState(size_t ts_start,size_t ts_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ts[%i:%i]\"",ts_start,ts_end);
-
 	}
 	void appendTrackState(short ts)const
 	{
 		fprintf(mFile," %i",ts);
-
 	}
 	void endTrackState()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setNumTracks(short nt)
 	{
 		if(nt == 0) return;
 		fprintf(mFile,"\tsetAttr \".nt\" %i;\n", nt);
-
 	}
 	void setCycle(size_t cy_i,double cy)
 	{
 		if(cy == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".cy[%i]\" %f;\n", cy_i,cy);
-
 	}
 	void setCycle(size_t cy_start,size_t cy_end,double* cy)
 	{
@@ -491,320 +435,261 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startCycle(size_t cy_start,size_t cy_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cy[%i:%i]\"",cy_start,cy_end);
-
 	}
 	void appendCycle(double cy)const
 	{
 		fprintf(mFile," %f",cy);
-
 	}
 	void endCycle()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void getBlendList(size_t bl_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i]\"",mName.c_str(),bl_i);
-
 	}
 	void getBlendList()const
 	{
 
 		fprintf(mFile,"\"%s.bl\"",mName.c_str());
-
 	}
 	void getBlendList_Raw(size_t bl_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].blr\"",mName.c_str(),bl_i);
-
 	}
 	void getBlendList_Raw()const
 	{
 
 		fprintf(mFile,"\"%s.bl.blr\"",mName.c_str());
-
 	}
 	void getBlendList_Inmap(size_t bl_i,size_t bli_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].bli[%i]\"",mName.c_str(),bl_i,bli_i);
-
 	}
 	void getBlendList_Inmap(size_t bli_i)const
 	{
 
 		fprintf(mFile,"\"%s.bl.bli[%i]\"",mName.c_str(),bli_i);
-
 	}
 	void getBlendList_InmapTo(size_t bl_i,size_t bli_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].bli[%i].blit\"",mName.c_str(),bl_i,bli_i);
-
 	}
 	void getBlendList_InmapTo(size_t bli_i)const
 	{
 
 		fprintf(mFile,"\"%s.bl.bli[%i].blit\"",mName.c_str(),bli_i);
-
 	}
 	void getBlendList_InmapFrom(size_t bl_i,size_t bli_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].bli[%i].blif\"",mName.c_str(),bl_i,bli_i);
-
 	}
 	void getBlendList_InmapFrom(size_t bli_i)const
 	{
 
 		fprintf(mFile,"\"%s.bl.bli[%i].blif\"",mName.c_str(),bli_i);
-
 	}
 	void getBlendList_Outmap(size_t bl_i,size_t blo_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].blo[%i]\"",mName.c_str(),bl_i,blo_i);
-
 	}
 	void getBlendList_Outmap(size_t blo_i)const
 	{
 
 		fprintf(mFile,"\"%s.bl.blo[%i]\"",mName.c_str(),blo_i);
-
 	}
 	void getBlendList_OutmapTo(size_t bl_i,size_t blo_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].blo[%i].blot\"",mName.c_str(),bl_i,blo_i);
-
 	}
 	void getBlendList_OutmapTo(size_t blo_i)const
 	{
 
 		fprintf(mFile,"\"%s.bl.blo[%i].blot\"",mName.c_str(),blo_i);
-
 	}
 	void getBlendList_OutmapFrom(size_t bl_i,size_t blo_i)const
 	{
 		fprintf(mFile,"\"%s.bl[%i].blo[%i].blof\"",mName.c_str(),bl_i,blo_i);
-
 	}
 	void getBlendList_OutmapFrom(size_t blo_i)const
 	{
 
 		fprintf(mFile,"\"%s.bl.blo[%i].blof\"",mName.c_str(),blo_i);
-
 	}
 	void getClipEvaluate()const
 	{
 		fprintf(mFile,"\"%s.ce\"",mName.c_str());
-
 	}
 	void getClipFunction()const
 	{
 		fprintf(mFile,"\"%s.cf\"",mName.c_str());
-
 	}
 	void getClipFunction_Raw()const
 	{
 		fprintf(mFile,"\"%s.cf.cfr\"",mName.c_str());
-
 	}
 	void getClipFunction_Inmap(size_t cfi_i)const
 	{
 		fprintf(mFile,"\"%s.cf.cfi[%i]\"",mName.c_str(),cfi_i);
-
 	}
 	void getClipFunction_InmapTo(size_t cfi_i)const
 	{
 		fprintf(mFile,"\"%s.cf.cfi[%i].cfit\"",mName.c_str(),cfi_i);
-
 	}
 	void getClipFunction_InmapFrom(size_t cfi_i)const
 	{
 		fprintf(mFile,"\"%s.cf.cfi[%i].cfif\"",mName.c_str(),cfi_i);
-
 	}
 	void getClipFunction_Outmap(size_t cfo_i)const
 	{
 		fprintf(mFile,"\"%s.cf.cfo[%i]\"",mName.c_str(),cfo_i);
-
 	}
 	void getClipFunction_OutmapTo(size_t cfo_i)const
 	{
 		fprintf(mFile,"\"%s.cf.cfo[%i].cfot\"",mName.c_str(),cfo_i);
-
 	}
 	void getClipFunction_OutmapFrom(size_t cfo_i)const
 	{
 		fprintf(mFile,"\"%s.cf.cfo[%i].cfof\"",mName.c_str(),cfo_i);
-
 	}
 	void getClip(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i]\"",mName.c_str(),cl_i);
-
 	}
 	void getClip()const
 	{
 
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
-
 	}
 	void getStart(size_t st_i)const
 	{
 		fprintf(mFile,"\"%s.st[%i]\"",mName.c_str(),st_i);
-
 	}
 	void getStart()const
 	{
 
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
-
 	}
 	void getSourceStart(size_t ss_i)const
 	{
 		fprintf(mFile,"\"%s.ss[%i]\"",mName.c_str(),ss_i);
-
 	}
 	void getSourceStart()const
 	{
 
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
-
 	}
 	void getSourceEnd(size_t se_i)const
 	{
 		fprintf(mFile,"\"%s.se[%i]\"",mName.c_str(),se_i);
-
 	}
 	void getSourceEnd()const
 	{
 
 		fprintf(mFile,"\"%s.se\"",mName.c_str());
-
 	}
 	void getScale(size_t sc_i)const
 	{
 		fprintf(mFile,"\"%s.sc[%i]\"",mName.c_str(),sc_i);
-
 	}
 	void getScale()const
 	{
 
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
-
 	}
 	void getHold(size_t h_i)const
 	{
 		fprintf(mFile,"\"%s.h[%i]\"",mName.c_str(),h_i);
-
 	}
 	void getHold()const
 	{
 
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
-
 	}
 	void getWeight(size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
-
 	}
 	void getWeight()const
 	{
 
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
-
 	}
 	void getWeightStyle(size_t ws_i)const
 	{
 		fprintf(mFile,"\"%s.ws[%i]\"",mName.c_str(),ws_i);
-
 	}
 	void getWeightStyle()const
 	{
 
 		fprintf(mFile,"\"%s.ws\"",mName.c_str());
-
 	}
 	void getPreCycle(size_t cb_i)const
 	{
 		fprintf(mFile,"\"%s.cb[%i]\"",mName.c_str(),cb_i);
-
 	}
 	void getPreCycle()const
 	{
 
 		fprintf(mFile,"\"%s.cb\"",mName.c_str());
-
 	}
 	void getPostCycle(size_t ca_i)const
 	{
 		fprintf(mFile,"\"%s.ca[%i]\"",mName.c_str(),ca_i);
-
 	}
 	void getPostCycle()const
 	{
 
 		fprintf(mFile,"\"%s.ca\"",mName.c_str());
-
 	}
 	void getEnable(size_t ea_i)const
 	{
 		fprintf(mFile,"\"%s.ea[%i]\"",mName.c_str(),ea_i);
-
 	}
 	void getEnable()const
 	{
 
 		fprintf(mFile,"\"%s.ea\"",mName.c_str());
-
 	}
 	void getCycle(size_t cy_i)const
 	{
 		fprintf(mFile,"\"%s.cy[%i]\"",mName.c_str(),cy_i);
-
 	}
 	void getCycle()const
 	{
 
 		fprintf(mFile,"\"%s.cy\"",mName.c_str());
-
 	}
 	void getStartPercent(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i]\"",mName.c_str(),sp_i);
-
 	}
 	void getStartPercent()const
 	{
 
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
-
 	}
 	void getAbsolute(size_t a_i)const
 	{
 		fprintf(mFile,"\"%s.a[%i]\"",mName.c_str(),a_i);
-
 	}
 	void getAbsolute()const
 	{
 
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
-
 	}
 	void getAbsoluteRotations(size_t ar_i)const
 	{
 		fprintf(mFile,"\"%s.ar[%i]\"",mName.c_str(),ar_i);
-
 	}
 	void getAbsoluteRotations()const
 	{
 
 		fprintf(mFile,"\"%s.ar\"",mName.c_str());
-
 	}
 protected:
 	ClipScheduler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

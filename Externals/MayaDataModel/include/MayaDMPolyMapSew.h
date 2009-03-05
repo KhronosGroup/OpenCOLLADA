@@ -18,22 +18,22 @@ class PolyMapSew : public PolyModifier
 {
 public:
 public:
+
 	PolyMapSew():PolyModifier(){}
 	PolyMapSew(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyMapSew", create){}
 	virtual ~PolyMapSew(){}
+
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
-
 	}
 protected:
 	PolyMapSew(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

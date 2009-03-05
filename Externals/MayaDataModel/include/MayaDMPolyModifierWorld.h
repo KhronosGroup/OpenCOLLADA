@@ -18,44 +18,40 @@ class PolyModifierWorld : public PolyModifier
 {
 public:
 public:
+
 	PolyModifierWorld():PolyModifier(){}
 	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyModifierWorld", create){}
 	virtual ~PolyModifierWorld(){}
+
 	void setInputMatrix(const matrix& ix)
 	{
 		fprintf(mFile,"\tsetAttr \".ix\" -type \"matrix\" ");
 		ix.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setWorldSpace(bool ws)
 	{
 		if(ws == false) return;
 		fprintf(mFile,"\tsetAttr \".ws\" %i;\n", ws);
-
 	}
 	void setManipMatrix(const matrix& mp)
 	{
 		fprintf(mFile,"\tsetAttr \".mp\" -type \"matrix\" ");
 		mp.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getInputMatrix()const
 	{
 		fprintf(mFile,"\"%s.ix\"",mName.c_str());
-
 	}
 	void getWorldSpace()const
 	{
 		fprintf(mFile,"\"%s.ws\"",mName.c_str());
-
 	}
 	void getManipMatrix()const
 	{
 		fprintf(mFile,"\"%s.mp\"",mName.c_str());
-
 	}
 protected:
 	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

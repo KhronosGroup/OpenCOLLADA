@@ -18,33 +18,31 @@ class DeformFunc : public Shape
 {
 public:
 public:
+
 	DeformFunc():Shape(){}
 	DeformFunc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Shape(file, name, parent, "deformFunc", create){}
 	virtual ~DeformFunc(){}
+
 	void setDeformerData(const doubleArray& dd)
 	{
 		if(dd.size == 0) return;
 		fprintf(mFile,"\tsetAttr \".dd\" -type \"doubleArray\" ");
 		dd.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setHandleWidth(double hw)
 	{
 		if(hw == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".hw\" %f;\n", hw);
-
 	}
 	void getDeformerData()const
 	{
 		fprintf(mFile,"\"%s.dd\"",mName.c_str());
-
 	}
 	void getHandleWidth()const
 	{
 		fprintf(mFile,"\"%s.hw\"",mName.c_str());
-
 	}
 protected:
 	DeformFunc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

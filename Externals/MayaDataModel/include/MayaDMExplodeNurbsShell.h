@@ -18,25 +18,24 @@ class ExplodeNurbsShell : public AbstractBaseCreate
 {
 public:
 public:
+
 	ExplodeNurbsShell():AbstractBaseCreate(){}
 	ExplodeNurbsShell(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "explodeNurbsShell", create){}
 	virtual ~ExplodeNurbsShell(){}
+
 	void getInputShell()const
 	{
 		fprintf(mFile,"\"%s.ish\"",mName.c_str());
-
 	}
 	void getOutputSurface(size_t os_i)const
 	{
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
-
 	}
 	void getOutputSurface()const
 	{
 
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
-
 	}
 protected:
 	ExplodeNurbsShell(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

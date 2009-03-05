@@ -18,36 +18,33 @@ class NurbsDimShape : public DimensionShape
 {
 public:
 public:
+
 	NurbsDimShape():DimensionShape(){}
 	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DimensionShape(file, name, parent, "nurbsDimShape", create){}
 	virtual ~NurbsDimShape(){}
+
 	void setUParamValue(double upv)
 	{
 		if(upv == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".upv\" %f;\n", upv);
-
 	}
 	void setVParamValue(double vpv)
 	{
 		if(vpv == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".vpv\" %f;\n", vpv);
-
 	}
 	void getUParamValue()const
 	{
 		fprintf(mFile,"\"%s.upv\"",mName.c_str());
-
 	}
 	void getVParamValue()const
 	{
 		fprintf(mFile,"\"%s.vpv\"",mName.c_str());
-
 	}
 	void getNurbsGeometry()const
 	{
 		fprintf(mFile,"\"%s.ng\"",mName.c_str());
-
 	}
 protected:
 	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

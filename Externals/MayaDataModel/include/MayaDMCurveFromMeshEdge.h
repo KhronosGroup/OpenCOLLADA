@@ -18,15 +18,16 @@ class CurveFromMeshEdge : public CurveFromMesh
 {
 public:
 public:
+
 	CurveFromMeshEdge():CurveFromMesh(){}
 	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:CurveFromMesh(file, name, parent, "curveFromMeshEdge", create){}
 	virtual ~CurveFromMeshEdge(){}
+
 	void setEdgeIndex(size_t ei_i,int ei)
 	{
 		if(ei == 0) return;
 		fprintf(mFile,"\tsetAttr \".ei[%i]\" %i;\n", ei_i,ei);
-
 	}
 	void setEdgeIndex(size_t ei_start,size_t ei_end,int* ei)
 	{
@@ -38,33 +39,27 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startEdgeIndex(size_t ei_start,size_t ei_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ei[%i:%i]\"",ei_start,ei_end);
-
 	}
 	void appendEdgeIndex(int ei)const
 	{
 		fprintf(mFile," %i",ei);
-
 	}
 	void endEdgeIndex()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void getEdgeIndex(size_t ei_i)const
 	{
 		fprintf(mFile,"\"%s.ei[%i]\"",mName.c_str(),ei_i);
-
 	}
 	void getEdgeIndex()const
 	{
 
 		fprintf(mFile,"\"%s.ei\"",mName.c_str());
-
 	}
 protected:
 	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

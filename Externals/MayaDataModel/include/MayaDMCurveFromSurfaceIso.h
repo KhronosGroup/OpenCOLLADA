@@ -18,42 +18,38 @@ class CurveFromSurfaceIso : public CurveFromSurface
 {
 public:
 public:
+
 	CurveFromSurfaceIso():CurveFromSurface(){}
 	CurveFromSurfaceIso(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:CurveFromSurface(file, name, parent, "curveFromSurfaceIso", create){}
 	virtual ~CurveFromSurfaceIso(){}
+
 	void setIsoparmValue(double iv)
 	{
 		if(iv == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".iv\" %f;\n", iv);
-
 	}
 	void setIsoparmDirection(unsigned int idr)
 	{
 		if(idr == 0) return;
 		fprintf(mFile,"\tsetAttr \".idr\" %i;\n", idr);
-
 	}
 	void setRelativeValue(bool rv)
 	{
 		if(rv == false) return;
 		fprintf(mFile,"\tsetAttr \".rv\" %i;\n", rv);
-
 	}
 	void getIsoparmValue()const
 	{
 		fprintf(mFile,"\"%s.iv\"",mName.c_str());
-
 	}
 	void getIsoparmDirection()const
 	{
 		fprintf(mFile,"\"%s.idr\"",mName.c_str());
-
 	}
 	void getRelativeValue()const
 	{
 		fprintf(mFile,"\"%s.rv\"",mName.c_str());
-
 	}
 protected:
 	CurveFromSurfaceIso(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

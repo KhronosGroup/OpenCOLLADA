@@ -18,20 +18,20 @@ class PolySmooth : public PolyModifier
 {
 public:
 public:
+
 	PolySmooth():PolyModifier(){}
 	PolySmooth(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polySmooth", create){}
 	virtual ~PolySmooth(){}
+
 	void setSmoothness(short sm)
 	{
 		if(sm == 1) return;
 		fprintf(mFile,"\tsetAttr \".sm\" %i;\n", sm);
-
 	}
 	void getSmoothness()const
 	{
 		fprintf(mFile,"\"%s.sm\"",mName.c_str());
-
 	}
 protected:
 	PolySmooth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

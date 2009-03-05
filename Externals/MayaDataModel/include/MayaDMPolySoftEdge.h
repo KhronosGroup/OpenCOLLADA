@@ -18,20 +18,20 @@ class PolySoftEdge : public PolyModifierWorld
 {
 public:
 public:
+
 	PolySoftEdge():PolyModifierWorld(){}
 	PolySoftEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifierWorld(file, name, parent, "polySoftEdge", create){}
 	virtual ~PolySoftEdge(){}
+
 	void setAngle(double a)
 	{
 		if(a == 3) return;
 		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
-
 	}
 	void getAngle()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
-
 	}
 protected:
 	PolySoftEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

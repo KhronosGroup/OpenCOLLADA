@@ -18,31 +18,29 @@ class SurfaceVarGroup : public BaseGeometryVarGroup
 {
 public:
 public:
+
 	SurfaceVarGroup():BaseGeometryVarGroup(){}
 	SurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:BaseGeometryVarGroup(file, name, parent, "surfaceVarGroup", create){}
 	virtual ~SurfaceVarGroup(){}
+
 	void getCreate(size_t cr_i)const
 	{
 		fprintf(mFile,"\"%s.cr[%i]\"",mName.c_str(),cr_i);
-
 	}
 	void getCreate()const
 	{
 
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
-
 	}
 	void getLocal(size_t l_i)const
 	{
 		fprintf(mFile,"\"%s.l[%i]\"",mName.c_str(),l_i);
-
 	}
 	void getLocal()const
 	{
 
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
-
 	}
 protected:
 	SurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,54 +18,48 @@ class GroupParts : public DependNode
 {
 public:
 public:
+
 	GroupParts():DependNode(){}
 	GroupParts(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "groupParts", create){}
 	virtual ~GroupParts(){}
+
 	void setInputComponents(const componentList& ic)
 	{
 		fprintf(mFile,"\tsetAttr \".ic\" -type \"componentList\" ");
 		ic.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setInputRemoveComponent(const componentList& irc)
 	{
 		fprintf(mFile,"\tsetAttr \".irc\" -type \"componentList\" ");
 		irc.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setGroupId(int gi)
 	{
 		if(gi == -1) return;
 		fprintf(mFile,"\tsetAttr \".gi\" %i;\n", gi);
-
 	}
 	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
-
 	}
 	void getInputComponents()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
-
 	}
 	void getInputRemoveComponent()const
 	{
 		fprintf(mFile,"\"%s.irc\"",mName.c_str());
-
 	}
 	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
-
 	}
 	void getGroupId()const
 	{
 		fprintf(mFile,"\"%s.gi\"",mName.c_str());
-
 	}
 protected:
 	GroupParts(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

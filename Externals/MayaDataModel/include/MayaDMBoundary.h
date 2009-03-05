@@ -18,31 +18,29 @@ class Boundary : public BoundaryBase
 {
 public:
 public:
+
 	Boundary():BoundaryBase(){}
 	Boundary(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:BoundaryBase(file, name, parent, "boundary", create){}
 	virtual ~Boundary(){}
+
 	void setOrder(bool or)
 	{
 		if(or == true) return;
 		fprintf(mFile,"\tsetAttr \".or\" %i;\n", or);
-
 	}
 	void setEndPoint(bool ep)
 	{
 		if(ep == false) return;
 		fprintf(mFile,"\tsetAttr \".ep\" %i;\n", ep);
-
 	}
 	void getOrder()const
 	{
 		fprintf(mFile,"\"%s.or\"",mName.c_str());
-
 	}
 	void getEndPoint()const
 	{
 		fprintf(mFile,"\"%s.ep\"",mName.c_str());
-
 	}
 protected:
 	Boundary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

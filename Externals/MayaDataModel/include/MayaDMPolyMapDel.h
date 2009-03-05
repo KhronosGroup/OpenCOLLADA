@@ -18,22 +18,22 @@ class PolyMapDel : public PolyModifier
 {
 public:
 public:
+
 	PolyMapDel():PolyModifier(){}
 	PolyMapDel(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyMapDel", create){}
 	virtual ~PolyMapDel(){}
+
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
-
 	}
 protected:
 	PolyMapDel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,25 +18,24 @@ class SpBirailSrf : public BirailSrf
 {
 public:
 public:
+
 	SpBirailSrf():BirailSrf(){}
 	SpBirailSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:BirailSrf(file, name, parent, "spBirailSrf", create){}
 	virtual ~SpBirailSrf(){}
+
 	void setTangentContinuityProfile1(bool tp1)
 	{
 		if(tp1 == false) return;
 		fprintf(mFile,"\tsetAttr \".tp1\" %i;\n", tp1);
-
 	}
 	void getInputProfile()const
 	{
 		fprintf(mFile,"\"%s.ip\"",mName.c_str());
-
 	}
 	void getTangentContinuityProfile1()const
 	{
 		fprintf(mFile,"\"%s.tp1\"",mName.c_str());
-
 	}
 protected:
 	SpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

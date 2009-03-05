@@ -17,10 +17,12 @@ namespace MayaDM
 class PolyCollapseEdge : public PolyModifier
 {
 public:
+
 	PolyCollapseEdge():PolyModifier(){}
 	PolyCollapseEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyCollapseEdge", create){}
 	virtual ~PolyCollapseEdge(){}
+
 protected:
 	PolyCollapseEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:PolyModifier(file, name, parent, nodeType, create) {}

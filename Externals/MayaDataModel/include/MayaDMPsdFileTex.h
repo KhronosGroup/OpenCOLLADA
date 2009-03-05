@@ -18,17 +18,18 @@ class PsdFileTex : public File
 {
 public:
 public:
+
 	PsdFileTex():File(){}
 	PsdFileTex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:File(file, name, parent, "psdFileTex", create){}
 	virtual ~PsdFileTex(){}
+
 	void setLayerSetName(const string& lsn)
 	{
 		if(lsn == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".lsn\" -type \"string\" ");
 		lsn.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setAlpha(const string& alp)
 	{
@@ -36,27 +37,22 @@ public:
 		fprintf(mFile,"\tsetAttr \".alp\" -type \"string\" ");
 		alp.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getLayerSetName()const
 	{
 		fprintf(mFile,"\"%s.lsn\"",mName.c_str());
-
 	}
 	void getLayerSets()const
 	{
 		fprintf(mFile,"\"%s.lys\"",mName.c_str());
-
 	}
 	void getAlpha()const
 	{
 		fprintf(mFile,"\"%s.alp\"",mName.c_str());
-
 	}
 	void getAlphaList()const
 	{
 		fprintf(mFile,"\"%s.als\"",mName.c_str());
-
 	}
 protected:
 	PsdFileTex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

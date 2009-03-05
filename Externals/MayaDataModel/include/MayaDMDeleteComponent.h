@@ -18,37 +18,34 @@ class DeleteComponent : public DependNode
 {
 public:
 public:
+
 	DeleteComponent():DependNode(){}
 	DeleteComponent(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "deleteComponent", create){}
 	virtual ~DeleteComponent(){}
+
 	void setDeleteComponents(const componentList& dc)
 	{
 		fprintf(mFile,"\tsetAttr \".dc\" -type \"componentList\" ");
 		dc.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setUseOldPolyArchitecture(bool uopa)
 	{
 		if(uopa == false) return;
 		fprintf(mFile,"\tsetAttr \".uopa\" %i;\n", uopa);
-
 	}
 	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
-
 	}
 	void getDeleteComponents()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
-
 	}
 	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
-
 	}
 protected:
 	DeleteComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

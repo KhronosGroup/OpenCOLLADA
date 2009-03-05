@@ -18,21 +18,21 @@ class IkSolver : public DependNode
 {
 public:
 public:
+
 	IkSolver():DependNode(){}
 	IkSolver(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "ikSolver", create){}
 	virtual ~IkSolver(){}
+
 	void setMaxIterations(int mxi)
 	{
 		if(mxi == 2147483647) return;
 		fprintf(mFile,"\tsetAttr \".mxi\" %i;\n", mxi);
-
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0.00001) return;
 		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
-
 	}
 protected:
 	IkSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

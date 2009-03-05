@@ -18,54 +18,48 @@ class TransformGeometry : public AbstractBaseCreate
 {
 public:
 public:
+
 	TransformGeometry():AbstractBaseCreate(){}
 	TransformGeometry(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "transformGeometry", create){}
 	virtual ~TransformGeometry(){}
+
 	void setTransform(const matrix& txf)
 	{
 		if(txf == identity) return;
 		fprintf(mFile,"\tsetAttr \".txf\" -type \"matrix\" ");
 		txf.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setInvertTransform(bool itf)
 	{
 		if(itf == false) return;
 		fprintf(mFile,"\tsetAttr \".itf\" %i;\n", itf);
-
 	}
 	void setFreezeNormals(unsigned int fn)
 	{
 		if(fn == 0) return;
 		fprintf(mFile,"\tsetAttr \".fn\" %i;\n", fn);
-
 	}
 	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
-
 	}
 	void getTransform()const
 	{
 		fprintf(mFile,"\"%s.txf\"",mName.c_str());
-
 	}
 	void getInvertTransform()const
 	{
 		fprintf(mFile,"\"%s.itf\"",mName.c_str());
-
 	}
 	void getFreezeNormals()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
-
 	}
 	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
-
 	}
 protected:
 	TransformGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,15 +18,16 @@ class NewtonField : public Field
 {
 public:
 public:
+
 	NewtonField():Field(){}
 	NewtonField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Field(file, name, parent, "newtonField", create){}
 	virtual ~NewtonField(){}
+
 	void setMinDistance(double min)
 	{
 		if(min == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".min\" %f;\n", min);
-
 	}
 	void setOwnerMassData(const doubleArray& omd)
 	{
@@ -34,17 +35,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".omd\" -type \"doubleArray\" ");
 		omd.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getMinDistance()const
 	{
 		fprintf(mFile,"\"%s.min\"",mName.c_str());
-
 	}
 	void getOwnerMassData()const
 	{
 		fprintf(mFile,"\"%s.omd\"",mName.c_str());
-
 	}
 protected:
 	NewtonField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

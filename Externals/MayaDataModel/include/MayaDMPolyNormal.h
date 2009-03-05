@@ -18,31 +18,29 @@ class PolyNormal : public PolyModifier
 {
 public:
 public:
+
 	PolyNormal():PolyModifier(){}
 	PolyNormal(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyNormal", create){}
 	virtual ~PolyNormal(){}
+
 	void setNormalMode(unsigned int nm)
 	{
 		if(nm == 0) return;
 		fprintf(mFile,"\tsetAttr \".nm\" %i;\n", nm);
-
 	}
 	void setUserNormalMode(bool unm)
 	{
 		if(unm == true) return;
 		fprintf(mFile,"\tsetAttr \".unm\" %i;\n", unm);
-
 	}
 	void getNormalMode()const
 	{
 		fprintf(mFile,"\"%s.nm\"",mName.c_str());
-
 	}
 	void getUserNormalMode()const
 	{
 		fprintf(mFile,"\"%s.unm\"",mName.c_str());
-
 	}
 protected:
 	PolyNormal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

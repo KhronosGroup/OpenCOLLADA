@@ -17,10 +17,12 @@ namespace MayaDM
 class PolyCreaseEdge : public PolyCrease
 {
 public:
+
 	PolyCreaseEdge():PolyCrease(){}
 	PolyCreaseEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyCrease(file, name, parent, "polyCreaseEdge", create){}
 	virtual ~PolyCreaseEdge(){}
+
 protected:
 	PolyCreaseEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:PolyCrease(file, name, parent, nodeType, create) {}

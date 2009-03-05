@@ -18,53 +18,47 @@ class PolyMergeEdge : public PolyModifier
 {
 public:
 public:
+
 	PolyMergeEdge():PolyModifier(){}
 	PolyMergeEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyMergeEdge", create){}
 	virtual ~PolyMergeEdge(){}
+
 	void setMergeMode(unsigned int mm)
 	{
 		if(mm == 1) return;
 		fprintf(mFile,"\tsetAttr \".mm\" %i;\n", mm);
-
 	}
 	void setFirstEdge(int fe)
 	{
 		if(fe == -1) return;
 		fprintf(mFile,"\tsetAttr \".fe\" %i;\n", fe);
-
 	}
 	void setSecondEdge(int se)
 	{
 		if(se == -1) return;
 		fprintf(mFile,"\tsetAttr \".se\" %i;\n", se);
-
 	}
 	void setMergeTexture(bool mt)
 	{
 		if(mt == false) return;
 		fprintf(mFile,"\tsetAttr \".mt\" %i;\n", mt);
-
 	}
 	void getMergeMode()const
 	{
 		fprintf(mFile,"\"%s.mm\"",mName.c_str());
-
 	}
 	void getFirstEdge()const
 	{
 		fprintf(mFile,"\"%s.fe\"",mName.c_str());
-
 	}
 	void getSecondEdge()const
 	{
 		fprintf(mFile,"\"%s.se\"",mName.c_str());
-
 	}
 	void getMergeTexture()const
 	{
 		fprintf(mFile,"\"%s.mt\"",mName.c_str());
-
 	}
 protected:
 	PolyMergeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

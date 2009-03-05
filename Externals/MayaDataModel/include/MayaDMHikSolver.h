@@ -17,10 +17,12 @@ namespace MayaDM
 class HikSolver : public IkSolver
 {
 public:
+
 	HikSolver():IkSolver(){}
 	HikSolver(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:IkSolver(file, name, parent, "hikSolver", create){}
 	virtual ~HikSolver(){}
+
 protected:
 	HikSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:IkSolver(file, name, parent, nodeType, create) {}

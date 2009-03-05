@@ -18,14 +18,15 @@ class GroupId : public DependNode
 {
 public:
 public:
+
 	GroupId():DependNode(){}
 	GroupId(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "groupId", create){}
 	virtual ~GroupId(){}
+
 	void getGroupId()const
 	{
 		fprintf(mFile,"\"%s.id\"",mName.c_str());
-
 	}
 protected:
 	GroupId(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

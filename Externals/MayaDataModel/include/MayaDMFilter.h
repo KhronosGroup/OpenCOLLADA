@@ -28,20 +28,20 @@ public:
 		}
 	};
 public:
+
 	Filter():DependNode(){}
 	Filter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "filter", create){}
 	virtual ~Filter(){}
+
 	void setDeviceEditorActive(bool dea)
 	{
 		if(dea == false) return;
 		fprintf(mFile,"\tsetAttr \".dea\" %i;\n", dea);
-
 	}
 	void getDeviceEditorActive()const
 	{
 		fprintf(mFile,"\"%s.dea\"",mName.c_str());
-
 	}
 protected:
 	Filter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

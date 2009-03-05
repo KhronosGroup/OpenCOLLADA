@@ -18,46 +18,41 @@ class Boolean : public AbstractBaseCreate
 {
 public:
 public:
+
 	Boolean():AbstractBaseCreate(){}
 	Boolean(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "boolean", create){}
 	virtual ~Boolean(){}
+
 	void setOperation(unsigned int op)
 	{
 		if(op == 0) return;
 		fprintf(mFile,"\tsetAttr \".op\" %i;\n", op);
-
 	}
 	void setTolerance(double tlb)
 	{
 		if(tlb == 0) return;
 		fprintf(mFile,"\tsetAttr \".tlb\" %f;\n", tlb);
-
 	}
 	void getInputShellA()const
 	{
 		fprintf(mFile,"\"%s.isa\"",mName.c_str());
-
 	}
 	void getInputShellB()const
 	{
 		fprintf(mFile,"\"%s.isb\"",mName.c_str());
-
 	}
 	void getOperation()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
-
 	}
 	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tlb\"",mName.c_str());
-
 	}
 	void getOutputShell()const
 	{
 		fprintf(mFile,"\"%s.osh\"",mName.c_str());
-
 	}
 protected:
 	Boolean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

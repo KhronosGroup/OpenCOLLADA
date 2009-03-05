@@ -18,27 +18,26 @@ class NonLinear : public GeometryFilter
 {
 public:
 public:
+
 	NonLinear():GeometryFilter(){}
 	NonLinear(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:GeometryFilter(file, name, parent, "nonLinear", create){}
 	virtual ~NonLinear(){}
+
 	void setMatrix(const matrix& ma)
 	{
 		if(ma == identity) return;
 		fprintf(mFile,"\tsetAttr \".ma\" -type \"matrix\" ");
 		ma.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getDeformerData()const
 	{
 		fprintf(mFile,"\"%s.dd\"",mName.c_str());
-
 	}
 	void getMatrix()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
-
 	}
 protected:
 	NonLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

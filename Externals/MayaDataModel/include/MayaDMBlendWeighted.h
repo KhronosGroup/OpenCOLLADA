@@ -18,15 +18,16 @@ class BlendWeighted : public Blend
 {
 public:
 public:
+
 	BlendWeighted():Blend(){}
 	BlendWeighted(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Blend(file, name, parent, "blendWeighted", create){}
 	virtual ~BlendWeighted(){}
+
 	void setWeight(size_t w_i,float w)
 	{
 		if(w == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".w[%i]\" %f;\n", w_i,w);
-
 	}
 	void setWeight(size_t w_start,size_t w_end,float* w)
 	{
@@ -38,33 +39,27 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startWeight(size_t w_start,size_t w_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".w[%i:%i]\"",w_start,w_end);
-
 	}
 	void appendWeight(float w)const
 	{
 		fprintf(mFile," %f",w);
-
 	}
 	void endWeight()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void getWeight(size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
-
 	}
 	void getWeight()const
 	{
 
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
-
 	}
 protected:
 	BlendWeighted(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

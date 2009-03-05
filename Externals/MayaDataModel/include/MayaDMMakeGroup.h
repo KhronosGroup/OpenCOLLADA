@@ -18,21 +18,21 @@ class MakeGroup : public DependNode
 {
 public:
 public:
+
 	MakeGroup():DependNode(){}
 	MakeGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "makeGroup", create){}
 	virtual ~MakeGroup(){}
+
 	void setGroupType(unsigned int gt)
 	{
 		if(gt == 0) return;
 		fprintf(mFile,"\tsetAttr \".gt\" %i;\n", gt);
-
 	}
 	void setGroupName(int gn)
 	{
 		if(gn == -1) return;
 		fprintf(mFile,"\tsetAttr \".gn\" %i;\n", gn);
-
 	}
 	void setElemList(const intArray& el)
 	{
@@ -40,44 +40,36 @@ public:
 		fprintf(mFile,"\tsetAttr \".el\" -type \"intArray\" ");
 		el.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setInputComponents(const componentList& ic)
 	{
 		fprintf(mFile,"\tsetAttr \".ic\" -type \"componentList\" ");
 		ic.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
-
 	}
 	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
-
 	}
 	void getGroupType()const
 	{
 		fprintf(mFile,"\"%s.gt\"",mName.c_str());
-
 	}
 	void getGroupName()const
 	{
 		fprintf(mFile,"\"%s.gn\"",mName.c_str());
-
 	}
 	void getElemList()const
 	{
 		fprintf(mFile,"\"%s.el\"",mName.c_str());
-
 	}
 	void getInputComponents()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
-
 	}
 protected:
 	MakeGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,52 +18,46 @@ class DpBirailSrf : public BirailSrf
 {
 public:
 public:
+
 	DpBirailSrf():BirailSrf(){}
 	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:BirailSrf(file, name, parent, "dpBirailSrf", create){}
 	virtual ~DpBirailSrf(){}
+
 	void setBlendFactor(double bl)
 	{
 		if(bl == 0.5) return;
 		fprintf(mFile,"\tsetAttr \".bl\" %f;\n", bl);
-
 	}
 	void setTangentContinuityProfile1(bool tp1)
 	{
 		if(tp1 == false) return;
 		fprintf(mFile,"\tsetAttr \".tp1\" %i;\n", tp1);
-
 	}
 	void setTangentContinuityProfile2(bool tp2)
 	{
 		if(tp2 == false) return;
 		fprintf(mFile,"\tsetAttr \".tp2\" %i;\n", tp2);
-
 	}
 	void getInputProfile1()const
 	{
 		fprintf(mFile,"\"%s.ip1\"",mName.c_str());
-
 	}
 	void getInputProfile2()const
 	{
 		fprintf(mFile,"\"%s.ip2\"",mName.c_str());
-
 	}
 	void getBlendFactor()const
 	{
 		fprintf(mFile,"\"%s.bl\"",mName.c_str());
-
 	}
 	void getTangentContinuityProfile1()const
 	{
 		fprintf(mFile,"\"%s.tp1\"",mName.c_str());
-
 	}
 	void getTangentContinuityProfile2()const
 	{
 		fprintf(mFile,"\"%s.tp2\"",mName.c_str());
-
 	}
 protected:
 	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

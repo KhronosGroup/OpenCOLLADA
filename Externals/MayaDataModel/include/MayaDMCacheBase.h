@@ -18,25 +18,24 @@ class CacheBase : public DependNode
 {
 public:
 public:
+
 	CacheBase():DependNode(){}
 	CacheBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "cacheBase", create){}
 	virtual ~CacheBase(){}
+
 	void getOutCacheData(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i]\"",mName.c_str(),ocd_i);
-
 	}
 	void getOutCacheData()const
 	{
 
 		fprintf(mFile,"\"%s.ocd\"",mName.c_str());
-
 	}
 	void getInRange()const
 	{
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());
-
 	}
 protected:
 	CacheBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

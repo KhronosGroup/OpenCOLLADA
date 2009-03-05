@@ -29,54 +29,48 @@ public:
 		}
 	};
 public:
+
 	GravityField():Field(){}
 	GravityField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Field(file, name, parent, "gravityField", create){}
 	virtual ~GravityField(){}
+
 	void setDirection(const Direction& d)
 	{
 		fprintf(mFile,"\tsetAttr \".d\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setDirectionX(double dx)
 	{
 		if(dx == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".d.dx\" %f;\n", dx);
-
 	}
 	void setDirectionY(double dy)
 	{
 		if(dy == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".d.dy\" %f;\n", dy);
-
 	}
 	void setDirectionZ(double dz)
 	{
 		if(dz == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
-
 	}
 	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
-
 	}
 	void getDirectionX()const
 	{
 		fprintf(mFile,"\"%s.d.dx\"",mName.c_str());
-
 	}
 	void getDirectionY()const
 	{
 		fprintf(mFile,"\"%s.d.dy\"",mName.c_str());
-
 	}
 	void getDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.d.dz\"",mName.c_str());
-
 	}
 protected:
 	GravityField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

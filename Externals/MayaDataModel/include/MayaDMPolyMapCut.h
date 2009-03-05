@@ -18,22 +18,22 @@ class PolyMapCut : public PolyModifier
 {
 public:
 public:
+
 	PolyMapCut():PolyModifier(){}
 	PolyMapCut(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifier(file, name, parent, "polyMapCut", create){}
 	virtual ~PolyMapCut(){}
+
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
-
 	}
 protected:
 	PolyMapCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

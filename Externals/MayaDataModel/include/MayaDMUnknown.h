@@ -17,10 +17,12 @@ namespace MayaDM
 class Unknown : public DependNode
 {
 public:
+
 	Unknown():DependNode(){}
 	Unknown(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "unknown", create){}
 	virtual ~Unknown(){}
+
 protected:
 	Unknown(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:DependNode(file, name, parent, nodeType, create) {}

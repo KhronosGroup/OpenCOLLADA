@@ -18,14 +18,15 @@ class RenderLight : public Light
 {
 public:
 public:
+
 	RenderLight():Light(){}
 	RenderLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Light(file, name, parent, "renderLight", create){}
 	virtual ~RenderLight(){}
+
 	void getRayInstance()const
 	{
 		fprintf(mFile,"\"%s.ryi\"",mName.c_str());
-
 	}
 protected:
 	RenderLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

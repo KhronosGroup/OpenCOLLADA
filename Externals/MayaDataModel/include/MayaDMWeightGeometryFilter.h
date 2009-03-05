@@ -30,22 +30,22 @@ public:
 		}
 	};
 public:
+
 	WeightGeometryFilter():GeometryFilter(){}
 	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:GeometryFilter(file, name, parent, "weightGeometryFilter", create){}
 	virtual ~WeightGeometryFilter(){}
+
 	void setWeightList(size_t wl_i,const WeightList& wl)
 	{
 		fprintf(mFile,"\tsetAttr \".wl[%i]\" ",wl_i);
 		wl.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setWeights(size_t wl_i,size_t w_i,float w)
 	{
 		if(w == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i]\" %f;\n", wl_i,w_i,w);
-
 	}
 	void setWeights(size_t wl_i,size_t w_start,size_t w_end,float* w)
 	{
@@ -57,44 +57,36 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startWeights(size_t wl_i,size_t w_start,size_t w_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i:%i]\"",wl_i,w_start,w_end);
-
 	}
 	void appendWeights(float w)const
 	{
 		fprintf(mFile," %f",w);
-
 	}
 	void endWeights()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void getWeightList(size_t wl_i)const
 	{
 		fprintf(mFile,"\"%s.wl[%i]\"",mName.c_str(),wl_i);
-
 	}
 	void getWeightList()const
 	{
 
 		fprintf(mFile,"\"%s.wl\"",mName.c_str());
-
 	}
 	void getWeights(size_t wl_i,size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.wl[%i].w[%i]\"",mName.c_str(),wl_i,w_i);
-
 	}
 	void getWeights(size_t w_i)const
 	{
 
 		fprintf(mFile,"\"%s.wl.w[%i]\"",mName.c_str(),w_i);
-
 	}
 protected:
 	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

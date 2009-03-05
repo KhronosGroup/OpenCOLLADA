@@ -18,27 +18,26 @@ class PolyWedgeFace : public PolyModifierWorld
 {
 public:
 public:
+
 	PolyWedgeFace():PolyModifierWorld(){}
 	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifierWorld(file, name, parent, "polyWedgeFace", create){}
 	virtual ~PolyWedgeFace(){}
+
 	void setWedgeAngle(double wa)
 	{
 		if(wa == 0) return;
 		fprintf(mFile,"\tsetAttr \".wa\" %f;\n", wa);
-
 	}
 	void setDivisions(int d)
 	{
 		if(d == 1) return;
 		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
-
 	}
 	void setEdge(size_t ed_i,int ed)
 	{
 		if(ed == 0) return;
 		fprintf(mFile,"\tsetAttr \".ed[%i]\" %i;\n", ed_i,ed);
-
 	}
 	void setEdge(size_t ed_start,size_t ed_end,int* ed)
 	{
@@ -50,43 +49,35 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startEdge(size_t ed_start,size_t ed_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ed[%i:%i]\"",ed_start,ed_end);
-
 	}
 	void appendEdge(int ed)const
 	{
 		fprintf(mFile," %i",ed);
-
 	}
 	void endEdge()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void getWedgeAngle()const
 	{
 		fprintf(mFile,"\"%s.wa\"",mName.c_str());
-
 	}
 	void getDivisions()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
-
 	}
 	void getEdge(size_t ed_i)const
 	{
 		fprintf(mFile,"\"%s.ed[%i]\"",mName.c_str(),ed_i);
-
 	}
 	void getEdge()const
 	{
 
 		fprintf(mFile,"\"%s.ed\"",mName.c_str());
-
 	}
 protected:
 	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

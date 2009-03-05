@@ -18,31 +18,29 @@ class Constraint : public Transform
 {
 public:
 public:
+
 	Constraint():Transform(){}
 	Constraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:Transform(file, name, parent, "constraint", create){}
 	virtual ~Constraint(){}
+
 	void setEnableRestPosition(bool erp)
 	{
 		if(erp == false) return;
 		fprintf(mFile,"\tsetAttr \".erp\" %i;\n", erp);
-
 	}
 	void setLockOutput(bool lo)
 	{
 		if(lo == false) return;
 		fprintf(mFile,"\tsetAttr \".lo\" %i;\n", lo);
-
 	}
 	void getEnableRestPosition()const
 	{
 		fprintf(mFile,"\"%s.erp\"",mName.c_str());
-
 	}
 	void getLockOutput()const
 	{
 		fprintf(mFile,"\"%s.lo\"",mName.c_str());
-
 	}
 protected:
 	Constraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

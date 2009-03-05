@@ -18,54 +18,48 @@ class CreateColorSet : public DependNode
 {
 public:
 public:
+
 	CreateColorSet():DependNode(){}
 	CreateColorSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "createColorSet", create){}
 	virtual ~CreateColorSet(){}
+
 	void setColorSetName(const string& colos)
 	{
 		if(colos == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".colos\" -type \"string\" ");
 		colos.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setClamped(bool clam)
 	{
 		if(clam == true) return;
 		fprintf(mFile,"\tsetAttr \".clam\" %i;\n", clam);
-
 	}
 	void setRepresentation(unsigned int rprt)
 	{
 		if(rprt == 3) return;
 		fprintf(mFile,"\tsetAttr \".rprt\" %i;\n", rprt);
-
 	}
 	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
-
 	}
 	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
-
 	}
 	void getColorSetName()const
 	{
 		fprintf(mFile,"\"%s.colos\"",mName.c_str());
-
 	}
 	void getClamped()const
 	{
 		fprintf(mFile,"\"%s.clam\"",mName.c_str());
-
 	}
 	void getRepresentation()const
 	{
 		fprintf(mFile,"\"%s.rprt\"",mName.c_str());
-
 	}
 protected:
 	CreateColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

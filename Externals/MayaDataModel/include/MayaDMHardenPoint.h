@@ -18,15 +18,16 @@ class HardenPoint : public AbstractBaseCreate
 {
 public:
 public:
+
 	HardenPoint():AbstractBaseCreate(){}
 	HardenPoint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "hardenPoint", create){}
 	virtual ~HardenPoint(){}
+
 	void setIndex(size_t i_i,int i_)
 	{
 		if(i_ == 0) return;
 		fprintf(mFile,"\tsetAttr \".i[%i]\" %i;\n", i_i,i_);
-
 	}
 	void setIndex(size_t i_start,size_t i_end,int* i_)
 	{
@@ -38,54 +39,44 @@ public:
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");
-
 	}
 	void startIndex(size_t i_start,size_t i_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
-
 	}
 	void appendIndex(int i)const
 	{
 		fprintf(mFile," %i",i);
-
 	}
 	void endIndex()const
 	{
 		fprintf(mFile,";\n");
-
 	}
 	void setMultiplicity(int m)
 	{
 		if(m == -1) return;
 		fprintf(mFile,"\tsetAttr \".m\" %i;\n", m);
-
 	}
 	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
-
 	}
 	void getIndex(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
-
 	}
 	void getIndex()const
 	{
 
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
-
 	}
 	void getMultiplicity()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
-
 	}
 	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
-
 	}
 protected:
 	HardenPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

@@ -18,31 +18,29 @@ class GlobalCacheControl : public DependNode
 {
 public:
 public:
+
 	GlobalCacheControl():DependNode(){}
 	GlobalCacheControl(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "globalCacheControl", create){}
 	virtual ~GlobalCacheControl(){}
+
 	void setEnableStatus(unsigned int ebls)
 	{
 		if(ebls == 0) return;
 		fprintf(mFile,"\tsetAttr \".ebls\" %i;\n", ebls);
-
 	}
 	void setWriteEnable(bool webl)
 	{
 		if(webl == false) return;
 		fprintf(mFile,"\tsetAttr \".webl\" %i;\n", webl);
-
 	}
 	void getEnableStatus()const
 	{
 		fprintf(mFile,"\"%s.ebls\"",mName.c_str());
-
 	}
 	void getWriteEnable()const
 	{
 		fprintf(mFile,"\"%s.webl\"",mName.c_str());
-
 	}
 protected:
 	GlobalCacheControl(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

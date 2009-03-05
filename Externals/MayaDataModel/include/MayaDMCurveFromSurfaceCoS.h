@@ -18,14 +18,15 @@ class CurveFromSurfaceCoS : public CurveFromSurface
 {
 public:
 public:
+
 	CurveFromSurfaceCoS():CurveFromSurface(){}
 	CurveFromSurfaceCoS(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:CurveFromSurface(file, name, parent, "curveFromSurfaceCoS", create){}
 	virtual ~CurveFromSurfaceCoS(){}
+
 	void getCurveOnSurface()const
 	{
 		fprintf(mFile,"\"%s.cos\"",mName.c_str());
-
 	}
 protected:
 	CurveFromSurfaceCoS(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

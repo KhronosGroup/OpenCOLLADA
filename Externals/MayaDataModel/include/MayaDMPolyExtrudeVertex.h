@@ -18,42 +18,38 @@ class PolyExtrudeVertex : public PolyModifierWorld
 {
 public:
 public:
+
 	PolyExtrudeVertex():PolyModifierWorld(){}
 	PolyExtrudeVertex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifierWorld(file, name, parent, "polyExtrudeVertex", create){}
 	virtual ~PolyExtrudeVertex(){}
+
 	void setLength(float l)
 	{
 		if(l == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".l\" %f;\n", l);
-
 	}
 	void setWidth(float w)
 	{
 		if(w == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
-
 	}
 	void setDivisions(int d)
 	{
 		if(d == 1) return;
 		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
-
 	}
 	void getLength()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
-
 	}
 	void getWidth()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
-
 	}
 	void getDivisions()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
-
 	}
 protected:
 	PolyExtrudeVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

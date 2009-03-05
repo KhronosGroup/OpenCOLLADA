@@ -17,10 +17,12 @@ namespace MayaDM
 class PolyMoveFacetUV : public PolyMoveUV
 {
 public:
+
 	PolyMoveFacetUV():PolyMoveUV(){}
 	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyMoveUV(file, name, parent, "polyMoveFacetUV", create){}
 	virtual ~PolyMoveFacetUV(){}
+
 protected:
 	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:PolyMoveUV(file, name, parent, nodeType, create) {}

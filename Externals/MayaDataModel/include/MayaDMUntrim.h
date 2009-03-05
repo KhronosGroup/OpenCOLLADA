@@ -18,30 +18,28 @@ class Untrim : public AbstractBaseCreate
 {
 public:
 public:
+
 	Untrim():AbstractBaseCreate(){}
 	Untrim(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:AbstractBaseCreate(file, name, parent, "untrim", create){}
 	virtual ~Untrim(){}
+
 	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
-
 	}
 	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
-
 	}
 	void getOutputCurve(size_t oc_i)const
 	{
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
-
 	}
 	void getOutputCurve()const
 	{
 
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
-
 	}
 protected:
 	Untrim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

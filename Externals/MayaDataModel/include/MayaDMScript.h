@@ -18,17 +18,18 @@ class Script : public DependNode
 {
 public:
 public:
+
 	Script():DependNode(){}
 	Script(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "script", create){}
 	virtual ~Script(){}
+
 	void setBefore(const string& b)
 	{
 		if(b == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".b\" -type \"string\" ");
 		b.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setAfter(const string& a)
 	{
@@ -36,28 +37,23 @@ public:
 		fprintf(mFile,"\tsetAttr \".a\" -type \"string\" ");
 		a.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setScriptType(unsigned int st)
 	{
 		if(st == 0) return;
 		fprintf(mFile,"\tsetAttr \".st\" %i;\n", st);
-
 	}
 	void getBefore()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
-
 	}
 	void getAfter()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
-
 	}
 	void getScriptType()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
-
 	}
 protected:
 	Script(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

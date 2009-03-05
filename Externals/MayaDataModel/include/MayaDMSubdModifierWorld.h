@@ -18,44 +18,40 @@ class SubdModifierWorld : public SubdModifier
 {
 public:
 public:
+
 	SubdModifierWorld():SubdModifier(){}
 	SubdModifierWorld(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:SubdModifier(file, name, parent, "subdModifierWorld", create){}
 	virtual ~SubdModifierWorld(){}
+
 	void setInputMatrix(const matrix& ix)
 	{
 		fprintf(mFile,"\tsetAttr \".ix\" -type \"matrix\" ");
 		ix.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void setWorldSpace(bool ws)
 	{
 		if(ws == false) return;
 		fprintf(mFile,"\tsetAttr \".ws\" %i;\n", ws);
-
 	}
 	void setManipMatrix(const matrix& mp)
 	{
 		fprintf(mFile,"\tsetAttr \".mp\" -type \"matrix\" ");
 		mp.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getInputMatrix()const
 	{
 		fprintf(mFile,"\"%s.ix\"",mName.c_str());
-
 	}
 	void getWorldSpace()const
 	{
 		fprintf(mFile,"\"%s.ws\"",mName.c_str());
-
 	}
 	void getManipMatrix()const
 	{
 		fprintf(mFile,"\"%s.mp\"",mName.c_str());
-
 	}
 protected:
 	SubdModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

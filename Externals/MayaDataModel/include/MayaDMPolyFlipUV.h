@@ -18,31 +18,29 @@ class PolyFlipUV : public PolyModifierUV
 {
 public:
 public:
+
 	PolyFlipUV():PolyModifierUV(){}
 	PolyFlipUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:PolyModifierUV(file, name, parent, "polyFlipUV", create){}
 	virtual ~PolyFlipUV(){}
+
 	void setFlipType(unsigned int ft)
 	{
 		if(ft == 0) return;
 		fprintf(mFile,"\tsetAttr \".ft\" %i;\n", ft);
-
 	}
 	void setLocal(bool l)
 	{
 		if(l == true) return;
 		fprintf(mFile,"\tsetAttr \".l\" %i;\n", l);
-
 	}
 	void getFlipType()const
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
-
 	}
 	void getLocal()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
-
 	}
 protected:
 	PolyFlipUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

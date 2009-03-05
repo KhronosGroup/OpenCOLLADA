@@ -18,25 +18,24 @@ class Container : public DependNode
 {
 public:
 public:
+
 	Container():DependNode(){}
 	Container(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:DependNode(file, name, parent, "container", create){}
 	virtual ~Container(){}
+
 	void setIsCollapsed(bool isc)
 	{
 		if(isc == false) return;
 		fprintf(mFile,"\tsetAttr \".isc\" %i;\n", isc);
-
 	}
 	void getHyperLayout()const
 	{
 		fprintf(mFile,"\"%s.hl\"",mName.c_str());
-
 	}
 	void getIsCollapsed()const
 	{
 		fprintf(mFile,"\"%s.isc\"",mName.c_str());
-
 	}
 protected:
 	Container(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)

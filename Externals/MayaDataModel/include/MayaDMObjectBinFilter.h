@@ -18,22 +18,22 @@ class ObjectBinFilter : public ObjectFilter
 {
 public:
 public:
+
 	ObjectBinFilter():ObjectFilter(){}
 	ObjectBinFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
 		:ObjectFilter(file, name, parent, "objectBinFilter", create){}
 	virtual ~ObjectBinFilter(){}
+
 	void setBinName(const string& bnam)
 	{
 		if(bnam == "NULL") return;
 		fprintf(mFile,"\tsetAttr \".bnam\" -type \"string\" ");
 		bnam.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
 	void getBinName()const
 	{
 		fprintf(mFile,"\"%s.bnam\"",mName.c_str());
-
 	}
 protected:
 	ObjectBinFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
