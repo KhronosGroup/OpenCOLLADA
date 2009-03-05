@@ -5,7 +5,6 @@ To build the COLLADAMaya plug-in, you need following installations:
 - 	Boost C++ libraries
 
 Supported versions of Autodesk Maya are:
--	Autodesk Maya 8.5
 -	Autodesk Maya 2008
 -	Autodesk Maya 2009
 
@@ -38,8 +37,6 @@ version. Following environment variables to your Maya location are supported:
 - MAYA_PATH2009_X64
 - MAYA_PATH2008
 - MAYA_PATH2008_X64
-- MAYA_PATH85
-- MAYA_PATH85_X64
 
 win32:
 -	"YOUR_MAYA_PATH" to your installation path of Autodesk Maya.
@@ -68,8 +65,6 @@ The solution configurations
 - DebugPlugin2009
 - ReleasePlugin2008
 - DebugPlugin2008
-- ReleasePlugin85 
-- DebugPlugin85
 will create a dynamic library called "COLLADAMaya.mll". The file 
 will be created in the output folder and copied into the folder 
 $(YOUR_MAYA_PATH)/bin/plug-ins of your Autodesk Maya installation.

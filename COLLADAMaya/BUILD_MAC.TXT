@@ -6,7 +6,6 @@ To build the COLLADAMaya plug-in, you need following installations:
 - 	libxml
 
 Supported versions of Autodesk Maya are:
--	Autodesk Maya 8.5
 -	Autodesk Maya 2008
 -	Autodesk Maya 2009
 
@@ -38,8 +37,6 @@ The solution configurations
 - Debug 2009
 - Release 2008
 - Debug 2008
-- Release 8.5
-- Debug 8.5
 will create a bundle called "COLLADAMaya.bundle". The file will be created in 
 the output folder under 
 ~project_dir/COLLADAMaya/build/Debug, respectively in 
