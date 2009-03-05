@@ -478,49 +478,49 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE0B3F4F0F56B194004F8570 /* COLLADABaseUtils */;
+			remoteGlobalIDString = CE0B3F4F0F56B194004F8570;
 			remoteInfo = COLLADABaseUtils;
 		};
 		CE7955350F5FFA220072ACF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE787C000F583FC80019C2D7 /* COLLADAFramework */;
+			remoteGlobalIDString = CE787C000F583FC80019C2D7;
 			remoteInfo = COLLADAFramework;
 		};
 		CE7955370F5FFA290072ACF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE787BCC0F583F350019C2D7 /* GeneratedSaxParser */;
+			remoteGlobalIDString = CE787BCC0F583F350019C2D7;
 			remoteInfo = GeneratedSaxParser;
 		};
 		CE7955390F5FFA410072ACF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE0B3F4F0F56B194004F8570 /* COLLADABaseUtils */;
+			remoteGlobalIDString = CE0B3F4F0F56B194004F8570;
 			remoteInfo = COLLADABaseUtils;
 		};
 		CE79553B0F5FFA6F0072ACF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE787C000F583FC80019C2D7 /* COLLADAFramework */;
+			remoteGlobalIDString = CE787C000F583FC80019C2D7;
 			remoteInfo = COLLADAFramework;
 		};
 		CE79553D0F5FFA730072ACF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE787BCC0F583F350019C2D7 /* GeneratedSaxParser */;
+			remoteGlobalIDString = CE787BCC0F583F350019C2D7;
 			remoteInfo = GeneratedSaxParser;
 		};
 		CE7955C80F6004760072ACF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CE787CFD0F5840830019C2D7 /* COLLADASaxFrameworkLoader */;
+			remoteGlobalIDString = CE787CFD0F5840830019C2D7;
 			remoteInfo = COLLADASaxFrameworkLoader;
 		};
 		CE7FF1390E9B986600B97D2A /* PBXContainerItemProxy */ = {
@@ -2672,6 +2672,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = GeneratedSaxParser;
@@ -2684,6 +2689,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = GeneratedSaxParser;
@@ -2720,6 +2730,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = COLLADAFramework;
@@ -2732,6 +2747,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = COLLADAFramework;
@@ -2768,6 +2788,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = COLLADASaxFrameworkLoader;
@@ -2780,6 +2805,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = COLLADASaxFrameworkLoader;
