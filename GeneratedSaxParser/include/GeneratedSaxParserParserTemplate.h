@@ -290,6 +290,7 @@ namespace GeneratedSaxParser
 			bool failed = false;
 
 			fragmentData = (this->*toDataWithPrefix)(mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, &dataBufferPos, bufferEnd, failed);
+			// TODO we need to copy the old mLastIncompleteFragmentInCharacterData into the new as well
 			mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
 			mLastIncompleteFragmentInCharacterData = 0;
             mEndOfDataInCurrentObjectOnStack;
@@ -310,27 +311,40 @@ namespace GeneratedSaxParser
 			dataBufferIndex = 1;
 		}
 
-		DataType* typedBuffer = (DataType*)mStackMemoryManager.newObject(TYPED_VALUES_BUFFER_SIZE * sizeof(DataType));
-
-		if ( dataBufferIndex > 0)
-			typedBuffer[0] = fragmentData;
-
-
-		bool failed = false;
-		while ( !failed )
+		// we only need to start the general parsing 
+		if ( dataBufferPos != bufferEnd )
 		{
-			lastDataBufferIndex = dataBufferPos;
-			DataType dataValue =toData(&dataBufferPos, bufferEnd, failed);
-			failed = failed | (dataBufferPos == bufferEnd);
-			if ( !failed )
+			DataType* typedBuffer = (DataType*)mStackMemoryManager.newObject(TYPED_VALUES_BUFFER_SIZE * sizeof(DataType));
+
+			if ( dataBufferIndex > 0)
+				typedBuffer[0] = fragmentData;
+
+
+			bool failed = false;
+			while ( !failed )
 			{
-				typedBuffer[dataBufferIndex] = dataValue;
-				++dataBufferIndex;
-				if ( dataBufferIndex == TYPED_VALUES_BUFFER_SIZE )
+				lastDataBufferIndex = dataBufferPos;
+				DataType dataValue =toData(&dataBufferPos, bufferEnd, failed);
+				failed = failed | (dataBufferPos == bufferEnd);
+				if ( !failed )
 				{
-					(mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
-					dataBufferIndex = 0;
+					typedBuffer[dataBufferIndex] = dataValue;
+					++dataBufferIndex;
+					if ( dataBufferIndex == TYPED_VALUES_BUFFER_SIZE )
+					{
+						(mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
+						dataBufferIndex = 0;
+					}
 				}
+			}
+			if ( dataBufferPos == bufferEnd )
+			{
+				// we reached the end of the buffer while parsing.
+				// we pass the already parsed typed values
+				// we need to store the not parsed fraction
+				if ( dataBufferIndex > 0)
+					(mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
+				mStackMemoryManager.deleteObject();
 			}
 		}
 
@@ -339,9 +353,6 @@ namespace GeneratedSaxParser
 			// we reached the end of the buffer while parsing.
 			// we pass the already parsed typed values
 			// we need to store the not parsed fraction
-			if ( dataBufferIndex > 0)
-				(mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
-			mStackMemoryManager.deleteObject();
 			size_t fragmentSize = (dataBufferPos - lastDataBufferIndex)*sizeof(ParserChar);
 			mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1);
 			memcpy(mLastIncompleteFragmentInCharacterData, lastDataBufferIndex, fragmentSize);
