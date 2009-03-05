@@ -406,18 +406,18 @@ namespace COLLADAMaya
 
         // Retrieve the data objects for the vertex list.
         MObject pointArrayData, componentListData;
-        CHECK_MSTATUS ( targetVertexListPlug.getValue ( pointArrayData ) );
+        CHECK_STATUS ( targetVertexListPlug.getValue ( pointArrayData ) );
         if ( pointArrayData.isNull() ) return ;
 
-        CHECK_MSTATUS ( targetComponentListPlug.getValue ( componentListData ) );
+        CHECK_STATUS ( targetComponentListPlug.getValue ( componentListData ) );
         if ( componentListData.isNull() ) return ;
 
-        MFnPointArrayData vlistFn ( pointArrayData, &status ); CHECK_MSTATUS ( status );
-        uint relativePointCount = vlistFn.length(&status); CHECK_MSTATUS ( status );
+        MFnPointArrayData vlistFn ( pointArrayData, &status ); CHECK_STATUS ( status );
+        uint relativePointCount = vlistFn.length(&status); CHECK_STATUS ( status );
         if ( relativePointCount == 0 ) return ;
 
-        MFnComponentListData componentListFn ( componentListData, &status ); CHECK_MSTATUS ( status );
-        uint componentCount = componentListFn.length ( &status ); CHECK_MSTATUS ( status );
+        MFnComponentListData componentListFn ( componentListData, &status ); CHECK_STATUS ( status );
+        uint componentCount = componentListFn.length ( &status ); CHECK_STATUS ( status );
         if ( componentCount == 0 ) return ;
 
 
@@ -918,7 +918,7 @@ namespace COLLADAMaya
 
         // Attach a function set to the controller node.
         MFnMesh fnMesh ( outputShape, &status );
-        CHECK_MSTATUS (status);
+        CHECK_STATUS (status);
 
         uint idx = clusterFn.indexForOutputShape(outputShape.node());
         if (idx == ~0u)
