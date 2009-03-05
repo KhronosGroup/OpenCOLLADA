@@ -499,7 +499,7 @@ namespace COLLADAMaya
         for ( uint i = 0; i < childCount; ++i )
         {
             MPlug child = parent.child ( i, &st );
-            CHECK_MSTATUS_AND_RETURN ( st, -1 );
+            CHECK_STATUS_AND_RETURN ( st, -1 );
 
             MFnAttribute attributeFn ( child.attribute() );
             MString n = attributeFn.shortName();
@@ -516,7 +516,7 @@ namespace COLLADAMaya
         for ( uint i = 0; i < childCount; ++i )
         {
             MPlug child = parent.child ( i, &st );
-            CHECK_MSTATUS_AND_RETURN ( st, -1 );
+            CHECK_STATUS_AND_RETURN ( st, -1 );
 
             MFnAttribute attributeFn ( child.attribute() );
             MString n = attributeFn.name();

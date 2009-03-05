@@ -45,7 +45,16 @@ namespace COLLADAMaya
 #define CHECK_STAT(X) \
     if ( (X) != MS::kSuccess) { \
     MGlobal::displayError ( status.errorString() ); \
-    }
+    }\
+
+//
+// Helper Macro
+//
+#define CHECK_STAT_AND_RETURN(rc) \
+    if ( (rc) != MS::kSuccess) { \
+    MGlobal::displayError ( rc.errorString() ); \
+    return (rc); \
+    }\
 
 //
 // Helper Macro
@@ -57,6 +66,15 @@ namespace COLLADAMaya
     return MObject::kNullObj;\
     }\
 
+//
+// Helper Macro
+//
+#define CHECK_STATUS_AND_RETURN(rc, retVal) \
+    if ((rc) != MStatus::kSuccess)\
+    {\
+    MGlobal::displayError ( rc.errorString() );\
+    return (retVal);\
+    }\
 
 //#ifndef max
 //#define max(a,b)            (((a) > (b)) ? (a) : (b))

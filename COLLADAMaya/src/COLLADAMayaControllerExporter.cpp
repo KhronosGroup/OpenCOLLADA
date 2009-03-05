@@ -932,7 +932,7 @@ namespace COLLADAMaya
                 MItDependencyGraph::kBreadthFirst,
                 MItDependencyGraph::kNodeLevel,
                 &status);
-            CHECK_STAT(status);
+            CHECK_STATUS_AND_RETURN(status, NULL);
             dgIt.disablePruningOnFilter();
 
             for (; ! dgIt.isDone(); dgIt.next())
