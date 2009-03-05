@@ -493,7 +493,7 @@ namespace COLLADAMaya
     {
         MStatus st;
         uint childCount = parent.numChildren ( &st );
-        CHECK_MSTATUS_AND_RETURN ( st, -1 );
+        CHECK_STATUS_AND_RETURN ( st, -1 );
 
         // Check shortNames first
         for ( uint i = 0; i < childCount; ++i )
