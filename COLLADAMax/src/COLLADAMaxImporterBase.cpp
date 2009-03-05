@@ -309,4 +309,11 @@ namespace COLLADAMax
 	{
 		return  mDocumentImporter->getVertexColorObjects();
 	}
+
+	//------------------------------
+	float ImporterBase::convertSpaceUnit( float originalValue )
+	{
+		return mDocumentImporter->convertSpaceUnit(originalValue);
+	}
+
 } // namespace COLLADAMax

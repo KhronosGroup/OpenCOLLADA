@@ -105,6 +105,38 @@ namespace COLLADAMax
 	bool DocumentImporter::writeGlobalAsset( const COLLADAFW::FileInfo* asset )
 	{
 		mFileInfo.absoluteFileUri = asset->getAbsoluteFileUri();
+
+		float systemUnitScale = 1.0f;
+
+		// Retrieve the system unit information
+		int systemUnitType = UNITS_CENTIMETERS;
+		GetMasterUnitInfo(&systemUnitType, &systemUnitScale);
+
+		switch (systemUnitType)
+		{
+		case UNITS_INCHES: 
+			systemUnitScale *= 0.0254f; 
+			break;
+		case UNITS_FEET: 
+			systemUnitScale *= 0.3048f; 
+			break;
+		case UNITS_MILES: 
+			systemUnitScale *= 1609.344f; 
+			break;
+		case UNITS_MILLIMETERS: 
+			systemUnitScale *= 0.001f; 
+			break;
+		case UNITS_CENTIMETERS: 
+			systemUnitScale *= 0.01f; 
+			break;
+		case UNITS_METERS: 
+			break;
+		case UNITS_KILOMETERS: 
+			systemUnitScale *= 1000.0f; 
+			break;
+		default: break;
+		}
+		mFileInfo.unitScale = (float)asset->getUnit().getLinearUnitMeter() / systemUnitScale;
 		return true;
 	}
 
@@ -162,6 +194,12 @@ namespace COLLADAMax
 	{
 		LightImporter lightImporter(this, light);
 		return lightImporter.import();
+	}
+
+	//---------------------------------------------------------------
+	float DocumentImporter::convertSpaceUnit( float originalValue )
+	{
+		return originalValue * mFileInfo.unitScale;
 	}
 
 } // namespace COLLADAMax

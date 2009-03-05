@@ -40,19 +40,19 @@ namespace COLLADAMax
 		column[ 0 ] = (float)original.getElement(0,0);
 		column[ 1 ] = (float)original.getElement(0,1);
 		column[ 2 ] = (float)original.getElement(0,2);
-		column[ 3 ] = (float)original.getElement(0,3);
+		column[ 3 ] = convertSpaceUnit((float)original.getElement(0,3));
 		copy.SetColumn(0, column);
 
 		column[ 0 ] = (float)original.getElement(1,0);
 		column[ 1 ] = (float)original.getElement(1,1);
 		column[ 2 ] = (float)original.getElement(1,2);
-		column[ 3 ] = (float)original.getElement(1,3);
+		column[ 3 ] = convertSpaceUnit((float)original.getElement(1,3));
 		copy.SetColumn(1, column);
 
 		column[ 0 ] = (float)original.getElement(2,0);
 		column[ 1 ] = (float)original.getElement(2,1);
 		column[ 2 ] = (float)original.getElement(2,2);
-		column[ 3 ] = (float)original.getElement(2,3);
+		column[ 3 ] = convertSpaceUnit((float)original.getElement(2,3));
 		copy.SetColumn(2, column);
 	}
 

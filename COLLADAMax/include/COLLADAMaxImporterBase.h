@@ -206,6 +206,9 @@ namespace COLLADAMax
 		/** Returns informations about the entire file being loaded.*/
 		const DocumentImporter::FileInfo& getFileInfo() const { return mDocumentImporter->getFileInfo(); }
 
+		/** Converts @a originalValue in units provided by file info to units currently set in max.*/
+		float convertSpaceUnit( float originalValue );
+
 	private:
 
         /** Disable default copy ctor. */

@@ -115,6 +115,7 @@ namespace COLLADAMax
 		struct FileInfo
 		{
 			COLLADABU::URI absoluteFileUri;
+			float unitScale;
 
 		};
 
@@ -229,6 +230,9 @@ namespace COLLADAMax
 
 		/** Adds @a ambientColor to the total ambient color.*/
 		void addAmbientColor( const COLLADAFW::Color& ambientColor);
+
+		/** Converts @a originalValue in units provided by file info to units currently set in max.*/
+		float convertSpaceUnit( float originalValue );
 
 		/** Deletes the entire scene.
 		@param errorMessage A message containing informations about the error that occurred.

@@ -46,7 +46,7 @@ namespace COLLADAMax
 
 	public:
 		/** Converts a COLLADAFW Matrix4 into a max Matrix3.*/
-		static void Matrix4ToMaxMatrix3 ( Matrix3 & copy,  const COLLADABU::Math::Matrix4& original  );
+		void Matrix4ToMaxMatrix3 ( Matrix3 & copy,  const COLLADABU::Math::Matrix4& original  );
 
 	protected:
 		void setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode);
