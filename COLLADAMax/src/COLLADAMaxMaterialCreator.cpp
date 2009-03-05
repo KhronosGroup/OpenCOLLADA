@@ -375,8 +375,6 @@ namespace COLLADAMax
 			material->SetSelfIllum( 0, 0 );
 		}
 
-
-		// TODO: handle opacity a bit smarter (evaluate opacity)
 		float opacity = 1;
 		const COLLADAFW::ColorOrTexture& opacityColorOrTexture = effectCommon.getOpacity();
 		if ( opacityColorOrTexture.isColor() )
@@ -385,8 +383,7 @@ namespace COLLADAMax
 			float averageTransparent = (float)(opacityColor.getRed() + opacityColor.getGreen() + opacityColor.getBlue())/3; 
 			opacity = averageTransparent;
 		}
-		// todo include and fix
-	//	material->SetOpacity( opacity, 0);
+		material->SetOpacity( opacity, 0);
 
 		if (shaderType != COLLADAFW::EffectCommon::SHADER_CONSTANT && shaderType != COLLADAFW::EffectCommon::SHADER_UNKNOWN)
 		{
