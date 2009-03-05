@@ -126,9 +126,9 @@ namespace COLLADAFW
         public:
 
             Unit ()
-                : mLinearUnitUnit ( METER )
-                , mLinearUnitName ( LINEAR_UNIT_METER_NAME )
-                , mLinearUnitMeter ( LINEAR_UNIT_METER )
+                : mLinearUnitUnit ( CENTIMETER )
+                , mLinearUnitName ( LINEAR_UNIT_CENTIMETER_NAME )
+                , mLinearUnitMeter ( LINEAR_UNIT_CENTIMETER )
                 , mAngularUnitName ( ANGULAR_UNIT_DEGREES_NAME )
                 , mAngularUnitUnit ( DEGREES )
                 , mTimeUnitName ( TIME_UNIT_FILM_NAME )

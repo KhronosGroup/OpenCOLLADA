@@ -68,7 +68,7 @@ namespace COLLADAMaya
         , mImageRead (false)
         , mNumDocumentParses (0)
         , mUpAxisType ( COLLADAFW::FileInfo::Y_UP )
-        , mLinearUnitMeter ( COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER )
+        , mLinearUnitMeter ( COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER )
     {
     }
 
@@ -364,8 +364,8 @@ namespace COLLADAMaya
         // Get the unit informations.
         const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
 
-        // Set the default value to meters.
-        String linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+        // Set the default value to centimeters.
+        String linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
         if ( ImportOptions::importUnits () )
         {
             linearUnitName = unit.getLinearUnitName ();
@@ -384,6 +384,7 @@ namespace COLLADAMaya
                 }
             case COLLADAFW::FileInfo::Unit::METER:
                 {
+                    // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
                     mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
                     break;
@@ -432,9 +433,9 @@ namespace COLLADAMaya
                 }
             default:
                 {
-                    // Set to meters
-                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
+                    // Set to centimeters
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
+                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
                     break;
                 }
             }

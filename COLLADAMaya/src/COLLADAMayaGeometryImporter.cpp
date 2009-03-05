@@ -530,17 +530,17 @@ namespace COLLADAMaya
                 case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
                     {
                         const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
-                        meshNode.appendNormals ( (*values)[pos] );
-                        meshNode.appendNormals ( (*values)[pos+1] );
-                        meshNode.appendNormals ( (*values)[pos+2] );
+                        meshNode.appendNormals ( toLinearUnit((*values)[pos]) );
+                        meshNode.appendNormals ( toLinearUnit((*values)[pos+1]) );
+                        meshNode.appendNormals ( toLinearUnit((*values)[pos+2]) );
                     }
                     break;
                 case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
                     {
                         const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
-                        meshNode.appendNormals ( (float)(*values)[pos] );
-                        meshNode.appendNormals ( (float)(*values)[pos+1] );
-                        meshNode.appendNormals ( (float)(*values)[pos+2] );
+                        meshNode.appendNormals ( (float)toLinearUnit((*values)[pos]) );
+                        meshNode.appendNormals ( (float)toLinearUnit((*values)[pos+1]) );
+                        meshNode.appendNormals ( (float)toLinearUnit((*values)[pos+2]) );
                     }
                     break;
                 default:
