@@ -73,7 +73,7 @@ namespace COLLADAMaya
         const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
         void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }
     };
-    typedef std::map<GeometryBinding, std::vector<MaterialInfo>> GeometryBindingMaterialInfosMap;
+    typedef std::map< GeometryBinding, std::vector<MaterialInfo> > GeometryBindingMaterialInfosMap;
 
 
 

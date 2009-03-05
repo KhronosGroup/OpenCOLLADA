@@ -108,12 +108,12 @@ namespace COLLADAMaya
 
     public:
 
-        typedef std::map<COLLADAFW::UniqueId, std::vector<ShaderNodeAttribute>> UniqueIdShaderNodesMap;
+        typedef std::map< COLLADAFW::UniqueId, std::vector<ShaderNodeAttribute> > UniqueIdShaderNodesMap;
 
-        typedef std::map<COLLADAFW::UniqueId, MayaDM::Lambert*> UniqueIdLambertMap;
+        typedef std::map< COLLADAFW::UniqueId, MayaDM::Lambert* > UniqueIdLambertMap;
 
         typedef std::vector<SamplerInfo> SamplerInfos;
-        typedef std::map<COLLADAFW::UniqueId, SamplerInfos> UniqueIdSamplerInfosMap;
+        typedef std::map< COLLADAFW::UniqueId, SamplerInfos > UniqueIdSamplerInfosMap;
 
     private:
 

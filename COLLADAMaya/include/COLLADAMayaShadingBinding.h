@@ -59,7 +59,7 @@ namespace COLLADAMaya
     /** 
     * The material binding per primitive element for a geometry, transform node and shading engine. 
     */
-    typedef std::map<ShadingBinding, std::vector<COLLADAFW::UniqueId>> ShadingBindingMaterialMap;
+    typedef std::map< ShadingBinding, std::vector<COLLADAFW::UniqueId> > ShadingBindingMaterialMap;
 
 
     class GroupInfo
@@ -104,7 +104,7 @@ namespace COLLADAMaya
     /**
     * The group binding per primitive element for a geometry, transform node and shading engine. 
     */
-    typedef std::map<ShadingBinding, std::vector<GroupInfo>> ShadingBindingGroupInfoMap;
+    typedef std::map< ShadingBinding, std::vector<GroupInfo> > ShadingBindingGroupInfoMap;
 
 
 } // namespace COLLADAMAYA

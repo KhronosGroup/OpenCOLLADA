@@ -49,9 +49,9 @@ namespace COLLADAMaya
 
         /**
          * Returns the rotation vector (2x3 matrix).
-         * @return std::vector< std::vector<double>>&
+         * @return std::vector< std::vector<double> >&
          */
-        std::vector < std::vector < double > >& getRotationMatrix ()
+        std::vector < std::vector<double> >& getRotationMatrix ()
         {
             return rotationMatrix;
         }
