@@ -470,9 +470,6 @@ namespace COLLADAMaya
             String scriptValue = "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \\\""                 + upAxis + "\\\") { upAxis -ax \\\"" + upAxis + "\\\"; viewSet -home persp; }"; // -rv
             scriptNode.setBefore ( scriptValue );
             scriptNode.setScriptType ( 2 );
-
-            // Set the conversion to y, so no data will be changed...
-            mUpAxisType = COLLADAFW::FileInfo::Y_UP;
         }
 
 //         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
