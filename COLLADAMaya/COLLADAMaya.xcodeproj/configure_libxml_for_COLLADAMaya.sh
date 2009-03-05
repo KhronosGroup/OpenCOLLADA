@@ -1,0 +1,34 @@
+#!/bin/bash
+/bin/bash ./configure \
+--prefix=$HOME \
+--disable-shared \
+--with-push \
+--with-sax1 \
+--with-minimum \
+--without-tree \
+--without-output \
+--without-reader \
+--without-pattern \
+--without-writer \
+--without-http \
+--without-ftp \
+--without-valid \
+--without-html \
+--without-legacy \
+--without-c14n \
+--without-catalog \
+--without-docbook \
+--without-xpath \
+--without-xptr \
+--without-xinclude \
+--without-iconv \
+--without-iso8859x \
+--without-debug \
+--without-mem-debug \
+--without-run-debug \
+--without-regexps \
+--without-schemas \
+--without-schematron \
+--without-modules \
+--without-zlib
+

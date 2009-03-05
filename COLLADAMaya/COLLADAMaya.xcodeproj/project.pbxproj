@@ -387,7 +387,6 @@
 		CE787D870F5840B20019C2D7 /* COLLADASaxFWLSaxParserErrorHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE787D6C0F5840B20019C2D7 /* COLLADASaxFWLSaxParserErrorHandler.cpp */; };
 		CE787D880F5840B20019C2D7 /* COLLADASaxFWLSourceArrayLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE787D6D0F5840B20019C2D7 /* COLLADASaxFWLSourceArrayLoader.cpp */; };
 		CE787D890F5840B20019C2D7 /* COLLADASaxFWLVisualSceneLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE787D6E0F5840B20019C2D7 /* COLLADASaxFWLVisualSceneLoader.cpp */; };
-		CE787F4E0F5857610019C2D7 /* libxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE787F4D0F5857610019C2D7 /* libxml2.a */; };
 		CE7952710F5FC5400072ACF3 /* COLLADABUHashFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE79526A0F5FC5400072ACF3 /* COLLADABUHashFunctions.cpp */; };
 		CE7952720F5FC5400072ACF3 /* COLLADABUIDList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE79526B0F5FC5400072ACF3 /* COLLADABUIDList.cpp */; };
 		CE7952730F5FC5400072ACF3 /* COLLADABUNativeString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE79526C0F5FC5400072ACF3 /* COLLADABUNativeString.cpp */; };
@@ -919,7 +918,6 @@
 		CE787D6C0F5840B20019C2D7 /* COLLADASaxFWLSaxParserErrorHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLSaxParserErrorHandler.cpp; path = ../COLLADASaxFrameworkLoader/src/COLLADASaxFWLSaxParserErrorHandler.cpp; sourceTree = SOURCE_ROOT; };
 		CE787D6D0F5840B20019C2D7 /* COLLADASaxFWLSourceArrayLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLSourceArrayLoader.cpp; path = ../COLLADASaxFrameworkLoader/src/COLLADASaxFWLSourceArrayLoader.cpp; sourceTree = SOURCE_ROOT; };
 		CE787D6E0F5840B20019C2D7 /* COLLADASaxFWLVisualSceneLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLVisualSceneLoader.cpp; path = ../COLLADASaxFrameworkLoader/src/COLLADASaxFWLVisualSceneLoader.cpp; sourceTree = SOURCE_ROOT; };
-		CE787F4D0F5857610019C2D7 /* libxml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxml2.a; path = /usr/local/lib/libxml2.a; sourceTree = "<absolute>"; };
 		CE79526A0F5FC5400072ACF3 /* COLLADABUHashFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADABUHashFunctions.cpp; path = ../COLLADABaseUtils/src/COLLADABUHashFunctions.cpp; sourceTree = SOURCE_ROOT; };
 		CE79526B0F5FC5400072ACF3 /* COLLADABUIDList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADABUIDList.cpp; path = ../COLLADABaseUtils/src/COLLADABUIDList.cpp; sourceTree = SOURCE_ROOT; };
 		CE79526C0F5FC5400072ACF3 /* COLLADABUNativeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADABUNativeString.cpp; path = ../COLLADABaseUtils/src/COLLADABUNativeString.cpp; sourceTree = SOURCE_ROOT; };
@@ -1038,7 +1036,6 @@
 				CE0B3F2D0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a in Frameworks */,
 				CE0B3F2F0F56B07D004F8570 /* libboost_regex-xgcc40-mt.a in Frameworks */,
 				CE0B3F310F56B096004F8570 /* libboost_system-xgcc40-mt.a in Frameworks */,
-				CE787F4E0F5857610019C2D7 /* libxml2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,7 +1058,6 @@
 		0867D691FE84028FC02AAC07 /* COLLADAMaya */ = {
 			isa = PBXGroup;
 			children = (
-				CE787F4D0F5857610019C2D7 /* libxml2.a */,
 				CE0B3F300F56B096004F8570 /* libboost_system-xgcc40-mt.a */,
 				CE0B3F2E0F56B07D004F8570 /* libboost_regex-xgcc40-mt.a */,
 				CE0B3F2C0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a */,
@@ -2453,15 +2449,18 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/include/libxml2/,
 					"/usr/local/include/boost-1_36",
 					"$(MAYA_PATH2008)/devkit/include/",
 					../COLLADABaseUtils/include/,
+					"$(HOME)/include/libxml2",
 				);
-				LIBRARY_SEARCH_PATHS = "$(MAYA_PATH2008)/Maya.app/Contents/MacOS";
+				LIBRARY_SEARCH_PATHS = (
+					"$(HOME)/lib",
+					"$(MAYA_PATH2008)/Maya.app/Contents/MacOS",
+				);
 				LIBRARY_STYLE = BUNDLE;
 				MAYA_PATH2008 = /Applications/Autodesk/maya2008;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = YES;
 				SDKROOT = macosx10.5;
 			};
@@ -2923,15 +2922,18 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/include/libxml2/,
 					"/usr/local/include/boost-1_36",
 					"$(MAYA_PATH2008)/devkit/include/",
 					../COLLADABaseUtils/include/,
+					"$(HOME)/include/libxml2",
 				);
-				LIBRARY_SEARCH_PATHS = "$(MAYA_PATH2008)/Maya.app/Contents/MacOS";
+				LIBRARY_SEARCH_PATHS = (
+					"$(HOME)/lib",
+					"$(MAYA_PATH2008)/Maya.app/Contents/MacOS",
+				);
 				LIBRARY_STYLE = BUNDLE;
 				MAYA_PATH2008 = /Applications/Autodesk/maya2008;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = YES;
 				SDKROOT = macosx10.5;
 			};
