@@ -1073,6 +1073,7 @@ namespace COLLADAMax
 
             BMMGetFullFilename ( &bitmapInfo );
             NativeString fullNativeFileName  = NativeString(bitmapInfo.Name());
+			fullFileName = fullNativeFileName;
 			COLLADABU::URI fullFileNameURI = URI::nativePathToUri( fullNativeFileName.toUtf8String() );
 			if ( fullFileNameURI.getScheme().empty() )
 				fullFileNameURI.setScheme(COLLADASW::URI::SCHEME_FILE);
