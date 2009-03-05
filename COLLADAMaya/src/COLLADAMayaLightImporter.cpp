@@ -13,7 +13,7 @@
 #include "COLLADAMayaVisualSceneImporter.h"
 #include "COLLADAMayaMaterialImporter.h"
 
-#include "math\COLLADABUMathUtils.h"
+#include "math/COLLADABUMathUtils.h"
 
 #include "COLLADAFWLight.h"
 

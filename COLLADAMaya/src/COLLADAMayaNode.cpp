@@ -22,14 +22,18 @@ namespace COLLADAMaya
 {
 
     // -----------------------------
-    MayaNode::MayaNode () : mParent (0), mName (""), mPath (""), mIsCorrectPositioned (true)
+    MayaNode::MayaNode () 
+        : mParent (0)
+        , mName ("")
+        , mPath ("")
+        , mIsCorrectPositioned (true)
     {
 
     }
 
     // -----------------------------
     MayaNode::MayaNode ( 
-        const COLLADAFW::UniqueId uniqueId, 
+        const COLLADAFW::UniqueId& uniqueId, 
         const String name, 
         MayaNode* parent /*= NULL*/, 
         const bool isCorrectPositioned/*=true */ ) 

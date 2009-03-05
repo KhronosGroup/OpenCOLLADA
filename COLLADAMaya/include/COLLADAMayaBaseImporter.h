@@ -39,7 +39,7 @@ namespace COLLADAMaya
         typedef std::map<COLLADAFW::UniqueId, COLLADAFW::UniqueId> UniqueIdUniqueIdMap;
         typedef std::map<COLLADAFW::UniqueId, String> UniqueIdNamesMap;
 
-        typedef std::vector<const COLLADAFW::UniqueId> UniqueIdVec;
+        typedef std::vector<COLLADAFW::UniqueId> UniqueIdVec;
         typedef std::map<COLLADAFW::UniqueId, UniqueIdVec> UniqueIdUniqueIdsMap;
 
         typedef std::vector<MayaNode*> MayaNodesList;

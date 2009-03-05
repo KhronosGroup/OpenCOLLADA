@@ -48,7 +48,7 @@ namespace COLLADAMaya
          * Copy the uniqueId!
          */
         MayaNode ( 
-            const COLLADAFW::UniqueId uniqueId, 
+            const COLLADAFW::UniqueId& uniqueId, 
             const String name, 
             MayaNode* parent = NULL, 
             const bool isCorrectPositioned=true );

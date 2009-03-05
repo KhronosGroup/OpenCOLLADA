@@ -154,10 +154,10 @@ namespace COLLADAMaya
         mLocale = setlocale ( LC_NUMERIC, 0 );
         setlocale ( LC_NUMERIC, "C" );
 
-        errno_t err = fopen_s ( &mFile, mayaAsciiFileName.c_str (), "w+" );
-        if ( err != 0 ) 
+        mFile = fopen ( mayaAsciiFileName.c_str (), "w+" );
+        if ( mFile == 0 ) 
         {
-            std::cerr << "Can't open maya ascii file! " << endl; 
+            MGlobal::displayError ( "Can't open maya ascii file!\n" );
             return false;
         }
 
@@ -345,7 +345,7 @@ namespace COLLADAMaya
 
         // The maya version
         String mayaVersion ( MGlobal::mayaVersion ().asChar () );
-        fprintf_s ( mFile, "//Maya ASCII %s scene\n", mayaVersion.c_str () );
+        fprintf ( mFile, "//Maya ASCII %s scene\n", mayaVersion.c_str () );
 
         // We have to change the name on 64 bit machines. 
         // For example from "2008 x64" to "2008" (64bit Maya doesn't understand it's own version).
@@ -354,11 +354,11 @@ namespace COLLADAMaya
         COLLADABU::Utils::split ( mayaVersion, separator, words );
         if ( words.size () == 2 && COLLADABU::Utils::equalsIgnoreCase ( words[1], "x64") ) 
         {
-            fprintf_s ( mFile, "requires maya \"%s\";\n", words[0].c_str () );
+            fprintf ( mFile, "requires maya \"%s\";\n", words[0].c_str () );
         }
         else
         {
-            fprintf_s ( mFile, "requires maya \"%s\";\n", mayaVersion.c_str () );
+            fprintf ( mFile, "requires maya \"%s\";\n", mayaVersion.c_str () );
         }
 
         // Get the unit informations.
@@ -441,7 +441,7 @@ namespace COLLADAMaya
             }
         }
 
-        fprintf_s ( mFile, "currentUnit -l %s -a %s -t %s;\n", 
+        fprintf ( mFile, "currentUnit -l %s -a %s -t %s;\n", 
             linearUnitName.c_str (), unit.getAngularUnitName ().c_str (), unit.getTimeUnitName ().c_str () );
 
         if ( ImportOptions::importUpAxis () )
@@ -494,14 +494,14 @@ namespace COLLADAMaya
         }
 
 //         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
-//         fprintf_s ( mFile, "fileInfo \"application\" \"%s\";\n", application.c_str () );
+//         fprintf ( mFile, "fileInfo \"application\" \"%s\";\n", application.c_str () );
 //         String product ( MGlobal::executeCommandStringResult ( "about -product" ).asChar () );
-//         fprintf_s ( mFile, "fileInfo \"product\" \"%s\";\n", product.c_str () );
-//         fprintf_s ( mFile, "fileInfo \"version\" \"%s\";\n", mayaVersion.c_str () );
+//         fprintf ( mFile, "fileInfo \"product\" \"%s\";\n", product.c_str () );
+//         fprintf ( mFile, "fileInfo \"version\" \"%s\";\n", mayaVersion.c_str () );
 //         String cutIdentifier ( MGlobal::executeCommandStringResult ( "product -cutIdentifier" ).asChar () );
-//         fprintf_s ( mFile, "fileInfo \"cutIdentifier\" \"%s\";\n", cutIdentifier.c_str () );
+//         fprintf ( mFile, "fileInfo \"cutIdentifier\" \"%s\";\n", cutIdentifier.c_str () );
 //         String operatingSystemVersion ( MGlobal::executeCommandStringResult ( "product -operatingSystemVersion" ).asChar () );
-//         fprintf_s ( mFile, "fileInfo \"osv\" \"%s\";\n", operatingSystemVersion.c_str () );
+//         fprintf ( mFile, "fileInfo \"osv\" \"%s\";\n", operatingSystemVersion.c_str () );
 
         mAssetWritten = true;
 
