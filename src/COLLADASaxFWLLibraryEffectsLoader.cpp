@@ -573,6 +573,86 @@ namespace COLLADASaxFWL
 	}
 
     //------------------------------
+    bool LibraryEffectsLoader::begin__constant__transparent ( const transparent__AttributeData& attributeData )
+    {
+        fx_opaque_enum opaque = attributeData.opaque;
+        switch ( opaque )
+        {
+        case fx_opaque_enum__A_ONE:
+            mOpaqueMode = A_ONE;
+            break;
+        case fx_opaque_enum__RGB_ZERO:
+            mOpaqueMode = RGB_ZERO;
+            break;
+        default:
+            mOpaqueMode = UNSPECIFIED_OPAQUE;
+            break;
+        }
+
+        return true;
+    }
+
+    //------------------------------
+    bool LibraryEffectsLoader::begin__lambert__transparent ( const transparent__AttributeData& attributeData )
+    {
+        fx_opaque_enum opaque = attributeData.opaque;
+        switch ( opaque )
+        {
+        case fx_opaque_enum__A_ONE:
+            mOpaqueMode = A_ONE;
+            break;
+        case fx_opaque_enum__RGB_ZERO:
+            mOpaqueMode = RGB_ZERO;
+            break;
+        default:
+            mOpaqueMode = UNSPECIFIED_OPAQUE;
+            break;
+        }
+
+        return true;
+    }
+
+    //------------------------------
+    bool LibraryEffectsLoader::begin__phong__transparent ( const transparent__AttributeData& attributeData )
+    {
+        fx_opaque_enum opaque = attributeData.opaque;
+        switch ( opaque )
+        {
+        case fx_opaque_enum__A_ONE:
+            mOpaqueMode = A_ONE;
+            break;
+        case fx_opaque_enum__RGB_ZERO:
+            mOpaqueMode = RGB_ZERO;
+            break;
+        default:
+            mOpaqueMode = UNSPECIFIED_OPAQUE;
+            break;
+        }
+
+        return true;
+    }
+
+    //------------------------------
+    bool LibraryEffectsLoader::begin__blinn__transparent ( const transparent__AttributeData& attributeData )
+    {
+        fx_opaque_enum opaque = attributeData.opaque;
+        switch ( opaque )
+        {
+        case fx_opaque_enum__A_ONE:
+            mOpaqueMode = A_ONE;
+            break;
+        case fx_opaque_enum__RGB_ZERO:
+            mOpaqueMode = RGB_ZERO;
+            break;
+        default:
+            mOpaqueMode = UNSPECIFIED_OPAQUE;
+            break;
+        }
+
+        return true;
+    }
+
+    //------------------------------
     void LibraryEffectsLoader::calculateOpacity ()
     {
         // If we have already a texture as opacity, we don't need to calculate the opacity color.

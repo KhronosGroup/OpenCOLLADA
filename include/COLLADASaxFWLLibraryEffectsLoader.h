@@ -88,7 +88,7 @@ namespace COLLADASaxFWL
         * There is a transparent color and a transparency value with an opaque mode in collada.
         * We have to calculate with this the opaque color for the framework.
         */
-        enum Opaque
+        enum OpaqueMode
         {
             UNSPECIFIED_OPAQUE,
             A_ONE,
@@ -118,7 +118,7 @@ namespace COLLADASaxFWL
         * There is a transparent color and a transparency value with an opaque mode in collada.
         * We have to calculate with this the opaque color for the framework.
         */
-        Opaque mOpaqueMode;
+        OpaqueMode mOpaqueMode;
 
 		/** The current profile.*/
 		Profile mCurrentProfile;
@@ -257,7 +257,6 @@ namespace COLLADASaxFWL
 		virtual bool end__phong__reflective(){return true;}
 		virtual bool begin__phong__reflectivity(){return true;}
 		virtual bool end__phong__reflectivity(){return true;}
-		virtual bool begin__phong__transparent( const transparent__AttributeData& attributeData ){return true;}
 		virtual bool end__phong__transparent(){return true;}
 		virtual bool begin__phong__transparency(){return true;}
 		virtual bool end__phong__transparency(){return true;}
@@ -331,6 +330,15 @@ namespace COLLADASaxFWL
 		virtual bool begin__reflective__texture( const texture__AttributeData& attributeData );
 		/** We don't need to do anything here.*/
 		virtual bool end__reflective__texture(){return true;}
+
+        /** Stores the opaque mode attribute. */
+        virtual bool begin__constant__transparent( const transparent__AttributeData& attributeData );
+        /** Stores the opaque mode attribute. */
+        virtual bool begin__lambert__transparent( const transparent__AttributeData& attributeData );
+        /** Stores the opaque mode attribute. */
+        virtual bool begin__phong__transparent( const transparent__AttributeData& attributeData );
+        /** Stores the opaque mode attribute. */
+        virtual bool begin__blinn__transparent( const transparent__AttributeData& attributeData );
 
 		/** Sets the shader parameter type.*/
 		virtual bool begin__transparent__color( const transparent__color__AttributeData& attributeData );
