@@ -215,8 +215,8 @@ namespace COLLADAMax
 		setNodeProperties(node, newImportNode);
 		INode* newNode = newImportNode->GetINode();
 
-		Instance* instanceGeometry = instances[0];
-		const COLLADAFW::UniqueId& uniqueId = instanceGeometry->getInstanciatedObjectId();
+		Instance* instance = instances[0];
+		const COLLADAFW::UniqueId& uniqueId = instance->getInstanciatedObjectId();
 
 		Object* object = getObjectByUniqueId(uniqueId);
 		if ( object )
@@ -232,7 +232,7 @@ namespace COLLADAMax
 			newImportNode->Reference( getDummyObject() );
 		}
 
-		const COLLADAFW::UniqueId& instanceGeometryUniqueId = instanceGeometry->getInstanciatedObjectId();
+		const COLLADAFW::UniqueId& instanceGeometryUniqueId = instance->getInstanciatedObjectId();
 		// Store mapping between unique ids and nodes referencing the corresponding object.
 		// Used to clone nodes
 		addObjectINodeUniqueIdPair(newNode, instanceGeometryUniqueId);
@@ -243,7 +243,7 @@ namespace COLLADAMax
 
 		// post process the creation
 		if ( postProcess )
-			(this->*postProcess)(newNode, instanceGeometry);
+			(this->*postProcess)(newNode, instance);
 
 		return newImportNode;
 	}
