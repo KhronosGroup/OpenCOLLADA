@@ -18,6 +18,7 @@ namespace COLLADAMax
 		static const String OTHERMESSAGE1;
 		static const String OTHERMESSAGE2;
 
+		static const String PLUGIN_VERSION_STRING;
 		static const String REVISION_STRING;
 		static const String PLATFORM_STRING;
 		static const String CONFIGURATION_STRING;
