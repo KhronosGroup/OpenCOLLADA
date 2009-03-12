@@ -183,6 +183,8 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_TRANSPARENCY = "transparency";
     const String CSWC::CSW_ELEMENT_TRANSPARENT = "transparent";
     const String CSWC::CSW_ELEMENT_TRIANGLES = "triangles";
+	const String CSWC::CSW_ELEMENT_TRIFANS = "trifans";
+	const String CSWC::CSW_ELEMENT_TRISTRIPS = "tristrips";
     const String CSWC::CSW_ELEMENT_UNIT = "unit";
     const String CSWC::CSW_ELEMENT_UP_AXIS = "up_axis";
     const String CSWC::CSW_ELEMENT_V = "v";

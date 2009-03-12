@@ -192,6 +192,8 @@ namespace COLLADASW
         static const String CSW_ELEMENT_TRANSPARENCY;
         static const String CSW_ELEMENT_TRANSPARENT;
         static const String CSW_ELEMENT_TRIANGLES;
+		static const String CSW_ELEMENT_TRIFANS;
+		static const String CSW_ELEMENT_TRISTRIPS;
         static const String CSW_ELEMENT_UNIT;
         static const String CSW_ELEMENT_UP_AXIS;
         static const String CSW_ELEMENT_V;
