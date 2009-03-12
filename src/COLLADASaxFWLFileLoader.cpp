@@ -46,7 +46,6 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	FileLoader::~FileLoader()
 	{
-		deleteFilePartLoader();
 	}
 
 	//-----------------------------

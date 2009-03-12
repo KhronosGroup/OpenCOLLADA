@@ -49,10 +49,14 @@ namespace COLLADASaxFWL
     public:
 
         /** Constructor. */
-        Vertices () {}
+        Vertices ()  : mInputArray(InputUnsharedArray::OWNER) {}
 
         /** Destructor. */
-        virtual ~Vertices () {}
+		virtual ~Vertices ()
+		{
+			for ( size_t i = 0, count = mInputArray.getCount(); i < count; ++i)
+				delete mInputArray[i];
+		}
 
         /** 
         * A text string containing the unique identifier of the element. 

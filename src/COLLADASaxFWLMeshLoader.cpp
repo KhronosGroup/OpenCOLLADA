@@ -40,6 +40,7 @@ namespace COLLADASaxFWL
 		, mCurrentPhHasEmptyP(true)
 		, mCurrentExpectedVertexCount(0)
 		, mCurrentFaceCount(0)
+		, mCurrentCOLLADAPrimitiveCount(0)
         , mCurrentOffset (0)
 		, mPositionsOffset (0)
 		, mPositionsIndexOffset(0)
@@ -171,9 +172,14 @@ namespace COLLADASaxFWL
                 // Push the new positions into the list of positions.
                 positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT );
                 if ( initialIndex != 0 ) 
+				{
 					positions.appendValues ( valuesArray );
-                else 
+				}
+                else
+				{
 					positions.setData ( valuesArray.getData (), valuesArray.getCount () );
+					valuesArray.yieldOwnerShip();
+				}
 
                 // Set the source base as loaded element.
                 sourceBase->setIsLoaded ( true );
@@ -195,8 +201,15 @@ namespace COLLADASaxFWL
 
                 // Push the new positions into the list of positions.
                 positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE );
-                if ( initialIndex != 0 ) positions.appendValues ( valuesArray );
-                else positions.setData ( valuesArray.getData (), valuesArray.getCount () );
+                if ( initialIndex != 0 ) 
+				{
+					positions.appendValues ( valuesArray );
+				}
+                else 
+				{
+					positions.setData ( valuesArray.getData (), valuesArray.getCount () );
+					valuesArray.yieldOwnerShip();
+				}
                 
                 // Set the source base as loaded element.
                 sourceBase->setIsLoaded ( true );
@@ -249,8 +262,15 @@ namespace COLLADASaxFWL
 
                 // Push the new positions into the list of positions.
                 normals.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT );
-                if ( initialIndex != 0 ) normals.appendValues ( valuesArray );
-                else normals.setData ( valuesArray.getData (), valuesArray.getCount () );
+                if ( initialIndex != 0 ) 
+				{
+					normals.appendValues ( valuesArray );
+				}
+                else 
+				{
+					normals.setData ( valuesArray.getData (), valuesArray.getCount () );
+					valuesArray.yieldOwnerShip();
+				}
 
                 // Set the source base as loaded element.
                 sourceBase->setIsLoaded ( true );
@@ -272,8 +292,15 @@ namespace COLLADASaxFWL
 
                 // Push the new positions into the list of positions.
                 normals.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE );
-                if ( initialIndex != 0 ) normals.appendValues ( valuesArray );
-                else normals.setData ( valuesArray.getData (), valuesArray.getCount () );
+                if ( initialIndex != 0 ) 
+				{
+					normals.appendValues ( valuesArray );
+				}
+                else 
+				{ 
+					normals.setData ( valuesArray.getData (), valuesArray.getCount () );
+					valuesArray.yieldOwnerShip();
+				}
 
                 // Set the source base as loaded element.
                 sourceBase->setIsLoaded ( true );
@@ -742,6 +769,7 @@ namespace COLLADASaxFWL
 	{
 		if ( attributeData.material )
 			mCurrentMeshMaterial = attributeData.material;
+		mCurrentCOLLADAPrimitiveCount = (size_t)attributeData.count;
 		return true;
 	}
 
@@ -781,6 +809,15 @@ namespace COLLADASaxFWL
 		loadSourceElements(mMeshPrimitiveInputs);
 		initializeOffsets();
 		mCurrentMeshPrimitive = new COLLADAFW::Triangles();
+		if ( mCurrentCOLLADAPrimitiveCount > 0)
+		{
+			mCurrentMeshPrimitive->getPositionIndices().reallocMemory(mCurrentCOLLADAPrimitiveCount);
+			if ( mUseNormals )
+			{
+				mCurrentMeshPrimitive->getNormalIndices().reallocMemory(mCurrentCOLLADAPrimitiveCount);
+			}
+			// TODO pre-alloc memory for uv indices
+		}
 		mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(mCurrentMeshMaterial));
 		return true;
 	}
