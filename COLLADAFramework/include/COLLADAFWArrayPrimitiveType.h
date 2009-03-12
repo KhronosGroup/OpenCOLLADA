@@ -253,6 +253,12 @@ namespace COLLADAFW
 		}
 
 
+		/** Yield the owner ship of data to some else. The date will not be deleted by this array.*/
+		void yieldOwnerShip()
+		{
+			mFlags &= ~OWNER;
+		}
+
 		/** Disable default copy ctor. */
 		ArrayPrimitiveType ( const ArrayPrimitiveType<Type>& pre );
 

@@ -113,6 +113,9 @@ namespace COLLADASaxFWL
 		using the values above. (for collada polygons).*/
 		size_t mCurrentFaceCount;
 
+		/** The value of the count attribute in the COLLADA primitive. Might be used to pre-alloc memory.*/
+		size_t mCurrentCOLLADAPrimitiveCount;
+
         // Variables for the offsets of the index input elements.
         unsigned long long mPositionsOffset; 
 		unsigned int mPositionsIndexOffset; 

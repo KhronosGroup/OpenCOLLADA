@@ -12,7 +12,7 @@
 #define __COLLADAFW_ASSET_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWArrayPrimitiveType.h"
+#include "COLLADAFWPointerArray.h"
 
 #include "COLLADABUURI.h"
 
@@ -32,7 +32,7 @@ namespace COLLADAFW
     public:
 
         typedef std::pair<String, String> ValuePair;
-        typedef ArrayPrimitiveType<ValuePair*> ValuePairArray;
+        typedef PointerArray<ValuePair> ValuePairPointerArray;
 
     public:
 
@@ -237,7 +237,7 @@ namespace COLLADAFW
 		COLLADABU::URI mAbsoluteFileUri;
 
         /** A pair where you can hold file informations. */
-        ValuePairArray mValuePairArray;
+        ValuePairPointerArray mValuePairArray;
 
 	public:
 
@@ -254,7 +254,7 @@ namespace COLLADAFW
         void appendValuePair ( const String& value1, const String& value2 );
 
         /** A pair where you can hold file informations. */
-        const ValuePairArray& getValuePairArray () const { return mValuePairArray; }
+        const ValuePairPointerArray& getValuePairArray () const { return mValuePairArray; }
 
 
         /** Sets the unit used by the document.

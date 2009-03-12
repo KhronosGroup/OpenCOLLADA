@@ -48,7 +48,7 @@ namespace COLLADAFW
     //------------------------------
     FileInfo::FileInfo() 
         : mUpAxisType ( Y_UP )
-        , mValuePairArray ( ValuePairArray::OWNER )
+        , mValuePairArray ( )
 		, mAbsoluteFileUri()
 	{
     }
