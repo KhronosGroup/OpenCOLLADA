@@ -30,18 +30,18 @@ namespace COLLADAFW
     public:
         IndexList ()
             : mName ("")
-            , mIndices (0)
+			, mIndices ( UIntValuesArray::OWNER )
             , mStride (0)
             , mSetIndex (0)
             , mInitialIndex (0)
         {}
-        IndexList ( size_t setIndex, size_t stride, UIntValuesArray& indices )
+ /**       IndexList ( size_t setIndex, size_t stride, UIntValuesArray& indices )
             : mName ("")
             , mIndices (indices)
             , mStride (stride)
             , mSetIndex (setIndex)
             , mInitialIndex (0)
-        {}
+        {}*/
         virtual ~IndexList () {}
 
 		UIntValuesArray& getIndices () { return mIndices; }

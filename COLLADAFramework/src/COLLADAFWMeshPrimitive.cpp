@@ -45,6 +45,20 @@ namespace COLLADAFW
 	{
 	}
 
+	MeshPrimitive::~MeshPrimitive()
+	{
+		for ( size_t i = 0, count = mUVCoordIndicesArray.getCount(); i< count; ++i)
+		{
+			FW_DELETE mUVCoordIndicesArray[i];
+		}
+
+		for ( size_t i = 0, count = mColorIndicesArray.getCount(); i< count; ++i)
+		{
+			FW_DELETE mColorIndicesArray[i];
+		}
+	}
+
+
     //-----------------------------
     const int MeshPrimitive::getGroupedVerticesVertexCount( const size_t faceIndex ) const
     {

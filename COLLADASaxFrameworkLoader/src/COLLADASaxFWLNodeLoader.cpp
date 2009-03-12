@@ -385,6 +385,7 @@ namespace COLLADASaxFWL
 
 		copyStlContainerToArray( mCurrentTextureCoordinateBindings, mCurrentMaterialBinding->getTextureCoordinateBindingArray());
 		mCurrentMaterialBindings.insert(*mCurrentMaterialBinding);
+		delete mCurrentMaterialBinding;
 		mCurrentMaterialBinding = 0;
 		mCurrentTextureCoordinateBindings.clear();
 		return true;

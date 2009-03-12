@@ -132,7 +132,7 @@ namespace COLLADAFW
         /**
         * Destructor.
         */
-        virtual ~MeshPrimitive() {}
+        virtual ~MeshPrimitive();
 
         /** The type of the current primitive. Possible values are:
         <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>. */

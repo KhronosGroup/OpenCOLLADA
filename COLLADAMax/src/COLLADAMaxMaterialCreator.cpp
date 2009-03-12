@@ -469,7 +469,8 @@ namespace COLLADAMax
 		StdUVGen* stdUVGen = (StdUVGen*)uvGen;
 
 		// reset all flags
-		stdUVGen->SetFlag(U_WRAP|V_WRAP|U_MIRROR|V_MIRROR, 0);
+		stdUVGen->SetFlag(U_WRAP|V_WRAP, 1);
+		stdUVGen->SetFlag(U_MIRROR|V_MIRROR, 0);
 
 
 		return bitmapTexture;
