@@ -709,9 +709,9 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__mesh__vertices( const vertices__AttributeData& attributeData )
 	{
 		if ( attributeData.id )
-			mVerticesInputs.setId( (const char*)attributeData.id );
+			mVerticesInputs.setId( attributeData.id );
 		if ( attributeData.name )
-			mVerticesInputs.setName( (const char*)attributeData.name );
+			mVerticesInputs.setName( attributeData.name );
 		return true;
 	}
 
@@ -725,7 +725,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__vertices__input( const vertices__input__AttributeData& attributeData )
 	{
-		mCurrentVertexInput = new InputUnshared((const char*)attributeData.semantic, (const char*)attributeData.source);
+		mCurrentVertexInput = new InputUnshared(attributeData.semantic, attributeData.source);
 		return true;
 	}
 
@@ -741,7 +741,7 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__mesh__triangles( const triangles__AttributeData& attributeData )
 	{
 		if ( attributeData.material )
-			mCurrentMeshMaterial = (const char *)attributeData.material;
+			mCurrentMeshMaterial = attributeData.material;
 		return true;
 	}
 
@@ -768,8 +768,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::beginInput( const triangles__input__AttributeData& attributeData )
 	{
-		mMeshPrimitiveInputs.appendInputElement(new InputShared((const char*)attributeData.semantic, 
-			(const char*)attributeData.source, 
+		mMeshPrimitiveInputs.appendInputElement(new InputShared(attributeData.semantic, 
+			attributeData.source, 
 			attributeData.offset,
 			attributeData.set));
 		return true;
@@ -816,7 +816,7 @@ namespace COLLADASaxFWL
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
 		if ( attributeData.material )
-			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( (const char*)attributeData.material ));
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
 		return true;
 	}
 
@@ -910,7 +910,7 @@ namespace COLLADASaxFWL
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
 		if ( attributeData.material )
-			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( (const char*)attributeData.material ));
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
 		return true;
 	}
 
@@ -1056,7 +1056,7 @@ namespace COLLADASaxFWL
 		tristrips->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = tristrips;
 		if ( attributeData.material )
-			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( (const char*)attributeData.material ));
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
 		return true;
 	}
 
@@ -1146,7 +1146,7 @@ namespace COLLADASaxFWL
 		trifans->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = trifans;
 		if ( attributeData.material )
-			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( (const char*)attributeData.material ));
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
 		return true;
 	}
 
