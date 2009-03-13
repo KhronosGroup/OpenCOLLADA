@@ -14,7 +14,7 @@ namespace COLLADAMax
 	const String COLLADAPlugin::OTHERMESSAGE1 = "";
 	const String COLLADAPlugin::OTHERMESSAGE2 = "";
 
-	const String COLLADAPlugin::PLUGIN_VERSION_STRING = String("Version: 0.9.0");
+	const String COLLADAPlugin::PLUGIN_VERSION_STRING = String("Version: 0.9.2");
 	const String COLLADAPlugin::REVISION_STRING ="";// (CURRENT_REVISION.empty() ? "" : String("Revision: ") + CURRENT_REVISION);
 	const String COLLADAPlugin::PLATFORM_STRING = String("Platform: ") + CURRENT_PLATFORM;
 	const String COLLADAPlugin::CONFIGURATION_STRING = String("Configuration: ") + CURRENT_CONFIGURATION;
@@ -22,7 +22,7 @@ namespace COLLADAMax
 
 	const String COLLADAPlugin::FATALERROR = "Fatal Error: exception caught.";
 
-	const unsigned int COLLADAPlugin::PLUGINVERSION = 500;
+	const unsigned int COLLADAPlugin::PLUGINVERSION = 501;
 
 
 	//--------------------------------------------------------------------
