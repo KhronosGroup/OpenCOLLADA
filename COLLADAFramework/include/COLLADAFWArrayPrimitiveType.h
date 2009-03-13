@@ -86,14 +86,6 @@ namespace COLLADAFW
 			, mFlags(flags)
 		{}
 
-		/** Constructor. */
-        ArrayPrimitiveType ( Type* data, size_t capacity )
-			: mData ( data )
-			, mCapacity ( count )
-			, mCount ( count )
-			, mFlags(DEFAULT_CONSTRUCTOR_FLAGS)
-        {}
-
         /** Destructor. */
         ~ArrayPrimitiveType ()
         {
