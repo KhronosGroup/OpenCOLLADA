@@ -11,14 +11,16 @@
 #ifndef __COLLADASTREAMWRITER_H__
 #define __COLLADASTREAMWRITER_H__
 
-
-//#define COLLADASTREAMWRITER_USE_FPRINTF_S
+#include <COLLADABUPlatform.h>
 
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWColor.h"
 
-//#include "Math/COLLADABUMathUtils.h"
-//#include "COLLADABUUtils.h"
+#if defined(COLLADABU_OS_WIN) && !defined(COLLADASTREAMWRITER_USE_FPRINTF_S)
+#	define COLLADASTREAMWRITER_USE_FPRINTF_S
+#	include "Math/COLLADABUMathUtils.h"
+#	include "COLLADABUUtils.h"
+#endif
 
 #include <fstream>
 #include <stack>
@@ -26,8 +28,6 @@
 #include <vector>
 #include <limits>
 #include <algorithm>
-
-
 
 #define WHITESPACESTRINGLENGTH 1000
 
