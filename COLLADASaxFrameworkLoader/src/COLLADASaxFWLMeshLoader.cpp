@@ -50,6 +50,8 @@ namespace COLLADASaxFWL
 		, mUseNormals ( false )
         , mTexCoordList (0)
         , mColorList (0)
+		, mCurrentPrimitiveType(NONE)
+		, mPOrPhElementCountOfCurrentPrimitive(0)
 	{
 		if ( !geometryName.empty() )
 			mMesh->setName ( geometryName );
@@ -709,11 +711,13 @@ namespace COLLADASaxFWL
 		mCurrentFaceCount = 0;
 		mCurrentPhHasEmptyP = true;
 		mCurrentMeshMaterial.clear();
+		mPOrPhElementCountOfCurrentPrimitive = 0;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__mesh() 
 	{
+		SaxVirtualFunctionTest(end__mesh());
 		bool success = writer()->writeGeometry(mMesh);
 		delete mMesh;
 		finish();
@@ -721,20 +725,23 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__source( const mesh__source__AttributeData& attributes )
+	bool MeshLoader::begin__animation__source( const animation__source__AttributeData& attributes )
 	{
+		SaxVirtualFunctionTest(begin__animation__source(attributes));
 		return beginSource(attributes);
 	}
 
 	//------------------------------
-	bool MeshLoader::end__mesh__source(  )
+	bool MeshLoader::end__animation__source(  )
 	{
+		SaxVirtualFunctionTest(end__animation__source());
 		return endSource();
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__vertices( const vertices__AttributeData& attributeData )
+	bool MeshLoader::begin__vertices( const vertices__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__vertices(attributeData));
 		if ( attributeData.id )
 			mVerticesInputs.setId( attributeData.id );
 		if ( attributeData.name )
@@ -743,30 +750,35 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::end__mesh__vertices()
+	bool MeshLoader::end__vertices()
 	{
+		SaxVirtualFunctionTest(end__vertices());
 		//we don't need to do anything here
 		return true;
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__vertices__input( const vertices__input__AttributeData& attributeData )
+	bool MeshLoader::begin__input____InputLocal( const input____InputLocal__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__input____InputLocal(attributeData));
 		mCurrentVertexInput = new InputUnshared(attributeData.semantic, attributeData.source);
 		return true;
 	}
 
 	//------------------------------
-	bool MeshLoader::end__vertices__input()
+	bool MeshLoader::end__input____InputLocal()
 	{
+		SaxVirtualFunctionTest(end__input____InputLocal());
 		mVerticesInputs.getInputArray().append(mCurrentVertexInput);
 		mCurrentVertexInput = 0;
 		return true;
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__triangles( const triangles__AttributeData& attributeData )
+	bool MeshLoader::begin__triangles( const triangles__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__triangles(attributeData));
+		mCurrentPrimitiveType = TRIANGLES;
 		if ( attributeData.material )
 			mCurrentMeshMaterial = attributeData.material;
 		mCurrentCOLLADAPrimitiveCount = (size_t)attributeData.count;
@@ -774,27 +786,31 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::end__mesh__triangles()
+	bool MeshLoader::end__triangles()
 	{
+		SaxVirtualFunctionTest(end__triangles());
 		mMeshPrimitiveInputs.clearInputs();
+		mCurrentPrimitiveType = NONE;
 		return true;
 	}
 
 
 	//------------------------------
-	bool MeshLoader::begin__triangles__input( const triangles__input__AttributeData& attributeData )
+	bool MeshLoader::begin__input____InputLocalOffset( const input____InputLocalOffset__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__input____InputLocalOffset(attributeData));
 		return beginInput(attributeData);
 	}
 
 	//------------------------------
-	bool MeshLoader::end__triangles__input()
+	bool MeshLoader::end__input____InputLocalOffset()
 	{
+		SaxVirtualFunctionTest(end__input____InputLocalOffset());
 		return true;
 	}
 
 	//------------------------------
-	bool MeshLoader::beginInput( const triangles__input__AttributeData& attributeData )
+	bool MeshLoader::beginInput( const input____InputLocalOffset__AttributeData& attributeData )
 	{
 		mMeshPrimitiveInputs.appendInputElement(new InputShared(attributeData.semantic, 
 			attributeData.source, 
@@ -803,6 +819,7 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__triangles__p()
 	{
@@ -845,10 +862,13 @@ namespace COLLADASaxFWL
 	{
 		return writePrimitiveIndices(data, length);
 	}
+#endif
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__polylist( const polylist__AttributeData& attributeData )
+	bool MeshLoader::begin__polylist( const polylist__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__polylist(attributeData));
+		mCurrentPrimitiveType = POLYLIST;
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
@@ -858,8 +878,9 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::end__mesh__polylist()
+	bool MeshLoader::end__polylist()
 	{
+		SaxVirtualFunctionTest(end__polylist());
 		// check if there are enough vertices as expected by the vcount and that there exist at least
 		// one polygon. If not, we will discard it
 		if ( mCurrentVertexCount >= mCurrentExpectedVertexCount && mCurrentVertexCount > 0 )
@@ -876,9 +897,11 @@ namespace COLLADASaxFWL
 		}
 		initCurrentValues();
 		mMeshPrimitiveInputs.clearInputs();
+		mCurrentPrimitiveType = NONE;
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__polylist__input( const polylist__input__AttributeData& attributeData )
 	{
@@ -891,23 +914,27 @@ namespace COLLADASaxFWL
 		loadSourceElements(mMeshPrimitiveInputs);
 		return true;
 	}
+#endif
 
 	//------------------------------
-	bool MeshLoader::begin__polylist__vcount()
+	bool MeshLoader::begin__vcount()
 	{
-		initializeOffsets();
+		SaxVirtualFunctionTest(begin__vcount());
+//		initializeOffsets();
 		return true;
 	}
 
 	//------------------------------
-	bool MeshLoader::end__polylist__vcount()
+	bool MeshLoader::end__vcount()
 	{
+		SaxVirtualFunctionTest(end__vcount());
 		return true;
 	}
 
 	//------------------------------
-	bool MeshLoader::data__polylist__vcount( const unsigned long long* data, size_t length )
+	bool MeshLoader::data__vcount( const unsigned long long* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__vcount(data, length));
 		COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
 		COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 		size_t count = vertexCountArray.getCount();
@@ -921,6 +948,7 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__polylist__p()
 	{
@@ -938,10 +966,13 @@ namespace COLLADASaxFWL
 	{
 		return writePrimitiveIndices(data, length);
 	}
+#endif
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__polygons( const polygons__AttributeData& attributeData )
+	bool MeshLoader::begin__polygons( const polygons__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__polygons(attributeData));
+		mCurrentPrimitiveType = POLYGONS;
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
 		// The actual size might be bigger, but its a lower bound
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
@@ -952,8 +983,9 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::end__mesh__polygons()
+	bool MeshLoader::end__polygons()
 	{
+		SaxVirtualFunctionTest(end__polygons());
 		// check if there is at least one polygon. If not, we will discard it.
 		if ( mCurrentFaceCount > 0 )
 		{
@@ -966,9 +998,11 @@ namespace COLLADASaxFWL
 		}
 		initCurrentValues();
 		mMeshPrimitiveInputs.clearInputs();
+		mCurrentPrimitiveType = NONE;
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__polygons__input( const polygons__input__AttributeData& attributeData )
 	{
@@ -982,7 +1016,9 @@ namespace COLLADASaxFWL
 		initializeOffsets();
 		return true;
 	}
+#endif
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__polygons__p()
 	{
@@ -1010,20 +1046,26 @@ namespace COLLADASaxFWL
 	{
 		return writePrimitiveIndices(data, length);
 	}
-
+#endif
 	//------------------------------
 	bool MeshLoader::begin__ph()
 	{
+		SaxVirtualFunctionTest(begin__ph());
 		mCurrentPhHasEmptyP = true;
+		mCurrentPrimitiveType = POLYGONS_HOLE;
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__ph()
 	{
+		SaxVirtualFunctionTest(end__ph());
+		mCurrentPrimitiveType = POLYGONS;
+		mPOrPhElementCountOfCurrentPrimitive++;
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__ph__p()
 	{
@@ -1049,22 +1091,24 @@ namespace COLLADASaxFWL
 		}
 		return true;
 	}
-
 	//------------------------------
 	bool MeshLoader::data__ph__p( const unsigned long long* data, size_t length )
 	{
 		return writePrimitiveIndices(data, length);
 	}
+#endif
 
 	//------------------------------
 	bool MeshLoader::begin__h()
 	{
+		SaxVirtualFunctionTest(begin__h());
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__h()
 	{
+		SaxVirtualFunctionTest(end__h());
 		int currentFaceVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
 		if ( currentFaceVertexCount > 0 )
 		{
@@ -1077,8 +1121,9 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::data__h( const unsigned long long* data, size_t length )
+	bool MeshLoader::data__h( const uint64* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__h(data, length));
 		// If the p element of the parent ph is empty, we don't need to read the h element
 		if ( mCurrentPhHasEmptyP )
 			return true;
@@ -1086,20 +1131,24 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__tristrips( const tristrips__AttributeData& attributeData )
+	bool MeshLoader::begin__tristrips( const tristrips__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__tristrips(attributeData));
 		COLLADAFW::Tristrips* tristrips = new COLLADAFW::Tristrips();
 		// The actual size might be bigger, but its a lower bound
 		tristrips->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = tristrips;
+		mCurrentPrimitiveType = TRISTRIPS;
 		if ( attributeData.material )
 			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
 		return true;
 	}
 
 	//------------------------------
-	bool MeshLoader::end__mesh__tristrips()
+	bool MeshLoader::end__tristrips()
 	{
+		SaxVirtualFunctionTest(end__tristrips());
+		mCurrentPrimitiveType = TRISTRIPS;
 		// check if there is at least one tristrip. If not, we will discard it.
 		if ( mCurrentFaceCount > 0 )
 		{
@@ -1112,9 +1161,11 @@ namespace COLLADASaxFWL
 		}
 		initCurrentValues();
 		mMeshPrimitiveInputs.clearInputs();
+		mCurrentPrimitiveType = NONE;
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__tristrips__input( const tristrips__input__AttributeData& attributeData )
 	{
@@ -1128,7 +1179,9 @@ namespace COLLADASaxFWL
 		initializeOffsets();
 		return true;
 	}
+#endif
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__tristrips__p()
 	{
@@ -1172,12 +1225,14 @@ namespace COLLADASaxFWL
 	{
 		return writePrimitiveIndices(data, length);
 	}
-
+#endif
 
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__trifans( const trifans__AttributeData& attributeData )
+	bool MeshLoader::begin__trifans( const trifans__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__trifans(attributeData));
+		mCurrentPrimitiveType = TRIFANS;
 		COLLADAFW::Trifans* trifans = new COLLADAFW::Trifans();
 		// The actual size might be bigger, but its a lower bound
 		trifans->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
@@ -1188,8 +1243,9 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::end__mesh__trifans()
+	bool MeshLoader::end__trifans()
 	{
+		SaxVirtualFunctionTest(end__trifans());
 		// check if there is at least one trifan. If not, we will discard it.
 		if ( mCurrentFaceCount > 0 )
 		{
@@ -1202,9 +1258,11 @@ namespace COLLADASaxFWL
 		}
 		initCurrentValues();
 		mMeshPrimitiveInputs.clearInputs();
+		mCurrentPrimitiveType = NONE;
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__trifans__input( const trifans__input__AttributeData& attributeData )
 	{
@@ -1218,7 +1276,9 @@ namespace COLLADASaxFWL
 		initializeOffsets();
 		return true;
 	}
+#endif
 
+#if 0
 	//------------------------------
 	bool MeshLoader::begin__trifans__p()
 	{
@@ -1260,6 +1320,207 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::data__trifans__p( const unsigned long long* data, size_t length )
 	{
+		return writePrimitiveIndices(data, length);
+	}
+#endif
+
+	bool MeshLoader::begin__p()
+	{
+		SaxVirtualFunctionTest(begin__p());
+		switch ( mCurrentPrimitiveType )
+		{
+		case TRIANGLES:
+			{
+				loadSourceElements(mMeshPrimitiveInputs);
+				initializeOffsets();
+				mCurrentMeshPrimitive = new COLLADAFW::Triangles();
+				if ( mCurrentCOLLADAPrimitiveCount > 0)
+				{
+					mCurrentMeshPrimitive->getPositionIndices().reallocMemory(mCurrentCOLLADAPrimitiveCount);
+					if ( mUseNormals )
+					{
+						mCurrentMeshPrimitive->getNormalIndices().reallocMemory(mCurrentCOLLADAPrimitiveCount);
+					}
+					// TODO pre-alloc memory for uv indices
+				}
+				mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(mCurrentMeshMaterial));
+			}
+			break;
+		case TRIFANS:
+			{
+				if ( mPOrPhElementCountOfCurrentPrimitive == 0)
+				{
+					loadSourceElements(mMeshPrimitiveInputs);
+					initializeOffsets();
+				}
+				int currentTrifanVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
+				if ( currentTrifanVertexCount > 0 )
+				{
+					COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) mCurrentMeshPrimitive;
+					if ( currentTrifanVertexCount >= 3 )
+					{
+						COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getGroupedVerticesVertexCountArray();
+						vertexCountArray.append(currentTrifanVertexCount);
+						trifans->setTrifanCount(trifans->getTrifanCount() + 1);
+						mCurrentFaceCount += (currentTrifanVertexCount - 2);
+					}
+					else
+					{
+						trifans->getPositionIndices().erase(currentTrifanVertexCount);
+						trifans->getNormalIndices().erase(currentTrifanVertexCount);
+
+						const COLLADAFW::IndexListArray& colorIndicesArray = trifans->getColorIndicesArray ();
+						for ( size_t i=0; i<colorIndicesArray.getCount (); ++i )
+							trifans->getColorIndices(i)->getIndices ().erase(currentTrifanVertexCount);
+
+						const COLLADAFW::IndexListArray& uvCoordIndicesArray = trifans->getUVCoordIndicesArray ();
+						for ( size_t i=0; i<uvCoordIndicesArray.getCount (); ++i )
+							trifans->getUVCoordIndices(i)->getIndices ().erase(currentTrifanVertexCount);
+					}
+					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
+				}
+			}
+			break;
+		case TRISTRIPS:
+		case POLYLIST:
+		case POLYGONS:
+			{
+				if ( mPOrPhElementCountOfCurrentPrimitive == 0)
+				{
+					loadSourceElements(mMeshPrimitiveInputs);
+					initializeOffsets();
+				}
+			}
+			break;
+		}
+		return true;
+	}
+
+	bool MeshLoader::end__p()
+	{
+		SaxVirtualFunctionTest(end__p());
+		mPOrPhElementCountOfCurrentPrimitive++;
+		switch ( mCurrentPrimitiveType )
+		{
+		case TRIANGLES:
+			{
+				size_t trianglesCount = mCurrentVertexCount/3;
+				// check if the triangles really contains triangles. If not, we will discard it
+				if ( trianglesCount > 0 )
+				{
+					mCurrentMeshPrimitive->setFaceCount(trianglesCount);
+					mMesh->appendPrimitive(mCurrentMeshPrimitive);
+				}
+				else
+				{
+					delete mCurrentMeshPrimitive;
+				}
+				initCurrentValues();
+			}
+			break;
+		case TRIFANS:
+			{
+				int currentTrifanVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
+				if ( currentTrifanVertexCount > 0 )
+				{
+					COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) mCurrentMeshPrimitive;
+					if ( currentTrifanVertexCount >= 3 )
+					{
+						COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getGroupedVerticesVertexCountArray();
+						vertexCountArray.append(currentTrifanVertexCount);
+						trifans->setTrifanCount(trifans->getTrifanCount() + 1);
+						mCurrentFaceCount += (currentTrifanVertexCount - 2);
+					}
+					else
+					{
+						trifans->getPositionIndices().erase(currentTrifanVertexCount);
+						trifans->getNormalIndices().erase(currentTrifanVertexCount);
+
+						const COLLADAFW::IndexListArray& colorIndicesArray = trifans->getColorIndicesArray ();
+						for ( size_t i=0; i<colorIndicesArray.getCount (); ++i )
+							trifans->getColorIndices(i)->getIndices ().erase(currentTrifanVertexCount);
+
+						const COLLADAFW::IndexListArray& uvCoordIndicesArray = trifans->getUVCoordIndicesArray ();
+						for ( size_t i=0; i<uvCoordIndicesArray.getCount (); ++i )
+							trifans->getUVCoordIndices(i)->getIndices ().erase(currentTrifanVertexCount);
+					}
+					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
+				}
+			}
+			break;
+		case TRISTRIPS:
+			{
+				int currentTristripVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
+				if ( currentTristripVertexCount > 0 )
+				{
+					COLLADAFW::Tristrips* tristrips = (COLLADAFW::Tristrips*) mCurrentMeshPrimitive;
+					if ( currentTristripVertexCount >= 3 )
+					{
+						COLLADAFW::Tristrips::VertexCountArray& vertexCountArray = tristrips->getGroupedVerticesVertexCountArray();
+						vertexCountArray.append(currentTristripVertexCount);
+						tristrips->setTristripCount(tristrips->getTristripCount() + 1);
+						mCurrentFaceCount += (currentTristripVertexCount - 2);
+					}
+					else
+					{
+						tristrips->getPositionIndices().erase(currentTristripVertexCount);
+						tristrips->getNormalIndices().erase(currentTristripVertexCount);
+
+						const COLLADAFW::IndexListArray& colorIndicesArray = tristrips->getColorIndicesArray ();
+						for ( size_t i=0; i<colorIndicesArray.getCount (); ++i )
+							tristrips->getColorIndices(i)->getIndices().erase(currentTristripVertexCount);
+
+						const COLLADAFW::IndexListArray& uvCoordIndicesArray = tristrips->getUVCoordIndicesArray ();
+						for ( size_t i=0; i<uvCoordIndicesArray.getCount (); ++i )
+							tristrips->getUVCoordIndices(i)->getIndices ().erase(currentTristripVertexCount);
+					}
+					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
+				}
+			}
+			break;
+		case POLYLIST:
+			{
+
+			}
+			break;
+		case POLYGONS:
+			{
+				int currentFaceVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
+				if ( currentFaceVertexCount > 0 )
+				{
+					COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
+					COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
+					vertexCountArray.append(currentFaceVertexCount);
+					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
+					mCurrentFaceCount++;
+				}
+			}
+			break;
+		case POLYGONS_HOLE:
+			{
+				int currentPolygonVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
+				if ( currentPolygonVertexCount > 0 )
+				{
+					COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
+					COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
+					vertexCountArray.append(currentPolygonVertexCount);
+					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
+					mCurrentFaceCount++;
+					mCurrentPhHasEmptyP = false;
+				}
+				else
+				{
+					mCurrentPhHasEmptyP = true;
+				}
+			}
+			break;
+		}
+		return true;
+	}
+
+	bool MeshLoader::data__p( const unsigned long long* data, size_t length )
+	{
+		SaxVirtualFunctionTest(data__p(data, length));
 		return writePrimitiveIndices(data, length);
 	}
 

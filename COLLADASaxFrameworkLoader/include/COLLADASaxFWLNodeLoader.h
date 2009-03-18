@@ -103,30 +103,30 @@ namespace COLLADASaxFWL
 		bool endTransformation();
 
 		/** Sax callback function for the beginning of nodes, as child of a node.*/
-		virtual bool begin__node__node( const node__AttributeData& attributeData );
+		virtual bool begin__node( const node__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of nodes, as child of a node.*/
-		virtual bool end__node__node();
+		virtual bool end__node();
 
 
 		/** Sax callback function for the beginning of a translate element.*/
-		virtual bool begin__node__translate( const translate__AttributeData& attributeData );
+		virtual bool begin__translate( const translate__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a translate element.*/
-		virtual bool end__node__translate();
+		virtual bool end__translate();
 
 		/** Sax callback function for the float data of a translate element.*/
-		virtual bool data__node__translate( const double* data, size_t length );
+		virtual bool data__translate( const float* data, size_t length );
 
 
 		/** Sax callback function for the beginning of a rotate element.*/
-		virtual bool begin__node__rotate( const rotate__AttributeData& attributeData );
+		virtual bool begin__rotate( const rotate__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a rotate element.*/
-		virtual bool end__node__rotate();
+		virtual bool end__rotate();
 
 		/** Sax callback function for the float data of a rotate element.*/
-		virtual bool data__node__rotate( const double* data, size_t length );
+		virtual bool data__rotate( const float* data, size_t length );
 
 
 		/** Sax callback function for the beginning of a matrix element.*/
@@ -136,7 +136,7 @@ namespace COLLADASaxFWL
 		virtual bool end__matrix();
 
 		/** Sax callback function for the float data of a rotate element.*/
-		virtual bool data__matrix( const double* data, size_t length );
+		virtual bool data__matrix( const float* data, size_t length );
 
 
 		/** Sax callback function for the beginning of a scale element.*/
@@ -146,34 +146,34 @@ namespace COLLADASaxFWL
 		virtual bool end__scale();
 
 		/** Sax callback function for the float data of a scale element.*/
-		virtual bool data__scale( const double* data, size_t length );
+		virtual bool data__scale( const float* data, size_t length );
 
         virtual bool begin__skew( const skew__AttributeData& attributeData );
         virtual bool end__skew();
-        virtual bool data__skew( const double* value, size_t length );
+		virtual bool data__skew( const float* data, size_t length );
 
 		virtual bool begin__lookat( const lookat__AttributeData& attributeData );
 		virtual bool end__lookat();
-		virtual bool data__lookat( const double* value, size_t length );
+		virtual bool data__lookat( const float* data, size_t length );
 
 		/** Sax callback function for the beginning of an instance geometry element.*/
-		virtual bool begin__node__instance_geometry( const instance_geometry__AttributeData& attributeData );
+		virtual bool begin__instance_geometry( const instance_geometry__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of an instance geometry element.*/
-		virtual bool end__node__instance_geometry();
+		virtual bool end__instance_geometry();
 
 
 		/** We do not need to do anything here.*/
-		virtual bool begin__instance_geometry__bind_material(){return true;}
+		virtual bool begin__bind_material(){SaxVirtualFunctionTest(begin__bind_material()); return true;}
 
 		/** We do not need to do anything here.*/
-		virtual bool end__instance_geometry__bind_material(){return true;}
+		virtual bool end__bind_material(){SaxVirtualFunctionTest(end__bind_material()); return true;}
 
 		/** We do not need to do anything here.*/
-		virtual bool begin__bind_material__technique_common(){return true;}
+		virtual bool begin__bind_material__technique_common(){SaxVirtualFunctionTest(begin__bind_material__technique_common()); return true;}
 
 		/** We do not need to do anything here.*/
-		virtual bool end__bind_material__technique_common(){return true;}
+		virtual bool end__bind_material__technique_common(){SaxVirtualFunctionTest(end__bind_material__technique_common()); return true;}
 
 		/** Create new current bind material and set basic attributes.*/
 		virtual bool begin__instance_material( const instance_material__AttributeData& attributeData );
@@ -186,28 +186,28 @@ namespace COLLADASaxFWL
 		virtual bool begin__bind_vertex_input( const bind_vertex_input__AttributeData& attributeData );
 
 		/** We do not need to do anything here.*/
-		virtual bool end__bind_vertex_input(){ return true; }
+		virtual bool end__bind_vertex_input(){ SaxVirtualFunctionTest(end__bind_vertex_input()); return true; }
 
 
 		/** Sax callback function for the beginning of an instance node element.*/
 		virtual bool begin__instance_node( const instance_node__AttributeData& attributeData );
 
 		/** We don't need to do anything here.*/
-		virtual bool end__instance_node(){return true;}
+		virtual bool end__instance_node(){SaxVirtualFunctionTest(end__instance_node()); return true;}
 
 
 		/** Appends the instance camera to the current node.*/
 		virtual bool begin__instance_camera( const instance_camera__AttributeData& attributeData );
 
 		/** We don't need to do anything here.*/
-		virtual bool end__instance_camera(){return true;}
+		virtual bool end__instance_camera(){SaxVirtualFunctionTest(end__instance_camera()); return true;}
 
 
 		/** Appends the instance light to the current node.*/
 		virtual bool begin__instance_light( const instance_light__AttributeData& attributeData );
 
 		/** We don't need to do anything here.*/
-		virtual bool end__instance_light(){return true;}
+		virtual bool end__instance_light(){SaxVirtualFunctionTest(end__instance_light()); return true;}
 
 	};
 

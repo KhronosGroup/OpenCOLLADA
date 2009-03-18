@@ -127,7 +127,18 @@ namespace GeneratedSaxParser
 	}
 
 
-	//--------------------------------------------------------------------
+    //--------------------------------------------------------------------
+    void Utils::fillErrorMsg(ParserChar* dest, const ParserChar* src, size_t maxLen)
+    {
+        size_t bufferLength = 0;
+        while (src[bufferLength])
+            ++bufferLength;
+        size_t length = std::min(maxLen, bufferLength);
+        memcpy(dest, src, length);
+        dest[length] = '\0';
+    }
+
+    //--------------------------------------------------------------------
 	template<class FloatingPointType>
 	FloatingPointType Utils::toFloatingPoint(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
 	{
@@ -246,7 +257,7 @@ namespace GeneratedSaxParser
 		{
 			++s;
 			bool intFailed = false;
-			int exponent = toInt(&s, bufferEnd, intFailed);
+			sint32 exponent = toSint32(&s, bufferEnd, intFailed);
 			if ( intFailed )
 			{
 				failed = true;
@@ -367,7 +378,7 @@ namespace GeneratedSaxParser
 		{
 			++s;
 			bool intFailed = false;
-			int exponent = toInt(s, intFailed);
+			sint32 exponent = toSint32(s, intFailed);
 			if ( intFailed )
 			{
 				failed = true;
@@ -500,7 +511,7 @@ namespace GeneratedSaxParser
         {
             ++s;
             bool intFailed = false;
-            int exponent = toInt(&s, intFailed);
+            sint32 exponent = toSint32(&s, intFailed);
             if ( intFailed )
             {
                 failed = true;
@@ -824,185 +835,148 @@ namespace GeneratedSaxParser
     }
 
 	//--------------------------------------------------------------------
-	char Utils::toChar( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	sint8 Utils::toSint8( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toInteger<char, true>(buffer, bufferEnd, failed);
+		return toInteger<sint8, true>(buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	char Utils::toChar( const ParserChar* buffer, bool& failed )
+	sint8 Utils::toSint8( const ParserChar* buffer, bool& failed )
 	{
-		return toInteger<char, true>(buffer, failed);
+		return toInteger<sint8, true>(buffer, failed);
 	}
 
     //--------------------------------------------------------------------
-    char Utils::toChar( const ParserChar** buffer, bool& failed )
+    sint8 Utils::toSint8( const ParserChar** buffer, bool& failed )
     {
-        return toInteger<char, true>(buffer, failed);
+        return toInteger<sint8, true>(buffer, failed);
     }
 
 	//--------------------------------------------------------------------
-	unsigned char Utils::toUnsignedChar( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	uint8 Utils::toUint8( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toInteger<unsigned char, false>(buffer, bufferEnd, failed);
+		return toInteger<uint8, false>(buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned char Utils::toUnsignedChar( const ParserChar* buffer, bool& failed )
+	uint8 Utils::toUint8( const ParserChar* buffer, bool& failed )
 	{
-		return toInteger<unsigned char, false>(buffer, failed);
+		return toInteger<uint8, false>(buffer, failed);
 	}
 
     //--------------------------------------------------------------------
-    unsigned char Utils::toUnsignedChar( const ParserChar** buffer, bool& failed )
+    uint8 Utils::toUint8( const ParserChar** buffer, bool& failed )
     {
-        return toInteger<unsigned char, false>(buffer, failed);
+        return toInteger<uint8, false>(buffer, failed);
     }
 
 	//--------------------------------------------------------------------
-	short Utils::toShort( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	sint16 Utils::toSint16( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toInteger<short, true>(buffer, bufferEnd, failed);
+		return toInteger<sint16, true>(buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	short Utils::toShort( const ParserChar* buffer, bool& failed )
+	sint16 Utils::toSint16( const ParserChar* buffer, bool& failed )
 	{
-		return toInteger<short, true>(buffer, failed);
+		return toInteger<sint16, true>(buffer, failed);
 	}
 
     //--------------------------------------------------------------------
-    short Utils::toShort( const ParserChar** buffer, bool& failed )
+    sint16 Utils::toSint16( const ParserChar** buffer, bool& failed )
     {
-        return toInteger<short, true>(buffer, failed);
+        return toInteger<sint16, true>(buffer, failed);
     }
 
 	//--------------------------------------------------------------------
-	unsigned short Utils::toUnsignedShort( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	uint16 Utils::toUint16( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toInteger<unsigned short, false>(buffer, bufferEnd, failed);
+		return toInteger<uint16, false>(buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned short Utils::toUnsignedShort( const ParserChar* buffer, bool& failed )
+	uint16 Utils::toUint16( const ParserChar* buffer, bool& failed )
 	{
-		return toInteger<unsigned short, false>(buffer, failed);
+		return toInteger<uint16, false>(buffer, failed);
 	}
 
     //--------------------------------------------------------------------
-    unsigned short Utils::toUnsignedShort( const ParserChar** buffer, bool& failed )
+    uint16 Utils::toUint16( const ParserChar** buffer, bool& failed )
     {
-        return toInteger<unsigned short, false>(buffer, failed);
+        return toInteger<uint16, false>(buffer, failed);
     }
 
 	//--------------------------------------------------------------------
-	int Utils::toInt( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	sint32 Utils::toSint32( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toInteger<int, true>(buffer, bufferEnd, failed);
+		return toInteger<sint32, true>(buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	int Utils::toInt( const ParserChar* buffer, bool& failed )
+	sint32 Utils::toSint32( const ParserChar* buffer, bool& failed )
 	{
-		return toInteger<int, true>(buffer, failed);
+		return toInteger<sint32, true>(buffer, failed);
 	}
 
     //--------------------------------------------------------------------
-    int Utils::toInt( const ParserChar** buffer, bool& failed )
+    sint32 Utils::toSint32( const ParserChar** buffer, bool& failed )
     {
-        return toInteger<int, true>(buffer, failed);
+        return toInteger<sint32, true>(buffer, failed);
     }
-
-	//--------------------------------------------------------------------
-	unsigned int Utils::toUnsignedInt( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
-	{
-		return toInteger<unsigned int, false>(buffer, bufferEnd, failed);
-	}
-
-	//--------------------------------------------------------------------
-	unsigned int Utils::toUnsignedInt( const ParserChar* buffer, bool& failed )
-	{
-		return toInteger<unsigned int, false>(buffer, failed);
-	}
 
     //--------------------------------------------------------------------
-    unsigned int Utils::toUnsignedInt( const ParserChar** buffer, bool& failed )
+    uint32 Utils::toUint32( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
     {
-        return toInteger<unsigned int, false>(buffer, failed);
+        return toInteger<uint32, false>(buffer, bufferEnd, failed);
     }
-
-	//--------------------------------------------------------------------
-	long Utils::toLong( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
-	{
-		return toInteger<long, true>(buffer, bufferEnd, failed);
-	}
-
-	//--------------------------------------------------------------------
-	long Utils::toLong( const ParserChar* buffer, bool& failed )
-	{
-		return toInteger<long, true>(buffer, failed);
-	}
 
     //--------------------------------------------------------------------
-    long Utils::toLong( const ParserChar** buffer, bool& failed )
+    uint32 Utils::toUint32( const ParserChar* buffer, bool& failed )
     {
-        return toInteger<long, true>(buffer, failed);
+        return toInteger<uint32, false>(buffer, failed);
     }
-
-	//--------------------------------------------------------------------
-	unsigned long Utils::toUnsignedLong( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
-	{
-		return toInteger<unsigned long, false>(buffer, bufferEnd, failed);
-	}
-
-	//--------------------------------------------------------------------
-	unsigned long Utils::toUnsignedLong( const ParserChar* buffer, bool& failed )
-	{
-		return toInteger<unsigned long, false>(buffer, failed);
-	}
 
     //--------------------------------------------------------------------
-    unsigned long Utils::toUnsignedLong( const ParserChar** buffer, bool& failed )
+    uint32 Utils::toUint32( const ParserChar** buffer, bool& failed )
     {
-        return toInteger<unsigned long, false>(buffer, failed);
+        return toInteger<uint32, false>(buffer, failed);
     }
-
-	//--------------------------------------------------------------------
-	long long Utils::toLongLong( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
-	{
-		return toInteger<long long, true>(buffer, bufferEnd, failed);
-	}
-
-	//--------------------------------------------------------------------
-	long long Utils::toLongLong( const ParserChar* buffer, bool& failed )
-	{
-		return toInteger<long long, true>(buffer, failed);
-	}
 
     //--------------------------------------------------------------------
-    long long Utils::toLongLong( const ParserChar** buffer, bool& failed )
+    sint64 Utils::toSint64( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
     {
-        return toInteger<long long, true>(buffer, failed);
+        return toInteger<sint64, true>(buffer, bufferEnd, failed);
     }
-
-	//--------------------------------------------------------------------
-	unsigned long long Utils::toUnsignedLongLong( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
-	{
-		return toInteger<unsigned long long, false>(buffer, bufferEnd, failed);
-	}
-
-	//--------------------------------------------------------------------
-	unsigned long long Utils::toUnsignedLongLong( const ParserChar* buffer, bool& failed )
-	{
-		return toInteger<unsigned long long, false>(buffer, failed);
-	}
 
     //--------------------------------------------------------------------
-    unsigned long long Utils::toUnsignedLongLong( const ParserChar** buffer, bool& failed )
+    sint64 Utils::toSint64( const ParserChar* buffer, bool& failed )
     {
-        return toInteger<unsigned long long, false>(buffer, failed);
+        return toInteger<sint64, true>(buffer, failed);
     }
 
+    //--------------------------------------------------------------------
+    sint64 Utils::toSint64( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<sint64, true>(buffer, failed);
+    }
+
+    //--------------------------------------------------------------------
+    uint64 Utils::toUint64( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+    {
+        return toInteger<uint64, false>(buffer, bufferEnd, failed);
+    }
+
+    //--------------------------------------------------------------------
+    uint64 Utils::toUint64( const ParserChar* buffer, bool& failed )
+    {
+        return toInteger<uint64, false>(buffer, failed);
+    }
+
+    //--------------------------------------------------------------------
+    uint64 Utils::toUint64( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<uint64, false>(buffer, failed);
+    }
 
 	//--------------------------------------------------------------------
 	bool Utils::toBool( const ParserChar* buffer, bool& failed  )

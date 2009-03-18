@@ -40,13 +40,17 @@ namespace GeneratedSaxParser
 
 		void deleteObject();
 
+        void growObject(size_t amount);
+
+        /** Returns ptr to top object on stack or 0 when stack is empty. Object will not be removed. */
+        void* top();
+
+    protected:
         inline size_t getTopObjectSize();
 
         inline void writeNewObjectSize(size_t position, size_t size);
 
-        void growObject(size_t amount);
-
-	private:
+    private:
 		/** Disable default copy ctor. */
 		StackMemoryManager( const StackMemoryManager& pre );
 		/** Disable default assignment operator. */

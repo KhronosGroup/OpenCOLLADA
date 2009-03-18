@@ -68,12 +68,12 @@ namespace GeneratedSaxParser
 			if ( !mParserContext )
 			{
 				ParserError error(ParserError::SEVERITY_CRITICAL,
-						ParserError::ERROR_COULD_NOT_OPEN_FILE,
-						0,
-						0,
-						0,
-						0,
-						fileName);
+									ParserError::ERROR_COULD_NOT_OPEN_FILE,
+									0,
+									0,
+									0,
+									0,
+									fileName);
 				getParser()->getErrorHandler()->handleError(error);
 				return false;
 			}
@@ -155,7 +155,7 @@ namespace GeneratedSaxParser
 		xmlParserCtxtPtr context = (xmlParserCtxtPtr)ctx;
 		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)(context->userData);
 		ParserError error(ParserError::SEVERITY_CRITICAL,
-					ParserError::ERROR_XML_PERSER_ERROR,
+					ParserError::ERROR_XML_PARSER_ERROR,
 					0,
 					0,
 					0,

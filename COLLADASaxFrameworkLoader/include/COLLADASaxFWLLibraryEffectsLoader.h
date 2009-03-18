@@ -62,7 +62,7 @@ namespace COLLADASaxFWL
 
 		struct Surface
 		{
-			fx_surface_type_enum surfaceType;
+			ENUM__fx_surface_type_enum surfaceType;
 
 			/** The unique id of the image used by the surface.*/
 			COLLADAFW::UniqueId imageUniqueId;
@@ -175,65 +175,65 @@ namespace COLLADASaxFWL
 
 
 		/** Store the sid of the new param.*/
-		virtual bool begin__profile_COMMON__newparam( const profile_COMMON__newparam__AttributeData& attributeData );
+		virtual bool begin__newparam____common_newparam_type( const newparam____common_newparam_type__AttributeData& attributeData );
 
 		/** Clear the sid of the new param.*/
-		virtual bool end__profile_COMMON__newparam();
+		virtual bool end__newparam____common_newparam_type();
 
 
 		/** Set the surface type.*/
-		virtual bool begin__newparam__surface( const newparam__surface__AttributeData& attributeData );
+		virtual bool begin__surface____fx_surface_common( const surface____fx_surface_common__AttributeData& attributeData );
 
 		/** Adds the surface to the map of surfaces.*/
-		virtual bool end__newparam__surface();
+		virtual bool end__surface____fx_surface_common();
 
 
 		/** We don't need to do anything here.*/
-		virtual bool begin__surface__init_from( const surface__init_from__AttributeData& attributeData ){return true;}
+		virtual bool begin__init_from____fx_surface_init_from_common( const init_from____fx_surface_init_from_common__AttributeData& attributeData ){return true;}
 
 		/** Assign the unique id of the surface image.*/
-		virtual bool end__surface__init_from();
+		virtual bool end__init_from____fx_surface_init_from_common();
 
 		/** Store data in mCurrentSurfaceInitFrom.*/
-		virtual bool data__surface__init_from( const ParserChar* data, size_t length );
+		virtual bool data__init_from____fx_surface_init_from_common( const ParserChar* data, size_t length );
 
 
 		/** Creates a new sampler2D.*/
-		virtual bool begin__newparam__sampler2D();
+		virtual bool begin__sampler2D____fx_sampler2D_common();
 
 		/** Adds the sampler to the map of samplers.*/
-		virtual bool end__newparam__sampler2D();
+		virtual bool end__sampler2D____fx_sampler2D_common();
 
 
 		/** We don't need to do anything here.*/
-		virtual bool begin__sampler2D__source(){return true;}
+		virtual bool begin__source____NCName(){SaxVirtualFunctionTest(begin__source____NCName()); return true;}
 
 		/** We don't need to do anything here.*/
-		virtual bool end__sampler2D__source(){return true;}
+		virtual bool end__source____NCName(){SaxVirtualFunctionTest(end__source____NCName()); return true;}
 
 		/** Store data in mCurrentSamplerSource.*/
-		virtual bool data__sampler2D__source( const ParserChar* data, size_t length );
+		virtual bool data__source____NCName( const ParserChar* data, size_t length );
 
 		
 		/** Resolve all the samplers and copy them to the current effect.*/
 		virtual bool begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData );
 
-		/** Delete all temporyry samplers.*/
+		/** Delete all temporary samplers.*/
 		virtual bool end__profile_COMMON__technique();
 
 
 		/** Set the shader type of the current profile.*/
-		virtual bool begin__technique__constant();
+		virtual bool begin__profile_COMMON__technique__constant();
 
 		/** We don't need to do anything here.*/
-		virtual bool end__technique__constant(){return true;}
+		virtual bool end__profile_COMMON__technique__constant(){SaxVirtualFunctionTest(end__profile_COMMON__technique__constant()); return true;}
 
 
 		/** Set the shader type of the current profile.*/
 		virtual bool begin__lambert();
 
 		/** We don't need to do anything here.*/
-		virtual bool end__lambert(){return true;}
+		virtual bool end__lambert(){SaxVirtualFunctionTest(end__lambert()); return true;}
 
 
 		/** Set the shader type of the current profile.*/
@@ -243,69 +243,71 @@ namespace COLLADASaxFWL
 		virtual bool end__phong(){return true;}
 
 		/** Set the color or texture kind.*/
-		virtual bool begin__phong__emission(){ return true;}
-		virtual bool end__phong__emission() {return true;}
-		virtual bool begin__phong__ambient(){return true;}
-		virtual bool end__phong__ambient(){return true;}
-		virtual bool begin__phong__diffuse(){return true;}
-		virtual bool end__phong__diffuse(){return true;}
-		virtual bool begin__phong__specular(){return true;}
-		virtual bool end__phong__specular(){return true;}
-		virtual bool begin__phong__shininess(){return true;}
-		virtual bool end__phong__shininess(){return true;}
-		virtual bool begin__phong__reflective(){return true;}
-		virtual bool end__phong__reflective(){return true;}
-		virtual bool begin__phong__reflectivity(){return true;}
-		virtual bool end__phong__reflectivity(){return true;}
-		virtual bool end__phong__transparent(){return true;}
-		virtual bool begin__phong__transparency(){return true;}
-		virtual bool end__phong__transparency(){return true;}
-		virtual bool begin__phong__index_of_refraction(){return true;}
-		virtual bool end__phong__index_of_refraction(){return true;}
+		virtual bool begin__emission();
+		virtual bool end__emission();
+		virtual bool begin__ambient____common_color_or_texture_type();
+		virtual bool end__ambient____common_color_or_texture_type();
+		virtual bool begin__diffuse();
+		virtual bool end__diffuse();
+		virtual bool begin__specular();
+		virtual bool end__specular();
+		virtual bool begin__shininess();
+		virtual bool end__shininess();
+		virtual bool begin__reflective();
+		virtual bool end__reflective();
+		virtual bool begin__reflectivity();
+		virtual bool end__reflectivity();
+		/** Stores the opaque mode attribute. */
+		virtual bool begin__transparent( const transparent__AttributeData& attributeData );
+		virtual bool end__transparent();
+		virtual bool begin__transparency();
+		virtual bool end__transparency();
+		virtual bool begin__index_of_refraction();
+		virtual bool end__index_of_refraction();
 
 
 		/** Set the shader type of the current profile.*/
 		virtual bool begin__blinn();
 
 		/** We don't need to do anything here.*/
-		virtual bool end__blinn(){return true;}
+		virtual bool end__blinn(){SaxVirtualFunctionTest(end__blinn()); return true;}
 
 
 		/** Sets the shader parameter type.*/
-		virtual bool begin__emission__color( const emission__color__AttributeData& attributeData );
+		virtual bool begin__common_transparent_type____color( const common_transparent_type____color__AttributeData& attributeData );
 		/** Resets the shader parameter type.*/
-		virtual bool end__emission__color();
+		virtual bool end__common_transparent_type____color();
 		/** Stores color data into the correct color object.*/
-		virtual bool data__emission__color( const double* value, size_t length );
+		virtual bool data__common_transparent_type____color( const float* data, size_t length );
 
+#if 0
 		/** Stores texture data into the correct texture object.*/
 		virtual bool begin__emission__texture( const texture__AttributeData& attributeData );
 		/** We don't need to do anything here.*/
-		virtual bool end__emission__texture(){return true;}
+		virtual bool end__emission__texture(){SaxVirtualFunctionTest(end__emission__texture()); return true;}
+#endif
 
+#if 0
 		/** Sets the shader parameter type.*/
 		virtual bool begin__ambient__color( const ambient__color__AttributeData& attributeData );
 		/** Resets the shader parameter type.*/
 		virtual bool end__ambient__color();
 		/** Stores color data into the correct color object.*/
 		virtual bool data__ambient__color( const double* value, size_t length );
+#endif
 
 		/** Stores texture data into the correct texture object.*/
-		virtual bool begin__ambient__texture( const texture__AttributeData& attributeData );
+		virtual bool begin__texture( const texture__AttributeData& attributeData );
 		/** We don't need to do anything here.*/
-		virtual bool end__ambient__texture(){return true;}
+		virtual bool end__texture(){SaxVirtualFunctionTest(end__texture()); return true;}
 
+#if 0
 		/** Sets the shader parameter type.*/
 		virtual bool begin__diffuse__color( const diffuse__color__AttributeData& attributeData );
 		/** Resets the shader parameter type.*/
 		virtual bool end__diffuse__color();
 		/** Stores color data into the correct color object.*/
 		virtual bool data__diffuse__color( const double* value, size_t length );
-
-		/** Stores texture data into the correct texture object.*/
-		virtual bool begin__diffuse__texture( const texture__AttributeData& attributeData );
-		/** We don't need to do anything here.*/
-		virtual bool end__diffuse__texture(){return true;}
 
 		/** Sets the shader parameter type.*/
 		virtual bool begin__specular__color( const specular__color__AttributeData& attributeData );
@@ -314,72 +316,53 @@ namespace COLLADASaxFWL
 		/** Stores color data into the correct color object.*/
 		virtual bool data__specular__color( const double* value, size_t length );
 
-		/** Stores texture data into the correct texture object.*/
-		virtual bool begin__specular__texture( const texture__AttributeData& attributeData );
-		/** We don't need to do anything here.*/
-		virtual bool end__specular__texture(){return true;}
-
 		/** Sets the shader parameter type.*/
 		virtual bool begin__reflective__color( const reflective__color__AttributeData& attributeData );
 		/** Resets the shader parameter type.*/
 		virtual bool end__reflective__color();
 		/** Stores color data into the correct color object.*/
 		virtual bool data__reflective__color( const double* value, size_t length );
+#endif
 
-		/** Stores texture data into the correct texture object.*/
-		virtual bool begin__reflective__texture( const texture__AttributeData& attributeData );
-		/** We don't need to do anything here.*/
-		virtual bool end__reflective__texture(){return true;}
 
-        /** Stores the opaque mode attribute. */
-        virtual bool begin__constant__transparent( const transparent__AttributeData& attributeData );
-        /** Stores the opaque mode attribute. */
-        virtual bool begin__lambert__transparent( const transparent__AttributeData& attributeData );
-        /** Stores the opaque mode attribute. */
-        virtual bool begin__phong__transparent( const transparent__AttributeData& attributeData );
-        /** Stores the opaque mode attribute. */
-        virtual bool begin__blinn__transparent( const transparent__AttributeData& attributeData );
-
+#if 0
 		/** Sets the shader parameter type.*/
 		virtual bool begin__transparent__color( const transparent__color__AttributeData& attributeData );
 		/** Resets the shader parameter type.*/
 		virtual bool end__transparent__color();
 		/** Stores color data into the correct color object.*/
 		virtual bool data__transparent__color( const double* value, size_t length );
-
-		/** Stores texture data into the correct texture object.*/
-		virtual bool begin__transparent__texture( const texture__AttributeData& attributeData );
-		/** We don't need to do anything here.*/
-		virtual bool end__transparent__texture(){return true;}
+#endif
 
 		/** We don't need to do anything here.*/
-		virtual bool begin__shininess__float( const shininess__float__AttributeData& attributeData ){return true;}
+		virtual bool begin__common_float_or_param_type____float( const common_float_or_param_type____float__AttributeData& attributeData ){return true;}
 		/** We don't need to do anything here.*/
-		virtual bool end__shininess__float(){return true;}
+		virtual bool end__common_float_or_param_type____float(){SaxVirtualFunctionTest(end__common_float_or_param_type____float()); return true;}
 		/** Set the value in the effect.*/
-		virtual bool data__shininess__float( double value );
+		virtual bool data__common_float_or_param_type____float( float value );
 
+#if 0
 		/** We don't need to do anything here.*/
 		virtual bool begin__reflectivity__float( const reflectivity__float__AttributeData& attributeData ){return true;}
 		/** We don't need to do anything here.*/
-		virtual bool end__reflectivity__float(){return true;}
+		virtual bool end__reflectivity__float(){SaxVirtualFunctionTest(end__reflectivity__float()); return true;}
 		/** Set the value in the effect.*/
 		virtual bool data__reflectivity__float( double value );
 
 		/** We don't need to do anything here.*/
 		virtual bool begin__transparency__float( const transparency__float__AttributeData& attributeData ){return true;}
 		/** We don't need to do anything here.*/
-		virtual bool end__transparency__float(){return true;}
+		virtual bool end__transparency__float(){SaxVirtualFunctionTest(end__transparency__float()); return true;}
 		/** Set the value in the effect.*/
 		virtual bool data__transparency__float( double value );
 
 		/** We don't need to do anything here.*/
 		virtual bool begin__index_of_refraction__float( const index_of_refraction__float__AttributeData& attributeData ){return true;}
 		/** We don't need to do anything here.*/
-		virtual bool end__index_of_refraction__float(){return true;}
+		virtual bool end__index_of_refraction__float(){SaxVirtualFunctionTest(end__index_of_refraction__float()); return true;}
 		/** Set the value in the effect.*/
 		virtual bool data__index_of_refraction__float( double value );
-
+#endif
 		/** Finishes loading a library effects.*/
 		virtual bool end__library_effects();
 
@@ -388,13 +371,13 @@ namespace COLLADASaxFWL
 		bool setCommonEffectShaderType( COLLADAFW::EffectCommon::ShaderType shaderType); 
 
 		/** Stores color data into the correct color object.*/
-		bool handleColorData( const double* value, size_t length );
+		bool handleColorData( const float* value, size_t length );
 
 		/** Stores color data into the  @a color object.*/
-		bool handleColorData( const double* value, size_t length, COLLADAFW::Color& color );
+		bool handleColorData( const float* value, size_t length, COLLADAFW::Color& color );
 
 		/** Stores texture data into the @a shaderParameterType texture object.*/
-		bool handleTexture( const texture__AttributeData& attributeData,  ShaderParameterTypes shaderParameterType);
+		bool handleTexture( const texture__AttributeData& attributeData);
 
         /**
          * Luminance is the function, based on the ISO/CIE color standards (see ITU-R 

@@ -20,7 +20,7 @@
 
 #include <map>
 #include <stack>
-#include <string.h>
+#include <string.h> // needed for memcpy() and gcc
 
 
 
@@ -41,13 +41,15 @@ namespace GeneratedSaxParser
 		struct ElementData
 		{
 			StringHash elementHash;
-			StringHash combinedElementHash;
+			StringHash generatedElementHash;
+            size_t typeID;
 			void* validationData;
-			void* userData;
 		};
 
 
-		typedef std::stack<ElementData> ElementDataStack;
+        // We cannot use std::stack because we need access to elements somewhere in the middle.
+        // deque is the container std::stack uses by default.
+		typedef std::deque<ElementData> ElementDataStack;
 		typedef std::map<StringHash, const char*> ElementNameMap;
 
 	protected:
@@ -55,7 +57,11 @@ namespace GeneratedSaxParser
 
 		StackMemoryManager mStackMemoryManager;
 
-		bool mValidate;
+        /** Stack containing validation data only. */
+        StackMemoryManager mValidationDataStack;
+
+        /** Indicates if input file shall be validated while parsed. */
+        bool mValidate;
 
         /**
          * Points to begin of object on memory manager stack.
@@ -76,6 +82,7 @@ namespace GeneratedSaxParser
 		ParserTemplateBase(IErrorHandler* errorHandler)
 			: Parser(errorHandler),
 			mStackMemoryManager(STACK_SIZE),
+            mValidationDataStack(STACK_SIZE),
 			mLastIncompleteFragmentInCharacterData(0){}
 		virtual ~ParserTemplateBase(){};
 
@@ -115,7 +122,7 @@ namespace GeneratedSaxParser
 		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		char toCharPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		sint8 toSint8Prefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 		/** Converts the first string representing an unsigned char within a ParserChar buffer with prefixedBuffer
 		prefixed to an unsigned char and advances the character char to the first position after the last
@@ -125,7 +132,7 @@ namespace GeneratedSaxParser
 		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		unsigned char toUnsignedCharPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		uint8 toUint8Prefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
 		/** Converts the first string representing a short within a ParserChar buffer with prefixedBuffer
@@ -136,7 +143,7 @@ namespace GeneratedSaxParser
 		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		short toShortPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		sint16 toSint16Prefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 		/** Converts the first string representing an unsigned short within a ParserChar buffer with prefixedBuffer
 		prefixed to an unsigned short and advances the character short to the first position after the last
@@ -146,7 +153,7 @@ namespace GeneratedSaxParser
 		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		unsigned short toUnsignedShortPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		uint16 toUint16Prefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
 		/** Converts the first string representing an integer within a ParserChar buffer with prefixedBuffer
@@ -157,7 +164,7 @@ namespace GeneratedSaxParser
 		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		int toIntPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		sint32 toSint32Prefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 		/** Converts the first string representing an unsigned integer within a ParserChar buffer with prefixedBuffer
 		prefixed to an unsigned integer and advances the character pointer to the first position after the last
@@ -167,7 +174,7 @@ namespace GeneratedSaxParser
 		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		unsigned int toUnsignedIntPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		uint32 toUint32Prefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 		/** Converts the first string representing an integer within a ParserChar buffer with prefixedBuffer
 		prefixed to an integer and advances the character pointer to the first position after the last
@@ -177,7 +184,7 @@ namespace GeneratedSaxParser
 		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		long toLongPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		sint64 toSint64Prefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 		/** Converts the first string representing an unsigned integer within a ParserChar buffer with prefixedBuffer
 		prefixed to an unsigned integer and advances the character pointer to the first position after the last
@@ -187,27 +194,7 @@ namespace GeneratedSaxParser
 		character after the last interpreted.
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		unsigned long toUnsignedLongPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
-
-		/** Converts the first string representing a long long within a ParserChar buffer with prefixedBuffer
-		prefixed to a long long and advances the character pointer to the first position after the last
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
-		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first
-		character after the last interpreted.
-		@param bufferEnd the first character after the last in the buffer
-		@param failed False if conversion succeeded, true on failure.*/
-		long long toLongLongPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
-
-		/** Converts the first string representing an unsigned long long  within a ParserChar buffer with prefixedBuffer
-		prefixed to an unsigned long long and advances the character pointer to the first position after the last
-		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached
-		during conversion. In this case failed is always set to true.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first
-		character after the last interpreted.
-		@param bufferEnd the first character after the last in the buffer
-		@param failed False if conversion succeeded, true on failure.*/
-		unsigned long long toUnsignedLongLongPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		uint64 toUint64Prefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 		/** Converts the first string representing a bool within a ParserChar buffer with prefixedBuffer
 		prefixed to a bool and advances the character interpreted to the first position after the last
@@ -269,7 +256,7 @@ namespace GeneratedSaxParser
 		is passed to the error handler.
 		@param severity The severity of the error.
 		@param errorType The error type of the error.
-		@param attributeHash The hash of the element the error occurred in.
+		@param attributeHash The hash of the attribute the error occurred in.
 		@param additionalText Additional text describing the error.
         @return True when abort required, false when continue is possible.
         */
@@ -319,7 +306,6 @@ namespace GeneratedSaxParser
     {
         const ParserChar* prefixBufferPos = prefixedBuffer;
         const ParserChar* prefixBufferStartPos = 0;
-        bool onlyWhiteSpaceFound = true;
         while ( prefixBufferPos != prefixedBufferEnd )
         {
             if (!Utils::isWhiteSpace(*prefixBufferPos ) && !prefixBufferStartPos)

@@ -97,33 +97,38 @@ namespace COLLADASaxFWL
 
 
 	//------------------------------
-	bool NodeLoader::begin__node__node( const node__AttributeData& attributeData )
+	bool NodeLoader::begin__node( const node__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__node(attributeData));
 		return beginNode(attributeData);
 	}
 
 	//------------------------------
-	bool NodeLoader::end__node__node()
+	bool NodeLoader::end__node()
 	{
+		SaxVirtualFunctionTest(end__node());
 		return endNode();
 	}
 
 
 	//------------------------------
-	bool NodeLoader::begin__node__translate( const translate__AttributeData& attributeData )
+	bool NodeLoader::begin__translate( const translate__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__translate(attributeData));
 		return beginTransformation<COLLADAFW::Translate>();
 	}
 
 	//------------------------------
-	bool NodeLoader::end__node__translate()
+	bool NodeLoader::end__translate()
 	{
+		SaxVirtualFunctionTest(end__translate());
 		return endTransformation();
 	}
 
 	//------------------------------
-	bool NodeLoader::data__node__translate( const double* data, size_t length )
+	bool NodeLoader::data__translate( const float* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__translate(data, length));
 		COLLADAFW::Translate* translate = 0;
 
 		if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::TRANSLATE)
@@ -137,20 +142,23 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool NodeLoader::begin__node__rotate( const rotate__AttributeData& attributeData )
+	bool NodeLoader::begin__rotate( const rotate__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__rotate(attributeData));
 		return beginTransformation<COLLADAFW::Rotate>();
 	}
 
 	//------------------------------
-	bool NodeLoader::end__node__rotate()
+	bool NodeLoader::end__rotate()
 	{
+		SaxVirtualFunctionTest(end__rotate());
 		return endTransformation();
 	}
 
 	//------------------------------
-	bool NodeLoader::data__node__rotate( const double* data, size_t length )
+	bool NodeLoader::data__rotate( const float* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__rotate(data, length));
 		COLLADAFW::Rotate* rotate = 0;
 
 		if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::ROTATE)
@@ -171,18 +179,21 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::begin__matrix( const matrix__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__matrix(attributeData));
 		return beginTransformation<COLLADAFW::Matrix>();
 	}
 
 	//------------------------------
 	bool NodeLoader::end__matrix()
 	{
+		SaxVirtualFunctionTest(end__matrix());
 		return endTransformation();
 	}
 
 	//------------------------------
-	bool NodeLoader::data__matrix( const double* data, size_t length )
+	bool NodeLoader::data__matrix( const float* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__matrix(data, length));
 		COLLADAFW::Matrix* matrix = 0;
 
 		if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::MATRIX)
@@ -203,18 +214,21 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::begin__scale( const scale__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__scale(attributeData));
 		return beginTransformation<COLLADAFW::Scale>();
 	}
 
 	//------------------------------
 	bool NodeLoader::end__scale()
 	{
+		SaxVirtualFunctionTest(end__scale());
 		return endTransformation();
 	}
 
 	//------------------------------
-	bool NodeLoader::data__scale( const double* data, size_t length )
+	bool NodeLoader::data__scale( const float* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__scale(data, length));
 		COLLADAFW::Scale* scale = 0;
 
 		if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::SCALE)
@@ -230,18 +244,21 @@ namespace COLLADASaxFWL
     //------------------------------
     bool NodeLoader::begin__skew ( const skew__AttributeData& attributeData )
     {
+		SaxVirtualFunctionTest(begin__skew(attributeData));
         return beginTransformation<COLLADAFW::Skew>();
     }
 
     //------------------------------
     bool NodeLoader::end__skew ()
     {
+		SaxVirtualFunctionTest(end__skew());
         return endTransformation();
     }
 
     //------------------------------
-    bool NodeLoader::data__skew ( const double* data, size_t length )
-    {
+	bool NodeLoader::data__skew( const float* data, size_t length )
+	{
+		SaxVirtualFunctionTest(data__skew(data, length));
         COLLADAFW::Skew* skew = 0;
 
         if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::SKEW)
@@ -281,18 +298,21 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::begin__lookat ( const lookat__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__lookat(attributeData));
 		return beginTransformation<COLLADAFW::Lookat>();
 	}
 
 	//------------------------------
 	bool NodeLoader::end__lookat ()
 	{
+		SaxVirtualFunctionTest(end__lookat());
 		return endTransformation();
 	}
 
 	//------------------------------
-	bool NodeLoader::data__lookat ( const double* data, size_t length )
+	bool NodeLoader::data__lookat( const float* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__lookat(data, length));
 		COLLADAFW::Lookat* lookat = 0;
 
 		if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::LOOKAT)
@@ -333,8 +353,9 @@ namespace COLLADASaxFWL
 	}	
 
     //------------------------------
-	bool NodeLoader::begin__node__instance_geometry( const instance_geometry__AttributeData& attributeData )
+	bool NodeLoader::begin__instance_geometry( const instance_geometry__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__instance_geometry(attributeData));
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 
 		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Geometry::ID());
@@ -348,8 +369,9 @@ namespace COLLADASaxFWL
 
 
 	//------------------------------
-	bool NodeLoader::end__node__instance_geometry()
+	bool NodeLoader::end__instance_geometry()
 	{
+		SaxVirtualFunctionTest(end__instance_geometry());
 		copyStlContainerToArray( mCurrentMaterialBindings, mCurrentInstanceGeometry->getMaterialBindings());
 		
 		mCurrentInstanceGeometry = 0;
@@ -362,6 +384,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::begin__instance_material( const instance_material__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__instance_material(attributeData));
 		// remove this, as soon as we support controllers
 		if ( !mCurrentInstanceGeometry )
 			return true;
@@ -379,6 +402,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::end__instance_material()
 	{
+		SaxVirtualFunctionTest(end__instance_material());
 		// remove this, as soon as we support controllers
 		if ( !mCurrentInstanceGeometry )
 			return true;
@@ -394,6 +418,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::begin__bind_vertex_input( const bind_vertex_input__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__bind_vertex_input(attributeData));
 		// remove this, as soon as we support controllers
 		if ( !mCurrentInstanceGeometry )
 			return true;
@@ -408,6 +433,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::begin__instance_node( const instance_node__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__instance_node(attributeData));
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 		COLLADAFW::UniqueId instantiatedNodeUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Node::ID() );
 
@@ -421,6 +447,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::begin__instance_camera( const instance_camera__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__instance_camera(attributeData));
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 		COLLADAFW::UniqueId instantiatedCameraUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Camera::ID() );
 
@@ -433,6 +460,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::begin__instance_light( const instance_light__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__instance_light(attributeData));
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 		COLLADAFW::UniqueId instantiatedLightUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Light::ID() );
 

@@ -32,6 +32,7 @@ namespace COLLADAMax
 		/** A struct that uniquely identifies material created in Max.*/
 		struct MaterialIdentifier
 		{
+			MaterialIdentifier();
 			enum SlotFlags
 			{
 				NONE        = 0,

@@ -45,6 +45,14 @@ namespace GeneratedSaxParser
 		}
 
 
+        /**
+         * Fills dest with src. Stops on 0 in src or at maxLen. dest will be null terminated.
+         * @param dest Destination buffer (-> error message).
+         * @param src Source buffer (-> content of error message).
+         * @param maxLen Length of dest -1.
+         */
+        static void fillErrorMsg(ParserChar* dest, const ParserChar* src, size_t maxLen);
+
 
 		/** Converts the first string representing a floating point number within a ParserChar buffer to a 
 		FloatingPointType and advances the character pointer to the first position after the last interpreted 
@@ -148,14 +156,14 @@ namespace GeneratedSaxParser
 		character after the last interpreted. 
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		static char toChar(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		static sint8 toSint8(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 		/** Converts the first string representing an integer within a ParserChar buffer to an char. 
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.*/
-		static char toChar(const ParserChar* buffer, bool& failed);
+		static sint8 toSint8(const ParserChar* buffer, bool& failed);
 
-        static char toChar(const ParserChar** buffer, bool& failed);
+        static sint8 toSint8(const ParserChar** buffer, bool& failed);
 
         /** Converts the first string representing an unsigned integer within a ParserChar buffer to 
 		an char and advances the character pointer to the first position after the last interpreted 
@@ -166,15 +174,15 @@ namespace GeneratedSaxParser
 		character after the last interpreted. 
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned char toUnsignedChar(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		static uint8 toUint8(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 		/** Converts the first string representing an unsigned integer within a ParserChar buffer to an 
 		unsigned char. 
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned char toUnsignedChar(const ParserChar* buffer, bool& failed);
+		static uint8 toUint8(const ParserChar* buffer, bool& failed);
 
-        static unsigned char toUnsignedChar(const ParserChar** buffer, bool& failed);
+        static uint8 toUint8(const ParserChar** buffer, bool& failed);
 
 		/** Converts the first string representing an integer within a ParserChar buffer to an short and 
 		advances the character pointer to the first position after the last interpreted character. If 
@@ -185,15 +193,15 @@ namespace GeneratedSaxParser
 		character after the last interpreted. 
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		static short toShort(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		static sint16 toSint16(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
 		/** Converts the first string representing an integer within a ParserChar buffer to an short. 
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.*/
-		static short toShort(const ParserChar* buffer, bool& failed);
+		static sint16 toSint16(const ParserChar* buffer, bool& failed);
 
-        static short toShort(const ParserChar** buffer, bool& failed);
+        static sint16 toSint16(const ParserChar** buffer, bool& failed);
 
 
 		/** Converts the first string representing an unsigned integer within a ParserChar buffer to 
@@ -205,16 +213,16 @@ namespace GeneratedSaxParser
 		character after the last interpreted. 
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned short toUnsignedShort(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		static uint16 toUint16(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
 		/** Converts the first string representing an unsigned integer within a ParserChar buffer to an 
 		unsigned short. 
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned short toUnsignedShort(const ParserChar* buffer, bool& failed);
+		static uint16 toUint16(const ParserChar* buffer, bool& failed);
 
-        static unsigned short toUnsignedShort(const ParserChar** buffer, bool& failed);
+        static uint16 toUint16(const ParserChar** buffer, bool& failed);
 
 
 		/** Converts the first string representing an integer within a ParserChar buffer to an int and 
@@ -226,15 +234,15 @@ namespace GeneratedSaxParser
 		character after the last interpreted. 
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		static int toInt(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		static sint32 toSint32(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
 		/** Converts the first string representing an integer within a ParserChar buffer to an int. 
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.*/
-		static int toInt(const ParserChar* buffer, bool& failed);
+		static sint32 toSint32(const ParserChar* buffer, bool& failed);
 
-        static int toInt(const ParserChar** buffer, bool& failed);
+        static sint32 toSint32(const ParserChar** buffer, bool& failed);
 
 
 		/** Converts the first string representing an unsigned integer within a ParserChar buffer to 
@@ -246,17 +254,17 @@ namespace GeneratedSaxParser
 		character after the last interpreted. 
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned int toUnsignedInt(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		static uint32 toUint32(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
 		/** Converts the first string representing an unsigned integer within a ParserChar buffer to an 
 		unsigned int. 
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned int toUnsignedInt(const ParserChar* buffer, bool& failed);
+		static uint32 toUint32(const ParserChar* buffer, bool& failed);
 
 
-        static unsigned int toUnsignedInt(const ParserChar** buffer, bool& failed);
+        static uint32 toUint32(const ParserChar** buffer, bool& failed);
 
 		/** Converts the first string representing an integer within a ParserChar buffer to an int and 
 		advances the character pointer to the first position after the last interpreted character. If 
@@ -267,15 +275,15 @@ namespace GeneratedSaxParser
 		character after the last interpreted. 
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		static long toLong(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		static sint64 toSint64(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
 		/** Converts the first string representing an integer within a ParserChar buffer to an int. 
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.*/
-		static long toLong(const ParserChar* buffer, bool& failed);
+		static sint64 toSint64(const ParserChar* buffer, bool& failed);
 
-        static long toLong(const ParserChar** buffer, bool& failed);
+        static sint64 toSint64(const ParserChar** buffer, bool& failed);
 
 
 		/** Converts the first string representing an unsigned integer within a ParserChar buffer to 
@@ -287,57 +295,16 @@ namespace GeneratedSaxParser
 		character after the last interpreted. 
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned long toUnsignedLong(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		static uint64 toUint64(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
 		/** Converts the first string representing an unsigned integer within a ParserChar buffer to an 
 		unsigned int. 
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned long toUnsignedLong(const ParserChar* buffer, bool& failed);
+		static uint64 toUint64(const ParserChar* buffer, bool& failed);
 
-        static unsigned long toUnsignedLong(const ParserChar** buffer, bool& failed);
-
-
-		/** Converts the first string representing an integer within a ParserChar buffer to an long long and 
-		advances the character pointer to the first position after the last interpreted character. If 
-		buffer is set to bufferEnd, the end of the buffer was reached during conversion, i.e. all characters 
-		from buffer to bufferEnd are parsed. In this case failed is set to false if all these characters represent 
-		a valid integer.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
-		@param bufferEnd the first character after the last in the buffer
-		@param failed False if conversion succeeded, true on failure.*/
-		static long long toLongLong(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
-
-
-		/** Converts the first string representing an integer within a ParserChar buffer to an int. 
-		@param buffer Pointer to the first character in the buffer. 
-		@param failed False if conversion succeeded, true on failure.*/
-		static long long toLongLong(const ParserChar* buffer, bool& failed);
-
-        static long long toLongLong(const ParserChar** buffer, bool& failed);
-
-
-		/** Converts the first string representing an unsigned integer within a ParserChar buffer to 
-		a long long and advances the character pointer to the first position after the last interpreted 
-		character. If buffer is set to bufferEnd, the end of the buffer was reached during conversion, i.e. all characters 
-		from buffer to bufferEnd are parsed. In this case failed is set to false if all these characters represent 
-		a valid integer.
-		@param buffer Pointer to the first character in the buffer. Will be set to the first 
-		character after the last interpreted. 
-		@param bufferEnd the first character after the last in the buffer
-		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned long long toUnsignedLongLong(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
-
-
-		/** Converts the first string representing an unsigned integer within a ParserChar buffer to an 
-		unsigned long long. 
-		@param buffer Pointer to the first character in the buffer. 
-		@param failed False if conversion succeeded, true on failure.*/
-		static unsigned long long toUnsignedLongLong(const ParserChar* buffer, bool& failed);
-
-        static unsigned long long toUnsignedLongLong(const ParserChar** buffer, bool& failed);
+        static uint64 toUint64(const ParserChar** buffer, bool& failed);
 
 
 		/** Converts the first string representing an enum of type @EnumType within a ParserChar buffer to an 

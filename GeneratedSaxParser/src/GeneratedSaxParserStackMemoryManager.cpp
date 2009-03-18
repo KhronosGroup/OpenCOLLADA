@@ -73,10 +73,16 @@ namespace GeneratedSaxParser
     {
         size_t currentSize = getTopObjectSize();
         size_t newSize = currentSize + amount;
-        size_t newDataSizePos = mCurrentPosition + newSize;
+        size_t newDataSizePos = (mCurrentPosition + amount) - sizeof(newSize);
         mCurrentPosition = newDataSizePos + sizeof(newSize);
         // TODO check if new size exceeds allocated memory !!!
         writeNewObjectSize(newDataSizePos, newSize);
+    }
+
+    //-----------------------------------------------------------------
+    void* StackMemoryManager::top()
+    {
+        return mCurrentPosition != 0 ? (void*)(mMemoryBlob + mCurrentPosition - getTopObjectSize() - sizeof(mCurrentPosition)) : 0;
     }
 
 } // namespace GeneratedSaxParser

@@ -285,6 +285,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\GeneratedSaxParserDataUtils.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\GeneratedSaxParserLibxmlSaxParser.cpp"
 				>
 			</File>
@@ -320,6 +324,10 @@
 			>
 			<File
 				RelativePath="..\include\GeneratedSaxParserCoutErrorHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\GeneratedSaxParserDataUtils.h"
 				>
 			</File>
 			<File

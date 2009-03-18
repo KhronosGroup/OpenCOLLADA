@@ -137,11 +137,11 @@ namespace COLLADAMax
 		else
 		{
 			const COLLADAFW::FloatArray* positionsArray = meshPositions.getFloatValues();
-			for ( int i = 0; i < positionsCount; i+=3)
+			for ( int i = 0; i < positionsCount; ++i)
 			{
-				triangleMesh.setVert(i, convertSpaceUnit((*positionsArray)[i]), 
-					                    convertSpaceUnit((*positionsArray)[i + 1]), 
-										convertSpaceUnit((*positionsArray)[i + 2]));
+				triangleMesh.setVert(i, convertSpaceUnit((*positionsArray)[3*i]), 
+					                    convertSpaceUnit((*positionsArray)[3*i + 1]), 
+										convertSpaceUnit((*positionsArray)[3*i + 2]));
 			}
 		}
 
@@ -707,12 +707,12 @@ namespace COLLADAMax
 		else
 		{
 			const COLLADAFW::FloatArray* positionsArray = meshPositions.getFloatValues();
-			for ( int i = 0; i < positionsCount; i+=3)
+			for ( int i = 0; i < positionsCount; ++i)
 			{
 				MNVert* vertex = polgonMesh.V(i);
-				vertex->p = Point3( convertSpaceUnit((*positionsArray)[i]),
-					                convertSpaceUnit((*positionsArray)[i + 1]), 
-									convertSpaceUnit((*positionsArray)[i + 2]));
+				vertex->p = Point3( convertSpaceUnit((*positionsArray)[3*i]),
+					                convertSpaceUnit((*positionsArray)[3*i + 1]), 
+									convertSpaceUnit((*positionsArray)[3*i + 2]));
 			}
 		}
 

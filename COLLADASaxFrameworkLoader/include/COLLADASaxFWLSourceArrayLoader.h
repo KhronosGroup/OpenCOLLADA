@@ -82,7 +82,7 @@ namespace COLLADASaxFWL
 
 		/** Handles the beginning of a source element. Should be called by derived classes, 
 		when an opening \<source\> tag is detected.*/
-		bool beginSource(const mesh__source__AttributeData& attributes);
+		bool beginSource(const animation__source__AttributeData& attributes);
 
 		/** Handles the ending of a source element. Should be called by derived classes, 
 		when a closing \<source\> tag is detected.*/
@@ -96,14 +96,14 @@ namespace COLLADASaxFWL
 		virtual bool end__float_array();
 
 		/** Sax callback function for the float data of a float array element.*/
-		virtual bool data__float_array( const double* data, size_t length );
+		virtual bool data__float_array( const float* data, size_t length );
 
 
 		/** Sax callback function for the beginning of a technique_common element.*/
-		virtual bool begin__source__technique_common();
+		virtual bool begin__animation__source__technique_common();
 
 		/** Sax callback function for the ending of a technique_common element.*/
-		virtual bool end__source__technique_common();
+		virtual bool end__animation__source__technique_common();
 
 
 		/** Sax callback function for the beginning of a accessor element.*/

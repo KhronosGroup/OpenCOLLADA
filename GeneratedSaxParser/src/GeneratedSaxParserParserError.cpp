@@ -48,17 +48,8 @@ namespace GeneratedSaxParser
 
 		switch ( mErrorType )
 		{
-		case ERROR_UNEXPECTED_ELEMENT:
-			errorMessage << "ERROR_UNEXPECTED_ELEMENT ";
-			break;
 		case ERROR_UNKNOWN_ELEMENT:
 			errorMessage << "ERROR_UNKNOWN_ELEMENT ";
-			break;
-		case ERROR_ELEMENT_MUST_BE_ROOT:
-			errorMessage << "ERROR_ELEMENT_MUST_BE_ROOT ";
-			break;
-		case ERROR_ELEMENT_MUST_NOT_BE_ROOT:
-			errorMessage << "ERROR_ELEMENT_MUST_NOT_BE_ROOT ";
 			break;
 		case ERROR_TEXTDATA_PARSING_FAILED:
 			errorMessage << "ERROR_TEXTDATA_PARSING_FAILED ";
@@ -69,6 +60,55 @@ namespace GeneratedSaxParser
 		case ERROR_ATTRIBUTE_PARSING_FAILED:
 			errorMessage << "ERROR_ATTRIBUTE_PARSING_FAILED ";
 			break;
+        case ERROR_VALIDATION_MAX_OCCURS_EXCEEDED:
+            errorMessage << "ERROR_VALIDATION_MAX_OCCURS_EXCEEDED ";
+            break;
+        case ERROR_VALIDATION_MIN_OCCURS_UNMATCHED:
+            errorMessage << "ERROR_VALIDATION_MIN_OCCURS_UNMATCHED ";
+            break;
+        case ERROR_VALIDATION_SEQUENCE_PREVIOUS_SIBLING_NOT_PRESENT:
+            errorMessage << "ERROR_VALIDATION_SEQUENCE_PREVIOUS_SIBLING_NOT_PRESENT ";
+            break;
+        case ERROR_VALIDATION_SEQUENCE_NEXT_SIBLING_ALREADY_PRESENT:
+            errorMessage << "ERROR_VALIDATION_SEQUENCE_NEXT_SIBLING_ALREADY_PRESENT ";
+            break;
+        case ERROR_VALIDATION_CHOICE_SIBLING_ALREADY_PRESENT:
+            errorMessage << "ERROR_VALIDATION_CHOICE_SIBLING_ALREADY_PRESENT ";
+            break;
+        case ERROR_VALIDATION_CHOICE_NO_CHILD_PRESENT:
+            errorMessage << "ERROR_VALIDATION_CHOICE_NO_CHILD_PRESENT ";
+            break;
+        case ERROR_VALIDATION_UNEXPECTED_ELEMENT:
+            errorMessage << "ERROR_VALIDATION_UNEXPECTED_ELEMENT ";
+            break;
+        case ERROR_VALIDATION_UNEXPECTED_CLOSING_TAG:
+            errorMessage << "ERROR_VALIDATION_UNEXPECTED_CLOSING_TAG ";
+            break;
+        case ERROR_VALIDATION_MIN_INCLUSIVE:
+            errorMessage << "ERROR_VALIDATION_MIN_INCLUSIVE ";
+            break;
+        case ERROR_VALIDATION_MAX_INCLUSIVE:
+            errorMessage << "ERROR_VALIDATION_MAX_INCLUSIVE ";
+            break;
+        case ERROR_VALIDATION_MIN_EXCLUSIVE:
+            errorMessage << "ERROR_VALIDATION_MIN_EXCLUSIVE ";
+            break;
+        case ERROR_VALIDATION_MAX_EXCLUSIVE:
+            errorMessage << "ERROR_VALIDATION_MAX_EXCLUSIVE ";
+            break;
+        case ERROR_VALIDATION_LENGTH:
+            errorMessage << "ERROR_VALIDATION_LENGTH ";
+            break;
+        case ERROR_VALIDATION_MIN_LENGTH:
+            errorMessage << "ERROR_VALIDATION_MIN_LENGTH ";
+            break;
+        case ERROR_VALIDATION_MAX_LENGTH:
+            errorMessage << "ERROR_VALIDATION_MAX_LENGTH ";
+            break;
+        case SIMPLE_TYPE_VALIDATION_OK:
+            errorMessage << "SIMPLE_TYPE_VALIDATION_OK ";
+            break;
+
 		}
 		
 		if ( mElementName )

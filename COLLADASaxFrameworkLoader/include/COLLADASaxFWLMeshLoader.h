@@ -50,6 +50,17 @@ namespace COLLADASaxFWL
             size_t mInitialIndex;
         };
 
+	private:
+		enum PrimitiveType
+		{
+			NONE,
+			TRIANGLES,
+			TRISTRIPS,
+			TRIFANS,
+			POLYGONS,
+			POLYGONS_HOLE,
+			POLYLIST,
+		};
     private:
 
 		/** The unique id of the mesh.*/
@@ -131,6 +142,11 @@ namespace COLLADASaxFWL
         // Multiple texcoordinates.
         std::vector<PrimitiveInput> mTexCoordList;
 
+		PrimitiveType mCurrentPrimitiveType;
+
+		/** Number of already closed p elements in current primitive.*/
+		unsigned int mPOrPhElementCountOfCurrentPrimitive;
+
     public:
 
         /** Constructor. */
@@ -140,77 +156,79 @@ namespace COLLADASaxFWL
         virtual ~MeshLoader () {}
 
 		/** Sax callback function for the beginning of a source element.*/
-		virtual bool begin__mesh__source(const mesh__source__AttributeData& attributes);
+		virtual bool begin__animation__source(const animation__source__AttributeData& attributes);
 
 		/** Sax callback function for the ending of a source element.*/
-		virtual bool end__mesh__source();
+		virtual bool end__animation__source();
 		
 		/** Cleans up everything and gives control to calling file part loader.*/
 		virtual bool end__mesh();
 
 
 		/** Sax callback function for the beginning of a vertices element.*/
-		virtual bool begin__mesh__vertices( const vertices__AttributeData& attributeData );
+		virtual bool begin__vertices( const vertices__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a vertices element.*/
-		virtual bool end__mesh__vertices();
+		virtual bool end__vertices();
 
 
 		/** Sax callback function for the beginning of a input element.*/
-		virtual bool begin__vertices__input( const vertices__input__AttributeData& attributeData );
+		virtual bool begin__input____InputLocal( const input____InputLocal__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a input element.*/
-		virtual bool end__vertices__input();
+		virtual bool end__input____InputLocal();
 
 
 		/** Sax callback function for the beginning of a triangles element.*/
-		virtual bool begin__mesh__triangles( const triangles__AttributeData& attributeData );
+		virtual bool begin__triangles( const triangles__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a triangles element.*/
-		virtual bool end__mesh__triangles();
+		virtual bool end__triangles();
 
 
 		/** Sax callback function for the beginning of a triangles input element.*/
-		virtual bool begin__triangles__input( const triangles__input__AttributeData& attributeData );
+		virtual bool begin__input____InputLocalOffset( const input____InputLocalOffset__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a triangles input element.*/
-		virtual bool end__triangles__input();
+		virtual bool end__input____InputLocalOffset();
 
 
-		/** Sax callback function for the beginning of a p within a triangles element element.*/
-		virtual bool begin__triangles__p();
+		/** Sax callback function for the beginning of a p.*/
+		virtual bool begin__p();
 
-		/** Sax callback function for the ending of a p within a triangles element element.*/
-		virtual bool end__triangles__p();
+		/** Sax callback function for the ending of a p.*/
+		virtual bool end__p();
 
 		/** Sax callback function for the data of a p within a triangles element element.*/
-		virtual bool data__triangles__p( const unsigned long long* data, size_t length );
+		virtual bool data__p( const unsigned long long* data, size_t length );
 
 
 		/** Sax callback function for the beginning of a polylist element.*/
-		virtual bool begin__mesh__polylist( const polylist__AttributeData& attributeData );
+		virtual bool begin__polylist( const polylist__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polylist element.*/
-		virtual bool end__mesh__polylist();
+		virtual bool end__polylist();
 
 
+#if 0
 		/** Sax callback function for the beginning of a polylist input element.*/
 		virtual bool begin__polylist__input( const polylist__input__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polylist input element.*/
 		virtual bool end__polylist__input();
-
+#endif
 
 		/** Sax callback function for the beginning of a polylist vcount element.*/
-		virtual bool begin__polylist__vcount();
+		virtual bool begin__vcount();
 
 		/** Sax callback function for the ending of a polylist vcount element.*/
-		virtual bool end__polylist__vcount();
+		virtual bool end__vcount();
 
 		/** Sax callback function for the data of a polylist vcount element.*/
-		virtual bool data__polylist__vcount( const unsigned long long*, size_t length );
+		virtual bool data__vcount( const unsigned long long*, size_t length );
 
 
+#if 0
 		/** Sax callback function for the beginning of a polylist p element.*/
 		virtual bool begin__polylist__p();
 
@@ -219,22 +237,23 @@ namespace COLLADASaxFWL
 
 		/** Sax callback function for the data of a polylist p element.*/
 		virtual bool data__polylist__p( const unsigned long long* value, size_t length );
-
+#endif
 
 		/** Sax callback function for the beginning of a polygons element.*/
-		virtual bool begin__mesh__polygons( const polygons__AttributeData& attributeData );
+		virtual bool begin__polygons( const polygons__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polygons element.*/
-		virtual bool end__mesh__polygons();
+		virtual bool end__polygons();
 
-
+#if 0
 		/** Sax callback function for the beginning of a polygons input element.*/
 		virtual bool begin__polygons__input( const polygons__input__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polygons input element.*/
 		virtual bool end__polygons__input();
+#endif
 
-
+#if 0
 		/** Sax callback function for the beginning of a polygons p element.*/
 		virtual bool begin__polygons__p();
 
@@ -243,7 +262,7 @@ namespace COLLADASaxFWL
 
 		/** Sax callback function for the data of a polygons p element.*/
 		virtual bool data__polygons__p( const unsigned long long* value, size_t length );
-
+#endif
 
 		/** Sax callback function for the beginning of a polygons ph element.*/
 		virtual bool begin__ph();
@@ -252,6 +271,7 @@ namespace COLLADASaxFWL
 		virtual bool end__ph();
 
 
+#if 0
 		/** Sax callback function for the beginning of a polygons p element inside a ph element.*/
 		virtual bool begin__ph__p();
 
@@ -260,7 +280,7 @@ namespace COLLADASaxFWL
 
 		/** Sax callback function for the data of a polygons p element inside a ph element.*/
 		virtual bool data__ph__p( const unsigned long long* value, size_t length );
-
+#endif
 
 		/** Sax callback function for the beginning of a polygons h element inside a ph element.*/
 		virtual bool begin__h();
@@ -269,23 +289,25 @@ namespace COLLADASaxFWL
 		virtual bool end__h();
 
 		/** Sax callback function for the data of a polygons h element inside a ph element.*/
-		virtual bool data__h( const unsigned long long* value, size_t length );
+		virtual bool data__h( const uint64* data, size_t length );
 
 
 		/** Sax callback function for the beginning of a polygons element.*/
-		virtual bool begin__mesh__tristrips( const tristrips__AttributeData& attributeData );
+		virtual bool begin__tristrips( const tristrips__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polygons element.*/
-		virtual bool end__mesh__tristrips();
+		virtual bool end__tristrips();
 
-
+#if 0
 		/** Sax callback function for the beginning of a tristrips input element.*/
 		virtual bool begin__tristrips__input( const tristrips__input__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a tristrips input element.*/
 		virtual bool end__tristrips__input();
+#endif
 
 
+#if 0
 		/** Sax callback function for the beginning of a tristrips p element.*/
 		virtual bool begin__tristrips__p();
 
@@ -294,23 +316,26 @@ namespace COLLADASaxFWL
 
 		/** Sax callback function for the data of a tristrips p element.*/
 		virtual bool data__tristrips__p( const unsigned long long* value, size_t length );
-
+#endif
 
 
 		/** Sax callback function for the beginning of a polygons element.*/
-		virtual bool begin__mesh__trifans( const trifans__AttributeData& attributeData );
+		virtual bool begin__trifans( const trifans__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polygons element.*/
-		virtual bool end__mesh__trifans();
+		virtual bool end__trifans();
 
 
+#if 0
 		/** Sax callback function for the beginning of a trifans input element.*/
 		virtual bool begin__trifans__input( const trifans__input__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a trifans input element.*/
 		virtual bool end__trifans__input();
+#endif
 
 
+#if 0
 		/** Sax callback function for the beginning of a trifans p element.*/
 		virtual bool begin__trifans__p();
 
@@ -319,11 +344,11 @@ namespace COLLADASaxFWL
 
 		/** Sax callback function for the data of a trifans p element.*/
 		virtual bool data__trifans__p( const unsigned long long* value, size_t length );
-
+#endif
 
 
 		/** Stores the information provided by the attributes of an input element for all mesh primitives.*/
-		bool beginInput(const triangles__input__AttributeData& attributeData);
+		bool beginInput(const input____InputLocalOffset__AttributeData& attributeData);
 
 
 	private:

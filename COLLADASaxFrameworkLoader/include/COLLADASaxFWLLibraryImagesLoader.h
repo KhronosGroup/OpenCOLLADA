@@ -46,30 +46,30 @@ namespace COLLADASaxFWL
 
 		
 		/** Creates a new image.*/
-		virtual bool begin__library_images__image( const image__AttributeData& attributeData );
+		virtual bool begin__image( const image__AttributeData& attributeData );
 
 		/** Sends image to the writer.*/
-		virtual bool end__library_images__image();
+		virtual bool end__image();
 
 
 		/** Set source type.*/
-		virtual bool begin__image__init_from();
+		virtual bool begin__init_from____anyURI();
 
 		/** Set the image uri.*/
-		virtual bool end__image__init_from();
+		virtual bool end__init_from____anyURI();
 
 		/** Set the image uri.*/
-		virtual bool data__image__init_from( const ParserChar* data, size_t length );
+		virtual bool data__init_from____anyURI( const ParserChar* data, size_t length );
 
 
 		/** Set source type.*/
 		virtual bool begin__data();
 
 		/** We don't need to do anything here.*/
-		virtual bool end__data(){return true;}
+		virtual bool end__data(){ SaxVirtualFunctionTest(end__data()); return true;}
 
 		/** Store data in current image.*/
-		virtual bool data__data( const ParserChar* data, size_t length );
+		virtual bool data__data( const uint8* data, size_t length );
 
 	private:
 

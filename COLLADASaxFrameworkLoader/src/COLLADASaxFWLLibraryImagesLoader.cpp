@@ -34,13 +34,15 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::end__library_images()
 	{
+		SaxVirtualFunctionTest(end__library_images()); 
 		finish();
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryImagesLoader::begin__library_images__image( const image__AttributeData& attributeData )
+	bool LibraryImagesLoader::begin__image( const image__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__image(attributeData)); 
 		mCurrentImage = FW_NEW COLLADAFW::Image( getUniqueIdFromId( attributeData.id, COLLADAFW::Image::ID()).getObjectId() );
 
 		if ( attributeData.name )
@@ -59,8 +61,9 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool LibraryImagesLoader::end__library_images__image()
+	bool LibraryImagesLoader::end__image()
 	{
+		SaxVirtualFunctionTest(end__image()); 
 		bool success = writer()->writeImage(mCurrentImage);
 		FW_DELETE mCurrentImage;
 		mCurrentImageURIPart.clear();
@@ -68,15 +71,17 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool LibraryImagesLoader::begin__image__init_from()
+	bool LibraryImagesLoader::begin__init_from____anyURI()
 	{
+		SaxVirtualFunctionTest(begin__init_from____anyURI()); 
 		mCurrentImage->setSourceType( COLLADAFW::Image::SOURCE_TYPE_URI );
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryImagesLoader::end__image__init_from()
+	bool LibraryImagesLoader::end__init_from____anyURI()
 	{
+		SaxVirtualFunctionTest(end__init_from____anyURI()); 
 		String imageUriString( mCurrentImageURIPart.getData(), mCurrentImageURIPart.getCount() );
 		mCurrentImageURIPart.setCount(0);
 		COLLADABU::URI imageUri( imageUriString );
@@ -85,8 +90,9 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool LibraryImagesLoader::data__image__init_from( const ParserChar* data, size_t length )
+	bool LibraryImagesLoader::data__init_from____anyURI( const ParserChar* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__init_from____anyURI(data, length)); 
 		mCurrentImageURIPart.appendValues( data, length );
 		return true;
 	}
@@ -94,14 +100,16 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::begin__data()
 	{
+		SaxVirtualFunctionTest(begin__data()); 
 		// disabled see COLALDAFW::Image
 		//mCurrentImage->setSourceType( COLLADAFW::Image::SOURCE_TYPE_DATA);
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryImagesLoader::data__data( const ParserChar* data, size_t length )
+	bool LibraryImagesLoader::data__data( const uint8* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__data(data, length)); 
 		// disabled see COLALDAFW::Image
 		//COLLADAFW::Image::CharacterArray& dataArray = mCurrentImage->getData();
 		//dataArray.appendValues( (char *)data, length );

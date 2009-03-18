@@ -11,8 +11,6 @@
 #include "GeneratedSaxParserParserTemplateBase.h"
 #include "GeneratedSaxParserIErrorHandler.h"
 
-#include <string.h>
-
 namespace GeneratedSaxParser
 {
 
@@ -33,66 +31,52 @@ namespace GeneratedSaxParser
 
 
 	//--------------------------------------------------------------------
-	char ParserTemplateBase::toCharPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	sint8 ParserTemplateBase::toSint8Prefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<char, Utils::toChar>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+		return toDataPrefix<sint8, Utils::toSint8>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned char ParserTemplateBase::toUnsignedCharPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	uint8 ParserTemplateBase::toUint8Prefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<unsigned char, Utils::toUnsignedChar>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+		return toDataPrefix<uint8, Utils::toUint8>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	short ParserTemplateBase::toShortPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	sint16 ParserTemplateBase::toSint16Prefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<short, Utils::toShort>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+		return toDataPrefix<sint16, Utils::toSint16>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned short ParserTemplateBase::toUnsignedShortPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	uint16 ParserTemplateBase::toUint16Prefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<unsigned short, Utils::toUnsignedShort>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+		return toDataPrefix<uint16, Utils::toUint16>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	int ParserTemplateBase::toIntPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	sint32 ParserTemplateBase::toSint32Prefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<int, Utils::toInt>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+		return toDataPrefix<sint32, Utils::toSint32>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned int ParserTemplateBase::toUnsignedIntPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	uint32 ParserTemplateBase::toUint32Prefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<unsigned int, Utils::toUnsignedInt>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+		return toDataPrefix<uint32, Utils::toUint32>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	long ParserTemplateBase::toLongPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	sint64 ParserTemplateBase::toSint64Prefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<long, Utils::toLong>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+		return toDataPrefix<sint64, Utils::toSint64>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned long ParserTemplateBase::toUnsignedLongPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	uint64 ParserTemplateBase::toUint64Prefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<unsigned long, Utils::toUnsignedLong>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+		return toDataPrefix<uint64, Utils::toUint64>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
-
-
-	//--------------------------------------------------------------------
-	long long ParserTemplateBase::toLongLongPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
-	{
-		return toDataPrefix<long long, Utils::toLongLong>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
-	}
-
-	//--------------------------------------------------------------------
-	unsigned long long ParserTemplateBase::toUnsignedLongLongPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
-	{
-		return toDataPrefix<unsigned long long, Utils::toUnsignedLongLong>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
-	}
-
 
 	//--------------------------------------------------------------------
 	bool ParserTemplateBase::toBoolPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
@@ -103,8 +87,14 @@ namespace GeneratedSaxParser
 
 	//--------------------------------------------------------------------
 	template<class DataType,
-			 DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
-	DataType ParserTemplateBase::toDataPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+			 DataType (*toData)( const ParserChar**, const ParserChar*, bool& )>
+	DataType ParserTemplateBase::toDataPrefix(
+                const ParserChar* prefixedBuffer,
+                const ParserChar* prefixedBufferEnd,
+                const ParserChar** buffer,
+                const ParserChar* bufferEnd,
+                bool& failed
+                )
 	{
 		const ParserChar* prefixBufferPos = prefixedBuffer;
 		const ParserChar* prefixBufferStartPos = 0;
@@ -150,12 +140,12 @@ namespace GeneratedSaxParser
 			return (severity == ParserError::SEVERITY_CRITICAL) ? true : false;
 
 		ParserError error(severity,
-				  errorType,
-				  getNameByStringHash(elementHash),
-				  getNameByStringHash(attributeHash),
-				  getLineNumber(),
-				  getColumnNumber(),
-				  additionalText ? (const char*)additionalText : "");
+						  errorType,
+						  getNameByStringHash(elementHash),
+						  getNameByStringHash(attributeHash),
+						  getLineNumber(),
+						  getColumnNumber(),
+						  additionalText ? (const char*)additionalText : "");
 		bool handlerWantsToAbort = errorHandler->handleError(error);
 
 		return (severity == ParserError::SEVERITY_CRITICAL) ? true : handlerWantsToAbort;
@@ -167,7 +157,7 @@ namespace GeneratedSaxParser
 												 StringHash attributeHash,
 												 const ParserChar* additionalText )
 	{
-		StringHash elementHash = mElementDataStack.empty() ? 0 : mElementDataStack.top().elementHash;
+		StringHash elementHash = mElementDataStack.empty() ? 0 : mElementDataStack.back().elementHash;
 
 		return handleError(severity,
 			errorType,

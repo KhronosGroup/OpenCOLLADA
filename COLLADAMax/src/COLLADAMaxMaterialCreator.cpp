@@ -103,7 +103,7 @@ namespace COLLADAMax
 															   const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding,
 															   const DocumentImporter::SetMapChannelMap& setMapChannelMap)
 	{
-		assert( !effect.getCommonEffects().empty() );
+//		assert( !effect.getCommonEffects().empty() );
 		MaterialCreator::MaterialIdentifier materialIdentifier;
 		materialIdentifier.slotFlags = 0;
 
@@ -111,19 +111,37 @@ namespace COLLADAMax
 
 		materialIdentifier.effectUniqueId = effect.getUniqueId();
 
-		const COLLADAFW::EffectCommon* commonEffect = effect.getCommonEffects()[0];
+		const COLLADAFW::CommonEffectPointerArray& commonEffects = effect.getCommonEffects();
 
-		const COLLADAFW::InstanceGeometry::TextureCoordinateBindingArray& texCoordBindings =  materialBinding.getTextureCoordinateBindingArray();
+		if ( !commonEffects.empty() )
+		{
+			const COLLADAFW::EffectCommon* commonEffect = effect.getCommonEffects()[0];
 
-		setMaterialIdentifierMapChannel( commonEffect->getAmbient(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::AMBIENT, materialIdentifier.slotFlags, materialIdentifier.ambientMapChannel);
-		setMaterialIdentifierMapChannel( commonEffect->getDiffuse(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::DIFFUSE, materialIdentifier.slotFlags, materialIdentifier.diffuseMapChannel);
-		setMaterialIdentifierMapChannel( commonEffect->getSpecular(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::SPECULAR, materialIdentifier.slotFlags, materialIdentifier.specularMapChannel);
-//		setMaterialIdentifierMapChannel( commonEffect->getShininess(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::SHININESS, materialIdentifier.slotFlags, materialIdentifier.shininessMapChannel);
-		setMaterialIdentifierMapChannel( commonEffect->getEmission(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::EMISSION, materialIdentifier.slotFlags, materialIdentifier.emissionMapChannel);
-		setMaterialIdentifierMapChannel( commonEffect->getOpacity(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::OPACITY, materialIdentifier.slotFlags, materialIdentifier.opacityMapChannel);
+			const COLLADAFW::InstanceGeometry::TextureCoordinateBindingArray& texCoordBindings =  materialBinding.getTextureCoordinateBindingArray();
+
+			setMaterialIdentifierMapChannel( commonEffect->getAmbient(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::AMBIENT, materialIdentifier.slotFlags, materialIdentifier.ambientMapChannel);
+			setMaterialIdentifierMapChannel( commonEffect->getDiffuse(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::DIFFUSE, materialIdentifier.slotFlags, materialIdentifier.diffuseMapChannel);
+			setMaterialIdentifierMapChannel( commonEffect->getSpecular(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::SPECULAR, materialIdentifier.slotFlags, materialIdentifier.specularMapChannel);
+	//		setMaterialIdentifierMapChannel( commonEffect->getShininess(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::SHININESS, materialIdentifier.slotFlags, materialIdentifier.shininessMapChannel);
+			setMaterialIdentifierMapChannel( commonEffect->getEmission(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::EMISSION, materialIdentifier.slotFlags, materialIdentifier.emissionMapChannel);
+			setMaterialIdentifierMapChannel( commonEffect->getOpacity(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::OPACITY, materialIdentifier.slotFlags, materialIdentifier.opacityMapChannel);
+		}
+
 		return materialIdentifier;
 	}
 
+
+	//------------------------------
+	MaterialCreator::MaterialIdentifier::MaterialIdentifier()
+		: slotFlags(0)
+		, ambientMapChannel(0)
+		, diffuseMapChannel(0)
+		, specularMapChannel(0)
+		, shininessMapChannel(0)
+		, emissionMapChannel(0)
+		, opacityMapChannel(0)
+	{
+	}
 
 
 	//------------------------------
@@ -190,7 +208,7 @@ namespace COLLADAMax
 		return false;
 	}
 
-
+	//------------------------------
 	MaterialCreator::MaterialCreator( DocumentImporter* documentImporter )
 		: ImporterBase(documentImporter)
 	{
