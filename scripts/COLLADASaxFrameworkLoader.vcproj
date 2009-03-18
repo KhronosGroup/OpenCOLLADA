@@ -308,6 +308,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenPrivateFindElementHash.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenPrivateFunctionMap.cpp"
 				>
 			</File>
@@ -435,6 +439,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLColladaParserAutoGenPrivate.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLColladaParserAutoGenValidationData.h"
 				>
 			</File>
 			<File

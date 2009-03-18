@@ -31,7 +31,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool LibraryLightsLoader::dataColor( const double* data, size_t length )
+	bool LibraryLightsLoader::dataColor( const float* data, size_t length )
 	{
 		COLLADAFW::Color& color = mCurrentLight->getColor();
 		for ( size_t i = 0; i < length; ++i)
@@ -65,6 +65,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryLightsLoader::end__library_lights()
 	{
+		SaxVirtualFunctionTest(end__library_lights());
 		finish();
 		return true;
 	}
@@ -72,6 +73,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryLightsLoader::begin__light( const light__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__light(attributeData));
 		mCurrentLight = FW_NEW COLLADAFW::Light( getUniqueIdFromId( attributeData.id, COLLADAFW::Light::ID()).getObjectId() );
 
 		if ( attributeData.name )
@@ -85,6 +87,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryLightsLoader::end__light()
 	{
+		SaxVirtualFunctionTest(end__light());
 		bool success = writer()->writeLight(mCurrentLight);
 		FW_DELETE mCurrentLight;
 		mCurrentLight = 0;
@@ -92,31 +95,36 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool LibraryLightsLoader::begin__technique_common__ambient()
+	bool LibraryLightsLoader::begin__light__technique_common__ambient()
 	{
+		SaxVirtualFunctionTest(begin__light__technique_common__ambient());
 		mCurrentLight->setLightType(COLLADAFW::Light::AMBIENT_LIGHT);
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryLightsLoader::end__ambient__color()
+	bool LibraryLightsLoader::end__color____TargetableFloat3()
 	{
+		SaxVirtualFunctionTest(end__color____TargetableFloat3());
 		return endColor();
 	}
 
 	//------------------------------
-	bool LibraryLightsLoader::data__ambient__color( const double* data, size_t length )
+	bool LibraryLightsLoader::data__color____TargetableFloat3( const float* data, size_t length )
 	{
+		SaxVirtualFunctionTest(data__color____TargetableFloat3(data, length));
 		return dataColor(data, length);
 	}
 
 	//------------------------------
 	bool LibraryLightsLoader::begin__directional()
 	{
+		SaxVirtualFunctionTest(begin__directional());
 		mCurrentLight->setLightType(COLLADAFW::Light::DIRECTIONAL_LIGHT);
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool LibraryLightsLoader::end__directional__color()
 	{
@@ -128,14 +136,17 @@ namespace COLLADASaxFWL
 	{
 		return dataColor(data, length);
 	}
+#endif
 
 	//------------------------------
 	bool LibraryLightsLoader::begin__point()
 	{
+		SaxVirtualFunctionTest(begin__point());
 		mCurrentLight->setLightType(COLLADAFW::Light::POINT_LIGHT);
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool LibraryLightsLoader::end__point__color()
 	{
@@ -147,24 +158,27 @@ namespace COLLADASaxFWL
 	{
 		return dataColor(data, length);
 	}
-
+#endif
 	//------------------------------
-	bool LibraryLightsLoader::data__point__constant_attenuation( double value )
+	bool LibraryLightsLoader::data__constant_attenuation( float value )
 	{
+		SaxVirtualFunctionTest(data__constant_attenuation(value));
 		mCurrentLight->setConstantAttenuation(value);
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryLightsLoader::data__point__linear_attenuation( double value )
+	bool LibraryLightsLoader::data__linear_attenuation( float value )
 	{
+		SaxVirtualFunctionTest(data__linear_attenuation(value));
 		mCurrentLight->setLinearAttenuation(value);
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryLightsLoader::data__point__quadratic_attenuation( double value )
+	bool LibraryLightsLoader::data__quadratic_attenuation( float value )
 	{
+		SaxVirtualFunctionTest(data__quadratic_attenuation(value));
 		mCurrentLight->setQuadraticAttenuation(value);
 		return true;
 	}
@@ -172,10 +186,12 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryLightsLoader::begin__spot()
 	{
+		SaxVirtualFunctionTest(begin__spot());
 		mCurrentLight->setLightType(COLLADAFW::Light::SPOT_LIGHT);
 		return true;
 	}
 	
+#if 0
 	//------------------------------
 	bool LibraryLightsLoader::end__spot__color()
 	{
@@ -187,7 +203,9 @@ namespace COLLADASaxFWL
 	{
 		return dataColor(data, length);
 	}
+#endif
 
+#if 0
 	//------------------------------
 	bool LibraryLightsLoader::data__spot__constant_attenuation( double value )
 	{
@@ -208,17 +226,19 @@ namespace COLLADASaxFWL
 		mCurrentLight->setQuadraticAttenuation(value);
 		return true;
 	}
-
+#endif
 	//------------------------------
-	bool LibraryLightsLoader::data__falloff_angle( double value )
+	bool LibraryLightsLoader::data__falloff_angle( float value )
 	{
+		SaxVirtualFunctionTest(data__falloff_angle(value));
 		mCurrentLight->setFallOffAngle(value);
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryLightsLoader::data__falloff_exponent( double value )
+	bool LibraryLightsLoader::data__falloff_exponent( float value )
 	{
+		SaxVirtualFunctionTest(data__falloff_exponent(value));
 		mCurrentLight->setFallOffExponent(value);
 		return true;
 	}

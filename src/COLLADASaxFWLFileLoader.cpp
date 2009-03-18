@@ -56,8 +56,9 @@ namespace COLLADASaxFWL
 	}
 
     //-----------------------------
-    bool FileLoader::begin__COLLADA__asset ()
+    bool FileLoader::begin__asset ()
     {
+		SaxVirtualFunctionTest(begin__asset());
 		deleteFilePartLoader();
         AssetLoader* assetLoader = new AssetLoader(this);
         setPartLoader(assetLoader);
@@ -68,6 +69,7 @@ namespace COLLADASaxFWL
     //-----------------------------
 	bool FileLoader::begin__visual_scene( const visual_scene__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__visual_scene(attributeData));
 		deleteFilePartLoader();
 		VisualSceneLoader* visualSceneLoader = new VisualSceneLoader(this);
 		setPartLoader(visualSceneLoader);
@@ -78,6 +80,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::begin__geometry( const geometry__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__geometry(attributeData));
 		deleteFilePartLoader();
 		GeometryLoader* geometryLoader = new GeometryLoader(this);
 
@@ -94,6 +97,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::begin__library_nodes( const library_nodes__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__library_nodes(attributeData));
 		deleteFilePartLoader();
 		LibraryNodesLoader* libraryNodesLoader = new LibraryNodesLoader(this);
 
@@ -117,6 +121,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::begin__library_materials( const library_materials__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__library_materials(attributeData));
 		deleteFilePartLoader();
 		LibraryMaterialsLoader* libraryMaterialsLoader = new LibraryMaterialsLoader(this);
 
@@ -128,6 +133,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::begin__library_effects( const library_effects__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__library_effects(attributeData));
 		deleteFilePartLoader();
 		LibraryEffectsLoader* libraryEffectsLoader = new LibraryEffectsLoader(this);
 
@@ -139,6 +145,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::begin__library_cameras( const library_cameras__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__library_cameras(attributeData));
 		deleteFilePartLoader();
 		LibraryCamerasLoader* libraryCamerasLoader = new LibraryCamerasLoader(this);
 
@@ -150,6 +157,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::begin__library_lights( const library_lights__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__library_lights(attributeData));
 		deleteFilePartLoader();
 		LibraryLightsLoader* libraryLightsLoader = new LibraryLightsLoader(this);
 
@@ -161,6 +169,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::begin__library_images( const library_images__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__library_images(attributeData));
 		deleteFilePartLoader();
 		LibraryImagesLoader* libraryImagesLoader = new LibraryImagesLoader(this);
 
@@ -173,6 +182,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
     bool FileLoader::end__COLLADA ()
     {
+		SaxVirtualFunctionTest(end__COLLADA());
         writer ()->finish ();
         return true;
     }

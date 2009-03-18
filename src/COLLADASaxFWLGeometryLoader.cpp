@@ -28,6 +28,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool GeometryLoader::begin__mesh()
 	{
+		SaxVirtualFunctionTest(begin__mesh());
 		MeshLoader* meshLoader = new MeshLoader(this, mGeometryId, mGeometryName);
 		setPartLoader(meshLoader);
 		setParser(meshLoader);
@@ -37,37 +38,9 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool GeometryLoader::end__geometry()
 	{
+		SaxVirtualFunctionTest(end__geometry());
 		finish();
 		return true;
 	}
-
-/*
-    //------------------------------
-    const SourceBase* GeometryLoader::getSourceById ( const String& sourceId ) const
-    {
-        for ( size_t i=0; i<mSourceArray.getCount (); ++i )
-        {
-            const SourceBase* source = mSourceArray [ i ];
-            if ( COLLADABU::Utils::equals ( source->getId (), sourceId ) )
-                return source;
-        }
-
-        return 0;
-    }
-
-    //------------------------------
-    SourceBase* GeometryLoader::getSourceById ( const String& sourceId ) 
-    {
-        for ( size_t i=0; i<mSourceArray.getCount (); ++i )
-        {
-            SourceBase* source = mSourceArray [ i ];
-            if ( COLLADABU::Utils::equals ( source->getId (), sourceId ) )
-                return source;
-        }
-
-        return 0;
-    }
-
-	*/
 
 } // namespace COLLADAFW

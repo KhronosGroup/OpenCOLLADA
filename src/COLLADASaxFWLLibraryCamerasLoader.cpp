@@ -44,6 +44,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::end__library_cameras()
 	{
+		SaxVirtualFunctionTest(end__library_cameras()); 
 		finish();
 		return true;
 	}
@@ -51,6 +52,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::begin__camera( const camera__AttributeData& attributeData )
 	{
+		SaxVirtualFunctionTest(begin__camera(attributeData)); 
 		mCurrentCamera = FW_NEW COLLADAFW::Camera( getUniqueIdFromId( attributeData.id, COLLADAFW::Camera::ID()).getObjectId() );
 
 		if ( attributeData.name )
@@ -64,6 +66,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::end__camera()
 	{
+		SaxVirtualFunctionTest(end__camera()); 
 		// we need to determine the description type
 		// X = 1, Y = 2, aspect ratio = 4
 		int descriptionType = (mCurrentCameraHasX ? 1 : 0) +
@@ -99,6 +102,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::begin__perspective()
 	{
+		SaxVirtualFunctionTest(begin__perspective()); 
 		mCurrentCamera->setCameraType(COLLADAFW::Camera::PERSPECTIVE);
 		return true;
 	}
@@ -106,21 +110,24 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::begin__orthographic()
 	{
+		SaxVirtualFunctionTest(begin__orthographic()); 
 		mCurrentCamera->setCameraType(COLLADAFW::Camera::ORTHOGRAPHIC);
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryCamerasLoader::data__xfov( double value )
+	bool LibraryCamerasLoader::data__xfov( float value )
 	{
+		SaxVirtualFunctionTest(data__xfov(value)); 
 		mCurrentCamera->setXFov( value );
 		mCurrentCameraHasX = true;
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryCamerasLoader::data__yfov( double value )
+	bool LibraryCamerasLoader::data__yfov( float value )
 	{
+		SaxVirtualFunctionTest(data__yfov(value)); 
 		mCurrentCamera->setYFov( value );
 		mCurrentCameraHasY = true;
 		return true;
@@ -128,46 +135,53 @@ namespace COLLADASaxFWL
 
 
 	//------------------------------
-	bool LibraryCamerasLoader::data__xmag( double value )
+	bool LibraryCamerasLoader::data__xmag( float value )
 	{
+		SaxVirtualFunctionTest(data__xmag(value)); 
 		mCurrentCamera->setXMag( value );
 		mCurrentCameraHasX = true;
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryCamerasLoader::data__ymag( double value )
+	bool LibraryCamerasLoader::data__ymag( float value )
 	{
+		SaxVirtualFunctionTest(data__ymag(value)); 
 		mCurrentCamera->setYMag( value );
 		mCurrentCameraHasY = true;
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryCamerasLoader::data__perspective__aspect_ratio( double value )
+	bool LibraryCamerasLoader::data__aspect_ratio( float value )
 	{
+		SaxVirtualFunctionTest(data__aspect_ratio(value)); 
 		mCurrentCamera->setAspectRatio(value);
 		mCurrentCameraHasAspectRatio = true;
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryCamerasLoader::data__perspective__znear( double value )
+	bool LibraryCamerasLoader::data__znear( float value )
 	{
+		SaxVirtualFunctionTest(data__znear(value)); 
 		mCurrentCamera->setNearClippingPlane(value);
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryCamerasLoader::data__perspective__zfar( double value )
+	bool LibraryCamerasLoader::data__zfar( float value )
 	{
+		SaxVirtualFunctionTest(data__zfar(value)); 
 		mCurrentCamera->setFarClippingPlane(value);
 		return true;
 	}
 
+#if 0
 	//------------------------------
 	bool LibraryCamerasLoader::data__orthographic__aspect_ratio( double value )
 	{
+		SaxVirtualFunctionTest(data__orthographic__aspect_ratio(value)); 
 		mCurrentCamera->setAspectRatio(value);
 		mCurrentCameraHasAspectRatio = true;
 		return true;
@@ -176,6 +190,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::data__orthographic__znear( double value )
 	{
+		SaxVirtualFunctionTest(data__orthographic__znear(value)); 
 		mCurrentCamera->setNearClippingPlane(value);
 		return true;
 	}
@@ -183,10 +198,11 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::data__orthographic__zfar( double value )
 	{
+		SaxVirtualFunctionTest(data__orthographic__zfar(value)); 
 		mCurrentCamera->setFarClippingPlane(value);
 		return true;
 	}
 
-
+#endif
 
 } // namespace COLLADASaxFWL

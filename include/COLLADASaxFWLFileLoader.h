@@ -86,7 +86,7 @@ namespace COLLADASaxFWL
 		const Loader* getColladaLoader () const { return mColladaLoader; }
 
         /** Sax callback function for the beginning of the collada document asset information.*/
-        virtual bool begin__COLLADA__asset();
+        virtual bool begin__asset();
 
 		/** Starts loading a visual scene.*/
 		virtual bool begin__geometry( const geometry__AttributeData& attributeData );
