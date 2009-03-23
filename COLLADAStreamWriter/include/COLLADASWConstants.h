@@ -123,6 +123,8 @@ namespace COLLADASW
         static const String CSW_ELEMENT_LIBRARY_VISUAL_SCENES;
         static const String CSW_ELEMENT_LIGHT;
 		static const String CSW_ELEMENT_LINEAR_ATTENUATION;
+		static const String CSW_ELEMENT_LINES;
+		static const String CSW_ELEMENT_LINE_STRIPS;
         static const String CSW_ELEMENT_LOOKAT;
         static const String CSW_ELEMENT_MAGFILTER;
         static const String CSW_ELEMENT_MATERIAL;

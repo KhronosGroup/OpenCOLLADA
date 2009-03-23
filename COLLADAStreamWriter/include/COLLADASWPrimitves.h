@@ -208,6 +208,7 @@ namespace COLLADASW
          */
         void finish();
 
+	protected:
         /** 
          * Prepares to fill the <p> element. This member must be called exactly 
          * once before add is called the first time.
@@ -323,10 +324,69 @@ namespace COLLADASW
 
 	};
 
+	/**
+	* Class for the linestrips element.
+	*/
+	class Linestrips : public PrimitivesBase
+	{
+	public:
+		Linestrips ( StreamWriter* streamWriter ) 
+			: PrimitivesBase ( streamWriter, CSWC::CSW_ELEMENT_LINE_STRIPS ) {}
 
+		void prepareToAppendValues()
+		{
+			prepareBaseToAppendValues ( false, false );
+		}
+
+	private:
+		Linestrips ( const Linestrips& primitivesBase );
+		Linestrips& operator= ( const Linestrips& primitivesBase );
+
+	};
+
+	/**
+	* Class for the trifans element.
+	*/
+	class Trifans : public PrimitivesBase
+	{
+	public:
+		Trifans ( StreamWriter* streamWriter ) 
+			: PrimitivesBase ( streamWriter, CSWC::CSW_ELEMENT_TRIFANS ) {}
+
+		void prepareToAppendValues()
+		{
+			prepareBaseToAppendValues ( false, false );
+		}
+
+	private:
+		Trifans ( const Trifans& primitivesBase );
+		Trifans& operator= ( const Trifans& primitivesBase );
+
+	};
+
+	/**
+	* Class for the tristrips element.
+	*/
+	class Tristrips : public PrimitivesBase
+	{
+	public:
+		Tristrips ( StreamWriter* streamWriter ) 
+			: PrimitivesBase ( streamWriter, CSWC::CSW_ELEMENT_TRISTRIPS ) {}
+
+		void prepareToAppendValues()
+		{
+			prepareBaseToAppendValues ( false, false );
+		}
+
+	private:
+		Tristrips ( const Tristrips& primitivesBase );
+		Tristrips& operator= ( const Tristrips& primitivesBase );
+
+	};
+
+
+	typedef Primitive<CSWC::CSW_ELEMENT_LINES> Lines;	
     typedef Primitive<CSWC::CSW_ELEMENT_TRIANGLES> Triangles;
-	typedef Primitive<CSWC::CSW_ELEMENT_TRIFANS> Trifans;
-	typedef Primitive<CSWC::CSW_ELEMENT_TRISTRIPS> Tristrips;
     typedef Primitive<CSWC::CSW_ELEMENT_POLYLIST> Polylist;
 
 } //namespace COLLADASW

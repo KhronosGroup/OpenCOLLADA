@@ -112,6 +112,8 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_LIBRARY_VISUAL_SCENES = "library_visual_scenes";
     const String CSWC::CSW_ELEMENT_LIGHT = "light";
 	const String CSWC::CSW_ELEMENT_LINEAR_ATTENUATION = "linear_attenuation";
+	const String CSWC::CSW_ELEMENT_LINES = "lines";
+	const String CSWC::CSW_ELEMENT_LINE_STRIPS = "linestrips";
     const String CSWC::CSW_ELEMENT_LOOKAT = "lookat";
     const String CSWC::CSW_ELEMENT_MAGFILTER = "magfilter";
     const String CSWC::CSW_ELEMENT_MATERIAL = "material";
@@ -181,7 +183,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_TITLE = "title";
     const String CSWC::CSW_ELEMENT_TRANSLATE = "translate";
     const String CSWC::CSW_ELEMENT_TRANSPARENCY = "transparency";
-    const String CSWC::CSW_ELEMENT_TRANSPARENT = "transparent";
+    const String CSWC::CSW_ELEMENT_TRANSPARENT = "transparent";	
     const String CSWC::CSW_ELEMENT_TRIANGLES = "triangles";
 	const String CSWC::CSW_ELEMENT_TRIFANS = "trifans";
 	const String CSWC::CSW_ELEMENT_TRISTRIPS = "tristrips";

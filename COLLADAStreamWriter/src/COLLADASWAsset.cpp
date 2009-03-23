@@ -73,7 +73,7 @@ namespace COLLADASW
         << "-" << ( t->tm_mday <= 9 ? "0" : "" ) << t->tm_mday
         << "T" << ( t->tm_hour <= 9 ? "0" : "" ) << t->tm_hour
         << ":" << ( t->tm_min <= 9 ? "0" : "" ) << t->tm_min
-        << ":" << ( t->tm_sec <= 9 ? "0" : "" ) << t->tm_sec << "Z";
+        << ":" << ( t->tm_sec <= 9 ? "0" : "" ) << t->tm_sec;
 
 
         mSW->appendTextElement ( CSWC::CSW_ELEMENT_CREATED, curDate.str() );
