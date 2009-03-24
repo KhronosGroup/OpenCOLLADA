@@ -140,7 +140,20 @@ namespace COLLADABU
 		*/
 		URI(const String& URIString, bool nofrag = false);
 
-		/** Constructs an URI of the form:
+        /**
+        * Constructs a URI object from a URI passed in as a null terminated C string.
+        * @param uriString Passed to set() automatically.
+        */
+        URI(const char* uriString);
+
+        /**
+        * Constructs a URI object from a URI passed in as a non-terminated C string.
+        * @param uriString Passed to set() automatically.
+        * @param length Length of given string.
+        */
+        URI(const char* uriString, size_t length);
+
+        /** Constructs an URI of the form:
 		[@a resource][#@a fragment]. At least one of the parts must not be empty to create a valid URI.*/
 		URI ( const String& path, const String& fragment );
 
@@ -174,6 +187,15 @@ namespace COLLADABU
 
 		// Setter function for setting the full uri.
 		void set(const String& uriStr, const URI* baseURI = 0);
+
+        // Setter function for setting the full uri.
+        // @param uriStr Null terminated C string.
+        void set(const char* uriStr, const URI* baseURI = 0);
+
+        // Setter function for setting the full uri.
+        // @param uriStr Non-terminated C string.
+        // @param length Length of uriStr.
+        void set(const char* uriStr, size_t length, const URI* baseURI = 0);
 
 		// Setter function for setting the individual uri components.
 		void set(const String& scheme,

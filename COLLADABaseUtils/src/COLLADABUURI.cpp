@@ -158,7 +158,29 @@ namespace COLLADABU
 	}
 
 
-	URI::URI( const String& path, const String& fragment )
+    URI::URI(const char* uriString) {
+        if (!uriString) {
+            URI();
+        }
+        else {
+            initialize();
+            set(uriString);
+        }
+    }
+
+
+    URI::URI(const char* uriString, size_t length) {
+        if (!uriString || length == 0) {
+            URI();
+        }
+        else {
+            initialize();
+            set(uriString, length);
+        }
+    }
+
+
+    URI::URI( const String& path, const String& fragment )
 	{
 		initialize();
 		set("", "", path, "", fragment);
@@ -166,7 +188,7 @@ namespace COLLADABU
 
 
 	URI::URI()
-		: mIsValid( false)
+        : mIsValid( false)
 	{
 		initialize();
 	}
@@ -284,6 +306,44 @@ namespace COLLADABU
 
 		validate(baseURI);
 	}
+
+    void URI::set(const char* uriStr_, const URI* baseURI) {
+        // We make a copy of the uriStr so that set(mOriginalURIString, ...) works properly.
+        String uriStr = uriStr_;
+        reset();
+        mOriginalURIString = uriStr;
+
+        if (!parseUriRef(uriStr, mScheme, mAuthority, mPath, mQuery, mFragment)) 
+        {
+            reset();
+            return;
+        }
+        else
+        {
+            mIsValid = true;
+        }
+
+        validate(baseURI);
+    }
+
+    void URI::set(const char* uriStr_, size_t length, const URI* baseURI) {
+        // We make a copy of the uriStr so that set(mOriginalURIString, ...) works properly.
+        String uriStr(uriStr_, length);
+        reset();
+        mOriginalURIString = uriStr;
+
+        if (!parseUriRef(uriStr, mScheme, mAuthority, mPath, mQuery, mFragment)) 
+        {
+            reset();
+            return;
+        }
+        else
+        {
+            mIsValid = true;
+        }
+
+        validate(baseURI);
+    }
 
 	void URI::set(const String& scheme_,
 		const String& authority_,
