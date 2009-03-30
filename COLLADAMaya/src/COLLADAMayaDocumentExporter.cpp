@@ -279,7 +279,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void DocumentExporter::exportScene()
     {
-        COLLADASW::Scene scene ( &mStreamWriter, COLLADASW::URI ( "", VISUAL_SCENE_NODE_ID ) );
+        COLLADASW::Scene scene ( &mStreamWriter, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, VISUAL_SCENE_NODE_ID ) );
         scene.add();
     }
 

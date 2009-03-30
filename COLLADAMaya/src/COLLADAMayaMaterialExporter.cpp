@@ -673,7 +673,7 @@ namespace COLLADAMaya
         // Create the effect instance
         String effectURL = materialId + EffectExporter::EFFECT_ID_SUFFIX;
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-        COLLADASW::InstanceEffect effectInstance ( streamWriter, COLLADASW::URI ( "", effectURL ) );
+        COLLADASW::InstanceEffect effectInstance ( streamWriter, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, effectURL ) );
 
         // Opens the current effect instance. 
         effectInstance.open();

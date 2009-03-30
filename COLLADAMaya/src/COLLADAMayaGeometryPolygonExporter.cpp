@@ -834,11 +834,11 @@ namespace COLLADAMaya
                 if ( type == COLLADASW::TEXCOORD )
                 {
                     // For texture coordinate-related inputs: set the 'set' attribute.
-                    inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( "", sourceId ), offset++, param.getIdx() ) );
+                    inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId ), offset++, param.getIdx() ) );
                 }
                 else
                 {
-                    inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( "", sourceId ), offset++ ) );
+                    inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId ), offset++ ) );
                 }
             }
         }

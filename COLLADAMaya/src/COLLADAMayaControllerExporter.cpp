@@ -1122,7 +1122,7 @@ namespace COLLADAMaya
         String controllerName = skinController.getControllerName();
 
         // Opens the skin tag in the collada document.
-        openSkin ( controllerId , controllerName, COLLADASW::URI ( "", skinTarget ) );
+        openSkin ( controllerId , controllerName, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, skinTarget ) );
 
         writeSkinBindShapeTransform( skinController );
         writeSkinJointSource( skinController );
@@ -1148,7 +1148,7 @@ namespace COLLADAMaya
         String controllerName = morphController.getControllerName();
 
         // Opens the skin tag in the collada document.
-        openMorph ( controllerId , controllerName, COLLADASW::URI ( "", morphTarget ) );
+        openMorph ( controllerId , controllerName, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, morphTarget ) );
 
         writeMorphTargetSource( morphController );
         writeMorphWeightSource ( morphController );
@@ -1172,8 +1172,8 @@ namespace COLLADAMaya
         uint offset = 0;
         COLLADASW::VertexWeightsElement vertexWeightsElement( mDocumentExporter->getStreamWriter() );
         COLLADASW::InputList &inputList = vertexWeightsElement.getInputList();
-        inputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI ("", jointSourceId ), offset++ ) );
-        inputList.push_back ( COLLADASW::Input ( COLLADASW::WEIGHT, COLLADASW::URI ("", weightSourceId ), offset++ ) );
+        inputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, jointSourceId ), offset++ ) );
+        inputList.push_back ( COLLADASW::Input ( COLLADASW::WEIGHT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, weightSourceId ), offset++ ) );
 
         // The list for the vertex values.
         std::vector<unsigned long> vertexMatches;
@@ -1222,8 +1222,8 @@ namespace COLLADAMaya
 
         COLLADASW::JointsElement jointsElement( mDocumentExporter->getStreamWriter() );
         COLLADASW::InputList &jointsInputList = jointsElement.getInputList();
-        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI ( "", jointSourceId ) ) );
-        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::BINDMATRIX, COLLADASW::URI ( "", jointBindSourceId ) ) );
+        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, jointSourceId ) ) );
+        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::BINDMATRIX, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, jointBindSourceId ) ) );
         jointsElement.add();
     }
 
@@ -1236,8 +1236,8 @@ namespace COLLADAMaya
 
         COLLADASW::TargetsElement targetsElement( mDocumentExporter->getStreamWriter() );
         COLLADASW::InputList &targetsInputList = targetsElement.getInputList();
-        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::MORPH_TARGET, COLLADASW::URI ( "", targetSourceId ) ) );
-        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::MORPH_WEIGHT, COLLADASW::URI ( "", morphWeightsSourceId ) ) );
+        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::MORPH_TARGET, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, targetSourceId ) ) );
+        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::MORPH_WEIGHT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, morphWeightsSourceId ) ) );
         targetsElement.add();
     }
 

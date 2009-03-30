@@ -1136,14 +1136,14 @@ namespace COLLADAMaya
 
         LibraryAnimations::Sampler sampler ( sourceId + SAMPLER_ID_SUFFIX );
 
-        sampler.addInput ( LibraryAnimations::Sampler::INPUT, COLLADASW::URI ( "", sourceId + INPUT_SOURCE_ID_SUFFIX ) );
-        sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, COLLADASW::URI ( "", sourceId + OUTPUT_SOURCE_ID_SUFFIX ) );
-        sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, COLLADASW::URI ( "", sourceId + INTERPOLATION_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::INPUT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + INPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + OUTPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + INTERPOLATION_SOURCE_ID_SUFFIX ) );
 
         if ( animationCurve.hasTangents() )
         {
-            sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, COLLADASW::URI ( "", sourceId + INTANGENT_SOURCE_ID_SUFFIX ) );
-            sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, COLLADASW::URI ( "", sourceId + OUTTANGENT_SOURCE_ID_SUFFIX ) );
+            sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + INTANGENT_SOURCE_ID_SUFFIX ) );
+            sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + OUTTANGENT_SOURCE_ID_SUFFIX ) );
         }
 
         addSampler ( sampler );
@@ -1156,7 +1156,7 @@ namespace COLLADAMaya
         String sourceId = animationCurve.getSourceId();
         String target = getTarget ( animationCurve );
 
-        addChannel ( COLLADASW::URI ( "", sourceId + SAMPLER_ID_SUFFIX ), target );
+        addChannel ( COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + SAMPLER_ID_SUFFIX ), target );
     }
 
     //---------------------------------------------------------------

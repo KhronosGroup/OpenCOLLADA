@@ -484,7 +484,7 @@ namespace COLLADAMaya
                 MFnDependencyNode shaderNode ( shader );
                 String materialId = DocumentExporter::mayaNameToColladaName ( shaderNode.name(), true );
 
-                COLLADASW::InstanceMaterial materialInstance ( materialName, COLLADASW::URI ( "", materialId ) );
+                COLLADASW::InstanceMaterial materialInstance ( materialName, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, materialId ) );
                 instanceMaterialList.push_back ( materialInstance );
             }
         }
@@ -514,7 +514,7 @@ namespace COLLADAMaya
 
             // Set the node URL
             String instanceNodeURL = mDocumentExporter->dagPathToColladaId ( instantiatedDagPath );
-            mVisualSceneNode->setNodeURL ( COLLADASW::URI ( "", instanceNodeURL ) );
+            mVisualSceneNode->setNodeURL ( COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, instanceNodeURL ) );
         }
         else
         {
@@ -949,7 +949,7 @@ namespace COLLADAMaya
             std::set<String>::const_iterator it = skeletonIds.begin ();
             while ( it != skeletonIds.end () )
             {
-                instanceController.addSkeleton ( COLLADASW::URI ( "", *it ) );
+                instanceController.addSkeleton ( COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, *it ) );
                 ++it;
             }
         }
@@ -1064,8 +1064,8 @@ namespace COLLADAMaya
         {
             // Get the id of the element
             if ( !elementId.empty() )
-                return COLLADASW::URI ( "", elementId );
-            else return COLLADASW::URI ( "", mDocumentExporter->dagPathToColladaId ( dagPath ) );
+                return COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, elementId );
+            else return COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, mDocumentExporter->dagPathToColladaId ( dagPath ) );
         }
     }
 

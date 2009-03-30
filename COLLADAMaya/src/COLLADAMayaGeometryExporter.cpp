@@ -630,7 +630,7 @@ namespace COLLADAMaya
 
         // Always push the vertex positions in the vertices element
         // (we have to create a vertices element with a reference)
-        inputList->push_back ( COLLADASW::Input ( COLLADASW::POSITION, COLLADASW::URI ( "", meshId + POSITIONS_SOURCE_ID_SUFFIX ) ) );
+        inputList->push_back ( COLLADASW::Input ( COLLADASW::POSITION, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, meshId + POSITIONS_SOURCE_ID_SUFFIX ) ) );
 
         // Push all other vertex sources into the vertices element
         Sources::iterator it = mVertexSources.begin();
@@ -645,7 +645,7 @@ namespace COLLADAMaya
             const COLLADASW::Semantics& type = sourceInput.getType();
 
             // Push the vertex source to the collada vertices
-            inputList->push_back ( COLLADASW::Input ( type, COLLADASW::URI ( "", sourceId ) ) );
+            inputList->push_back ( COLLADASW::Input ( type, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId ) ) );
         }
 
         vertices.add();

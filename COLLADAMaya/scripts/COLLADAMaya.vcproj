@@ -2147,8 +2147,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugConsole2009|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -2319,8 +2319,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleaseConsole2009|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
