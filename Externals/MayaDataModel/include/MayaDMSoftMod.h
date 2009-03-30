@@ -114,6 +114,31 @@ public:
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setFalloffCurve(size_t fc_start,size_t fc_end,FalloffCurve* fc)
+	{
+		fprintf(mFile,"\tsetAttr \".fc[%i:%i]\" ", fc_start,fc_end);
+		size_t size = (fc_end-fc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fc[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startFalloffCurve(size_t fc_start,size_t fc_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".fc[%i:%i]\"",fc_start,fc_end);
+		fprintf(mFile," -type \"FalloffCurve\" ");
+	}
+	void appendFalloffCurve(const FalloffCurve& fc)const
+	{
+		fprintf(mFile,"\n");
+		fc.write(mFile);
+	}
+	void endFalloffCurve()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setFalloffCurve_Position(size_t fc_i,float fcp)
 	{
 		if(fcp == 0.0) return;

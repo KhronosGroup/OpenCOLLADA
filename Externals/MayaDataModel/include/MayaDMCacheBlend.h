@@ -30,10 +30,14 @@ public:
 		}
 	};
 	struct CacheData{
+		double start;
+		double end;
 		bool range;
 		double weight;
 		void write(FILE* file) const
 		{
+			fprintf(file,"%f ", start);
+			fprintf(file,"%f ", end);
 			fprintf(file,"%i ", range);
 			fprintf(file,"%f", weight);
 		}
@@ -49,6 +53,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".ic[%i]\" ",ic_i);
 		ic.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setInCache(size_t ic_start,size_t ic_end,InCache* ic)
+	{
+		fprintf(mFile,"\tsetAttr \".ic[%i:%i]\" ", ic_start,ic_end);
+		size_t size = (ic_end-ic_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ic[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInCache(size_t ic_start,size_t ic_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ic[%i:%i]\"",ic_start,ic_end);
+		fprintf(mFile," -type \"InCache\" ");
+	}
+	void appendInCache(const InCache& ic)const
+	{
+		fprintf(mFile,"\n");
+		ic.write(mFile);
+	}
+	void endInCache()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setPerPtWeights(size_t ic_i,size_t ppw_i,const doubleArray& ppw)
@@ -93,6 +122,41 @@ public:
 		fprintf(mFile,"\tsetAttr \".cd[%i]\" ",cd_i);
 		cd.write(mFile);
 		fprintf(mFile,";\n");
+	}
+	void setCacheData(size_t cd_start,size_t cd_end,CacheData* cd)
+	{
+		fprintf(mFile,"\tsetAttr \".cd[%i:%i]\" ", cd_start,cd_end);
+		size_t size = (cd_end-cd_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cd[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCacheData(size_t cd_start,size_t cd_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cd[%i:%i]\"",cd_start,cd_end);
+		fprintf(mFile," -type \"CacheData\" ");
+	}
+	void appendCacheData(const CacheData& cd)const
+	{
+		fprintf(mFile,"\n");
+		cd.write(mFile);
+	}
+	void endCacheData()const
+	{
+		fprintf(mFile,";\n");
+	}
+	void setStart(size_t cd_i,double st)
+	{
+		if(st == 0) return;
+		fprintf(mFile,"\tsetAttr \".cd[%i].st\" %f;\n", cd_i,st);
+	}
+	void setEnd(size_t cd_i,double e)
+	{
+		if(e == 0) return;
+		fprintf(mFile,"\tsetAttr \".cd[%i].e\" %f;\n", cd_i,e);
 	}
 	void setRange(size_t cd_i,bool ra)
 	{

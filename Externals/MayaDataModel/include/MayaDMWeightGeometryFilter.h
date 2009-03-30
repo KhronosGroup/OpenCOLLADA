@@ -42,6 +42,31 @@ public:
 		wl.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setWeightList(size_t wl_start,size_t wl_end,WeightList* wl)
+	{
+		fprintf(mFile,"\tsetAttr \".wl[%i:%i]\" ", wl_start,wl_end);
+		size_t size = (wl_end-wl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			wl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startWeightList(size_t wl_start,size_t wl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".wl[%i:%i]\"",wl_start,wl_end);
+		fprintf(mFile," -type \"WeightList\" ");
+	}
+	void appendWeightList(const WeightList& wl)const
+	{
+		fprintf(mFile,"\n");
+		wl.write(mFile);
+	}
+	void endWeightList()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setWeights(size_t wl_i,size_t w_i,float w)
 	{
 		if(w == 1.0) return;

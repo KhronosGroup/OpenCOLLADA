@@ -38,6 +38,31 @@ public:
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setInput(size_t i_start,size_t i_end,Input* i_)
+	{
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\" ", i_start,i_end);
+		size_t size = (i_end-i_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			i_[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInput(size_t i_start,size_t i_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
+		fprintf(mFile," -type \"Input\" ");
+	}
+	void appendInput(const Input& i)const
+	{
+		fprintf(mFile,"\n");
+		i.write(mFile);
+	}
+	void endInput()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setInTriple(size_t i_i,const float3& it)
 	{
 		fprintf(mFile,"\tsetAttr \".i[%i].it\" -type \"float3\" ",i_i);

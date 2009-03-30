@@ -73,6 +73,31 @@ public:
 		pc.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setPointConstraint(size_t pc_start,size_t pc_end,AttributeCollection::PointConstraint* pc)
+	{
+		fprintf(mFile,"\tsetAttr \".ac.pc[%i:%i]\" ", pc_start,pc_end);
+		size_t size = (pc_end-pc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			pc[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startPointConstraint(size_t pc_start,size_t pc_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ac.pc[%i:%i]\"",pc_start,pc_end);
+		fprintf(mFile," -type \"AttributeCollection::PointConstraint\" ");
+	}
+	void appendPointConstraint(const AttributeCollection::PointConstraint& pc)const
+	{
+		fprintf(mFile,"\n");
+		pc.write(mFile);
+	}
+	void endPointConstraint()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setPointPositionXYZ(size_t pc_i,const double3& xyz)
 	{
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].xyz\" -type \"double3\" ",pc_i);

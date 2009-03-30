@@ -24,6 +24,11 @@ public:
 		:Filter(file, name, parent, "filterResample", create){}
 	virtual ~FilterResample(){}
 
+	void setTimeStep(double ts)
+	{
+		if(ts == 0) return;
+		fprintf(mFile,"\tsetAttr \".ts\" %f;\n", ts);
+	}
 	void setKernel(unsigned int kr)
 	{
 		if(kr == 600) return;

@@ -24,6 +24,21 @@ public:
 		:AnimCurve(file, name, parent, "resultCurve", create){}
 	virtual ~ResultCurve(){}
 
+	void setStart(double st)
+	{
+		if(st == 0) return;
+		fprintf(mFile,"\tsetAttr \".st\" %f;\n", st);
+	}
+	void setEnd(double et)
+	{
+		if(et == 3) return;
+		fprintf(mFile,"\tsetAttr \".et\" %f;\n", et);
+	}
+	void setSampleBy(double sby)
+	{
+		if(sby == 1) return;
+		fprintf(mFile,"\tsetAttr \".sby\" %f;\n", sby);
+	}
 	void getStart()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());

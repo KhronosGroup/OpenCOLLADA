@@ -154,6 +154,7 @@ public:
 		vectorArray inputPositions;
 		vectorArray inputVelocities;
 		doubleArray inputMass;
+		double deltaTime;
 		void write(FILE* file) const
 		{
 			inputPositions.write(file);
@@ -162,6 +163,7 @@ public:
 			fprintf(file, " ");
 			inputMass.write(file);
 			fprintf(file, " ");
+			fprintf(file,"%f", deltaTime);
 		}
 	};
 	struct Color{
@@ -326,6 +328,31 @@ public:
 		fll.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setFieldList(size_t fll_start,size_t fll_end,FieldList* fll)
+	{
+		fprintf(mFile,"\tsetAttr \".fll[%i:%i]\" ", fll_start,fll_end);
+		size_t size = (fll_end-fll_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fll[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startFieldList(size_t fll_start,size_t fll_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".fll[%i:%i]\"",fll_start,fll_end);
+		fprintf(mFile," -type \"FieldList\" ");
+	}
+	void appendFieldList(const FieldList& fll)const
+	{
+		fprintf(mFile,"\n");
+		fll.write(mFile);
+	}
+	void endFieldList()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setFieldFunction(size_t fll_i,const FieldList::FieldFunction& frf)
 	{
 		fprintf(mFile,"\tsetAttr \".fll[%i].frf\" ",fll_i);
@@ -336,6 +363,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfi[%i]\" ",fll_i,frfi_i);
 		frfi.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setFieldFunction_Inmap(size_t fll_i,size_t frfi_start,size_t frfi_end,FieldList::FieldFunction::FieldFunction_Inmap* frfi)
+	{
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfi[%i:%i]\" ", fll_i,frfi_start,frfi_end);
+		size_t size = (frfi_end-frfi_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			frfi[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startFieldFunction_Inmap(size_t fll_i,size_t frfi_start,size_t frfi_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfi[%i:%i]\"",fll_i,frfi_start,frfi_end);
+		fprintf(mFile," -type \"FieldList::FieldFunction::FieldFunction_Inmap\" ");
+	}
+	void appendFieldFunction_Inmap(const FieldList::FieldFunction::FieldFunction_Inmap& frfi)const
+	{
+		fprintf(mFile,"\n");
+		frfi.write(mFile);
+	}
+	void endFieldFunction_Inmap()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setFieldFunction_InmapTo(size_t fll_i,size_t frfi_i,short frfit)
@@ -352,6 +404,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfo[%i]\" ",fll_i,frfo_i);
 		frfo.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setFieldFunction_Outmap(size_t fll_i,size_t frfo_start,size_t frfo_end,FieldList::FieldFunction::FieldFunction_Outmap* frfo)
+	{
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfo[%i:%i]\" ", fll_i,frfo_start,frfo_end);
+		size_t size = (frfo_end-frfo_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			frfo[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startFieldFunction_Outmap(size_t fll_i,size_t frfo_start,size_t frfo_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfo[%i:%i]\"",fll_i,frfo_start,frfo_end);
+		fprintf(mFile," -type \"FieldList::FieldFunction::FieldFunction_Outmap\" ");
+	}
+	void appendFieldFunction_Outmap(const FieldList::FieldFunction::FieldFunction_Outmap& frfo)const
+	{
+		fprintf(mFile,"\n");
+		frfo.write(mFile);
+	}
+	void endFieldFunction_Outmap()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setFieldFunction_OutmapTo(size_t fll_i,size_t frfo_i,short frfot)
@@ -408,6 +485,31 @@ public:
 		eml.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setEmissionList(size_t eml_start,size_t eml_end,EmissionList* eml)
+	{
+		fprintf(mFile,"\tsetAttr \".eml[%i:%i]\" ", eml_start,eml_end);
+		size_t size = (eml_end-eml_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			eml[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startEmissionList(size_t eml_start,size_t eml_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".eml[%i:%i]\"",eml_start,eml_end);
+		fprintf(mFile," -type \"EmissionList\" ");
+	}
+	void appendEmissionList(const EmissionList& eml)const
+	{
+		fprintf(mFile,"\n");
+		eml.write(mFile);
+	}
+	void endEmissionList()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setEmissionFunction(size_t eml_i,const EmissionList::EmissionFunction& emf)
 	{
 		fprintf(mFile,"\tsetAttr \".eml[%i].emf\" ",eml_i);
@@ -418,6 +520,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfi[%i]\" ",eml_i,emfi_i);
 		emfi.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setEmissionFunction_Inmap(size_t eml_i,size_t emfi_start,size_t emfi_end,EmissionList::EmissionFunction::EmissionFunction_Inmap* emfi)
+	{
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfi[%i:%i]\" ", eml_i,emfi_start,emfi_end);
+		size_t size = (emfi_end-emfi_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			emfi[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startEmissionFunction_Inmap(size_t eml_i,size_t emfi_start,size_t emfi_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfi[%i:%i]\"",eml_i,emfi_start,emfi_end);
+		fprintf(mFile," -type \"EmissionList::EmissionFunction::EmissionFunction_Inmap\" ");
+	}
+	void appendEmissionFunction_Inmap(const EmissionList::EmissionFunction::EmissionFunction_Inmap& emfi)const
+	{
+		fprintf(mFile,"\n");
+		emfi.write(mFile);
+	}
+	void endEmissionFunction_Inmap()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setEmissionFunction_InmapTo(size_t eml_i,size_t emfi_i,short emfit)
@@ -434,6 +561,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfo[%i]\" ",eml_i,emfo_i);
 		emfo.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setEmissionFunction_Outmap(size_t eml_i,size_t emfo_start,size_t emfo_end,EmissionList::EmissionFunction::EmissionFunction_Outmap* emfo)
+	{
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfo[%i:%i]\" ", eml_i,emfo_start,emfo_end);
+		size_t size = (emfo_end-emfo_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			emfo[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startEmissionFunction_Outmap(size_t eml_i,size_t emfo_start,size_t emfo_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfo[%i:%i]\"",eml_i,emfo_start,emfo_end);
+		fprintf(mFile," -type \"EmissionList::EmissionFunction::EmissionFunction_Outmap\" ");
+	}
+	void appendEmissionFunction_Outmap(const EmissionList::EmissionFunction::EmissionFunction_Outmap& emfo)const
+	{
+		fprintf(mFile,"\n");
+		emfo.write(mFile);
+	}
+	void endEmissionFunction_Outmap()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setEmissionFunction_OutmapTo(size_t eml_i,size_t emfo_i,short emfot)
@@ -557,6 +709,11 @@ public:
 	{
 		if(cmet == 0) return;
 		fprintf(mFile,"\tsetAttr \".cmet\" %i;\n", cmet);
+	}
+	void setOverrideTimeStep(double ots)
+	{
+		if(ots == 1) return;
+		fprintf(mFile,"\tsetAttr \".ots\" %f;\n", ots);
 	}
 	void setSimulationRateScale(float srs)
 	{
@@ -857,6 +1014,31 @@ public:
 		ind.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setInputData(size_t ind_start,size_t ind_end,InputData* ind)
+	{
+		fprintf(mFile,"\tsetAttr \".ind[%i:%i]\" ", ind_start,ind_end);
+		size_t size = (ind_end-ind_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ind[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInputData(size_t ind_start,size_t ind_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ind[%i:%i]\"",ind_start,ind_end);
+		fprintf(mFile," -type \"InputData\" ");
+	}
+	void appendInputData(const InputData& ind)const
+	{
+		fprintf(mFile,"\n");
+		ind.write(mFile);
+	}
+	void endInputData()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setInputPositions(size_t ind_i,const vectorArray& inp)
 	{
 		if(inp.size == 0) return;
@@ -877,6 +1059,11 @@ public:
 		fprintf(mFile,"\tsetAttr \".ind[%i].inm\" -type \"doubleArray\" ",ind_i);
 		inm.write(mFile);
 		fprintf(mFile,";\n");
+	}
+	void setDeltaTime(size_t ind_i,double dt)
+	{
+		if(dt == 0) return;
+		fprintf(mFile,"\tsetAttr \".ind[%i].dt\" %f;\n", ind_i,dt);
 	}
 	void setMatteOpacityMode(unsigned int mom)
 	{
@@ -907,6 +1094,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".cl[%i]\" ",cl_i);
 		cl.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setColor(size_t cl_start,size_t cl_end,Color* cl)
+	{
+		fprintf(mFile,"\tsetAttr \".cl[%i:%i]\" ", cl_start,cl_end);
+		size_t size = (cl_end-cl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColor(size_t cl_start,size_t cl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cl[%i:%i]\"",cl_start,cl_end);
+		fprintf(mFile," -type \"Color\" ");
+	}
+	void appendColor(const Color& cl)const
+	{
+		fprintf(mFile,"\n");
+		cl.write(mFile);
+	}
+	void endColor()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setColor_Position(size_t cl_i,float clp)
@@ -954,6 +1166,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".opa[%i]\" ",opa_i);
 		opa.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setOpacity(size_t opa_start,size_t opa_end,Opacity* opa)
+	{
+		fprintf(mFile,"\tsetAttr \".opa[%i:%i]\" ", opa_start,opa_end);
+		size_t size = (opa_end-opa_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			opa[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startOpacity(size_t opa_start,size_t opa_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".opa[%i:%i]\"",opa_start,opa_end);
+		fprintf(mFile," -type \"Opacity\" ");
+	}
+	void appendOpacity(const Opacity& opa)const
+	{
+		fprintf(mFile,"\n");
+		opa.write(mFile);
+	}
+	void endOpacity()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setOpacity_Position(size_t opa_i,float opap)
@@ -1011,6 +1248,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".i[%i]\" ",i_i);
 		i_.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setIncandescence(size_t i_start,size_t i_end,Incandescence* i_)
+	{
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\" ", i_start,i_end);
+		size_t size = (i_end-i_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			i_[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startIncandescence(size_t i_start,size_t i_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
+		fprintf(mFile," -type \"Incandescence\" ");
+	}
+	void appendIncandescence(const Incandescence& i)const
+	{
+		fprintf(mFile,"\n");
+		i.write(mFile);
+	}
+	void endIncandescence()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setIncandescence_Position(size_t i_i,float ip)
@@ -1089,6 +1351,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".env[%i]\" ",env_i);
 		env.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setEnvironment(size_t env_start,size_t env_end,Environment* env)
+	{
+		fprintf(mFile,"\tsetAttr \".env[%i:%i]\" ", env_start,env_end);
+		size_t size = (env_end-env_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			env[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startEnvironment(size_t env_start,size_t env_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".env[%i:%i]\"",env_start,env_end);
+		fprintf(mFile," -type \"Environment\" ");
+	}
+	void appendEnvironment(const Environment& env)const
+	{
+		fprintf(mFile,"\n");
+		env.write(mFile);
+	}
+	void endEnvironment()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setEnvironment_Position(size_t env_i,float envp)

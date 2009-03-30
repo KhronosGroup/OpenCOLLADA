@@ -172,6 +172,31 @@ public:
 		drp.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setDropoff(size_t drp_start,size_t drp_end,Dropoff* drp)
+	{
+		fprintf(mFile,"\tsetAttr \".drp[%i:%i]\" ", drp_start,drp_end);
+		size_t size = (drp_end-drp_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			drp[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startDropoff(size_t drp_start,size_t drp_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".drp[%i:%i]\"",drp_start,drp_end);
+		fprintf(mFile," -type \"Dropoff\" ");
+	}
+	void appendDropoff(const Dropoff& drp)const
+	{
+		fprintf(mFile,"\n");
+		drp.write(mFile);
+	}
+	void endDropoff()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setDropoff_Position(size_t drp_i,float drpp)
 	{
 		if(drpp == 0.0) return;

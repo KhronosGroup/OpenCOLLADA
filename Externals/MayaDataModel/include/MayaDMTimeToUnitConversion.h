@@ -24,6 +24,11 @@ public:
 		:DependNode(file, name, parent, "timeToUnitConversion", create){}
 	virtual ~TimeToUnitConversion(){}
 
+	void setInput(double i_)
+	{
+		if(i_ == 0) return;
+		fprintf(mFile,"\tsetAttr \".i\" %f;\n", i_);
+	}
 	void setConversionFactor(double cf)
 	{
 		if(cf == 1.0) return;

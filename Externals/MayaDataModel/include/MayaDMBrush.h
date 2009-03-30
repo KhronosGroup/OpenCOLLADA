@@ -113,6 +113,11 @@ public:
 		:DependNode(file, name, parent, "brush", create){}
 	virtual ~Brush(){}
 
+	void setTime(double tim)
+	{
+		if(tim == 0) return;
+		fprintf(mFile,"\tsetAttr \".tim\" %f;\n", tim);
+	}
 	void setGlobalScale(double gsc)
 	{
 		if(gsc == 1.0) return;
@@ -1079,6 +1084,31 @@ public:
 		lcl.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setLeafCurl(size_t lcl_start,size_t lcl_end,LeafCurl* lcl)
+	{
+		fprintf(mFile,"\tsetAttr \".lcl[%i:%i]\" ", lcl_start,lcl_end);
+		size_t size = (lcl_end-lcl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			lcl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startLeafCurl(size_t lcl_start,size_t lcl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".lcl[%i:%i]\"",lcl_start,lcl_end);
+		fprintf(mFile," -type \"LeafCurl\" ");
+	}
+	void appendLeafCurl(const LeafCurl& lcl)const
+	{
+		fprintf(mFile,"\n");
+		lcl.write(mFile);
+	}
+	void endLeafCurl()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setLeafCurl_Position(size_t lcl_i,float lclp)
 	{
 		if(lclp == 0.0) return;
@@ -1293,6 +1323,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".pcl[%i]\" ",pcl_i);
 		pcl.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setPetalCurl(size_t pcl_start,size_t pcl_end,PetalCurl* pcl)
+	{
+		fprintf(mFile,"\tsetAttr \".pcl[%i:%i]\" ", pcl_start,pcl_end);
+		size_t size = (pcl_end-pcl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			pcl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startPetalCurl(size_t pcl_start,size_t pcl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".pcl[%i:%i]\"",pcl_start,pcl_end);
+		fprintf(mFile," -type \"PetalCurl\" ");
+	}
+	void appendPetalCurl(const PetalCurl& pcl)const
+	{
+		fprintf(mFile,"\n");
+		pcl.write(mFile);
+	}
+	void endPetalCurl()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setPetalCurl_Position(size_t pcl_i,float pclp)
@@ -1729,6 +1784,31 @@ public:
 		wsc.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setWidthScale(size_t wsc_start,size_t wsc_end,WidthScale* wsc)
+	{
+		fprintf(mFile,"\tsetAttr \".wsc[%i:%i]\" ", wsc_start,wsc_end);
+		size_t size = (wsc_end-wsc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			wsc[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startWidthScale(size_t wsc_start,size_t wsc_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".wsc[%i:%i]\"",wsc_start,wsc_end);
+		fprintf(mFile," -type \"WidthScale\" ");
+	}
+	void appendWidthScale(const WidthScale& wsc)const
+	{
+		fprintf(mFile,"\n");
+		wsc.write(mFile);
+	}
+	void endWidthScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setWidthScale_Position(size_t wsc_i,float wscp)
 	{
 		if(wscp == 0.0) return;
@@ -1748,6 +1828,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".lws[%i]\" ",lws_i);
 		lws.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setLeafWidthScale(size_t lws_start,size_t lws_end,LeafWidthScale* lws)
+	{
+		fprintf(mFile,"\tsetAttr \".lws[%i:%i]\" ", lws_start,lws_end);
+		size_t size = (lws_end-lws_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			lws[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startLeafWidthScale(size_t lws_start,size_t lws_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".lws[%i:%i]\"",lws_start,lws_end);
+		fprintf(mFile," -type \"LeafWidthScale\" ");
+	}
+	void appendLeafWidthScale(const LeafWidthScale& lws)const
+	{
+		fprintf(mFile,"\n");
+		lws.write(mFile);
+	}
+	void endLeafWidthScale()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setLeafWidthScale_Position(size_t lws_i,float lwsp)
@@ -1771,6 +1876,31 @@ public:
 		pws.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setPetalWidthScale(size_t pws_start,size_t pws_end,PetalWidthScale* pws)
+	{
+		fprintf(mFile,"\tsetAttr \".pws[%i:%i]\" ", pws_start,pws_end);
+		size_t size = (pws_end-pws_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			pws[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startPetalWidthScale(size_t pws_start,size_t pws_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".pws[%i:%i]\"",pws_start,pws_end);
+		fprintf(mFile," -type \"PetalWidthScale\" ");
+	}
+	void appendPetalWidthScale(const PetalWidthScale& pws)const
+	{
+		fprintf(mFile,"\n");
+		pws.write(mFile);
+	}
+	void endPetalWidthScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setPetalWidthScale_Position(size_t pws_i,float pwsp)
 	{
 		if(pwsp == 0.0) return;
@@ -1790,6 +1920,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".tls[%i]\" ",tls_i);
 		tls.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setTwigLengthScale(size_t tls_start,size_t tls_end,TwigLengthScale* tls)
+	{
+		fprintf(mFile,"\tsetAttr \".tls[%i:%i]\" ", tls_start,tls_end);
+		size_t size = (tls_end-tls_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			tls[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startTwigLengthScale(size_t tls_start,size_t tls_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".tls[%i:%i]\"",tls_start,tls_end);
+		fprintf(mFile," -type \"TwigLengthScale\" ");
+	}
+	void appendTwigLengthScale(const TwigLengthScale& tls)const
+	{
+		fprintf(mFile,"\n");
+		tls.write(mFile);
+	}
+	void endTwigLengthScale()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setTwigLengthScale_Position(size_t tls_i,float tlsp)
@@ -1905,6 +2060,31 @@ public:
 		env.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setEnvironment(size_t env_start,size_t env_end,Environment* env)
+	{
+		fprintf(mFile,"\tsetAttr \".env[%i:%i]\" ", env_start,env_end);
+		size_t size = (env_end-env_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			env[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startEnvironment(size_t env_start,size_t env_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".env[%i:%i]\"",env_start,env_end);
+		fprintf(mFile," -type \"Environment\" ");
+	}
+	void appendEnvironment(const Environment& env)const
+	{
+		fprintf(mFile,"\n");
+		env.write(mFile);
+	}
+	void endEnvironment()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setEnvironment_Position(size_t env_i,float envp)
 	{
 		if(envp == 0.0) return;
@@ -1940,6 +2120,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".rro[%i]\" ",rro_i);
 		rro.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setReflectionRolloff(size_t rro_start,size_t rro_end,ReflectionRolloff* rro)
+	{
+		fprintf(mFile,"\tsetAttr \".rro[%i:%i]\" ", rro_start,rro_end);
+		size_t size = (rro_end-rro_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			rro[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startReflectionRolloff(size_t rro_start,size_t rro_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".rro[%i:%i]\"",rro_start,rro_end);
+		fprintf(mFile," -type \"ReflectionRolloff\" ");
+	}
+	void appendReflectionRolloff(const ReflectionRolloff& rro)const
+	{
+		fprintf(mFile,"\n");
+		rro.write(mFile);
+	}
+	void endReflectionRolloff()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setReflectionRolloff_Position(size_t rro_i,float rrop)

@@ -47,6 +47,31 @@ public:
 		cls.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setColorScale(size_t cls_start,size_t cls_end,ColorScale* cls)
+	{
+		fprintf(mFile,"\tsetAttr \".cls[%i:%i]\" ", cls_start,cls_end);
+		size_t size = (cls_end-cls_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cls[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColorScale(size_t cls_start,size_t cls_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cls[%i:%i]\"",cls_start,cls_end);
+		fprintf(mFile," -type \"ColorScale\" ");
+	}
+	void appendColorScale(const ColorScale& cls)const
+	{
+		fprintf(mFile,"\n");
+		cls.write(mFile);
+	}
+	void endColorScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setColorScale_Position(size_t cls_i,float clsp)
 	{
 		if(clsp == 0.0) return;

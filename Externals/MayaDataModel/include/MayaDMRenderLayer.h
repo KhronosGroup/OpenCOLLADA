@@ -181,10 +181,60 @@ public:
 		adjs.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setAdjustments(size_t adjs_start,size_t adjs_end,Adjustments* adjs)
+	{
+		fprintf(mFile,"\tsetAttr \".adjs[%i:%i]\" ", adjs_start,adjs_end);
+		size_t size = (adjs_end-adjs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			adjs[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startAdjustments(size_t adjs_start,size_t adjs_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".adjs[%i:%i]\"",adjs_start,adjs_end);
+		fprintf(mFile," -type \"Adjustments\" ");
+	}
+	void appendAdjustments(const Adjustments& adjs)const
+	{
+		fprintf(mFile,"\n");
+		adjs.write(mFile);
+	}
+	void endAdjustments()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setOutAdjustments(size_t oajs_i,const OutAdjustments& oajs)
 	{
 		fprintf(mFile,"\tsetAttr \".oajs[%i]\" ",oajs_i);
 		oajs.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setOutAdjustments(size_t oajs_start,size_t oajs_end,OutAdjustments* oajs)
+	{
+		fprintf(mFile,"\tsetAttr \".oajs[%i:%i]\" ", oajs_start,oajs_end);
+		size_t size = (oajs_end-oajs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			oajs[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startOutAdjustments(size_t oajs_start,size_t oajs_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".oajs[%i:%i]\"",oajs_start,oajs_end);
+		fprintf(mFile," -type \"OutAdjustments\" ");
+	}
+	void appendOutAdjustments(const OutAdjustments& oajs)const
+	{
+		fprintf(mFile,"\n");
+		oajs.write(mFile);
+	}
+	void endOutAdjustments()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setAttributeOverrideScript(const string& aos)

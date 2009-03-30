@@ -39,6 +39,31 @@ public:
 		ktv.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setKeyTimeValue(size_t ktv_start,size_t ktv_end,KeyTimeValue* ktv)
+	{
+		fprintf(mFile,"\tsetAttr \".ktv[%i:%i]\" ", ktv_start,ktv_end);
+		size_t size = (ktv_end-ktv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ktv[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startKeyTimeValue(size_t ktv_start,size_t ktv_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ktv[%i:%i]\"",ktv_start,ktv_end);
+		fprintf(mFile," -type \"KeyTimeValue\" ");
+	}
+	void appendKeyTimeValue(const KeyTimeValue& ktv)const
+	{
+		fprintf(mFile,"\n");
+		ktv.write(mFile);
+	}
+	void endKeyTimeValue()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setKeyTime(size_t ktv_i,double kt)
 	{
 		if(kt == 0) return;

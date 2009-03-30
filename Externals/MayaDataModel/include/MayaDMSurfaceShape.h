@@ -145,6 +145,31 @@ public:
 		covi.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setCollisionOffsetVelocityIncrement(size_t covi_start,size_t covi_end,CollisionOffsetVelocityIncrement* covi)
+	{
+		fprintf(mFile,"\tsetAttr \".covi[%i:%i]\" ", covi_start,covi_end);
+		size_t size = (covi_end-covi_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			covi[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCollisionOffsetVelocityIncrement(size_t covi_start,size_t covi_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".covi[%i:%i]\"",covi_start,covi_end);
+		fprintf(mFile," -type \"CollisionOffsetVelocityIncrement\" ");
+	}
+	void appendCollisionOffsetVelocityIncrement(const CollisionOffsetVelocityIncrement& covi)const
+	{
+		fprintf(mFile,"\n");
+		covi.write(mFile);
+	}
+	void endCollisionOffsetVelocityIncrement()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setCollisionOffsetVelocityIncrement_Position(size_t covi_i,float covip)
 	{
 		if(covip == 0.0) return;
@@ -164,6 +189,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".cdvi[%i]\" ",cdvi_i);
 		cdvi.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setCollisionDepthVelocityIncrement(size_t cdvi_start,size_t cdvi_end,CollisionDepthVelocityIncrement* cdvi)
+	{
+		fprintf(mFile,"\tsetAttr \".cdvi[%i:%i]\" ", cdvi_start,cdvi_end);
+		size_t size = (cdvi_end-cdvi_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cdvi[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCollisionDepthVelocityIncrement(size_t cdvi_start,size_t cdvi_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cdvi[%i:%i]\"",cdvi_start,cdvi_end);
+		fprintf(mFile," -type \"CollisionDepthVelocityIncrement\" ");
+	}
+	void appendCollisionDepthVelocityIncrement(const CollisionDepthVelocityIncrement& cdvi)const
+	{
+		fprintf(mFile,"\n");
+		cdvi.write(mFile);
+	}
+	void endCollisionDepthVelocityIncrement()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setCollisionDepthVelocityIncrement_Position(size_t cdvi_i,float cdvip)
@@ -187,6 +237,31 @@ public:
 		covm.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setCollisionOffsetVelocityMultiplier(size_t covm_start,size_t covm_end,CollisionOffsetVelocityMultiplier* covm)
+	{
+		fprintf(mFile,"\tsetAttr \".covm[%i:%i]\" ", covm_start,covm_end);
+		size_t size = (covm_end-covm_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			covm[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCollisionOffsetVelocityMultiplier(size_t covm_start,size_t covm_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".covm[%i:%i]\"",covm_start,covm_end);
+		fprintf(mFile," -type \"CollisionOffsetVelocityMultiplier\" ");
+	}
+	void appendCollisionOffsetVelocityMultiplier(const CollisionOffsetVelocityMultiplier& covm)const
+	{
+		fprintf(mFile,"\n");
+		covm.write(mFile);
+	}
+	void endCollisionOffsetVelocityMultiplier()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setCollisionOffsetVelocityMultiplier_Position(size_t covm_i,float covmp)
 	{
 		if(covmp == 0.0) return;
@@ -206,6 +281,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".cdvm[%i]\" ",cdvm_i);
 		cdvm.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setCollisionDepthVelocityMultiplier(size_t cdvm_start,size_t cdvm_end,CollisionDepthVelocityMultiplier* cdvm)
+	{
+		fprintf(mFile,"\tsetAttr \".cdvm[%i:%i]\" ", cdvm_start,cdvm_end);
+		size_t size = (cdvm_end-cdvm_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cdvm[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCollisionDepthVelocityMultiplier(size_t cdvm_start,size_t cdvm_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cdvm[%i:%i]\"",cdvm_start,cdvm_end);
+		fprintf(mFile," -type \"CollisionDepthVelocityMultiplier\" ");
+	}
+	void appendCollisionDepthVelocityMultiplier(const CollisionDepthVelocityMultiplier& cdvm)const
+	{
+		fprintf(mFile,"\n");
+		cdvm.write(mFile);
+	}
+	void endCollisionDepthVelocityMultiplier()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setCollisionDepthVelocityMultiplier_Position(size_t cdvm_i,float cdvmp)

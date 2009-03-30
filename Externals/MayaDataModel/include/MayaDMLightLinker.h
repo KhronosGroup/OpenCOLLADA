@@ -50,10 +50,60 @@ public:
 		lnk.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setLink(size_t lnk_start,size_t lnk_end,Link* lnk)
+	{
+		fprintf(mFile,"\tsetAttr \".lnk[%i:%i]\" ", lnk_start,lnk_end);
+		size_t size = (lnk_end-lnk_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			lnk[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startLink(size_t lnk_start,size_t lnk_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".lnk[%i:%i]\"",lnk_start,lnk_end);
+		fprintf(mFile," -type \"Link\" ");
+	}
+	void appendLink(const Link& lnk)const
+	{
+		fprintf(mFile,"\n");
+		lnk.write(mFile);
+	}
+	void endLink()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setIgnore(size_t ign_i,const Ignore& ign)
 	{
 		fprintf(mFile,"\tsetAttr \".ign[%i]\" ",ign_i);
 		ign.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setIgnore(size_t ign_start,size_t ign_end,Ignore* ign)
+	{
+		fprintf(mFile,"\tsetAttr \".ign[%i:%i]\" ", ign_start,ign_end);
+		size_t size = (ign_end-ign_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ign[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startIgnore(size_t ign_start,size_t ign_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ign[%i:%i]\"",ign_start,ign_end);
+		fprintf(mFile," -type \"Ignore\" ");
+	}
+	void appendIgnore(const Ignore& ign)const
+	{
+		fprintf(mFile,"\n");
+		ign.write(mFile);
+	}
+	void endIgnore()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setShadowLink(size_t slnk_i,const ShadowLink& slnk)
@@ -62,10 +112,60 @@ public:
 		slnk.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setShadowLink(size_t slnk_start,size_t slnk_end,ShadowLink* slnk)
+	{
+		fprintf(mFile,"\tsetAttr \".slnk[%i:%i]\" ", slnk_start,slnk_end);
+		size_t size = (slnk_end-slnk_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			slnk[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startShadowLink(size_t slnk_start,size_t slnk_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".slnk[%i:%i]\"",slnk_start,slnk_end);
+		fprintf(mFile," -type \"ShadowLink\" ");
+	}
+	void appendShadowLink(const ShadowLink& slnk)const
+	{
+		fprintf(mFile,"\n");
+		slnk.write(mFile);
+	}
+	void endShadowLink()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setShadowIgnore(size_t sign_i,const ShadowIgnore& sign)
 	{
 		fprintf(mFile,"\tsetAttr \".sign[%i]\" ",sign_i);
 		sign.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setShadowIgnore(size_t sign_start,size_t sign_end,ShadowIgnore* sign)
+	{
+		fprintf(mFile,"\tsetAttr \".sign[%i:%i]\" ", sign_start,sign_end);
+		size_t size = (sign_end-sign_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			sign[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startShadowIgnore(size_t sign_start,size_t sign_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".sign[%i:%i]\"",sign_start,sign_end);
+		fprintf(mFile," -type \"ShadowIgnore\" ");
+	}
+	void appendShadowIgnore(const ShadowIgnore& sign)const
+	{
+		fprintf(mFile,"\n");
+		sign.write(mFile);
+	}
+	void endShadowIgnore()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void getLink(size_t lnk_i)const

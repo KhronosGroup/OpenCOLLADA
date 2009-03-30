@@ -49,6 +49,62 @@ public:
 		if(ro == 0) return;
 		fprintf(mFile,"\tsetAttr \".ro\" %i;\n", ro);
 	}
+	void setPositionMarkerTime(size_t pmt_i,double pmt)
+	{
+		if(pmt == 0) return;
+		fprintf(mFile,"\tsetAttr \".pmt[%i]\" %f;\n", pmt_i,pmt);
+	}
+	void setPositionMarkerTime(size_t pmt_start,size_t pmt_end,double* pmt)
+	{
+		fprintf(mFile,"\tsetAttr \".pmt[%i:%i]\" ", pmt_start,pmt_end);
+		size_t size = (pmt_end-pmt_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",pmt[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startPositionMarkerTime(size_t pmt_start,size_t pmt_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".pmt[%i:%i]\"",pmt_start,pmt_end);
+	}
+	void appendPositionMarkerTime(double pmt)const
+	{
+		fprintf(mFile," %f",pmt);
+	}
+	void endPositionMarkerTime()const
+	{
+		fprintf(mFile,";\n");
+	}
+	void setOrientationMarkerTime(size_t omt_i,double omt)
+	{
+		if(omt == 0) return;
+		fprintf(mFile,"\tsetAttr \".omt[%i]\" %f;\n", omt_i,omt);
+	}
+	void setOrientationMarkerTime(size_t omt_start,size_t omt_end,double* omt)
+	{
+		fprintf(mFile,"\tsetAttr \".omt[%i:%i]\" ", omt_start,omt_end);
+		size_t size = (omt_end-omt_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",omt[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startOrientationMarkerTime(size_t omt_start,size_t omt_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".omt[%i:%i]\"",omt_start,omt_end);
+	}
+	void appendOrientationMarkerTime(double omt)const
+	{
+		fprintf(mFile," %f",omt);
+	}
+	void endOrientationMarkerTime()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setFollow(bool f)
 	{
 		if(f == false) return;

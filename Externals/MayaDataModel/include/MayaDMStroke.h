@@ -101,6 +101,31 @@ public:
 		pcv.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setPathCurve(size_t pcv_start,size_t pcv_end,PathCurve* pcv)
+	{
+		fprintf(mFile,"\tsetAttr \".pcv[%i:%i]\" ", pcv_start,pcv_end);
+		size_t size = (pcv_end-pcv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			pcv[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startPathCurve(size_t pcv_start,size_t pcv_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".pcv[%i:%i]\"",pcv_start,pcv_end);
+		fprintf(mFile," -type \"PathCurve\" ");
+	}
+	void appendPathCurve(const PathCurve& pcv)const
+	{
+		fprintf(mFile,"\n");
+		pcv.write(mFile);
+	}
+	void endPathCurve()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setSamples(size_t pcv_i,int smp)
 	{
 		if(smp == 0) return;
@@ -204,6 +229,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".psc[%i]\" ",psc_i);
 		psc.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setPressureScale(size_t psc_start,size_t psc_end,PressureScale* psc)
+	{
+		fprintf(mFile,"\tsetAttr \".psc[%i:%i]\" ", psc_start,psc_end);
+		size_t size = (psc_end-psc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			psc[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startPressureScale(size_t psc_start,size_t psc_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".psc[%i:%i]\"",psc_start,psc_end);
+		fprintf(mFile," -type \"PressureScale\" ");
+	}
+	void appendPressureScale(const PressureScale& psc)const
+	{
+		fprintf(mFile,"\n");
+		psc.write(mFile);
+	}
+	void endPressureScale()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setPressureScale_Position(size_t psc_i,float pscp)

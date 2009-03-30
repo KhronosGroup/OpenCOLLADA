@@ -76,6 +76,31 @@ public:
 		p.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setProfileCurve(size_t p_start,size_t p_end,ProfileCurve* p)
+	{
+		fprintf(mFile,"\tsetAttr \".p[%i:%i]\" ", p_start,p_end);
+		size_t size = (p_end-p_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			p[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startProfileCurve(size_t p_start,size_t p_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".p[%i:%i]\"",p_start,p_end);
+		fprintf(mFile," -type \"ProfileCurve\" ");
+	}
+	void appendProfileCurve(const ProfileCurve& p)const
+	{
+		fprintf(mFile,"\n");
+		p.write(mFile);
+	}
+	void endProfileCurve()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setProfileCurve_Position(size_t p_i,float pp)
 	{
 		if(pp == 0.0) return;

@@ -137,6 +137,31 @@ public:
 		clr.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setColor(size_t clr_start,size_t clr_end,Color* clr)
+	{
+		fprintf(mFile,"\tsetAttr \".clr[%i:%i]\" ", clr_start,clr_end);
+		size_t size = (clr_end-clr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			clr[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColor(size_t clr_start,size_t clr_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".clr[%i:%i]\"",clr_start,clr_end);
+		fprintf(mFile," -type \"Color\" ");
+	}
+	void appendColor(const Color& clr)const
+	{
+		fprintf(mFile,"\n");
+		clr.write(mFile);
+	}
+	void endColor()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setColor_Position(size_t clr_i,float clrp)
 	{
 		if(clrp == 0.0) return;
@@ -210,6 +235,31 @@ public:
 		it.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setTransparency(size_t it_start,size_t it_end,Transparency* it)
+	{
+		fprintf(mFile,"\tsetAttr \".it[%i:%i]\" ", it_start,it_end);
+		size_t size = (it_end-it_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			it[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startTransparency(size_t it_start,size_t it_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".it[%i:%i]\"",it_start,it_end);
+		fprintf(mFile," -type \"Transparency\" ");
+	}
+	void appendTransparency(const Transparency& it)const
+	{
+		fprintf(mFile,"\n");
+		it.write(mFile);
+	}
+	void endTransparency()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setTransparency_Position(size_t it_i,float itp)
 	{
 		if(itp == 0.0) return;
@@ -266,6 +316,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".ic[%i]\" ",ic_i);
 		ic.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setIncandescence(size_t ic_start,size_t ic_end,Incandescence* ic)
+	{
+		fprintf(mFile,"\tsetAttr \".ic[%i:%i]\" ", ic_start,ic_end);
+		size_t size = (ic_end-ic_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ic[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startIncandescence(size_t ic_start,size_t ic_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ic[%i:%i]\"",ic_start,ic_end);
+		fprintf(mFile," -type \"Incandescence\" ");
+	}
+	void appendIncandescence(const Incandescence& ic)const
+	{
+		fprintf(mFile,"\n");
+		ic.write(mFile);
+	}
+	void endIncandescence()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setIncandescence_Position(size_t ic_i,float icp)
@@ -375,6 +450,31 @@ public:
 		sro.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setSpecularRollOff(size_t sro_start,size_t sro_end,SpecularRollOff* sro)
+	{
+		fprintf(mFile,"\tsetAttr \".sro[%i:%i]\" ", sro_start,sro_end);
+		size_t size = (sro_end-sro_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			sro[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startSpecularRollOff(size_t sro_start,size_t sro_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".sro[%i:%i]\"",sro_start,sro_end);
+		fprintf(mFile," -type \"SpecularRollOff\" ");
+	}
+	void appendSpecularRollOff(const SpecularRollOff& sro)const
+	{
+		fprintf(mFile,"\n");
+		sro.write(mFile);
+	}
+	void endSpecularRollOff()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setSpecularRollOff_Position(size_t sro_i,float srop)
 	{
 		if(srop == 0.0) return;
@@ -399,6 +499,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".sc[%i]\" ",sc_i);
 		sc.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setSpecularColor(size_t sc_start,size_t sc_end,SpecularColor* sc)
+	{
+		fprintf(mFile,"\tsetAttr \".sc[%i:%i]\" ", sc_start,sc_end);
+		size_t size = (sc_end-sc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			sc[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startSpecularColor(size_t sc_start,size_t sc_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".sc[%i:%i]\"",sc_start,sc_end);
+		fprintf(mFile," -type \"SpecularColor\" ");
+	}
+	void appendSpecularColor(const SpecularColor& sc)const
+	{
+		fprintf(mFile,"\n");
+		sc.write(mFile);
+	}
+	void endSpecularColor()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setSpecularColor_Position(size_t sc_i,float scp)
@@ -438,6 +563,31 @@ public:
 		rfl.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setReflectivity(size_t rfl_start,size_t rfl_end,Reflectivity* rfl)
+	{
+		fprintf(mFile,"\tsetAttr \".rfl[%i:%i]\" ", rfl_start,rfl_end);
+		size_t size = (rfl_end-rfl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			rfl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startReflectivity(size_t rfl_start,size_t rfl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".rfl[%i:%i]\"",rfl_start,rfl_end);
+		fprintf(mFile," -type \"Reflectivity\" ");
+	}
+	void appendReflectivity(const Reflectivity& rfl)const
+	{
+		fprintf(mFile,"\n");
+		rfl.write(mFile);
+	}
+	void endReflectivity()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setReflectivity_Position(size_t rfl_i,float rflp)
 	{
 		if(rflp == 0.0) return;
@@ -457,6 +607,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".env[%i]\" ",env_i);
 		env.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setEnvironment(size_t env_start,size_t env_end,Environment* env)
+	{
+		fprintf(mFile,"\tsetAttr \".env[%i:%i]\" ", env_start,env_end);
+		size_t size = (env_end-env_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			env[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startEnvironment(size_t env_start,size_t env_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".env[%i:%i]\"",env_start,env_end);
+		fprintf(mFile," -type \"Environment\" ");
+	}
+	void appendEnvironment(const Environment& env)const
+	{
+		fprintf(mFile,"\n");
+		env.write(mFile);
+	}
+	void endEnvironment()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setEnvironment_Position(size_t env_i,float envp)

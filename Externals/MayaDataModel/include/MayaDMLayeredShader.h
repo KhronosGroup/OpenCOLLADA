@@ -48,6 +48,31 @@ public:
 		cs.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setInputs(size_t cs_start,size_t cs_end,Inputs* cs)
+	{
+		fprintf(mFile,"\tsetAttr \".cs[%i:%i]\" ", cs_start,cs_end);
+		size_t size = (cs_end-cs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cs[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInputs(size_t cs_start,size_t cs_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cs[%i:%i]\"",cs_start,cs_end);
+		fprintf(mFile," -type \"Inputs\" ");
+	}
+	void appendInputs(const Inputs& cs)const
+	{
+		fprintf(mFile,"\n");
+		cs.write(mFile);
+	}
+	void endInputs()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setColor(size_t cs_i,const float3& c)
 	{
 		fprintf(mFile,"\tsetAttr \".cs[%i].c\" -type \"float3\" ",cs_i);

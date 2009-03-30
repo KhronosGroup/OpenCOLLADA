@@ -207,6 +207,31 @@ public:
 		sts.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setStiffnessScale(size_t sts_start,size_t sts_end,StiffnessScale* sts)
+	{
+		fprintf(mFile,"\tsetAttr \".sts[%i:%i]\" ", sts_start,sts_end);
+		size_t size = (sts_end-sts_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			sts[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startStiffnessScale(size_t sts_start,size_t sts_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".sts[%i:%i]\"",sts_start,sts_end);
+		fprintf(mFile," -type \"StiffnessScale\" ");
+	}
+	void appendStiffnessScale(const StiffnessScale& sts)const
+	{
+		fprintf(mFile,"\n");
+		sts.write(mFile);
+	}
+	void endStiffnessScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setStiffnessScale_Position(size_t sts_i,float stsp)
 	{
 		if(stsp == 0.0) return;
@@ -323,6 +348,31 @@ public:
 		ats.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setAttractionScale(size_t ats_start,size_t ats_end,AttractionScale* ats)
+	{
+		fprintf(mFile,"\tsetAttr \".ats[%i:%i]\" ", ats_start,ats_end);
+		size_t size = (ats_end-ats_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ats[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startAttractionScale(size_t ats_start,size_t ats_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ats[%i:%i]\"",ats_start,ats_end);
+		fprintf(mFile," -type \"AttractionScale\" ");
+	}
+	void appendAttractionScale(const AttractionScale& ats)const
+	{
+		fprintf(mFile,"\n");
+		ats.write(mFile);
+	}
+	void endAttractionScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setAttractionScale_Position(size_t ats_i,float atsp)
 	{
 		if(atsp == 0.0) return;
@@ -369,6 +419,31 @@ public:
 		cws.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setClumpWidthScale(size_t cws_start,size_t cws_end,ClumpWidthScale* cws)
+	{
+		fprintf(mFile,"\tsetAttr \".cws[%i:%i]\" ", cws_start,cws_end);
+		size_t size = (cws_end-cws_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cws[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClumpWidthScale(size_t cws_start,size_t cws_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cws[%i:%i]\"",cws_start,cws_end);
+		fprintf(mFile," -type \"ClumpWidthScale\" ");
+	}
+	void appendClumpWidthScale(const ClumpWidthScale& cws)const
+	{
+		fprintf(mFile,"\n");
+		cws.write(mFile);
+	}
+	void endClumpWidthScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setClumpWidthScale_Position(size_t cws_i,float cwsp)
 	{
 		if(cwsp == 0.0) return;
@@ -395,6 +470,31 @@ public:
 		clc.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setClumpCurl(size_t clc_start,size_t clc_end,ClumpCurl* clc)
+	{
+		fprintf(mFile,"\tsetAttr \".clc[%i:%i]\" ", clc_start,clc_end);
+		size_t size = (clc_end-clc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			clc[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClumpCurl(size_t clc_start,size_t clc_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".clc[%i:%i]\"",clc_start,clc_end);
+		fprintf(mFile," -type \"ClumpCurl\" ");
+	}
+	void appendClumpCurl(const ClumpCurl& clc)const
+	{
+		fprintf(mFile,"\n");
+		clc.write(mFile);
+	}
+	void endClumpCurl()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setClumpCurl_Position(size_t clc_i,float clcp)
 	{
 		if(clcp == 0.0) return;
@@ -414,6 +514,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".cfl[%i]\" ",cfl_i);
 		cfl.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setClumpFlatness(size_t cfl_start,size_t cfl_end,ClumpFlatness* cfl)
+	{
+		fprintf(mFile,"\tsetAttr \".cfl[%i:%i]\" ", cfl_start,cfl_end);
+		size_t size = (cfl_end-cfl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cfl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClumpFlatness(size_t cfl_start,size_t cfl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cfl[%i:%i]\"",cfl_start,cfl_end);
+		fprintf(mFile," -type \"ClumpFlatness\" ");
+	}
+	void appendClumpFlatness(const ClumpFlatness& cfl)const
+	{
+		fprintf(mFile,"\n");
+		cfl.write(mFile);
+	}
+	void endClumpFlatness()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setClumpFlatness_Position(size_t cfl_i,float cflp)
@@ -445,6 +570,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".hws[%i]\" ",hws_i);
 		hws.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setHairWidthScale(size_t hws_start,size_t hws_end,HairWidthScale* hws)
+	{
+		fprintf(mFile,"\tsetAttr \".hws[%i:%i]\" ", hws_start,hws_end);
+		size_t size = (hws_end-hws_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			hws[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startHairWidthScale(size_t hws_start,size_t hws_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".hws[%i:%i]\"",hws_start,hws_end);
+		fprintf(mFile," -type \"HairWidthScale\" ");
+	}
+	void appendHairWidthScale(const HairWidthScale& hws)const
+	{
+		fprintf(mFile,"\n");
+		hws.write(mFile);
+	}
+	void endHairWidthScale()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setHairWidthScale_Position(size_t hws_i,float hwsp)
@@ -497,6 +647,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".hcs[%i]\" ",hcs_i);
 		hcs.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setHairColorScale(size_t hcs_start,size_t hcs_end,HairColorScale* hcs)
+	{
+		fprintf(mFile,"\tsetAttr \".hcs[%i:%i]\" ", hcs_start,hcs_end);
+		size_t size = (hcs_end-hcs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			hcs[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startHairColorScale(size_t hcs_start,size_t hcs_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".hcs[%i:%i]\"",hcs_start,hcs_end);
+		fprintf(mFile," -type \"HairColorScale\" ");
+	}
+	void appendHairColorScale(const HairColorScale& hcs)const
+	{
+		fprintf(mFile,"\n");
+		hcs.write(mFile);
+	}
+	void endHairColorScale()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setHairColorScale_Position(size_t hcs_i,float hcsp)
@@ -625,6 +800,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".dsc[%i]\" ",dsc_i);
 		dsc.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setDisplacementScale(size_t dsc_start,size_t dsc_end,DisplacementScale* dsc)
+	{
+		fprintf(mFile,"\tsetAttr \".dsc[%i:%i]\" ", dsc_start,dsc_end);
+		size_t size = (dsc_end-dsc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			dsc[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startDisplacementScale(size_t dsc_start,size_t dsc_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".dsc[%i:%i]\"",dsc_start,dsc_end);
+		fprintf(mFile," -type \"DisplacementScale\" ");
+	}
+	void appendDisplacementScale(const DisplacementScale& dsc)const
+	{
+		fprintf(mFile,"\n");
+		dsc.write(mFile);
+	}
+	void endDisplacementScale()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setDisplacementScale_Position(size_t dsc_i,float dscp)

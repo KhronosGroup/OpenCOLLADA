@@ -73,6 +73,31 @@ public:
 		vclr.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setVertexColor(size_t vclr_start,size_t vclr_end,ColorPerVertex::VertexColor* vclr)
+	{
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i:%i]\" ", vclr_start,vclr_end);
+		size_t size = (vclr_end-vclr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vclr[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVertexColor(size_t vclr_start,size_t vclr_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i:%i]\"",vclr_start,vclr_end);
+		fprintf(mFile," -type \"ColorPerVertex::VertexColor\" ");
+	}
+	void appendVertexColor(const ColorPerVertex::VertexColor& vclr)const
+	{
+		fprintf(mFile,"\n");
+		vclr.write(mFile);
+	}
+	void endVertexColor()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setVertexColorRGB(size_t vclr_i,const float3& vrgb)
 	{
 		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb\" -type \"float3\" ",vclr_i);
@@ -103,6 +128,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i]\" ",vclr_i,vfcl_i);
 		vfcl.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setVertexFaceColor(size_t vclr_i,size_t vfcl_start,size_t vfcl_end,ColorPerVertex::VertexColor::VertexFaceColor* vfcl)
+	{
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i:%i]\" ", vclr_i,vfcl_start,vfcl_end);
+		size_t size = (vfcl_end-vfcl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vfcl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVertexFaceColor(size_t vclr_i,size_t vfcl_start,size_t vfcl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i:%i]\"",vclr_i,vfcl_start,vfcl_end);
+		fprintf(mFile," -type \"ColorPerVertex::VertexColor::VertexFaceColor\" ");
+	}
+	void appendVertexFaceColor(const ColorPerVertex::VertexColor::VertexFaceColor& vfcl)const
+	{
+		fprintf(mFile,"\n");
+		vfcl.write(mFile);
+	}
+	void endVertexFaceColor()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setVertexFaceColorRGB(size_t vclr_i,size_t vfcl_i,const float3& frgb)

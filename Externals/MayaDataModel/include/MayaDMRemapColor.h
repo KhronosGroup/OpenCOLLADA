@@ -104,6 +104,31 @@ public:
 		r.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setRed(size_t r_start,size_t r_end,Red* r)
+	{
+		fprintf(mFile,"\tsetAttr \".r[%i:%i]\" ", r_start,r_end);
+		size_t size = (r_end-r_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			r[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startRed(size_t r_start,size_t r_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".r[%i:%i]\"",r_start,r_end);
+		fprintf(mFile," -type \"Red\" ");
+	}
+	void appendRed(const Red& r)const
+	{
+		fprintf(mFile,"\n");
+		r.write(mFile);
+	}
+	void endRed()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setRed_Position(size_t r_i,float rp)
 	{
 		if(rp == 0.0) return;
@@ -125,6 +150,31 @@ public:
 		g.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setGreen(size_t g_start,size_t g_end,Green* g)
+	{
+		fprintf(mFile,"\tsetAttr \".g[%i:%i]\" ", g_start,g_end);
+		size_t size = (g_end-g_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			g[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startGreen(size_t g_start,size_t g_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".g[%i:%i]\"",g_start,g_end);
+		fprintf(mFile," -type \"Green\" ");
+	}
+	void appendGreen(const Green& g)const
+	{
+		fprintf(mFile,"\n");
+		g.write(mFile);
+	}
+	void endGreen()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setGreen_Position(size_t g_i,float gp)
 	{
 		if(gp == 0.0) return;
@@ -144,6 +194,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".b[%i]\" ",b_i);
 		b.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setBlue(size_t b_start,size_t b_end,Blue* b)
+	{
+		fprintf(mFile,"\tsetAttr \".b[%i:%i]\" ", b_start,b_end);
+		size_t size = (b_end-b_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			b[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startBlue(size_t b_start,size_t b_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".b[%i:%i]\"",b_start,b_end);
+		fprintf(mFile," -type \"Blue\" ");
+	}
+	void appendBlue(const Blue& b)const
+	{
+		fprintf(mFile,"\n");
+		b.write(mFile);
+	}
+	void endBlue()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setBlue_Position(size_t b_i,float bp)

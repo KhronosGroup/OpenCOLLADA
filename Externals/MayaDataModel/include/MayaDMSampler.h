@@ -95,6 +95,31 @@ public:
 		fi.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setFunction_Inmap(size_t fi_start,size_t fi_end,Function::Function_Inmap* fi)
+	{
+		fprintf(mFile,"\tsetAttr \".f.fi[%i:%i]\" ", fi_start,fi_end);
+		size_t size = (fi_end-fi_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fi[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startFunction_Inmap(size_t fi_start,size_t fi_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".f.fi[%i:%i]\"",fi_start,fi_end);
+		fprintf(mFile," -type \"Function::Function_Inmap\" ");
+	}
+	void appendFunction_Inmap(const Function::Function_Inmap& fi)const
+	{
+		fprintf(mFile,"\n");
+		fi.write(mFile);
+	}
+	void endFunction_Inmap()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setFunction_InmapTo(size_t fi_i,short fit)
 	{
 		if(fit == 0) return;
@@ -109,6 +134,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".f.fo[%i]\" ",fo_i);
 		fo.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setFunction_Outmap(size_t fo_start,size_t fo_end,Function::Function_Outmap* fo)
+	{
+		fprintf(mFile,"\tsetAttr \".f.fo[%i:%i]\" ", fo_start,fo_end);
+		size_t size = (fo_end-fo_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fo[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startFunction_Outmap(size_t fo_start,size_t fo_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".f.fo[%i:%i]\"",fo_start,fo_end);
+		fprintf(mFile," -type \"Function::Function_Outmap\" ");
+	}
+	void appendFunction_Outmap(const Function::Function_Outmap& fo)const
+	{
+		fprintf(mFile,"\n");
+		fo.write(mFile);
+	}
+	void endFunction_Outmap()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setFunction_OutmapTo(size_t fo_i,short fot)

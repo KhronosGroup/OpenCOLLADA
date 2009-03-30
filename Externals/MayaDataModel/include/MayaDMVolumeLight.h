@@ -73,6 +73,31 @@ public:
 		crg.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setColorRange(size_t crg_start,size_t crg_end,ColorRange* crg)
+	{
+		fprintf(mFile,"\tsetAttr \".crg[%i:%i]\" ", crg_start,crg_end);
+		size_t size = (crg_end-crg_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			crg[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColorRange(size_t crg_start,size_t crg_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".crg[%i:%i]\"",crg_start,crg_end);
+		fprintf(mFile," -type \"ColorRange\" ");
+	}
+	void appendColorRange(const ColorRange& crg)const
+	{
+		fprintf(mFile,"\n");
+		crg.write(mFile);
+	}
+	void endColorRange()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setColorRange_Position(size_t crg_i,float crgp)
 	{
 		if(crgp == 0.0) return;
@@ -108,6 +133,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".pen[%i]\" ",pen_i);
 		pen.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setPenumbra(size_t pen_start,size_t pen_end,Penumbra* pen)
+	{
+		fprintf(mFile,"\tsetAttr \".pen[%i:%i]\" ", pen_start,pen_end);
+		size_t size = (pen_end-pen_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			pen[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startPenumbra(size_t pen_start,size_t pen_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".pen[%i:%i]\"",pen_start,pen_end);
+		fprintf(mFile," -type \"Penumbra\" ");
+	}
+	void appendPenumbra(const Penumbra& pen)const
+	{
+		fprintf(mFile,"\n");
+		pen.write(mFile);
+	}
+	void endPenumbra()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setPenumbra_Position(size_t pen_i,float penp)

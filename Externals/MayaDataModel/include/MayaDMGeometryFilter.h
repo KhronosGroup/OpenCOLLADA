@@ -37,6 +37,31 @@ public:
 		ip.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setInput(size_t ip_start,size_t ip_end,Input* ip)
+	{
+		fprintf(mFile,"\tsetAttr \".ip[%i:%i]\" ", ip_start,ip_end);
+		size_t size = (ip_end-ip_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ip[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInput(size_t ip_start,size_t ip_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ip[%i:%i]\"",ip_start,ip_end);
+		fprintf(mFile," -type \"Input\" ");
+	}
+	void appendInput(const Input& ip)const
+	{
+		fprintf(mFile,"\n");
+		ip.write(mFile);
+	}
+	void endInput()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setGroupId(size_t ip_i,int gi)
 	{
 		if(gi == 0) return;

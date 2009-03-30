@@ -126,6 +126,31 @@ public:
 		e.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setEdge(size_t e_start,size_t e_end,Edge* e)
+	{
+		fprintf(mFile,"\tsetAttr \".e[%i:%i]\" ", e_start,e_end);
+		size_t size = (e_end-e_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			e[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startEdge(size_t e_start,size_t e_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".e[%i:%i]\"",e_start,e_end);
+		fprintf(mFile," -type \"Edge\" ");
+	}
+	void appendEdge(const Edge& e)const
+	{
+		fprintf(mFile,"\n");
+		e.write(mFile);
+	}
+	void endEdge()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setInputCurveA(size_t e_i,size_t ica_i,const nurbsCurve& ica)
 	{
 		fprintf(mFile,"\tsetAttr \".e[%i].ica[%i]\" -type \"nurbsCurve\" ",e_i,ica_i);

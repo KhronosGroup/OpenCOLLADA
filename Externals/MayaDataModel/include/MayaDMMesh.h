@@ -473,6 +473,31 @@ public:
 		clr.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setColors(size_t clr_start,size_t clr_end,Colors* clr)
+	{
+		fprintf(mFile,"\tsetAttr \".clr[%i:%i]\" ", clr_start,clr_end);
+		size_t size = (clr_end-clr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			clr[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColors(size_t clr_start,size_t clr_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".clr[%i:%i]\"",clr_start,clr_end);
+		fprintf(mFile," -type \"Colors\" ");
+	}
+	void appendColors(const Colors& clr)const
+	{
+		fprintf(mFile,"\n");
+		clr.write(mFile);
+	}
+	void endColors()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setColorR(size_t clr_i,float clrr)
 	{
 		if(clrr == 0.0) return;
@@ -580,6 +605,31 @@ public:
 		vclr.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setVertexColor(size_t vclr_start,size_t vclr_end,ColorPerVertex::VertexColor* vclr)
+	{
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i:%i]\" ", vclr_start,vclr_end);
+		size_t size = (vclr_end-vclr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vclr[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVertexColor(size_t vclr_start,size_t vclr_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i:%i]\"",vclr_start,vclr_end);
+		fprintf(mFile," -type \"ColorPerVertex::VertexColor\" ");
+	}
+	void appendVertexColor(const ColorPerVertex::VertexColor& vclr)const
+	{
+		fprintf(mFile,"\n");
+		vclr.write(mFile);
+	}
+	void endVertexColor()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setVertexColorRGB(size_t vclr_i,const float3& vrgb)
 	{
 		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb\" -type \"float3\" ",vclr_i);
@@ -610,6 +660,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i]\" ",vclr_i,vfcl_i);
 		vfcl.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setVertexFaceColor(size_t vclr_i,size_t vfcl_start,size_t vfcl_end,ColorPerVertex::VertexColor::VertexFaceColor* vfcl)
+	{
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i:%i]\" ", vclr_i,vfcl_start,vfcl_end);
+		size_t size = (vfcl_end-vfcl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vfcl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVertexFaceColor(size_t vclr_i,size_t vfcl_start,size_t vfcl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i:%i]\"",vclr_i,vfcl_start,vfcl_end);
+		fprintf(mFile," -type \"ColorPerVertex::VertexColor::VertexFaceColor\" ");
+	}
+	void appendVertexFaceColor(const ColorPerVertex::VertexColor::VertexFaceColor& vfcl)const
+	{
+		fprintf(mFile,"\n");
+		vfcl.write(mFile);
+	}
+	void endVertexFaceColor()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setVertexFaceColorRGB(size_t vclr_i,size_t vfcl_i,const float3& frgb)
@@ -650,6 +725,31 @@ public:
 		vn.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setVertexNormal(size_t vn_start,size_t vn_end,NormalPerVertex::VertexNormal* vn)
+	{
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i:%i]\" ", vn_start,vn_end);
+		size_t size = (vn_end-vn_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vn[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVertexNormal(size_t vn_start,size_t vn_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i:%i]\"",vn_start,vn_end);
+		fprintf(mFile," -type \"NormalPerVertex::VertexNormal\" ");
+	}
+	void appendVertexNormal(const NormalPerVertex::VertexNormal& vn)const
+	{
+		fprintf(mFile,"\n");
+		vn.write(mFile);
+	}
+	void endVertexNormal()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setVertexNormalXYZ(size_t vn_i,const float3& nxyz)
 	{
 		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz\" -type \"float3\" ",vn_i);
@@ -675,6 +775,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i]\" ",vn_i,vfnl_i);
 		vfnl.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setVertexFaceNormal(size_t vn_i,size_t vfnl_start,size_t vfnl_end,NormalPerVertex::VertexNormal::VertexFaceNormal* vfnl)
+	{
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i:%i]\" ", vn_i,vfnl_start,vfnl_end);
+		size_t size = (vfnl_end-vfnl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vfnl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVertexFaceNormal(size_t vn_i,size_t vfnl_start,size_t vfnl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i:%i]\"",vn_i,vfnl_start,vfnl_end);
+		fprintf(mFile," -type \"NormalPerVertex::VertexNormal::VertexFaceNormal\" ");
+	}
+	void appendVertexFaceNormal(const NormalPerVertex::VertexNormal::VertexFaceNormal& vfnl)const
+	{
+		fprintf(mFile,"\n");
+		vfnl.write(mFile);
+	}
+	void endVertexFaceNormal()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setVertexFaceNormalXYZ(size_t vn_i,size_t vfnl_i,const float3& fnxy)

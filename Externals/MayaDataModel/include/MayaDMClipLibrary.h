@@ -84,16 +84,91 @@ public:
 		cel.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setClipEvalList(size_t cel_start,size_t cel_end,ClipEvalList* cel)
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i:%i]\" ", cel_start,cel_end);
+		size_t size = (cel_end-cel_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cel[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClipEvalList(size_t cel_start,size_t cel_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i:%i]\"",cel_start,cel_end);
+		fprintf(mFile," -type \"ClipEvalList\" ");
+	}
+	void appendClipEvalList(const ClipEvalList& cel)const
+	{
+		fprintf(mFile,"\n");
+		cel.write(mFile);
+	}
+	void endClipEvalList()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setClipEval(size_t cel_i,size_t cev_i,const ClipEvalList::ClipEval& cev)
 	{
 		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i]\" ",cel_i,cev_i);
 		cev.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setClipEval(size_t cel_i,size_t cev_start,size_t cev_end,ClipEvalList::ClipEval* cev)
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i:%i]\" ", cel_i,cev_start,cev_end);
+		size_t size = (cev_end-cev_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cev[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClipEval(size_t cel_i,size_t cev_start,size_t cev_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i:%i]\"",cel_i,cev_start,cev_end);
+		fprintf(mFile," -type \"ClipEvalList::ClipEval\" ");
+	}
+	void appendClipEval(const ClipEvalList::ClipEval& cev)const
+	{
+		fprintf(mFile,"\n");
+		cev.write(mFile);
+	}
+	void endClipEval()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setClipEval_Inmap(size_t cel_i,size_t cev_i,size_t cevi_i,const ClipEvalList::ClipEval::ClipEval_Inmap& cevi)
 	{
 		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevi[%i]\" ",cel_i,cev_i,cevi_i);
 		cevi.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setClipEval_Inmap(size_t cel_i,size_t cev_i,size_t cevi_start,size_t cevi_end,ClipEvalList::ClipEval::ClipEval_Inmap* cevi)
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevi[%i:%i]\" ", cel_i,cev_i,cevi_start,cevi_end);
+		size_t size = (cevi_end-cevi_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cevi[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClipEval_Inmap(size_t cel_i,size_t cev_i,size_t cevi_start,size_t cevi_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevi[%i:%i]\"",cel_i,cev_i,cevi_start,cevi_end);
+		fprintf(mFile," -type \"ClipEvalList::ClipEval::ClipEval_Inmap\" ");
+	}
+	void appendClipEval_Inmap(const ClipEvalList::ClipEval::ClipEval_Inmap& cevi)const
+	{
+		fprintf(mFile,"\n");
+		cevi.write(mFile);
+	}
+	void endClipEval_Inmap()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setClipEval_InmapTo(size_t cel_i,size_t cev_i,size_t cevi_i,short cevit)
@@ -112,6 +187,31 @@ public:
 		cevo.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setClipEval_Outmap(size_t cel_i,size_t cev_i,size_t cevo_start,size_t cevo_end,ClipEvalList::ClipEval::ClipEval_Outmap* cevo)
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevo[%i:%i]\" ", cel_i,cev_i,cevo_start,cevo_end);
+		size_t size = (cevo_end-cevo_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cevo[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClipEval_Outmap(size_t cel_i,size_t cev_i,size_t cevo_start,size_t cevo_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevo[%i:%i]\"",cel_i,cev_i,cevo_start,cevo_end);
+		fprintf(mFile," -type \"ClipEvalList::ClipEval::ClipEval_Outmap\" ");
+	}
+	void appendClipEval_Outmap(const ClipEvalList::ClipEval::ClipEval_Outmap& cevo)const
+	{
+		fprintf(mFile,"\n");
+		cevo.write(mFile);
+	}
+	void endClipEval_Outmap()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setClipEval_OutmapTo(size_t cel_i,size_t cev_i,size_t cevo_i,short cevot)
 	{
 		if(cevot == 0) return;
@@ -126,6 +226,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".cd[%i]\" ",cd_i);
 		cd.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setCharacterdata(size_t cd_start,size_t cd_end,Characterdata* cd)
+	{
+		fprintf(mFile,"\tsetAttr \".cd[%i:%i]\" ", cd_start,cd_end);
+		size_t size = (cd_end-cd_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cd[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCharacterdata(size_t cd_start,size_t cd_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cd[%i:%i]\"",cd_start,cd_end);
+		fprintf(mFile," -type \"Characterdata\" ");
+	}
+	void appendCharacterdata(const Characterdata& cd)const
+	{
+		fprintf(mFile,"\n");
+		cd.write(mFile);
+	}
+	void endCharacterdata()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setClipIndexMapping(size_t cd_i,const intArray& cim)

@@ -34,10 +34,40 @@ public:
 		:DependNode(file, name, parent, "rigidSolver", create){}
 	virtual ~RigidSolver(){}
 
+	void setStartTime(double stm)
+	{
+		if(stm == 0) return;
+		fprintf(mFile,"\tsetAttr \".stm\" %f;\n", stm);
+	}
 	void setGeneralForce(size_t gfr_i,const GeneralForce& gfr)
 	{
 		fprintf(mFile,"\tsetAttr \".gfr[%i]\" ",gfr_i);
 		gfr.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setGeneralForce(size_t gfr_start,size_t gfr_end,GeneralForce* gfr)
+	{
+		fprintf(mFile,"\tsetAttr \".gfr[%i:%i]\" ", gfr_start,gfr_end);
+		size_t size = (gfr_end-gfr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			gfr[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startGeneralForce(size_t gfr_start,size_t gfr_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".gfr[%i:%i]\"",gfr_start,gfr_end);
+		fprintf(mFile," -type \"GeneralForce\" ");
+	}
+	void appendGeneralForce(const GeneralForce& gfr)const
+	{
+		fprintf(mFile,"\n");
+		gfr.write(mFile);
+	}
+	void endGeneralForce()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setInputForce(size_t gfr_i,const vectorArray& ifr)

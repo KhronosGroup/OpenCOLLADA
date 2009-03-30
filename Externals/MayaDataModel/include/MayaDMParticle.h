@@ -272,6 +272,11 @@ public:
 	{
 		fprintf(mFile,";\n");
 	}
+	void setCurrentTimeSave(double cts)
+	{
+		if(cts == 0) return;
+		fprintf(mFile,"\tsetAttr \".cts\" %f;\n", cts);
+	}
 	void setStartFrame(double stf)
 	{
 		if(stf == 1.0) return;
@@ -664,6 +669,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".idt[%i]\" ",idt_i);
 		idt.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setInstanceData(size_t idt_start,size_t idt_end,InstanceData* idt)
+	{
+		fprintf(mFile,"\tsetAttr \".idt[%i:%i]\" ", idt_start,idt_end);
+		size_t size = (idt_end-idt_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			idt[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInstanceData(size_t idt_start,size_t idt_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".idt[%i:%i]\"",idt_start,idt_end);
+		fprintf(mFile," -type \"InstanceData\" ");
+	}
+	void appendInstanceData(const InstanceData& idt)const
+	{
+		fprintf(mFile,"\n");
+		idt.write(mFile);
+	}
+	void endInstanceData()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setInstanceAttributeMapping(size_t idt_i,const stringArray& iam)

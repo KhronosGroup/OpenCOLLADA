@@ -132,10 +132,60 @@ public:
 		iog.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setInstObjGroups(size_t iog_start,size_t iog_end,InstObjGroups* iog)
+	{
+		fprintf(mFile,"\tsetAttr \".iog[%i:%i]\" ", iog_start,iog_end);
+		size_t size = (iog_end-iog_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			iog[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInstObjGroups(size_t iog_start,size_t iog_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".iog[%i:%i]\"",iog_start,iog_end);
+		fprintf(mFile," -type \"InstObjGroups\" ");
+	}
+	void appendInstObjGroups(const InstObjGroups& iog)const
+	{
+		fprintf(mFile,"\n");
+		iog.write(mFile);
+	}
+	void endInstObjGroups()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setObjectGroups(size_t iog_i,size_t og_i,const InstObjGroups::ObjectGroups& og)
 	{
 		fprintf(mFile,"\tsetAttr \".iog[%i].og[%i]\" ",iog_i,og_i);
 		og.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setObjectGroups(size_t iog_i,size_t og_start,size_t og_end,InstObjGroups::ObjectGroups* og)
+	{
+		fprintf(mFile,"\tsetAttr \".iog[%i].og[%i:%i]\" ", iog_i,og_start,og_end);
+		size_t size = (og_end-og_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			og[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startObjectGroups(size_t iog_i,size_t og_start,size_t og_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".iog[%i].og[%i:%i]\"",iog_i,og_start,og_end);
+		fprintf(mFile," -type \"InstObjGroups::ObjectGroups\" ");
+	}
+	void appendObjectGroups(const InstObjGroups::ObjectGroups& og)const
+	{
+		fprintf(mFile,"\n");
+		og.write(mFile);
+	}
+	void endObjectGroups()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setObjectGrpCompList(size_t iog_i,size_t og_i,const componentList& gcl)
@@ -242,6 +292,31 @@ public:
 		rlio.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setRenderLayerInfo(size_t rlio_start,size_t rlio_end,RenderLayerInfo* rlio)
+	{
+		fprintf(mFile,"\tsetAttr \".rlio[%i:%i]\" ", rlio_start,rlio_end);
+		size_t size = (rlio_end-rlio_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			rlio[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startRenderLayerInfo(size_t rlio_start,size_t rlio_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".rlio[%i:%i]\"",rlio_start,rlio_end);
+		fprintf(mFile," -type \"RenderLayerInfo\" ");
+	}
+	void appendRenderLayerInfo(const RenderLayerInfo& rlio)const
+	{
+		fprintf(mFile,"\n");
+		rlio.write(mFile);
+	}
+	void endRenderLayerInfo()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setRenderLayerId(size_t rlio_i,short rli)
 	{
 		if(rli == 0) return;
@@ -289,6 +364,16 @@ public:
 		fprintf(mFile,"\tsetAttr \".gf\" -type \"intArray\" ");
 		gf.write(mFile);
 		fprintf(mFile,";\n");
+	}
+	void setGhostRangeStart(double grs)
+	{
+		if(grs == 0) return;
+		fprintf(mFile,"\tsetAttr \".grs\" %f;\n", grs);
+	}
+	void setGhostRangeEnd(double gre)
+	{
+		if(gre == 1) return;
+		fprintf(mFile,"\tsetAttr \".gre\" %f;\n", gre);
 	}
 	void getBoundingBox()const
 	{

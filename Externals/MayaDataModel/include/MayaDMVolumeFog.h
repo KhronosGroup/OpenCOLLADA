@@ -68,6 +68,31 @@ public:
 		crm.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setColorRamp(size_t crm_start,size_t crm_end,ColorRamp* crm)
+	{
+		fprintf(mFile,"\tsetAttr \".crm[%i:%i]\" ", crm_start,crm_end);
+		size_t size = (crm_end-crm_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			crm[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColorRamp(size_t crm_start,size_t crm_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".crm[%i:%i]\"",crm_start,crm_end);
+		fprintf(mFile," -type \"ColorRamp\" ");
+	}
+	void appendColorRamp(const ColorRamp& crm)const
+	{
+		fprintf(mFile,"\n");
+		crm.write(mFile);
+	}
+	void endColorRamp()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setColorRamp_Position(size_t crm_i,float crmp)
 	{
 		if(crmp == 0.0) return;

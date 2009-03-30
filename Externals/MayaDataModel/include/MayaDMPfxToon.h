@@ -201,6 +201,31 @@ public:
 		cwd.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setCurvatureWidth(size_t cwd_start,size_t cwd_end,CurvatureWidth* cwd)
+	{
+		fprintf(mFile,"\tsetAttr \".cwd[%i:%i]\" ", cwd_start,cwd_end);
+		size_t size = (cwd_end-cwd_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cwd[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCurvatureWidth(size_t cwd_start,size_t cwd_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cwd[%i:%i]\"",cwd_start,cwd_end);
+		fprintf(mFile," -type \"CurvatureWidth\" ");
+	}
+	void appendCurvatureWidth(const CurvatureWidth& cwd)const
+	{
+		fprintf(mFile,"\n");
+		cwd.write(mFile);
+	}
+	void endCurvatureWidth()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setCurvatureWidth_Position(size_t cwd_i,float cwdp)
 	{
 		if(cwdp == 0.0) return;

@@ -102,10 +102,40 @@ public:
 	{
 		fprintf(mFile,";\n");
 	}
+	void setOriginalStart(double os)
+	{
+		if(os == 0) return;
+		fprintf(mFile,"\tsetAttr \".os\" %f;\n", os);
+	}
+	void setOriginalEnd(double oe)
+	{
+		if(oe == 0) return;
+		fprintf(mFile,"\tsetAttr \".oe\" %f;\n", oe);
+	}
+	void setSourceStart(double ss)
+	{
+		if(ss == 0) return;
+		fprintf(mFile,"\tsetAttr \".ss\" %f;\n", ss);
+	}
+	void setSourceEnd(double se)
+	{
+		if(se == 0) return;
+		fprintf(mFile,"\tsetAttr \".se\" %f;\n", se);
+	}
+	void setStartFrame(double sf)
+	{
+		if(sf == 0) return;
+		fprintf(mFile,"\tsetAttr \".sf\" %f;\n", sf);
+	}
 	void setScale(double sc)
 	{
 		if(sc == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".sc\" %f;\n", sc);
+	}
+	void setHold(double h)
+	{
+		if(h == 0) return;
+		fprintf(mFile,"\tsetAttr \".h\" %f;\n", h);
 	}
 	void setPreCycle(double cb)
 	{
@@ -116,6 +146,11 @@ public:
 	{
 		if(ca == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".ca\" %f;\n", ca);
+	}
+	void setTime(double tim)
+	{
+		if(tim == 0) return;
+		fprintf(mFile,"\tsetAttr \".tim\" %f;\n", tim);
 	}
 	void setEnable(bool en)
 	{

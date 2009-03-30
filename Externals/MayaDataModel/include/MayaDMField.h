@@ -21,6 +21,7 @@ public:
 		vectorArray inputPositions;
 		vectorArray inputVelocities;
 		doubleArray inputMass;
+		double deltaTime;
 		void write(FILE* file) const
 		{
 			inputPositions.write(file);
@@ -29,6 +30,7 @@ public:
 			fprintf(file, " ");
 			inputMass.write(file);
 			fprintf(file, " ");
+			fprintf(file,"%f", deltaTime);
 		}
 	};
 	struct FalloffCurve{
@@ -80,6 +82,31 @@ public:
 		ind.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setInputData(size_t ind_start,size_t ind_end,InputData* ind)
+	{
+		fprintf(mFile,"\tsetAttr \".ind[%i:%i]\" ", ind_start,ind_end);
+		size_t size = (ind_end-ind_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ind[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInputData(size_t ind_start,size_t ind_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ind[%i:%i]\"",ind_start,ind_end);
+		fprintf(mFile," -type \"InputData\" ");
+	}
+	void appendInputData(const InputData& ind)const
+	{
+		fprintf(mFile,"\n");
+		ind.write(mFile);
+	}
+	void endInputData()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setInputPositions(size_t ind_i,const vectorArray& inp)
 	{
 		if(inp.size == 0) return;
@@ -100,6 +127,11 @@ public:
 		fprintf(mFile,"\tsetAttr \".ind[%i].inm\" -type \"doubleArray\" ",ind_i);
 		inm.write(mFile);
 		fprintf(mFile,";\n");
+	}
+	void setDeltaTime(size_t ind_i,double dt)
+	{
+		if(dt == 0) return;
+		fprintf(mFile,"\tsetAttr \".ind[%i].dt\" %f;\n", ind_i,dt);
 	}
 	void setVolumeShape(unsigned int vol)
 	{
@@ -146,6 +178,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".fc[%i]\" ",fc_i);
 		fc.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setFalloffCurve(size_t fc_start,size_t fc_end,FalloffCurve* fc)
+	{
+		fprintf(mFile,"\tsetAttr \".fc[%i:%i]\" ", fc_start,fc_end);
+		size_t size = (fc_end-fc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fc[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startFalloffCurve(size_t fc_start,size_t fc_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".fc[%i:%i]\"",fc_start,fc_end);
+		fprintf(mFile," -type \"FalloffCurve\" ");
+	}
+	void appendFalloffCurve(const FalloffCurve& fc)const
+	{
+		fprintf(mFile,"\n");
+		fc.write(mFile);
+	}
+	void endFalloffCurve()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setFalloffCurve_Position(size_t fc_i,float fcp)

@@ -59,6 +59,34 @@ public:
 		if(cyi == 1) return;
 		fprintf(mFile,"\tsetAttr \".cyi\" %i;\n", cyi);
 	}
+	void setDeltaTimeCycle(size_t dtc_i,double dtc)
+	{
+		if(dtc == 0) return;
+		fprintf(mFile,"\tsetAttr \".dtc[%i]\" %f;\n", dtc_i,dtc);
+	}
+	void setDeltaTimeCycle(size_t dtc_start,size_t dtc_end,double* dtc)
+	{
+		fprintf(mFile,"\tsetAttr \".dtc[%i:%i]\" ", dtc_start,dtc_end);
+		size_t size = (dtc_end-dtc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",dtc[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startDeltaTimeCycle(size_t dtc_start,size_t dtc_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".dtc[%i:%i]\"",dtc_start,dtc_end);
+	}
+	void appendDeltaTimeCycle(double dtc)const
+	{
+		fprintf(mFile," %f",dtc);
+	}
+	void endDeltaTimeCycle()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setMaxDistance(double max)
 	{
 		if(max == 0) return;

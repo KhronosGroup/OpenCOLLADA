@@ -128,6 +128,31 @@ public:
 		sts.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setStiffnessScale(size_t sts_start,size_t sts_end,StiffnessScale* sts)
+	{
+		fprintf(mFile,"\tsetAttr \".sts[%i:%i]\" ", sts_start,sts_end);
+		size_t size = (sts_end-sts_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			sts[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startStiffnessScale(size_t sts_start,size_t sts_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".sts[%i:%i]\"",sts_start,sts_end);
+		fprintf(mFile," -type \"StiffnessScale\" ");
+	}
+	void appendStiffnessScale(const StiffnessScale& sts)const
+	{
+		fprintf(mFile,"\n");
+		sts.write(mFile);
+	}
+	void endStiffnessScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setStiffnessScale_Position(size_t sts_i,float stsp)
 	{
 		if(stsp == 0.0) return;
@@ -159,6 +184,31 @@ public:
 		cws.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setClumpWidthScale(size_t cws_start,size_t cws_end,ClumpWidthScale* cws)
+	{
+		fprintf(mFile,"\tsetAttr \".cws[%i:%i]\" ", cws_start,cws_end);
+		size_t size = (cws_end-cws_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cws[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClumpWidthScale(size_t cws_start,size_t cws_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cws[%i:%i]\"",cws_start,cws_end);
+		fprintf(mFile," -type \"ClumpWidthScale\" ");
+	}
+	void appendClumpWidthScale(const ClumpWidthScale& cws)const
+	{
+		fprintf(mFile,"\n");
+		cws.write(mFile);
+	}
+	void endClumpWidthScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setClumpWidthScale_Position(size_t cws_i,float cwsp)
 	{
 		if(cwsp == 0.0) return;
@@ -183,6 +233,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".ats[%i]\" ",ats_i);
 		ats.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setAttractionScale(size_t ats_start,size_t ats_end,AttractionScale* ats)
+	{
+		fprintf(mFile,"\tsetAttr \".ats[%i:%i]\" ", ats_start,ats_end);
+		size_t size = (ats_end-ats_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ats[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startAttractionScale(size_t ats_start,size_t ats_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ats[%i:%i]\"",ats_start,ats_end);
+		fprintf(mFile," -type \"AttractionScale\" ");
+	}
+	void appendAttractionScale(const AttractionScale& ats)const
+	{
+		fprintf(mFile,"\n");
+		ats.write(mFile);
+	}
+	void endAttractionScale()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setAttractionScale_Position(size_t ats_i,float atsp)

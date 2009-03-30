@@ -255,6 +255,31 @@ public:
 		env.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setEnvironment(size_t env_start,size_t env_end,Environment* env)
+	{
+		fprintf(mFile,"\tsetAttr \".env[%i:%i]\" ", env_start,env_end);
+		size_t size = (env_end-env_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			env[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startEnvironment(size_t env_start,size_t env_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".env[%i:%i]\"",env_start,env_end);
+		fprintf(mFile," -type \"Environment\" ");
+	}
+	void appendEnvironment(const Environment& env)const
+	{
+		fprintf(mFile,"\n");
+		env.write(mFile);
+	}
+	void endEnvironment()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setEnvironment_Position(size_t env_i,float envp)
 	{
 		if(envp == 0.0) return;
@@ -322,6 +347,11 @@ public:
 		if(mog == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".mog\" %f;\n", mog);
 	}
+	void setTime(double ti)
+	{
+		if(ti == 0) return;
+		fprintf(mFile,"\tsetAttr \".ti\" %f;\n", ti);
+	}
 	void setScale(float scl)
 	{
 		if(scl == 1.0) return;
@@ -375,6 +405,31 @@ public:
 		wh.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setWaveHeight(size_t wh_start,size_t wh_end,WaveHeight* wh)
+	{
+		fprintf(mFile,"\tsetAttr \".wh[%i:%i]\" ", wh_start,wh_end);
+		size_t size = (wh_end-wh_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			wh[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startWaveHeight(size_t wh_start,size_t wh_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".wh[%i:%i]\"",wh_start,wh_end);
+		fprintf(mFile," -type \"WaveHeight\" ");
+	}
+	void appendWaveHeight(const WaveHeight& wh)const
+	{
+		fprintf(mFile,"\n");
+		wh.write(mFile);
+	}
+	void endWaveHeight()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setWaveHeight_Position(size_t wh_i,float whp)
 	{
 		if(whp == 0.0) return;
@@ -396,6 +451,31 @@ public:
 		wtb.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setWaveTurbulence(size_t wtb_start,size_t wtb_end,WaveTurbulence* wtb)
+	{
+		fprintf(mFile,"\tsetAttr \".wtb[%i:%i]\" ", wtb_start,wtb_end);
+		size_t size = (wtb_end-wtb_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			wtb[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startWaveTurbulence(size_t wtb_start,size_t wtb_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".wtb[%i:%i]\"",wtb_start,wtb_end);
+		fprintf(mFile," -type \"WaveTurbulence\" ");
+	}
+	void appendWaveTurbulence(const WaveTurbulence& wtb)const
+	{
+		fprintf(mFile,"\n");
+		wtb.write(mFile);
+	}
+	void endWaveTurbulence()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setWaveTurbulence_Position(size_t wtb_i,float wtbp)
 	{
 		if(wtbp == 0.0) return;
@@ -415,6 +495,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".wp[%i]\" ",wp_i);
 		wp.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setWavePeaking(size_t wp_start,size_t wp_end,WavePeaking* wp)
+	{
+		fprintf(mFile,"\tsetAttr \".wp[%i:%i]\" ", wp_start,wp_end);
+		size_t size = (wp_end-wp_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			wp[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startWavePeaking(size_t wp_start,size_t wp_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".wp[%i:%i]\"",wp_start,wp_end);
+		fprintf(mFile," -type \"WavePeaking\" ");
+	}
+	void appendWavePeaking(const WavePeaking& wp)const
+	{
+		fprintf(mFile,"\n");
+		wp.write(mFile);
+	}
+	void endWavePeaking()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setWavePeaking_Position(size_t wp_i,float wpp)

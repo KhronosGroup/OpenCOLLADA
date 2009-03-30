@@ -43,6 +43,31 @@ public:
 		hyp.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setHyperPosition(size_t hyp_start,size_t hyp_end,HyperPosition* hyp)
+	{
+		fprintf(mFile,"\tsetAttr \".hyp[%i:%i]\" ", hyp_start,hyp_end);
+		size_t size = (hyp_end-hyp_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			hyp[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startHyperPosition(size_t hyp_start,size_t hyp_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".hyp[%i:%i]\"",hyp_start,hyp_end);
+		fprintf(mFile," -type \"HyperPosition\" ");
+	}
+	void appendHyperPosition(const HyperPosition& hyp)const
+	{
+		fprintf(mFile,"\n");
+		hyp.write(mFile);
+	}
+	void endHyperPosition()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setPositionX(size_t hyp_i,float x)
 	{
 		if(x == 0.0) return;

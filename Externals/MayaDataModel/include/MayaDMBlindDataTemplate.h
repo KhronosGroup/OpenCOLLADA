@@ -69,6 +69,31 @@ public:
 		bdps.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setBlindDataPresets(size_t bdps_start,size_t bdps_end,BlindDataPresets* bdps)
+	{
+		fprintf(mFile,"\tsetAttr \".bdps[%i:%i]\" ", bdps_start,bdps_end);
+		size_t size = (bdps_end-bdps_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			bdps[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startBlindDataPresets(size_t bdps_start,size_t bdps_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".bdps[%i:%i]\"",bdps_start,bdps_end);
+		fprintf(mFile," -type \"BlindDataPresets\" ");
+	}
+	void appendBlindDataPresets(const BlindDataPresets& bdps)const
+	{
+		fprintf(mFile,"\n");
+		bdps.write(mFile);
+	}
+	void endBlindDataPresets()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setBdPresetName(size_t bdps_i,const string& bdpn)
 	{
 		if(bdpn == "NULL") return;
@@ -80,6 +105,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".bdps[%i].bdpe[%i]\" ",bdps_i,bdpe_i);
 		bdpe.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setBdPresetElements(size_t bdps_i,size_t bdpe_start,size_t bdpe_end,BlindDataPresets::BdPresetElements* bdpe)
+	{
+		fprintf(mFile,"\tsetAttr \".bdps[%i].bdpe[%i:%i]\" ", bdps_i,bdpe_start,bdpe_end);
+		size_t size = (bdpe_end-bdpe_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			bdpe[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startBdPresetElements(size_t bdps_i,size_t bdpe_start,size_t bdpe_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".bdps[%i].bdpe[%i:%i]\"",bdps_i,bdpe_start,bdpe_end);
+		fprintf(mFile," -type \"BlindDataPresets::BdPresetElements\" ");
+	}
+	void appendBdPresetElements(const BlindDataPresets::BdPresetElements& bdpe)const
+	{
+		fprintf(mFile,"\n");
+		bdpe.write(mFile);
+	}
+	void endBdPresetElements()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setBdPresetAttr(size_t bdps_i,size_t bdpe_i,const string& bdpa)
@@ -100,6 +150,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".bdui[%i]\" ",bdui_i);
 		bdui.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setBdUserInfo(size_t bdui_start,size_t bdui_end,BdUserInfo* bdui)
+	{
+		fprintf(mFile,"\tsetAttr \".bdui[%i:%i]\" ", bdui_start,bdui_end);
+		size_t size = (bdui_end-bdui_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			bdui[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startBdUserInfo(size_t bdui_start,size_t bdui_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".bdui[%i:%i]\"",bdui_start,bdui_end);
+		fprintf(mFile," -type \"BdUserInfo\" ");
+	}
+	void appendBdUserInfo(const BdUserInfo& bdui)const
+	{
+		fprintf(mFile,"\n");
+		bdui.write(mFile);
+	}
+	void endBdUserInfo()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setBdUserInfoName(size_t bdui_i,const string& bdun)

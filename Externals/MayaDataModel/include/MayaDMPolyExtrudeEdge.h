@@ -61,6 +61,31 @@ public:
 		c.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setTaperCurve(size_t c_start,size_t c_end,TaperCurve* c)
+	{
+		fprintf(mFile,"\tsetAttr \".c[%i:%i]\" ", c_start,c_end);
+		size_t size = (c_end-c_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			c[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startTaperCurve(size_t c_start,size_t c_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".c[%i:%i]\"",c_start,c_end);
+		fprintf(mFile," -type \"TaperCurve\" ");
+	}
+	void appendTaperCurve(const TaperCurve& c)const
+	{
+		fprintf(mFile,"\n");
+		c.write(mFile);
+	}
+	void endTaperCurve()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setTaperCurve_Position(size_t c_i,float cp)
 	{
 		if(cp == 0.0) return;

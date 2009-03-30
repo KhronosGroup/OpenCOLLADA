@@ -85,10 +85,20 @@ public:
 	{
 		fprintf(mFile,";\n");
 	}
+	void setStartFrame(double sf)
+	{
+		if(sf == 0) return;
+		fprintf(mFile,"\tsetAttr \".sf\" %f;\n", sf);
+	}
 	void setScale(double sc)
 	{
 		if(sc == 1.0) return;
 		fprintf(mFile,"\tsetAttr \".sc\" %f;\n", sc);
+	}
+	void setHold(double h)
+	{
+		if(h == 0) return;
+		fprintf(mFile,"\tsetAttr \".h\" %f;\n", h);
 	}
 	void setPreCycle(double cb)
 	{
@@ -114,6 +124,16 @@ public:
 	{
 		if(ps == false) return;
 		fprintf(mFile,"\tsetAttr \".ps\" %i;\n", ps);
+	}
+	void setSourceStart(double ss)
+	{
+		if(ss == 0) return;
+		fprintf(mFile,"\tsetAttr \".ss\" %f;\n", ss);
+	}
+	void setSourceEnd(double se)
+	{
+		if(se == 0) return;
+		fprintf(mFile,"\tsetAttr \".se\" %f;\n", se);
 	}
 	void setClipInstance(bool ci)
 	{

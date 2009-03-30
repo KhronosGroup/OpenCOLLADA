@@ -104,6 +104,31 @@ public:
 		h.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setHue(size_t h_start,size_t h_end,Hue* h)
+	{
+		fprintf(mFile,"\tsetAttr \".h[%i:%i]\" ", h_start,h_end);
+		size_t size = (h_end-h_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			h[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startHue(size_t h_start,size_t h_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".h[%i:%i]\"",h_start,h_end);
+		fprintf(mFile," -type \"Hue\" ");
+	}
+	void appendHue(const Hue& h)const
+	{
+		fprintf(mFile,"\n");
+		h.write(mFile);
+	}
+	void endHue()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setHue_Position(size_t h_i,float hp)
 	{
 		if(hp == 0.0) return;
@@ -125,6 +150,31 @@ public:
 		s.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setSaturation(size_t s_start,size_t s_end,Saturation* s)
+	{
+		fprintf(mFile,"\tsetAttr \".s[%i:%i]\" ", s_start,s_end);
+		size_t size = (s_end-s_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			s[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startSaturation(size_t s_start,size_t s_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".s[%i:%i]\"",s_start,s_end);
+		fprintf(mFile," -type \"Saturation\" ");
+	}
+	void appendSaturation(const Saturation& s)const
+	{
+		fprintf(mFile,"\n");
+		s.write(mFile);
+	}
+	void endSaturation()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setSaturation_Position(size_t s_i,float sp)
 	{
 		if(sp == 0.0) return;
@@ -144,6 +194,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".v[%i]\" ",v_i);
 		v.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setValue(size_t v_start,size_t v_end,Value* v)
+	{
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\" ", v_start,v_end);
+		size_t size = (v_end-v_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			v[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startValue(size_t v_start,size_t v_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\"",v_start,v_end);
+		fprintf(mFile," -type \"Value\" ");
+	}
+	void appendValue(const Value& v)const
+	{
+		fprintf(mFile,"\n");
+		v.write(mFile);
+	}
+	void endValue()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setValue_Position(size_t v_i,float vp)

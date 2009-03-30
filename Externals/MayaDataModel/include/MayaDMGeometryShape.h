@@ -151,10 +151,60 @@ public:
 		ciog.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setCompInstObjGroups(size_t ciog_start,size_t ciog_end,CompInstObjGroups* ciog)
+	{
+		fprintf(mFile,"\tsetAttr \".ciog[%i:%i]\" ", ciog_start,ciog_end);
+		size_t size = (ciog_end-ciog_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ciog[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCompInstObjGroups(size_t ciog_start,size_t ciog_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ciog[%i:%i]\"",ciog_start,ciog_end);
+		fprintf(mFile," -type \"CompInstObjGroups\" ");
+	}
+	void appendCompInstObjGroups(const CompInstObjGroups& ciog)const
+	{
+		fprintf(mFile,"\n");
+		ciog.write(mFile);
+	}
+	void endCompInstObjGroups()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setCompObjectGroups(size_t ciog_i,size_t cog_i,const CompInstObjGroups::CompObjectGroups& cog)
 	{
 		fprintf(mFile,"\tsetAttr \".ciog[%i].cog[%i]\" ",ciog_i,cog_i);
 		cog.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setCompObjectGroups(size_t ciog_i,size_t cog_start,size_t cog_end,CompInstObjGroups::CompObjectGroups* cog)
+	{
+		fprintf(mFile,"\tsetAttr \".ciog[%i].cog[%i:%i]\" ", ciog_i,cog_start,cog_end);
+		size_t size = (cog_end-cog_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cog[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCompObjectGroups(size_t ciog_i,size_t cog_start,size_t cog_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ciog[%i].cog[%i:%i]\"",ciog_i,cog_start,cog_end);
+		fprintf(mFile," -type \"CompInstObjGroups::CompObjectGroups\" ");
+	}
+	void appendCompObjectGroups(const CompInstObjGroups::CompObjectGroups& cog)const
+	{
+		fprintf(mFile,"\n");
+		cog.write(mFile);
+	}
+	void endCompObjectGroups()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setCompObjectGrpCompList(size_t ciog_i,size_t cog_i,const componentList& cgcl)

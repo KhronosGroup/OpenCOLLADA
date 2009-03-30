@@ -24,6 +24,11 @@ public:
 		:DependNode(file, name, parent, "mute", create){}
 	virtual ~Mute(){}
 
+	void setHoldTime(double ht)
+	{
+		if(ht == 0) return;
+		fprintf(mFile,"\tsetAttr \".ht\" %f;\n", ht);
+	}
 	void setMute(bool m)
 	{
 		if(m == false) return;

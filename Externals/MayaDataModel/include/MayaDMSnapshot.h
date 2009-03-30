@@ -24,6 +24,21 @@ public:
 		:DependNode(file, name, parent, "snapshot", create){}
 	virtual ~Snapshot(){}
 
+	void setStartTime(double s)
+	{
+		if(s == 0) return;
+		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
+	}
+	void setEndTime(double e)
+	{
+		if(e == 0) return;
+		fprintf(mFile,"\tsetAttr \".e\" %f;\n", e);
+	}
+	void setIncrement(double b)
+	{
+		if(b == 1) return;
+		fprintf(mFile,"\tsetAttr \".b\" %f;\n", b);
+	}
 	void setInputMatrix(const matrix& im)
 	{
 		if(im == identity) return;

@@ -72,6 +72,31 @@ public:
 		mpl.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setMultiParentList(size_t mpl_start,size_t mpl_end,MultiParentList* mpl)
+	{
+		fprintf(mFile,"\tsetAttr \".mpl[%i:%i]\" ", mpl_start,mpl_end);
+		size_t size = (mpl_end-mpl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			mpl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startMultiParentList(size_t mpl_start,size_t mpl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".mpl[%i:%i]\"",mpl_start,mpl_end);
+		fprintf(mFile," -type \"MultiParentList\" ");
+	}
+	void appendMultiParentList(const MultiParentList& mpl)const
+	{
+		fprintf(mFile,"\n");
+		mpl.write(mFile);
+	}
+	void endMultiParentList()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setProxyTag(const string& ptag)
 	{
 		if(ptag == "NULL") return;

@@ -97,6 +97,31 @@ public:
 		cdnr.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setConnectionDensityRange(size_t cdnr_start,size_t cdnr_end,ConnectionDensityRange* cdnr)
+	{
+		fprintf(mFile,"\tsetAttr \".cdnr[%i:%i]\" ", cdnr_start,cdnr_end);
+		size_t size = (cdnr_end-cdnr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cdnr[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startConnectionDensityRange(size_t cdnr_start,size_t cdnr_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cdnr[%i:%i]\"",cdnr_start,cdnr_end);
+		fprintf(mFile," -type \"ConnectionDensityRange\" ");
+	}
+	void appendConnectionDensityRange(const ConnectionDensityRange& cdnr)const
+	{
+		fprintf(mFile,"\n");
+		cdnr.write(mFile);
+	}
+	void endConnectionDensityRange()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setConnectionDensityRange_Position(size_t cdnr_i,float cdnrp)
 	{
 		if(cdnrp == 0.0) return;
@@ -191,6 +216,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".sdp[%i]\" ",sdp_i);
 		sdp.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setStrengthDropoff(size_t sdp_start,size_t sdp_end,StrengthDropoff* sdp)
+	{
+		fprintf(mFile,"\tsetAttr \".sdp[%i:%i]\" ", sdp_start,sdp_end);
+		size_t size = (sdp_end-sdp_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			sdp[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startStrengthDropoff(size_t sdp_start,size_t sdp_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".sdp[%i:%i]\"",sdp_start,sdp_end);
+		fprintf(mFile," -type \"StrengthDropoff\" ");
+	}
+	void appendStrengthDropoff(const StrengthDropoff& sdp)const
+	{
+		fprintf(mFile,"\n");
+		sdp.write(mFile);
+	}
+	void endStrengthDropoff()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setStrengthDropoff_Position(size_t sdp_i,float sdpp)

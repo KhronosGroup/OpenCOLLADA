@@ -59,6 +59,31 @@ public:
 		pl.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setPlist(size_t pl_start,size_t pl_end,Plist* pl)
+	{
+		fprintf(mFile,"\tsetAttr \".pl[%i:%i]\" ", pl_start,pl_end);
+		size_t size = (pl_end-pl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			pl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startPlist(size_t pl_start,size_t pl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".pl[%i:%i]\"",pl_start,pl_end);
+		fprintf(mFile," -type \"Plist\" ");
+	}
+	void appendPlist(const Plist& pl)const
+	{
+		fprintf(mFile,"\n");
+		pl.write(mFile);
+	}
+	void endPlist()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setControlPoints(size_t pl_i,size_t cp_i,const double3& cp)
 	{
 		fprintf(mFile,"\tsetAttr \".pl[%i].cp[%i]\" -type \"double3\" ",pl_i,cp_i);
@@ -107,6 +132,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".vl[%i]\" ",vl_i);
 		vl.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setVlist(size_t vl_start,size_t vl_end,Vlist* vl)
+	{
+		fprintf(mFile,"\tsetAttr \".vl[%i:%i]\" ", vl_start,vl_end);
+		size_t size = (vl_end-vl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVlist(size_t vl_start,size_t vl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".vl[%i:%i]\"",vl_start,vl_end);
+		fprintf(mFile," -type \"Vlist\" ");
+	}
+	void appendVlist(const Vlist& vl)const
+	{
+		fprintf(mFile,"\n");
+		vl.write(mFile);
+	}
+	void endVlist()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setVertex(size_t vl_i,size_t vt_i,const float3& vt)

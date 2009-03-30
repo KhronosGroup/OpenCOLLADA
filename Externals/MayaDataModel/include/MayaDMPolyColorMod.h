@@ -92,6 +92,31 @@ public:
 		r.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setRedScale(size_t r_start,size_t r_end,RedScale* r)
+	{
+		fprintf(mFile,"\tsetAttr \".r[%i:%i]\" ", r_start,r_end);
+		size_t size = (r_end-r_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			r[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startRedScale(size_t r_start,size_t r_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".r[%i:%i]\"",r_start,r_end);
+		fprintf(mFile," -type \"RedScale\" ");
+	}
+	void appendRedScale(const RedScale& r)const
+	{
+		fprintf(mFile,"\n");
+		r.write(mFile);
+	}
+	void endRedScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setRedScale_Position(size_t r_i,float rp)
 	{
 		if(rp == 0.0) return;
@@ -111,6 +136,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".g[%i]\" ",g_i);
 		g.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setGreenScale(size_t g_start,size_t g_end,GreenScale* g)
+	{
+		fprintf(mFile,"\tsetAttr \".g[%i:%i]\" ", g_start,g_end);
+		size_t size = (g_end-g_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			g[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startGreenScale(size_t g_start,size_t g_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".g[%i:%i]\"",g_start,g_end);
+		fprintf(mFile," -type \"GreenScale\" ");
+	}
+	void appendGreenScale(const GreenScale& g)const
+	{
+		fprintf(mFile,"\n");
+		g.write(mFile);
+	}
+	void endGreenScale()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setGreenScale_Position(size_t g_i,float gp)
@@ -134,6 +184,31 @@ public:
 		b.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setBlueScale(size_t b_start,size_t b_end,BlueScale* b)
+	{
+		fprintf(mFile,"\tsetAttr \".b[%i:%i]\" ", b_start,b_end);
+		size_t size = (b_end-b_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			b[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startBlueScale(size_t b_start,size_t b_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".b[%i:%i]\"",b_start,b_end);
+		fprintf(mFile," -type \"BlueScale\" ");
+	}
+	void appendBlueScale(const BlueScale& b)const
+	{
+		fprintf(mFile,"\n");
+		b.write(mFile);
+	}
+	void endBlueScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setBlueScale_Position(size_t b_i,float bp)
 	{
 		if(bp == 0.0) return;
@@ -155,6 +230,31 @@ public:
 		a.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setAlphaScale(size_t a_start,size_t a_end,AlphaScale* a)
+	{
+		fprintf(mFile,"\tsetAttr \".a[%i:%i]\" ", a_start,a_end);
+		size_t size = (a_end-a_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			a[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startAlphaScale(size_t a_start,size_t a_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".a[%i:%i]\"",a_start,a_end);
+		fprintf(mFile," -type \"AlphaScale\" ");
+	}
+	void appendAlphaScale(const AlphaScale& a)const
+	{
+		fprintf(mFile,"\n");
+		a.write(mFile);
+	}
+	void endAlphaScale()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setAlphaScale_Position(size_t a_i,float ap)
 	{
 		if(ap == 0.0) return;
@@ -174,6 +274,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".n[%i]\" ",n_i);
 		n.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setIntensityScale(size_t n_start,size_t n_end,IntensityScale* n)
+	{
+		fprintf(mFile,"\tsetAttr \".n[%i:%i]\" ", n_start,n_end);
+		size_t size = (n_end-n_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			n[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startIntensityScale(size_t n_start,size_t n_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".n[%i:%i]\"",n_start,n_end);
+		fprintf(mFile," -type \"IntensityScale\" ");
+	}
+	void appendIntensityScale(const IntensityScale& n)const
+	{
+		fprintf(mFile,"\n");
+		n.write(mFile);
+	}
+	void endIntensityScale()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setIntensityScale_Position(size_t n_i,float np)

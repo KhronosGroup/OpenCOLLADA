@@ -78,6 +78,31 @@ public:
 		vl.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setValue(size_t vl_start,size_t vl_end,Value* vl)
+	{
+		fprintf(mFile,"\tsetAttr \".vl[%i:%i]\" ", vl_start,vl_end);
+		size_t size = (vl_end-vl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startValue(size_t vl_start,size_t vl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".vl[%i:%i]\"",vl_start,vl_end);
+		fprintf(mFile," -type \"Value\" ");
+	}
+	void appendValue(const Value& vl)const
+	{
+		fprintf(mFile,"\n");
+		vl.write(mFile);
+	}
+	void endValue()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setValue_Position(size_t vl_i,float vlp)
 	{
 		if(vlp == 0.0) return;
@@ -97,6 +122,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".cl[%i]\" ",cl_i);
 		cl.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setColor(size_t cl_start,size_t cl_end,Color* cl)
+	{
+		fprintf(mFile,"\tsetAttr \".cl[%i:%i]\" ", cl_start,cl_end);
+		size_t size = (cl_end-cl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColor(size_t cl_start,size_t cl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cl[%i:%i]\"",cl_start,cl_end);
+		fprintf(mFile," -type \"Color\" ");
+	}
+	void appendColor(const Color& cl)const
+	{
+		fprintf(mFile,"\n");
+		cl.write(mFile);
+	}
+	void endColor()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setColor_Position(size_t cl_i,float clp)

@@ -73,6 +73,31 @@ public:
 		cuv.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setCachedUVs(size_t cuv_start,size_t cuv_end,CachedUVs* cuv)
+	{
+		fprintf(mFile,"\tsetAttr \".cuv[%i:%i]\" ", cuv_start,cuv_end);
+		size_t size = (cuv_end-cuv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cuv[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startCachedUVs(size_t cuv_start,size_t cuv_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cuv[%i:%i]\"",cuv_start,cuv_end);
+		fprintf(mFile," -type \"CachedUVs\" ");
+	}
+	void appendCachedUVs(const CachedUVs& cuv)const
+	{
+		fprintf(mFile,"\n");
+		cuv.write(mFile);
+	}
+	void endCachedUVs()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setUvPoints(size_t cuv_i,size_t uvp_i,const float2& uvp)
 	{
 		fprintf(mFile,"\tsetAttr \".cuv[%i].uvp[%i]\" -type \"float2\" ",cuv_i,uvp_i);

@@ -40,6 +40,31 @@ public:
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setWtMatrix(size_t i_start,size_t i_end,WtMatrix* i_)
+	{
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\" ", i_start,i_end);
+		size_t size = (i_end-i_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			i_[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startWtMatrix(size_t i_start,size_t i_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
+		fprintf(mFile," -type \"WtMatrix\" ");
+	}
+	void appendWtMatrix(const WtMatrix& i)const
+	{
+		fprintf(mFile,"\n");
+		i.write(mFile);
+	}
+	void endWtMatrix()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setMatrixIn(size_t i_i,const matrix& m)
 	{
 		if(m == identity) return;

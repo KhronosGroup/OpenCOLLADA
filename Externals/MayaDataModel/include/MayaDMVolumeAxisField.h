@@ -137,6 +137,11 @@ public:
 		if(dtr == 0.0) return;
 		fprintf(mFile,"\tsetAttr \".dtr\" %f;\n", dtr);
 	}
+	void setTime(double tim)
+	{
+		if(tim == 0) return;
+		fprintf(mFile,"\tsetAttr \".tim\" %f;\n", tim);
+	}
 	void getInvertAttenuation()const
 	{
 		fprintf(mFile,"\"%s.ia\"",mName.c_str());

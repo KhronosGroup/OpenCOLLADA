@@ -68,6 +68,31 @@ public:
 		vn.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setVertexNormal(size_t vn_start,size_t vn_end,NormalPerVertex::VertexNormal* vn)
+	{
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i:%i]\" ", vn_start,vn_end);
+		size_t size = (vn_end-vn_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vn[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVertexNormal(size_t vn_start,size_t vn_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i:%i]\"",vn_start,vn_end);
+		fprintf(mFile," -type \"NormalPerVertex::VertexNormal\" ");
+	}
+	void appendVertexNormal(const NormalPerVertex::VertexNormal& vn)const
+	{
+		fprintf(mFile,"\n");
+		vn.write(mFile);
+	}
+	void endVertexNormal()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setVertexNormalXYZ(size_t vn_i,const float3& nxyz)
 	{
 		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz\" -type \"float3\" ",vn_i);
@@ -93,6 +118,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i]\" ",vn_i,vfnl_i);
 		vfnl.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setVertexFaceNormal(size_t vn_i,size_t vfnl_start,size_t vfnl_end,NormalPerVertex::VertexNormal::VertexFaceNormal* vfnl)
+	{
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i:%i]\" ", vn_i,vfnl_start,vfnl_end);
+		size_t size = (vfnl_end-vfnl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vfnl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVertexFaceNormal(size_t vn_i,size_t vfnl_start,size_t vfnl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i:%i]\"",vn_i,vfnl_start,vfnl_end);
+		fprintf(mFile," -type \"NormalPerVertex::VertexNormal::VertexFaceNormal\" ");
+	}
+	void appendVertexFaceNormal(const NormalPerVertex::VertexNormal::VertexFaceNormal& vfnl)const
+	{
+		fprintf(mFile,"\n");
+		vfnl.write(mFile);
+	}
+	void endVertexFaceNormal()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setVertexFaceNormalXYZ(size_t vn_i,size_t vfnl_i,const float3& fnxy)

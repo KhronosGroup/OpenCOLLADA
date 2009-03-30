@@ -24,6 +24,11 @@ public:
 		:DependNode(file, name, parent, "nucleus", create){}
 	virtual ~Nucleus(){}
 
+	void setStartTime(double sti)
+	{
+		if(sti == 1) return;
+		fprintf(mFile,"\tsetAttr \".sti\" %f;\n", sti);
+	}
 	void setStartFrame(double stf)
 	{
 		if(stf == 1.0) return;

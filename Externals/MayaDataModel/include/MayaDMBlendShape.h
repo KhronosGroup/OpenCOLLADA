@@ -135,16 +135,91 @@ public:
 		it.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setInputTarget(size_t it_start,size_t it_end,InputTarget* it)
+	{
+		fprintf(mFile,"\tsetAttr \".it[%i:%i]\" ", it_start,it_end);
+		size_t size = (it_end-it_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			it[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInputTarget(size_t it_start,size_t it_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".it[%i:%i]\"",it_start,it_end);
+		fprintf(mFile," -type \"InputTarget\" ");
+	}
+	void appendInputTarget(const InputTarget& it)const
+	{
+		fprintf(mFile,"\n");
+		it.write(mFile);
+	}
+	void endInputTarget()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setInputTargetGroup(size_t it_i,size_t itg_i,const InputTarget::InputTargetGroup& itg)
 	{
 		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i]\" ",it_i,itg_i);
 		itg.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setInputTargetGroup(size_t it_i,size_t itg_start,size_t itg_end,InputTarget::InputTargetGroup* itg)
+	{
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i:%i]\" ", it_i,itg_start,itg_end);
+		size_t size = (itg_end-itg_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			itg[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInputTargetGroup(size_t it_i,size_t itg_start,size_t itg_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i:%i]\"",it_i,itg_start,itg_end);
+		fprintf(mFile," -type \"InputTarget::InputTargetGroup\" ");
+	}
+	void appendInputTargetGroup(const InputTarget::InputTargetGroup& itg)const
+	{
+		fprintf(mFile,"\n");
+		itg.write(mFile);
+	}
+	void endInputTargetGroup()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setInputTargetItem(size_t it_i,size_t itg_i,size_t iti_i,const InputTarget::InputTargetGroup::InputTargetItem& iti)
 	{
 		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].iti[%i]\" ",it_i,itg_i,iti_i);
 		iti.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setInputTargetItem(size_t it_i,size_t itg_i,size_t iti_start,size_t iti_end,InputTarget::InputTargetGroup::InputTargetItem* iti)
+	{
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].iti[%i:%i]\" ", it_i,itg_i,iti_start,iti_end);
+		size_t size = (iti_end-iti_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			iti[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startInputTargetItem(size_t it_i,size_t itg_i,size_t iti_start,size_t iti_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].iti[%i:%i]\"",it_i,itg_i,iti_start,iti_end);
+		fprintf(mFile," -type \"InputTarget::InputTargetGroup::InputTargetItem\" ");
+	}
+	void appendInputTargetItem(const InputTarget::InputTargetGroup::InputTargetItem& iti)const
+	{
+		fprintf(mFile,"\n");
+		iti.write(mFile);
+	}
+	void endInputTargetItem()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setInputPointsTarget(size_t it_i,size_t itg_i,size_t iti_i,const pointArray& ipt)

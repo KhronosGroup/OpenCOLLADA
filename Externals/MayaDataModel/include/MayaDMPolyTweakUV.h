@@ -83,6 +83,31 @@ public:
 		nuv.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setNewUV(size_t nuv_start,size_t nuv_end,NewUV* nuv)
+	{
+		fprintf(mFile,"\tsetAttr \".nuv[%i:%i]\" ", nuv_start,nuv_end);
+		size_t size = (nuv_end-nuv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			nuv[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startNewUV(size_t nuv_start,size_t nuv_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".nuv[%i:%i]\"",nuv_start,nuv_end);
+		fprintf(mFile," -type \"NewUV\" ");
+	}
+	void appendNewUV(const NewUV& nuv)const
+	{
+		fprintf(mFile,"\n");
+		nuv.write(mFile);
+	}
+	void endNewUV()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setFaceId(size_t nuv_i,int fid)
 	{
 		if(fid == 0) return;

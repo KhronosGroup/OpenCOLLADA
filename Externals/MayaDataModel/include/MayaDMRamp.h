@@ -49,6 +49,31 @@ public:
 		cel.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setColorEntryList(size_t cel_start,size_t cel_end,ColorEntryList* cel)
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i:%i]\" ", cel_start,cel_end);
+		size_t size = (cel_end-cel_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cel[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColorEntryList(size_t cel_start,size_t cel_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".cel[%i:%i]\"",cel_start,cel_end);
+		fprintf(mFile," -type \"ColorEntryList\" ");
+	}
+	void appendColorEntryList(const ColorEntryList& cel)const
+	{
+		fprintf(mFile,"\n");
+		cel.write(mFile);
+	}
+	void endColorEntryList()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setPosition(size_t cel_i,float ep)
 	{
 		if(ep == 0.0) return;

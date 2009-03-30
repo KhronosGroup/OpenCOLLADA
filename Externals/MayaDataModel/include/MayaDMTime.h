@@ -24,6 +24,11 @@ public:
 		:DependNode(file, name, parent, "time", create){}
 	virtual ~Time(){}
 
+	void setOutTime(double o)
+	{
+		if(o == 0) return;
+		fprintf(mFile,"\tsetAttr \".o\" %f;\n", o);
+	}
 	void getOutTime()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());

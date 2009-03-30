@@ -115,6 +115,16 @@ public:
 		if(ar == 1) return;
 		fprintf(mFile,"\tsetAttr \".ar\" %i;\n", ar);
 	}
+	void setStartFrame(double fs)
+	{
+		if(fs == 1) return;
+		fprintf(mFile,"\tsetAttr \".fs\" %f;\n", fs);
+	}
+	void setEndFrame(double ef)
+	{
+		if(ef == 1) return;
+		fprintf(mFile,"\tsetAttr \".ef\" %f;\n", ef);
+	}
 	void setByFrameStep(float bfs)
 	{
 		if(bfs == 1.0) return;

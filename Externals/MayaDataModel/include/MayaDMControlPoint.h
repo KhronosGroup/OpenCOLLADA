@@ -131,6 +131,31 @@ public:
 		uvst.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setUvSet(size_t uvst_start,size_t uvst_end,UvSet* uvst)
+	{
+		fprintf(mFile,"\tsetAttr \".uvst[%i:%i]\" ", uvst_start,uvst_end);
+		size_t size = (uvst_end-uvst_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			uvst[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startUvSet(size_t uvst_start,size_t uvst_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".uvst[%i:%i]\"",uvst_start,uvst_end);
+		fprintf(mFile," -type \"UvSet\" ");
+	}
+	void appendUvSet(const UvSet& uvst)const
+	{
+		fprintf(mFile,"\n");
+		uvst.write(mFile);
+	}
+	void endUvSet()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setUvSetName(size_t uvst_i,const string& uvsn)
 	{
 		if(uvsn == "NULL") return;
@@ -214,6 +239,31 @@ public:
 		clst.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setColorSet(size_t clst_start,size_t clst_end,ColorSet* clst)
+	{
+		fprintf(mFile,"\tsetAttr \".clst[%i:%i]\" ", clst_start,clst_end);
+		size_t size = (clst_end-clst_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			clst[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColorSet(size_t clst_start,size_t clst_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".clst[%i:%i]\"",clst_start,clst_end);
+		fprintf(mFile," -type \"ColorSet\" ");
+	}
+	void appendColorSet(const ColorSet& clst)const
+	{
+		fprintf(mFile,"\n");
+		clst.write(mFile);
+	}
+	void endColorSet()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setColorName(size_t clst_i,const string& clsn)
 	{
 		if(clsn == "NULL") return;
@@ -231,22 +281,39 @@ public:
 		if(rprt == 3) return;
 		fprintf(mFile,"\tsetAttr \".clst[%i].rprt\" %i;\n", clst_i,rprt);
 	}
-    void startColorSetPoints(size_t clst_i,size_t clsp_start,size_t clsp_end)
-    {
-        fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i:%i]\"",clst_i,clsp_start,clsp_end);
-    }
-    void appendColorSetPoints(float clsp)
-    {
-        fprintf(mFile," %f",clsp);
-    }
-    void endColorSetPoints()
-    {
-        fprintf(mFile,";\n");
-    }
 	void setColorSetPoints(size_t clst_i,size_t clsp_i,const ColorSet::ColorSetPoints& clsp)
 	{
 		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i]\" ",clst_i,clsp_i);
 		clsp.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setColorSetPoints(size_t clst_i,size_t clsp_start,size_t clsp_end,ColorSet::ColorSetPoints* clsp)
+	{
+		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i:%i]\" ", clst_i,clsp_start,clsp_end);
+		size_t size = (clsp_end-clsp_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			clsp[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startColorSetPoints(size_t clst_i,size_t clsp_start,size_t clsp_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i:%i]\"",clst_i,clsp_start,clsp_end);
+		fprintf(mFile," -type \"ColorSet::ColorSetPoints\" ");
+	}
+	void appendColorSetPoints(const ColorSet::ColorSetPoints& clsp)const
+	{
+		fprintf(mFile,"\n");
+		clsp.write(mFile);
+	}
+    void appendColorSetPoints(float clsp)
+    {
+        fprintf(mFile," %f",clsp);
+    }
+	void endColorSetPoints()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setColorSetPointsR(size_t clst_i,size_t clsp_i,float clpr)

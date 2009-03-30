@@ -24,6 +24,11 @@ public:
 		:DependNode(file, name, parent, "audio", create){}
 	virtual ~Audio(){}
 
+	void setOffset(double o)
+	{
+		if(o == 0) return;
+		fprintf(mFile,"\tsetAttr \".o\" %f;\n", o);
+	}
 	void setFilename(const string& f)
 	{
 		if(f == "NULL") return;

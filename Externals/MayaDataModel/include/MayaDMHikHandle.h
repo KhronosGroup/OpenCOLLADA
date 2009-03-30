@@ -355,6 +355,11 @@ public:
 		:IkHandle(file, name, parent, "hikHandle", create){}
 	virtual ~HikHandle(){}
 
+	void setTime(double tim)
+	{
+		if(tim == 0) return;
+		fprintf(mFile,"\tsetAttr \".tim\" %f;\n", tim);
+	}
 	void setDefaultMatrix(size_t dm_i,const matrix& dm)
 	{
 		if(dm == identity) return;

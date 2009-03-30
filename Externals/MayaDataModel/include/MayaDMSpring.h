@@ -186,6 +186,34 @@ public:
 	{
 		fprintf(mFile,";\n");
 	}
+	void setDeltaTime(size_t dt_i,double dt)
+	{
+		if(dt == 0) return;
+		fprintf(mFile,"\tsetAttr \".dt[%i]\" %f;\n", dt_i,dt);
+	}
+	void setDeltaTime(size_t dt_start,size_t dt_end,double* dt)
+	{
+		fprintf(mFile,"\tsetAttr \".dt[%i:%i]\" ", dt_start,dt_end);
+		size_t size = (dt_end-dt_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",dt[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startDeltaTime(size_t dt_start,size_t dt_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".dt[%i:%i]\"",dt_start,dt_end);
+	}
+	void appendDeltaTime(double dt)const
+	{
+		fprintf(mFile," %f",dt);
+	}
+	void endDeltaTime()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setValidIndex(const intArray& vali)
 	{
 		if(vali.size == 0) return;

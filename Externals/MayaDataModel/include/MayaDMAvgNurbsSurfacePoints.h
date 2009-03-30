@@ -53,6 +53,31 @@ public:
 		sp.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setSurfacePoint(size_t sp_start,size_t sp_end,SurfacePoint* sp)
+	{
+		fprintf(mFile,"\tsetAttr \".sp[%i:%i]\" ", sp_start,sp_end);
+		size_t size = (sp_end-sp_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			sp[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startSurfacePoint(size_t sp_start,size_t sp_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".sp[%i:%i]\"",sp_start,sp_end);
+		fprintf(mFile," -type \"SurfacePoint\" ");
+	}
+	void appendSurfacePoint(const SurfacePoint& sp)const
+	{
+		fprintf(mFile,"\n");
+		sp.write(mFile);
+	}
+	void endSurfacePoint()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setInputSurface(size_t sp_i,const nurbsSurface& is)
 	{
 		fprintf(mFile,"\tsetAttr \".sp[%i].is\" -type \"nurbsSurface\" ",sp_i);

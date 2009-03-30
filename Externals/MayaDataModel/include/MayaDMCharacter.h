@@ -72,6 +72,31 @@ public:
 		cei.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setClipEvaluate_Inmap(size_t cei_start,size_t cei_end,ClipEvaluate::ClipEvaluate_Inmap* cei)
+	{
+		fprintf(mFile,"\tsetAttr \".ce.cei[%i:%i]\" ", cei_start,cei_end);
+		size_t size = (cei_end-cei_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			cei[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClipEvaluate_Inmap(size_t cei_start,size_t cei_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ce.cei[%i:%i]\"",cei_start,cei_end);
+		fprintf(mFile," -type \"ClipEvaluate::ClipEvaluate_Inmap\" ");
+	}
+	void appendClipEvaluate_Inmap(const ClipEvaluate::ClipEvaluate_Inmap& cei)const
+	{
+		fprintf(mFile,"\n");
+		cei.write(mFile);
+	}
+	void endClipEvaluate_Inmap()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setClipEvaluate_InmapTo(size_t cei_i,short ceit)
 	{
 		if(ceit == 0) return;
@@ -86,6 +111,31 @@ public:
 	{
 		fprintf(mFile,"\tsetAttr \".ce.ceo[%i]\" ",ceo_i);
 		ceo.write(mFile);
+		fprintf(mFile,";\n");
+	}
+	void setClipEvaluate_Outmap(size_t ceo_start,size_t ceo_end,ClipEvaluate::ClipEvaluate_Outmap* ceo)
+	{
+		fprintf(mFile,"\tsetAttr \".ce.ceo[%i:%i]\" ", ceo_start,ceo_end);
+		size_t size = (ceo_end-ceo_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ceo[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startClipEvaluate_Outmap(size_t ceo_start,size_t ceo_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".ce.ceo[%i:%i]\"",ceo_start,ceo_end);
+		fprintf(mFile," -type \"ClipEvaluate::ClipEvaluate_Outmap\" ");
+	}
+	void appendClipEvaluate_Outmap(const ClipEvaluate::ClipEvaluate_Outmap& ceo)const
+	{
+		fprintf(mFile,"\n");
+		ceo.write(mFile);
+	}
+	void endClipEvaluate_Outmap()const
+	{
 		fprintf(mFile,";\n");
 	}
 	void setClipEvaluate_OutmapTo(size_t ceo_i,short ceot)
@@ -182,6 +232,34 @@ public:
 	{
 		fprintf(mFile,";\n");
 	}
+	void setTimeValues(size_t tv_i,double tv)
+	{
+		if(tv == 0) return;
+		fprintf(mFile,"\tsetAttr \".tv[%i]\" %f;\n", tv_i,tv);
+	}
+	void setTimeValues(size_t tv_start,size_t tv_end,double* tv)
+	{
+		fprintf(mFile,"\tsetAttr \".tv[%i:%i]\" ", tv_start,tv_end);
+		size_t size = (tv_end-tv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",tv[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startTimeValues(size_t tv_start,size_t tv_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".tv[%i:%i]\"",tv_start,tv_end);
+	}
+	void appendTimeValues(double tv)const
+	{
+		fprintf(mFile," %f",tv);
+	}
+	void endTimeValues()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setClipIndexMap(const intArray& cim)
 	{
 		if(cim.size == 0) return;
@@ -193,6 +271,16 @@ public:
 	{
 		if(acc == 0) return;
 		fprintf(mFile,"\tsetAttr \".acc\" %i;\n", acc);
+	}
+	void setTimelineClipStart(double tcs)
+	{
+		if(tcs == 0) return;
+		fprintf(mFile,"\tsetAttr \".tcs\" %f;\n", tcs);
+	}
+	void setTimelineClipEnd(double tce)
+	{
+		if(tce == 0) return;
+		fprintf(mFile,"\tsetAttr \".tce\" %f;\n", tce);
 	}
 	void getClipEvaluate()const
 	{

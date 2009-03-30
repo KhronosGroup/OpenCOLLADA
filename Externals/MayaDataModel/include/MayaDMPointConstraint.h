@@ -49,6 +49,31 @@ public:
 		tg.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setTarget(size_t tg_start,size_t tg_end,Target* tg)
+	{
+		fprintf(mFile,"\tsetAttr \".tg[%i:%i]\" ", tg_start,tg_end);
+		size_t size = (tg_end-tg_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			tg[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startTarget(size_t tg_start,size_t tg_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".tg[%i:%i]\"",tg_start,tg_end);
+		fprintf(mFile," -type \"Target\" ");
+	}
+	void appendTarget(const Target& tg)const
+	{
+		fprintf(mFile,"\n");
+		tg.write(mFile);
+	}
+	void endTarget()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setTargetTranslate(size_t tg_i,const double3& tt)
 	{
 		fprintf(mFile,"\tsetAttr \".tg[%i].tt\" -type \"double3\" ",tg_i);

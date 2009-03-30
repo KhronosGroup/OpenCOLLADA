@@ -100,6 +100,31 @@ public:
 		scl.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setStuCacheList(size_t scl_start,size_t scl_end,StuCacheList* scl)
+	{
+		fprintf(mFile,"\tsetAttr \".scl[%i:%i]\" ", scl_start,scl_end);
+		size_t size = (scl_end-scl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			scl[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startStuCacheList(size_t scl_start,size_t scl_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".scl[%i:%i]\"",scl_start,scl_end);
+		fprintf(mFile," -type \"StuCacheList\" ");
+	}
+	void appendStuCacheList(const StuCacheList& scl)const
+	{
+		fprintf(mFile,"\n");
+		scl.write(mFile);
+	}
+	void endStuCacheList()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setStuCache(size_t scl_i,size_t stu_i,double stu)
 	{
 		if(stu == 0) return;

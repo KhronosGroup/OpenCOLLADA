@@ -24,6 +24,11 @@ public:
 		:Locator(file, name, parent, "positionMarker", create){}
 	virtual ~PositionMarker(){}
 
+	void setTime(double t)
+	{
+		if(t == 0) return;
+		fprintf(mFile,"\tsetAttr \".t\" %f;\n", t);
+	}
 	void getTime()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());

@@ -134,6 +134,31 @@ public:
 		vtw.write(mFile);
 		fprintf(mFile,";\n");
 	}
+	void setVertexTweak(size_t vtw_start,size_t vtw_end,VertexTweak* vtw)
+	{
+		fprintf(mFile,"\tsetAttr \".vtw[%i:%i]\" ", vtw_start,vtw_end);
+		size_t size = (vtw_end-vtw_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			vtw[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+	}
+	void startVertexTweak(size_t vtw_start,size_t vtw_end)const
+	{
+		fprintf(mFile,"\tsetAttr \".vtw[%i:%i]\"",vtw_start,vtw_end);
+		fprintf(mFile," -type \"VertexTweak\" ");
+	}
+	void appendVertexTweak(const VertexTweak& vtw)const
+	{
+		fprintf(mFile,"\n");
+		vtw.write(mFile);
+	}
+	void endVertexTweak()const
+	{
+		fprintf(mFile,";\n");
+	}
 	void setSingleVertexTweak(size_t vtw_i,size_t stw_i,const double3& stw)
 	{
 		fprintf(mFile,"\tsetAttr \".vtw[%i].stw[%i]\" -type \"double3\" ",vtw_i,stw_i);
