@@ -827,7 +827,7 @@ namespace COLLADAMaya
             MVector eye(matrix[3][0], matrix[3][1], matrix[3][2]);
             float eyePosition[3] = {
                 COLLADABU::Math::Utils::equalsZero( matrix[3][0] ) ? 0.0f : (float) matrix[3][0],
-                COLLADABU::Math::Utils::equalsZero( matrix[3][1] ) ? 0.0f : (float) matrix[3][2],
+                COLLADABU::Math::Utils::equalsZero( matrix[3][1] ) ? 0.0f : (float) matrix[3][1],
                 COLLADABU::Math::Utils::equalsZero( matrix[3][2] ) ? 0.0f : (float) matrix[3][2] };
 
             // Compute center of interest.
@@ -842,7 +842,7 @@ namespace COLLADAMaya
             // Extract the up direction, which corresponds to the second row.
             float upPosition[3] = {
                 COLLADABU::Math::Utils::equalsZero( matrix[1][0] ) ? 0.0f : (float) matrix[1][0],
-                COLLADABU::Math::Utils::equalsZero( matrix[1][1] ) ? 0.0f : (float) matrix[1][2],
+                COLLADABU::Math::Utils::equalsZero( matrix[1][1] ) ? 0.0f : (float) matrix[1][1],
                 COLLADABU::Math::Utils::equalsZero( matrix[1][2] ) ? 0.0f : (float) matrix[1][2] };
 
             // Add the camera lookat

@@ -274,11 +274,11 @@ namespace COLLADASaxFWL
 
 
 		/** Sets the shader parameter type.*/
-		virtual bool begin__common_transparent_type____color( const common_transparent_type____color__AttributeData& attributeData );
+		virtual bool begin__common_color_or_texture_type____color( const common_color_or_texture_type____color__AttributeData& attributeData );
 		/** Resets the shader parameter type.*/
-		virtual bool end__common_transparent_type____color();
+		virtual bool end__common_color_or_texture_type____color();
 		/** Stores color data into the correct color object.*/
-		virtual bool data__common_transparent_type____color( const float* data, size_t length );
+		virtual bool data__common_color_or_texture_type____color( const float* data, size_t length );
 
 #if 0
 		/** Stores texture data into the correct texture object.*/

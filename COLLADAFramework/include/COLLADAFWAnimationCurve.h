@@ -49,7 +49,7 @@ namespace COLLADAFW
 
 		/** The interpolation type of the curve. If the curve uses only one type of interpolation,
 		this member is set to this type. If more than one type is used, it is set to INTERPOLATION_MIXED. 
-		The mInterpolations array than defines the interpolation between the keys.*/
+		The mInterpolationTypes array than defines the interpolation between the keys.*/
 		InterpolationType mInterpolationType;
 
 		/** The input values of the animation. */
@@ -63,11 +63,11 @@ namespace COLLADAFW
 		should be interpolated. The first value defines the interpolation between the first and second key, and so 
 		on. Therefore the size of the array must be the mInputValues.getCount(). For other values of mInterpolationType the interpolation is defined by mInterpolationType and this
 		array is empty.*/
-		InterpolationTypeArray mInterpolations;
+		InterpolationTypeArray mInterpolationTypes;
 
 		// TODO think about the storage of tangents
-		FloatOrDoubleArray mInTangentsValues;
-		FloatOrDoubleArray mOutTangentsValues;
+		FloatOrDoubleArray mInTangentValues;
+		FloatOrDoubleArray mOutTangentValues;
 
 	public:
 
@@ -76,11 +76,14 @@ namespace COLLADAFW
 			: Animation(objectId, Animation::ANIMATION_CURVE)
 			, mOutDimension(0)
 			, mInterpolationType(INTERPOLATION_UNKNOWN)
-			, mInterpolations(InterpolationTypeArray::OWNER)
+			, mInterpolationTypes(InterpolationTypeArray::OWNER)
 		{}
 
         /** Destructor. */
 		virtual ~AnimationCurve(){}
+
+		/* Returns the number of keys.*/
+		size_t getKeyCount() const { return mInputValues.getValuesCount(); }
 
 
 		/** Returns the dimension of the output, e.g. 1 for a single float, 3 for a position.*/
@@ -108,6 +111,24 @@ namespace COLLADAFW
 
 		/** Returns the output values of the animation. */
 		const FloatOrDoubleArray& getOutputValues() const { return mOutputValues; }
+
+		/** Returns the interpolation types of the animation. */
+		InterpolationTypeArray& getInterpolationTypes() { return mInterpolationTypes; }
+
+		/** Returns the interpolation types of the animation. */
+		const InterpolationTypeArray& getInterpolationTypes() const { return mInterpolationTypes; }
+
+		/** Returns the in tangent values of the animation. */
+		FloatOrDoubleArray& getInTangentValues() { return mInTangentValues; }
+
+		/** Returns the in tangent values of the animation. */
+		const FloatOrDoubleArray& getInTangentValues() const { return mInTangentValues; }
+
+		/** Returns the out tangent values of the animation. */
+		FloatOrDoubleArray& getOutTangentValues() { return mOutTangentValues; }
+
+		/** Returns the out tangent values of the animation. */
+		const FloatOrDoubleArray& getOutTangentValues() const { return mOutTangentValues; }
 
 
 	private:

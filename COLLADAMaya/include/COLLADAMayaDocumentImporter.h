@@ -38,6 +38,7 @@ namespace COLLADAMaya
     class CameraImporter;
     class LightImporter;
     class ImageImporter;
+    class AnimationImporter;
 
 
     /** The main importer class. This class imports all data of the scene. */
@@ -105,6 +106,9 @@ namespace COLLADAMaya
 
         /** Pointer to the image importer. */
         ImageImporter* mImageImporter;
+
+        /** Pointer to the animation importer. */
+        AnimationImporter* mAnimationImporter;
 
         /** The variable tells, how many times the document is read. */
         size_t mNumDocumentParses;
@@ -174,6 +178,10 @@ namespace COLLADAMaya
         ImageImporter* getImageImporter () { return mImageImporter; }
         const ImageImporter* getImageImporter () const { return mImageImporter; }
 
+        /** Pointer to the animation importer. */
+        AnimationImporter* getAnimationImporter () { return mAnimationImporter; }
+        const AnimationImporter* getAnimationImporter () const { return mAnimationImporter; }
+        
         /** This method will be called if an error in the loading process occurred and the loader 
         cannot continue to to load. The writer should undo all operations that have been performed.
         @param errorMessage A message containing informations about the error that occurred.
@@ -241,6 +249,14 @@ namespace COLLADAMaya
         /** When this method is called, the writer must write the image.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeImage( const COLLADAFW::Image* image );
+
+        /** When this method is called, the writer must write the Animation.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeAnimation( const COLLADAFW::Animation* animation );
+
+        /** When this method is called, the writer must write the AnimationList.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeAnimationList( const COLLADAFW::AnimationList* animationList );
 
         /**
          * Replace offending characters by some that are supported within maya.

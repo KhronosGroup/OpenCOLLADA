@@ -14,6 +14,7 @@
 #include "COLLADASaxFWLPrerequisites.h"
 
 #include "COLLADAFWArrayPrimitiveType.h"
+#include "COLLADAFWAnimationCurve.h"
 
 
 namespace COLLADASaxFWL
@@ -171,6 +172,9 @@ namespace COLLADASaxFWL
      * the instance document.
      */
     typedef BaseArrayElement < String > IDREFArrayElement;
+
+	/** Declares the storage for a homogenous array of interpolation type valuesvalues.*/
+	typedef BaseArrayElement < COLLADAFW::AnimationCurve::InterpolationType > InterpolationTypeArrayElement;
 
 }
 

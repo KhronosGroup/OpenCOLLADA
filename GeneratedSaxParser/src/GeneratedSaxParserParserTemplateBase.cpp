@@ -84,8 +84,13 @@ namespace GeneratedSaxParser
 		return toDataPrefix<bool, Utils::toBool>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
+    //--------------------------------------------------------------------
+    ParserString ParserTemplateBase::toStringListPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+    {
+        return toDataPrefix<ParserString, Utils::toStringListItem>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+    }
 
-	//--------------------------------------------------------------------
+    //--------------------------------------------------------------------
 	template<class DataType,
 			 DataType (*toData)( const ParserChar**, const ParserChar*, bool& )>
 	DataType ParserTemplateBase::toDataPrefix(

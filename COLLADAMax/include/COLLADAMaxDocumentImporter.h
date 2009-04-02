@@ -29,12 +29,11 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include <list>
 
-//#include "dummy.h"
-
 
 class Interface;
 class ImpInterface;
 class DummyObject;
+class Control;
 
 namespace COLLADAFW
 {
@@ -44,6 +43,7 @@ namespace COLLADAFW
 	class LibraryNodes;
 	class Node;
 	class Camera;
+	class AnimationList;
 }
 
 namespace COLLADAMax
@@ -68,6 +68,9 @@ namespace COLLADAMax
 
 		/** List of library nodes.*/
 		typedef std::list<const COLLADAFW::LibraryNodes*> LibraryNodesList;
+
+		/** List of nodes visual scenes.*/
+		typedef std::map<COLLADAFW::UniqueId, const COLLADAFW::VisualScene*> UniqueIdVisualSceneMap;
 
 		/** Maps Unique id to framework nodes.*/
 		typedef std::map<COLLADAFW::UniqueId, const COLLADAFW::Node*> UniqueIdFWNodeMap;
@@ -111,6 +114,15 @@ namespace COLLADAMax
 
 		/** Maps an object to its name.*/
 		typedef std::map<Object*, String > ObjectObjectNameMap;
+
+		/** A list of max controllers.*/
+		typedef std::vector<Control*> MaxControllerList;
+
+		/** Maps each already imported frame work animation to a list of created max float controllers.*/
+		typedef std::map< COLLADAFW::UniqueId /* Animation*/, MaxControllerList> UniqueIdMaxControllerListMap;
+
+		/** Holds all already imported animation list, sorted by their unique id.*/
+		typedef std::map< COLLADAFW::UniqueId /* AnimationList*/, COLLADAFW::AnimationList*> UniqueIdAnimationListMap;
 
 		struct FileInfo
 		{
@@ -172,6 +184,9 @@ namespace COLLADAMax
 		/** This vector contains all library nodes already received by the importer.*/
 		LibraryNodesList mLibraryNodesList;
 
+		/** Maps unique ids to visual scene already received by the importer.*/
+		UniqueIdVisualSceneMap mUniqueIdVisualSceneMap;
+
 		/** Maps unique ids of framework materials to the corresponding framework material.*/
 		UniqueIdFWMaterialMap mUniqueIdFWMaterialMap;
 
@@ -201,6 +216,12 @@ namespace COLLADAMax
 		its unique id should be added to this list.*/
 		UniqueIdList mVertexColorObjects;
 
+		/** Maps each already imported frame work animation to a list of created max float controllers.*/
+		UniqueIdMaxControllerListMap mAnimationUniqueIdMaxControllerListMap;
+
+		/** Holds all already imported animation list, sorted by their unique id.*/
+		UniqueIdAnimationListMap mUniqueIdAnimationListMap;
+
 		/** Holds informations about the entire file being loaded.*/
 		FileInfo mFileInfo;
 
@@ -215,6 +236,10 @@ namespace COLLADAMax
 		/** Start the import of the model.
 		@return True on success, false otherwise. */
 		bool import();
+
+		/** Creates a new max object with @a superClassId and @a classId. If the object could not be created, 
+		null is returned.*/
+		void* createMaxObject(SClass_ID superClassId, Class_ID classId);
 
 		/** Returns the max interface.*/
 		Interface* getMaxInterface() { return mMaxInterface; }
@@ -283,7 +308,11 @@ namespace COLLADAMax
 
 		/** Writes the animation.
 		@return True on succeeded, false otherwise.*/
-		virtual bool writeAnimation( const COLLADAFW::Animation* animation ) { return true; }
+		virtual bool writeAnimation( const COLLADAFW::Animation* animation );
+
+		/** Writes the animation.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeAnimationList( const COLLADAFW::AnimationList* animationList );
 
 
 	private:
@@ -294,6 +323,12 @@ namespace COLLADAMax
 
 		/** Creates all the materials that are instantiated/referenced in the scene.*/
 		bool createAndAssignMaterials();
+
+		/** Assigns the imported controllers to the corresponding objects.*/
+		bool assignControllers();
+
+		/** Creates the scene graph.*/
+		bool createSceneGraph();
 
 		/** Returns the dummy object used for nodes that do not have an object assigned to.*/
 		DummyObject* getDummyObject(){ return mDummyObject; }
@@ -318,6 +353,9 @@ namespace COLLADAMax
 
 		/** Returns the list of library nodes.*/
 		LibraryNodesList& getLibraryNodesList(){ return mLibraryNodesList; }
+
+		/** Returns the map of unique id to visual scenes.*/
+		UniqueIdVisualSceneMap& getUniqueIdVisualSceneMap(){ return mUniqueIdVisualSceneMap; }
 
 		/** Returns the UniqueIdFWMaterialMap.*/
 		UniqueIdFWMaterialMap& getUniqueIdFWMaterialMap() { return mUniqueIdFWMaterialMap; }
@@ -349,10 +387,14 @@ namespace COLLADAMax
 		its unique id should be added to this list.*/
 		UniqueIdList& getVertexColorObjects() { return  mVertexColorObjects; }
 
+		/** Maps each already imported frame work animation to a list of created max float controllers.*/
+		UniqueIdMaxControllerListMap& getAnimationUniqueIdMaxControllerListMap() { return mAnimationUniqueIdMaxControllerListMap; }
+
+		/** Holds all already imported animation list, sorted by their unique id.*/
+		UniqueIdAnimationListMap&  getUniqueIdAnimationListMap() { return mUniqueIdAnimationListMap; }
 
 		/** Returns informations about the entire file being loaded.*/
 		const FileInfo& getFileInfo() const { return mFileInfo; }
-
 		friend class ImporterBase;
 
 	};

@@ -71,10 +71,10 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool AssetLoader::data__source_data( const ParserChar* data, size_t length )
+	bool AssetLoader::data__source_data( COLLADABU::URI value )
 	{
-		SaxVirtualFunctionTest(data__source_data(data, length)); 
-		mAsset->appendValuePair ( "source", String ( (char*) data, length ) );
+		SaxVirtualFunctionTest(data__source_data(value)); 
+		mAsset->appendValuePair ( "source", value.getURIString() );
 		return true;
 	}
 

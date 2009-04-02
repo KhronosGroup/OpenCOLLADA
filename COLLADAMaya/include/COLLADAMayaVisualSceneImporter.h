@@ -135,6 +135,11 @@ namespace COLLADAMaya
         */
         UniqueIdUniqueIdsMap mLightTransformIdsMap;
 
+        /*
+         * Set the center of interest distance value in a map to the current transform node.
+         */
+        std::map<COLLADAFW::UniqueId, double> mCenterOfInterestDistances;
+
     public:
 
         /** Constructor. */
@@ -210,6 +215,18 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& transformId, 
             const String childSubPath = "" );
 
+        /*
+        * The center of interest distance value in a map to the current transform node.
+        */
+        const std::map<COLLADAFW::UniqueId, double>& getCenterOfInterestDistances () const { return mCenterOfInterestDistances; }
+
+        /*
+        * The center of interest distance value in a map to the current transform node.
+        */
+        bool findCenterOfInterestDistance ( 
+            const COLLADAFW::UniqueId& transformId, 
+            double& centerOfInterestDistance );
+
     private:
 
         /*
@@ -262,14 +279,25 @@ namespace COLLADAMaya
             MayaDM::Transform* transformNode );
 
         /**
+         * Imports a camera lookat transformation.
+         * @return Center of interest distance. We need it for creating the camera.
+         */
+        void importLookatTransform ( 
+            const COLLADAFW::Node* rootNode,
+            const COLLADAFW::Transformation* transformation,
+            MayaDM::Transform* transformNode );
+
+        /**
          * Returns true, if the transform values from the framework is conform to the maya 
          * transformation and fills the maya transform values.
          */
-        bool isValidMayaTransform ( 
+        bool readMayaTransformations ( 
             const COLLADAFW::Node* rootNode, 
             MayaTransformation& mayaTransform, 
+            MayaDM::Transform* transformNode, 
             bool& hasRotatePivot,
-            bool& hasScalePivot );
+            bool& hasScalePivot,
+            bool& isLookatTransform );
 
         /**
          * Set the transform values.

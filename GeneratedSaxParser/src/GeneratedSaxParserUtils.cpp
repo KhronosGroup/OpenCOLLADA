@@ -568,6 +568,183 @@ namespace GeneratedSaxParser
         return toFloatingPoint<double>(buffer, failed);
     }
 
+    //--------------------------------------------------------------------
+    ParserString Utils::toStringListItem(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+    {
+        ParserString value;
+
+        const ParserChar* s = *buffer;
+        if ( !s )
+        {
+            failed = true;
+            return value;
+        }
+
+        if ( s == bufferEnd )
+        {
+            failed = true;
+            *buffer = bufferEnd;
+            return value;
+        }
+
+        // Skip leading white spaces
+        while ( isWhiteSpace(*s) )
+        {
+            ++s;
+            if ( s == bufferEnd )
+            {
+                failed = true;
+                *buffer = bufferEnd;
+                return value;
+            }
+        }
+
+        bool characterFound = false;
+        while (true)
+        {
+            if ( s == bufferEnd )
+            {
+                if (characterFound)
+                {
+                    failed = false;
+                    *buffer = s;
+                    return value;
+                }
+                else
+                {
+                    failed = true;
+                    *buffer = s;
+                    value.str = 0;
+                    value.length = 0;
+                    return value;
+                }
+            }
+
+            if ( !isWhiteSpace(*s) )
+            {
+                if (!characterFound)
+                {
+                    value.str = s;
+                    characterFound = true;
+                }
+                value.length++;
+            }
+            else
+                break;
+            ++s;
+        }
+        if ( characterFound )
+        {
+            *buffer = s;
+            failed = false;
+            return value;
+        }
+        else
+        {
+            failed = true;
+            *buffer = s;
+            value.str = 0;
+            value.length = 0;
+            return value;
+        }
+    }
+
+    //--------------------------------------------------------------------
+    ParserString Utils::toStringListItem(const ParserChar** buffer, bool& failed)
+    {
+        ParserString value;
+
+        const ParserChar* s = *buffer;
+        if ( !s )
+        {
+            failed = true;
+            return value;
+        }
+
+        if ( *s == '\0' )
+        {
+            failed = true;
+            *buffer = s;
+            return value;
+        }
+
+        // Skip leading white spaces
+        while ( isWhiteSpace(*s) )
+        {
+            ++s;
+            if ( *s == '\0' )
+            {
+                failed = true;
+                *buffer = s;
+                return value;
+            }
+        }
+
+        bool characterFound = false;
+        while (true)
+        {
+            if ( *s == '\0' )
+            {
+                if (characterFound)
+                {
+                    failed = false;
+                    *buffer = s;
+                    return value;
+                }
+                else
+                {
+                    failed = true;
+                    *buffer = s;
+                    value.str = 0;
+                    value.length = 0;
+                    return value;
+                }
+            }
+
+            if ( !isWhiteSpace(*s) )
+            {
+                if (!characterFound)
+                {
+                    value.str = s;
+                    characterFound = true;
+                }
+                value.length++;
+            }
+            else
+                break;
+            ++s;
+        }
+        if ( characterFound )
+        {
+            *buffer = s;
+            failed = false;
+            return value;
+        }
+        else
+        {
+            failed = true;
+            *buffer = s;
+            value.str = 0;
+            value.length = 0;
+            return value;
+        }
+    }
+
+
+    //--------------------------------------------------------------------
+    COLLADABU::URI Utils::toURI(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+    {
+        const ParserString& string = toStringListItem(buffer, bufferEnd, failed);
+        return COLLADABU::URI(string.str, string.length);
+    }
+
+    //--------------------------------------------------------------------
+    COLLADABU::URI Utils::toURI(const ParserChar** buffer, bool& failed)
+    {
+        const ParserString& string = toStringListItem(buffer, failed);
+        return COLLADABU::URI(string.str, string.length);
+    }
+
 
     //--------------------------------------------------------------------
 	template<class IntegerType, bool signedInteger>

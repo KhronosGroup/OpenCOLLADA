@@ -34,7 +34,7 @@ namespace COLLADAMax
 		addLibraryNodes( mLibraryNodes );
 	}
 
-    //------------------------------
+	//------------------------------
 	LibraryNodesImporter::~LibraryNodesImporter()
 	{
 	}
@@ -43,40 +43,7 @@ namespace COLLADAMax
 	bool LibraryNodesImporter::import()
 	{
 		const COLLADAFW::NodePointerArray& libraryRootNodes = mLibraryNodes->getNodes();
-		for ( size_t i = 0, count = libraryRootNodes.getCount(); i < count; ++i)
-		{
-			if ( !importLibraryNode( libraryRootNodes[i] ) )
-				return false;
-		}
-
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryNodesImporter::importLibraryNode( const COLLADAFW::Node* node )
-	{
-		const COLLADAFW::UniqueId& nodeUniqueId = node->getUniqueId();
-		ImpNode* referencingImpNode = getReferencingImpNodesByUniqueId(nodeUniqueId);
-		if ( !referencingImpNode )
-		{
-			addUniqueIdFWNodePair( nodeUniqueId, node );
-			const COLLADAFW::NodePointerArray& childNodes = node->getChildNodes();
-			for ( size_t i = 0, count = childNodes.getCount(); i < count; ++i)
-				if ( !importLibraryNode( childNodes[i] ) )
-					return false;
-		}
-		else
-		{
-			while ( referencingImpNode  )
-			{
-				removeUniqueIdReferencingImpNodePair( nodeUniqueId, referencingImpNode);
-				if ( !importNode( node, referencingImpNode ) )
-					return false;
-				referencingImpNode = getReferencingImpNodesByUniqueId(nodeUniqueId);
-			}
-		}
-		
-		return true;
+		return importNodes( libraryRootNodes );
 	}
 
 } // namespace COLLADAMax

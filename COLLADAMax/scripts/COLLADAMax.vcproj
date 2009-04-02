@@ -2087,6 +2087,18 @@
 				Name="importer"
 				>
 				<File
+					RelativePath="..\src\COLLADAMaxAnimationAssigner.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxAnimationImporter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxAnimationListImporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxCameraImporter.cpp"
 					>
 				</File>
@@ -2136,6 +2148,10 @@
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMaxNodeImporter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxSceneGraphCreator.cpp"
 					>
 				</File>
 				<File
@@ -2305,6 +2321,18 @@
 				Name="importer"
 				>
 				<File
+					RelativePath="..\include\COLLADAMaxAnimationAssigner.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxAnimationImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxAnimationListImporter.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\COLLADAMaxCameraImporter.h"
 					>
 				</File>
@@ -2354,6 +2382,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxNodeImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxSceneGraphCreator.h"
 					>
 				</File>
 				<File

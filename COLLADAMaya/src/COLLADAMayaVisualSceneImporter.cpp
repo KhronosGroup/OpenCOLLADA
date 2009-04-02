@@ -19,6 +19,7 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaMaterialImporter.h"
+#include "COLLADAMayaConversion.h"
 
 #include "MayaDMJoint.h"
 #include "MayaDMDependNode.h"
@@ -168,18 +169,22 @@ namespace COLLADAMaya
 
         bool hasRotatePivot = false;
         bool hasScalePivot = false;
+        bool isLookatTransform = false;
 
         bool validMayaTransform = 
-            isValidMayaTransform ( rootNode, mayaTransform, hasRotatePivot, hasScalePivot );
-        if ( validMayaTransform )
+            readMayaTransformations ( rootNode, mayaTransform, transformNode, hasRotatePivot, hasScalePivot, isLookatTransform );
+        if ( !isLookatTransform )
         {
-            // Set the transform values.
-            importDecomposedTransform ( mayaTransform, transformNode, hasRotatePivot, hasScalePivot );
-        }
-        else
-        {
-            // Set the transform matrix to the transform object
-            importMatrixTransform ( rootNode, transformNode );
+            if ( validMayaTransform )
+            {
+                // Set the transform values.
+                importDecomposedTransform ( mayaTransform, transformNode, hasRotatePivot, hasScalePivot );
+            }
+            else
+            {
+                // Set the transform matrix to the transform object
+                importMatrixTransform ( rootNode, transformNode );
+            }
         }
         return true;
     }
@@ -310,11 +315,13 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    bool VisualSceneImporter::isValidMayaTransform ( 
+    bool VisualSceneImporter::readMayaTransformations ( 
         const COLLADAFW::Node* rootNode, 
         MayaTransformation& mayaTransform, 
+        MayaDM::Transform* transformNode, 
         bool& hasRotatePivot,
-        bool& hasScalePivot )
+        bool& hasScalePivot,
+        bool& isLookatTransform )
     {
         bool validMayaTransform = true;
 
@@ -322,34 +329,20 @@ namespace COLLADAMaya
         size_t numTransforms = transforms.getCount ();
         for ( size_t i=0; i<numTransforms && validMayaTransform; ++i )
         {
-            const COLLADAFW::Transformation* transform = transforms [i];
+            const COLLADAFW::Transformation* transformation = transforms [i];
             COLLADAFW::Transformation::TransformationType transformType; 
-            transformType = transform->getTransformationType ();
+            transformType = transformation->getTransformationType ();
 
             switch ( transformType )
             {
             case COLLADAFW::Transformation::LOOKAT:
-                // TODO
                 {
-                    /**
-                    * Positioning and orienting a camera or object in the scene is often 
-                    * complicated when using a matrix. A lookat transform is an intuitive 
-                    * way to specify an eye position, interest point, and orientation.
-                    */
-                    COLLADAFW::Lookat* lookat = ( COLLADAFW::Lookat* )transform;
-
-                    /** The position of the object. */
-                    COLLADABU::Math::Vector3& eyePosition = lookat->getEyePosition (); 
-                    /** The position of the interest point. */
-                    COLLADABU::Math::Vector3& interestPosition = lookat->getInterestPointPosition(); 
-                    /** The direction that points up. */
-                    COLLADABU::Math::Vector3& upPosition = lookat->getUpAxisDirection();
-
-                    // TODO Do anything with this values!
-
-                    assert ("Lookat not implemented!");
-
+                    isLookatTransform = true; 
                     validMayaTransform = false;
+
+                    // Import the camera's lookat transform matrix.
+                    importLookatTransform ( rootNode, transformation, transformNode );
+
                     break;
                 }
             case COLLADAFW::Transformation::MATRIX:
@@ -365,7 +358,7 @@ namespace COLLADAMaya
 
                         // Write the current rotation in a quaternion and 
                         // multiplicate with the existing rotation.
-                        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transform;
+                        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
                         double angle = rotation->getRotationAngle ();
                         COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
                         MVector mayaAxis ( axis.x, axis.y, axis.z );
@@ -383,7 +376,7 @@ namespace COLLADAMaya
                     // Set the actual phase to a scale phase.
                     mayaTransform.phase = MayaTransformation::PHASE_SCALE;
 
-                    COLLADAFW::Scale* scale = ( COLLADAFW::Scale* )transform;
+                    COLLADAFW::Scale* scale = ( COLLADAFW::Scale* )transformation;
                     COLLADABU::Math::Vector3& scaleVec = scale->getScale ();
                     for ( unsigned int k=0; k<3; ++k )
                         mayaTransform.scale [k] = scaleVec [k];
@@ -392,7 +385,7 @@ namespace COLLADAMaya
                 break;
             case COLLADAFW::Transformation::SKEW:
                 {
-                    COLLADAFW::Skew* skew = ( COLLADAFW::Skew* )transform;
+                    COLLADAFW::Skew* skew = ( COLLADAFW::Skew* )transformation;
 
                     MMatrix matrix;
                     skewValuesToMayaMatrix ( skew, matrix );
@@ -415,7 +408,7 @@ namespace COLLADAMaya
                         mayaTransform.phase += 1;
                     }
 
-                    COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transform;
+                    COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transformation;
                     COLLADABU::Math::Vector3 translation = translate->getTranslation ();
                     if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS1 )
                     {
@@ -998,4 +991,89 @@ namespace COLLADAMaya
         }
     }
 
+    // --------------------------------------------
+    void VisualSceneImporter::importLookatTransform ( 
+        const COLLADAFW::Node* rootNode,
+        const COLLADAFW::Transformation* transformation,
+        MayaDM::Transform* transformNode )
+    {
+        /**
+        * Positioning and orienting a camera or object in the scene is often 
+        * complicated when using a matrix. A lookat transform is an intuitive 
+        * way to specify an eye position, interest point, and orientation.
+        */
+        COLLADAFW::Lookat* lookat = ( COLLADAFW::Lookat* ) transformation;
+
+        /** The position of the object. */
+        COLLADABU::Math::Vector3& eyePosition = lookat->getEyePosition (); 
+
+        /** The position of the interest point. */
+        COLLADABU::Math::Vector3& interestPosition = lookat->getInterestPointPosition(); 
+
+        /** The direction that points up. */
+        COLLADABU::Math::Vector3& upPosition = lookat->getUpAxisDirection();
+
+        // Create a transform matrix from the lookat elements.
+        COLLADABU::Math::Vector3 forward = interestPosition - eyePosition;
+        forward.normalise ();
+        COLLADABU::Math::Vector3 sideways, upward;
+        if ( forward != upPosition && forward != -upPosition)
+        {
+            sideways = forward.crossProduct ( upPosition );
+            sideways.normalise ();
+        }
+        else if ( upPosition != COLLADABU::Math::Vector3::UNIT_X )
+        {
+            sideways = COLLADABU::Math::Vector3::UNIT_X;
+        }
+        else
+        {
+            sideways = COLLADABU::Math::Vector3::UNIT_Z;
+        }
+        upward = sideways.crossProduct ( forward );
+
+        // Create the maya transform matrix.
+        MMatrix mx;
+        mx[0][0] = sideways.x;      mx[0][1] = sideways.y;      mx[0][2] = sideways.z; 
+        mx[1][0] = upward.x;        mx[1][1] = upward.y;        mx[1][2] = upward.z; 
+        mx[2][0] = -forward.x;	    mx[2][1] = -forward.y;	    mx[2][2] = -forward.z; 
+        mx[3][0] = eyePosition.x;	mx[3][1] = eyePosition.y;	mx[3][2] = eyePosition.z;
+
+        mx[0][3] = mx[1][3] = mx[2][3] = 0.0f;
+        mx[3][3] = 1.0f;
+
+        // Create the transform matrix.
+        MTransformationMatrix transformMatrix ( mx );
+
+        // Get the translation and write it directly into the maya file.
+        MVector translation = transformMatrix.getTranslation ( MSpace::kTransform );
+        transformNode->setTranslate ( toLinearUnit ( MayaDM::double3 ( translation.x , translation.y, translation.z ) ) );
+
+        // Get the rotation and write it directly into the maya file.
+        double rotation[3]; 
+        MTransformationMatrix::RotationOrder order;
+        transformMatrix.getRotation ( rotation, order, MSpace::kTransform );
+        transformNode->setRotate ( toAngularUnit ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) ) );
+
+        // Compute the center of interest distance. We want store it for creating the camera.
+        double centerOfInterestDistance = ( interestPosition - eyePosition ).length ();
+        const COLLADAFW::UniqueId& transformNodeId = rootNode->getUniqueId ();
+
+        // Set the center of interest distance value in a map to the current transform node.
+        mCenterOfInterestDistances [ transformNodeId ] = centerOfInterestDistance;
+    }
+
+    // --------------------------------------------
+    bool VisualSceneImporter::findCenterOfInterestDistance ( 
+        const COLLADAFW::UniqueId& transformId, 
+        double& centerOfInterestDistance )
+    {
+        std::map<COLLADAFW::UniqueId, double>::const_iterator it = mCenterOfInterestDistances.find ( transformId );
+        if ( it != mCenterOfInterestDistances.end () )
+        {
+            centerOfInterestDistance = it->second;
+            return true;
+        }
+        return false;
+    }
 }

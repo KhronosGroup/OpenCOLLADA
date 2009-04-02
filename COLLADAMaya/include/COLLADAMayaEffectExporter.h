@@ -224,6 +224,7 @@ namespace COLLADAMaya
             COLLADASW::EffectProfile* effectProfile, 
             MObject shadingNetwork, 
             const MColor& transparentColor, 
+            const String& targetSid, 
             const char* attributeName, 
             int& nextTextureIndex );
 

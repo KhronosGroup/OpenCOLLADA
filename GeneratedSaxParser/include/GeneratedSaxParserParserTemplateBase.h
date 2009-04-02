@@ -207,6 +207,10 @@ namespace GeneratedSaxParser
 		bool toBoolPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
+        /** @see toDataPrefix. */
+        ParserString toStringListPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+
+
         /**
          * Handles remaining stuff from last data-call and converts it to a list of enums.
          * @see toDataPrefix

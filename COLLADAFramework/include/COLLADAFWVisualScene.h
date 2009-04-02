@@ -13,11 +13,12 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWNode.h"
+#include "COLLADAFWObject.h"
 
 namespace COLLADAFW
 {
 
-	class VisualScene 	
+	class VisualScene : public ObjectTemplate<COLLADA_TYPE::VISUAL_SCENE>
 	{
 	private:
 		/**
@@ -31,7 +32,7 @@ namespace COLLADAFW
 	
 	public:
 
-		VisualScene();
+		VisualScene(ObjectId objectId);
 		virtual ~VisualScene();
 
 		/** Returns the name of the visual scene*/

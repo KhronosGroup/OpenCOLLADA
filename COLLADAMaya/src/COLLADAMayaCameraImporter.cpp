@@ -119,6 +119,16 @@ namespace COLLADAMaya
         FILE* file = getDocumentImporter ()->getFile ();
         MayaDM::Camera mayaCamera ( file, cameraName, mayaTransformNode->getNodePath () );
 
+        // Have a look, if there is a center of interest set by the transform's lookat matrix.
+        VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
+        double centerOfInterestDistance;
+        bool found = visualSceneImporter->findCenterOfInterestDistance ( mayaTransformNode->getUniqueId (), centerOfInterestDistance );
+        if ( found )
+        {
+            mayaCamera.setCenterOfInterest ( centerOfInterestDistance );
+        }
+
+        // Write the data in depend on the camera type.
         const COLLADAFW::Camera::CameraType& cameraType = camera->getCameraType ();
         switch ( cameraType )
         {

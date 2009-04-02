@@ -53,6 +53,8 @@ namespace COLLADASaxFWL
 		else if ( attributeData.id )
 			newNode->setName((const char*)attributeData.id);
 
+		addToSidTree(attributeData.id, attributeData.sid);
+
 		if ( mNodeStack.empty() )
 		{
 			// we are a direct child of a container
@@ -72,14 +74,16 @@ namespace COLLADASaxFWL
 	bool NodeLoader::endNode()
 	{
 		mNodeStack.pop();
+		moveUpInSidTree();
 		return true;
 	}
 
 	//------------------------------
-	template<class Transformationtype>
-	bool NodeLoader::beginTransformation()
+	template<class Transformationtype> 
+	bool NodeLoader::beginTransformation( const char* sid )
 	{
 		mCurrentTransformation = new Transformationtype();
+		addToSidTree( 0, sid, mCurrentTransformation);
 		assert(mCurrentTransformation);
 		return true;
 	}
@@ -90,6 +94,7 @@ namespace COLLADASaxFWL
 	{
 		assert(!mNodeStack.empty());
 		mNodeStack.top()->getTransformations().append(mCurrentTransformation);
+		moveUpInSidTree();
 		mTransformationNumbersReceived = 0;
 		mCurrentTransformation = 0;
 		return true;
@@ -115,7 +120,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::begin__translate( const translate__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__translate(attributeData));
-		return beginTransformation<COLLADAFW::Translate>();
+		return beginTransformation<COLLADAFW::Translate>( attributeData.sid );
 	}
 
 	//------------------------------
@@ -145,7 +150,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::begin__rotate( const rotate__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__rotate(attributeData));
-		return beginTransformation<COLLADAFW::Rotate>();
+		return beginTransformation<COLLADAFW::Rotate>( attributeData.sid );
 	}
 
 	//------------------------------
@@ -180,7 +185,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::begin__matrix( const matrix__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__matrix(attributeData));
-		return beginTransformation<COLLADAFW::Matrix>();
+		return beginTransformation<COLLADAFW::Matrix>( attributeData.sid );
 	}
 
 	//------------------------------
@@ -215,7 +220,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::begin__scale( const scale__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__scale(attributeData));
-		return beginTransformation<COLLADAFW::Scale>();
+		return beginTransformation<COLLADAFW::Scale>( attributeData.sid );
 	}
 
 	//------------------------------
@@ -245,7 +250,7 @@ namespace COLLADASaxFWL
     bool NodeLoader::begin__skew ( const skew__AttributeData& attributeData )
     {
 		SaxVirtualFunctionTest(begin__skew(attributeData));
-        return beginTransformation<COLLADAFW::Skew>();
+        return beginTransformation<COLLADAFW::Skew>( attributeData.sid );
     }
 
     //------------------------------
@@ -299,7 +304,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::begin__lookat ( const lookat__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__lookat(attributeData));
-		return beginTransformation<COLLADAFW::Lookat>();
+		return beginTransformation<COLLADAFW::Lookat>( attributeData.sid );
 	}
 
 	//------------------------------
@@ -327,7 +332,7 @@ namespace COLLADASaxFWL
 		size_t i = 0;
 		if ( i < length && mTransformationNumbersReceived < 3 )
 		{
-			for ( size_t j=0; j<3 && i<length; ++j, ++i )
+			for ( size_t j=mTransformationNumbersReceived; j<3 && i<length; ++j, ++i )
 			{
 				eyePosition[j] = data[i];
 				mTransformationNumbersReceived++;
@@ -335,7 +340,7 @@ namespace COLLADASaxFWL
 		}
 		if ( i < length && mTransformationNumbersReceived >= 3 && mTransformationNumbersReceived < 6 )
 		{
-			for ( size_t j=0; j<3 && i<length; ++j, ++i )
+			for ( size_t j=mTransformationNumbersReceived-3; j<3 && i<length; ++j, ++i )
 			{
 				interestPointPosition[j] = data[i];
 				mTransformationNumbersReceived++;
@@ -343,7 +348,7 @@ namespace COLLADASaxFWL
 		}
 		if (  i < length && mTransformationNumbersReceived >= 6 )
 		{
-			for ( size_t j=0; j<3 && i<length; ++j, ++i )
+			for ( size_t j=mTransformationNumbersReceived-6; j<3 && i<length; ++j, ++i )
 			{
 				upAxisDirection[j] = data[i];
 				mTransformationNumbersReceived++;

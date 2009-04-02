@@ -61,7 +61,7 @@ namespace COLLADASaxFWL
 
         virtual bool begin__source_data(){SaxVirtualFunctionTest(begin__source_data()); return true;}
         virtual bool end__source_data(){SaxVirtualFunctionTest(end__source_data()); return true;}
-        virtual bool data__source_data( const ParserChar* data, size_t length );
+        virtual bool data__source_data( COLLADABU::URI value );
 
         virtual bool begin__created(){SaxVirtualFunctionTest(begin__created()); return true;}
         virtual bool end__created(){SaxVirtualFunctionTest(end__created()); return true;}

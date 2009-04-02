@@ -38,6 +38,9 @@ namespace COLLADAFW
 		/** Destructor. */
 		virtual ~Animation(){}
 
+		/** The type of the animation.*/
+		AnimationType getAnimationType() const { return mAnimationType; }
+
 	protected:
 		/** Constructor. */
 		Animation( ObjectId objectId, AnimationType animationType)

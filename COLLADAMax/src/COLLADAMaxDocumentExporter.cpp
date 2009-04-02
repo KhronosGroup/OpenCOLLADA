@@ -270,8 +270,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void DocumentExporter::exportScene()
     {
-		COLLADASW::Scene scene ( &mStreamWriter, COLLADASW::URI ( COLLADASW::Utils::EMPTY_STRING, SCENE_ID ) );
-        scene.add();
+        COLLADASW::Scene scene ( &mStreamWriter, COLLADASW::URI ( COLLADASW::Utils::EMPTY_STRING, SCENE_ID ) );        scene.add();
     }
 
     //---------------------------------------------------------------

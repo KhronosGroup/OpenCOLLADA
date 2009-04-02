@@ -8,6 +8,9 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
+#include <cstdarg>
+#include <cstring>
+
 #include "GeneratedSaxParserLibxmlSaxParser.h"
 #include "GeneratedSaxParserParser.h"
 #include "GeneratedSaxParserIErrorHandler.h"
@@ -18,7 +21,9 @@
 namespace GeneratedSaxParser
 {
 
-	xmlSAXHandler LibxmlSaxParser::SAXHANDLER =
+    IErrorHandler* LibxmlSaxParser::msErrorHandler = 0;
+
+    xmlSAXHandler LibxmlSaxParser::SAXHANDLER =
 	{
 		0,                 		           //internalSubsetSAXFunc internalSubset;
 		0,                 		           //isStandaloneSAXFunc isStandalone;
@@ -85,11 +90,13 @@ namespace GeneratedSaxParser
 
 			mParserContext->sax = &SAXHANDLER;
 			mParserContext->userData = (void*)this;
+            msErrorHandler = getParser()->getErrorHandler();
 
 			initializeParserContext();
 			xmlParseDocument(mParserContext);
 
 			mParserContext->sax = 0;
+            msErrorHandler = 0;
 
 			if ( mParserContext->myDoc )
 			{
@@ -138,6 +145,7 @@ namespace GeneratedSaxParser
 	void LibxmlSaxParser::abortParsing()
 	{
 		xmlStopParser(mParserContext);
+        msErrorHandler = 0;
 	}
 
 	size_t LibxmlSaxParser::getLineNumer() const
@@ -152,7 +160,16 @@ namespace GeneratedSaxParser
 
 	void LibxmlSaxParser::errorFunction( void *ctx, const char *msg, ... )
 	{
-		xmlParserCtxtPtr context = (xmlParserCtxtPtr)ctx;
+        // if msg is just one string, get it. Otherwise ignore it.
+        char* message = 0;
+        va_list argList;
+        if (strcmp(msg, "%s") == 0)
+        {
+            va_start(argList, msg); 
+            message = va_arg(argList, char*);
+        }
+
+        xmlParserCtxtPtr context = (xmlParserCtxtPtr)ctx;
 		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)(context->userData);
 		ParserError error(ParserError::SEVERITY_CRITICAL,
 					ParserError::ERROR_XML_PARSER_ERROR,
@@ -160,8 +177,17 @@ namespace GeneratedSaxParser
 					0,
 					0,
 					0,
-					msg);
-		thisObject->getParser()->getErrorHandler()->handleError(error);
+                    message != 0 ? message : msg);
+
+        if (message != 0)
+        {
+            va_end(argList);
+        }
+
+        // For some reason errHandler's vtable is screwed up
+        //IErrorHandler* errHandler = thisObject->getParser()->getErrorHandler();
+        if (msErrorHandler != 0 /*&& msErrorHandler == errHandler*/)
+            msErrorHandler->handleError(error);
 	}
 
 } // namespace GeneratedSaxParser

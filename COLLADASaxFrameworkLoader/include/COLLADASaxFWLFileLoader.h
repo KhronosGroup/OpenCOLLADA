@@ -12,12 +12,17 @@
 #define __COLLADASAXFWL_FILELOADER_H__
 
 #include "COLLADASaxFWLPrerequisites.h"
-#include "COLLADAFWUniqueId.h"
-#include "COLLADABUURI.h"
+
+#include "GeneratedSaxParserLibxmlSaxParser.h"
+#include "GeneratedSaxParserRawUnknownElementHandler.h"
 
 #include "COLLADASaxFWLIFilePartLoader.h"
-#include "GeneratedSaxParserLibxmlSaxParser.h"
 #include "COLLADASaxFWLColladaParserAutoGenPrivate.h"
+
+#include "COLLADAFWUniqueId.h"
+
+#include "COLLADABUURI.h"
+
 
 namespace COLLADABU
 {
@@ -28,18 +33,37 @@ namespace COLLADAFW
 {
 	class IWriter;
 	class Object;
+	class VisualScene;
 }
 
 
 namespace COLLADASaxFWL
 {
 	class Loader;
+	class SidTreeNode;
+	class SidAddress;
 	class FilePartLoader;
 	class SaxParserErrorHandler;
 
 	/** Loader to a COLLADA document. Referenced documents are not loaded.*/
 	class FileLoader : public IFilePartLoader, public ColladaParserAutoGenPrivate
     {
+	private:
+		/** Maps the id of a collada element to the corresponding sit tree node.*/
+		typedef std::map<String /*id*/, SidTreeNode*> IdStringSidTreeNodeMap;
+
+		/** Pairs the Unique id of an animation and the sid of the animation target.*/
+		typedef std::pair<COLLADAFW::UniqueId, SidAddress> UniqueIdSidAddressPair;
+
+		/** List of UniqueIdSidAddressPairs.*/
+		typedef std::vector< UniqueIdSidAddressPair > UniqueIdSidAddressPairList;
+
+		/** Maps unique ids of animation list to the corresponding animation list.*/
+		typedef std::map< COLLADAFW::UniqueId , COLLADAFW::AnimationList* > UniqueIdAnimationListMap;
+
+		/** List of visual scenes.*/
+		typedef std::vector<COLLADAFW::VisualScene*> VisualSceneList;
+
 	private:
 	
 		/** The collada loader */
@@ -53,6 +77,28 @@ namespace COLLADASaxFWL
 
 		GeneratedSaxParser::LibxmlSaxParser mLibxmlSaxParse;
 
+		/** The root node of the sid tree. This tree is used to resolve sids.*/
+		SidTreeNode *mSidTreeRoot;
+
+		/** The current node within the sid tree.*/
+		SidTreeNode *mCurrentSidTreeNode;
+
+		/** Maps an uri to the corresponding node in the sid tree.*/
+		IdStringSidTreeNodeMap mIdStringSidTreeNodeMap;
+
+		/** List of all visual scenes in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		VisualSceneList mVisualScenes;
+
+		/** List all the connections of animations and sid addresses of the targets.*/
+		UniqueIdSidAddressPairList mAnimationUniqueIdSidAddressPairs;
+
+		/** Maps unique ids of animation list to the corresponding animation list. All animation list in this map 
+		will be deleted by the FileLoader.*/
+		UniqueIdAnimationListMap mUniqueIdAnimationListMap;
+
+		/** An unknown element handler that stores the unknown elements as raw xml data.*/
+		GeneratedSaxParser::RawUnknownElementHandler mRawUnknownElementHandler;
 
 	public:
 
@@ -71,19 +117,79 @@ namespace COLLADASaxFWL
 		/** Loads the data into the frame work data model.*/
 		bool load();
 
+		/** Returns a pointer to the file loader. */
+		virtual FileLoader* getFileLoader() { return this; }
+
+		/** Returns a pointer to the file loader. */
+		virtual const FileLoader* getFileLoader() const { return this; }
+
+		/** Returns the UnknownElementHandler. It contains all the data contained in unknown elements.*/
+		GeneratedSaxParser::RawUnknownElementHandler& getRawUnknownElementHandler() { return mRawUnknownElementHandler; }
+
+
+		/** Adds @a visualScene to the list of visual scenes. It will be sent to the writer and delete by the
+		file loader.*/
+		void addVisualScene( COLLADAFW::VisualScene* visualScene ) { mVisualScenes.push_back(visualScene); }
+
+		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
+		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
+		is closed.
+		@param id The id of the element. Might be 0;
+		@param sid The sid of the element. Might be 0;
+		*/
+		SidTreeNode* addToSidTree( const char* colladaId, const char* colladaSid  );
+
+		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
+		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
+		is closed.
+		@tparam TargetType The type of the target assigned to the sid tree node.
+		@param id The id of the element. Might be 0;
+		@param sid The sid of the element. Might be 0;
+		@param target The target assigned to the sid tree node
+		*/
+		template<class TargetType>
+		void addToSidTree( const char* colladaId, const char* colladaSid, TargetType* target )
+		{
+			SidTreeNode* newNode = addToSidTree( colladaId, colladaSid );
+			newNode->setTarget( target );
+		}
+
+
+		/** Moves one node up in the sid tree. Call this method whenever an element, for which addToSidTree() was
+		called, is closed.*/
+		void moveUpInSidTree();
+
+		/** Tries to resolve the a sidaddress. If resolving failed, null is returned.*/
+		const SidTreeNode* resolveSid( const SidAddress& sidAddress);
+
+		/** Tries to find element in sid tree with @a id. If not found, null is returned.*/ 
+		SidTreeNode* findSidTreeNodeByStringId( const String& id); 
+
 		/** Returns the absolute uri of the currently parsed file*/
 		const COLLADABU::URI& getFileUri();
 
-        /** Informs about the end of reading the collada file. */
-        virtual bool end__COLLADA();
+		/** The pair @a animationUniqueId, @a targetSidAddress to mUniqueIdSidAddressPairs.*/
+		void addToAnimationUniqueIdSidAddressPairList( const COLLADAFW::UniqueId& animationUniqueId, const SidAddress& targetSidAddress);
 
+		/** Returns the animation list with Unique id @a animationListUniqueId. If it could not be found, a new map 
+		entry is created.*/
+		COLLADAFW::AnimationList*& getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId);
+
+		/** Writes all the visual scenes.*/
+		void writeAndDeleteVisualScenes();
+
+		/** Writes all animation lists.*/
+		void writeAndDeleteAnimationLists();
 
 	protected:
 		/** Returns a pointer to the collada loader. */
-		Loader* getColladaLoader () { return mColladaLoader; }
+		Loader* getColladaLoader() { return mColladaLoader; }
 
 		/** Returns a const pointer to the collada document. */
-		const Loader* getColladaLoader () const { return mColladaLoader; }
+		const Loader* getColladaLoader() const { return mColladaLoader; }
+
+		/** Informs about the end of reading the collada file. */
+		virtual bool end__COLLADA();
 
         /** Sax callback function for the beginning of the collada document asset information.*/
         virtual bool begin__asset();

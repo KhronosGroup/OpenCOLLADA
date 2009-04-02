@@ -96,8 +96,7 @@ namespace COLLADASaxFWL
 		virtual void handleRootNode( COLLADAFW::Node* rootNode ) = 0;
 
 		/** This method handles the beginning of a transformation independent of its type.*/
-		template<class Transformationtype>
-		bool beginTransformation();
+		template<class Transformationtype> bool beginTransformation( const char* sid);
 
 		/** This method handles the ending of a transformation independent of its type.*/
 		bool endTransformation();

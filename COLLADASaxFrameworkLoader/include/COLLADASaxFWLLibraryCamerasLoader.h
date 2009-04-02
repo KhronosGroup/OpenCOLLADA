@@ -38,6 +38,9 @@ namespace COLLADASaxFWL
 		/** The current camera has apect ratio.*/
 		bool mCurrentCameraHasAspectRatio;
 
+		/** True, if we are inside an optics element, false otherwise. Is used extra tag key generation.*/
+		bool mInOptics;
+
 	public:
 
         /** Constructor. */
@@ -48,6 +51,13 @@ namespace COLLADASaxFWL
 
 		/** Resets all the variables used for the current camera.*/
 		void resetCurrentValues();
+
+		/** Returns the second part of the key, either camera or optics.*/
+		virtual const char* getSecondKey();
+
+		/** Returns the ExtraData object, that should be used to store the extra data. The current camera object.*/
+		virtual COLLADAFW::ExtraData* getExtraData();
+
 
 		/** Finishes loading a library cameras.*/
 		virtual bool end__library_cameras();
@@ -60,11 +70,11 @@ namespace COLLADASaxFWL
 		virtual bool end__camera();
 
 
-		/** We don't need to do anything here.*/
-		virtual bool begin__optics(){SaxVirtualFunctionTest(begin__optics()); return true;}
+		/** Store that we are inside an optics element.*/
+		virtual bool begin__optics(){SaxVirtualFunctionTest(begin__optics()); mInOptics = true; return true;}
 
-		/** We don't need to do anything here.*/
-		virtual bool end__optics(){SaxVirtualFunctionTest(end__optics()); return true;}
+		/** Store that we are NOT inside an optics element.*/
+		virtual bool end__optics(){SaxVirtualFunctionTest(end__optics()); mInOptics = false; return true;}
 
 
 		/** We don't need to do anything here.*/

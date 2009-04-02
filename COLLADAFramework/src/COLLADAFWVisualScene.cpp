@@ -14,18 +14,13 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 	//--------------------------------------------------------------------
-	VisualScene::VisualScene()
-	{
-	}
-	
+	VisualScene::VisualScene( ObjectId objectId )
+		:ObjectTemplate< COLLADA_TYPE::VISUAL_SCENE >( objectId ) 
+	{}
+
 	//--------------------------------------------------------------------
 	VisualScene::~VisualScene()
 	{
-#if 0
-		//delete all root node
-		for ( size_t i = 0, count = mRootNodes.getCount(); i < count; ++i)
-			delete mRootNodes[i];
-#endif
 	}
 
 

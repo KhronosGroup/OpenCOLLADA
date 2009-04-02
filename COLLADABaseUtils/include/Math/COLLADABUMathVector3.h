@@ -45,7 +45,7 @@ namespace COLLADABU
             };
 
         public:
-            inline Vector3()
+            inline Vector3() : x(0), y(0), z(0)
             {}
 
             inline Vector3( Real fX, Real fY, Real fZ )

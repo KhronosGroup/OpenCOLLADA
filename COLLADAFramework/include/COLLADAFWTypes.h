@@ -565,7 +565,12 @@ namespace COLLADAFW
             LINEAR = 516,
             SPRING = 517,
             ANGULAR = 518,
-            PHYSICS_MODEL = 519;
+            PHYSICS_MODEL = 519,
+
+			ANIMATIONLIST = 1000;
+
+
+
     }
 
 }

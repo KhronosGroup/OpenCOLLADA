@@ -1172,9 +1172,7 @@ namespace COLLADAMaya
         uint offset = 0;
         COLLADASW::VertexWeightsElement vertexWeightsElement( mDocumentExporter->getStreamWriter() );
         COLLADASW::InputList &inputList = vertexWeightsElement.getInputList();
-        inputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, jointSourceId ), offset++ ) );
-        inputList.push_back ( COLLADASW::Input ( COLLADASW::WEIGHT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, weightSourceId ), offset++ ) );
-
+        inputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI (COLLADABU::Utils::EMPTY_STRING, jointSourceId ), offset++ ) );        inputList.push_back ( COLLADASW::Input ( COLLADASW::WEIGHT, COLLADASW::URI (COLLADABU::Utils::EMPTY_STRING, weightSourceId ), offset++ ) );
         // The list for the vertex values.
         std::vector<unsigned long> vertexMatches;
 

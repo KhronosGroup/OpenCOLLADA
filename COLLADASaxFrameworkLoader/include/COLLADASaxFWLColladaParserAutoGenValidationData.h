@@ -18,6 +18,7 @@ namespace COLLADASaxFWL
 {
 
 
+ParserError::ErrorType validate__VersionType( ParserString value );
 ParserError::ErrorType validate__VersionType( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__VersionType__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__VersionType__streamEnd( const ParserChar* value, size_t length );
@@ -67,14 +68,17 @@ struct contributor__ValidationData
     size_t source_data;
 };
 
+ParserError::ErrorType validate__NMTOKEN( ParserString value );
 ParserError::ErrorType validate__NMTOKEN( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__NMTOKEN__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__NMTOKEN__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__UpAxisType( ParserString value );
 ParserError::ErrorType validate__UpAxisType( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__UpAxisType__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__UpAxisType__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__NCName( ParserString value );
 ParserError::ErrorType validate__NCName( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__NCName__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__NCName__streamEnd( const ParserChar* value, size_t length );
@@ -97,7 +101,7 @@ struct animation__ValidationData
     size_t extra;
 };
 
-struct animation__source__ValidationData
+struct source__ValidationData
 {
     size_t validation_current_state;
     size_t asset;
@@ -112,7 +116,17 @@ struct animation__source__ValidationData
 
 struct IDREF_array__ValidationData
 {
+    size_t validationWholeSize;
 };
+
+ParserError::ErrorType validate__IDREFS( const ParserString*value, size_t length );
+ParserError::ErrorType validate__IDREFS__stream( const ParserString*value, size_t length );
+ParserError::ErrorType validate__IDREFS__streamEnd( const ParserString*value, size_t length );
+
+ParserError::ErrorType validate__Name( ParserString value );
+ParserError::ErrorType validate__Name( const ParserChar* value, size_t length );
+ParserError::ErrorType validate__Name__stream( const ParserChar* value, size_t length );
+ParserError::ErrorType validate__Name__streamEnd( const ParserChar* value, size_t length );
 
 struct animation__source__technique_common__ValidationData
 {
@@ -124,7 +138,7 @@ struct accessor__ValidationData
     size_t param;
 };
 
-struct animation__source__technique__ValidationData
+struct technique__ValidationData
 {
     size_t _wildcard;
 };
@@ -134,6 +148,7 @@ struct sampler__ValidationData
     size_t input;
 };
 
+ParserError::ErrorType validate__URIFragmentType( ParserString value );
 ParserError::ErrorType validate__URIFragmentType( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__URIFragmentType__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__URIFragmentType__streamEnd( const ParserChar* value, size_t length );
@@ -265,6 +280,7 @@ struct vertex_weights__ValidationData
     size_t extra;
 };
 
+ParserError::ErrorType validate__MorphMethodType( ParserString value );
 ParserError::ErrorType validate__MorphMethodType( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__MorphMethodType__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__MorphMethodType__streamEnd( const ParserChar* value, size_t length );
@@ -471,34 +487,32 @@ ParserError::ErrorType validate__bool4( const bool* value, size_t length );
 ParserError::ErrorType validate__bool4__stream( const bool* value, size_t length );
 ParserError::ErrorType validate__bool4__streamEnd( const bool* value, size_t length );
 
-ParserError::ErrorType validate__int( const sint32 value );
-
 struct int2____int2__ValidationData
 {
     size_t validationWholeSize;
 };
 
-ParserError::ErrorType validate__int2( const sint32* value, size_t length );
-ParserError::ErrorType validate__int2__stream( const sint32* value, size_t length );
-ParserError::ErrorType validate__int2__streamEnd( const sint32* value, size_t length );
+ParserError::ErrorType validate__int2( const sint64* value, size_t length );
+ParserError::ErrorType validate__int2__stream( const sint64* value, size_t length );
+ParserError::ErrorType validate__int2__streamEnd( const sint64* value, size_t length );
 
 struct int3____int3__ValidationData
 {
     size_t validationWholeSize;
 };
 
-ParserError::ErrorType validate__int3( const sint32* value, size_t length );
-ParserError::ErrorType validate__int3__stream( const sint32* value, size_t length );
-ParserError::ErrorType validate__int3__streamEnd( const sint32* value, size_t length );
+ParserError::ErrorType validate__int3( const sint64* value, size_t length );
+ParserError::ErrorType validate__int3__stream( const sint64* value, size_t length );
+ParserError::ErrorType validate__int3__streamEnd( const sint64* value, size_t length );
 
 struct int4____int4__ValidationData
 {
     size_t validationWholeSize;
 };
 
-ParserError::ErrorType validate__int4( const sint32* value, size_t length );
-ParserError::ErrorType validate__int4__stream( const sint32* value, size_t length );
-ParserError::ErrorType validate__int4__streamEnd( const sint32* value, size_t length );
+ParserError::ErrorType validate__int4( const sint64* value, size_t length );
+ParserError::ErrorType validate__int4__stream( const sint64* value, size_t length );
+ParserError::ErrorType validate__int4__streamEnd( const sint64* value, size_t length );
 
 struct float2____float2__ValidationData
 {
@@ -598,6 +612,7 @@ struct newparam____fx_newparam_common__ValidationData
     size_t _enum;
 };
 
+ParserError::ErrorType validate__fx_modifier_enum_common( ParserString value );
 ParserError::ErrorType validate__fx_modifier_enum_common( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_modifier_enum_common__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_modifier_enum_common__streamEnd( const ParserChar* value, size_t length );
@@ -656,6 +671,7 @@ ParserError::ErrorType validate__float4x3( const float* value, size_t length );
 ParserError::ErrorType validate__float4x3__stream( const float* value, size_t length );
 ParserError::ErrorType validate__float4x3__streamEnd( const float* value, size_t length );
 
+ParserError::ErrorType validate__fx_surface_type_enum( ParserString value );
 ParserError::ErrorType validate__fx_surface_type_enum( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_type_enum__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_type_enum__streamEnd( const ParserChar* value, size_t length );
@@ -695,6 +711,7 @@ struct fx_surface_init_cube_common____primary__ValidationData
     size_t order;
 };
 
+ParserError::ErrorType validate__fx_surface_face_enum( ParserString value );
 ParserError::ErrorType validate__fx_surface_face_enum( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_face_enum__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_face_enum__streamEnd( const ParserChar* value, size_t length );
@@ -719,18 +736,22 @@ struct format_hint__ValidationData
     size_t extra;
 };
 
+ParserError::ErrorType validate__fx_surface_format_hint_channels_enum( ParserString value );
 ParserError::ErrorType validate__fx_surface_format_hint_channels_enum( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_format_hint_channels_enum__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_format_hint_channels_enum__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__fx_surface_format_hint_range_enum( ParserString value );
 ParserError::ErrorType validate__fx_surface_format_hint_range_enum( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_format_hint_range_enum__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_format_hint_range_enum__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__fx_surface_format_hint_precision_enum( ParserString value );
 ParserError::ErrorType validate__fx_surface_format_hint_precision_enum( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_format_hint_precision_enum__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_format_hint_precision_enum__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__fx_surface_format_hint_option_enum( ParserString value );
 ParserError::ErrorType validate__fx_surface_format_hint_option_enum( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_format_hint_option_enum__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_surface_format_hint_option_enum__streamEnd( const ParserChar* value, size_t length );
@@ -748,10 +769,12 @@ struct sampler1D____fx_sampler1D_common__ValidationData
     size_t extra;
 };
 
+ParserError::ErrorType validate__fx_sampler_wrap_common( ParserString value );
 ParserError::ErrorType validate__fx_sampler_wrap_common( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_sampler_wrap_common__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_sampler_wrap_common__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__fx_sampler_filter_common( ParserString value );
 ParserError::ErrorType validate__fx_sampler_filter_common( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_sampler_filter_common__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_sampler_filter_common__streamEnd( const ParserChar* value, size_t length );
@@ -884,6 +907,7 @@ struct light__technique_common__ambient__ValidationData
 
 struct color____TargetableFloat3__ValidationData
 {
+    size_t validationWholeSize;
 };
 
 struct directional__ValidationData
@@ -978,6 +1002,7 @@ struct library_nodes__ValidationData
     size_t extra;
 };
 
+ParserError::ErrorType validate__NodeType( ParserString value );
 ParserError::ErrorType validate__NodeType( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__NodeType__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__NodeType__streamEnd( const ParserChar* value, size_t length );
@@ -1003,19 +1028,27 @@ struct node__ValidationData
 
 struct lookat__ValidationData
 {
+    size_t validationWholeSize;
 };
 
 struct matrix__ValidationData
 {
+    size_t validationWholeSize;
 };
 
 struct rotate__ValidationData
 {
+    size_t validationWholeSize;
 };
 
 struct skew__ValidationData
 {
+    size_t validationWholeSize;
 };
+
+ParserError::ErrorType validate__float7( const float* value, size_t length );
+ParserError::ErrorType validate__float7__stream( const float* value, size_t length );
+ParserError::ErrorType validate__float7__streamEnd( const float* value, size_t length );
 
 struct instance_controller__ValidationData
 {
@@ -1433,6 +1466,7 @@ struct texcombiner__ValidationData
     size_t alpha;
 };
 
+ParserError::ErrorType validate__gles_texcombiner_operatorRGB_enums( ParserString value );
 ParserError::ErrorType validate__gles_texcombiner_operatorRGB_enums( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_operatorRGB_enums__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_operatorRGB_enums__streamEnd( const ParserChar* value, size_t length );
@@ -1442,14 +1476,17 @@ struct RGB__ValidationData
     size_t argument;
 };
 
+ParserError::ErrorType validate__gles_texcombiner_source_enums( ParserString value );
 ParserError::ErrorType validate__gles_texcombiner_source_enums( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_source_enums__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_source_enums__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__gles_texcombiner_operandRGB_enums( ParserString value );
 ParserError::ErrorType validate__gles_texcombiner_operandRGB_enums( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_operandRGB_enums__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_operandRGB_enums__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__gles_texcombiner_operatorAlpha_enums( ParserString value );
 ParserError::ErrorType validate__gles_texcombiner_operatorAlpha_enums( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_operatorAlpha_enums__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_operatorAlpha_enums__streamEnd( const ParserChar* value, size_t length );
@@ -1459,10 +1496,12 @@ struct alpha____gles_texcombiner_commandAlpha_type__ValidationData
     size_t argument;
 };
 
+ParserError::ErrorType validate__gles_texcombiner_operandAlpha_enums( ParserString value );
 ParserError::ErrorType validate__gles_texcombiner_operandAlpha_enums( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_operandAlpha_enums__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texcombiner_operandAlpha_enums__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__gles_texenv_mode_enums( ParserString value );
 ParserError::ErrorType validate__gles_texenv_mode_enums( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texenv_mode_enums__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_texenv_mode_enums__streamEnd( const ParserChar* value, size_t length );
@@ -1484,6 +1523,7 @@ struct sampler_state____gles_sampler_state__ValidationData
     size_t extra;
 };
 
+ParserError::ErrorType validate__gles_sampler_wrap( ParserString value );
 ParserError::ErrorType validate__gles_sampler_wrap( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_sampler_wrap__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_sampler_wrap__streamEnd( const ParserChar* value, size_t length );
@@ -1634,6 +1674,7 @@ struct profile_GLES__technique__pass__ValidationData
     size_t extra;
 };
 
+ParserError::ErrorType validate__gles_rendertarget_common( ParserString value );
 ParserError::ErrorType validate__gles_rendertarget_common( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_rendertarget_common__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_rendertarget_common__streamEnd( const ParserChar* value, size_t length );
@@ -1644,6 +1685,7 @@ struct profile_GLES__technique__pass__alpha_func__ValidationData
     size_t value;
 };
 
+ParserError::ErrorType validate__gl_func_type( ParserString value );
 ParserError::ErrorType validate__gl_func_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_func_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_func_type__streamEnd( const ParserChar* value, size_t length );
@@ -1656,20 +1698,24 @@ struct profile_GLES__technique__pass__blend_func__ValidationData
     size_t dest;
 };
 
+ParserError::ErrorType validate__gl_blend_type( ParserString value );
 ParserError::ErrorType validate__gl_blend_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_blend_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_blend_type__streamEnd( const ParserChar* value, size_t length );
 
 ParserError::ErrorType validate__GLES_MAX_CLIP_PLANES_index( const uint64 value );
 
+ParserError::ErrorType validate__gl_face_type( ParserString value );
 ParserError::ErrorType validate__gl_face_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_face_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_face_type__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__gl_fog_type( ParserString value );
 ParserError::ErrorType validate__gl_fog_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_fog_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_fog_type__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__gl_front_face_type( ParserString value );
 ParserError::ErrorType validate__gl_front_face_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_front_face_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_front_face_type__streamEnd( const ParserChar* value, size_t length );
@@ -1679,12 +1725,14 @@ struct profile_GLES__technique__pass__texture_pipeline__ValidationData
     size_t value;
 };
 
+ParserError::ErrorType validate__gl_logic_op_type( ParserString value );
 ParserError::ErrorType validate__gl_logic_op_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_logic_op_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_logic_op_type__streamEnd( const ParserChar* value, size_t length );
 
 ParserError::ErrorType validate__GLES_MAX_LIGHTS_index( const uint64 value );
 
+ParserError::ErrorType validate__gl_shade_model_type( ParserString value );
 ParserError::ErrorType validate__gl_shade_model_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_shade_model_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_shade_model_type__streamEnd( const ParserChar* value, size_t length );
@@ -1703,6 +1751,7 @@ struct profile_GLES__technique__pass__stencil_op__ValidationData
     size_t zpass;
 };
 
+ParserError::ErrorType validate__gles_stencil_op_type( ParserString value );
 ParserError::ErrorType validate__gles_stencil_op_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_stencil_op_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gles_stencil_op_type__streamEnd( const ParserChar* value, size_t length );
@@ -2227,6 +2276,7 @@ struct profile_GLSL__technique__pass__ValidationData
 
 struct color_clear____fx_clearcolor_common__ValidationData
 {
+    size_t validationWholeSize;
 };
 
 struct profile_GLSL__technique__pass__alpha_func__ValidationData
@@ -2249,6 +2299,7 @@ struct blend_func_separate__ValidationData
     size_t dest_alpha;
 };
 
+ParserError::ErrorType validate__gl_blend_equation_type( ParserString value );
 ParserError::ErrorType validate__gl_blend_equation_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_blend_equation_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_blend_equation_type__streamEnd( const ParserChar* value, size_t length );
@@ -2265,14 +2316,17 @@ struct color_material__ValidationData
     size_t mode;
 };
 
+ParserError::ErrorType validate__gl_material_type( ParserString value );
 ParserError::ErrorType validate__gl_material_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_material_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_material_type__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__gl_fog_coord_src_type( ParserString value );
 ParserError::ErrorType validate__gl_fog_coord_src_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_fog_coord_src_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_fog_coord_src_type__streamEnd( const ParserChar* value, size_t length );
 
+ParserError::ErrorType validate__gl_light_model_color_control_type( ParserString value );
 ParserError::ErrorType validate__gl_light_model_color_control_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_light_model_color_control_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_light_model_color_control_type__streamEnd( const ParserChar* value, size_t length );
@@ -2283,6 +2337,7 @@ struct polygon_mode__ValidationData
     size_t mode;
 };
 
+ParserError::ErrorType validate__gl_polygon_mode_type( ParserString value );
 ParserError::ErrorType validate__gl_polygon_mode_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_polygon_mode_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_polygon_mode_type__streamEnd( const ParserChar* value, size_t length );
@@ -2301,6 +2356,7 @@ struct profile_GLSL__technique__pass__stencil_op__ValidationData
     size_t zpass;
 };
 
+ParserError::ErrorType validate__gl_stencil_op_type( ParserString value );
 ParserError::ErrorType validate__gl_stencil_op_type( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_stencil_op_type__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__gl_stencil_op_type__streamEnd( const ParserChar* value, size_t length );
@@ -2363,6 +2419,7 @@ struct textureDEPTH__ValidationData
     size_t param;
 };
 
+ParserError::ErrorType validate__glsl_pipeline_stage( ParserString value );
 ParserError::ErrorType validate__glsl_pipeline_stage( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__glsl_pipeline_stage__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__glsl_pipeline_stage__streamEnd( const ParserChar* value, size_t length );
@@ -4257,6 +4314,7 @@ struct profile_CG__technique__pass__ValidationData
     size_t extra;
 };
 
+ParserError::ErrorType validate__cg_pipeline_stage( ParserString value );
 ParserError::ErrorType validate__cg_pipeline_stage( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__cg_pipeline_stage__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__cg_pipeline_stage__streamEnd( const ParserChar* value, size_t length );
@@ -4443,8 +4501,9 @@ struct emission__ValidationData
     size_t texture;
 };
 
-struct common_transparent_type____color__ValidationData
+struct common_color_or_texture_type____color__ValidationData
 {
+    size_t validationWholeSize;
 };
 
 struct texture__ValidationData
@@ -4458,6 +4517,7 @@ struct reflectivity__ValidationData
     size_t param;
 };
 
+ParserError::ErrorType validate__fx_opaque_enum( ParserString value );
 ParserError::ErrorType validate__fx_opaque_enum( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_opaque_enum__stream( const ParserChar* value, size_t length );
 ParserError::ErrorType validate__fx_opaque_enum__streamEnd( const ParserChar* value, size_t length );

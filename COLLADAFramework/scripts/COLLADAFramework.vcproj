@@ -316,6 +316,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWExtraData.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWExtraKeys.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWFileInfo.cpp"
 				>
 			</File>
@@ -440,6 +448,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWValidate.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWVisualScene.cpp"
 				>
 			</File>
@@ -450,11 +462,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\include\COLLADAFWAnimatable.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWAnimation.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWAnimationCurve.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWAnimationList.h"
 				>
 			</File>
 			<File
@@ -503,6 +523,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWException.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWExtraData.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWExtraKeys.h"
 				>
 			</File>
 			<File
@@ -774,6 +802,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWUniqueId.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWValidate.h"
 				>
 			</File>
 			<File

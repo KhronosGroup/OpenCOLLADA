@@ -11,6 +11,8 @@
 #ifndef __GENERATEDSAXPARSER_UTILS_H__
 #define __GENERATEDSAXPARSER_UTILS_H__
 
+#include "COLLADABUURI.h"
+
 #include "GeneratedSaxParserPrerequisites.h"
 #include "GeneratedSaxParserTypes.h"
 
@@ -117,7 +119,27 @@ namespace GeneratedSaxParser
         /** @see toFloatingPoint(const ParserChar** buffer, bool& failed). */
         static double toDouble(const ParserChar** buffer, bool& failed);
 
-		/** Converts the first string representing an integer within a ParserChar buffer to an int and 
+
+        /**
+         * Extracts a string of a string list (char data).
+         *
+         * @param buffer Pointer to buffer containing part of a string list.
+         * @param bufferEnd End of the buffer.
+         * @param failed Out parameter indicating if a string was found.
+         * @return Found string.
+         */
+        static ParserString toStringListItem(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+        /** Extracts a string of a string list (attribute). */
+        static ParserString toStringListItem(const ParserChar** buffer, bool& failed);
+
+
+        /** Extracts an URI of a string list (char data). */
+        static COLLADABU::URI toURI(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+        /** Extracts an URI of a string list (attribute). */
+        static COLLADABU::URI toURI(const ParserChar** buffer, bool& failed);
+
+
+        /** Converts the first string representing an integer within a ParserChar buffer to an int and 
 		advances the character pointer to the first position after the last interpreted character. If 
 		buffer is set to bufferEnd, the end of the buffer was reached during conversion, i.e. all characters 
 		from buffer to bufferEnd are parsed. In this case failed is set to false if all these characters represent 

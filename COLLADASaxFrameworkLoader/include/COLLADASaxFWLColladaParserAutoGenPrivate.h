@@ -23,7 +23,7 @@
 
 
 // you may disable validation here
-//#define VALIDATION
+#define VALIDATION
 //#undef VALIDATION
 
 
@@ -42,6 +42,7 @@ typedef GeneratedSaxParser::uint64 uint64;
 
 typedef GeneratedSaxParser::StringHash StringHash;
 typedef GeneratedSaxParser::ParserChar ParserChar;
+typedef GeneratedSaxParser::ParserString ParserString;
 typedef GeneratedSaxParser::ParserAttributes ParserAttributes;
 typedef GeneratedSaxParser::Utils Utils;
 typedef GeneratedSaxParser::ParserError ParserError;
@@ -244,12 +245,12 @@ bool _validateBegin__animation( const ParserAttributes& attributes, void ** attr
 bool _validateEnd__animation();
 bool _freeAttributes__animation( void* attributeData );
 
-bool _begin__animation__source( void* attributeData ){return mImpl->begin__animation__source(*static_cast<animation__source__AttributeData*>(attributeData));}
-bool _data__animation__source( const ParserChar* text, size_t textLength );
-bool _end__animation__source(){return mImpl->end__animation__source();}
-bool _validateBegin__animation__source( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__animation__source();
-bool _freeAttributes__animation__source( void* attributeData );
+bool _begin__source( void* attributeData ){return mImpl->begin__source(*static_cast<source__AttributeData*>(attributeData));}
+bool _data__source( const ParserChar* text, size_t textLength );
+bool _end__source(){return mImpl->end__source();}
+bool _validateBegin__source( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__source();
+bool _freeAttributes__source( void* attributeData );
 
 bool _begin__IDREF_array( void* attributeData ){return mImpl->begin__IDREF_array(*static_cast<IDREF_array__AttributeData*>(attributeData));}
 bool _data__IDREF_array( const ParserChar* text, size_t textLength );
@@ -300,19 +301,19 @@ bool _validateBegin__accessor( const ParserAttributes& attributes, void ** attri
 bool _validateEnd__accessor();
 bool _freeAttributes__accessor( void* attributeData );
 
-bool _begin__accessor__param( void* attributeData ){return mImpl->begin__accessor__param(*static_cast<accessor__param__AttributeData*>(attributeData));}
-bool _data__accessor__param( const ParserChar* text, size_t textLength );
-bool _end__accessor__param(){return mImpl->end__accessor__param();}
-bool _validateBegin__accessor__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__accessor__param();
-bool _freeAttributes__accessor__param( void* attributeData );
+bool _begin__param( void* attributeData ){return mImpl->begin__param(*static_cast<param__AttributeData*>(attributeData));}
+bool _data__param( const ParserChar* text, size_t textLength );
+bool _end__param(){return mImpl->end__param();}
+bool _validateBegin__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__param();
+bool _freeAttributes__param( void* attributeData );
 
-bool _begin__animation__source__technique( void* attributeData ){return mImpl->begin__animation__source__technique(*static_cast<animation__source__technique__AttributeData*>(attributeData));}
-bool _data__animation__source__technique( const ParserChar* text, size_t textLength );
-bool _end__animation__source__technique(){return mImpl->end__animation__source__technique();}
-bool _validateBegin__animation__source__technique( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__animation__source__technique();
-bool _freeAttributes__animation__source__technique( void* attributeData );
+bool _begin__technique( void* attributeData ){return mImpl->begin__technique(*static_cast<technique__AttributeData*>(attributeData));}
+bool _data__technique( const ParserChar* text, size_t textLength );
+bool _end__technique(){return mImpl->end__technique();}
+bool _validateBegin__technique( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique();
+bool _freeAttributes__technique( void* attributeData );
 
 bool _begin__sampler( void* attributeData ){return mImpl->begin__sampler(*static_cast<sampler__AttributeData*>(attributeData));}
 bool _data__sampler( const ParserChar* text, size_t textLength );
@@ -6074,19 +6075,19 @@ bool _validateBegin__emission( const ParserAttributes& attributes, void ** attri
 bool _validateEnd__emission();
 bool _freeAttributes__emission( void* attributeData );
 
-bool _begin__common_transparent_type____color( void* attributeData ){return mImpl->begin__common_transparent_type____color(*static_cast<common_transparent_type____color__AttributeData*>(attributeData));}
-bool _data__common_transparent_type____color( const ParserChar* text, size_t textLength );
-bool _end__common_transparent_type____color(){return mImpl->end__common_transparent_type____color();}
-bool _validateBegin__common_transparent_type____color( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__common_transparent_type____color();
-bool _freeAttributes__common_transparent_type____color( void* attributeData );
+bool _begin__common_color_or_texture_type____color( void* attributeData ){return mImpl->begin__common_color_or_texture_type____color(*static_cast<common_color_or_texture_type____color__AttributeData*>(attributeData));}
+bool _data__common_color_or_texture_type____color( const ParserChar* text, size_t textLength );
+bool _end__common_color_or_texture_type____color(){return mImpl->end__common_color_or_texture_type____color();}
+bool _validateBegin__common_color_or_texture_type____color( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__common_color_or_texture_type____color();
+bool _freeAttributes__common_color_or_texture_type____color( void* attributeData );
 
-bool _begin__common_transparent_type____param( void* attributeData ){return mImpl->begin__common_transparent_type____param(*static_cast<common_transparent_type____param__AttributeData*>(attributeData));}
-bool _data__common_transparent_type____param( const ParserChar* text, size_t textLength );
-bool _end__common_transparent_type____param(){return mImpl->end__common_transparent_type____param();}
-bool _validateBegin__common_transparent_type____param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__common_transparent_type____param();
-bool _freeAttributes__common_transparent_type____param( void* attributeData );
+bool _begin__common_color_or_texture_type____param( void* attributeData ){return mImpl->begin__common_color_or_texture_type____param(*static_cast<common_color_or_texture_type____param__AttributeData*>(attributeData));}
+bool _data__common_color_or_texture_type____param( const ParserChar* text, size_t textLength );
+bool _end__common_color_or_texture_type____param(){return mImpl->end__common_color_or_texture_type____param();}
+bool _validateBegin__common_color_or_texture_type____param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__common_color_or_texture_type____param();
+bool _freeAttributes__common_color_or_texture_type____param( void* attributeData );
 
 bool _begin__texture( void* attributeData ){return mImpl->begin__texture(*static_cast<texture__AttributeData*>(attributeData));}
 bool _data__texture( const ParserChar* text, size_t textLength );

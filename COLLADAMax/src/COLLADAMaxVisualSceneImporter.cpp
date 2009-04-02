@@ -30,8 +30,10 @@ namespace COLLADAMax
 
 	VisualSceneImporter::VisualSceneImporter( DocumentImporter* documentImporter, const COLLADAFW::VisualScene* visualScene )
 		:	NodeImporter(documentImporter),
-			mVisualScene(visualScene)
-	{}
+		mVisualScene( new COLLADAFW::VisualScene( *visualScene ) )
+	{
+		addVisualScene( mVisualScene );
+	}
 
     //------------------------------
 	VisualSceneImporter::~VisualSceneImporter()
@@ -41,23 +43,8 @@ namespace COLLADAMax
 	//------------------------------
 	bool VisualSceneImporter::import()
 	{
-		if ( !mVisualScene )
-			return false;
-
-
-		// make a new node for each visual scene (it might happen, that we receive more than one)
-		// we remove unused visual scenes at the end of the import
-		ImpNode* visualSceneRootNode = getMaxImportInterface()->CreateNode();
-		getMaxImportInterface()->AddNodeToScene(visualSceneRootNode);
-		RefResult res = visualSceneRootNode->Reference( getDummyObject() );
-		
-		String visualScenenName = mVisualScene->getName();
-		if ( !visualScenenName.empty() )
-			visualSceneRootNode->SetName(visualScenenName.c_str());
-
-		importNodes(mVisualScene->getRootNodes(), visualSceneRootNode);
-
-		return true;
+		const COLLADAFW::NodePointerArray& rootNodes = mVisualScene->getRootNodes();
+		return importNodes( rootNodes );
 	}
 
 

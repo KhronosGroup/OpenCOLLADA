@@ -19,6 +19,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxImporterBase.h"
 
 #include "COLLADAFWUniqueId.h"
+#include "COLLADAFWAnimationList.h"
+#include "COLLADAFWVisualScene.h"
 
 
 namespace COLLADAMax
@@ -34,6 +36,12 @@ namespace COLLADAMax
     //------------------------------
 	ImporterBase::~ImporterBase()
 	{
+	}
+
+	//------------------------------
+	void* ImporterBase::createMaxObject( SClass_ID superClassId, Class_ID classId )
+	{
+		return mDocumentImporter->createMaxObject( superClassId, classId );
 	}
 
 	//------------------------------
@@ -170,6 +178,13 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	void ImporterBase::addVisualScene( const COLLADAFW::VisualScene* visualScene )
+	{
+		DocumentImporter::UniqueIdVisualSceneMap& map = mDocumentImporter->getUniqueIdVisualSceneMap();
+		map[ visualScene->getUniqueId() ] = visualScene;
+	}
+
+	//------------------------------
 	void ImporterBase::addClonedINodeOriginalINodePair( INode* clonedNode, INode* originalNode )
 	{
 		DocumentImporter::INodeINodePairList& inodeInodePairList = mDocumentImporter->getClonedINodeOriginalINodePairList();
@@ -188,6 +203,20 @@ namespace COLLADAMax
 	{
 		DocumentImporter::UniqueIdList& vertexColorObjects = mDocumentImporter->getVertexColorObjects();
 		vertexColorObjects.push_back(vertexColorObjectuniqueId);
+	}
+
+	//------------------------------
+	void ImporterBase::addMaxControllerToAnimationUniqueId( const COLLADAFW::UniqueId& animationUniqueId, Control* maxController )
+	{
+		DocumentImporter::UniqueIdMaxControllerListMap& map = mDocumentImporter->getAnimationUniqueIdMaxControllerListMap();
+		map[ animationUniqueId ].push_back( maxController );
+	}
+
+	//------------------------------
+	void ImporterBase::addAnimationList( const COLLADAFW::AnimationList& animationList )
+	{
+		DocumentImporter::UniqueIdAnimationListMap&  map = mDocumentImporter->getUniqueIdAnimationListMap();
+		map[ animationList.getUniqueId() ] = new COLLADAFW::AnimationList( animationList );
 	}
 
 	//------------------------------
@@ -233,6 +262,12 @@ namespace COLLADAMax
 			return 0;
 		else
 			return it->second;
+	}
+
+	//------------------------------
+	const DocumentImporter::UniqueIdFWNodeMap& ImporterBase::getUniqueIdFWNodeMap( )
+	{
+		return mDocumentImporter->getUniqueIdFWNodeMap();
 	}
 
 	//------------------------------
@@ -286,6 +321,20 @@ namespace COLLADAMax
 		return mDocumentImporter->getGeometrySetMapChannelMap()[uniqueId];
 	}
 
+	//------------------------------
+	const COLLADAFW::VisualScene* ImporterBase::getVisualSceneByUniqueId( const COLLADAFW::UniqueId& visualSceneUniqueId )
+	{
+		const DocumentImporter::UniqueIdVisualSceneMap& map = mDocumentImporter->getUniqueIdVisualSceneMap();
+		DocumentImporter::UniqueIdVisualSceneMap::const_iterator it = map.find( visualSceneUniqueId );
+		if ( it == map.end() )
+		{
+			return 0;
+		}
+		else
+		{
+			return it->second;
+		}
+	}
 
 	//------------------------------
 	const DocumentImporter::INodeINodePairList& ImporterBase::getClonedINodeOriginalINodePairList()
@@ -305,9 +354,31 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	const DocumentImporter::MaxControllerList& ImporterBase::getMaxControllerListByAnimationUniqueId( const COLLADAFW::UniqueId& animationUniqueId ) const
+	{
+		DocumentImporter::UniqueIdMaxControllerListMap& map = mDocumentImporter->getAnimationUniqueIdMaxControllerListMap();
+		return map[ animationUniqueId ];
+	}
+
+	//------------------------------
+	const COLLADAFW::AnimationList* ImporterBase::getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId ) const
+	{
+		const DocumentImporter::UniqueIdAnimationListMap&  map = mDocumentImporter->getUniqueIdAnimationListMap();
+		DocumentImporter::UniqueIdAnimationListMap::const_iterator it = map.find( animationListUniqueId );
+		if ( it == map.end() )
+		{
+			return 0;
+		}
+		else
+		{
+			return it->second;
+		}
+	}
+
+	//------------------------------
 	const DocumentImporter::UniqueIdList& ImporterBase::getVertexColorObjects()
 	{
-		return  mDocumentImporter->getVertexColorObjects();
+		return mDocumentImporter->getVertexColorObjects();
 	}
 
 	//------------------------------

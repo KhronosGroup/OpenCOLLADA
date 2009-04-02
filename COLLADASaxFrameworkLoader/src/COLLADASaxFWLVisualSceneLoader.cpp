@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLVisualSceneLoader.h"
+#include "COLLADASaxFWLFileLoader.h"
 
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWIWriter.h"
@@ -18,9 +19,9 @@
 namespace COLLADASaxFWL
 {
 
-	VisualSceneLoader::VisualSceneLoader( IFilePartLoader* callingFilePartLoader )
+	VisualSceneLoader::VisualSceneLoader( IFilePartLoader* callingFilePartLoader, const char* id )
 		: NodeLoader(callingFilePartLoader),
-		mVisualScene(new COLLADAFW::VisualScene())
+		mVisualScene(new COLLADAFW::VisualScene(getUniqueIdFromId(id, COLLADAFW::VisualScene::ID()).getObjectId()))
 	{
 	}
 
@@ -51,10 +52,10 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool VisualSceneLoader::end__visual_scene()
 	{
-		bool success = writer()->writeVisualScene(mVisualScene);
-		delete mVisualScene;
+		getFileLoader()->addVisualScene(mVisualScene);
+		mVisualScene = 0;
 		finish();
-		return success;
+		return true;
 	}
 
 

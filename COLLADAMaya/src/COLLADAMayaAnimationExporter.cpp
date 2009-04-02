@@ -1675,6 +1675,7 @@ namespace COLLADAMaya
                 curveType == MFnAnimCurve::kAnimCurveUnknown )
         {
             // Unsupported curve types.
+            MGlobal::displayError ( "Animation curve type not supported! " + curveType );
             return NULL;
         }
 

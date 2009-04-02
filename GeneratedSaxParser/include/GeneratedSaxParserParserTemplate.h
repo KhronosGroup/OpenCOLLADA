@@ -16,6 +16,7 @@
 #include "GeneratedSaxParserStackMemoryManager.h"
 #include "GeneratedSaxParserUtils.h"
 #include "GeneratedSaxParserParserTemplateBase.h"
+#include "GeneratedSaxParserIUnknownElementHandler.h"
 
 
 #include <map>
@@ -52,6 +53,8 @@ namespace GeneratedSaxParser
 		typedef bool ( ImplClass::*uint64DataFunctionPtr ) (const uint64* text, size_t textLength );
 
 		typedef bool ( ImplClass::*boolDataFunctionPtr ) (const bool* text, size_t textLength );
+
+        typedef bool ( ImplClass::*stringListDataFunctionPtr ) (const ParserString* text, size_t textLength );
 
 	protected:
 		typedef bool ( DerivedClass::*ElementBeginFunctionPtr ) ( void* attributeData );
@@ -101,6 +104,8 @@ namespace GeneratedSaxParser
 	protected:
 		ElementFunctionMap mElementFunctionMap;
 		ImplClass* mImpl;
+        IUnknownElementHandler* mUnknownHandler;
+
 
 	private:
 		/** Number of elements that have been opened and should be ignored. Use for unknown elements.*/
@@ -112,14 +117,18 @@ namespace GeneratedSaxParser
 			:
 		  ParserTemplateBase(errorHandler),
 			  mImpl(impl),
-			  mIgnoreElements(0)
+			  mIgnoreElements(0),
+			  mUnknownHandler(0)
 		  {};
 		virtual ~ParserTemplate(){};
 
 		/** Sets the object, that should receive all the callbacks from now on.*/
 		void setCallbackObject(ImplClass* impl){ mImpl = impl; }
 
-	public:
+        /** Registers a handler for unknown elements. Only the last registered will be used. */
+        void registerUnknownElementHandler(IUnknownElementHandler* handler) {mUnknownHandler = handler;}
+
+    public:
 		bool elementBegin(const ParserChar* elementName, const ParserAttributes& attributes );
 
 		bool elementEnd(const ParserChar* elementName );
@@ -141,6 +150,14 @@ namespace GeneratedSaxParser
                 size_t* wholeListLength = 0,
                 ParserError::ErrorType (*itemTypeValidationFunc)( DataType ) = 0
                 );
+
+        bool characterData2StringData(const ParserChar* text,
+            size_t textLength,
+            stringListDataFunctionPtr stringListDataFunction,
+            ParserError::ErrorType (*listValidationFunc)( const ParserString*, size_t ) = 0,
+            size_t* wholeListLength = 0,
+            ParserError::ErrorType (*itemTypeValidationFunc)( ParserString ) = 0
+            );
 
         bool characterData2BoolData(const ParserChar* text,
             size_t textLength,
@@ -233,6 +250,12 @@ namespace GeneratedSaxParser
             ParserError::ErrorType (*itemTypeValidationFunc)( DataType ) = 0
             );
 
+        bool stringListDataEnd(
+            stringListDataFunctionPtr stringListDataFunction,
+            ParserError::ErrorType (*listValidationFunc)( const ParserString*, size_t ) = 0,
+            size_t* wholeListLength = 0,
+            ParserError::ErrorType (*itemTypeValidationFunc)( ParserString ) = 0
+            );
         bool boolDataEnd(
             boolDataFunctionPtr boolDataFunction,
             ParserError::ErrorType (*listValidationFunc)( const bool*, size_t ) = 0,
@@ -325,6 +348,11 @@ namespace GeneratedSaxParser
                 StringHash elementHash = 0,
                 StringHash attributeHash = 0);
 
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2StringList(const ParserChar* text, XSList<ParserString>& list,
+            ParserError::ErrorType (*itemTypeValidationFunc)(ParserString) = 0,
+            StringHash elementHash = 0,
+            StringHash attributeHash = 0);
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
         bool characterData2BoolList(const ParserChar* text, XSList<bool>& list,
             ParserError::ErrorType (*itemTypeValidationFunc)(bool) = 0,
@@ -980,6 +1008,20 @@ namespace GeneratedSaxParser
 	}
 
 
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2StringData(
+        const ParserChar* text,
+        size_t textLength,
+        stringListDataFunctionPtr stringListDataFunction,
+        ParserError::ErrorType (*listValidationFunc)( const ParserString*, size_t ),
+        size_t* wholeListLength,
+        ParserError::ErrorType (*itemTypeValidationFunc)( ParserString )
+        )
+    {
+        return characterData2Data<ParserString, Utils::toStringListItem, &ParserTemplateBase::toStringListPrefix>(text, textLength, stringListDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+    }
+
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	template<class DataType, DataType (*toData)( const ParserChar**, const ParserChar*, bool& )>
@@ -1017,8 +1059,8 @@ namespace GeneratedSaxParser
 					}
 				}
 			}
-			else
-			{
+            if ( !failed )
+            {
                 if ( itemTypeValidationFunc != 0)
                 {
                     ParserError::ErrorType simpleTypeValidationResult = (itemTypeValidationFunc)(typedValue);
@@ -1035,27 +1077,29 @@ namespace GeneratedSaxParser
                         }
                     }
                 }
+            }
 
-                if ( listValidationFunc != 0)
-                {
+            if ( listValidationFunc != 0)
+            {
+                if ( !failed )
                     (*wholeListLength)++;
-                    ParserError::ErrorType simpleTypeValidationResult = (listValidationFunc)(0, *wholeListLength);
-                    if ( simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK )
+                ParserError::ErrorType simpleTypeValidationResult = (listValidationFunc)(0, *wholeListLength);
+                if ( simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK )
+                {
+                    ParserChar msg[21];
+                    Utils::fillErrorMsg(msg, bufferBegin, 20);
+                    if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+                        simpleTypeValidationResult,
+                        0,
+                        msg) )
                     {
-                        ParserChar msg[21];
-                        Utils::fillErrorMsg(msg, bufferBegin, 20);
-                        if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
-                            simpleTypeValidationResult,
-                            0,
-                            msg) )
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
+            }
 
-				(mImpl->*dataFunction)(&typedValue, 1);
-			}
+            if ( !failed )
+                (mImpl->*dataFunction)(&typedValue, 1);
 
 		}
 		return true;
@@ -1112,6 +1156,17 @@ namespace GeneratedSaxParser
         return true;
     }
 
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::stringListDataEnd(
+        stringListDataFunctionPtr stringListDataFunction,
+        ParserError::ErrorType (*listValidationFunc)( const ParserString*, size_t ),
+        size_t* wholeListLength,
+        ParserError::ErrorType (*itemTypeValidationFunc)( ParserString )
+        )
+    {
+        return dataEnd<ParserString, Utils::toStringListItem>(stringListDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+    }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
@@ -1252,7 +1307,13 @@ namespace GeneratedSaxParser
 															  size_t textLength)
 	{
 		if ( mIgnoreElements > 0)
+        {
+            if ( mUnknownHandler != 0 )
+            {
+                return mUnknownHandler->textData( text, textLength );
+            }
 			return true;
+        }
 
 		if ( mElementDataStack.empty() )
 			return false;
@@ -1278,6 +1339,10 @@ namespace GeneratedSaxParser
 		if ( mIgnoreElements > 0)
 		{
 			--mIgnoreElements;
+            if ( mUnknownHandler != 0 )
+            {
+                return mUnknownHandler->elementEnd( elementName );
+            }
 			return true;
 		}
 
@@ -1312,6 +1377,10 @@ namespace GeneratedSaxParser
 		if ( mIgnoreElements > 0)
 		{
 			++mIgnoreElements;
+            if ( mUnknownHandler != 0 )
+            {
+                return mUnknownHandler->elementBegin( elementName, attributes.attributes );
+            }
 			return true;
 		}
 
@@ -1327,18 +1396,26 @@ namespace GeneratedSaxParser
             it = mElementFunctionMap.find(newElementData.generatedElementHash);
 		if ( it == mElementFunctionMap.end() )
 		{
-			if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
-							 ParserError::ERROR_UNKNOWN_ELEMENT,
-				             0,
-				             elementName))
-			{
-				return false;
-			}
-			else
-			{
-				mIgnoreElements = 1;
-				return true;
-			}
+            if ( mUnknownHandler != 0 )
+            {
+                mIgnoreElements = 1;
+                return mUnknownHandler->elementBegin( elementName, attributes.attributes );
+            }
+            else
+            {
+			    if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+							     ParserError::ERROR_UNKNOWN_ELEMENT,
+				                 0,
+				                 elementName))
+			    {
+				    return false;
+			    }
+			    else
+			    {
+				    mIgnoreElements = 1;
+				    return true;
+			    }
+            }
 		}
 		FunctionStruct& functions = it->second;
 
@@ -1375,6 +1452,17 @@ namespace GeneratedSaxParser
 	}
 
 
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2StringList(const ParserChar* text,
+        XSList<ParserString>& list,
+        ParserError::ErrorType (*itemTypeValidationFunc)(ParserString),
+        StringHash elementHash,
+        StringHash attributeHash)
+    {
+        return characterData2List<ParserString, Utils::toStringListItem>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+    }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>

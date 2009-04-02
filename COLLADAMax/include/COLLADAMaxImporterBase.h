@@ -65,6 +65,10 @@ namespace COLLADAMax
 		/** Returns the document importer.*/
 		DocumentImporter* getDocumentImporter() { return mDocumentImporter; }
 
+		/** Creates a new max object with @a superClassId and @a classId. If the object could not be created, 
+		null is returned.*/
+		void* createMaxObject(SClass_ID superClassId, Class_ID classId);
+
 		/** Returns the max interface.*/
 		Interface* getMaxInterface();
 
@@ -143,6 +147,9 @@ namespace COLLADAMax
 		/** Adds @a libraryNodes to the list of library nodes.*/
 		void addLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
 
+		/** Adds @a visualScene to the map of visual scenes. @a visualScene will be deleted by the DocumentImporter.*/
+		void addVisualScene( const COLLADAFW::VisualScene* visualScene );
+
 		/** Adds the @pair clonedNode and @a originalNode to the list of cloned and original inodes.*/
 		void addClonedINodeOriginalINodePair(INode* clonedNode, INode* originalNode);
 
@@ -153,6 +160,13 @@ namespace COLLADAMax
 		/** Adds @a vertexColorObjectuniqueId to the list of unique ids of objects that use vertex color. 
 		When ever a geometry that uses vertex color is created,	its unique id should be added to this list.*/
 		void addVertexColorObjects(const COLLADAFW::UniqueId& vertexColorObjectuniqueId);
+
+		/** Add @a maxController to the list of float controllers created from framework animation with unique id 
+		@a animationUniqueId.*/
+		void addMaxControllerToAnimationUniqueId( const COLLADAFW::UniqueId& animationUniqueId, Control* maxController);
+
+		/** Add @a animationList to the map of all animation list.*/
+		void addAnimationList(  const COLLADAFW::AnimationList& animationList);
 
 		/** Returns the object that was created from the imported object with UniqueId @a uniqueId. If 
 		@a uniqueId has not been added using addUniqueIdObjectPair, null is returned.*/
@@ -169,6 +183,9 @@ namespace COLLADAMax
 		/** Returns the frame work node with unique id @a uniqueId, if this node is in an already 
 		received library nodes, null otherwise.*/
 		const COLLADAFW::Node* getFWNodeByUniqueId( const COLLADAFW::UniqueId& uniqueId );
+		
+		/** Returns  mUniqueIdFWNodeMap.*/
+		const DocumentImporter::UniqueIdFWNodeMap& ImporterBase::getUniqueIdFWNodeMap( );
 
 		/** Returns the frame work material with unique id @a uniqueId, if this node is in an already 
 		received material, null otherwise.*/
@@ -193,6 +210,9 @@ namespace COLLADAMax
 		one is created.*/ 
 		DocumentImporter::SetMapChannelMap& getSetMapChannelByGeometryUniqueId( const COLLADAFW::UniqueId& uniqueId );
 
+		/** Returns visual scene with unique id @a visualSceneUniqueId. If not found, null is returned.*/
+		const COLLADAFW::VisualScene* getVisualSceneByUniqueId( const COLLADAFW::UniqueId& visualSceneUniqueId);
+
 		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
 		When ever an inode is cloned, the cloned one and itself should be added to that list.*/ 
 		const DocumentImporter::INodeINodePairList& getClonedINodeOriginalINodePairList();
@@ -202,6 +222,13 @@ namespace COLLADAMax
 
 		/** Returns the name of @a object.*/
 		const String& getObjectNameByObject( Object* object ) const;
+
+		/** Retrieves the list of max controller created from frame work animation with unique id @a animationUniqueId.
+		An empty list is returned, if no controller has been created from the animation. */
+		const DocumentImporter::MaxControllerList& getMaxControllerListByAnimationUniqueId( const COLLADAFW::UniqueId& animationUniqueId) const;
+
+		/** Retrieves the animation list with @a uniqueId. If not found, an empty AnimationList is returned.*/
+		const COLLADAFW::AnimationList* getAnimationListByUniqueId(const COLLADAFW::UniqueId& animationListUniqueId) const ;
 
 		/** Returns informations about the entire file being loaded.*/
 		const DocumentImporter::FileInfo& getFileInfo() const { return mDocumentImporter->getFileInfo(); }
@@ -216,7 +243,6 @@ namespace COLLADAMax
 
         /** Disable default assignment operator. */
 		const ImporterBase& operator= ( const ImporterBase& pre );
-
 	};
 
 
@@ -232,6 +258,7 @@ namespace COLLADAMax
 		if ( !objectName.empty() )
 			addObjectObjectNamePair(object, objectName);
 
+#if 0
 		INodeList objectNodeList;
 		getObjectINodesByUniqueId(uniqueID, objectNodeList);
 		for ( size_t i = 0, count = objectNodeList.size(); i<count; ++i)
@@ -242,7 +269,7 @@ namespace COLLADAMax
 				maxNode->SetName( (char *)objectName.c_str());
 			maxNode->SetObjectRef(object);
 		}
-
+#endif
 		return true;
 	}
 

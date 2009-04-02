@@ -13,13 +13,13 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWPointerArray.h"
-
+#include "COLLADAFWAnimatable.h"
 
 
 namespace COLLADAFW
 {
 	/** This is the Base class of all transformations that can occur within a scene graph.*/
-	class Transformation 	
+	class Transformation : public Animatable
 	{
 	public:
 		enum TransformationType
@@ -35,20 +35,11 @@ namespace COLLADAFW
 		/** The type of transformation.*/
 		TransformationType mTransformationType;
 
-		/** The sid of the transformation.*/
-		String mSid;
-	
 	public:
 		virtual ~Transformation();
 
 		/** Returns the type of the transformation.*/
 		TransformationType getTransformationType() const {return mTransformationType;}
-
-		/** Returns the sid of the transformation.*/
-		const String& getSid() const {return mSid;}
-
-		/** Returns the sid of the transformation.*/
-		void setSid(const String& sid) { mSid = sid; }
 
 		virtual Transformation* clone() const = 0;
 

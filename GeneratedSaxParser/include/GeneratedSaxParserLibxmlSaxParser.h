@@ -13,6 +13,7 @@
 
 #include "GeneratedSaxParserPrerequisites.h"
 #include "GeneratedSaxParserSaxParser.h"
+#include "GeneratedSaxParserIErrorHandler.h"
 #include <libxml/parser.h>
 
 
@@ -25,6 +26,9 @@ namespace GeneratedSaxParser
 	{
 	private:
 		static xmlSAXHandler SAXHANDLER;
+
+        /** For some reason the GeneratedParser's ErrorHandler's vtable gets screwed up. */
+        static IErrorHandler* msErrorHandler;
 
 		xmlParserCtxtPtr mParserContext;
 

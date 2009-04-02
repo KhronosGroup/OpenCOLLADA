@@ -2699,6 +2699,10 @@
 				Name="Importers"
 				>
 				<File
+					RelativePath="..\src\COLLADAMayaAnimationImporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMayaBaseImporter.cpp"
 					>
 				</File>
@@ -2963,6 +2967,10 @@
 			<Filter
 				Name="Importers"
 				>
+				<File
+					RelativePath="..\include\COLLADAMayaAnimationImporter.h"
+					>
+				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaBaseImporter.h"
 					>

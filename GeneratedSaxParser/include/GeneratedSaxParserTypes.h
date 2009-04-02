@@ -23,6 +23,28 @@ namespace GeneratedSaxParser
 	typedef unsigned long StringHash;
 
 
+    /**
+     * Represents a string somewhere in a XML buffer.
+     */
+    struct ParserString
+    {
+        /** Default c-tor, */
+        ParserString() : str(0), length(0) {}
+
+        /** 
+         * Convenience C-tor allowing usage of this class in 
+         * GeneratedSaxParserParserTemplate::characterData2Data. 
+         */
+        ParserString(const int& val) : str(0), length(0) {}
+
+        /** Pointer to the start of the string. It is not null terminated. */
+        const ParserChar* str;
+
+        /** Length of the string. */
+        size_t length;
+    };
+
+
 
 } // namespace GeneratedSaxParser
 

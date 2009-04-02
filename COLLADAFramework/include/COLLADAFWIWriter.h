@@ -26,6 +26,7 @@ namespace COLLADAFW
 	class Image;
 	class Light;
 	class Animation;
+	class AnimationList;
 
 
 	/** Class that needs to be implemented by a writer. 
@@ -94,6 +95,10 @@ namespace COLLADAFW
 		/** When this method is called, the writer must write the Animation.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writeAnimation( const Animation* animation ) = 0;
+
+		/** When this method is called, the writer must write the AnimationList.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeAnimationList( const AnimationList* animationList ) = 0;
 
 
 	private:

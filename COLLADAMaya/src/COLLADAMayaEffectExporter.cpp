@@ -267,11 +267,10 @@ namespace COLLADAMaya
 
         // Get the animation target path
         String targetPath = effectId + "/" + effectProfile->getTechniqueSid() + "/";
-        // Build the target sid
+
+        // Check, if the parameter is animated and export the out color.
         targetSid = targetPath + ATTR_OUT_COLOR;
-        // Check, if the parameter is animated
         bool animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_OUT_COLOR, kColour );
-        // Export out color
         int nextTextureIndex = 0;
         exportTexturedParameter ( effectId, effectProfile, shader,
             ATTR_OUT_COLOR, EffectExporter::EMISSION, nextTextureIndex, animated );
@@ -279,8 +278,8 @@ namespace COLLADAMaya
         // Transparent color
         MColor transparentColor;
         DagHelper::getPlugValue ( shader, ATTR_OUT_TRANSPARENCY, transparentColor );
-        exportTransparency ( effectId, effectProfile, shader, transparentColor,
-            ATTR_OUT_TRANSPARENCY, nextTextureIndex );
+        targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_TRANSPARENT; 
+        exportTransparency ( effectId, effectProfile, shader, transparentColor, targetSid, ATTR_OUT_TRANSPARENCY, nextTextureIndex );
 
         // Writes the current effect profile into the collada document
         effectProfile->openProfile ();
@@ -325,14 +324,14 @@ namespace COLLADAMaya
             ATTR_INCANDESCENCE, EffectExporter::EMISSION, nextTextureIndex, animated );
 
         // Ambient color
-        targetSid = targetPath + ATTR_AMBIENT_COLOR;
+        targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_AMBIENT;
         animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_AMBIENT_COLOR, kColour );
         effectProfile->setAmbient ( mayaColor2ColorOrTexture ( lambertFn.ambientColor() ), animated );
         exportTexturedParameter ( effectId, effectProfile, shader,
             ATTR_AMBIENT_COLOR, EffectExporter::AMBIENT, nextTextureIndex, animated );
 
         // Diffuse color
-        targetSid = targetPath + ATTR_COLOR;
+        targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_DIFFUSE; 
         ConversionFunctor* conversion = new ConversionScaleFunctor ( lambertFn.diffuseCoeff() );
         animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_COLOR, kColour, EMPTY_PARAMETER, false, -1, false, conversion );
         effectProfile->setDiffuse ( mayaColor2ColorOrTexture ( lambertFn.color(), lambertFn.diffuseCoeff() ), animated );
@@ -340,8 +339,9 @@ namespace COLLADAMaya
             ATTR_COLOR, EffectExporter::DIFFUSE, nextTextureIndex, animated );
 
         // Transparent color
+        targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_TRANSPARENT; 
         exportTransparency ( effectId, effectProfile, shader, lambertFn.transparency(),
-            ATTR_TRANSPARENCY, nextTextureIndex );
+            targetSid, ATTR_TRANSPARENCY, nextTextureIndex );
 
         float coeff = lambertFn.translucenceCoeff();
         effectProfile->setTransparency ( 1.0f );
@@ -357,7 +357,7 @@ namespace COLLADAMaya
             // Specular color
             if ( effectProfile->getShaderType() != COLLADASW::EffectProfile::LAMBERT )
             {
-                targetSid = targetPath + ATTR_SPECULAR_COLOR;
+                targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_SPECULAR;
                 animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_SPECULAR_COLOR, kColour );
                 effectProfile->setSpecular ( mayaColor2ColorOrTexture ( reflectFn.specularColor() ), animated );
                 exportTexturedParameter ( effectId, effectProfile, shader,
@@ -365,14 +365,14 @@ namespace COLLADAMaya
             }
 
             // Reflected color
-            targetSid = targetPath + ATTR_REFLECTED_COLOR;
+            targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_REFLECTIVE;
             animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_REFLECTED_COLOR, kColour );
             effectProfile->setReflective ( mayaColor2ColorOrTexture ( reflectFn.reflectedColor() ), animated );
             exportTexturedParameter ( effectId, effectProfile, shader,
                 ATTR_REFLECTED_COLOR, EffectExporter::REFLECTION, nextTextureIndex, animated );
 
             // Reflectivity factor
-            targetSid = targetPath + ATTR_REFLECTIVITY;
+            targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_REFLECTIVITY;
             animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_REFLECTIVITY, kSingle );
             effectProfile->setReflectivity ( reflectFn.reflectivity(), animated );
         }
@@ -391,7 +391,7 @@ namespace COLLADAMaya
         if ( shader.hasFn ( MFn::kPhong ) )
         {
             MFnPhongShader phongFn ( shader );
-            targetSid = targetPath + ATTR_COSINE_POWER;
+            targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_SHININESS;
             animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_COSINE_POWER, kSingle );
             effectProfile->setShininess ( phongFn.cosPower(), animated );
         }
@@ -401,13 +401,13 @@ namespace COLLADAMaya
             MFnBlinnShader blinnFn ( shader );
             BlinnEccentricityToShininess* converter = new BlinnEccentricityToShininess();
             double shininess = ( *converter ) ( blinnFn.eccentricity() );
-            targetSid = targetPath + ATTR_ECCENTRICITY;
+            targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_SHININESS;
             animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_ECCENTRICITY, kSingle, EMPTY_PARAMETER, -1, false, converter );
             effectProfile->setShininess ( shininess, animated );
             delete converter;
 #else
             MFnBlinnShader blinnFn ( shader );
-            targetSid = targetPath + ATTR_ECCENTRICITY;
+            targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_SHININESS;
             animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_ECCENTRICITY, kSingle );
             effectProfile->setShininess ( blinnFn.eccentricity(), animated );
 #endif // BLINN_EXPONENT_MODEL
@@ -598,17 +598,15 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void EffectExporter::exportTransparency(
+    void EffectExporter::exportTransparency (
         const String& effectId,
         COLLADASW::EffectProfile* effectProfile,
         MObject shadingNetwork,
         const MColor& transparentColor,
+        const String& targetSid, 
         const char* attributeName,
         int& nextTextureIndex )
     {
-        // Get the animation target path
-        String targetPath = effectId + "/" + effectProfile->getTechniqueSid() + "/";
-
         // Get the animation exporter
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
 
@@ -616,8 +614,7 @@ namespace COLLADAMaya
         bool animated = false;
 
         // Build the target sid and export animation
-        String targetSubId = targetPath + attributeName;
-        animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSubId, attributeName, kColour );
+        animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSid, attributeName, kColour );
         // Set the transparent color or texture
         effectProfile->setTransparent ( mayaColor2ColorOrTexture ( transparentColor ), animated );
 
@@ -655,12 +652,14 @@ namespace COLLADAMaya
                 if ( AnimationHelper::isAnimated ( animationCache, transparentTextureNode, ATTR_ALPHA_GAIN ) )
                 {
                     // TODO Test
+                    String targetPath = effectId + "/" + effectProfile->getTechniqueSid() + "/";
                     String targetSubId = targetPath + ATTR_ALPHA_GAIN;
                     animationExporter->addNodeAnimation ( transparentTextureNode, targetSubId, ATTR_ALPHA_GAIN, kSingle );
                 }
                 else
                 {
                     // TODO Test
+                    String targetPath = effectId + "/" + effectProfile->getTechniqueSid() + "/";
                     String targetSubId = targetPath + ATTR_ALPHA_OFFSET;
                     animationExporter->addNodeAnimation ( transparentTextureNode, targetSubId, ATTR_ALPHA_OFFSET, kSingle, EMPTY_PARAMETER, false, -1, false, new ConversionOffsetFunctor ( 1.0f ) );
                 }

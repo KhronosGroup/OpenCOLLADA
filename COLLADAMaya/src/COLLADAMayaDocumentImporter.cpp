@@ -23,6 +23,7 @@
 #include "COLLADAMayaCameraImporter.h"
 #include "COLLADAMayaLightImporter.h"
 #include "COLLADAMayaImageImporter.h"
+#include "COLLADAMayaAnimationImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
 
 #include "COLLADAMayaVisualSceneImporter.h"
@@ -59,6 +60,7 @@ namespace COLLADAMaya
         , mCameraImporter (0)
         , mLightImporter (0)
         , mImageImporter (0)
+        , mAnimationImporter (0)
         , mSceneGraphWritten (false)
         , mLibraryNodesWritten (false)
         , mAssetWritten (false)
@@ -96,6 +98,7 @@ namespace COLLADAMaya
         mCameraImporter = new CameraImporter ( this );
         mLightImporter = new LightImporter ( this );
         mImageImporter = new ImageImporter (this);
+        mAnimationImporter = new AnimationImporter (this);
 
         // Get the sceneID (assign a name to the scene)
         MString sceneName = MFileIO::currentFile ();
@@ -115,6 +118,7 @@ namespace COLLADAMaya
         delete mCameraImporter;
         delete mLightImporter;
         delete mImageImporter;
+        delete mAnimationImporter;
     }
 
     //-----------------------------
@@ -673,4 +677,29 @@ namespace COLLADAMaya
 
         return true;
     }
+
+    //-----------------------------
+    bool DocumentImporter::writeAnimation ( const COLLADAFW::Animation* animation )
+    {
+        // Order: asset, scene graph, library nodes, others
+        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
+        {
+            mImageRead = true;
+            return true;
+        }
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        mAnimationImporter->importAnimation ( animation );
+
+        return true;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeAnimationList ( const COLLADAFW::AnimationList* animationList )
+    {
+        return true;
+    }
+
 }

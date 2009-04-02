@@ -25,10 +25,12 @@ namespace COLLADAFW
 		/** Values can be stored as float or double values. */
 		enum DataType
 		{
-			DATA_TYPE_FLOAT,
-			DATA_TYPE_DOUBLE,
-			DATA_TYPE_UNKNOWN
+			DATA_TYPE_FLOAT = 0,
+			DATA_TYPE_DOUBLE = 1,
+			DATA_TYPE_UNKNOWN = 2,
 		};
+
+
 
 	private:
 		/** The data type of the stored position values. */

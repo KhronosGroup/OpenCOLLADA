@@ -26,11 +26,17 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxCameraImporter.h"
 #include "COLLADAMaxLightImporter.h"
 #include "COLLADAMaxImageImporter.h"
+#include "COLLADAMaxAnimationImporter.h"
+#include "COLLADAMaxAnimationListImporter.h"
+#include "COLLADAMaxAnimationAssigner.h"
+#include "COLLADAMaxSceneGraphCreator.h"
 #include "COLLADAMaxFWLErrorHandler.h"
 
 #include "COLLADAFWFileInfo.h"
 
 #include "COLLADAFWLibraryNodes.h"
+#include "COLLADAFWAnimationList.h"
+#include "COLLADAFWVisualScene.h"
 
 
 #include "COLLADASaxFWLLoader.h"
@@ -54,6 +60,14 @@ namespace COLLADAMax
 		// Delete all the stored library nodes
 		for ( LibraryNodesList::const_iterator it = mLibraryNodesList.begin(); it != mLibraryNodesList.end(); ++it)
 			delete *it;
+
+		// Delete all the stored library nodes
+		for ( UniqueIdVisualSceneMap::const_iterator it = mUniqueIdVisualSceneMap.begin(); it != mUniqueIdVisualSceneMap.end(); ++it)
+			delete it->second;
+
+		// Delete all the animation lists
+		for ( UniqueIdAnimationListMap::const_iterator it = mUniqueIdAnimationListMap.begin(); it != mUniqueIdAnimationListMap.end(); ++it)
+			delete it->second;
 	}
 
 
@@ -73,7 +87,42 @@ namespace COLLADAMax
 			mMaxImportInterface->SetAmbient(0, Point3(mAmbientColor.getRed(), mAmbientColor.getGreen(), mAmbientColor.getBlue() ));
 		}
 
-		return createAndAssignMaterials();
+		if ( !createSceneGraph() )
+			return false;
+
+		if ( !createAndAssignMaterials() )
+			return false;
+
+		if ( !assignControllers() )
+			return false;
+
+		return true;
+	}
+
+	//---------------------------------------------------------------
+	void* DocumentImporter::createMaxObject(SClass_ID superClassId, Class_ID classId)
+	{
+		void* c = mMaxImportInterface->Create(superClassId, classId);
+
+		if ( !c )
+		{
+			// This can be caused if the object referred to is in a deffered plugin.
+			DllDir* dllDir = GetCOREInterface()->GetDllDirectory();
+			ClassDirectory& classDir = dllDir->ClassDir();
+			ClassEntry* classEntry = classDir.FindClassEntry(superClassId, classId);
+
+			if ( !classEntry )
+				return 0;
+
+			// This will force the loading of the specified plugin
+			classEntry->FullCD();
+
+			if ( !classEntry->IsLoaded() )
+				return 0;
+
+			c = mMaxImportInterface->Create(superClassId, classId);
+		}
+		return c;
 	}
 
 	//---------------------------------------------------------------
@@ -81,6 +130,25 @@ namespace COLLADAMax
 	{
 		MaterialCreator materialCreator(this);
 		return materialCreator.create();
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::assignControllers()
+	{
+		AnimationAssigner animationAssigner(this);
+		return animationAssigner.assign();
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::createSceneGraph()
+	{
+		UniqueIdVisualSceneMap::const_iterator it = mUniqueIdVisualSceneMap.begin();
+		if ( it != mUniqueIdVisualSceneMap.end() )
+		{
+			SceneGraphCreator sceneGraphCreator(this, it->second);
+			return sceneGraphCreator.create();
+		}
+		return true;
 	}
 
 	//---------------------------------------------------------------
@@ -194,6 +262,20 @@ namespace COLLADAMax
 	{
 		LightImporter lightImporter(this, light);
 		return lightImporter.import();
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::writeAnimation( const COLLADAFW::Animation* animation )
+	{
+		AnimationImporter animationImporter(this, animation);
+		return animationImporter.import();
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::writeAnimationList( const COLLADAFW::AnimationList* animationList )
+	{
+		AnimationListImporter animationListImporter(this, animationList);
+		return animationListImporter.import();
 	}
 
 	//---------------------------------------------------------------

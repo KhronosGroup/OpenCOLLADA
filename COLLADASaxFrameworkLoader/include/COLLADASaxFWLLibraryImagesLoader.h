@@ -30,9 +30,6 @@ namespace COLLADASaxFWL
 		/** The current image.*/
 		COLLADAFW::Image* mCurrentImage;
 
-		/** The part of the uri of the current image, already received by data__image__init_from().*/
-		COLLADAFW::ArrayPrimitiveType<ParserChar> mCurrentImageURIPart;
-
 	public:
 
         /** Constructor. */
@@ -59,7 +56,7 @@ namespace COLLADASaxFWL
 		virtual bool end__init_from____anyURI();
 
 		/** Set the image uri.*/
-		virtual bool data__init_from____anyURI( const ParserChar* data, size_t length );
+		virtual bool data__init_from____anyURI( COLLADABU::URI value );
 
 
 		/** Set source type.*/

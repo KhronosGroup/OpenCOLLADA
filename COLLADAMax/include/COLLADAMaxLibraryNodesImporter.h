@@ -52,8 +52,6 @@ namespace COLLADAMax
 		@return True on success, false otherwise.*/
 		bool import();
 
-		bool importLibraryNode( const COLLADAFW::Node* node);
-
 	private:
 
         /** Disable default copy ctor. */

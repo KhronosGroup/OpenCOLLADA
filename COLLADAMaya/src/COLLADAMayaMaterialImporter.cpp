@@ -406,15 +406,18 @@ namespace COLLADAMaya
                         // Do the connection to this shading engine for every primitive element, 
                         // which use this shading engine.
                         std::vector<size_t>* primitiveIndices = geometryImporter->getShadingEnginePrimitiveIndices ( geometryId, shadingEngineId );
-                        for ( size_t i=0; i<primitiveIndices->size (); ++i )
+                        if ( primitiveIndices != 0 )
                         {
-                            const size_t primitiveIndex = (*primitiveIndices) [i];
+                            for ( size_t i=0; i<primitiveIndices->size (); ++i )
+                            {
+                                const size_t primitiveIndex = (*primitiveIndices) [i];
 
-                            // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
-                            connectNextAttr ( file, mesh->getObjectGroups ( primitiveIndex ), shadingEngine.getDagSetMembers () );
+                                // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
+                                connectNextAttr ( file, mesh->getObjectGroups ( primitiveIndex ), shadingEngine.getDagSetMembers () );
 
-                            // connectAttr "lambert2SG.memberWireframeColor" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGrpColor";
-                            connectAttr ( file, shadingEngine.getMemberWireframeColor (), mesh->getObjectGrpColor ( primitiveIndex ) );
+                                // connectAttr "lambert2SG.memberWireframeColor" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGrpColor";
+                                connectAttr ( file, shadingEngine.getMemberWireframeColor (), mesh->getObjectGrpColor ( primitiveIndex ) );
+                            }
                         }
                     }
                     else
