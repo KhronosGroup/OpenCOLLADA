@@ -22,7 +22,6 @@
 namespace COLLADASaxFWL
 {
 
-
 	enum SamplerInputSemantics
 	{
 		SEMANTIC_UNKNOWN,
