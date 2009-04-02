@@ -35,10 +35,16 @@ namespace COLLADASaxFWL
 
 	public:
 		/** Returns a pointer to the collada loader. */
-		Loader* getColladaLoader () { return mCallingFilePartLoader->getColladaLoader(); }
+		Loader* getColladaLoader() { return mCallingFilePartLoader->getColladaLoader(); }
 
 		/** Returns a const pointer to the collada document. */
-		const Loader* getColladaLoader () const { return mCallingFilePartLoader->getColladaLoader(); }
+		const Loader* getColladaLoader() const { return mCallingFilePartLoader->getColladaLoader(); }
+
+		/** Returns a pointer to the file loader. */
+		FileLoader* getFileLoader() { return mCallingFilePartLoader->getFileLoader(); }
+
+		/** Returns a pointer to the file loader. */
+		const FileLoader* getFileLoader() const { return mCallingFilePartLoader->getFileLoader(); }
 
 		/** Sets the parser to @a parserToBeSet.*/
 		void setParser(IFilePartLoader* parserToBeSet);

@@ -23,6 +23,10 @@
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLGeometryLoader.h"
 #include "COLLADASaxFWLSaxParserErrorHandler.h"
+#include "COLLADASaxFWLSidAddress.h"
+
+#include "COLLADAFWVisualScene.h"
+#include "COLLADAFWAnimationList.h"
 
 #include "COLLADAFWObject.h"
 
@@ -36,17 +40,21 @@ namespace COLLADASaxFWL
 
     //-----------------------------
 	FileLoader::FileLoader ( Loader* colladaLoader, const COLLADABU::URI& fileURI, SaxParserErrorHandler* saxParserErrorHandler)
-         : ColladaParserAutoGenPrivate(0, saxParserErrorHandler),
-		 mColladaLoader(colladaLoader),
-		 mFileURI(fileURI),
-		 mLibxmlSaxParse(this)
+         : ColladaParserAutoGenPrivate(0, saxParserErrorHandler)
+		 , mColladaLoader(colladaLoader)
+		 , mFileURI(fileURI)
+		 , mLibxmlSaxParse(this)
+		 , mSidTreeRoot( new SidTreeNode("", 0) )
+		 , mCurrentSidTreeNode( mSidTreeRoot )
 	{
 		setCallbackObject(this);
+		registerUnknownElementHandler( &mRawUnknownElementHandler );
 	}
 
 	//-----------------------------
 	FileLoader::~FileLoader()
 	{
+		delete mSidTreeRoot;
 	}
 
 	//-----------------------------
@@ -54,6 +62,105 @@ namespace COLLADASaxFWL
 	{
 		bool success = mLibxmlSaxParse.parseFile(mFileURI.toNativePath().c_str());
 		return success;
+	}
+
+	//---------------------------------
+	SidTreeNode* FileLoader::addToSidTree( const char* colladaId, const char* colladaSid )
+	{
+		mCurrentSidTreeNode = mCurrentSidTreeNode->createAndAddChild( colladaSid ? colladaSid : "");
+
+		if ( colladaId && *colladaId )
+		{
+			mIdStringSidTreeNodeMap[colladaId] = mCurrentSidTreeNode;
+		}
+		return mCurrentSidTreeNode;
+	}
+
+
+
+	//---------------------------------
+	void FileLoader::moveUpInSidTree()
+	{
+		assert(mCurrentSidTreeNode);
+		mCurrentSidTreeNode = mCurrentSidTreeNode->getParent();
+	}
+
+	//---------------------------------
+	const SidTreeNode* FileLoader::resolveSid( const SidAddress& sidAddress )
+	{
+		if ( !sidAddress.isValid() )
+			return 0;
+
+		SidTreeNode* startingPoint = 0;
+		const String& id = sidAddress.getId();
+		if ( !id.empty() )
+		{
+			// search for element with id 
+			startingPoint = findSidTreeNodeByStringId( id );
+		}
+
+		if ( !startingPoint )
+			return 0;
+
+		SidTreeNode* currentNode = startingPoint;
+		const SidAddress::SidList& sids = sidAddress.getSids();
+		for ( size_t i = 0, count = sids.size(); i < count; ++i)
+		{
+			const String& currentSid = sids[i];
+			currentNode = currentNode->findChildBySid( currentSid );
+			
+			if ( !currentNode )
+				return 0;
+		}
+		return currentNode;
+	}
+
+	//-----------------------------
+	SidTreeNode* FileLoader::findSidTreeNodeByStringId( const String& id )
+	{
+		IdStringSidTreeNodeMap::iterator it = mIdStringSidTreeNodeMap.find(id);
+		if ( it == mIdStringSidTreeNodeMap.end() )
+		{
+			return 0;
+		}
+		else
+		{
+			return it->second;
+		}
+	}
+
+	//-----------------------------
+	void FileLoader::addToAnimationUniqueIdSidAddressPairList( const COLLADAFW::UniqueId& animationUniqueId, const SidAddress& targetSidAddress )
+	{
+		mAnimationUniqueIdSidAddressPairs.push_back(std::make_pair(animationUniqueId, targetSidAddress));
+	}
+
+	COLLADAFW::AnimationList*& FileLoader::getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId )
+	{
+		return mUniqueIdAnimationListMap[animationListUniqueId];
+	}
+
+	//-----------------------------
+	void FileLoader::writeAndDeleteVisualScenes()
+	{
+		for ( size_t i = 0, count = mVisualScenes.size(); i < count; ++i)
+		{
+			COLLADAFW::VisualScene *visualScene = mVisualScenes[i];
+			writer()->writeVisualScene(visualScene);
+			FW_DELETE visualScene;
+		}
+	}
+
+	//-----------------------------
+	void FileLoader::writeAndDeleteAnimationLists()
+	{
+		UniqueIdAnimationListMap::const_iterator it = mUniqueIdAnimationListMap.begin();
+		for ( ; it != mUniqueIdAnimationListMap.end(); ++it )
+		{
+			COLLADAFW::AnimationList* animationList = it->second;
+			writer()->writeAnimationList( animationList );
+			FW_DELETE animationList;
+		}
 	}
 
     //-----------------------------
@@ -72,7 +179,7 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(begin__visual_scene(attributeData));
 		deleteFilePartLoader();
-		VisualSceneLoader* visualSceneLoader = new VisualSceneLoader(this);
+		VisualSceneLoader* visualSceneLoader = new VisualSceneLoader(this, attributeData.id);
 		setPartLoader(visualSceneLoader);
 		setParser(visualSceneLoader);
 		return true;
@@ -193,10 +300,12 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-    bool FileLoader::end__COLLADA ()
+    bool FileLoader::end__COLLADA()
     {
 		SaxVirtualFunctionTest(end__COLLADA());
-        writer ()->finish ();
+		writeAndDeleteVisualScenes();
+		writeAndDeleteAnimationLists();
+        writer()->finish();
         return true;
     }
 

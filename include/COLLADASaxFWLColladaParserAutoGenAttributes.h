@@ -32,7 +32,7 @@ struct COLLADA__AttributeData
     static const COLLADA__AttributeData DEFAULT;
 
     ENUM__VersionType version;
-    const ParserChar* base;
+    COLLADABU::URI base;
 };
 
 const StringHash HASH_ELEMENT_ASSET = 6859204;
@@ -147,13 +147,13 @@ struct animation__AttributeData
     const ParserChar* name;
 };
 
-const StringHash HASH_ELEMENT_ANIMATION__SOURCE = 242146325;
-extern const char* NAME_ELEMENT_ANIMATION__SOURCE;
 const StringHash HASH_ELEMENT_SOURCE = 128370837;
 extern const char* NAME_ELEMENT_SOURCE;
-struct animation__source__AttributeData
+const StringHash HASH_ELEMENT_ANIMATION__SOURCE = 242146325;
+extern const char* NAME_ELEMENT_ANIMATION__SOURCE;
+struct source__AttributeData
 {
-    static const animation__source__AttributeData DEFAULT;
+    static const source__AttributeData DEFAULT;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -261,23 +261,23 @@ struct accessor__AttributeData
 
     uint64 count;
     uint64 offset;
-    const ParserChar* source;
+    COLLADABU::URI source;
     uint64 stride;
 };
 
-const StringHash HASH_ELEMENT_ACCESSOR__PARAM = 246253965;
-extern const char* NAME_ELEMENT_ACCESSOR__PARAM;
 const StringHash HASH_ELEMENT_PARAM = 7768189;
 extern const char* NAME_ELEMENT_PARAM;
+const StringHash HASH_ELEMENT_ACCESSOR__PARAM = 246253965;
+extern const char* NAME_ELEMENT_ACCESSOR__PARAM;
 const StringHash HASH_ATTRIBUTE_SID = 31220;
 extern const char* NAME_ATTRIBUTE_SID;
 const StringHash HASH_ATTRIBUTE_SEMANTIC = 205020515;
 extern const char* NAME_ATTRIBUTE_SEMANTIC;
 const StringHash HASH_ATTRIBUTE_TYPE = 508005;
 extern const char* NAME_ATTRIBUTE_TYPE;
-struct accessor__param__AttributeData
+struct param__AttributeData
 {
-    static const accessor__param__AttributeData DEFAULT;
+    static const param__AttributeData DEFAULT;
 
     const ParserChar* name;
     const ParserChar* sid;
@@ -285,17 +285,15 @@ struct accessor__param__AttributeData
     const ParserChar* type;
 };
 
-const StringHash HASH_ELEMENT_ANIMATION__SOURCE__TECHNIQUE = 147361733;
-extern const char* NAME_ELEMENT_ANIMATION__SOURCE__TECHNIQUE;
 const StringHash HASH_ELEMENT_TECHNIQUE = 167080453;
 extern const char* NAME_ELEMENT_TECHNIQUE;
 const StringHash HASH_ELEMENT_SOURCE__TECHNIQUE = 1838725;
 extern const char* NAME_ELEMENT_SOURCE__TECHNIQUE;
 const StringHash HASH_ATTRIBUTE_PROFILE = 127258709;
 extern const char* NAME_ATTRIBUTE_PROFILE;
-struct animation__source__technique__AttributeData
+struct technique__AttributeData
 {
-    static const animation__source__technique__AttributeData DEFAULT;
+    static const technique__AttributeData DEFAULT;
 
     const ParserChar* profile;
 };
@@ -392,7 +390,7 @@ struct instance_animation__AttributeData
 {
     static const instance_animation__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -553,7 +551,7 @@ struct skin__AttributeData
 {
     static const skin__AttributeData DEFAULT;
 
-    const ParserChar* source;
+    COLLADABU::URI source;
 };
 
 const StringHash HASH_ELEMENT_BIND_SHAPE_MATRIX = 80689944;
@@ -614,7 +612,7 @@ struct morph__AttributeData
     static const morph__AttributeData DEFAULT;
 
     ENUM__MorphMethodType method;
-    const ParserChar* source;
+    COLLADABU::URI source;
 };
 
 const StringHash HASH_ELEMENT_TARGETS = 176741571;
@@ -656,7 +654,7 @@ struct convex_mesh__AttributeData
 {
     static const convex_mesh__AttributeData DEFAULT;
 
-    const ParserChar* convex_hull_of;
+    COLLADABU::URI convex_hull_of;
 };
 
 const StringHash HASH_ELEMENT_VERTICES = 211484163;
@@ -1578,7 +1576,7 @@ struct instance_effect__AttributeData
 {
     static const instance_effect__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -1635,7 +1633,7 @@ struct node__AttributeData
     const ParserChar* name;
     const ParserChar* sid;
     ENUM__NodeType type;
-    const ParserChar* layer;
+    GeneratedSaxParser::XSList<ParserString> layer;
 };
 
 const StringHash HASH_ELEMENT_LOOKAT = 121004420;
@@ -1712,7 +1710,7 @@ struct instance_camera__AttributeData
 {
     static const instance_camera__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -1725,7 +1723,7 @@ struct instance_controller__AttributeData
 {
     static const instance_controller__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -1754,7 +1752,7 @@ struct instance_material__AttributeData
     static const instance_material__AttributeData DEFAULT;
 
     const ParserChar* symbol;
-    const ParserChar* target;
+    COLLADABU::URI target;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -1796,7 +1794,7 @@ struct instance_geometry__AttributeData
 {
     static const instance_geometry__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -1809,7 +1807,7 @@ struct instance_light__AttributeData
 {
     static const instance_light__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -1822,7 +1820,7 @@ struct instance_node__AttributeData
 {
     static const instance_node__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -1976,7 +1974,7 @@ struct instance_physics_material__AttributeData
 {
     static const instance_physics_material__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -2106,7 +2104,7 @@ struct ref_attachment__AttributeData
 {
     static const ref_attachment__AttributeData DEFAULT;
 
-    const ParserChar* rigid_body;
+    COLLADABU::URI rigid_body;
 };
 
 const StringHash HASH_ELEMENT_ATTACHMENT = 127513076;
@@ -2117,7 +2115,7 @@ struct attachment__AttributeData
 {
     static const attachment__AttributeData DEFAULT;
 
-    const ParserChar* rigid_body;
+    COLLADABU::URI rigid_body;
 };
 
 const StringHash HASH_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE_COMMON = 28989358;
@@ -2238,10 +2236,10 @@ struct instance_physics_model__AttributeData
 {
     static const instance_physics_model__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
-    const ParserChar* parent;
+    COLLADABU::URI parent;
 };
 
 const StringHash HASH_ELEMENT_INSTANCE_FORCE_FIELD = 195760404;
@@ -2252,7 +2250,7 @@ struct instance_force_field__AttributeData
 {
     static const instance_force_field__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -2270,7 +2268,7 @@ struct instance_rigid_body__AttributeData
     const ParserChar* body;
     const ParserChar* sid;
     const ParserChar* name;
-    const ParserChar* target;
+    COLLADABU::URI target;
 };
 
 const StringHash HASH_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE_COMMON = 107721262;
@@ -2419,7 +2417,7 @@ struct render__AttributeData
 {
     static const render__AttributeData DEFAULT;
 
-    const ParserChar* camera_node;
+    COLLADABU::URI camera_node;
 };
 
 const StringHash HASH_ELEMENT_LAYER = 7507906;
@@ -2440,7 +2438,7 @@ struct instance_physics_scene__AttributeData
 {
     static const instance_physics_scene__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -2453,7 +2451,7 @@ struct instance_visual_scene__AttributeData
 {
     static const instance_visual_scene__AttributeData DEFAULT;
 
-    const ParserChar* url;
+    COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
 };
@@ -2519,8 +2517,8 @@ const StringHash HASH_ELEMENT_RGB = 22194;
 extern const char* NAME_ELEMENT_RGB;
 const StringHash HASH_ELEMENT_TEXCOMBINER__RGB = 102851090;
 extern const char* NAME_ELEMENT_TEXCOMBINER__RGB;
-const StringHash HASH_ATTRIBUTE__OPERATOR = 113831170;
-extern const char* NAME_ATTRIBUTE__OPERATOR;
+const StringHash HASH_ATTRIBUTE_OPERATOR = 113806850;
+extern const char* NAME_ATTRIBUTE_OPERATOR;
 const StringHash HASH_ATTRIBUTE_SCALE = 7968805;
 extern const char* NAME_ATTRIBUTE_SCALE;
 struct RGB__AttributeData
@@ -2822,7 +2820,7 @@ struct profile_GLES__technique__pass__clear_stencil__AttributeData
 {
     static const profile_GLES__technique__pass__clear_stencil__AttributeData DEFAULT;
 
-    sint32 value;
+    sint64 value;
     const ParserChar* param;
 };
 
@@ -3410,7 +3408,7 @@ struct profile_GLES__technique__pass__scissor__AttributeData
 {
     static const profile_GLES__technique__pass__scissor__AttributeData DEFAULT;
 
-    GeneratedSaxParser::XSList<sint32> value;
+    GeneratedSaxParser::XSList<sint64> value;
     const ParserChar* param;
 };
 
@@ -3485,7 +3483,7 @@ struct profile_GLES__technique__pass__stencil_mask__AttributeData
 {
     static const profile_GLES__technique__pass__stencil_mask__AttributeData DEFAULT;
 
-    sint32 value;
+    sint64 value;
     const ParserChar* param;
 };
 
@@ -3908,7 +3906,7 @@ struct include__AttributeData
     static const include__AttributeData DEFAULT;
 
     const ParserChar* sid;
-    const ParserChar* url;
+    COLLADABU::URI url;
 };
 
 const StringHash HASH_ELEMENT_NEWPARAM____GLSL_NEWPARAM = 103133597;
@@ -5027,7 +5025,7 @@ struct profile_GLSL__technique__pass__clear_stencil__AttributeData
 {
     static const profile_GLSL__technique__pass__clear_stencil__AttributeData DEFAULT;
 
-    sint32 value;
+    sint64 value;
     const ParserChar* param;
 };
 
@@ -5151,7 +5149,7 @@ struct line_stipple__AttributeData
 {
     static const line_stipple__AttributeData DEFAULT;
 
-    GeneratedSaxParser::XSList<sint32> value;
+    GeneratedSaxParser::XSList<sint64> value;
     const ParserChar* param;
 };
 
@@ -5301,7 +5299,7 @@ struct profile_GLSL__technique__pass__scissor__AttributeData
 {
     static const profile_GLSL__technique__pass__scissor__AttributeData DEFAULT;
 
-    GeneratedSaxParser::XSList<sint32> value;
+    GeneratedSaxParser::XSList<sint64> value;
     const ParserChar* param;
 };
 
@@ -5311,7 +5309,7 @@ struct profile_GLSL__technique__pass__stencil_mask__AttributeData
 {
     static const profile_GLSL__technique__pass__stencil_mask__AttributeData DEFAULT;
 
-    sint32 value;
+    sint64 value;
     const ParserChar* param;
 };
 
@@ -6391,24 +6389,24 @@ extern const char* NAME_ELEMENT_EMISSION;
 const StringHash HASH_ELEMENT_CONSTANT__EMISSION = 17478014;
 extern const char* NAME_ELEMENT_CONSTANT__EMISSION;
 
-const StringHash HASH_ELEMENT_COMMON_TRANSPARENT_TYPE____COLOR = 202412786;
-extern const char* NAME_ELEMENT_COMMON_TRANSPARENT_TYPE____COLOR;
+const StringHash HASH_ELEMENT_COMMON_COLOR_OR_TEXTURE_TYPE____COLOR = 143009378;
+extern const char* NAME_ELEMENT_COMMON_COLOR_OR_TEXTURE_TYPE____COLOR;
 const StringHash HASH_ELEMENT_EMISSION__COLOR = 99748322;
 extern const char* NAME_ELEMENT_EMISSION__COLOR;
-struct common_transparent_type____color__AttributeData
+struct common_color_or_texture_type____color__AttributeData
 {
-    static const common_transparent_type____color__AttributeData DEFAULT;
+    static const common_color_or_texture_type____color__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
 
-const StringHash HASH_ELEMENT_COMMON_TRANSPARENT_TYPE____PARAM = 204495853;
-extern const char* NAME_ELEMENT_COMMON_TRANSPARENT_TYPE____PARAM;
+const StringHash HASH_ELEMENT_COMMON_COLOR_OR_TEXTURE_TYPE____PARAM = 146460541;
+extern const char* NAME_ELEMENT_COMMON_COLOR_OR_TEXTURE_TYPE____PARAM;
 const StringHash HASH_ELEMENT_EMISSION__PARAM = 97460989;
 extern const char* NAME_ELEMENT_EMISSION__PARAM;
-struct common_transparent_type____param__AttributeData
+struct common_color_or_texture_type____param__AttributeData
 {
-    static const common_transparent_type____param__AttributeData DEFAULT;
+    static const common_color_or_texture_type____param__AttributeData DEFAULT;
 
     const ParserChar* ref;
 };

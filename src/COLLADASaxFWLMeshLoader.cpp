@@ -725,16 +725,16 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__animation__source( const animation__source__AttributeData& attributes )
+	bool MeshLoader::begin__source( const source__AttributeData& attributes )
 	{
-		SaxVirtualFunctionTest(begin__animation__source(attributes));
+		SaxVirtualFunctionTest(begin__source(attributes));
 		return beginSource(attributes);
 	}
 
 	//------------------------------
-	bool MeshLoader::end__animation__source(  )
+	bool MeshLoader::end__source(  )
 	{
-		SaxVirtualFunctionTest(end__animation__source());
+		SaxVirtualFunctionTest(end__source());
 		return endSource();
 	}
 

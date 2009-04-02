@@ -66,7 +66,6 @@ namespace COLLADASaxFWL
 		SaxVirtualFunctionTest(end__image()); 
 		bool success = writer()->writeImage(mCurrentImage);
 		FW_DELETE mCurrentImage;
-		mCurrentImageURIPart.clear();
 		return success;
 	}
 
@@ -82,18 +81,15 @@ namespace COLLADASaxFWL
 	bool LibraryImagesLoader::end__init_from____anyURI()
 	{
 		SaxVirtualFunctionTest(end__init_from____anyURI()); 
-		String imageUriString( mCurrentImageURIPart.getData(), mCurrentImageURIPart.getCount() );
-		mCurrentImageURIPart.setCount(0);
-		COLLADABU::URI imageUri( imageUriString );
-		mCurrentImage->setImageURI( imageUri );
+		// we don't need to do anything here
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryImagesLoader::data__init_from____anyURI( const ParserChar* data, size_t length )
+	bool LibraryImagesLoader::data__init_from____anyURI( COLLADABU::URI value )
 	{
-		SaxVirtualFunctionTest(data__init_from____anyURI(data, length)); 
-		mCurrentImageURIPart.appendValues( data, length );
+		SaxVirtualFunctionTest(data__init_from____anyURI(value)); 
+		mCurrentImage->setImageURI( value );
 		return true;
 	}
 

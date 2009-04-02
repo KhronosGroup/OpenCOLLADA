@@ -11,6 +11,8 @@
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLIFilePartLoader.h"
 #include "COLLADASaxFWLLoader.h"
+#include "COLLADASaxFWLFileLoader.h"
+#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -70,6 +72,16 @@ namespace COLLADASaxFWL
 		return getColladaLoader()->getUniqueId(uri, classId);
 	}
 
+	//-----------------------------
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId )
+	{
+		assert( getColladaLoader() );
+
+		COLLADABU::URI absoluteUri(getFileUri(), url.getURIString());
+
+		return getColladaLoader()->getUniqueId(absoluteUri, classId);
+	}
+
 
 	//-----------------------------
 	COLLADAFW::UniqueId IFilePartLoader::getUniqueId( COLLADAFW::ClassId classId )
@@ -106,6 +118,93 @@ namespace COLLADASaxFWL
 	{
 		assert( getColladaLoader() );
 		return getColladaLoader()->getTextureMapIdBySematic(semantic);
+	}
+
+	//------------------------------
+	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid )
+	{
+		getFileLoader()->addToSidTree( colladaId, colladaSid );
+	}
+
+	//------------------------------
+	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Object* target )
+	{
+		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
+	}
+
+	//------------------------------
+	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target )
+	{
+		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
+	}
+
+	//------------------------------
+	void IFilePartLoader::moveUpInSidTree()
+	{
+		getFileLoader()->moveUpInSidTree();
+	}
+
+	//------------------------------
+	const SidTreeNode* IFilePartLoader::resolveSid( const SidAddress& sidAddress )
+	{
+		return getFileLoader()->resolveSid(sidAddress);
+	}
+
+	//------------------------------
+	void IFilePartLoader::addToAnimationUniqueIdSidAddressPairList( const COLLADAFW::UniqueId& animationUniqueId, const SidAddress& targetSidAddress )
+	{
+		getFileLoader()->addToAnimationUniqueIdSidAddressPairList( animationUniqueId, targetSidAddress );
+	}
+
+	//------------------------------
+	COLLADAFW::AnimationList*& IFilePartLoader::getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId )
+	{
+		return getFileLoader()->getAnimationListByUniqueId( animationListUniqueId );
+	}
+
+	//------------------------------
+	bool IFilePartLoader::begin__technique( const technique__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest(begin__technique(attributeData))
+		if ( attributeData.profile )
+		{
+			mTechniqueProfileName.assign( attributeData.profile );
+		}
+		else
+		{
+			mTechniqueProfileName.clear();	
+		}
+		return true;
+	}
+
+	//------------------------------
+	bool IFilePartLoader::end__technique()
+	{
+		SaxVirtualFunctionTest(end__technique())
+		GeneratedSaxParser::RawUnknownElementHandler& rawUnknownElementHandler = getFileLoader()->getRawUnknownElementHandler();
+
+		COLLADAFW::ExtraData* extraData = getExtraData();
+		if ( extraData )
+		{
+			COLLADAFW::ExtraDataArray& extraDataArray = extraData->getExtraDataArray();
+			String key = COLLADAFW::ExtraKeys::BASEKEY;
+			const char* secondKey = getSecondKey();
+			if ( secondKey )
+			{
+				key.append( COLLADAFW::ExtraKeys::KEYSEPARATOR );
+				key.append( secondKey );
+			}
+			key.append( COLLADAFW::ExtraKeys::KEYSEPARATOR );
+			key.append( COLLADAFW::ExtraKeys::EXTRAKEY );
+
+			key.append( COLLADAFW::ExtraKeys::KEYSEPARATOR );
+			key.append( mTechniqueProfileName );
+
+			extraDataArray.append( FW_NEW COLLADAFW::ExtraDataPair( key, rawUnknownElementHandler.getRawData()) );
+		}
+
+		rawUnknownElementHandler.clearRawData();
+		return true;
 	}
 
 } // namespace COLLADASaxFWL

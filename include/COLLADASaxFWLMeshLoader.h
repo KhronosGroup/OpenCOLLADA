@@ -156,10 +156,10 @@ namespace COLLADASaxFWL
         virtual ~MeshLoader () {}
 
 		/** Sax callback function for the beginning of a source element.*/
-		virtual bool begin__animation__source(const animation__source__AttributeData& attributes);
+		virtual bool begin__source(const source__AttributeData& attributes);
 
 		/** Sax callback function for the ending of a source element.*/
-		virtual bool end__animation__source();
+		virtual bool end__source();
 		
 		/** Cleans up everything and gives control to calling file part loader.*/
 		virtual bool end__mesh();

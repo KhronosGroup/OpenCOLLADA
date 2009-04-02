@@ -36,7 +36,7 @@ namespace COLLADASaxFWL
 	public:
 
         /** Constructor. */
-		VisualSceneLoader(IFilePartLoader* callingFilePartLoader);
+		VisualSceneLoader(IFilePartLoader* callingFilePartLoader, const char* id);
 
         /** Destructor. */
 		virtual ~VisualSceneLoader();

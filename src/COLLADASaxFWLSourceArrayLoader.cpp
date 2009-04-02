@@ -37,6 +37,27 @@ namespace COLLADASaxFWL
 			delete mSourceArray[i];
 	}
 
+	//------------------------------
+	COLLADAFW::String SourceArrayLoader::getIdFromURIFragmentType( const char* uriFragment )
+	{
+		if ( !uriFragment )
+			return "";
+
+		const char* startPos = uriFragment;
+		while ( *startPos && GeneratedSaxParser::Utils::isWhiteSpace(*startPos))
+			startPos++;
+
+		// skip leading '#' if present. (the uriFragment would be invalid if there is no '#', but we are tolerant)
+		if ( *startPos == '#' )
+			startPos++;
+
+		const char* endPos = startPos;
+		while ( *endPos && !GeneratedSaxParser::Utils::isWhiteSpace(*endPos) )
+			endPos++;
+
+		return String(startPos, endPos - startPos);
+	}
+
     //------------------------------
     const SourceArray& SourceArrayLoader::getSourceArray () const
     {
@@ -74,10 +95,10 @@ namespace COLLADASaxFWL
     }
 
 	//------------------------------
-	bool SourceArrayLoader::beginSource( const animation__source__AttributeData& attributes )
+	bool SourceArrayLoader::beginSource( const source__AttributeData& attributes )
 	{
 		if ( attributes.id )
-			mCurrentSourceId = (const char*)attributes.id;
+			mCurrentSourceId = attributes.id;
 		return true;
 	}
 
@@ -99,13 +120,7 @@ namespace COLLADASaxFWL
 	bool SourceArrayLoader::begin__float_array( const float_array__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__float_array(attributeData));
-		FloatSource* newSource = new FloatSource();
-		newSource->getArrayElement().getValues().allocMemory((size_t)attributeData.count);
-		newSource->setId(mCurrentSourceId);
-		mCurrentSoure = newSource;
-		if ( attributeData.id )
-			mCurrentArrayId = (const char*)attributeData.id;
-		return true;
+		return beginArray<FloatSource>( attributeData.count, attributeData.id ) != 0;
 	}
 
 	//------------------------------

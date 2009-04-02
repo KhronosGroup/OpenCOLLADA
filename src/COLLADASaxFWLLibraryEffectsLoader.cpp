@@ -497,24 +497,24 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool LibraryEffectsLoader::begin__common_transparent_type____color( const common_transparent_type____color__AttributeData& attributeData )
+	bool LibraryEffectsLoader::begin__common_color_or_texture_type____color( const common_color_or_texture_type____color__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__common_transparent_type____color(attributeData)); 
+		SaxVirtualFunctionTest(begin__common_color_or_texture_type____color(attributeData)); 
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryEffectsLoader::end__common_transparent_type____color()
+	bool LibraryEffectsLoader::end__common_color_or_texture_type____color()
 	{
-		SaxVirtualFunctionTest(end__common_transparent_type____color()); 
+		SaxVirtualFunctionTest(end__common_color_or_texture_type____color()); 
 		mCurrentColorValueIndex = 0;
 		return true;
 	}
 
 	//------------------------------
-	bool LibraryEffectsLoader::data__common_transparent_type____color( const float* data, size_t length )
+	bool LibraryEffectsLoader::data__common_color_or_texture_type____color( const float* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__common_transparent_type____color(data, length)); 
+		SaxVirtualFunctionTest(data__common_color_or_texture_type____color(data, length)); 
 		return handleColorData(data, length);
 	}
 

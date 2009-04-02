@@ -31,7 +31,7 @@ namespace COLLADASaxFWL
 	public:
 		static const COLLADAFW::FloatOrDoubleArray::DataType DATA_TYPE_REAL;
 
-	private:
+	protected:
 	
         /**
         * Provides the bulk of the mesh’s vertex data. See main entry.
@@ -46,6 +46,11 @@ namespace COLLADASaxFWL
 
 		/** The id of the array being parsed.*/
 		String mCurrentArrayId;
+
+	public:
+		/** Takes a null terminated string, that represents an uriFragment of URIFragmentType defined in the 
+		COLLADA XSD and returns the id it points to.*/
+		static String getIdFromURIFragmentType( const char* uriFragment );
 
 	protected:
 
@@ -85,11 +90,19 @@ namespace COLLADASaxFWL
 
 		/** Handles the beginning of a source element. Should be called by derived classes, 
 		when an opening \<source\> tag is detected.*/
-		bool beginSource(const animation__source__AttributeData& attributes);
+		bool beginSource(const source__AttributeData& attributes);
 
 		/** Handles the ending of a source element. Should be called by derived classes, 
 		when a closing \<source\> tag is detected.*/
 		bool endSource();
+
+		/** Handles the beginning of a array element. Should be called when ever an array is opened.
+		@tparam SourceType Type of source to create a new instance from for the opened array, e.g. FloatSource for <float_array>
+		@param count The Value of the count attribute of the aray
+		@param id The if of the array element
+		@return The new created source*/
+		template<class SourceType> 
+		SourceType* beginArray( uint64 count, const ParserChar* id );
 
 
 		/** Sax callback function for the beginning of a float array element.*/
@@ -124,8 +137,23 @@ namespace COLLADASaxFWL
 
         /** Disable default assignment operator. */
 		const SourceArrayLoader& operator= ( const SourceArrayLoader& pre );
-
 	};
+
+
+	//------------------------------
+	template<class SourceType>
+	SourceType* SourceArrayLoader::beginArray( uint64 count,  const ParserChar* id )
+	{
+		SourceType* newSource = new SourceType();
+		newSource->getArrayElement().getValues().allocMemory((size_t)count);
+		newSource->setId(mCurrentSourceId);
+		mCurrentSoure = newSource;
+		if ( id )
+			mCurrentArrayId = id;
+		return newSource;
+	}
+
+
 
 } // namespace COLLADAFW
 

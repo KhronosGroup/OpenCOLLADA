@@ -34,6 +34,7 @@ typedef GeneratedSaxParser::uint64 uint64;
 
 typedef GeneratedSaxParser::StringHash StringHash;
 typedef GeneratedSaxParser::ParserChar ParserChar;
+typedef GeneratedSaxParser::ParserString ParserString;
 typedef GeneratedSaxParser::ParserAttributes ParserAttributes;
 typedef GeneratedSaxParser::Utils Utils;
 typedef GeneratedSaxParser::ParserError ParserError;

@@ -44,6 +44,7 @@ namespace COLLADASaxFWL
 			DATA_TYPE_BOOL,
 			DATA_TYPE_NAME,
 			DATA_TYPE_IDREF,
+			DATA_TYPE_INTERPOLATIONTYPE,
 			DATA_TYPE_UNKNOWN
 		};
 
@@ -171,7 +172,6 @@ namespace COLLADASaxFWL
         /** Destructor. */
         virtual ~Source () 
 		{
-			int gg = 0;
 		}
 
 		/**

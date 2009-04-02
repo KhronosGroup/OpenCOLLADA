@@ -55,7 +55,7 @@ virtual bool data__copyright( const ParserChar* value, size_t length ){return tr
 
 virtual bool begin__source_data(){return true;}
 virtual bool end__source_data(){return true;}
-virtual bool data__source_data( const ParserChar* value, size_t length ){return true;}
+virtual bool data__source_data( COLLADABU::URI value ){return true;}
 
 virtual bool begin__created(){return true;}
 virtual bool end__created(){return true;}
@@ -94,16 +94,16 @@ virtual bool end__library_animations(){return true;}
 virtual bool begin__animation( const animation__AttributeData& attributeData ){return true;}
 virtual bool end__animation(){return true;}
 
-virtual bool begin__animation__source( const animation__source__AttributeData& attributeData ){return true;}
-virtual bool end__animation__source(){return true;}
+virtual bool begin__source( const source__AttributeData& attributeData ){return true;}
+virtual bool end__source(){return true;}
 
 virtual bool begin__IDREF_array( const IDREF_array__AttributeData& attributeData ){return true;}
 virtual bool end__IDREF_array(){return true;}
-virtual bool data__IDREF_array( const ParserChar* value, size_t length ){return true;}
+virtual bool data__IDREF_array( const ParserString* value, size_t length ){return true;}
 
 virtual bool begin__Name_array( const Name_array__AttributeData& attributeData ){return true;}
 virtual bool end__Name_array(){return true;}
-virtual bool data__Name_array( const ParserChar* value, size_t length ){return true;}
+virtual bool data__Name_array( const ParserString* value, size_t length ){return true;}
 
 virtual bool begin__bool_array( const bool_array__AttributeData& attributeData ){return true;}
 virtual bool end__bool_array(){return true;}
@@ -115,7 +115,7 @@ virtual bool data__float_array( const float* value, size_t length ){return true;
 
 virtual bool begin__int_array( const int_array__AttributeData& attributeData ){return true;}
 virtual bool end__int_array(){return true;}
-virtual bool data__int_array( const sint32* value, size_t length ){return true;}
+virtual bool data__int_array( const sint64* value, size_t length ){return true;}
 
 virtual bool begin__animation__source__technique_common(){return true;}
 virtual bool end__animation__source__technique_common(){return true;}
@@ -123,12 +123,12 @@ virtual bool end__animation__source__technique_common(){return true;}
 virtual bool begin__accessor( const accessor__AttributeData& attributeData ){return true;}
 virtual bool end__accessor(){return true;}
 
-virtual bool begin__accessor__param( const accessor__param__AttributeData& attributeData ){return true;}
-virtual bool end__accessor__param(){return true;}
-virtual bool data__accessor__param( const ParserChar* value, size_t length ){return true;}
+virtual bool begin__param( const param__AttributeData& attributeData ){return true;}
+virtual bool end__param(){return true;}
+virtual bool data__param( const ParserChar* value, size_t length ){return true;}
 
-virtual bool begin__animation__source__technique( const animation__source__technique__AttributeData& attributeData ){return true;}
-virtual bool end__animation__source__technique(){return true;}
+virtual bool begin__technique( const technique__AttributeData& attributeData ){return true;}
+virtual bool end__technique(){return true;}
 
 virtual bool begin__sampler( const sampler__AttributeData& attributeData ){return true;}
 virtual bool end__sampler(){return true;}
@@ -228,7 +228,7 @@ virtual bool data__vcount( const uint64* value, size_t length ){return true;}
 
 virtual bool begin__v(){return true;}
 virtual bool end__v(){return true;}
-virtual bool data__v( const sint32* value, size_t length ){return true;}
+virtual bool data__v( const sint64* value, size_t length ){return true;}
 
 virtual bool begin__morph( const morph__AttributeData& attributeData ){return true;}
 virtual bool end__morph(){return true;}
@@ -316,19 +316,19 @@ virtual bool data__bool4____bool4( const bool* value, size_t length ){return tru
 
 virtual bool begin__int____int(){return true;}
 virtual bool end__int____int(){return true;}
-virtual bool data__int____int( sint32 value ){return true;}
+virtual bool data__int____int( sint64 value ){return true;}
 
 virtual bool begin__int2____int2(){return true;}
 virtual bool end__int2____int2(){return true;}
-virtual bool data__int2____int2( const sint32* value, size_t length ){return true;}
+virtual bool data__int2____int2( const sint64* value, size_t length ){return true;}
 
 virtual bool begin__int3____int3(){return true;}
 virtual bool end__int3____int3(){return true;}
-virtual bool data__int3____int3( const sint32* value, size_t length ){return true;}
+virtual bool data__int3____int3( const sint64* value, size_t length ){return true;}
 
 virtual bool begin__int4____int4(){return true;}
 virtual bool end__int4____int4(){return true;}
-virtual bool data__int4____int4( const sint32* value, size_t length ){return true;}
+virtual bool data__int4____int4( const sint64* value, size_t length ){return true;}
 
 virtual bool begin__float____float(){return true;}
 virtual bool end__float____float(){return true;}
@@ -371,7 +371,7 @@ virtual bool data__data( const uint8* value, size_t length ){return true;}
 
 virtual bool begin__init_from____anyURI(){return true;}
 virtual bool end__init_from____anyURI(){return true;}
-virtual bool data__init_from____anyURI( const ParserChar* value, size_t length ){return true;}
+virtual bool data__init_from____anyURI( COLLADABU::URI value ){return true;}
 
 virtual bool begin__newparam____fx_newparam_common( const newparam____fx_newparam_common__AttributeData& attributeData ){return true;}
 virtual bool end__newparam____fx_newparam_common(){return true;}
@@ -507,7 +507,7 @@ virtual bool data__option( const ENUM__fx_surface_format_hint_option_enum value 
 
 virtual bool begin__size____int3(){return true;}
 virtual bool end__size____int3(){return true;}
-virtual bool data__size____int3( const sint32* value, size_t length ){return true;}
+virtual bool data__size____int3( const sint64* value, size_t length ){return true;}
 
 virtual bool begin__viewport_ratio(){return true;}
 virtual bool end__viewport_ratio(){return true;}
@@ -694,7 +694,7 @@ virtual bool end__instance_controller(){return true;}
 
 virtual bool begin__skeleton(){return true;}
 virtual bool end__skeleton(){return true;}
-virtual bool data__skeleton( const ParserChar* value, size_t length ){return true;}
+virtual bool data__skeleton( COLLADABU::URI value ){return true;}
 
 virtual bool begin__bind_material(){return true;}
 virtual bool end__bind_material(){return true;}
@@ -2438,12 +2438,12 @@ virtual bool end__profile_COMMON__technique__constant(){return true;}
 virtual bool begin__emission(){return true;}
 virtual bool end__emission(){return true;}
 
-virtual bool begin__common_transparent_type____color( const common_transparent_type____color__AttributeData& attributeData ){return true;}
-virtual bool end__common_transparent_type____color(){return true;}
-virtual bool data__common_transparent_type____color( const float* value, size_t length ){return true;}
+virtual bool begin__common_color_or_texture_type____color( const common_color_or_texture_type____color__AttributeData& attributeData ){return true;}
+virtual bool end__common_color_or_texture_type____color(){return true;}
+virtual bool data__common_color_or_texture_type____color( const float* value, size_t length ){return true;}
 
-virtual bool begin__common_transparent_type____param( const common_transparent_type____param__AttributeData& attributeData ){return true;}
-virtual bool end__common_transparent_type____param(){return true;}
+virtual bool begin__common_color_or_texture_type____param( const common_color_or_texture_type____param__AttributeData& attributeData ){return true;}
+virtual bool end__common_color_or_texture_type____param(){return true;}
 
 virtual bool begin__texture( const texture__AttributeData& attributeData ){return true;}
 virtual bool end__texture(){return true;}

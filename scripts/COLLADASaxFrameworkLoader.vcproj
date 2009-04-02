@@ -404,6 +404,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLSidAddress.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLSidTreeNode.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLSourceArrayLoader.cpp"
 				>
 			</File>
@@ -490,6 +498,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLInterpolationTypeSource.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLLibraryAnimationsLoader.h"
 				>
 			</File>
@@ -555,6 +567,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLSaxParserErrorHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLSidAddress.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLSidTreeNode.h"
 				>
 			</File>
 			<File

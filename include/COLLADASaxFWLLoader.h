@@ -13,6 +13,7 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLGeometryMaterialIdInfo.h"
+#include "COLLADASaxFWLSidTreeNode.h"
 
 #include "COLLADAFWILoader.h"
 #include "COLLADAFWLoaderUtils.h"
@@ -47,6 +48,7 @@ namespace COLLADASaxFWL
 	private:
 		typedef COLLADABU::HashMap<COLLADABU::URI, COLLADAFW::UniqueId, unsigned long, COLLADABU::calculateHash> URIUniqueIdMap;
 
+
 	private:
 		/** Loader utils that will help us to fill the model.*/
 		COLLADAFW::LoaderUtils mLoaderUtil;
@@ -68,7 +70,7 @@ namespace COLLADASaxFWL
 
 		/** Maps the semantic name of a texture map to the TextureMapId used in the framework.*/
 		StringTextureMapIdMap mTextureMapSemanticTextureMapIdMap;
-	
+
 	public:
 
         /** Constructor. */
@@ -110,7 +112,6 @@ namespace COLLADASaxFWL
 
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer(){ return mWriter; }
-
 
 
 	private:
