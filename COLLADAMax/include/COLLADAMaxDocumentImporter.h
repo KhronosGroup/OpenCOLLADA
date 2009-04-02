@@ -281,6 +281,11 @@ namespace COLLADAMax
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeLight( const COLLADAFW::Light* light );
 
+		/** Writes the animation.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeAnimation( const COLLADAFW::Animation* animation ) { return true; }
+
+
 	private:
         /** Disable default copy ctor. */
 		DocumentImporter( const DocumentImporter& pre );

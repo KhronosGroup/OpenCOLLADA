@@ -125,6 +125,14 @@ namespace COLLADASaxFWL
     */
     typedef BaseArrayElement < double > DoubleArrayElement;
 
+
+#ifdef COLLADASAXFWL_REAL_IS_FLOAT
+	typedef FloatArrayElement RealArrayElement;
+#else
+	typedef DoubleArrayElement RealArrayElement;
+#endif
+
+
     /**
      * Stores a homogenous array of integer values.
      * The <int_array> element stores the data values for generic use within 

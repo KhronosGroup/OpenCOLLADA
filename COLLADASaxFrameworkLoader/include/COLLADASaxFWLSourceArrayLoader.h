@@ -14,6 +14,7 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLSource.h"
 #include "COLLADASaxFWLFilePartLoader.h"
+#include "COLLADAFWFloatOrDoubleArray.h"
 
 
 namespace COLLADASaxFWL
@@ -27,6 +28,8 @@ namespace COLLADASaxFWL
     */
     class SourceArrayLoader : public FilePartLoader
     {
+	public:
+		static const COLLADAFW::FloatOrDoubleArray::DataType DATA_TYPE_REAL;
 
 	private:
 	

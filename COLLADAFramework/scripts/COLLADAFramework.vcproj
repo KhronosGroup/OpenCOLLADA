@@ -320,6 +320,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWFloatOrDoubleArray.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWGeometry.cpp"
 				>
 			</File>
@@ -446,6 +450,14 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\include\COLLADAFWAnimation.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWAnimationCurve.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWAnnotate.h"
 				>
 			</File>
@@ -495,6 +507,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWFileInfo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWFloatOrDoubleArray.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWFloatOrDoubleArray.h"
 				>
 			</File>
 			<File

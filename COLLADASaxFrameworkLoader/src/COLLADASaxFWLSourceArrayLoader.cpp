@@ -15,6 +15,13 @@
 namespace COLLADASaxFWL
 {
 
+#ifdef COLLADASAXFWL_REAL_IS_FLOAT
+	const COLLADAFW::FloatOrDoubleArray::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT;
+#else
+	const COLLADAFW::FloatOrDoubleArray::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE;
+#endif
+
+
 	//------------------------------
 	SourceArrayLoader::SourceArrayLoader(IFilePartLoader* callingFilePartLoader)
 		:FilePartLoader(callingFilePartLoader),
@@ -78,7 +85,10 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool SourceArrayLoader::endSource( )
 	{
-		mSourceArray.append(mCurrentSoure);
+		if ( mCurrentSoure )
+		{
+			mSourceArray.append(mCurrentSoure);
+		}
 		mCurrentSoure = 0;
 		mCurrentSourceId.clear();
 		mCurrentArrayId.clear();
@@ -136,7 +146,9 @@ namespace COLLADASaxFWL
 	bool SourceArrayLoader::begin__accessor( const accessor__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__accessor(attributeData));
-		mCurrentSoure->setStride((int)attributeData.stride);
+		// As soon as we support all array types, remove this check
+		if ( mCurrentSoure )
+			mCurrentSoure->setStride((int)attributeData.stride);
 		return true;
 	}
 
