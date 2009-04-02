@@ -19,13 +19,23 @@ namespace COLLADASaxFWL
 {
     typedef std::string String;
 
+
+#define COLLADASAXFWL_REAL_IS_FLOAT
+
+#ifdef COLLADASAXFWL_REAL_IS_FLOAT
+	typedef float Real;
+#else
+	typedef float Double;
+#endif
+
+
 }
 
 
 #ifndef NDEBUG
 	// Uncomment this line, if you want to check, that the sax parser functions are virtual functions of the base class
 	// This a only a compile time check. Comment this line if you want to run the frame work loader;
-//#	define MakeVirtualFunctionTest
+#	define MakeVirtualFunctionTest
 #endif //NDEBUG
 
 	// This macro should be used in every reimplementation of one of the virtual functions of ColladaParserAutoGen
@@ -34,7 +44,7 @@ namespace COLLADASaxFWL
 	// C::begin__elementName( SaxVirtualFunctionTest(begin__elementName) .... )
 	// 
 #ifdef MakeVirtualFunctionTest
-#	define SaxVirtualFunctionTest(f) assert(false); static_cast<ColladaParserAutoGen*>(this)->f; 
+#	define SaxVirtualFunctionTest(f) if (false) static_cast<ColladaParserAutoGen*>(this)->f; 
 #else
 #	define SaxVirtualFunctionTest(f)
 #endif //MakeVirtualFunctionTest

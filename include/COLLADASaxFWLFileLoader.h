@@ -112,6 +112,9 @@ namespace COLLADASaxFWL
 		/** Starts loading a library images.*/
 		virtual bool begin__library_images( const library_images__AttributeData& attributeData );
 
+		/** Starts loading a library animations.*/
+		virtual bool begin__library_animations( const library_animations__AttributeData& attributeData );
+
     private:
 
         /** Disable default copy ctor. */

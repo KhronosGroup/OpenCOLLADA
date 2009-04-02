@@ -36,6 +36,11 @@ namespace COLLADASaxFWL
 			DATA_TYPE_LONG64, 
 			DATA_TYPE_FLOAT,
 			DATA_TYPE_DOUBLE,
+#ifdef COLLADASAXFWL_REAL_IS_FLOAT
+			DATA_TYPE_REAL = DATA_TYPE_FLOAT,
+#else
+			DATA_TYPE_REAL = DATA_TYPE_DOUBLE,
+#endif
 			DATA_TYPE_BOOL,
 			DATA_TYPE_NAME,
 			DATA_TYPE_IDREF,
@@ -204,6 +209,13 @@ namespace COLLADASaxFWL
     typedef Source < IntArrayElement, SourceBase::DATA_TYPE_INT  > IntSource;
     typedef Source < Long64ArrayElement, SourceBase::DATA_TYPE_LONG64  > Long64Source;
     typedef Source < BoolArrayElement, SourceBase::DATA_TYPE_BOOL  > BoolSource;
+
+#ifdef COLLADASAXFWL_REAL_IS_FLOAT
+	typedef FloatSource RealSource;
+#else
+	typedef DoubleSource RealSource;
+#endif
+
 
     typedef COLLADAFW::ArrayPrimitiveType<SourceBase*> SourceArray;
 
