@@ -189,6 +189,7 @@ namespace COLLADAMax
 						{
 							Face& face = triangleMesh.faces[faceIndex];
 //   						face.setMatID(fWMaterialIdMaxMtlIdMap[meshPrimitive->getMaterialId()]);
+							face.setEdgeVisFlags(1, 1, 1);
 							if ( maxMaterialId != 0 )
 								face.setMatID(maxMaterialId);
 							if ( switchOrientation )
