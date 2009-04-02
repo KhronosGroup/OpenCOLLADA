@@ -22,12 +22,18 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#ifdef MAX_9
-#pragma message ("Compling for Max9")
+#ifdef MAX_8
+#	pragma message ("Compling for Max8")
+#elif defined MAX_9
+#	pragma message ("Compling for Max9")
 #elif defined MAX_2008
-#pragma message ("Compling for Max2008")
+#	pragma message ("Compling for Max2008")
 #elif defined MAX_2009
-#pragma message ("Compling for Max2009")
+#	pragma message ("Compling for Max2009")
+#elif defined MAX_2010
+#	pragma message ("Compling for Max2010")
+#else
+#	error( "Unsupported Max version" )
 #endif
 
 #include <Max.h>

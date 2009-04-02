@@ -244,11 +244,18 @@ namespace COLLADAMax
 
         /// @TODO Handle other types of material properly
         // does the material have an HLSL profile?
-        IDxMaterial* dxm = static_cast<IDxMaterial*> ( baseMaterial->GetInterface ( IDXMATERIAL_INTERFACE ) );
+        IDxMaterial* dxm = static_cast<IDxMaterial*> ( baseMaterial->GetInterface( IDXMATERIAL_INTERFACE ) );
 
-        if ( dxm != NULL && dxm->GetEffectFilename() != NULL )
+#ifdef MAX_2010_OR_NEWER
+		const char* effectFileName = dxm ? dxm->GetEffectFile().GetFileName().data() : 0;
+#else
+		const char* effectFileName = dxm ? dxm->GetEffectFilename() : 0;
+#endif
+
+
+        if ( effectFileName && *effectFileName )
         {
-            if ( baseMaterial->NumSubMtls() > 0 && baseMaterial->GetSubMtl ( 0 ) != NULL )
+            if ( baseMaterial->NumSubMtls() > 0 && baseMaterial->GetSubMtl( 0 ) )
             {
                 // Create common profile
                 Mtl * workingMaterial = baseMaterial->GetSubMtl ( 0 );

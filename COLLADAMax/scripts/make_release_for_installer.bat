@@ -34,11 +34,18 @@ devenv ..\COLLADAMax.sln /build "Release Max2008|x64"
 copy "..\bin\win\x64\release max2008\COLLADAMaxNew.dle" %DESTINATION%\max2008-x64 >> %LOGFILE%
 
 
-devenv ..\COLLADAMax.sln /build "Release Max2009|Win32" >> %LOGFILE%
-copy "..\bin\win\win32\release max2009\COLLADAMaxNew.dle" %DESTINATION%\max2009-x86 >> %LOGFILE%
+devenv ..\COLLADAMax.sln /build "Release Max2010|Win32" >> %LOGFILE%
+copy "..\bin\win\win32\release max2010\COLLADAMaxNew.dle" %DESTINATION%\max2010-x86 >> %LOGFILE%
 
-devenv ..\COLLADAMax.sln /build "Release Max2009|x64"
-copy "..\bin\win\x64\release max2009\COLLADAMaxNew.dle" %DESTINATION%\max2009-x64 >> %LOGFILE%
+devenv ..\COLLADAMax.sln /build "Release Max2010|x64"
+copy "..\bin\win\x64\release max2010\COLLADAMaxNew.dle" %DESTINATION%\max2010-x64 >> %LOGFILE%
+
+
+devenv ..\COLLADAMax.sln /build "Release Max2010|Win32" >> %LOGFILE%
+copy "..\bin\win\win32\release max2010\COLLADAMaxNew.dle" %DESTINATION%\max2010-x86 >> %LOGFILE%
+
+devenv ..\COLLADAMax.sln /build "Release Max2010|x64"
+copy "..\bin\win\x64\release max2010\COLLADAMaxNew.dle" %DESTINATION%\max2010-x64 >> %LOGFILE%
 
 
 

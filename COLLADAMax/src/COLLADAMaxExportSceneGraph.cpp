@@ -69,7 +69,12 @@ namespace COLLADAMax
 		for ( int i = 0; i < xRefFileCount; ++i)
 		{
 			XRefSceneGraph xRefScene;
-			COLLADASW::URI uri(COLLADASW::URI::nativePathToUri(NativeString(mRootNode->GetXRefFileName(i).data())));
+#ifdef MAX_2010_OR_NEWER
+			const char* XRefFileName = mRootNode->GetXRefFile(i).GetFileName().data();
+#else
+			const char* XRefFileName = mRootNode->GetXRefFileName(i).data();
+#endif
+			COLLADASW::URI uri(COLLADASW::URI::nativePathToUri(NativeString(XRefFileName)));
 			xRefScene.exportFileBaseName = mXRefExportFileNames.addId(uri.getPathFileBase(), false);
 			xRefScene.exportSceneGraph = new ExportSceneGraph(mRootNode->GetXRefTree(i), uri, mXRefExportFileNames);
 			if ( xRefScene.exportSceneGraph->create(exportSelection) )
