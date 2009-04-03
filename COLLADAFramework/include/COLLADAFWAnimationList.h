@@ -29,6 +29,7 @@ namespace COLLADAFW
 		/** Classifies animations.*/
 		enum AnimationClass
 		{
+			UNKNOWN_CLASS,
 			POSITION_XYZ,			//!< Animation of all three coordinates of a position
 			POSITION_X,
 			POSITION_Y,
@@ -40,7 +41,9 @@ namespace COLLADAFW
 			COLOR_B,
 			COLOR_A,
 			AXISANGLE,
+			ANGLE,
 			MATRIX4X4,
+			MATRIX4X4_ELEMENT,
 			FLOAT
 		};
 

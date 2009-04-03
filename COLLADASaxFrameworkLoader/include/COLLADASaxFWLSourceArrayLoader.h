@@ -129,6 +129,15 @@ namespace COLLADASaxFWL
 		virtual bool end__accessor();
 
 
+		/** Store the accessor parameter in the source's accessor.*/
+		virtual bool begin__param( const param__AttributeData& attributeData );
+
+		/** We don't need to do anything here.*/
+		virtual bool end__param(){ SaxVirtualFunctionTest(end__param()); return true;}
+
+		/** We don't need to do anything here.*/
+		virtual bool data__param( const ParserChar* value, size_t length ){SaxVirtualFunctionTest(data__param(value, length)); return true;}
+
 
 	private:
 

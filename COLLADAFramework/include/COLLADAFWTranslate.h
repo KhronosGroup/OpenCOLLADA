@@ -19,6 +19,13 @@
 
 namespace COLLADAFW
 {
+	/** Describes the transformation of a node
+		Animations for this class must have one of the following animation classes:
+		POSITION_XYZ
+		POSITION_X
+		POSITION_Y
+		POSITION_Z
+	*/
 	class Translate : public Transformation 
 	{
 	private:

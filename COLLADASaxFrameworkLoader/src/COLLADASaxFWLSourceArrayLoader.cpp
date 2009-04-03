@@ -175,4 +175,23 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	//------------------------------
+	bool SourceArrayLoader::begin__param( const param__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest(begin__param(attributeData));
+		if ( mCurrentSoure )
+		{
+			SourceBase::AccessorParameter accessorParameter;
+			if ( attributeData.name && *attributeData.name )
+			{
+				accessorParameter.name = attributeData.name;
+			}
+
+			// the type is required. We don't need to check
+			accessorParameter.type = attributeData.type;
+			mCurrentSoure->appandAccessorParameter( accessorParameter );
+		}
+		return true;
+	}
+
 } // namespace COLLADAFW

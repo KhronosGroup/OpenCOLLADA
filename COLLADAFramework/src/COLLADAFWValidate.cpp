@@ -78,7 +78,7 @@ namespace COLLADAFW
 		size_t tangentCount = 0;
 		if ( needsTangents )
 		{
-			tangentCount = outValuesCount;
+			tangentCount = 2 * outValuesCount;
 		}
 
 		// Check in tangents count

@@ -40,6 +40,8 @@ namespace COLLADASaxFWL
 	const String INTERPOLATIONTYPE_STEP("STEP");
 	const String INTERPOLATIONTYPE_MIXED("MIXED");
 
+	const LibraryAnimationsLoader::AnimationInfo LibraryAnimationsLoader::AnimationInfo::INVALID = { COLLADAFW::UniqueId::INVALID, COLLADAFW::AnimationList::UNKNOWN_CLASS};
+
 	//------------------------------
 	bool operator==( const ParserString& parserString, const String& stlSring )
 	{
@@ -55,6 +57,86 @@ namespace COLLADASaxFWL
 			++pos;
 		}
 		return true;
+	}
+
+	struct AccessorAnimationClassPair
+	{
+		AccessorAnimationClassPair( const SourceBase::AccessorParameter* _parameters,
+									size_t _parameterCount,
+			                        COLLADAFW::AnimationList::AnimationClass _animationClass)
+									: parameters(_parameters)
+									, parameterCount(_parameterCount/sizeof(SourceBase::AccessorParameter))
+									, animationClass(_animationClass)
+		{}
+		const SourceBase::AccessorParameter* parameters;
+		size_t parameterCount;
+		COLLADAFW::AnimationList::AnimationClass animationClass;
+	};
+
+	SourceBase::AccessorParameter parameterFloat = {"", "float"};
+	SourceBase::AccessorParameter parameterX = {"X", "float"};
+	SourceBase::AccessorParameter parameterY = {"Y", "float"};
+	SourceBase::AccessorParameter parameterZ = {"Z", "float"};
+	SourceBase::AccessorParameter parameterAngle = {"ANGLE", "float"};
+	SourceBase::AccessorParameter parameterTransform = {"TRANSFORM", "float4x4"};
+
+	SourceBase::AccessorParameter accessorFloat[] = {parameterFloat};
+	SourceBase::AccessorParameter accessorX[] = {parameterX};
+	SourceBase::AccessorParameter accessorY[] = {parameterY};
+	SourceBase::AccessorParameter accessorZ[] = {parameterZ};
+	SourceBase::AccessorParameter accessorAngle[] = {parameterAngle};
+	SourceBase::AccessorParameter accessorTransform[] = {parameterTransform};
+
+	SourceBase::AccessorParameter accessorXYZ[] = {parameterX, parameterY, parameterZ};
+	SourceBase::AccessorParameter accessorAxisAngle[] = {parameterX, parameterY, parameterZ, parameterAngle};
+
+	AccessorAnimationClassPair animationClassMap[] = 
+	{ 
+		  AccessorAnimationClassPair( accessorFloat, sizeof(accessorFloat), COLLADAFW::AnimationList::FLOAT)
+		, AccessorAnimationClassPair( accessorX, sizeof(accessorX), COLLADAFW::AnimationList::POSITION_X)
+		, AccessorAnimationClassPair( accessorY, sizeof(accessorY), COLLADAFW::AnimationList::POSITION_Y)
+		, AccessorAnimationClassPair( accessorZ, sizeof(accessorZ), COLLADAFW::AnimationList::POSITION_Z)
+		, AccessorAnimationClassPair( accessorAngle, sizeof(accessorAngle), COLLADAFW::AnimationList::ANGLE)
+		, AccessorAnimationClassPair( accessorXYZ, sizeof(accessorXYZ), COLLADAFW::AnimationList::POSITION_XYZ)
+		, AccessorAnimationClassPair( accessorAxisAngle, sizeof(accessorAxisAngle), COLLADAFW::AnimationList::AXISANGLE)
+		, AccessorAnimationClassPair( accessorTransform, sizeof(accessorTransform), COLLADAFW::AnimationList::MATRIX4X4)
+	};
+
+	/** Determines the animation class from the accessor.*/
+	//------------------------------
+	COLLADAFW::AnimationList::AnimationClass determineAnimationClass( const SourceBase::Accessor& accessor )
+	{
+		static const size_t mapSize = sizeof(animationClassMap)/sizeof(AccessorAnimationClassPair);
+		for ( size_t i = 0; i < mapSize; ++i)
+		{
+			const AccessorAnimationClassPair& animationClassPair = animationClassMap[i];
+
+			if ( accessor.size() != animationClassPair.parameterCount )
+			{
+				// to accessor must have equal number of parameters to be equal
+				continue;
+			}
+
+			bool equal = true;
+			for ( size_t j = 0; j < animationClassPair.parameterCount; ++j)
+			{
+				const SourceBase::AccessorParameter& parameter = animationClassPair.parameters[j];
+				const SourceBase::AccessorParameter& accessorParameter = accessor[j];
+				if ( parameter !=  accessorParameter ) 
+				{
+					equal = false;
+					break;
+				}
+			}
+
+			if ( equal )
+			{
+				// if we reach this point, the parameters in accessor are equal to those in animationClassPair
+				return animationClassPair.animationClass;
+			}
+		}
+
+		return COLLADAFW::AnimationList::UNKNOWN_CLASS;
 	}
 
 	//------------------------------
@@ -123,6 +205,7 @@ namespace COLLADASaxFWL
 		: SourceArrayLoader(callingFilePartLoader)
 		, mCurrentAnimationCurve(0)
 		, mCurrentlyParsingInterpolationArray(false)
+		, mCurrentAnimationInfo( 0 )
 	{}
 
     //------------------------------
@@ -145,16 +228,16 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	const COLLADAFW::UniqueId& LibraryAnimationsLoader::getAnimationBySamplerId( const String& samplerId )
+	LibraryAnimationsLoader::AnimationInfo* LibraryAnimationsLoader::getAnimationInfoBySamplerId( const String& samplerId )
 	{
-		StringUniqueIdMap::const_iterator it = mSamplerIdAnimationUniqueIdMap.find( samplerId );
-		if ( it == mSamplerIdAnimationUniqueIdMap.end() )
+		StringAnimationInfoMap::iterator it = mSamplerIdAnimationInfoMap.find( samplerId );
+		if ( it == mSamplerIdAnimationInfoMap.end() )
 		{
-			return COLLADAFW::UniqueId::INVALID;
+			return 0;
 		}
 		else
 		{
-			return it->second;
+			return &(it->second);
 		}
 	}
 
@@ -205,7 +288,10 @@ namespace COLLADASaxFWL
 		
 		if ( attributeData.id && *attributeData.id )
 		{
-			mSamplerIdAnimationUniqueIdMap[ attributeData.id ] = mCurrentAnimationCurve->getUniqueId();
+			AnimationInfo animationInfo;
+			animationInfo.uniqueId = mCurrentAnimationCurve->getUniqueId();
+			animationInfo.animationClass = COLLADAFW::AnimationList::UNKNOWN_CLASS;
+			mCurrentAnimationInfo = &(mSamplerIdAnimationInfoMap.insert(std::make_pair(attributeData.id, animationInfo)).first->second);
 		}
 		return true;
 	}
@@ -224,6 +310,7 @@ namespace COLLADASaxFWL
 			// todo handle error
 		}
 		mCurrentAnimationCurve = 0;
+		mCurrentAnimationInfo = 0;
 		return success;
 	}
 
@@ -233,9 +320,9 @@ namespace COLLADASaxFWL
 		SaxVirtualFunctionTest(begin__channel(attributeData));
 		String samplerId = getIdFromURIFragmentType(attributeData.source);
 
-		const COLLADAFW::UniqueId& animationUniqueId = getAnimationBySamplerId( samplerId );
+		AnimationInfo* animationInfo = getAnimationInfoBySamplerId( samplerId );
 
-		if ( !animationUniqueId.isValid() )
+		if ( !animationInfo )
 			return true;
 
 		SidAddress sidAddress( attributeData.target );
@@ -259,12 +346,20 @@ namespace COLLADASaxFWL
 					animationList = new COLLADAFW::AnimationList( animationListUniqueId.getObjectId() );
 				}
 
-				// TODO determine animation class 
+				// TODO handle this for arrays
 				COLLADAFW::AnimationList::AnimationBinding animationBinding;
-				animationBinding.animation = animationUniqueId;
-				animationBinding.animationClass = COLLADAFW::AnimationList::POSITION_XYZ;
-				animationBinding.firstIndex = 0;
-				animationBinding.secondIndex = 0;
+				animationBinding.animation = animationInfo->uniqueId;
+				animationBinding.animationClass = animationInfo->animationClass;
+				if ( animationBinding.animationClass == COLLADAFW::AnimationList::MATRIX4X4_ELEMENT )
+				{
+					animationBinding.firstIndex = sidAddress.getFirstIndex();
+					animationBinding.secondIndex = sidAddress.getSecondIndex();
+				}
+				else
+				{
+					animationBinding.firstIndex = 0;
+					animationBinding.secondIndex = 0;
+				}
 				animationList->getAnimationBindings().append( animationBinding );
 			}
 		}
@@ -272,7 +367,7 @@ namespace COLLADASaxFWL
 		{
 			// the references element has not been parsed. Store the connection. Will be precessed by FileLoader
 			// at the end of the collada file.
-			addToAnimationUniqueIdSidAddressPairList( animationUniqueId, sidAddress );
+			addToAnimationUniqueIdSidAddressPairList( animationInfo->uniqueId, sidAddress );
 		}
 
 		return true;
@@ -291,7 +386,7 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(begin__input____InputLocal(attributeData));
 
-		// we ignore inputs that don't have semantics and source
+		// we ignore inputs that don't have semantics or source
 		if ( !attributeData.semantic || !attributeData.source  )
 		{
 			return true;
@@ -329,6 +424,11 @@ namespace COLLADASaxFWL
 				{
 					// The source array has wrong type. Only reals are allowed for semantic OUTPUT
 					break;
+				}
+
+				if ( mCurrentAnimationInfo )
+				{
+					mCurrentAnimationInfo->animationClass = determineAnimationClass( sourceBase->getAccessor() );
 				}
 
 				const RealSource* realSource = (const RealSource*)sourceBase;
