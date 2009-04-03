@@ -13,7 +13,9 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLSourceArrayLoader.h"
+
 #include "COLLADAFWAnimationCurve.h"
+#include "COLLADAFWAnimationList.h"
 
 
 namespace COLLADASaxFWL
@@ -24,18 +26,30 @@ namespace COLLADASaxFWL
 	{
 	private:
 
+		struct AnimationInfo
+		{
+			static const AnimationInfo INVALID;
+			/** The unique id of the animation*/
+			COLLADAFW::UniqueId uniqueId;
+
+			COLLADAFW::AnimationList::AnimationClass animationClass;
+		};
+
 		/** Maps strings to unique ids.*/
-		typedef std::map< String /*samplerId*/, COLLADAFW::UniqueId /* animation*/ > StringUniqueIdMap;
+		typedef std::map< String /*samplerId*/,AnimationInfo > StringAnimationInfoMap;
 
 	private:
 		/** The animation curve currently being filled. Is none null only inside a sampler element.*/
 		COLLADAFW::AnimationCurve* mCurrentAnimationCurve;
 
 		/** Maps the id of sampler to the unique id of the frame work animation created for this sampler.*/
-		StringUniqueIdMap mSamplerIdAnimationUniqueIdMap;
+		StringAnimationInfoMap mSamplerIdAnimationInfoMap;
 	
 		/** True, if the array currently parsed is an IDREF_array, supposed to contain the interpolation data.*/
 		bool mCurrentlyParsingInterpolationArray;
+
+		/** The animation info of the currently being parsed sampler.*/
+		AnimationInfo* mCurrentAnimationInfo;
 
 	public:
 		/** Determines the interpolation with @a name.*/
@@ -49,9 +63,9 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~LibraryAnimationsLoader();
 
-		/** Searches for the unique id of animation created for the COLLADA sampler with id @a samplerId.
+		/** Searches for the animation info of animation created for the COLLADA sampler with id @a samplerId.
 		If it could not be found, an invalid Unique id is returned.*/
-		const COLLADAFW::UniqueId& getAnimationBySamplerId( const String& samplerId);
+		LibraryAnimationsLoader::AnimationInfo* getAnimationInfoBySamplerId( const String& samplerId);
 
 
 		/** Cleans up everything and gives control to calling file part loader.*/
