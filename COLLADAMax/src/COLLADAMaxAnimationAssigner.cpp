@@ -21,18 +21,19 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWTransformation.h"
 #include "COLLADAFWNode.h"
 #include "COLLADAFWAnimationList.h"
+#include "COLLADAFWRotate.h"
 
 
 namespace COLLADAMax
 {
 
-    //------------------------------
+	//------------------------------
 	AnimationAssigner::AnimationAssigner( DocumentImporter* documentImporter )
 		: ImporterBase(documentImporter)
 	{
 	}
-	
-    //------------------------------
+
+	//------------------------------
 	AnimationAssigner::~AnimationAssigner()
 	{
 	}
@@ -45,7 +46,6 @@ namespace COLLADAMax
 
 		return true;
 	}
-
 
 	//------------------------------
 	bool AnimationAssigner::assignTransformationControllers()
@@ -83,47 +83,341 @@ namespace COLLADAMax
 		if ( !hasTransformations )
 			return true;
 
+		Control* controllers[ BUCKET_COUNT ];
 
-		for ( size_t i = 0, count = transformations.getCount(); i < count; ++i)
+		if ( !buckedTransforms( transformations, controllers) )
 		{
-			const COLLADAFW::Transformation* transformation = transformations[i];
-			const COLLADAFW::UniqueId& animationListUniqueId = transformation->getAnimationList();
-			if ( animationListUniqueId.isValid() )
-			{
-				const COLLADAFW::AnimationList* animationList = getAnimationListByUniqueId( animationListUniqueId );
-				
-				if ( !animationList )
-					continue;
-				const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings();
-				for ( size_t j = 0, count = animationBindings.getCount(); j < count; ++j)
-				{
-					const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[j];
-					const COLLADAFW::UniqueId& animationUniqueId = animationBinding.animation;
-					const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
-
-					if ( animationBinding.animationClass == COLLADAFW::AnimationList::POSITION_XYZ )
-					{
-						Control* positionController = iNode->GetTMController()->GetPositionController();
-
-						for ( size_t k = 0, count = maxControllerList.size(); k < count; ++k)
-						{
-							Control* xController = maxControllerList[k];
-							if ( xController )
-								positionController->AssignController( xController, k );
-						}
-
-					}
-
-				}
-
-
-			}
+			// the transformation do not fit into the max transformation stack
+			return true;
 		}
 
+		Control* transformationController = iNode->GetTMController();
 
-		
+		Control* positionController = transformationController->GetPositionController();
+
+		if ( controllers[ TRANSLATE_X ] )
+		{
+			positionController->AssignController( controllers[ TRANSLATE_X ], 0 );
+		}
+
+		if ( controllers[ TRANSLATE_Y ] )
+		{
+			positionController->AssignController( controllers[ TRANSLATE_Y ], 1 );
+		}
+
+		if ( controllers[ TRANSLATE_Z ] )
+		{
+			positionController->AssignController( controllers[ TRANSLATE_Z ], 2 );
+		}
+
+		Control* rotationController = transformationController->GetRotationController();
+
+		if ( controllers[ ROTATE_X ] )
+		{
+			rotationController->AssignController( controllers[ ROTATE_X ], 0 );
+		}
+
+		if ( controllers[ ROTATE_Y ] )
+		{
+			rotationController->AssignController( controllers[ ROTATE_Y ], 1 );
+		}
+
+		if ( controllers[ ROTATE_Z ] )
+		{
+			rotationController->AssignController( controllers[ ROTATE_Z ], 2 );
+		}
+
 		return true;
 	}
 
+	//------------------------------
+	bool AnimationAssigner::buckedTransforms( const COLLADAFW::TransformationPointerArray& transformations, Control** controllers )
+	{
+		for ( size_t i = 0; i < BUCKET_COUNT; ++i) 
+		{
+			controllers[i] = 0;
+		}
+		int bucketDepth = -1;
+
+		size_t transformationCount = transformations.getCount();
+
+		// Attempt to fill in the buckets with the COLLADA scene node transforms
+		for (size_t t = 0; t < transformationCount; ++t)
+		{
+			// Verify that this transformation is either animated or does an actual real transform.
+			const COLLADAFW::Transformation* transformation = transformations[t];
+			const COLLADAFW::UniqueId& animationListUniqueId = transformation->getAnimationList();
+
+			const COLLADAFW::AnimationList* animationList = 0;
+			if ( !animationListUniqueId.isValid() )
+			{
+				// the transform is not animated
+				continue;
+			}
+
+			animationList = getAnimationListByUniqueId( animationListUniqueId );
+
+			if ( !animationList )
+			{
+				// the animation list could not be found
+				continue;
+			}
+
+			const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings();
+
+#if 0
+			for ( size_t j = 0, count = animationBindings.getCount(); j < count; ++j)
+			{
+				const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[j];
+				const COLLADAFW::UniqueId& animationUniqueId = animationBinding.animation;
+				const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
+
+				if ( animationBinding.animationClass == COLLADAFW::AnimationList::POSITION_XYZ )
+				{
+					Control* positionController = iNode->GetTMController()->GetPositionController();
+
+					for ( size_t k = 0, count = maxControllerList.size(); k < count; ++k)
+					{
+						Control* xController = maxControllerList[k];
+						if ( xController )
+							positionController->AssignController( xController, k );
+					}
+				}
+			}
+#endif
+
+
+			// Attempt to bucket this transformation.
+			switch (transformation->getTransformationType())
+			{
+			case COLLADAFW::Transformation::TRANSLATE:
+				if ( bucketDepth >= TRANSLATE )
+				{
+					// Only one translation transform is allowed per node.
+					return false;
+				}
+
+				for ( size_t j = 0, count = animationBindings.getCount(); j < count; ++j)
+				{
+					const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[j];
+					const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
+
+					switch (animationBinding.animationClass )
+					{
+					case COLLADAFW::AnimationList::POSITION_X:
+						{
+							assert( maxControllerList.size() >= 1);
+							if ( controllers[TRANSLATE_X] )
+							{
+								//The x controller has already been set
+								break;
+							}
+							controllers[TRANSLATE_X] = maxControllerList[0];
+						}
+						break;
+					case COLLADAFW::AnimationList::POSITION_Y:
+						{
+							assert( maxControllerList.size() >= 1);
+							if ( controllers[TRANSLATE_Y] )
+							{
+								//The y controller has already been set
+								break;
+							}
+							controllers[TRANSLATE_Y] = maxControllerList[0];
+						}
+						break;
+					case COLLADAFW::AnimationList::POSITION_Z:
+						{
+							assert( maxControllerList.size() >= 1);
+							if ( controllers[TRANSLATE_Z] )
+							{
+								//The z controller has already been set
+								break;
+							}
+							controllers[TRANSLATE_Z] = maxControllerList[0];
+						}
+						break;
+					case COLLADAFW::AnimationList::POSITION_XYZ:
+						{
+							assert( maxControllerList.size() >= 3);
+
+							if ( controllers[TRANSLATE_X] || controllers[TRANSLATE_Y] || controllers[TRANSLATE_Z])
+							{
+								//A controller for at least one of the translates has already been set
+								break;
+							}
+
+							controllers[TRANSLATE_X] = maxControllerList[0];
+							controllers[TRANSLATE_Y] = maxControllerList[1];
+							controllers[TRANSLATE_Z] = maxControllerList[2];
+						}
+						break;
+					default:
+						return false;
+					}
+				}
+				bucketDepth = TRANSLATE;
+				break;
+
+			case COLLADAFW::Transformation::SCALE:
+				if ( bucketDepth >= SCALE )
+				{
+					// Only one scale transform is allowed per node.
+					return false;
+				}
+				//controllers[SCALE] = transform;
+				bucketDepth = SCALE;
+				break;
+
+			case COLLADAFW::Transformation::ROTATE: 
+				{
+					COLLADAFW::Rotate* rotatate = (COLLADAFW::Rotate*) transformation;
+					const COLLADABU::Math::Vector3 rotationAxis = rotatate->getRotationAxis();
+
+					if (bucketDepth >= SCALE_AXIS_ROTATE_R)
+					{
+						// Only one rotatate is allowed after the scale transform: the reverse scale-axis rotatate.
+						return false;
+					}
+#if 0
+					else if (bucketDepth == SCALE)
+					{
+						// Check for reverse of scale axis transformation
+						Bucket reverseBucket = BUCKET_COUNT;
+						if (buckets[SCALE_AXIS_ROTATE] != NULL) reverseBucket = SCALE_AXIS_ROTATE;
+						else if (buckets[ROTATE_AXIS] != NULL) reverseBucket = ROTATE_AXIS;
+						else if (buckets[ROTATE_X] != NULL) reverseBucket = ROTATE_X;
+						else if (buckets[ROTATE_Y] != NULL) reverseBucket = ROTATE_Y;
+						else if (buckets[ROTATE_Z] != NULL) reverseBucket = ROTATE_Z;
+
+						if (reverseBucket < BUCKET_COUNT)
+						{
+							const FCDTRotation* reverseRotation = (const FCDTRotation*) buckets[reverseBucket];
+							float reverseAngle = FMath::DegToRad(reverseRotation->GetAngle());
+							if (IsEquivalent(reverseRotation->GetAxis(), aa.axis) && IsEquivalent(reverseAngle, -aa.angle))
+							{
+								// Bucket as the reverse scale axis rotatate
+								if (reverseBucket != SCALE_AXIS_ROTATE)
+								{
+									buckets[SCALE_AXIS_ROTATE] = buckets[reverseBucket];
+									buckets[reverseBucket] = NULL;
+								}
+								buckets[SCALE_AXIS_ROTATE_R] = rotatate;
+								bucketDepth = SCALE_AXIS_ROTATE_R;
+								break;
+							}
+						}
+
+						// No rotatate to reverse as the scale-axis rotatate: force sampling
+						return false;
+					}
+#endif
+					else if (bucketDepth < ROTATE_X && rotationAxis == COLLADABU::Math::Vector3::UNIT_X)
+					{ 
+						if ( animationBindings.getCount() > 1)
+						{
+							// we can apply only one animation here
+							return false;
+						}
+
+						bucketDepth = ROTATE_X;
+
+						if ( animationBindings.getCount() == 0 )
+						{
+							// no animation for this rotation axis
+							break;
+						}
+
+						const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[0];
+						if ( animationBinding.animationClass != COLLADAFW::AnimationList::ANGLE )
+						{
+							// only pure angle transformations can be supported here
+							return false;
+						}
+						const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
+						assert( maxControllerList.size() == 1 );
+						controllers[ROTATE_X] = maxControllerList[0];
+						bucketDepth = ROTATE_X;
+					}
+					else if (bucketDepth < ROTATE_Y && rotationAxis == COLLADABU::Math::Vector3::UNIT_Y)
+					{
+						if ( animationBindings.getCount() > 1)
+						{
+							// we can apply only one animation here
+							return false;
+						}
+
+						bucketDepth = ROTATE_Y;
+
+						if ( animationBindings.getCount() == 0 )
+						{
+							// no animation for this rotation axis
+							break;
+						}
+
+						const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[0];
+						if ( animationBinding.animationClass != COLLADAFW::AnimationList::ANGLE )
+						{
+							// only pure angle transformations can be supported here
+							return false;
+						}
+						const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
+						assert( maxControllerList.size() == 1 );
+						controllers[ROTATE_Y] = maxControllerList[0];
+						bucketDepth = ROTATE_Y;
+					}
+					else if (bucketDepth < ROTATE_Z && rotationAxis == COLLADABU::Math::Vector3::UNIT_Z)
+					{
+						if ( animationBindings.getCount() > 1)
+						{
+							// we can apply only one animation here
+							return false;
+						}
+
+						bucketDepth = ROTATE_Y;
+
+						if ( animationBindings.getCount() == 0 )
+						{
+							// no animation for this rotation axis
+							break;
+						}
+
+						const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[0];
+						if ( animationBinding.animationClass != COLLADAFW::AnimationList::ANGLE )
+						{
+							// only pure angle transformations can be supported here
+							return false;
+						}
+						const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
+						assert( maxControllerList.size() == 1 );
+						controllers[ROTATE_Y] = maxControllerList[0];
+						bucketDepth = ROTATE_Y;
+					}
+#if 0
+					else if (bucketDepth < ROTATE_Z) // Only use this if we have no rotations yet.
+					{
+						buckets[ROTATE_AXIS] = rotatate;
+						bucketDepth = ROTATE_AXIS;
+					}
+					else if (bucketDepth < SCALE_AXIS_ROTATE)
+					{
+						buckets[SCALE_AXIS_ROTATE] = rotatate;
+						bucketDepth = SCALE_AXIS_ROTATE;
+					}
+					else return false;
+#endif
+					break; 
+				} 
+
+			case COLLADAFW::Transformation::MATRIX:
+			case COLLADAFW::Transformation::LOOKAT:
+			case COLLADAFW::Transformation::SKEW:
+			default:
+				// No place for these in the Max transform stack: force sampling
+				return false;
+			}
+		}
+
+	}
 
 } // namespace COLLADAMax

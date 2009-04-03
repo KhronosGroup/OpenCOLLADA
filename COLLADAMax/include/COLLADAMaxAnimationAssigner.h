@@ -21,6 +21,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxPrerequisites.h"
 #include "COLLADAMaxImporterBase.h"
 
+#include "COLLADAFWTransformation.h"
 
 namespace COLLADAMax
 {
@@ -29,6 +30,23 @@ namespace COLLADAMax
 	class AnimationAssigner : public ImporterBase 
 	{
 	private:
+
+		enum Bucket
+		{ 
+			TRANSLATE_X = 0, 
+			TRANSLATE_Y, 
+			TRANSLATE_Z, 
+			TRANSLATE = TRANSLATE_Z, 
+			ROTATE_Z, 
+			ROTATE_Y, 
+			ROTATE_X, 
+			ROTATE_AXIS, 
+			SCALE_AXIS_ROTATE, 
+			SCALE, 
+			SCALE_AXIS_ROTATE_R, 
+			BUCKET_COUNT 
+		};
+
 	
 	public:
 
@@ -45,7 +63,7 @@ namespace COLLADAMax
 		/** Assigns all transformation controllers.*/
 		bool assignTransformationControllers();
 
-		bool AnimationAssigner::assignTransformationController( const COLLADAFW::Node* node, INode* iNode );
+		bool assignTransformationController( const COLLADAFW::Node* node, INode* iNode );
 
 	private:
 
@@ -54,6 +72,9 @@ namespace COLLADAMax
 
         /** Disable default assignment operator. */
 		const AnimationAssigner& operator= ( const AnimationAssigner& pre );
+		
+		bool buckedTransforms( const COLLADAFW::TransformationPointerArray& transformations, Control** controllers );
+
 	};
 
 } // namespace COLLADAMAX
