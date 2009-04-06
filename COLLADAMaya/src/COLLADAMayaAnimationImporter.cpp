@@ -60,10 +60,17 @@ namespace COLLADAMaya
         const COLLADAFW::UniqueId& animationId = animationCurve->getUniqueId ();
 
         // Create a unique name.
-        String animationName = mAnimationIdList.addId ( ANIMATION_NAME );
+        String animationName = animationCurve->getName ();
+        if ( COLLADABU::Utils::equals ( animationName, "" ) ) 
+            animationName = ANIMATION_NAME;
+        animationName = DocumentImporter::frameworkNameToMayaName ( animationName );
+        animationName = mAnimationIdList.addId ( animationName );
 
         // Create the animation curve.
         MayaDM::AnimCurveTL animCurve ( file, animationName );
+
+        // TODO Push the maya animation curve element in a list.
+        mMayaDMAnimationCurves [animationId] = animCurve;
 
         // Write the key time values
         const COLLADAFW::AnimationCurve::InterpolationType& interpolationType = animationCurve->getInterpolationType ();
@@ -182,6 +189,28 @@ namespace COLLADAMaya
     }
 
     //------------------------------
-    
+    void AnimationImporter::writeConnections ()
+    {
+        // Get the maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        getDocumentImporter ()->getVisualSceneImporter ();
+
+        // TODO Connect the animation with the node's attributes.
+        // connectAttr "pCube1_translateX.output" "pCube1.translateX";
+//        connectAttr ( file, )
+    }
+
+    //------------------------------
+    const MayaDM::AnimCurveTL* AnimationImporter::findMayaDMAnimationCurve ( const COLLADAFW::UniqueId& animationId )
+    {
+        const std::map<COLLADAFW::UniqueId, MayaDM::AnimCurveTL>::iterator it = mMayaDMAnimationCurves.find ( animationId );
+        if ( it != mMayaDMAnimationCurves.end () )
+        {
+            return &(it->second);
+        }
+        return 0;
+    }
+
 
 } // namespace COLLADAMaya

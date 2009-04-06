@@ -153,11 +153,6 @@ namespace COLLADAMaya
         */
         const size_t findPrimitivesCount ( const COLLADAFW::UniqueId& geometryId );
 
-        /** 
-        * The map holds the unique ids of the nodes to the  specific nodes. 
-        */
-        const UniqueIdMayaDMMeshMap& getMayaDMMeshNodesMap () const { return mMayaDMMeshNodesMap; }
-
         /**
          * Returns a pointer to the vector of indices of the given geometry and shading engine.
          * The map holds for every geometry's shading engine a list of the index values of the 

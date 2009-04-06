@@ -30,7 +30,11 @@ namespace COLLADAFW
 		};
 
 	private:
-		/** The type of the animation.*/
+
+        /** Pretty-print name for this animation. Optional. */
+        String mName; 
+
+		/** The type of the animation. */
 		AnimationType mAnimationType;
 
 	public:
@@ -38,10 +42,17 @@ namespace COLLADAFW
 		/** Destructor. */
 		virtual ~Animation(){}
 
-		/** The type of the animation.*/
+        /** Pretty-print name for this animation. Optional. */
+        const COLLADAFW::String& getName () const { return mName; }
+
+        /** Pretty-print name for this animation. Optional. */
+        void setName ( const COLLADAFW::String& val ) { mName = val; }
+
+        /** The type of the animation.*/
 		AnimationType getAnimationType() const { return mAnimationType; }
 
 	protected:
+
 		/** Constructor. */
 		Animation( ObjectId objectId, AnimationType animationType)
 			: ObjectTemplate<COLLADA_TYPE::ANIMATION>(objectId)

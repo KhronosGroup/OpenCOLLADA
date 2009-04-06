@@ -124,6 +124,9 @@ namespace COLLADAMaya
         // Import the transformations.
         importTransformations ( node, transformNode );
 
+        // TODO We need the maya transform node for connect it with the animations.
+        mMayaDMTransformMap [ transformNodeId ] = *transformNode;
+
         // Destroy the node object.
         delete transformNode;
         
@@ -330,9 +333,14 @@ namespace COLLADAMaya
         for ( size_t i=0; i<numTransforms && validMayaTransform; ++i )
         {
             const COLLADAFW::Transformation* transformation = transforms [i];
+
+            // TODO Get the id of animation list of the current transformation and store it.
+            const COLLADAFW::UniqueId& animationListId = transformation->getAnimationList ();
+            mAnimationListIdNodeIdMap [animationListId] = rootNode->getUniqueId ();
+
+            // Read the transform type.
             COLLADAFW::Transformation::TransformationType transformType; 
             transformType = transformation->getTransformationType ();
-
             switch ( transformType )
             {
             case COLLADAFW::Transformation::LOOKAT:
@@ -1075,5 +1083,28 @@ namespace COLLADAMaya
             return true;
         }
         return false;
+    }
+
+    // --------------------------------------------
+    const COLLADAFW::UniqueId* VisualSceneImporter::findAnimationListIdNodeId ( 
+        const COLLADAFW::UniqueId& animationListId )
+    {
+        UniqueIdUniqueIdMap::const_iterator it = mAnimationListIdNodeIdMap.find ( animationListId );
+        if ( it != mAnimationListIdNodeIdMap.end () )
+        {
+            return &(it->second);
+        }
+        return 0;
+    }
+
+    // --------------------------------------------
+    const MayaDM::Transform* VisualSceneImporter::findMayaDMTransform ( const COLLADAFW::UniqueId& transformId )
+    {
+        std::map<COLLADAFW::UniqueId, MayaDM::Transform>::const_iterator it = mMayaDMTransformMap.find ( transformId );
+        if ( it != mMayaDMTransformMap.end () )
+        {
+            return &(it->second);
+        }
+        return 0;
     }
 }

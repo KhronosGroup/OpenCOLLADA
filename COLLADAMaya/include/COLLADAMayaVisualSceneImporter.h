@@ -112,33 +112,44 @@ namespace COLLADAMaya
         UniqueIdMayaNodesMap mMayaTransformNodesMap;
 
         /**
+         * The map holds for every unique transform node id the maya data model transform object
+         * of the transform node.
+         */
+        std::map< COLLADAFW::UniqueId, MayaDM::Transform > mMayaDMTransformMap;
+
+        /**
          * The map holds for every transform node a list of all existing parent transform nodes
          * (this are the nodes, which hold an instance of the current transform node).
          */
         UniqueIdUniqueIdsMap mTransformInstancesMap;
 
-        /*
+        /**
          * The map holds for every unique id of a geometry a list of transform node unique ids.
          * We need it for the creation of the geometry, to set the parent transform nodes.
          */
         UniqueIdUniqueIdsMap mGeometryTransformIdsMap;
 
-        /*
+        /**
         * The map holds for every unique id of a camera a list of transform node unique ids.
         * We need it for the creation of the camera, to set the parent transform nodes.
         */
         UniqueIdUniqueIdsMap mCameraTransformIdsMap;
 
-        /*
+        /**
         * The map holds for every unique id of a light a list of transform node unique ids.
         * We need it for the creation of the light, to set the parent transform nodes.
         */
         UniqueIdUniqueIdsMap mLightTransformIdsMap;
 
-        /*
+        /**
          * Set the center of interest distance value in a map to the current transform node.
          */
         std::map<COLLADAFW::UniqueId, double> mCenterOfInterestDistances;
+
+        /**
+         * The map holds for every animationListId the unique id of corresponding node.
+         */
+        UniqueIdUniqueIdMap mAnimationListIdNodeIdMap;
 
     public:
 
@@ -226,6 +237,17 @@ namespace COLLADAMaya
         bool findCenterOfInterestDistance ( 
             const COLLADAFW::UniqueId& transformId, 
             double& centerOfInterestDistance );
+
+        /**
+        * The map holds for every animationListId the unique id of corresponding node.
+        */
+        const COLLADAFW::UniqueId* findAnimationListIdNodeId ( const COLLADAFW::UniqueId& animationListId );
+
+        /**
+        * The map holds for every unique transform node id the maya data model transform object
+        * of the transform node.
+        */
+        const MayaDM::Transform* findMayaDMTransform ( const COLLADAFW::UniqueId& transformId );
 
     private:
 

@@ -21,6 +21,12 @@
 
 namespace COLLADAMaya
 {
+    
+    // COLLADA NetAllied Systems
+    static const char* TRANSLATOR_VENDOR                            = "NetAllied Systems GmbH";
+    static const char* TRANSLATOR_VERSION                           = "0.9.2";
+    static const char* USERNAME                                     = "USERNAME";
+    static const char* USER                                         = "USER";
 
     // Names for the creation of the plug-in
     static const char* COLLADA_EXPORTER                             = "COLLADA nextgen exporter";
@@ -39,12 +45,6 @@ namespace COLLADAMaya
     // options dialog during file open and save
     static char*  MEL_EXPORT_OPTS                                   = "colladaNextGenExporterOpts";
     static char*  MEL_IMPORT_OPTS                                   = "colladaNextGenImporterOpts";
-
-    // COLLADA NetAllied Systems
-    static const char* TRANSLATOR_VENDOR                            = "NetAllied Systems GmbH";
-    static const char* TRANSLATOR_VERSION                           = "0.9.2";
-    static const char* USERNAME                                     = "USERNAME";
-    static const char* USER                                         = "USER";
 
     // COLLADA 1.4 Maya-specific definitions
     static const char* MAYA_TEXTURE_NODETYPE                        = "dgnode_type";

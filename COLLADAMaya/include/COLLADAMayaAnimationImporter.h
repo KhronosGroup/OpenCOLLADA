@@ -39,6 +39,15 @@ namespace COLLADAMaya
         */
         COLLADABU::IDList mAnimationIdList;
 
+        /**
+         * The map holds for every unique animation id the maya animatio curve.
+         */
+        std::map<COLLADAFW::UniqueId, MayaDM::AnimCurveTL> mMayaDMAnimationCurves;
+
+        /**
+         * The map holds for every animation curve a list of node ids, which use this connections.
+         */
+
     public:
 
         /** Constructor. */
@@ -51,6 +60,18 @@ namespace COLLADAMaya
          * Imports the the data of the current animation.
          */
         void importAnimation ( const COLLADAFW::Animation* animation );
+
+        /** 
+        * Writes the connection attributes into the maya ascii file. 
+        */
+        void writeConnections ();
+
+        /**
+        * The map holds for every unique animation id the maya animatio curve.
+        */
+        const MayaDM::AnimCurveTL* findMayaDMAnimationCurve ( const COLLADAFW::UniqueId& animationId );
+
+    private:
 
         /**
          * Imports the data of an animtion curve (no formula).

@@ -30,6 +30,7 @@
 #include "COLLADAMayaGeometryImporter.h"
 
 #include "COLLADAFWRoot.h"
+#include "COLLADAFWAnimationList.h"
 
 #include "COLLADASaxFWLLoader.h"
 
@@ -354,11 +355,11 @@ namespace COLLADAMaya
         fprintf ( mFile, "//Maya ASCII %s scene\n", mayaVersion.c_str () );
 
         // We have to change the name on 64 bit machines. 
-        // For example from "2008 x64" to "2008" (64bit Maya doesn't understand it's own version).
+        // For example from "2008 x64" to "2008" or from "2008 Extension 2" to "2008".
         std::vector<String> words;
         String separator (" ");
         COLLADABU::Utils::split ( mayaVersion, separator, words );
-        if ( words.size () == 2 && COLLADABU::Utils::equalsIgnoreCase ( words[1], "x64") ) 
+        if ( words.size () > 1 ) 
         {
             fprintf ( mFile, "requires maya \"%s\";\n", words[0].c_str () );
         }
@@ -699,6 +700,73 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeAnimationList ( const COLLADAFW::AnimationList* animationList )
     {
+        // Get the id of the current animation list.
+        const COLLADAFW::UniqueId& animationListId = animationList->getUniqueId ();
+
+        // Get the node, which use this animation list.
+        const COLLADAFW::UniqueId* nodeId = getVisualSceneImporter ()->findAnimationListIdNodeId ( animationListId );
+        if ( nodeId == 0 ) 
+        {
+            MGlobal::displayError ( "Nobody uses this animation list!" );
+            return false;
+        }
+        
+        // TODO Get the maya node object for the id.
+        const MayaDM::Transform* transform = getVisualSceneImporter ()->findMayaDMTransform ( *nodeId );
+
+        // TODO Get the animation curves of the current animation list.
+        const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings ();
+        size_t numAnimationBindings = animationBindings.getCount ();
+        for ( size_t i=0; i<numAnimationBindings; ++i )
+        {
+            const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings [i]; 
+
+            // TODO Get the animation curve element of the current animation id.
+            const COLLADAFW::UniqueId& animationId = animationBinding.animation;
+            const MayaDM::AnimCurveTL* animationCurve = getAnimationImporter ()->findMayaDMAnimationCurve ( animationId );
+            if ( animationCurve == 0 ) continue;
+
+            size_t firstIndex = animationBinding.firstIndex;
+
+            // TODO Connect the animation curve and the current transform node.
+            // connectAttr "pCube1_translateX.output" "pCube1.translateX";
+            const COLLADAFW::AnimationList::AnimationClass& animationClass = animationBinding.animationClass;
+            switch ( animationClass )
+            {
+            case COLLADAFW::AnimationList::POSITION_X:
+                connectAttr ( getFile (), animationCurve->getOutput (), transform->getTranslateX () );
+                break;
+            case COLLADAFW::AnimationList::POSITION_Y:
+                connectAttr ( getFile (), animationCurve->getOutput (), transform->getTranslateY () );
+                break;
+            case COLLADAFW::AnimationList::POSITION_Z:
+                connectAttr ( getFile (), animationCurve->getOutput (), transform->getTranslateZ () );
+                break;
+            case COLLADAFW::AnimationList::POSITION_XYZ:
+                connectAttr ( getFile (), animationCurve->getOutput (), transform->getTranslate () );
+                break;
+            case COLLADAFW::AnimationList::AXISANGLE:
+                connectAttr ( getFile (), animationCurve->getOutput (), transform->getRotateAxis () );
+                break;
+            case COLLADAFW::AnimationList::COLOR_R:
+                break;
+            case COLLADAFW::AnimationList::COLOR_G:
+                break;
+            case COLLADAFW::AnimationList::COLOR_B:
+                break;
+            case COLLADAFW::AnimationList::COLOR_A:
+                break;
+            case COLLADAFW::AnimationList::COLOR_RGB:
+                break;
+            case COLLADAFW::AnimationList::COLOR_RGBA:
+                break;
+            case COLLADAFW::AnimationList::FLOAT:
+                break;
+            case COLLADAFW::AnimationList::MATRIX4X4:
+                break;
+            }
+        }
+
         return true;
     }
 
