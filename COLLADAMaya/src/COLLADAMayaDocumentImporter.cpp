@@ -472,7 +472,8 @@ namespace COLLADAMaya
             //      setAttr ".before" -type "string" "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \"z\") { upAxis -ax \"z\"; viewSet -home persp; }";
             //      setAttr ".scriptType" 2;
             MayaDM::Script scriptNode ( mFile, "upAxisScriptNode" );
-            String scriptValue = "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \\\""                 + upAxis + "\\\") { upAxis -ax \\\"" + upAxis + "\\\"; viewSet -home persp; }"; // -rv
+            String scriptValue = "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \\\"" + upAxis + "\\\") { upAxis -ax \\\"" + upAxis + "\\\"; viewSet -home persp; }"; // -rv
+            
             scriptNode.setBefore ( scriptValue );
             scriptNode.setScriptType ( 2 );
         }
