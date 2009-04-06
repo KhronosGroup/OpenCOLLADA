@@ -366,20 +366,20 @@ enum ConnectableType
 	CT_AXIS,
 	CT_WTMATRIX};
 /** Macro to connect compatible attributes.*/
-    #define connectAttr(file, src, dst) {   \
-    fprintf(file, "connectAttr ");      \
-    src;                                \
-    fprintf(file, " ");                 \
-    dst;                                \
+    #define connectAttr(file, src, dst) {   		\
+    fprintf(file, "connectAttr ");      		\
+    src;                                			\
+    fprintf(file, " ");                 		\
+    dst;                                			\
     fprintf(file, ";\n"); }
 
 /** Macro to connect compatible attributes.*/
     #define connectNextAttr(file, src, dst) {   \
-    fprintf(file, "connectAttr ");      \
-    src;                                \
-    fprintf(file, " ");                 \
-    dst;                                \
-    fprintf(file, " -nextAvailable"); \
+    fprintf(file, "connectAttr ");      		\
+    src;                                		\
+    fprintf(file, " ");                 		\
+    dst;                                		\
+    fprintf(file, " -nextAvailable"); 		\
     fprintf(file, ";\n"); }
 
 }//namespace MayaDM
