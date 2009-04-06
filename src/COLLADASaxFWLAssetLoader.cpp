@@ -21,6 +21,8 @@ namespace COLLADASaxFWL
         , mAsset ( new COLLADAFW::FileInfo () )
 	{
 		mAsset->setAbsoluteFileUri( callingFilePartLoader->getFileUri() );
+		// COLLADA always uses degrees as angular units
+		mAsset->getUnit().setAngularUnit( COLLADAFW::FileInfo::Unit::DEGREES );
 	}
 	
     //------------------------------
@@ -32,7 +34,7 @@ namespace COLLADASaxFWL
 	bool AssetLoader::end__asset()
 	{
 		SaxVirtualFunctionTest(end__asset())
-			bool success = writer()->writeGlobalAsset ( mAsset );
+		bool success = writer()->writeGlobalAsset ( mAsset );
 		delete mAsset;
 		finish();
 		return success;
