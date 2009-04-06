@@ -11,6 +11,7 @@
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLSidTreeNode.h"
 
+#include <iostream>
 
 namespace COLLADASaxFWL
 {
@@ -41,11 +42,25 @@ namespace COLLADASaxFWL
 		, mSid(sid)
 	{
 		mTarget.object = 0;
+		std::cout << "Ctor: " << this << " " << mSid << std::endl;
 	}
 
 	//------------------------------
 	SidTreeNode::~SidTreeNode()
 	{
+		std::cout << "Dtor: " << this << " " << mSid << std::endl;
+
+		SidIdentifierSidTreeNodeMap::const_iterator it = mChildren.begin();
+		for ( ; it!=mChildren.end(); ++it)
+		{
+			const SidIdentifier& sidIdentifier = it->first;
+			const SidTreeNode*const& sidTreeNode = it->second;
+			if ( sidIdentifier.hierarchyLevel == 0 )
+			{
+				delete sidTreeNode;
+			}
+
+		}
 	}
 
 	//------------------------------

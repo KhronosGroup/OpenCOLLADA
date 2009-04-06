@@ -28,7 +28,8 @@ namespace COLLADAFW
 	{}
 
 	//------------------------------
-	FloatOrDoubleArray::FloatOrDoubleArray( DataType type ) : mType ( type )
+	FloatOrDoubleArray::FloatOrDoubleArray( DataType type ) 
+		: mType ( type )
 		, mValuesF(FloatArray::OWNER)
 		, mValuesD(DoubleArray::OWNER)
 	{}

@@ -72,7 +72,10 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		AnimationList( ObjectId objectId ) : ObjectTemplate<COLLADA_TYPE::ANIMATIONLIST>(objectId){}
+		AnimationList( ObjectId objectId ) 
+			: ObjectTemplate<COLLADA_TYPE::ANIMATIONLIST>(objectId)
+			, mAnimationBindings(AnimationBindings::OWNER)
+		{}
 
         /** Destructor. */
 		virtual ~AnimationList(){}

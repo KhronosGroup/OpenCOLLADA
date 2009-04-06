@@ -369,6 +369,7 @@ namespace COLLADASaxFWL
 		if ( COLLADAFW::validate( mCurrentAnimationCurve ) )
 		{
 			success = writer()->writeAnimation(mCurrentAnimationCurve);
+			FW_DELETE mCurrentAnimationCurve;
 		}
 		else
 		{
@@ -575,7 +576,7 @@ namespace COLLADASaxFWL
 
 				size_t stride = (size_t)realSource->getStride();
 				size_t physicalDimensionsCount = physicalDimensions.getCount();
-				// if stride is larger that physicalDimensionsCount, we need to appand dimensions to physicalDimensions
+				// if stride is larger that physicalDimensionsCount, we need to append dimensions to physicalDimensions
 				for ( size_t i =  physicalDimensionsCount; i < stride; ++i)
 				{
 					physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_UNKNOWN);
