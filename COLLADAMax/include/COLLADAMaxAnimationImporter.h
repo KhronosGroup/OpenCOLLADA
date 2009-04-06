@@ -40,6 +40,8 @@ namespace COLLADAMax
 	private:
 		/** The animation to import.*/
 		const COLLADAFW::Animation* mAnimation;
+
+		const DocumentImporter::UnitConversionFunctors& mUnitConversionFunctors; 
 	
 	public:
 
@@ -52,10 +54,6 @@ namespace COLLADAMax
 		/** Performs the import of the animation.
 		@return True on success, false otherwise.*/
 		bool import();
-
-		/** COLLADA has time in seconds, while Max uses frame time.	The following returns the conversion factor.*/
-		static int getTimeFactor() { return GetTicksPerFrame() * GetFrameRate(); }
-
 
 		/** Creates a max float controller for dimension @a dimension of @a animationCurve and fills in the keys and values.*/
 		Control* createAndFillMaxFloatController( COLLADAFW::AnimationCurve* animationCurve, size_t dimension);
@@ -81,7 +79,9 @@ namespace COLLADAMax
 										   size_t dimensions, 
 										   size_t dimension, 
 										   const InputArrayType& inputValues, 
-										   const OutputArrayType& outputValues );
+										   const OutputArrayType& outputValues,
+										   ConversionFunctorType inputConversionFunctor,
+										   ConversionFunctorType outputConversionFunctor );
 
 	private:
 
@@ -90,7 +90,9 @@ namespace COLLADAMax
 
         /** Disable default assignment operator. */
 		const AnimationImporter& operator= ( const AnimationImporter& pre );
-
+		
+		/** Returns the ConversionFunctor to convert a quantity of @a physicalDimension from framework to max units.*/
+		ConversionFunctor* AnimationImporter::getConversionFunctorByPhysicalDimension( COLLADAFW::PhysicalDimension physicalDimension );
 	};
 
 } // namespace COLLADAMAX

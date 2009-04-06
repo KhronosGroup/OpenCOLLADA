@@ -374,7 +374,7 @@ namespace COLLADAMax
 							return false;
 						}
 
-						bucketDepth = ROTATE_Y;
+						bucketDepth = ROTATE_Z;
 
 						if ( animationBindings.getCount() == 0 )
 						{
@@ -390,8 +390,8 @@ namespace COLLADAMax
 						}
 						const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
 						assert( maxControllerList.size() == 1 );
-						controllers[ROTATE_Y] = maxControllerList[0];
-						bucketDepth = ROTATE_Y;
+						controllers[ROTATE_Z] = maxControllerList[0];
+						bucketDepth = ROTATE_Z;
 					}
 #if 0
 					else if (bucketDepth < ROTATE_Z) // Only use this if we have no rotations yet.

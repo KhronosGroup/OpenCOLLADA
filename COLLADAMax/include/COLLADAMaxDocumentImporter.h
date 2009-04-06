@@ -19,6 +19,7 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADAMAX_DOCUMENTIMPORTER_H__
 
 #include "COLLADAMaxPrerequisites.h"
+#include "COLLADAMaxConversionFunctor.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWMaterial.h"
@@ -133,6 +134,13 @@ namespace COLLADAMax
 
 		/** List of unique ids.*/
 		typedef std::vector< COLLADAFW::UniqueId > UniqueIdList;
+
+		struct UnitConversionFunctors
+		{
+			ConversionFunctor* lengthConversion;
+			ConversionFunctor* angleConversion;
+			ConversionFunctor* timeConversion;
+		};
 			
 	private:
 		/** Max interface.*/
@@ -225,6 +233,8 @@ namespace COLLADAMax
 		/** Holds informations about the entire file being loaded.*/
 		FileInfo mFileInfo;
 
+		/** Functors used to convert values from frame work units into max units.*/
+		UnitConversionFunctors mUnitConversionFunctors;
 	public:
 		/** Constructor .
 		@param maxInterface The max interface.
@@ -392,6 +402,9 @@ namespace COLLADAMax
 
 		/** Holds all already imported animation list, sorted by their unique id.*/
 		UniqueIdAnimationListMap&  getUniqueIdAnimationListMap() { return mUniqueIdAnimationListMap; }
+
+		/** Functors used to convert values from frame work units into max units.*/
+		const UnitConversionFunctors& getUnitConversionFunctors() const { return mUnitConversionFunctors; }
 
 		/** Returns informations about the entire file being loaded.*/
 		const FileInfo& getFileInfo() const { return mFileInfo; }

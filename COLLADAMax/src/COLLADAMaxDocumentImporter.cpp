@@ -52,6 +52,9 @@ namespace COLLADAMax
 		, mNumberOfAmbientColors(0)
 		, mDummyObject((DummyObject*) getMaxImportInterface()->Create(HELPER_CLASS_ID, Class_ID(DUMMY_CLASS_ID, 0)))
 	{
+		mUnitConversionFunctors.lengthConversion = 0;
+		mUnitConversionFunctors.angleConversion = 0;
+		mUnitConversionFunctors.timeConversion = new ScaleConversionFunctor( (float)(GetTicksPerFrame() * GetFrameRate()));
 	}
 	
 	//--------------------------------------------------------------------
@@ -68,6 +71,10 @@ namespace COLLADAMax
 		// Delete all the animation lists
 		for ( UniqueIdAnimationListMap::const_iterator it = mUniqueIdAnimationListMap.begin(); it != mUniqueIdAnimationListMap.end(); ++it)
 			delete it->second;
+
+		delete mUnitConversionFunctors.lengthConversion;
+		delete mUnitConversionFunctors.angleConversion;
+		delete mUnitConversionFunctors.timeConversion;
 	}
 
 
@@ -205,6 +212,16 @@ namespace COLLADAMax
 		default: break;
 		}
 		mFileInfo.unitScale = (float)asset->getUnit().getLinearUnitMeter() / systemUnitScale;
+		delete mUnitConversionFunctors.lengthConversion;
+		mUnitConversionFunctors.lengthConversion = new ScaleConversionFunctor(mFileInfo.unitScale);
+
+		COLLADAFW::FileInfo::Unit::AngularUnit angularUnit = asset->getUnit().getAngularUnit();
+		if ( angularUnit == COLLADAFW::FileInfo::Unit::DEGREES )
+		{
+     		delete mUnitConversionFunctors.angleConversion;
+			mUnitConversionFunctors.angleConversion = ConversionFunctors::degToRad.clone();
+		}
+
 		return true;
 	}
 

@@ -29,12 +29,27 @@ namespace COLLADAMax
 	AnimationImporter::AnimationImporter( DocumentImporter* documentImporter, const COLLADAFW::Animation* animation )
 		: ImporterBase(documentImporter)
 		, mAnimation(animation)
+		, mUnitConversionFunctors(getUnitConversionFunctors())
 	{
 	}
 	
     //------------------------------
 	AnimationImporter::~AnimationImporter()
 	{
+	}
+
+	ConversionFunctor* AnimationImporter::getConversionFunctorByPhysicalDimension( COLLADAFW::PhysicalDimension physicalDimension )
+	{
+		switch ( physicalDimension )
+		{
+		case COLLADAFW::PHYSICAL_DIMENSION_LENGTH:
+			return mUnitConversionFunctors.lengthConversion;
+		case COLLADAFW::PHYSICAL_DIMENSION_ANGLE:
+			return mUnitConversionFunctors.angleConversion;
+		case COLLADAFW::PHYSICAL_DIMENSION_TIME:
+			return mUnitConversionFunctors.timeConversion;
+		}
+		return 0;
 	}
 
 	//------------------------------
@@ -106,6 +121,8 @@ namespace COLLADAMax
 		const COLLADAFW::FloatOrDoubleArray& outputValues = animationCurve->getOutputValues();
 		COLLADAFW::FloatOrDoubleArray::DataType outputValuesDataType = outputValues.getType();
 
+		ConversionFunctor* inputConversionFunctor = getConversionFunctorByPhysicalDimension( animationCurve->getInPhysicalDimension() );
+		ConversionFunctor* outputConversionFunctor = getConversionFunctorByPhysicalDimension( animationCurve->getOutPhysicalDimensions()[dimension]);
 
 		if ( isLinear )
 		{
@@ -113,22 +130,22 @@ namespace COLLADAMax
 			{
 				if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
 				{
-					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getDoubleValues());
+					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getDoubleValues(), inputConversionFunctor, outputConversionFunctor);
 				}
 				else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
 				{
-					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getFloatValues());
+					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getFloatValues(), inputConversionFunctor, outputConversionFunctor);
 				}
 			}
 			else if ( inputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT )
 			{
 				if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
 				{
-					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getDoubleValues());
+					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getDoubleValues(), inputConversionFunctor, outputConversionFunctor);
 				}
 				else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
 				{
-					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getFloatValues());
+					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getFloatValues(), inputConversionFunctor, outputConversionFunctor);
 				}
 			}
 		}
@@ -184,16 +201,31 @@ namespace COLLADAMax
 		                                                              size_t dimensions, 
 		                                                              size_t dimension, 
 		                                                              const InputArrayType& inputValues, 
-		                                                              const OutputArrayType& outputValues )
+		                                                              const OutputArrayType& outputValues,
+																	  ConversionFunctorType inputConversionFunctor,
+																	  ConversionFunctorType outputConversionFunctor)
 	{
-		int timeFactor = getTimeFactor();
-
 		for ( size_t i = 0; i < keyCount; ++i)
 		{
 			// Create the linear keys
 			ILinFloatKey key;
-			key.time = (TimeValue)(inputValues[i] * timeFactor);
-			key.val = (float)(outputValues[ i*dimensions + dimension ]);
+			if ( inputConversionFunctor )
+			{
+				key.time = (TimeValue)((*inputConversionFunctor)((float)(inputValues[i])));
+			}
+			else
+			{
+				key.time = (TimeValue)(inputValues[i]);
+			}
+			
+			if ( outputConversionFunctor )
+			{
+				key.val = (*outputConversionFunctor)((float)(outputValues[ i*dimensions + dimension ]));
+			}
+			else
+			{
+				key.val = (float)(outputValues[ i*dimensions + dimension ]);
+			}
 
 			maxKeyController->SetKey((int) i, &key);
 		}

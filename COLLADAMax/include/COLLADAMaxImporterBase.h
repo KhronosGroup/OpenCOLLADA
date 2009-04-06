@@ -230,6 +230,10 @@ namespace COLLADAMax
 		/** Retrieves the animation list with @a uniqueId. If not found, an empty AnimationList is returned.*/
 		const COLLADAFW::AnimationList* getAnimationListByUniqueId(const COLLADAFW::UniqueId& animationListUniqueId) const ;
 
+		/** Functors used to convert values from frame work units into max units.*/
+		const DocumentImporter::UnitConversionFunctors& getUnitConversionFunctors() const { return mDocumentImporter->getUnitConversionFunctors(); }
+
+
 		/** Returns informations about the entire file being loaded.*/
 		const DocumentImporter::FileInfo& getFileInfo() const { return mDocumentImporter->getFileInfo(); }
 
