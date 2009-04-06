@@ -39,7 +39,11 @@ namespace COLLADASaxFWL
 		typedef std::map< String /*samplerId*/,AnimationInfo > StringAnimationInfoMap;
 
 	private:
-		/** The animation curve currently being filled. Is none null only inside a sampler element.*/
+
+        /** Pretty-print name for this animation. Optional. */
+        String mName; 
+
+        /** The animation curve currently being filled. Is none null only inside a sampler element.*/
 		COLLADAFW::AnimationCurve* mCurrentAnimationCurve;
 
 		/** Maps the id of sampler to the unique id of the frame work animation created for this sampler.*/
@@ -106,6 +110,12 @@ namespace COLLADASaxFWL
 
 
 	private:
+
+        /** Pretty-print name for this animation. Optional. */
+        const COLLADAFW::String& getName () const { return mName; }
+
+        /** Pretty-print name for this animation. Optional. */
+        void setName ( const COLLADAFW::String& val ) { mName = val; }
 
         /** Disable default copy ctor. */
 		LibraryAnimationsLoader( const LibraryAnimationsLoader& pre );
