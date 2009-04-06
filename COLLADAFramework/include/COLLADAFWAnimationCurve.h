@@ -16,6 +16,7 @@
 #include "COLLADAFWArrayPrimitiveType.h"
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
+#include "COLLADAFWTypes.h"
 
 namespace COLLADAFW
 {
@@ -44,6 +45,14 @@ namespace COLLADAFW
 		typedef ArrayPrimitiveType<InterpolationType> InterpolationTypeArray;
 
 	private:
+	
+		/** The physical dimension of the input value. In general this will be time, but can also be any other 
+		physical dimension.*/
+		PhysicalDimension mInPhysicalDimension;
+
+		/** The physical dimensions of the output values. The cout of this array must be equal to mOutDimension.*/
+		PhysicalDimensionArray mOutPhysicalDimensions;
+
 		/** The dimension of the output, e.g. 1 for a single float, 3 for a position.*/
 		size_t mOutDimension;
 
@@ -74,6 +83,8 @@ namespace COLLADAFW
         /** Constructor. */
 		AnimationCurve( ObjectId objectId )
 			: Animation(objectId, Animation::ANIMATION_CURVE)
+			, mInPhysicalDimension(PHYSICAL_DIMENSION_UNKNOWN)
+			, mOutPhysicalDimensions(PhysicalDimensionArray::OWNER)
 			, mOutDimension(0)
 			, mInterpolationType(INTERPOLATION_UNKNOWN)
 			, mInterpolationTypes(InterpolationTypeArray::OWNER)
@@ -82,9 +93,24 @@ namespace COLLADAFW
         /** Destructor. */
 		virtual ~AnimationCurve(){}
 
+		/** Returns the physical dimension of the input value. In general this will be time, but can also be any other 
+		physical dimension.*/
+		PhysicalDimension getInPhysicalDimension() const { return mInPhysicalDimension; }
+
+		/** Sets the physical dimension of the input value. In general this will be time, but can also be any other 
+		physical dimension.*/
+		void setInPhysicalDimension(PhysicalDimension inPhysicalDimension) { mInPhysicalDimension = inPhysicalDimension; }
+
+
+		/** Returns the physical dimensions of the output values.*/
+		const PhysicalDimensionArray& getOutPhysicalDimensions() const { return mOutPhysicalDimensions; }
+
+		/** Returns the physical dimensions of the output values.*/
+		PhysicalDimensionArray& getOutPhysicalDimensions(){ return mOutPhysicalDimensions; }
+
+
 		/* Returns the number of keys.*/
 		size_t getKeyCount() const { return mInputValues.getValuesCount(); }
-
 
 		/** Returns the dimension of the output, e.g. 1 for a single float, 3 for a position.*/
 		size_t getOutDimension() const { return mOutDimension; }

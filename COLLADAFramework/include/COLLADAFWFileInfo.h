@@ -177,11 +177,17 @@ namespace COLLADAFW
             const double getLinearUnitMeter () const { return mLinearUnitMeter; }
             void setLinearUnitMeter ( const double val ) { mLinearUnitMeter = val; }
 
-            /**
-            * The angular unit;
-            */
-            const String& getAngularUnitName () const { return mAngularUnitName; }
-            void setAngularUnitName ( const String& val );
+			/**
+			* The angular unit;
+			*/
+			AngularUnit getAngularUnit () const { return mAngularUnitUnit; }
+			void setAngularUnit ( AngularUnit angularUnitUnit ) { mAngularUnitUnit = angularUnitUnit;}
+
+			/**
+			* The angular unit;
+			*/
+			const String& getAngularUnitName () const { return mAngularUnitName; }
+			void setAngularUnitName ( const String& val );
 
             /**
             * Initializes the angular unit unit with the specified enum value

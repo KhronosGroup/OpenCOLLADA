@@ -41,6 +41,18 @@ namespace COLLADAFW
 	/** Data type to reference sampler. Used by texture.*/
 	typedef size_t SamplerID;
 
+	/** Enum listing all physical dimensions used in the data model.*/
+	enum PhysicalDimension
+	{
+		PHYSICAL_DIMENSION_UNKNOWN,
+		PHYSICAL_DIMENSION_TIME,
+		PHYSICAL_DIMENSION_LENGTH,
+		PHYSICAL_DIMENSION_ANGLE,
+		PHYSICAL_DIMENSION_COLOR,
+		PHYSICAL_DIMENSION_NUMBER
+	};
+
+	typedef ArrayPrimitiveType<PhysicalDimension> PhysicalDimensionArray;
 
     // Element Type Enum
     namespace COLLADA_TYPE

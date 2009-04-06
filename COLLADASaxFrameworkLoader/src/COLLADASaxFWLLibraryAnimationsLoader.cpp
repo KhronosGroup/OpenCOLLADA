@@ -17,6 +17,7 @@
 #include "COLLADAFWValidate.h"
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWIWriter.h"
+#include "COLLADAFWTypes.h"
 
 
 namespace COLLADASaxFWL
@@ -73,6 +74,21 @@ namespace COLLADASaxFWL
 		COLLADAFW::AnimationList::AnimationClass animationClass;
 	};
 
+	struct AccessorDimensionsPair
+	{
+		AccessorDimensionsPair( const SourceBase::AccessorParameter& _parameter,
+								COLLADAFW::PhysicalDimension _physicalDimension,
+								size_t _dimension)
+			: parameter(_parameter)
+			, physicalDimension(_physicalDimension)
+			, dimension(_dimension)
+		{}
+		const SourceBase::AccessorParameter& parameter;
+		COLLADAFW::PhysicalDimension physicalDimension;
+		size_t dimension;
+	};
+
+	SourceBase::AccessorParameter parameterTime = {"TIME", "float"};
 	SourceBase::AccessorParameter parameterFloat = {"", "float"};
 	SourceBase::AccessorParameter parameterX = {"X", "float"};
 	SourceBase::AccessorParameter parameterY = {"Y", "float"};
@@ -80,6 +96,7 @@ namespace COLLADASaxFWL
 	SourceBase::AccessorParameter parameterAngle = {"ANGLE", "float"};
 	SourceBase::AccessorParameter parameterTransform = {"TRANSFORM", "float4x4"};
 
+	SourceBase::AccessorParameter accessorTime[] = {parameterTime};
 	SourceBase::AccessorParameter accessorFloat[] = {parameterFloat};
 	SourceBase::AccessorParameter accessorX[] = {parameterX};
 	SourceBase::AccessorParameter accessorY[] = {parameterY};
@@ -92,7 +109,8 @@ namespace COLLADASaxFWL
 
 	AccessorAnimationClassPair animationClassMap[] = 
 	{ 
-		  AccessorAnimationClassPair( accessorFloat, sizeof(accessorFloat), COLLADAFW::AnimationList::FLOAT)
+		  AccessorAnimationClassPair( accessorTime, sizeof(accessorTime), COLLADAFW::AnimationList::TIME)
+		, AccessorAnimationClassPair( accessorFloat, sizeof(accessorFloat), COLLADAFW::AnimationList::FLOAT)
 		, AccessorAnimationClassPair( accessorX, sizeof(accessorX), COLLADAFW::AnimationList::POSITION_X)
 		, AccessorAnimationClassPair( accessorY, sizeof(accessorY), COLLADAFW::AnimationList::POSITION_Y)
 		, AccessorAnimationClassPair( accessorZ, sizeof(accessorZ), COLLADAFW::AnimationList::POSITION_Z)
@@ -101,6 +119,19 @@ namespace COLLADASaxFWL
 		, AccessorAnimationClassPair( accessorAxisAngle, sizeof(accessorAxisAngle), COLLADAFW::AnimationList::AXISANGLE)
 		, AccessorAnimationClassPair( accessorTransform, sizeof(accessorTransform), COLLADAFW::AnimationList::MATRIX4X4)
 	};
+
+#if 0
+	AccessorDimensionsPair animationDimensionMap[] = 
+	{ 
+	      AccessorDimensionsPair( parameterFloat, PHYSICAL_DIMENSION_UNKNOWN, 1)
+    	, AccessorDimensionsPair( parameterX, PHYSICAL_DIMENSION_LENGTH, 1)
+		, AccessorDimensionsPair( parameterY, PHYSICAL_DIMENSION_LENGTH, 1)
+		, AccessorDimensionsPair( parameterZ, PHYSICAL_DIMENSION_LENGTH, 1)
+		, AccessorDimensionsPair( parameterAngle, PHYSICAL_DIMENSION_ANGLE, 1)
+		, AccessorDimensionsPair( parameterTransform, PHYSICAL_DIMENSION_TRANSFORMATIONMATRIX4X4, 16)
+	};
+#endif
+
 
 	/** Determines the animation class from the accessor.*/
 	//------------------------------
@@ -138,6 +169,34 @@ namespace COLLADASaxFWL
 
 		return COLLADAFW::AnimationList::UNKNOWN_CLASS;
 	}
+
+#if 0
+	/** Determines the physical dimension and the dimension of @a parameter.
+	@param parameters the accessor parameter to determine the dimensions from
+	@param physicalDimension Will be set to the physical dimension
+	@param dimension Will be set to the dimension of the parameter, e.g. 1 for float, 16 for float4x4 
+	@return True if parameter was found, false otherwise.*/
+	//------------------------------
+	bool determineParameterDimensions( const SourceBase::AccessorParameter& parameter,
+									   COLLADAFW::PhysicalDimension& physicalDimension,
+									   size_t& dimension)
+	{
+		static const size_t mapSize = sizeof(animationDimensionMap)/sizeof(AccessorDimensionsPair);
+		for ( size_t i = 0; i < mapSize; ++i)
+		{
+			const AccessorDimensionsPair& animationDimensionPair = animationDimensionMap[i];
+
+			if ( parameter ==  animationDimensionPair.parameter ) 
+			{
+				physicalDimension = animationDimensionPair.physicalDimension;
+				dimension = animationDimensionPair.dimension;
+				return true;
+			}
+		}
+
+		return false;
+	}
+#endif
 
 	//------------------------------
 	COLLADAFW::AnimationCurve::InterpolationType LibraryAnimationsLoader::getInterpolationTypeByString( const ParserString& string )
@@ -415,6 +474,18 @@ namespace COLLADASaxFWL
 					// The source array has wrong type. Only reals are allowed for semantic INPUT
 					break;
 				}
+
+				COLLADAFW::AnimationList::AnimationClass animationClass = determineAnimationClass( sourceBase->getAccessor() );
+
+				if ( animationClass == COLLADAFW::AnimationList::TIME )
+				{
+					mCurrentAnimationCurve->setInPhysicalDimension( COLLADAFW::PHYSICAL_DIMENSION_TIME );
+				}
+				else
+				{
+					mCurrentAnimationCurve->setInPhysicalDimension( COLLADAFW::PHYSICAL_DIMENSION_UNKNOWN );
+				}
+
 				setRealValues( mCurrentAnimationCurve->getInputValues(), (const RealSource*)sourceBase);
 			}
 			break;
@@ -426,15 +497,84 @@ namespace COLLADASaxFWL
 					break;
 				}
 
+				assert( mCurrentAnimationInfo );
+				COLLADAFW::PhysicalDimensionArray& physicalDimensions = mCurrentAnimationCurve->getOutPhysicalDimensions();
+				
 				if ( mCurrentAnimationInfo )
 				{
-					mCurrentAnimationInfo->animationClass = determineAnimationClass( sourceBase->getAccessor() );
+					COLLADAFW::AnimationList::AnimationClass animationClass = determineAnimationClass( sourceBase->getAccessor() );
+					mCurrentAnimationInfo->animationClass = animationClass;
+
+					switch ( animationClass )
+					{
+					case COLLADAFW::AnimationList::POSITION_X:
+					case COLLADAFW::AnimationList::POSITION_Y:
+					case COLLADAFW::AnimationList::POSITION_Z:
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						break;
+					case COLLADAFW::AnimationList::POSITION_XYZ:
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						break;
+					case COLLADAFW::AnimationList::ANGLE:
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_ANGLE);
+						break;
+					case COLLADAFW::AnimationList::AXISANGLE:
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_ANGLE);
+						break;
+					case COLLADAFW::AnimationList::MATRIX4X4:
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						break;
+					case COLLADAFW::AnimationList::COLOR_R:
+					case COLLADAFW::AnimationList::COLOR_G:
+					case COLLADAFW::AnimationList::COLOR_B:
+					case COLLADAFW::AnimationList::COLOR_A:
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
+						break;
+					case COLLADAFW::AnimationList::COLOR_RGB:
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
+						break;
+					case COLLADAFW::AnimationList::COLOR_RGBA:
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
+						break;
+					}
 				}
 
 				const RealSource* realSource = (const RealSource*)sourceBase;
 				setRealValues( mCurrentAnimationCurve->getOutputValues(), realSource);
 
-				mCurrentAnimationCurve->setOutDimension((size_t)realSource->getStride());
+				size_t stride = (size_t)realSource->getStride();
+				size_t physicalDimensionsCount = physicalDimensions.getCount();
+				// if stride is larger that physicalDimensionsCount, we need to appand dimensions to physicalDimensions
+				for ( size_t i =  physicalDimensionsCount; i < stride; ++i)
+				{
+					physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_UNKNOWN);
+				}
+				mCurrentAnimationCurve->setOutDimension(stride);
 			}
 			break;
 		case SEMANTIC_OUT_TANGENT:

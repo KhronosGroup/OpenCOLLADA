@@ -30,6 +30,7 @@ namespace COLLADAFW
 		enum AnimationClass
 		{
 			UNKNOWN_CLASS,
+			TIME,
 			POSITION_XYZ,			//!< Animation of all three coordinates of a position
 			POSITION_X,
 			POSITION_Y,
