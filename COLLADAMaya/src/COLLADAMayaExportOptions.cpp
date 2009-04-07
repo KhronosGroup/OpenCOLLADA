@@ -22,7 +22,7 @@ namespace COLLADAMaya
 {
 
     // Static Members
-    bool ExportOptions::mBakeTransforms = false;
+    bool ExportOptions::mBakeTransforms = true;
     bool ExportOptions::mBakeLighting = false;
     bool ExportOptions::mRelativePaths = false;
 
@@ -98,7 +98,7 @@ namespace COLLADAMaya
         mExportMaterialsOnly = false;
 
         mExportXRefs = true;
-        mDereferenceXRefs = false;
+        mDereferenceXRefs = true;
 
         mCameraXFov = false;
         mCameraYFov = true;

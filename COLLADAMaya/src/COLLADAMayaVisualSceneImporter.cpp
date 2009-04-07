@@ -49,7 +49,7 @@ namespace COLLADAMaya
     VisualSceneImporter::VisualSceneImporter ( DocumentImporter* documentImporter ) 
     : BaseImporter ( documentImporter )
     {}
-
+    
     // -----------------------------------
     VisualSceneImporter::~VisualSceneImporter ()
     {

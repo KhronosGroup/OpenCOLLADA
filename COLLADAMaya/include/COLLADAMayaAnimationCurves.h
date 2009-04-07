@@ -285,6 +285,8 @@ namespace COLLADAMaya
                 , mParameters ( NULL )
                 , mCurveIndex ( 0 )
                 , mIsStatic ( false )
+                , mPreInfinity ( MFnAnimCurve::kConstant )
+                , mPostInfinity ( MFnAnimCurve::kConstant )
         {
             // Set the parenting dimension as default
             if ( dimension==0 ) mDimension = parent->getDimension();

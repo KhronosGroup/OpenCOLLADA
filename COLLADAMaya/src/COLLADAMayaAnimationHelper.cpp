@@ -281,9 +281,10 @@ namespace COLLADAMaya
     }
 
     // -------------------------------------------
-    bool AnimationHelper::sampleAnimatedTransform ( AnimationSampleCache* cache,
-            const MPlug& plug,
-            AnimationCurveList& curves )
+    bool AnimationHelper::sampleAnimatedTransform ( 
+        AnimationSampleCache* cache,
+        const MPlug& plug,
+        AnimationCurveList& curves )
     {
         if ( curves.size() != 16 ) return false;
 

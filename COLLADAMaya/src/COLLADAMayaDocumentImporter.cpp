@@ -65,12 +65,15 @@ namespace COLLADAMaya
         , mSceneGraphWritten (false)
         , mLibraryNodesWritten (false)
         , mAssetWritten (false)
+        , mAnimationWritten (false)
         , mSceneGraphRead (false)
         , mLibraryNodesRead (false)
         , mGeometryRead (false)
         , mCameraRead (false)
         , mLightRead (false)
         , mImageRead (false)
+        , mAnimationRead (false)
+        , mAnimationListRead (false)
         , mNumDocumentParses (0)
         , mUpAxisType ( COLLADAFW::FileInfo::Y_UP )
         , mLinearUnitMeter ( COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER )
@@ -225,12 +228,14 @@ namespace COLLADAMaya
                 mVisualSceneImporter->writeNodeInstances ();
             }
 
-            if ( mGeometryRead || mCameraRead || mLightRead || mImageRead )
+            if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead || mAnimationListRead )
             {
                 mGeometryRead = false;
                 mCameraRead = false;
                 mLightRead = false;
                 mImageRead = false;
+                mAnimationRead = false;
+                mAnimationListRead = false;
                 readColladaDocument ();
             }
         }
@@ -530,12 +535,14 @@ namespace COLLADAMaya
             mVisualSceneImporter->writeNodeInstances ();
         }
 
-        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead )
+        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead || mAnimationListRead )
         {
             mGeometryRead = false;
             mCameraRead = false;
             mLightRead = false;
             mImageRead = false;
+            mAnimationRead = false;
+            mAnimationListRead = false;
             readColladaDocument ();
         }
 
@@ -568,12 +575,14 @@ namespace COLLADAMaya
             mVisualSceneImporter->writeNodeInstances ();
         }
 
-        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead )
+        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead || mAnimationListRead )
         {
             mGeometryRead = false;
             mCameraRead = false;
             mLightRead = false;
             mImageRead = false;
+            mAnimationRead = false;
+            mAnimationListRead = false;
             readColladaDocument ();
         }
 
@@ -686,7 +695,7 @@ namespace COLLADAMaya
         // Order: asset, scene graph, library nodes, others
         if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
         {
-            mImageRead = true;
+            mAnimationRead = true;
             return true;
         }
 
@@ -694,6 +703,7 @@ namespace COLLADAMaya
         if ( mFile == 0 ) start();
 
         mAnimationImporter->importAnimation ( animation );
+        mAnimationWritten = true;
 
         return true;
     }
@@ -701,6 +711,16 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeAnimationList ( const COLLADAFW::AnimationList* animationList )
     {
+        // Order: asset, scene graph, library nodes, others, animation list
+        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten || !mAnimationWritten || mAnimationListRead ) 
+        {
+            mAnimationListRead = true;
+            return true;
+        }
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
         // Get the id of the current animation list.
         const COLLADAFW::UniqueId& animationListId = animationList->getUniqueId ();
 
@@ -724,49 +744,69 @@ namespace COLLADAMaya
 
             // TODO Get the animation curve element of the current animation id.
             const COLLADAFW::UniqueId& animationId = animationBinding.animation;
-            const MayaDM::AnimCurveTL* animationCurve = getAnimationImporter ()->findMayaDMAnimationCurve ( animationId );
-            if ( animationCurve == 0 ) continue;
+            const std::vector<MayaDM::AnimCurveTL>* animationCurves = getAnimationImporter ()->findMayaDMAnimationCurve ( animationId );
+            if ( animationCurves == 0 ) continue;
 
             size_t firstIndex = animationBinding.firstIndex;
 
-            // TODO Connect the animation curve and the current transform node.
-            // connectAttr "pCube1_translateX.output" "pCube1.translateX";
-            const COLLADAFW::AnimationList::AnimationClass& animationClass = animationBinding.animationClass;
-            switch ( animationClass )
+            // Connect all animation curves of the current animation.
+            size_t animationCurveCount = animationCurves->size ();
+            for ( size_t curveIndex=0; curveIndex<animationCurveCount; ++curveIndex )
             {
-            case COLLADAFW::AnimationList::POSITION_X:
-                connectAttr ( getFile (), animationCurve->getOutput (), transform->getTranslateX () );
-                break;
-            case COLLADAFW::AnimationList::POSITION_Y:
-                connectAttr ( getFile (), animationCurve->getOutput (), transform->getTranslateY () );
-                break;
-            case COLLADAFW::AnimationList::POSITION_Z:
-                connectAttr ( getFile (), animationCurve->getOutput (), transform->getTranslateZ () );
-                break;
-            case COLLADAFW::AnimationList::POSITION_XYZ:
-                connectAttr ( getFile (), animationCurve->getOutput (), transform->getTranslate () );
-                break;
-            case COLLADAFW::AnimationList::AXISANGLE:
-                connectAttr ( getFile (), animationCurve->getOutput (), transform->getRotateAxis () );
-                break;
-            case COLLADAFW::AnimationList::COLOR_R:
-                break;
-            case COLLADAFW::AnimationList::COLOR_G:
-                break;
-            case COLLADAFW::AnimationList::COLOR_B:
-                break;
-            case COLLADAFW::AnimationList::COLOR_A:
-                break;
-            case COLLADAFW::AnimationList::COLOR_RGB:
-                break;
-            case COLLADAFW::AnimationList::COLOR_RGBA:
-                break;
-            case COLLADAFW::AnimationList::FLOAT:
-                break;
-            case COLLADAFW::AnimationList::MATRIX4X4:
-                break;
+                const MayaDM::AnimCurveTL& animationCurve = (*animationCurves) [curveIndex];
+
+                // TODO Connect the animation curve and the current transform node.
+                // connectAttr "pCube1_translateX.output" "pCube1.translateX";
+                const COLLADAFW::AnimationList::AnimationClass& animationClass = animationBinding.animationClass;
+                switch ( animationClass )
+                {
+                case COLLADAFW::AnimationList::POSITION_X:
+                    connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateX () );
+                    break;
+                case COLLADAFW::AnimationList::POSITION_Y:
+                    connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateY () );
+                    break;
+                case COLLADAFW::AnimationList::POSITION_Z:
+                    connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateZ () );
+                    break;
+                case COLLADAFW::AnimationList::POSITION_XYZ:
+                    switch ( curveIndex )
+                    {
+                    case 0:
+                        connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateX () );
+                        break;
+                    case 1:
+                        connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateY () );
+                        break;
+                    case 2:
+                        connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateZ () );
+                        break;
+                    }
+                    break;
+                case COLLADAFW::AnimationList::AXISANGLE:
+                    connectAttr ( getFile (), animationCurve.getOutput (), transform->getRotateAxis () );
+                    break;
+                case COLLADAFW::AnimationList::COLOR_R:
+                    break;
+                case COLLADAFW::AnimationList::COLOR_G:
+                    break;
+                case COLLADAFW::AnimationList::COLOR_B:
+                    break;
+                case COLLADAFW::AnimationList::COLOR_A:
+                    break;
+                case COLLADAFW::AnimationList::COLOR_RGB:
+                    break;
+                case COLLADAFW::AnimationList::COLOR_RGBA:
+                    break;
+                case COLLADAFW::AnimationList::FLOAT:
+                    break;
+                case COLLADAFW::AnimationList::MATRIX4X4:
+                    break;
+                }
             }
         }
+
+        mAnimationListRead = true;
 
         return true;
     }
