@@ -93,6 +93,7 @@ namespace COLLADAMax
 
 		Control* transformationController = iNode->GetTMController();
 
+#if 0
 		Control* positionController = transformationController->GetPositionController();
 
 		if ( controllers[ TRANSLATE_X ] )
@@ -126,6 +127,22 @@ namespace COLLADAMax
 		{
 			rotationController->AssignController( controllers[ ROTATE_Z ], 2 );
 		}
+#endif
+		Control* scaleController = transformationController->GetScaleController();
+
+		scaleController->AssignController( controllers[ TRANSLATE_X ], 0 );
+		scaleController->AssignController( controllers[ TRANSLATE_X ], 1 );
+		scaleController->AssignController( controllers[ TRANSLATE_X ], 2 );
+		scaleController->AssignController( controllers[ TRANSLATE_X ], 3 );
+		scaleController->AssignController( controllers[ TRANSLATE_X ], 4 );
+		scaleController->AssignController( controllers[ TRANSLATE_X ], 5 );
+		scaleController->AssignController( controllers[ TRANSLATE_X ], 6 );
+
+		Control* c[7];
+		c[0] = scaleController->GetXController();
+		c[1] = scaleController->GetYController();
+		c[2] = scaleController->GetZController();
+		c[3] = scaleController->GetWController();
 
 		return true;
 	}
@@ -164,27 +181,6 @@ namespace COLLADAMax
 			}
 
 			const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings();
-
-#if 0
-			for ( size_t j = 0, count = animationBindings.getCount(); j < count; ++j)
-			{
-				const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[j];
-				const COLLADAFW::UniqueId& animationUniqueId = animationBinding.animation;
-				const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
-
-				if ( animationBinding.animationClass == COLLADAFW::AnimationList::POSITION_XYZ )
-				{
-					Control* positionController = iNode->GetTMController()->GetPositionController();
-
-					for ( size_t k = 0, count = maxControllerList.size(); k < count; ++k)
-					{
-						Control* xController = maxControllerList[k];
-						if ( xController )
-							positionController->AssignController( xController, k );
-					}
-				}
-			}
-#endif
 
 
 			// Attempt to bucket this transformation.
