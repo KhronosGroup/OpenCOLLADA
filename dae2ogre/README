@@ -1,0 +1,5 @@
+This is a very simple demo application of the sax bases COLLADA framework. 
+It can convert COLLADA files to ogre meshes. Currently only COLLADA files with 
+only one geometry are supported.
+
+NOTE: This project is far away from beeing stable or read for production.
