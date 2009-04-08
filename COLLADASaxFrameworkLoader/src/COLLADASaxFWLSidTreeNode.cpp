@@ -42,14 +42,11 @@ namespace COLLADASaxFWL
 		, mSid(sid)
 	{
 		mTarget.object = 0;
-		std::cout << "Ctor: " << this << " " << mSid << std::endl;
 	}
 
 	//------------------------------
 	SidTreeNode::~SidTreeNode()
 	{
-		std::cout << "Dtor: " << this << " " << mSid << std::endl;
-
 		SidIdentifierSidTreeNodeMap::const_iterator it = mChildren.begin();
 		for ( ; it!=mChildren.end(); ++it)
 		{
