@@ -26,15 +26,6 @@ namespace COLLADASaxFWL
 	{
 	private:
 
-		struct AnimationInfo
-		{
-			static const AnimationInfo INVALID;
-			/** The unique id of the animation*/
-			COLLADAFW::UniqueId uniqueId;
-
-			COLLADAFW::AnimationList::AnimationClass animationClass;
-		};
-
 		/** Maps strings to unique ids.*/
 		typedef std::map< String /*samplerId*/,AnimationInfo > StringAnimationInfoMap;
 
@@ -69,7 +60,7 @@ namespace COLLADASaxFWL
 
 		/** Searches for the animation info of animation created for the COLLADA sampler with id @a samplerId.
 		If it could not be found, an invalid Unique id is returned.*/
-		LibraryAnimationsLoader::AnimationInfo* getAnimationInfoBySamplerId( const String& samplerId);
+		AnimationInfo* getAnimationInfoBySamplerId( const String& samplerId);
 
 
 		/** Cleans up everything and gives control to calling file part loader.*/
