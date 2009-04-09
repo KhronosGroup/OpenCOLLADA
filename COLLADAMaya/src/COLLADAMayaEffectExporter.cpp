@@ -212,13 +212,13 @@ namespace COLLADAMaya
         }
 #endif
 
-//#if ( MAYA_API_VERSION < 700 || MAYA_API_VERSION == 200800 )
+#if ( MAYA_API_VERSION < 700 || MAYA_API_VERSION == 200800 )
         // Custom hardware shaders derived from MPxHwShaderNode (the old stuff)
         else if ( shader.hasFn ( MFn::kPluginHardwareShader ) )
         {
             MGlobal::displayError("Export HardwareShader not implemented!");
         }
-//#endif
+#endif
 
         else
         {
