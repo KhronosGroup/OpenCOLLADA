@@ -455,6 +455,10 @@ namespace COLLADASaxFWL
     //------------------------------
 	bool MeshLoader::writePrimitiveIndices ( const unsigned long long* data, size_t length )
 	{
+		// check, if we are parsing an unsupported primitive type
+		if ( !mCurrentMeshPrimitive )
+			return true;
+
 		// Write the index values in the index lists.
 		for ( size_t i=0; i<length; ++i )
 		{
@@ -464,26 +468,26 @@ namespace COLLADASaxFWL
 			// Write the indices
 			if ( mUsePositions && (mCurrentOffset == mPositionsOffset) )
 			{
-				COLLADAFW::UIntValuesArray& positionIndices = mCurrentMeshPrimitive->getPositionIndices ();
+				COLLADAFW::UIntValuesArray& positionIndices = mCurrentMeshPrimitive->getPositionIndices();
 				positionIndices.append ( index + mPositionsIndexOffset );
 			}
 
 			if ( mUseNormals && (mCurrentOffset == mNormalsOffset) )
 			{
-				COLLADAFW::UIntValuesArray& normalIndices = mCurrentMeshPrimitive->getNormalIndices ();
+				COLLADAFW::UIntValuesArray& normalIndices = mCurrentMeshPrimitive->getNormalIndices();
 				normalIndices.append ( index + mNormalsIndexOffset );
 			}
 
 
             // Look if the current offset is a texcoord offset.
-            size_t numTexCoordinates = mTexCoordList.size ();
+            size_t numTexCoordinates = mTexCoordList.size();
             for ( size_t j=0; j<numTexCoordinates; ++j )
             {
-                PrimitiveInput& texCoord = mTexCoordList [j];
+                PrimitiveInput& texCoord = mTexCoordList[j];
                 if ( mCurrentOffset == texCoord.mOffset )
                 {
                     COLLADAFW::ArrayPrimitiveType<COLLADAFW::IndexList*>& texCoordIndicesArray = 
-                        mCurrentMeshPrimitive->getUVCoordIndicesArray ();
+                        mCurrentMeshPrimitive->getUVCoordIndicesArray();
 
                     // Resize the array if necessary
                     if ( texCoordIndicesArray.getCount () != numTexCoordinates ) 
@@ -499,7 +503,7 @@ namespace COLLADASaxFWL
                             texCoordIndices->setStride ( tex.mStride );
                             texCoordIndices->setInitialIndex ( tex.mInitialIndex );
 
-                            texCoordIndicesArray.append ( texCoordIndices );
+                            texCoordIndicesArray.append( texCoordIndices );
                         }
                     }
 
@@ -898,6 +902,36 @@ namespace COLLADASaxFWL
 		initCurrentValues();
 		mMeshPrimitiveInputs.clearInputs();
 		mCurrentPrimitiveType = NONE;
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__lines( const lines__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest(begin__lines(attributeData));
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__lines()
+	{
+		SaxVirtualFunctionTest(end__lines());
+		initCurrentValues();
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__linestrips( const linestrips__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest(begin__linestrips(attributeData));
+		initCurrentValues();
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__linestrips()
+	{
+		SaxVirtualFunctionTest(end__linestrips());
 		return true;
 	}
 
@@ -1518,6 +1552,7 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	//------------------------------
 	bool MeshLoader::data__p( const unsigned long long* data, size_t length )
 	{
 		SaxVirtualFunctionTest(data__p(data, length));

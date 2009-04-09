@@ -529,9 +529,9 @@ namespace COLLADASaxFWL
 						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_ANGLE);
 						break;
 					case COLLADAFW::AnimationList::AXISANGLE:
-						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
-						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
-						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_LENGTH);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
 						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_ANGLE);
 						break;
 					case COLLADAFW::AnimationList::MATRIX4X4:
