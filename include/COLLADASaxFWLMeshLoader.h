@@ -210,6 +210,20 @@ namespace COLLADASaxFWL
 		virtual bool end__polylist();
 
 
+		/** Sax callback function for the beginning of a lines element.*/
+		virtual bool begin__lines( const lines__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a lines element.*/
+		virtual bool end__lines();
+
+
+		/** Sax callback function for the beginning of a line strips element.*/
+		virtual bool begin__linestrips( const linestrips__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a line strips element.*/
+		virtual bool end__linestrips();
+
+
 #if 0
 		/** Sax callback function for the beginning of a polylist input element.*/
 		virtual bool begin__polylist__input( const polylist__input__AttributeData& attributeData );
