@@ -723,7 +723,7 @@ namespace COLLADAMaya
     bool DocumentImporter::writeAnimationList ( const COLLADAFW::AnimationList* animationList )
     {
         // Order: asset, scene graph, library nodes, others, animation list
-        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten || !mAnimationWritten || mAnimationListRead ) 
+        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten || !mAnimationWritten ) 
         {
             mAnimationListRead = true;
             return true;
