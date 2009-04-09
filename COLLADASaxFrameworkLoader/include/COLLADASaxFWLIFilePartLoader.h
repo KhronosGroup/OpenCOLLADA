@@ -12,6 +12,7 @@
 #define __COLLADASAXFWL_IFILEPARTLOADER_H__
 
 #include "COLLADASaxFWLPrerequisites.h"
+#include "COLLADASaxFWLTypes.h"
 #include "COLLADASaxFWLColladaParserAutoGen.h"
 
 #include "COLLADAFWUniqueId.h"
@@ -147,8 +148,8 @@ namespace COLLADASaxFWL
 		/** Tries to resolve the a sidaddress. If resolving failed, null is returned.*/
 		const SidTreeNode* resolveSid( const SidAddress& sidAddress);
 
-		/** The pair @a animationUniqueId, @a targetSidAddress to mUniqueIdSidAddressPairs.*/
-		void addToAnimationUniqueIdSidAddressPairList( const COLLADAFW::UniqueId& animationUniqueId, const SidAddress& targetSidAddress);
+		/** Stores the bindig of an animation to an object, referenced by @a targetSidAddress.*/
+		void addToAnimationSidAddressBindings( const AnimationInfo& animationInfo, const SidAddress& targetSidAddress);
 
 		/** Returns the animation list with Unique id @a animationListUniqueId. If it could not be found, a new map 
 		entry is created.*/

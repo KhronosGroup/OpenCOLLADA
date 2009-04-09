@@ -41,7 +41,6 @@ namespace COLLADASaxFWL
 	const String INTERPOLATIONTYPE_STEP("STEP");
 	const String INTERPOLATIONTYPE_MIXED("MIXED");
 
-	const LibraryAnimationsLoader::AnimationInfo LibraryAnimationsLoader::AnimationInfo::INVALID = { COLLADAFW::UniqueId::INVALID, COLLADAFW::AnimationList::UNKNOWN_CLASS};
 
 	//------------------------------
 	bool operator==( const ParserString& parserString, const String& stlSring )
@@ -287,7 +286,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	LibraryAnimationsLoader::AnimationInfo* LibraryAnimationsLoader::getAnimationInfoBySamplerId( const String& samplerId )
+	AnimationInfo* LibraryAnimationsLoader::getAnimationInfoBySamplerId( const String& samplerId )
 	{
 		StringAnimationInfoMap::iterator it = mSamplerIdAnimationInfoMap.find( samplerId );
 		if ( it == mSamplerIdAnimationInfoMap.end() )
@@ -392,6 +391,7 @@ namespace COLLADASaxFWL
 			return true;
 
 		SidAddress sidAddress( attributeData.target );
+#if 0
 		const SidTreeNode* sidTreeNode = resolveSid( sidAddress );
 
 		if ( sidTreeNode )
@@ -430,10 +430,11 @@ namespace COLLADASaxFWL
 			}
 		}
 		else
+#endif
 		{
-			// the references element has not been parsed. Store the connection. Will be precessed by FileLoader
+			// the references element has not been parsed. Store the connection. Will be processed by FileLoader
 			// at the end of the collada file.
-			addToAnimationUniqueIdSidAddressPairList( animationInfo->uniqueId, sidAddress );
+			addToAnimationSidAddressBindings( *animationInfo, sidAddress );
 		}
 
 		return true;

@@ -93,7 +93,6 @@ namespace COLLADAMax
 
 		Control* transformationController = iNode->GetTMController();
 
-#if 0
 		Control* positionController = transformationController->GetPositionController();
 
 		if ( controllers[ TRANSLATE_X ] )
@@ -127,7 +126,8 @@ namespace COLLADAMax
 		{
 			rotationController->AssignController( controllers[ ROTATE_Z ], 2 );
 		}
-#endif
+
+#if 0
 		Control* scaleController = transformationController->GetScaleController();
 
 		scaleController->AssignController( controllers[ TRANSLATE_X ], 0 );
@@ -143,7 +143,7 @@ namespace COLLADAMax
 		c[1] = scaleController->GetYController();
 		c[2] = scaleController->GetZController();
 		c[3] = scaleController->GetWController();
-
+#endif
 		return true;
 	}
 
