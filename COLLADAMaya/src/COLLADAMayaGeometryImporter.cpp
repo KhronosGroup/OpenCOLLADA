@@ -1,37 +1,3 @@
-/*
-    Copyright (c) 2008 NetAllied Systems GmbH
-
-    This file is part of COLLADAMaya.
-
-    Portions of the code are:
-    Copyright (c) 2005-2007 Feeling Software Inc.
-    Copyright (c) 2005-2007 Sony Computer Entertainment America
-    Copyright (c) 2004-2005 Alias Systems Corp.
-
-    Licensed under the MIT Open Source License, 
-    for details please see LICENSE file or the website
-    http://www.opensource.org/licenses/mit-license.php
-*/
-
-#include "COLLADAMayaStableHeaders.h"
-#include "COLLADAMayaGeometryImporter.h"
-#include "ColladaMayaException.h"
-#include "COLLADAMayaVisualSceneImporter.h"
-#include "COLLADAMayaImportOptions.h"
-
-#include <maya/MFnMesh.h>
-#include <maya/MFnTransform.h>
-#include <maya/MDagModifier.h>
-
-#pragma warning(disable:4172)
-
-#include "MayaDMTransform.h"
-#include "MayaDMCommands.h"
-
-#include "COLLADAFWPolygons.h"
-#include "COLLADAFWTrifans.h"
-#include "COLLADAFWTristrips.h"
-#include "COLLADAFWEdge.h"
 
 
 namespace COLLADAMaya
@@ -530,17 +496,17 @@ namespace COLLADAMaya
                 case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
                     {
                         const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
-                        meshNode.appendNormals ( toLinearUnit((*values)[pos]) );
-                        meshNode.appendNormals ( toLinearUnit((*values)[pos+1]) );
-                        meshNode.appendNormals ( toLinearUnit((*values)[pos+2]) );
+                        meshNode.appendNormals ( (*values)[pos] );
+                        meshNode.appendNormals ( (*values)[pos+1] );
+                        meshNode.appendNormals ( (*values)[pos+2] );
                     }
                     break;
                 case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
                     {
                         const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
-                        meshNode.appendNormals ( (float)toLinearUnit((*values)[pos]) );
-                        meshNode.appendNormals ( (float)toLinearUnit((*values)[pos+1]) );
-                        meshNode.appendNormals ( (float)toLinearUnit((*values)[pos+2]) );
+                        meshNode.appendNormals ( (float)(*values)[pos] );
+                        meshNode.appendNormals ( (float)(*values)[pos+1] );
+                        meshNode.appendNormals ( (float)(*values)[pos+2] );
                     }
                     break;
                 default:

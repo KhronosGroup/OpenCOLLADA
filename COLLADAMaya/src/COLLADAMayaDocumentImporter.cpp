@@ -47,6 +47,7 @@ namespace COLLADAMaya
 
     const String DocumentImporter::ASCII_PATH_EXTENSION = ".ma";
     const String DocumentImporter::ASCII_PATH_EXTENSION_DEBUG = ".nextgen.ma";
+    const int DocumentImporter::BUFFERSIZE = 2097152;
 
 
     //---------------------------------
@@ -164,10 +165,20 @@ namespace COLLADAMaya
         mLocale = setlocale ( LC_NUMERIC, 0 );
         setlocale ( LC_NUMERIC, "C" );
 
-        mFile = fopen ( mayaAsciiFileName.c_str (), "w+" );
+        mFile = fopen ( mayaAsciiFileName.c_str (), "w" );
         if ( mFile == 0 ) 
         {
             MGlobal::displayError ( "Can't open maya ascii file!\n" );
+            return false;
+        }
+
+        // Set the buffer
+        mBuffer = new char[BUFFERSIZE];
+        bool failed = ( setvbuf ( mFile , mBuffer, _IOFBF, BUFFERSIZE ) != 0 );
+        if ( failed )
+        {
+            delete[] mBuffer;
+            MGlobal::displayError ( "Could not set buffer for writing." );
             return false;
         }
 
@@ -732,17 +743,17 @@ namespace COLLADAMaya
             return false;
         }
         
-        // TODO Get the maya node object for the id.
+        // Get the maya node object for the id.
         const MayaDM::Transform* transform = getVisualSceneImporter ()->findMayaDMTransform ( *nodeId );
 
-        // TODO Get the animation curves of the current animation list.
+        // Get the animation curves of the current animation list.
         const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings ();
         size_t numAnimationBindings = animationBindings.getCount ();
         for ( size_t i=0; i<numAnimationBindings; ++i )
         {
             const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings [i]; 
 
-            // TODO Get the animation curve element of the current animation id.
+            // Get the animation curve element of the current animation id.
             const COLLADAFW::UniqueId& animationId = animationBinding.animation;
             const std::vector<MayaDM::AnimCurveTL>* animationCurves = getAnimationImporter ()->findMayaDMAnimationCurve ( animationId );
             if ( animationCurves == 0 ) continue;

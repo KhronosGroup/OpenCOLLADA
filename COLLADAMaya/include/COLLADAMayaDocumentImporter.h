@@ -50,7 +50,12 @@ namespace COLLADAMaya
         static const String ASCII_PATH_EXTENSION;
         static const String ASCII_PATH_EXTENSION_DEBUG;
 
+        static const int BUFFERSIZE;
+
     private:
+
+        /** The buffer for fprintf. */
+        char *mBuffer; // 2MB Puffer!!
 
         /** The name of the collada file. */
         String mColladaFileName;

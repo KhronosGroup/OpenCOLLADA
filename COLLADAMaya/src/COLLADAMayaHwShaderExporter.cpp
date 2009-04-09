@@ -190,7 +190,7 @@ namespace COLLADAMaya
             shader.addName ( programEntryString, codeSid );
         }
 
-        // Add the bind parameters
+        // Add the global bind parameters
         CGparameter progParam = cgGetFirstParameter ( cgProgram, CG_GLOBAL ); // CG_PROGRAM=IN || CG_GLOBAL
         while ( progParam )
         {
@@ -198,13 +198,47 @@ namespace COLLADAMaya
             CGtype paramType = cgGetParameterBaseType ( progParam );
 
             CGbool isUsed = cgIsParameterUsed ( progParam, cgProgram );
+            CGbool isReferenced = cgIsParameterReferenced ( progParam );
             if ( isUsed && !COLLADASW::Utils::equals( paramName, programEntryString ) )
             {
                 COLLADASW::ParamBase bindParam ( streamWriter, &COLLADASW::CSWC::CSW_ELEMENT_BIND );
                 bindParam.openParam ();
                 bindParam.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_SYMBOL, paramName );
+
+                // Get the connected parameter
+                CGparameter connectedParam = cgGetConnectedParameter ( progParam );
+                const char* connectedParamName = cgGetParameterName ( connectedParam ); 
+
                 COLLADASW::ParamBase param ( streamWriter );
-                param.openParam ( paramName );
+                param.openParam ( connectedParamName );
+                param.closeParam ();
+                bindParam.closeParam ();
+            }
+
+            progParam = cgGetNextParameter ( progParam );
+        }
+
+        // Add the program specific bind parameters
+        progParam = cgGetFirstParameter ( cgProgram, CG_PROGRAM );
+        while ( progParam )
+        {
+            const char* paramName = cgGetParameterName ( progParam ); // VShader
+            CGtype paramType = cgGetParameterBaseType ( progParam );
+
+            CGbool isUsed = cgIsParameterUsed ( progParam, cgProgram );
+            CGbool isReferenced = cgIsParameterReferenced ( progParam );
+            if ( isUsed && !COLLADASW::Utils::equals( paramName, "IN" ) )
+            {
+                COLLADASW::ParamBase bindParam ( streamWriter, &COLLADASW::CSWC::CSW_ELEMENT_BIND );
+                bindParam.openParam ();
+                bindParam.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_SYMBOL, paramName );
+
+                // Get the connected parameter
+                CGparameter connectedParam = cgGetConnectedParameter ( progParam );
+                const char* connectedParamName = cgGetParameterName ( connectedParam ); 
+
+                COLLADASW::ParamBase param ( streamWriter );
+                param.openParam ( connectedParamName );
                 param.closeParam ();
                 bindParam.closeParam ();
             }
