@@ -95,6 +95,8 @@ namespace COLLADAMax
 
 		Control* positionController = transformationController->GetPositionController();
 
+
+#if 0
 		if ( controllers[ TRANSLATE_X ] )
 		{
 			positionController->AssignController( controllers[ TRANSLATE_X ], 0 );
@@ -126,6 +128,26 @@ namespace COLLADAMax
 		{
 			rotationController->AssignController( controllers[ ROTATE_Z ], 2 );
 		}
+#endif
+		Control* scaleController = transformationController->GetScaleController();
+		Class_ID ci = scaleController->ClassID();
+		SClass_ID sci = scaleController->SuperClassID();
+
+
+		Class_ID controllerClassID;//(isLinear ? LININTERP_FLOAT_CLASS_ID : HYBRIDINTERP_FLOAT_CLASS_ID, 0);
+		//Control* maxController = (Control*)createMaxObject( CTRL_POINT3_CLASS_ID, controllerClassID);
+		Control* maxController = NewDefaultScaleController();
+		maxController->AssignController( controllers[ TRANSLATE_X ], 0 );
+		maxController->AssignController( controllers[ TRANSLATE_X ], 1 );
+		maxController->AssignController( controllers[ TRANSLATE_X ], 2 );
+
+		transformationController->SetScaleController( maxController );
+
+
+
+		Class_ID ci2 = maxController->ClassID();
+		SClass_ID sci2 = maxController->SuperClassID();
+		int gg=0;
 
 #if 0
 		Control* scaleController = transformationController->GetScaleController();

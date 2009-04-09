@@ -293,6 +293,25 @@ namespace COLLADAMax
 			const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives[i];
 			size_t trianglesCount = meshPrimitive->getFaceCount();
 			const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
+			const COLLADAFW::UIntValuesArray& positionIndices = meshPrimitive->getPositionIndices();
+
+			size_t positionIndicesCount = positionIndices.getCount();
+
+			if ( normalIndices.getCount() == positionIndicesCount )
+			{
+				switch (meshPrimitive->getPrimitiveType())
+				{
+				case COLLADAFW::MeshPrimitive::TRIANGLES:
+				case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+				case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+					{
+						// todo handle error
+						faceIndex += positionIndicesCount/3;
+						break;
+					}
+				}
+				continue;
+			}
 
 
 			switch (meshPrimitive->getPrimitiveType())
@@ -314,7 +333,6 @@ namespace COLLADAMax
 				{
 					const COLLADAFW::Tristrips* tristrips = (const COLLADAFW::Tristrips*) meshPrimitive;
 					assert(tristrips);
-					const COLLADAFW::UIntValuesArray& normalIndices =  tristrips->getNormalIndices();
 					const COLLADAFW::UIntValuesArray& faceVertexCountArray = tristrips->getGroupedVerticesVertexCountArray();
 					size_t nextTristripStartIndex = 0;
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
@@ -349,7 +367,6 @@ namespace COLLADAMax
 				{
 					const COLLADAFW::Trifans* trifans = (const COLLADAFW::Trifans*) meshPrimitive;
 					assert(trifans);
-					const COLLADAFW::UIntValuesArray& normalIndices =  trifans->getNormalIndices();
 					const COLLADAFW::UIntValuesArray& faceVertexCountArray = trifans->getGroupedVerticesVertexCountArray();
 					size_t nextTrifanStartIndex = 0;
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
