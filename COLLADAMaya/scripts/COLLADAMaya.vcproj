@@ -26,7 +26,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine=""
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -114,6 +114,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -199,6 +200,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -284,6 +286,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -367,6 +370,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -452,6 +456,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -538,6 +543,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -625,6 +631,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -711,6 +718,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -791,6 +799,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -877,7 +886,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine=""
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -963,6 +972,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1049,6 +1059,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1139,6 +1150,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1223,6 +1235,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1310,6 +1323,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1394,6 +1408,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1473,6 +1488,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1559,6 +1575,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1645,6 +1662,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1728,6 +1746,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1813,6 +1832,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1898,6 +1918,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1984,6 +2005,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2067,7 +2089,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine=""
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2153,6 +2175,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2239,6 +2262,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2326,6 +2350,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"

@@ -24,7 +24,7 @@ namespace COLLADAMaya
     
     // COLLADA NetAllied Systems
     static const char* TRANSLATOR_VENDOR                            = "NetAllied Systems GmbH";
-    static const char* TRANSLATOR_VERSION                           = "0.9.2";
+    static const char* TRANSLATOR_VERSION                           = "0.9.4";
     static const char* USERNAME                                     = "USERNAME";
     static const char* USER                                         = "USER";
 

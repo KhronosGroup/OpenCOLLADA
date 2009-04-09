@@ -13,9 +13,11 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
+#include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaStableHeaders.h"
 #include "ColladaMayaPlatform.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaVersionInfo.h"
 #include "COLLADAMayaFileTranslator.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaExportOptions.h"
@@ -76,9 +78,11 @@
         std::ostringstream stream; 
         stream << MAYA_API_VERSION;
 
+        COLLADAMaya::String revision ( COLLADAMaya::TRANSLATOR_VERSION );
+        revision += "." + COLLADAMaya::CURRENT_REVISION;
         MFnPlugin plugin ( obj, 
             COLLADAMaya::TRANSLATOR_VENDOR, 
-            COLLADAMaya::TRANSLATOR_VERSION, 
+            revision.c_str (), 
             stream.str ().c_str () );
 
         // --------------------------------------------------------------
