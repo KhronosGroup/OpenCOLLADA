@@ -422,8 +422,9 @@ namespace COLLADAMax
 						buckets[SCALE_AXIS_ROTATE] = rotatate;
 						bucketDepth = SCALE_AXIS_ROTATE;
 					}
-					else return false;
 #endif
+					else 
+						return false;
 					break; 
 				} 
 
@@ -435,7 +436,7 @@ namespace COLLADAMax
 				return false;
 			}
 		}
-
+		return true;
 	}
 
 } // namespace COLLADAMax

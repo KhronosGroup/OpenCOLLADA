@@ -174,13 +174,17 @@ namespace COLLADAMax
 		template<class NumberArray> 
 		void setPolygonMeshUVVertices(const NumberArray& uvArray, MNMap* meshMap, size_t stride, size_t startPosition, size_t vertsCount);
 
-		void GeometryImporter::setPolygonMeshUVVerticesPerPrimitiveAndChannel( const COLLADAFW::MeshPrimitive* meshPrimitive, MNMap* meshMap, const COLLADAFW::UIntValuesArray& uvIndices, unsigned int initialIndex, size_t& currentFaceIndex);
+		void setPolygonMeshUVVerticesPerPrimitiveAndChannel( const COLLADAFW::MeshPrimitive* meshPrimitive, MNMap* meshMap, const COLLADAFW::UIntValuesArray& uvIndices, unsigned int initialIndex, size_t& currentFaceIndex);
 
-		void GeometryImporter::fillPolygonMeshMapPerSet( const COLLADAFW::MeshVertexData& uvCoordinates, const COLLADAFW::MeshVertexData::InputInfosArray& inputInfos, size_t sourceIndex, MNMap* meshMap);
+		void fillPolygonMeshMapPerSet( const COLLADAFW::MeshVertexData& uvCoordinates, const COLLADAFW::MeshVertexData::InputInfosArray& inputInfos, size_t sourceIndex, MNMap* meshMap);
 	
-		void GeometryImporter::setTriangleMeshUVVerticesPerPrimitiveAndChannel( const COLLADAFW::MeshPrimitive* meshPrimitive, MeshMap& meshMap, const COLLADAFW::UIntValuesArray& uvIndices, unsigned int initialIndex, size_t& currentFaceIndex);
+		void setTriangleMeshUVVerticesPerPrimitiveAndChannel( const COLLADAFW::MeshPrimitive* meshPrimitive, MeshMap& meshMap, const COLLADAFW::UIntValuesArray& uvIndices, unsigned int initialIndex, size_t& currentFaceIndex);
 	
-		void GeometryImporter::fillTriangleMeshMapPerSet( const COLLADAFW::MeshVertexData& uvCoordinates, const COLLADAFW::MeshVertexData::InputInfosArray& inputInfos, size_t sourceIndex, MeshMap& meshMap);
+		void fillTriangleMeshMapPerSet( const COLLADAFW::MeshVertexData& uvCoordinates, const COLLADAFW::MeshVertexData::InputInfosArray& inputInfos, size_t sourceIndex, MeshMap& meshMap);
+		
+		/** Checks if @a dataIndices contains data. If so, it returns false. Otherwise it returns true and increases @a faceIndex
+		by the number of faces of @a meshPrimitive.*/
+		bool skipMeshData( const COLLADAFW::MeshPrimitive* meshPrimitive, const COLLADAFW::UIntValuesArray& dataIndices, size_t& faceIndex);
 	};
 
 } // namespace COLLADAMAX

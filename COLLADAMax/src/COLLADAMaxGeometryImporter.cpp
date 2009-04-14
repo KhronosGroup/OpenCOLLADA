@@ -292,27 +292,13 @@ namespace COLLADAMax
 		{
 			const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives[i];
 			size_t trianglesCount = meshPrimitive->getFaceCount();
+
 			const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
-			const COLLADAFW::UIntValuesArray& positionIndices = meshPrimitive->getPositionIndices();
 
-			size_t positionIndicesCount = positionIndices.getCount();
-
-			if ( normalIndices.getCount() == positionIndicesCount )
+			if ( skipMeshData( meshPrimitive, normalIndices, faceIndex ) )
 			{
-				switch (meshPrimitive->getPrimitiveType())
-				{
-				case COLLADAFW::MeshPrimitive::TRIANGLES:
-				case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
-				case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
-					{
-						// todo handle error
-						faceIndex += positionIndicesCount/3;
-						break;
-					}
-				}
 				continue;
 			}
-
 
 			switch (meshPrimitive->getPrimitiveType())
 			{
@@ -903,6 +889,14 @@ namespace COLLADAMax
 		for ( size_t i = 0, count = meshPrimitives.getCount(); i < count; ++i )
 		{
 			const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives[i];
+
+			const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
+
+			if ( skipMeshData( meshPrimitive, normalIndices, faceIndex ) )
+			{
+				continue;
+			}
+
 			switch ( meshPrimitive->getPrimitiveType() )
 			{
 			case COLLADAFW::MeshPrimitive::TRIANGLES:
@@ -910,7 +904,6 @@ namespace COLLADAMax
 					size_t faceCount = meshPrimitive->getFaceCount();
 					for ( size_t j = 0; j < faceCount; ++j)
 					{
-						const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
 						MNNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
 						normalFace.SetDegree(3);
 						normalFace.SpecifyAll();
@@ -924,7 +917,6 @@ namespace COLLADAMax
 			case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
 				{
 					const COLLADAFW::Tristrips* tristrips = (const COLLADAFW::Tristrips*) meshPrimitive;
-					const COLLADAFW::UIntValuesArray& normalIndices =  tristrips->getNormalIndices();
 					const COLLADAFW::UIntValuesArray& faceVertexCountArray = tristrips->getGroupedVerticesVertexCountArray();
 					size_t nextTristripStartIndex = 0;
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
@@ -959,7 +951,6 @@ namespace COLLADAMax
 			case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
 				{
 					const COLLADAFW::Trifans* trifans = (const COLLADAFW::Trifans*) meshPrimitive;
-					const COLLADAFW::UIntValuesArray& normalIndices =  trifans->getNormalIndices();
 					const COLLADAFW::UIntValuesArray& faceVertexCountArray = trifans->getGroupedVerticesVertexCountArray();
 					size_t nextTrifanStartIndex = 0;
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
@@ -994,7 +985,6 @@ namespace COLLADAMax
 						if ( faceVertexCount <= 0 )
 							continue;
 
-						const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
 						MNNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
 						normalFace.SetDegree((int)faceVertexCount);
 						normalFace.SpecifyAll();
@@ -1077,6 +1067,12 @@ namespace COLLADAMax
 														 unsigned int initialIndex,
 														 size_t& currentFaceIndex)
 	{
+
+		if ( skipMeshData( meshPrimitive, uvIndices, currentFaceIndex ) )
+		{
+			return;
+		}
+
 		int indices[3];
 		switch (meshPrimitive->getPrimitiveType())
 		{
@@ -1493,6 +1489,39 @@ namespace COLLADAMax
 			}
 		}
 		return true;
+	}
+
+	bool GeometryImporter::skipMeshData( const COLLADAFW::MeshPrimitive* meshPrimitive,
+										 const COLLADAFW::UIntValuesArray& dataIndices,
+										 size_t& faceIndex)
+	{
+		const COLLADAFW::UIntValuesArray& positionIndices = meshPrimitive->getPositionIndices();
+
+		size_t positionIndicesCount = positionIndices.getCount();
+
+		if ( dataIndices.getCount() == positionIndicesCount )
+		{
+			switch (meshPrimitive->getPrimitiveType())
+			{
+			case COLLADAFW::MeshPrimitive::TRIANGLES:
+				{
+					faceIndex += positionIndicesCount/3;
+					break;
+				}
+			case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+			case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+				{
+					faceIndex += (positionIndicesCount > 2) ? (positionIndicesCount - 2) : 0;
+					break;
+				}
+			}
+			// todo handle error
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 
