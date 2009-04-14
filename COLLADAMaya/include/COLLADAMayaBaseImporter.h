@@ -19,7 +19,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentImporter.h"
 
-#include "math/COLLADABUMathVector3.h"
+#include "Math/COLLADABUMathVector3.h"
 
 #include "MayaDMTypes.h"
 

@@ -34,7 +34,7 @@ class MGLFunctionTable;
 #include <sstream>
 #include <algorithm>
 #include <math.h>
-#include <String>
+#include <string>
 #include <iostream>
 
 // Maya SDK

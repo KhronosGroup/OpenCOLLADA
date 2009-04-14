@@ -15,7 +15,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 
-#include "math/COLLADABUMathUtils.h"
+#include "Math/COLLADABUMathUtils.h"
 
 
 namespace COLLADAMaya
