@@ -147,6 +147,13 @@ namespace COLLADAMaya
             const size_t outputIndex );
 
         /**
+         * Returns the value at the given position of the given array as double value.
+         */
+        double getDoubleValue ( 
+            const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
+            const size_t position );
+
+        /**
         * Set the out tangent values.
         */
         void setOutTangents ( 

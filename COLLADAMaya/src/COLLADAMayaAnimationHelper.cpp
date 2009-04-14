@@ -301,6 +301,13 @@ namespace COLLADAMaya
                 AnimationKey* key = ( AnimationKey* ) curves[i]->getKey ( j );
                 key->input = inputs->at ( j );
                 key->output = outputs->at ( j*16 + i );
+
+                // Either here with flag "convertUnits" or in method 
+                // AnimationExporter::exportAnimationSource ( AnimationMultiCurve &animationCurve )
+//                 if ( (i+1)%4 == 0 && (i+1) < 16 )
+//                     key->output = MDistance::internalToUI ( outputs->at ( j*16 + i ) );
+//                 else
+//                     key->output = outputs->at ( j*16 + i );
             }
         }
 

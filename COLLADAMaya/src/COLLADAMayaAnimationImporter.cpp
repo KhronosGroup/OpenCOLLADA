@@ -360,69 +360,69 @@ namespace COLLADAMaya
         MayaDM::AnimCurveTL &animCurveTL, 
         const size_t outputIndex )
     {
+        // The input is always the time 
+        const COLLADAFW::FloatOrDoubleArray& inputValuesArray = animationCurve->getInputValues ();
+
+        // The output array.
+        const COLLADAFW::FloatOrDoubleArray& outputValuesArray = animationCurve->getOutputValues ();
+
         // The in-tangent positions
         const size_t keyCount = animationCurve->getKeyCount ();
         const COLLADAFW::FloatOrDoubleArray& tangents = animationCurve->getInTangentValues ();
         const COLLADAFW::FloatOrDoubleArray::DataType& tangentsDataType = tangents.getType ();
         size_t numTangentValues = tangents.getValuesCount ();
-
+        
         const size_t outDimension = animationCurve->getOutDimension ();
 
         // Write the in-tangent x values.
         animCurveTL.startKeyTanInX ( 0, keyCount-1 );
-        for ( size_t inputIndex=0; inputIndex<keyCount; ++inputIndex )
+        for ( size_t keyPosition=0; keyPosition<keyCount; ++keyPosition )
         {
-            switch ( tangentsDataType )
-            {
-            case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE:
-                {
-                    // Key in-tangent x values
-                    const COLLADAFW::DoubleArray* values = tangents.getDoubleValues ();
-                    size_t index = inputIndex*outDimension + outputIndex;
-                    animCurveTL.appendKeyTanInX ( (*values)[index] );
-                }
-                break;
-            case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT:
-                {
-                    // Key in-tangent x values
-                    const COLLADAFW::FloatArray* values = tangents.getFloatValues ();
-                    size_t index = inputIndex*outDimension + outputIndex;
-                    animCurveTL.appendKeyTanInX ( (double)(*values)[index] );
-                }
-                break;
-            default:
-                MGlobal::displayError ( "AnimationImporter::setInTangents(): Unknown data type!" );
-                return;
-            }
+            double prevTime = 
+                ( keyPosition > 0 ?
+                getDoubleValue ( inputValuesArray, keyPosition-1 ) :
+                getDoubleValue ( inputValuesArray, 0 ) - 1.0 );
+            double curTime = ( getDoubleValue ( inputValuesArray, keyPosition ) );
+            double nextTime = 
+                ( keyPosition < keyCount - 1 ?
+                getDoubleValue ( inputValuesArray, keyPosition+1 ) :
+                getDoubleValue ( inputValuesArray, keyPosition ) + 1.0 );
+
+            //double slopeX = ( curTime - prevTime ) / 3;
+
+            size_t indexX = keyPosition*outDimension + outputIndex;
+            double inTangentValueX = getDoubleValue ( tangents, indexX );
+            double slopeX = inTangentValueX * 3;
+
+            // Set the key tangent in x value.
+            double resultX = curTime - slopeX;
+            animCurveTL.appendKeyTanInX ( resultX );
         }
         animCurveTL.endKeyTanInX ();
 
         // Write the in-tangent y values.
         animCurveTL.startKeyTanInY ( 0, keyCount-1 );
-        for ( size_t inputIndex=0; inputIndex<keyCount; ++inputIndex )
+        for ( size_t keyPosition=0; keyPosition<keyCount; ++keyPosition )
         {
-            switch ( tangentsDataType )
-            {
-            case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE:
-                {
-                    // Key in-tangent y values
-                    const COLLADAFW::DoubleArray* values = tangents.getDoubleValues ();
-                    size_t index = inputIndex*outDimension + outputIndex + 1;
-                    animCurveTL.appendKeyTanInY ( (*values)[index] );
-                }
-                break;
-            case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT:
-                {
-                    // Key in-tangent y values
-                    const COLLADAFW::FloatArray* values = tangents.getFloatValues ();
-                    size_t index = inputIndex*outDimension + outputIndex + 1;
-                    animCurveTL.appendKeyTanInY ( (double)(*values)[index] );
-                }
-                break;
-            default:
-                MGlobal::displayError ( "AnimationImporter::setInTangents(): Unknown data type!" );
-                return;
-            }
+            double prevTime =
+                keyPosition > 0 ?
+                getDoubleValue ( inputValuesArray, keyPosition-1 ) :
+                getDoubleValue ( inputValuesArray, 0 ) - 1.0 ;
+            double curTime = getDoubleValue ( inputValuesArray, keyPosition );
+            double nextTime =
+                keyPosition < keyCount - 1 ?
+                getDoubleValue ( inputValuesArray, keyPosition+1 ) :
+                getDoubleValue ( inputValuesArray, keyPosition ) + 1.0;
+
+            double slopeX = ( curTime - prevTime ) / 3;
+
+            double outputValue = getDoubleValue ( outputValuesArray, keyPosition );
+            size_t indexY = keyPosition*outDimension + outputIndex + 1;
+            double inTangentValueY = getDoubleValue ( tangents, indexY );
+            double slopeY = ( (outputValue-inTangentValueY)*3*slopeX ) / ( curTime - prevTime );
+
+            // Set the key tangent in y value.
+            animCurveTL.appendKeyTanInY ( slopeY );
         }
         animCurveTL.endKeyTanInY ();
     }
@@ -619,5 +619,37 @@ namespace COLLADAMaya
         }
     }
 
+    //------------------------------
+    double AnimationImporter::getDoubleValue ( 
+        const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
+        const size_t position )
+    {
+        double inputValue = 0;
+
+        size_t numInputValues = inputValuesArray.getValuesCount ();
+        if ( position > numInputValues -1 )
+            MGlobal::displayError ("Out of range error!");
+
+        const COLLADAFW::FloatOrDoubleArray::DataType& inputDataType = inputValuesArray.getType ();
+        switch ( inputDataType )
+        {
+        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE:
+            {
+                const COLLADAFW::DoubleArray* inputValues = inputValuesArray.getDoubleValues ();
+                inputValue = (*inputValues) [position];
+            }
+            break;
+        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT:
+            {
+                const COLLADAFW::FloatArray* inputValues = inputValuesArray.getFloatValues ();
+                inputValue = (double)(*inputValues) [position];
+            }
+            break;
+        default:
+            MGlobal::displayError ( "AnimationImporter::setInTangents(): inputDataType unknown data type!" );
+        }
+
+        return inputValue;
+    }
 
 } // namespace COLLADAMaya

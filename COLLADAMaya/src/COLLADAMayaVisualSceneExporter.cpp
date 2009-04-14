@@ -342,16 +342,16 @@ namespace COLLADAMaya
         String nodeSid = mDocumentExporter->dagPathToColladaId ( dagPath );
         sceneNode->setNodeSid( nodeSid );
 
-        // Export the segment-scale-compensate flag.
-        bool segmentScaleCompensate;
-        DagHelper::getPlugValue ( dagPath.transform(),
-                                  ATTR_SEGMENT_SCALE_COMPENSATE,
-                                  segmentScaleCompensate );
-
-        // Not animateable
-        sceneNode->addExtraTechniqueParameter ( COLLADASW::CSWC::CSW_PROFILE_MAYA,
-                                                MAYA_SEGMENTSCALECOMP_PARAMETER,
-                                                segmentScaleCompensate );
+//         // Export the segment-scale-compensate flag.
+//         bool segmentScaleCompensate;
+//         DagHelper::getPlugValue ( dagPath.transform(),
+//                                   ATTR_SEGMENT_SCALE_COMPENSATE,
+//                                   segmentScaleCompensate );
+// 
+//         // Not animateable
+//         sceneNode->addExtraTechniqueParameter ( COLLADASW::CSWC::CSW_PROFILE_MAYA,
+//                                                 MAYA_SEGMENTSCALECOMP_PARAMETER,
+//                                                 segmentScaleCompensate );
 
         // Export the node
         return exportVisualSceneNode ( sceneNode, sceneElement );
@@ -777,7 +777,7 @@ namespace COLLADAMaya
 
         // Export the animations
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-        animationExporter->addPlugAnimation ( plug, ATTR_TRANSFORM, kMatrix, TRANSFORM_PARAMETER );
+        animationExporter->addPlugAnimation ( plug, ATTR_TRANSFORM, kMatrix, TRANSFORM_PARAMETER, true );
     }
 
     //---------------------------------------------------------------

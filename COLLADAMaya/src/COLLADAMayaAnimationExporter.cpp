@@ -673,13 +673,13 @@ namespace COLLADAMaya
         bool hasTangents = animationCurve.hasTangents();
         bool hasTCB = animationCurve.hasTCB();
 
+        // Convert the maya internal units to the UI units, if necessary
+        const AnimationElement* parent = animationCurve.getParent ();
+        bool convertUnits = parent->getConvertUnits ();
+
         // Add the key values
         for ( uint i=0; i<keyCount; ++i )
         {
-            // Convert the maya internal units to the UI units, if necessary
-            const AnimationElement* parent = animationCurve.getParent ();
-            bool convertUnits = parent->getConvertUnits ();
-
             AnimationKey* key = ( ( AnimationKey* ) animationCurve.getKey ( i ) );
             input.push_back ( key->input );
 
@@ -819,6 +819,11 @@ namespace COLLADAMaya
         bool hasTangents = animationCurve.hasTangents();
         bool hasTCB = animationCurve.hasTCB();
 
+        // Convert the maya internal units to the UI units, if necessary
+        const AnimationElement* parent = animationCurve.getParent ();
+        bool convertUnits = parent->getConvertUnits ();
+        const SampleType& sampleType = parent->getSampleType ();
+
         // Add the key values
         for ( uint i=0; i<keyCount; ++i )
         {
@@ -829,7 +834,19 @@ namespace COLLADAMaya
             float* outputList = key->output;
             for ( uint j=0; j<dimension; ++j )
             {
-                output.push_back ( *outputList );
+                // Just convert the transformation of the matrix transform
+                if ( sampleType == SampleType::kMatrix )
+                {
+                    if ( convertUnits && (j+1)%4==0 && (j+1)<16 ) 
+                        output.push_back ( ( float ) MDistance::internalToUI ( *outputList ) );
+                    else
+                        output.push_back ( *outputList );
+                }
+                else
+                {
+                    output.push_back ( *outputList );
+                }
+
                 ++outputList;
             }
 
