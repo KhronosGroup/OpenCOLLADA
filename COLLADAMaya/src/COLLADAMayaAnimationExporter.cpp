@@ -18,6 +18,7 @@
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaAnimationHelper.h"
+#include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaSceneGraph.h"
 
 #include <maya/MFnDependencyNode.h>
@@ -836,7 +837,7 @@ namespace COLLADAMaya
             {
                 // Just convert the transformation of the matrix transform
                 // Either here or in method AnimationHelper::sampleAnimatedTransform
-                if ( sampleType == SampleType::kMatrix )
+                if ( sampleType == kMatrix )
                 {
                     if ( convertUnits && (j+1)%4==0 && (j+1)<16 ) 
                         output.push_back ( ( float ) MDistance::internalToUI ( *outputList ) );
