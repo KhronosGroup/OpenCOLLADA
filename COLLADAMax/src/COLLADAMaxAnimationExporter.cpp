@@ -453,6 +453,9 @@ namespace COLLADAMax
 	{
 		ParamType2 type = parameterBlock->GetParameterType(parameterId);
 		int animationNumber = parameterBlock->GetAnimNum(parameterId);
+		if (animationNumber == -1)
+			return false;
+
 		Control *controller = parameterBlock->GetController(animationNumber);
 
 		if ( !isAnimated(controller) )
@@ -518,7 +521,11 @@ namespace COLLADAMax
 
 	bool AnimationExporter::isAnimated( IParamBlock2 * paramBlock, int parameterId )
 	{
+		
 		int animationNumber = paramBlock->GetAnimNum(parameterId);
+		if (animationNumber == -1)
+			return false;
+		//int pi = paramBlock->AnimNumToParamNum(animationNumber, tabIndex);
 		Control *controller = paramBlock->GetController(animationNumber);
 		return isAnimated(controller);
 	}

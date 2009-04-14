@@ -140,7 +140,7 @@ namespace COLLADAMax
             exportEffect ( exportNode, material );
         }
 
-        else
+        else 
         {
             exportColorEffect ( exportNode, iNode->GetWireColor() );
         }

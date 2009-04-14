@@ -50,11 +50,6 @@ namespace COLLADAMax
 
 		TimeValue animationStart = mOptions.getAnimationStart();
 
-		// use the animation number with the GetController method
-		// since the parameters enumeration doesn't reflect the param
-		// block order.
-		int animationNumber = parameters->GetAnimNum(parameterIndex);
-		Control *controller = parameters->GetController(animationNumber);
 
 		switch (parameterType)
 		{
