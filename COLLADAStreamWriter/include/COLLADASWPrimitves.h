@@ -18,6 +18,7 @@
 
 #include <vector>
 #include <assert.h>
+#include <string.h>
 
 namespace COLLADASW
 {

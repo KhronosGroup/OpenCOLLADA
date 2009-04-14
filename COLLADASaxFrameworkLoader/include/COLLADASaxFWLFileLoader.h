@@ -17,6 +17,7 @@
 #include "COLLADASaxFWLIFilePartLoader.h"
 #include "COLLADASaxFWLColladaParserAutoGenPrivate.h"
 #include "COLLADASaxFWLSidAddress.h"
+#include "COLLADASaxFWLSidTreeNode.h"
 
 #include "GeneratedSaxParserLibxmlSaxParser.h"
 #include "GeneratedSaxParserRawUnknownElementHandler.h"
@@ -188,10 +189,10 @@ namespace COLLADASaxFWL
 		void writeAndDeleteVisualScenes();
 
 		/** Creates all the animation lists.*/
-		void FileLoader::createMissingAnimationLists();
+		void createMissingAnimationLists();
 
 		/** Stores the binding stored in @a binding in the appropriate animation list*/
-		void FileLoader::createMissingAnimationList( const AnimationSidAddressBinding& binding );
+		void createMissingAnimationList( const AnimationSidAddressBinding& binding );
 
 
 		/** Writes all animation lists.*/
