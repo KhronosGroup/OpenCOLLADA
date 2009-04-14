@@ -241,11 +241,11 @@ namespace COLLADAMaya
                          + ";\nexportNormals=" + ExportOptions::exportNormals() + ";exportTexCoords=" + ExportOptions::exportTexCoords()
                          + ";\nexportVertexColors=" + ExportOptions::exportVertexColors()
                          + ";exportVertexColorsAnimation=" + ExportOptions::exportVertexColorAnimations()
-                         + ";exportTangents=" + ExportOptions::exportTangents()
-                         + ";\nexportTexTangents=" + ExportOptions::exportTexTangents() + ";exportConstraints=" + ExportOptions::exportConstraints()
-                         + ";exportPhysics=" + ExportOptions::exportPhysics() + ";exportXRefs=" + ExportOptions::exportXRefs()
-                         + ";\ndereferenceXRefs=" + ExportOptions::dereferenceXRefs() + ";cameraXFov=" + ExportOptions::cameraXFov()
-                         + ";cameraYFov=" + ExportOptions::cameraYFov();
+//                          + ";exportTangents=" + ExportOptions::exportTangents()
+//                          + ";\nexportTexTangents=" + ExportOptions::exportTexTangents() 
+                         + ";\nexportConstraints=" + ExportOptions::exportConstraints() + ";exportPhysics=" + ExportOptions::exportPhysics() 
+                         + ";\nexportXRefs=" + ExportOptions::exportXRefs() + ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs() 
+                         + ";\ncameraXFov=" + ExportOptions::cameraXFov() + ";cameraYFov=" + ExportOptions::cameraYFov();
         asset.getContributor().mComments = optstr.asChar();
 
         // Up axis

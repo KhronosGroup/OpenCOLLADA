@@ -1238,6 +1238,24 @@ namespace COLLADAMaya
             COLLADASW::FloatSource tangentSource ( mSW );
             COLLADASW::FloatSource binormalSource ( mSW );
 
+            // Geo-tangent
+            tangentSource.setId ( meshId + TANGENT_ID_SUFFIX );
+            tangentSource.setNodeName ( meshId + TANGENT_ID_SUFFIX );
+            tangentSource.setArrayId ( meshId + TANGENT_ID_SUFFIX + ARRAY_ID_SUFFIX );
+            tangentSource.setAccessorStride ( 3 );
+            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
+            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
+            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+
+            // Geo-binormal
+            binormalSource.setId ( meshId + BINORMAL_ID_SUFFIX );
+            binormalSource.setNodeName ( meshId + BINORMAL_ID_SUFFIX );
+            binormalSource.setArrayId ( meshId + BINORMAL_ID_SUFFIX + ARRAY_ID_SUFFIX );
+            binormalSource.setAccessorStride ( 3 );
+            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
+            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
+            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+
             uint normalCount = fnMesh.numNormals();
             MVectorArray tangents ( normalCount ), binormals ( normalCount );
 
@@ -1247,10 +1265,10 @@ namespace COLLADAMaya
                 getPerVertexNormalsTangents(fnMesh, normals, tangents, binormals );
 
                if ( !SourceInput::containsSourceBase ( &mVertexSources, &tangentSource ) )
-                   mVertexSources.push_back ( SourceInput ( tangentSource, COLLADASW::GEOTANGENT ) );
+                   mVertexSources.push_back ( SourceInput ( tangentSource, COLLADASW::TANGENT ) );
 
                if ( !SourceInput::containsSourceBase ( &mVertexSources, &binormalSource ) )
-                   mVertexSources.push_back ( SourceInput ( binormalSource, COLLADASW::GEOBINORMAL ) );
+                   mVertexSources.push_back ( SourceInput ( binormalSource, COLLADASW::BINORMAL ) );
             }
             else
             {
@@ -1262,20 +1280,12 @@ namespace COLLADAMaya
                 SourceInput::eraseSourceBase ( &mVertexSources, &binormalSource );
 
                 // Push them in the polygon sources list.
-                mPolygonSources.push_back ( SourceInput ( tangentSource, COLLADASW::GEOTANGENT ) );
-                mPolygonSources.push_back ( SourceInput ( binormalSource, COLLADASW::GEOBINORMAL ) );
+                mPolygonSources.push_back ( SourceInput ( tangentSource, COLLADASW::TANGENT ) );
+                mPolygonSources.push_back ( SourceInput ( binormalSource, COLLADASW::BINORMAL ) );
             }
 
             // Geo-tangent
-            tangentSource.setId ( meshId + GEOTANGENT_ID_SUFFIX );
-            tangentSource.setNodeName ( meshId + GEOTANGENT_ID_SUFFIX );
-            tangentSource.setArrayId ( meshId + GEOTANGENT_ID_SUFFIX + ARRAY_ID_SUFFIX );
-            tangentSource.setAccessorStride ( 3 );
-            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
-            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
-            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
             tangentSource.prepareToAppendValues();
-
             uint tangentCount = tangents.length();
             tangentSource.setAccessorCount ( tangentCount );
             for ( uint i = 0; i < tangentCount; ++i )
@@ -1289,15 +1299,7 @@ namespace COLLADAMaya
             tangentSource.finish();
 
             // Geo-binormal
-            binormalSource.setId ( meshId + GEOBINORMAL_ID_SUFFIX );
-            binormalSource.setNodeName ( meshId + GEOBINORMAL_ID_SUFFIX );
-            binormalSource.setArrayId ( meshId + GEOBINORMAL_ID_SUFFIX + ARRAY_ID_SUFFIX );
-            binormalSource.setAccessorStride ( 3 );
-            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
-            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
-            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
             binormalSource.prepareToAppendValues();
-
             uint binormalCount = binormals.length();
             binormalSource.setAccessorCount ( binormalCount );
 

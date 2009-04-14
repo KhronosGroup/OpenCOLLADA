@@ -24,8 +24,8 @@ namespace COLLADASW
 	const String LibraryGeometries::TEXBINORMAL_SOURCE_ID_SUFFIX = "-texbinormal";
     const String LibraryGeometries::ARRAY_ID_SUFFIX = "-array";
     const String LibraryGeometries::VERTICES_ID_SUFFIX = "-vertices";
-    const String LibraryGeometries::GEOTANGENT_ID_SUFFIX = "-geotangent";
-    const String LibraryGeometries::GEOBINORMAL_ID_SUFFIX = "-geobinormal";
+    const String LibraryGeometries::TANGENT_ID_SUFFIX = "-tangent";
+    const String LibraryGeometries::BINORMAL_ID_SUFFIX = "-binormal";
 
 
     //---------------------------------------------------------------
@@ -57,12 +57,12 @@ namespace COLLADASW
             suffix = LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX;
             break;
 
-        case ( COLLADASW::GEOTANGENT ) :
-            suffix = LibraryGeometries::GEOTANGENT_ID_SUFFIX;
+        case ( COLLADASW::TANGENT ) :
+            suffix = LibraryGeometries::TANGENT_ID_SUFFIX;
             break;
 
-        case ( COLLADASW::GEOBINORMAL ) :
-            suffix = LibraryGeometries::GEOBINORMAL_ID_SUFFIX;
+        case ( COLLADASW::BINORMAL ) :
+            suffix = LibraryGeometries::BINORMAL_ID_SUFFIX;
             break;
 
         default:

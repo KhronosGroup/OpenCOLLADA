@@ -770,7 +770,7 @@ namespace COLLADAMaya
 
             // For geometric tangents and bi-normals, use the same idx as the normals.
             // For texture tangents and bi-normals, group together for each UV set.
-            if ( type == COLLADASW::NORMAL || type == COLLADASW::GEOTANGENT || type == COLLADASW::GEOBINORMAL )
+            if ( type == COLLADASW::NORMAL || type == COLLADASW::TANGENT || type == COLLADASW::BINORMAL )
             {
                 foundIdx = normalsIdx;
             }
@@ -887,8 +887,8 @@ namespace COLLADAMaya
                 primitivesBasePoly->appendValues ( vertexIndex );
                 break;
             case COLLADASW::NORMAL:
-            case COLLADASW::GEOTANGENT:
-            case COLLADASW::GEOBINORMAL:
+            case COLLADASW::TANGENT:
+            case COLLADASW::BINORMAL:
                 {
                     if (mHasFaceVertexNormals)
                     {

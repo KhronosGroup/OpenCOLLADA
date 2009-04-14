@@ -55,6 +55,12 @@ namespace COLLADASW
 		case TEXCOORD:
 			return CSWC::CSW_SEMANTIC_TEXCOORD;
 
+        case TANGENT:
+            return CSWC::CSW_SEMANTIC_TANGENT;
+
+        case BINORMAL:
+            return CSWC::CSW_SEMANTIC_BINORMAL;
+
 		case TEXTANGENT:
 			return CSWC::CSW_SEMANTIC_TEXTANGENT;
 

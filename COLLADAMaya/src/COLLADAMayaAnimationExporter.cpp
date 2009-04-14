@@ -835,6 +835,7 @@ namespace COLLADAMaya
             for ( uint j=0; j<dimension; ++j )
             {
                 // Just convert the transformation of the matrix transform
+                // Either here or in method AnimationHelper::sampleAnimatedTransform
                 if ( sampleType == SampleType::kMatrix )
                 {
                     if ( convertUnits && (j+1)%4==0 && (j+1)<16 ) 

@@ -32,8 +32,8 @@ namespace COLLADASW
         POSITION = 0, /**< Used for position data. */
         VERTEX, /**< Used to input the vertex sources within a polygon set. */
         NORMAL, /**< Used for surface normal vectors. */
-        GEOTANGENT, /**< Used for surface tangent vectors. */
-        GEOBINORMAL, /**< Used for surface binormal vectors. */
+        TANGENT, /**< Used for surface tangent vectors. */
+        BINORMAL, /**< Used for surface binormal vectors. */
         TEXCOORD, /**< Used for texture coordinates. */
         TEXTANGENT, /**< Used for texture-aligned surface tangent vectors. */
         TEXBINORMAL, /**< Used for texture-aligned surface binormal vectors. */

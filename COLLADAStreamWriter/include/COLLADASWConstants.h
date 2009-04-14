@@ -264,8 +264,10 @@ namespace COLLADASW
         static const String CSW_SEMANTIC_OUT_TANGENT;
         static const String CSW_SEMANTIC_POSITION;
 		static const String CSW_SEMANTIC_TEXCOORD;
-		static const String CSW_SEMANTIC_TEXTANGENT;
-		static const String CSW_SEMANTIC_TEXBINORMAL;
+		static const String CSW_SEMANTIC_TANGENT;
+		static const String CSW_SEMANTIC_BINORMAL;
+        static const String CSW_SEMANTIC_TEXTANGENT;
+        static const String CSW_SEMANTIC_TEXBINORMAL;
         static const String CSW_SEMANTIC_VERTEX;
         static const String CSW_SEMANTIC_WEIGHT;
 

@@ -187,12 +187,12 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 							-la2 "Vertex Colors" "Vertex Colors Per Vertex" //"Per-Vertex Colors Animations"
 							colladaExportFilter6;
 					
-					checkBoxGrp
-							-l " "
-							-ncb 2
-							-va2 false false
-							-la2 "Texture Tangents" "Geometric Tangents"
-							colladaExportFilter7;
+// 					checkBoxGrp
+// 							-l " "
+// 							-ncb 2
+// 							-va2 false false
+// 							-la2 "Texture Tangents" "Geometric Tangents"
+// 							colladaExportFilter7;
 							
 // 					text
 // 							-l " "
@@ -394,16 +394,16 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v3 $intVal colladaExportFilter6;
 				}
-				else if ($optionBreakDown[0] == "exportTexTangents")
-				{
-					$intVal = $optionBreakDown[1];
-					checkBoxGrp -e -v1 $intVal colladaExportFilter7;
-				}
-				else if ($optionBreakDown[0] == "exportTangents")
-				{
-					$intVal = $optionBreakDown[1];
-					checkBoxGrp -e -v2 $intVal colladaExportFilter7;
-				}
+// 				else if ($optionBreakDown[0] == "exportTexTangents")
+// 				{
+// 					$intVal = $optionBreakDown[1];
+// 					checkBoxGrp -e -v1 $intVal colladaExportFilter7;
+// 				}
+// 				else if ($optionBreakDown[0] == "exportTangents")
+// 				{
+// 					$intVal = $optionBreakDown[1];
+// 					checkBoxGrp -e -v2 $intVal colladaExportFilter7;
+// 				}
 				else if ($optionBreakDown[0] == "exportMaterialsOnly")
 				{
 					$intVal = $optionBreakDown[1];
@@ -496,8 +496,8 @@ global proc int colladaNextGenExporterOpts ( string $parent,
  		$currentOptions = $currentOptions + "exportVertexColors=" + `checkBoxGrp -q -v1 colladaExportFilter6` + ";";
  		$currentOptions = $currentOptions + "exportVertexColorsPerVertex=" + `checkBoxGrp -q -v2 colladaExportFilter6` + ";";
 // 		$currentOptions = $currentOptions + "exportVertexColorAnimations=" + `checkBoxGrp -q -v3 colladaExportFilter6` + ";";
-		$currentOptions = $currentOptions + "exportTexTangents=" + `checkBoxGrp -q -v1 colladaExportFilter7` + ";";
-		$currentOptions = $currentOptions + "exportTangents=" + `checkBoxGrp -q -v2 colladaExportFilter7` + ";";
+//		$currentOptions = $currentOptions + "exportTexTangents=" + `checkBoxGrp -q -v1 colladaExportFilter7` + ";";
+//		$currentOptions = $currentOptions + "exportTangents=" + `checkBoxGrp -q -v2 colladaExportFilter7` + ";";
 //		$currentOptions = $currentOptions + "exportMaterialsOnly=" + `checkBoxGrp -q -v1 colladaExportFilterMaterialsOnly` + ";";
 
 // Query Double Fine filter options

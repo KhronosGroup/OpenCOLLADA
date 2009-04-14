@@ -33,8 +33,8 @@ namespace COLLADASW
 		static const String TEXBINORMAL_SOURCE_ID_SUFFIX;
         static const String ARRAY_ID_SUFFIX;
         static const String VERTICES_ID_SUFFIX;
-        static const String GEOTANGENT_ID_SUFFIX;
-        static const String GEOBINORMAL_ID_SUFFIX;
+        static const String TANGENT_ID_SUFFIX;
+        static const String BINORMAL_ID_SUFFIX;
 
     private:
 
