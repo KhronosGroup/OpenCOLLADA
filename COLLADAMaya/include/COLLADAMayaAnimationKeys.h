@@ -35,7 +35,7 @@ namespace COLLADAMaya
     {
 
     public:
-        BaseAnimationKey() {}
+        BaseAnimationKey() : input (-1) {}
 
         /** The key input. Typically, this will be a time value, in seconds.
         For driven curves, the dimension of this value will depend on the driver. */
@@ -60,7 +60,7 @@ namespace COLLADAMaya
     {
 
     public:
-        AnimationKey() {}
+        AnimationKey() : BaseAnimationKey (), output (-1) {}
 
         /** The key output. */
         float output;
@@ -82,6 +82,9 @@ namespace COLLADAMaya
     {
 
     public:
+
+        AnimationKeyBezier() : AnimationKey () {}
+
         TangentPoint inTangent;  /**< The incoming tangent value. */
         TangentPoint outTangent; /**< The outcoming tangent value. */
     };
@@ -99,6 +102,11 @@ namespace COLLADAMaya
     {
 
     public:
+
+        AnimationKeyTCB() 
+            : AnimationKey (), tension(-1), continuity(-1), bias(-1), easeIn(-1), easeOut(-1)
+        {}
+
         float tension;  /**< The tension. */
         float continuity; /**< The continuity. */
         float bias;   /**< The bias. */

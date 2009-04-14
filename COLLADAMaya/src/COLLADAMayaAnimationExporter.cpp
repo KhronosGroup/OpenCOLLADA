@@ -1911,7 +1911,8 @@ namespace COLLADAMaya
             // Extend the slope to be one third of the time-line in the X-coordinate.
             // We need to multiply the slopeY value with itself 
             // to get the direction of the tangents slope.
-            slopeY *= ( curTime - prevTime ) / slopeX / 3.0f;
+            if ( slopeX == 0 ) slopeY = 0;
+            else slopeY *= ( curTime - prevTime ) / slopeX / 3.0f;
             slopeX = ( curTime - prevTime ) / 3.0f;
         }
         else
@@ -1932,7 +1933,8 @@ namespace COLLADAMaya
             // Extend the slope to be one third of the time-line in the X-coordinate.
             // We need to multiply the slopeY value with itself 
             // to get the direction of the tangents slope.
-            slopeY *= ( nextTime - curTime ) / slopeX / 3.0f;
+            if ( slopeX == 0 ) slopeY = 0;
+            else slopeY *= ( nextTime - curTime ) / slopeX / 3.0f;
             slopeX = ( nextTime - curTime ) / 3.0f;
         }
         else

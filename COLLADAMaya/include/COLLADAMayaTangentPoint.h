@@ -45,12 +45,12 @@ namespace COLLADAMaya
     public:
 
         /** Default constructor */
-        TangentPoint() {}
+        TangentPoint() : x(0), y(0) {}
 
         /** Creates the std::vector with the coordinates given.
         @param _u The first coordinate.
         @param _v The second coordinate. */
-        TangentPoint ( float _u, float _v )
+        TangentPoint ( float _u, float _v ) : x(0), y(0)
         {
             u = _u;
             v = _v;

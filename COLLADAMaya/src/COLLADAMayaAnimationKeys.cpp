@@ -22,7 +22,7 @@ namespace COLLADAMaya
 
     // --------------------------------------------
     AnimationMKey::AnimationMKey ( uint _dimension )
-            : dimension ( _dimension )
+            : BaseAnimationKey (), dimension ( _dimension )
     {
         output = new float[dimension];
     }
