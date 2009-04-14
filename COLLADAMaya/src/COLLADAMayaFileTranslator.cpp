@@ -15,9 +15,9 @@
 
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaStableHeaders.h"
-#include "ColladaMayaPlatform.h"
+#include "COLLADAMayaPlatform.h"
 #include "COLLADAMayaSyntax.h"
-#include "COLLADAMayaVersionInfo.h"
+//#include "COLLADAMayaVersionInfo.h"
 #include "COLLADAMayaFileTranslator.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaExportOptions.h"

@@ -34,7 +34,7 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSetHelper.h"
 #include "COLLADAMayaSyntax.h"
-#include "ColladaMayaPlatform.h"
+#include "COLLADAMayaPlatform.h"
 #include "assert.h"
 
 

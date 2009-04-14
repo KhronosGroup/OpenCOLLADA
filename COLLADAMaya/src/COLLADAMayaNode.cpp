@@ -12,7 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-#include "COLLADAMayaStableheaders.h"
+#include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaNode.h"
 
 #include "COLLADABUUtils.h"

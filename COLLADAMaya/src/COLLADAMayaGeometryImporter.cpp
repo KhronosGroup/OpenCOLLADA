@@ -15,7 +15,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaGeometryImporter.h"
-#include "ColladaMayaException.h"
+#include "COLLADAMayaException.h"
 #include "COLLADAMayaVisualSceneImporter.h"
 #include "COLLADAMayaImportOptions.h"
 
