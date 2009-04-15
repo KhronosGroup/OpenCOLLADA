@@ -19,6 +19,11 @@
 # pragma warning(disable: 4312)
 #endif
 
+// make this compileable under linux
+#ifdef LINUX
+#   define RedHat8_
+#endif
+
 #include "cgfxAttrDef.cpp"
 #if MAYA_API_VERSION > 800
 #include "cgfxEffectDef.cpp"
