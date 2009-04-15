@@ -48,6 +48,10 @@ namespace COLLADAMax
 	typedef const ConversionFunctor* const & ConversionFunctorType;
 
 
+	/** Converts @a inValue using @a conversionFunctor. If @a conversionFunctor is null, @a inValue is returned.*/
+	float convert( ConversionFunctorType conversionFunctor, float inValue);
+
+
 	/** Conversion functor to convert to percent, i.e. ist divides by 100 */
 	class ScaleConversionFunctor : public ConversionFunctor
 	{

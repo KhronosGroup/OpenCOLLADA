@@ -31,4 +31,18 @@ namespace COLLADAMax
 	ScaleConversionFunctor ConversionFunctors::fromPercent = ScaleConversionFunctor( 0.01f );
 	ScaleConversionFunctor ConversionFunctors::toPercent = ScaleConversionFunctor( 100.0f );
 
+
+	float convert( ConversionFunctorType conversionFunctor, float inValue )
+	{
+		if ( conversionFunctor )
+		{
+			return (*conversionFunctor)(inValue);
+		}
+		else
+		{
+			return inValue;
+		}
+	}
+
+
 }

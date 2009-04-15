@@ -24,17 +24,9 @@
 
 #ifdef MAX_8_OR_NEWER
 
-//#pragma warning(disable:4100)
-//#pragma warning(disable:4238)
-//#pragma warning(disable:4267)
-
 #include <XRef/iXRefObjMgr8.h>
 #include <XRef/iXRefMaterial.h>
 #include <XRef/iXRefObj.h>
-
-//#pragma warning(default:4267)
-//#pragma warning(default:4238)
-//#pragma warning(default:4100)
 
 #else
 

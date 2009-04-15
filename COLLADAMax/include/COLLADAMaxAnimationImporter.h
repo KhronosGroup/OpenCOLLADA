@@ -21,13 +21,14 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxPrerequisites.h"
 #include "COLLADAMaxImporterBase.h"
 
+#include "COLLADAFWAnimationCurve.h"
+
 
 class Control;
 
 namespace COLLADAFW
 {
 	class Animation;
-	class AnimationCurve;
 };
 
 
@@ -83,6 +84,21 @@ namespace COLLADAMax
 										   ConversionFunctorType inputConversionFunctor,
 										   ConversionFunctorType outputConversionFunctor );
 
+		template<class InputArrayType, class OutputArrayType, class InTangentArrayType, class OutTangentArrayType> 
+		bool fillBezierMaxFloatController( IKeyControl* maxKeyController, 
+			size_t keyCount, 
+			size_t dimensions, 
+			size_t dimension, 
+			const InputArrayType& inputValues, 
+			const OutputArrayType& outputValues,
+			const InTangentArrayType& inTangentValues,
+			const OutTangentArrayType& outTangentValues,
+			const COLLADAFW::AnimationCurve::InterpolationType interpolationType,
+			const COLLADAFW::AnimationCurve::InterpolationTypeArray& interpolationTypes,
+			ConversionFunctorType inputConversionFunctor,
+			ConversionFunctorType outputConversionFunctor);
+
+	
 	private:
 
         /** Disable default copy ctor. */
