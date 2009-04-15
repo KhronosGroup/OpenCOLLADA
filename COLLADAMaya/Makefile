@@ -18,6 +18,10 @@
 # you have to reset MAYA_LOCATION
 include $(MAYA_LOCATION)/devkit/plug-ins/buildconfig
 
+# override compiler if gcc 4.1.2 is installed as default
+#CC = gcc
+#C++ = g++
+
 # define variables
 ARCH = `uname -i`
 OS = linux
@@ -75,7 +79,7 @@ generateVersionHeader:
 
 openCOLLADA: mkdirs
 	# build UTF
-	gcc -c -I../Externals/UTF/include -o $(OBJ_DIR_OPENCOLLADA)/ConvertUTF.o ../Externals/UTF/src/ConvertUTF.c
+	$(CC) -c $(CFLAGS) -I../Externals/UTF/include -o $(OBJ_DIR_OPENCOLLADA)/ConvertUTF.o ../Externals/UTF/src/ConvertUTF.c
 
 	# build openCOLLADA
 	for i in $(OPENCOLLADA_SRC_DIRS); do \
