@@ -226,6 +226,10 @@ namespace COLLADAMax
 					case COLLADAFW::AnimationList::POSITION_X:
 						{
 							assert( maxControllerList.size() >= 1);
+							if ( maxControllerList.empty() )
+							{
+								break;
+							}
 							if ( controllers[TRANSLATE_X] )
 							{
 								//The x controller has already been set
@@ -237,6 +241,10 @@ namespace COLLADAMax
 					case COLLADAFW::AnimationList::POSITION_Y:
 						{
 							assert( maxControllerList.size() >= 1);
+							if ( maxControllerList.empty() )
+							{
+								break;
+							}
 							if ( controllers[TRANSLATE_Y] )
 							{
 								//The y controller has already been set
@@ -248,6 +256,10 @@ namespace COLLADAMax
 					case COLLADAFW::AnimationList::POSITION_Z:
 						{
 							assert( maxControllerList.size() >= 1);
+							if ( maxControllerList.empty() )
+							{
+								break;
+							}
 							if ( controllers[TRANSLATE_Z] )
 							{
 								//The z controller has already been set
@@ -259,6 +271,10 @@ namespace COLLADAMax
 					case COLLADAFW::AnimationList::POSITION_XYZ:
 						{
 							assert( maxControllerList.size() >= 3);
+							if ( maxControllerList.size() < 3 )
+							{
+								break;
+							}
 
 							if ( controllers[TRANSLATE_X] || controllers[TRANSLATE_Y] || controllers[TRANSLATE_Z])
 							{
@@ -354,7 +370,11 @@ namespace COLLADAMax
 							return false;
 						}
 						const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
-						assert( maxControllerList.size() == 1 );
+						assert( maxControllerList.size() >= 1 );
+						if ( maxControllerList.empty() )
+						{
+							break;
+						}
 						controllers[ROTATE_X] = maxControllerList[0];
 						bucketDepth = ROTATE_X;
 					}
@@ -381,7 +401,11 @@ namespace COLLADAMax
 							return false;
 						}
 						const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
-						assert( maxControllerList.size() == 1 );
+						assert( maxControllerList.size() >= 1 );
+						if ( maxControllerList.empty() )
+						{
+							break;
+						}
 						controllers[ROTATE_Y] = maxControllerList[0];
 						bucketDepth = ROTATE_Y;
 					}
@@ -408,7 +432,11 @@ namespace COLLADAMax
 							return false;
 						}
 						const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
-						assert( maxControllerList.size() == 1 );
+						assert( maxControllerList.size() >= 1 );
+						if ( maxControllerList.empty() )
+						{
+							break;
+						}
 						controllers[ROTATE_Z] = maxControllerList[0];
 						bucketDepth = ROTATE_Z;
 					}

@@ -1452,11 +1452,11 @@ namespace COLLADAMax
                 bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
                 bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
         */
-        InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+        InterpolationType interpolationInType = getInterpolationInType ( key.flags );
 
         // export control point. If it is not a BEZIER interpolation, export the point itself
 
-        if ( interpolationOutType == BEZIER )
+        if ( interpolationInType == BEZIER )
         {
             if ( GetInTanType ( key.flags ) != BEZKEY_USER )
                 key.inLength = DEFAULT_INLENGHT_FLOAT;
@@ -1469,7 +1469,16 @@ namespace COLLADAMax
 
             *inTangentValuesY = key.val + key.intan * inInterval;
         }
-
+		else if ( interpolationInType == LINEAR )
+		{
+			*inTangentValuesX = (key.time - ( key.time - previousTime )/3) * mTimeFactor;
+			// get the previous key value
+			int numKeys = keyInterface->GetNumKeys();
+			int previousKeyIndex = ( keyIndex > 0 ) ? keyIndex - 1 : numKeys - 1;
+			IBezFloatKey previousKey;
+			keyInterface->GetKey ( previousKeyIndex, &previousKey );
+			*inTangentValuesY = (key.val - ( key.val - previousKey.val )/3);
+		}
         else
         {
             /// @TODO: clarify if this makes sense or if we should export the same as above
@@ -1495,13 +1504,13 @@ namespace COLLADAMax
 		bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
 		bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
 		*/
-		InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+		InterpolationType interpolationInType = getInterpolationInType ( key.flags );
 
 		int keyParamterIndex = animation.getType() - Animation::POSITION_X;
 
 		// export control point. If it is not a BEZIER interpolation, export the point itself
 
-		if ( interpolationOutType == BEZIER )
+		if ( interpolationInType == BEZIER )
 		{
 			if ( GetInTanType ( key.flags ) != BEZKEY_USER )
 				key.inLength = DEFAULT_INLENGHT_POINTX_FLOAT_ARRAY;
@@ -1512,7 +1521,16 @@ namespace COLLADAMax
 			*inTangentValuesX = ( key.time - inInterval ) * mTimeFactor;
 			*inTangentValuesY = key.val[keyParamterIndex] + key.intan[keyParamterIndex] * inInterval;
 		}
-
+		else if ( interpolationInType == LINEAR )
+		{
+			*inTangentValuesX = (key.time - ( key.time - previousTime )/3) * mTimeFactor;
+			// get the previous key value
+			int numKeys = keyInterface->GetNumKeys();
+			int previousKeyIndex = ( keyIndex > 0 ) ? keyIndex - 1 : numKeys - 1;
+			KeyType previousKey;
+			keyInterface->GetKey( previousKeyIndex, &previousKey );
+			*inTangentValuesY = (key.val[keyParamterIndex] - ( key.val[keyParamterIndex] - previousKey.val[keyParamterIndex] )/3);
+		}
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
@@ -1538,11 +1556,11 @@ namespace COLLADAMax
 		bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
 		bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
 		*/
-		InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+		InterpolationType interpolationInType = getInterpolationInType ( key.flags );
 
 		// export control point. If it is not a BEZIER interpolation, export the point itself
 
-		if ( interpolationOutType == BEZIER )
+		if ( interpolationInType == BEZIER )
 		{
 			if ( GetInTanType ( key.flags ) != BEZKEY_USER )
 				key.inLength = DEFAULT_INLENGHT_POINTX_FLOAT_ARRAY;
@@ -1559,7 +1577,22 @@ namespace COLLADAMax
 			}
 
 		}
+		else if ( interpolationInType == LINEAR )
+		{
+			float inTangentX = (key.time - ( key.time - previousTime )/3) * mTimeFactor;
 
+			// get the previous key value
+			int numKeys = keyInterface->GetNumKeys();
+			int previousKeyIndex = ( keyIndex > 0 ) ? keyIndex - 1 : numKeys - 1;
+			KeyType previousKey;
+			keyInterface->GetKey ( previousKeyIndex, &previousKey );
+
+			for ( int i = 0; i<dimension; ++i)
+			{
+				inTangentValuesX[i] = inTangentX;
+				inTangentValuesY[i] = (key.val[i] - ( key.val[i] - previousKey.val[i] )/3);
+			}
+		}
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
@@ -1587,7 +1620,7 @@ namespace COLLADAMax
 		bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
 		bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
 		*/
-		InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+		InterpolationType interpolationInType = getInterpolationInType ( key.flags );
 
 		int keyParamterIndex = animation.getType() - Animation::ROTATION_X;
 
@@ -1596,13 +1629,20 @@ namespace COLLADAMax
 
 		size_t keyValueIndex = keyIndex;
 
-		if ( interpolationOutType == BEZIER )
+		if ( interpolationInType == BEZIER )
 		{
 			float inInterval = ( key.time - previousTime ) * DEFAULT_INLENGHT;
 			*inTangentValuesX = ( key.time - inInterval ) * mTimeFactor;
 			*inTangentValuesY = mKeyValueList[keyValueIndex];
 		}
-
+		else if ( interpolationInType == LINEAR )
+		{
+			*inTangentValuesX = (key.time - ( key.time - previousTime )/3) * mTimeFactor;
+			// get the previous key value
+			size_t numKeys = mKeyValueList.size();
+			size_t previousKeyIndex = ( keyValueIndex > 0 ) ? keyValueIndex - 1 : numKeys - 1;
+			*inTangentValuesY = (mKeyValueList[keyValueIndex] - ( mKeyValueList[keyValueIndex] - mKeyValueList[previousKeyIndex] )/3);
+		}
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
@@ -1628,13 +1668,13 @@ namespace COLLADAMax
 		bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
 		bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
 		*/
-		InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+		InterpolationType interpolationInType = getInterpolationInType ( key.flags );
 
 		// export control point. If it is not a BEZIER interpolation, export the point itself
 
 		size_t keyValueIndex = 3 * keyIndex;
 
-		if ( interpolationOutType == BEZIER )
+		if ( interpolationInType == BEZIER )
 		{
 			float inInterval = ( key.time - previousTime ) * DEFAULT_INLENGHT;
 
@@ -1647,7 +1687,20 @@ namespace COLLADAMax
 			inTangentValuesX[2] = inTangentValuesX[0];
 			inTangentValuesY[2] = mKeyValueList[keyValueIndex++];
 		}
+		else if ( interpolationInType == LINEAR )
+		{
+			size_t numKeys = mKeyValueList.size();
 
+			float inTangentX = (key.time - ( key.time - previousTime )/3) * mTimeFactor;
+
+			for ( size_t i = 0; i < 3; ++i, keyValueIndex++)
+			{
+				inTangentValuesX[i] = inTangentX;
+				// get the previous key value
+				size_t previousKeyIndex = ( keyValueIndex > 0 ) ? keyValueIndex - 1 : numKeys - 1;
+				inTangentValuesY[i] = (mKeyValueList[keyValueIndex] - ( mKeyValueList[keyValueIndex] - mKeyValueList[previousKeyIndex] )/3);
+			}
+		}
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
@@ -1683,7 +1736,7 @@ namespace COLLADAMax
                 bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
                 bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
         */
-        InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+        InterpolationType interpolationOutType = getInterpolationOutType ( key.flags );
 
         // export control point. If it is not a BEZIER interpolation, export the point itself
 
@@ -1700,8 +1753,17 @@ namespace COLLADAMax
 
             *outTangentValuesY = key.val + key.outtan * outInterval;
         }
-
-        else
+        else if ( interpolationOutType == LINEAR )
+		{
+			*outTangentValuesX = (key.time + ( nextTime - key.time )/3) * mTimeFactor;
+			// get the next key value
+			int numKeys = keyInterface->GetNumKeys();
+			int nextKeyIndex = (keyIndex + 1 < numKeys ) ? keyIndex + 1 : 0;
+			IBezFloatKey nextKey;
+			keyInterface->GetKey ( nextKeyIndex, &nextKey );
+			*outTangentValuesY = (key.val + ( nextKey.val - key.val )/3);
+		}
+		else
         {
             *outTangentValuesX = key.time * mTimeFactor;
             *outTangentValuesY = key.val;
@@ -1725,7 +1787,7 @@ namespace COLLADAMax
 		bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
 		bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
 		*/
-		InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+		InterpolationType interpolationOutType = getInterpolationOutType ( key.flags );
 
 		int keyParamterIndex = animation.getType() - Animation::POSITION_X;
 
@@ -1744,7 +1806,16 @@ namespace COLLADAMax
 			*outTangentValuesX = ( key.time + outInterval ) * mTimeFactor;
 			*outTangentValuesY = key.val[keyParamterIndex] + key.outtan[keyParamterIndex] * outInterval;
 		}
-
+		else if ( interpolationOutType == LINEAR )
+		{
+			*outTangentValuesX = (key.time + ( nextTime - key.time )/3) * mTimeFactor;
+			// get the next key value
+			int numKeys = keyInterface->GetNumKeys();
+			int nextKeyIndex = (keyIndex + 1 < numKeys ) ? keyIndex + 1 : 0;
+			KeyType nextKey;
+			keyInterface->GetKey ( nextKeyIndex, &nextKey );
+			*outTangentValuesY = (key.val[keyParamterIndex] + ( nextKey.val[keyParamterIndex] - key.val[keyParamterIndex] )/3);
+		}
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
@@ -1770,7 +1841,7 @@ namespace COLLADAMax
 		bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
 		bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
 		*/
-		InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+		InterpolationType interpolationOutType = getInterpolationOutType ( key.flags );
 
 		// export control point. If it is not a BEZIER interpolation, export the point itself
 
@@ -1790,7 +1861,21 @@ namespace COLLADAMax
 				outTangentValuesY[i] = key.val[i] + key.outtan[i] * outInterval;
 			}
 		}
+		else if ( interpolationOutType == LINEAR )
+		{
+			float outTangentX = (key.time + ( nextTime - key.time )/3) * mTimeFactor;
+			// get the next key value
+			int numKeys = keyInterface->GetNumKeys();
+			int nextKeyIndex = (keyIndex + 1 < numKeys ) ? keyIndex + 1 : 0;
+			KeyType nextKey;
+			keyInterface->GetKey ( nextKeyIndex, &nextKey );
 
+			for ( int i = 0; i<dimension; ++i)
+			{
+				outTangentValuesX[i] = outTangentX;
+				outTangentValuesY[i] = (key.val[i] + ( nextKey.val[i] - key.val[i] )/3);
+			}
+		}
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
@@ -1818,7 +1903,7 @@ namespace COLLADAMax
 		bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
 		bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
 		*/
-		InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+		InterpolationType interpolationOutType = getInterpolationOutType ( key.flags );
 
 		int keyParamterIndex = animation.getType() - Animation::ROTATION_X;
 
@@ -1833,7 +1918,14 @@ namespace COLLADAMax
 			*outTangentValuesX = ( key.time + outInterval ) * mTimeFactor;
 			*outTangentValuesY = mKeyValueList[keyValueIndex];
 		}
-
+		else if ( interpolationOutType == LINEAR )
+		{ 
+			*outTangentValuesX = (key.time + ( nextTime - key.time )/3) * mTimeFactor;
+			// get the next key value
+			int numKeys = (int)mKeyValueList.size();
+			int nextKeyIndex = (keyIndex + 1 < numKeys ) ? keyIndex + 1 : 0;
+			*outTangentValuesY = (mKeyValueList[keyValueIndex] + ( mKeyValueList[nextKeyIndex] - mKeyValueList[keyValueIndex] )/3);
+		}
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
@@ -1859,7 +1951,7 @@ namespace COLLADAMax
 		bool b4 = GetOutTanType( key.flags ) == BEZKEY_LINEAR;
 		bool b5 = GetOutTanType( key.flags ) == BEZKEY_STEP;
 		*/
-		InterpolationType interpolationOutType = getInterpolationType ( key.flags );
+		InterpolationType interpolationOutType = getInterpolationOutType ( key.flags );
 
 		// export control point. If it is not a BEZIER interpolation, export the point itself
 
@@ -1878,7 +1970,20 @@ namespace COLLADAMax
 			outTangentValuesX[2] = outTangentValuesX[0];
 			outTangentValuesY[2] = mKeyValueList[keyValueIndex++];
 		}
+		else if ( interpolationOutType == LINEAR )
+		{ 
+			int numKeys = (int)mKeyValueList.size();
 
+			float outTangentX = (key.time + ( nextTime - key.time )/3) * mTimeFactor;
+
+			for ( size_t i = 0; i < 3; ++i, keyValueIndex++)
+			{
+				outTangentValuesX[i] = outTangentX;
+				// get the next key value
+				int nextKeyIndex = (keyIndex + 1 < numKeys ) ? keyIndex + 1 : 0;
+				outTangentValuesY[i] = (mKeyValueList[keyValueIndex] + ( mKeyValueList[nextKeyIndex] - mKeyValueList[keyValueIndex] )/3);
+			}
+		}
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
@@ -1893,23 +1998,33 @@ namespace COLLADAMax
 	}
 
 
+	//---------------------------------------------------------------
+	AnimationExporter::InterpolationType AnimationExporter::getInterpolationInType ( const DWORD & flags )
+	{
+		switch ( GetInTanType ( flags ) )
+		{
+		case BEZKEY_LINEAR:
+			return LINEAR;
+		case BEZKEY_STEP:
+			return STEP;
+		default:
+			return BEZIER;
+		}
+	}
 
-    //---------------------------------------------------------------
-    AnimationExporter::InterpolationType AnimationExporter::getInterpolationType ( const DWORD & flags )
-    {
-        switch ( GetOutTanType ( flags ) )
-        {
-
-        case BEZKEY_LINEAR:
-            return LINEAR;
-
-        case BEZKEY_STEP:
-            return STEP;
-
-        default:
-            return BEZIER;
-        }
-    }
+	//---------------------------------------------------------------
+	AnimationExporter::InterpolationType AnimationExporter::getInterpolationOutType ( const DWORD & flags )
+	{
+		switch ( GetOutTanType ( flags ) )
+		{
+		case BEZKEY_LINEAR:
+			return LINEAR;
+		case BEZKEY_STEP:
+			return STEP;
+		default:
+			return BEZIER;
+		}
+	}
 
     //---------------------------------------------------------------
     void AnimationExporter::exportInterpolationSource ( const String & baseId, IKeyControl * keyInterface, InterpolationTypeFunctionPtr interpolationTypeFunction, int keyCount )
@@ -1940,10 +2055,41 @@ namespace COLLADAMax
     const String & AnimationExporter::getBezierInterpolation ( IKeyControl * keyInterface, int keyIndex )
     {
         KeyType key;
-        keyInterface->GetKey ( keyIndex, &key );
-        return getNameOfInterpolation ( getInterpolationType ( key.flags ) );
-    }
+		keyInterface->GetKey ( keyIndex, &key );
+		InterpolationType interpolationOutType =  getInterpolationOutType ( key.flags );
+		if ( interpolationOutType == STEP )
+		{
+			// step always wins
+			return getNameOfInterpolation( STEP );
+		}
+		int numKeys = keyInterface->GetNumKeys();
+		if ( keyIndex + 1 < numKeys )
+		{
+			KeyType nextKey;
+			keyInterface->GetKey ( keyIndex + 1, &nextKey );
+			InterpolationType nextInterpolationInType =  getInterpolationInType ( nextKey.flags );
+			if ( nextInterpolationInType == STEP )
+			{
+				// step always wins
+				return getNameOfInterpolation( STEP );
+			}
 
+			if ( (interpolationOutType == LINEAR) && (nextInterpolationInType == LINEAR) )
+			{
+				// linear only, if both are linear
+				return getNameOfInterpolation( LINEAR );
+			}
+			else
+			{
+				// general case
+				return getNameOfInterpolation( BEZIER );
+			}
+		}
+		else
+		{
+			return getNameOfInterpolation ( interpolationOutType );
+		}
+    }
 
 
 	//---------------------------------------------------------------

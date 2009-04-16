@@ -717,10 +717,11 @@ namespace COLLADAMax
 		@param animation The animation to export*/
 		void getRotationOutTangentPatchEuler ( float * outTangentValuesX, float * outTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation );
 
+		/** Determines the out interpolation type depending on @a flags*/
+		static InterpolationType getInterpolationOutType ( const DWORD & flags );
 
-
-        /** Determines the interpolation type depending on @a flags*/
-        static InterpolationType getInterpolationType ( const DWORD & flags );
+		/** Determines the in interpolation type depending on @a flags*/
+		static InterpolationType getInterpolationInType ( const DWORD & flags );
 
         /** Exports the interpolation source.
         @param baseId The base id of the animation
