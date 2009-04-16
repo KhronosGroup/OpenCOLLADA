@@ -28,10 +28,13 @@ namespace COLLADASaxFWL
 		this memeber is set to this interpolation type, otherwise it is set to COLLADAFW::AnimationCurve::INTERPOLATION_MIXED.*/
 		COLLADAFW::AnimationCurve::InterpolationType mInterpolationType;
 
+		/** True, if at least one interpolation type is bezier or hermite, false otherwise.*/
+		bool mRequiresTangents;
 	public:
 		InterpolationTypeSource()
 			: Source < InterpolationTypeArrayElement, SourceBase::DATA_TYPE_INTERPOLATIONTYPE>()
 		    , mInterpolationType(COLLADAFW::AnimationCurve::INTERPOLATION_UNKNOWN)
+			, mRequiresTangents(false)
 			{}
 
 		virtual ~InterpolationTypeSource(){}
@@ -39,6 +42,11 @@ namespace COLLADASaxFWL
 		COLLADAFW::AnimationCurve::InterpolationType getInterpolationType() const { return mInterpolationType; }
 
 		void setInterpolationType(COLLADAFW::AnimationCurve::InterpolationType interpolationType) { mInterpolationType = interpolationType; }
+
+
+		bool getRequiresTangents() const { return mRequiresTangents; }
+
+		void setRequiresTangents(bool requiresTangents) { mRequiresTangents = requiresTangents; }
 
 	private:
 

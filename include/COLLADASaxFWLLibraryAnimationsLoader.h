@@ -46,6 +46,12 @@ namespace COLLADASaxFWL
 		/** The animation info of the currently being parsed sampler.*/
 		AnimationInfo* mCurrentAnimationInfo;
 
+		/** True, if at least one interpolation type of the current animation curve is bezier or hermite, 
+		false otherwise. Use this to decide if we can clear the tangents. Is set to true when starting
+		to parse a sampler. This allows to not store tangents, if set to false.*/
+		bool mCurrentAnimationCurveRequiresTangents;
+
+
 	public:
 		/** Determines the interpolation with @a name.*/
 		static COLLADAFW::AnimationCurve::InterpolationType getInterpolationTypeByString( const ParserString& string);
