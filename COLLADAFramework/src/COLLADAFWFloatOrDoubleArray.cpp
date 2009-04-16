@@ -49,6 +49,19 @@ namespace COLLADAFW
 	}
 
 	//------------------------------
+	void FloatOrDoubleArray::clear()
+	{
+		if( mType == DATA_TYPE_FLOAT )
+		{
+			mValuesF.clear();
+		}
+		if( mType == DATA_TYPE_DOUBLE )
+		{
+			mValuesD.clear();
+		}
+	}
+
+	//------------------------------
 	const FloatArray* FloatOrDoubleArray::getFloatValues() const
 	{
 		if ( mType == DATA_TYPE_FLOAT )

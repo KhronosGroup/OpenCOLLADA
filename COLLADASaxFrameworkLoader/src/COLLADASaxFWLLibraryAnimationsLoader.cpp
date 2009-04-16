@@ -264,6 +264,7 @@ namespace COLLADASaxFWL
 		, mCurrentAnimationCurve(0)
 		, mCurrentlyParsingInterpolationArray(false)
 		, mCurrentAnimationInfo( 0 )
+		, mCurrentAnimationCurveRequiresTangents(true)
 	{}
 
     //------------------------------
@@ -365,6 +366,11 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(end__sampler());
 		bool success = true;
+		if ( !mCurrentAnimationCurveRequiresTangents )
+		{
+			mCurrentAnimationCurve->getInTangentValues().clear();
+			mCurrentAnimationCurve->getOutTangentValues().clear();
+		}
 		if ( COLLADAFW::validate( mCurrentAnimationCurve ) )
 		{
 			success = writer()->writeAnimation(mCurrentAnimationCurve);
@@ -376,6 +382,7 @@ namespace COLLADASaxFWL
 		}
 		mCurrentAnimationCurve = 0;
 		mCurrentAnimationInfo = 0;
+		mCurrentAnimationCurveRequiresTangents = true;
 		return success;
 	}
 
@@ -592,6 +599,12 @@ namespace COLLADASaxFWL
 					// The source array has wrong type. Only reals are allowed for semantic OUTPUT
 					break;
 				}
+
+				if ( !mCurrentAnimationCurveRequiresTangents )
+				{
+					// This animation does not require tangents
+					break;
+				}
 				setRealValues( mCurrentAnimationCurve->getOutTangentValues(), (const RealSource*)sourceBase);
 			}
 			break;
@@ -600,6 +613,11 @@ namespace COLLADASaxFWL
 				if ( sourceDataType != SourceBase::DATA_TYPE_REAL )
 				{
 					// The source array has wrong type. Only reals are allowed for semantic OUTPUT
+					break;
+				}
+				if ( !mCurrentAnimationCurveRequiresTangents )
+				{
+					// This animation does not require tangents
 					break;
 				}
 				setRealValues( mCurrentAnimationCurve->getInTangentValues(), (const RealSource*)sourceBase);
@@ -623,6 +641,7 @@ namespace COLLADASaxFWL
 
 				const InterpolationTypeSource* interpolationTypeSource = (const InterpolationTypeSource*)sourceBase;
 				COLLADAFW::AnimationCurve::InterpolationType interpolationType = interpolationTypeSource->getInterpolationType();
+				mCurrentAnimationCurveRequiresTangents = interpolationTypeSource->getRequiresTangents();
 
 				mCurrentAnimationCurve->setInterpolationType(interpolationType);
 
@@ -666,6 +685,11 @@ namespace COLLADASaxFWL
 			array.append( interpolationType );
 
 			COLLADAFW::AnimationCurve::InterpolationType interpolationTypeSourceInterpolationType = interpolationTypeSource->getInterpolationType();
+			if ( (interpolationType == COLLADAFW::AnimationCurve::INTERPOLATION_BEZIER) || 
+				 (interpolationType == COLLADAFW::AnimationCurve::INTERPOLATION_HERMITE) )
+			{
+				interpolationTypeSource->setRequiresTangents( true );
+			}
 			if ( interpolationTypeSourceInterpolationType == COLLADAFW::AnimationCurve::INTERPOLATION_UNKNOWN )
 			{
 				interpolationTypeSource->setInterpolationType( interpolationType );

@@ -61,6 +61,9 @@ namespace COLLADAFW
 		of the set type is checked.*/
 		bool empty() const { return getValuesCount() == 0; }
 
+		/** Clears the values in the set number array. The data type remains unchanged.*/
+		void clear();
+
 		/** Returns the values array as a template array. */
 		template <class T>
 		ArrayPrimitiveType<T>& getValues()

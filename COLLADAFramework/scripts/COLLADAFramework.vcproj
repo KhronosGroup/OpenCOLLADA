@@ -542,10 +542,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWFloatOrDoubleArray.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAFWFloatOrParam.h"
 				>
 				<FileConfiguration
