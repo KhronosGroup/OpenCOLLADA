@@ -244,9 +244,6 @@ namespace COLLADAMaya
         // Opens the mesh tag in the collada document
         openMesh ( meshId, meshName );
 
-        // The list for the color sets. We have to clean!
-        ColourSetList colorSets;
-
         // Export the vertex positions
         exportVertexPositions ( fnMesh, meshId );
 
@@ -258,6 +255,9 @@ namespace COLLADAMaya
         
         // exportVertexBlindData(fnMesh);
         
+        // The list for the color sets. We have to clean!
+        ColourSetList colorSets;
+
         // Export the color sets
         exportColorSets ( fnMesh, meshId, colorSets );
         
@@ -845,6 +845,7 @@ namespace COLLADAMaya
                     melCommand += " ";
                 }
 
+                String commando ( melCommand.asChar () );
                 MGlobal::executeCommand ( melCommand, false, true );
 
                 meshFn.syncObject();

@@ -62,14 +62,15 @@ namespace COLLADAMaya
                 , translate1 ( 0,0,0 ) 
                 , translate1Vec (0)
                 , numTranslate1 (0)
+                , rotation ( 1,0,0,0 )
                 , translate2 ( 0,0,0 ) 
                 , translate2Vec (0)
                 , numTranslate2 (0)
+                , skew ( 0,0,0 )
+                , scale ( 1,1,1 ) 
                 , translate3 ( 0,0,0 ) 
                 , translate3Vec (0)
                 , numTranslate3 (0)
-                , scale ( 1,1,1 ) 
-                , skew ( 0,0,0 )
             {}
             virtual ~MayaTransformation () {}
 
