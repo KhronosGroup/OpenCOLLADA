@@ -1499,7 +1499,7 @@ namespace COLLADAMax
 
 		size_t positionIndicesCount = positionIndices.getCount();
 
-		if ( dataIndices.getCount() == positionIndicesCount )
+		if ( dataIndices.getCount() != positionIndicesCount )
 		{
 			switch (meshPrimitive->getPrimitiveType())
 			{

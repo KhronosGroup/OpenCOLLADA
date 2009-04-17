@@ -150,7 +150,7 @@ namespace COLLADAMax
 		int gg=0;
 #endif
 
-#if 0
+#if 1
 		Control* scaleController = transformationController->GetScaleController();
 
 		scaleController->AssignController( controllers[ TRANSLATE_X ], 0 );
