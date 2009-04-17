@@ -43,6 +43,9 @@ namespace COLLADAMaya
         /** The name of maya's initial shading engine. */
         static const String INITIAL_SHADING_ENGINE_NAME;
 
+        /** The name of maya's initial material info. */
+        static const String INITIAL_MATERIAL_INFO_NAME;
+
     private:
 
         /** The standard name for a shading engine. */
@@ -102,10 +105,19 @@ namespace COLLADAMaya
         COLLADABU::IDList mShadingEngineIdList;
         COLLADABU::IDList mMaterialInfoIdList;
 
+        /** 
+        * The map holds the unique ids of the material nodes to the maya specific nodes. 
+        */
+        UniqueIdMayaNodeMap mMayaMaterialNodesMap;
+
         /**
          * The map holds the unique effect id to a material id.
          */
         UniqueIdUniqueIdMap mMaterialIdEffectIdMap;
+
+        /**
+         * The map holds for every unique effect id a list of material names, which use this effect.
+         */
 
         /**
         * The map with the unique ids of the shading engine to the shading engines itself. 
@@ -133,6 +145,13 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& transformNodeId, 
             const COLLADAFW::InstanceGeometry* instanceGeometry );
 
+        /**
+         * Create the shader engine and the material info objects and returns them.
+         */
+        ShadingData* createShaderData ( 
+            const COLLADAFW::UniqueId& materialId, 
+            String shadingEngineName = "" );
+
         /** 
         * Writes the connection attributes into the maya ascii file. 
         */
@@ -147,6 +166,11 @@ namespace COLLADAMaya
         * The map with the unique id of material to the shading engine data. 
         */
         ShadingData* findShaderData ( const COLLADAFW::UniqueId& materialId );
+
+        /**
+        * Returns the maya node of the given material id.
+        */
+        MayaNode* findMayaMaterialNode ( const COLLADAFW::UniqueId& materialId );
 
     private:
 

@@ -1262,7 +1262,7 @@ namespace COLLADAMaya
             if ( perVertexNormals )
             {
                 // Calculate the geometric tangents and binormals(T/Bs)
-                getPerVertexNormalsTangents(fnMesh, normals, tangents, binormals );
+                getPerVertexNormalsTangents ( fnMesh, normals, tangents, binormals );
 
                if ( !SourceInput::containsSourceBase ( &mVertexSources, &tangentSource ) )
                    mVertexSources.push_back ( SourceInput ( tangentSource, COLLADASW::TANGENT ) );
@@ -1273,7 +1273,7 @@ namespace COLLADAMaya
             else
             {
                 // Calculate the geometric tangents and binormals(T/Bs)
-                getTangents(fnMesh, normals, normalCount, binormals, tangents);
+                getTangents ( fnMesh, normals, normalCount, binormals, tangents );
 
                 // Erase the normal source from the list of vertex sources, if it is inside
                 SourceInput::eraseSourceBase ( &mVertexSources, &tangentSource );

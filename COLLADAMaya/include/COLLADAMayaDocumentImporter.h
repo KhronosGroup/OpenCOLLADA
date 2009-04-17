@@ -83,7 +83,7 @@ namespace COLLADAMaya
         bool mAssetWritten;
         bool mSceneGraphWritten;
         bool mLibraryNodesWritten;
-        bool mAnimationWritten;
+        bool mAnimationsWritten;
 
         bool mSceneGraphRead;
         bool mLibraryNodesRead;
@@ -92,7 +92,6 @@ namespace COLLADAMaya
         bool mLightRead;
         bool mImageRead;
         bool mAnimationRead;
-        bool mAnimationListRead;
 
         /** Pointer to the visual scene importer. */
         VisualSceneImporter* mVisualSceneImporter;

@@ -120,17 +120,18 @@ namespace COLLADAMaya
         const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
-        // Get the material name.
-        String effectName ( effect->getName () );
+        // Get the effect name.
+        String effectName = effect->getName ();
         if ( COLLADABU::Utils::equals ( effectName, COLLADABU::Utils::EMPTY_STRING ) )
             effectName = EFFECT_NAME;
         effectName = DocumentImporter::frameworkNameToMayaName ( effectName );
         effectName = mEffectIdList.addId ( effectName );
 
+        // Store the effect name
         const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
         mMayaEffectNamesMap [effectId] = effectName;
 
-        // Write the effect into the maya ascii file.
+        // Create the effect and write it into the maya ascii file.
         FILE* file = getDocumentImporter ()->getFile ();
         MayaDM::Blinn* blinn = new MayaDM::Blinn ( file, effectName );
 
@@ -149,13 +150,14 @@ namespace COLLADAMaya
         const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
-        // Get the material name.
-        String effectName ( effect->getName () );
+        // Get the effect name.
+        String effectName = effect->getName ();
         if ( COLLADABU::Utils::equals ( effectName, COLLADABU::Utils::EMPTY_STRING ) )
             effectName = EFFECT_NAME;
         effectName = DocumentImporter::frameworkNameToMayaName ( effectName );
         effectName = mEffectIdList.addId ( effectName );
 
+        // Store the effect name
         const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
         mMayaEffectNamesMap [effectId] = effectName;
 
@@ -178,13 +180,14 @@ namespace COLLADAMaya
         const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
-        // Get the material name.
-        String effectName ( effect->getName () );
+        // Get the effect name.
+        String effectName = effect->getName ();
         if ( COLLADABU::Utils::equals ( effectName, COLLADABU::Utils::EMPTY_STRING ) )
             effectName = EFFECT_NAME;
         effectName = DocumentImporter::frameworkNameToMayaName ( effectName );
         effectName = mEffectIdList.addId ( effectName );
 
+        // Store the effect name
         const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
         mMayaEffectNamesMap [effectId] = effectName;
 
@@ -429,10 +432,10 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    const COLLADAFW::UniqueId* EffectImporter::findMaterialId ( const COLLADAFW::UniqueId& effectId )
+    const EffectImporter::UniqueIdVec* EffectImporter::findMaterialId ( const COLLADAFW::UniqueId& effectId )
     {
-        UniqueIdUniqueIdMap::const_iterator it = mEffectIdMaterialIdMap.find ( effectId );
-        if ( it == mEffectIdMaterialIdMap.end () )
+        UniqueIdUniqueIdsMap::const_iterator it = mEffectIdMaterialIdsMap.find ( effectId );
+        if ( it == mEffectIdMaterialIdsMap.end () )
         {
             return 0;
         }
@@ -453,7 +456,7 @@ namespace COLLADAMaya
         const COLLADAFW::UniqueId& effectId, 
         const COLLADAFW::UniqueId& materialId )
     {
-        mEffectIdMaterialIdMap [effectId] = materialId;
+        mEffectIdMaterialIdsMap [effectId].push_back ( materialId );
     }
 
     // --------------------------
@@ -712,26 +715,31 @@ namespace COLLADAMaya
                         connectTextureAttribute ( shaderNodeAttribute, imageFile );
 
                         // Get the current effect's material materialInfo object.
-                        const COLLADAFW::UniqueId* materialId = effectImporter->findMaterialId ( effectId );
-                        if ( materialId == 0 )
+                        const UniqueIdVec* materialIds = effectImporter->findMaterialId ( effectId );
+                        if ( materialIds == 0 )
                         {
-                            MGlobal::displayError ( "No material for the current effect! ");
+                            MGlobal::displayInfo ( "No material for the current effect! ");
                             continue;
                         }
-
-                        // Get the maya materialInfo object.
-                        MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
-                        MaterialImporter::ShadingData* shadingData = materialImporter->findShaderData ( *materialId );
-                        if ( shadingData == 0 ) 
+                        size_t numMaterials = materialIds->size ();
+                        for ( size_t i=0; i<numMaterials; ++i )
                         {
-                            MGlobal::displayError ( "No material info for current material!" );
-                            continue;
-                        }
-                        const MayaDM::MaterialInfo& materialInfo = shadingData->getMaterialInfo ();
+                            const COLLADAFW::UniqueId& materialId = (*materialIds) [i];
 
-                        // Connect the image file message with the materials materialInfo texture attribute.
-                        // connectAttr "file1.message" "materialInfo1.texture" -nextAvailable;
-                        connectNextAttr ( file, imageFile->getMessage (), materialInfo.getTexture () );
+                            // Get the maya materialInfo object.
+                            MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
+                            MaterialImporter::ShadingData* shadingData = materialImporter->findShaderData ( materialId );
+                            if ( shadingData == 0 ) 
+                            {
+                                MGlobal::displayError ( "No material info for current material!" );
+                                continue;
+                            }
+                            const MayaDM::MaterialInfo& materialInfo = shadingData->getMaterialInfo ();
+
+                            // Connect the image file message with the materials materialInfo texture attribute.
+                            // connectAttr "file1.message" "materialInfo1.texture" -nextAvailable;
+                            connectNextAttr ( file, imageFile->getMessage (), materialInfo.getTexture () );
+                        }
                     }
                 }
             }

@@ -101,6 +101,10 @@ namespace COLLADAMaya
         MayaNode* parentMayaNode /*= NULL*/, 
         const bool createNode /*= true*/ )
     {
+        // Check if the current node is already imported.
+        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
+        if ( findMayaTransformNode ( transformNodeId ) != 0 ) return;
+
         // Check for a parent node name
         String parentNodeName = ""; 
         if ( parentMayaNode != 0 )
@@ -114,7 +118,6 @@ namespace COLLADAMaya
         nodeName = mTransformNodeIdList.addId ( nodeName );
 
         // Create a maya node object of the current node and push it into the map.
-        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
         MayaNode* mayaNode = new MayaNode ( transformNodeId, nodeName, parentMayaNode, createNode );
         mMayaTransformNodesMap [ transformNodeId ].push_back ( mayaNode );
 
@@ -169,17 +172,28 @@ namespace COLLADAMaya
         // T* R* T* S* T*, if the order differs from, we have to transform with a matrix (but 
         // with matrix transformation is no animation possible).
         MayaTransformation mayaTransform;
+        std::vector<AnimationImporter::TransformAnimation> transformAnimations;
 
         bool hasRotatePivot = false;
         bool hasScalePivot = false;
         bool isLookatTransform = false;
 
         bool validMayaTransform = 
-            readMayaTransformations ( rootNode, mayaTransform, transformNode, hasRotatePivot, hasScalePivot, isLookatTransform );
+            readMayaTransformations ( rootNode, mayaTransform, transformNode, transformAnimations, 
+                                        hasRotatePivot, hasScalePivot, isLookatTransform );
         if ( !isLookatTransform )
         {
             if ( validMayaTransform )
             {
+                // Set the transform animation information.
+                size_t numTransformAnimations = transformAnimations.size ();
+                for ( size_t i=0; i<numTransformAnimations; ++i )
+                {
+                    const AnimationImporter::TransformAnimation& transformAnim = transformAnimations [i];
+                    const COLLADAFW::UniqueId& animationListId = transformAnim.getAnimationListId ();
+                    mTransformAnimationMap [animationListId] = transformAnim;
+                }
+
                 // Set the transform values.
                 importDecomposedTransform ( mayaTransform, transformNode, hasRotatePivot, hasScalePivot );
             }
@@ -322,6 +336,7 @@ namespace COLLADAMaya
         const COLLADAFW::Node* rootNode, 
         MayaTransformation& mayaTransform, 
         MayaDM::Transform* transformNode, 
+        std::vector<AnimationImporter::TransformAnimation>& transformAnimations,
         bool& hasRotatePivot,
         bool& hasScalePivot,
         bool& isLookatTransform )
@@ -334,13 +349,24 @@ namespace COLLADAMaya
         {
             const COLLADAFW::Transformation* transformation = transforms [i];
 
-            // TODO Get the id of animation list of the current transformation and store it.
-            const COLLADAFW::UniqueId& animationListId = transformation->getAnimationList ();
-            mAnimationListIdNodeIdMap [animationListId] = rootNode->getUniqueId ();
-
-            // Read the transform type.
             COLLADAFW::Transformation::TransformationType transformType; 
             transformType = transformation->getTransformationType ();
+
+            // TODO Get the id of animation list of the current transformation and store 
+            // the transform node id, the mayaTransform node and the transformation type.
+            const COLLADAFW::UniqueId& animationListId = transformation->getAnimationList ();
+            if ( animationListId.isValid () )
+            {
+                // Create a TransformAnimation objekt and push it in the list.
+                AnimationImporter::TransformAnimation transformAnim;
+                transformAnim.setAnimationListId ( animationListId );
+                const COLLADAFW::UniqueId& transformNodeId = rootNode->getUniqueId ();
+                transformAnim.setTransformNodeId ( transformNodeId );
+                transformAnim.setTransformation ( transformation );
+                transformAnimations.push_back ( transformAnim );
+            }
+
+            // Set the transformation information in depend of the transform type.
             switch ( transformType )
             {
             case COLLADAFW::Transformation::LOOKAT:
@@ -1086,11 +1112,11 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    const COLLADAFW::UniqueId* VisualSceneImporter::findAnimationListIdNodeId ( 
+    const AnimationImporter::TransformAnimation* VisualSceneImporter::findTransformAnimation ( 
         const COLLADAFW::UniqueId& animationListId )
     {
-        UniqueIdUniqueIdMap::const_iterator it = mAnimationListIdNodeIdMap.find ( animationListId );
-        if ( it != mAnimationListIdNodeIdMap.end () )
+        std::map <COLLADAFW::UniqueId, AnimationImporter::TransformAnimation>::const_iterator it = mTransformAnimationMap.find ( animationListId );
+        if ( it != mTransformAnimationMap.end () )
         {
             return &(it->second);
         }

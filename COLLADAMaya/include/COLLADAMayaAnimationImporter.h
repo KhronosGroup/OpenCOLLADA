@@ -15,10 +15,18 @@
 #include "COLLADAMayaBaseImporter.h"
 
 #include "COLLADAFWAnimationCurve.h"
+#include "COLLADAFWAnimationList.h"
+#include "COLLADAFWTransformation.h"
+#include "COLLADAFWRotate.h"
+#include "COLLADAFWScale.h"
+#include "COLLADAFWSkew.h"
+#include "COLLADAFWTranslate.h"
 
 #include "COLLADABUIDList.h"
 
 #include "MayaDMAnimCurveTL.h"
+#include "MayaDMAnimCurveTA.h"
+#include "MayaDMTransform.h"
 
 
 namespace COLLADAMaya
@@ -51,6 +59,65 @@ namespace COLLADAMaya
             TANGENT_TYPE_STEP_NEXT = 17 // Collada: BEZIER
         };
 
+    public:
+
+        /** 
+         * Store the transform node id, the mayaTransform node and the transformation type.
+         */
+        class TransformAnimation
+        {
+        private:
+            COLLADAFW::UniqueId mAnimationListId;
+            COLLADAFW::UniqueId mTransformNodeId;
+            COLLADAFW::Transformation* mTransformation;
+
+        public:
+            TransformAnimation () : mTransformation (0) {}
+            virtual ~TransformAnimation () {}
+
+            const COLLADAFW::UniqueId& getAnimationListId () const { return mAnimationListId; }
+            void setAnimationListId ( const COLLADAFW::UniqueId& val ) { mAnimationListId = val; }
+
+            const COLLADAFW::UniqueId& getTransformNodeId () const { return mTransformNodeId; }
+            void setTransformNodeId ( const COLLADAFW::UniqueId& val ) { mTransformNodeId = val; }
+
+            const COLLADAFW::Transformation* getTransformation () const { return mTransformation; }
+            void setTransformation ( const COLLADAFW::Transformation* val ) 
+            { 
+                if ( val == 0 ) mTransformation = 0;
+                switch ( val->getTransformationType () )
+                {
+                case COLLADAFW::Transformation::ROTATE:
+                    {
+                        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* ) val;
+                        mTransformation = new COLLADAFW::Rotate ( *rotation );
+                        break;
+                    }
+                case COLLADAFW::Transformation::SCALE:
+                    {
+                        COLLADAFW::Scale* scale = ( COLLADAFW::Scale* ) val;
+                        mTransformation = new COLLADAFW::Scale ( *scale );
+                        break;
+                    }
+                case COLLADAFW::Transformation::SKEW:
+                    {
+                        COLLADAFW::Skew* skew = ( COLLADAFW::Skew* ) val;
+                        mTransformation = new COLLADAFW::Skew ( *skew );
+                        break;
+                    }
+                case COLLADAFW::Transformation::TRANSLATE:
+                    {
+                        COLLADAFW::Translate* translate = ( COLLADAFW::Translate* ) val;
+                        mTransformation = new COLLADAFW::Translate ( *translate );
+                        break;
+                    }
+                default:
+                    MGlobal::displayError ( "No valid animatable transformation!" );
+                }
+            }
+            const COLLADAFW::Transformation::TransformationType getTransformType () const { return mTransformation->getTransformationType (); }
+        };
+
     private:
 
         /**
@@ -59,9 +126,19 @@ namespace COLLADAMaya
         COLLADABU::IDList mAnimationIdList;
 
         /**
+         * The list of the unique animation ids.
+         */
+        UniqueIdVec mAnimationIds;
+
+        /**
+        * The list of the unique animation list ids.
+        */
+        UniqueIdVec mAnimationListIds;
+
+        /**
          * The map holds for every unique animation id the maya animatio curve.
          */
-        std::map<COLLADAFW::UniqueId, std::vector<MayaDM::AnimCurveTL> > mMayaDMAnimationCurves;
+        std::map<COLLADAFW::UniqueId, std::vector<MayaDM::AnimCurve*> > mMayaDMAnimationCurves;
 
         /**
          * The map holds for every animation curve a list of node ids, which use this connections.
@@ -83,7 +160,35 @@ namespace COLLADAMaya
         /**
         * The map holds for every unique animation id the maya animatio curve.
         */
-        const std::vector<MayaDM::AnimCurveTL>* findMayaDMAnimationCurve ( const COLLADAFW::UniqueId& animationId );
+        const std::vector<MayaDM::AnimCurve*>* findMayaDMAnimCurves ( 
+            const COLLADAFW::UniqueId& animationId );
+
+        /**
+        * Makes the connections between the animations and the animated objects.
+        */
+        void writeConnections ( const COLLADAFW::AnimationList* animationList );
+
+        void writeTranslateConnections ( 
+            const COLLADAFW::Transformation* transformation, 
+            const COLLADAFW::AnimationList* animationList, 
+            const MayaDM::Transform* transform );
+
+        void writeSkewConnections ( 
+            const COLLADAFW::Transformation* transformation, 
+            const COLLADAFW::AnimationList* animationList, 
+            const MayaDM::Transform* transform );
+
+        void writeScaleConnections ( 
+            const COLLADAFW::Transformation* transformation, 
+            const COLLADAFW::AnimationList* animationList, 
+            const MayaDM::Transform* transform );
+        /**
+         * Makes the connections between 
+         */
+        void writeRotateConnections ( 
+            const COLLADAFW::Transformation* transformation, 
+            const COLLADAFW::AnimationList* animationList, 
+            const MayaDM::Transform* transform );
 
     private:
 
@@ -98,9 +203,7 @@ namespace COLLADAMaya
         void writeAnimationCurve ( 
             const COLLADAFW::AnimationCurve* animationCurve, 
             const TangentType& tangentType = TANGENT_TYPE_DEFAULT, 
-            const TangentType& keyTangentOutType = TANGENT_TYPE_DEFAULT, 
-            const bool weightedTangents = false, 
-            const bool keyTanLocked = true );
+            const TangentType& keyTangentOutType = TANGENT_TYPE_DEFAULT );
 
         /**
          * Multiple interpolation types. Curve by keys.
@@ -113,53 +216,119 @@ namespace COLLADAMaya
          */
         void setKeyTangentInTypes ( 
             const COLLADAFW::AnimationCurve* animationCurve, 
-            MayaDM::AnimCurveTL &animCurveTL );
+            MayaDM::AnimCurve* animCurve );
 
         /**
         * Set the key out tangents.
         */
         void setKeyTangentOutTypes ( 
             const COLLADAFW::AnimationCurve* animationCurve, 
-            MayaDM::AnimCurveTL &animCurveTL );
+            MayaDM::AnimCurve* animCurve );
 
         /**
         * Set the key tangent locks (all the same value).
         */
         void setKeyTangentLocks ( 
             const COLLADAFW::AnimationCurve* animationCurve, 
-            MayaDM::AnimCurveTL &animCurveTL, 
+            MayaDM::AnimCurve* animCurve, 
             const bool keyTanLocked );
 
         /**
          * Set the key time values.
+         * The anim curve node is an "animCurve" that takes an attribute of type "time" as input 
+         * and has an output attribute of type "distance".
          */
         void setKeyTimeValues ( 
             const COLLADAFW::AnimationCurve* fwAnimationCurve, 
-            MayaDM::AnimCurveTL& animCurveTL, 
+            MayaDM::AnimCurveTL* animCurveTL, 
+            const size_t outputIndex );
+
+        /**
+        * Set the key time values.
+        * The anim curve node node is an "animCurve" that takes an attribute of type "time" as 
+        * input and has an output attribute of type "angle".
+        */
+        void setKeyTimeValues ( 
+            const COLLADAFW::AnimationCurve* fwAnimationCurve, 
+            MayaDM::AnimCurveTA* animCurveTA, 
             const size_t outputIndex );
 
         /**
         * Set the in tangent values.
         */
-        void setInTangents ( 
+        void setWeightedInTangents ( 
             const COLLADAFW::AnimationCurve* animationCurve, 
-            MayaDM::AnimCurveTL &animCurveTL, 
-            const size_t outputIndex );
+            const COLLADAFW::PhysicalDimension& outPhysicalDimension, 
+            const size_t outputIndex, 
+            MayaDM::AnimCurve* animCurve );
+
+        void setWeightedInTangentYValues ( 
+            const COLLADAFW::AnimationCurve* animationCurve, 
+            const COLLADAFW::PhysicalDimension& outPhysicalDimension, 
+            const size_t outputIndex, 
+            MayaDM::AnimCurve* animCurve );
+
+        void setWeightedInTangentXValues ( 
+            const COLLADAFW::AnimationCurve* animationCurve, 
+            const COLLADAFW::PhysicalDimension& outPhysicalDimension, 
+            const size_t outputIndex, 
+            MayaDM::AnimCurve* animCurve );
 
         /**
-         * Returns the value at the given position of the given array as double value.
-         */
+        * Set the out tangent values.
+        */
+        void setWeightedOutTangents ( 
+            const COLLADAFW::AnimationCurve* animationCurve, 
+            const COLLADAFW::PhysicalDimension& outPhysicalDimension, 
+            const size_t outputIndex, 
+            MayaDM::AnimCurve* animCurve );
+
+        void setWeightedOutTangentYValues ( 
+            const COLLADAFW::AnimationCurve* animationCurve, 
+            const COLLADAFW::PhysicalDimension& outPhysicalDimension, 
+            const size_t outputIndex, 
+            MayaDM::AnimCurve* animCurve );
+
+        void setWeightedOutTangentXValues ( 
+            const COLLADAFW::AnimationCurve* animationCurve, 
+            const COLLADAFW::PhysicalDimension& outPhysicalDimension, 
+            const size_t outputIndex, 
+            MayaDM::AnimCurve* animCurve );
+
+        /**
+        * Set the in tangent values.
+        */
+        void setNonWeightedInTangents ( 
+            const COLLADAFW::AnimationCurve* animationCurve, 
+            MayaDM::AnimCurve* animCurve, 
+            const size_t outputIndex,
+            const bool normalize = true );
+
+        /**
+        * Set the out tangent values.
+        */
+        void setNonWeightedOutTangents ( 
+            const COLLADAFW::AnimationCurve* animationCurve, 
+            MayaDM::AnimCurve* animCurve, 
+            const size_t outputIndex,
+            const bool normalize = true );
+
+        /**
+        * Returns the value at the given position of the given array as double value.
+        */
         double getDoubleValue ( 
             const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
             const size_t position );
 
         /**
-        * Set the out tangent values.
+        * Returns true, if the given id is in the list.
         */
-        void setOutTangents ( 
-            const COLLADAFW::AnimationCurve* animationCurve, 
-            MayaDM::AnimCurveTL &animCurveTL, 
-            const size_t outputIndex );
+        const bool findAnimation ( const COLLADAFW::UniqueId& animationId );
+
+        /**
+         * Returns true, if the given id is in the list.
+         */
+        const bool findAnimationList ( const COLLADAFW::UniqueId& animationListId );
 
     private:
 

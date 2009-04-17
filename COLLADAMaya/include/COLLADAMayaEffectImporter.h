@@ -142,9 +142,9 @@ namespace COLLADAMaya
         UniqueIdLambertMap mMayaEffectMap;
 
         /**
-        * The map holds the unique material id to a effect id.
+        * The map holds the unique material ids of a effect id.
         */
-        UniqueIdUniqueIdMap mEffectIdMaterialIdMap;
+        UniqueIdUniqueIdsMap mEffectIdMaterialIdsMap;
 
         /**
          * The map holds for every unique image id the list of placed2dTextures, which use this image.
@@ -287,7 +287,7 @@ namespace COLLADAMaya
         /**
         * The map holds the unique material id to a effect id.
         */
-        const COLLADAFW::UniqueId* findMaterialId ( const COLLADAFW::UniqueId& effectId );
+        const UniqueIdVec* findMaterialId ( const COLLADAFW::UniqueId& effectId );
 
         /**
         * The map holds for every effect the shader node attributes with the sampler image file.

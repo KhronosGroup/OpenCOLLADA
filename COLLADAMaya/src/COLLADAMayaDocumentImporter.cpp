@@ -26,9 +26,6 @@
 #include "COLLADAMayaAnimationImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
 
-#include "COLLADAMayaVisualSceneImporter.h"
-#include "COLLADAMayaGeometryImporter.h"
-
 #include "COLLADAFWRoot.h"
 #include "COLLADAFWAnimationList.h"
 
@@ -66,7 +63,7 @@ namespace COLLADAMaya
         , mSceneGraphWritten (false)
         , mLibraryNodesWritten (false)
         , mAssetWritten (false)
-        , mAnimationWritten (false)
+        , mAnimationsWritten (false)
         , mSceneGraphRead (false)
         , mLibraryNodesRead (false)
         , mGeometryRead (false)
@@ -74,7 +71,6 @@ namespace COLLADAMaya
         , mLightRead (false)
         , mImageRead (false)
         , mAnimationRead (false)
-        , mAnimationListRead (false)
         , mNumDocumentParses (0)
         , mUpAxisType ( COLLADAFW::FileInfo::Y_UP )
         , mLinearUnitMeter ( COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER )
@@ -239,14 +235,13 @@ namespace COLLADAMaya
                 mVisualSceneImporter->writeNodeInstances ();
             }
 
-            if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead || mAnimationListRead )
+            if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead )
             {
                 mGeometryRead = false;
                 mCameraRead = false;
                 mLightRead = false;
                 mImageRead = false;
                 mAnimationRead = false;
-                mAnimationListRead = false;
                 readColladaDocument ();
             }
         }
@@ -546,14 +541,13 @@ namespace COLLADAMaya
             mVisualSceneImporter->writeNodeInstances ();
         }
 
-        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead || mAnimationListRead )
+        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead )
         {
             mGeometryRead = false;
             mCameraRead = false;
             mLightRead = false;
             mImageRead = false;
             mAnimationRead = false;
-            mAnimationListRead = false;
             readColladaDocument ();
         }
 
@@ -586,14 +580,13 @@ namespace COLLADAMaya
             mVisualSceneImporter->writeNodeInstances ();
         }
 
-        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead || mAnimationListRead )
+        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead )
         {
             mGeometryRead = false;
             mCameraRead = false;
             mLightRead = false;
             mImageRead = false;
             mAnimationRead = false;
-            mAnimationListRead = false;
             readColladaDocument ();
         }
 
@@ -714,7 +707,7 @@ namespace COLLADAMaya
         if ( mFile == 0 ) start();
 
         mAnimationImporter->importAnimation ( animation );
-        mAnimationWritten = true;
+        mAnimationsWritten = true;
 
         return true;
     }
@@ -723,101 +716,15 @@ namespace COLLADAMaya
     bool DocumentImporter::writeAnimationList ( const COLLADAFW::AnimationList* animationList )
     {
         // Order: asset, scene graph, library nodes, others, animation list
-        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten || !mAnimationWritten ) 
+        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten || !mAnimationsWritten ) 
         {
-            mAnimationListRead = true;
             return true;
         }
 
         // Create the file, if not already done.
         if ( mFile == 0 ) start();
 
-        // Get the id of the current animation list.
-        const COLLADAFW::UniqueId& animationListId = animationList->getUniqueId ();
-
-        // Get the node, which use this animation list.
-        const COLLADAFW::UniqueId* nodeId = getVisualSceneImporter ()->findAnimationListIdNodeId ( animationListId );
-        if ( nodeId == 0 ) 
-        {
-            MGlobal::displayError ( "Nobody uses this animation list!" );
-            return false;
-        }
-        
-        // Get the maya node object for the id.
-        const MayaDM::Transform* transform = getVisualSceneImporter ()->findMayaDMTransform ( *nodeId );
-
-        // Get the animation curves of the current animation list.
-        const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings ();
-        size_t numAnimationBindings = animationBindings.getCount ();
-        for ( size_t i=0; i<numAnimationBindings; ++i )
-        {
-            const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings [i]; 
-
-            // Get the animation curve element of the current animation id.
-            const COLLADAFW::UniqueId& animationId = animationBinding.animation;
-            const std::vector<MayaDM::AnimCurveTL>* animationCurves = getAnimationImporter ()->findMayaDMAnimationCurve ( animationId );
-            if ( animationCurves == 0 ) continue;
-
-            size_t firstIndex = animationBinding.firstIndex;
-
-            // Connect all animation curves of the current animation.
-            size_t animationCurveCount = animationCurves->size ();
-            for ( size_t curveIndex=0; curveIndex<animationCurveCount; ++curveIndex )
-            {
-                const MayaDM::AnimCurveTL& animationCurve = (*animationCurves) [curveIndex];
-
-                // TODO Connect the animation curve and the current transform node.
-                // connectAttr "pCube1_translateX.output" "pCube1.translateX";
-                const COLLADAFW::AnimationList::AnimationClass& animationClass = animationBinding.animationClass;
-                switch ( animationClass )
-                {
-                case COLLADAFW::AnimationList::POSITION_X:
-                    connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateX () );
-                    break;
-                case COLLADAFW::AnimationList::POSITION_Y:
-                    connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateY () );
-                    break;
-                case COLLADAFW::AnimationList::POSITION_Z:
-                    connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateZ () );
-                    break;
-                case COLLADAFW::AnimationList::POSITION_XYZ:
-                    switch ( curveIndex )
-                    {
-                    case 0:
-                        connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateX () );
-                        break;
-                    case 1:
-                        connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateY () );
-                        break;
-                    case 2:
-                        connectAttr ( getFile (), animationCurve.getOutput (), transform->getTranslateZ () );
-                        break;
-                    }
-                    break;
-                case COLLADAFW::AnimationList::AXISANGLE:
-                    connectAttr ( getFile (), animationCurve.getOutput (), transform->getRotateAxis () );
-                    break;
-                case COLLADAFW::AnimationList::COLOR_R:
-                    break;
-                case COLLADAFW::AnimationList::COLOR_G:
-                    break;
-                case COLLADAFW::AnimationList::COLOR_B:
-                    break;
-                case COLLADAFW::AnimationList::COLOR_A:
-                    break;
-                case COLLADAFW::AnimationList::COLOR_RGB:
-                    break;
-                case COLLADAFW::AnimationList::COLOR_RGBA:
-                    break;
-                case COLLADAFW::AnimationList::FLOAT:
-                    break;
-                case COLLADAFW::AnimationList::MATRIX4X4:
-                    break;
-                }
-            }
-        }
-
-        mAnimationListRead = true;
+        getAnimationImporter ()->writeConnections ( animationList );
 
         return true;
     }

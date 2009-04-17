@@ -33,7 +33,7 @@ namespace COLLADAMaya
     //------------------------------
     void ImageImporter::importImage ( const COLLADAFW::Image* image )
     {
-        // Check if the light is already imported.
+        // Check if the image is already imported.
         const COLLADAFW::UniqueId& imageId = image->getUniqueId ();
         if ( findMayaImageFile ( imageId ) != 0 ) return;
 

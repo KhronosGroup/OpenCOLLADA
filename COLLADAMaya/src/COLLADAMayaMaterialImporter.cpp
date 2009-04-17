@@ -36,6 +36,7 @@ namespace COLLADAMaya
     const String MaterialImporter::MATERIAL_INFO_NAME = "MaterialInfo";
     const String MaterialImporter::DEFAULT_SHADER_LIST = ":defaultShaderList1";
     const String MaterialImporter::INITIAL_SHADING_ENGINE_NAME = "initialShadingGroup";
+    const String MaterialImporter::INITIAL_MATERIAL_INFO_NAME = "initialMaterialInfo";
     const String MaterialImporter::ATTR_SHADERS = "shaders";
     
 
@@ -60,15 +61,25 @@ namespace COLLADAMaya
     // --------------------------
     bool MaterialImporter::importMaterial ( const COLLADAFW::Material* material )
     {
-//         // Get the material name.
-//         String materialName ( material->getName () );
-//         if ( COLLADABU::Utils::equals ( materialName, COLLADABU::Utils::EMPTY_STRING ) )
-//             materialName = MATERIAL_NAME;
-//         materialName = DocumentImporter::frameworkNameToMayaName ( materialName );
-//         materialName = mMaterialIdList.addId ( materialName );
+         // Check if the current material is already imported.
+         const COLLADAFW::UniqueId& materialId = material->getUniqueId ();
+        if ( findMayaMaterialNode ( materialId ) != 0 ) return false;
+
+        // Get the material name.
+        String materialName ( material->getName () );
+        if ( COLLADABU::Utils::equals ( materialName, COLLADABU::Utils::EMPTY_STRING ) )
+            materialName = MATERIAL_NAME;
+        materialName = DocumentImporter::frameworkNameToMayaName ( materialName );
+        materialName = mMaterialIdList.addId ( materialName );
         
+        // Create the shader data with the shading engine and the material info of the material.
+        MaterialImporter::ShadingData* shaderData = createShaderData ( materialId );
+
+        // Create a material node with the name and store it in a map.
+        MayaNode* mayaMaterialNode = new MayaNode ( materialId, materialName );
+        mMayaMaterialNodesMap [materialId] = mayaMaterialNode;
+
         // Store the effect id of the current material id.
-        const COLLADAFW::UniqueId& materialId = material->getUniqueId ();
         const COLLADAFW::UniqueId& effectId = material->getInstantiatedEffect ();
         mMaterialIdEffectIdMap [materialId] = effectId;
 
@@ -79,7 +90,17 @@ namespace COLLADAMaya
         return true;
      }
 
-     // -----------------------------------
+    // --------------------------------------------
+    MayaNode* MaterialImporter::findMayaMaterialNode ( const COLLADAFW::UniqueId& materialId ) 
+    {
+        UniqueIdMayaNodeMap::iterator it = mMayaMaterialNodesMap.find ( materialId );
+        if ( it != mMayaMaterialNodesMap.end () )
+            return it->second;
+
+        return 0;
+    }
+
+    // -----------------------------------
      MaterialImporter::ShadingData* MaterialImporter::findShaderData ( 
          const COLLADAFW::UniqueId& materialId )
      {
@@ -104,7 +125,58 @@ namespace COLLADAMaya
          return &(it->second);
      }
 
-     // -----------------------------------
+     // --------------------------
+     MaterialImporter::ShadingData* MaterialImporter::createShaderData ( 
+         const COLLADAFW::UniqueId& materialId, 
+         String shadingEngineName /*= ""*/ )
+     {
+         // Check if already a shading engine with the materialId exist.
+         ShadingData* shadingData = findShaderData ( materialId );
+         if ( shadingData != 0 ) return shadingData;
+
+         // The initial shading engine and material info can be used instead of created.
+         if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, INITIAL_SHADING_ENGINE_NAME ) )
+         {
+             // Get the initial shading engine.
+             FILE* file = getDocumentImporter ()->getFile ();
+             MayaDM::ShadingEngine shadingEngine ( file, INITIAL_SHADING_ENGINE_NAME.c_str (), "", false );
+
+             // Get the initial material info.
+             MayaDM::MaterialInfo materialInfo ( file, INITIAL_MATERIAL_INFO_NAME.c_str () );
+
+             // Create a shader data object with the shading engine and the material info 
+             // and push it into the map of shading engines
+             shadingData = new ShadingData ( shadingEngine, materialInfo );
+             mShaderDataMap [materialId] = shadingData;
+         }
+         else
+         {
+             // Get the shading engine name.
+             if ( COLLADABU::Utils::equals ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING ) )
+                 shadingEngineName = SHADING_ENGINE_NAME;
+             shadingEngineName = DocumentImporter::frameworkNameToMayaName ( shadingEngineName );
+             shadingEngineName = mShadingEngineIdList.addId ( shadingEngineName );
+
+             // Create a shading engine, if we not already have one.
+             FILE* file = getDocumentImporter ()->getFile ();
+             MayaDM::ShadingEngine shadingEngine ( file, shadingEngineName.c_str () );
+
+             // Create the material info node for the shading engine.
+             // createNode materialInfo -name "materialInfo2";
+             String materialInfoName = MATERIAL_INFO_NAME;
+             materialInfoName = DocumentImporter::frameworkNameToMayaName ( materialInfoName );
+             materialInfoName = mMaterialInfoIdList.addId ( materialInfoName ); 
+             MayaDM::MaterialInfo materialInfo ( file, materialInfoName.c_str () );
+
+             // Push it in the map of shading engines
+             shadingData = new ShadingData ( shadingEngine, materialInfo );
+             mShaderDataMap [materialId] = shadingData;
+         }
+
+         return shadingData;
+     }
+
+    // -----------------------------------
     void MaterialImporter::writeShaderData ( 
         const COLLADAFW::UniqueId& transformId, 
         const COLLADAFW::InstanceGeometry* instanceGeometry )
@@ -128,41 +200,9 @@ namespace COLLADAMaya
              // Get the material id.
              const COLLADAFW::UniqueId& materialId = materialBinding.getReferencedMaterial ();
 
-             // Check if already a shading engine with the materialId exist.
-             ShadingData* shaderData = findShaderData ( materialId );
-             if ( shaderData == 0 )
-             {
-                 // Get the unique shading engine name.
-                 String shadingEngineName = materialBinding.getName ();
-
-                 // TODO What to do with the "initialShadingGroup"?
-                 bool importToInitialShadingEngine = false;
-                 if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, INITIAL_SHADING_ENGINE_NAME ) )
-                 {
-                     importToInitialShadingEngine = true;
-                     shadingEngineName = SHADING_ENGINE_NAME;
-                 }
-
-                 if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING ) )
-                     shadingEngineName = SHADING_ENGINE_NAME;
-
-                 shadingEngineName = DocumentImporter::frameworkNameToMayaName ( shadingEngineName );
-                 shadingEngineName = mShadingEngineIdList.addId ( shadingEngineName );
-                 
-                 // Create a shading engine, if we not already have one.
-                 FILE* file = getDocumentImporter ()->getFile ();
-                 MayaDM::ShadingEngine shadingEngine ( file, shadingEngineName.c_str () );
-                 
-                 // Create the material info node for the shading engine.
-                 // createNode materialInfo -name "materialInfo2";
-                 String materialInfoName = MATERIAL_INFO_NAME;
-                 materialInfoName = DocumentImporter::frameworkNameToMayaName ( materialInfoName );
-                 materialInfoName = mMaterialInfoIdList.addId ( materialInfoName ); 
-                 MayaDM::MaterialInfo materialInfo ( file, materialInfoName.c_str () );
-
-                 // Push it in the map of shading engines
-                 mShaderDataMap [materialId] = new ShadingData ( shadingEngine, materialInfo );
-             }
+             // Get the unique shading engine name and get / create the shader data.
+             String shadingEngineName = materialBinding.getName ();
+             ShadingData* shaderData = createShaderData ( materialId, shadingEngineName );
 
              // Get the shading engine id. This id is unique for one geometry.
              COLLADAFW::MaterialId shadingEngineId = materialBinding.getMaterialId ();
