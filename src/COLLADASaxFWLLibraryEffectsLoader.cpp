@@ -525,112 +525,6 @@ namespace COLLADASaxFWL
 	}
 
 
-#if 0
-	//------------------------------
-	bool LibraryEffectsLoader::begin__ambient__color( const ambient__color__AttributeData& attributeData )
-	{
-		mCurrentShaderParameterType = SHADER_PARAMETER_AMBIENT;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::end__ambient__color()
-	{
-		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
-		mCurrentColorValueIndex = 0;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::data__ambient__color( const double* data, size_t length )
-	{
-		return handleColorData(data, length);
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::begin__diffuse__color( const diffuse__color__AttributeData& attributeData )
-	{
-		mCurrentShaderParameterType = SHADER_PARAMETER_DIFFUSE;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::end__diffuse__color()
-	{
-		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
-		mCurrentColorValueIndex = 0;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::data__diffuse__color( const double* data, size_t length )
-	{
-		return handleColorData(data, length);
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::begin__specular__color( const specular__color__AttributeData& attributeData )
-	{
-		mCurrentShaderParameterType = SHADER_PARAMETER_SPECULAR;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::end__specular__color()
-	{
-		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
-		mCurrentColorValueIndex = 0;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::data__specular__color( const double* data, size_t length )
-	{
-		return handleColorData(data, length);
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::begin__reflective__color( const reflective__color__AttributeData& attributeData )
-	{
-		mCurrentShaderParameterType = SHADER_PARAMETER_REFLECTIVE;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::end__reflective__color()
-	{
-		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
-		mCurrentColorValueIndex = 0;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::data__reflective__color( const double* data, size_t length )
-	{
-		return handleColorData(data, length);
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::begin__transparent__color( const transparent__color__AttributeData& attributeData )
-	{
-		mCurrentShaderParameterType = SHADER_PARAMETER_TRANSPARENT;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::end__transparent__color()
-	{
-		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
-		mCurrentColorValueIndex = 0;
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::data__transparent__color( const double* data, size_t length )
-	{
-		return handleColorData(data, length);
-	}
-#endif 
 
 	//------------------------------
 	bool LibraryEffectsLoader::data__common_float_or_param_type____float( float value )
@@ -647,36 +541,12 @@ namespace COLLADASaxFWL
 		case SHADER_PARAMETER_INDEX_OF_REFRECTION:
 			mCurrentEffect->getCommonEffects().back()->setIndexOfRefraction(value);
 			break;
+		case SHADER_PARAMETER_TRANSPARANCY:
+			mTransparency = value;
+			break;
 		}
 		return true;
 	}
-
-#if 0
-	//------------------------------
-	bool LibraryEffectsLoader::data__reflectivity__float( double value )
-	{
-		mCurrentEffect->getCommonEffects().back()->setReflectivity(value);
-		return true;
-	}
-
-	//------------------------------
-	bool LibraryEffectsLoader::data__transparency__float( double value )
-	{
-        // Set the current transparency value.
-        mTransparency = value;
-
-		return true;
-	}
-
-    //------------------------------
-	bool LibraryEffectsLoader::data__index_of_refraction__float( double value )
-	{
-		mCurrentEffect->getCommonEffects().back()->setIndexOfRefraction(value);
-		return true;
-	}
-
-#endif
-
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__emission()

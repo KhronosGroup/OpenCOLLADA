@@ -280,59 +280,12 @@ namespace COLLADASaxFWL
 		/** Stores color data into the correct color object.*/
 		virtual bool data__common_color_or_texture_type____color( const float* data, size_t length );
 
-#if 0
-		/** Stores texture data into the correct texture object.*/
-		virtual bool begin__emission__texture( const texture__AttributeData& attributeData );
-		/** We don't need to do anything here.*/
-		virtual bool end__emission__texture(){SaxVirtualFunctionTest(end__emission__texture()); return true;}
-#endif
-
-#if 0
-		/** Sets the shader parameter type.*/
-		virtual bool begin__ambient__color( const ambient__color__AttributeData& attributeData );
-		/** Resets the shader parameter type.*/
-		virtual bool end__ambient__color();
-		/** Stores color data into the correct color object.*/
-		virtual bool data__ambient__color( const double* value, size_t length );
-#endif
 
 		/** Stores texture data into the correct texture object.*/
 		virtual bool begin__texture( const texture__AttributeData& attributeData );
 		/** We don't need to do anything here.*/
 		virtual bool end__texture(){SaxVirtualFunctionTest(end__texture()); return true;}
 
-#if 0
-		/** Sets the shader parameter type.*/
-		virtual bool begin__diffuse__color( const diffuse__color__AttributeData& attributeData );
-		/** Resets the shader parameter type.*/
-		virtual bool end__diffuse__color();
-		/** Stores color data into the correct color object.*/
-		virtual bool data__diffuse__color( const double* value, size_t length );
-
-		/** Sets the shader parameter type.*/
-		virtual bool begin__specular__color( const specular__color__AttributeData& attributeData );
-		/** Resets the shader parameter type.*/
-		virtual bool end__specular__color();
-		/** Stores color data into the correct color object.*/
-		virtual bool data__specular__color( const double* value, size_t length );
-
-		/** Sets the shader parameter type.*/
-		virtual bool begin__reflective__color( const reflective__color__AttributeData& attributeData );
-		/** Resets the shader parameter type.*/
-		virtual bool end__reflective__color();
-		/** Stores color data into the correct color object.*/
-		virtual bool data__reflective__color( const double* value, size_t length );
-#endif
-
-
-#if 0
-		/** Sets the shader parameter type.*/
-		virtual bool begin__transparent__color( const transparent__color__AttributeData& attributeData );
-		/** Resets the shader parameter type.*/
-		virtual bool end__transparent__color();
-		/** Stores color data into the correct color object.*/
-		virtual bool data__transparent__color( const double* value, size_t length );
-#endif
 
 		/** We don't need to do anything here.*/
 		virtual bool begin__common_float_or_param_type____float( const common_float_or_param_type____float__AttributeData& attributeData ){return true;}
@@ -341,28 +294,6 @@ namespace COLLADASaxFWL
 		/** Set the value in the effect.*/
 		virtual bool data__common_float_or_param_type____float( float value );
 
-#if 0
-		/** We don't need to do anything here.*/
-		virtual bool begin__reflectivity__float( const reflectivity__float__AttributeData& attributeData ){return true;}
-		/** We don't need to do anything here.*/
-		virtual bool end__reflectivity__float(){SaxVirtualFunctionTest(end__reflectivity__float()); return true;}
-		/** Set the value in the effect.*/
-		virtual bool data__reflectivity__float( double value );
-
-		/** We don't need to do anything here.*/
-		virtual bool begin__transparency__float( const transparency__float__AttributeData& attributeData ){return true;}
-		/** We don't need to do anything here.*/
-		virtual bool end__transparency__float(){SaxVirtualFunctionTest(end__transparency__float()); return true;}
-		/** Set the value in the effect.*/
-		virtual bool data__transparency__float( double value );
-
-		/** We don't need to do anything here.*/
-		virtual bool begin__index_of_refraction__float( const index_of_refraction__float__AttributeData& attributeData ){return true;}
-		/** We don't need to do anything here.*/
-		virtual bool end__index_of_refraction__float(){SaxVirtualFunctionTest(end__index_of_refraction__float()); return true;}
-		/** Set the value in the effect.*/
-		virtual bool data__index_of_refraction__float( double value );
-#endif
 		/** Finishes loading a library effects.*/
 		virtual bool end__library_effects();
 
