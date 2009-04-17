@@ -177,8 +177,8 @@ namespace COLLADAMaya
             animationName = DocumentImporter::frameworkNameToMayaName ( animationName );
 
             // TODO
-            if ( outDimension > 1 )
-                animationName += "_" + XYZW_PARAMETERS[outputIndex];
+//             if ( outDimension > 1 )
+//                 animationName += "_" + XYZW_PARAMETERS[outputIndex];
             animationName = mAnimationIdList.addId ( animationName );
 
             // Get the maya file
@@ -275,7 +275,7 @@ namespace COLLADAMaya
             animationName = DocumentImporter::frameworkNameToMayaName ( animationName );
 
             // TODO
-            animationName += "_" + XYZW_PARAMETERS[outputIndex];
+//            animationName += "_" + XYZW_PARAMETERS[outputIndex];
             animationName = mAnimationIdList.addId ( animationName );
 
             // Create the animation curve.

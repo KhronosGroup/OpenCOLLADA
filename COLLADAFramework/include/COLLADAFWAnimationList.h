@@ -50,10 +50,10 @@ namespace COLLADAFW
             SCALE_X,
             SCALE_Y,
             SCALE_Z, 
-            SKEW_XYZ
+            SKEW_XYZ,
             SKEW_X, 
             SKEW_Y, 
-            SKEW_Z,
+            SKEW_Z
 		};
 
 		/** Binds the animated part of an animatable to the animation.*/
