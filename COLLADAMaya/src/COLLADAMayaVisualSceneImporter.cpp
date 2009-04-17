@@ -371,37 +371,114 @@ namespace COLLADAMaya
             {
             case COLLADAFW::Transformation::LOOKAT:
                 {
-                    isLookatTransform = true; 
-                    validMayaTransform = false;
-
                     // Import the camera's lookat transform matrix.
                     importLookatTransform ( rootNode, transformation, transformNode );
+
+                    isLookatTransform = true; 
+                    validMayaTransform = false;
+                    return validMayaTransform;
 
                     break;
                 }
             case COLLADAFW::Transformation::MATRIX:
                 // Nothing to do, the matrix will be read automatically.
                 validMayaTransform = false;
+                return validMayaTransform;
                 break;
             case COLLADAFW::Transformation::ROTATE:
                 {
-                    if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE )
-                    {
-                        // Set the actual phase to a rotate phase.
-                        mayaTransform.phase = MayaTransformation::PHASE_ROTATE;
+                    // Rotation is maya conform, if there is not more than one rotation per axis
+                    // (except the axis rotations are direct successive).
 
-                        // Write the current rotation in a quaternion and 
-                        // multiplicate with the existing rotation.
+                    // On the first rotation set the actual phase to the rotate phase 1.
+                    if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE1 )
+                    {
+                        mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
+
                         COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
                         double angle = rotation->getRotationAngle ();
                         COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
-                        MVector mayaAxis ( axis.x, axis.y, axis.z );
-                        MQuaternion quaternion ( COLLADABU::Math::Utils::degToRad(angle), mayaAxis );
 
-                        // The order of the multiplication is deciding!
-                        mayaTransform.rotation = quaternion * mayaTransform.rotation;
+                        mayaTransform.axisPhaseRotate1 = axis;
                     }
-                    else validMayaTransform = false;
+
+                    // Handle the rotations.
+                    if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE3 )
+                    {
+                        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
+                        double angle = rotation->getRotationAngle ();
+                        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
+                        
+                        // Check if the axis has changed.
+                        switch ( mayaTransform.phase )
+                        {
+                        case MayaTransformation::PHASE_ROTATE1:
+                            {
+                                // Change the phase set the axis if necessary.
+                                if ( mayaTransform.axisPhaseRotate1 != axis )
+                                {
+                                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE2;
+                                    mayaTransform.axisPhaseRotate2 = axis;
+                                }
+                            }
+                            break;
+
+                        case MayaTransformation::PHASE_ROTATE2:
+                            {
+                                // Check, if the axis is not already used.
+                                if ( axis == mayaTransform.axisPhaseRotate1 )
+                                {
+                                    validMayaTransform = false;
+                                    return validMayaTransform;
+                                }
+
+                                // Change the phase and set the axis if necessary.
+                                if ( mayaTransform.axisPhaseRotate2 != axis )
+                                {
+                                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE3;
+                                    mayaTransform.axisPhaseRotate3 = axis;
+                                }
+                            }
+                            break;
+
+                        case MayaTransformation::PHASE_ROTATE3:
+                            {
+                                // Check, if the axis is not already used.
+                                if ( axis == mayaTransform.axisPhaseRotate1 || 
+                                     axis == mayaTransform.axisPhaseRotate2 )
+                                {
+                                    validMayaTransform = false;
+                                    return validMayaTransform;
+                                }
+                            }
+                            break;
+
+                        default:
+                            MGlobal::displayError ( "No valid transformation phase!" );
+                            break;
+                        }
+
+                        // Add the rotation angle.
+                        if ( axis == COLLADABU::Math::Vector3::UNIT_X )
+                        {
+                            MVector rotation = mayaTransform.eulerRotation.asVector ();
+                            rotation.x += angle;
+                            mayaTransform.eulerRotation.setValue ( rotation );
+                        }
+                        else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
+                        {
+                            MVector rotation = mayaTransform.eulerRotation.asVector ();
+                            rotation.y += angle;
+                            mayaTransform.eulerRotation.setValue ( rotation );
+                        }
+                        else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
+                        {
+                            MVector rotation = mayaTransform.eulerRotation.asVector ();
+                            rotation.z += angle;
+                            mayaTransform.eulerRotation.setValue ( rotation );
+                        }
+
+                    }
                 }
                 break;
             case COLLADAFW::Transformation::SCALE:
@@ -415,7 +492,11 @@ namespace COLLADAMaya
                     for ( unsigned int k=0; k<3; ++k )
                         mayaTransform.scale [k] = scaleVec [k];
                 }
-                else validMayaTransform = false;
+                else 
+                {
+                    validMayaTransform = false;
+                    return validMayaTransform;
+                }
                 break;
             case COLLADAFW::Transformation::SKEW:
                 {
@@ -653,9 +734,9 @@ namespace COLLADAMaya
         MVector translate3 = mayaTransform.translate3;
         MVector translate = translate1 + translate2 + translate3 - scalePivotTranslate - rotatePivotTranslate;
 
-        MQuaternion mayaRotate = mayaTransform.rotation;
-        MEulerRotation eulerRotation = mayaRotate.asEulerRotation ();
-        MEulerRotation::RotationOrder order = eulerRotation.order;
+        // Get the euler rotation and detect the rotation order.
+        MEulerRotation eulerRotation = mayaTransform.eulerRotation;
+        MEulerRotation::RotationOrder order = getRotationOrder ( mayaTransform );
         MVector rotation = eulerRotation.asVector ();
 
         MVector scale = mayaTransform.scale;
@@ -665,7 +746,7 @@ namespace COLLADAMaya
         if ( translate != MVector (0, 0, 0) )
             transformNode->setTranslate ( toLinearUnit ( MayaDM::double3 ( translate.x , translate.y, translate.z ) ) );
         if ( rotation != MVector (0, 0, 0) )
-            transformNode->setRotate ( toAngularUnit ( MayaDM::double3 ( rotation.x, rotation.y, rotation.z ) ) );
+            transformNode->setRotate ( MayaDM::double3 ( rotation.x, rotation.y, rotation.z ) );
         if ( scale != MVector (1, 1, 1) )
             transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
             //transformNode->setScale ( toUpAxisTypeFactor ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
@@ -1133,4 +1214,117 @@ namespace COLLADAMaya
         }
         return 0;
     }
+
+    // --------------------------------------------
+    MEulerRotation::RotationOrder VisualSceneImporter::getRotationOrder ( 
+        const MayaTransformation &mayaTransform )
+    {
+        // Attention: the order is from behind!
+        MEulerRotation::RotationOrder order = MEulerRotation::kXYZ;
+
+        // X..
+        if ( mayaTransform.axisPhaseRotate1 == COLLADABU::Math::Vector3::UNIT_X ) 
+        {
+            if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_Y ) 
+            {
+                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_Z ) 
+                {
+                    order = MEulerRotation::kZYX; // xyz
+                }
+                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                {
+                    order = MEulerRotation::kZYX; // xy
+                }
+                else MGlobal::displayError ( "No valid euler rotation order!" );
+            }
+            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_Z ) 
+            {
+                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_Y )
+                {
+                    order = MEulerRotation::kYZX; // xzy
+                }
+                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                {
+                    order = MEulerRotation::kZYX; // xz
+                }
+                else MGlobal::displayError ( "No valid euler rotation order!" );
+            }
+            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3 (0,0,0) )
+            {
+                order = MEulerRotation::kXYZ; // x
+            }
+            else MGlobal::displayError ( "No valid euler rotation order!" );
+        }
+
+        // Y..
+        else if ( mayaTransform.axisPhaseRotate1 == COLLADABU::Math::Vector3::UNIT_Y ) 
+        {
+            if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_X ) 
+            {
+                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_Z ) 
+                {
+                    order = MEulerRotation::kZXY; // yxz
+                }
+                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                {
+                    order = MEulerRotation::kXYZ; // yx
+                }
+                else MGlobal::displayError ( "No valid euler rotation order!" );
+            }
+            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_Z ) 
+            {
+                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_X ) 
+                {
+                    order = MEulerRotation::kXZY; // yzx
+                }
+                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                {
+                    order = MEulerRotation::kZYX; // yz
+                }
+                else MGlobal::displayError ( "No valid euler rotation order!" );
+            }
+            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3 (0,0,0) )
+            {
+                order = MEulerRotation::kXYZ; // y
+            }
+            else MGlobal::displayError ( "No valid euler rotation order!" );
+        }
+
+        // Z..
+        else if ( mayaTransform.axisPhaseRotate1 == COLLADABU::Math::Vector3::UNIT_Z ) 
+        {
+            if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_X ) 
+            {
+                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_Y ) 
+                {
+                    order = MEulerRotation::kYXZ; // zxy
+                }
+                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                {
+                    order = MEulerRotation::kXYZ; // zx
+                }
+                else MGlobal::displayError ( "No valid euler rotation order!" );
+            }
+            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_Y ) 
+            {
+                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_X ) 
+                {
+                    order = MEulerRotation::kXYZ; // zyx
+                }
+                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                {
+                    order = MEulerRotation::kXYZ; // zy
+                }
+                else MGlobal::displayError ( "No valid euler rotation order!" );
+            }
+            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3 (0,0,0) )
+            {
+                order = MEulerRotation::kXYZ; // z
+            }
+            else MGlobal::displayError ( "No valid euler rotation order!" );
+        }	
+    
+        return order;
+    }
+
 }

@@ -62,7 +62,10 @@ namespace COLLADAMaya
                 , translate1 ( 0,0,0 ) 
                 , translate1Vec (0)
                 , numTranslate1 (0)
-                , rotation ( 1,0,0,0 )
+                , eulerRotation ( 0,0,0 )
+                , axisPhaseRotate1 ( 0,0,0 )
+                , axisPhaseRotate2 ( 0,0,0 )
+                , axisPhaseRotate3 ( 0,0,0 )
                 , translate2 ( 0,0,0 ) 
                 , translate2Vec (0)
                 , numTranslate2 (0)
@@ -74,17 +77,20 @@ namespace COLLADAMaya
             {}
             virtual ~MayaTransformation () {}
 
-            static const size_t PHASE_TRANS1 = 1;
-            static const size_t PHASE_ROTATE = 2;
-            static const size_t PHASE_TRANS2 = 3;
-            static const size_t PHASE_SCALE = 4;
-            static const size_t PHASE_TRANS3 = 5;
+            static const size_t PHASE_TRANS1    = 1;
+            static const size_t PHASE_ROTATE1   = 2;
+            static const size_t PHASE_ROTATE2   = 3;
+            static const size_t PHASE_ROTATE3   = 4;
+            static const size_t PHASE_TRANS2    = 5;
+            static const size_t PHASE_SCALE     = 6;
+            static const size_t PHASE_TRANS3    = 7;
 
             MVector translate1; // = 0,0,0
             std::vector<MVector> translate1Vec;
             size_t numTranslate1;
 
-            MQuaternion rotation; // = 1,0,0,0
+            MEulerRotation eulerRotation; // = 0,0,0
+            COLLADABU::Math::Vector3 axisPhaseRotate1, axisPhaseRotate2, axisPhaseRotate3;
 
             MVector translate2; // = 0,0,0
             std::vector<MVector> translate2Vec;
@@ -333,6 +339,9 @@ namespace COLLADAMaya
             MayaDM::Transform* transformNode, 
             const bool hasRotatePivot,
             const bool hasScalePivot );
+
+        MEulerRotation::RotationOrder getRotationOrder ( 
+            const MayaTransformation &mayaTransform );
 
         /**
          * Imports the transform values from a transform matrix.
