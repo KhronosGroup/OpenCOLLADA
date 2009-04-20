@@ -56,6 +56,7 @@ namespace COLLADAMaya
             , mType ( type )
             , mIdx ( idx ) 
             , mNumVertexIndices (0)
+            , mIndices (0)
         {}
 
         /** Destructor */

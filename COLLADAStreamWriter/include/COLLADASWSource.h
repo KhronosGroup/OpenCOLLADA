@@ -56,7 +56,11 @@ namespace COLLADASW
 
     public:
 
-    	SourceBase ( StreamWriter* streamWriter ) : ElementWriter ( streamWriter ) {}
+    	SourceBase ( StreamWriter* streamWriter ) 
+            : ElementWriter ( streamWriter )
+            , mAccessorCount (0)
+            , mAccessorStride (0)
+        {}
 
         /** Returns a reference to the id of the source*/
         const String& getId() const
@@ -151,6 +155,10 @@ namespace COLLADASW
     class Source : public SourceBase
     {
 
+    private:
+
+        const String* mParameterTypeName;
+
     public:
         Source ( StreamWriter * streamWriter )
         : SourceBase ( streamWriter )
@@ -227,10 +235,6 @@ namespace COLLADASW
         {
             mParameterTypeName = paramTypeName;
         }
-
-    private:
-
-        const String* mParameterTypeName;
     };
 
     /** Param type independent source with double values. */

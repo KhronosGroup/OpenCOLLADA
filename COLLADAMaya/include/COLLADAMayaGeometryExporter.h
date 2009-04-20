@@ -114,7 +114,7 @@ namespace COLLADAMaya
         bool exportVertexNormals ( const MFnMesh& fnMesh, const String& meshId );
 
         /** Implement TangentSource and BinormalSource. */
-        void exportTangents( 
+        void exportTangentsAndBinormals( 
             const MFnMesh& fnMesh, 
             const String& meshId, 
             const bool perVertexNormals, 
@@ -178,6 +178,11 @@ namespace COLLADAMaya
 
         /** Gets the mesh color sets */
         void getMeshColorSet ( const MObject& mesh, std::vector<float> &meshColorSet, ColourSet& colorSet );
+
+        /**
+         * Export the texture tangents and binormals.
+         */
+        void exportTextureTangentsAndBinormals ( const MFnMesh &fnMesh, const String& meshId );
 
     };
 }

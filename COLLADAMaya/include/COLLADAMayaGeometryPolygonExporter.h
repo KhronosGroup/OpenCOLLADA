@@ -203,8 +203,9 @@ namespace COLLADAMaya
             MItMeshPolygon &meshPolygonsIter,
             const uint baseExportType,
             const MIntArray &vertexIndices, 
-            const uint &numPolygons, 
-            const uint &numVertices );
+            const uint numPolygons, 
+            const uint numVertices, 
+            int& texTangentIndex );
 
         /**
          * Determines the export type of the current primitives base.
@@ -262,12 +263,13 @@ namespace COLLADAMaya
         void writeVertexIndices(
             COLLADASW::PrimitivesBase* primitivesBasePoly,
             PolygonSource *polygon, 
-            int vertexIndex, 
-            MIntArray &normalIndices, 
-            int iteratorVertexIndex, 
+            const int vertexIndex, 
+            const MIntArray &normalIndices, 
+            const int iteratorVertexIndex, 
             MItMeshPolygon &meshPolygonsIter, 
             MFnMesh &fnMesh, 
-            int polyIndex );
+            const int polyIndex, 
+            const int texTangentIndex );
 
         /**
          * Handles the data of a holed polygon element.

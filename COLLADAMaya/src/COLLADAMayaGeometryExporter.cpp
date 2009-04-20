@@ -261,6 +261,13 @@ namespace COLLADAMaya
         // Export the color sets
         exportColorSets ( fnMesh, meshId, colorSets );
         
+        // Export the texture tangents and binormals.
+        // For texturing std::map channels, export the texture tangents and bi-normals, on request
+        if ( ExportOptions::exportTexTangents() )
+        {
+            exportTextureTangentsAndBinormals ( fnMesh, meshId );
+        }
+
         // Export the vertexes
         exportVertices ( meshId );
 
@@ -282,26 +289,6 @@ namespace COLLADAMaya
             delete colourSet;
         }
         colorSets.clear();
-
-        // --------------------------------------------------------
-        // TODO
-        // This is not part of this exporter, cause all informations to generate the TexTangents
-        // are already exported!!
-
-        // For texturing std::map channels, export the texture tangents and bi-normals, on request
-
-        if ( ExportOptions::exportTexTangents() )
-        {
-            //   Sources::iterator sourceIter = mPolygonSources.begin();
-            //   for (; sourceIter!=mPolygonSources.end(); ++sourceIter)
-            //   {
-            //    SourceInput &source = *sourceIter;
-            //    if (source.type == COLLADASW::TEXCOORD)
-            //    {
-            // //    FCDGeometryPolygonsTools::GenerateTextureTangentBasis(colladaMesh, source, true);
-            //    }
-            //   }
-        }
 
         closeMesh();
 
@@ -463,7 +450,7 @@ namespace COLLADAMaya
         bool perVertexNormals = exportNormals ( fnMesh, meshId, normals );
 
         // Export the tangents
-        exportTangents ( fnMesh, meshId, perVertexNormals, normals );
+        exportTangentsAndBinormals ( fnMesh, meshId, perVertexNormals, normals );
 
         return !perVertexNormals;
     }
@@ -551,9 +538,7 @@ namespace COLLADAMaya
         */
     }
 
-    // --------------------------------------------------------------------
-    // Export the color sets
-    // Returns true if we should proceed to export the given color set Ids.
+    // -------------------------------------------------------
     void GeometryExporter::exportColorSets ( 
         const MFnMesh& fnMesh,
         const String& meshId,
@@ -741,12 +726,6 @@ namespace COLLADAMaya
         // Fill out the color set information list
         uint setPlugElementCount = colorSet.arrayPlug.numElements();
 
-        // TODO
-        /*
-        if (CExportOptions::ExportVertexColorAnimations())
-         source->GetAnimatedValues().reserve(setPlugElementCount);
-        */
-
         if ( setPlugElementCount > 0 )
         {
             bool opaqueWhiteFound = false;
@@ -816,9 +795,6 @@ namespace COLLADAMaya
         else
 #endif
         {
-            // TODO
-            //  source->GetAnimatedValues().reserve((size_t) meshFn.numVertices());
-
             // If requested, bake lighting information into per-vertex colors.
             MFnDependencyNode bakeLightingFn;
             if ( colorSet.isBlankSet && ExportOptions::bakeLighting() )
@@ -1028,8 +1004,6 @@ namespace COLLADAMaya
                             colorSet.whiteColorIndex = cc;
                         }
 
-                        // TODO
-                        //     source->SetValue(cc, MConvert::ToFMVector4(c));
                         meshColorSet[cc*colorElements] = color.r;
                         meshColorSet[cc*colorElements+1] = color.g;
                         meshColorSet[cc*colorElements+2] = color.b;
@@ -1225,8 +1199,75 @@ namespace COLLADAMaya
         return perVertexNormals;
     }
 
+    // --------------------------------------------------------
+    void GeometryExporter::exportTextureTangentsAndBinormals (
+        const MFnMesh &fnMesh,
+        const String& meshId ) 
+    {
+        // Texture Tangents
+        MFloatVectorArray texTangents;
+        fnMesh.getTangents ( texTangents );
+
+        unsigned int texTangentsCount = texTangents.length ();
+        COLLADASW::FloatSource texTangentSource ( mSW );
+        String texTangentSourceId = meshId + TEXTANGENT_SOURCE_ID_SUFFIX;
+        texTangentSource.setId ( texTangentSourceId );
+        texTangentSource.setArrayId ( texTangentSourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+        texTangentSource.setAccessorStride ( 3 );
+        texTangentSource.setAccessorCount( (unsigned long)texTangentsCount );
+
+        texTangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
+        texTangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
+        texTangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+
+        texTangentSource.prepareToAppendValues();
+        for ( unsigned int j=0; j<texTangentsCount; ++j )
+        {
+            MFloatVector& texTangent = texTangents [j];
+            texTangentSource.appendValues ( 
+                COLLADABU::Math::Utils::equals ( 0.0f, texTangent.x ) ? 0 : texTangent.x, 
+                COLLADABU::Math::Utils::equals ( 0.0f, texTangent.y ) ? 0 : texTangent.y, 
+                COLLADABU::Math::Utils::equals ( 0.0f, texTangent.z ) ? 0 : texTangent.z ); 
+        }
+        texTangentSource.finish();
+
+        // Add input to the mesh polygon's node.
+        mPolygonSources.push_back ( SourceInput ( texTangentSource, COLLADASW::TEXTANGENT ) );
+
+
+        // Texture Binormals
+        MFloatVectorArray texBinormals;
+        fnMesh.getBinormals ( texBinormals );
+
+        unsigned int texBinormalsCount = texTangentsCount;
+        COLLADASW::FloatSource texBinormalSource ( mSW );
+        String texBinormalSourceId = meshId + TEXBINORMAL_SOURCE_ID_SUFFIX;
+        texBinormalSource.setId ( texBinormalSourceId );
+        texBinormalSource.setArrayId ( texBinormalSourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+        texBinormalSource.setAccessorStride ( 3 );
+        texBinormalSource.setAccessorCount( (unsigned long)texBinormalsCount );
+
+        texBinormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
+        texBinormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
+        texBinormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+
+        texBinormalSource.prepareToAppendValues();
+        for ( unsigned int j=0; j<texBinormalsCount; ++j )
+        {
+            MFloatVector& texBinormal = texBinormals [j];
+            texBinormalSource.appendValues ( 
+                COLLADABU::Math::Utils::equals ( 0.0f, texBinormal.x ) ? 0 : texBinormal.x, 
+                COLLADABU::Math::Utils::equals ( 0.0f, texBinormal.y ) ? 0 : texBinormal.y, 
+                COLLADABU::Math::Utils::equals ( 0.0f, texBinormal.z ) ? 0 : texBinormal.z ); 
+        }
+        texBinormalSource.finish();
+
+        // Add input to the mesh polygon's node.
+        mPolygonSources.push_back ( SourceInput ( texBinormalSource, COLLADASW::TEXBINORMAL ) );
+    }
+
     // --------------------------------------------------
-    void GeometryExporter::exportTangents( 
+    void GeometryExporter::exportTangentsAndBinormals ( 
         const MFnMesh &fnMesh, 
         const String &meshId, 
         const bool perVertexNormals,
@@ -1286,9 +1327,9 @@ namespace COLLADAMaya
             }
 
             // Geo-tangent
-            tangentSource.prepareToAppendValues();
             uint tangentCount = tangents.length();
             tangentSource.setAccessorCount ( tangentCount );
+            tangentSource.prepareToAppendValues();
             for ( uint i = 0; i < tangentCount; ++i )
             {
                 MVector &tangent = tangents[i];
@@ -1300,10 +1341,9 @@ namespace COLLADAMaya
             tangentSource.finish();
 
             // Geo-binormal
-            binormalSource.prepareToAppendValues();
             uint binormalCount = binormals.length();
             binormalSource.setAccessorCount ( binormalCount );
-
+            binormalSource.prepareToAppendValues();
             for ( uint i = 0; i < binormalCount; ++i )
             {
                 MVector &binormal = binormals[i];
@@ -1354,7 +1394,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------
-    void GeometryExporter::getTangents( 
+    void GeometryExporter::getTangents ( 
         const MFnMesh &fnMesh, 
         const MFloatVectorArray &normals, 
         uint normalCount, 
