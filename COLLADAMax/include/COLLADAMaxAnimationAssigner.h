@@ -22,6 +22,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxImporterBase.h"
 
 #include "COLLADAFWTransformation.h"
+#include "COLLADAFWAnimationList.h"
 
 namespace COLLADAMax
 {
@@ -42,7 +43,10 @@ namespace COLLADAMax
 			ROTATE_X, 
 			ROTATE_AXIS, 
 			SCALE_AXIS_ROTATE, 
-			SCALE, 
+			SCALE_X,
+			SCALE_Y,
+			SCALE_Z,
+			SCALE = SCALE_Z, 
 			SCALE_AXIS_ROTATE_R, 
 			BUCKET_COUNT 
 		};
@@ -74,7 +78,16 @@ namespace COLLADAMax
 		const AnimationAssigner& operator= ( const AnimationAssigner& pre );
 		
 		bool buckedTransforms( const COLLADAFW::TransformationPointerArray& transformations, Control** controllers );
-
+		
+		template<COLLADAFW::AnimationList::AnimationClass class_XYZ, 
+				 COLLADAFW::AnimationList::AnimationClass class_X,
+				 COLLADAFW::AnimationList::AnimationClass class_Y,
+				 COLLADAFW::AnimationList::AnimationClass class_Z>
+		bool assign3DController( Bucket bucket_X, 
+							  	 Bucket bucket_Y,
+								 Bucket bucket_Z,
+							     const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
+								 Control** controllers);
 	};
 
 } // namespace COLLADAMAX

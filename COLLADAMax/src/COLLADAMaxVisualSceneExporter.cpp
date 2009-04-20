@@ -352,6 +352,9 @@ namespace COLLADAMax
 			// Animated scale includes animated scale axis, so export that carefully.
 			Control* scaleController = transformationController ? transformationController->GetScaleController() : 0;
 
+			SClass_ID scid = scaleController ? scaleController->SuperClassID() : 0;
+			Class_ID cid = scaleController ? scaleController->ClassID() : Class_ID();
+
 			bool hasAnimatedScale = animationExporter->addAnimatedPoint3( scaleController, fullNodeId, SCALE_SID, TRANSLATION_PARAMETERS, true );
 
 			if ( hasAnimatedScale || !affineParts.k.Equals ( Point3 ( 1.0f, 1.0f, 1.0f ), TOLERANCE ) )

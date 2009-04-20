@@ -24,6 +24,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWRotate.h"
 
 
+#define SCALEXYZ_CONTROL_CLASS_ID     Class_ID(0x118f7c01,0xfeee238b)
+
 namespace COLLADAMax
 {
 
@@ -110,7 +112,6 @@ namespace COLLADAMax
 		{
 			positionController->AssignController( controllers[ TRANSLATE_Z ], 2 );
 		}
-
 		Control* rotationController = transformationController->GetRotationController();
 
 		if ( controllers[ ROTATE_X ] )
@@ -127,6 +128,27 @@ namespace COLLADAMax
 		{
 			rotationController->AssignController( controllers[ ROTATE_Z ], 2 );
 		}
+
+
+		Control* maxController = (Control*)createMaxObject( CTRL_SCALE_CLASS_ID, SCALEXYZ_CONTROL_CLASS_ID);;
+
+		if ( controllers[ SCALE_X ] )
+		{
+			maxController->AssignController( controllers[ SCALE_X ], 0 );
+		}
+
+		if ( controllers[ SCALE_Y ] )
+		{
+			maxController->AssignController( controllers[ SCALE_Y ], 1 );
+		}
+
+		if ( controllers[ SCALE_Z ] )
+		{
+			maxController->AssignController( controllers[ SCALE_Z ], 2 );
+		}
+
+		transformationController->SetScaleController( maxController );
+
 
 #if 0
 		Control* scaleController = transformationController->GetScaleController();
@@ -150,7 +172,9 @@ namespace COLLADAMax
 		int gg=0;
 #endif
 
-#if 1
+
+
+#if 0
 		Control* scaleController = transformationController->GetScaleController();
 
 		scaleController->AssignController( controllers[ TRANSLATE_X ], 0 );
@@ -216,81 +240,14 @@ namespace COLLADAMax
 					return false;
 				}
 
-				for ( size_t j = 0, count = animationBindings.getCount(); j < count; ++j)
+				if ( !assign3DController<COLLADAFW::AnimationList::POSITION_XYZ,
+										 COLLADAFW::AnimationList::POSITION_X,
+										 COLLADAFW::AnimationList::POSITION_Y,
+										 COLLADAFW::AnimationList::POSITION_Z>( TRANSLATE_X, TRANSLATE_Y, TRANSLATE_Z, animationBindings, controllers) )
 				{
-					const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[j];
-					const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
-
-					switch (animationBinding.animationClass )
-					{
-					case COLLADAFW::AnimationList::POSITION_X:
-						{
-							assert( maxControllerList.size() >= 1);
-							if ( maxControllerList.empty() )
-							{
-								break;
-							}
-							if ( controllers[TRANSLATE_X] )
-							{
-								//The x controller has already been set
-								break;
-							}
-							controllers[TRANSLATE_X] = maxControllerList[0];
-						}
-						break;
-					case COLLADAFW::AnimationList::POSITION_Y:
-						{
-							assert( maxControllerList.size() >= 1);
-							if ( maxControllerList.empty() )
-							{
-								break;
-							}
-							if ( controllers[TRANSLATE_Y] )
-							{
-								//The y controller has already been set
-								break;
-							}
-							controllers[TRANSLATE_Y] = maxControllerList[0];
-						}
-						break;
-					case COLLADAFW::AnimationList::POSITION_Z:
-						{
-							assert( maxControllerList.size() >= 1);
-							if ( maxControllerList.empty() )
-							{
-								break;
-							}
-							if ( controllers[TRANSLATE_Z] )
-							{
-								//The z controller has already been set
-								break;
-							}
-							controllers[TRANSLATE_Z] = maxControllerList[0];
-						}
-						break;
-					case COLLADAFW::AnimationList::POSITION_XYZ:
-						{
-							assert( maxControllerList.size() >= 3);
-							if ( maxControllerList.size() < 3 )
-							{
-								break;
-							}
-
-							if ( controllers[TRANSLATE_X] || controllers[TRANSLATE_Y] || controllers[TRANSLATE_Z])
-							{
-								//A controller for at least one of the translates has already been set
-								break;
-							}
-
-							controllers[TRANSLATE_X] = maxControllerList[0];
-							controllers[TRANSLATE_Y] = maxControllerList[1];
-							controllers[TRANSLATE_Z] = maxControllerList[2];
-						}
-						break;
-					default:
-						return false;
-					}
+					return false;
 				}
+
 				bucketDepth = TRANSLATE;
 				break;
 
@@ -300,7 +257,13 @@ namespace COLLADAMax
 					// Only one scale transform is allowed per node.
 					return false;
 				}
-				//controllers[SCALE] = transform;
+				if ( !assign3DController<COLLADAFW::AnimationList::POSITION_XYZ,
+										 COLLADAFW::AnimationList::POSITION_X,
+										 COLLADAFW::AnimationList::POSITION_Y,
+										 COLLADAFW::AnimationList::POSITION_Z>( SCALE_X, SCALE_Y, SCALE_Z, animationBindings, controllers) )
+				{
+					return false;
+				}
 				bucketDepth = SCALE;
 				break;
 
@@ -462,6 +425,97 @@ namespace COLLADAMax
 			case COLLADAFW::Transformation::SKEW:
 			default:
 				// No place for these in the Max transform stack: force sampling
+				return false;
+			}
+		}
+		return true;
+	}
+
+
+	template<COLLADAFW::AnimationList::AnimationClass class_XYZ, 
+			 COLLADAFW::AnimationList::AnimationClass class_X,
+			 COLLADAFW::AnimationList::AnimationClass class_Y,
+			 COLLADAFW::AnimationList::AnimationClass class_Z>
+	bool AnimationAssigner::assign3DController( Bucket bucket_X, 
+												Bucket bucket_Y,
+												Bucket bucket_Z,
+												const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
+												Control** controllers)
+	{
+
+
+		for ( size_t j = 0, count = animationBindings.getCount(); j < count; ++j)
+		{
+			const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[j];
+			const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
+
+			switch (animationBinding.animationClass )
+			{
+			case class_X:
+				{
+					assert( maxControllerList.size() >= 1);
+					if ( maxControllerList.empty() )
+					{
+						break;
+					}
+					if ( controllers[bucket_X] )
+					{
+						//The x controller has already been set
+						break;
+					}
+					controllers[bucket_X] = maxControllerList[0];
+				}
+				break;
+			case class_Y:
+				{
+					assert( maxControllerList.size() >= 1);
+					if ( maxControllerList.empty() )
+					{
+						break;
+					}
+					if ( controllers[bucket_Y] )
+					{
+						//The y controller has already been set
+						break;
+					}
+					controllers[bucket_Y] = maxControllerList[0];
+				}
+				break;
+			case class_Z:
+				{
+					assert( maxControllerList.size() >= 1);
+					if ( maxControllerList.empty() )
+					{
+						break;
+					}
+					if ( controllers[bucket_Z] )
+					{
+						//The z controller has already been set
+						break;
+					}
+					controllers[bucket_Z] = maxControllerList[0];
+				}
+				break;
+			case class_XYZ:
+				{
+					assert( maxControllerList.size() >= 3);
+					if ( maxControllerList.size() < 3 )
+					{
+						break;
+					}
+
+					if ( controllers[bucket_X] || controllers[bucket_Y] || controllers[bucket_Z])
+					{
+						//A controller for at least one of the translates has already been set
+						break;
+					}
+
+					controllers[bucket_X] = maxControllerList[0];
+					controllers[bucket_Y] = maxControllerList[1];
+					controllers[bucket_Z] = maxControllerList[2];
+				}
+				break;
+			default:
 				return false;
 			}
 		}
