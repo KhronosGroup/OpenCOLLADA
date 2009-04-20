@@ -104,10 +104,10 @@ namespace COLLADAMax
 
 	private:
 		/** Exports all the nodes in @a node and all its child nodes.*/
-        void doExport ( ExportNode* exportNode, const Matrix3& objectOffsetTransformationMatrix );
+        void doExport ( ExportNode* exportNode );
 
         /** Exports all the transformations of a node.*/
-        Matrix3 exportTransformations ( ExportNode * exportNode, const COLLADASW::Node & colladaNode, const Matrix3& objectOffsetTransformationMatrix );
+        void exportTransformations ( ExportNode * exportNode, const COLLADASW::Node & colladaNode );
 
 		/** Fill @a instanceMaterialList with the appropriate elements.
 		@param instanceMaterialList The COLLADASW::InstanceMaterialList to fill
