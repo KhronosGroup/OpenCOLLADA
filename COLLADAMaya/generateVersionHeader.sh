@@ -10,7 +10,7 @@ echo "" >> $OUT_FILE
 echo "namespace COLLADAMaya" >> $OUT_FILE
 echo "{" >> $OUT_FILE
 echo "    const String CURRENT_REVISION = \"`svnversion`\";" >> $OUT_FILE
-echo "    const String CURRENT_PLATFORM = \"`uname -o`\";" >> $OUT_FILE
+echo "    const String CURRENT_PLATFORM = \"`uname -s`\";" >> $OUT_FILE
 #    const String CURRENT_CONFIGURATION = "ReleaseConsole2008"; 
 echo "}" >> $OUT_FILE
 echo "" >> $OUT_FILE
