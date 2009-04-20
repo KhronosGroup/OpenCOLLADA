@@ -44,11 +44,11 @@ namespace COLLADASaxFWL
 
 		typedef std::map< SidIdentifier, SidTreeNode*> SidIdentifierSidTreeNodeMap;
 
-		enum TargetType
+		enum TargetTypeClass
 		{
-			TARGETTYPE_UNKNOWN,
-			TARGETTYPE_OBJECT,
-			TARGETTYPE_ANIMATABLE
+			TARGETTYPECLASS_UNKNOWN,
+			TARGETTYPECLASS_OBJECT,
+			TARGETTYPECLASS_ANIMATABLE
 		};
 
 	private:
@@ -69,7 +69,7 @@ namespace COLLADASaxFWL
 		Target mTarget;
 
 		/** The type of the target.*/
-		TargetType mTargetType;
+		TargetTypeClass mTargetType;
 
 		/** The sid of the node.*/
 		String mSid;
@@ -85,22 +85,22 @@ namespace COLLADASaxFWL
 		SidTreeNode * getParent() { return mParent; }
 
 		/** Returns the type of the target.*/
-		TargetType getTargetType() const { return mTargetType; }
+		TargetTypeClass getTargetType() const { return mTargetType; }
 
 		/** Sets the type of the target.*/
-		void setTargetType(TargetType targetType) { mTargetType = targetType; }
+		void setTargetType(TargetTypeClass targetType) { mTargetType = targetType; }
 
 		/** Returns the target, if it is an object, null otherwise.*/
-		COLLADAFW::Object* getObjectTarget() const { return (mTargetType==TARGETTYPE_OBJECT) ? mTarget.object : 0; }
+		COLLADAFW::Object* getObjectTarget() const { return (mTargetType==TARGETTYPECLASS_OBJECT) ? mTarget.object : 0; }
 
 		/** Returns the target, if it is an animatable, null otherwise.*/
-		COLLADAFW::Animatable* getAnimatableTarget() const { return (mTargetType==TARGETTYPE_ANIMATABLE) ? mTarget.animatable: 0; }
+		COLLADAFW::Animatable* getAnimatableTarget() const { return (mTargetType==TARGETTYPECLASS_ANIMATABLE) ? mTarget.animatable: 0; }
 
-		/** Sets the target to @a target and the target type to @a TARGETTYPE_OBJECT.*/
-		void setTarget(COLLADAFW::Object* target) { mTarget.object = target; mTargetType = TARGETTYPE_OBJECT; }
+		/** Sets the target to @a target and the target type to @a TARGETTYPECLASS_OBJECT.*/
+		void setTarget(COLLADAFW::Object* target) { mTarget.object = target; mTargetType = TARGETTYPECLASS_OBJECT; }
 
-		/** Sets the target to @a target and the target type to @a TARGETTYPE_ANIMATABLE.*/
-		void setTarget(COLLADAFW::Animatable* target) { mTarget.animatable = target; mTargetType = TARGETTYPE_ANIMATABLE; }
+		/** Sets the target to @a target and the target type to @a TARGETTYPECLASS_ANIMATABLE.*/
+		void setTarget(COLLADAFW::Animatable* target) { mTarget.animatable = target; mTargetType = TARGETTYPECLASS_ANIMATABLE; }
 
 		/** Creates a new child with sid @a sid and adds it to the list of children. */
 		SidTreeNode* createAndAddChild( const String& sid);

@@ -170,7 +170,7 @@ namespace COLLADASaxFWL
 		const SidTreeNode* sidTreeNode = resolveSid( binding.sidAddress);
 		if ( sidTreeNode )
 		{
-			if ( sidTreeNode->getTargetType() == SidTreeNode::TARGETTYPE_ANIMATABLE )
+			if ( sidTreeNode->getTargetType() == SidTreeNode::TARGETTYPECLASS_ANIMATABLE )
 			{
 				COLLADAFW::Animatable* animatable = sidTreeNode->getAnimatableTarget();
 				COLLADAFW::UniqueId animationListUniqueId = animatable->getAnimationList();
