@@ -38,7 +38,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	SidTreeNode::SidTreeNode(const String& sid, SidTreeNode *parent)
 		: mParent(parent)
-		, mTargetType(TARGETTYPE_UNKNOWN)
+		, mTargetType(TARGETTYPECLASS_UNKNOWN)
 		, mSid(sid)
 	{
 		mTarget.object = 0;
