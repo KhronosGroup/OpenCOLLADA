@@ -37,6 +37,7 @@ namespace COLLADAFW
 	class IWriter;
 	class Object;
 	class VisualScene;
+	class Effect;
 }
 
 
@@ -74,6 +75,9 @@ namespace COLLADASaxFWL
 		/** List of visual scenes.*/
 		typedef std::vector<COLLADAFW::VisualScene*> VisualSceneList;
 
+		/** List of effects.*/
+		typedef std::vector<COLLADAFW::Effect*> EffectList;
+
 	private:
 	
 		/** The collada loader */
@@ -99,6 +103,10 @@ namespace COLLADASaxFWL
 		/** List of all visual scenes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		VisualSceneList mVisualScenes;
+
+		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		EffectList mEffects;
 
 		/** List all the connections of animations and sid addresses of the targets.*/
 		AnimationSidAddressBindingList mAnimationSidAddressBindings;
@@ -140,6 +148,10 @@ namespace COLLADASaxFWL
 		/** Adds @a visualScene to the list of visual scenes. It will be sent to the writer and delete by the
 		file loader.*/
 		void addVisualScene( COLLADAFW::VisualScene* visualScene ) { mVisualScenes.push_back(visualScene); }
+
+		/** Adds @a effect to the list of effects. It will be sent to the writer and delete by the
+		file loader.*/
+		void addEffect( COLLADAFW::Effect* effect ) { mEffects.push_back(effect); }
 
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
@@ -187,6 +199,9 @@ namespace COLLADASaxFWL
 
 		/** Writes all the visual scenes.*/
 		void writeAndDeleteVisualScenes();
+
+		/** Writes all the visual scenes.*/
+		void writeAndDeleteEffects();
 
 		/** Creates all the animation lists.*/
 		void createMissingAnimationLists();

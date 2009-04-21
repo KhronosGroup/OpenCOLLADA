@@ -92,6 +92,10 @@ namespace COLLADASaxFWL
 	SourceBase::AccessorParameter parameterX = {"X", "float"};
 	SourceBase::AccessorParameter parameterY = {"Y", "float"};
 	SourceBase::AccessorParameter parameterZ = {"Z", "float"};
+	SourceBase::AccessorParameter parameterR = {"R", "float"};
+	SourceBase::AccessorParameter parameterG = {"G", "float"};
+	SourceBase::AccessorParameter parameterB = {"B", "float"};
+	SourceBase::AccessorParameter parameterA = {"A", "float"};
 	SourceBase::AccessorParameter parameterAngle = {"ANGLE", "float"};
 	SourceBase::AccessorParameter parameterTransform = {"TRANSFORM", "float4x4"};
 
@@ -100,10 +104,16 @@ namespace COLLADASaxFWL
 	SourceBase::AccessorParameter accessorX[] = {parameterX};
 	SourceBase::AccessorParameter accessorY[] = {parameterY};
 	SourceBase::AccessorParameter accessorZ[] = {parameterZ};
+	SourceBase::AccessorParameter accessorR[] = {parameterR};
+	SourceBase::AccessorParameter accessorG[] = {parameterG};
+	SourceBase::AccessorParameter accessorB[] = {parameterB};
+	SourceBase::AccessorParameter accessorA[] = {parameterA};
 	SourceBase::AccessorParameter accessorAngle[] = {parameterAngle};
 	SourceBase::AccessorParameter accessorTransform[] = {parameterTransform};
 
 	SourceBase::AccessorParameter accessorXYZ[] = {parameterX, parameterY, parameterZ};
+	SourceBase::AccessorParameter accessorRGB[] = {parameterR, parameterG, parameterB};
+	SourceBase::AccessorParameter accessorRGBA[] = {parameterR, parameterG, parameterB, parameterA};
 	SourceBase::AccessorParameter accessorAxisAngle[] = {parameterX, parameterY, parameterZ, parameterAngle};
 
 	AccessorAnimationClassPair animationClassMap[] = 
@@ -113,8 +123,14 @@ namespace COLLADASaxFWL
 		, AccessorAnimationClassPair( accessorX, sizeof(accessorX), COLLADAFW::AnimationList::POSITION_X)
 		, AccessorAnimationClassPair( accessorY, sizeof(accessorY), COLLADAFW::AnimationList::POSITION_Y)
 		, AccessorAnimationClassPair( accessorZ, sizeof(accessorZ), COLLADAFW::AnimationList::POSITION_Z)
+		, AccessorAnimationClassPair( accessorR, sizeof(accessorR), COLLADAFW::AnimationList::COLOR_R)
+		, AccessorAnimationClassPair( accessorG, sizeof(accessorG), COLLADAFW::AnimationList::COLOR_G)
+		, AccessorAnimationClassPair( accessorB, sizeof(accessorB), COLLADAFW::AnimationList::COLOR_B)
+		, AccessorAnimationClassPair( accessorA, sizeof(accessorA), COLLADAFW::AnimationList::COLOR_A)
 		, AccessorAnimationClassPair( accessorAngle, sizeof(accessorAngle), COLLADAFW::AnimationList::ANGLE)
 		, AccessorAnimationClassPair( accessorXYZ, sizeof(accessorXYZ), COLLADAFW::AnimationList::POSITION_XYZ)
+		, AccessorAnimationClassPair( accessorRGB, sizeof(accessorRGB), COLLADAFW::AnimationList::COLOR_RGB)
+		, AccessorAnimationClassPair( accessorRGBA, sizeof(accessorRGBA), COLLADAFW::AnimationList::COLOR_RGBA)
 		, AccessorAnimationClassPair( accessorAxisAngle, sizeof(accessorAxisAngle), COLLADAFW::AnimationList::AXISANGLE)
 		, AccessorAnimationClassPair( accessorTransform, sizeof(accessorTransform), COLLADAFW::AnimationList::MATRIX4X4)
 	};

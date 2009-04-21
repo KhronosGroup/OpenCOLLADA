@@ -327,6 +327,8 @@ namespace COLLADASaxFWL
         /** Disable default assignment operator. */
 		const LibraryEffectsLoader& operator= ( const LibraryEffectsLoader& pre );
 
+		/** Returns the current color or texture.*/
+		COLLADAFW::ColorOrTexture* getCurrentColorOrTexture();
 	};
 
 } // namespace COLLADASAXFWL

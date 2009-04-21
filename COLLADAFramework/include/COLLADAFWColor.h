@@ -13,12 +13,13 @@
 
 #include "COLLADAFWStableHeaders.h"
 #include "COLLADAFWPrerequisites.h"
+#include "COLLADAFWAnimatable.h"
 
 
 namespace COLLADAFW
 {
 
-    class Color
+    class Color : public Animatable
     {
 
     private:
@@ -31,19 +32,19 @@ namespace COLLADAFW
 
     public:
 
-        Color ( double r, double g, double b, double a, String sid="" )
-            : mR ( r ), mG ( g ), mB ( b ), mA ( a ), mSid ( sid ) {}
+        Color( double r, double g, double b, double a, String sid="" )
+            : mR( r ), mG( g ), mB( b ), mA( a ), mSid( sid ) {}
 
         /** Creates a color with opacity 1.*/
-        Color ( double r, double g, double b, String sid="" )
-            : mR ( r ), mG ( g ), mB ( b ), mA ( 1 ), mSid ( sid ) {}
+        Color( double r, double g, double b, String sid="" )
+            : mR( r ), mG( g ), mB( b ), mA( 1 ), mSid( sid ) {}
 
         /** Creates an invalid color*/
         Color( )
-            : mR ( -1 ), mG ( -1 ), mB ( -1 ), mA ( -1 ), mSid ( "" ) {}
+            : mR( -1 ), mG( -1 ), mB( -1 ), mA( -1 ), mSid( "" ) {}
 
         /** Sets the values of color*/
-        void set ( double r, double g, double b, double a, String sid="" );
+        void set( double r, double g, double b, double a, String sid="" );
 
         /** Return true if the color is valid, false otherwise*/
         bool isValid() const;
