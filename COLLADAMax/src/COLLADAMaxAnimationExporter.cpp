@@ -325,9 +325,9 @@ namespace COLLADAMax
 
 		// First, Try to extract animations from the component controllers
 
-		if ( subControllers[ 0 ] && subControllers[ 1 ]  && subControllers[ 2 ]  && subControllers[ 3 ] )
+		if ( subControllers[ 0 ] || subControllers[ 1 ]  || subControllers[ 2 ]  || subControllers[ 3 ] )
 		{
-			for ( int i = 0; i < 3; ++i )
+			for ( int i = 0; i < 4; ++i )
 			{
 				if ( isAnimated ( subControllers[ i ] ) )
 				{
@@ -773,7 +773,7 @@ namespace COLLADAMax
 			{
 				for ( int j = 0; j < keyLength; ++j )
 				{
-					assert( keyLength == 3);
+					assert( (keyLength == 3) || (keyLength == 4));
 
 					if ( conversionFunctor )
 						keyValue[j] = (*conversionFunctor) ( keyValue[ j ] );
@@ -2189,14 +2189,20 @@ namespace COLLADAMax
 			}
 			else
 			{
-				for ( int j = 0; j < keyLength; ++j )
-				{
-					assert( keyLength == 3);
+				assert( (keyLength == 3) || (keyLength == 4));
 
+				for ( int j = 0; j < 3; ++j )
+				{
 					if ( conversionFunctor )
 						source.appendValues ( (*conversionFunctor) ( keyValue[ j ] ) );
 					else
 						source.appendValues ( keyValue[ j ] );
+				}
+
+				// If the point3 controller has dimension 4, it is a rgba controller. In this case alpha is one.
+				if ( keyLength == 4 )
+				{
+					source.appendValues ( 1 );
 				}
 			}
 		}
