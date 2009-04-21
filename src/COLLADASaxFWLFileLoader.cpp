@@ -26,6 +26,7 @@
 #include "COLLADASaxFWLSidAddress.h"
 
 #include "COLLADAFWVisualScene.h"
+#include "COLLADAFWEffect.h"
 #include "COLLADAFWAnimationList.h"
 
 #include "COLLADAFWObject.h"
@@ -153,6 +154,17 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
+	void FileLoader::writeAndDeleteEffects()
+	{
+		for ( size_t i = 0, count = mEffects.size(); i < count; ++i)
+		{
+			COLLADAFW::Effect *effect = mEffects[i];
+			writer()->writeEffect(effect);
+			FW_DELETE effect;
+		}
+	}
+
+	//-----------------------------
 	void FileLoader::createMissingAnimationLists()
 	{
 		AnimationSidAddressBindingList::const_iterator it = mAnimationSidAddressBindings.begin();
@@ -266,6 +278,7 @@ namespace COLLADASaxFWL
 
 		setPartLoader(libraryNodesLoader);
 		setParser(libraryNodesLoader);
+		addToSidTree( attributeData.id, 0);
 		return true;
 	}
 
@@ -290,6 +303,7 @@ namespace COLLADASaxFWL
 
 		setPartLoader(libraryMaterialsLoader);
 		setParser(libraryMaterialsLoader);
+		addToSidTree( attributeData.id, 0);
 		return true;
 	}
 
@@ -359,6 +373,7 @@ namespace COLLADASaxFWL
     {
 		SaxVirtualFunctionTest(end__COLLADA());
 		createMissingAnimationLists();
+		writeAndDeleteEffects();
 		writeAndDeleteVisualScenes();
 		writeAndDeleteAnimationLists();
         writer()->finish();

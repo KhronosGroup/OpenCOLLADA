@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLLibraryEffectsLoader.h"
+#include "COLLADASaxFWLFileLoader.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWEffect.h"
@@ -47,6 +48,40 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	//------------------------------
+	COLLADAFW::ColorOrTexture* LibraryEffectsLoader::getCurrentColorOrTexture()
+	{
+		switch ( mCurrentShaderParameterType )
+		{
+		case SHADER_PARAMETER_EMISSION:
+			{
+				return &mCurrentEffect->getCommonEffects().back()->getEmission();
+			}
+		case SHADER_PARAMETER_AMBIENT:
+			{
+				return &mCurrentEffect->getCommonEffects().back()->getAmbient();
+			}
+		case SHADER_PARAMETER_DIFFUSE:
+			{
+				return &mCurrentEffect->getCommonEffects().back()->getDiffuse();
+			}
+		case SHADER_PARAMETER_SPECULAR:
+			{
+				return &mCurrentEffect->getCommonEffects().back()->getSpecular();
+			}
+		case SHADER_PARAMETER_REFLECTIVE:
+			{
+				return &mCurrentEffect->getCommonEffects().back()->getReflective();
+			}
+		case SHADER_PARAMETER_TRANSPARENT:
+			{
+				return &mTransparent;
+			}
+		default:
+			return 0;
+		}
+	}
+
 
 	//------------------------------
 	bool LibraryEffectsLoader::handleColorData( const float* data, size_t length )
@@ -55,46 +90,12 @@ namespace COLLADASaxFWL
 		{
 		case PROFILE_COMMON:
 			{
-				COLLADAFW::ColorOrTexture* colorOrTexture = 0;
-				switch ( mCurrentShaderParameterType )
-				{
-				case SHADER_PARAMETER_EMISSION:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getEmission();
-						break;
-					}
-				case SHADER_PARAMETER_AMBIENT:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getAmbient();
-						break;
-					}
-				case SHADER_PARAMETER_DIFFUSE:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getDiffuse();
-						break;
-					}
-				case SHADER_PARAMETER_SPECULAR:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getSpecular();
-						break;
-					}
-				case SHADER_PARAMETER_REFLECTIVE:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getReflective();
-						break;
-					}
-				case SHADER_PARAMETER_TRANSPARENT:
-					{
-						colorOrTexture = &mTransparent;
-						break;
-					}
-				}
+				COLLADAFW::ColorOrTexture* colorOrTexture = getCurrentColorOrTexture();
 				colorOrTexture->setType(COLLADAFW::ColorOrTexture::COLOR);
 				handleColorData(data, length, colorOrTexture->getColor());
 
 				break;
 			}
-
 		}
 		return true;
 
@@ -302,6 +303,8 @@ namespace COLLADASaxFWL
 		{
 			mCurrentEffect->setName((const char*)attributeData.id);
 		} 
+
+		addToSidTree( attributeData.id, 0);
 		return true;
 	}
 
@@ -309,10 +312,10 @@ namespace COLLADASaxFWL
 	bool LibraryEffectsLoader::end__effect()
 	{
 		SaxVirtualFunctionTest(end__effect()); 
-		bool success = writer()->writeEffect(mCurrentEffect);
-		FW_DELETE mCurrentEffect;
+		getFileLoader()->addEffect(mCurrentEffect);
 		mCurrentEffect = 0;
-		return success;
+		moveUpInSidTree();
+		return true;
 	}
 
 	//------------------------------
@@ -321,6 +324,7 @@ namespace COLLADASaxFWL
 		SaxVirtualFunctionTest(begin__profile_COMMON(attributeData)); 
 		mCurrentProfile = PROFILE_COMMON;
 		mCurrentEffect->getCommonEffects().append(FW_NEW COLLADAFW::EffectCommon() );
+		addToSidTree( attributeData.id, 0);
 		return true;
 	}
 	
@@ -334,6 +338,7 @@ namespace COLLADASaxFWL
 		mTransparent.getColor ().set ( -1, -1, -1, -1 );
 
 		mCurrentProfile = PROFILE_UNKNOWN;
+		moveUpInSidTree();
 		return true;
 	}
 
@@ -500,6 +505,8 @@ namespace COLLADASaxFWL
 	bool LibraryEffectsLoader::begin__common_color_or_texture_type____color( const common_color_or_texture_type____color__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__common_color_or_texture_type____color(attributeData)); 
+		COLLADAFW::ColorOrTexture* colorOrTexture = getCurrentColorOrTexture();
+		addToSidTree( 0, attributeData.sid, &colorOrTexture->getColor() );
 		return true;
 	}
 
@@ -508,6 +515,7 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(end__common_color_or_texture_type____color()); 
 		mCurrentColorValueIndex = 0;
+		moveUpInSidTree();
 		return true;
 	}
 

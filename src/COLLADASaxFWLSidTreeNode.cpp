@@ -78,7 +78,7 @@ namespace COLLADASaxFWL
 	{
 		if ( sidTreeNode )
 		{
-			SidTreeNode *parent = sidTreeNode->getParent();
+			SidTreeNode *parent = getParent();
 			if ( parent )
 			{
 				SidIdentifier parentSidIdentifier = sidIdentifier;
@@ -87,8 +87,8 @@ namespace COLLADASaxFWL
 				{
 					parentSidIdentifier.hierarchyLevel++;
 				}
-				mChildren.insert(std::make_pair(parentSidIdentifier, parent));
-				addChildToParents( parent, parentSidIdentifier );
+				parent->mChildren.insert(std::make_pair(parentSidIdentifier, sidTreeNode));
+				parent->addChildToParents( sidTreeNode, parentSidIdentifier );
 			}
 		}
 	}

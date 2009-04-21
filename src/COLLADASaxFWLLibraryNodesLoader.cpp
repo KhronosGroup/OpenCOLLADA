@@ -53,6 +53,7 @@ namespace COLLADASaxFWL
 	bool LibraryNodesLoader::end__library_nodes()
 	{
 		SaxVirtualFunctionTest(end__library_nodes()); 
+		moveUpInSidTree();
 		bool success = writer()->writeLibraryNodes(mLibraryNodes);
 		delete mLibraryNodes;
 		finish();
