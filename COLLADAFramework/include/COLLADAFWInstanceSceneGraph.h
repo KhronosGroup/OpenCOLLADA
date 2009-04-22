@@ -8,8 +8,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADAFW_SCENEGRAPHINSTANCE_H__
-#define __COLLADAFW_SCENEGRAPHINSTANCE_H__
+#ifndef __COLLADAFW_INSTANCESCENEGRAPH_H__
+#define __COLLADAFW_INSTANCESCENEGRAPH_H__
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWUniqueId.h"
@@ -20,7 +20,7 @@ namespace COLLADAFW
 {
 
 	/** Base class for all classes, that represent the instantiation of an object within the scene graph*/
-	class SceneGraphInstance
+	class InstanceSceneGraph
 	{
 	private:
 		/**
@@ -36,9 +36,12 @@ namespace COLLADAFW
 
 		/** Constructor. Creates an instance of an object with UniqueId @a instanciatedObjectId.
 		@param instanciatedObjectId The UniqueId of the object instantiated.*/ 
-		SceneGraphInstance(UniqueId instanciatedObjectId);
+        InstanceSceneGraph(UniqueId& instanciatedObjectId) 
+            : mInstanciatedObjectId (instanciatedObjectId ) 
+        {}
 
-		virtual ~SceneGraphInstance();
+        InstanceSceneGraph () {}
+        virtual ~InstanceSceneGraph() {}
 
 		/** Returns the name of the node*/
 		const String& getName() const { return mName; }
@@ -49,13 +52,13 @@ namespace COLLADAFW
 		/** Returns the unique id of the instantiated object.*/
 		const UniqueId& getInstanciatedObjectId() const { return mInstanciatedObjectId; }
 
-		virtual SceneGraphInstance* clone() const { return new SceneGraphInstance(*this); }
+		virtual InstanceSceneGraph* clone() const { return new InstanceSceneGraph(*this); }
 
 	};
 
-	typedef PointerArray<SceneGraphInstance> SceneGraphInstancePointerArray;
+	typedef PointerArray<InstanceSceneGraph> SceneGraphInstancePointerArray;
 
 
 } // namespace COLLADAFW
 
-#endif // __COLLADAFW_SCENEGRAPHINSTANCE_H__
+#endif // __COLLADAFW_INSTANCESCENEGRAPH_H__

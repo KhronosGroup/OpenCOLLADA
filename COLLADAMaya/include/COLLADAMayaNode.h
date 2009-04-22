@@ -24,9 +24,6 @@ namespace COLLADAMaya
         */
         String mName;
 
-        /** The path of the current node. */
-        String mPath;
-
         /**
          * The parent node.
          */
@@ -78,7 +75,6 @@ namespace COLLADAMaya
          * Get's the node path of the current maya node.
          */
         const String getNodePath ();
-        void setNodePath ( const COLLADAMaya::String& val ) { mPath = val; }
 
         /**
         * The flag, if the node is already created. Default is true;

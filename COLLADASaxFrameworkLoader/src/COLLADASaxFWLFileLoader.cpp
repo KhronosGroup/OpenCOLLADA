@@ -12,6 +12,7 @@
 #include "COLLADASaxFWLFileLoader.h"
 #include "COLLADASaxFWLLoader.h"
 #include "COLLADASaxFWLAssetLoader.h"
+#include "COLLADASaxFWLSceneLoader.h"
 #include "COLLADASaxFWLVisualSceneLoader.h"
 #include "COLLADASaxFWLLibraryNodesLoader.h"
 #include "COLLADASaxFWLLibraryMaterialsLoader.h"
@@ -238,6 +239,17 @@ namespace COLLADASaxFWL
         AssetLoader* assetLoader = new AssetLoader(this);
         setPartLoader(assetLoader);
         setParser(assetLoader);
+        return true;
+    }
+
+    //------------------------------
+    bool FileLoader::begin__scene ()
+    {
+        SaxVirtualFunctionTest(begin__scene()); 
+        deleteFilePartLoader();
+        SceneLoader* sceneLoader = new SceneLoader(this);
+        setPartLoader(sceneLoader);
+        setParser(sceneLoader);
         return true;
     }
 

@@ -12,7 +12,7 @@
 #define __COLLADAFW_INSTANCENODE_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWSceneGraphInstance.h"
+#include "COLLADAFWInstanceSceneGraph.h"
 #include "COLLADAFWPointerArray.h"
 
 
@@ -20,7 +20,7 @@ namespace COLLADAFW
 {
 
 	/** Instantiates a node within a scene graph.*/
-	typedef SceneGraphInstance InstanceNode;
+	typedef InstanceSceneGraph InstanceNode;
 
 	typedef ArrayPrimitiveType<InstanceNode*> InstanceNodeArray;
 	typedef PointerArray<InstanceNode> InstanceNodePointerArray;

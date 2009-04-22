@@ -25,7 +25,6 @@ namespace COLLADAMaya
     MayaNode::MayaNode () 
         : mParent (0)
         , mName ("")
-        , mPath ("")
         , mIsCorrectPositioned (true)
     {
 
@@ -40,7 +39,6 @@ namespace COLLADAMaya
         : mUniqueId ( uniqueId )
         , mName ( name )
         , mParent ( parent ) 
-        , mPath ("")
         , mIsCorrectPositioned (isCorrectPositioned)
     {
 
@@ -50,29 +48,27 @@ namespace COLLADAMaya
     void MayaNode::setParent ( MayaNode* val )
     {
         mParent = val; 
-        mPath = "";
     }
 
     // -----------------------------
     void MayaNode::setName ( COLLADAMaya::String val )
     {
         mName = val; 
-        mPath = "";
     }
 
     // -----------------------------
     const COLLADAMaya::String MayaNode::getNodePath () 
     {
-        if ( COLLADABU::Utils::equals ( mPath, "") ) 
-        {
-            if ( mParent != NULL )
-            {
-                mPath = mParent->getNodePath () + mPath;
-            }
-            mPath += "|" + mName;
-        }
+        String path;
 
-        return mPath;
+        // Recursive call
+        if ( mParent != NULL )
+        {
+            path = mParent->getNodePath () + path;
+        }
+        path += "|" + mName;
+
+        return path;
     }
 
 } // namespace COLLADAMaya

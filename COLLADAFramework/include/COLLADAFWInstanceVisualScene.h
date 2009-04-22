@@ -8,8 +8,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADAFW_INSTANCECAMERA_H__
-#define __COLLADAFW_INSTANCECAMERA_H__
+#ifndef __COLLADAFW_INSTANCEVISUALSCENE_H__
+#define __COLLADAFW_INSTANCEVISUALSCENE_H__
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWInstanceSceneGraph.h"
@@ -19,12 +19,10 @@
 namespace COLLADAFW
 {
 
-	/** Instantiates a node within a scene graph.*/
-	typedef InstanceSceneGraph InstanceCamera;
+    /** Instantiates a node within a scene graph.*/
+    typedef InstanceSceneGraph InstanceVisualScene;
 
-	typedef ArrayPrimitiveType<InstanceCamera*> InstanceCameraArray;
-	typedef PointerArray<InstanceCamera> InstanceCameraPointerArray;
 
 } // namespace COLLADAFW
 
-#endif // __COLLADAFW_INSTANCECAMERA_H__
+#endif // __COLLADAFW_INSTANCEVISUALSCENE_H__

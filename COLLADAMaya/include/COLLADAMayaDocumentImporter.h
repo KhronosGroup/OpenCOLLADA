@@ -23,6 +23,7 @@
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWFileInfo.h"
+#include "COLLADAFWInstanceVisualScene.h"
 
 #include "MayaDMMesh.h"
 
@@ -49,18 +50,19 @@ namespace COLLADAMaya
      * document, why we have to parse always twice. The order to handle the parsed data:
      * 
      * 1.) First parsing:
-     * 1.1) Read the information about the visual scene to use.
+     * 1.1) Import asset
      * 1.2) Copy some of the elements, so we don't need to parse once more again. 
      *      Following elements should be copied, the order doesn't matter:
      *      - Copy visual scene
      *      - Copy library nodes
      *      - Copy materials
+     * 1.3) Read scene (is always at the end of a collada document)
      * 
      * 2.) Between first and second parsing:
-     * 2.1) Import the referenced visual scene
-     * 2.3) Import the referenced library nodes
-     * 2.4) Import the node instances
-     * 2.5) Import the materials
+     * 2.1) Import referenced visual scene
+     * 2.3) Import referenced library nodes
+     * 2.4) Import node instances
+     * 2.5) Import materials
      *
      * 3.) Second parsing:
      * 3.1) Import all data directly, the order doesn't matter:
@@ -69,6 +71,11 @@ namespace COLLADAMaya
      *      - Import lights
      *      - Import images 
      *      - Import animations
+     * 4.) After second parsing:
+     * 4.1) Make all connections, the order doesn't matter:
+     *      - materials / effects
+     *      - lights
+     *      - animations
      */
     class DocumentImporter : public COLLADAFW::IWriter 
     {
@@ -80,7 +87,44 @@ namespace COLLADAMaya
 
         static const int BUFFERSIZE;
 
+        /**
+         * An enum for the steps to do. See main documentation.
+         */
+        enum ParseSteps
+        {
+            NO_PARSING = 0,
+            FIRST_PARSING,
+            IMPORT_ASSET,
+            COPY_FIRST_ELEMENTS,          // no order: scene, visual scene, library nodes, materials
+//            READ_SCENE,
+//             COPY_VISUAL_SCENE,
+//             COPY_LIBRARY_NODES,
+//             COPY_MATERIALS,
+            AFTER_FIRST_PARSING,
+//             IMPORT_VISUAL_SCENE,
+//             IMPORT_LIBRARY_NODES,
+//             IMPORT_NODE_INSTANCES,
+//             IMPORT_MATERIALS,
+            SECOND_PARSING, 
+            AFTER_SECOND_PARSING
+        };
+
     private:
+
+        /** The current parsing step. */
+        ParseSteps mParseStep;
+
+        /** The URI of the visual scene to use. */
+        COLLADAFW::InstanceVisualScene mInstanceVisualScene;
+
+        /** A copy of the framework's visual scene elements. */
+        std::vector<COLLADAFW::VisualScene*> mVisualScenesList;
+
+        /** A copy of the framework's library nodes elements. */
+        std::vector<COLLADAFW::LibraryNodes*> mLibraryNodesList;
+
+        /** A copy of the framework's library nodes elements. */
+        std::vector<COLLADAFW::Material*> mMaterialsList;
 
         /** The buffer for fprintf. */
         char *mBuffer; // 2MB Puffer!!
@@ -240,8 +284,6 @@ namespace COLLADAMaya
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset );
 
-        void getCurrentDate ( std::stringstream& curDate );
-
         /** Returns the type of the current up axis. */
         const COLLADAFW::FileInfo::UpAxisType& getUpAxisType () const { return mUpAxisType; }
 
@@ -252,9 +294,18 @@ namespace COLLADAMaya
         */
         const double getLinearUnitMeter () const { return mLinearUnitMeter; }
 
+        /** When this method is called, the writer must write the scene.
+        @return The writer should return true, if writing succeeded, false otherwise.
+        <instance_physics_scene> 0 or more
+        <instance_visual_scene> 0 or 1
+        <instance_kinematics_scene> 0 or 1
+        */
+        virtual bool writeScene ( const COLLADAFW::Scene* scene );
+
         /** When this method is called, the writer must write the entire visual scene.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
+        void importVisualScene ();
 
         /** When this method is called, the writer must write the geometry.
         @return The writer should return true, if writing succeeded, false otherwise.*/
@@ -264,10 +315,12 @@ namespace COLLADAMaya
         library nodes.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes );
+        void importLibraryNodes ();
 
         /** When this method is called, the writer must write the material.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeMaterial ( const COLLADAFW::Material* material );
+        void importMaterials ();
 
         /** When this method is called, the writer must write the effect.
         @return The writer should return true, if writing succeeded, false otherwise.*/

@@ -17,6 +17,7 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
     class FileInfo;
+    class Scene;
 	class VisualScene;
 	class Geometry;
 	class LibraryNodes;
@@ -58,6 +59,10 @@ namespace COLLADAFW
         /** When this method is called, the writer must write the global document asset.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeGlobalAsset ( const FileInfo* asset ) = 0;
+
+        /** When this method is called, the writer must write the scene.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeScene ( const Scene* scene ) = 0;
 
 		/** When this method is called, the writer must write the entire visual scene.
 		@return The writer should return true, if writing succeeded, false otherwise.*/

@@ -1007,7 +1007,7 @@ namespace COLLADAMaya
             for ( size_t i=0; i<numInstances; ++i )
             {
                 const COLLADAFW::UniqueId& parentTransformId = parentNodes [i];
-
+                
                 // Get the maya parent nodes and read the path.
                 MayaNodesList* parentTransformNodes = findMayaTransformNode ( parentTransformId );
                 if ( parentTransformNodes == 0 )

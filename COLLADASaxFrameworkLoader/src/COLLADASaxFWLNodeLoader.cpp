@@ -12,6 +12,7 @@
 #include "COLLADASaxFWLNodeLoader.h"
 #include "COLLADASaxFWLGeometryMaterialIdInfo.h"
 
+#include "COLLADAFWVisualScene.h"
 #include "COLLADAFWNode.h"
 #include "COLLADAFWTranslate.h"
 #include "COLLADAFWRotate.h"
@@ -406,7 +407,6 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-
 	//------------------------------
 	bool NodeLoader::end__instance_material()
 	{
@@ -451,7 +451,6 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-	
 	//------------------------------
 	bool NodeLoader::begin__instance_camera( const instance_camera__AttributeData& attributeData )
 	{

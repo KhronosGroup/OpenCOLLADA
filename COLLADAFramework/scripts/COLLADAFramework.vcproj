@@ -340,15 +340,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAFWInstanceEffect.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADAFWInstanceGeometry.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADAFWInstanceMaterial.cpp"
 				>
 			</File>
 			<File
@@ -425,10 +417,6 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAFWScale.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADAFWSceneGraphInstance.cpp"
 				>
 			</File>
 			<File
@@ -581,10 +569,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWInstanceEffect.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAFWInstanceGeometry.h"
 				>
 			</File>
@@ -593,11 +577,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWInstanceMaterial.h"
+				RelativePath="..\include\COLLADAFWInstanceNode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWInstanceNode.h"
+				RelativePath="..\include\COLLADAFWInstanceSceneGraph.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWInstanceVisualScene.h"
 				>
 			</File>
 			<File
@@ -721,7 +709,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWSceneGraphInstance.h"
+				RelativePath="..\include\COLLADAFWScene.h"
 				>
 			</File>
 			<File

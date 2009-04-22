@@ -28,6 +28,7 @@
 
 #include "COLLADAFWRoot.h"
 #include "COLLADAFWAnimationList.h"
+#include "COLLADAFWScene.h"
 
 #include "COLLADASaxFWLLoader.h"
 
@@ -50,6 +51,10 @@ namespace COLLADAMaya
     //---------------------------------
     DocumentImporter::DocumentImporter ( const String& fileName )
         : mColladaFileName ( fileName )
+        , mParseStep ( NO_PARSING )
+        , mVisualScenesList (0)
+        , mLibraryNodesList (0)
+        , mMaterialsList (0)
         , mSceneId ( "MayaScene" )
         , mFile ( 0 )
         , mVisualSceneImporter (0)
@@ -129,6 +134,7 @@ namespace COLLADAMaya
         createLibraries ();
 
         // Load the collada document into the collada framework.
+        mParseStep = FIRST_PARSING;
         readColladaDocument();
 
         // Close the maya file.
@@ -222,35 +228,37 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::finish ()
     {
-        // There has not to be a <library_nodes> tag in the document!
-        if ( mAssetWritten && mSceneGraphWritten && !mLibraryNodesWritten )
+        // First parse is ready.
+        if ( mParseStep < AFTER_FIRST_PARSING )
         {
-            mLibraryNodesWritten = true;
+            // The order of the steps here is very important!
+            mParseStep = AFTER_FIRST_PARSING;
 
-            // Write the node instances, when all nodes of the visual scene 
-            // and the library nodes are already imported!
-            if ( mSceneGraphWritten && mLibraryNodesWritten )
-            {
-                // Write all the node instances
-                mVisualSceneImporter->writeNodeInstances ();
-            }
+            // Import referenced visual scene
+            importVisualScene ();
 
-            if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead )
-            {
-                mGeometryRead = false;
-                mCameraRead = false;
-                mLightRead = false;
-                mImageRead = false;
-                mAnimationRead = false;
-                readColladaDocument ();
-            }
+            // Import referenced library nodes
+            importLibraryNodes ();
+
+            // Import the node instances, when all nodes of the visual scene 
+            // and the library nodes are already imported.
+            mVisualSceneImporter->writeNodeInstances ();
+
+            // Import materials
+            importMaterials ();
+
+            // Start the next parsing.
+            mParseStep = SECOND_PARSING;
+            readColladaDocument ();
         }
 
         // If the last read is ready, we can write the connections and close the file.
         --mNumDocumentParses;
         if ( mNumDocumentParses == 0 ) 
         {
-            // TODO After the complete read of the collada document, 
+            mParseStep = AFTER_SECOND_PARSING;
+
+            // After the complete read of the collada document, 
             // the connections can be written into the maya file.
             mMaterialImporter->writeConnections ();
             mLightImporter->writeConnections ();
@@ -277,55 +285,6 @@ namespace COLLADAMaya
     const COLLADABU::URI& DocumentImporter::getMayaAsciiFileURI () const
     {
         return mMayaAsciiFileURI;
-    }
-
-    //-----------------------------
-    void DocumentImporter::getCurrentDate ( std::stringstream& curDate )
-    {
-        // create a stringstream containing the current date and time in ISO 8601 format
-        time_t _t;
-        time ( &_t );
-        struct tm *t = localtime ( &_t );
-
-        int weekDay = t->tm_wday; // days since Sunday - [0,6]
-        switch ( weekDay )
-        {
-        case 0: curDate << "Sun, "; break;
-        case 1: curDate << "Mon, "; break;
-        case 2: curDate << "Tue, "; break;
-        case 3: curDate << "Wed, "; break;
-        case 4: curDate << "Thu, "; break;
-        case 5: curDate << "Fri, "; break;
-        case 6: curDate << "Sat, "; break;
-        default: assert ( weekDay < 7 );
-        }
-
-        int month = t->tm_mon; // months since January - [0,11]
-        switch ( month )
-        {
-        case 0: curDate << "Jan "; break;
-        case 1: curDate << "Feb "; break;
-        case 2: curDate << "Mar "; break;
-        case 3: curDate << "Apr "; break;
-        case 4: curDate << "Mai "; break;
-        case 5: curDate << "Jun "; break;
-        case 6: curDate << "Jul "; break;
-        case 7: curDate << "Aug "; break;
-        case 8: curDate << "Sep "; break;
-        case 9: curDate << "Oct "; break;
-        case 10: curDate << "Nov "; break;
-        case 11: curDate << "Dec "; break;
-        default: assert ( month < 12 );
-        }
-
-        // Mon, Dec 01, 2008 02:02:39 PM
-        curDate << t->tm_mday << " "; // day of the month - [1,31]
-        if ( t->tm_hour < 12 )
-            curDate << t->tm_hour << ":" << t->tm_min << ":" << t->tm_sec << " AM\n";
-        else if ( t->tm_hour == 12 )
-            curDate << t->tm_hour << ":" << t->tm_min << ":" << t->tm_sec << " PM\n";
-        else 
-            curDate << t->tm_hour-12 << ":" << t->tm_min << ":" << t->tm_sec << " AM\n";
     }
 
     //-----------------------------
@@ -356,7 +315,8 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeGlobalAsset ( const COLLADAFW::FileInfo* asset )
     {
-        if ( mAssetWritten ) return true;
+        if ( mParseStep >= IMPORT_ASSET ) return true;
+        mParseStep = IMPORT_ASSET;
 
         // Create the file, if not already done.
         if ( mFile == 0 ) start();
@@ -499,17 +459,17 @@ namespace COLLADAMaya
 //         String operatingSystemVersion ( MGlobal::executeCommandStringResult ( "product -operatingSystemVersion" ).asChar () );
 //         fprintf ( mFile, "fileInfo \"osv\" \"%s\";\n", operatingSystemVersion.c_str () );
 
-        mAssetWritten = true;
+        return true;
+    }
 
-        if ( mSceneGraphRead || mLibraryNodesRead || mGeometryRead || mCameraRead || mLightRead || mImageRead )
+    //-----------------------------
+    bool DocumentImporter::writeScene ( const COLLADAFW::Scene* scene )
+    {
+        if ( mParseStep <= COPY_FIRST_ELEMENTS ) 
         {
-            mSceneGraphRead = false;
-            mLibraryNodesRead = false;
-            mGeometryRead = false;
-            mCameraRead = false;
-            mLightRead = false;
-            mImageRead = false;
-            readColladaDocument ();
+            // Make a copy of the instantiated visual scene element.
+            mParseStep = COPY_FIRST_ELEMENTS;
+            mInstanceVisualScene = *scene->getInstanceVisualScene ();
         }
 
         return true;
@@ -518,108 +478,87 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
-        // Order: asset, scene graph, others
-        if ( !mAssetWritten ) 
+        if ( mParseStep <= COPY_FIRST_ELEMENTS )
         {
-            mSceneGraphRead = true;
-            return true;
-        }
-        if ( mSceneGraphWritten ) return true;
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        // Import the data.
-        mVisualSceneImporter->importVisualScene ( visualScene );
-        mSceneGraphWritten = true;
-
-        // Write the node instances, when all nodes of the visual scene 
-        // and the library nodes are already imported!
-        if ( mSceneGraphWritten && mLibraryNodesWritten )
-        {
-            // Write all the node instances
-            mVisualSceneImporter->writeNodeInstances ();
-        }
-
-        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead )
-        {
-            mGeometryRead = false;
-            mCameraRead = false;
-            mLightRead = false;
-            mImageRead = false;
-            mAnimationRead = false;
-            readColladaDocument ();
+            // Make a copy of the visual scene element and push it into the list of visual scenes.
+            mParseStep = COPY_FIRST_ELEMENTS;
+            mVisualScenesList.push_back ( new COLLADAFW::VisualScene ( *visualScene ) );
         }
 
         return true;
+    }
+
+    //-----------------------------
+    void DocumentImporter::importVisualScene ()
+    {
+        // Get the visual scene element to import.
+        for ( size_t i=0; i<mVisualScenesList.size (); ++i )
+        {
+            const COLLADAFW::VisualScene* visualScene = mVisualScenesList [i];
+            if ( mInstanceVisualScene.getInstanciatedObjectId () == visualScene->getUniqueId () )
+            {
+                // Import the data.
+                mVisualSceneImporter->importVisualScene ( visualScene );
+            }
+        }
     }
 
     //-----------------------------
     bool DocumentImporter::writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
     {
-        // Order: asset, scene graph, library nodes, others
-        if ( !mAssetWritten ) 
+        if ( mParseStep <= COPY_FIRST_ELEMENTS )
         {
-            mLibraryNodesRead = true;
-            return true;
-        }
-        if ( mLibraryNodesWritten ) return true;
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        // Import the data.
-        mVisualSceneImporter->importLibraryNodes ( libraryNodes );
-        mLibraryNodesWritten = true;
-
-        // Write the node instances, when all nodes of the visual scene 
-        // and the library nodes are already imported!
-        if ( mSceneGraphWritten && mLibraryNodesWritten )
-        {
-            // Write all the node instances
-            mVisualSceneImporter->writeNodeInstances ();
-        }
-
-        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead || mAnimationRead )
-        {
-            mGeometryRead = false;
-            mCameraRead = false;
-            mLightRead = false;
-            mImageRead = false;
-            mAnimationRead = false;
-            readColladaDocument ();
+            // Make a copy of the visual scene element and push it into the list of visual scenes.
+            mParseStep = COPY_FIRST_ELEMENTS;
+            mLibraryNodesList.push_back ( new COLLADAFW::LibraryNodes ( *libraryNodes ) );
         }
 
         return true;
     }
 
     //-----------------------------
-    bool DocumentImporter::writeGeometry ( const COLLADAFW::Geometry* geometry )
+    void DocumentImporter::importLibraryNodes ()
     {
-        // Order: asset, scene graph, library nodes, others
-        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
+        // Import the library notes data.
+        for ( size_t i=0; i<mLibraryNodesList.size (); ++i )
         {
-            mGeometryRead = true;
-            return true;
+            const COLLADAFW::LibraryNodes* libraryNodes = mLibraryNodesList [i];
+            mVisualSceneImporter->importLibraryNodes ( libraryNodes );
         }
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        // Import the data.
-        mGeometryImporter->importGeometry ( geometry );
-
-        return true;
     }
 
     //-----------------------------
     bool DocumentImporter::writeMaterial ( const COLLADAFW::Material* material )
     {
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
+        if ( mParseStep <= COPY_FIRST_ELEMENTS )
+        {
+            // Make a copy of the material element and push it into the list.
+            mParseStep = COPY_FIRST_ELEMENTS;
+            mMaterialsList.push_back ( new COLLADAFW::Material ( *material ) );
+        }
 
-        // Import the data.
-        mMaterialImporter->importMaterial ( material );
+        return true;
+    }
+
+    //-----------------------------
+    void DocumentImporter::importMaterials ()
+    {
+        // Import the materials data.
+        for ( size_t i=0; i<mLibraryNodesList.size (); ++i )
+        {
+            const COLLADAFW::Material* material = mMaterialsList [i];
+            mMaterialImporter->importMaterial ( material );
+        }
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeGeometry ( const COLLADAFW::Geometry* geometry )
+    {
+        if ( mParseStep == SECOND_PARSING )
+        {
+            // Import the data.
+            mGeometryImporter->importGeometry ( geometry );
+        }
 
         return true;
     }
@@ -627,11 +566,11 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeEffect ( const COLLADAFW::Effect* effect )
     {
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        // Import the data.
-        mEffectImporter->importEffect ( effect );
+        if ( mParseStep == SECOND_PARSING )
+        {
+            // Import the data.
+            mEffectImporter->importEffect ( effect );
+        }
 
         return true;
     }
@@ -639,18 +578,11 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeCamera ( const COLLADAFW::Camera* camera )
     {
-        // Order: asset, scene graph, library nodes, others
-        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
+        if ( mParseStep == SECOND_PARSING )
         {
-            mCameraRead = true;
-            return true;
+            // Import the data.
+            mCameraImporter->importCamera ( camera );
         }
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        // Import the data.
-        mCameraImporter->importCamera ( camera );
 
         return true;
     }
@@ -658,18 +590,11 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeLight ( const COLLADAFW::Light* light )
     {
-        // Order: asset, scene graph, library nodes, others
-        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
+        if ( mParseStep == SECOND_PARSING )
         {
-            mLightRead = true;
-            return true;
+            // Import the data.
+            mLightImporter->importLight ( light );
         }
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        // Import the data.
-        mLightImporter->importLight ( light );
 
         return true;
     }
@@ -677,18 +602,11 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeImage ( const COLLADAFW::Image* image )
     {
-        // Order: asset, scene graph, library nodes, others
-        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
+        if ( mParseStep == SECOND_PARSING )
         {
-            mImageRead = true;
-            return true;
+            // Import the data.
+            mImageImporter->importImage ( image );
         }
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        // Import the data.
-        mImageImporter->importImage ( image );
 
         return true;
     }
@@ -696,18 +614,10 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeAnimation ( const COLLADAFW::Animation* animation )
     {
-        // Order: asset, scene graph, library nodes, others
-        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten ) 
+        if ( mParseStep == SECOND_PARSING )
         {
-            mAnimationRead = true;
-            return true;
+            mAnimationImporter->importAnimation ( animation );
         }
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        mAnimationImporter->importAnimation ( animation );
-        mAnimationsWritten = true;
 
         return true;
     }
@@ -715,16 +625,10 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeAnimationList ( const COLLADAFW::AnimationList* animationList )
     {
-        // Order: asset, scene graph, library nodes, others, animation list
-        if ( !mAssetWritten || !mSceneGraphWritten || !mLibraryNodesWritten || !mAnimationsWritten ) 
+        if ( mParseStep == SECOND_PARSING )
         {
-            return true;
+            getAnimationImporter ()->writeConnections ( animationList );
         }
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        getAnimationImporter ()->writeConnections ( animationList );
 
         return true;
     }

@@ -15,13 +15,13 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWPointerArray.h"
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWTypes.h"
-#include "COLLADAFWSceneGraphInstance.h"
+#include "COLLADAFWInstanceSceneGraph.h"
 
 
 namespace COLLADAFW
 {
 	/** Instantiates a geometry within a scene graph*/
-	class InstanceGeometry 	: public SceneGraphInstance
+	class InstanceGeometry 	: public InstanceSceneGraph
 	{
 	public:
 		/** Contains informations which set of texture coordinates is used by which texture, 

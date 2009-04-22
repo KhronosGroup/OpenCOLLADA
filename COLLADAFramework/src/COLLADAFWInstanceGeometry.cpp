@@ -56,13 +56,13 @@ namespace COLLADAFW
 	
     // ----------------------------------
 	InstanceGeometry::InstanceGeometry( UniqueId instanciatedGeometryId )
-		: SceneGraphInstance(instanciatedGeometryId)
+		: InstanceSceneGraph(instanciatedGeometryId)
 	{
 	}
 
     // ----------------------------------
 	InstanceGeometry::InstanceGeometry( const InstanceGeometry& pre )
-		: SceneGraphInstance(pre)
+		: InstanceSceneGraph(pre)
 		, mMaterialBindings()
 	{
 		pre.mMaterialBindings.cloneArray(mMaterialBindings);
