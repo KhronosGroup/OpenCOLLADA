@@ -404,6 +404,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLSceneLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLSidAddress.cpp"
 				>
 			</File>
@@ -571,6 +575,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLSaxParserErrorHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLSceneLoader.h"
 				>
 			</File>
 			<File

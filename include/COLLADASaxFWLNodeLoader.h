@@ -33,7 +33,8 @@ namespace COLLADASaxFWL
 	class NodeLoader : public FilePartLoader 
 	{
 	private:
-		/** Stack of nodes.*/
+		
+        /** Stack of nodes.*/
 		typedef std::stack<COLLADAFW::Node*> NodeStack;
 
 		/** Set of MaterialBindings*/
@@ -41,6 +42,8 @@ namespace COLLADASaxFWL
 
 		/** Set of TextureCoordinateBinding*/
 		typedef std::set<COLLADAFW::InstanceGeometry::TextureCoordinateBinding> TextureCoordinateBindingSet;
+
+    private:
 
 		/** Stack of nodes to traverse back in node hierarchy. Array and contents will be delete in destructor.*/
 		NodeStack mNodeStack;
@@ -100,6 +103,7 @@ namespace COLLADASaxFWL
 
 		/** This method handles the ending of a transformation independent of its type.*/
 		bool endTransformation();
+
 
 		/** Sax callback function for the beginning of nodes, as child of a node.*/
 		virtual bool begin__node( const node__AttributeData& attributeData );
