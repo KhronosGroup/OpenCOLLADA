@@ -17,6 +17,8 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAMaxStableHeaders.h"
 #include "COLLADAMaxAnimationAssigner.h"
+#include "COLLADAMaxMaterialCreator.h"
+#include "COLLADAMaxMultiMtl.h"
 
 #include "COLLADAFWTransformation.h"
 #include "COLLADAFWNode.h"
@@ -24,14 +26,15 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWRotate.h"
 
 
-#define SCALEXYZ_CONTROL_CLASS_ID     Class_ID(0x118f7c01,0xfeee238b)
 
 namespace COLLADAMax
 {
 
 	//------------------------------
-	AnimationAssigner::AnimationAssigner( DocumentImporter* documentImporter )
-		: ImporterBase(documentImporter)
+	AnimationAssigner::AnimationAssigner( DocumentImporter* documentImporter,
+		                                  const MaterialCreator& materialCreator)
+		: AnimationCreator(documentImporter)
+		, mMaterialCreator(materialCreator)
 	{
 	}
 
@@ -44,6 +47,9 @@ namespace COLLADAMax
 	bool AnimationAssigner::assign()
 	{
 		if ( !assignTransformationControllers() )
+			return false;
+
+		if ( !assignEffectParameterControllers() )
 			return false;
 
 		return true;
@@ -130,24 +136,24 @@ namespace COLLADAMax
 		}
 
 
-		Control* maxController = (Control*)createMaxObject( CTRL_SCALE_CLASS_ID, SCALEXYZ_CONTROL_CLASS_ID);;
+		Control* scaleController = createMaxScaleController();
 
 		if ( controllers[ SCALE_X ] )
 		{
-			maxController->AssignController( controllers[ SCALE_X ], 0 );
+			scaleController->AssignController( controllers[ SCALE_X ], 0 );
 		}
 
 		if ( controllers[ SCALE_Y ] )
 		{
-			maxController->AssignController( controllers[ SCALE_Y ], 1 );
+			scaleController->AssignController( controllers[ SCALE_Y ], 1 );
 		}
 
 		if ( controllers[ SCALE_Z ] )
 		{
-			maxController->AssignController( controllers[ SCALE_Z ], 2 );
+			scaleController->AssignController( controllers[ SCALE_Z ], 2 );
 		}
 
-		transformationController->SetScaleController( maxController );
+		transformationController->SetScaleController( scaleController );
 
 
 #if 0
@@ -210,16 +216,8 @@ namespace COLLADAMax
 		{
 			// Verify that this transformation is either animated or does an actual real transform.
 			const COLLADAFW::Transformation* transformation = transformations[t];
-			const COLLADAFW::UniqueId& animationListUniqueId = transformation->getAnimationList();
 
-			const COLLADAFW::AnimationList* animationList = 0;
-			if ( !animationListUniqueId.isValid() )
-			{
-				// the transform is not animated
-				continue;
-			}
-
-			animationList = getAnimationListByUniqueId( animationListUniqueId );
+			const COLLADAFW::AnimationList* animationList = getAnimationList( transformation );
 
 			if ( !animationList )
 			{
@@ -432,18 +430,17 @@ namespace COLLADAMax
 	}
 
 
+	//------------------------------
 	template<COLLADAFW::AnimationList::AnimationClass class_XYZ, 
 			 COLLADAFW::AnimationList::AnimationClass class_X,
 			 COLLADAFW::AnimationList::AnimationClass class_Y,
 			 COLLADAFW::AnimationList::AnimationClass class_Z>
-	bool AnimationAssigner::assign3DController( Bucket bucket_X, 
-												Bucket bucket_Y,
-												Bucket bucket_Z,
+	bool AnimationAssigner::assign3DController( int bucket_X, 
+												int bucket_Y,
+												int bucket_Z,
 												const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
 												Control** controllers)
 	{
-
-
 		for ( size_t j = 0, count = animationBindings.getCount(); j < count; ++j)
 		{
 			const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[j];
@@ -521,5 +518,258 @@ namespace COLLADAMax
 		}
 		return true;
 	}
+
+
+	//------------------------------
+	template<COLLADAFW::AnimationList::AnimationClass class_XYZW, 
+	   		 COLLADAFW::AnimationList::AnimationClass class_XYZ,
+			 COLLADAFW::AnimationList::AnimationClass class_X,
+			 COLLADAFW::AnimationList::AnimationClass class_Y,
+			 COLLADAFW::AnimationList::AnimationClass class_Z,
+		     COLLADAFW::AnimationList::AnimationClass class_W>
+	bool AnimationAssigner::assign4DController( int bucket_X, 
+												int bucket_Y,
+												int bucket_Z,
+												int bucket_W,
+												const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
+												Control** controllers)
+	{
+		for ( size_t j = 0, count = animationBindings.getCount(); j < count; ++j)
+		{
+			const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[j];
+			const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
+
+			switch (animationBinding.animationClass )
+			{
+			case class_X:
+				{
+					assert( maxControllerList.size() >= 1);
+					if ( maxControllerList.empty() )
+					{
+						break;
+					}
+					if ( controllers[bucket_X] )
+					{
+						//The x controller has already been set
+						break;
+					}
+					controllers[bucket_X] = maxControllerList[0];
+				}
+				break;
+			case class_Y:
+				{
+					assert( maxControllerList.size() >= 1);
+					if ( maxControllerList.empty() )
+					{
+						break;
+					}
+					if ( controllers[bucket_Y] )
+					{
+						//The y controller has already been set
+						break;
+					}
+					controllers[bucket_Y] = maxControllerList[0];
+				}
+				break;
+			case class_Z:
+				{
+					assert( maxControllerList.size() >= 1);
+					if ( maxControllerList.empty() )
+					{
+						break;
+					}
+					if ( controllers[bucket_Z] )
+					{
+						//The z controller has already been set
+						break;
+					}
+					controllers[bucket_Z] = maxControllerList[0];
+				}
+				break;
+			case class_W:
+				{
+					assert( maxControllerList.size() >= 1);
+					if ( maxControllerList.empty() )
+					{
+						break;
+					}
+					if ( controllers[bucket_W] )
+					{
+						//The z controller has already been set
+						break;
+					}
+					controllers[bucket_W] = maxControllerList[0];
+				}
+				break;
+			case class_XYZ:
+				{
+					assert( maxControllerList.size() >= 3);
+					if ( maxControllerList.size() < 3 )
+					{
+						break;
+					}
+
+					if ( controllers[bucket_X] || controllers[bucket_Y] || controllers[bucket_Z])
+					{
+						//A controller for at least one of the translates has already been set
+						break;
+					}
+
+					controllers[bucket_X] = maxControllerList[0];
+					controllers[bucket_Y] = maxControllerList[1];
+					controllers[bucket_Z] = maxControllerList[2];
+				}
+				break;
+			case class_XYZW:
+				{
+					assert( maxControllerList.size() >= 4);
+					if ( maxControllerList.size() < 4 )
+					{
+						break;
+					}
+
+					if ( controllers[bucket_X] || controllers[bucket_Y] || controllers[bucket_Z] || controllers[bucket_W])
+					{
+						//A controller for at least one of the translates has already been set
+						break;
+					}
+
+					controllers[bucket_X] = maxControllerList[0];
+					controllers[bucket_Y] = maxControllerList[1];
+					controllers[bucket_Z] = maxControllerList[2];
+					controllers[bucket_W] = maxControllerList[3];
+				}
+				break;
+			default:
+				return false;
+			}
+		}
+		return true;
+	}
+
+	//------------------------------
+	bool AnimationAssigner::assignEffectParameterControllers()
+	{
+		const MaterialCreator::MaterialIdentifierMaxMaterialMap& materialIdentifierMaxMaterialMap = mMaterialCreator.getMaterialIdentifierMaxMaterialMap();
+		MaterialCreator::MaterialIdentifierMaxMaterialMap::const_iterator it = materialIdentifierMaxMaterialMap.begin();
+
+		for ( ; it != materialIdentifierMaxMaterialMap.end(); ++it )
+		{
+			if ( !assignEffectParameterControllers( it->first.effectUniqueId, it->second ) )
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	//------------------------------
+	bool AnimationAssigner::assignEffectParameterControllers( const COLLADAFW::UniqueId& effectUniqueId, Mtl* maxMaterial)
+	{
+		const COLLADAFW::Effect* effect = getFWEffectByUniqueId(effectUniqueId);
+
+		if ( !effect )
+		{
+			// TODO handle error
+			return true;
+		}
+
+		const COLLADAFW::CommonEffectPointerArray& commonEffects = effect->getCommonEffects();
+
+		if ( commonEffects.empty() )
+		{
+			// there is no common effect, therefore nothing can be animated
+			return true;
+		}
+
+		// we import only the first 
+		const COLLADAFW::EffectCommon* commonEffect = commonEffects[0];
+
+		COLLADAFW::EffectCommon::ShaderType shaderType = commonEffect->getShaderType();
+
+		StdMat2* standardMaterial = (StdMat2*) maxMaterial;
+
+		// Retrieve the shader parameter blocks
+		Shader* materialShader = standardMaterial->GetShader();
+		IParamBlock2* shaderParameters = (IParamBlock2*) materialShader->GetReference(0);
+		IParamBlock2* extendedParameters = (IParamBlock2*) standardMaterial->GetReference(StandardMaterial::EXTENDED_PB_REF);
+
+		assignColorRGBAController( shaderParameters, StandardMaterial::shdr_diffuse, commonEffect->getDiffuse());
+		assignColorRGBAController( shaderParameters, StandardMaterial::shdr_self_illum_color, commonEffect->getEmission());
+
+		if ( shaderType != COLLADAFW::EffectCommon::SHADER_CONSTANT )
+		{
+			assignColorRGBAController( shaderParameters, StandardMaterial::shdr_ambient, commonEffect->getAmbient());
+		}
+
+		if ( shaderType == COLLADAFW::EffectCommon::SHADER_PHONG || shaderType == COLLADAFW::EffectCommon::SHADER_BLINN )
+		{
+			assignColorRGBAController( shaderParameters, StandardMaterial::shdr_specular, commonEffect->getSpecular());
+		}
+
+		return true;
+	}
+
+	//------------------------------
+	bool AnimationAssigner::assignColorRGBAController(IParamBlock2* entity, int pid, const COLLADAFW::ColorOrTexture& colorOrTexture)
+	{
+		if ( !colorOrTexture.isColor() )
+		{
+			// no color to animate
+			return true;
+		}
+
+		const COLLADAFW::Color& color = colorOrTexture.getColor();
+
+		const COLLADAFW::AnimationList* animationList = getAnimationList( &color );
+
+		if ( !animationList )
+		{
+			// color is not animated
+			return true;
+		}
+
+		int subAnimNum = entity->GetAnimNum(pid);
+		return assignColorRGBAController((Animatable*) entity, subAnimNum, animationList);
+	}
+
+	//------------------------------
+	bool AnimationAssigner::assignColorRGBAController( Animatable* entity, int pid, const COLLADAFW::AnimationList* animationList )
+	{
+		Control* maxController = createMaxColorRGBAController();
+
+		Control* maxControllers[4];
+
+		for ( size_t i = 0; i < 4; ++i)
+		{
+			maxControllers[i] = 0;
+		}
+		
+		assign4DController< COLLADAFW::AnimationList::COLOR_RGBA,
+							COLLADAFW::AnimationList::COLOR_RGB,
+							COLLADAFW::AnimationList::COLOR_R,
+							COLLADAFW::AnimationList::COLOR_G,
+							COLLADAFW::AnimationList::COLOR_B,
+							COLLADAFW::AnimationList::COLOR_A>( 0, 1, 2, 3, animationList->getAnimationBindings(), maxControllers );
+
+		for ( int i = 0; i < 3; ++i)
+		{
+			Control*& controller = maxControllers[i];
+			if ( controller )
+			{
+				maxController->AssignController( controller, i );
+			}
+		}
+
+		// Assign the controller to the animatable entity.
+		if ( !entity->AssignController(maxController, pid) )
+		{
+			// TODO handle error
+			int gg = 0;
+		}
+		return true;	
+	}
+
 
 } // namespace COLLADAMax

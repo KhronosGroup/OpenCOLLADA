@@ -519,7 +519,7 @@ namespace COLLADAMax
 		{
 			//				BOOL isAlphaTranslucency = effect->GetTransparencyMode() == FCDEffectStandard::A_ONE;
 			//				texture->SetAlphaAsMono(isAlphaTranslucency);
-			//				texture->SetAlphaAsRGB(!isAlphaTranslucency); // [glaforte 22-08-2006] Are both calls needed? This is a radio box in the UI.
+			//				texture->SetAlphaAsRGB(!isAlphaTranslucency); 
 		}
 
 		if (material->ClassID().PartA() == DMTL2_CLASS_ID || material->ClassID().PartA() == DMTL_CLASS_ID)

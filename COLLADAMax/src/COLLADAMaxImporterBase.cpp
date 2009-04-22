@@ -376,6 +376,24 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	const COLLADAFW::AnimationList* ImporterBase::getAnimationList( const COLLADAFW::Animatable* animatable )
+	{
+		if ( !animatable )
+		{
+			return 0;
+		}
+
+		const COLLADAFW::UniqueId& referencedAnimationListUniqueId = animatable->getAnimationList();
+
+		if ( !referencedAnimationListUniqueId.isValid() )
+		{
+			return 0;
+		}
+
+		return getAnimationListByUniqueId( referencedAnimationListUniqueId );
+	}
+
+	//------------------------------
 	const DocumentImporter::UniqueIdList& ImporterBase::getVertexColorObjects()
 	{
 		return mDocumentImporter->getVertexColorObjects();

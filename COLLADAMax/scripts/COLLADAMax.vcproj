@@ -2575,6 +2575,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxAnimationCreator.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxAnimationImporter.cpp"
 					>
 				</File>
@@ -2806,6 +2810,10 @@
 				>
 				<File
 					RelativePath="..\include\COLLADAMaxAnimationAssigner.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxAnimationCreator.h"
 					>
 				</File>
 				<File

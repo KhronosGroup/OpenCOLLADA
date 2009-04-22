@@ -47,7 +47,7 @@ namespace COLLADAMax
 			/** The unique id of the frame work effect this material has been created from.*/
 			COLLADAFW::UniqueId effectUniqueId;
 
-			/** Flags indication which slot uses a mac channel.*/
+			/** Flags indication which slot uses a max channel.*/
 			unsigned char slotFlags;
 
 			unsigned char ambientMapChannel;
@@ -67,7 +67,7 @@ namespace COLLADAMax
 		/** Maps all the framework effects already created a max material for, to the max 
 		material.*/
 		MaterialIdentifierMaxMaterialMap mMaterialIdentifierMaxMaterialMap;
-	
+
 	public:
 
         /** Constructor. */
@@ -98,6 +98,9 @@ namespace COLLADAMax
 		If the effect could not be resolved, null is returned.*/
 		const COLLADAFW::Effect* getEffect( const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding );
 
+		/** Returns the MaterialIdentifierMaxMaterialMap.*/
+		const MaterialIdentifierMaxMaterialMap& getMaterialIdentifierMaxMaterialMap() const { return mMaterialIdentifierMaxMaterialMap; }
+
 	private:
 
         /** Disable default copy ctor. */
@@ -115,7 +118,7 @@ namespace COLLADAMax
     	void createAndAssignTexture( Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::ColorOrTexture& (COLLADAFW::EffectCommon::*f)()const, int slot, unsigned char mapChannel);
 
 
-		/** Sets the vertex color flag for all nodes that use evrtex color.*/
+		/** Sets the vertex color flag for all nodes that use vertex color.*/
 		void setVertexColorFlag();
 	};
 

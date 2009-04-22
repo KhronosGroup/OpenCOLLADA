@@ -97,10 +97,11 @@ namespace COLLADAMax
 		if ( !createSceneGraph() )
 			return false;
 
-		if ( !createAndAssignMaterials() )
+		MaterialCreator materialCreator(this);
+		if ( !materialCreator.create() )
 			return false;
 
-		if ( !assignControllers() )
+		if ( !assignControllers(materialCreator) )
 			return false;
 
 		return true;
@@ -121,7 +122,7 @@ namespace COLLADAMax
 			if ( !classEntry )
 				return 0;
 
-			// This will force the loading of the specified plugin
+			// This will force the loading of the specified plug-in
 			classEntry->FullCD();
 
 			if ( !classEntry->IsLoaded() )
@@ -133,16 +134,9 @@ namespace COLLADAMax
 	}
 
 	//---------------------------------------------------------------
-	bool DocumentImporter::createAndAssignMaterials()
+	bool DocumentImporter::assignControllers( const MaterialCreator& materialCreator ) 
 	{
-		MaterialCreator materialCreator(this);
-		return materialCreator.create();
-	}
-
-	//---------------------------------------------------------------
-	bool DocumentImporter::assignControllers()
-	{
-		AnimationAssigner animationAssigner(this);
+		AnimationAssigner animationAssigner(this, materialCreator);
 		return animationAssigner.assign();
 	}
 

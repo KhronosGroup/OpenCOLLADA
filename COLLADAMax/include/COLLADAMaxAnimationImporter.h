@@ -19,24 +19,20 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADAMAX_ANIMATIONIMPORTER_H__
 
 #include "COLLADAMaxPrerequisites.h"
-#include "COLLADAMaxImporterBase.h"
+#include "COLLADAMaxAnimationCreator.h"
 
 #include "COLLADAFWAnimationCurve.h"
 
 
 class Control;
 
-namespace COLLADAFW
-{
-	class Animation;
-};
 
 
 namespace COLLADAMax
 {
 
 	/** Imports an animation into the max scene */
-	class AnimationImporter : public ImporterBase 
+	class AnimationImporter : public AnimationCreator 
 		{
 	private:
 		/** The animation to import.*/
@@ -59,9 +55,6 @@ namespace COLLADAMax
 		/** Creates a max float controller for dimension @a dimension of @a animationCurve and fills in the keys and values.*/
 		Control* createAndFillMaxFloatController( COLLADAFW::AnimationCurve* animationCurve, size_t dimension);
 
-		/** Creates an empty max float controller for of @a animationCurve. If @a isLinear is true
-		@a maxController a linear float controller is created, otherwise a hybrid float controller.*/
-		Control* createMaxFloatController( COLLADAFW::AnimationCurve* animationCurve, bool isLinear);
 
 		/** Fills @a maxController with the values of @a dimension'th dimension of @a animationCurve. If @a isLinear is true
 		@a maxController must be a linear float controller, otherwise a hybrid float controller.*/

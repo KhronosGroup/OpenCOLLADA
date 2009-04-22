@@ -49,6 +49,10 @@ namespace COLLADAFW
 
 namespace COLLADAMax
 {
+
+	class MaterialCreator;
+
+
 	class DocumentImporter 	: COLLADAFW::IWriter
 	{
 	public:
@@ -331,11 +335,8 @@ namespace COLLADAMax
         /** Disable default assignment operator. */
 		const DocumentImporter& operator= ( const DocumentImporter& pre );
 
-		/** Creates all the materials that are instantiated/referenced in the scene.*/
-		bool createAndAssignMaterials();
-
 		/** Assigns the imported controllers to the corresponding objects.*/
-		bool assignControllers();
+		bool assignControllers( const MaterialCreator& materialCreator );
 
 		/** Creates the scene graph.*/
 		bool createSceneGraph();

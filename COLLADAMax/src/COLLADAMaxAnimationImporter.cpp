@@ -40,7 +40,7 @@ namespace COLLADAMax
 
     //------------------------------
 	AnimationImporter::AnimationImporter( DocumentImporter* documentImporter, const COLLADAFW::Animation* animation )
-		: ImporterBase(documentImporter)
+		: AnimationCreator(documentImporter)
 		, mAnimation(animation)
 		, mUnitConversionFunctors(getUnitConversionFunctors())
 	{
@@ -99,20 +99,6 @@ namespace COLLADAMax
 		IKeyControl* maxKeyController = GetKeyControlInterface( maxController );
 
 		fillMaxFloatController( maxKeyController, animationCurve, dimension, isLinear);
-
-		return maxController;
-	}
-
-	//------------------------------
-	Control* AnimationImporter::createMaxFloatController( COLLADAFW::AnimationCurve* animationCurve, bool isLinear )
-	{
-		Class_ID controllerClassID(isLinear ? LININTERP_FLOAT_CLASS_ID : HYBRIDINTERP_FLOAT_CLASS_ID, 0);
-		Control* maxController = (Control*)createMaxObject( CTRL_FLOAT_CLASS_ID, controllerClassID);
-
-		// TODO
-		// Set the out-of-range types.
-		//maxController->SetORT(ToORT(curve->GetPreInfinity()), ORT_BEFORE);
-		//maxController->SetORT(ToORT(curve->GetPostInfinity()), ORT_AFTER);
 
 		return maxController;
 	}

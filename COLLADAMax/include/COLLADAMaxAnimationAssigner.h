@@ -19,16 +19,17 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADAMAX_ANIMATIONASSIGNER_H__
 
 #include "COLLADAMaxPrerequisites.h"
-#include "COLLADAMaxImporterBase.h"
+#include "COLLADAMaxAnimationCreator.h"
 
 #include "COLLADAFWTransformation.h"
 #include "COLLADAFWAnimationList.h"
 
 namespace COLLADAMax
 {
+	class MaterialCreator;
 
     /** Assigns all the controllers to the corresponding animatables. */
-	class AnimationAssigner : public ImporterBase 
+	class AnimationAssigner : public AnimationCreator 
 	{
 	private:
 
@@ -51,11 +52,14 @@ namespace COLLADAMax
 			BUCKET_COUNT 
 		};
 
+	private:
+		const MaterialCreator& mMaterialCreator;
 	
 	public:
 
         /** Constructor. */
-		AnimationAssigner( DocumentImporter* documentImporter );
+		AnimationAssigner( DocumentImporter* documentImporter, 
+			               const MaterialCreator& materialCreator );
 
         /** Destructor. */
 		virtual ~AnimationAssigner();
@@ -64,10 +68,6 @@ namespace COLLADAMax
 		@return True on success, false otherwise.*/
 		bool assign();
 
-		/** Assigns all transformation controllers.*/
-		bool assignTransformationControllers();
-
-		bool assignTransformationController( const COLLADAFW::Node* node, INode* iNode );
 
 	private:
 
@@ -76,18 +76,48 @@ namespace COLLADAMax
 
         /** Disable default assignment operator. */
 		const AnimationAssigner& operator= ( const AnimationAssigner& pre );
-		
+
+		/** Assigns all transformation controllers.*/
+		bool assignTransformationControllers();
+
+		/** Assigns the animations referenced by the transformations in @a node to the transformations in @a iNode.*/
+		bool assignTransformationController( const COLLADAFW::Node* node, INode* iNode );
+
+		/** Assigns all controllers of animated effect parameters.*/
+		bool assignEffectParameterControllers();
+
 		bool buckedTransforms( const COLLADAFW::TransformationPointerArray& transformations, Control** controllers );
 		
 		template<COLLADAFW::AnimationList::AnimationClass class_XYZ, 
 				 COLLADAFW::AnimationList::AnimationClass class_X,
 				 COLLADAFW::AnimationList::AnimationClass class_Y,
 				 COLLADAFW::AnimationList::AnimationClass class_Z>
-		bool assign3DController( Bucket bucket_X, 
-							  	 Bucket bucket_Y,
-								 Bucket bucket_Z,
+		bool assign3DController( int bucket_X, 
+							  	 int bucket_Y,
+								 int bucket_Z,
 							     const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
 								 Control** controllers);
+		
+		
+		template<COLLADAFW::AnimationList::AnimationClass class_XYZW, 
+	  			 COLLADAFW::AnimationList::AnimationClass class_XYZ,
+				 COLLADAFW::AnimationList::AnimationClass class_X,
+				 COLLADAFW::AnimationList::AnimationClass class_Y,
+				 COLLADAFW::AnimationList::AnimationClass class_Z,
+				 COLLADAFW::AnimationList::AnimationClass class_W>
+		bool assign4DController( int bucket_X, 
+			 					 int bucket_Y,
+								 int bucket_Z,
+								 int bucket_W,
+								 const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
+								 Control** controllers);
+
+		
+		bool assignEffectParameterControllers( const COLLADAFW::UniqueId& effectUniqueId, Mtl* maxMaterial);
+	
+		bool assignColorRGBAController(IParamBlock2* entity, int pid, const COLLADAFW::ColorOrTexture& colorOrTexture);
+
+		bool assignColorRGBAController( Animatable* entity, int pid, const COLLADAFW::AnimationList* animationList);
 	};
 
 } // namespace COLLADAMAX

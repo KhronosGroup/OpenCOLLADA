@@ -227,8 +227,11 @@ namespace COLLADAMax
 		An empty list is returned, if no controller has been created from the animation. */
 		const DocumentImporter::MaxControllerList& getMaxControllerListByAnimationUniqueId( const COLLADAFW::UniqueId& animationUniqueId) const;
 
-		/** Retrieves the animation list with @a uniqueId. If not found, an empty AnimationList is returned.*/
+		/** Retrieves the animation list with @a uniqueId. If not found, 0 is returned.*/
 		const COLLADAFW::AnimationList* getAnimationListByUniqueId(const COLLADAFW::UniqueId& animationListUniqueId) const ;
+
+		/** Retrieves the animation list referenced by @a animatable. If not found, 0 is returned.*/
+		const COLLADAFW::AnimationList* getAnimationList( const COLLADAFW::Animatable* animatable );
 
 		/** Functors used to convert values from frame work units into max units.*/
 		const DocumentImporter::UnitConversionFunctors& getUnitConversionFunctors() const { return mDocumentImporter->getUnitConversionFunctors(); }
