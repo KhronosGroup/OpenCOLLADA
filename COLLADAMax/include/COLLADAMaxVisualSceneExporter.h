@@ -103,6 +103,9 @@ namespace COLLADAMax
 
 
 	private:
+		/** Exports the node that instantiates the environment ambient color.*/
+		void exportEnvironmentAmbientLightNode();
+
 		/** Exports all the nodes in @a node and all its child nodes.*/
         void doExport ( ExportNode* exportNode );
 
@@ -115,7 +118,6 @@ namespace COLLADAMax
 		void fillInstanceMaterialList(COLLADASW::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode);
 
 		void calculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm);
-
 
     };
 

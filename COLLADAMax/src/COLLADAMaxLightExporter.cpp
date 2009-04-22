@@ -105,6 +105,9 @@ namespace COLLADAMax
 	const String LightExporter::SHADOW_PROJ_COLOR_MULT = "shadow_color_mult";
 	const String LightExporter::LIGHT_AFFECTS_SHADOW = "light_affects_shadow";
 
+	const String LightExporter::ENVIRONMENT_AMBIENT_LIGHT_NAME = "Environment Ambient Light";
+	const String LightExporter::ENVIRONMENT_AMBIENT_LIGHT_ID = "EnvironmentAmbientLight";
+
 
     //---------------------------------------------------------------
     LightExporter::LightExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
@@ -126,11 +129,24 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void LightExporter::doExport()
 	{
-		doExport ( mExportSceneGraph->getRootExportNode() );
+		exportEnvironmentAmbientLight();
+		doExport( mExportSceneGraph->getRootExportNode() );
 		closeLibrary();
 	}
 
+	//---------------------------------------------------------------
+	void LightExporter::exportEnvironmentAmbientLight()
+	{
+		// Add the ambient lighting from the environment settings
+		Point3 ambientColor = mDocumentExporter->getMaxInterface()->GetAmbient(0, FOREVER);
 
+		COLLADASW::Color ambientLightColor = EffectExporter::maxColor2Color( ambientColor );
+
+		COLLADASW::AmbientLight ambientLight(COLLADASW::LibraryLights::mSW, ENVIRONMENT_AMBIENT_LIGHT_ID, 1.0, ENVIRONMENT_AMBIENT_LIGHT_NAME);
+
+		ambientLight.setColor( ambientLightColor );
+		addLight( ambientLight );
+	}
 
 	//---------------------------------------------------------------
 	void LightExporter::doExport( ExportNode* exportNode )
@@ -140,7 +156,7 @@ namespace COLLADAMax
 
 		size_t numberOfChildren = exportNode->getNumberOfChildren();
 		for ( size_t i = 0; i < numberOfChildren; ++i )
-			doExport ( exportNode->getChild ( i ) );
+			doExport( exportNode->getChild ( i ) );
 	}
 
 

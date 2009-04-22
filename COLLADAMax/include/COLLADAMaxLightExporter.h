@@ -152,6 +152,8 @@ namespace COLLADAMax
 		static const String SHADOW_PROJ_COLOR_MULT;
 		static const String LIGHT_AFFECTS_SHADOW;
 
+		static const String ENVIRONMENT_AMBIENT_LIGHT_NAME;
+		static const String ENVIRONMENT_AMBIENT_LIGHT_ID;
 
 
 	private:
@@ -175,6 +177,8 @@ namespace COLLADAMax
 		static String getLightId( const ExportNode& exportNode );
 
     private:
+		/** Exports the environment ambient color.*/
+		void exportEnvironmentAmbientLight();
 
 		/** Exports all the lights in @a exportNode and all its child nodes.*/
 		void doExport ( ExportNode* exportNode );
@@ -188,7 +192,6 @@ namespace COLLADAMax
 
 		/** Exports the Texmap @a map, i.e. adds it to \<library_images\>*/
 		String exportTexMap(Texmap *map);
-
 
 	};
 

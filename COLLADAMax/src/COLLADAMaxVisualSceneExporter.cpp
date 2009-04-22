@@ -74,10 +74,10 @@ namespace COLLADAMax
 	};
 
 	//---------------------------------------------------------------
-	VisualSceneExporter::VisualSceneExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, const String & sceneId, DocumentExporter * documentExporter )
-		: COLLADASW::LibraryVisualScenes ( streamWriter ),
+	VisualSceneExporter::VisualSceneExporter( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, const String & sceneId, DocumentExporter * documentExporter )
+		: COLLADASW::LibraryVisualScenes( streamWriter ),
 		mExportSceneGraph ( exportSceneGraph ),
-		mEffectMap ( documentExporter->getEffectExporter() ->getEffectMap() ),
+		mEffectMap ( documentExporter->getEffectExporter()->getEffectMap() ),
 		mVisualSceneId ( sceneId ),
 		mDocumentExporter ( documentExporter )
 	{}
@@ -85,9 +85,23 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void VisualSceneExporter::doExport()
 	{
-		openVisualScene ( mVisualSceneId );
-		doExport ( mExportSceneGraph->getRootExportNode());
+		openVisualScene( mVisualSceneId );
+		exportEnvironmentAmbientLightNode();
+		doExport( mExportSceneGraph->getRootExportNode());
 		closeLibrary();
+	}
+
+	//---------------------------------------------------------------
+	void VisualSceneExporter::exportEnvironmentAmbientLightNode()
+	{
+		COLLADASW::Node colladaNode( mSW );
+		colladaNode.setNodeName( LightExporter::ENVIRONMENT_AMBIENT_LIGHT_NAME );
+		colladaNode.start();
+
+		COLLADASW::InstanceLight instanceLight(mSW, "#" + LightExporter::ENVIRONMENT_AMBIENT_LIGHT_ID );
+		instanceLight.add();
+
+		colladaNode.end();
 	}
 
 	//---------------------------------------------------------------
@@ -96,16 +110,16 @@ namespace COLLADAMax
 		if ( !exportNode->getIsInVisualScene() )
 			return;
 
-		COLLADASW::Node colladaNode ( mSW );
+		COLLADASW::Node colladaNode( mSW );
 
 		INode *node = exportNode->getINode();
 
-		colladaNode.setNodeId ( getNodeId(*exportNode) );
+		colladaNode.setNodeId( getNodeId(*exportNode) );
 
 		if ( exportNode->hasSid() )
 			colladaNode.setNodeSid(exportNode->getSid());
 
-		colladaNode.setNodeName ( COLLADASW::Utils::checkNCName ( NativeString(node->GetName()) ) );
+		colladaNode.setNodeName( COLLADASW::Utils::checkNCName( NativeString(node->GetName()) ) );
 
 		if ( exportNode->getIsJoint() )
 		{
