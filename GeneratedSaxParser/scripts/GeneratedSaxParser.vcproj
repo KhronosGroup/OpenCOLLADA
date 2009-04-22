@@ -335,10 +335,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\GeneratedSaxParserElements.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\GeneratedSaxParserIErrorHandler.h"
 				>
 			</File>
