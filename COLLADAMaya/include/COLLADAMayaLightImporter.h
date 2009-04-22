@@ -31,9 +31,7 @@ namespace COLLADAMaya
     {
     private:
 
-        // TODO LightLinker
-
-        /** The standard name for camera without name. */
+        /** The standard name for a light without name. */
         static const String LIGHT_NAME;
 
         /** The name of maya's default light list and set. */

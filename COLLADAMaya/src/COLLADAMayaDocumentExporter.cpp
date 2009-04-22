@@ -241,8 +241,8 @@ namespace COLLADAMaya
                          + ";\nexportNormals=" + ExportOptions::exportNormals() + ";exportTexCoords=" + ExportOptions::exportTexCoords()
                          + ";\nexportVertexColors=" + ExportOptions::exportVertexColors()
                          + ";exportVertexColorsAnimation=" + ExportOptions::exportVertexColorAnimations()
-//                          + ";exportTangents=" + ExportOptions::exportTangents()
-//                          + ";\nexportTexTangents=" + ExportOptions::exportTexTangents() 
+                         + ";exportTangents=" + ExportOptions::exportTangents()
+                         + ";\nexportTexTangents=" + ExportOptions::exportTexTangents() 
                          + ";\nexportConstraints=" + ExportOptions::exportConstraints() + ";exportPhysics=" + ExportOptions::exportPhysics() 
                          + ";\nexportXRefs=" + ExportOptions::exportXRefs() + ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs() 
                          + ";\ncameraXFov=" + ExportOptions::cameraXFov() + ";cameraYFov=" + ExportOptions::cameraYFov();

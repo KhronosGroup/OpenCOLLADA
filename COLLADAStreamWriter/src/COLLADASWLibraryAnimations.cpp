@@ -65,13 +65,13 @@ namespace COLLADASW
     {}
 
     //---------------------------------------------------------------
-    void LibraryAnimations::openAnimation ( const String & id, const String & name )
+    void LibraryAnimations::openAnimation ( const String& animationId, const String& animationName )
     {
         // Open the tag <library_animations> if it is not already open
         openLibrary();
 
         Animation* animation = new Animation ( mSW );
-        animation->openAnimation ( id, name );
+        animation->openAnimation ( animationId, animationName );
 
         mOpenAnimations.push_back ( animation );
     }

@@ -19,6 +19,7 @@
 #include "COLLADAMayaLightExporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaAnimationExporter.h"
+#include "COLLADAMayaBaseImporter.h"
 
 #include <maya/MFnLight.h>
 #include <maya/MFnNonAmbientLight.h>
@@ -103,8 +104,24 @@ namespace COLLADAMaya
         MFnLight lightFn(lightNode, &status); CHECK_STAT(status);
         if (status != MStatus::kSuccess) return false;
 
-        // Generate a COLLADA id for the new light object
-        String lightId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        // Generate a COLLADA id for the new object
+        String lightId;
+        
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue;
+        DagHelper::getPlugValue ( lightNode, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != "" )
+        {
+            // Generate a valid collada name, if necessary.
+            lightId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+        }
+        else
+        {
+            // Generate a COLLADA id for the new object
+            lightId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        }
+        // Make the id unique.
+        lightId = mLightIdList.addId ( lightId );
 
         // Get a pointer to the stream writer.
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();

@@ -20,6 +20,7 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaExportOptions.h"
+#include "COLLADAMayaBaseImporter.h"
 
 #include "Math/COLLADABUMathUtils.h"
 
@@ -186,13 +187,30 @@ namespace COLLADAMaya
     {
         // Retrieve the texture filename
         MFnDependencyNode dgFn ( texture );
-        MString mayaName = dgFn.name(), mayaFileName;
+        MString mayaName = dgFn.name();
         MPlug filenamePlug = dgFn.findPlug ( ATTR_FILE_TEXTURE_NAME );
 
-        // Convert the image name
-        String colladaImageId = DocumentExporter::mayaNameToColladaName ( mayaName );
+        // Generate a COLLADA id for the new light object
+        String colladaImageId;
+
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue;
+        DagHelper::getPlugValue ( texture, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != "" )
+        {
+            // Generate a valid collada name, if necessary.
+            colladaImageId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+        }
+        else
+        {
+            // Generate a COLLADA id for the new light object
+            colladaImageId = DocumentExporter::mayaNameToColladaName ( mayaName );
+        }
+        // Make the id unique.
+        colladaImageId = mImageIdList.addId ( colladaImageId );
 
         // Get the maya filename with the path to the file.
+        MString mayaFileName;
         filenamePlug.getValue ( mayaFileName );
         if ( mayaFileName.length () == 0 ) return NULL;
         String sourceFile = mayaFileName.asChar ();
@@ -267,8 +285,7 @@ namespace COLLADAMaya
         }
 
         // Create a new image structure
-        COLLADASW::Image* colladaImage = new COLLADASW::Image (
-            fullFileNameURI, colladaImageId, colladaImageId );
+        COLLADASW::Image* colladaImage = new COLLADASW::Image ( fullFileNameURI, colladaImageId, colladaImageId );
 
         // Add this texture to our list of exported images
         mExportedImageMap[ fullFileName ] = colladaImage;

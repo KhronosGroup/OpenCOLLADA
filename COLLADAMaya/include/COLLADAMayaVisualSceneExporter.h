@@ -20,10 +20,12 @@
 #include "COLLADASWLibraryVisualScenes.h"
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWNode.h"
+#include "COLLADASWInstanceMaterial.h"
 
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneElement.h"
-#include "COLLADASWInstanceMaterial.h"
+
+#include "COLLADABUIDList.h"
 
 #include <maya/MDagPath.h>
 #include <maya/MFnTransform.h>
@@ -48,6 +50,11 @@ namespace COLLADAMaya
     {
 
     private:
+
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList mNodeIdList;
 
         /** Flag, if the current node is a joint. */
         bool mIsJoint;

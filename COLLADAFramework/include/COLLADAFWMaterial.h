@@ -25,6 +25,11 @@ namespace COLLADAFW
 	{
 	private:
 	
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
 		/** The unique id of the effect instantiated in this material.*/
 		UniqueId mInstantiatedEffect;
 
@@ -38,6 +43,16 @@ namespace COLLADAFW
 
         /** Destructor. */
 		virtual ~Material ();
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
         /** The text string name of this element. Optional. */
         const String& getName () const { return mName; }

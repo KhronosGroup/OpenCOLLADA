@@ -21,6 +21,10 @@
 namespace COLLADAMaya
 {
 
+    /** The standard name for the collada id attribute. */
+    const String BaseImporter::COLLADA_ID_ATTRIBUTE_NAME = "colladaId";
+
+
     //-----------------------------
     double BaseImporter::toLinearUnit ( const double val )
     {

@@ -31,6 +31,11 @@ namespace COLLADASaxFWL
 
 	private:
 
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
         /** Pretty-print name for this animation. Optional. */
         String mName; 
 
@@ -51,11 +56,6 @@ namespace COLLADASaxFWL
 		to parse a sampler. This allows to not store tangents, if set to false.*/
 		bool mCurrentAnimationCurveRequiresTangents;
 
-
-	public:
-		/** Determines the interpolation with @a name.*/
-		static COLLADAFW::AnimationCurve::InterpolationType getInterpolationTypeByString( const ParserString& string);
-
 	public:
 
         /** Constructor. */
@@ -68,13 +68,14 @@ namespace COLLADASaxFWL
 		If it could not be found, an invalid Unique id is returned.*/
 		AnimationInfo* getAnimationInfoBySamplerId( const String& samplerId);
 
+        /** Determines the interpolation with @a name.*/
+        static COLLADAFW::AnimationCurve::InterpolationType getInterpolationTypeByString( const ParserString& string);
 
 		/** Cleans up everything and gives control to calling file part loader.*/
 		bool end__library_animations();
 
 		bool begin__source( const source__AttributeData& attributes );
 
-		//------------------------------
 		bool end__source();
 
 		/** .*/
@@ -103,10 +104,17 @@ namespace COLLADASaxFWL
 		virtual bool end__Name_array();
 		virtual bool data__Name_array( const ParserString* data, size_t length );
 
-
-
-
 	private:
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
         /** Pretty-print name for this animation. Optional. */
         const COLLADAFW::String& getName () const { return mName; }

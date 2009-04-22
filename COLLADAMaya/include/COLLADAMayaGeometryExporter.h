@@ -51,11 +51,13 @@ namespace COLLADAMaya
 
     private:
 
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList mGeometryIdList;
+
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
-
-        /** List of unique meshIds from the already exported geometries. */
-        COLLADABU::IDList mExportedGeometries;
 
         /**
         * Holds all the polygon sources of the geometry of the current mesh.

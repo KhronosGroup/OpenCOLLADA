@@ -23,6 +23,8 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaControllerExporter.h"
+#include "COLLADAMayaBaseImporter.h"
+
 #include <algorithm>
 
 #include <maya/MItDependencyNodes.h>
@@ -201,10 +203,29 @@ namespace COLLADAMaya
         MFnMesh fnMesh ( meshNode, &status );
         if ( status != MStatus::kSuccess ) return false;
 
-        // Create the unique ID
-//        String meshId1 = mDocumentExporter->dagPathToColladaId( dagPath );
-        String meshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
+        // Generate a COLLADA id for the new object.
+        String meshId;
         
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue;
+        DagHelper::getPlugValue ( meshNode, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != "" )
+        {
+            // Generate a valid collada name, if necessary.
+            meshId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+        }
+        else
+        {
+            // Generate a COLLADA id for the new object
+            meshId = mDocumentExporter->dagPathToColladaId ( dagPath );
+            //meshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
+        }
+        // Make the id unique.
+        meshId = mGeometryIdList.addId ( meshId );
+
+        // Set the node id.
+        sceneElement->setNodeId ( meshId );
+
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();
 
@@ -218,10 +239,6 @@ namespace COLLADAMaya
 // 
 //         // Push the geometry in the list of exported geometries
 //         mExportedGeometries.push_back ( meshId );
-
-        // Set a new mesh id in the list of unique exported mesh geometries.
-        meshId = mExportedGeometries.addId ( meshId );
-        sceneElement->setNodeId ( meshId );
 
         // Write the mesh data
         return exportMesh ( fnMesh, meshId, meshName );

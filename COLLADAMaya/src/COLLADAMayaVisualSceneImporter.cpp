@@ -124,6 +124,17 @@ namespace COLLADAMaya
         // Create the node object (joint or node)
         MayaDM::Transform* transformNode = createMayaNode ( node, nodeName, parentNodeName );
 
+        // Get the current maya ascii file to write the data.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // Add the original id attribute.
+        String colladaId = node->getOriginalId ();
+        if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+        {
+            MayaDM::addAttr ( file, nodeName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+            MayaDM::setAttr ( file, nodeName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+        }
+
         // Import the transformations.
         importTransformations ( node, transformNode );
 

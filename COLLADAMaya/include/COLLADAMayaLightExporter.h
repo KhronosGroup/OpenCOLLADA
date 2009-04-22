@@ -32,6 +32,11 @@ namespace COLLADAMaya
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
 
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList mLightIdList;
+
     public:
         /**
         * @param streamWriter The stream the output will be written to

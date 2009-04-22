@@ -18,10 +18,15 @@
 #include <MayaDMPlace2dTexture.h>
 #include <MayaDMPlace3dTexture.h>
 #include <MayaDMDefaultTextureList.h>
+#include <MayaDMCommands.h>
 
 
 namespace COLLADAMaya
 {
+
+    const String EffectImporter::COLLADA_EFFECT_ID_ATTRIBUTE_NAME = "colladaEffectId";
+    const String EffectImporter::COLLADA_MATERIAL_ID_ATTRIBUTE_NAME = "colladaMaterialId";
+    const String EffectImporter::COLLADA_EFFECT_COMMON_ID_ATTRIBUTE_NAME = "colladaEffectCommonId";
 
     const String EffectImporter::EFFECT_NAME = "Effect";
     const String EffectImporter::PLACE_2D_TEXTURE_NAME = "place2dTexture";
@@ -71,15 +76,22 @@ namespace COLLADAMaya
         // Create the maya effect in depend on the shader type.
         const COLLADAFW::CommonEffectPointerArray& commonEffects = effect->getCommonEffects ();
         size_t numCommonEffects = commonEffects.getCount ();
-        for ( size_t i=0; i<numCommonEffects; ++i )
+        if ( numCommonEffects > 1 )
         {
-            COLLADAFW::EffectCommon* commonEffect = commonEffects [i];
+            MGlobal::displayWarning ( "Just one common effect can be imported!" );
+        }
+        if ( numCommonEffects > 0 )
+        {
+            for ( size_t i=0; i<1; ++i )
+            {
+                COLLADAFW::EffectCommon* commonEffect = commonEffects [i];
 
-            // Import shader data by type.
-            importShaderData ( effect, commonEffect );
+                // Import shader data by type.
+                importShaderData ( effect, commonEffect );
 
-            // Create the texture placement and push it to the image in a map.
-            importTexturePlacement ( effect, commonEffect );
+                // Create the texture placement and push it to the image in a map.
+                importTexturePlacement ( effect, commonEffect );
+            }
         }
 
         return true;
@@ -90,36 +102,72 @@ namespace COLLADAMaya
         const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
+        String effectName = "";
+
         const COLLADAFW::EffectCommon::ShaderType& shaderType = commonEffect->getShaderType ();
         switch ( shaderType )
         {
         case COLLADAFW::EffectCommon::SHADER_BLINN:
-            importBlinnShader ( effect, commonEffect );
+            effectName = importBlinnShader ( effect, commonEffect );
             break;
         case COLLADAFW::EffectCommon::SHADER_CONSTANT:
             // Import as a lambert shader.
-            importLambertShader ( effect, commonEffect );
+            effectName = importLambertShader ( effect, commonEffect );
             break;
         case COLLADAFW::EffectCommon::SHADER_PHONG:
-            importPhongShader ( effect, commonEffect );
+            effectName = importPhongShader ( effect, commonEffect );
             break;
         case COLLADAFW::EffectCommon::SHADER_LAMBERT:
-            importLambertShader ( effect, commonEffect );
+            effectName = importLambertShader ( effect, commonEffect );
             break;
         case COLLADAFW::EffectCommon::SHADER_UNKNOWN:
         default:
             // Import as a lambert shader.
             MGlobal::displayWarning ( "Unknown shader type!");
-            importLambertShader ( effect, commonEffect );
+            effectName = importLambertShader ( effect, commonEffect );
             break;
+        }
+
+        // Add the original collada ids to the new maya effect object.
+        if ( !COLLADABU::Utils::equals ( effectName, COLLADABU::Utils::EMPTY_STRING ) )
+        {
+            FILE* file = getDocumentImporter ()->getFile ();
+
+            // Add the original effect id attribute.
+            String colladaEffectId = effect->getOriginalId ();
+            if ( !COLLADABU::Utils::equals ( colladaEffectId, "" ) )
+            {
+                MayaDM::addAttr ( file, effectName, COLLADA_EFFECT_ID_ATTRIBUTE_NAME, "", "string" );
+                MayaDM::setAttr ( file, effectName, COLLADA_EFFECT_ID_ATTRIBUTE_NAME, "", "string", colladaEffectId );
+            }
+
+            // TODO
+            // Add the original id attribute of the material.
+//             String colladaMaterialId = material->getOriginalId ();
+//             if ( !COLLADABU::Utils::equals ( colladaMaterialId, "" ) )
+//             {
+//                 MayaDM::addAttr ( file, effectName, COLLADA_MATERIAL_ID_ATTRIBUTE_NAME, "", "string" );
+//                 MayaDM::setAttr ( file, effectName, COLLADA_MATERIAL_ID_ATTRIBUTE_NAME, "", "string", colladaMaterialId );
+//             }
+
+            // Add the original id attribute of the effect common.
+            String colladaEffectCommonId = commonEffect->getOriginalId ();
+            if ( !COLLADABU::Utils::equals ( colladaEffectCommonId, "" ) )
+            {
+                MayaDM::addAttr ( file, effectName, COLLADA_EFFECT_COMMON_ID_ATTRIBUTE_NAME, "", "string" );
+                MayaDM::setAttr ( file, effectName, COLLADA_EFFECT_COMMON_ID_ATTRIBUTE_NAME, "", "string", colladaEffectCommonId );
+            }
         }
     }
 
     //------------------------------
-    void EffectImporter::importBlinnShader ( 
+    String EffectImporter::importBlinnShader ( 
         const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
+        // TODO Get the material, which references this effect.
+        //getDocumentImporter ()->getMaterialImporter ()->f
+
         // Get the effect name.
         String effectName = effect->getName ();
         if ( COLLADABU::Utils::equals ( effectName, COLLADABU::Utils::EMPTY_STRING ) )
@@ -143,10 +191,12 @@ namespace COLLADAMaya
 
         // Push it into the map.
         appendEffect ( effectId, blinn );
+
+        return effectName;
     }
 
     //------------------------------
-    void EffectImporter::importPhongShader ( 
+    String EffectImporter::importPhongShader ( 
         const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
@@ -173,10 +223,12 @@ namespace COLLADAMaya
 
         // Push it into the map.
         appendEffect ( effectId, phong );
+
+        return effectName;
     }
 
     //------------------------------
-    void EffectImporter::importLambertShader ( 
+    String EffectImporter::importLambertShader ( 
         const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
@@ -201,6 +253,8 @@ namespace COLLADAMaya
 
         // Push it into the map.
         appendEffect ( effectId, lambert );
+
+        return effectName;
     }
 
     // --------------------------

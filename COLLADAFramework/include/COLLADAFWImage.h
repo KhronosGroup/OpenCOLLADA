@@ -44,7 +44,13 @@ namespace COLLADAFW
 		typedef ArrayPrimitiveType<char> CharacterArray;
 
 	private:
-		/** The source type of the image. */
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
+        /** The source type of the image. */
 		SourceType mSourceType;
 
 		/** The name of the image*/
@@ -81,7 +87,6 @@ namespace COLLADAFW
 		// Disable until we really need it to avoid problems with copy/assignemnet operators
 		//CharacterArray mData;
 
-
 	public:
 
 		/** @param objectId The object id of the image.*/
@@ -89,6 +94,16 @@ namespace COLLADAFW
 
         /** Destructor. */
         virtual ~Image();
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
 		/** Returns the source type of the image. */
 		SourceType getSourceType() const { return mSourceType; }

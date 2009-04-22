@@ -193,9 +193,19 @@ namespace COLLADAMaya
             break;
         }
 
+        // Add the original id attribute.
+        String colladaId = light->getOriginalId ();
+        if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+        {
+            MayaDM::addAttr ( file, lightName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+            MayaDM::setAttr ( file, lightName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+        }
+
+        // Set the standard light color.
         COLLADAFW::Color color = light->getColor ();
         mayaLight->setColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue () ) );
         
+        // Store the light in a map.
         appendLight ( lightId, mayaLight );
     }
 

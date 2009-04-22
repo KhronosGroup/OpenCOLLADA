@@ -31,8 +31,19 @@ namespace COLLADAMaya
     /** TODO Documentation */
 	class EffectImporter : public BaseImporter
     {
-    private:
+    public:
 	
+        /** The standard name for the collada id attribute. */
+        static const String COLLADA_EFFECT_ID_ATTRIBUTE_NAME;
+
+        /** The standard name for the collada id attribute. */
+        static const String COLLADA_MATERIAL_ID_ATTRIBUTE_NAME;
+
+        /** The standard name for the collada id attribute. */
+        static const String COLLADA_EFFECT_COMMON_ID_ATTRIBUTE_NAME;
+
+    private:
+
         /** The standard name for a effect without name. */
         static const String EFFECT_NAME;
 
@@ -216,21 +227,21 @@ namespace COLLADAMaya
         /**
          * Imports a blinn shader effect.
          */
-        void importBlinnShader ( 
+        String importBlinnShader ( 
             const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect );
 
         /**
         * Imports a phong shader effect.
         */
-        void importPhongShader ( 
+        String importPhongShader ( 
             const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect );
 
         /**
         * Imports a lambert shader effect.
         */
-        void importLambertShader ( 
+        String importLambertShader ( 
             const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect );
 

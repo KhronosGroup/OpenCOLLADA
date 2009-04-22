@@ -103,6 +103,10 @@ namespace COLLADAMaya
         * The list of the unique maya shading engine names.
         */
         COLLADABU::IDList mShadingEngineIdList;
+
+        /**
+        * The list of the unique maya material info names.
+        */
         COLLADABU::IDList mMaterialInfoIdList;
 
         /** 
@@ -198,19 +202,6 @@ namespace COLLADAMaya
         * The list of the unique maya shading engine names.
         */
         const COLLADABU::IDList& getShadingEngineIdList () const { return mShadingEngineIdList; }
-
-        /**
-         * Get the shading binding material.
-         */
-        const std::vector<MaterialInfo>* findGeometryBindingMaterialInfos ( 
-            const COLLADAFW::UniqueId& geometryId, 
-            const COLLADAFW::UniqueId& transformId );
-
-        /**
-        * Get the shading binding material.
-        */
-        const std::vector<MaterialInfo>* findGeometryBindingMaterialInfos ( 
-            const GeometryBinding& geometryBinding );
 
         /**
          * Returns the effect id of the material.

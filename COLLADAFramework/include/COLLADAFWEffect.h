@@ -45,7 +45,14 @@ namespace COLLADAFW
     {
 	private:
 	
-        /** Pretty-print name for this effect. Optional. */
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
+        /** 
+         * Pretty-print name for this effect. Optional. 
+         */
         String mName; 
 
         /** 
@@ -59,13 +66,17 @@ namespace COLLADAFW
         // TODO Fix members!!!
 //        Profile* mProfile;
 
-		/** All the COLLADA common effects .*/
+		/** 
+         * All the COLLADA common effects.
+         */
 		CommonEffectPointerArray mCommonEffects;
 	
-
-		/** The standard color, i.e. the color to by used by systems that support only
-		one color, like most of the CAD-systems.*/
+		/** 
+         * The standard color, i.e. the color to by used by systems that support only
+		 * one color, like most of the CAD-systems.
+         */
         Color mStandardColor;
+
     public:
 
         /** Constructor. */
@@ -73,6 +84,16 @@ namespace COLLADAFW
 
         /** Destructor. */
 		virtual ~Effect();
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
         /** Pretty-print name for this effect. Optional. */
         const String getName () const { return mName; }

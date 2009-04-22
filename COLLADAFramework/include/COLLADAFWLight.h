@@ -25,6 +25,7 @@ namespace COLLADAFW
 	class Light : public ObjectTemplate < COLLADA_TYPE::LIGHT >
 	{
 	public:
+
 		/** All possible types of light*/
 		enum LightType
 		{	
@@ -36,6 +37,12 @@ namespace COLLADAFW
 		};
 
 	private:
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
 		/** The name of the light.*/
 		String mName;
 
@@ -67,11 +74,22 @@ namespace COLLADAFW
 		double mFallOffExponent;
 
 	public:
+
 		/** @param objectId The object id of the camera.*/
 		Light( ObjectId objectId );
 
         /** Destructor. */
 		virtual ~Light();
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
 		/** Returns name of the light.*/
 		const COLLADAFW::String& getName() const { return mName; }

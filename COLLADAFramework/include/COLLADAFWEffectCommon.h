@@ -28,6 +28,7 @@ namespace COLLADAFW
 	class EffectCommon 	
 	{
 	public:
+
 		/** Possible shaders that can be represented by EffectCommon.*/
 		enum ShaderType
 		{
@@ -38,8 +39,12 @@ namespace COLLADAFW
 			SHADER_LAMBERT
 		};
 
-
 	private:
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
 
 		/** The shader used by the effect.*/
 		ShaderType mShaderType;
@@ -150,6 +155,17 @@ namespace COLLADAFW
 
         /** Destructor. */
 		virtual ~EffectCommon();
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+
 
 		/** Returns the type of the shader used by the effect.*/
 		ShaderType getShaderType() const { return mShaderType; }

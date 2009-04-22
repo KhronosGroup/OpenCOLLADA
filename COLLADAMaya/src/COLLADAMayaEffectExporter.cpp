@@ -20,6 +20,8 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaBaseImporter.h"
+#include "COLLADAMayaEffectImporter.h"
 #if MAYA_API_VERSION > 700 
 #include "COLLADAMayaHwShaderExporter.h"
 #endif
@@ -151,15 +153,12 @@ namespace COLLADAMaya
         }
     }
 
-    //------------------------------------------------------
-    // Add a shading network to this library and return the export Id
-    //
+    // --------------------------------------------
     void EffectExporter::exportEffect ( MObject &shader )
     {
         // Find the actual shader node, since this function received shading sets as input
         MStatus status;
         MFnDependencyNode shaderFn ( shader, &status );
-
         if ( status != MStatus::kSuccess ) return;
 
         // Get the name of the current material
@@ -182,14 +181,48 @@ namespace COLLADAMaya
         // Push the shader into the mExportedEffectMap
         mExportedEffectMap[materialName] = &shader;
 
-        // Open a tag for the current effect in the collada document
-        String effectId = materialName + EffectExporter::EFFECT_ID_SUFFIX;
+        // Generate a COLLADA id for the new object
+        String effectId;
 
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue;
+        DagHelper::getPlugValue ( shader, EffectImporter::COLLADA_EFFECT_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != "" )
+        {
+            // Generate a valid collada name, if necessary.
+            effectId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+        }
+        else
+        {
+            // Generate a COLLADA id for the new object
+            effectId = materialName + EffectExporter::EFFECT_ID_SUFFIX;
+        }
+        // Make the id unique.
+        effectId = mEffectIdList.addId ( effectId );
+
+        // Open a tag for the current effect in the collada document
         openEffect ( effectId );
 
-        // Add the correct effect for the material
-        COLLADASW::EffectProfile effectProfile ( mSW );
 
+        // Generate a COLLADA id for the new object
+        String effectProfileId;
+
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue2;
+        DagHelper::getPlugValue ( shader, EffectImporter::COLLADA_EFFECT_COMMON_ID_ATTRIBUTE_NAME, attributeValue2 );
+        if ( attributeValue2 != "" )
+        {
+            // Generate a valid collada name, if necessary.
+            effectProfileId = mDocumentExporter->mayaNameToColladaName ( attributeValue2, false );
+        }
+        else
+        {
+            // Generate a COLLADA id for the new object
+            effectProfileId = materialName + EffectExporter::EFFECT_ID_SUFFIX;
+        }
+
+        // Add the correct effect for the material
+        COLLADASW::EffectProfile effectProfile ( mSW, effectProfileId );
         if ( shader.hasFn ( MFn::kLambert ) )
         {
             exportStandardShader ( effectId, &effectProfile, shader );

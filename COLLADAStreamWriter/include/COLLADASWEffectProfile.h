@@ -87,6 +87,12 @@ namespace COLLADASW
 
         friend class LibraryEffects;
 
+        /**
+         * A text string containing the unique identifier of the element. 
+         * This value must be unique within the instance document. Optional.
+         */
+        String mEffectProfileId;
+
         /** The include sid and uri for the cg profile. */
         String mIncludeSid;
         URI mIncludeURI;
@@ -158,8 +164,15 @@ namespace COLLADASW
         /** Constructor
         @param streamWriter The stream writer the @a \<profile_COMMON\> element should be written to
         */
-        EffectProfile ( StreamWriter* streamWriter );
+        EffectProfile ( StreamWriter* streamWriter, const String& effectProfileId = "" );
         virtual ~EffectProfile(){};
+
+        /**
+        * A text string containing the unique identifier of the element. 
+        * This value must be unique within the instance document. Optional.
+        */
+        const COLLADASW::String& getEffectProfileId () const { return mEffectProfileId; }
+        void setEffectProfileId ( const COLLADASW::String& val ) { mEffectProfileId = val; }
 
         /** The current profile type. */
         const EffectProfile::ProfileType& getProfileType () const { return mProfileType; }

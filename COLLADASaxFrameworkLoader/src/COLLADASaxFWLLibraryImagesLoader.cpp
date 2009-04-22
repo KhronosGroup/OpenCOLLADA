@@ -50,6 +50,9 @@ namespace COLLADASaxFWL
 		else if ( attributeData.id )
 			mCurrentImage->setName( (const char*) attributeData.id );
 
+        if ( attributeData.id )
+            mCurrentImage->setOriginalId ( (const char*)attributeData.id );
+
 		if ( attributeData.format )
 			mCurrentImage->setFormat( attributeData.format );
 		

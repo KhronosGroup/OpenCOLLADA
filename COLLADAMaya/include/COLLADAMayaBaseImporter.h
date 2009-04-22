@@ -56,6 +56,11 @@ namespace COLLADAMaya
 
         typedef std::map<COLLADAFW::UniqueId, size_t> UniqueIdElementCountMap;
 
+    public:
+
+        /** The standard name for the collada id attribute. */
+        static const String COLLADA_ID_ATTRIBUTE_NAME;
+
     private:
 
         /** Pointer to the current document importer. */

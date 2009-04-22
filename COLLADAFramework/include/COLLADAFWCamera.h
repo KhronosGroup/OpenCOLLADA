@@ -47,6 +47,11 @@ namespace COLLADAFW
 	
 	private:
 
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
 		/** The name of the camera*/
 		String mName;
 
@@ -70,12 +75,24 @@ namespace COLLADAFW
 
 		/** The far clipping plane.*/
 		double mFarClippingPlane;
+
 	public:
+
 		/** @param objectId The object id of the camera.*/
 		Camera( ObjectId objectId );
 
         /** Destructor. */
 		virtual ~Camera();
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
 		/** Returns the name of the camera.*/
 		const COLLADAFW::String& getName() const { return mName; }

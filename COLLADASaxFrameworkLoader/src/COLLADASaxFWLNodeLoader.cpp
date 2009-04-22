@@ -49,9 +49,12 @@ namespace COLLADASaxFWL
 		COLLADAFW::Node* newNode = new COLLADAFW::Node(getUniqueIdFromId(attributeData.id, COLLADAFW::Node::ID()).getObjectId());
 
 		if ( attributeData.name )
-			newNode->setName((const char*)attributeData.name);
+			newNode->setName ( (const char*)attributeData.name );
 		else if ( attributeData.id )
-			newNode->setName((const char*)attributeData.id);
+			newNode->setName ( (const char*)attributeData.id );
+
+        if ( attributeData.id )
+            newNode->setOriginalId ( (const char*)attributeData.id );
 
 		addToSidTree(attributeData.id, attributeData.sid);
 

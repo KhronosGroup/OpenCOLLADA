@@ -81,6 +81,9 @@ namespace COLLADASaxFWL
 		else if ( attributeData.id )
 			mCurrentCamera->setName( (const char*) attributeData.id );
 
+        if ( attributeData.id )
+            mCurrentCamera->setOriginalId ( (const char*)attributeData.id );
+
 		return true;
 	}
 

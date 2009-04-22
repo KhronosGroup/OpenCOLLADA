@@ -19,6 +19,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaDagHelper.h"
+
 #include <map>
 
 #include "COLLADASWStreamWriter.h"
@@ -27,6 +28,8 @@
 #include "COLLADASWExtra.h"
 #include "COLLADASWEffectProfile.h"
 #include "COLLADASWLibraryImages.h"
+
+#include "COLLADABUIDList.h"
 
 #include <maya/MFnDependencyNode.h>
 
@@ -67,6 +70,13 @@ namespace COLLADAMaya
             UNKNOWN, /**< An unknown blend mode. */
             DEFAULT = NONE,
         };
+
+    private:
+
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList mImageIdList;
 
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
@@ -110,10 +120,7 @@ namespace COLLADAMaya
         *   Returns a const pointer to the image map, managed and released
         *   in the class @EffectTextureExporter
         */
-        const ImageMap* getExportedImageMap() const
-        {
-            return &mExportedImageMap;
-        }
+        const ImageMap* getExportedImageMap() const { return &mExportedImageMap; }
 
         /** Exports the texture image */
         String exportImage ( const MObject &texture );

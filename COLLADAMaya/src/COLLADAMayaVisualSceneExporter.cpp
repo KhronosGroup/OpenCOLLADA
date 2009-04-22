@@ -25,6 +25,7 @@
 #include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaRotateHelper.h"
 #include "COLLADAMayaReferenceManager.h"
+#include "COLLADAMayaBaseImporter.h"
 
 #include <maya/MFnIkHandle.h>
 #include <maya/MFnMesh.h>
@@ -125,9 +126,6 @@ namespace COLLADAMaya
         {
             sceneElement->setInstantiatedSceneElement ( instantiatedSceneElement );
         }
-
-        // The unique ID
-        String meshId = mDocumentExporter->dagPathToColladaId ( dagPath );
 
         // The transform node
         MStatus status;
@@ -337,8 +335,9 @@ namespace COLLADAMaya
 
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
+        MObject node = dagPath.node();
 
-        // Get the node joint sid
+        // Generate a COLLADA id for the new object
         String nodeSid = mDocumentExporter->dagPathToColladaId ( dagPath );
         sceneNode->setNodeSid( nodeSid );
 
@@ -518,12 +517,33 @@ namespace COLLADAMaya
         }
         else
         {
-            // Get the node ID and name
-            String nodeID = mDocumentExporter->dagPathToColladaId ( dagPath );
-            String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
+            // Generate a COLLADA id for the new object.
+            String nodeID;
 
-            // Create the scene node
+            // Get the node object.
+            MObject node = dagPath.node();
+
+            // Check if there is an extra attribute "colladaId" and use this as export id.
+            MString attributeValue;
+            DagHelper::getPlugValue ( node, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+            if ( attributeValue != "" )
+            {
+                // Generate a valid collada name, if necessary.
+                nodeID = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+            }
+            else
+            {
+                // Generate a COLLADA id for the new object
+                nodeID = mDocumentExporter->dagPathToColladaId ( dagPath );
+            }
+            // Make the id unique.
+            nodeID = mNodeIdList.addId ( nodeID );
+
+            // Set the node id.
             mVisualSceneNode->setNodeId ( nodeID );
+
+            // Set the node name.
+            String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
             mVisualSceneNode->setNodeName ( nodeName );
         }
 

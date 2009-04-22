@@ -31,6 +31,11 @@ namespace COLLADAFW
 
 	private:
 
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
         /** Pretty-print name for this animation. Optional. */
         String mName; 
 
@@ -41,6 +46,16 @@ namespace COLLADAFW
 
 		/** Destructor. */
 		virtual ~Animation(){}
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
         /** Pretty-print name for this animation. Optional. */
         const COLLADAFW::String& getName () const { return mName; }

@@ -269,12 +269,25 @@ namespace COLLADAMaya
         MayaDM::Mesh meshNode ( file, meshName, transformNodePath );
         mMayaDMMeshNodesMap [geometryId] = meshNode;
 
+        // Add the original id attribute.
+        String colladaId = mesh->getOriginalId ();
+        if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+        {
+            MayaDM::addAttr ( file, meshName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+            MayaDM::setAttr ( file, meshName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+        }
+
         // Writes the object groups for every mesh primitive and
         // gets all shader engines, which are used by the primitive elements of the mesh.
         writeObjectGroups ( mesh, meshNode, transformNodeId );
 
         // Write the vertex positions. 
         // Just write the values, they will be referenced from the edges and the faces.
+        if ( COLLADABU::Utils::equalsIgnoreCase ( meshName, "wiper_mesh" ) 
+            || COLLADABU::Utils::equalsIgnoreCase ( meshName, "wiper" ) )
+        {
+            int i = 0;
+        }
         writeVertexPositions ( mesh, meshNode );
 
         // Write the normals. 

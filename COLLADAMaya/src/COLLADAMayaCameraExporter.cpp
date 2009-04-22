@@ -21,6 +21,7 @@
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaBaseImporter.h"
 
 #include <maya/MFnCamera.h>
 
@@ -95,6 +96,7 @@ namespace COLLADAMaya
     {
         if ( !ExportOptions::exportCameras() ) return false;
 
+        // Get the node object.
         MObject cameraNode = dagPath.node();
 
         // Retrieve the Maya camera object
@@ -172,8 +174,26 @@ namespace COLLADAMaya
         animated = anim->addNodeAnimation( cameraFn.object(), FAR_CLIP_SID, ATTR_FAR_CLIP_PLANE, ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, true );
         optics->setZFar ( (float) zFar, animated ); 
 
-        // Generate a COLLADA id for the new camera object
-        String cameraId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        // Generate a COLLADA id for the new object
+        String cameraId;
+
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue;
+        DagHelper::getPlugValue ( cameraNode, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != "" )
+        {
+            // Generate a valid collada name, if necessary.
+            cameraId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+        }
+        else
+        {
+            // Generate a COLLADA id for the new object
+            cameraId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        }
+        // Make the id unique.
+        cameraId = mCameraIdList.addId ( cameraId );
+
+        // Get the camera name.
         String cameraName = mDocumentExporter->dagPathToColladaName ( dagPath );
 
         // Create the camera

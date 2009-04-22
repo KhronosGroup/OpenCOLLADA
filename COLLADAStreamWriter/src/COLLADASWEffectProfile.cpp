@@ -22,9 +22,10 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    EffectProfile::EffectProfile ( StreamWriter * streamWriter )
+    EffectProfile::EffectProfile ( StreamWriter* streamWriter, const String& effectProfileId )
     : ElementWriter ( streamWriter )
     , BaseExtraTechnique()
+    , mEffectProfileId ( effectProfileId )
     , mTechniqueSid ( DEFAULT_TECHNIQUE_SID )
     , mProfileType ( EffectProfile::COMMON )
     , mShaderType ( EffectProfile::UNSPECIFIED )
@@ -71,6 +72,7 @@ namespace COLLADASW
     void EffectProfile::openProfile ()
     {
         mProfileCloser = mSW->openElement ( getProfileTypeName( mProfileType ) );
+        mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_ID, getEffectProfileId () );
     }
 
     //---------------------------------------------------------------

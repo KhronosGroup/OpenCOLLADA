@@ -51,21 +51,21 @@ namespace COLLADAMaya
 
 
 
-    class MaterialInfo
+    class MaterialInformation
     {
     private:
         COLLADAFW::UniqueId mMaterialId;
         COLLADAFW::MaterialId mShadingEngineId;
 
     public:
-        MaterialInfo () {}
-        MaterialInfo ( 
+        MaterialInformation () {}
+        MaterialInformation ( 
             const COLLADAFW::UniqueId& materialId, 
             const COLLADAFW::MaterialId& shadingEngineId ) 
             : mMaterialId (materialId)
             , mShadingEngineId (shadingEngineId)
         {}
-        virtual ~MaterialInfo () {}
+        virtual ~MaterialInformation () {}
 
         const COLLADAFW::UniqueId& getMaterialId () const { return mMaterialId; }
         void setMaterialId ( const COLLADAFW::UniqueId& val ) { mMaterialId = val; }
@@ -73,7 +73,7 @@ namespace COLLADAMaya
         const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
         void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }
     };
-    typedef std::map< GeometryBinding, std::vector<MaterialInfo> > GeometryBindingMaterialInfosMap;
+    typedef std::map< GeometryBinding, std::vector<MaterialInformation> > GeometryBindingMaterialInfosMap;
 
 
 

@@ -41,7 +41,35 @@ namespace COLLADAMaya
     class AnimationImporter;
 
 
-    /** The main importer class. This class imports all data of the scene. */
+    /** 
+     * The main importer class. This class imports all data of the scene. 
+     * 
+     * We have to parse the document always for two times. Once to get the used visual scene,
+     * which is always in the current scene. This element is always at the end of a collada 
+     * document, why we have to parse always twice. The order to handle the parsed data:
+     * 
+     * 1.) First parsing:
+     * 1.1) Read the information about the visual scene to use.
+     * 1.2) Copy some of the elements, so we don't need to parse once more again. 
+     *      Following elements should be copied, the order doesn't matter:
+     *      - Copy visual scene
+     *      - Copy library nodes
+     *      - Copy materials
+     * 
+     * 2.) Between first and second parsing:
+     * 2.1) Import the referenced visual scene
+     * 2.3) Import the referenced library nodes
+     * 2.4) Import the node instances
+     * 2.5) Import the materials
+     *
+     * 3.) Second parsing:
+     * 3.1) Import all data directly, the order doesn't matter:
+     *      - Import effects
+     *      - Import cameras 
+     *      - Import lights
+     *      - Import images 
+     *      - Import animations
+     */
     class DocumentImporter : public COLLADAFW::IWriter 
     {
 

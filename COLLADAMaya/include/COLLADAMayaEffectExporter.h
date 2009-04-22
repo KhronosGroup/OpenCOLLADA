@@ -21,11 +21,13 @@
 #include "COLLADAMayaSceneElement.h"
 #include "COLLADAMayaMaterialExporter.h"
 #include "COLLADAMayaEffectTextureExporter.h"
+
 #include <map>
 
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWEffectProfile.h"
 #include "COLLADASWLibraryEffects.h"
+
 #include "COLLADABUIDList.h"
 
 #include <maya/MObject.h>
@@ -89,6 +91,13 @@ namespace COLLADAMaya
             unsigned long mColor;  // The color that was used to export the effect
         };
 
+    private:
+
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList mEffectIdList;
+
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
 
@@ -100,9 +109,6 @@ namespace COLLADAMaya
 
         /** The std::map which stores all already exported effects */
         EffectMap mExportedEffectMap;
-
-        /** List of unique base effect ids*/
-        COLLADABU::IDList mEffectIdList;
 
         /** A texture channel.
         Used by standard effects to assign textures to channels.

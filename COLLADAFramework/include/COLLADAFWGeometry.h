@@ -39,6 +39,7 @@ namespace COLLADAFW
 	class Geometry : public ObjectTemplate < COLLADA_TYPE::GEOMETRY >
     {
 	public:
+
 		enum GeometryType
 		{
 			GEO_TYPE_MESH, 
@@ -49,12 +50,16 @@ namespace COLLADAFW
 
     private:
 	
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
         /** A text string containing the name of the <geometry> element. Optional. */
         String mName; 
 
 		/** Geometry type. */
 		GeometryType mType;
-
 
 	public:
 
@@ -63,6 +68,16 @@ namespace COLLADAFW
 
         /** Destructor. */
 		virtual ~Geometry();
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
         /** A text string containing the name of the <geometry> element. Optional. */
         const String getName () const { return mName; }

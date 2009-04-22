@@ -17,7 +17,8 @@
 #include "COLLADAFWScale.h"
 #include "COLLADAFWTranslate.h"
 
-#include "MayaDMAnimCurveTA.h"
+#include <MayaDMAnimCurveTA.h>
+#include <MayaDMCommands.h>
 
 
 namespace COLLADAMaya
@@ -216,6 +217,14 @@ namespace COLLADAMaya
             default:
                 MGlobal::displayError ( "Unknown physical dimension!" );
                 return; break;
+            }
+
+            // Add the original id attribute.
+            String colladaId = animationCurve->getOriginalId ();
+            if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+            {
+                MayaDM::addAttr ( file, animationName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+                MayaDM::setAttr ( file, animationName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
             }
 
             // Push the maya animation curve element in a list.

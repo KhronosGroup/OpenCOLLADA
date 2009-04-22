@@ -50,8 +50,16 @@ namespace COLLADAFW
         };
 
 	private:
-		/** The parent node.*/
+
+		/** 
+         * The parent node.
+         */
 		Node* mParent;
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
 
 		/**
 		* The name attribute is the text string name of this element. 
@@ -59,8 +67,10 @@ namespace COLLADAFW
 		*/
 		String mName;
 
-        /** The type of the <node> element. Valid values are JOINT or NODE. The default is
-        NODE. Optional. */
+        /** 
+         * The type of the <node> element. Valid values are JOINT or NODE. The default is 
+         * NODE. Optional. 
+         */
         NodeType mType;
 
 		/** List of all transformations of the node. Array and contents will be delete in destructor.*/
@@ -86,6 +96,16 @@ namespace COLLADAFW
 		Node(ObjectId objectId);
 
 		virtual ~Node();
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
 		/** Returns the name of the node*/
 		const String& getName() const { return mName; }

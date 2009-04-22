@@ -200,6 +200,9 @@ namespace COLLADAMaya
              // Get the material id.
              const COLLADAFW::UniqueId& materialId = materialBinding.getReferencedMaterial ();
 
+             // TODO We need a shading engine and a material info for every maya effect.
+             // But an effect can be referenced from multiple materials!!!
+
              // Get the unique shading engine name and get / create the shader data.
              String shadingEngineName = materialBinding.getName ();
              ShadingData* shaderData = createShaderData ( materialId, shadingEngineName );
@@ -208,38 +211,12 @@ namespace COLLADAMaya
              COLLADAFW::MaterialId shadingEngineId = materialBinding.getMaterialId ();
 
              // Create the materialInfo object.
-             MaterialInfo materialInfo ( materialId, shadingEngineId );
+             MaterialInformation materialInfo ( materialId, shadingEngineId );
 
              // The position of the materialId calls the primitive index.
              mGeometryBindingMaterialInfosMap [geometryBinding].push_back ( materialInfo );
          }
 
-     }
-
-     // --------------------------
-     const std::vector<MaterialInfo>* MaterialImporter::findGeometryBindingMaterialInfos ( 
-         const COLLADAFW::UniqueId& geometryId, 
-         const COLLADAFW::UniqueId& transformId )
-     {
-         GeometryBinding geometryBinding ( geometryId, transformId );
-         GeometryBindingMaterialInfosMap::iterator it = mGeometryBindingMaterialInfosMap.find ( geometryBinding );
-         if ( it != mGeometryBindingMaterialInfosMap.end () )
-         {
-             return &(it->second);
-         }
-         return 0;
-     }
-
-     // --------------------------
-     const std::vector<MaterialInfo>* MaterialImporter::findGeometryBindingMaterialInfos ( 
-         const GeometryBinding& geometryBinding )
-     {
-         GeometryBindingMaterialInfosMap::iterator it = mGeometryBindingMaterialInfosMap.find ( geometryBinding );
-         if ( it != mGeometryBindingMaterialInfosMap.end () )
-         {
-             return &(it->second);
-         }
-         return 0;
      }
 
     // --------------------------
@@ -319,12 +296,12 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& transformId = geometryBinding.getTransformId ();
 
             // Get the list of materialIds for the current shading binding.
-            const std::vector<MaterialInfo>& materialInfosList = geometryBindingIter->second;
+            const std::vector<MaterialInformation>& materialInfosList = geometryBindingIter->second;
             size_t numMaterialInfos = materialInfosList.size ();
 
             for ( size_t primitiveIndex=0; primitiveIndex<numMaterialInfos; ++primitiveIndex )
             {
-                const MaterialInfo& materialInfo = materialInfosList [primitiveIndex];
+                const MaterialInformation& materialInfo = materialInfosList [primitiveIndex];
                 const COLLADAFW::MaterialId& shadingEngineId = materialInfo.getShadingEngineId ();
                 const COLLADAFW::UniqueId& materialId = materialInfo.getMaterialId ();
 
@@ -392,7 +369,7 @@ namespace COLLADAMaya
 
             // Get the list of materialIds for the current geometry binding.
             // There has to be a material info element for every mesh primitive element.
-            const std::vector<MaterialInfo>& materialInfosList = geometryBindingIter->second;
+            const std::vector<MaterialInformation>& materialInfosList = geometryBindingIter->second;
             size_t numMaterialInfos = materialInfosList.size ();
 
             // Get all pathes of the current transformation.
@@ -405,7 +382,7 @@ namespace COLLADAMaya
             {
                 for ( size_t materialIndex=0; materialIndex<numMaterialInfos; ++materialIndex )
                 {
-                    const MaterialInfo& materialInfo = materialInfosList [materialIndex];
+                    const MaterialInformation& materialInfo = materialInfosList [materialIndex];
                     const COLLADAFW::MaterialId& shadingEngineId = materialInfo.getShadingEngineId ();
                     const COLLADAFW::UniqueId& materialId = materialInfo.getMaterialId ();
                 
