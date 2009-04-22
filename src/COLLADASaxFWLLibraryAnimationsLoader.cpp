@@ -346,9 +346,13 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(begin__animation(attributeData));
 
-        if ( attributeData.name ) mName = (const char*)attributeData.name;
-        else if ( attributeData.id) mName = (const char*)attributeData.id;
-        else mName = "";
+        if ( attributeData.name ) 
+            mName = (const char*)attributeData.name;
+        else if ( attributeData.id) 
+            mName = (const char*)attributeData.id;
+
+        if ( attributeData.id )
+            mOriginalId = (const char*)attributeData.id;
 
 		return true;
 	}
@@ -364,8 +368,11 @@ namespace COLLADASaxFWL
 	bool LibraryAnimationsLoader::begin__sampler( const sampler__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__sampler(attributeData));
+
 		mCurrentAnimationCurve = FW_NEW COLLADAFW::AnimationCurve(getUniqueIdFromId(attributeData.id, COLLADAFW::Animation::ID()).getObjectId());
+
 		mCurrentAnimationCurve->setName ( mName );
+        mCurrentAnimationCurve->setOriginalId ( mOriginalId );
 
 		if ( attributeData.id && *attributeData.id )
 		{

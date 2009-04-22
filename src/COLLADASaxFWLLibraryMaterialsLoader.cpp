@@ -36,11 +36,16 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(begin__material(attributeData)); 
 		mCurrentMaterial = FW_NEW COLLADAFW::Material(getUniqueIdFromId(attributeData.id, COLLADAFW::Material::ID()).getObjectId());
-		if ( attributeData.name )
-			mCurrentMaterial->setName((const char*)attributeData.name);
+		
+        if ( attributeData.name )
+			mCurrentMaterial->setName ( (const char*)attributeData.name );
         else if ( attributeData.id )
-            mCurrentMaterial->setName((const char*)attributeData.id);
-		return true;
+            mCurrentMaterial->setName ( (const char*)attributeData.id );
+		
+        if ( attributeData.id )
+            mCurrentMaterial->setOriginalId ( (const char*)attributeData.id );
+
+        return true;
 	}
 
 	//------------------------------

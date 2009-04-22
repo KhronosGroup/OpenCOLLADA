@@ -295,17 +295,18 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(begin__effect(attributeData)); 
 		mCurrentEffect = FW_NEW COLLADAFW::Effect(getUniqueIdFromId(attributeData.id, COLLADAFW::Effect::ID()).getObjectId());
-		if ( attributeData.name )
-		{
-			mCurrentEffect->setName((const char*)attributeData.name);
-		}
-		else if ( attributeData.id)
-		{
-			mCurrentEffect->setName((const char*)attributeData.id);
-		} 
+		
+        if ( attributeData.name )
+            mCurrentEffect->setName ( (const char*)attributeData.name );
+        else if ( attributeData.id )
+            mCurrentEffect->setName ( (const char*)attributeData.id );
 
-		addToSidTree( attributeData.id, 0);
-		return true;
+        if ( attributeData.id )
+            mCurrentEffect->setOriginalId ( (const char*)attributeData.id );
+
+        addToSidTree( attributeData.id, 0);
+        
+        return true;
 	}
 
 	//------------------------------
@@ -325,6 +326,10 @@ namespace COLLADASaxFWL
 		mCurrentProfile = PROFILE_COMMON;
 		mCurrentEffect->getCommonEffects().append(FW_NEW COLLADAFW::EffectCommon() );
 		addToSidTree( attributeData.id, 0);
+
+        if ( attributeData.id )
+            mCurrentEffect->getCommonEffects ().back ()->setOriginalId ( (const char*)attributeData.id );
+
 		return true;
 	}
 	

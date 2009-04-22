@@ -53,10 +53,13 @@ namespace COLLADASaxFWL
 		, mCurrentPrimitiveType(NONE)
 		, mPOrPhElementCountOfCurrentPrimitive(0)
 	{
-		if ( !geometryName.empty() )
-			mMesh->setName ( geometryName );
-		else if ( !geometryId.empty() )
-			mMesh->setName ( geometryId );
+        if ( !geometryName.empty() )
+            mMesh->setName ( geometryName );
+        else if ( !geometryId.empty() )
+            mMesh->setName ( geometryId );
+
+        if ( !geometryId.empty() )
+            mMesh->setOriginalId ( geometryId );
 	}
 
 

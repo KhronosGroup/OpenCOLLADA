@@ -81,6 +81,9 @@ namespace COLLADASaxFWL
 		else if ( attributeData.id )
 			mCurrentLight->setName( (const char*) attributeData.id );
 
+        if ( attributeData.id )
+            mCurrentLight->setOriginalId ( (const char*)attributeData.id );
+
 		return true;
 	}
 
