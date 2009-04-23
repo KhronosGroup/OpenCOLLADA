@@ -109,6 +109,33 @@ namespace MayaDM
     }
 
     /**
+    * Method to add an attribute to the currently selected maya node.
+    */
+    static void addAttr ( 
+        FILE* file, 
+        const std::string& attributeName, 
+        const std::string& attributeType,
+        const std::string& dataType )
+    {
+        fprintf ( file, "\taddAttr -ln \"%s\"", attributeName.c_str() );
+
+        if ( strcmp(attributeType.c_str(), "") != 0 )
+        {
+            if ( strcmp (attributeType.c_str(), "float") )
+                fprintf ( file, " -at \"%s\"", attributeType.c_str() );
+            else fprintf ( file, " -at %s", attributeType.c_str() );
+        }
+        if ( strcmp(dataType.c_str(), "") != 0 )
+        {
+            if ( strcmp (dataType.c_str(), "string") || strcmp (dataType.c_str(), "matrix") )
+                fprintf ( file, " -dt \"%s\"", dataType.c_str() );
+            else fprintf ( file, " -dt %s", dataType.c_str() );
+        }
+
+        fprintf ( file, ";\n" );
+    }
+
+    /**
     * Method to set an attribute's value of an maya node.
     */
     static void setAttr ( 
@@ -120,6 +147,28 @@ namespace MayaDM
         const std::string& attributeValue )
     {
         fprintf ( file, "setAttr %s.%s", nodeName.c_str(), attributeName.c_str() );
+
+        fprintf ( file, " -type " );
+        if ( strcmp(attributeType.c_str(), "") != 0 )
+            fprintf ( file, "\"%s\"", attributeType.c_str() );
+        if ( strcmp(dataType.c_str(), "") != 0 )
+            fprintf ( file, "\"%s\"", dataType.c_str() );
+
+        fprintf ( file, " \"%s\"", attributeValue.c_str() );
+        fprintf ( file, ";\n" );
+    }
+
+    /**
+    * Method to set an attribute's value of the currently selected maya node.
+    */
+    static void setAttr ( 
+        FILE* file, 
+        const std::string& attributeName, 
+        const std::string& attributeType,
+        const std::string& dataType, 
+        const std::string& attributeValue )
+    {
+        fprintf ( file, "\tsetAttr .%s", attributeName.c_str() );
 
         fprintf ( file, " -type " );
         if ( strcmp(attributeType.c_str(), "") != 0 )
