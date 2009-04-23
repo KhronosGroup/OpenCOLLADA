@@ -282,12 +282,6 @@ namespace COLLADAMaya
         writeObjectGroups ( mesh, meshNode, transformNodeId );
 
         // Write the vertex positions. 
-        // Just write the values, they will be referenced from the edges and the faces.
-        if ( COLLADABU::Utils::equalsIgnoreCase ( meshName, "wiper_mesh" ) 
-            || COLLADABU::Utils::equalsIgnoreCase ( meshName, "wiper" ) )
-        {
-            int i = 0;
-        }
         writeVertexPositions ( mesh, meshNode );
 
         // Write the normals. 

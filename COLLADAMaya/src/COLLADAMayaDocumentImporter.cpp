@@ -544,7 +544,7 @@ namespace COLLADAMaya
     void DocumentImporter::importMaterials ()
     {
         // Import the materials data.
-        for ( size_t i=0; i<mLibraryNodesList.size (); ++i )
+        for ( size_t i=0; i<mMaterialsList.size (); ++i )
         {
             const COLLADAFW::Material* material = mMaterialsList [i];
             mMaterialImporter->importMaterial ( material );

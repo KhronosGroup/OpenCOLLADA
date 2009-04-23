@@ -72,8 +72,9 @@ namespace COLLADAMaya
         materialName = DocumentImporter::frameworkNameToMayaName ( materialName );
         materialName = mMaterialIdList.addId ( materialName );
         
-        // Create the shader data with the shading engine and the material info of the material.
-        MaterialImporter::ShadingData* shaderData = createShaderData ( materialId );
+        // TODO
+//         // Create the shader data with the shading engine and the material info of the material.
+//         MaterialImporter::ShadingData* shaderData = createShaderData ( materialId );
 
         // Create a material node with the name and store it in a map.
         MayaNode* mayaMaterialNode = new MayaNode ( materialId, materialName );
