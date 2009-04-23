@@ -9,12 +9,15 @@ namespace COLLADABU
     {}
 
     //-------------------------------------
-    String IDList::addId ( const String & newId, bool returnConverted )
+    String IDList::addId ( 
+        const String& newId, 
+        bool returnConverted  /*= true*/,
+        bool alwaysAddNumberSuffix /*= false*/ )
     {
         String newIdChecked = mConversionFunction( newId );
 
         IDSet::iterator it = mIdSet.find ( newIdChecked );
-        if ( it == mIdSet.end() )
+        if ( !alwaysAddNumberSuffix && it == mIdSet.end() )
         {
             mIdSet.insert ( newIdChecked );
             return returnConverted ? newIdChecked : newId;
@@ -24,7 +27,7 @@ namespace COLLADABU
         size_t numberSuffix = 0;
         do
         {
-            numberSuffix++;
+            ++numberSuffix;
             idCandidate = newIdChecked + "_" + Utils::toString ( numberSuffix );
         }
         while ( mIdSet.find ( idCandidate ) != mIdSet.end() );

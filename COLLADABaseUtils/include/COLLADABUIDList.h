@@ -37,9 +37,10 @@ namespace COLLADABU
         @param newId The id / String to add
         @param returnConverted If true, the converted new string is returned, otherwise the original string (@a newId) 
         probably with a number appended is returned.
+        @param alwaysAddNumberSuffix If true, a number suffix will be append to the given string, also if not necessary.
         @return The unique string, added to List. 
         */
-        String addId ( const String & newId, bool returnConverted = true);
+        String addId ( const String & newId, bool returnConverted = true, bool alwaysAddNumberSuffix = false );
 
     private:
         /** Disable default copy ctor. */
