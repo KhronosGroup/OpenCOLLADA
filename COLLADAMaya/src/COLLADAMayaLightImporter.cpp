@@ -197,8 +197,8 @@ namespace COLLADAMaya
         String colladaId = light->getOriginalId ();
         if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
         {
-            MayaDM::addAttr ( file, lightName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, lightName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
         }
 
         // Set the standard light color.

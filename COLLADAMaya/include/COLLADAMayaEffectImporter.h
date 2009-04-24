@@ -47,6 +47,9 @@ namespace COLLADAMaya
         /** The standard name for a effect without name. */
         static const String EFFECT_NAME;
 
+        /** The default initial effect name. */
+        static const String INITIAL_DEFAULT_EFFECT_NAME;
+
         /** The standard name for a place2dTexture. */
         static const String PLACE_2D_TEXTURE_NAME;
 
@@ -145,7 +148,7 @@ namespace COLLADAMaya
         /** 
         * The map holds the unique ids of the nodes to the maya effect name. 
         */
-        UniqueIdNamesMap mMayaEffectNamesMap;
+        UniqueIdStringMap mMayaEffectNamesMap;
 
         /**
         * The map holds the maya effect objects for the connections.
@@ -210,6 +213,15 @@ namespace COLLADAMaya
         */
         void importShaderData ( 
             const COLLADAFW::Effect* effect, 
+            const COLLADAFW::EffectCommon* commonEffect, 
+            const COLLADAFW::UniqueId& materialId );
+
+        /**
+         * Adds the attributes with the original collada ids.
+         */
+        void addOriginalColladaIds ( 
+            const COLLADAFW::Effect* effect, 
+            const COLLADAFW::UniqueId& materialId, 
             const COLLADAFW::EffectCommon* commonEffect );
 
         /**
@@ -229,21 +241,24 @@ namespace COLLADAMaya
          */
         String importBlinnShader ( 
             const COLLADAFW::Effect* effect, 
-            const COLLADAFW::EffectCommon* commonEffect );
+            const COLLADAFW::EffectCommon* commonEffect,
+            const COLLADAFW::UniqueId& materialId );
 
         /**
         * Imports a phong shader effect.
         */
         String importPhongShader ( 
             const COLLADAFW::Effect* effect, 
-            const COLLADAFW::EffectCommon* commonEffect );
+            const COLLADAFW::EffectCommon* commonEffect,
+            const COLLADAFW::UniqueId& materialId );
 
         /**
         * Imports a lambert shader effect.
         */
         String importLambertShader ( 
             const COLLADAFW::Effect* effect, 
-            const COLLADAFW::EffectCommon* commonEffect );
+            const COLLADAFW::EffectCommon* commonEffect,
+            const COLLADAFW::UniqueId& materialId );
 
         /**
         * Imports the shader attributes.

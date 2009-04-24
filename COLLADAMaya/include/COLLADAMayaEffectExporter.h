@@ -64,7 +64,8 @@ namespace COLLADAMaya
     class EffectTextureExporter;
 
     /** Map to store effects. */
-    typedef std::map<String, MObject*> EffectMap;
+    typedef std::map<String, String> EffectMap;
+
 
     /** This class writes the <library_materials>. It uses informations created my an effect exporter*/
     class EffectExporter : public COLLADASW::LibraryEffects
@@ -93,11 +94,6 @@ namespace COLLADAMaya
 
     private:
 
-        /**
-        * The list of the unique collada ids.
-        */
-        COLLADABU::IDList mEffectIdList;
-
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
 
@@ -109,6 +105,11 @@ namespace COLLADAMaya
 
         /** The std::map which stores all already exported effects */
         EffectMap mExportedEffectMap;
+
+        /**
+         * The maya id with the collada id.
+         */
+        StringToStringMap mMayaIdColladaImageIdMap;
 
         /** A texture channel.
         Used by standard effects to assign textures to channels.
@@ -134,9 +135,11 @@ namespace COLLADAMaya
         };
 
     public:
+
         /**
-        @param streamWriter The stream the output will be written to
-        @paramdocumentExporter The document exporter this material exporter is used in*/
+        * @param streamWriter The stream the output will be written to
+        * @param documentExporter The document exporter this material exporter is used in
+        */
         EffectExporter ( COLLADASW::StreamWriter* _streamWriter, DocumentExporter* _documentExporter );
         virtual ~EffectExporter() {}
 
@@ -154,13 +157,16 @@ namespace COLLADAMaya
         *   Returns a const pointer to the image map, managed and released
         *   in the class @EffectTextureExporter
         */
-        const ImageMap* getExportedImageMap() const
-        {
-            return mTextureExporter.getExportedImageMap();
-        }
+        const ImageMap* getExportedImageMap() const { return mTextureExporter.getExportedImageMap(); }
 
         /** For export the textures */
         EffectTextureExporter* getTextureExporter () { return &mTextureExporter; }
+
+        /**
+        * A collada id for every maya id.
+        */
+        const String findColladaImageId ( const String& mayaImageId );
+
 
     private:
 

@@ -37,11 +37,12 @@ namespace COLLADAMaya
 {
 
     typedef std::map<String, COLLADASW::Image*> ImageMap;
+    typedef std::map<String, String> StringToStringMap;
+
 
     /**
     * Class which manages the textures.
     */
-
     class EffectTextureExporter
     {
 
@@ -83,6 +84,11 @@ namespace COLLADAMaya
 
         /** maps already exported image file names to the corresponding image id */
         ImageMap mExportedImageMap;
+
+        /**
+         * The map holds the collada id for the maya id.
+         */
+        StringToStringMap mMayaIdColladaImageId;
 
         /** true, if the <extra> and a <technique> tags are already open */
         bool mTechniqueIsOpen;
@@ -126,7 +132,20 @@ namespace COLLADAMaya
         String exportImage ( const MObject &texture );
 
         /** Exports the texture image */
-        COLLADASW::Image* exportImage ( const String &colladaImageId, const COLLADASW::URI &sourceFile );
+        COLLADASW::Image* exportImage ( 
+            const String& mayaImageId, 
+            const String& colladaImageId, 
+            const COLLADASW::URI& sourceFile );
+
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList& getImageIdList () { return mImageIdList; }
+
+        /**
+        * The map holds the collada id for the maya id.
+        */
+        COLLADAMaya::StringToStringMap& getMayaIdColladaImageId () { return mMayaIdColladaImageId; }
 
     private:
 

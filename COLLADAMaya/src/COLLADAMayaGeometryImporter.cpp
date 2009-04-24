@@ -221,7 +221,7 @@ namespace COLLADAMaya
                 {
                     // Create the maya group object 
                     String groupName ( GROUPID_NAME );
-                    groupName = mGroupIdList.addId ( groupName );
+                    groupName = mGroupIdList.addId ( groupName, true, true );
                     FILE* file = getDocumentImporter ()->getFile ();
                     MayaDM::GroupId groupId ( file, groupName );
 
@@ -273,8 +273,8 @@ namespace COLLADAMaya
         String colladaId = mesh->getOriginalId ();
         if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
         {
-            MayaDM::addAttr ( file, meshName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, meshName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
         }
 
         // Writes the object groups for every mesh primitive and

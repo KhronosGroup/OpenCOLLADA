@@ -37,6 +37,11 @@ namespace COLLADAMaya
         */
         COLLADABU::IDList mCameraIdList;
 
+        /**
+        * A collada id for every maya id.
+        */
+        StringToStringMap mMayaIdColladaCameraIdMap;
+
     public:
         /**
         * @param streamWriter The stream the output will be written to
@@ -50,6 +55,11 @@ namespace COLLADAMaya
 
         /** Exports the current scene element and all it's children. */
         void exportCameras ( SceneElement* sceneElement );
+
+        /**
+        * A collada id for every maya id.
+        */
+        const String findColladaCameraId ( const String& mayaCameraId );
 
     private:
 

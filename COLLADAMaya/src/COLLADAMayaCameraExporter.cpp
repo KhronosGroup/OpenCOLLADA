@@ -174,8 +174,11 @@ namespace COLLADAMaya
         animated = anim->addNodeAnimation( cameraFn.object(), FAR_CLIP_SID, ATTR_FAR_CLIP_PLANE, ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, true );
         optics->setZFar ( (float) zFar, animated ); 
 
+        // Get the camera name.
+        String mayaCameraId = mDocumentExporter->dagPathToColladaName ( dagPath );
+
         // Generate a COLLADA id for the new object
-        String cameraId;
+        String colladaCameraId;
 
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue;
@@ -183,21 +186,19 @@ namespace COLLADAMaya
         if ( attributeValue != "" )
         {
             // Generate a valid collada name, if necessary.
-            cameraId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+            colladaCameraId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
         }
         else
         {
             // Generate a COLLADA id for the new object
-            cameraId = mDocumentExporter->dagPathToColladaId ( dagPath );
+            colladaCameraId = mDocumentExporter->dagPathToColladaId ( dagPath );
         }
-        // Make the id unique.
-        cameraId = mCameraIdList.addId ( cameraId );
-
-        // Get the camera name.
-        String cameraName = mDocumentExporter->dagPathToColladaName ( dagPath );
+        // Make the id unique and store it in a map.
+        colladaCameraId = mCameraIdList.addId ( colladaCameraId );
+        mMayaIdColladaCameraIdMap [mayaCameraId] = colladaCameraId;
 
         // Create the camera
-        COLLADASW::Camera camera ( streamWriter, optics, cameraId, cameraName );
+        COLLADASW::Camera camera ( streamWriter, optics, colladaCameraId, mayaCameraId );
         String paramSid = "";
 
         // Add the Maya-specific parameters
@@ -240,6 +241,17 @@ namespace COLLADAMaya
         addCamera ( camera );
 
         return true;
+    }
+
+    // ------------------------------------
+    const String CameraExporter::findColladaCameraId ( const String& mayaCameraId )
+    {
+        const StringToStringMap::const_iterator it = mMayaIdColladaCameraIdMap.find ( mayaCameraId );
+        if ( it != mMayaIdColladaCameraIdMap.end () )
+        {
+            return it->second;
+        }
+        return COLLADABU::Utils::EMPTY_STRING;
     }
 
 }

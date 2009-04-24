@@ -42,6 +42,8 @@ namespace COLLADAMaya
     class DocumentExporter;
     class ElementWriter;
 
+    typedef std::map<String, String> StringToStringMap;
+    
 
     /************************************************************************/
     /* This class writes the <library_geometries>.                                                                     */
@@ -56,8 +58,15 @@ namespace COLLADAMaya
         */
         COLLADABU::IDList mGeometryIdList;
 
-        /** Pointer to the document exporter */
+        /** 
+         * Pointer to the document exporter. 
+         */
         DocumentExporter* mDocumentExporter;
+
+        /**
+        * A collada id for every maya id.
+        */
+        StringToStringMap mMayaIdColladaIdMap;
 
         /**
         * Holds all the polygon sources of the geometry of the current mesh.
@@ -90,6 +99,11 @@ namespace COLLADAMaya
 
         /** closes the geometry tags in the collada document */
         void endExport();
+
+        /**
+        * A collada id for every maya id.
+        */
+        const String findColladaGeometryId ( const String& mayaGeometryId );
 
     private:
 

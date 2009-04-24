@@ -37,7 +37,13 @@ namespace COLLADAMaya
         */
         COLLADABU::IDList mLightIdList;
 
+        /**
+        * A collada id for every maya id.
+        */
+        StringToStringMap mMayaIdColladaIdMap;
+
     public:
+
         /**
         * @param streamWriter The stream the output will be written to
         * @param documentExporter The document exporter this material exporter is used in
@@ -50,6 +56,11 @@ namespace COLLADAMaya
 
         /** Exports the current scene element and all it's children. */
         void exportLights ( SceneElement* sceneElement );
+
+        /**
+        * A collada id for every maya id.
+        */
+        const String findColladaLightId ( const String& mayaLightId );
 
     private:
 

@@ -92,7 +92,7 @@ namespace COLLADAMaya
         }
     }
 
-    // --------------------------------------------------------
+    // ------------------------------------
     bool LightExporter::exportLight ( const MDagPath& dagPath )
     {
         if ( !ExportOptions::exportLights() ) return false;
@@ -104,8 +104,11 @@ namespace COLLADAMaya
         MFnLight lightFn(lightNode, &status); CHECK_STAT(status);
         if (status != MStatus::kSuccess) return false;
 
+        // Get the maya light id.
+        String mayaLightId = mDocumentExporter->dagPathToColladaId ( dagPath );
+
         // Generate a COLLADA id for the new object
-        String lightId;
+        String colladaLightId;
         
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue;
@@ -113,15 +116,16 @@ namespace COLLADAMaya
         if ( attributeValue != "" )
         {
             // Generate a valid collada name, if necessary.
-            lightId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+            colladaLightId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
         }
         else
         {
             // Generate a COLLADA id for the new object
-            lightId = mDocumentExporter->dagPathToColladaId ( dagPath );
+            colladaLightId = mDocumentExporter->dagPathToColladaId ( dagPath );
         }
-        // Make the id unique.
-        lightId = mLightIdList.addId ( lightId );
+        // Make the id unique and store it in a map.
+        colladaLightId = mLightIdList.addId ( colladaLightId );
+        mMayaIdColladaIdMap [ mayaLightId ] = colladaLightId;
 
         // Get a pointer to the stream writer.
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -132,17 +136,17 @@ namespace COLLADAMaya
         switch (type)
         {
         case MFn::kAmbientLight: 
-            light = new COLLADASW::AmbientLight( streamWriter, lightId ); 
+            light = new COLLADASW::AmbientLight( streamWriter, colladaLightId ); 
             break; 
         case MFn::kDirectionalLight: 
-            light = new COLLADASW::DirectionalLight( streamWriter, lightId ); 
+            light = new COLLADASW::DirectionalLight( streamWriter, colladaLightId ); 
             break;
         case MFn::kSpotLight: 
-            light = new COLLADASW::SpotLight( streamWriter, lightId ); 
+            light = new COLLADASW::SpotLight( streamWriter, colladaLightId ); 
             break;
         case MFn::kPointLight: // Intentional pass-through
         default: 
-            light = new COLLADASW::PointLight( streamWriter, lightId ); 
+            light = new COLLADASW::PointLight( streamWriter, colladaLightId ); 
             break;
         }
 
@@ -215,4 +219,14 @@ namespace COLLADAMaya
         return true;
     }
 
+    // ------------------------------------
+    const String LightExporter::findColladaLightId ( const String& mayaLightId )
+    {
+        const StringToStringMap::const_iterator it = mMayaIdColladaIdMap.find ( mayaLightId );
+        if ( it != mMayaIdColladaIdMap.end () )
+        {
+            return it->second;
+        }
+        return COLLADABU::Utils::EMPTY_STRING;
+    }
 }

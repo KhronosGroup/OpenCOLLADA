@@ -186,9 +186,12 @@ namespace COLLADAMaya
     String EffectTextureExporter::exportImage ( const MObject &texture )
     {
         // Retrieve the texture filename
-        MFnDependencyNode dgFn ( texture );
-        MString mayaName = dgFn.name();
-        MPlug filenamePlug = dgFn.findPlug ( ATTR_FILE_TEXTURE_NAME );
+        MFnDependencyNode textureNode ( texture );
+        MString mayaName = textureNode.name();
+        MPlug filenamePlug = textureNode.findPlug ( ATTR_FILE_TEXTURE_NAME );
+
+        // Get the maya image id.
+        String mayaImageId = DocumentExporter::mayaNameToColladaName ( textureNode.name() );
 
         // Generate a COLLADA id for the new light object
         String colladaImageId;
@@ -204,10 +207,11 @@ namespace COLLADAMaya
         else
         {
             // Generate a COLLADA id for the new light object
-            colladaImageId = DocumentExporter::mayaNameToColladaName ( mayaName );
+            colladaImageId = DocumentExporter::mayaNameToColladaName ( textureNode.name() );
         }
-        // Make the id unique.
+        // Make the id unique and store it in a map for refernences.
         colladaImageId = mImageIdList.addId ( colladaImageId );
+        mMayaIdColladaImageId [mayaImageId] = colladaImageId;
 
         // Get the maya filename with the path to the file.
         MString mayaFileName;
@@ -217,7 +221,7 @@ namespace COLLADAMaya
         COLLADASW::URI sourceFileUri ( COLLADASW::URI::nativePathToUri ( sourceFile ) );
         sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
 
-        COLLADASW::Image* colladaImage = exportImage ( colladaImageId, sourceFileUri );
+        COLLADASW::Image* colladaImage = exportImage ( mayaImageId, colladaImageId, sourceFileUri );
         if ( colladaImage == NULL ) return NULL;
 
         // Export the node type, because PSD textures don't behave the same as File textures.
@@ -226,7 +230,7 @@ namespace COLLADAMaya
             COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_TEXTURE_NODETYPE, nodeType );
 
         // Export whether this image is in fact an image sequence
-        MPlug imgSeqPlug = dgFn.findPlug ( ATTR_IMAGE_SEQUENCE );
+        MPlug imgSeqPlug = textureNode.findPlug ( ATTR_IMAGE_SEQUENCE );
         bool isImgSeq = false;
         imgSeqPlug.getValue ( isImgSeq );
         colladaImage->addExtraTechniqueParameter (
@@ -237,6 +241,7 @@ namespace COLLADAMaya
 
     // -------------------------------
     COLLADASW::Image* EffectTextureExporter::exportImage ( 
+        const String& mayaImageId, 
         const String& colladaImageId, 
         const COLLADASW::URI& sourceUri )
     {
@@ -285,7 +290,7 @@ namespace COLLADAMaya
         }
 
         // Create a new image structure
-        COLLADASW::Image* colladaImage = new COLLADASW::Image ( fullFileNameURI, colladaImageId, colladaImageId );
+        COLLADASW::Image* colladaImage = new COLLADASW::Image ( fullFileNameURI, colladaImageId, mayaImageId );
 
         // Add this texture to our list of exported images
         mExportedImageMap[ fullFileName ] = colladaImage;

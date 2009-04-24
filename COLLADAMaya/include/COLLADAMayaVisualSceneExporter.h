@@ -36,16 +36,15 @@ class DocumentExporter;
 namespace COLLADAMaya
 {
 
+    typedef std::map<String, String> StringToStringMap;
+
     /**
      * Exports the transform data of the visual scene.
      * 
-     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * All transform components with units will be in maya's internal units 
      * (radians for rotations and centimeters for translations).
      * We have to translate them into the working units of the current scene!
-     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
-
     class VisualSceneExporter : public COLLADASW::LibraryVisualScenes
     {
 
@@ -55,6 +54,11 @@ namespace COLLADAMaya
         * The list of the unique collada ids.
         */
         COLLADABU::IDList mNodeIdList;
+
+        /**
+        * A collada id for every maya id.
+        */
+        StringToStringMap mMayaIdColladaNodeId;
 
         /** Flag, if the current node is a joint. */
         bool mIsJoint;
@@ -104,8 +108,15 @@ namespace COLLADAMaya
          */
         virtual ~VisualSceneExporter() {};
 
-        /** Exports the visual scene with the transforms of all included elements */
+        /** 
+         * Exports the visual scene with the transforms of all included elements 
+         */
         bool exportVisualScenes();
+
+        /**
+        * A collada id for every maya id.
+        */
+        const String findColladaNodeId ( const String& mayaNodeId );
 
     private:
 
@@ -121,7 +132,7 @@ namespace COLLADAMaya
          * @param sceneNode The collada node to write.
          * @param sceneElement The node to export.
          */
-        bool exportNodeVisualSceneNode ( COLLADASW::Node* sceneNode, const SceneElement* sceneElement );
+        bool exportNodeVisualSceneNode ( COLLADASW::Node* sceneNode, SceneElement* sceneElement );
 
         /**
         * Creates and opens a visual scene node of type joint and writes the transforms
@@ -129,7 +140,7 @@ namespace COLLADAMaya
         * @param sceneNode The collada node.
         * @param dagPath The node to export.
         */
-        bool exportJointVisualSceneNode ( COLLADASW::Node* sceneNode, const SceneElement* sceneElement );
+        bool exportJointVisualSceneNode ( COLLADASW::Node* sceneNode, SceneElement* sceneElement );
 
         /**
         * Creates and opens a visual scene node and writes the transforms
@@ -137,7 +148,7 @@ namespace COLLADAMaya
         * @param sceneNode The collada node to write.
         * @param sceneElement The node to export.
         */
-        bool exportVisualSceneNode ( COLLADASW::Node* sceneNode, const SceneElement* sceneElement );
+        bool exportVisualSceneNode ( COLLADASW::Node* sceneNode, SceneElement* sceneElement );
 
         void exportChildNodeInstances( const SceneElement* sceneElement );
         /**
@@ -244,7 +255,7 @@ namespace COLLADAMaya
          * Exports a node instance of the current scene element.
          * @param sceneElement The scene element to instantiate.
          */
-        void exportNodeInstance ( const SceneElement* sceneElement );
+        void exportNodeInstance ( SceneElement* sceneElement );
 
     };
 

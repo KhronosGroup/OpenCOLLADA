@@ -203,8 +203,11 @@ namespace COLLADAMaya
         MFnMesh fnMesh ( meshNode, &status );
         if ( status != MStatus::kSuccess ) return false;
 
+        // Get the maya light id.
+        String mayaMeshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
+
         // Generate a COLLADA id for the new object.
-        String meshId;
+        String colladaMeshId;
         
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue;
@@ -212,25 +215,22 @@ namespace COLLADAMaya
         if ( attributeValue != "" )
         {
             // Generate a valid collada name, if necessary.
-            meshId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+            colladaMeshId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
         }
         else
         {
             // Generate a COLLADA id for the new object
-            meshId = mDocumentExporter->dagPathToColladaId ( dagPath );
-            //meshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
+            colladaMeshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
         }
-        // Make the id unique.
-        meshId = mGeometryIdList.addId ( meshId );
+        // Make the id unique and store it in a map.
+        colladaMeshId = mGeometryIdList.addId ( colladaMeshId );
+        mMayaIdColladaIdMap [ mayaMeshId ] = colladaMeshId;
 
         // Set the node id.
-        sceneElement->setNodeId ( meshId );
+        sceneElement->setNodeId ( colladaMeshId );
 
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();
-
-        // Get the mesh name
-        String meshName = mDocumentExporter->dagPathToColladaName( dagPath );
 
 //         // Check if the geometry isn't already exported
 //         std::vector<String>::iterator geometryIter;
@@ -241,11 +241,11 @@ namespace COLLADAMaya
 //         mExportedGeometries.push_back ( meshId );
 
         // Write the mesh data
-        return exportMesh ( fnMesh, meshId, meshName );
+        return exportMesh ( fnMesh, colladaMeshId, mayaMeshId );
     }
 
     // --------------------------------------------------------
-    bool GeometryExporter::exportMesh ( MFnMesh& fnMesh, String meshId, String &meshName )
+    bool GeometryExporter::exportMesh ( MFnMesh& fnMesh, String colladaMeshId, String &mayaMeshId )
     {
         // Clear the list with the current polygons and the list with the vertexes
         mPolygonSources.clear();
@@ -256,19 +256,19 @@ namespace COLLADAMaya
         getUVSetNames(fnMesh, uvSetNames);
 
         // Generate corresponding textureCoordinateIds.
-        std::vector<String> texcoordIds = generateTexCoordIds ( uvSetNames, meshId );
+        std::vector<String> texcoordIds = generateTexCoordIds ( uvSetNames, colladaMeshId );
 
         // Opens the mesh tag in the collada document
-        openMesh ( meshId, meshName );
+        openMesh ( colladaMeshId, mayaMeshId );
 
         // Export the vertex positions
-        exportVertexPositions ( fnMesh, meshId );
+        exportVertexPositions ( fnMesh, colladaMeshId );
 
         // Export the vertex normals
-        bool hasFaceVertexNormals = exportVertexNormals ( fnMesh, meshId );
+        bool hasFaceVertexNormals = exportVertexNormals ( fnMesh, colladaMeshId );
         
         // Export the texture coordinates
-        exportTextureCoords ( fnMesh, meshId, uvSetNames, texcoordIds );
+        exportTextureCoords ( fnMesh, colladaMeshId, uvSetNames, texcoordIds );
         
         // exportVertexBlindData(fnMesh);
         
@@ -276,22 +276,22 @@ namespace COLLADAMaya
         ColourSetList colorSets;
 
         // Export the color sets
-        exportColorSets ( fnMesh, meshId, colorSets );
+        exportColorSets ( fnMesh, colladaMeshId, colorSets );
         
         // Export the texture tangents and binormals.
         // For texturing std::map channels, export the texture tangents and bi-normals, on request
         if ( ExportOptions::exportTexTangents() )
         {
-            exportTextureTangentsAndBinormals ( fnMesh, meshId );
+            exportTextureTangentsAndBinormals ( fnMesh, colladaMeshId );
         }
 
         // Export the vertexes
-        exportVertices ( meshId );
+        exportVertices ( colladaMeshId );
 
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
         GeometryPolygonExporter polygonExporter ( streamWriter, mDocumentExporter );
         polygonExporter.exportPolygonSources ( 
-            fnMesh, meshId,
+            fnMesh, colladaMeshId,
             uvSetNames,
             colorSets,
             &mPolygonSources,
@@ -1454,4 +1454,16 @@ namespace COLLADAMaya
             }
         }
     }
+
+    // ------------------------------------
+    const String GeometryExporter::findColladaGeometryId ( const String& mayaMeshId )
+    {
+        const StringToStringMap::const_iterator it = mMayaIdColladaIdMap.find ( mayaMeshId );
+        if ( it != mMayaIdColladaIdMap.end () )
+        {
+            return it->second;
+        }
+        return COLLADABU::Utils::EMPTY_STRING;
+    }
+
 }

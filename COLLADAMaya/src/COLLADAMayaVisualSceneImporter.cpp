@@ -131,8 +131,8 @@ namespace COLLADAMaya
         String colladaId = node->getOriginalId ();
         if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
         {
-            MayaDM::addAttr ( file, nodeName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, nodeName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
         }
 
         // Import the transformations.

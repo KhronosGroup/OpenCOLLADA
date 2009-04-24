@@ -223,8 +223,8 @@ namespace COLLADAMaya
             String colladaId = animationCurve->getOriginalId ();
             if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
             {
-                MayaDM::addAttr ( file, animationName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-                MayaDM::setAttr ( file, animationName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+                MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+                MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
             }
 
             // Push the maya animation curve element in a list.

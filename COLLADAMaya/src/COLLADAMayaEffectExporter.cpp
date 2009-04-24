@@ -158,54 +158,39 @@ namespace COLLADAMaya
     {
         // Find the actual shader node, since this function received shading sets as input
         MStatus status;
-        MFnDependencyNode shaderFn ( shader, &status );
+        MFnDependencyNode shaderNode ( shader, &status );
         if ( status != MStatus::kSuccess ) return;
 
-        // Get the name of the current material
-        String materialName = DocumentExporter::mayaNameToColladaName ( shaderFn.name(), true );
+        // Get the maya id of the current material
+        String mayaMaterialId = DocumentExporter::mayaNameToColladaName ( shaderNode.name(), true );
 
         // Have we seen this shader before?
         MaterialMap::iterator materialMapIter;
-        materialMapIter = ( *mMaterialMap ).find ( materialName );
+        materialMapIter = ( *mMaterialMap ).find ( mayaMaterialId );
         if ( materialMapIter == ( *mMaterialMap ).end() )
         {
             // This is a new shading engine
-            ( *mMaterialMap ) [materialName] = shader;
+            ( *mMaterialMap ) [mayaMaterialId] = shader;
         }
 
         // Check if this effect is already exported
         EffectMap::iterator effectMapIter;
-        effectMapIter = mExportedEffectMap.find ( materialName );
+        effectMapIter = mExportedEffectMap.find ( mayaMaterialId );
         if ( effectMapIter != mExportedEffectMap.end() ) return;
 
-        // Push the shader into the mExportedEffectMap
-        mExportedEffectMap[materialName] = &shader;
-
         // Generate a COLLADA id for the new object
-        String effectId;
+        MaterialExporter* materialExporter = mDocumentExporter->getMaterialExporter ();
+        String colladaEffectId = materialExporter->findColladaEffectId ( mayaMaterialId );
+        if ( COLLADABU::Utils::equals ( colladaEffectId, "") ) return;
 
-        // Check if there is an extra attribute "colladaId" and use this as export id.
-        MString attributeValue;
-        DagHelper::getPlugValue ( shader, EffectImporter::COLLADA_EFFECT_ID_ATTRIBUTE_NAME, attributeValue );
-        if ( attributeValue != "" )
-        {
-            // Generate a valid collada name, if necessary.
-            effectId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
-        }
-        else
-        {
-            // Generate a COLLADA id for the new object
-            effectId = materialName + EffectExporter::EFFECT_ID_SUFFIX;
-        }
-        // Make the id unique.
-        effectId = mEffectIdList.addId ( effectId );
+        // Push the effect id into the mExportedEffectMap
+        mExportedEffectMap [mayaMaterialId] = colladaEffectId;
 
         // Open a tag for the current effect in the collada document
-        openEffect ( effectId );
-
+        openEffect ( colladaEffectId );
 
         // Generate a COLLADA id for the new object
-        String effectProfileId;
+        String colladaEffectProfileId = COLLADABU::Utils::EMPTY_STRING;
 
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue2;
@@ -213,25 +198,20 @@ namespace COLLADAMaya
         if ( attributeValue2 != "" )
         {
             // Generate a valid collada name, if necessary.
-            effectProfileId = mDocumentExporter->mayaNameToColladaName ( attributeValue2, false );
-        }
-        else
-        {
-            // Generate a COLLADA id for the new object
-            effectProfileId = materialName + EffectExporter::EFFECT_ID_SUFFIX;
+            colladaEffectProfileId = mDocumentExporter->mayaNameToColladaName ( attributeValue2, false );
         }
 
         // Add the correct effect for the material
-        COLLADASW::EffectProfile effectProfile ( mSW, effectProfileId );
+        COLLADASW::EffectProfile effectProfile ( mSW, colladaEffectProfileId );
         if ( shader.hasFn ( MFn::kLambert ) )
         {
-            exportStandardShader ( effectId, &effectProfile, shader );
+            exportStandardShader ( colladaEffectId, &effectProfile, shader );
         }
-        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderFn.typeName() == COLLADA_FX_SHADER )
+        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_SHADER )
         {
             MGlobal::displayError("Export of ColladaFXShader not implemented!");
         }
-        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderFn.typeName() == COLLADA_FX_PASSES )
+        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_PASSES )
         {
             MGlobal::displayError("Export of ColladaFXPasses not implemented!");
         }
@@ -241,7 +221,7 @@ namespace COLLADAMaya
         else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) )
         {
             // Export a cgfx hardware shader node.
-            exportHwShaderNode ( effectId, &effectProfile, shader );
+            exportHwShaderNode ( colladaEffectId, &effectProfile, shader );
         }
 #endif
 
@@ -257,7 +237,7 @@ namespace COLLADAMaya
         {
             // For the constant shader, you should use the "surface shader" node in Maya
             // But always export some material parameters, even if we don't know this material.
-            exportConstantShader ( effectId, &effectProfile, shader );
+            exportConstantShader ( colladaEffectId, &effectProfile, shader );
         }
 
         // Closes the current effect tag
@@ -702,6 +682,17 @@ namespace COLLADAMaya
         {
             effectProfile->setOpaque ( COLLADASW::EffectProfile::RGB_ZERO ); // correctly RGB_zero.
         }
+    }
+
+    // ------------------------------------
+    const String EffectExporter::findColladaImageId ( const String& mayaImageId )
+    {
+        const StringToStringMap::const_iterator it = mMayaIdColladaImageIdMap.find ( mayaImageId );
+        if ( it != mMayaIdColladaImageIdMap.end () )
+        {
+            return it->second;
+        }
+        return COLLADABU::Utils::EMPTY_STRING;
     }
 
 }

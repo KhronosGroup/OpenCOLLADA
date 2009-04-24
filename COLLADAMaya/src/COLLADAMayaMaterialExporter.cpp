@@ -22,6 +22,7 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaExportOptions.h"
+#include "COLLADAMayaEffectImporter.h"
 
 #include "COLLADASWNode.h"
 #include "COLLADASWParamTemplate.h"
@@ -89,6 +90,9 @@ namespace COLLADAMaya
         {
             MObject shader = DagHelper::getNodeConnectedTo ( defaultShadersPlug.elementByPhysicalIndex ( i ) );
             MFnDependencyNode shadingEngineFn ( shader );
+
+            // Get the name of the current material (this is the maya material id)
+            String mayaMaterialId = DocumentExporter::mayaNameToColladaName ( shadingEngineFn.name(), true );
 
             bool isFromReferencedFile = shadingEngineFn.isFromReferencedFile();
             bool isDefaulNode = shadingEngineFn.isDefaultNode();
@@ -189,6 +193,7 @@ namespace COLLADAMaya
     //
     void MaterialExporter::exportMaterial ( MObject shadingEngine )
     {
+        // Get the shader object.
         MObject shader = DagHelper::getSourceNodeConnectedTo ( shadingEngine, ATTR_SURFACE_SHADER );
 
         // Find the actual shader node, since this function received shading sets as input
@@ -196,38 +201,57 @@ namespace COLLADAMaya
         MFnDependencyNode shaderNode ( shader, &status );
         if ( status != MStatus::kSuccess ) return;
 
-        // Get the name of the current material
-        String materialId = DocumentExporter::mayaNameToColladaName ( shaderNode.name(), true );
+        // Get the name of the current material (this is the maya material id)
+        String mayaMaterialId = DocumentExporter::mayaNameToColladaName ( shaderNode.name(), true );
 
-        // Have we seen this shader before?
+        // Have we seen this shader before, is it already exported?
         MaterialMap::iterator materialMapIter;
-        materialMapIter = mMaterialMap.find ( materialId );
-        if ( materialMapIter == mMaterialMap.end() )
+        materialMapIter = mMaterialMap.find ( mayaMaterialId );
+        if ( materialMapIter != mMaterialMap.end() ) return;
+
+        // This is a new shading engine
+        mMaterialMap [mayaMaterialId] = shader;
+
+        // Generate a COLLADA id for the new object
+        String colladaMaterialId;
+
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue;
+        DagHelper::getPlugValue ( shader, EffectImporter::COLLADA_MATERIAL_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != "" )
         {
-            // This is a new shading engine
-            mMaterialMap[materialId] = shader;
+            // Generate a valid collada name, if necessary.
+            colladaMaterialId = DocumentExporter::mayaNameToColladaName ( attributeValue, false );
         }
+        else
+        {
+            // Generate a COLLADA id for the new object
+            colladaMaterialId = DocumentExporter::mayaNameToColladaName ( shaderNode.name(), true );
+        }
+        // Make the id unique and store it.
+        colladaMaterialId = mMaterialIdList.addId ( colladaMaterialId );
+        mMayaIdColladaMaterialIdMap [mayaMaterialId] = colladaMaterialId;
 
         // Check if the material should be written
         if ( mWriteMaterials )
         {
             // Have we exported this shader already?
             std::vector<String>::iterator exportedMaterialsIter;
-            exportedMaterialsIter = find ( mExportedMaterials.begin(), mExportedMaterials.end(), materialId );
+            exportedMaterialsIter = find ( mExportedMaterials.begin(), mExportedMaterials.end(), colladaMaterialId );
 
             if ( exportedMaterialsIter == mExportedMaterials.end() )
             {
                 // Open a tag for the current material in the collada document
-                openMaterial ( materialId, materialId );
+                openMaterial ( colladaMaterialId, mayaMaterialId );
 
                 // Export the reference to the effect and the hardware shader components.
-                exportEffectInstance ( materialId, shader );
+                exportEffectInstance ( mayaMaterialId, colladaMaterialId, shader );
 
                 // Closes the current effect tag
                 closeMaterial();
 
                 // Push the if of the exported material into the list for the exported materials
-                mExportedMaterials.push_back ( materialId );
+                mExportedMaterials.push_back ( colladaMaterialId );
             }
         }
     }
@@ -549,7 +573,7 @@ namespace COLLADAMaya
     //---------------------------------------
     void MaterialExporter::setSetParamTexture (
         const cgfxAttrDef* attribute, 
-        MObject textureNode, 
+        MObject texture, 
         COLLADASW::Surface::SurfaceType surfaceType, 
         COLLADASW::Sampler::SamplerType samplerType, 
         COLLADASW::ValueType::ColladaType samplerValueType )
@@ -558,11 +582,11 @@ namespace COLLADAMaya
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Get the image id
-        MFnDependencyNode pluNodeFn ( textureNode );
-        String plugName = pluNodeFn.name().asChar(); // file1
+        MFnDependencyNode textureNode ( texture );
+        String plugName = textureNode.name().asChar(); // file1
 
         // Get the file texture name
-        MPlug filenamePlug = pluNodeFn.findPlug ( ATTR_FILE_TEXTURE_NAME );
+        MPlug filenamePlug = textureNode.findPlug ( ATTR_FILE_TEXTURE_NAME );
         MString mayaFileName;
         filenamePlug.getValue ( mayaFileName );
         if ( mayaFileName.length() == 0 ) return;
@@ -574,25 +598,47 @@ namespace COLLADAMaya
         // Take the filename for the unique image name 
         COLLADASW::URI sourceFileUri ( shaderFxFileUri, fileName );
         sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
-        String imageId = sourceFileUri.getPathFileBase();
+        String mayaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );
+
+        // Get the image id of the maya image 
+        EffectExporter* effectExporter = mDocumentExporter->getEffectExporter ();
+        String colladaImageId = effectExporter->findColladaImageId ( mayaImageId );
+        if ( COLLADABU::Utils::equals ( colladaImageId, COLLADABU::Utils::EMPTY_STRING ) )
+        {
+            // Check if there is an extra attribute "colladaId" and use this as export id.
+            MString attributeValue;
+            DagHelper::getPlugValue ( texture, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+            if ( attributeValue != "" )
+            {
+                // Generate a valid collada name, if necessary.
+                colladaImageId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+            }
+            else
+            {
+                // Generate a COLLADA id for the new light object
+                colladaImageId = DocumentExporter::mayaNameToColladaName ( textureNode.name() );
+            }
+            // Make the id unique and store it in a map for refernences.
+            EffectTextureExporter* textureExporter = effectExporter->getTextureExporter ();
+            colladaImageId = textureExporter->getImageIdList ().addId ( colladaImageId );
+            textureExporter->getMayaIdColladaImageId () [mayaImageId] = colladaImageId;
+        }
 
         // Export the image
         EffectTextureExporter* textureExporter = 
             mDocumentExporter->getEffectExporter()->getTextureExporter();
-        COLLADASW::Image* colladaImage = textureExporter->exportImage ( imageId, sourceFileUri );
-
-        // Get the image id of the exported collada image 
-        imageId = colladaImage->getImageId();
+        COLLADASW::Image* colladaImage = textureExporter->exportImage ( mayaImageId, colladaImageId, sourceFileUri );
+        mayaImageId = colladaImage->getImageId();
 
         // Create the surface
-        String surfaceSid = imageId + COLLADASW::Surface::SURFACE_SID_SUFFIX;
+        String surfaceSid = mayaImageId + COLLADASW::Surface::SURFACE_SID_SUFFIX;
         COLLADASW::Surface surface ( surfaceType, surfaceSid );
         surface.setFormat ( "A8R8G8B8" );
 
         // Create the sampler and add the sampler <newparam>
         COLLADASW::Sampler sampler ( samplerType, surfaceSid );
         String suffix = COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
-        String samplerSid = imageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
+        String samplerSid = mayaImageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
         COLLADASW::SetParamSampler paramSampler ( streamWriter );
         paramSampler.setParamType( samplerValueType );
         paramSampler.openParam ( samplerSid );
@@ -668,12 +714,34 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------
-    void MaterialExporter::exportEffectInstance( String materialId, MObject &shader )
+    void MaterialExporter::exportEffectInstance ( 
+        const String& mayaMaterialId, 
+        const String& colladaMaterialId, 
+        MObject &shader )
     {
+        // Generate a COLLADA id for the new object
+        String colladaEffectId;
+
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue;
+        DagHelper::getPlugValue ( shader, EffectImporter::COLLADA_EFFECT_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != "" )
+        {
+            // Generate a valid collada name, if necessary.
+            colladaEffectId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+        }
+        else
+        {
+            // Generate a COLLADA id for the new object
+            colladaEffectId = colladaMaterialId + EffectExporter::EFFECT_ID_SUFFIX;
+        }
+        // Make the id unique and store it in a map.
+        colladaEffectId = mEffectIdList.addId ( colladaEffectId );
+        mMayaIdColladaEffectIdMap [ mayaMaterialId ] = colladaEffectId;
+
         // Create the effect instance
-        String effectURL = materialId + EffectExporter::EFFECT_ID_SUFFIX;
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-        COLLADASW::InstanceEffect effectInstance ( streamWriter, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, effectURL ) );
+        COLLADASW::InstanceEffect effectInstance ( streamWriter, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, colladaEffectId ) );
 
         // Opens the current effect instance. 
         effectInstance.open();
@@ -688,4 +756,27 @@ namespace COLLADAMaya
         // Close the current effect element.
         effectInstance.close();
     }
+
+    // --------------------------------------
+    const String MaterialExporter::findColladaEffectId ( const String& mayaMaterialId )
+    {
+        const StringToStringMap::const_iterator it = mMayaIdColladaEffectIdMap.find ( mayaMaterialId );
+        if ( it != mMayaIdColladaEffectIdMap.end () )
+        {
+            return it->second;
+        }
+        return COLLADABU::Utils::EMPTY_STRING;
+    }
+
+    // --------------------------------------
+    const String MaterialExporter::findColladaMaterialId ( const String& mayaMaterialId )
+    {
+        const StringToStringMap::const_iterator it = mMayaIdColladaMaterialIdMap.find ( mayaMaterialId );
+        if ( it != mMayaIdColladaMaterialIdMap.end () )
+        {
+            return it->second;
+        }
+        return COLLADABU::Utils::EMPTY_STRING;
+    }
+
 }

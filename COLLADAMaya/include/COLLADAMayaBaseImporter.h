@@ -37,7 +37,7 @@ namespace COLLADAMaya
         typedef std::pair<COLLADAFW::UniqueId, COLLADAFW::UniqueId> UniqueIdsPair;
 
         typedef std::map<COLLADAFW::UniqueId, COLLADAFW::UniqueId> UniqueIdUniqueIdMap;
-        typedef std::map<COLLADAFW::UniqueId, String> UniqueIdNamesMap;
+        typedef std::map<COLLADAFW::UniqueId, String> UniqueIdStringMap;
 
         typedef std::vector<COLLADAFW::UniqueId> UniqueIdVec;
         typedef std::map<COLLADAFW::UniqueId, UniqueIdVec> UniqueIdUniqueIdsMap;

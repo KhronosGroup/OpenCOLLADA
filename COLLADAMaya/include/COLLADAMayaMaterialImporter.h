@@ -61,6 +61,8 @@ namespace COLLADAMaya
         static const String DEFAULT_SHADER_LIST;
         static const String ATTR_SHADERS;
 
+        static const String DEFAULT_RENDER_PARTITION;
+
     public:
 
         typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdMayaMaterialMap;
@@ -120,8 +122,9 @@ namespace COLLADAMaya
         UniqueIdUniqueIdMap mMaterialIdEffectIdMap;
 
         /**
-         * The map holds for every unique effect id a list of material names, which use this effect.
+         * The map holds for every unique material id the original collada id.
          */
+        UniqueIdStringMap mMaterialIdOriginalColladaId;
 
         /**
         * The map with the unique ids of the shading engine to the shading engines itself. 
@@ -175,6 +178,11 @@ namespace COLLADAMaya
         * Returns the maya node of the given material id.
         */
         MayaNode* findMayaMaterialNode ( const COLLADAFW::UniqueId& materialId );
+
+        /**
+        * The map holds for every unique material id the original collada id.
+        */
+        const String& findOriginalColladaId ( const COLLADAFW::UniqueId& materialId );
 
     private:
 

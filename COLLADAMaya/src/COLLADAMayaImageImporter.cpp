@@ -63,8 +63,8 @@ namespace COLLADAMaya
         String colladaId = image->getOriginalId ();
         if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
         {
-            MayaDM::addAttr ( file, imageName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, imageName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
         }
 
         // Push the maya image file in the map to the unique image id.

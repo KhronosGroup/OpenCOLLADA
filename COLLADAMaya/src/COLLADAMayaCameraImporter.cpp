@@ -123,8 +123,8 @@ namespace COLLADAMaya
         String colladaId = camera->getOriginalId ();
         if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
         {
-            MayaDM::addAttr ( file, cameraName, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, cameraName, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
         }
 
         // Have a look, if there is a center of interest set by the transform's lookat matrix.

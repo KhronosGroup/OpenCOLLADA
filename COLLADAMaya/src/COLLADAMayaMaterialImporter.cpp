@@ -24,6 +24,7 @@
 #include "MayaDMGroupId.h"
 #include "MayaDMDefaultShaderList.h"
 #include "MayaDMCommands.h"
+#include "MayaDMPartition.h"
 
 #include "COLLADAFWMaterial.h"
 
@@ -35,6 +36,7 @@ namespace COLLADAMaya
     const String MaterialImporter::SHADING_ENGINE_NAME = "ShadingEngine";
     const String MaterialImporter::MATERIAL_INFO_NAME = "MaterialInfo";
     const String MaterialImporter::DEFAULT_SHADER_LIST = ":defaultShaderList1";
+    const String MaterialImporter::DEFAULT_RENDER_PARTITION = ":renderPartition";
     const String MaterialImporter::INITIAL_SHADING_ENGINE_NAME = "initialShadingGroup";
     const String MaterialImporter::INITIAL_MATERIAL_INFO_NAME = "initialMaterialInfo";
     const String MaterialImporter::ATTR_SHADERS = "shaders";
@@ -61,8 +63,8 @@ namespace COLLADAMaya
     // --------------------------
     bool MaterialImporter::importMaterial ( const COLLADAFW::Material* material )
     {
-         // Check if the current material is already imported.
-         const COLLADAFW::UniqueId& materialId = material->getUniqueId ();
+        // Check if the current material is already imported.
+        const COLLADAFW::UniqueId& materialId = material->getUniqueId ();
         if ( findMayaMaterialNode ( materialId ) != 0 ) return false;
 
         // Get the material name.
@@ -72,6 +74,10 @@ namespace COLLADAMaya
         materialName = DocumentImporter::frameworkNameToMayaName ( materialName );
         materialName = mMaterialIdList.addId ( materialName );
         
+        // Add the original id attribute of the material.
+        String colladaMaterialId = material->getOriginalId ();
+        mMaterialIdOriginalColladaId [ materialId ] = colladaMaterialId;
+
         // TODO
 //         // Create the shader data with the shading engine and the material info of the material.
 //         MaterialImporter::ShadingData* shaderData = createShaderData ( materialId );
@@ -80,10 +86,14 @@ namespace COLLADAMaya
         MayaNode* mayaMaterialNode = new MayaNode ( materialId, materialName );
         mMayaMaterialNodesMap [materialId] = mayaMaterialNode;
 
+        // TODO Multiple materials can use the same effect. 
+        // About this, vor every collada material a maya material has to be created.
+
         // Store the effect id of the current material id.
         const COLLADAFW::UniqueId& effectId = material->getInstantiatedEffect ();
         mMaterialIdEffectIdMap [materialId] = effectId;
 
+        // Push the material id in the list of materials for this effect.
         // Store the data also in the other direction, for faster search.
         EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
         effectImporter->assignMaterial ( effectId, materialId );
@@ -156,7 +166,7 @@ namespace COLLADAMaya
              if ( COLLADABU::Utils::equals ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING ) )
                  shadingEngineName = SHADING_ENGINE_NAME;
              shadingEngineName = DocumentImporter::frameworkNameToMayaName ( shadingEngineName );
-             shadingEngineName = mShadingEngineIdList.addId ( shadingEngineName );
+             shadingEngineName = mShadingEngineIdList.addId ( shadingEngineName, true, true );
 
              // Create a shading engine, if we not already have one.
              FILE* file = getDocumentImporter ()->getFile ();
@@ -166,7 +176,7 @@ namespace COLLADAMaya
              // createNode materialInfo -name "materialInfo2";
              String materialInfoName = MATERIAL_INFO_NAME;
              materialInfoName = DocumentImporter::frameworkNameToMayaName ( materialInfoName );
-             materialInfoName = mMaterialInfoIdList.addId ( materialInfoName ); 
+             materialInfoName = mMaterialInfoIdList.addId ( materialInfoName, true, true ); 
              MayaDM::MaterialInfo materialInfo ( file, materialInfoName.c_str () );
 
              // Push it in the map of shading engines
@@ -195,30 +205,40 @@ namespace COLLADAMaya
          size_t numOfBindings = materialBindingsArray.getCount ();
          for ( size_t i=0; i<numOfBindings; ++i )
          {
-             // Get the current material binding.
-             const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindingsArray [i];
+            // Get the current material binding.
+            const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindingsArray [i];
 
-             // Get the material id.
-             const COLLADAFW::UniqueId& materialId = materialBinding.getReferencedMaterial ();
+            // Get the material id.
+            const COLLADAFW::UniqueId& materialId = materialBinding.getReferencedMaterial ();
 
-             // TODO We need a shading engine and a material info for every maya effect.
-             // But an effect can be referenced from multiple materials!!!
+            // TODO We need a shading engine and a material info for every maya effect.
+            // But an effect can be referenced from multiple materials!!!
 
-             // Get the unique shading engine name and get / create the shader data.
-             String shadingEngineName = materialBinding.getName ();
-             ShadingData* shaderData = createShaderData ( materialId, shadingEngineName );
+//             // Get the unique shading engine name and get / create the shader data.
+//             String shadingEngineName = materialBinding.getName ();
+//             ShadingData* shaderData = createShaderData ( materialId, shadingEngineName );
 
-             // Get the shading engine id. This id is unique for one geometry.
-             COLLADAFW::MaterialId shadingEngineId = materialBinding.getMaterialId ();
+            // Get the shading engine id. This id is unique for one geometry.
+            COLLADAFW::MaterialId shadingEngineId = materialBinding.getMaterialId ();
 
-             // Create the materialInfo object.
-             MaterialInformation materialInfo ( materialId, shadingEngineId );
+            // Create the materialInfo object.
+            MaterialInformation materialInfo ( materialId, shadingEngineId );
 
-             // The position of the materialId calls the primitive index.
-             mGeometryBindingMaterialInfosMap [geometryBinding].push_back ( materialInfo );
-         }
+            // The position of the materialId calls the primitive index.
+            mGeometryBindingMaterialInfosMap [geometryBinding].push_back ( materialInfo );
+        }
+    }
 
-     }
+    // --------------------------
+    const String& MaterialImporter::findOriginalColladaId ( const COLLADAFW::UniqueId& materialId )
+    {
+        const UniqueIdStringMap::const_iterator it = mMaterialIdOriginalColladaId.find ( materialId );
+        if ( it != mMaterialIdOriginalColladaId.end () )
+        {
+            return it->second;
+        }
+        return COLLADABU::Utils::EMPTY_STRING;
+    }
 
     // --------------------------
     void MaterialImporter::writeConnections ()
@@ -255,6 +275,12 @@ namespace COLLADAMaya
             // with the shading group of the material info.
             // connectAttr "blinn1SG.message" "materialInfo2.shadingGroup";
             connectAttr ( file, shadingEngine.getMessage (), materialInfo.getShadingGroup () );
+
+            // Create the default object (not in the maya file!).
+            MayaDM::Partition defaultRenderPartition ( file, DEFAULT_RENDER_PARTITION, "", false );
+            // References to the partition nodes this set is a member of. 
+            // connectAttr "ShadingEngine_1.pa" ":renderPartition.st" -na;
+            connectNextAttr ( file, shadingEngine.getPartition (), defaultRenderPartition.getSets () );
 
             // Get the effect
             MayaDM::DependNode* effectNode = 0;
@@ -536,6 +562,7 @@ namespace COLLADAMaya
         EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
         const EffectImporter::UniqueIdLambertMap& effectMap = effectImporter->getMayaEffectMap ();
 
+        // Create the default object (not in the maya file!).
         MayaDM::DefaultShaderList defaultShaderList ( file, DEFAULT_SHADER_LIST, "", false );
 
         EffectImporter::UniqueIdLambertMap::const_iterator it = effectMap.begin ();

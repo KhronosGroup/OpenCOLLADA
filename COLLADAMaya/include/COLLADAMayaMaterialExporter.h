@@ -26,6 +26,8 @@
 #include "COLLADASWSampler.h"
 #include "COLLADASWValueType.h"
 
+#include "COLLADABUIDList.h"
+
 #include "cgfxAttrDef.h"
 
 #include <maya/MObject.h>
@@ -38,16 +40,16 @@ namespace COLLADAMaya
 {
     /** Map for the materials. */
     typedef std::map<String, MObject> MaterialMap;
+    typedef std::map<String, String> StringToStringMap;
+
 
     /** This class writes the <library_materials>. It uses informations created by the effect exporter*/
-
     class MaterialExporter : public COLLADASW::LibraryMaterials
     {
 
     private:
 
         /** Holds information about an already exported effect*/
-
         class ExportedEffect
         {
             MObject* shader; // The shader object, that was used to export the effect
@@ -59,8 +61,30 @@ namespace COLLADAMaya
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
 
-        /** maps already exported materials to the corresponding collada material id*/
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList mMaterialIdList;
+
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList mEffectIdList;
+
+        /** 
+         * Maps already exported materials to the corresponding collada material id.
+         */
         MaterialMap mMaterialMap;
+
+        /**
+         * A collada effect id for every maya material id.
+         */
+        StringToStringMap mMayaIdColladaEffectIdMap;
+
+        /**
+        * A collada material id for every maya material id.
+        */
+        StringToStringMap mMayaIdColladaMaterialIdMap;
 
         /** true, if the material std::map is already read in */
         bool materialMapInitialized;
@@ -77,7 +101,6 @@ namespace COLLADAMaya
         /** The filename of the current shader to export. */
         COLLADASW::URI mShaderFxFileUri;
 
-
     public:
 
         /**
@@ -90,6 +113,16 @@ namespace COLLADAMaya
 
         /** Returns the std::map with all the materials */
         MaterialMap* getExportedMaterialsMap();
+
+        /**
+        * A collada effect id for every maya material id.
+        */
+        const String findColladaEffectId ( const String& mayaMaterialId );
+
+        /**
+        * A collada effect id for every maya material id.
+        */
+        const String findColladaMaterialId ( const String& mayaMaterialId );
 
     private:
 
@@ -123,16 +156,19 @@ namespace COLLADAMaya
 
         /** Export the reference to the effect and, in case of an hardware shader, 
             the effect technique reference and the hardware shader parameters. */
-        void exportEffectInstance( String materialId, MObject &shader );
+        void exportEffectInstance ( 
+            const String& mayaMaterialId, 
+            const String& colladaMaterialId, 
+            MObject& shader );
 
         /** Exports the data for a custom hardware shader node. */
-        void exportCustomHwShaderNode( COLLADASW::InstanceEffect &effectInstance, MObject shader  );
+        void exportCustomHwShaderNode ( COLLADASW::InstanceEffect &effectInstance, MObject shader );
 
         /** Adds the technique hint and the effect attributes to the collada document. */
         void exportCgfxShaderNode ( COLLADASW::InstanceEffect &effectInstance, cgfxShaderNode *fnNode );
 
         /** Adds a <setparam> of the given attribute to the collada document. */
-        void setSetParam( const cgfxShaderNode* shaderNodeCgfx, const cgfxAttrDef* attribute );
+        void setSetParam ( const cgfxShaderNode* shaderNodeCgfx, const cgfxAttrDef* attribute );
 
         /** Adds the <setparam> element of the attributes texture. */
         void setSetParamTexture (

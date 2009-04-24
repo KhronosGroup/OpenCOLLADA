@@ -826,19 +826,31 @@ namespace COLLADAMaya
             // Take the filename for the unique image name
             COLLADASW::URI sourceFileUri ( shaderFxFileUri, String ( annotationValue ) );
             sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+            String mayaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );
 
-            String imageId = sourceFileUri.getPathFileBase();
+            // Get the image id of the maya image 
+            EffectExporter* effectExporter = mDocumentExporter->getEffectExporter ();
+            String colladaImageId = effectExporter->findColladaImageId ( mayaImageId );
+            if ( COLLADABU::Utils::equals ( colladaImageId, COLLADABU::Utils::EMPTY_STRING ) )
+            {
+                // Generate a COLLADA id for the new light object
+                colladaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );
+
+                // Make the id unique and store it in a map for refernences.
+                EffectTextureExporter* textureExporter = effectExporter->getTextureExporter ();
+                colladaImageId = textureExporter->getImageIdList ().addId ( colladaImageId );
+                textureExporter->getMayaIdColladaImageId () [mayaImageId] = colladaImageId;
+            }
 
             // Export the image
-            EffectTextureExporter* textureExporter =
-                mDocumentExporter->getEffectExporter()->getTextureExporter();
-            COLLADASW::Image* colladaImage = textureExporter->exportImage ( imageId, sourceFileUri );
+            EffectTextureExporter* textureExporter = mDocumentExporter->getEffectExporter()->getTextureExporter();
+            COLLADASW::Image* colladaImage = textureExporter->exportImage ( mayaImageId, colladaImageId, sourceFileUri );
 
             // Get the image id of the exported collada image
-            imageId = colladaImage->getImageId();
+            colladaImageId = colladaImage->getImageId();
 
             // Set the image reference
-            initOption.setImageReference ( imageId );
+            initOption.setImageReference ( colladaImageId );
         }
         surface.setInitOption ( initOption );
 
