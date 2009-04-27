@@ -60,12 +60,12 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     VisualSceneExporter::VisualSceneExporter (
-        COLLADASW::StreamWriter* _streamWriter,
-        DocumentExporter* _documentExporter,
-        const String& _sceneId )
-    : COLLADASW::LibraryVisualScenes ( _streamWriter )
-    , mDocumentExporter ( _documentExporter )
-    , mSceneId ( _sceneId )
+        COLLADASW::StreamWriter* streamWriter,
+        DocumentExporter* documentExporter,
+        const String& sceneId )
+    : COLLADASW::LibraryVisualScenes ( streamWriter )
+    , mDocumentExporter ( documentExporter )
+    , mSceneId ( sceneId )
     , mIsJoint ( false )
     , mIsFirstRotation ( true )
     , mVisualSceneAdded ( false )
@@ -77,14 +77,6 @@ namespace COLLADAMaya
     // ------------------------------------------------------------
     bool VisualSceneExporter::exportVisualScenes()
     {
-        // Get the sceneID
-        String sceneID = SceneGraph::SCENE_ID;
-
-        // Assign a name to the scene
-        MString sceneName;
-        MGlobal::executeCommand ( MString ( "file -q -ns" ), sceneName );
-        if ( sceneName.length() != 0 ) sceneID = sceneName.asChar();
-
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
         SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
@@ -96,6 +88,7 @@ namespace COLLADAMaya
         size_t length = exportNodesTree->size();
         for ( size_t i = 0; i < length; ++i )
         {
+            // TODO No instance node under the visual scene!
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
 
             // Exports all the nodes in a node and all its child nodes recursive
@@ -125,6 +118,9 @@ namespace COLLADAMaya
         // Check if the element isn't already exported
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
         SceneElement* instantiatedSceneElement = sceneGraph->findExportedElement ( dagPath );
+
+        // If the element is a root element and it is instanced, we have to try to set 
+        bool isInstance = dagPath.isInstanced ();
         bool hasPreviousInstance =  ( instantiatedSceneElement != NULL );
         if ( hasPreviousInstance )
         {
@@ -503,6 +499,10 @@ namespace COLLADAMaya
         // Add the visual scene, if not done before
         if ( !mVisualSceneAdded )
         {
+            MString sceneName;
+            MGlobal::executeCommand ( MString ( "file -q -ns" ), sceneName );
+            if ( sceneName.length() != 0 ) mSceneId = sceneName.asChar();
+
             // There is always just one visual scene. Give it a valid unique id.
             String visualSceneName = COLLADABU::Utils::checkNCName( mSceneId );
             openVisualScene ( VISUAL_SCENE_NODE_ID, visualSceneName );
@@ -512,48 +512,49 @@ namespace COLLADAMaya
         bool isInstanceNode = mVisualSceneNode->getIsInstanceNode();
         if ( isInstanceNode )
         {
+            String mayaNodeId;
+
             // Get the URL of the instantiated visual scene node
             SceneElement* instantiatedSceneElement = sceneElement->getInstantiatedSceneElement();
-            MDagPath instantiatedDagPath = instantiatedSceneElement->getPath();
-            String mayaNodeId = mDocumentExporter->dagPathToColladaId ( instantiatedDagPath );
+            if ( instantiatedSceneElement != 0 )
+            {
+                MDagPath instantiatedDagPath = instantiatedSceneElement->getPath();
+                mayaNodeId = mDocumentExporter->dagPathToColladaId ( instantiatedDagPath );
+            }
+            else
+            {
+                // The maya node id.
+                mayaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
+            }
+
             String colladaNodeId = findColladaNodeId ( mayaNodeId );
             if ( COLLADABU::Utils::equals ( colladaNodeId, COLLADABU::Utils::EMPTY_STRING ) )
-                colladaNodeId = mayaNodeId;
+            {
+                colladaNodeId = createColladaNodeId ( dagPath );
+            }
+
             mVisualSceneNode->setNodeURL ( COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, colladaNodeId ) );
         }
         else
         {
+            // Get the dag node.
+            MFnDagNode node ( dagPath.node () );
+
             // The maya node id.
-            MObject node = dagPath.node();
             String mayaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
 
-            // Generate a COLLADA id for the new object.
-            String colladaNodeId;
+            // Set the node name.
+            String nodeName = mDocumentExporter->mayaNameToColladaName ( node.name ().asChar () );
+            //String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
 
-            // Check if there is an extra attribute "colladaId" and use this as export id.
-            MString attributeValue;
-            DagHelper::getPlugValue ( node, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-            if ( attributeValue != "" )
-            {
-                // Generate a valid collada name, if necessary.
-                colladaNodeId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
-            }
-            else
-            {
-                // Generate a COLLADA id for the new object
-                colladaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
-            }
+            // Generate a COLLADA id for the new object.
+            String colladaNodeId = createColladaNodeId ( dagPath );
+
             // Make the id unique and store it in a map.
             colladaNodeId = mNodeIdList.addId ( colladaNodeId );
             mMayaIdColladaNodeId [mayaNodeId] = colladaNodeId;
 
-            // Set the node id.
-            mVisualSceneNode->setNodeId ( colladaNodeId );
-
-            // Set the node name.
-            String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
-
-            // Create the scene node
+            // Set the node id and the name.
             mVisualSceneNode->setNodeId ( colladaNodeId );
             mVisualSceneNode->setNodeName ( nodeName );
         }
@@ -1166,5 +1167,32 @@ namespace COLLADAMaya
             return it->second;
         }
         return COLLADABU::Utils::EMPTY_STRING;
+    }
+
+    // ------------------------------------
+    COLLADAMaya::String VisualSceneExporter::createColladaNodeId ( 
+        const MDagPath &dagPath )
+    {
+        String colladaNodeId;
+
+        // Get the dag node.
+        MFnDagNode node ( dagPath.node () );
+
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue;
+        DagHelper::getPlugValue ( dagPath.node (), BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != "" )
+        {
+            // Generate a valid collada name, if necessary.
+            colladaNodeId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+        }
+        else
+        {
+            // Generate a COLLADA id for the new object
+            colladaNodeId = mDocumentExporter->mayaNameToColladaName ( node.name ().asChar () );
+            //colladaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        }	
+        
+        return colladaNodeId;
     }
 }

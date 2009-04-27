@@ -41,8 +41,6 @@
 namespace COLLADAMaya
 {
 
-    const String SceneGraph::SCENE_ID = "MayaScene";
-
 
     // ------------------------------------------------------------
     SceneGraph::SceneGraph ( DocumentExporter* documentExporter )
@@ -183,10 +181,10 @@ namespace COLLADAMaya
         }
 
         // Push all nodes from root down to all meshes which have to be exported in a list.
-        findForcedNodes();
+        findForcedNodes ();
 
         // Fills the list with all root targets to export.
-        bool success = retrieveExportNodes();
+        bool success = retrieveExportNodes ();
         
         // Create a selection list containing only the root nodes (implies export all!)
         uint length = mTargets.length();
@@ -212,7 +210,11 @@ namespace COLLADAMaya
             SceneElement* sceneElement = createSceneElement ( dagPath );
 
             // Push the root nodes into the tree.
-            mExportNodesTree.push_back ( sceneElement );
+            // If the root node is instanced, push it at the beginning (no instance on root!).
+            if ( dagPath.isInstanced () )
+                mExportNodesTree.insert ( mExportNodesTree.begin (), sceneElement );
+            else
+                mExportNodesTree.push_back ( sceneElement );
             
             // Create the child elements
             //if ( sceneElement->getIsExportNode() )
@@ -246,6 +248,13 @@ namespace COLLADAMaya
 
         // Attach a function set
         MFnDependencyNode fn ( dagPath.node() );
+
+        // Check for multiple instances.
+        bool isInstanced = dagPath.isInstanced ();
+        if ( parentSceneElement == 0 )
+        {
+//             dagPath.getAllPathsTo ( ) ()
+        }
 
         // Get the node name
         String nodeName = DocumentExporter::mayaNameToColladaName ( fn.name() );

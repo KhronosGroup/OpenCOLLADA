@@ -20,6 +20,7 @@
 #include "COLLADAMayaAnimationHelper.h"
 #include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaSceneGraph.h"
+#include "COLLADAMayaBaseImporter.h"
 
 #include <maya/MFnDependencyNode.h>
 #include <maya/MFnDagNode.h>
@@ -176,9 +177,18 @@ namespace COLLADAMaya
             // Check the flag, if the element or a child element has curves
             if ( !animatedElement->hasCurves() ) continue;
 
+            // TODO id preservation
             // Open an animation node and add the channel of the current animation
-            const String& baseId = animatedElement->getBaseId();
-            openAnimation ( baseId );
+            const String& originalColladaId = animatedElement->getOriginalColladaId ();
+            if ( !COLLADABU::Utils::equals ( originalColladaId, COLLADABU::Utils::EMPTY_STRING ) )
+            {
+                openAnimation ( originalColladaId );
+            }
+            else
+            {
+                const String& baseId = animatedElement->getBaseId();
+                openAnimation ( baseId );
+            }
 
             // Recursive call for all the animated children
             const AnimatedElementList childElements = animatedElement->getAnimatedChildElements();
@@ -1355,13 +1365,26 @@ namespace COLLADAMaya
         String baseId = getBaseId ( plug );
         String nodeId = getNodeId ( plug );
 
+        // Create the animated element.
         AnimationElement* animatedElement;
         animatedElement = new AnimationElement ( plug, baseId, targetSid, nodeId, parameters, convertUnits, sampleType );
         animatedElement->setIsRelativeAnimation( isRelativeAnimation );
         animatedElement->setArrayElement ( arrayElement );
-
-        // animatedElement->animatedVector = animatedVector;
         animatedElement->setIsSampling ( isSampling );
+
+        // Get the animation object
+        MObject animationObject = DagHelper::getSourceNodeConnectedTo ( plug );
+
+        // TODO id preservation
+        // Check if there is an extra attribute "colladaId" and use this as export id.
+        MString attributeValue;
+        DagHelper::getPlugValue ( animationObject, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != "" )
+        {
+            // Generate a valid collada name, if necessary.
+            String colladaAnimationId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+            animatedElement->setOriginalColladaId ( colladaAnimationId );
+        }
 
         // Copy the conversion functor. If none is provided: generate one.
         if ( conversion != NULL )
@@ -1442,10 +1465,23 @@ namespace COLLADAMaya
                 // Get the curve object
                 MObject curveObject = DagHelper::getSourceNodeConnectedTo ( plug );
 
+                // Get the animation id.
+                String mayaAnimationId = getBaseId ( plug );
+
+                // TODO id preservation
+                // Check if there is an extra attribute "colladaId" and use this as export id.
+                MString attributeValue;
+                DagHelper::getPlugValue ( curveObject, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+                if ( attributeValue != "" )
+                {
+                    // Generate a valid collada name, if necessary.
+                    String colladaAnimationId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+                    animatedElement->setOriginalColladaId ( colladaAnimationId );
+                }
+
                 // Create the curve with the ids
-                String baseId = getBaseId ( plug );
                 AnimationCurve* curve;
-                curve = createAnimationCurveFromNode ( animatedElement, curveObject, baseId, curveIndex );
+                curve = createAnimationCurveFromNode ( animatedElement, curveObject, mayaAnimationId, curveIndex );
 
                 // Push the curve in the list of curves
                 if ( curve != NULL ) 
@@ -1459,10 +1495,24 @@ namespace COLLADAMaya
             }
             else if ( aresult == kISANIM_Character )
             {
+                // Get the curve object
+                MObject curveObject = DagHelper::getSourceNodeConnectedTo ( plug );
+
+                // TODO id preservation doesn't work in this case...
+                // Check if there is an extra attribute "colladaId" and use this as export id.
+                MString attributeValue;
+                DagHelper::getPlugValue ( curveObject, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+                if ( attributeValue != "" )
+                {
+                    // Generate a valid collada name, if necessary.
+                    String colladaAnimationId = colladaAnimationId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+                    animatedElement->setOriginalColladaId ( colladaAnimationId );
+                }
+
                 // Create the animation curve from the current clip
                 curveCreated = createAnimationCurveFromClip ( animatedElement, plug, conversion, curves, curveIndex );
 
-                // it is possible that the character has some curves as well as clips
+                // It is possible that the character has some curves as well as clips
                 MPlug plugIntermediate;
                 DagHelper::getPlugConnectedTo ( plug, plugIntermediate );
 
@@ -1484,6 +1534,20 @@ namespace COLLADAMaya
             // Get the cache with the animations
             AnimationSampleCache* animCache = mDocumentExporter->getAnimationCache();
             String baseId = getBaseId ( plug );
+
+            // Get the curve object
+            MObject curveObject = DagHelper::getSourceNodeConnectedTo ( plug );
+
+            // TODO id preservation
+            // Check if there is an extra attribute "colladaId" and use this as export id.
+            MString attributeValue;
+            DagHelper::getPlugValue ( curveObject, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+            if ( attributeValue != "" )
+            {
+                // Generate a valid collada name, if necessary.
+                String colladaAnimationId = colladaAnimationId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+                animatedElement->setOriginalColladaId ( colladaAnimationId );
+            }
 
             // Sample the animation.
             if ( animatedMatrix )
@@ -1617,7 +1681,16 @@ namespace COLLADAMaya
             curveCreated = true;
 
             // Assign the new curve to the animation clip.
-            clip->colladaClip->setInstancedAnimation ( curve->getBaseId() );
+            // Open an animation node and add the channel of the current animation
+            const String& originalColladaId = animatedElement->getOriginalColladaId ();
+            if ( !COLLADABU::Utils::equals ( originalColladaId, COLLADABU::Utils::EMPTY_STRING ) )
+            {
+                clip->colladaClip->setInstancedAnimation ( originalColladaId );
+            }
+            else
+            {
+                clip->colladaClip->setInstancedAnimation ( curve->getBaseId() );
+            }
 
             // Push the current curve in the list of curves
             //  curves.push_back(curve);
@@ -2037,4 +2110,16 @@ namespace COLLADAMaya
             bkey->outTangent[curvePosition] = TangentPoint ( bkey->input + nextSpan, bkey->output[curvePosition] );
         }
     }
+
+    // ------------------------------------
+    const String AnimationExporter::findColladaAnimationId ( const String& mayaAnimationId )
+    {
+        const StringToStringMap::const_iterator it = mMayaIdColladaIdMap.find ( mayaAnimationId );
+        if ( it != mMayaIdColladaIdMap.end () )
+        {
+            return it->second;
+        }
+        return COLLADABU::Utils::EMPTY_STRING;
+    }
+
 } // namespace COLLADAMaya

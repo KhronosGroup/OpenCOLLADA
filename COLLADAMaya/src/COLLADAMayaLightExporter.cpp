@@ -229,4 +229,5 @@ namespace COLLADAMaya
         }
         return COLLADABU::Utils::EMPTY_STRING;
     }
+
 }

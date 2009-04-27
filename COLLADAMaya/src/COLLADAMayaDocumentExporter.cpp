@@ -130,6 +130,7 @@ namespace COLLADAMaya
 
         mStreamWriter.startDocument();
 
+        // Build the scene graph
         if ( mSceneGraph->create ( selectionOnly ) )
         {
             // Start by caching the expressions that will be sampled

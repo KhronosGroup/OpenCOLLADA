@@ -328,6 +328,14 @@ namespace COLLADAMaya
                 return; break;
             }
 
+            // Add the original id attribute.
+            String colladaId = animationCurve->getOriginalId ();
+            if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+            {
+                MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+                MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            }
+
             // Push the maya animation curve element in a list.
             const COLLADAFW::UniqueId& animationId = animationCurve->getUniqueId ();
             mMayaDMAnimationCurves [animationId].push_back ( animCurve );

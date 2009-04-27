@@ -30,6 +30,9 @@
 #include "COLLADASWLibraryAnimations.h"
 #include "COLLADASWSource.h"
 
+#include "COLLADABUIDList.h"
+
+
 namespace COLLADAMaya
 {
 
@@ -38,6 +41,10 @@ namespace COLLADAMaya
      */
     class AnimationExporter : public COLLADASW::LibraryAnimations
     {
+
+    private:
+
+        typedef std::map<String, String> StringToStringMap;
 
     private:
 
@@ -59,11 +66,23 @@ namespace COLLADAMaya
         /** The eases parameter for the animation. Used with tcbs. */
         static const String PARAM_TYPE_EASES;
 
+    private:
+
         /** Pointer to the main document exporter. */
         DocumentExporter* mDocumentExporter;
 
         /** True, if we have an import. */
         bool isImport;
+
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList mAnimationIdList;
+
+        /**
+        * A collada id for every maya id.
+        */
+        StringToStringMap mMayaIdColladaIdMap;
 
         /** The list with the animated elements. */
         AnimatedElementList mAnimationElements;
@@ -188,6 +207,11 @@ namespace COLLADAMaya
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
             ConversionFunctor* conversion = NULL );
+
+        /**
+        * A collada id for every maya id.
+        */
+        const String findColladaAnimationId ( const String& mayaAnimationId );
 
     private:
 

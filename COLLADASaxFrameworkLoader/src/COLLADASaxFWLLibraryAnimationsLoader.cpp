@@ -361,6 +361,9 @@ namespace COLLADASaxFWL
 	bool LibraryAnimationsLoader::end__animation()
 	{
 		SaxVirtualFunctionTest(end__animation());
+
+        mOriginalId = COLLADABU::Utils::EMPTY_STRING;
+
 		return true;
 	}
 

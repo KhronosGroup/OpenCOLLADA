@@ -54,6 +54,7 @@ namespace COLLADAMaya
         String mBaseId;
         String mNodeId;
         String mTargetSid;
+        String mOriginalColladaId;
 
         /** The plug, which is the connection to the animated attribute. */
         MPlug mPlug;
@@ -102,6 +103,9 @@ namespace COLLADAMaya
 
         /** Destructor. */
         virtual ~AnimationElement();
+
+        const COLLADAMaya::String& getOriginalColladaId () const { return mOriginalColladaId; }
+        void setOriginalColladaId ( const COLLADAMaya::String& val ) { mOriginalColladaId = val; }
 
         /** Returns the base id. */
         const String& getBaseId() const

@@ -34,11 +34,6 @@ namespace COLLADAMaya
     class SceneGraph
     {
 
-    public:
-
-        /** The ID of the current scene. It always exist just one scene! */
-        static const String SCENE_ID;
-
     private:
 
         /** false if all data should be exported, true if export just the selected elements */

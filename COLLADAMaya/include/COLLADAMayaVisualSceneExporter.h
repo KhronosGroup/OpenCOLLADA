@@ -69,7 +69,7 @@ namespace COLLADAMaya
         bool mIsFirstRotation;
 
         /** The id of the current scene. */
-        const String& mSceneId;
+        String mSceneId;
 
         /** Pointer to the document exporter. */
         DocumentExporter* mDocumentExporter;
@@ -206,6 +206,8 @@ namespace COLLADAMaya
          * @param sceneElement The scene element of the node.
          */
         void openVisualSceneNode ( const SceneElement *sceneElement );
+
+        String createColladaNodeId ( const MDagPath &dagPath );
 
         /**
          * Compute local space parameters and export them. These parameters are:
