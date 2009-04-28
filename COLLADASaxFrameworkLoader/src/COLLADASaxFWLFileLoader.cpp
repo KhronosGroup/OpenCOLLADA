@@ -373,7 +373,7 @@ namespace COLLADASaxFWL
 		for ( size_t i = 0, count = mEffects.size(); i < count; ++i)
 		{
 			COLLADAFW::Effect *effect = mEffects[i];
-			FW_DELETE effect;
+			writer()->writeEffect(effect);
 		}
 	}
 

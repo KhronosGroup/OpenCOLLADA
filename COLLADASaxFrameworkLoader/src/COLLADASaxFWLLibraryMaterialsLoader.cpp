@@ -54,7 +54,7 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(end__material()); 
 		bool success = true;
-		if ( (getObjectFlags() & Loader::LIGHT_FLAG) != 0 )
+		if ( (getObjectFlags() & Loader::MATERIAL_FLAG) != 0 )
 		{
 			success = writer()->writeMaterial(mCurrentMaterial);
 		}
