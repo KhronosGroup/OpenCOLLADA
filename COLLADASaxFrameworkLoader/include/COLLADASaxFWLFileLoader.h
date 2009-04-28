@@ -88,6 +88,10 @@ namespace COLLADASaxFWL
 		completely been parsed.*/
 		Loader::VisualSceneList& mVisualScenes;
 
+		/** List of all library nodes in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		Loader::LibraryNodesList& mLibraryNodes;
+
 		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		Loader::EffectList& mEffects;
@@ -157,6 +161,10 @@ namespace COLLADASaxFWL
 		file loader.*/
 		void addVisualScene( COLLADAFW::VisualScene* visualScene ) { mVisualScenes.push_back(visualScene); }
 
+		/** Adds @a libraryNodes to the list of library nodes. It will be sent to the writer and delete by the
+		file loader.*/
+		void addLibraryNodes( COLLADAFW::LibraryNodes* libraryNodes ) { mLibraryNodes.push_back(libraryNodes); }
+
 		/** Adds @a effect to the list of effects. It will be sent to the writer and delete by the
 		file loader.*/
 		void addEffect( COLLADAFW::Effect* effect ) { mEffects.push_back(effect); }
@@ -207,6 +215,9 @@ namespace COLLADASaxFWL
 
 		/** Writes all the visual scenes.*/
 		void writeVisualScenes();
+
+		/** Writes all the library nodes.*/
+		void writeLibraryNodes();
 
 		/** Writes all the visual scenes.*/
 		void writeEffects();

@@ -10,6 +10,8 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLLibraryNodesLoader.h"
+#include "COLLADASaxFWLFileLoader.h"
+
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWLibraryNodes.h"
 
@@ -54,10 +56,9 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(end__library_nodes()); 
 		moveUpInSidTree();
-		bool success = writer()->writeLibraryNodes(mLibraryNodes);
-		delete mLibraryNodes;
+		getFileLoader()->addLibraryNodes(mLibraryNodes);
 		finish();
-		return success;
+		return true;
 	}
 
 } // namespace COLLADASaxFWL

@@ -16,6 +16,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADABUURI.h"
 
 #include "COLLADAFWVisualScene.h"
+#include "COLLADAFWLibraryNodes.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWEffect.h"
 #include "COLLADAFWAnimationList.h"
@@ -46,6 +47,13 @@ namespace COLLADASaxFWL
 		{
 			COLLADAFW::VisualScene *visualScene = mVisualScenes[i];
 			FW_DELETE visualScene;
+		}
+
+		// delete library nodes
+		for ( size_t i = 0, count = mLibraryNodes.size(); i < count; ++i)
+		{
+			COLLADAFW::LibraryNodes *libraryNodes = mLibraryNodes[i];
+			FW_DELETE libraryNodes;
 		}
 
 		// delete effects
