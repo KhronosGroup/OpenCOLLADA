@@ -138,6 +138,7 @@ namespace COLLADASaxFWL
 		 , mCurrentSidTreeNode( colladaLoader->getSidTreeRoot() )
 		 , mIdStringSidTreeNodeMap( colladaLoader->getIdStringSidTreeNodeMap() )
 		 , mVisualScenes( colladaLoader->getVisualScenes() )
+		 , mLibraryNodes( colladaLoader->getLibraryNodes() )
 		 , mEffects( colladaLoader->getEffects() )
 		 , mUniqueIdAnimationListMap( colladaLoader->getUniqueIdAnimationListMap() )
 		 , mObjectFlags( objectFlags )
@@ -274,6 +275,11 @@ namespace COLLADASaxFWL
 			writeVisualScenes();
 		}
 
+		if ( (getObjectFlags() & Loader::LIBRARY_NODES_FLAG) != 0 )
+		{
+			writeLibraryNodes();
+		}
+
 		if ( (getObjectFlags() & Loader::ANIMATION_LIST_FLAG) != 0 )
 		{
 			writeAnimationLists();
@@ -364,6 +370,16 @@ namespace COLLADASaxFWL
 		{
 			COLLADAFW::VisualScene *visualScene = mVisualScenes[i];
 			writer()->writeVisualScene(visualScene);
+		}
+	}
+
+	//-----------------------------
+	void FileLoader::writeLibraryNodes()
+	{
+		for ( size_t i = 0, count = mLibraryNodes.size(); i < count; ++i)
+		{
+			COLLADAFW::LibraryNodes *libraryNodes = mLibraryNodes[i];
+			writer()->writeLibraryNodes(libraryNodes);
 		}
 	}
 

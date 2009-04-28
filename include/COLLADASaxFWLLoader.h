@@ -29,6 +29,7 @@ namespace COLLADAFW
 {
 	class IWriter;
 	class VisualScene;
+	class LibraryNodes;
 	class Effect;
 	class AnimationList;
 }
@@ -80,6 +81,9 @@ namespace COLLADASaxFWL
 		/** List of visual scenes.*/
 		typedef std::vector<COLLADAFW::VisualScene*> VisualSceneList;
 
+		/** List of library nodes.*/
+		typedef std::vector<COLLADAFW::LibraryNodes*> LibraryNodesList;
+
 		/** List of effects.*/
 		typedef std::vector<COLLADAFW::Effect*> EffectList;
 
@@ -122,6 +126,10 @@ namespace COLLADASaxFWL
 		/** List of all visual scenes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		VisualSceneList mVisualScenes;
+
+		/** List of all library nodes in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		LibraryNodesList mLibraryNodes;
 
 		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
@@ -187,6 +195,10 @@ namespace COLLADASaxFWL
 		/** List of all visual scenes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		VisualSceneList& getVisualScenes() { return mVisualScenes; }
+
+		/** List of all library nodes in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		LibraryNodesList& getLibraryNodes() { return mLibraryNodes; }
 
 		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
