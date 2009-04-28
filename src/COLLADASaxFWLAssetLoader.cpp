@@ -36,7 +36,7 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(end__asset());
 		bool success = true;
-		if ( (getObjectFlags() & Loader::ANIMATION_FLAG) != 0 )
+		if ( (getObjectFlags() & Loader::ASSET_FLAG) != 0 )
 		{
 			success = writer()->writeGlobalAsset ( mAsset );
 		}
