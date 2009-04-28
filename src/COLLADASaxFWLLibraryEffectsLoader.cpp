@@ -433,6 +433,7 @@ namespace COLLADASaxFWL
 	bool LibraryEffectsLoader::begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__profile_COMMON__technique(attributeData)); 
+		addToSidTree( attributeData.id, attributeData.sid );
 		COLLADAFW::EffectCommon& commonEffect =  *mCurrentEffect->getCommonEffects().back();
 		COLLADAFW::SamplerPointerArray& samplerArray = commonEffect.getSamplerPointerArray();
 		SidSamplerInfoMap::iterator samplerIt = mSidSamplerInfoMap.begin();
@@ -466,6 +467,7 @@ namespace COLLADASaxFWL
 		}
 		mSidSamplerInfoMap.clear();
 		mSidSurfaceMap.clear();
+		moveUpInSidTree();
 		return true;
 	}
 
