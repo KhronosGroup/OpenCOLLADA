@@ -16,6 +16,7 @@
 #include "COLLADAFWObject.h"
 
 #include <map>
+#include <vector>
 
 namespace COLLADASaxFWL
 {
@@ -44,6 +45,8 @@ namespace COLLADASaxFWL
 
 		typedef std::map< SidIdentifier, SidTreeNode*> SidIdentifierSidTreeNodeMap;
 
+		typedef std::vector< SidTreeNode*> SidTreeNodeList;
+
 		enum TargetTypeClass
 		{
 			TARGETTYPECLASS_UNKNOWN,
@@ -61,9 +64,13 @@ namespace COLLADASaxFWL
 	private:
 		/** The parent node.*/
 		SidTreeNode *mParent;
+
 		/** Maps sids to the children. One sid can appear more than once, since COLLADA allows sids to appear more than once
 		in different technique elements of the same parent.*/
 		SidIdentifierSidTreeNodeMap mChildren;
+
+		/** List of all direct children. Is used to delete all of them.*/
+		SidTreeNodeList mDirectChildren;
 
 		/** The target the sid points to. Different types of targets are supported. @see mTargetType*/
 		Target mTarget;

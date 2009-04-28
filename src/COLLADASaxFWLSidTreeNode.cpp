@@ -47,16 +47,10 @@ namespace COLLADASaxFWL
 	//------------------------------
 	SidTreeNode::~SidTreeNode()
 	{
-		SidIdentifierSidTreeNodeMap::const_iterator it = mChildren.begin();
-		for ( ; it!=mChildren.end(); ++it)
+		for ( size_t i = 0, count = mDirectChildren.size(); i < count; ++i)
 		{
-			const SidIdentifier& sidIdentifier = it->first;
-			const SidTreeNode*const& sidTreeNode = it->second;
-			if ( sidIdentifier.hierarchyLevel == 0 )
-			{
-				delete sidTreeNode;
-			}
-
+			const SidTreeNode*const& sidTreeNode = mDirectChildren[i];
+			delete sidTreeNode;
 		}
 	}
 
@@ -64,6 +58,7 @@ namespace COLLADASaxFWL
 	SidTreeNode* SidTreeNode::createAndAddChild( const String& sid )
 	{
 		SidTreeNode* newChild = new SidTreeNode(sid, this);
+		mDirectChildren.push_back(newChild);
 		if ( !sid.empty() )
 		{
 			SidIdentifier newIdentifier(newChild->getSid(), 0);
