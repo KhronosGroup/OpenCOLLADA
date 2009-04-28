@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLLibraryImagesLoader.h"
+#include "COLLADASaxFWLLoader.h"
 
 #include "COLLADAFWImage.h"
 #include "COLLADAFWIWriter.h"
@@ -67,7 +68,11 @@ namespace COLLADASaxFWL
 	bool LibraryImagesLoader::end__image()
 	{
 		SaxVirtualFunctionTest(end__image()); 
-		bool success = writer()->writeImage(mCurrentImage);
+		bool success = true;
+		if ( (getObjectFlags() & Loader::IMAGE_FLAG) != 0 )
+		{
+		    success = writer()->writeImage(mCurrentImage);
+		}
 		FW_DELETE mCurrentImage;
 		return success;
 	}

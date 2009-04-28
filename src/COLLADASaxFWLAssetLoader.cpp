@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLAssetLoader.h"
+#include "COLLADASaxFWLLoader.h"
 
 
 namespace COLLADASaxFWL
@@ -33,8 +34,12 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool AssetLoader::end__asset()
 	{
-		SaxVirtualFunctionTest(end__asset())
-		bool success = writer()->writeGlobalAsset ( mAsset );
+		SaxVirtualFunctionTest(end__asset());
+		bool success = true;
+		if ( (getObjectFlags() & Loader::ANIMATION_FLAG) != 0 )
+		{
+			success = writer()->writeGlobalAsset ( mAsset );
+		}
 		delete mAsset;
 		finish();
 		return success;

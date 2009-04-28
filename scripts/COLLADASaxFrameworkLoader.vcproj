@@ -316,6 +316,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenPrivateFunctionMapFactory.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenPrivateNameMap.cpp"
 				>
 			</File>
@@ -455,6 +459,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLColladaParserAutoGenEnums.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLColladaParserAutoGenFunctionMapFactory.h"
 				>
 			</File>
 			<File

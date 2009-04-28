@@ -1025,7 +1025,7 @@ virtual bool end__texcoord(){return true;}
 
 virtual bool begin__enum____gles_enumeration(){return true;}
 virtual bool end__enum____gles_enumeration(){return true;}
-virtual bool data__enum____gles_enumeration( const ParserChar* value, size_t length ){return true;}
+virtual bool data__enum____gles_enumeration( UNION__gles_enumeration value ){return true;}
 
 virtual bool begin__profile_GLES__technique( const profile_GLES__technique__AttributeData& attributeData ){return true;}
 virtual bool end__profile_GLES__technique(){return true;}
@@ -1426,7 +1426,7 @@ virtual bool end__samplerDEPTH____gl_samplerDEPTH(){return true;}
 
 virtual bool begin__enum____gl_enumeration(){return true;}
 virtual bool end__enum____gl_enumeration(){return true;}
-virtual bool data__enum____gl_enumeration( const ParserChar* value, size_t length ){return true;}
+virtual bool data__enum____gl_enumeration( UNION__gl_enumeration value ){return true;}
 
 virtual bool begin__array____glsl_newarray_type( const array____glsl_newarray_type__AttributeData& attributeData ){return true;}
 virtual bool end__array____glsl_newarray_type(){return true;}

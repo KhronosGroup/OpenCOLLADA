@@ -46,6 +46,11 @@ namespace COLLADASaxFWL
 		/** Returns a pointer to the file loader. */
 		const FileLoader* getFileLoader() const { return mCallingFilePartLoader->getFileLoader(); }
 
+		/** A combination of ObjectFlags, indicating which objects should be parsed during the 
+		parse process.*/
+		int getObjectFlags() const;
+
+
 		/** Sets the parser to @a parserToBeSet.*/
 		void setParser(IFilePartLoader* parserToBeSet);
 

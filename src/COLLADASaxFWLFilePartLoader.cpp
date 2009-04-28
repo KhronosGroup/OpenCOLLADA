@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLFilePartLoader.h"
+#include "COLLADASaxFWLFileLoader.h"
 
 #include <cassert>
 
@@ -45,6 +46,12 @@ namespace COLLADASaxFWL
 	void FilePartLoader::setParser(IFilePartLoader* parserToBeSet)
 	{
 		mCallingFilePartLoader->setParser(parserToBeSet);
+	}
+
+	//------------------------------
+	int FilePartLoader::getObjectFlags() const
+	{
+		return getFileLoader()->getObjectFlags();
 	}
 
 } // namespace COLLADASaxFWL

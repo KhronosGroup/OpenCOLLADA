@@ -19,6 +19,7 @@ namespace COLLADASaxFWL
 //---------------------------------------------------------------------
 void ColladaParserAutoGenPrivate::initNameMap()
 {
+mHashNameMap[HASH_ATTRIBUTE_XMLNS] = NAME_ATTRIBUTE_XMLNS;
 mHashNameMap[138479041] = NAME_ELEMENT_COLLADA;
 mHashNameMap[HASH_ATTRIBUTE_VERSION] = NAME_ATTRIBUTE_VERSION;
 mHashNameMap[HASH_ATTRIBUTE_BASE] = NAME_ATTRIBUTE_BASE;
