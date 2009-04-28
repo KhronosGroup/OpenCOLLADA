@@ -166,6 +166,11 @@ namespace COLLADASaxFWL
 				requiredFunctionMaps|= COLLADA_ASSET;
 			}
 
+			if ( (mObjectFlags & Loader::SCENE_FLAG) != 0 )
+			{
+				requiredFunctionMaps|= COLLADA_SCENE;
+			}
+
 			if ( setInFirstUnsetInSecond(mObjectFlags, mParsedObjectFlags, Loader::VISUAL_SCENES_FLAG) )
 			{
 				requiredFunctionMaps|= COLLADA_LIBRARY_VISUAL_SCENES;

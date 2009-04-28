@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLSceneLoader.h"
+#include "COLLADASaxFWLLoader.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWVisualScene.h"
@@ -51,7 +52,11 @@ namespace COLLADASaxFWL
     bool SceneLoader::end__scene()
     {
         SaxVirtualFunctionTest(end__scene());
-        bool success = writer()->writeScene ( mCurrentScene );
+        bool success = true;
+		if ( (getObjectFlags() & Loader::SCENE_FLAG) != 0 )
+		{
+			success = writer()->writeScene ( mCurrentScene );
+		}
         delete mCurrentScene;
         finish();
         return success;
