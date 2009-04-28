@@ -27,9 +27,6 @@ namespace GeneratedSaxParser
 	private:
 		static xmlSAXHandler SAXHANDLER;
 
-        /** For some reason the GeneratedParser's ErrorHandler's vtable gets screwed up. */
-        static IErrorHandler* msErrorHandler;
-
 		xmlParserCtxtPtr mParserContext;
 
 	public:

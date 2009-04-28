@@ -54,7 +54,7 @@ namespace GeneratedSaxParser
 		/** Disable default assignment operator. */
 		const RawUnknownElementHandler& operator= ( const RawUnknownElementHandler& pre );
 	
-		void prepareToAddContents();
+		void RawUnknownElementHandler::prepareToAddContents();
 	};
 } // namespace GENERATEDSAXPARSER
 

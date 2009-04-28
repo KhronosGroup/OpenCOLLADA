@@ -17,6 +17,8 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWIWriter.h"
+#include "COLLADAFWEffect.h"
+#include "COLLADAFWAnimationList.h"
 
 #include <sys/types.h>
 #include <sys/timeb.h>
@@ -28,15 +30,41 @@ namespace COLLADASaxFWL
 	Loader::Loader( IErrorHandler* errorHandler )
 		: mErrorHandler(errorHandler)
 		, mNextTextureMapId(0)
+		, mObjectFlags( Loader::ALL_OBJECTS_MASK )
+		, mParsedObjectFlags( Loader::NO_FLAG )
+		, mSidTreeRoot( new SidTreeNode("", 0) )
 	{
 	}
 
 	//---------------------------------
 	Loader::~Loader()
 	{
+		delete mSidTreeRoot;
+
+		// delete visual scenes
+		for ( size_t i = 0, count = mVisualScenes.size(); i < count; ++i)
+		{
+			COLLADAFW::VisualScene *visualScene = mVisualScenes[i];
+			FW_DELETE visualScene;
+		}
+
+		// delete effects
+		for ( size_t i = 0, count = mEffects.size(); i < count; ++i)
+		{
+			COLLADAFW::Effect *effect = mEffects[i];
+			FW_DELETE effect;
+		}
+
+		// delete animation lists
+		Loader::UniqueIdAnimationListMap::const_iterator it = mUniqueIdAnimationListMap.begin();
+		for ( ; it != mUniqueIdAnimationListMap.end(); ++it )
+		{
+			COLLADAFW::AnimationList* animationList = it->second;
+			FW_DELETE animationList;
+		}
+
+
 	}
-
-
 
     //---------------------------------
 	const COLLADAFW::UniqueId& Loader::getUniqueId( const COLLADABU::URI& uri, COLLADAFW::ClassId classId )
@@ -58,7 +86,6 @@ namespace COLLADASaxFWL
 		return COLLADAFW::UniqueId(classId, mLoaderUtil.getLowestObjectIdFor(classId));
 	}
 
-
 	//---------------------------------
 	bool Loader::loadDocument( const String& fileName, COLLADAFW::IWriter* writer )
 	{
@@ -68,8 +95,13 @@ namespace COLLADASaxFWL
 
 		SaxParserErrorHandler saxParserErrorHandler(mErrorHandler);
 
-		FileLoader fileLoader(this, COLLADABU::URI::URI(COLLADABU::URI::nativePathToUri(fileName)), &saxParserErrorHandler);
+		FileLoader fileLoader(this, 
+			                  COLLADABU::URI::URI(COLLADABU::URI::nativePathToUri(fileName)), 
+							  &saxParserErrorHandler, 
+							  mObjectFlags,
+							  mParsedObjectFlags);
 		fileLoader.load();
+		mParsedObjectFlags |= mObjectFlags;
 
 		return true;
 	}

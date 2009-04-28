@@ -48,6 +48,9 @@ namespace GeneratedSaxParser
 
 		switch ( mErrorType )
 		{
+        case ERROR_XML_DIFFERENT_TARGETNAMESPACE:
+            errorMessage << "ERROR_XML_DIFFERENT_TARGETNAMESPACE ";
+            break;
 		case ERROR_UNKNOWN_ELEMENT:
 			errorMessage << "ERROR_UNKNOWN_ELEMENT ";
 			break;

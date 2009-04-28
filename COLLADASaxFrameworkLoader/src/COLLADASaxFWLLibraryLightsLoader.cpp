@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLLibraryLightsLoader.h"
+#include "COLLADASaxFWLLoader.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWLight.h"
@@ -91,7 +92,11 @@ namespace COLLADASaxFWL
 	bool LibraryLightsLoader::end__light()
 	{
 		SaxVirtualFunctionTest(end__light());
-		bool success = writer()->writeLight(mCurrentLight);
+		bool success = true;
+		if ( (getObjectFlags() & Loader::LIGHT_FLAG) != 0 )
+		{
+			success = writer()->writeLight(mCurrentLight);
+		}
 		FW_DELETE mCurrentLight;
 		mCurrentLight = 0;
 		return true;

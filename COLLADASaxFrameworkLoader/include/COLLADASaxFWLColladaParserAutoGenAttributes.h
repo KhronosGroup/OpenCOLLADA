@@ -21,6 +21,8 @@ namespace COLLADASaxFWL
 {
 
 
+const StringHash HASH_ATTRIBUTE_XMLNS = 8340307;
+extern const char* NAME_ATTRIBUTE_XMLNS;
 const StringHash HASH_ELEMENT_COLLADA = 138479041;
 extern const char* NAME_ELEMENT_COLLADA;
 const StringHash HASH_ATTRIBUTE_VERSION = 214540334;
@@ -30,6 +32,10 @@ extern const char* NAME_ATTRIBUTE_BASE;
 struct COLLADA__AttributeData
 {
     static const COLLADA__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_BASE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     ENUM__VersionType version;
     COLLADABU::URI base;
@@ -169,6 +175,10 @@ struct IDREF_array__AttributeData
 {
     static const IDREF_array__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* id;
     const ParserChar* name;
     uint64 count;
@@ -182,6 +192,10 @@ struct Name_array__AttributeData
 {
     static const Name_array__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* id;
     const ParserChar* name;
     uint64 count;
@@ -194,6 +208,10 @@ extern const char* NAME_ELEMENT_SOURCE__BOOL_ARRAY;
 struct bool_array__AttributeData
 {
     static const bool_array__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -211,6 +229,10 @@ extern const char* NAME_ATTRIBUTE_MAGNITUDE;
 struct float_array__AttributeData
 {
     static const float_array__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -230,6 +252,10 @@ extern const char* NAME_ATTRIBUTE_MAXINCLUSIVE;
 struct int_array__AttributeData
 {
     static const int_array__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -258,6 +284,11 @@ extern const char* NAME_ATTRIBUTE_STRIDE;
 struct accessor__AttributeData
 {
     static const accessor__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_SOURCE_PRESENT = 0x2;
+
+    uint32 present_attributes;
 
     uint64 count;
     uint64 offset;
@@ -374,6 +405,10 @@ struct animation_clip__AttributeData
 {
     static const animation_clip__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_END_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* id;
     const ParserChar* name;
     float start;
@@ -389,6 +424,10 @@ extern const char* NAME_ATTRIBUTE_URL;
 struct instance_animation__AttributeData
 {
     static const instance_animation__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     COLLADABU::URI url;
     const ParserChar* sid;
@@ -551,6 +590,10 @@ struct skin__AttributeData
 {
     static const skin__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_SOURCE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     COLLADABU::URI source;
 };
 
@@ -572,6 +615,10 @@ struct vertex_weights__AttributeData
 {
     static const vertex_weights__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     uint64 count;
 };
 
@@ -584,6 +631,11 @@ extern const char* NAME_ATTRIBUTE_SET;
 struct input____InputLocalOffset__AttributeData
 {
     static const input____InputLocalOffset__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_OFFSET_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_SET_PRESENT = 0x2;
+
+    uint32 present_attributes;
 
     uint64 offset;
     const ParserChar* semantic;
@@ -610,6 +662,10 @@ extern const char* NAME_ATTRIBUTE_METHOD;
 struct morph__AttributeData
 {
     static const morph__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_SOURCE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     ENUM__MorphMethodType method;
     COLLADABU::URI source;
@@ -654,6 +710,10 @@ struct convex_mesh__AttributeData
 {
     static const convex_mesh__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_CONVEX_HULL_OF_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     COLLADABU::URI convex_hull_of;
 };
 
@@ -679,6 +739,10 @@ struct lines__AttributeData
 {
     static const lines__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* name;
     uint64 count;
     const ParserChar* material;
@@ -697,6 +761,10 @@ struct linestrips__AttributeData
 {
     static const linestrips__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* name;
     uint64 count;
     const ParserChar* material;
@@ -709,6 +777,10 @@ extern const char* NAME_ELEMENT_CONVEX_MESH__POLYGONS;
 struct polygons__AttributeData
 {
     static const polygons__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     const ParserChar* name;
     uint64 count;
@@ -733,6 +805,10 @@ struct polylist__AttributeData
 {
     static const polylist__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* name;
     uint64 count;
     const ParserChar* material;
@@ -745,6 +821,10 @@ extern const char* NAME_ELEMENT_CONVEX_MESH__TRIANGLES;
 struct triangles__AttributeData
 {
     static const triangles__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     const ParserChar* name;
     uint64 count;
@@ -759,6 +839,10 @@ struct trifans__AttributeData
 {
     static const trifans__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* name;
     uint64 count;
     const ParserChar* material;
@@ -771,6 +855,10 @@ extern const char* NAME_ELEMENT_CONVEX_MESH__TRISTRIPS;
 struct tristrips__AttributeData
 {
     static const tristrips__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     const ParserChar* name;
     uint64 count;
@@ -960,6 +1048,11 @@ extern const char* NAME_ATTRIBUTE_DEPTH;
 struct image__AttributeData
 {
     static const image__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_HEIGHT_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_WIDTH_PRESENT = 0x2;
+
+    uint32 present_attributes;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -1576,6 +1669,10 @@ struct instance_effect__AttributeData
 {
     static const instance_effect__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
@@ -1628,6 +1725,10 @@ extern const char* NAME_ATTRIBUTE_LAYER;
 struct node__AttributeData
 {
     static const node__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_LAYER_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -1710,6 +1811,10 @@ struct instance_camera__AttributeData
 {
     static const instance_camera__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
@@ -1722,6 +1827,10 @@ extern const char* NAME_ELEMENT_NODE__INSTANCE_CONTROLLER;
 struct instance_controller__AttributeData
 {
     static const instance_controller__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     COLLADABU::URI url;
     const ParserChar* sid;
@@ -1750,6 +1859,10 @@ extern const char* NAME_ATTRIBUTE_SYMBOL;
 struct instance_material__AttributeData
 {
     static const instance_material__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_TARGET_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     const ParserChar* symbol;
     COLLADABU::URI target;
@@ -1781,6 +1894,10 @@ struct bind_vertex_input__AttributeData
 {
     static const bind_vertex_input__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INPUT_SET_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* semantic;
     const ParserChar* input_semantic;
     uint64 input_set;
@@ -1793,6 +1910,10 @@ extern const char* NAME_ELEMENT_NODE__INSTANCE_GEOMETRY;
 struct instance_geometry__AttributeData
 {
     static const instance_geometry__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     COLLADABU::URI url;
     const ParserChar* sid;
@@ -1807,6 +1928,10 @@ struct instance_light__AttributeData
 {
     static const instance_light__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
@@ -1819,6 +1944,10 @@ extern const char* NAME_ELEMENT_NODE__INSTANCE_NODE;
 struct instance_node__AttributeData
 {
     static const instance_node__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     COLLADABU::URI url;
     const ParserChar* sid;
@@ -1974,6 +2103,10 @@ struct instance_physics_material__AttributeData
 {
     static const instance_physics_material__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
@@ -2104,6 +2237,10 @@ struct ref_attachment__AttributeData
 {
     static const ref_attachment__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_RIGID_BODY_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     COLLADABU::URI rigid_body;
 };
 
@@ -2114,6 +2251,10 @@ extern const char* NAME_ELEMENT_RIGID_CONSTRAINT__ATTACHMENT;
 struct attachment__AttributeData
 {
     static const attachment__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_RIGID_BODY_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     COLLADABU::URI rigid_body;
 };
@@ -2236,6 +2377,11 @@ struct instance_physics_model__AttributeData
 {
     static const instance_physics_model__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_PARENT_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
@@ -2249,6 +2395,10 @@ extern const char* NAME_ELEMENT_INSTANCE_PHYSICS_MODEL__INSTANCE_FORCE_FIELD;
 struct instance_force_field__AttributeData
 {
     static const instance_force_field__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     COLLADABU::URI url;
     const ParserChar* sid;
@@ -2264,6 +2414,10 @@ extern const char* NAME_ATTRIBUTE_BODY;
 struct instance_rigid_body__AttributeData
 {
     static const instance_rigid_body__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_TARGET_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     const ParserChar* body;
     const ParserChar* sid;
@@ -2417,6 +2571,10 @@ struct render__AttributeData
 {
     static const render__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_CAMERA_NODE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     COLLADABU::URI camera_node;
 };
 
@@ -2438,6 +2596,10 @@ struct instance_physics_scene__AttributeData
 {
     static const instance_physics_scene__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     COLLADABU::URI url;
     const ParserChar* sid;
     const ParserChar* name;
@@ -2450,6 +2612,10 @@ extern const char* NAME_ELEMENT_SCENE__INSTANCE_VISUAL_SCENE;
 struct instance_visual_scene__AttributeData
 {
     static const instance_visual_scene__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     COLLADABU::URI url;
     const ParserChar* sid;
@@ -2509,6 +2675,10 @@ struct constant____gles_texture_constant_type__AttributeData
 {
     static const constant____gles_texture_constant_type__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -2524,6 +2694,10 @@ extern const char* NAME_ATTRIBUTE_SCALE;
 struct RGB__AttributeData
 {
     static const RGB__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_SCALE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     ENUM__gles_texcombiner_operatorRGB_enums _operator;
     float scale;
@@ -2557,6 +2731,10 @@ extern const char* NAME_ELEMENT_TEXCOMBINER__ALPHA;
 struct alpha____gles_texcombiner_commandAlpha_type__AttributeData
 {
     static const alpha____gles_texcombiner_commandAlpha_type__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_SCALE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     ENUM__gles_texcombiner_operatorAlpha_enums _operator;
     float scale;
@@ -2806,6 +2984,10 @@ struct profile_GLES__technique__pass__clear_color__AttributeData
 {
     static const profile_GLES__technique__pass__clear_color__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -2820,6 +3002,10 @@ struct profile_GLES__technique__pass__clear_stencil__AttributeData
 {
     static const profile_GLES__technique__pass__clear_stencil__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     sint64 value;
     const ParserChar* param;
 };
@@ -2833,6 +3019,10 @@ extern const char* NAME_ELEMENT_PASS__CLEAR_DEPTH;
 struct profile_GLES__technique__pass__clear_depth__AttributeData
 {
     static const profile_GLES__technique__pass__clear_depth__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     float value;
     const ParserChar* param;
@@ -2850,6 +3040,11 @@ struct profile_GLES__technique__pass__clip_plane__AttributeData
 {
     static const profile_GLES__technique__pass__clip_plane__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<bool> value;
     const ParserChar* param;
     uint64 index;
@@ -2864,6 +3059,10 @@ extern const char* NAME_ELEMENT_PASS__COLOR_MASK;
 struct profile_GLES__technique__pass__color_mask__AttributeData
 {
     static const profile_GLES__technique__pass__color_mask__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<bool> value;
     const ParserChar* param;
@@ -2921,6 +3120,10 @@ struct profile_GLES__technique__pass__depth_range__AttributeData
 {
     static const profile_GLES__technique__pass__depth_range__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -2934,6 +3137,10 @@ extern const char* NAME_ELEMENT_PASS__FOG_COLOR;
 struct profile_GLES__technique__pass__fog_color__AttributeData
 {
     static const profile_GLES__technique__pass__fog_color__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -3050,6 +3257,11 @@ struct profile_GLES__technique__pass__light_ambient__AttributeData
 {
     static const profile_GLES__technique__pass__light_ambient__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
     uint64 index;
@@ -3064,6 +3276,11 @@ extern const char* NAME_ELEMENT_PASS__LIGHT_DIFFUSE;
 struct profile_GLES__technique__pass__light_diffuse__AttributeData
 {
     static const profile_GLES__technique__pass__light_diffuse__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -3080,6 +3297,11 @@ struct profile_GLES__technique__pass__light_specular__AttributeData
 {
     static const profile_GLES__technique__pass__light_specular__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
     uint64 index;
@@ -3094,6 +3316,11 @@ extern const char* NAME_ELEMENT_PASS__LIGHT_POSITION;
 struct profile_GLES__technique__pass__light_position__AttributeData
 {
     static const profile_GLES__technique__pass__light_position__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -3110,6 +3337,10 @@ struct profile_GLES__technique__pass__light_constant_attenuation__AttributeData
 {
     static const profile_GLES__technique__pass__light_constant_attenuation__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     float value;
     const ParserChar* param;
     uint64 index;
@@ -3122,6 +3353,10 @@ extern const char* NAME_ELEMENT_PASS__LIGHT_LINEAR_ATTENUTATION;
 struct light_linear_attenutation__AttributeData
 {
     static const light_linear_attenutation__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     float value;
     const ParserChar* param;
@@ -3138,6 +3373,10 @@ struct profile_GLES__technique__pass__light_quadratic_attenuation__AttributeData
 {
     static const profile_GLES__technique__pass__light_quadratic_attenuation__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     float value;
     const ParserChar* param;
     uint64 index;
@@ -3152,6 +3391,10 @@ extern const char* NAME_ELEMENT_PASS__LIGHT_SPOT_CUTOFF;
 struct profile_GLES__technique__pass__light_spot_cutoff__AttributeData
 {
     static const profile_GLES__technique__pass__light_spot_cutoff__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     float value;
     const ParserChar* param;
@@ -3168,6 +3411,11 @@ struct profile_GLES__technique__pass__light_spot_direction__AttributeData
 {
     static const profile_GLES__technique__pass__light_spot_direction__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
     uint64 index;
@@ -3183,6 +3431,10 @@ struct profile_GLES__technique__pass__light_spot_exponent__AttributeData
 {
     static const profile_GLES__technique__pass__light_spot_exponent__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     float value;
     const ParserChar* param;
     uint64 index;
@@ -3197,6 +3449,10 @@ extern const char* NAME_ELEMENT_PASS__LIGHT_MODEL_AMBIENT;
 struct profile_GLES__technique__pass__light_model_ambient__AttributeData
 {
     static const profile_GLES__technique__pass__light_model_ambient__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -3226,6 +3482,10 @@ struct profile_GLES__technique__pass__material_ambient__AttributeData
 {
     static const profile_GLES__technique__pass__material_ambient__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -3240,6 +3500,10 @@ struct profile_GLES__technique__pass__material_diffuse__AttributeData
 {
     static const profile_GLES__technique__pass__material_diffuse__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -3253,6 +3517,10 @@ extern const char* NAME_ELEMENT_PASS__MATERIAL_EMISSION;
 struct profile_GLES__technique__pass__material_emission__AttributeData
 {
     static const profile_GLES__technique__pass__material_emission__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -3282,6 +3550,10 @@ struct profile_GLES__technique__pass__material_specular__AttributeData
 {
     static const profile_GLES__technique__pass__material_specular__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -3296,6 +3568,10 @@ struct profile_GLES__technique__pass__model_view_matrix__AttributeData
 {
     static const profile_GLES__technique__pass__model_view_matrix__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -3309,6 +3585,10 @@ extern const char* NAME_ELEMENT_PASS__POINT_DISTANCE_ATTENUATION;
 struct profile_GLES__technique__pass__point_distance_attenuation__AttributeData
 {
     static const profile_GLES__technique__pass__point_distance_attenuation__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -3380,6 +3660,10 @@ struct profile_GLES__technique__pass__polygon_offset__AttributeData
 {
     static const profile_GLES__technique__pass__polygon_offset__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -3394,6 +3678,10 @@ struct profile_GLES__technique__pass__projection_matrix__AttributeData
 {
     static const profile_GLES__technique__pass__projection_matrix__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -3407,6 +3695,10 @@ extern const char* NAME_ELEMENT_PASS__SCISSOR;
 struct profile_GLES__technique__pass__scissor__AttributeData
 {
     static const profile_GLES__technique__pass__scissor__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<sint64> value;
     const ParserChar* param;
@@ -3574,6 +3866,10 @@ struct profile_GLES__technique__pass__clip_plane_enable__AttributeData
 {
     static const profile_GLES__technique__pass__clip_plane_enable__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     bool value;
     const ParserChar* param;
     uint64 index;
@@ -3684,6 +3980,10 @@ extern const char* NAME_ELEMENT_PASS__LIGHT_ENABLE;
 struct profile_GLES__technique__pass__light_enable__AttributeData
 {
     static const profile_GLES__technique__pass__light_enable__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     bool value;
     const ParserChar* param;
@@ -3905,6 +4205,10 @@ struct include__AttributeData
 {
     static const include__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* sid;
     COLLADABU::URI url;
 };
@@ -4082,6 +4386,10 @@ struct array____glsl_newarray_type__AttributeData
 {
     static const array____glsl_newarray_type__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_LENGTH_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     uint64 length;
 };
 
@@ -4114,6 +4422,10 @@ extern const char* NAME_ELEMENT_SETPARAM__ARRAY;
 struct array____glsl_setarray_type__AttributeData
 {
     static const array____glsl_setarray_type__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_LENGTH_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     uint64 length;
 };
@@ -4653,6 +4965,10 @@ struct profile_GLSL__technique__pass__light_enable__AttributeData
 {
     static const profile_GLSL__technique__pass__light_enable__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     bool value;
     const ParserChar* param;
     uint64 index;
@@ -4663,6 +4979,11 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__LIGHT_AMBIENT;
 struct profile_GLSL__technique__pass__light_ambient__AttributeData
 {
     static const profile_GLSL__technique__pass__light_ambient__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -4675,6 +4996,11 @@ struct profile_GLSL__technique__pass__light_diffuse__AttributeData
 {
     static const profile_GLSL__technique__pass__light_diffuse__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
     uint64 index;
@@ -4685,6 +5011,11 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__LIGHT_SPECULAR;
 struct profile_GLSL__technique__pass__light_specular__AttributeData
 {
     static const profile_GLSL__technique__pass__light_specular__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -4697,6 +5028,11 @@ struct profile_GLSL__technique__pass__light_position__AttributeData
 {
     static const profile_GLSL__technique__pass__light_position__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
     uint64 index;
@@ -4707,6 +5043,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__LIGHT_CONSTANT_AT
 struct profile_GLSL__technique__pass__light_constant_attenuation__AttributeData
 {
     static const profile_GLSL__technique__pass__light_constant_attenuation__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     float value;
     const ParserChar* param;
@@ -4721,6 +5061,10 @@ struct light_linear_attenuation__AttributeData
 {
     static const light_linear_attenuation__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     float value;
     const ParserChar* param;
     uint64 index;
@@ -4731,6 +5075,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__LIGHT_QUADRATIC_A
 struct profile_GLSL__technique__pass__light_quadratic_attenuation__AttributeData
 {
     static const profile_GLSL__technique__pass__light_quadratic_attenuation__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     float value;
     const ParserChar* param;
@@ -4743,6 +5091,10 @@ struct profile_GLSL__technique__pass__light_spot_cutoff__AttributeData
 {
     static const profile_GLSL__technique__pass__light_spot_cutoff__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     float value;
     const ParserChar* param;
     uint64 index;
@@ -4754,6 +5106,11 @@ struct profile_GLSL__technique__pass__light_spot_direction__AttributeData
 {
     static const profile_GLSL__technique__pass__light_spot_direction__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
     uint64 index;
@@ -4764,6 +5121,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__LIGHT_SPOT_EXPONE
 struct profile_GLSL__technique__pass__light_spot_exponent__AttributeData
 {
     static const profile_GLSL__technique__pass__light_spot_exponent__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     float value;
     const ParserChar* param;
@@ -4777,6 +5138,10 @@ extern const char* NAME_ELEMENT_PASS__TEXTURE1D;
 struct texture1D__AttributeData
 {
     static const texture1D__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     uint64 index;
 };
@@ -4799,6 +5164,10 @@ struct texture2D__AttributeData
 {
     static const texture2D__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     uint64 index;
 };
 
@@ -4814,6 +5183,10 @@ extern const char* NAME_ELEMENT_PASS__TEXTURE3D;
 struct texture3D__AttributeData
 {
     static const texture3D__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     uint64 index;
 };
@@ -4831,6 +5204,10 @@ struct textureCUBE__AttributeData
 {
     static const textureCUBE__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     uint64 index;
 };
 
@@ -4846,6 +5223,10 @@ extern const char* NAME_ELEMENT_PASS__TEXTURERECT;
 struct textureRECT__AttributeData
 {
     static const textureRECT__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     uint64 index;
 };
@@ -4863,6 +5244,10 @@ struct textureDEPTH__AttributeData
 {
     static const textureDEPTH__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     uint64 index;
 };
 
@@ -4879,6 +5264,10 @@ struct texture1D_enable__AttributeData
 {
     static const texture1D_enable__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     bool value;
     const ParserChar* param;
     uint64 index;
@@ -4891,6 +5280,10 @@ extern const char* NAME_ELEMENT_PASS__TEXTURE2D_ENABLE;
 struct texture2D_enable__AttributeData
 {
     static const texture2D_enable__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     bool value;
     const ParserChar* param;
@@ -4905,6 +5298,10 @@ struct texture3D_enable__AttributeData
 {
     static const texture3D_enable__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     bool value;
     const ParserChar* param;
     uint64 index;
@@ -4917,6 +5314,10 @@ extern const char* NAME_ELEMENT_PASS__TEXTURECUBE_ENABLE;
 struct textureCUBE_enable__AttributeData
 {
     static const textureCUBE_enable__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     bool value;
     const ParserChar* param;
@@ -4931,6 +5332,10 @@ struct textureRECT_enable__AttributeData
 {
     static const textureRECT_enable__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     bool value;
     const ParserChar* param;
     uint64 index;
@@ -4943,6 +5348,10 @@ extern const char* NAME_ELEMENT_PASS__TEXTUREDEPTH_ENABLE;
 struct textureDEPTH_enable__AttributeData
 {
     static const textureDEPTH_enable__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     bool value;
     const ParserChar* param;
@@ -4957,6 +5366,11 @@ struct texture_env_color__AttributeData
 {
     static const texture_env_color__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
     uint64 index;
@@ -4970,6 +5384,10 @@ struct texture_env_mode__AttributeData
 {
     static const texture_env_mode__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     const ParserChar* value;
     const ParserChar* param;
     uint64 index;
@@ -4981,6 +5399,11 @@ struct profile_GLSL__technique__pass__clip_plane__AttributeData
 {
     static const profile_GLSL__technique__pass__clip_plane__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x2;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
     uint64 index;
@@ -4991,6 +5414,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__CLIP_PLANE_ENABLE
 struct profile_GLSL__technique__pass__clip_plane_enable__AttributeData
 {
     static const profile_GLSL__technique__pass__clip_plane_enable__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_INDEX_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     bool value;
     const ParserChar* param;
@@ -5005,6 +5432,10 @@ struct blend_color__AttributeData
 {
     static const blend_color__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -5014,6 +5445,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__CLEAR_COLOR;
 struct profile_GLSL__technique__pass__clear_color__AttributeData
 {
     static const profile_GLSL__technique__pass__clear_color__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -5045,6 +5480,10 @@ struct profile_GLSL__technique__pass__color_mask__AttributeData
 {
     static const profile_GLSL__technique__pass__color_mask__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<bool> value;
     const ParserChar* param;
 };
@@ -5056,6 +5495,10 @@ extern const char* NAME_ELEMENT_PASS__DEPTH_BOUNDS;
 struct depth_bounds__AttributeData
 {
     static const depth_bounds__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -5076,6 +5519,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__DEPTH_RANGE;
 struct profile_GLSL__technique__pass__depth_range__AttributeData
 {
     static const profile_GLSL__technique__pass__depth_range__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -5117,6 +5564,10 @@ struct profile_GLSL__technique__pass__fog_color__AttributeData
 {
     static const profile_GLSL__technique__pass__fog_color__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -5126,6 +5577,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__LIGHT_MODEL_AMBIE
 struct profile_GLSL__technique__pass__light_model_ambient__AttributeData
 {
     static const profile_GLSL__technique__pass__light_model_ambient__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -5149,6 +5604,10 @@ struct line_stipple__AttributeData
 {
     static const line_stipple__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<sint64> value;
     const ParserChar* param;
 };
@@ -5169,6 +5628,10 @@ struct profile_GLSL__technique__pass__material_ambient__AttributeData
 {
     static const profile_GLSL__technique__pass__material_ambient__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -5179,6 +5642,10 @@ struct profile_GLSL__technique__pass__material_diffuse__AttributeData
 {
     static const profile_GLSL__technique__pass__material_diffuse__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -5188,6 +5655,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__MATERIAL_EMISSION
 struct profile_GLSL__technique__pass__material_emission__AttributeData
 {
     static const profile_GLSL__technique__pass__material_emission__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -5209,6 +5680,10 @@ struct profile_GLSL__technique__pass__material_specular__AttributeData
 {
     static const profile_GLSL__technique__pass__material_specular__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -5219,6 +5694,10 @@ struct profile_GLSL__technique__pass__model_view_matrix__AttributeData
 {
     static const profile_GLSL__technique__pass__model_view_matrix__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -5228,6 +5707,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__POINT_DISTANCE_AT
 struct profile_GLSL__technique__pass__point_distance_attenuation__AttributeData
 {
     static const profile_GLSL__technique__pass__point_distance_attenuation__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
@@ -5279,6 +5762,10 @@ struct profile_GLSL__technique__pass__polygon_offset__AttributeData
 {
     static const profile_GLSL__technique__pass__polygon_offset__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -5289,6 +5776,10 @@ struct profile_GLSL__technique__pass__projection_matrix__AttributeData
 {
     static const profile_GLSL__technique__pass__projection_matrix__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     GeneratedSaxParser::XSList<float> value;
     const ParserChar* param;
 };
@@ -5298,6 +5789,10 @@ extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE__PASS__SCISSOR;
 struct profile_GLSL__technique__pass__scissor__AttributeData
 {
     static const profile_GLSL__technique__pass__scissor__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_VALUE_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     GeneratedSaxParser::XSList<sint64> value;
     const ParserChar* param;
@@ -6256,6 +6751,10 @@ struct array____cg_setarray_type__AttributeData
 {
     static const array____cg_setarray_type__AttributeData DEFAULT;
 
+    static const uint32 ATTRIBUTE_LENGTH_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
     uint64 length;
 };
 
@@ -6287,6 +6786,10 @@ extern const char* NAME_ELEMENT_ARRAY____CG_NEWARRAY_TYPE;
 struct array____cg_newarray_type__AttributeData
 {
     static const array____cg_newarray_type__AttributeData DEFAULT;
+
+    static const uint32 ATTRIBUTE_LENGTH_PRESENT = 0x1;
+
+    uint32 present_attributes;
 
     uint64 length;
 };

@@ -18,6 +18,7 @@
 #include "COLLADASaxFWLColladaParserAutoGenPrivate.h"
 #include "COLLADASaxFWLSidAddress.h"
 #include "COLLADASaxFWLSidTreeNode.h"
+#include "COLLADASaxFWLLoader.h"
 
 #include "GeneratedSaxParserLibxmlSaxParser.h"
 #include "GeneratedSaxParserRawUnknownElementHandler.h"
@@ -36,14 +37,11 @@ namespace COLLADAFW
 {
 	class IWriter;
 	class Object;
-	class VisualScene;
-	class Effect;
 }
 
 
 namespace COLLADASaxFWL
 {
-	class Loader;
 	class SidTreeNode;
 	class SidAddress;
 	class FilePartLoader;
@@ -53,9 +51,6 @@ namespace COLLADASaxFWL
 	class FileLoader : public IFilePartLoader, public ColladaParserAutoGenPrivate
     {
 	private:
-		/** Maps the id of a collada element to the corresponding sit tree node.*/
-		typedef std::map<String /*id*/, SidTreeNode*> IdStringSidTreeNodeMap;
-
 		/** Contains the binding of an animation to the referenced object. Required to create animation lists*/
 		struct AnimationSidAddressBinding
 		{
@@ -69,14 +64,6 @@ namespace COLLADASaxFWL
 		/** List of UniqueIdSidAddressPairs.*/
 		typedef std::vector< AnimationSidAddressBinding > AnimationSidAddressBindingList;
 
-		/** Maps unique ids of animation list to the corresponding animation list.*/
-		typedef std::map< COLLADAFW::UniqueId , COLLADAFW::AnimationList* > UniqueIdAnimationListMap;
-
-		/** List of visual scenes.*/
-		typedef std::vector<COLLADAFW::VisualScene*> VisualSceneList;
-
-		/** List of effects.*/
-		typedef std::vector<COLLADAFW::Effect*> EffectList;
 
 	private:
 	
@@ -91,41 +78,59 @@ namespace COLLADASaxFWL
 
 		GeneratedSaxParser::LibxmlSaxParser mLibxmlSaxParse;
 
-		/** The root node of the sid tree. This tree is used to resolve sids.*/
-		SidTreeNode *mSidTreeRoot;
-
 		/** The current node within the sid tree.*/
 		SidTreeNode *mCurrentSidTreeNode;
 
-		/** Maps an uri to the corresponding node in the sid tree.*/
-		IdStringSidTreeNodeMap mIdStringSidTreeNodeMap;
+		/** Maps the id of a collada element to the corresponding sit tree node.*/
+		Loader::IdStringSidTreeNodeMap& mIdStringSidTreeNodeMap;
 
 		/** List of all visual scenes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
-		VisualSceneList mVisualScenes;
+		Loader::VisualSceneList& mVisualScenes;
 
 		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
-		EffectList mEffects;
+		Loader::EffectList& mEffects;
 
 		/** List all the connections of animations and sid addresses of the targets.*/
 		AnimationSidAddressBindingList mAnimationSidAddressBindings;
 
 		/** Maps unique ids of animation list to the corresponding animation list. All animation list in this map 
 		will be deleted by the FileLoader.*/
-		UniqueIdAnimationListMap mUniqueIdAnimationListMap;
+		Loader::UniqueIdAnimationListMap& mUniqueIdAnimationListMap;
 
 		/** An unknown element handler that stores the unknown elements as raw xml data.*/
 		GeneratedSaxParser::RawUnknownElementHandler mRawUnknownElementHandler;
+
+		/** A combination of ObjectFlags, indicating which objects should be parsed during the 
+		parse process.*/
+		int mObjectFlags;
+
+		/** A combination of ObjectFlags, indicating which objects have be parsed already.*/
+		int& mParsedObjectFlags;
+
+		/** The function map we use to parse the COLLADA file. It contains only those elements that are required 
+		to parse all the objects listed in @a mObjectFlags.*/
+		ColladaParserAutoGenPrivate::ElementFunctionMap mFunctionMap;
 
 	public:
 
         /** Constructor.
 		@param colladaLoader The collada loader this file loader is being used by. Used to retrieve document 
 		global properties.
-		@param fileURI The name of the file to be loaded.*/
-		FileLoader ( Loader* colladaLoader, const COLLADABU::URI& fileURI, SaxParserErrorHandler* saxParserErrorHandler = 0 );
-
+		@param fileURI The name of the file to be loaded.
+		@param saxParserErrorHandler The error handler all sax parser errors should be passed to.
+		@param objectFlags Flags (Loader::ObjectFlags) of objects that should be parsed. Set these 
+		if you don't want to parse the entire file, but only those parts required to create the objects in 
+		objectFlags.
+		@param parsedObjectFlags Flags (Loader::ObjectFlags) of objects already parsed by @a colladaLoader. 
+		Will be set to all objects parsed after a call of load().*/
+		FileLoader ( Loader* colladaLoader, 
+			         const COLLADABU::URI& fileURI, 
+					 SaxParserErrorHandler* saxParserErrorHandler, 
+					 int objectFlags,
+					 int& /*[in,out]*/ parsedObjectFlags);
+ 
         /** Destructor. */
         virtual ~FileLoader();
 
@@ -144,6 +149,9 @@ namespace COLLADASaxFWL
 		/** Returns the UnknownElementHandler. It contains all the data contained in unknown elements.*/
 		GeneratedSaxParser::RawUnknownElementHandler& getRawUnknownElementHandler() { return mRawUnknownElementHandler; }
 
+		/** A combination of ObjectFlags, indicating which objects should be parsed during the 
+		parse process.*/
+		int getObjectFlags() const { return mObjectFlags; }
 
 		/** Adds @a visualScene to the list of visual scenes. It will be sent to the writer and delete by the
 		file loader.*/
@@ -198,10 +206,10 @@ namespace COLLADASaxFWL
 		COLLADAFW::AnimationList*& getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId);
 
 		/** Writes all the visual scenes.*/
-		void writeAndDeleteVisualScenes();
+		void writeVisualScenes();
 
 		/** Writes all the visual scenes.*/
-		void writeAndDeleteEffects();
+		void writeEffects();
 
 		/** Creates all the animation lists.*/
 		void createMissingAnimationLists();
@@ -211,7 +219,7 @@ namespace COLLADASaxFWL
 
 
 		/** Writes all animation lists.*/
-		void writeAndDeleteAnimationLists();
+		void writeAnimationLists();
 
 	protected:
 		/** Returns a pointer to the collada loader. */
@@ -255,6 +263,9 @@ namespace COLLADASaxFWL
 
 		/** Starts loading a library animations.*/
 		virtual bool begin__library_animations( const library_animations__AttributeData& attributeData );
+
+		/** Performs all the required post processing.:*/
+		void postProcess();
 
     private:
 

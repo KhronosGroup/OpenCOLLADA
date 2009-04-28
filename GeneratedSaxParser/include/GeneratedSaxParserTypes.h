@@ -24,19 +24,10 @@ namespace GeneratedSaxParser
 
 
     /**
-     * Represents a string somewhere in a XML buffer.
+     * Special string for unions. They cannot have c-tors.
      */
-    struct ParserString
+    struct UnionString
     {
-        /** Default c-tor, */
-        ParserString() : str(0), length(0) {}
-
-        /** 
-         * Convenience C-tor allowing usage of this class in 
-         * GeneratedSaxParserParserTemplate::characterData2Data. 
-         */
-        ParserString(const int& val) : str(0), length(0) {}
-
         /** Pointer to the start of the string. It is not null terminated. */
         const ParserChar* str;
 
@@ -44,6 +35,27 @@ namespace GeneratedSaxParser
         size_t length;
     };
 
+    /**
+     * Represents a string somewhere in a XML buffer.
+     */
+    struct ParserString : public UnionString
+    {
+        /** Default c-tor, */
+        ParserString()
+        {
+            UnionString::str = 0;
+            UnionString::length = 0;
+        }
+
+        /** 
+         * Convenience C-tor allowing usage of this class in 
+         * GeneratedSaxParserParserTemplate::characterData2Data. 
+         */
+        ParserString(const int& val)
+        {
+            ParserString();
+        }
+    };
 
 
 } // namespace GeneratedSaxParser

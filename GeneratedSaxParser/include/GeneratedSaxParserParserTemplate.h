@@ -98,14 +98,27 @@ namespace GeneratedSaxParser
             FreeAttributesFunctionPtr freeAttributesFunction;
 		};
 
+    public:
 		typedef std::map<StringHash, FunctionStruct> ElementFunctionMap;
+        typedef std::map<StringHash, StringHash> NamespacePrefixesMap;
 
 
 	protected:
+        /** Map of element hashes to generated methods. Contains pointers to all methods. */
 		ElementFunctionMap mElementFunctionMap;
+        /** Currently used function map. To ignore elements. */
+        const ElementFunctionMap* mCurrentElementFunctionMap;
+        /** Currently used client implementation. */
 		ImplClass* mImpl;
+        /** Currently used handler for unknown elements. */
         IUnknownElementHandler* mUnknownHandler;
 
+        /** XML namespace used by currently parsed document. */
+        StringHash mDocumentNamespace;
+        /** Indicates if currently parsed document uses targetNamespace of XSD. */
+        bool mDocUsesTargetNamespace;
+        /** XML namespace prefixes declared by currently parsed document. */
+        NamespacePrefixesMap mNamespaces;
 
 	private:
 		/** Number of elements that have been opened and should be ignored. Use for unknown elements.*/
@@ -116,9 +129,12 @@ namespace GeneratedSaxParser
 		ParserTemplate(ImplClass* impl, IErrorHandler* errorHandler)
 			:
 		  ParserTemplateBase(errorHandler),
+              mCurrentElementFunctionMap(&mElementFunctionMap),
 			  mImpl(impl),
 			  mIgnoreElements(0),
-			  mUnknownHandler(0)
+			  mUnknownHandler(0),
+              mDocumentNamespace(0),
+              mDocUsesTargetNamespace(false)
 		  {};
 		virtual ~ParserTemplate(){};
 
@@ -127,6 +143,15 @@ namespace GeneratedSaxParser
 
         /** Registers a handler for unknown elements. Only the last registered will be used. */
         void registerUnknownElementHandler(IUnknownElementHandler* handler) {mUnknownHandler = handler;}
+
+        /** Returns currently used ElementFunctionMap. */
+        const ElementFunctionMap* getElementFunctionMap() {return mCurrentElementFunctionMap;}
+
+        /** Sets a new ElementFunctionMap. May be used to retrieve certain data first. */
+        void setElementFunctionMap(const ElementFunctionMap* map) {mCurrentElementFunctionMap = map;}
+
+        /** Returns complete ElementFunctionMap (the one containing all function pointers). */
+        const ElementFunctionMap& getCompleteElementFunctionMap() {return mElementFunctionMap;}
 
     public:
 		bool elementBegin(const ParserChar* elementName, const ParserAttributes& attributes );
@@ -141,10 +166,11 @@ namespace GeneratedSaxParser
 
 	protected:
 		template<class DataType,
-				 DataType (*toData)( const ParserChar**, const ParserChar*, bool& ),
-				 DataType (ParserTemplateBase::*toDataWithPrefix)( const ParserChar*, const ParserChar*, const ParserChar**, const ParserChar*, bool& )>
+				 DataType (*toData)( const ParserChar**, const ParserChar*, bool& )
+        >
 		bool characterData2Data(const ParserChar* text,
                 size_t textLength,
+                DataType (DerivedClass::*toDataWithPrefix)( const ParserChar*, const ParserChar*, const ParserChar**, const ParserChar*, bool& ),
                 bool ( ImplClass::*dataFunction ) ( const DataType*, size_t ),
                 ParserError::ErrorType (*listValidationFunc)( const DataType*, size_t ) = 0,
                 size_t* wholeListLength = 0,
@@ -462,11 +488,12 @@ namespace GeneratedSaxParser
     //--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	template<class DataType,
-		     DataType (*toData)( const ParserChar**, const ParserChar*, bool& ),
-			 DataType (ParserTemplateBase::*toDataWithPrefix)( const ParserChar*, const ParserChar*, const ParserChar**, const ParserChar*, bool& )>
+		     DataType (*toData)( const ParserChar**, const ParserChar*, bool& )
+    >
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Data(
             const ParserChar* text,
             size_t textLength,
+            DataType (DerivedClass::*toDataWithPrefix)( const ParserChar*, const ParserChar*, const ParserChar**, const ParserChar*, bool& ),
             bool ( ImplClass::*dataFunction ) ( const DataType*, size_t ),
             ParserError::ErrorType (*listValidationFunc)( const DataType*, size_t ),
             size_t* wholeListLength,
@@ -480,15 +507,12 @@ namespace GeneratedSaxParser
 
 		// handle incomplete fragment from last call to textData
 		DataType fragmentData = 0;
+        bool haveToDeleteParsedFragmentData = false;
 		if ( mLastIncompleteFragmentInCharacterData )
 		{
 			bool failed = false;
 
-			fragmentData = (this->*toDataWithPrefix)(mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, &dataBufferPos, bufferEnd, failed);
-			// TODO we need to copy the old mLastIncompleteFragmentInCharacterData into the new as well
-			mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
-			mLastIncompleteFragmentInCharacterData = 0;
-            mEndOfDataInCurrentObjectOnStack = 0;
+			fragmentData = (static_cast<DerivedClass*>(this)->*toDataWithPrefix)(mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, &dataBufferPos, bufferEnd, failed);
 			if ( failed )
 			{
 				if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
@@ -496,14 +520,23 @@ namespace GeneratedSaxParser
 					             0,
 					             mLastIncompleteFragmentInCharacterData))
 				{
+                    mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+                    mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                    mLastIncompleteFragmentInCharacterData = 0;
+                    mEndOfDataInCurrentObjectOnStack = 0;
 					return false;
 				}
 				else
 				{
+                    mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+                    mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                    mLastIncompleteFragmentInCharacterData = 0;
+                    mEndOfDataInCurrentObjectOnStack = 0;
                     // TODO check if this is correct
 					return true;
 				}
 			}
+            haveToDeleteParsedFragmentData = true;
             if ( itemTypeValidationFunc != 0)
             {
                 ParserError::ErrorType simpleTypeValidationResult = (itemTypeValidationFunc)(fragmentData);
@@ -516,6 +549,10 @@ namespace GeneratedSaxParser
                         0,
                         msg) )
                     {
+                        mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+                        mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                        mLastIncompleteFragmentInCharacterData = 0;
+                        mEndOfDataInCurrentObjectOnStack = 0;
                         return false;
                     }
                 }
@@ -524,6 +561,7 @@ namespace GeneratedSaxParser
 		}
 
         // we only need to start the general parsing 
+        size_t callsToDataFunc = 0;
         if ( dataBufferPos != bufferEnd )
         {
 		    DataType* typedBuffer = (DataType*)mStackMemoryManager.newObject(TYPED_VALUES_BUFFER_SIZE * sizeof(DataType));
@@ -574,12 +612,21 @@ namespace GeneratedSaxParser
                                     msg) )
                                 {
                                     mStackMemoryManager.deleteObject();
+                                    if ( haveToDeleteParsedFragmentData )
+                                        mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+                                    if ( mLastIncompleteFragmentInCharacterData )
+                                    {
+                                        mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                                        mLastIncompleteFragmentInCharacterData = 0;
+                                        mEndOfDataInCurrentObjectOnStack = 0;
+                                    }
                                     return false;
                                 }
                             }
                         }
 					    (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
 					    dataBufferIndex = 0;
+                        callsToDataFunc++;
 				    }
 			    }
 		    }
@@ -605,11 +652,20 @@ namespace GeneratedSaxParser
                                 msg) )
                             {
                                 mStackMemoryManager.deleteObject();
+                                if ( haveToDeleteParsedFragmentData )
+                                    mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+                                if ( mLastIncompleteFragmentInCharacterData )
+                                {
+                                    mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                                    mLastIncompleteFragmentInCharacterData = 0;
+                                    mEndOfDataInCurrentObjectOnStack = 0;
+                                }
                                 return false;
                             }
                         }
                     }
 				    (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
+                    callsToDataFunc++;
                 }
 			    mStackMemoryManager.deleteObject();
             }
@@ -621,10 +677,36 @@ namespace GeneratedSaxParser
             // we pass the already parsed typed values
             // we need to store the not parsed fraction
             size_t fragmentSize = (dataBufferPos - lastDataBufferIndex)*sizeof(ParserChar);
-			mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1);
-			memcpy(mLastIncompleteFragmentInCharacterData, lastDataBufferIndex, fragmentSize);
-            mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + fragmentSize;
+            if (!Utils::isWhiteSpaceOnly(lastDataBufferIndex, fragmentSize))
+            {
+                if (callsToDataFunc == 0)
+                {
+                    // special case: last inclomplete fragment has to be reused
+                    size_t oldPrefixDataSize = mEndOfDataInCurrentObjectOnStack - mLastIncompleteFragmentInCharacterData;
+                    mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1 + oldPrefixDataSize);
+                    memcpy(mLastIncompleteFragmentInCharacterData + oldPrefixDataSize, lastDataBufferIndex, fragmentSize);
+                    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + fragmentSize + oldPrefixDataSize;
 
+                }
+                else
+                {
+                    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1);
+                    memcpy(mLastIncompleteFragmentInCharacterData, lastDataBufferIndex, fragmentSize);
+                    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + fragmentSize;
+                }
+            }
+            else
+            {
+                if ( haveToDeleteParsedFragmentData )
+                    mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+                if ( mLastIncompleteFragmentInCharacterData )
+                {
+                    mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                    mLastIncompleteFragmentInCharacterData = 0;
+                    mEndOfDataInCurrentObjectOnStack = 0;
+                }
+            }
 			return true;
 
 		}
@@ -633,6 +715,14 @@ namespace GeneratedSaxParser
 			//something went wrong while parsing
 			// we abort and don't pass the typed array
 			mStackMemoryManager.deleteObject();  //typedBuffer
+            if ( haveToDeleteParsedFragmentData )
+                mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+            if ( mLastIncompleteFragmentInCharacterData )
+            {
+                mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                mLastIncompleteFragmentInCharacterData = 0;
+                mEndOfDataInCurrentObjectOnStack = 0;
+            }
 			ParserChar dataBufferError[21];
 			size_t length = std::min(20, (int)(bufferEnd-dataBufferPos));
 			memcpy(dataBufferError, dataBufferPos, length);
@@ -679,14 +769,12 @@ namespace GeneratedSaxParser
 
         // handle incomplete fragment from last call to textData
         EnumType fragmentData = EnumMapCount;
+        bool haveToDeleteParsedFragmentData = false;
         if ( mLastIncompleteFragmentInCharacterData )
         {
             bool failed = false;
 
             fragmentData = (static_cast<DerivedClass*>(this)->*toEnumDataWithPrefix)(mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, &dataBufferPos, bufferEnd, failed, enumMap, baseConversionFunctionPtr);
-            mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
-            mLastIncompleteFragmentInCharacterData = 0;
-            mEndOfDataInCurrentObjectOnStack = 0;
             if ( failed )
             {
                 if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
@@ -694,16 +782,26 @@ namespace GeneratedSaxParser
                     0,
                     mLastIncompleteFragmentInCharacterData))
                 {
+                    mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+                    mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                    mLastIncompleteFragmentInCharacterData = 0;
+                    mEndOfDataInCurrentObjectOnStack = 0;
                     return false;
                 }
                 else
                 {
+                    mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+                    mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                    mLastIncompleteFragmentInCharacterData = 0;
+                    mEndOfDataInCurrentObjectOnStack = 0;
                     return true;
                 }
             }
+            haveToDeleteParsedFragmentData = true;
             dataBufferIndex = 1;
         }
 
+        size_t callsToDataFunc = 0;
         EnumType* typedBuffer = (EnumType*)mStackMemoryManager.newObject(TYPED_VALUES_BUFFER_SIZE * sizeof(EnumType));
 
         if ( dataBufferIndex > 0)
@@ -724,6 +822,7 @@ namespace GeneratedSaxParser
                 {
                     (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
                     dataBufferIndex = 0;
+                    callsToDataFunc++;
                 }
             }
         }
@@ -734,12 +833,43 @@ namespace GeneratedSaxParser
             // we pass the already parsed typed values
             // we need to store the not parsed fraction
             if ( dataBufferIndex > 0)
+            {
                 (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
+                callsToDataFunc++;
+            }
             mStackMemoryManager.deleteObject();
+
             size_t fragmentSize = (dataBufferPos - lastDataBufferIndex)*sizeof(ParserChar);
-            mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1);
-            memcpy(mLastIncompleteFragmentInCharacterData, lastDataBufferIndex, fragmentSize);
-            mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + fragmentSize;
+            if (!Utils::isWhiteSpaceOnly(lastDataBufferIndex, fragmentSize))
+            {
+                if (callsToDataFunc == 0)
+                {
+                    // special case: last inclomplete fragment has to be reused
+                    size_t oldPrefixDataSize = mEndOfDataInCurrentObjectOnStack - mLastIncompleteFragmentInCharacterData;
+                    mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1 + oldPrefixDataSize);
+                    memcpy(mLastIncompleteFragmentInCharacterData + oldPrefixDataSize, lastDataBufferIndex, fragmentSize);
+                    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + fragmentSize + oldPrefixDataSize;
+
+                }
+                else
+                {
+                    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1);
+                    memcpy(mLastIncompleteFragmentInCharacterData, lastDataBufferIndex, fragmentSize);
+                    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + fragmentSize;
+                }
+            }
+            else
+            {
+                if ( haveToDeleteParsedFragmentData )
+                    mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+                if ( mLastIncompleteFragmentInCharacterData )
+                {
+                    mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                    mLastIncompleteFragmentInCharacterData = 0;
+                    mEndOfDataInCurrentObjectOnStack = 0;
+                }
+            }
 
             return true;
 
@@ -749,6 +879,14 @@ namespace GeneratedSaxParser
             //something went wrong while parsing
             // we abort and don't pass the typed array
             mStackMemoryManager.deleteObject();  //typedBuffer
+            if ( haveToDeleteParsedFragmentData )
+                mStackMemoryManager.deleteObject(); // haveToDeleteParsedFragmentData
+            if ( mLastIncompleteFragmentInCharacterData )
+            {
+                mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+                mLastIncompleteFragmentInCharacterData = 0;
+                mEndOfDataInCurrentObjectOnStack = 0;
+            }
             ParserChar dataBufferError[21];
             size_t length = std::min(20, (int)(bufferEnd-dataBufferPos));
             memcpy(dataBufferError, dataBufferPos, length);
@@ -862,7 +1000,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( float )
         )
 	{
-		return characterData2Data<float, Utils::toFloat, &ParserTemplateBase::toFloatPrefix>(text, textLength, floatDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<float, Utils::toFloat>(text, textLength, &DerivedClass::toFloatPrefix, floatDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 
@@ -877,7 +1015,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( double )
         )
 	{
-		return characterData2Data<double, Utils::toDouble, &ParserTemplateBase::toDoublePrefix>(text, textLength, doubleDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<double, Utils::toDouble>(text, textLength, &DerivedClass::toDoublePrefix, doubleDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 
@@ -892,7 +1030,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( sint8 )
         )
 	{
-		return characterData2Data<sint8, Utils::toSint8, &ParserTemplateBase::toSint8Prefix>(text, textLength, charDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<sint8, Utils::toSint8>(text, textLength, &DerivedClass::toSint8Prefix, charDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 	//--------------------------------------------------------------------
@@ -906,7 +1044,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( uint8 )
         )
 	{
-		return characterData2Data<uint8, Utils::toUint8, &ParserTemplateBase::toUint8Prefix>(text, textLength, unsignedCharDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<uint8, Utils::toUint8>(text, textLength, &DerivedClass::toUint8Prefix, unsignedCharDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 	//--------------------------------------------------------------------
@@ -920,7 +1058,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( sint16 )
         )
 	{
-		return characterData2Data<sint16, Utils::toSint16, &ParserTemplateBase::toSint16Prefix>(text, textLength, shortDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<sint16, Utils::toSint16>(text, textLength, &DerivedClass::toSint16Prefix, shortDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 	//--------------------------------------------------------------------
@@ -934,7 +1072,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( uint16 )
         )
 	{
-		return characterData2Data<uint16, Utils::toUint16, &ParserTemplateBase::toUint16Prefix>(text, textLength, unsignedShortDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<uint16, Utils::toUint16>(text, textLength, &DerivedClass::toUint16Prefix, unsignedShortDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 	//--------------------------------------------------------------------
@@ -948,7 +1086,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( sint32 )
         )
 	{
-		return characterData2Data<sint32, Utils::toSint32, &ParserTemplateBase::toSint32Prefix>(text, textLength, intDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<sint32, Utils::toSint32>(text, textLength, &DerivedClass::toSint32Prefix, intDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 	//--------------------------------------------------------------------
@@ -962,7 +1100,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( uint32 )
         )
 	{
-		return characterData2Data<uint32, Utils::toUint32, &ParserTemplateBase::toUint32Prefix>(text, textLength, unsignedIntDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<uint32, Utils::toUint32>(text, textLength, &DerivedClass::toUint32Prefix, unsignedIntDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 	//--------------------------------------------------------------------
@@ -976,7 +1114,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( sint64 )
         )
 	{
-		return characterData2Data<sint64, Utils::toSint64, &ParserTemplateBase::toSint64Prefix>(text, textLength, longDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<sint64, Utils::toSint64>(text, textLength, &DerivedClass::toSint64Prefix, longDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 	//--------------------------------------------------------------------
@@ -990,7 +1128,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( uint64 )
         )
 	{
-		return characterData2Data<uint64, Utils::toUint64, &ParserTemplateBase::toUint64Prefix>(text, textLength, unsignedLongDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<uint64, Utils::toUint64>(text, textLength, &DerivedClass::toUint64Prefix, unsignedLongDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 	//--------------------------------------------------------------------
@@ -1004,7 +1142,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( bool )
         )
 	{
-		return characterData2Data<bool, Utils::toBool, &ParserTemplateBase::toBoolPrefix>(text, textLength, boolDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<bool, Utils::toBool>(text, textLength, &DerivedClass::toBoolPrefix, boolDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
 	}
 
 
@@ -1019,7 +1157,7 @@ namespace GeneratedSaxParser
         ParserError::ErrorType (*itemTypeValidationFunc)( ParserString )
         )
     {
-        return characterData2Data<ParserString, Utils::toStringListItem, &ParserTemplateBase::toStringListPrefix>(text, textLength, stringListDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+        return characterData2Data<ParserString, Utils::toStringListItem>(text, textLength, &DerivedClass::toStringListPrefix, stringListDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
     }
 
 	//--------------------------------------------------------------------
@@ -1306,24 +1444,33 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::textData(const ParserChar* text,
 															  size_t textLength)
 	{
-		if ( mIgnoreElements > 0)
+        if ( mElementDataStack.empty() )
+            return false;
+        ElementData elementData = mElementDataStack.back();
+        typename ElementFunctionMap::const_iterator it;
+
+        if ( mIgnoreElements > 0)
         {
             if ( mUnknownHandler != 0 )
             {
-                return mUnknownHandler->textData( text, textLength );
+                it = mElementFunctionMap.find(elementData.generatedElementHash);
+                if ( it == mElementFunctionMap.end() )
+                    return mUnknownHandler->textData( text, textLength );
+                else
+                    return true;
             }
 			return true;
         }
 
-		if ( mElementDataStack.empty() )
-			return false;
-		ElementData elementData = mElementDataStack.back();
-
-		typename ElementFunctionMap::iterator it;
-		it = mElementFunctionMap.find(elementData.generatedElementHash);
-		if ( it == mElementFunctionMap.end() )
+        const ElementFunctionMap* functionMapToUse;
+        if ( mCurrentElementFunctionMap )
+            functionMapToUse = mCurrentElementFunctionMap;
+        else
+            functionMapToUse = &mElementFunctionMap;
+		it = functionMapToUse->find(elementData.generatedElementHash);
+		if ( it == functionMapToUse->end() )
 			return true;
-		FunctionStruct& functions = it->second;
+		const FunctionStruct& functions = it->second;
 
 		if ( !functions.textDataFunction || !(static_cast<DerivedClass*>(this)->*functions.textDataFunction)(text, textLength) )
 			return false;
@@ -1336,24 +1483,35 @@ namespace GeneratedSaxParser
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::elementEnd(const ParserChar* elementName)
 	{
+        if ( mElementDataStack.empty() )
+            return false;
+        ElementData elementData = mElementDataStack.back();
+        mElementDataStack.pop_back();
+
 		if ( mIgnoreElements > 0)
 		{
 			--mIgnoreElements;
             if ( mUnknownHandler != 0 )
             {
-                return mUnknownHandler->elementEnd( elementName );
+                typename ElementFunctionMap::iterator it;
+                it = mElementFunctionMap.find(elementData.generatedElementHash);
+                if ( it == mElementFunctionMap.end() )
+                    return mUnknownHandler->elementEnd( elementName );
+                else
+                    return true;
             }
 			return true;
 		}
 
-		if ( mElementDataStack.empty() )
+        const ElementFunctionMap* functionMapToUse;
+        if ( mCurrentElementFunctionMap )
+            functionMapToUse = mCurrentElementFunctionMap;
+        else
+            functionMapToUse = &mElementFunctionMap;
+        typename ElementFunctionMap::const_iterator it = functionMapToUse->find(elementData.generatedElementHash);
+		if ( it == functionMapToUse->end() )
 			return false;
-		ElementData elementData = mElementDataStack.back();
-
-		typename ElementFunctionMap::iterator it = mElementFunctionMap.find(elementData.generatedElementHash);
-		if ( it == mElementFunctionMap.end() )
-			return false;
-		FunctionStruct& functions = it->second;
+		const FunctionStruct& functions = it->second;
 
 		if ( !functions.validateEndFunction || !(static_cast<DerivedClass*>(this)->*functions.validateEndFunction)())
 			return false;
@@ -1363,7 +1521,6 @@ namespace GeneratedSaxParser
 
 		if ( elementData.validationData )
 			mStackMemoryManager.deleteObject(); // validation data
-		mElementDataStack.pop_back();
 
 		return true;
 	}
@@ -1374,16 +1531,6 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::elementBegin( const ParserChar* elementName,
 																   const ParserAttributes& attributes)
 	{
-		if ( mIgnoreElements > 0)
-		{
-			++mIgnoreElements;
-            if ( mUnknownHandler != 0 )
-            {
-                return mUnknownHandler->elementBegin( elementName, attributes.attributes );
-            }
-			return true;
-		}
-
         ElementData newElementData;
         newElementData.elementHash = Utils::calculateStringHash(elementName);
         newElementData.generatedElementHash = 0;
@@ -1391,38 +1538,69 @@ namespace GeneratedSaxParser
         newElementData.validationData = 0;
         bool foundElementHash = findElementHash( newElementData );
 
-        typename ElementFunctionMap::iterator it = mElementFunctionMap.end();
-        if ( foundElementHash )
-            it = mElementFunctionMap.find(newElementData.generatedElementHash);
-		if ( it == mElementFunctionMap.end() )
+		if ( mIgnoreElements > 0)
 		{
+            mElementDataStack.push_back(newElementData);
+			++mIgnoreElements;
             if ( mUnknownHandler != 0 )
             {
-                mIgnoreElements = 1;
-                return mUnknownHandler->elementBegin( elementName, attributes.attributes );
+                typename ElementFunctionMap::iterator it;
+                it = mElementFunctionMap.find(newElementData.elementHash);
+                if ( it == mElementFunctionMap.end() )
+                    return mUnknownHandler->elementBegin( elementName, attributes.attributes );
+                else
+                    return true;
+            }
+			return true;
+		}
+
+        const ElementFunctionMap* functionMapToUse;
+        if ( mCurrentElementFunctionMap )
+            functionMapToUse = mCurrentElementFunctionMap;
+        else
+            functionMapToUse = &mElementFunctionMap;
+        typename ElementFunctionMap::const_iterator it = functionMapToUse->end();
+        if ( foundElementHash )
+            it = functionMapToUse->find(newElementData.generatedElementHash);
+		if ( it == functionMapToUse->end() )
+		{
+            mElementDataStack.push_back(newElementData);
+            mIgnoreElements = 1;
+            it = mElementFunctionMap.find(newElementData.elementHash);
+            if ( it == mElementFunctionMap.end() )
+            {
+                if ( mUnknownHandler != 0 )
+                {
+                    return mUnknownHandler->elementBegin( elementName, attributes.attributes );
+                }
+                else
+                {
+			        if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+							         ParserError::ERROR_UNKNOWN_ELEMENT,
+				                     0,
+				                     elementName))
+			        {
+				        return false;
+			        }
+			        else
+			        {
+				        return true;
+			        }
+                }
             }
             else
             {
-			    if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
-							     ParserError::ERROR_UNKNOWN_ELEMENT,
-				                 0,
-				                 elementName))
-			    {
-				    return false;
-			    }
-			    else
-			    {
-				    mIgnoreElements = 1;
-				    return true;
-			    }
+                return true;
             }
+
 		}
-		FunctionStruct& functions = it->second;
+		const FunctionStruct& functions = it->second;
 
 		void* attributeData = 0;
 		void* validationData = 0;
 		if ( !functions.validateBeginFunction || !(static_cast<DerivedClass*>(this)->*functions.validateBeginFunction)(attributes, &attributeData, &validationData) )
         {
+            mElementDataStack.push_back(newElementData);
             // avoid leak
             if ( attributeData )
             {
@@ -1431,6 +1609,7 @@ namespace GeneratedSaxParser
             }
 			return false;
         }
+        mElementDataStack.push_back(newElementData);
 
 		bool success = (static_cast<DerivedClass*>(this)->*functions.beginFunction)(attributeData);
 		if ( attributeData )
@@ -1446,7 +1625,6 @@ namespace GeneratedSaxParser
 		if ( success )
 		{
 			newElementData.validationData = validationData;
-			mElementDataStack.push_back(newElementData);
 		}
 		return success;
 	}

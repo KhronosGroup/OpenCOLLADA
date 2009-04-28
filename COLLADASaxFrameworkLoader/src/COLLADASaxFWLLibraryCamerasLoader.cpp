@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLLibraryCamerasLoader.h"
+#include "COLLADASaxFWLLoader.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWCamera.h"
@@ -117,7 +118,11 @@ namespace COLLADASaxFWL
 			mCurrentCamera->setDescriptionType(COLLADAFW::Camera::UNDEFINED);
 		}
 
-		bool success = writer()->writeCamera(mCurrentCamera);
+		bool success = true;
+		if ( (getObjectFlags() & Loader::CAMERA_FLAG) != 0 )
+		{
+			success =  writer()->writeCamera(mCurrentCamera);
+		}
 		FW_DELETE mCurrentCamera;
 		resetCurrentValues();
 		return success;

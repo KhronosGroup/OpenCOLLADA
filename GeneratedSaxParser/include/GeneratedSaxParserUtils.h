@@ -17,10 +17,14 @@
 #include "GeneratedSaxParserTypes.h"
 
 #include <utility>
+#include <map>
 
 namespace GeneratedSaxParser
 {
-	class Utils 	
+
+    typedef std::pair<StringHash, StringHash> StringHashPair;
+
+    class Utils
 	{
 	public:
 	
@@ -34,14 +38,19 @@ namespace GeneratedSaxParser
 
 		static StringHash calculateStringHash(const ParserChar* text);
 
-		static StringHash calculateStringHash(const ParserChar* text, bool& failed);
+        static StringHashPair Utils::calculateStringHashWithNamespace( const ParserChar* text );
+
+        static StringHash calculateStringHash(const ParserChar* text, bool& failed);
 
 		static bool isWhiteSpace(ParserChar c)
 		{
 			return (c == ' ' || c == '\t' || c == '\r' || c == '\n');
 		}
 
-		static bool isdigit(ParserChar c)
+        /** Checks if all characters in buffer are whitspaces. */
+        static bool isWhiteSpaceOnly(const ParserChar* buffer, size_t length);
+
+        static bool isdigit(ParserChar c)
 		{
 			return (c >= '0' && c <= '9');
 		}

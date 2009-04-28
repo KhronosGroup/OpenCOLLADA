@@ -35,29 +35,29 @@ namespace GeneratedSaxParser
 		mOpenTags.push( OpenTag() );
 		OpenTag& currentOpenTag = mOpenTags.top();
 
-        if ( attributes )
-        {
-            const xmlChar** currentAttribute = attributes;
-            while ( *currentAttribute )
-            {
-                const xmlChar* attributeName = *currentAttribute;
-                currentAttribute++;
-                if ( !currentAttribute )
-                {
-                    // should never occur, but we want to make sure
-                    break;
-                }
-                const xmlChar* attributeValue = *currentAttribute;
+		if ( attributes )
+		{
+			const xmlChar** currentAttribute = attributes;
+			while ( *currentAttribute )
+			{
+				const xmlChar* attributeName = *currentAttribute;
+				currentAttribute++;
+				if ( !currentAttribute )
+				{
+					// should never occur, but we want to make sure
+					break;
+				}
+				const xmlChar* attributeValue = *currentAttribute;
 
-                mRawData.append( " " );
-                mRawData.append( attributeName );
-                mRawData.append( "=\"" );
-                mRawData.append( attributeValue );
-                mRawData.append( "\"" );
+				mRawData.append( " " );
+				mRawData.append( attributeName );
+				mRawData.append( "=\"" );
+				mRawData.append( attributeValue );
+				mRawData.append( "\"" );
 
-                currentAttribute++;
-            }
-        }
+				currentAttribute++;
+			}
+		}
 		return true;
 	}
 

@@ -120,12 +120,50 @@ namespace GeneratedSaxParser
 		return h;
 	}
 
+    //--------------------------------------------------------------------
+    StringHashPair Utils::calculateStringHashWithNamespace( const ParserChar* text )
+    {
+        StringHash h = 0;
+        StringHash g;
+        const ParserChar* pos = text;
+        StringHashPair pair;
+        pair.first = 0;
+
+        while (*pos != 0) {
+            if (*pos == ':' && pos[1] != 0) {
+                pair.first = h;
+                h = 0;
+                pos++;
+            }
+            h = (h << 4) + *pos++;
+            if ((g = (h & 0xf0000000)) != 0)
+                h ^= g >> 24;
+            h &= ~g;
+        }
+        pair.second = h;
+        return pair;
+    }
+
+    //--------------------------------------------------------------------
 	GeneratedSaxParser::StringHash Utils::calculateStringHash( const ParserChar* text, bool& failed )
 	{
 		failed = false;
 		return calculateStringHash(text);
 	}
 
+
+    //--------------------------------------------------------------------
+    bool Utils::isWhiteSpaceOnly(const ParserChar* buffer, size_t length)
+    {
+        for (size_t i=0; i<length; ++i)
+        {
+            if ( !isWhiteSpace(buffer[i]) )
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     //--------------------------------------------------------------------
     void Utils::fillErrorMsg(ParserChar* dest, const ParserChar* src, size_t maxLen)

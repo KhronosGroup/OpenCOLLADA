@@ -21,8 +21,6 @@
 namespace GeneratedSaxParser
 {
 
-    IErrorHandler* LibxmlSaxParser::msErrorHandler = 0;
-
     xmlSAXHandler LibxmlSaxParser::SAXHANDLER =
 	{
 		0,                 		           //internalSubsetSAXFunc internalSubset;
@@ -90,13 +88,11 @@ namespace GeneratedSaxParser
 
 			mParserContext->sax = &SAXHANDLER;
 			mParserContext->userData = (void*)this;
-            msErrorHandler = getParser()->getErrorHandler();
 
 			initializeParserContext();
 			xmlParseDocument(mParserContext);
 
 			mParserContext->sax = 0;
-            msErrorHandler = 0;
 
 			if ( mParserContext->myDoc )
 			{
@@ -145,7 +141,6 @@ namespace GeneratedSaxParser
 	void LibxmlSaxParser::abortParsing()
 	{
 		xmlStopParser(mParserContext);
-        msErrorHandler = 0;
 	}
 
 	size_t LibxmlSaxParser::getLineNumer() const
@@ -158,7 +153,7 @@ namespace GeneratedSaxParser
 		return (size_t)xmlSAX2GetColumnNumber(mParserContext);
 	}
 
-	void LibxmlSaxParser::errorFunction( void *ctx, const char *msg, ... )
+	void LibxmlSaxParser::errorFunction( void *userData, const char *msg, ... )
 	{
         // if msg is just one string, get it. Otherwise ignore it.
         char* message = 0;
@@ -169,8 +164,7 @@ namespace GeneratedSaxParser
             message = va_arg(argList, char*);
         }
 
-        xmlParserCtxtPtr context = (xmlParserCtxtPtr)ctx;
-		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)(context->userData);
+		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)(userData);
 		ParserError error(ParserError::SEVERITY_CRITICAL,
 					ParserError::ERROR_XML_PARSER_ERROR,
 					0,
@@ -184,10 +178,8 @@ namespace GeneratedSaxParser
             va_end(argList);
         }
 
-        // For some reason errHandler's vtable is screwed up
-        //IErrorHandler* errHandler = thisObject->getParser()->getErrorHandler();
-        if (msErrorHandler != 0 /*&& msErrorHandler == errHandler*/)
-            msErrorHandler->handleError(error);
+        IErrorHandler* errHandler = thisObject->getParser()->getErrorHandler();
+        errHandler->handleError(error);
 	}
 
 } // namespace GeneratedSaxParser

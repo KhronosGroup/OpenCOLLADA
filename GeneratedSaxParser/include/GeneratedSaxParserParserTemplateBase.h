@@ -228,6 +228,15 @@ namespace GeneratedSaxParser
             BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
             );
 
+        template<class DataType>
+        DataType toDataPrefix(
+            const ParserChar* prefixedBuffer,
+            const ParserChar* prefixedBufferEnd,
+            const ParserChar** buffer,
+            const ParserChar* bufferEnd,
+            bool& failed,
+            DataType (*toData)(const ParserChar**, const ParserChar*, bool&)
+            );
 
 
 		/** Creates a new object of type @a DataType and sets the member variables to the default ones, using
@@ -272,16 +281,15 @@ namespace GeneratedSaxParser
 
 
     protected:
-	private:
+    private:
 		/** Disable default copy ctor. */
 		ParserTemplateBase( const ParserTemplateBase& pre );
 		/** Disable default assignment operator. */
 		const ParserTemplateBase& operator= ( const ParserTemplateBase& pre );
 
-		template<class DataType,
-				 DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
-		DataType toDataPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
-
+        template<class DataType,
+            DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
+            DataType toDataPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 	};
 
 
@@ -335,6 +343,94 @@ namespace GeneratedSaxParser
         newBuffer[newBufferSize] = ' ';
         ParserChar* newBufferPostParse = newBuffer;
         EnumType value = toEnum( (const ParserChar**)&newBufferPostParse, newBuffer + newBufferSize + 1, failed, enumMap, baseConversionFunctionPtr);
+        *buffer += (newBufferPostParse - newBuffer - prefixBufferSize);
+        return value;
+    }
+
+    //--------------------------------------------------------------------
+    template<class DataType,
+        DataType (*toData)( const ParserChar**, const ParserChar*, bool& )>
+        DataType ParserTemplateBase::toDataPrefix(
+        const ParserChar* prefixedBuffer,
+        const ParserChar* prefixedBufferEnd,
+        const ParserChar** buffer,
+        const ParserChar* bufferEnd,
+        bool& failed
+        )
+    {
+        const ParserChar* prefixBufferPos = prefixedBuffer;
+        const ParserChar* prefixBufferStartPos = 0;
+        while ( prefixBufferPos != prefixedBufferEnd )
+        {
+            if (!Utils::isWhiteSpace(*prefixBufferPos ) && !prefixBufferStartPos)
+                prefixBufferStartPos = prefixBufferPos;
+            ++prefixBufferPos;
+        }
+
+        //if prefixedBuffer contains only white spaces, we can ignore it.
+        if ( !prefixBufferStartPos )
+            return toData(buffer, bufferEnd, failed);
+
+        //find first whitespace in buffer
+        const ParserChar* bufferPos = *buffer;
+        while ( !Utils::isWhiteSpace(*bufferPos) )
+            ++bufferPos;
+
+        size_t prefixBufferSize = prefixBufferPos - prefixBufferStartPos;
+        size_t bufferSize = bufferPos - *buffer;
+        size_t newBufferSize = prefixBufferSize + bufferSize;
+        ParserChar* newBuffer =  (ParserChar*)mStackMemoryManager.newObject((newBufferSize + 1)*sizeof(ParserChar));
+        memcpy(newBuffer, prefixBufferStartPos, prefixBufferSize*sizeof(ParserChar));
+        memcpy(newBuffer + prefixBufferSize, *buffer, bufferSize*sizeof(ParserChar));
+        newBuffer[newBufferSize] = ' ';
+        ParserChar* newBufferPostParse = newBuffer;
+        DataType value = toData( (const ParserChar**)&newBufferPostParse, newBuffer + newBufferSize + 1, failed);
+        *buffer += (newBufferPostParse - newBuffer - prefixBufferSize);
+        // note: we cannot delete that object here because
+        // DataType maybe ParserString and this deleteObject call
+        // would delete the string ParserString::str points at.
+        //mStackMemoryManager.deleteObject();
+        return value;
+    }
+
+    //--------------------------------------------------------------------
+    template<class DataType>
+    DataType ParserTemplateBase::toDataPrefix(
+        const ParserChar* prefixedBuffer,
+        const ParserChar* prefixedBufferEnd,
+        const ParserChar** buffer,
+        const ParserChar* bufferEnd,
+        bool& failed,
+        DataType (*toData)( const ParserChar**, const ParserChar*, bool& )
+        )
+    {
+        const ParserChar* prefixBufferPos = prefixedBuffer;
+        const ParserChar* prefixBufferStartPos = 0;
+        while ( prefixBufferPos != prefixedBufferEnd )
+        {
+            if (!Utils::isWhiteSpace(*prefixBufferPos ) && !prefixBufferStartPos)
+                prefixBufferStartPos = prefixBufferPos;
+            ++prefixBufferPos;
+        }
+
+        //if prefixedBuffer contains only white spaces, we can ignore it.
+        if ( !prefixBufferStartPos )
+            return toData(buffer, bufferEnd, failed);
+
+        //find first whitespace in buffer
+        const ParserChar* bufferPos = *buffer;
+        while ( !Utils::isWhiteSpace(*bufferPos) )
+            ++bufferPos;
+
+        size_t prefixBufferSize = prefixBufferPos - prefixBufferStartPos;
+        size_t bufferSize = bufferPos - *buffer;
+        size_t newBufferSize = prefixBufferSize + bufferSize;
+        ParserChar* newBuffer =  (ParserChar*)mStackMemoryManager.newObject((newBufferSize + 1)*sizeof(ParserChar));
+        memcpy(newBuffer, prefixBufferStartPos, prefixBufferSize*sizeof(ParserChar));
+        memcpy(newBuffer + prefixBufferSize, *buffer, bufferSize*sizeof(ParserChar));
+        newBuffer[newBufferSize] = ' ';
+        ParserChar* newBufferPostParse = newBuffer;
+        DataType value = toData( (const ParserChar**)&newBufferPostParse, newBuffer + newBufferSize + 1, failed);
         *buffer += (newBufferPostParse - newBuffer - prefixBufferSize);
         mStackMemoryManager.deleteObject();
         return value;

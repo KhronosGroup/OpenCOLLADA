@@ -13,6 +13,7 @@
 #include "COLLADASaxFWLSidAddress.h"
 #include "COLLADASaxFWLSidTreeNode.h"
 #include "COLLADASaxFWLInterpolationTypeSource.h"
+#include "COLLADASaxFWLLoader.h"
 
 #include "COLLADAFWValidate.h"
 #include "COLLADAFWAnimationList.h"
@@ -397,14 +398,17 @@ namespace COLLADASaxFWL
 			mCurrentAnimationCurve->getInTangentValues().clear();
 			mCurrentAnimationCurve->getOutTangentValues().clear();
 		}
-		if ( COLLADAFW::validate( mCurrentAnimationCurve ) )
+		if ( (getObjectFlags() & Loader::ANIMATION_FLAG) != 0 )
 		{
-			success = writer()->writeAnimation(mCurrentAnimationCurve);
-			FW_DELETE mCurrentAnimationCurve;
-		}
-		else
-		{
-			// todo handle error
+			if ( COLLADAFW::validate( mCurrentAnimationCurve ) )
+			{
+				success = writer()->writeAnimation(mCurrentAnimationCurve);
+				FW_DELETE mCurrentAnimationCurve;
+			}
+			else
+			{
+				// todo handle error
+			}
 		}
 		mCurrentAnimationCurve = 0;
 		mCurrentAnimationInfo = 0;

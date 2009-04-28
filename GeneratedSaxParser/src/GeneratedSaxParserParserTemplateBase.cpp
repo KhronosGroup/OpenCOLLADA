@@ -90,49 +90,6 @@ namespace GeneratedSaxParser
         return toDataPrefix<ParserString, Utils::toStringListItem>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
     }
 
-    //--------------------------------------------------------------------
-	template<class DataType,
-			 DataType (*toData)( const ParserChar**, const ParserChar*, bool& )>
-	DataType ParserTemplateBase::toDataPrefix(
-                const ParserChar* prefixedBuffer,
-                const ParserChar* prefixedBufferEnd,
-                const ParserChar** buffer,
-                const ParserChar* bufferEnd,
-                bool& failed
-                )
-	{
-		const ParserChar* prefixBufferPos = prefixedBuffer;
-		const ParserChar* prefixBufferStartPos = 0;
-        while ( prefixBufferPos != prefixedBufferEnd )
-		{
-			if (!Utils::isWhiteSpace(*prefixBufferPos ) && !prefixBufferStartPos)
-				prefixBufferStartPos = prefixBufferPos;
-			++prefixBufferPos;
-		}
-
-		//if prefixedBuffer contains only white spaces, we can ignore it.
-		if ( !prefixBufferStartPos )
-			return toData(buffer, bufferEnd, failed);
-
-		//find first whitespace in buffer
-		const ParserChar* bufferPos = *buffer;
-		while ( !Utils::isWhiteSpace(*bufferPos) )
-			++bufferPos;
-
-		size_t prefixBufferSize = prefixBufferPos - prefixBufferStartPos;
-		size_t bufferSize = bufferPos - *buffer;
-		size_t newBufferSize = prefixBufferSize + bufferSize;
-		ParserChar* newBuffer =  (ParserChar*)mStackMemoryManager.newObject((newBufferSize + 1)*sizeof(ParserChar));
-		memcpy(newBuffer, prefixBufferStartPos, prefixBufferSize*sizeof(ParserChar));
-		memcpy(newBuffer + prefixBufferSize, *buffer, bufferSize*sizeof(ParserChar));
-		newBuffer[newBufferSize] = ' ';
-		ParserChar* newBufferPostParse = newBuffer;
-		DataType value = toData( (const ParserChar**)&newBufferPostParse, newBuffer + newBufferSize + 1, failed);
-		*buffer += (newBufferPostParse - newBuffer - prefixBufferSize);
-		mStackMemoryManager.deleteObject();
-		return value;
-	}
-
 	//--------------------------------------------------------------------
 	bool ParserTemplateBase::handleError( ParserError::Severity severity,
 												 ParserError::ErrorType errorType,

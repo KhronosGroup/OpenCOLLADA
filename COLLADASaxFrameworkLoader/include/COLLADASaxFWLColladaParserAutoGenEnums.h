@@ -38,6 +38,7 @@ typedef GeneratedSaxParser::ParserString ParserString;
 typedef GeneratedSaxParser::ParserAttributes ParserAttributes;
 typedef GeneratedSaxParser::Utils Utils;
 typedef GeneratedSaxParser::ParserError ParserError;
+typedef GeneratedSaxParser::StringHashPair StringHashPair;
 
 
 enum ENUM__VersionType
@@ -513,33 +514,6 @@ ENUM__gles_sampler_wrap toEnum_ENUM__gles_sampler_wrap (
 
 
 
-enum ENUM__gl_func_type
-{
-    ENUM__gl_func_type__NEVER = 0,
-    ENUM__gl_func_type__LESS = 1,
-    ENUM__gl_func_type__LEQUAL = 2,
-    ENUM__gl_func_type__EQUAL = 3,
-    ENUM__gl_func_type__GREATER = 4,
-    ENUM__gl_func_type__NOTEQUAL = 5,
-    ENUM__gl_func_type__GEQUAL = 6,
-    ENUM__gl_func_type__ALWAYS = 7,
-    ENUM__gl_func_type__COUNT = 8,
-    ENUM__gl_func_type__NOT_PRESENT = 9
-};
-
-extern const std::pair<StringHash, ENUM__gl_func_type> ENUM__gl_func_typeMap[ENUM__gl_func_type__COUNT];
-
-
-ENUM__gl_func_type toEnum_ENUM__gl_func_type (
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_func_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-
 enum ENUM__gl_blend_type
 {
     ENUM__gl_blend_type__ZERO = 0,
@@ -596,6 +570,84 @@ ENUM__gl_face_type toEnum_ENUM__gl_face_type (
 
 
 
+enum ENUM__gl_func_type
+{
+    ENUM__gl_func_type__NEVER = 0,
+    ENUM__gl_func_type__LESS = 1,
+    ENUM__gl_func_type__LEQUAL = 2,
+    ENUM__gl_func_type__EQUAL = 3,
+    ENUM__gl_func_type__GREATER = 4,
+    ENUM__gl_func_type__NOTEQUAL = 5,
+    ENUM__gl_func_type__GEQUAL = 6,
+    ENUM__gl_func_type__ALWAYS = 7,
+    ENUM__gl_func_type__COUNT = 8,
+    ENUM__gl_func_type__NOT_PRESENT = 9
+};
+
+extern const std::pair<StringHash, ENUM__gl_func_type> ENUM__gl_func_typeMap[ENUM__gl_func_type__COUNT];
+
+
+ENUM__gl_func_type toEnum_ENUM__gl_func_type (
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_func_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+
+enum ENUM__gl_stencil_op_type
+{
+    ENUM__gl_stencil_op_type__KEEP = 0,
+    ENUM__gl_stencil_op_type__ZERO = 1,
+    ENUM__gl_stencil_op_type__REPLACE = 2,
+    ENUM__gl_stencil_op_type__INCR = 3,
+    ENUM__gl_stencil_op_type__DECR = 4,
+    ENUM__gl_stencil_op_type__INVERT = 5,
+    ENUM__gl_stencil_op_type__INCR_WRAP = 6,
+    ENUM__gl_stencil_op_type__DECR_WRAP = 7,
+    ENUM__gl_stencil_op_type__COUNT = 8,
+    ENUM__gl_stencil_op_type__NOT_PRESENT = 9
+};
+
+extern const std::pair<StringHash, ENUM__gl_stencil_op_type> ENUM__gl_stencil_op_typeMap[ENUM__gl_stencil_op_type__COUNT];
+
+
+ENUM__gl_stencil_op_type toEnum_ENUM__gl_stencil_op_type (
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_stencil_op_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+
+enum ENUM__gl_material_type
+{
+    ENUM__gl_material_type__EMISSION = 0,
+    ENUM__gl_material_type__AMBIENT = 1,
+    ENUM__gl_material_type__DIFFUSE = 2,
+    ENUM__gl_material_type__SPECULAR = 3,
+    ENUM__gl_material_type__AMBIENT_AND_DIFFUSE = 4,
+    ENUM__gl_material_type__COUNT = 5,
+    ENUM__gl_material_type__NOT_PRESENT = 6
+};
+
+extern const std::pair<StringHash, ENUM__gl_material_type> ENUM__gl_material_typeMap[ENUM__gl_material_type__COUNT];
+
+
+ENUM__gl_material_type toEnum_ENUM__gl_material_type (
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_material_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+
 enum ENUM__gl_fog_type
 {
     ENUM__gl_fog_type__LINEAR = 0,
@@ -639,6 +691,27 @@ ENUM__gl_front_face_type toEnum_ENUM__gl_front_face_type (
 
 
 
+enum ENUM__gl_light_model_color_control_type
+{
+    ENUM__gl_light_model_color_control_type__SINGLE_COLOR = 0,
+    ENUM__gl_light_model_color_control_type__SEPARATE_SPECULAR_COLOR = 1,
+    ENUM__gl_light_model_color_control_type__COUNT = 2,
+    ENUM__gl_light_model_color_control_type__NOT_PRESENT = 3
+};
+
+extern const std::pair<StringHash, ENUM__gl_light_model_color_control_type> ENUM__gl_light_model_color_control_typeMap[ENUM__gl_light_model_color_control_type__COUNT];
+
+
+ENUM__gl_light_model_color_control_type toEnum_ENUM__gl_light_model_color_control_type (
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_light_model_color_control_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+
 enum ENUM__gl_logic_op_type
 {
     ENUM__gl_logic_op_type__CLEAR = 0,
@@ -673,6 +746,28 @@ ENUM__gl_logic_op_type toEnum_ENUM__gl_logic_op_type (
 
 
 
+enum ENUM__gl_polygon_mode_type
+{
+    ENUM__gl_polygon_mode_type__POINT = 0,
+    ENUM__gl_polygon_mode_type__LINE = 1,
+    ENUM__gl_polygon_mode_type__FILL = 2,
+    ENUM__gl_polygon_mode_type__COUNT = 3,
+    ENUM__gl_polygon_mode_type__NOT_PRESENT = 4
+};
+
+extern const std::pair<StringHash, ENUM__gl_polygon_mode_type> ENUM__gl_polygon_mode_typeMap[ENUM__gl_polygon_mode_type__COUNT];
+
+
+ENUM__gl_polygon_mode_type toEnum_ENUM__gl_polygon_mode_type (
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_polygon_mode_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+
 enum ENUM__gl_shade_model_type
 {
     ENUM__gl_shade_model_type__FLAT = 0,
@@ -691,6 +786,55 @@ ENUM__gl_shade_model_type toEnum_ENUM__gl_shade_model_type (
     const std::pair<StringHash, ENUM__gl_shade_model_type>* enumMap,
     StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
 );
+
+
+
+struct UNION__gles_enumeration
+{
+    UNION__gles_enumeration(){}
+    UNION__gles_enumeration( int value ){}
+
+    enum Types
+    {
+        GL_BLEND_TYPE,
+        GL_FACE_TYPE,
+        GL_FUNC_TYPE,
+        GL_STENCIL_OP_TYPE,
+        GL_MATERIAL_TYPE,
+        GL_FOG_TYPE,
+        GL_FRONT_FACE_TYPE,
+        GL_LIGHT_MODEL_COLOR_CONTROL_TYPE,
+        GL_LOGIC_OP_TYPE,
+        GL_POLYGON_MODE_TYPE,
+        GL_SHADE_MODEL_TYPE,
+        INVALID
+    } union_type;
+
+    union Data
+    {
+        ENUM__gl_blend_type GL_BLEND_TYPE;
+        ENUM__gl_face_type GL_FACE_TYPE;
+        ENUM__gl_func_type GL_FUNC_TYPE;
+        ENUM__gl_stencil_op_type GL_STENCIL_OP_TYPE;
+        ENUM__gl_material_type GL_MATERIAL_TYPE;
+        ENUM__gl_fog_type GL_FOG_TYPE;
+        ENUM__gl_front_face_type GL_FRONT_FACE_TYPE;
+        ENUM__gl_light_model_color_control_type GL_LIGHT_MODEL_COLOR_CONTROL_TYPE;
+        ENUM__gl_logic_op_type GL_LOGIC_OP_TYPE;
+        ENUM__gl_polygon_mode_type GL_POLYGON_MODE_TYPE;
+        ENUM__gl_shade_model_type GL_SHADE_MODEL_TYPE;
+    } union_data;
+};
+
+UNION__gles_enumeration toUnion_UNION__gles_enumeration ( const ParserChar* buffer, size_t length, bool& failed );
+
+
+
+UNION__gles_enumeration toUnion_UNION__gles_enumeration ( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed );
+
+
+
+UNION__gles_enumeration toUnion_UNION__gles_enumeration ( const ParserChar** buffer, bool& failed );
 
 
 
@@ -743,30 +887,6 @@ ENUM__gl_blend_equation_type toEnum_ENUM__gl_blend_equation_type (
 
 
 
-enum ENUM__gl_material_type
-{
-    ENUM__gl_material_type__EMISSION = 0,
-    ENUM__gl_material_type__AMBIENT = 1,
-    ENUM__gl_material_type__DIFFUSE = 2,
-    ENUM__gl_material_type__SPECULAR = 3,
-    ENUM__gl_material_type__AMBIENT_AND_DIFFUSE = 4,
-    ENUM__gl_material_type__COUNT = 5,
-    ENUM__gl_material_type__NOT_PRESENT = 6
-};
-
-extern const std::pair<StringHash, ENUM__gl_material_type> ENUM__gl_material_typeMap[ENUM__gl_material_type__COUNT];
-
-
-ENUM__gl_material_type toEnum_ENUM__gl_material_type (
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_material_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-
 enum ENUM__gl_fog_coord_src_type
 {
     ENUM__gl_fog_coord_src_type__FOG_COORDINATE = 0,
@@ -788,73 +908,56 @@ ENUM__gl_fog_coord_src_type toEnum_ENUM__gl_fog_coord_src_type (
 
 
 
-enum ENUM__gl_light_model_color_control_type
+struct UNION__gl_enumeration
 {
-    ENUM__gl_light_model_color_control_type__SINGLE_COLOR = 0,
-    ENUM__gl_light_model_color_control_type__SEPARATE_SPECULAR_COLOR = 1,
-    ENUM__gl_light_model_color_control_type__COUNT = 2,
-    ENUM__gl_light_model_color_control_type__NOT_PRESENT = 3
+    UNION__gl_enumeration(){}
+    UNION__gl_enumeration( int value ){}
+
+    enum Types
+    {
+        GL_BLEND_TYPE,
+        GL_FACE_TYPE,
+        GL_BLEND_EQUATION_TYPE,
+        GL_FUNC_TYPE,
+        GL_STENCIL_OP_TYPE,
+        GL_MATERIAL_TYPE,
+        GL_FOG_TYPE,
+        GL_FOG_COORD_SRC_TYPE,
+        GL_FRONT_FACE_TYPE,
+        GL_LIGHT_MODEL_COLOR_CONTROL_TYPE,
+        GL_LOGIC_OP_TYPE,
+        GL_POLYGON_MODE_TYPE,
+        GL_SHADE_MODEL_TYPE,
+        INVALID
+    } union_type;
+
+    union Data
+    {
+        ENUM__gl_blend_type GL_BLEND_TYPE;
+        ENUM__gl_face_type GL_FACE_TYPE;
+        ENUM__gl_blend_equation_type GL_BLEND_EQUATION_TYPE;
+        ENUM__gl_func_type GL_FUNC_TYPE;
+        ENUM__gl_stencil_op_type GL_STENCIL_OP_TYPE;
+        ENUM__gl_material_type GL_MATERIAL_TYPE;
+        ENUM__gl_fog_type GL_FOG_TYPE;
+        ENUM__gl_fog_coord_src_type GL_FOG_COORD_SRC_TYPE;
+        ENUM__gl_front_face_type GL_FRONT_FACE_TYPE;
+        ENUM__gl_light_model_color_control_type GL_LIGHT_MODEL_COLOR_CONTROL_TYPE;
+        ENUM__gl_logic_op_type GL_LOGIC_OP_TYPE;
+        ENUM__gl_polygon_mode_type GL_POLYGON_MODE_TYPE;
+        ENUM__gl_shade_model_type GL_SHADE_MODEL_TYPE;
+    } union_data;
 };
 
-extern const std::pair<StringHash, ENUM__gl_light_model_color_control_type> ENUM__gl_light_model_color_control_typeMap[ENUM__gl_light_model_color_control_type__COUNT];
-
-
-ENUM__gl_light_model_color_control_type toEnum_ENUM__gl_light_model_color_control_type (
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_light_model_color_control_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
+UNION__gl_enumeration toUnion_UNION__gl_enumeration ( const ParserChar* buffer, size_t length, bool& failed );
 
 
 
-enum ENUM__gl_polygon_mode_type
-{
-    ENUM__gl_polygon_mode_type__POINT = 0,
-    ENUM__gl_polygon_mode_type__LINE = 1,
-    ENUM__gl_polygon_mode_type__FILL = 2,
-    ENUM__gl_polygon_mode_type__COUNT = 3,
-    ENUM__gl_polygon_mode_type__NOT_PRESENT = 4
-};
-
-extern const std::pair<StringHash, ENUM__gl_polygon_mode_type> ENUM__gl_polygon_mode_typeMap[ENUM__gl_polygon_mode_type__COUNT];
-
-
-ENUM__gl_polygon_mode_type toEnum_ENUM__gl_polygon_mode_type (
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_polygon_mode_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
+UNION__gl_enumeration toUnion_UNION__gl_enumeration ( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed );
 
 
 
-enum ENUM__gl_stencil_op_type
-{
-    ENUM__gl_stencil_op_type__KEEP = 0,
-    ENUM__gl_stencil_op_type__ZERO = 1,
-    ENUM__gl_stencil_op_type__REPLACE = 2,
-    ENUM__gl_stencil_op_type__INCR = 3,
-    ENUM__gl_stencil_op_type__DECR = 4,
-    ENUM__gl_stencil_op_type__INVERT = 5,
-    ENUM__gl_stencil_op_type__INCR_WRAP = 6,
-    ENUM__gl_stencil_op_type__DECR_WRAP = 7,
-    ENUM__gl_stencil_op_type__COUNT = 8,
-    ENUM__gl_stencil_op_type__NOT_PRESENT = 9
-};
-
-extern const std::pair<StringHash, ENUM__gl_stencil_op_type> ENUM__gl_stencil_op_typeMap[ENUM__gl_stencil_op_type__COUNT];
-
-
-ENUM__gl_stencil_op_type toEnum_ENUM__gl_stencil_op_type (
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_stencil_op_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
+UNION__gl_enumeration toUnion_UNION__gl_enumeration ( const ParserChar** buffer, bool& failed );
 
 
 

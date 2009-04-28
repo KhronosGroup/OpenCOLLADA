@@ -46,12 +46,18 @@ typedef GeneratedSaxParser::ParserString ParserString;
 typedef GeneratedSaxParser::ParserAttributes ParserAttributes;
 typedef GeneratedSaxParser::Utils Utils;
 typedef GeneratedSaxParser::ParserError ParserError;
+typedef GeneratedSaxParser::StringHashPair StringHashPair;
 typedef GeneratedSaxParser::ParserError ParserError;
+
+
+class FunctionMapFactory;
 
 
 class ColladaParserAutoGenPrivate : public GeneratedSaxParser::ParserTemplate<ColladaParserAutoGenPrivate, ColladaParserAutoGen>
 {
 public:
+static const StringHash TARGET_NAMESPACE = 221035537;
+
 static const char* PARENT_CHILD_ELEMENT_SEPARATOR;
 
 ColladaParserAutoGenPrivate( COLLADASaxFWL::ColladaParserAutoGen* impl, GeneratedSaxParser::IErrorHandler* errorHandler = 0 );
@@ -59,6 +65,7 @@ virtual ~ColladaParserAutoGenPrivate();
 
 
 private:
+friend class FunctionMapFactory;
 
 
 bool _begin__COLLADA( void* attributeData ){return mImpl->begin__COLLADA(*static_cast<COLLADA__AttributeData*>(attributeData));}
@@ -2657,6 +2664,336 @@ bool _validateBegin__enum____gles_enumeration( const ParserAttributes& attribute
 bool _validateEnd__enum____gles_enumeration();
 bool _freeAttributes__enum____gles_enumeration( void* attributeData );
 
+
+ENUM__gl_blend_type toEnumDataPrefix_ENUM__gl_blend_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_blend_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_blend_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_blend_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_blend_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_blend_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_blend_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_blend_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_blend_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_face_type toEnumDataPrefix_ENUM__gl_face_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_face_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_face_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_face_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_face_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_face_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_face_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_face_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_face_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_func_type toEnumDataPrefix_ENUM__gl_func_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_func_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_func_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_func_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_func_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_func_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_func_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_func_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_func_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_stencil_op_type toEnumDataPrefix_ENUM__gl_stencil_op_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_stencil_op_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_stencil_op_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_stencil_op_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_stencil_op_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_stencil_op_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_stencil_op_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_stencil_op_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_stencil_op_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_material_type toEnumDataPrefix_ENUM__gl_material_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_material_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_material_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_material_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_material_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_material_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_material_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_material_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_material_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_fog_type toEnumDataPrefix_ENUM__gl_fog_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_fog_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_fog_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_fog_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_fog_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_fog_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_fog_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_fog_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_fog_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_front_face_type toEnumDataPrefix_ENUM__gl_front_face_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_front_face_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_front_face_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_front_face_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_front_face_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_front_face_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_front_face_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_front_face_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_front_face_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_light_model_color_control_type toEnumDataPrefix_ENUM__gl_light_model_color_control_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_light_model_color_control_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_light_model_color_control_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_light_model_color_control_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_light_model_color_control_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_light_model_color_control_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_light_model_color_control_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_light_model_color_control_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_light_model_color_control_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_logic_op_type toEnumDataPrefix_ENUM__gl_logic_op_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_logic_op_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_logic_op_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_logic_op_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_logic_op_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_logic_op_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_logic_op_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_logic_op_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_logic_op_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_polygon_mode_type toEnumDataPrefix_ENUM__gl_polygon_mode_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_polygon_mode_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_polygon_mode_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_polygon_mode_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_polygon_mode_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_polygon_mode_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_polygon_mode_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_polygon_mode_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_polygon_mode_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_shade_model_type toEnumDataPrefix_ENUM__gl_shade_model_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_shade_model_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_shade_model_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_shade_model_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_shade_model_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_shade_model_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_shade_model_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_shade_model_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_shade_model_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+UNION__gles_enumeration toUnionPrefix_UNION__gles_enumeration (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed
+);
+
+
+
 bool _begin__profile_GLES__technique( void* attributeData ){return mImpl->begin__profile_GLES__technique(*static_cast<profile_GLES__technique__AttributeData*>(attributeData));}
 bool _data__profile_GLES__technique( const ParserChar* text, size_t textLength );
 bool _end__profile_GLES__technique(){return mImpl->end__profile_GLES__technique();}
@@ -2741,35 +3078,6 @@ bool _validateBegin__profile_GLES__technique__pass__alpha_func__func( const Pars
 bool _validateEnd__profile_GLES__technique__pass__alpha_func__func();
 bool _freeAttributes__profile_GLES__technique__pass__alpha_func__func( void* attributeData );
 
-
-ENUM__gl_func_type toEnumDataPrefix_ENUM__gl_func_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_func_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_func_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_func_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_func_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_func_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_func_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_func_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_func_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
-
 bool _begin__profile_GLES__technique__pass__alpha_func__value( void* attributeData ){return mImpl->begin__profile_GLES__technique__pass__alpha_func__value(*static_cast<profile_GLES__technique__pass__alpha_func__value__AttributeData*>(attributeData));}
 bool _data__profile_GLES__technique__pass__alpha_func__value( const ParserChar* text, size_t textLength );
 bool _end__profile_GLES__technique__pass__alpha_func__value(){return mImpl->end__profile_GLES__technique__pass__alpha_func__value();}
@@ -2790,35 +3098,6 @@ bool _end__profile_GLES__technique__pass__blend_func__src(){return mImpl->end__p
 bool _validateBegin__profile_GLES__technique__pass__blend_func__src( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__profile_GLES__technique__pass__blend_func__src();
 bool _freeAttributes__profile_GLES__technique__pass__blend_func__src( void* attributeData );
-
-
-ENUM__gl_blend_type toEnumDataPrefix_ENUM__gl_blend_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_blend_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_blend_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_blend_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_blend_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_blend_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_blend_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_blend_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_blend_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
 
 bool _begin__profile_GLES__technique__pass__blend_func__dest( void* attributeData ){return mImpl->begin__profile_GLES__technique__pass__blend_func__dest(*static_cast<profile_GLES__technique__pass__blend_func__dest__AttributeData*>(attributeData));}
 bool _data__profile_GLES__technique__pass__blend_func__dest( const ParserChar* text, size_t textLength );
@@ -2869,35 +3148,6 @@ bool _validateBegin__profile_GLES__technique__pass__cull_face( const ParserAttri
 bool _validateEnd__profile_GLES__technique__pass__cull_face();
 bool _freeAttributes__profile_GLES__technique__pass__cull_face( void* attributeData );
 
-
-ENUM__gl_face_type toEnumDataPrefix_ENUM__gl_face_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_face_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_face_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_face_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_face_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_face_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_face_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_face_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_face_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
-
 bool _begin__profile_GLES__technique__pass__depth_func( void* attributeData ){return mImpl->begin__profile_GLES__technique__pass__depth_func(*static_cast<profile_GLES__technique__pass__depth_func__AttributeData*>(attributeData));}
 bool _data__profile_GLES__technique__pass__depth_func( const ParserChar* text, size_t textLength );
 bool _end__profile_GLES__technique__pass__depth_func(){return mImpl->end__profile_GLES__technique__pass__depth_func();}
@@ -2940,35 +3190,6 @@ bool _validateBegin__profile_GLES__technique__pass__fog_mode( const ParserAttrib
 bool _validateEnd__profile_GLES__technique__pass__fog_mode();
 bool _freeAttributes__profile_GLES__technique__pass__fog_mode( void* attributeData );
 
-
-ENUM__gl_fog_type toEnumDataPrefix_ENUM__gl_fog_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_fog_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_fog_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_fog_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_fog_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_fog_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_fog_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_fog_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_fog_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
-
 bool _begin__profile_GLES__technique__pass__fog_start( void* attributeData ){return mImpl->begin__profile_GLES__technique__pass__fog_start(*static_cast<profile_GLES__technique__pass__fog_start__AttributeData*>(attributeData));}
 bool _data__profile_GLES__technique__pass__fog_start( const ParserChar* text, size_t textLength );
 bool _end__profile_GLES__technique__pass__fog_start(){return mImpl->end__profile_GLES__technique__pass__fog_start();}
@@ -2990,35 +3211,6 @@ bool _validateBegin__profile_GLES__technique__pass__front_face( const ParserAttr
 bool _validateEnd__profile_GLES__technique__pass__front_face();
 bool _freeAttributes__profile_GLES__technique__pass__front_face( void* attributeData );
 
-
-ENUM__gl_front_face_type toEnumDataPrefix_ENUM__gl_front_face_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_front_face_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_front_face_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_front_face_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_front_face_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_front_face_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_front_face_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_front_face_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_front_face_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
-
 bool _begin__profile_GLES__technique__pass__texture_pipeline( void* attributeData ){return mImpl->begin__profile_GLES__technique__pass__texture_pipeline(*static_cast<profile_GLES__technique__pass__texture_pipeline__AttributeData*>(attributeData));}
 bool _data__profile_GLES__technique__pass__texture_pipeline( const ParserChar* text, size_t textLength );
 bool _end__profile_GLES__technique__pass__texture_pipeline(){return mImpl->end__profile_GLES__technique__pass__texture_pipeline();}
@@ -3039,35 +3231,6 @@ bool _end__profile_GLES__technique__pass__logic_op(){return mImpl->end__profile_
 bool _validateBegin__profile_GLES__technique__pass__logic_op( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__profile_GLES__technique__pass__logic_op();
 bool _freeAttributes__profile_GLES__technique__pass__logic_op( void* attributeData );
-
-
-ENUM__gl_logic_op_type toEnumDataPrefix_ENUM__gl_logic_op_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_logic_op_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_logic_op_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_logic_op_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_logic_op_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_logic_op_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_logic_op_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_logic_op_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_logic_op_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
 
 bool _begin__profile_GLES__technique__pass__light_ambient( void* attributeData ){return mImpl->begin__profile_GLES__technique__pass__light_ambient(*static_cast<profile_GLES__technique__pass__light_ambient__AttributeData*>(attributeData));}
 bool _data__profile_GLES__technique__pass__light_ambient( const ParserChar* text, size_t textLength );
@@ -3257,35 +3420,6 @@ bool _end__profile_GLES__technique__pass__shade_model(){return mImpl->end__profi
 bool _validateBegin__profile_GLES__technique__pass__shade_model( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__profile_GLES__technique__pass__shade_model();
 bool _freeAttributes__profile_GLES__technique__pass__shade_model( void* attributeData );
-
-
-ENUM__gl_shade_model_type toEnumDataPrefix_ENUM__gl_shade_model_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_shade_model_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_shade_model_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_shade_model_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_shade_model_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_shade_model_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_shade_model_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_shade_model_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_shade_model_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
 
 bool _begin__profile_GLES__technique__pass__stencil_func( void* attributeData ){return mImpl->begin__profile_GLES__technique__pass__stencil_func();}
 bool _data__profile_GLES__technique__pass__stencil_func( const ParserChar* text, size_t textLength );
@@ -3764,6 +3898,75 @@ bool _validateBegin__enum____gl_enumeration( const ParserAttributes& attributes,
 bool _validateEnd__enum____gl_enumeration();
 bool _freeAttributes__enum____gl_enumeration( void* attributeData );
 
+
+ENUM__gl_blend_equation_type toEnumDataPrefix_ENUM__gl_blend_equation_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_blend_equation_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_blend_equation_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_blend_equation_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_blend_equation_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_blend_equation_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_blend_equation_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_blend_equation_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_blend_equation_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+ENUM__gl_fog_coord_src_type toEnumDataPrefix_ENUM__gl_fog_coord_src_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, ENUM__gl_fog_coord_src_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_ENUM__gl_fog_coord_src_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_fog_coord_src_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_ENUM__gl_fog_coord_src_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_fog_coord_src_type*, size_t ),
+    const std::pair<StringHash, ENUM__gl_fog_coord_src_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    ENUM__gl_fog_coord_src_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_fog_coord_src_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+UNION__gl_enumeration toUnionPrefix_UNION__gl_enumeration (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed
+);
+
+
+
 bool _begin__array____glsl_newarray_type( void* attributeData ){return mImpl->begin__array____glsl_newarray_type(*static_cast<array____glsl_newarray_type__AttributeData*>(attributeData));}
 bool _data__array____glsl_newarray_type( const ParserChar* text, size_t textLength );
 bool _end__array____glsl_newarray_type(){return mImpl->end__array____glsl_newarray_type();}
@@ -3925,35 +4128,6 @@ bool _validateBegin__blend_equation( const ParserAttributes& attributes, void **
 bool _validateEnd__blend_equation();
 bool _freeAttributes__blend_equation( void* attributeData );
 
-
-ENUM__gl_blend_equation_type toEnumDataPrefix_ENUM__gl_blend_equation_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_blend_equation_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_blend_equation_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_blend_equation_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_blend_equation_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_blend_equation_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_blend_equation_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_blend_equation_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_blend_equation_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
-
 bool _begin__blend_equation_separate( void* attributeData ){return mImpl->begin__blend_equation_separate();}
 bool _data__blend_equation_separate( const ParserChar* text, size_t textLength );
 bool _end__blend_equation_separate(){return mImpl->end__blend_equation_separate();}
@@ -3996,35 +4170,6 @@ bool _validateBegin__color_material__mode( const ParserAttributes& attributes, v
 bool _validateEnd__color_material__mode();
 bool _freeAttributes__color_material__mode( void* attributeData );
 
-
-ENUM__gl_material_type toEnumDataPrefix_ENUM__gl_material_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_material_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_material_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_material_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_material_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_material_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_material_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_material_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_material_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
-
 bool _begin__profile_GLSL__technique__pass__cull_face( void* attributeData ){return mImpl->begin__profile_GLSL__technique__pass__cull_face(*static_cast<profile_GLSL__technique__pass__cull_face__AttributeData*>(attributeData));}
 bool _data__profile_GLSL__technique__pass__cull_face( const ParserChar* text, size_t textLength );
 bool _end__profile_GLSL__technique__pass__cull_face(){return mImpl->end__profile_GLSL__technique__pass__cull_face();}
@@ -4053,35 +4198,6 @@ bool _validateBegin__fog_coord_src( const ParserAttributes& attributes, void ** 
 bool _validateEnd__fog_coord_src();
 bool _freeAttributes__fog_coord_src( void* attributeData );
 
-
-ENUM__gl_fog_coord_src_type toEnumDataPrefix_ENUM__gl_fog_coord_src_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_fog_coord_src_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_fog_coord_src_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_fog_coord_src_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_fog_coord_src_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_fog_coord_src_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_fog_coord_src_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_fog_coord_src_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_fog_coord_src_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
-
 bool _begin__profile_GLSL__technique__pass__front_face( void* attributeData ){return mImpl->begin__profile_GLSL__technique__pass__front_face(*static_cast<profile_GLSL__technique__pass__front_face__AttributeData*>(attributeData));}
 bool _data__profile_GLSL__technique__pass__front_face( const ParserChar* text, size_t textLength );
 bool _end__profile_GLSL__technique__pass__front_face(){return mImpl->end__profile_GLSL__technique__pass__front_face();}
@@ -4095,35 +4211,6 @@ bool _end__light_model_color_control(){return mImpl->end__light_model_color_cont
 bool _validateBegin__light_model_color_control( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__light_model_color_control();
 bool _freeAttributes__light_model_color_control( void* attributeData );
-
-
-ENUM__gl_light_model_color_control_type toEnumDataPrefix_ENUM__gl_light_model_color_control_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_light_model_color_control_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_light_model_color_control_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_light_model_color_control_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_light_model_color_control_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_light_model_color_control_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_light_model_color_control_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_light_model_color_control_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_light_model_color_control_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
 
 bool _begin__profile_GLSL__technique__pass__logic_op( void* attributeData ){return mImpl->begin__profile_GLSL__technique__pass__logic_op(*static_cast<profile_GLSL__technique__pass__logic_op__AttributeData*>(attributeData));}
 bool _data__profile_GLSL__technique__pass__logic_op( const ParserChar* text, size_t textLength );
@@ -4152,35 +4239,6 @@ bool _end__polygon_mode__mode(){return mImpl->end__polygon_mode__mode();}
 bool _validateBegin__polygon_mode__mode( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__polygon_mode__mode();
 bool _freeAttributes__polygon_mode__mode( void* attributeData );
-
-
-ENUM__gl_polygon_mode_type toEnumDataPrefix_ENUM__gl_polygon_mode_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_polygon_mode_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_polygon_mode_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_polygon_mode_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_polygon_mode_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_polygon_mode_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_polygon_mode_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_polygon_mode_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_polygon_mode_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
 
 bool _begin__profile_GLSL__technique__pass__shade_model( void* attributeData ){return mImpl->begin__profile_GLSL__technique__pass__shade_model(*static_cast<profile_GLSL__technique__pass__shade_model__AttributeData*>(attributeData));}
 bool _data__profile_GLSL__technique__pass__shade_model( const ParserChar* text, size_t textLength );
@@ -4230,35 +4288,6 @@ bool _end__profile_GLSL__technique__pass__stencil_op__fail(){return mImpl->end__
 bool _validateBegin__profile_GLSL__technique__pass__stencil_op__fail( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__profile_GLSL__technique__pass__stencil_op__fail();
 bool _freeAttributes__profile_GLSL__technique__pass__stencil_op__fail( void* attributeData );
-
-
-ENUM__gl_stencil_op_type toEnumDataPrefix_ENUM__gl_stencil_op_type (
-    const ParserChar* prefixedBuffer,
-    const ParserChar* prefixedBufferEnd,
-    const ParserChar** buffer,
-    const ParserChar* bufferEnd,
-    bool& failed,
-    const std::pair<StringHash, ENUM__gl_stencil_op_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool characterData2EnumData_ENUM__gl_stencil_op_type (
-    const ParserChar* text,
-    size_t textLength,
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_stencil_op_type*, size_t ),
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
-);
-
-
-bool dataEnumEnd_ENUM__gl_stencil_op_type (
-    bool ( ColladaParserAutoGen::*dataFunction )(const ENUM__gl_stencil_op_type*, size_t ),
-    const std::pair<StringHash, ENUM__gl_stencil_op_type>* enumMap,
-    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
-    ENUM__gl_stencil_op_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, ENUM__gl_stencil_op_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
-);
-
-
 
 bool _begin__profile_GLSL__technique__pass__stencil_op__zfail( void* attributeData ){return mImpl->begin__profile_GLSL__technique__pass__stencil_op__zfail(*static_cast<profile_GLSL__technique__pass__stencil_op__zfail__AttributeData*>(attributeData));}
 bool _data__profile_GLSL__technique__pass__stencil_op__zfail( const ParserChar* text, size_t textLength );

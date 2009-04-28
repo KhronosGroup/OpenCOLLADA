@@ -11,6 +11,7 @@
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLGeometryMaterialIdInfo.h"
+#include "COLLADASaxFWLLoader.h"
 
 #include "COLLADAFWTriangles.h"
 #include "COLLADAFWTristrips.h"
@@ -725,7 +726,11 @@ namespace COLLADASaxFWL
 	bool MeshLoader::end__mesh() 
 	{
 		SaxVirtualFunctionTest(end__mesh());
-		bool success = writer()->writeGeometry(mMesh);
+		bool success = true;
+		if ( (getObjectFlags() & Loader::GEOMETRY_FLAG) != 0 )
+		{
+			success = writer()->writeGeometry(mMesh);
+		}
 		delete mMesh;
 		finish();
 		return true;

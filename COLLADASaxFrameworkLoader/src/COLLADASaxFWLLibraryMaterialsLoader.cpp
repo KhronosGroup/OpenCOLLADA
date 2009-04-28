@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLLibraryMaterialsLoader.h"
+#include "COLLADASaxFWLLoader.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWMaterial.h"
@@ -52,7 +53,12 @@ namespace COLLADASaxFWL
 	bool LibraryMaterialsLoader::end__material()
 	{
 		SaxVirtualFunctionTest(end__material()); 
-		bool success = writer()->writeMaterial(mCurrentMaterial);
+		bool success = true;
+		if ( (getObjectFlags() & Loader::LIGHT_FLAG) != 0 )
+		{
+			success = writer()->writeMaterial(mCurrentMaterial);
+		}
+
 		FW_DELETE mCurrentMaterial;
 		mCurrentMaterial = 0;
 		return success;
