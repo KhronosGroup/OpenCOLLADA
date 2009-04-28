@@ -22,6 +22,7 @@
 #include "Math/COLLADABUMathVector3.h"
 
 #include "MayaDMTypes.h"
+#include "MayaDMLambert.h"
 
 
 namespace COLLADAMaya
@@ -55,6 +56,9 @@ namespace COLLADAMaya
         typedef std::map<UniqueIdMaterialIdPair, IndicesVector> CombinedIdIndicesMap;
 
         typedef std::map<COLLADAFW::UniqueId, size_t> UniqueIdElementCountMap;
+
+        typedef std::vector<MayaDM::Lambert*> MayaEffectList;
+        typedef std::map< COLLADAFW::UniqueId, MayaEffectList > UniqueIdMayaEffectsMap;
 
     public:
 

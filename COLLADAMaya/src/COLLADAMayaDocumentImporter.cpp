@@ -30,14 +30,14 @@
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWScene.h"
 
-#include "COLLADASaxFWLLoader.h"
-
 #include <maya/MFileIO.h>
 
 #include <fstream>
 #include <time.h>
 
 #include "MayaDMScript.h"
+
+#include "COLLADASaxFWLLoader.h"
 
 
 namespace COLLADAMaya
@@ -51,6 +51,7 @@ namespace COLLADAMaya
     //---------------------------------
     DocumentImporter::DocumentImporter ( const String& fileName )
         : mColladaFileName ( fileName )
+        , mSaxLoader ( &mSaxParserErrorHandler )
         , mParseStep ( NO_PARSING )
         , mVisualScenesList (0)
         , mLibraryNodesList (0)
@@ -135,6 +136,16 @@ namespace COLLADAMaya
 
         // Load the collada document into the collada framework.
         mParseStep = FIRST_PARSING;
+
+        // TODO
+        int objectFlags = 
+            COLLADASaxFWL::Loader::SCENE_FLAG | 
+            COLLADASaxFWL::Loader::ASSET_FLAG | 
+            COLLADASaxFWL::Loader::VISUAL_SCENES_FLAG |
+            COLLADASaxFWL::Loader::LIBRARY_NODES_FLAG |
+            COLLADASaxFWL::Loader::MATERIAL_FLAG;
+        mSaxLoader.setObjectFlags ( objectFlags );
+
         readColladaDocument();
 
         // Close the maya file.
@@ -228,7 +239,7 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::finish ()
     {
-        // First parse is ready.
+        // First parse is done.
         if ( mParseStep < AFTER_FIRST_PARSING )
         {
             // The order of the steps here is very important!
@@ -249,6 +260,17 @@ namespace COLLADAMaya
 
             // Start the next parsing.
             mParseStep = SECOND_PARSING;
+
+            int objectFlags = 
+                COLLADASaxFWL::Loader::GEOMETRY_FLAG |
+                COLLADASaxFWL::Loader::EFFECT_FLAG |
+                COLLADASaxFWL::Loader::CAMERA_FLAG |
+                COLLADASaxFWL::Loader::IMAGE_FLAG |
+                COLLADASaxFWL::Loader::LIGHT_FLAG |
+                COLLADASaxFWL::Loader::ANIMATION_FLAG |
+                COLLADASaxFWL::Loader::ANIMATION_LIST_FLAG;
+            mSaxLoader.setObjectFlags ( objectFlags );
+
             readColladaDocument ();
         }
 
@@ -260,9 +282,12 @@ namespace COLLADAMaya
 
             // After the complete read of the collada document, 
             // the connections can be written into the maya file.
-            mMaterialImporter->writeConnections ();
-            mLightImporter->writeConnections ();
-            mEffectImporter->writeConnections ();
+            if ( mFile != 0 )
+            {
+                mMaterialImporter->writeConnections ();
+                mLightImporter->writeConnections ();
+                mEffectImporter->writeConnections ();
+            }
 
             // Close the file
             closeMayaAsciiFile ();
@@ -272,8 +297,7 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::readColladaDocument ()
     {
-        COLLADASaxFWL::Loader loader ( &mSaxParserErrorHandler );
-        COLLADAFW::Root root ( &loader, this );
+        COLLADAFW::Root root ( &mSaxLoader, this );
         String filename = getColladaFilename ();
         String fileUriString = URI::nativePathToUri ( filename );
 
@@ -465,6 +489,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeScene ( const COLLADAFW::Scene* scene )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeScene(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep <= COPY_FIRST_ELEMENTS ) 
         {
             // Make a copy of the instantiated visual scene element.
@@ -478,6 +509,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeScene(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep <= COPY_FIRST_ELEMENTS )
         {
             // Make a copy of the visual scene element and push it into the list of visual scenes.
@@ -491,6 +529,13 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::importVisualScene ()
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::importVisualScene(..): Cant't import, no maya file exist!" << endl;
+            return;
+        }
+
         // Get the visual scene element to import.
         for ( size_t i=0; i<mVisualScenesList.size (); ++i )
         {
@@ -506,6 +551,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeLibraryNodes(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep <= COPY_FIRST_ELEMENTS )
         {
             // Make a copy of the visual scene element and push it into the list of visual scenes.
@@ -519,6 +571,13 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::importLibraryNodes ()
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::importLibraryNodes(..): Cant't import, no maya file exist!" << endl;
+            return;
+        }
+
         // Import the library notes data.
         for ( size_t i=0; i<mLibraryNodesList.size (); ++i )
         {
@@ -530,6 +589,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeMaterial ( const COLLADAFW::Material* material )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeMaterial(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep <= COPY_FIRST_ELEMENTS )
         {
             // Make a copy of the material element and push it into the list.
@@ -543,6 +609,13 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::importMaterials ()
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::importMaterials(..): Cant't import, no maya file exist!" << endl;
+            return;
+        }
+
         // Import the materials data.
         for ( size_t i=0; i<mMaterialsList.size (); ++i )
         {
@@ -554,6 +627,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeGeometry ( const COLLADAFW::Geometry* geometry )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeGeometry(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep == SECOND_PARSING )
         {
             // Import the data.
@@ -566,6 +646,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeEffect ( const COLLADAFW::Effect* effect )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeEffect(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep == SECOND_PARSING )
         {
             // Import the data.
@@ -578,6 +665,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeCamera ( const COLLADAFW::Camera* camera )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeCamera(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep == SECOND_PARSING )
         {
             // Import the data.
@@ -590,6 +684,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeLight ( const COLLADAFW::Light* light )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeLight(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep == SECOND_PARSING )
         {
             // Import the data.
@@ -602,6 +703,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeImage ( const COLLADAFW::Image* image )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeImage(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep == SECOND_PARSING )
         {
             // Import the data.
@@ -614,6 +722,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeAnimation ( const COLLADAFW::Animation* animation )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeAnimation(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep == SECOND_PARSING )
         {
             mAnimationImporter->importAnimation ( animation );
@@ -625,6 +740,13 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeAnimationList ( const COLLADAFW::AnimationList* animationList )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeAnimationList(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
         if ( mParseStep == SECOND_PARSING )
         {
             getAnimationImporter ()->writeConnections ( animationList );

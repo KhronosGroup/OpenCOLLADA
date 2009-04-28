@@ -183,7 +183,7 @@ namespace COLLADAMaya
         // T* R* T* S* T*, if the order differs from, we have to transform with a matrix (but 
         // with matrix transformation is no animation possible).
         MayaTransformation mayaTransform;
-        std::vector<AnimationImporter::TransformAnimation> transformAnimations;
+        std::vector<TransformAnimation> transformAnimations;
 
         bool hasRotatePivot = false;
         bool hasScalePivot = false;
@@ -200,7 +200,7 @@ namespace COLLADAMaya
                 size_t numTransformAnimations = transformAnimations.size ();
                 for ( size_t i=0; i<numTransformAnimations; ++i )
                 {
-                    const AnimationImporter::TransformAnimation& transformAnim = transformAnimations [i];
+                    const TransformAnimation& transformAnim = transformAnimations [i];
                     const COLLADAFW::UniqueId& animationListId = transformAnim.getAnimationListId ();
                     mTransformAnimationMap [animationListId] = transformAnim;
                 }
@@ -347,7 +347,7 @@ namespace COLLADAMaya
         const COLLADAFW::Node* rootNode, 
         MayaTransformation& mayaTransform, 
         MayaDM::Transform* transformNode, 
-        std::vector<AnimationImporter::TransformAnimation>& transformAnimations,
+        std::vector<TransformAnimation>& transformAnimations,
         bool& hasRotatePivot,
         bool& hasScalePivot,
         bool& isLookatTransform )
@@ -369,7 +369,7 @@ namespace COLLADAMaya
             if ( animationListId.isValid () )
             {
                 // Create a TransformAnimation objekt and push it in the list.
-                AnimationImporter::TransformAnimation transformAnim;
+                TransformAnimation transformAnim;
                 transformAnim.setAnimationListId ( animationListId );
                 const COLLADAFW::UniqueId& transformNodeId = rootNode->getUniqueId ();
                 transformAnim.setTransformNodeId ( transformNodeId );
@@ -1204,10 +1204,10 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    const AnimationImporter::TransformAnimation* VisualSceneImporter::findTransformAnimation ( 
+    const TransformAnimation* VisualSceneImporter::findTransformAnimation ( 
         const COLLADAFW::UniqueId& animationListId )
     {
-        std::map <COLLADAFW::UniqueId, AnimationImporter::TransformAnimation>::const_iterator it = mTransformAnimationMap.find ( animationListId );
+        std::map <COLLADAFW::UniqueId, TransformAnimation>::const_iterator it = mTransformAnimationMap.find ( animationListId );
         if ( it != mTransformAnimationMap.end () )
         {
             return &(it->second);

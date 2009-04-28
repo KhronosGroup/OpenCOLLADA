@@ -603,7 +603,7 @@ namespace COLLADAMaya
             colorSource.appendValues ( meshColorSet );
             colorSource.finish();
             
-            // TODO Don't put the source into the vertex sources, 
+            // Don't put the source into the vertex sources, 
             // put it into the polygon sources.
             // That's about the other plug-ins, they don't support this.
             bool exportPerVertex = ExportOptions::exportVertexColorsPerVertex();

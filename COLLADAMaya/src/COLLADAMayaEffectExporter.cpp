@@ -283,7 +283,7 @@ namespace COLLADAMaya
 
         // Check, if the parameter is animated and export the out color.
         targetSid = targetPath + ATTR_OUT_COLOR;
-        bool animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_OUT_COLOR, kColour );
+        bool animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_OUT_COLOR, kColour, RGBA_PARAMETERS );
         int nextTextureIndex = 0;
         exportTexturedParameter ( effectId, effectProfile, shader,
             ATTR_OUT_COLOR, EffectExporter::EMISSION, nextTextureIndex, animated );
@@ -331,14 +331,14 @@ namespace COLLADAMaya
 
         // Emission color / Incandescence
         targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_EMISSION;
-        animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_INCANDESCENCE, kColour );
+        animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_INCANDESCENCE, kColour, RGBA_PARAMETERS );
         effectProfile->setEmission ( mayaColor2ColorOrTexture ( lambertFn.incandescence() ), animated );
         exportTexturedParameter ( effectId, effectProfile, shader,
             ATTR_INCANDESCENCE, EffectExporter::EMISSION, nextTextureIndex, animated );
 
         // Ambient color
         targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_AMBIENT;
-        animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_AMBIENT_COLOR, kColour );
+        animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_AMBIENT_COLOR, kColour, RGBA_PARAMETERS );
         effectProfile->setAmbient ( mayaColor2ColorOrTexture ( lambertFn.ambientColor() ), animated );
         exportTexturedParameter ( effectId, effectProfile, shader,
             ATTR_AMBIENT_COLOR, EffectExporter::AMBIENT, nextTextureIndex, animated );
@@ -346,7 +346,7 @@ namespace COLLADAMaya
         // Diffuse color
         targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_DIFFUSE; 
         ConversionFunctor* conversion = new ConversionScaleFunctor ( lambertFn.diffuseCoeff() );
-        animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_COLOR, kColour, EMPTY_PARAMETER, false, -1, false, conversion );
+        animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_COLOR, kColour, RGBA_PARAMETERS, false, -1, false, conversion );
         effectProfile->setDiffuse ( mayaColor2ColorOrTexture ( lambertFn.color(), lambertFn.diffuseCoeff() ), animated );
         exportTexturedParameter ( effectId, effectProfile, shader,
             ATTR_COLOR, EffectExporter::DIFFUSE, nextTextureIndex, animated );
@@ -371,7 +371,7 @@ namespace COLLADAMaya
             if ( effectProfile->getShaderType() != COLLADASW::EffectProfile::LAMBERT )
             {
                 targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_SPECULAR;
-                animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_SPECULAR_COLOR, kColour );
+                animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_SPECULAR_COLOR, kColour, RGBA_PARAMETERS );
                 effectProfile->setSpecular ( mayaColor2ColorOrTexture ( reflectFn.specularColor() ), animated );
                 exportTexturedParameter ( effectId, effectProfile, shader,
                     ATTR_SPECULAR_COLOR, EffectExporter::SPECULAR, nextTextureIndex, animated );
@@ -379,7 +379,7 @@ namespace COLLADAMaya
 
             // Reflected color
             targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_REFLECTIVE;
-            animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_REFLECTED_COLOR, kColour );
+            animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_REFLECTED_COLOR, kColour, RGBA_PARAMETERS );
             effectProfile->setReflective ( mayaColor2ColorOrTexture ( reflectFn.reflectedColor() ), animated );
             exportTexturedParameter ( effectId, effectProfile, shader,
                 ATTR_REFLECTED_COLOR, EffectExporter::REFLECTION, nextTextureIndex, animated );
@@ -627,7 +627,7 @@ namespace COLLADAMaya
         bool animated = false;
 
         // Build the target sid and export animation
-        animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSid, attributeName, kColour );
+        animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSid, attributeName, kColour, RGBA_PARAMETERS );
         // Set the transparent color or texture
         effectProfile->setTransparent ( mayaColor2ColorOrTexture ( transparentColor ), animated );
 

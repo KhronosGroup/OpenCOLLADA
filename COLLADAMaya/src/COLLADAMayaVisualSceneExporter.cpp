@@ -675,6 +675,10 @@ namespace COLLADAMaya
             float* aroundAxis ( yAxis );
 
             mVisualSceneNode->addSkew ( SKEW_XY_SID, (float) angle, rotateAxis, aroundAxis );
+
+//             // Set the animation, if the skew is animated.
+//             AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
+//             animationExporter->addNodeAnimation ( mTransformObject, ATTR_SKEW, ( SampleType ) ( kSingle | kQualifiedAngle ), XY_PARAMETER );
         }
 
         if ( !COLLADABU::Math::Utils::equals( shear[1], 0.0 ) )
@@ -685,17 +689,54 @@ namespace COLLADAMaya
             float* aroundAxis ( zAxis );
 
             mVisualSceneNode->addSkew ( SKEW_XZ_SID, (float) angle, rotateAxis, aroundAxis );
+
+//             // Set the animation, if the skew is animated.
+//             AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
+//             animationExporter->addNodeAnimation ( mTransformObject, ATTR_SKEW, ( SampleType ) ( kSingle | kQualifiedAngle ), XZ_PARAMETER );
         }
 
         if ( !COLLADABU::Math::Utils::equals( shear[2], 0.0 ) )
         {
-//            double angle = COLLADABU::Math::Utils::radToDeg ( atan ( shear[2] ) );
             double angle = MAngle::internalToUI ( atan ( shear[2] ) );
             angle = COLLADABU::Math::Utils::equalsZero( angle ) ? 0 : angle;
             float* rotateAxis ( yAxis );
             float* aroundAxis ( zAxis );
 
             mVisualSceneNode->addSkew ( SKEW_YZ_SID, (float) angle, rotateAxis, aroundAxis );
+
+//             // Set the animation, if the skew is animated.
+//             AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
+//             animationExporter->addNodeAnimation ( mTransformObject, ATTR_SKEW, ( SampleType ) ( kSingle | kQualifiedAngle ), YZ_PARAMETER );
+        }
+    }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportScale()
+    {
+        // attach the function set to the object
+        MFnTransform transformFunctionSet ( mTransformObject );
+
+        double scale[3] = {1, 1, 1};
+        transformFunctionSet.getScale ( scale );
+
+        // Check if all fields in the std::vector are ones
+        bool isOneVector = true;
+        for ( int i=0; i<3 && isOneVector; ++i )
+        {
+            if ( !COLLADABU::Math::Utils::equals( scale[i], 1.0 ) ) isOneVector = false;
+        }
+
+        // Check if the scale is animated.
+        AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
+        bool isAnimated = animationExporter->addNodeAnimation ( mTransformObject, ATTR_SCALE, kVector, XYZ_PARAMETERS );
+
+        if ( mTransformObject != MObject::kNullObj && ( !isOneVector || isAnimated ) )
+        {
+            mVisualSceneNode->addScale (
+                ATTR_SCALE,
+                COLLADABU::Math::Utils::equalsZero(scale[0]) ? 0 : scale[0],
+                COLLADABU::Math::Utils::equalsZero(scale[1]) ? 0 : scale[1],
+                COLLADABU::Math::Utils::equalsZero(scale[2]) ? 0 : scale[2] );
         }
     }
 
@@ -879,36 +920,6 @@ namespace COLLADAMaya
 
             // Add the camera lookat
             mVisualSceneNode->addLookat ( eyePosition, interestPosition, upPosition );
-        }
-    }
-
-    //---------------------------------------------------------------
-    void VisualSceneExporter::exportScale()
-    {
-        // attach the function set to the object
-        MFnTransform transformFunctionSet ( mTransformObject );
-
-        double scale[3] = {1, 1, 1};
-        transformFunctionSet.getScale ( scale );
-
-        // Check if all fields in the std::vector are ones
-        bool isOneVector = true;
-        for ( int i=0; i<3 && isOneVector; ++i )
-        {
-            if ( !COLLADABU::Math::Utils::equals( scale[i], 1.0 ) ) isOneVector = false;
-        }
-
-        // Check if the scale is animated.
-        AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-        bool isAnimated = animationExporter->addNodeAnimation ( mTransformObject, ATTR_SCALE, kVector, XYZ_PARAMETERS );
-
-        if ( mTransformObject != MObject::kNullObj && ( !isOneVector || isAnimated ) )
-        {
-            mVisualSceneNode->addScale (
-                ATTR_SCALE,
-                COLLADABU::Math::Utils::equalsZero(scale[0]) ? 0 : scale[0],
-                COLLADABU::Math::Utils::equalsZero(scale[1]) ? 0 : scale[1],
-                COLLADABU::Math::Utils::equalsZero(scale[2]) ? 0 : scale[2] );
         }
     }
 

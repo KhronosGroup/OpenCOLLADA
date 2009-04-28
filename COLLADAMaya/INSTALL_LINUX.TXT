@@ -1,0 +1,40 @@
+Requirements:
+-------------
+To run the COLLADAMaya plug-in, you need a version of Autodesk Maya installed.
+
+Supported versions are:
+Autodesk Maya 2009
+
+Install:
+--------
+
+NOTE: The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
+version. Following environment variables to your Maya location are supported:
+- MAYA_PATH2009
+
+You have to copy following files:
+- The COLLADAMaya.so file to your personal Maya plug-in directory. 
+	($YOUR_MAYA_PATH)/plug-ins 
+- The colladaNextGenExporterOpts.mel file to your Maya scripts directory. 
+	($YOUR_MAYA_PATH)/scripts 
+- the colladaNextGenImporterOpts.mel file to your Maya scripts directory. 
+	($YOUR_MAYA_PATH)/scripts 
+
+You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
+so-file into the refered directory. Autodesk Maya will load the plug-ins 
+from this directory too.
+
+Execute:
+--------
+When you start Autodesk Maya, go to the menu 
+	Window > Settings/Preferences > Plug-in Manager
+and load the plug-in "COLLADAMaya.so" from the extended list.
+Now you can export your maya scene into a COLLADA file.
+
+Maya plugin loader bug:
+-----------------------
+Maya error: "Failed to find COLLADA exporter"
+It's a known bug that sometimes in some maya versions maya don't recognoize the
+last converter on the list. To fix this, load a extra plug-in after the fact 
+and it should work.
+

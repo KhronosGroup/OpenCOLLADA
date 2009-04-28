@@ -25,6 +25,8 @@
 #include "COLLADAFWFileInfo.h"
 #include "COLLADAFWInstanceVisualScene.h"
 
+#include "COLLADASaxFWLLoader.h"
+
 #include "MayaDMMesh.h"
 
 #include <set>
@@ -113,6 +115,9 @@ namespace COLLADAMaya
 
         /** The current parsing step. */
         ParseSteps mParseStep;
+
+        /** The sax loader. */
+        COLLADASaxFWL::Loader mSaxLoader;
 
         /** The URI of the visual scene to use. */
         COLLADAFW::InstanceVisualScene mInstanceVisualScene;

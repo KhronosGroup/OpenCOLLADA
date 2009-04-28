@@ -12,12 +12,15 @@
 #include "COLLADAMayaAnimationImporter.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaVisualSceneImporter.h"
+#include "COLLADAMayaTransformAnimation.h"
+#include "COLLADAMayaEffectImporter.h"
 
 #include "COLLADAFWFloatOrDoubleArray.h"
 #include "COLLADAFWScale.h"
 #include "COLLADAFWTranslate.h"
 
 #include <MayaDMAnimCurveTA.h>
+#include <MayaDMAnimCurveTU.h>
 #include <MayaDMCommands.h>
 
 
@@ -209,8 +212,12 @@ namespace COLLADAMaya
                 MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_TIME" );
                 return; break;
             case COLLADAFW::PHYSICAL_DIMENSION_COLOR:
-                MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_COLOR" );
-                return; break;
+                {
+                    animCurve = new MayaDM::AnimCurveTU ( file, animationName );
+                    animCurve->setTangentType ( tangentType );
+                    setKeyTimeValues ( animationCurve, (MayaDM::AnimCurveTU*)animCurve, outputIndex );
+                }
+                break;
             case COLLADAFW::PHYSICAL_DIMENSION_NUMBER:
                 MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_NUMBER" );
                 return; break;
@@ -395,6 +402,50 @@ namespace COLLADAMaya
         }
 
         animCurveTL->endKeyTimeValue ();
+    }
+
+    //------------------------------
+    void AnimationImporter::setKeyTimeValues ( 
+        const COLLADAFW::AnimationCurve* animationCurve, 
+        MayaDM::AnimCurveTU* animCurveTU, 
+        const size_t outputIndex )
+    {
+        // The input is always the time 
+        const COLLADAFW::FloatOrDoubleArray& inputValuesArray = animationCurve->getInputValues ();
+        size_t numInputValues = inputValuesArray.getValuesCount ();
+
+        // The output can have different dimensions.
+        const COLLADAFW::FloatOrDoubleArray& outputValuesArray = animationCurve->getOutputValues ();
+        size_t outDimension = animationCurve->getOutDimension ();
+        size_t numOutputValues = outputValuesArray.getValuesCount () / outDimension;
+
+        size_t keyCount = animationCurve->getKeyCount ();
+        if ( numInputValues != numOutputValues || numInputValues != keyCount )
+        {
+            MGlobal::displayError ( "AnimationImporter::setKeyTimeValues(): Invalid animation!" );
+            return;
+        }
+
+        // Start
+        animCurveTU->startKeyTimeValue ( 0, keyCount-1 );
+        MayaDM::AnimCurveTU::KeyTimeValue keyTimeValue;
+
+        double inputValue = 0;
+        double outputValue = 0;
+
+        for ( size_t inputIndex=0; inputIndex<keyCount; ++inputIndex )
+        {
+            inputValue = getDoubleValue ( inputValuesArray, inputIndex );
+            size_t currentOutputIndex = inputIndex*outDimension + outputIndex;
+            outputValue = getDoubleValue ( outputValuesArray, currentOutputIndex );
+
+            // TODO Framerate: 24 frames per second...
+            keyTimeValue.keyTime = inputValue * 24;
+            keyTimeValue.keyValue = outputValue;
+            animCurveTU->appendKeyTimeValue ( keyTimeValue );
+        }
+
+        animCurveTU->endKeyTimeValue ();
     }
 
     //------------------------------
@@ -1106,17 +1157,110 @@ namespace COLLADAMaya
         if ( findAnimationList ( animationListId ) ) return;
         mAnimationListIds.push_back ( animationListId );
 
+        // Get the animation bindings.
+        const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings ();
+
+        // Write the transformation animation connections.
+        writeTransformConnections ( animationListId, animationBindings );
+
+        // Write the effect animation connections.
+        writeEffectConnections ( animationListId, animationBindings );
+    }
+
+    //------------------------------
+    void AnimationImporter::writeEffectConnections ( 
+        const COLLADAFW::UniqueId& animationListId, 
+        const COLLADAFW::AnimationList::AnimationBindings& animationBindings )
+    {
+        // Get the maya file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // Get the node, which use this animation list.
+        EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
+        const EffectAnimation* effectAnimation = effectImporter->findEffectAnimation ( animationListId );
+        if ( !effectAnimation ) return;
+
+        // Get the animated value type
+        const EffectAnimation::AnimatedValueType& animatedValueType = effectAnimation->getAnimatedValueType ();
+
+        // Get the maya node object for the id.
+        const COLLADAFW::UniqueId& effectId = effectAnimation->getEffectId ();
+        const MayaEffectList* mayaEffectList = effectImporter->findMayaEffects ( effectId );
+        if ( mayaEffectList != 0 )
+        {
+            for ( size_t effectIndex=0; effectIndex<mayaEffectList->size (); ++effectIndex )
+            {
+                const MayaDM::Lambert* lambertNode = (*mayaEffectList) [effectIndex];
+
+                switch ( animatedValueType )
+                {
+                case EffectAnimation::COLOR_OR_TEXTURE_AMBIENT:
+                case EffectAnimation::COLOR_OR_TEXTURE_DIFFUSE:
+                case EffectAnimation::COLOR_OR_TEXTURE_TRANSPARENCY:
+                case EffectAnimation::COLOR_OR_TEXTURE_EMISSION:
+                case EffectAnimation::COLOR_OR_TEXTURE_REFLECTED:
+                case EffectAnimation::COLOR_OR_TEXTURE_SPECULAR:
+                case EffectAnimation::COLOR_OR_TEXTURE_STANDARD:
+                    {
+                        // Get the animation curves of the current animated element.
+                        size_t numAnimationBindings = animationBindings.getCount ();
+                        for ( size_t i=0; i<numAnimationBindings; ++i )
+                        {
+                            // Get the animation curve element of the current animation id.
+                            const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings [i]; 
+                            const COLLADAFW::UniqueId& animationId = animationBinding.animation;
+                            const std::vector<MayaDM::AnimCurve*>* animationCurves = findMayaDMAnimCurves ( animationId );
+                            if ( animationCurves == 0 ) continue;
+
+                            // Connect all animation curves of the current animation.
+                            size_t animationCurveCount = animationCurves->size ();
+                            for ( size_t curveIndex=0; curveIndex<animationCurveCount; ++curveIndex )
+                            {
+                                const MayaDM::AnimCurve* animCurve = (*animationCurves) [curveIndex];
+                                MayaDM::AnimCurveTL* animCurveTU = (MayaDM::AnimCurveTL*) animCurve;
+
+                                // Connect the animation curve and the current transform node.
+                                // connectAttr "lambert2_colorB.o" "lambert2.cb";
+                                const COLLADAFW::AnimationList::AnimationClass& animationClass = animationBinding.animationClass;
+                                switch ( animationClass )
+                                {
+                                case COLLADAFW::AnimationList::COLOR_R:
+                                    connectAttr ( file, animCurveTU->getOutput (),lambertNode->getColorR () );                                    break;
+                                case COLLADAFW::AnimationList::COLOR_G:
+                                    connectAttr ( file, animCurveTU->getOutput (),lambertNode->getColorG () );                                    break;
+                                case COLLADAFW::AnimationList::COLOR_B:
+                                    connectAttr ( file, animCurveTU->getOutput (),lambertNode->getColorB () );                                    break;
+                                default:
+                                    MGlobal::displayInfo ( "Animation class for effect type \"COLOR_OR_TEXTURE_STANDARD_COLOR\" not implemented!" );
+                                    break;
+                                }
+                            }                        }                    }
+                    break;
+                case EffectAnimation::FLOAT_OR_PARAM_COSINE_POWER:
+                case EffectAnimation::FLOAT_OR_PARAM_ECCENTRICITY:
+                case EffectAnimation::FLOAT_OR_PARAM_REFLECTIVITY:
+                case EffectAnimation::FLOAT_OR_PARAM_REFRACTIVE_INDEX:
+                default:
+                    std::cerr << "Animation on effect not supported!" << endl;
+                    MGlobal::displayError ( "Animation on effect not supported!" );
+                    break;
+                }
+            }
+        }
+    }
+
+    //------------------------------
+    void AnimationImporter::writeTransformConnections ( 
+        const COLLADAFW::UniqueId& animationListId, 
+        const COLLADAFW::AnimationList::AnimationBindings& animationBindings )
+    {
         // Get the maya file.
         FILE* file = getDocumentImporter ()->getFile ();
 
         // Get the node, which use this animation list.
         VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
         const TransformAnimation* transformAnimation = visualSceneImporter->findTransformAnimation ( animationListId );
-        if ( !transformAnimation ) 
-        {
-            MGlobal::displayError ( "Nobody uses this animation list!" );
-            return;
-        }
+        if ( !transformAnimation ) return;
 
         // Get the maya node object for the id.
         const COLLADAFW::UniqueId& transformNodeId = transformAnimation->getTransformNodeId ();
@@ -1124,21 +1268,22 @@ namespace COLLADAMaya
 
         const COLLADAFW::Transformation* transformation = transformAnimation->getTransformation ();
         COLLADAFW::Transformation::TransformationType transformType = transformation->getTransformationType ();
-        
+
         // Set the transformation information in depend of the transform type.
         switch ( transformType )
         {
         case COLLADAFW::Transformation::ROTATE:
-            writeRotateConnections ( transformation, animationList, transform );
+            writeRotateConnections ( transformation, animationBindings, transform );
             break;
         case COLLADAFW::Transformation::SCALE:
-            writeScaleConnections ( transformation, animationList, transform );
+            writeScaleConnections ( transformation, animationBindings, transform );
             break;
         case COLLADAFW::Transformation::SKEW:
-            writeSkewConnections ( transformation, animationList, transform );
+            MGlobal::displayError ( "Import of animated skew not implemented!" );
+//            writeSkewConnections ( transformation, animationList, transform );
             break;
         case COLLADAFW::Transformation::TRANSLATE:
-            writeTranslateConnections ( transformation, animationList, transform );
+            writeTranslateConnections ( transformation, animationBindings, transform );
             break;
         default:
             std::cerr << "Animation on transformation not supported!" << endl;
@@ -1150,7 +1295,7 @@ namespace COLLADAMaya
     //------------------------------
     void AnimationImporter::writeRotateConnections ( 
         const COLLADAFW::Transformation* transformation, 
-        const COLLADAFW::AnimationList* animationList, 
+        const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
         const MayaDM::Transform* transform )
     {
         // Get the maya file.
@@ -1163,7 +1308,6 @@ namespace COLLADAMaya
         COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
 
         // Get the animation curves of the current animated element.
-        const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings ();
         size_t numAnimationBindings = animationBindings.getCount ();
         for ( size_t i=0; i<numAnimationBindings; ++i )
         {
@@ -1222,7 +1366,7 @@ namespace COLLADAMaya
     //------------------------------
     void AnimationImporter::writeScaleConnections ( 
         const COLLADAFW::Transformation* transformation, 
-        const COLLADAFW::AnimationList* animationList, 
+        const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
         const MayaDM::Transform* transform )
     {
         // Get the scale.
@@ -1233,7 +1377,6 @@ namespace COLLADAMaya
         FILE* file = getDocumentImporter ()->getFile ();
 
         // Get the animation curves of the current animated element.
-        const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings ();
         size_t numAnimationBindings = animationBindings.getCount ();
         for ( size_t i=0; i<numAnimationBindings; ++i )
         {
@@ -1248,24 +1391,24 @@ namespace COLLADAMaya
             for ( size_t curveIndex=0; curveIndex<animationCurveCount; ++curveIndex )
             {
                 const MayaDM::AnimCurve* animCurve = (*animCurves) [curveIndex];
-                MayaDM::AnimCurveTL* animCurveTL = (MayaDM::AnimCurveTL*) animCurve;
+                MayaDM::AnimCurveTL* animCurveTU = (MayaDM::AnimCurveTL*) animCurve;
 
                 // Connect the animation curve and the current transform node.
                 // connectAttr "pCube1_translateX.output" "pCube1.translateX";
                 const COLLADAFW::AnimationList::AnimationClass& animationClass = animationBinding.animationClass;
                 switch ( animationClass )
                 {
-                case COLLADAFW::AnimationList::SCALE_X:
-                    connectAttr ( file, animCurveTL->getOutput (), transform->getScaleX() );
+                case COLLADAFW::AnimationList::POSITION_X:
+                    connectAttr ( file, animCurveTU->getOutput (), transform->getScaleX() );
                     break;
-                case COLLADAFW::AnimationList::SCALE_Y:
-                    connectAttr ( file, animCurveTL->getOutput (), transform->getScaleX() );
+                case COLLADAFW::AnimationList::POSITION_Y:
+                    connectAttr ( file, animCurveTU->getOutput (), transform->getScaleY() );
                     break;
-                case COLLADAFW::AnimationList::SCALE_Z:
-                    connectAttr ( file, animCurveTL->getOutput (), transform->getScaleX() );
+                case COLLADAFW::AnimationList::POSITION_Z:
+                    connectAttr ( file, animCurveTU->getOutput (), transform->getScaleZ() );
                     break;
-                case COLLADAFW::AnimationList::SCALE_XYZ:
-                    connectAttr ( file, animCurveTL->getOutput (), transform->getScale() );
+                case COLLADAFW::AnimationList::POSITION_XYZ:
+                    connectAttr ( file, animCurveTU->getOutput (), transform->getScale() );
                     break;
                 default:
                     MGlobal::displayInfo ( "Animation class for transformation type \"SCALE\" not implemented!" );
@@ -1278,7 +1421,7 @@ namespace COLLADAMaya
     //------------------------------
     void AnimationImporter::writeSkewConnections ( 
         const COLLADAFW::Transformation* transformation, 
-        const COLLADAFW::AnimationList* animationList, 
+        const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
         const MayaDM::Transform* transform )
     {
         // Get the skew.
@@ -1300,7 +1443,6 @@ namespace COLLADAMaya
         FILE* file = getDocumentImporter ()->getFile ();
 
         // Get the animation curves of the current animated element.
-        const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings ();
         size_t numAnimationBindings = animationBindings.getCount ();
         for ( size_t i=0; i<numAnimationBindings; ++i )
         {
@@ -1323,20 +1465,20 @@ namespace COLLADAMaya
                 switch ( animationClass )
                 {
                     //TODO
-//                 case COLLADAFW::AnimationList::SKEW_X:
+//                 case COLLADAFW::AnimationList::POSITION_X:
 //                     connectAttr ( file, animationCurve->getOutput (), transform->getShearX() );
 //                     break;
-//                 case COLLADAFW::AnimationList::SKEW_Y:
+//                 case COLLADAFW::AnimationList::POSITION_Y:
 //                     connectAttr ( file, animationCurve->getOutput (), transform->getShearY() );
 //                     break;
-//                 case COLLADAFW::AnimationList::SKEW_Z:
+//                 case COLLADAFW::AnimationList::POSITION_Z:
 //                     connectAttr ( file, animationCurve->getOutput (), transform->getShearZ() );
 //                     break;
-                case COLLADAFW::AnimationList::SKEW_XYZ:
+                case COLLADAFW::AnimationList::POSITION_XYZ:
                     connectAttr ( file, animCurveTL->getOutput (), transform->getShear() );
                     break;
                 default:
-                    MGlobal::displayInfo ( "Animation class for transformation type \"SKEW\" not implemented!" );
+                    MGlobal::displayInfo ( "Animation class for transformation type \"SHEAR\" not implemented!" );
                     break;
                 }
             }
@@ -1346,39 +1488,16 @@ namespace COLLADAMaya
     //------------------------------
     void AnimationImporter::writeTranslateConnections ( 
         const COLLADAFW::Transformation* transformation, 
-        const COLLADAFW::AnimationList* animationList, 
+        const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
         const MayaDM::Transform* transform )
     {
         COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transformation;
         COLLADABU::Math::Vector3 translation = translate->getTranslation ();
 
-//         if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS1 )
-//         {
-//             mayaTransform.translate1Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
-//             ++mayaTransform.numTranslate1;
-//             for ( unsigned int j=0; j<3; ++j )
-//                 mayaTransform.translate1[j] += translation [j];
-//         }
-//         else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS2 )
-//         {
-//             mayaTransform.translate2Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
-//             ++mayaTransform.numTranslate2;
-//             for ( unsigned int j=0; j<3; ++j )
-//                 mayaTransform.translate2[j] += translation [j];
-//         }
-//         else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS3 )
-//         {
-//             mayaTransform.translate3Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
-//             ++mayaTransform.numTranslate3;
-//             for ( unsigned int j=0; j<3; ++j )
-//                 mayaTransform.translate3[j] += translation [j];
-//         }
-
         // Get the maya file.
         FILE* file = getDocumentImporter ()->getFile ();
 
         // Get the animation curves of the current animation list.
-        const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings ();
         size_t numAnimationBindings = animationBindings.getCount ();
         for ( size_t i=0; i<numAnimationBindings; ++i )
         {

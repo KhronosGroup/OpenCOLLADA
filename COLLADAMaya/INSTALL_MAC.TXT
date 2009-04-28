@@ -24,11 +24,11 @@ You have to copy following files:
 	/Users/Shared/Autodesk/maya/2008/plug-ins respectively
 	/Users/Shared/Autodesk/maya/2009/plug-ins
 - ~project_dir/COLLADAMaya/scripts/colladaNextGenExporterOpts.mel to your 
-	personal Maya plug-in directory. The default directory on OSMac is 
+	personal Maya scripts directory. The default directory on OSMac is 
 	/Users/Shared/Autodesk/maya/2008/scripts respectively
 	/Users/Shared/Autodesk/maya/2008/scripts 
 - ~project_dir/COLLADAMaya/scripts/colladaNextGenImporterOpts.mel to your 
-	personal Maya plug-in directory. The default directory on OSMac is 
+	personal Maya scripts directory. The default directory on OSMac is 
 	/Users/Shared/Autodesk/maya/2008/scripts respectively
 	/Users/Shared/Autodesk/maya/2008/scripts 
 
@@ -46,7 +46,7 @@ Now you can export your maya scene into a COLLADA file.
 Maya plugin loader bug:
 -----------------------
 Maya error: "Failed to find COLLADA exporter"
-It's a known bug that sometimes some versions maya don't recongnoize the last 
-converter on the list. To fix this, load a exra plugin after the fact and it 
-should work.
+It's a known bug that sometimes in some maya versions maya don't recognoize the
+last converter on the list. To fix this, load a extra plug-in after the fact 
+and it should work.
 

@@ -161,7 +161,7 @@ namespace COLLADAMaya
         // Color/Intensity are the common attributes of all lights
         MColor mayaColor = lightFn.color ( &status ); CHECK_STAT(status);
         COLLADASW::Color lightColor ( mayaColor.r, mayaColor.g, mayaColor.b, mayaColor.a );
-        animated = anim->addNodeAnimation ( lightNode, ATTR_COLOR, kColour );
+        animated = anim->addNodeAnimation ( lightNode, ATTR_COLOR, kColour, RGBA_PARAMETERS );
         light->setColor( lightColor, animated );
 
         float intensity = lightFn.intensity ( &status ); CHECK_STAT(status);

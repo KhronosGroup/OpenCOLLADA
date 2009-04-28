@@ -45,15 +45,7 @@ namespace COLLADAFW
 			ANGLE,
 			MATRIX4X4,
 			MATRIX4X4_ELEMENT,
-			FLOAT, 
-            SCALE_XYZ, 
-            SCALE_X,
-            SCALE_Y,
-            SCALE_Z, 
-            SKEW_XYZ,
-            SKEW_X, 
-            SKEW_Y, 
-            SKEW_Z
+			FLOAT
 		};
 
 		/** Binds the animated part of an animatable to the animation.*/

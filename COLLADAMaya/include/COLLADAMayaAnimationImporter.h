@@ -25,6 +25,7 @@
 #include "COLLADABUIDList.h"
 
 #include "MayaDMAnimCurveTL.h"
+#include "MayaDMAnimCurveTU.h"
 #include "MayaDMAnimCurveTA.h"
 #include "MayaDMTransform.h"
 
@@ -57,65 +58,6 @@ namespace COLLADAMaya
             TANGENT_TYPE_CLAMPED = 10, // Collada: BEZIER
             TANGENT_TYPE_PLATEAU = 16, // Collada: BEZIER
             TANGENT_TYPE_STEP_NEXT = 17 // Collada: BEZIER
-        };
-
-    public:
-
-        /** 
-         * Store the transform node id, the mayaTransform node and the transformation type.
-         */
-        class TransformAnimation
-        {
-        private:
-            COLLADAFW::UniqueId mAnimationListId;
-            COLLADAFW::UniqueId mTransformNodeId;
-            COLLADAFW::Transformation* mTransformation;
-
-        public:
-            TransformAnimation () : mTransformation (0) {}
-            virtual ~TransformAnimation () {}
-
-            const COLLADAFW::UniqueId& getAnimationListId () const { return mAnimationListId; }
-            void setAnimationListId ( const COLLADAFW::UniqueId& val ) { mAnimationListId = val; }
-
-            const COLLADAFW::UniqueId& getTransformNodeId () const { return mTransformNodeId; }
-            void setTransformNodeId ( const COLLADAFW::UniqueId& val ) { mTransformNodeId = val; }
-
-            const COLLADAFW::Transformation* getTransformation () const { return mTransformation; }
-            void setTransformation ( const COLLADAFW::Transformation* val ) 
-            { 
-                if ( val == 0 ) mTransformation = 0;
-                switch ( val->getTransformationType () )
-                {
-                case COLLADAFW::Transformation::ROTATE:
-                    {
-                        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* ) val;
-                        mTransformation = new COLLADAFW::Rotate ( *rotation );
-                        break;
-                    }
-                case COLLADAFW::Transformation::SCALE:
-                    {
-                        COLLADAFW::Scale* scale = ( COLLADAFW::Scale* ) val;
-                        mTransformation = new COLLADAFW::Scale ( *scale );
-                        break;
-                    }
-                case COLLADAFW::Transformation::SKEW:
-                    {
-                        COLLADAFW::Skew* skew = ( COLLADAFW::Skew* ) val;
-                        mTransformation = new COLLADAFW::Skew ( *skew );
-                        break;
-                    }
-                case COLLADAFW::Transformation::TRANSLATE:
-                    {
-                        COLLADAFW::Translate* translate = ( COLLADAFW::Translate* ) val;
-                        mTransformation = new COLLADAFW::Translate ( *translate );
-                        break;
-                    }
-                default:
-                    MGlobal::displayError ( "No valid animatable transformation!" );
-                }
-            }
-            const COLLADAFW::Transformation::TransformationType getTransformType () const { return mTransformation->getTransformationType (); }
         };
 
     private:
@@ -168,26 +110,35 @@ namespace COLLADAMaya
         */
         void writeConnections ( const COLLADAFW::AnimationList* animationList );
 
+        void writeEffectConnections ( 
+            const COLLADAFW::UniqueId& animationListId, 
+            const COLLADAFW::AnimationList::AnimationBindings& animationBindings );
+
+        void writeTransformConnections ( 
+            const COLLADAFW::UniqueId& animationListId, 
+            const COLLADAFW::AnimationList::AnimationBindings& animationBindings );
+
         void writeTranslateConnections ( 
             const COLLADAFW::Transformation* transformation, 
-            const COLLADAFW::AnimationList* animationList, 
+            const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
             const MayaDM::Transform* transform );
 
         void writeSkewConnections ( 
             const COLLADAFW::Transformation* transformation, 
-            const COLLADAFW::AnimationList* animationList, 
+            const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
             const MayaDM::Transform* transform );
 
         void writeScaleConnections ( 
             const COLLADAFW::Transformation* transformation, 
-            const COLLADAFW::AnimationList* animationList, 
+            const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
             const MayaDM::Transform* transform );
+
         /**
          * Makes the connections between 
          */
         void writeRotateConnections ( 
             const COLLADAFW::Transformation* transformation, 
-            const COLLADAFW::AnimationList* animationList, 
+            const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
             const MayaDM::Transform* transform );
 
     private:
@@ -241,6 +192,16 @@ namespace COLLADAMaya
         void setKeyTimeValues ( 
             const COLLADAFW::AnimationCurve* fwAnimationCurve, 
             MayaDM::AnimCurveTL* animCurveTL, 
+            const size_t outputIndex );
+
+        /**
+        * Set the key time values.
+        * The anim curve node is an "animCurve" that takes an attribute of type "time" as input 
+        * and has an output attribute of type "distance".
+        */
+        void setKeyTimeValues ( 
+            const COLLADAFW::AnimationCurve* fwAnimationCurve, 
+            MayaDM::AnimCurveTU* animCurveTU, 
             const size_t outputIndex );
 
         /**

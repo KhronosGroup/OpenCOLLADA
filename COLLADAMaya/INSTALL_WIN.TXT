@@ -28,8 +28,7 @@ version. Following environment variables to your Maya location are supported:
 - MAYA_PATH2008_X64
 
 If you install the binary, you have to copy following files:
-- "COLLADAMaya.mll" to
-$(YOUR_MAYA_PATH)/bin/plug-ins 
+- "COLLADAMaya.mll" to $(YOUR_MAYA_PATH)/bin/plug-ins 
 - "colladaNextGenExporterOpts.mel" to $(YOUR_MAYA_PATH)/scripts/others 
 - "colladaNextGenImporterOpts.mel" to $(YOUR_MAYA_PATH)/scripts/others 
 
@@ -50,6 +49,7 @@ Now you can export your maya scene into a COLLADA file.
 Maya plugin loader bug:
 -----------------------
 Maya error: "Failed to find COLLADAMaya plug-in"
-Known maya bug: sometimes maya don't recognize the last converter on the list. 
-To fix this, load an extra plug-in after the COLLADAMaya plug-in.
+It's a known bug that sometimes in some maya versions maya don't recognoize the
+last converter on the list. To fix this, load a extra plug-in after the fact 
+and it should work.
 

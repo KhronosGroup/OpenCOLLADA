@@ -2740,6 +2740,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMayaEffectAnimation.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMayaEffectImporter.cpp"
 					>
 				</File>
@@ -2773,6 +2777,10 @@
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaShadingBinding.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaTransformAnimation.cpp"
 					>
 				</File>
 				<File
@@ -3597,6 +3605,10 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\include\COLLADAMayaEffectAnimation.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\COLLADAMayaEffectImporter.h"
 					>
 				</File>
@@ -4022,6 +4034,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaShadingBinding.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaTransformAnimation.h"
 					>
 				</File>
 				<File

@@ -46,11 +46,15 @@ namespace COLLADAMaya
     //------------------------------
 	EffectImporter::~EffectImporter()
 	{
-        UniqueIdLambertMap::iterator it = mMayaEffectMap.begin ();
-        while ( it != mMayaEffectMap.end () )
+        UniqueIdMayaEffectsMap::iterator it = mMayaEffectsMap.begin ();
+        while ( it != mMayaEffectsMap.end () )
         {
-            MayaDM::Lambert* lambert = it->second;
-            delete lambert;
+            MayaEffectList mayaEffectList = it->second;
+            for ( size_t i=0; i<mayaEffectList.size (); ++i )
+            {
+                MayaDM::Lambert* lambert = mayaEffectList[i];
+                delete lambert;
+            }
             ++it;
         }
 
@@ -75,7 +79,7 @@ namespace COLLADAMaya
     {
         // Check if the current effect is already imported.
         const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
-        if ( findMayaEffect ( effectId ) != 0 ) return false;
+        if ( findMayaEffects ( effectId ) != 0 ) return false;
 
         // Check how many collada materials use this effect 
         // and create one maya material for every collada material. 
@@ -162,7 +166,7 @@ namespace COLLADAMaya
     //------------------------------
     String EffectImporter::importBlinnShader ( 
         const COLLADAFW::Effect* effect, 
-        const COLLADAFW::EffectCommon* commonEffect,
+        const COLLADAFW::EffectCommon* commonEffect, 
         const COLLADAFW::UniqueId& materialId )
     {
         // Get the material name, which references this effect.
@@ -178,11 +182,6 @@ namespace COLLADAMaya
 //         effectName = DocumentImporter::frameworkNameToMayaName ( effectName );
 //         effectName = mEffectIdList.addId ( effectName );
 
-        // Store the effect name
-        const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
-        // TODO Do we need this list? Is wrong, about multiple maya materials per effect possible!
-//         mMayaEffectNamesMap [effectId] = effectName;
-
         // Create the effect and write it into the maya ascii file.
         FILE* file = getDocumentImporter ()->getFile ();
         MayaDM::Blinn* blinn = new MayaDM::Blinn ( file, effectName );
@@ -194,7 +193,8 @@ namespace COLLADAMaya
         importBlinnShaderAttributes ( blinn, commonEffect );
 
         // Push it into the map.
-        appendEffect ( effectId, blinn );
+        const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
+        appendMayaEffect ( effectId, blinn );
 
         return effectName;
     }
@@ -223,7 +223,7 @@ namespace COLLADAMaya
 
         // Push it into the map.
         const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
-        appendEffect ( effectId, phong );
+        appendMayaEffect ( effectId, phong );
 
         return effectName;
     }
@@ -231,7 +231,7 @@ namespace COLLADAMaya
     //------------------------------
     String EffectImporter::importLambertShader ( 
         const COLLADAFW::Effect* effect, 
-        const COLLADAFW::EffectCommon* commonEffect,
+        const COLLADAFW::EffectCommon* commonEffect, 
         const COLLADAFW::UniqueId& materialId )
     {
         // Get the material name, which references this effect.
@@ -254,7 +254,7 @@ namespace COLLADAMaya
 
         // Push it into the map.
         const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
-        appendEffect ( effectId, lambert );
+        appendMayaEffect ( effectId, lambert );
 
         return effectName;
     }
@@ -269,6 +269,18 @@ namespace COLLADAMaya
         if ( standardColor.isValid () && standardColor != COLLADAFW::Color::GREY )
         {
             shaderNode->setColor ( MayaDM::float3 ( (float)standardColor.getRed (), (float)standardColor.getGreen (), (float)standardColor.getBlue ()) );
+        }
+
+        // Push the animation id in a map, if it exist.
+        const COLLADAFW::UniqueId& animationListId = standardColor.getAnimationList ();
+        if ( animationListId.isValid () )
+        {
+            EffectAnimation effectAnimation;
+            effectAnimation.setAnimationListId ( animationListId );
+            effectAnimation.setEffectId ( effect->getUniqueId () );
+            effectAnimation.setAnimatedValueType ( EffectAnimation::COLOR_OR_TEXTURE_STANDARD );
+
+            mEffectAnimationMap [animationListId] = effectAnimation;
         }
 
         // Set the diffuse factor to one.
@@ -290,6 +302,18 @@ namespace COLLADAMaya
             const COLLADAFW::Color& color = ambientColor.getColor ();
             if ( color.isValid () && color != COLLADAFW::Color::BLACK )
                 shaderNode->setAmbientColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
+
+            // Push the animation id in a map, if it exist.
+            const COLLADAFW::UniqueId& animationListId = color.getAnimationList ();
+            if ( animationListId.isValid () )
+            {
+                EffectAnimation effectAnimation;
+                effectAnimation.setAnimationListId ( animationListId );
+                effectAnimation.setEffectId ( effect->getUniqueId () );
+                effectAnimation.setAnimatedValueType ( EffectAnimation::COLOR_OR_TEXTURE_AMBIENT );
+
+                mEffectAnimationMap [animationListId] = effectAnimation;
+            }
         }
         else if ( ambientColor.isTexture () )
         {
@@ -310,6 +334,18 @@ namespace COLLADAMaya
             const COLLADAFW::Color& color = diffuse.getColor ();
             if ( color.isValid () && color != COLLADAFW::Color::BLACK )
                 shaderNode->setColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
+
+            // Push the animation id in a map, if it exist.
+            const COLLADAFW::UniqueId& animationListId = color.getAnimationList ();
+            if ( animationListId.isValid () )
+            {
+                EffectAnimation effectAnimation;
+                effectAnimation.setAnimationListId ( animationListId );
+                effectAnimation.setEffectId ( effect->getUniqueId () );
+                effectAnimation.setAnimatedValueType ( EffectAnimation::COLOR_OR_TEXTURE_DIFFUSE );
+
+                mEffectAnimationMap [animationListId] = effectAnimation;
+            }
         }
         else if ( diffuse.isTexture () )
         {
@@ -330,6 +366,18 @@ namespace COLLADAMaya
             const COLLADAFW::Color& color = emission.getColor ();
             if ( color.isValid () && color != COLLADAFW::Color::BLACK )
                 shaderNode->setIncandescence ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
+
+            // Push the animation id in a map, if it exist.
+            const COLLADAFW::UniqueId& animationListId = color.getAnimationList ();
+            if ( animationListId.isValid () )
+            {
+                EffectAnimation effectAnimation;
+                effectAnimation.setAnimationListId ( animationListId );
+                effectAnimation.setEffectId ( effect->getUniqueId () );
+                effectAnimation.setAnimatedValueType ( EffectAnimation::COLOR_OR_TEXTURE_EMISSION );
+
+                mEffectAnimationMap [animationListId] = effectAnimation;
+            }
         }
         else if ( emission.isTexture () )
         {
@@ -350,7 +398,7 @@ namespace COLLADAMaya
 //             float val = indexOfRefraction.getFloatValue (); 
 //             if ( val > 0 ) shaderNode->setRefractiveIndex ( val );
 //         }
-
+        // TODO Animation import
 
         // Opaque color
         const COLLADAFW::ColorOrTexture& opaque = commonEffect->getOpacity();
@@ -363,6 +411,17 @@ namespace COLLADAMaya
                 // Maya handels the transparency, not the opaque, so we have to invert the color.
                 COLLADAFW::Color transparency ( 1-color.getRed (), 1-color.getGreen (), 1-color.getBlue (), color.getAlpha () );
                 shaderNode->setTransparency ( MayaDM::float3 ( (float)transparency.getRed (), (float)transparency.getGreen (), (float)transparency.getBlue ()) );
+            }
+            // Push the animation id in a map, if it exist.
+            const COLLADAFW::UniqueId& animationListId = color.getAnimationList ();
+            if ( animationListId.isValid () )
+            {
+                EffectAnimation effectAnimation;
+                effectAnimation.setAnimationListId ( animationListId );
+                effectAnimation.setEffectId ( effect->getUniqueId () );
+                effectAnimation.setAnimatedValueType ( EffectAnimation::COLOR_OR_TEXTURE_TRANSPARENCY );
+
+                mEffectAnimationMap [animationListId] = effectAnimation;
             }
         }
         else if ( opaque.isTexture () )
@@ -390,6 +449,7 @@ namespace COLLADAMaya
 //             float val = shininess.getFloatValue (); 
 //             if ( val > 0 ) shaderNode->setEccentricity ( val );
 //         }
+        // TODO Animation import
     }
 
     // --------------------------
@@ -405,6 +465,7 @@ namespace COLLADAMaya
 //             float val = shininess.getFloatValue (); 
 //             if ( val > 0 ) shaderNode->setCosinePower ( val );
 //         }
+        // TODO Animation import
     }
 
     // --------------------------
@@ -422,6 +483,19 @@ namespace COLLADAMaya
             const COLLADAFW::Color& color = reflective.getColor ();
             if ( color.isValid () && color != COLLADAFW::Color::BLACK )
                 shaderNode->setReflectedColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
+
+            // Push the animation id in a map, if it exist.
+            const COLLADAFW::UniqueId& animationListId = color.getAnimationList ();
+            if ( animationListId.isValid () )
+            {
+                EffectAnimation effectAnimation;
+                effectAnimation.setAnimationListId ( animationListId );
+                effectAnimation.setEffectId ( effect->getUniqueId () );
+                effectAnimation.setAnimatedValueType ( EffectAnimation::COLOR_OR_TEXTURE_REFLECTED );
+
+                mEffectAnimationMap [animationListId] = effectAnimation;
+            }
+
         }
         else if ( reflective.isTexture () )
         {
@@ -442,7 +516,7 @@ namespace COLLADAMaya
 //             float val = reflectivity.getFloatValue (); 
 //             if ( val > 0 ) shaderNode->setReflectivity ( val );
 //         }
-
+        // TODO Animation import
 
         // TODO
 //         const COLLADAFW::FloatOrParam::Type& type = reflectivity.getType ();
@@ -466,6 +540,18 @@ namespace COLLADAMaya
             const COLLADAFW::Color& color = specular.getColor ();
             if ( color.isValid () && color != COLLADAFW::Color::GREY )
                 shaderNode->setSpecularColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
+
+            // Push the animation id in a map, if it exist.
+            const COLLADAFW::UniqueId& animationListId = color.getAnimationList ();
+            if ( animationListId.isValid () )
+            {
+                EffectAnimation effectAnimation;
+                effectAnimation.setAnimationListId ( animationListId );
+                effectAnimation.setEffectId ( effect->getUniqueId () );
+                effectAnimation.setAnimatedValueType ( EffectAnimation::COLOR_OR_TEXTURE_SPECULAR );
+
+                mEffectAnimationMap [animationListId] = effectAnimation;
+            }
         }
         else if ( specular.isTexture () )
         {
@@ -514,12 +600,12 @@ namespace COLLADAMaya
     }
 
     // --------------------------
-    MayaDM::Lambert* EffectImporter::findMayaEffect ( const COLLADAFW::UniqueId& effectId ) const
+    const EffectImporter::MayaEffectList* EffectImporter::findMayaEffects ( const COLLADAFW::UniqueId& effectId ) const
     {
-        UniqueIdLambertMap::const_iterator it = mMayaEffectMap.find ( effectId );
-        if ( it != mMayaEffectMap.end () )
+        UniqueIdMayaEffectsMap::const_iterator it = mMayaEffectsMap.find ( effectId );
+        if ( it != mMayaEffectsMap.end () )
         {
-            return it->second;
+            return &(it->second);
         }
         return 0;
     }
@@ -537,11 +623,11 @@ namespace COLLADAMaya
     }
 
     // --------------------------
-    void EffectImporter::appendEffect ( 
+    void EffectImporter::appendMayaEffect ( 
         const COLLADAFW::UniqueId& effectId, 
         MayaDM::Lambert* effectNode )
     {
-        mMayaEffectMap [effectId] = effectNode;
+        mMayaEffectsMap [effectId].push_back ( effectNode );
     }
 
     // --------------------------
@@ -624,8 +710,8 @@ namespace COLLADAMaya
                         sampler->getMipFilter ();
                         sampler->getMipmapBias ();
                         sampler->getMipmapMaxlevel ();
-                        //                     place2dTexture->setWrapU ( sampler->getWrapP () );
-                        //                     place2dTexture->setWrapV ( sampler->getWrapS () );
+//                     place2dTexture->setWrapU ( sampler->getWrapP () );
+//                     place2dTexture->setWrapV ( sampler->getWrapS () );
                         sampler->getWrapT ();
 
                         // TODO Push the texure placement informations in a list.
@@ -673,6 +759,17 @@ namespace COLLADAMaya
     {
         TexturePlacementsMap::iterator it = mTexturePlacementsMap.find ( key );
         if ( it != mTexturePlacementsMap.end () )
+        {
+            return &(it->second);
+        }
+        return 0;
+    }
+
+    //------------------------------
+    const EffectAnimation* EffectImporter::findEffectAnimation ( const COLLADAFW::UniqueId& animationListId )
+    {
+        const EffectAnimationMap::const_iterator it = mEffectAnimationMap.find ( animationListId );
+        if ( it != mEffectAnimationMap.end () )
         {
             return &(it->second);
         }
@@ -930,6 +1027,5 @@ namespace COLLADAMaya
             }
         }
     }
-
 
 } // namespace COLLADAMaya

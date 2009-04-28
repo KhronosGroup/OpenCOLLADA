@@ -20,6 +20,7 @@
 #include "COLLADAMayaBaseImporter.h"
 #include "COLLADAMayaNode.h"
 #include "COLLADAMayaAnimationImporter.h"
+#include "COLLADAMayaTransformAnimation.h"
 
 #include "MayaDMTransform.h"
 
@@ -157,7 +158,7 @@ namespace COLLADAMaya
         /**
          * The map holds for every animationListId the unique id of corresponding node.
          */
-        std::map <COLLADAFW::UniqueId, AnimationImporter::TransformAnimation> mTransformAnimationMap;
+        std::map <COLLADAFW::UniqueId, TransformAnimation> mTransformAnimationMap;
 
     public:
 
@@ -249,8 +250,7 @@ namespace COLLADAMaya
         /**
         * The map holds for every animationListId the unique id of corresponding node.
         */
-        const AnimationImporter::TransformAnimation* findTransformAnimation ( 
-            const COLLADAFW::UniqueId& animationListId );
+        const TransformAnimation* findTransformAnimation ( const COLLADAFW::UniqueId& animationListId );
 
         /**
         * The map holds for every unique transform node id the maya data model transform object
@@ -326,7 +326,7 @@ namespace COLLADAMaya
             const COLLADAFW::Node* rootNode, 
             MayaTransformation& mayaTransform, 
             MayaDM::Transform* transformNode, 
-            std::vector<AnimationImporter::TransformAnimation>& transformAnimations,
+            std::vector<TransformAnimation>& transformAnimations,
             bool& hasRotatePivot,
             bool& hasScalePivot,
             bool& isLookatTransform );

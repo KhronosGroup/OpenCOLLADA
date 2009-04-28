@@ -1,25 +1,33 @@
 -   General
     -   Linux
     -   Internationalisation (i18n)
-    -   Reader (importer)
 
--   VisualSceneExport
-    -   Reference to the effect texture
+-   Visual scene export
+    -   Effect texture reference export 
 	    
--   EffectsExport
-    -   hlsl shader
+-   Effects 
+    -   hlsl shader import / export
+	- 	cgfx shader import
+	- 	parameters import
 
--   AnimationsExport
-    -   Path animation
-    -   Constraints (point, orient, parent)
+-   Animations 
+    -   path animation export
+    -	skew/shear animation import/export
+    	(possible solution could be the animation formula from collada 1.5)
+	- 	effect colors animation import
+	- 	clip animation import
 
--   PhysicalSceneExport
-    -   Constraints (point, orient, parent)
+- 	Controller 
+	- skin controller import
+	- morph controller import
 
--   Subdivision surfaces export
--   Nurbs export
--   Splines export
--   External references export (XREFs):
-    -   write mutiple dae documents
+-   Physical scene import/export
 
+-   Subdivision surfaces import/export
 
+-   Nurbs import/export
+
+-   Splines import/export
+
+-   External references import/export (XREFs):
+    -   write mutiple documents

@@ -202,13 +202,15 @@ int main(int argc,char** argv)
         }
     }
 
-
-    // close down maya
-    MLibrary::cleanup(0);
+#ifdef _DEBUG
+    getchar();
+#endif
 
     // Stop the error logging
     MGlobal::stopErrorLogging();
 
+    // close down maya
+    MLibrary::cleanup(0);
 
     return 0;
 }

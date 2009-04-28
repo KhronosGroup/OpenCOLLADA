@@ -286,16 +286,22 @@ namespace COLLADAMaya
             MayaDM::DependNode* effectNode = 0;
             EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
             const COLLADAFW::UniqueId* effectId = findEffectId ( materialId );
-            if ( effectId != 0 ) effectNode = effectImporter->findMayaEffect ( *effectId );
-            if ( effectNode != 0 )
+            if ( effectId != 0 ) 
             {
-                MayaDM::Lambert* lambertNode = ( MayaDM::Lambert* ) effectNode;
+                const MayaEffectList* mayaEffectList = effectImporter->findMayaEffects ( *effectId );
+                if ( mayaEffectList != 0 )
+                {
+                    for ( size_t i=0; i<mayaEffectList->size (); ++i )
+                    {
+                        MayaDM::Lambert* effectNode = (*mayaEffectList) [i];
 
-                // connectAttr "blinn1.outColor" "blinn1SG.surfaceShader";
-                connectAttr ( file, lambertNode->getOutColor (), shadingEngine.getSurfaceShader () );
+                        // connectAttr "blinn1.outColor" "blinn1SG.surfaceShader";
+                        connectAttr ( file, effectNode->getOutColor (), shadingEngine.getSurfaceShader () );
 
-                // connectAttr "blinn1.message" "materialInfo2.material";
-                connectAttr ( file, lambertNode->getMessage (), materialInfo.getMaterial () );
+                        // connectAttr "blinn1.message" "materialInfo2.material";
+                        connectAttr ( file, effectNode->getMessage (), materialInfo.getMaterial () );
+                    }
+                }
             }
 
             ++shaderDataIter;
@@ -560,18 +566,27 @@ namespace COLLADAMaya
         FILE* file = getDocumentImporter ()->getFile ();
 
         EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
-        const EffectImporter::UniqueIdLambertMap& effectMap = effectImporter->getMayaEffectMap ();
+        const EffectImporter::UniqueIdMayaEffectsMap& effectMap = effectImporter->getMaterialIdMayaEffectMap ();
 
         // Create the default object (not in the maya file!).
         MayaDM::DefaultShaderList defaultShaderList ( file, DEFAULT_SHADER_LIST, "", false );
 
-        EffectImporter::UniqueIdLambertMap::const_iterator it = effectMap.begin ();
+        EffectImporter::UniqueIdMayaEffectsMap::const_iterator it = effectMap.begin ();
         while ( it != effectMap.end () )
         {
-            MayaDM::DependNode* dependNode = it->second;
+            const COLLADAFW::UniqueId& effectId = it->first;
+            const MayaEffectList* mayaEffectList = effectImporter->findMayaEffects ( effectId );
+            if ( mayaEffectList != 0 )
+            {
+                for ( size_t i=0; i<mayaEffectList->size (); ++i )
+                {
+                    MayaDM::Lambert* effectNode = (*mayaEffectList) [i];
+                    //MayaDM::DependNode* dependNode = it->second;
 
-            // connectAttr "lambert2.message" ":defaultShaderList1.shaders" -nextAvailable;
-            connectNextAttr ( file, dependNode->getMessage (), defaultShaderList.getShaders () );
+                    // connectAttr "lambert2.message" ":defaultShaderList1.shaders" -nextAvailable;
+                    connectNextAttr ( file, effectNode->getMessage (), defaultShaderList.getShaders () );
+                }
+            }
 
             ++it;
         }

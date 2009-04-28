@@ -149,12 +149,15 @@ namespace COLLADAMaya
     static const String X_PARAMETER[1]                              = { "X" };
     static const String Y_PARAMETER[1]                              = { "Y" };
     static const String Z_PARAMETER[1]                              = { "Z" };
+    static const String XY_PARAMETER[1]                            = { "XY" };
+    static const String XZ_PARAMETER[1]                            = { "XZ" };
+    static const String YZ_PARAMETER[1]                            = { "YZ" };
     static const String XY_PARAMETERS[2]                            = { "X", "Y" };
     static const String XYZ_PARAMETERS[3]                           = { "X", "Y", "Z" };
     static const String ZYX_PARAMETERS[3]                           = { "Z", "Y", "X" };
     static const String XYZW_PARAMETERS[4]                          = { "X", "Y", "Z", "W" };
-    static const String RGBA_PARAMETERS[4]                          = { "R", "G", "B", "A" };
     static const String STPQ_PARAMETERS[4]                          = { "S", "T", "P", "Q" };
+    static const String RGBA_PARAMETERS[4]                           = { "R", "G", "B", "A" };
     static const String ANGLE_PARAMETER[1]                          = { "ANGLE" };
     static const String MATRIX_PARAMETER[1]                         = { "MATRIX" };
     static const String TRANSFORM_PARAMETER[1]                      = { "TRANSFORM" };
@@ -277,6 +280,7 @@ namespace COLLADAMaya
     static const char* ATTR_SCALE_PIVOT_TRANSLATION                 = "scalePivotTranslation";
     static const char* ATTR_SHADERS                                 = "shaders";
     static const char* ATTR_SEGMENT_SCALE_COMPENSATE                = "ssc";
+    static const char* ATTR_SKEW                                    = "skew";
     static const char* ATTR_SPECULAR_COLOR                          = "specularColor";
     static const char* ATTR_SURFACE_SHADER                          = "surfaceShader";
     static const char* ATTR_TRANSFORM                               = "transform";

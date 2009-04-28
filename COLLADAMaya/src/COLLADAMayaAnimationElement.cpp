@@ -91,7 +91,7 @@ namespace COLLADAMaya
             return 16;
 
         else if ( ( mSampleType & kColour ) == kColour )
-            return 3;
+            return 4;
 
         else if ( ( mSampleType & kVector ) == kVector )
             return 3;

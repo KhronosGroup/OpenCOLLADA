@@ -13,6 +13,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
+#include "COLLADAMayaEffectAnimation.h"
 
 #include "COLLADABUIDList.h"
 
@@ -124,14 +125,14 @@ namespace COLLADAMaya
 
         typedef std::map< COLLADAFW::UniqueId, std::vector<ShaderNodeAttribute> > UniqueIdShaderNodesMap;
 
-        typedef std::map< COLLADAFW::UniqueId, MayaDM::Lambert* > UniqueIdLambertMap;
-
         typedef std::vector<SamplerInfo> SamplerInfos;
         typedef std::map< COLLADAFW::UniqueId, SamplerInfos > UniqueIdSamplerInfosMap;
 
         typedef std::pair<COLLADAFW::UniqueId,size_t> UniqueIdSamplerIdPair;
         typedef std::vector<TexturePlacement> TexturePlacements;
         typedef std::map< UniqueIdSamplerIdPair, TexturePlacements > TexturePlacementsMap;
+
+        typedef std::map<COLLADAFW::UniqueId, EffectAnimation> EffectAnimationMap;
 
     private:
 
@@ -145,15 +146,13 @@ namespace COLLADAMaya
         */
         COLLADABU::IDList mPlace2dTextureIdList;
 
-        /** 
-        * The map holds the unique ids of the nodes to the maya effect name. 
-        */
-        UniqueIdStringMap mMayaEffectNamesMap;
-
         /**
-        * The map holds the maya effect objects for the connections.
+        * The map holds the maya effect objects for everx effect id. Used to make the connections.
+        * There can be multiple maya effect objects for one effect id, about a collada effect can 
+        * be referenced by multiple materials and for every referenced effect will be one maya
+        * effect object created.
         */
-        UniqueIdLambertMap mMayaEffectMap;
+        UniqueIdMayaEffectsMap mMayaEffectsMap;
 
         /**
         * The map holds the unique material ids of a effect id.
@@ -175,6 +174,11 @@ namespace COLLADAMaya
          */
         UniqueIdSamplerInfosMap mEffectSamplerInfosMap;
 
+        /**
+         * The map holds for every animation id the information about the animated effect element.
+         */
+        EffectAnimationMap mEffectAnimationMap;
+
     public:
 
         /** Constructor. */
@@ -192,19 +196,24 @@ namespace COLLADAMaya
         void writeConnections ();
 
         /**
-        * The map holds the maya material objects.
+        * The map holds the maya effect objects.
         */
-        MayaDM::Lambert* findMayaEffect ( const COLLADAFW::UniqueId& effectId ) const;
+        const MayaEffectList* findMayaEffects ( const COLLADAFW::UniqueId& effectId ) const;
 
         /**
         * The map holds the maya material objects.
         */
-        const UniqueIdLambertMap& getMayaEffectMap () const { return mMayaEffectMap; }
+        const UniqueIdMayaEffectsMap& getMaterialIdMayaEffectMap () const { return mMayaEffectsMap; }
 
         /**
         * Assigns the given material to the current effect.
         */
         void assignMaterial ( const COLLADAFW::UniqueId& effectId, const COLLADAFW::UniqueId& materialId );
+
+        /**
+        * The map holds for every animation id the information about the animated effect element.
+        */
+        const EffectAnimation* findEffectAnimation ( const COLLADAFW::UniqueId& animationListId );
 
 	private:
 
@@ -234,14 +243,16 @@ namespace COLLADAMaya
         /**
         * The map holds the maya material objects.
         */
-        void appendEffect ( const COLLADAFW::UniqueId& effectId, MayaDM::Lambert* effectNode );
+        void appendMayaEffect ( 
+            const COLLADAFW::UniqueId& materialId, 
+            MayaDM::Lambert* effectNode );
 
         /**
          * Imports a blinn shader effect.
          */
         String importBlinnShader ( 
             const COLLADAFW::Effect* effect, 
-            const COLLADAFW::EffectCommon* commonEffect,
+            const COLLADAFW::EffectCommon* commonEffect, 
             const COLLADAFW::UniqueId& materialId );
 
         /**
@@ -249,7 +260,7 @@ namespace COLLADAMaya
         */
         String importPhongShader ( 
             const COLLADAFW::Effect* effect, 
-            const COLLADAFW::EffectCommon* commonEffect,
+            const COLLADAFW::EffectCommon* commonEffect, 
             const COLLADAFW::UniqueId& materialId );
 
         /**
@@ -257,7 +268,7 @@ namespace COLLADAMaya
         */
         String importLambertShader ( 
             const COLLADAFW::Effect* effect, 
-            const COLLADAFW::EffectCommon* commonEffect,
+            const COLLADAFW::EffectCommon* commonEffect, 
             const COLLADAFW::UniqueId& materialId );
 
         /**
