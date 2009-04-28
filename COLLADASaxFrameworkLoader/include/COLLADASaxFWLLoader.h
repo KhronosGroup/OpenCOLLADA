@@ -55,18 +55,19 @@ namespace COLLADASaxFWL
 		{
 			NO_FLAG                    = 0,
 			ASSET_FLAG                 = 1<<0,
-			VISUAL_SCENES_FLAG         = 1<<1,
-			LIBRARY_NODES_FLAG         = 1<<2,
-			GEOMETRY_FLAG              = 1<<3,
-			MATERIAL_FLAG              = 1<<4,
-			EFFECT_FLAG                = 1<<5,
-			CAMERA_FLAG                = 1<<6,
-			IMAGE_FLAG                 = 1<<7,
-			LIGHT_FLAG                 = 1<<8,
-			ANIMATION_FLAG             = 1<<9,
-			ANIMATION_LIST_FLAG        = 1<<10,
+			SCENE_FLAG                 = 1<<1,
+			VISUAL_SCENES_FLAG         = 1<<2,
+			LIBRARY_NODES_FLAG         = 1<<3,
+			GEOMETRY_FLAG              = 1<<4,
+			MATERIAL_FLAG              = 1<<5,
+			EFFECT_FLAG                = 1<<6,
+			CAMERA_FLAG                = 1<<7,
+			IMAGE_FLAG                 = 1<<8,
+			LIGHT_FLAG                 = 1<<9,
+			ANIMATION_FLAG             = 1<<10,
+			ANIMATION_LIST_FLAG        = 1<<11,
 
-			ALL_OBJECTS_MASK           = (1<<11) - 1,
+			ALL_OBJECTS_MASK           = (1<<12) - 1,
 		};
 
 	private:
