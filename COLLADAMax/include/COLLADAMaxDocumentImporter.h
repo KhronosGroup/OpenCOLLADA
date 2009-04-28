@@ -288,6 +288,13 @@ namespace COLLADAMax
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset );;
 
+		/** Writes the scene.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeScene ( const COLLADAFW::Scene* Scene )
+		{
+			return true;
+		}
+
 		/** Writes the entire visual scene.
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
