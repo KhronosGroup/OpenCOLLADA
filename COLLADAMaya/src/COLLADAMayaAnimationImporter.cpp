@@ -208,18 +208,16 @@ namespace COLLADAMaya
                     setKeyTimeValues ( animationCurve, (MayaDM::AnimCurveTA*)animCurve, outputIndex );
                 }
                 break;
-            case COLLADAFW::PHYSICAL_DIMENSION_TIME:
-                MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_TIME" );
-                return; break;
             case COLLADAFW::PHYSICAL_DIMENSION_COLOR:
+            case COLLADAFW::PHYSICAL_DIMENSION_NUMBER:
                 {
                     animCurve = new MayaDM::AnimCurveTU ( file, animationName );
                     animCurve->setTangentType ( tangentType );
                     setKeyTimeValues ( animationCurve, (MayaDM::AnimCurveTU*)animCurve, outputIndex );
                 }
                 break;
-            case COLLADAFW::PHYSICAL_DIMENSION_NUMBER:
-                MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_NUMBER" );
+            case COLLADAFW::PHYSICAL_DIMENSION_TIME:
+                MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_TIME" );
                 return; break;
             default:
                 MGlobal::displayError ( "Unknown physical dimension!" );
@@ -1180,9 +1178,6 @@ namespace COLLADAMaya
         const EffectAnimation* effectAnimation = effectImporter->findEffectAnimation ( animationListId );
         if ( !effectAnimation ) return;
 
-        // Get the animated value type
-        const EffectAnimation::AnimatedValueType& animatedValueType = effectAnimation->getAnimatedValueType ();
-
         // Get the maya node object for the id.
         const COLLADAFW::UniqueId& effectId = effectAnimation->getEffectId ();
         const MayaEffectList* mayaEffectList = effectImporter->findMayaEffects ( effectId );
@@ -1192,6 +1187,8 @@ namespace COLLADAMaya
             {
                 const MayaDM::Lambert* lambertNode = (*mayaEffectList) [effectIndex];
 
+                // Get the animated value type
+                const EffectAnimation::AnimatedValueType& animatedValueType = effectAnimation->getAnimatedValueType ();
                 switch ( animatedValueType )
                 {
                 case EffectAnimation::COLOR_OR_TEXTURE_AMBIENT:
@@ -1217,7 +1214,7 @@ namespace COLLADAMaya
                             for ( size_t curveIndex=0; curveIndex<animationCurveCount; ++curveIndex )
                             {
                                 const MayaDM::AnimCurve* animCurve = (*animationCurves) [curveIndex];
-                                MayaDM::AnimCurveTL* animCurveTU = (MayaDM::AnimCurveTL*) animCurve;
+                                MayaDM::AnimCurveTL* animCurveTL = (MayaDM::AnimCurveTL*) animCurve;
 
                                 // Connect the animation curve and the current transform node.
                                 // connectAttr "lambert2_colorB.o" "lambert2.cb";
@@ -1225,11 +1222,11 @@ namespace COLLADAMaya
                                 switch ( animationClass )
                                 {
                                 case COLLADAFW::AnimationList::COLOR_R:
-                                    connectAttr ( file, animCurveTU->getOutput (),lambertNode->getColorR () );                                    break;
+                                    connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorR () );                                    break;
                                 case COLLADAFW::AnimationList::COLOR_G:
-                                    connectAttr ( file, animCurveTU->getOutput (),lambertNode->getColorG () );                                    break;
+                                    connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorG () );                                    break;
                                 case COLLADAFW::AnimationList::COLOR_B:
-                                    connectAttr ( file, animCurveTU->getOutput (),lambertNode->getColorB () );                                    break;
+                                    connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorB () );                                    break;
                                 default:
                                     MGlobal::displayInfo ( "Animation class for effect type \"COLOR_OR_TEXTURE_STANDARD_COLOR\" not implemented!" );
                                     break;
@@ -1240,6 +1237,48 @@ namespace COLLADAMaya
                 case EffectAnimation::FLOAT_OR_PARAM_ECCENTRICITY:
                 case EffectAnimation::FLOAT_OR_PARAM_REFLECTIVITY:
                 case EffectAnimation::FLOAT_OR_PARAM_REFRACTIVE_INDEX:
+                    {
+                        // Get the animation curves of the current animated element.
+                        size_t numAnimationBindings = animationBindings.getCount ();
+                        for ( size_t i=0; i<numAnimationBindings; ++i )
+                        {
+                            // Get the animation curve element of the current animation id.
+                            const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings [i]; 
+                            const COLLADAFW::UniqueId& animationId = animationBinding.animation;
+                            const std::vector<MayaDM::AnimCurve*>* animationCurves = findMayaDMAnimCurves ( animationId );
+                            if ( animationCurves == 0 ) continue;
+
+                            // Connect all animation curves of the current animation.
+                            size_t animationCurveCount = animationCurves->size ();
+                            for ( size_t curveIndex=0; curveIndex<animationCurveCount; ++curveIndex )
+                            {
+                                const MayaDM::AnimCurve* animCurve = (*animationCurves) [curveIndex];
+                                MayaDM::AnimCurveTL* animCurveTU = (MayaDM::AnimCurveTL*) animCurve;
+
+                                // Connect the animation curve and the current transform node.
+                                // connectAttr "lambert2_colorB.o" "lambert2.cb";
+                                const COLLADAFW::AnimationList::AnimationClass& animationClass = animationBinding.animationClass;
+                                switch ( animationClass )
+                                {
+                                case COLLADAFW::AnimationList::FLOAT:
+                                    switch ( animatedValueType )
+                                    {
+                                    case EffectAnimation::FLOAT_OR_PARAM_COSINE_POWER:
+                                        connectAttr ( file, animCurveTU->getOutput (),((MayaDM::Phong*)lambertNode)->getCosinePower () );                                        break;                                    case EffectAnimation::FLOAT_OR_PARAM_ECCENTRICITY:
+                                        connectAttr ( file, animCurveTU->getOutput (),((MayaDM::Blinn*)lambertNode)->getEccentricity () );                                        break;                                    case EffectAnimation::FLOAT_OR_PARAM_REFLECTIVITY:
+                                        connectAttr ( file, animCurveTU->getOutput (),((MayaDM::Reflect*)lambertNode)->getReflectivity () );                                        break;                                    case EffectAnimation::FLOAT_OR_PARAM_REFRACTIVE_INDEX:
+                                        connectAttr ( file, animCurveTU->getOutput (),lambertNode->getRefractiveIndex () );                                        break;                                    default:
+                                        MGlobal::displayInfo ( "Animation class for effect type \"FLOAT\" not implemented!" );
+                                        break;
+                                    }
+                                    break;
+                                default:
+                                    MGlobal::displayInfo ( "Animation class for effect type \"FLOAT_OR_PARAM_...\" not implemented!" );
+                                    break;
+                                }
+                            }                        }
+                    }
+                    break;
                 default:
                     std::cerr << "Animation on effect not supported!" << endl;
                     MGlobal::displayError ( "Animation on effect not supported!" );

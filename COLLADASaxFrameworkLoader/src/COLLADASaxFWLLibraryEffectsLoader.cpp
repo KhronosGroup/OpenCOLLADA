@@ -82,7 +82,6 @@ namespace COLLADASaxFWL
 		}
 	}
 
-
 	//------------------------------
 	bool LibraryEffectsLoader::handleColorData( const float* data, size_t length )
 	{
@@ -210,44 +209,44 @@ namespace COLLADASaxFWL
 			{
 			case LibraryEffectsLoader::A_ONE:
 				{
-					opaqueColor.setRed ( transparentColor.getAlpha () * mTransparency );
-					opaqueColor.setGreen ( transparentColor.getAlpha () * mTransparency );
-					opaqueColor.setBlue ( transparentColor.getAlpha () * mTransparency );
-					opaqueColor.setAlpha ( transparentColor.getAlpha () * mTransparency );
+					opaqueColor.setRed ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
+					opaqueColor.setGreen ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
+					opaqueColor.setBlue ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
+					opaqueColor.setAlpha ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
 					break;
 				}
 			case LibraryEffectsLoader::A_ZERO:
 				{
-					opaqueColor.setRed ( 1 - transparentColor.getAlpha () * mTransparency );
-					opaqueColor.setGreen ( 1 - transparentColor.getAlpha () * mTransparency );
-					opaqueColor.setBlue ( 1 - transparentColor.getAlpha () * mTransparency );
-					opaqueColor.setAlpha ( 1 - transparentColor.getAlpha () * mTransparency );
+					opaqueColor.setRed ( 1 - transparentColor.getAlpha () * mTransparency.getFloatValue () );
+					opaqueColor.setGreen ( 1 - transparentColor.getAlpha () * mTransparency.getFloatValue () );
+					opaqueColor.setBlue ( 1 - transparentColor.getAlpha () * mTransparency.getFloatValue () );
+					opaqueColor.setAlpha ( 1 - transparentColor.getAlpha () * mTransparency.getFloatValue () );
 					break;
 				}
 			case LibraryEffectsLoader::RGB_ONE:
 				{
-					opaqueColor.setRed ( transparentColor.getRed () * mTransparency );
-					opaqueColor.setGreen ( transparentColor.getGreen () * mTransparency );
-					opaqueColor.setBlue ( transparentColor.getBlue () * mTransparency );
-					opaqueColor.setAlpha ( calculateLuminance ( transparentColor ) * mTransparency );
+					opaqueColor.setRed ( transparentColor.getRed () * mTransparency.getFloatValue () );
+					opaqueColor.setGreen ( transparentColor.getGreen () * mTransparency.getFloatValue () );
+					opaqueColor.setBlue ( transparentColor.getBlue () * mTransparency.getFloatValue () );
+					opaqueColor.setAlpha ( calculateLuminance ( transparentColor ) * mTransparency.getFloatValue () );
 					break;
 				}
 			case LibraryEffectsLoader::RGB_ZERO:
 				{
-					opaqueColor.setRed ( 1 - transparentColor.getRed () * mTransparency );
-					opaqueColor.setGreen ( 1 - transparentColor.getGreen () * mTransparency );
-					opaqueColor.setBlue ( 1 - transparentColor.getBlue () * mTransparency );
-					opaqueColor.setAlpha ( 1 - calculateLuminance ( transparentColor ) * mTransparency );
+					opaqueColor.setRed ( 1 - transparentColor.getRed () * mTransparency.getFloatValue () );
+					opaqueColor.setGreen ( 1 - transparentColor.getGreen () * mTransparency.getFloatValue () );
+					opaqueColor.setBlue ( 1 - transparentColor.getBlue () * mTransparency.getFloatValue () );
+					opaqueColor.setAlpha ( 1 - calculateLuminance ( transparentColor ) * mTransparency.getFloatValue () );
 					break;
 				}
 			case LibraryEffectsLoader::UNSPECIFIED_OPAQUE:
 			default:
 				{
 					// A_ONE is the default:
-					opaqueColor.setRed ( transparentColor.getAlpha () * mTransparency );
-					opaqueColor.setGreen ( transparentColor.getAlpha () * mTransparency );
-					opaqueColor.setBlue ( transparentColor.getAlpha () * mTransparency );
-					opaqueColor.setAlpha ( transparentColor.getAlpha () * mTransparency );
+					opaqueColor.setRed ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
+					opaqueColor.setGreen ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
+					opaqueColor.setBlue ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
+					opaqueColor.setAlpha ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
 					break;
 				}
 			}
@@ -265,20 +264,20 @@ namespace COLLADASaxFWL
 			case LibraryEffectsLoader::A_ONE:
 			case LibraryEffectsLoader::RGB_ONE:
 				{
-					opaqueColor.set ( mTransparency, mTransparency, mTransparency, mTransparency );
+					opaqueColor.set ( mTransparency.getFloatValue (), mTransparency.getFloatValue (), mTransparency.getFloatValue (), mTransparency.getFloatValue () );
 					break;
 				}
 			case LibraryEffectsLoader::A_ZERO:
 			case LibraryEffectsLoader::RGB_ZERO:
 				{
-					opaqueColor.set ( 1-mTransparency, 1-mTransparency, 1-mTransparency, 1-mTransparency );
+					opaqueColor.set ( 1-mTransparency.getFloatValue (), 1-mTransparency.getFloatValue (), 1-mTransparency.getFloatValue (), 1-mTransparency.getFloatValue () );
 					break;
 				}
 			case LibraryEffectsLoader::UNSPECIFIED_OPAQUE:
 			default:
 				{
 					// A_ONE is the default:
-					opaqueColor.set ( mTransparency, mTransparency, mTransparency, mTransparency );
+					opaqueColor.set ( mTransparency.getFloatValue (), mTransparency.getFloatValue (), mTransparency.getFloatValue (), mTransparency.getFloatValue () );
 					break;
 				}
 			}
@@ -533,13 +532,42 @@ namespace COLLADASaxFWL
 		return handleColorData(data, length);
 	}
 
+    //------------------------------
 	bool LibraryEffectsLoader::begin__texture( const texture__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__texture(attributeData)); 
 		return handleTexture( attributeData);
 	}
 
+    //------------------------------
+    bool LibraryEffectsLoader::begin__common_float_or_param_type____float ( const common_float_or_param_type____float__AttributeData& attributeData )
+    {
+        SaxVirtualFunctionTest(begin__common_float_or_param_type____float(attributeData)); 
+        switch ( mCurrentShaderParameterType)
+        {
+        case SHADER_PARAMETER_SHININESS:
+            addToSidTree( 0, attributeData.sid, &mCurrentEffect->getCommonEffects().back()->getShininess() );
+            break;
+        case SHADER_PARAMETER_REFLECTIVITY:
+            addToSidTree( 0, attributeData.sid, &mCurrentEffect->getCommonEffects().back()->getReflectivity() );
+            break;
+        case SHADER_PARAMETER_INDEX_OF_REFRACTION:
+            addToSidTree( 0, attributeData.sid, &mCurrentEffect->getCommonEffects().back()->getIndexOfRefraction() );
+            break;
+        case SHADER_PARAMETER_TRANSPARENCY:
+            addToSidTree( 0, attributeData.sid, &mTransparency );
+            break;
+        }      
+        return true;
+    }
 
+    //------------------------------
+    bool LibraryEffectsLoader::end__common_float_or_param_type____float ()
+    {
+        SaxVirtualFunctionTest(end__common_float_or_param_type____float()); 
+        moveUpInSidTree();
+        return true;
+    }
 
 	//------------------------------
 	bool LibraryEffectsLoader::data__common_float_or_param_type____float( float value )
@@ -553,11 +581,11 @@ namespace COLLADASaxFWL
 		case SHADER_PARAMETER_REFLECTIVITY:
 			mCurrentEffect->getCommonEffects().back()->setReflectivity(value);
 			break;
-		case SHADER_PARAMETER_INDEX_OF_REFRECTION:
+		case SHADER_PARAMETER_INDEX_OF_REFRACTION:
 			mCurrentEffect->getCommonEffects().back()->setIndexOfRefraction(value);
 			break;
-		case SHADER_PARAMETER_TRANSPARANCY:
-			mTransparency = value;
+		case SHADER_PARAMETER_TRANSPARENCY:
+			mTransparency.setFloatValue (value);
 			break;
 		}
 		return true;
@@ -709,7 +737,7 @@ namespace COLLADASaxFWL
 	bool LibraryEffectsLoader::begin__transparency()
 	{
 		SaxVirtualFunctionTest(begin__transparency());  
-		mCurrentShaderParameterType = SHADER_PARAMETER_TRANSPARANCY; 
+		mCurrentShaderParameterType = SHADER_PARAMETER_TRANSPARENCY; 
 		return true;
 	}
 
@@ -725,7 +753,7 @@ namespace COLLADASaxFWL
 	bool LibraryEffectsLoader::begin__index_of_refraction()
 	{
 		SaxVirtualFunctionTest(begin__index_of_refraction());  
-		mCurrentShaderParameterType = SHADER_PARAMETER_INDEX_OF_REFRECTION; 
+		mCurrentShaderParameterType = SHADER_PARAMETER_INDEX_OF_REFRACTION; 
 		return true;
 	}
 
@@ -736,4 +764,5 @@ namespace COLLADASaxFWL
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
+
 } // namespace COLLADASaxFWL

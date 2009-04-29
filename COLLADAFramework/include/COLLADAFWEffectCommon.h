@@ -14,14 +14,14 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWColorOrTexture.h"
 #include "COLLADAFWPointerArray.h"
-
 #include "COLLADAFWSampler.h"
+#include "COLLADAFWFloatOrParam.h"
 
 
 namespace COLLADAFW
 {
 	/** Once we implement referencing of floats, this might become a class.*/
-	typedef double FloatOrParam;
+//	typedef double FloatOrParam;
 
 
     /** An effect defined as in the COLLADA common profile.  */
@@ -294,8 +294,6 @@ namespace COLLADAFW
 		Phong
 		*/
 		void setShininess ( const FloatOrParam& Shininess ) { mShininess = Shininess; }
-
-
 
 		/** Declares the color of a perfect mirror reflection. 
 		Used by the following shaders:

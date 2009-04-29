@@ -606,6 +606,9 @@ namespace COLLADASaxFWL
 						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
 						physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_COLOR);
 						break;
+                    case COLLADAFW::AnimationList::FLOAT:
+                        physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
+                        break;
 					}
 				}
 

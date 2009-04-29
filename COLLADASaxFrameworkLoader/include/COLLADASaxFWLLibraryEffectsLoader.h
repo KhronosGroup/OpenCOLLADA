@@ -55,8 +55,8 @@ namespace COLLADASaxFWL
 			SHADER_PARAMETER_REFLECTIVE,
 			SHADER_PARAMETER_REFLECTIVITY,
 			SHADER_PARAMETER_TRANSPARENT,
-			SHADER_PARAMETER_TRANSPARANCY,
-			SHADER_PARAMETER_INDEX_OF_REFRECTION,
+			SHADER_PARAMETER_TRANSPARENCY,
+			SHADER_PARAMETER_INDEX_OF_REFRACTION,
 			UNKNOWN_SHADER_TYPE
 		};
 
@@ -280,19 +280,18 @@ namespace COLLADASaxFWL
 		/** Stores color data into the correct color object.*/
 		virtual bool data__common_color_or_texture_type____color( const float* data, size_t length );
 
+        /** Sets the shader parameter type.*/
+        virtual bool begin__common_float_or_param_type____float( const common_float_or_param_type____float__AttributeData& attributeData );
+        /** Resets the shader parameter type.*/
+        virtual bool end__common_float_or_param_type____float();
+        /** Stores float data into the correct float object.*/
+        virtual bool data__common_float_or_param_type____float( float value );
+
 
 		/** Stores texture data into the correct texture object.*/
 		virtual bool begin__texture( const texture__AttributeData& attributeData );
 		/** We don't need to do anything here.*/
 		virtual bool end__texture(){SaxVirtualFunctionTest(end__texture()); return true;}
-
-
-		/** We don't need to do anything here.*/
-		virtual bool begin__common_float_or_param_type____float( const common_float_or_param_type____float__AttributeData& attributeData ){return true;}
-		/** We don't need to do anything here.*/
-		virtual bool end__common_float_or_param_type____float(){SaxVirtualFunctionTest(end__common_float_or_param_type____float()); return true;}
-		/** Set the value in the effect.*/
-		virtual bool data__common_float_or_param_type____float( float value );
 
 		/** Finishes loading a library effects.*/
 		virtual bool end__library_effects();

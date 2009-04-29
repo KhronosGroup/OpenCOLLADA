@@ -166,7 +166,7 @@ namespace COLLADASaxFWL
         void setInitialIndex ( size_t InitialIndex ) { mInitialIndex = InitialIndex; }
 
 		/** Appends an accessor parameter to the source's  accessor.*/
-		void appandAccessorParameter( const AccessorParameter& parameter ) { mAccessor.push_back( parameter ); }
+		void appendAccessorParameter( const AccessorParameter& parameter ) { mAccessor.push_back( parameter ); }
 
 		/** Returns the accessor.*/
 		const Accessor& getAccessor() const { return mAccessor; }

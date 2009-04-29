@@ -168,6 +168,9 @@ namespace COLLADAMaya
         {
             sceneElement->setType ( SceneElement::TRANSFORM );
 
+            // Taken out of unvisible transforms. 
+            if ( !ExportOptions::exportInvisibleNodes () && !isVisible ) return false;
+
             // Export the scene graph node for all transform-derivatives
             if ( dagPath.hasFn ( MFn::kJoint ) )
             {
@@ -194,9 +197,8 @@ namespace COLLADAMaya
             }
             else
             {
-                // Taken out of VisitTransform.  If VisitTransform
-                // returns without creating a child, then we -will- fail.
-                if ( !isForced && !isVisible && !isLocal ) return false;
+                // Just local export
+                if ( !isForced && !isLocal ) return false;
 
                 if ( animationExport )
                 {
@@ -294,7 +296,7 @@ namespace COLLADAMaya
         default: break;
         }
 
-        // Check if the element isn't already exported
+        // Check if the element is a local element and isn't already exported.
         if ( isLocal && !hasPreviousInstance )
         {
             // Recursive call for all the child elements

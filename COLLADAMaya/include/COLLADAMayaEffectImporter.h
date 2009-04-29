@@ -301,6 +301,7 @@ namespace COLLADAMaya
         */
         void importBlinnShaderAttributes ( 
             MayaDM::Blinn* shaderNode, 
+            const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect );
 
         /**
@@ -308,6 +309,7 @@ namespace COLLADAMaya
         */
         void importPhongShaderAttributes ( 
             MayaDM::Phong* shaderNode, 
+            const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect );
 
         /**

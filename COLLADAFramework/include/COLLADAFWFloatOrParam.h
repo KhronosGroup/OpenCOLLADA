@@ -12,6 +12,8 @@
 #define __COLLADAFW_FLOATORPARAM_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include "COLLADAFWAnimatable.h"
+#include "COLLADAFWParam.h"
 
 
 namespace COLLADAFW
@@ -29,7 +31,7 @@ namespace COLLADAFW
     Note: Exactly one of the child elements <float> or <param> must appear. 
     They are mutually exclusive.
     */
-	class FloatOrParam 	
+	class FloatOrParam : public Animatable
     {
     public:
 
@@ -37,15 +39,12 @@ namespace COLLADAFW
         {
             FLOAT,
             PARAM
-        }
+        };
 
 	private:
 	
         /** The type of the current element. */
         Type mType;
-
-        /** The sid attribute is optional. */
-        String mSid;
 
         /** The value is represented by a literal floating-point scalar, for example:
         <float> 3.14 </float>. The sid attribute is optional. */
@@ -58,16 +57,16 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-        FloatOrParam ( const float val, const String sid="" ) 
+        FloatOrParam ( const float val ) 
             : mFloatValue ( val )
             , mType ( FLOAT ) 
-            , mSid ( sid )
         {};
 
         /** Constructor. */
         FloatOrParam ( const Param& param ) 
             : mParam ( param )
             , mType ( PARAM ) 
+            , mFloatValue ( -1 )
         {};
 
         /** Destructor. */
@@ -75,6 +74,7 @@ namespace COLLADAFW
 
         /** The type of the current element. */
         const COLLADAFW::FloatOrParam::Type& getType () const { return mType; }
+        void setType ( const COLLADAFW::FloatOrParam::Type& val ) { mType = val; }
 
         /** The value is represented by a literal floating-point scalar, for example:
         <float> 3.14 </float>. The sid attribute is optional. */
@@ -85,14 +85,6 @@ namespace COLLADAFW
         directly cast to a floatingpoint scalar. See main entry. */
         const COLLADAFW::Param& getParam () const { return mParam; }
         void setParam ( const COLLADAFW::Param& val ) { mParam = val; }
-
-	private:
-
-        /** Disable default copy ctor. */
-		FloatOrParam( const FloatOrParam& pre );
-
-        /** Disable default assignment operator. */
-		const FloatOrParam& operator= ( const FloatOrParam& pre );
 
 	};
 

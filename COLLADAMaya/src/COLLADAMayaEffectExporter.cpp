@@ -390,7 +390,7 @@ namespace COLLADAMaya
             effectProfile->setReflectivity ( reflectFn.reflectivity(), animated );
         }
 
-        // index of refraction
+        // Index of refraction
         bool refractive;
         DagHelper::getPlugValue ( shader, ATTR_REFRACTIONS, refractive );
         if ( refractive )

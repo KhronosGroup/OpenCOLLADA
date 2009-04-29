@@ -190,7 +190,7 @@ namespace COLLADAMaya
         importStandardShaderAttributes ( blinn, effect );
         importLambertShaderAttributes ( SHADER_BLINN, blinn, effect, commonEffect );
         importReflectShaderAttributes ( SHADER_BLINN, blinn, effect, commonEffect );
-        importBlinnShaderAttributes ( blinn, commonEffect );
+        importBlinnShaderAttributes ( blinn, effect, commonEffect );
 
         // Push it into the map.
         const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
@@ -219,7 +219,7 @@ namespace COLLADAMaya
         importStandardShaderAttributes ( phong, effect );
         importLambertShaderAttributes ( SHADER_PHONG, phong, effect, commonEffect );
         importReflectShaderAttributes ( SHADER_PHONG, phong, effect, commonEffect );
-        importPhongShaderAttributes ( phong, commonEffect );
+        importPhongShaderAttributes ( phong, effect, commonEffect );
 
         // Push it into the map.
         const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
@@ -391,14 +391,28 @@ namespace COLLADAMaya
         }
 
         // Index of refraction 
-        const COLLADAFW::FloatOrParam& indexOfRefraction = commonEffect->getIndexOfRefraction ();
-        if ( indexOfRefraction > 0 ) shaderNode->setRefractiveIndex ( indexOfRefraction );
-//         if ( indexOfRefraction.getType () == COLLADAFW::FloatOrParam::FLOAT )
-//         {
-//             float val = indexOfRefraction.getFloatValue (); 
-//             if ( val > 0 ) shaderNode->setRefractiveIndex ( val );
-//         }
-        // TODO Animation import
+        const COLLADAFW::FloatOrParam& indexOfRefractionFOP = commonEffect->getIndexOfRefraction ();
+        if ( indexOfRefractionFOP.getType () == COLLADAFW::FloatOrParam::FLOAT )
+        {
+            float indexOfRefraction = indexOfRefractionFOP.getFloatValue (); 
+            if ( indexOfRefraction > 0 )
+            {
+                shaderNode->setRefractions ( true );
+                shaderNode->setRefractiveIndex ( indexOfRefraction );
+
+                // Push the animation id in a map, if it exist.
+                const COLLADAFW::UniqueId& animationListId = indexOfRefractionFOP.getAnimationList ();
+                if ( animationListId.isValid () )
+                {
+                    EffectAnimation effectAnimation;
+                    effectAnimation.setAnimationListId ( animationListId );
+                    effectAnimation.setEffectId ( effect->getUniqueId () );
+                    effectAnimation.setAnimatedValueType ( EffectAnimation::FLOAT_OR_PARAM_REFRACTIVE_INDEX );
+
+                    mEffectAnimationMap [animationListId] = effectAnimation;
+                }
+            }
+        }
 
         // Opaque color
         const COLLADAFW::ColorOrTexture& opaque = commonEffect->getOpacity();
@@ -439,33 +453,63 @@ namespace COLLADAMaya
     // --------------------------
     void EffectImporter::importBlinnShaderAttributes ( 
         MayaDM::Blinn* shaderNode, 
+        const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
         // Shininess
-        const COLLADAFW::FloatOrParam& shininess = commonEffect->getShininess ();
-        if ( shininess > 0 ) shaderNode->setEccentricity ( shininess );
-//         if ( shininess.getType () == COLLADAFW::FloatOrParam::FLOAT )
-//         {
-//             float val = shininess.getFloatValue (); 
-//             if ( val > 0 ) shaderNode->setEccentricity ( val );
-//         }
-        // TODO Animation import
+        const COLLADAFW::FloatOrParam& shininessFoP = commonEffect->getShininess ();
+        if ( shininessFoP.getType () == COLLADAFW::FloatOrParam::FLOAT )
+        {
+            float shininess = shininessFoP.getFloatValue (); 
+            if ( shininess > 0 ) 
+            {
+                // Set the shininess to the blinn's eccentricity.
+                shaderNode->setEccentricity ( shininess );
+
+                // Push the animation id in a map, if it exist.
+                const COLLADAFW::UniqueId& animationListId = shininessFoP.getAnimationList ();
+                if ( animationListId.isValid () )
+                {
+                    EffectAnimation effectAnimation;
+                    effectAnimation.setAnimationListId ( animationListId );
+                    effectAnimation.setEffectId ( effect->getUniqueId () );
+                    effectAnimation.setAnimatedValueType ( EffectAnimation::FLOAT_OR_PARAM_ECCENTRICITY );
+
+                    mEffectAnimationMap [animationListId] = effectAnimation;
+                }
+            }
+        }
     }
 
     // --------------------------
     void EffectImporter::importPhongShaderAttributes ( 
         MayaDM::Phong* shaderNode, 
+        const COLLADAFW::Effect* effect, 
         const COLLADAFW::EffectCommon* commonEffect )
     {
         // Shininess
-        const COLLADAFW::FloatOrParam& shininess = commonEffect->getShininess ();
-        if ( shininess > 0 ) shaderNode->setCosinePower ( shininess );
-//         if ( shininess.getType () == COLLADAFW::FloatOrParam::FLOAT )
-//         {
-//             float val = shininess.getFloatValue (); 
-//             if ( val > 0 ) shaderNode->setCosinePower ( val );
-//         }
-        // TODO Animation import
+        const COLLADAFW::FloatOrParam& shininessFoP = commonEffect->getShininess ();
+        if ( shininessFoP.getType () == COLLADAFW::FloatOrParam::FLOAT )
+        {
+            float shininess = shininessFoP.getFloatValue (); 
+            if ( shininess > 0 ) 
+            {
+                // Set the shininess to the phong's cosine power.
+                shaderNode->setCosinePower ( shininess );
+
+                // Push the animation id in a map, if it exist.
+                const COLLADAFW::UniqueId& animationListId = shininessFoP.getAnimationList ();
+                if ( animationListId.isValid () )
+                {
+                    EffectAnimation effectAnimation;
+                    effectAnimation.setAnimationListId ( animationListId );
+                    effectAnimation.setEffectId ( effect->getUniqueId () );
+                    effectAnimation.setAnimatedValueType ( EffectAnimation::FLOAT_OR_PARAM_COSINE_POWER );
+
+                    mEffectAnimationMap [animationListId] = effectAnimation;
+                }
+            }
+        }
     }
 
     // --------------------------
@@ -509,28 +553,36 @@ namespace COLLADAMaya
         }
 
         // Reflectivity
-        const COLLADAFW::FloatOrParam& reflectivity = commonEffect->getReflectivity ();
-        if ( reflectivity > 0 ) shaderNode->setReflectivity ( reflectivity );
-//         if ( reflectivity.getType () == COLLADAFW::FloatOrParam::FLOAT )
-//         {
-//             float val = reflectivity.getFloatValue (); 
-//             if ( val > 0 ) shaderNode->setReflectivity ( val );
-//         }
-        // TODO Animation import
+        const COLLADAFW::FloatOrParam& reflectivityFoP = commonEffect->getReflectivity ();
+        if ( reflectivityFoP.getType () == COLLADAFW::FloatOrParam::FLOAT )
+        {
+            float reflectivity = reflectivityFoP.getFloatValue (); 
+            if ( reflectivity > 0 ) 
+            {
+                shaderNode->setReflectivity ( reflectivity );
 
-        // TODO
-//         const COLLADAFW::FloatOrParam::Type& type = reflectivity.getType ();
-//         switch ( type )
-//         {
-//         case COLLADAFW::FloatOrParam::FLOAT:
-//             break;
-//         case COLLADAFW::FloatOrParam::PARAM:
-//             break;
-//         default:
-//             MGlobal::displayError ( "Unknown param type!" );
-//             std::cerr << "Unknown param type!" << endl;
-//             break;
-//         }
+                // Push the animation id in a map, if it exist.
+                const COLLADAFW::UniqueId& animationListId = reflectivityFoP.getAnimationList ();
+                if ( animationListId.isValid () )
+                {
+                    EffectAnimation effectAnimation;
+                    effectAnimation.setAnimationListId ( animationListId );
+                    effectAnimation.setEffectId ( effect->getUniqueId () );
+                    effectAnimation.setAnimatedValueType ( EffectAnimation::FLOAT_OR_PARAM_REFLECTIVITY );
+
+                    mEffectAnimationMap [animationListId] = effectAnimation;
+                }
+            }
+        }
+        else if ( reflectivityFoP.getType () == COLLADAFW::FloatOrParam::PARAM )
+        {
+            // TODO
+        }
+        else 
+        {
+            MGlobal::displayError ( "Unknown param type!" );
+            std::cerr << "Unknown param type!" << endl;
+        }
 
         // Specular
         const COLLADAFW::ColorOrTexture& specular = commonEffect->getSpecular ();

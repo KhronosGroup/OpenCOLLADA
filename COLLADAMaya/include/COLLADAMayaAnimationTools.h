@@ -30,7 +30,7 @@ namespace COLLADAMaya
         kSingle = 0x01,
         // Vector value: X, Y, Z
         kVector = 0x02,
-        // Color value: R, G, B
+        // Color value: R, G, B, A
         kColour = 0x03,
         // Matrix
         kMatrix = 0x04,

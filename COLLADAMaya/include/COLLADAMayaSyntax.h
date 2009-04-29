@@ -303,6 +303,10 @@ namespace COLLADAMaya
     static const char* CAMERA_TOP                                   = "top";
     static const char* CAMERA_SIDE                                  = "side";
     static const char* CAMERA_FRONT                                 = "front";
+    static const char* CAMERA_PERSP_SHAPE                           = "perspShape";
+    static const char* CAMERA_TOP_SHAPE                             = "topShape";
+    static const char* CAMERA_SIDE_SHAPE                            = "sideShape";
+    static const char* CAMERA_FRONT_SHAPE                           = "frontShape";
 
     /** Constants for the physical scenes. */
     static const char* NIMA_INTERNAL_PHYSIKS                        = "nimaInternalPhysics";

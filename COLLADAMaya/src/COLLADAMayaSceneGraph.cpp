@@ -375,10 +375,8 @@ namespace COLLADAMaya
             else if ( !isVisible && !ExportOptions::exportDefaultCameras() )
             {
                 // Check for the default camera transform names.
-                if ( nodeName == CAMERA_PERSP ||
-                        nodeName == CAMERA_TOP ||
-                        nodeName == CAMERA_SIDE ||
-                        nodeName == CAMERA_FRONT )
+                if ( nodeName == CAMERA_PERSP || nodeName == CAMERA_TOP || nodeName == CAMERA_SIDE || nodeName == CAMERA_FRONT ||
+                     nodeName == CAMERA_PERSP_SHAPE || nodeName == CAMERA_TOP_SHAPE || nodeName == CAMERA_SIDE_SHAPE || nodeName == CAMERA_FRONT_SHAPE )
                     return false;
             }
         }

@@ -189,7 +189,7 @@ namespace COLLADASaxFWL
 
 			// the type is required. We don't need to check
 			accessorParameter.type = attributeData.type;
-			mCurrentSoure->appandAccessorParameter( accessorParameter );
+			mCurrentSoure->appendAccessorParameter( accessorParameter );
 		}
 		return true;
 	}
