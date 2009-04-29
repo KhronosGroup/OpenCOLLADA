@@ -60,7 +60,7 @@ public:
 	}
 	void appendWeightList(const WeightList& wl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		wl.write(mFile);
 	}
 	void endWeightList()const

@@ -91,7 +91,7 @@ public:
 	}
 	void appendVertexColor(const ColorPerVertex::VertexColor& vclr)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vclr.write(mFile);
 	}
 	void endVertexColor()const
@@ -148,7 +148,7 @@ public:
 	}
 	void appendVertexFaceColor(const ColorPerVertex::VertexColor::VertexFaceColor& vfcl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vfcl.write(mFile);
 	}
 	void endVertexFaceColor()const

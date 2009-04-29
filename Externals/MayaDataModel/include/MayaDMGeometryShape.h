@@ -169,7 +169,7 @@ public:
 	}
 	void appendCompInstObjGroups(const CompInstObjGroups& ciog)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ciog.write(mFile);
 	}
 	void endCompInstObjGroups()const
@@ -200,7 +200,7 @@ public:
 	}
 	void appendCompObjectGroups(const CompInstObjGroups::CompObjectGroups& cog)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cog.write(mFile);
 	}
 	void endCompObjectGroups()const

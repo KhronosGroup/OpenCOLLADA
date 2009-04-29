@@ -61,7 +61,7 @@ public:
 	}
 	void appendHyperPosition(const HyperPosition& hyp)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		hyp.write(mFile);
 	}
 	void endHyperPosition()const

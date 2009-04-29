@@ -219,7 +219,7 @@ public:
 	}
 	void appendCurvatureWidth(const CurvatureWidth& cwd)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cwd.write(mFile);
 	}
 	void endCurvatureWidth()const

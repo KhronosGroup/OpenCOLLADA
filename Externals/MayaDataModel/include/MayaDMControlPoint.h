@@ -149,7 +149,7 @@ public:
 	}
 	void appendUvSet(const UvSet& uvst)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		uvst.write(mFile);
 	}
 	void endUvSet()const
@@ -257,7 +257,7 @@ public:
 	}
 	void appendColorSet(const ColorSet& clst)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		clst.write(mFile);
 	}
 	void endColorSet()const
@@ -305,7 +305,7 @@ public:
 	}
 	void appendColorSetPoints(const ColorSet::ColorSetPoints& clsp)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		clsp.write(mFile);
 	}
     void appendColorSetPoints(float clsp)

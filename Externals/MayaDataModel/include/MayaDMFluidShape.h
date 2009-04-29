@@ -346,7 +346,7 @@ public:
 	}
 	void appendFieldList(const FieldList& fll)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		fll.write(mFile);
 	}
 	void endFieldList()const
@@ -383,7 +383,7 @@ public:
 	}
 	void appendFieldFunction_Inmap(const FieldList::FieldFunction::FieldFunction_Inmap& frfi)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		frfi.write(mFile);
 	}
 	void endFieldFunction_Inmap()const
@@ -424,7 +424,7 @@ public:
 	}
 	void appendFieldFunction_Outmap(const FieldList::FieldFunction::FieldFunction_Outmap& frfo)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		frfo.write(mFile);
 	}
 	void endFieldFunction_Outmap()const
@@ -503,7 +503,7 @@ public:
 	}
 	void appendEmissionList(const EmissionList& eml)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		eml.write(mFile);
 	}
 	void endEmissionList()const
@@ -540,7 +540,7 @@ public:
 	}
 	void appendEmissionFunction_Inmap(const EmissionList::EmissionFunction::EmissionFunction_Inmap& emfi)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		emfi.write(mFile);
 	}
 	void endEmissionFunction_Inmap()const
@@ -581,7 +581,7 @@ public:
 	}
 	void appendEmissionFunction_Outmap(const EmissionList::EmissionFunction::EmissionFunction_Outmap& emfo)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		emfo.write(mFile);
 	}
 	void endEmissionFunction_Outmap()const
@@ -1032,7 +1032,7 @@ public:
 	}
 	void appendInputData(const InputData& ind)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ind.write(mFile);
 	}
 	void endInputData()const
@@ -1114,7 +1114,7 @@ public:
 	}
 	void appendColor(const Color& cl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cl.write(mFile);
 	}
 	void endColor()const
@@ -1186,7 +1186,7 @@ public:
 	}
 	void appendOpacity(const Opacity& opa)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		opa.write(mFile);
 	}
 	void endOpacity()const
@@ -1268,7 +1268,7 @@ public:
 	}
 	void appendIncandescence(const Incandescence& i)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		i.write(mFile);
 	}
 	void endIncandescence()const
@@ -1371,7 +1371,7 @@ public:
 	}
 	void appendEnvironment(const Environment& env)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		env.write(mFile);
 	}
 	void endEnvironment()const

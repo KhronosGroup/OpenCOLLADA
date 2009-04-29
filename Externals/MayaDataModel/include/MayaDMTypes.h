@@ -1398,6 +1398,7 @@ struct polyFaces
 	{
 		if(f.faceEdgeCount)
 		{
+            fprintf(file, "\n");
 			f.write(file);			
 		}
 		if(h.holeEdgeCount)

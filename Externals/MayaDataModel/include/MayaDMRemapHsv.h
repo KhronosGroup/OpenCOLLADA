@@ -122,7 +122,7 @@ public:
 	}
 	void appendHue(const Hue& h)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		h.write(mFile);
 	}
 	void endHue()const
@@ -168,7 +168,7 @@ public:
 	}
 	void appendSaturation(const Saturation& s)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		s.write(mFile);
 	}
 	void endSaturation()const
@@ -214,7 +214,7 @@ public:
 	}
 	void appendValue(const Value& v)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		v.write(mFile);
 	}
 	void endValue()const

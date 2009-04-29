@@ -122,7 +122,7 @@ public:
 	}
 	void appendRed(const Red& r)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		r.write(mFile);
 	}
 	void endRed()const
@@ -168,7 +168,7 @@ public:
 	}
 	void appendGreen(const Green& g)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		g.write(mFile);
 	}
 	void endGreen()const
@@ -214,7 +214,7 @@ public:
 	}
 	void appendBlue(const Blue& b)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		b.write(mFile);
 	}
 	void endBlue()const

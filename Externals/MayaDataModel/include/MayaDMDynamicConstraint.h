@@ -115,7 +115,7 @@ public:
 	}
 	void appendConnectionDensityRange(const ConnectionDensityRange& cdnr)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cdnr.write(mFile);
 	}
 	void endConnectionDensityRange()const
@@ -236,7 +236,7 @@ public:
 	}
 	void appendStrengthDropoff(const StrengthDropoff& sdp)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		sdp.write(mFile);
 	}
 	void endStrengthDropoff()const

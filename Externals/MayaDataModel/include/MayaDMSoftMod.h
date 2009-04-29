@@ -87,7 +87,7 @@ public:
 	}
 	void appendGeomMatrix(const matrix& gm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		gm.write(mFile);
 	}
 	void endGeomMatrix()const
@@ -132,7 +132,7 @@ public:
 	}
 	void appendFalloffCurve(const FalloffCurve& fc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		fc.write(mFile);
 	}
 	void endFalloffCurve()const

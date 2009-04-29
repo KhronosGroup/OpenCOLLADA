@@ -100,7 +100,7 @@ public:
 	}
 	void appendInputData(const InputData& ind)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ind.write(mFile);
 	}
 	void endInputData()const
@@ -198,7 +198,7 @@ public:
 	}
 	void appendFalloffCurve(const FalloffCurve& fc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		fc.write(mFile);
 	}
 	void endFalloffCurve()const

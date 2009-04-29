@@ -65,7 +65,7 @@ public:
 	}
 	void appendColorScale(const ColorScale& cls)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cls.write(mFile);
 	}
 	void endColorScale()const

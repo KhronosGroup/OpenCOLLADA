@@ -55,7 +55,7 @@ public:
 	}
 	void appendInput(const Input& ip)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ip.write(mFile);
 	}
 	void endInput()const

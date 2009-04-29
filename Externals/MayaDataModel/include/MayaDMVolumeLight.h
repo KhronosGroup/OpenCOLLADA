@@ -91,7 +91,7 @@ public:
 	}
 	void appendColorRange(const ColorRange& crg)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		crg.write(mFile);
 	}
 	void endColorRange()const
@@ -153,7 +153,7 @@ public:
 	}
 	void appendPenumbra(const Penumbra& pen)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		pen.write(mFile);
 	}
 	void endPenumbra()const

@@ -172,7 +172,7 @@ public:
 	}
 	void appendObjectWorldMatrix(const matrix& owmx)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		owmx.write(mFile);
 	}
 	void endObjectWorldMatrix()const

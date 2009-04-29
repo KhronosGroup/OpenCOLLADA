@@ -57,7 +57,7 @@ public:
 	}
 	void appendKeyTimeValue(const KeyTimeValue& ktv)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ktv.write(mFile);
 	}
 	void endKeyTimeValue()const

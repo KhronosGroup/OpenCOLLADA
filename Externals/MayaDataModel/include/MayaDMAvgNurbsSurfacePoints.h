@@ -71,7 +71,7 @@ public:
 	}
 	void appendSurfacePoint(const SurfacePoint& sp)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		sp.write(mFile);
 	}
 	void endSurfacePoint()const

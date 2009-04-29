@@ -49,7 +49,7 @@ public:
 	}
 	void appendUvSets(const string& uvs)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		uvs.write(mFile);
 	}
 	void endUvSets()const

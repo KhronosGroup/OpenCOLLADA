@@ -49,7 +49,7 @@ public:
 	}
 	void appendMemberIndex(const intArray& mi)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		mi.write(mFile);
 	}
 	void endMemberIndex()const

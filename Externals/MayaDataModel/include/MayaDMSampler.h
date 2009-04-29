@@ -113,7 +113,7 @@ public:
 	}
 	void appendFunction_Inmap(const Function::Function_Inmap& fi)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		fi.write(mFile);
 	}
 	void endFunction_Inmap()const
@@ -154,7 +154,7 @@ public:
 	}
 	void appendFunction_Outmap(const Function::Function_Outmap& fo)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		fo.write(mFile);
 	}
 	void endFunction_Outmap()const

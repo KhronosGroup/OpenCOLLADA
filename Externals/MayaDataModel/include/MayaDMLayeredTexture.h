@@ -62,7 +62,7 @@ public:
 	}
 	void appendInputs(const Inputs& cs)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cs.write(mFile);
 	}
 	void endInputs()const

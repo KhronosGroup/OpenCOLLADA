@@ -60,7 +60,7 @@ public:
 	}
 	void appendWeightList(const WeightList& wl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		wl.write(mFile);
 	}
 	void endWeightList()const
@@ -120,7 +120,7 @@ public:
 	}
 	void appendBindPreMatrix(const matrix& pm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		pm.write(mFile);
 	}
 	void endBindPreMatrix()const
@@ -159,7 +159,7 @@ public:
 	}
 	void appendMatrix(const matrix& ma)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ma.write(mFile);
 	}
 	void endMatrix()const

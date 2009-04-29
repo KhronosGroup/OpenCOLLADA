@@ -90,7 +90,7 @@ public:
 	}
 	void appendClipEvaluate_Inmap(const ClipEvaluate::ClipEvaluate_Inmap& cei)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cei.write(mFile);
 	}
 	void endClipEvaluate_Inmap()const
@@ -131,7 +131,7 @@ public:
 	}
 	void appendClipEvaluate_Outmap(const ClipEvaluate::ClipEvaluate_Outmap& ceo)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ceo.write(mFile);
 	}
 	void endClipEvaluate_Outmap()const

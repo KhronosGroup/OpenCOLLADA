@@ -73,7 +73,7 @@ public:
 	}
 	void appendInCache(const InCache& ic)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ic.write(mFile);
 	}
 	void endInCache()const
@@ -105,7 +105,7 @@ public:
 	}
 	void appendPerPtWeights(const doubleArray& ppw)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ppw.write(mFile);
 	}
 	void endPerPtWeights()const
@@ -141,7 +141,7 @@ public:
 	}
 	void appendCacheData(const CacheData& cd)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cd.write(mFile);
 	}
 	void endCacheData()const

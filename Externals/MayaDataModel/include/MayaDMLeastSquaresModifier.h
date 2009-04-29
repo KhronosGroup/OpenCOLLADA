@@ -91,7 +91,7 @@ public:
 	}
 	void appendPointConstraint(const AttributeCollection::PointConstraint& pc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		pc.write(mFile);
 	}
 	void endPointConstraint()const

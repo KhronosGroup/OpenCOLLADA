@@ -150,7 +150,7 @@ public:
 	}
 	void appendInstObjGroups(const InstObjGroups& iog)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		iog.write(mFile);
 	}
 	void endInstObjGroups()const
@@ -181,7 +181,7 @@ public:
 	}
 	void appendObjectGroups(const InstObjGroups::ObjectGroups& og)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		og.write(mFile);
 	}
 	void endObjectGroups()const
@@ -310,7 +310,7 @@ public:
 	}
 	void appendRenderLayerInfo(const RenderLayerInfo& rlio)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		rlio.write(mFile);
 	}
 	void endRenderLayerInfo()const

@@ -102,7 +102,7 @@ public:
 	}
 	void appendClipEvalList(const ClipEvalList& cel)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cel.write(mFile);
 	}
 	void endClipEvalList()const
@@ -133,7 +133,7 @@ public:
 	}
 	void appendClipEval(const ClipEvalList::ClipEval& cev)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cev.write(mFile);
 	}
 	void endClipEval()const
@@ -164,7 +164,7 @@ public:
 	}
 	void appendClipEval_Inmap(const ClipEvalList::ClipEval::ClipEval_Inmap& cevi)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cevi.write(mFile);
 	}
 	void endClipEval_Inmap()const
@@ -205,7 +205,7 @@ public:
 	}
 	void appendClipEval_Outmap(const ClipEvalList::ClipEval::ClipEval_Outmap& cevo)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cevo.write(mFile);
 	}
 	void endClipEval_Outmap()const
@@ -246,7 +246,7 @@ public:
 	}
 	void appendCharacterdata(const Characterdata& cd)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cd.write(mFile);
 	}
 	void endCharacterdata()const

@@ -163,7 +163,7 @@ public:
 	}
 	void appendCollisionOffsetVelocityIncrement(const CollisionOffsetVelocityIncrement& covi)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		covi.write(mFile);
 	}
 	void endCollisionOffsetVelocityIncrement()const
@@ -209,7 +209,7 @@ public:
 	}
 	void appendCollisionDepthVelocityIncrement(const CollisionDepthVelocityIncrement& cdvi)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cdvi.write(mFile);
 	}
 	void endCollisionDepthVelocityIncrement()const
@@ -255,7 +255,7 @@ public:
 	}
 	void appendCollisionOffsetVelocityMultiplier(const CollisionOffsetVelocityMultiplier& covm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		covm.write(mFile);
 	}
 	void endCollisionOffsetVelocityMultiplier()const
@@ -301,7 +301,7 @@ public:
 	}
 	void appendCollisionDepthVelocityMultiplier(const CollisionDepthVelocityMultiplier& cdvm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cdvm.write(mFile);
 	}
 	void endCollisionDepthVelocityMultiplier()const

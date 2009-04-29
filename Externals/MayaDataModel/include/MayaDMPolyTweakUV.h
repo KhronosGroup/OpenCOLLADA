@@ -101,7 +101,7 @@ public:
 	}
 	void appendNewUV(const NewUV& nuv)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		nuv.write(mFile);
 	}
 	void endNewUV()const

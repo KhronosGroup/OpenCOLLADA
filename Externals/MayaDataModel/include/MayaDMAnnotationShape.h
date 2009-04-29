@@ -56,7 +56,7 @@ public:
 	}
 	void appendDagObjectMatrix(const matrix& dom)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		dom.write(mFile);
 	}
 	void endDagObjectMatrix()const

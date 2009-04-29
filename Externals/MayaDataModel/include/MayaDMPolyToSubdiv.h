@@ -91,7 +91,7 @@ public:
 	}
 	void appendCachedUVs(const CachedUVs& cuv)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cuv.write(mFile);
 	}
 	void endCachedUVs()const

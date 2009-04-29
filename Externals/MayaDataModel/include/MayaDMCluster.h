@@ -76,7 +76,7 @@ public:
 	}
 	void appendGeomMatrix(const matrix& gm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		gm.write(mFile);
 	}
 	void endGeomMatrix()const

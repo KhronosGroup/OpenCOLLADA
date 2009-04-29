@@ -87,7 +87,7 @@ public:
 	}
 	void appendBlindDataPresets(const BlindDataPresets& bdps)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		bdps.write(mFile);
 	}
 	void endBlindDataPresets()const
@@ -125,7 +125,7 @@ public:
 	}
 	void appendBdPresetElements(const BlindDataPresets::BdPresetElements& bdpe)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		bdpe.write(mFile);
 	}
 	void endBdPresetElements()const
@@ -170,7 +170,7 @@ public:
 	}
 	void appendBdUserInfo(const BdUserInfo& bdui)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		bdui.write(mFile);
 	}
 	void endBdUserInfo()const

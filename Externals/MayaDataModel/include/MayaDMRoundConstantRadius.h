@@ -85,7 +85,7 @@ public:
 	}
 	void appendInputSurface(const nurbsSurface& is)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		is.write(mFile);
 	}
 	void endInputSurface()const
@@ -144,7 +144,7 @@ public:
 	}
 	void appendEdge(const Edge& e)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		e.write(mFile);
 	}
 	void endEdge()const
@@ -175,7 +175,7 @@ public:
 	}
 	void appendInputCurveA(const nurbsCurve& ica)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ica.write(mFile);
 	}
 	void endInputCurveA()const
@@ -206,7 +206,7 @@ public:
 	}
 	void appendInputCurveB(const nurbsCurve& icb)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		icb.write(mFile);
 	}
 	void endInputCurveB()const

@@ -49,7 +49,7 @@ public:
 	}
 	void appendWorldMatrix(const matrix& wm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		wm.write(mFile);
 	}
 	void endWorldMatrix()const
@@ -81,7 +81,7 @@ public:
 	}
 	void appendXformMatrix(const matrix& xm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		xm.write(mFile);
 	}
 	void endXformMatrix()const

@@ -241,7 +241,7 @@ public:
 	}
 	void appendDeformedWire(const nurbsCurve& dw)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		dw.write(mFile);
 	}
 	void endDeformedWire()const
@@ -272,7 +272,7 @@ public:
 	}
 	void appendBaseWire(const nurbsCurve& bw)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		bw.write(mFile);
 	}
 	void endBaseWire()const

@@ -118,7 +118,7 @@ public:
 	}
 	void appendStuCacheList(const StuCacheList& scl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		scl.write(mFile);
 	}
 	void endStuCacheList()const

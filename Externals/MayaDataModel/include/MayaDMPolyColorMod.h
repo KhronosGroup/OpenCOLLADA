@@ -110,7 +110,7 @@ public:
 	}
 	void appendRedScale(const RedScale& r)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		r.write(mFile);
 	}
 	void endRedScale()const
@@ -156,7 +156,7 @@ public:
 	}
 	void appendGreenScale(const GreenScale& g)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		g.write(mFile);
 	}
 	void endGreenScale()const
@@ -202,7 +202,7 @@ public:
 	}
 	void appendBlueScale(const BlueScale& b)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		b.write(mFile);
 	}
 	void endBlueScale()const
@@ -248,7 +248,7 @@ public:
 	}
 	void appendAlphaScale(const AlphaScale& a)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		a.write(mFile);
 	}
 	void endAlphaScale()const
@@ -294,7 +294,7 @@ public:
 	}
 	void appendIntensityScale(const IntensityScale& n)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		n.write(mFile);
 	}
 	void endIntensityScale()const

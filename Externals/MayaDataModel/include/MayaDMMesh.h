@@ -491,7 +491,7 @@ public:
 	}
 	void appendColors(const Colors& clr)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		clr.write(mFile);
 	}
 	void endColors()const
@@ -586,7 +586,7 @@ public:
 	}
 	void appendFace(const polyFaces& fc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		fc.write(mFile);
 	}
 	void endFace()const
@@ -623,7 +623,7 @@ public:
 	}
 	void appendVertexColor(const ColorPerVertex::VertexColor& vclr)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vclr.write(mFile);
 	}
 	void endVertexColor()const
@@ -680,7 +680,7 @@ public:
 	}
 	void appendVertexFaceColor(const ColorPerVertex::VertexColor::VertexFaceColor& vfcl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vfcl.write(mFile);
 	}
 	void endVertexFaceColor()const
@@ -743,7 +743,7 @@ public:
 	}
 	void appendVertexNormal(const NormalPerVertex::VertexNormal& vn)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vn.write(mFile);
 	}
 	void endVertexNormal()const
@@ -795,7 +795,7 @@ public:
 	}
 	void appendVertexFaceNormal(const NormalPerVertex::VertexNormal::VertexFaceNormal& vfnl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vfnl.write(mFile);
 	}
 	void endVertexFaceNormal()const

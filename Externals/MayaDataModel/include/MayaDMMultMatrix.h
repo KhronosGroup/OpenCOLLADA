@@ -49,7 +49,7 @@ public:
 	}
 	void appendMatrixIn(const matrix& i)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		i.write(mFile);
 	}
 	void endMatrixIn()const

@@ -273,7 +273,7 @@ public:
 	}
 	void appendEnvironment(const Environment& env)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		env.write(mFile);
 	}
 	void endEnvironment()const
@@ -423,7 +423,7 @@ public:
 	}
 	void appendWaveHeight(const WaveHeight& wh)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		wh.write(mFile);
 	}
 	void endWaveHeight()const
@@ -469,7 +469,7 @@ public:
 	}
 	void appendWaveTurbulence(const WaveTurbulence& wtb)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		wtb.write(mFile);
 	}
 	void endWaveTurbulence()const
@@ -515,7 +515,7 @@ public:
 	}
 	void appendWavePeaking(const WavePeaking& wp)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		wp.write(mFile);
 	}
 	void endWavePeaking()const

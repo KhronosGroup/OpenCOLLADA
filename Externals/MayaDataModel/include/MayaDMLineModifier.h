@@ -190,7 +190,7 @@ public:
 	}
 	void appendDropoff(const Dropoff& drp)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		drp.write(mFile);
 	}
 	void endDropoff()const

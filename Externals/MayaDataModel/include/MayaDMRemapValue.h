@@ -96,7 +96,7 @@ public:
 	}
 	void appendValue(const Value& vl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vl.write(mFile);
 	}
 	void endValue()const
@@ -142,7 +142,7 @@ public:
 	}
 	void appendColor(const Color& cl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cl.write(mFile);
 	}
 	void endColor()const

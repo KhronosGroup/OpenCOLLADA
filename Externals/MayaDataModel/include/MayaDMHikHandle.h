@@ -385,7 +385,7 @@ public:
 	}
 	void appendDefaultMatrix(const matrix& dm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		dm.write(mFile);
 	}
 	void endDefaultMatrix()const
@@ -417,7 +417,7 @@ public:
 	}
 	void appendStancePoseMatrix(const matrix& sm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		sm.write(mFile);
 	}
 	void endStancePoseMatrix()const

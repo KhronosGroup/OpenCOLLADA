@@ -79,7 +79,7 @@ public:
 	}
 	void appendTaperCurve(const TaperCurve& c)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		c.write(mFile);
 	}
 	void endTaperCurve()const

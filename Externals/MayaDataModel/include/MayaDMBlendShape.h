@@ -122,7 +122,7 @@ public:
 	}
 	void appendIcon(const string& icn)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		icn.write(mFile);
 	}
 	void endIcon()const
@@ -153,7 +153,7 @@ public:
 	}
 	void appendInputTarget(const InputTarget& it)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		it.write(mFile);
 	}
 	void endInputTarget()const
@@ -184,7 +184,7 @@ public:
 	}
 	void appendInputTargetGroup(const InputTarget::InputTargetGroup& itg)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		itg.write(mFile);
 	}
 	void endInputTargetGroup()const
@@ -215,7 +215,7 @@ public:
 	}
 	void appendInputTargetItem(const InputTarget::InputTargetGroup::InputTargetItem& iti)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		iti.write(mFile);
 	}
 	void endInputTargetItem()const

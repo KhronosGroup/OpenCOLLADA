@@ -67,7 +67,7 @@ public:
 	}
 	void appendTarget(const Target& tg)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		tg.write(mFile);
 	}
 	void endTarget()const

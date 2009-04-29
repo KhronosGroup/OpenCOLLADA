@@ -77,7 +77,7 @@ public:
 	}
 	void appendPlist(const Plist& pl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		pl.write(mFile);
 	}
 	void endPlist()const
@@ -152,7 +152,7 @@ public:
 	}
 	void appendVlist(const Vlist& vl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vl.write(mFile);
 	}
 	void endVlist()const

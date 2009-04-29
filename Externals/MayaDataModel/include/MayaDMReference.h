@@ -59,7 +59,7 @@ public:
 	}
 	void appendFileNames(const string& fn)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		fn.write(mFile);
 	}
 	void endFileNames()const
@@ -90,7 +90,7 @@ public:
 	}
 	void appendMultiParentList(const MultiParentList& mpl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		mpl.write(mFile);
 	}
 	void endMultiParentList()const

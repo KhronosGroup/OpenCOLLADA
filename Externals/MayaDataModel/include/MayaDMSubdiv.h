@@ -152,7 +152,7 @@ public:
 	}
 	void appendVertexTweak(const VertexTweak& vtw)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vtw.write(mFile);
 	}
 	void endVertexTweak()const

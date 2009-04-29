@@ -129,7 +129,7 @@ public:
 	}
 	void appendBlendList(const BlendList& bl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		bl.write(mFile);
 	}
 	void endBlendList()const
@@ -160,7 +160,7 @@ public:
 	}
 	void appendBlendList_Inmap(const BlendList::BlendList_Inmap& bli)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		bli.write(mFile);
 	}
 	void endBlendList_Inmap()const
@@ -201,7 +201,7 @@ public:
 	}
 	void appendBlendList_Outmap(const BlendList::BlendList_Outmap& blo)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		blo.write(mFile);
 	}
 	void endBlendList_Outmap()const
@@ -242,7 +242,7 @@ public:
 	}
 	void appendBlendClips(const BlendClips& bc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		bc.write(mFile);
 	}
 	void endBlendClips()const
@@ -283,7 +283,7 @@ public:
 	}
 	void appendClipFunction_Inmap(const ClipFunction::ClipFunction_Inmap& cfi)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cfi.write(mFile);
 	}
 	void endClipFunction_Inmap()const
@@ -324,7 +324,7 @@ public:
 	}
 	void appendClipFunction_Outmap(const ClipFunction::ClipFunction_Outmap& cfo)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cfo.write(mFile);
 	}
 	void endClipFunction_Outmap()const

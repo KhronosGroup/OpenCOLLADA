@@ -155,7 +155,7 @@ public:
 	}
 	void appendColor(const Color& clr)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		clr.write(mFile);
 	}
 	void endColor()const
@@ -253,7 +253,7 @@ public:
 	}
 	void appendTransparency(const Transparency& it)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		it.write(mFile);
 	}
 	void endTransparency()const
@@ -336,7 +336,7 @@ public:
 	}
 	void appendIncandescence(const Incandescence& ic)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ic.write(mFile);
 	}
 	void endIncandescence()const
@@ -468,7 +468,7 @@ public:
 	}
 	void appendSpecularRollOff(const SpecularRollOff& sro)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		sro.write(mFile);
 	}
 	void endSpecularRollOff()const
@@ -519,7 +519,7 @@ public:
 	}
 	void appendSpecularColor(const SpecularColor& sc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		sc.write(mFile);
 	}
 	void endSpecularColor()const
@@ -581,7 +581,7 @@ public:
 	}
 	void appendReflectivity(const Reflectivity& rfl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		rfl.write(mFile);
 	}
 	void endReflectivity()const
@@ -627,7 +627,7 @@ public:
 	}
 	void appendEnvironment(const Environment& env)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		env.write(mFile);
 	}
 	void endEnvironment()const

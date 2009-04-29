@@ -94,7 +94,7 @@ public:
 	}
 	void appendProfileCurve(const ProfileCurve& p)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		p.write(mFile);
 	}
 	void endProfileCurve()const

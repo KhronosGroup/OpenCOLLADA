@@ -199,7 +199,7 @@ public:
 	}
 	void appendAdjustments(const Adjustments& adjs)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		adjs.write(mFile);
 	}
 	void endAdjustments()const
@@ -230,7 +230,7 @@ public:
 	}
 	void appendOutAdjustments(const OutAdjustments& oajs)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		oajs.write(mFile);
 	}
 	void endOutAdjustments()const

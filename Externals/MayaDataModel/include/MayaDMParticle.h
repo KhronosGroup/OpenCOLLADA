@@ -383,7 +383,7 @@ public:
 	}
 	void appendGoalUvSetName(const string& guv)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		guv.write(mFile);
 	}
 	void endGoalUvSetName()const
@@ -430,7 +430,7 @@ public:
 	}
 	void appendEventName(const string& evn)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		evn.write(mFile);
 	}
 	void endEventName()const
@@ -658,7 +658,7 @@ public:
 	}
 	void appendEventProc(const string& epr)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		epr.write(mFile);
 	}
 	void endEventProc()const
@@ -689,7 +689,7 @@ public:
 	}
 	void appendInstanceData(const InstanceData& idt)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		idt.write(mFile);
 	}
 	void endInstanceData()const

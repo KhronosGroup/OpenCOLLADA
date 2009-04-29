@@ -1102,7 +1102,7 @@ public:
 	}
 	void appendLeafCurl(const LeafCurl& lcl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		lcl.write(mFile);
 	}
 	void endLeafCurl()const
@@ -1343,7 +1343,7 @@ public:
 	}
 	void appendPetalCurl(const PetalCurl& pcl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		pcl.write(mFile);
 	}
 	void endPetalCurl()const
@@ -1802,7 +1802,7 @@ public:
 	}
 	void appendWidthScale(const WidthScale& wsc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		wsc.write(mFile);
 	}
 	void endWidthScale()const
@@ -1848,7 +1848,7 @@ public:
 	}
 	void appendLeafWidthScale(const LeafWidthScale& lws)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		lws.write(mFile);
 	}
 	void endLeafWidthScale()const
@@ -1894,7 +1894,7 @@ public:
 	}
 	void appendPetalWidthScale(const PetalWidthScale& pws)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		pws.write(mFile);
 	}
 	void endPetalWidthScale()const
@@ -1940,7 +1940,7 @@ public:
 	}
 	void appendTwigLengthScale(const TwigLengthScale& tls)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		tls.write(mFile);
 	}
 	void endTwigLengthScale()const
@@ -2078,7 +2078,7 @@ public:
 	}
 	void appendEnvironment(const Environment& env)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		env.write(mFile);
 	}
 	void endEnvironment()const
@@ -2140,7 +2140,7 @@ public:
 	}
 	void appendReflectionRolloff(const ReflectionRolloff& rro)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		rro.write(mFile);
 	}
 	void endReflectionRolloff()const

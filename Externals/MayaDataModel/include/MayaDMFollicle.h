@@ -146,7 +146,7 @@ public:
 	}
 	void appendStiffnessScale(const StiffnessScale& sts)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		sts.write(mFile);
 	}
 	void endStiffnessScale()const
@@ -202,7 +202,7 @@ public:
 	}
 	void appendClumpWidthScale(const ClumpWidthScale& cws)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cws.write(mFile);
 	}
 	void endClumpWidthScale()const
@@ -253,7 +253,7 @@ public:
 	}
 	void appendAttractionScale(const AttractionScale& ats)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ats.write(mFile);
 	}
 	void endAttractionScale()const

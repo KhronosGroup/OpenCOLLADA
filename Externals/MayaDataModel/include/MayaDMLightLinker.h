@@ -68,7 +68,7 @@ public:
 	}
 	void appendLink(const Link& lnk)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		lnk.write(mFile);
 	}
 	void endLink()const
@@ -99,7 +99,7 @@ public:
 	}
 	void appendIgnore(const Ignore& ign)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ign.write(mFile);
 	}
 	void endIgnore()const
@@ -130,7 +130,7 @@ public:
 	}
 	void appendShadowLink(const ShadowLink& slnk)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		slnk.write(mFile);
 	}
 	void endShadowLink()const
@@ -161,7 +161,7 @@ public:
 	}
 	void appendShadowIgnore(const ShadowIgnore& sign)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		sign.write(mFile);
 	}
 	void endShadowIgnore()const

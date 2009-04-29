@@ -86,7 +86,7 @@ public:
 	}
 	void appendVertexNormal(const NormalPerVertex::VertexNormal& vn)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vn.write(mFile);
 	}
 	void endVertexNormal()const
@@ -138,7 +138,7 @@ public:
 	}
 	void appendVertexFaceNormal(const NormalPerVertex::VertexNormal::VertexFaceNormal& vfnl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		vfnl.write(mFile);
 	}
 	void endVertexFaceNormal()const

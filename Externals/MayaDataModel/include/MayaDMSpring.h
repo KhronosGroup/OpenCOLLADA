@@ -115,7 +115,7 @@ public:
 	}
 	void appendObjectPositions(const vectorArray& opos)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		opos.write(mFile);
 	}
 	void endObjectPositions()const
@@ -147,7 +147,7 @@ public:
 	}
 	void appendObjectVelocities(const vectorArray& ovel)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ovel.write(mFile);
 	}
 	void endObjectVelocities()const
@@ -179,7 +179,7 @@ public:
 	}
 	void appendObjectMass(const doubleArray& omas)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		omas.write(mFile);
 	}
 	void endObjectMass()const

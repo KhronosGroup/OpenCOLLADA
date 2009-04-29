@@ -225,7 +225,7 @@ public:
 	}
 	void appendStiffnessScale(const StiffnessScale& sts)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		sts.write(mFile);
 	}
 	void endStiffnessScale()const
@@ -366,7 +366,7 @@ public:
 	}
 	void appendAttractionScale(const AttractionScale& ats)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ats.write(mFile);
 	}
 	void endAttractionScale()const
@@ -437,7 +437,7 @@ public:
 	}
 	void appendClumpWidthScale(const ClumpWidthScale& cws)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cws.write(mFile);
 	}
 	void endClumpWidthScale()const
@@ -488,7 +488,7 @@ public:
 	}
 	void appendClumpCurl(const ClumpCurl& clc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		clc.write(mFile);
 	}
 	void endClumpCurl()const
@@ -534,7 +534,7 @@ public:
 	}
 	void appendClumpFlatness(const ClumpFlatness& cfl)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cfl.write(mFile);
 	}
 	void endClumpFlatness()const
@@ -590,7 +590,7 @@ public:
 	}
 	void appendHairWidthScale(const HairWidthScale& hws)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		hws.write(mFile);
 	}
 	void endHairWidthScale()const
@@ -667,7 +667,7 @@ public:
 	}
 	void appendHairColorScale(const HairColorScale& hcs)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		hcs.write(mFile);
 	}
 	void endHairColorScale()const
@@ -820,7 +820,7 @@ public:
 	}
 	void appendDisplacementScale(const DisplacementScale& dsc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		dsc.write(mFile);
 	}
 	void endDisplacementScale()const
@@ -1073,7 +1073,7 @@ public:
 	}
 	void appendOutputHair(const vectorArray& oh)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		oh.write(mFile);
 	}
 	void endOutputHair()const

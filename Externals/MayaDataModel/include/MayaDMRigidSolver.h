@@ -63,7 +63,7 @@ public:
 	}
 	void appendGeneralForce(const GeneralForce& gfr)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		gfr.write(mFile);
 	}
 	void endGeneralForce()const

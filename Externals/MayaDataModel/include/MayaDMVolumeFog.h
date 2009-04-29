@@ -86,7 +86,7 @@ public:
 	}
 	void appendColorRamp(const ColorRamp& crm)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		crm.write(mFile);
 	}
 	void endColorRamp()const

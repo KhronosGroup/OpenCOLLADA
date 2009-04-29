@@ -63,7 +63,7 @@ public:
 	}
 	void appendChannel(const string& ch)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ch.write(mFile);
 	}
 	void endChannel()const
@@ -95,7 +95,7 @@ public:
 	}
 	void appendPerPtWeights(const doubleArray& ppw)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		ppw.write(mFile);
 	}
 	void endPerPtWeights()const

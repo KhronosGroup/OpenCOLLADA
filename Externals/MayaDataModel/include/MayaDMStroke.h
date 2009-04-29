@@ -119,7 +119,7 @@ public:
 	}
 	void appendPathCurve(const PathCurve& pcv)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		pcv.write(mFile);
 	}
 	void endPathCurve()const
@@ -249,7 +249,7 @@ public:
 	}
 	void appendPressureScale(const PressureScale& psc)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		psc.write(mFile);
 	}
 	void endPressureScale()const

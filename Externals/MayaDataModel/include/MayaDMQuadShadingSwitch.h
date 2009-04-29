@@ -80,7 +80,7 @@ public:
 	}
 	void appendInput(const Input& i)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		i.write(mFile);
 	}
 	void endInput()const

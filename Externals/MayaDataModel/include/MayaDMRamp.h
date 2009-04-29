@@ -67,7 +67,7 @@ public:
 	}
 	void appendColorEntryList(const ColorEntryList& cel)const
 	{
-		fprintf(mFile,"\n");
+		fprintf(mFile," ");
 		cel.write(mFile);
 	}
 	void endColorEntryList()const
