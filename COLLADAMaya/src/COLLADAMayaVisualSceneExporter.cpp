@@ -1013,18 +1013,37 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void VisualSceneExporter::exportGeometryInstance ( SceneElement* sceneElement )
     {
-        // Get the streamWriter from the export document
-        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        // Get the current dag path
+        MDagPath dagPath = sceneElement->getPath();
+
+        //  Get the node of the current mesh
+        MObject meshNode = dagPath.node();
+
+        // Attach a function set to the mesh node.
+        // We access all of the meshes data through the function set
+        MStatus status;
+        MFnMesh fnMesh ( meshNode, &status );
+        if ( status != MStatus::kSuccess ) 
+        {
+            MGlobal::displayError ( "No mesh object!" );
+            return;
+        }
+
+        // Get the maya mesh id.
+        String mayaMeshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
 
         // Get the geometry collada id.
-        String mayaGeometryId = sceneElement->getNodeId();
-        if ( mayaGeometryId.empty() )
-            mayaGeometryId = sceneElement->getNodeName();
         GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
-        String colladaGeometryId = geometryExporter->findColladaGeometryId ( mayaGeometryId );
+        String colladaMeshId = geometryExporter->findColladaGeometryId ( mayaMeshId );
+//         String mayaMeshId = sceneElement->getNodeId();
+//         if ( mayaMeshId.empty() )
+//             mayaMeshId = sceneElement->getNodeName();
 
         // Get the uri of the current scene
-        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaGeometryId  ) );
+        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaMeshId  ) );
+
+        // Get the streamWriter from the export document
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Write the geometry instance
         COLLADASW::InstanceGeometry instanceGeometry ( streamWriter );

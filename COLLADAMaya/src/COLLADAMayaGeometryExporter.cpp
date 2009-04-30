@@ -203,7 +203,7 @@ namespace COLLADAMaya
         MFnMesh fnMesh ( meshNode, &status );
         if ( status != MStatus::kSuccess ) return false;
 
-        // Get the maya light id.
+        // Get the maya mesh id.
         String mayaMeshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
 
         // Generate a COLLADA id for the new object.
@@ -245,7 +245,10 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    bool GeometryExporter::exportMesh ( MFnMesh& fnMesh, String colladaMeshId, String &mayaMeshId )
+    bool GeometryExporter::exportMesh ( 
+        MFnMesh& fnMesh, 
+        const String& colladaMeshId, 
+        const String& mayaMeshId )
     {
         // Clear the list with the current polygons and the list with the vertexes
         mPolygonSources.clear();
@@ -253,7 +256,7 @@ namespace COLLADAMaya
 
         // Retrieve all uv set names for this mesh.
         MStringArray uvSetNames;
-        getUVSetNames(fnMesh, uvSetNames);
+        getUVSetNames ( fnMesh, uvSetNames );
 
         // Generate corresponding textureCoordinateIds.
         std::vector<String> texcoordIds = generateTexCoordIds ( uvSetNames, colladaMeshId );
@@ -317,7 +320,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    void GeometryExporter::getUVSetNames( MFnMesh &fnMesh, MStringArray &uvSetNames )
+    void GeometryExporter::getUVSetNames ( const MFnMesh& fnMesh, MStringArray& uvSetNames )
     {
         MPlug uvSetPlug = fnMesh.findPlug ( ATTR_UV_SET );
         for ( uint i = 0; i < uvSetPlug.numElements(); i++ )

@@ -91,12 +91,6 @@ namespace COLLADAMaya
         /** Walk through the scene graph and export all geometries. */
         void exportGeometries();
 
-        /** Exports the current scene element and all it's children. */
-        void exportGeometries ( SceneElement* sceneElement );
-
-        /** Exports the geometry data of the current object, if it is a valid mesh object to export. */
-        bool exportGeometry ( SceneElement* sceneElement );
-
         /** closes the geometry tags in the collada document */
         void endExport();
 
@@ -107,15 +101,21 @@ namespace COLLADAMaya
 
     private:
 
+        /** Exports the current scene element and all it's children. */
+        void exportGeometries ( SceneElement* sceneElement );
+
+        /** Exports the geometry data of the current object, if it is a valid mesh object to export. */
+        bool exportGeometry ( SceneElement* sceneElement );
+
         /** Exports all geometry data of the current mesh. */
-        bool exportMesh ( MFnMesh& fnMesh, String meshId, String& meshName );
+        bool exportMesh ( MFnMesh& fnMesh, const String& meshId, const String& meshName );
 
         /**
          * Get the uv set names of the current mesh.
          * @param fnMesh The mesh object.
          * @param uvSetNames String array for the uv set names.
          */
-        void getUVSetNames( MFnMesh &fnMesh, MStringArray &uvSetNames );
+        void getUVSetNames( const MFnMesh &fnMesh, MStringArray &uvSetNames );
 
         /** Exports an extra tag. */
         void exportExtra ( const MFnMesh& fnMesh );

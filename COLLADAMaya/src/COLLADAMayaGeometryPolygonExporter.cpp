@@ -59,10 +59,10 @@ namespace COLLADAMaya
 
     // --------------------------------------------------------
     void GeometryPolygonExporter::exportPolygonSources (
-        MFnMesh &fnMesh,
-        String meshId,
+        MFnMesh& fnMesh,
+        const String& meshId,
         MStringArray uvSetNames,
-        ColourSetList &colorSets,
+        ColourSetList& colorSets,
         Sources* polygonSources,
         Sources* vertexSources,
         const bool hasFaceVertexNorms )

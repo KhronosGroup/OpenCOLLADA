@@ -122,8 +122,8 @@ namespace COLLADAMaya
         * Exports the data of all polygons from the shaders in the mesh.
         */
         void exportPolygonSources ( 
-            MFnMesh &fnMesh,
-            String meshId,
+            MFnMesh& fnMesh,
+            const String& meshId,
             MStringArray uvSetNames,
             ColourSetList &colorSets,
             Sources* geometrySourcesList,
