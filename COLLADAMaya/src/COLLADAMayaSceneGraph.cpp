@@ -329,9 +329,10 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------------------
-    bool SceneGraph::getIsExportNode ( const MDagPath& dagPath,
-                                    bool& isForced,
-                                    bool& isVisible )
+    bool SceneGraph::getIsExportNode ( 
+        const MDagPath& dagPath, 
+        bool& isForced,
+        bool& isVisible )
     {
         // Does this dagPath already exist? If so, only recurse if FollowInstancedChildren() is set.
         MFnDagNode dagFn ( dagPath );
@@ -366,6 +367,7 @@ namespace COLLADAMaya
             // Check for visibility
             if ( !ExportOptions::exportInvisibleNodes() && !isVisible )
             {
+                // Check if the visibility of the element is animated.
                 AnimationSampleCache* animationCache = mDocumentExporter->getAnimationCache();
                 if ( !AnimationHelper::isAnimated ( animationCache, dagPath.node(), ATTR_VISIBILITY ) )
                 {

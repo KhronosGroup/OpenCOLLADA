@@ -129,7 +129,8 @@ namespace COLLADAMaya
         for ( size_t i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
-            const MDagPath dagPath = sceneElement->getPath();
+            if ( !sceneElement->getIsLocal() ) continue;
+            if ( !sceneElement->getIsExportNode () ) continue;
 
             size_t childCount = sceneElement->getChildCount();
             for ( size_t i=0; i<childCount; ++i )
@@ -146,10 +147,10 @@ namespace COLLADAMaya
     {
         // If we have a external reference, we don't need to export the data here.
         if ( !sceneElement->getIsLocal() ) return;
+        if ( !sceneElement->getIsExportNode () ) return;
 
         // Check if it is a mesh object and an export node
-        if ( sceneElement->getType() == SceneElement::MESH &&
-             sceneElement->getIsExportNode() )
+        if ( sceneElement->getType() == SceneElement::MESH )
         {
             MDagPath dagPath = sceneElement->getPath();
 

@@ -87,19 +87,60 @@ namespace COLLADAMaya
     {
         // If we have a external reference, we don't need to export the data here.
         if ( !sceneElement->getIsLocal() ) return;
-
-        // Get the current dag path
-        MDagPath dagPath = sceneElement->getPath();
-
-        // Check for instance
-        bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
+        if ( !sceneElement->getIsExportNode () ) return;
 
         // Check if it is a mesh and an export node
-        if ( sceneElement->getType() == SceneElement::MESH &&
-            sceneElement->getIsExportNode() && !isInstance )
+        SceneElement::Type sceneElementType = sceneElement->getType();
+        if ( sceneElementType == SceneElement::MESH )
         {
-            // Create a skin/morph transform object and export the controller.
-            bool exported = exportController ( sceneElement );
+            // Get the current dag path
+            MDagPath dagPath = sceneElement->getPath();
+
+            // Check if the current element is an instance. 
+            // We don't need to export instances, because we export the original instanced element.
+            bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
+
+            // If the original instanced element isn't already exported, we have to export it now.
+            if ( isInstance )
+            {
+                // Get the original instanced element.
+                MDagPath instancedPath;
+                dagPath.getPath ( instancedPath, 0 );
+                SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                SceneElement* instancedSceneElement = sceneGraph->findElement ( instancedPath );
+
+                // Check if the geometry of original instanced element is already exported.
+                SceneElement* exportedGeometryElement = sceneGraph->findExportedElement ( instancedPath );
+                if ( exportedGeometryElement == 0 )
+                {
+                    // Export the original instanced element and push it in the exported list. 
+                    GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
+                    geometryExporter->exportControllerOrGeometry ( instancedSceneElement );
+                }
+
+                // Check if the controller of the original instanced element is already exported.
+                std::vector<SceneElement*>::const_iterator controllerIter;
+                controllerIter = find ( mExportedControllerSceneElements.begin (), mExportedControllerSceneElements.end (), instancedSceneElement );
+                if ( controllerIter == mExportedControllerSceneElements.end () )
+                {
+                    // Create a skin/morph transform object and export the controller for the 
+                    // the original instanced element.
+                    if ( exportController ( instancedSceneElement ) )
+                    {
+                        // Push the scene element in the list of exported controller elements.
+                        mExportedControllerSceneElements.push_back ( instancedSceneElement );
+                    }
+                }
+            }
+            else
+            {
+                // Create a skin/morph transform object and export the controller.
+                if ( exportController ( sceneElement ) )
+                {
+                    // Push the scene element in the list of exported controller elements.
+                    mExportedControllerSceneElements.push_back ( sceneElement );
+                }
+            }
         }
 
         // Recursive call for all the child elements
@@ -113,8 +154,8 @@ namespace COLLADAMaya
     //------------------------------------------------------
     bool ControllerExporter::exportController( SceneElement* sceneElement )
     {
+        // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
-        if ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 ) return false;
 
         // Get the current mesh node.
         MObject meshNode = dagPath.node();

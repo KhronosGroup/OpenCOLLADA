@@ -1125,8 +1125,8 @@ namespace COLLADAMaya
         uint instanceNumber = 0;
         if ( dagPath.isInstanced() )
         {
-            SceneElement* exportedElement =
-                mDocumentExporter->getSceneGraph()->findExportedElement( dagPath );
+            SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+            SceneElement* exportedElement = sceneGraph->findElement( dagPath );
             dagPath = exportedElement->getPath();
         }
 

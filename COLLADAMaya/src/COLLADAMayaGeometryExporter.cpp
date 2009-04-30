@@ -83,99 +83,40 @@ namespace COLLADAMaya
     {
         // If we have a external reference, we don't need to export the data here.
         if ( !sceneElement->getIsLocal() ) return;
+        if ( !sceneElement->getIsExportNode () ) return;
 
-        // Get the current dag path
-        MDagPath dagPath = sceneElement->getPath();
-
-        // Get the scene graph 
-        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-        
-        // Check for instance
-        bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
-
-        // Check if it is a mesh and an export node
-        SceneElement::Type type = sceneElement->getType();
-        if ( type == SceneElement::MESH &&
-             sceneElement->getIsExportNode() && !isInstance )
+        SceneElement::Type sceneElementType = sceneElement->getType();
+        if ( sceneElementType == SceneElement::MESH )
         {
-            bool exported = false;
-            
-            // Get the controller library
-            ControllerExporter* controller = mDocumentExporter->getControllerExporter();
+            // Get the current dag path
+            MDagPath dagPath = sceneElement->getPath();
 
-            // Add the controller and/or geometry to our libraries
-            bool hasSkinController =
-                ExportOptions::exportJointsAndSkin() &&
-                controller->hasSkinController ( dagPath.node() );
-            bool hasMorphController = controller->hasMorphController ( dagPath.node() );
+            // Check if the current element is an instance. 
+            // We don't need to export instances, because we export the original instanced element.
+            bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
 
-            // Handle the controllers
-            if ( hasSkinController || hasMorphController )
+            // If the original instanced element isn't already exported, we have to export it now.
+            if ( isInstance )
             {
-                // The stacks of the controllers for the affected nodes.
-                ControllerStack stack;
-                ControllerMeshStack meshStack;
-                
-                // Iterate upstream finding all the nodes which affect the mesh.
-                if ( !ControllerExporter::findAffectedNodes( dagPath.node(), stack, meshStack ) ) return;
+                // Get the original instanced element.
+                MDagPath instancedPath;
+                dagPath.getPath ( instancedPath, 0 );
 
-//                 // Disable the blend shape influences.
-//                 ControllerExporter::disableBlendShape( stack );
-                // Disable any effects on the nodes.
-                ControllerExporter::setControllerNodeStatesToNoEffect ( stack );
-                // Set all meshes as visible and not intermediate.
-                ControllerExporter::setValidMeshParameters ( meshStack );
-                
-                // Export the geometry 
-                exported = exportGeometry ( sceneElement );
-
-                // Push it in the list of exported elements.
-                if ( exported )
-                    sceneGraph->addExportedElement( sceneElement );
-
-                // Export the controllerStack items
-                for ( size_t i=0; i<meshStack.size(); ++i )
+                // Check if the original instanced element is already exported.
+                SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                SceneElement* exportedElement = sceneGraph->findExportedElement ( instancedPath );
+                if ( exportedElement == 0 )
                 {
-                    ControllerMeshItem item = meshStack[i];
-                    MDagPath currentDagPath = MDagPath::getAPathTo ( item.mesh );
-                    MFnDagNode dagFn ( currentDagPath );
-                    bool isIntermediate = dagFn.isIntermediateObject();
-                    String currentPath = currentDagPath.fullPathName().asChar();
-
-                    if ( sceneGraph->findExportedElement( currentDagPath ) == NULL )
-                    {
-                        SceneElement* meshSceneElement = sceneGraph->findElement( currentDagPath );
-                        if ( meshSceneElement != NULL && meshSceneElement->getHasJoint() ) 
-                        {
-                            // Export the geometry 
-                            exportGeometry ( meshSceneElement );
-
-                            // Push it in the list of exported elements.
-                            if ( exported )
-                                sceneGraph->addExportedElement( meshSceneElement );
-                        }
-                    }
+                    // Export the original instanced element.
+                    SceneElement* instancedSceneElement = sceneGraph->findElement ( instancedPath );
+                    exportControllerOrGeometry ( instancedSceneElement );
                 }
-                
-                // Reset all the controller node states.
-                ControllerExporter::resetControllerNodeStates ( stack );
-//                 // Enable the blend shape influences.
-//                 ControllerExporter::enableBlendShape ( stack );
-                // Reset the meshes as visible and not intermediate.
-                ControllerExporter::resetMeshParameters ( meshStack );
-                // Delete the controller stack items and clear the stack.
-                ControllerExporter::deleteControllerStackItems ( stack );
             }
             else
             {
-                // Export the geometry 
-                exported = exportGeometry ( sceneElement );
-
-                // Push it in the list of exported elements.
-                if ( exported )
-                    sceneGraph->addExportedElement( sceneElement );
+                // Handle the geometry in depend on it is a controller or not.
+                exportControllerOrGeometry ( sceneElement );
             }
-
         }
 
         // Recursive call for all the child elements
@@ -183,6 +124,35 @@ namespace COLLADAMaya
         {
             SceneElement* childElement = sceneElement->getChild ( i );
             exportGeometries ( childElement );
+        }
+    }
+
+    // --------------------------------------------------------
+    void GeometryExporter::exportControllerOrGeometry ( 
+        SceneElement* sceneElement )
+    {
+        // Get the controller library
+        ControllerExporter* controller = mDocumentExporter->getControllerExporter();
+
+        // Get the current node element.
+        MObject node = sceneElement->getPath ().node();
+
+        // Add the controller and/or geometry to our libraries
+        bool hasSkinController = ExportOptions::exportJointsAndSkin() && controller->hasSkinController ( node );
+        bool hasMorphController = controller->hasMorphController ( node );
+        if ( hasSkinController || hasMorphController )
+        {
+            // Handle the controllers
+            handleControllers ( sceneElement );
+        }
+        else
+        {
+            // Export the element and push it in the exported scene graph. 
+            if ( exportGeometry ( sceneElement ) )
+            {
+                SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                sceneGraph->addExportedElement( sceneElement );
+            }
         }
     }
 
@@ -1467,6 +1437,70 @@ namespace COLLADAMaya
             return it->second;
         }
         return COLLADABU::Utils::EMPTY_STRING;
+    }
+
+    // ------------------------------------
+    void GeometryExporter::handleControllers ( 
+        SceneElement* sceneElement )
+    {
+        // Get the scene graph 
+        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+
+        // Get the current dag path
+        MDagPath dagPath = sceneElement->getPath();
+
+        // The stacks of the controllers for the affected nodes.
+        ControllerStack stack;
+        ControllerMeshStack meshStack;
+
+        // Iterate upstream finding all the nodes which affect the mesh.
+        if ( !ControllerExporter::findAffectedNodes( dagPath.node(), stack, meshStack ) ) return;
+
+//         // Disable the blend shape influences.
+//         ControllerExporter::disableBlendShape( stack );
+        // Disable any effects on the nodes.
+        ControllerExporter::setControllerNodeStatesToNoEffect ( stack );
+        // Set all meshes as visible and not intermediate.
+        ControllerExporter::setValidMeshParameters ( meshStack );
+
+        // Export the element and push it in the exported scene graph. 
+        if ( exportGeometry ( sceneElement ) )
+        {
+            sceneGraph->addExportedElement( sceneElement );
+        }
+
+        // Export the controllerStack items
+        for ( size_t i=0; i<meshStack.size(); ++i )
+        {
+            ControllerMeshItem item = meshStack[i];
+            MDagPath currentDagPath = MDagPath::getAPathTo ( item.mesh );
+            MFnDagNode dagFn ( currentDagPath );
+            bool isIntermediate = dagFn.isIntermediateObject();
+            String currentPath = currentDagPath.fullPathName().asChar();
+
+            if ( sceneGraph->findExportedElement( currentDagPath ) == NULL )
+            {
+                SceneElement* meshSceneElement = sceneGraph->findElement( currentDagPath );
+                if ( meshSceneElement != NULL && meshSceneElement->getHasJoint() ) 
+                {
+                    // Export the geometry 
+                    if ( exportGeometry ( meshSceneElement ) )
+                    {
+                        // Push it in the list of exported elements.
+                        sceneGraph->addExportedElement( meshSceneElement );
+                    }
+                }
+            }
+        }
+
+        // Reset all the controller node states.
+        ControllerExporter::resetControllerNodeStates ( stack );
+//         // Enable the blend shape influences.
+//         ControllerExporter::enableBlendShape ( stack );
+        // Reset the meshes as visible and not intermediate.
+        ControllerExporter::resetMeshParameters ( meshStack );
+        // Delete the controller stack items and clear the stack.
+        ControllerExporter::deleteControllerStackItems ( stack );
     }
 
 }

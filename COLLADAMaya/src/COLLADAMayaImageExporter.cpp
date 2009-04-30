@@ -33,8 +33,7 @@ namespace COLLADAMaya
     {
         // export the images
         ImageMap::const_iterator it = imageMap->begin();
-
-        for ( ; it != imageMap->end(); ++it )
+        for ( ; it!=imageMap->end(); ++it )
         {
             // Create a new image structure
             COLLADASW::Image* colladaImage = it->second;

@@ -14,7 +14,6 @@
     -   path animation export
     -	skew/shear animation import/export
     	(possible solution could be the animation formula from collada 1.5)
-	- 	effect colors animation import
 	- 	clip animation import
 
 - 	Controller 

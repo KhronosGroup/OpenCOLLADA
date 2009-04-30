@@ -100,6 +100,9 @@ namespace COLLADAMaya
         /** List of controllerIds from the already exported controllers. */
         std::vector<String> mExportedControllers;
 
+        /** A list of the exported controller scene elements. */
+        std::vector<SceneElement*> mExportedControllerSceneElements;
+
     public:
 
         /**

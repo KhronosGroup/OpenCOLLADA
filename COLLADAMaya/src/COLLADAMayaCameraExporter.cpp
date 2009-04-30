@@ -61,27 +61,51 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void CameraExporter::exportCameras ( SceneElement* sceneElement )
     {
-        // If we have a external reference, we don't need to export the data here.
+        // If we have a external reference or an export node, we don't need to export the data here.
         if ( !sceneElement->getIsLocal() ) return;
+        if ( !sceneElement->getIsExportNode () ) return;
 
-        // Get the current dag path
-        MDagPath dagPath = sceneElement->getPath();
-
-        // Check for instance
-        bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
-
-        // Check if it is a camera and an export node
-        if ( sceneElement->getType() == SceneElement::CAMERA &&
-             sceneElement->getIsExportNode() && !isInstance )
+        // Check if it is a camera
+        SceneElement::Type sceneElementType = sceneElement->getType();
+        if ( sceneElementType == SceneElement::CAMERA )
         {
-            // Export the geometry 
-            bool exported = exportCamera ( dagPath );
+            // Get the current dag path
+            MDagPath dagPath = sceneElement->getPath();
 
-            // Push it in the list of exported elements.
-            if ( exported )
-                mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
+            // Check for instance
+            bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
+
+            // If the original instanced element isn't already exported, we have to export it now.
+            if ( isInstance )
+            {
+                // Get the original instanced element.
+                MDagPath instancedPath;
+                dagPath.getPath ( instancedPath, 0 );
+
+                // Check if the original instanced element is already exported.
+                SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                SceneElement* exportedElement = sceneGraph->findExportedElement ( instancedPath );
+                if ( exportedElement == 0 )
+                {
+                    // Export the original instanced element and push it in the exported scene graph. 
+                    if ( exportCamera ( instancedPath ) )
+                    {
+                        SceneElement* instancedSceneElement = sceneGraph->findElement ( instancedPath );
+                        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                        sceneGraph->addExportedElement( instancedSceneElement );
+                    }
+                }
+            }
+            else
+            {
+                // Export the element and push it in the exported scene graph. 
+                if ( exportCamera ( dagPath ) )
+                {
+                    SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                    sceneGraph->addExportedElement( sceneElement );
+                }
+            }
         }
-
 
         // Recursive call for all the child elements
         for ( uint i=0; i<sceneElement->getChildCount(); ++i )

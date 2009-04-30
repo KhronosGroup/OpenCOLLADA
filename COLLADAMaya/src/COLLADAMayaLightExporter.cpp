@@ -64,23 +64,49 @@ namespace COLLADAMaya
     {
         // If we have a external reference, we don't need to export the data here.
         if ( !sceneElement->getIsLocal() ) return;
+        if ( !sceneElement->getIsExportNode () ) return;
 
-        // Get the current dag path
-        MDagPath dagPath = sceneElement->getPath();
-
-        // Check for instance
-        bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
-
-        // Check if it is a mesh and an export node
-        if ( sceneElement->getType() == SceneElement::LIGHT &&
-             sceneElement->getIsExportNode() && !isInstance )
+        // Check if it is a light.
+        SceneElement::Type sceneElementType = sceneElement->getType();
+        if ( sceneElementType == SceneElement::LIGHT )
         {
-            // Export the geometry 
-            bool exported = exportLight ( dagPath );
+            // Get the current dag path
+            MDagPath dagPath = sceneElement->getPath();
 
-            // Push it in the list of exported elements.
-            if ( exported )
-                mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
+            // Check if the current element is an instance. 
+            // We don't need to export instances, because we export the original instanced element.
+            bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
+
+            // If the original instanced element isn't already exported, we have to export it now.
+            if ( isInstance )
+            {
+                // Get the original instanced element.
+                MDagPath instancedPath;
+                dagPath.getPath ( instancedPath, 0 );
+
+                // Check if the original instanced element is already exported.
+                SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                SceneElement* exportedElement = sceneGraph->findExportedElement ( instancedPath );
+                if ( exportedElement == 0 )
+                {
+                    // Export the original instanced element and push it in the exported scene graph. 
+                    if ( exportLight ( instancedPath ) )
+                    {
+                        SceneElement* instancedSceneElement = sceneGraph->findElement ( instancedPath );
+                        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                        sceneGraph->addExportedElement( instancedSceneElement );
+                    }
+                }
+            }
+            else
+            {
+                // Export the element and push it in the exported scene graph. 
+                if ( exportLight ( dagPath ) )
+                {
+                    SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                    sceneGraph->addExportedElement( sceneElement );
+                }
+            }
         }
 
 

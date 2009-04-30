@@ -99,10 +99,16 @@ namespace COLLADAMaya
         */
         const String findColladaGeometryId ( const String& mayaGeometryId );
 
+        /** Handle the geometry in depend on it is a controller or not. */
+        void exportControllerOrGeometry ( SceneElement* sceneElement );
+
     private:
 
         /** Exports the current scene element and all it's children. */
         void exportGeometries ( SceneElement* sceneElement );
+
+        /** Handle controller geometries. */
+        void handleControllers ( SceneElement* sceneElement );
 
         /** Exports the geometry data of the current object, if it is a valid mesh object to export. */
         bool exportGeometry ( SceneElement* sceneElement );
