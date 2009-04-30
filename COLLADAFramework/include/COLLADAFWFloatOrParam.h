@@ -57,7 +57,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-        FloatOrParam ( const float val ) 
+        FloatOrParam ( float val ) 
             : mFloatValue ( val )
             , mType ( FLOAT ) 
         {};
@@ -73,13 +73,13 @@ namespace COLLADAFW
 		virtual ~FloatOrParam () {};
 
         /** The type of the current element. */
-        const COLLADAFW::FloatOrParam::Type& getType () const { return mType; }
-        void setType ( const COLLADAFW::FloatOrParam::Type& val ) { mType = val; }
+        COLLADAFW::FloatOrParam::Type getType () const { return mType; }
+        void setType ( COLLADAFW::FloatOrParam::Type val ) { mType = val; }
 
         /** The value is represented by a literal floating-point scalar, for example:
         <float> 3.14 </float>. The sid attribute is optional. */
-        const float getFloatValue () const { return mFloatValue; }
-        void setFloatValue ( const float val ) { mFloatValue = val; }
+        float getFloatValue () const { return mFloatValue; }
+        void setFloatValue ( float val ) { mFloatValue = val; }
 
         /** The value is represented by a reference to a previously defined parameter that can be 
         directly cast to a floatingpoint scalar. See main entry. */

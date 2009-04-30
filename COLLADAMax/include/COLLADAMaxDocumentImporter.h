@@ -142,6 +142,7 @@ namespace COLLADAMax
 		struct UnitConversionFunctors
 		{
 			ConversionFunctor* lengthConversion;
+			ConversionFunctor* inverseLengthConversion;
 			ConversionFunctor* angleConversion;
 			ConversionFunctor* timeConversion;
 		};
@@ -155,6 +156,9 @@ namespace COLLADAMax
 
 		/** File path of the COLLADA document to import.*/
 		NativeString mImportFilePath;
+
+		/** Time in seconds when the instance of th importer was created.*/
+		double mStartTime;
 
 		/** The accumulated ambient color.*/
 		COLLADAFW::Color mAmbientColor;
@@ -250,6 +254,12 @@ namespace COLLADAMax
 		/** Start the import of the model.
 		@return True on success, false otherwise. */
 		bool import();
+
+		/** Prints a message in the max gui. Only for debugging purposes.*/
+		void printMessage( const String& message);
+
+		/* Returns the time elapsed the instantiation of the importer.*/
+		double getElapsedTime() const;
 
 		/** Creates a new max object with @a superClassId and @a classId. If the object could not be created, 
 		null is returned.*/

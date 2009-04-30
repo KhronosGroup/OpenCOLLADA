@@ -75,6 +75,12 @@ namespace COLLADAMax
 		/** Returns the max import interface.*/
 		ImpInterface* getMaxImportInterface();
 
+		/** Prints a message in the max gui. Only for debugging purposes.*/
+		void printMessage( const String& message);
+
+		/* Returns the time elapsed the instantiation of the importer.*/
+		double getElapsedTime() const;
+
 		/** Returns the dummy object used for nodes that do not have an object assigned to.*/
 		DummyObject* getDummyObject();
 

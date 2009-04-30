@@ -57,11 +57,22 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	void ImporterBase::printMessage( const String& message )
+	{
+		mDocumentImporter->printMessage(message);
+	}
+
+	//------------------------------
+	double ImporterBase::getElapsedTime()const
+	{
+		return mDocumentImporter->getElapsedTime();
+	}
+
+	//------------------------------
 	DummyObject* ImporterBase::getDummyObject()
 	{
 		return mDocumentImporter->getDummyObject();
 	}
-
 
 	//------------------------------
 	void ImporterBase::addUniqueIdObjectINodePair( const COLLADAFW::UniqueId& uniqueId, INode* node )

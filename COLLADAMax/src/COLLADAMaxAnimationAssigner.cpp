@@ -136,25 +136,45 @@ namespace COLLADAMax
 		}
 
 
-		Control* scaleController = createMaxScaleController();
-
-		if ( controllers[ SCALE_X ] )
+		if ( controllers[ SCALE_X ] || controllers[ SCALE_Y ] || controllers[ SCALE_Z ] )
 		{
-			scaleController->AssignController( controllers[ SCALE_X ], 0 );
+			const DocumentImporter::UnitConversionFunctors& unitConversionFunctors = getUnitConversionFunctors();
+			ConversionFunctorType reScaleFunctor = unitConversionFunctors.inverseLengthConversion;
+
+			Control* scaleController = createMaxScaleController();
+
+			if ( controllers[ SCALE_X ] )
+			{
+//				scaleController->AssignController( controllers[ SCALE_X ], 0 );
+				scaleController->AssignController( cloneController(controllers[ SCALE_X ], reScaleFunctor), 0 );
+			}
+			else
+			{
+				scaleController->AssignController( createMaxConstantFloatController(1), 0 );
+			}
+
+			if ( controllers[ SCALE_Y ] )
+			{
+//				scaleController->AssignController( controllers[ SCALE_Y ], 1 );
+				scaleController->AssignController( cloneController(controllers[ SCALE_Y ], reScaleFunctor), 1 );
+			}
+			else
+			{
+				scaleController->AssignController( createMaxConstantFloatController(1), 1 );
+			}
+
+			if ( controllers[ SCALE_Z ] )
+			{
+//				scaleController->AssignController( controllers[ SCALE_Z ], 2 );
+				scaleController->AssignController( cloneController(controllers[ SCALE_Z ], reScaleFunctor), 2 );
+			}
+			else
+			{
+				scaleController->AssignController( createMaxConstantFloatController(1), 2 );
+			}
+
+			transformationController->SetScaleController( scaleController );
 		}
-
-		if ( controllers[ SCALE_Y ] )
-		{
-			scaleController->AssignController( controllers[ SCALE_Y ], 1 );
-		}
-
-		if ( controllers[ SCALE_Z ] )
-		{
-			scaleController->AssignController( controllers[ SCALE_Z ], 2 );
-		}
-
-		transformationController->SetScaleController( scaleController );
-
 
 #if 0
 		Control* scaleController = transformationController->GetScaleController();

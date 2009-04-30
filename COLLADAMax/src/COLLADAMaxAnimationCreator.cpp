@@ -45,6 +45,15 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	Control* AnimationCreator::createMaxConstantFloatController( float constantValue )
+	{
+		Class_ID controllerClassID(LININTERP_FLOAT_CLASS_ID, 0);
+		Control* maxController = createMaxController( CTRL_FLOAT_CLASS_ID, controllerClassID );
+		maxController->SetValue(0, &constantValue);
+		return maxController;
+	}
+
+	//------------------------------
 	Control* AnimationCreator::createMaxColorRGBAController()
 	{
 		// Create the controller: Point4 doesn't have a linear controller.
@@ -73,5 +82,47 @@ namespace COLLADAMax
 		return maxController;
 	}
 
+	//------------------------------
+	Control* AnimationCreator::cloneController( Control* controllerToClone, ConversionFunctorType conversionFunctor )
+	{
+		static Class_ID linearFloatClassId(LININTERP_FLOAT_CLASS_ID, 0);
+		static Class_ID hybridFloatClassId(HYBRIDINTERP_FLOAT_CLASS_ID, 0);
+
+		Control* clonedController = (Control*)controllerToClone->Clone();
+		if ( (controllerToClone->SuperClassID() == CTRL_FLOAT_CLASS_ID) && (conversionFunctor) )
+		{
+			//we can only scale float controller
+			//we only need to scale, if there is a conversion functor
+			Class_ID controllerClassID = clonedController->ClassID();
+	
+			IKeyControl* clonedKeyController = GetKeyControlInterface( clonedController );
+
+			if ( controllerClassID == linearFloatClassId )
+			{
+				int keyCount = clonedKeyController->GetNumKeys();
+				for ( int i = 0; i < keyCount; ++i)
+				{
+					ILinFloatKey key;
+					clonedKeyController->GetKey(i, &key);
+					key.val = (*conversionFunctor)(key.val);
+					clonedKeyController->SetKey(i, &key);
+				}
+			}
+			else if ( controllerClassID == hybridFloatClassId )
+			{
+				int keyCount = clonedKeyController->GetNumKeys();
+				for ( int i = 0; i < keyCount; ++i)
+				{
+					IBezFloatKey key;
+					clonedKeyController->GetKey(i, &key);
+					key.val = (*conversionFunctor)(key.val);
+					key.inLength = (*conversionFunctor)(key.inLength);
+					key.outLength = (*conversionFunctor)(key.outLength);
+					clonedKeyController->SetKey(i, &key);
+				}
+			}
+		}
+		return clonedController;
+	}
 
 } // namespace COLLADAMax

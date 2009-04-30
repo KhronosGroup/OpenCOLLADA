@@ -42,6 +42,10 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADASaxFWLLoader.h"
 #include "COLLADAFWRoot.h"
 
+#include <sys/types.h>
+#include <sys/timeb.h> 
+
+
 namespace COLLADAMax
 {
 	//--------------------------------------------------------------------
@@ -53,8 +57,15 @@ namespace COLLADAMax
 		, mDummyObject((DummyObject*) getMaxImportInterface()->Create(HELPER_CLASS_ID, Class_ID(DUMMY_CLASS_ID, 0)))
 	{
 		mUnitConversionFunctors.lengthConversion = 0;
+		mUnitConversionFunctors.inverseLengthConversion = 0;
 		mUnitConversionFunctors.angleConversion = 0;
 		mUnitConversionFunctors.timeConversion = new ScaleConversionFunctor( (float)(GetTicksPerFrame() * GetFrameRate()));
+
+#pragma warning(disable: 4996)
+		_timeb startTimeBuffer;
+		_ftime( &startTimeBuffer );
+		mStartTime = (double)startTimeBuffer.time + (double)startTimeBuffer.millitm / 1000;
+#pragma warning(default: 4996)
 	}
 	
 	//--------------------------------------------------------------------
@@ -85,7 +96,6 @@ namespace COLLADAMax
 		COLLADASaxFWL::Loader loader(&errorHandler);
 		COLLADAFW::Root root(&loader, this);
 
-//		return root.loadDocument("dsfsdf.dae");
 		if ( !root.loadDocument(mImportFilePath) )
 			return false;
 
@@ -94,17 +104,41 @@ namespace COLLADAMax
 			mMaxImportInterface->SetAmbient(0, Point3(mAmbientColor.getRed(), mAmbientColor.getGreen(), mAmbientColor.getBlue() ));
 		}
 
+
 		if ( !createSceneGraph() )
 			return false;
+
 
 		MaterialCreator materialCreator(this);
 		if ( !materialCreator.create() )
 			return false;
 
+
+
 		if ( !assignControllers(materialCreator) )
 			return false;
 
+
 		return true;
+	}
+
+	//------------------------------
+	void DocumentImporter::printMessage( const String& message )
+	{
+		char* str = (char *)message.c_str();
+		mMaxInterface->ReplacePrompt(str);
+//		mMaxInterface->PushPrompt(str);
+	}
+
+	//---------------------------------------------------------------
+	double DocumentImporter::getElapsedTime() const
+	{
+#pragma warning(disable: 4996)
+		_timeb endTimeBuffer;
+		_ftime(&endTimeBuffer);
+#pragma warning(default: 4996)
+		double endTime = (double)endTimeBuffer.time + (double)endTimeBuffer.millitm / 1000;
+		return endTime - mStartTime;
 	}
 
 	//---------------------------------------------------------------
@@ -208,6 +242,10 @@ namespace COLLADAMax
 		mFileInfo.unitScale = (float)asset->getUnit().getLinearUnitMeter() / systemUnitScale;
 		delete mUnitConversionFunctors.lengthConversion;
 		mUnitConversionFunctors.lengthConversion = new ScaleConversionFunctor(mFileInfo.unitScale);
+		if ( mFileInfo.unitScale != 0)
+		{
+			mUnitConversionFunctors.inverseLengthConversion = new ScaleConversionFunctor(1/mFileInfo.unitScale);
+		}
 
 		COLLADAFW::FileInfo::Unit::AngularUnit angularUnit = asset->getUnit().getAngularUnit();
 		if ( angularUnit == COLLADAFW::FileInfo::Unit::DEGREES )
@@ -230,7 +268,8 @@ namespace COLLADAMax
 	bool DocumentImporter::writeLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes )
 	{
 		LibraryNodesImporter libraryNodesImporter(this, libraryNodes);
-		return libraryNodesImporter.import();
+		bool success = libraryNodesImporter.import();
+		return success;
 	}
 
 	//---------------------------------------------------------------

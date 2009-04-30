@@ -160,7 +160,7 @@ namespace COLLADASaxFWL
 
 			if ( accessor.size() != animationClassPair.parameterCount )
 			{
-				// to accessor must have equal number of parameters to be equal
+				// two accessor must have equal number of parameters to be equal
 				continue;
 			}
 

@@ -377,7 +377,8 @@ namespace COLLADAMax
 			}
 		}
 
-		normalsSpecifier->CheckNormals();
+		// TODO uncomment
+//		normalsSpecifier->CheckNormals();
 
 		return true;
 	}

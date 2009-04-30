@@ -46,6 +46,10 @@ namespace COLLADAMax
 		@a maxController a linear float controller is created, otherwise a hybrid float controller.*/
 		Control* createMaxFloatController( COLLADAFW::AnimationCurve* animationCurve, bool isLinear);
 
+		/** Creates an empty constant linear max float controller. 
+		@param constantValue The value the float controller should have for all time.*/
+		Control* createMaxConstantFloatController( float constantValue );
+
 		/** Creates an empty max color RGBA controller.*/
 		Control* createMaxColorRGBAController( );
 
@@ -55,6 +59,14 @@ namespace COLLADAMax
 		/** Creates an empty max controller  with SClass_ID @a controllerSuperClassID and Class_ID 
 		@a controllerClassID*/
 		Control* createMaxController( SClass_ID controllerSuperClassID, Class_ID controllerClassID );
+
+		/** Clones @a controllerToClone and converts its values and if necessary its tangents, using
+		@a conversionFunctor.
+		@param controllerToClone The controller to clone. If 0, the controlled is cloned without key value 
+		conversion.
+		@param conversionFunctor The conversion functor used to convert the key values of the controller.
+		@return The cloned controller.*/
+		Control* cloneController( Control* controllerToClone, ConversionFunctorType conversionFunctor = 0);
 
 	private:
 

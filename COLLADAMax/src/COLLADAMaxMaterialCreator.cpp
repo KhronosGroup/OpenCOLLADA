@@ -224,12 +224,53 @@ namespace COLLADAMax
 	{
 		const DocumentImporter::NodeMaterialBindingsList& materialBindings = getNodeMaterialBindings();
 		DocumentImporter::NodeMaterialBindingsList::const_iterator it = materialBindings.begin();
+
+
+		//int index = 0;
+		//double max = 0;
+		//int maxIndex = 0;
+		//double min = 10000000000;
+		//int minIndex = 0;
+
 		for ( ; it != materialBindings.end(); ++it)
 		{
 			const DocumentImporter::NodeMaterialBindingsPair& materialBinding = *it;
+
+//			double start = getElapsedTime();
 			if ( !createAndAssingMaxMaterial(materialBinding) )
 				return false;
+
+			//if ( ((getElapsedTime()-start)*1000) > max) 
+			//{
+			//	max = (getElapsedTime()-start)*1000;
+			//	maxIndex = index;
+			//}
+
+			//if ( ((getElapsedTime()-start)*1000) < min) 
+			//{
+			//	min = (getElapsedTime()-start)*1000;
+			//	minIndex = index;
+			//}
+
+			//index++;
 		}
+
+
+		//printMessage(String("MaterialCreator::create() ") 
+		//	+ "  max: time  "
+		//	+ COLLADABU::Utils::toString(max)
+		//	+ "  index  "
+		//	+ COLLADABU::Utils::toString(maxIndex)
+		//	+ "  min: time  "
+		//	+ COLLADABU::Utils::toString(min)
+		//	+ "  index  "
+		//	+ COLLADABU::Utils::toString(minIndex) );
+
+		//printMessage("MaterialCreator::create() " 
+		//	+ COLLADABU::Utils::toString((getElapsedTime()-start)*1000)
+		//	+ "  count  "
+		//	+ COLLADABU::Utils::toString(materialBindings.size()) );
+
 
 		// assign materials to cloned nodes
 		const DocumentImporter::INodeINodePairList& clonedInodeOriginalInodeList = getClonedINodeOriginalINodePairList();
@@ -426,7 +467,12 @@ namespace COLLADAMax
 		}
 
 		const COLLADAFW::ColorOrTexture& specular = effectCommon.getSpecular();
-		float shininess = (float)effectCommon.getShininess();
+		const COLLADAFW::FloatOrParam& shininessFloatOrParam = effectCommon.getShininess();
+		float shininess = 1;
+		if ( shininessFloatOrParam.getType() == COLLADAFW::FloatOrParam::FLOAT )
+		{
+			shininess = shininessFloatOrParam.getFloatValue();
+		}
 		if ( shaderType == COLLADAFW::EffectCommon::SHADER_PHONG || shaderType == COLLADAFW::EffectCommon::SHADER_BLINN)
 		{
 			// Phong material parameters
