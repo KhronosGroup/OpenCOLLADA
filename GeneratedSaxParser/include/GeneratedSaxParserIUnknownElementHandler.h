@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+Copyright (c) 2008-2009 NetAllied Systems GmbH
 
 This file is part of GeneratedSaxParser.
 
