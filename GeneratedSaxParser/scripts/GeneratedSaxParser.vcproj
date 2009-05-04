@@ -285,10 +285,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\GeneratedSaxParserDataUtils.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\GeneratedSaxParserLibxmlSaxParser.cpp"
 				>
 			</File>
