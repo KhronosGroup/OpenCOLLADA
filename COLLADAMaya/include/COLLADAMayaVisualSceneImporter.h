@@ -23,6 +23,7 @@
 #include "COLLADAMayaTransformAnimation.h"
 
 #include "MayaDMTransform.h"
+#include "MayaDMJoint.h"
 
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWLibraryNodes.h"
@@ -63,7 +64,7 @@ namespace COLLADAMaya
                 , translate1 ( 0,0,0 ) 
                 , translate1Vec (0)
                 , numTranslate1 (0)
-                , eulerRotation ( 0,0,0 )
+                , rotation ( 0,0,0 )
                 , axisPhaseRotate1 ( 0,0,0 )
                 , axisPhaseRotate2 ( 0,0,0 )
                 , axisPhaseRotate3 ( 0,0,0 )
@@ -78,20 +79,32 @@ namespace COLLADAMaya
             {}
             virtual ~MayaTransformation () {}
 
-            static const size_t PHASE_TRANS1    = 1;
-            static const size_t PHASE_ROTATE1   = 2;
-            static const size_t PHASE_ROTATE2   = 3;
-            static const size_t PHASE_ROTATE3   = 4;
-            static const size_t PHASE_TRANS2    = 5;
-            static const size_t PHASE_SCALE     = 6;
-            static const size_t PHASE_TRANS3    = 7;
-
+            static const size_t PHASE_TRANS1            = 1;
+            static const size_t PHASE_ROTATE_ORIENT1    = 2;
+            static const size_t PHASE_ROTATE_ORIENT2    = 3;
+            static const size_t PHASE_ROTATE_ORIENT3    = 4;
+            static const size_t PHASE_ROTATE1           = 5;
+            static const size_t PHASE_ROTATE2           = 6;
+            static const size_t PHASE_ROTATE3           = 7;
+            static const size_t PHASE_JOINT_ORIENT1     = 8;
+            static const size_t PHASE_JOINT_ORIENT2     = 9;
+            static const size_t PHASE_JOINT_ORIENT3     = 10;
+            static const size_t PHASE_TRANS2            = 11;
+            static const size_t PHASE_SCALE             = 12;
+            static const size_t PHASE_TRANS3            = 13;
+                                                        
             MVector translate1; // = 0,0,0
             std::vector<MVector> translate1Vec;
             size_t numTranslate1;
 
-            MEulerRotation eulerRotation; // = 0,0,0
+            MEulerRotation rotateOrient; // = 0,0,0
+            COLLADABU::Math::Vector3 axisPhaseRotateOrient1, axisPhaseRotateOrient2, axisPhaseRotateOrient3;
+
+            MEulerRotation rotation; // = 0,0,0
             COLLADABU::Math::Vector3 axisPhaseRotate1, axisPhaseRotate2, axisPhaseRotate3;
+
+            MEulerRotation jointOrient; // = 0,0,0
+            COLLADABU::Math::Vector3 axisPhaseJointOrient1, axisPhaseJointOrient2, axisPhaseJointOrient3;
 
             MVector translate2; // = 0,0,0
             std::vector<MVector> translate2Vec;
@@ -149,6 +162,12 @@ namespace COLLADAMaya
         * We need it for the creation of the light, to set the parent transform nodes.
         */
         UniqueIdUniqueIdsMap mLightTransformIdsMap;
+
+        /**
+        * The map holds for every unique id of a controller a list of transform node unique ids.
+        * We need it for the creation of the controller, to set the parent transform nodes.
+        */
+        UniqueIdUniqueIdsMap mControllerTransformIdsMap;
 
         /**
          * Set the center of interest distance value in a map to the current transform node.
@@ -220,6 +239,13 @@ namespace COLLADAMaya
         */
         const UniqueIdVec* findLightTransformIds ( const COLLADAFW::UniqueId& lightId ) const;
 
+        /*
+        * The map holdes for every controller (identified by it's unique id ) a list of all 
+        * transform nodes (identified by their names, which are unique!).
+        * We need it for the creation of the controller, to set the parent transform nodes.
+        */
+        const UniqueIdVec* findControllerTransformIds ( const COLLADAFW::UniqueId& controllerId ) const;
+
         /**
          * Determines the number of transform node instances.
          */
@@ -274,14 +300,19 @@ namespace COLLADAMaya
         bool readGeometryInstances ( const COLLADAFW::Node* node );
 
         /**
-        *	Save the transformation ids to the geometry ids.
+        *	Save the transformation ids to the camera ids.
         */
         bool readCameraInstances ( const COLLADAFW::Node* node );
 
         /**
-        *	Save the transformation ids to the geometry ids.
+        *	Save the transformation ids to the light ids.
         */
         bool readLightInstances ( const COLLADAFW::Node* node );
+
+        /**
+        *	Save the transformation ids to the controller ids.
+        */
+        bool readControllerInstances ( const COLLADAFW::Node* node );
 
         /**
          * Read the shading engines.
@@ -331,6 +362,23 @@ namespace COLLADAMaya
             bool& hasScalePivot,
             bool& isLookatTransform );
 
+        void handleTranslateValues ( 
+            MayaTransformation &mayaTransform, 
+            const COLLADAFW::Transformation* transformation );
+
+        bool checkPivotValues ( 
+            MayaTransformation &mayaTransform,
+            bool &hasScalePivot, 
+            bool &hasRotatePivot );
+
+        bool handleTransformRotateValues ( 
+            MayaTransformation &mayaTransform, 
+            const COLLADAFW::Transformation* transformation );
+
+        bool handleJointRotateValues ( 
+            MayaTransformation &mayaTransform, 
+            const COLLADAFW::Transformation* transformation );
+
         /**
          * Set the transform values.
          */
@@ -340,8 +388,17 @@ namespace COLLADAMaya
             const bool hasRotatePivot,
             const bool hasScalePivot );
 
+        /**
+        * Set the transform values.
+        */
+        void importJointTransform ( 
+            const MayaTransformation &mayaTransform, 
+            MayaDM::Joint* jointNode );
+
         MEulerRotation::RotationOrder getRotationOrder ( 
-            const MayaTransformation &mayaTransform );
+            const COLLADABU::Math::Vector3 axis1, 
+            const COLLADABU::Math::Vector3 axis2, 
+            const COLLADABU::Math::Vector3 axis3 );
 
         /**
          * Imports the transform values from a transform matrix.

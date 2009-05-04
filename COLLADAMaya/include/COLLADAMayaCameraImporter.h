@@ -60,6 +60,8 @@ namespace COLLADAMaya
          */
         void importCamera ( const COLLADAFW::Camera* camera );
 
+    private:
+
         /**
         * Imports the data of the current camera.
         */

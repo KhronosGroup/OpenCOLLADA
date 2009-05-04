@@ -18,6 +18,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWInstanceNode.h"
 #include "COLLADAFWInstanceCamera.h"
 #include "COLLADAFWInstanceLight.h"
+#include "COLLADAFWInstanceController.h"
 #include "COLLADAFWArrayPrimitiveType.h"
 #include "COLLADAFWPointerArray.h"
 
@@ -85,10 +86,13 @@ namespace COLLADAFW
 		/** List of all instance cameras of this node. Array and contents will be delete in destructor.*/
 		InstanceCameraPointerArray mInstanceCameras;
 
-		/** List of all instance cameras of this node. Array and contents will be delete in destructor.*/
+		/** List of all instance lights of this node. Array and contents will be delete in destructor.*/
 		InstanceLightPointerArray mInstanceLights;
 
-		/** List of all child nodes. Array and contents will be delete in destructor.*/
+        /** List of all instance controller of this node. Array and contents will be delete in destructor.*/
+        InstanceControllerPointerArray mInstanceControllers;
+
+        /** List of all child nodes. Array and contents will be delete in destructor.*/
 		NodePointerArray mChildNodes;
 
 	public:
@@ -150,6 +154,12 @@ namespace COLLADAFW
 
 		/** List of all instance cameras of this camera.*/
 		const InstanceLightPointerArray& getInstanceLights() const { return mInstanceLights; }
+
+        /** List of all instance controller of this node. Array and contents will be delete in destructor.*/
+        InstanceControllerPointerArray& getInstanceControllers () { return mInstanceControllers; }
+
+        /** List of all instance controller of this node. Array and contents will be delete in destructor.*/
+        const InstanceControllerPointerArray& getInstanceControllers () const { return mInstanceControllers; }
 
 		/** Get list of all child nodes.*/
 		NodePointerArray& getChildNodes() { return mChildNodes; }

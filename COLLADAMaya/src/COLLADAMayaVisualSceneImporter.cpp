@@ -138,7 +138,7 @@ namespace COLLADAMaya
         // Import the transformations.
         importTransformations ( node, transformNode );
 
-        // TODO We need the maya transform node for connect it with the animations.
+        // We need the maya transform node for connect it with the animations.
         mMayaDMTransformMap [ transformNodeId ] = *transformNode;
 
         // Destroy the node object.
@@ -149,6 +149,7 @@ namespace COLLADAMaya
         readGeometryInstances ( node );
         readCameraInstances ( node );
         readLightInstances ( node );
+        readControllerInstances ( node );
 
         // Recursive call for all child elements.
         const COLLADAFW::NodeArray& childNodes = node->getChildNodes ();
@@ -206,7 +207,10 @@ namespace COLLADAMaya
                 }
 
                 // Set the transform values.
-                importDecomposedTransform ( mayaTransform, transformNode, hasRotatePivot, hasScalePivot );
+                if ( rootNode->getType () == COLLADAFW::Node::NODE )
+                    importDecomposedTransform ( mayaTransform, transformNode, hasRotatePivot, hasScalePivot );
+                else if ( rootNode->getType () == COLLADAFW::Node::JOINT )
+                    importJointTransform ( mayaTransform, (MayaDM::Joint*) transformNode );
             }
             else
             {
@@ -321,10 +325,10 @@ namespace COLLADAMaya
         case COLLADAFW::Node::JOINT:
             {
                 transformNode = new MayaDM::Joint ( file, nodeName.c_str (), parentNodeName );
-                String message = "VisualSceneImporter::importVisualScene :: Transform type JOINT not implemented!";
-                std::cerr << message << std::endl;
-                MGlobal::displayError ( message.c_str () );
-                assert ( "Transform type JOINT not implemented!" );
+//                 String message = "VisualSceneImporter::importVisualScene :: Transform type JOINT not implemented!";
+//                 std::cerr << message << std::endl;
+//                 MGlobal::displayError ( message.c_str () );
+//                 assert ( "Transform type JOINT not implemented!" );
                 break;
             }
         case COLLADAFW::Node::NODE:
@@ -363,7 +367,7 @@ namespace COLLADAMaya
             COLLADAFW::Transformation::TransformationType transformType; 
             transformType = transformation->getTransformationType ();
 
-            // TODO Get the id of animation list of the current transformation and store 
+            // Get the id of animation list of the current transformation and store 
             // the transform node id, the mayaTransform node and the transformation type.
             const COLLADAFW::UniqueId& animationListId = transformation->getAnimationList ();
             if ( animationListId.isValid () )
@@ -377,6 +381,9 @@ namespace COLLADAMaya
                 transformAnimations.push_back ( transformAnim );
             }
 
+            // Check if we handle a joint node.
+            bool isJoint = ( rootNode->getType () == COLLADAFW::Node::JOINT );
+
             // Set the transformation information in depend of the transform type.
             switch ( transformType )
             {
@@ -388,108 +395,23 @@ namespace COLLADAMaya
                     isLookatTransform = true; 
                     validMayaTransform = false;
                     return validMayaTransform;
-
-                    break;
                 }
+                break;
             case COLLADAFW::Transformation::MATRIX:
-                // Nothing to do, the matrix will be read automatically.
-                validMayaTransform = false;
-                return validMayaTransform;
+                {
+                    // Nothing to do, the matrix will be read automatically.
+                    validMayaTransform = false;
+                    return validMayaTransform;
+                }
                 break;
             case COLLADAFW::Transformation::ROTATE:
                 {
-                    // Rotation is maya conform, if there is not more than one rotation per axis
-                    // (except the axis rotations are direct successive).
+                    if ( !isJoint )
+                        validMayaTransform = handleTransformRotateValues ( mayaTransform, transformation );
+                    else 
+                        validMayaTransform = handleJointRotateValues ( mayaTransform, transformation );
 
-                    // On the first rotation set the actual phase to the rotate phase 1.
-                    if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE1 )
-                    {
-                        mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
-
-                        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
-                        double angle = rotation->getRotationAngle ();
-                        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
-
-                        mayaTransform.axisPhaseRotate1 = axis;
-                    }
-
-                    // Handle the rotations.
-                    if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE3 )
-                    {
-                        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
-                        double angle = rotation->getRotationAngle ();
-                        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
-                        
-                        // Check if the axis has changed.
-                        switch ( mayaTransform.phase )
-                        {
-                        case MayaTransformation::PHASE_ROTATE1:
-                            {
-                                // Change the phase set the axis if necessary.
-                                if ( mayaTransform.axisPhaseRotate1 != axis )
-                                {
-                                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE2;
-                                    mayaTransform.axisPhaseRotate2 = axis;
-                                }
-                            }
-                            break;
-
-                        case MayaTransformation::PHASE_ROTATE2:
-                            {
-                                // Check, if the axis is not already used.
-                                if ( axis == mayaTransform.axisPhaseRotate1 )
-                                {
-                                    validMayaTransform = false;
-                                    return validMayaTransform;
-                                }
-
-                                // Change the phase and set the axis if necessary.
-                                if ( mayaTransform.axisPhaseRotate2 != axis )
-                                {
-                                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE3;
-                                    mayaTransform.axisPhaseRotate3 = axis;
-                                }
-                            }
-                            break;
-
-                        case MayaTransformation::PHASE_ROTATE3:
-                            {
-                                // Check, if the axis is not already used.
-                                if ( axis == mayaTransform.axisPhaseRotate1 || 
-                                     axis == mayaTransform.axisPhaseRotate2 )
-                                {
-                                    validMayaTransform = false;
-                                    return validMayaTransform;
-                                }
-                            }
-                            break;
-
-                        default:
-                            MGlobal::displayError ( "No valid transformation phase!" );
-                            break;
-                        }
-
-                        // Add the rotation angle.
-                        if ( axis == COLLADABU::Math::Vector3::UNIT_X )
-                        {
-                            MVector rotation = mayaTransform.eulerRotation.asVector ();
-                            rotation.x += angle;
-                            mayaTransform.eulerRotation.setValue ( rotation );
-                        }
-                        else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
-                        {
-                            MVector rotation = mayaTransform.eulerRotation.asVector ();
-                            rotation.y += angle;
-                            mayaTransform.eulerRotation.setValue ( rotation );
-                        }
-                        else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
-                        {
-                            MVector rotation = mayaTransform.eulerRotation.asVector ();
-                            rotation.z += angle;
-                            mayaTransform.eulerRotation.setValue ( rotation );
-                        }
-
-                    }
+                    if ( !validMayaTransform ) return validMayaTransform;
                 }
                 break;
             case COLLADAFW::Transformation::SCALE:
@@ -526,37 +448,7 @@ namespace COLLADAMaya
                 }
             case COLLADAFW::Transformation::TRANSLATE:
                 {
-                    // Set the actual phase to a scale phase.
-                    if ( ( mayaTransform.phase != MayaTransformation::PHASE_TRANS1 ) && 
-                        ( mayaTransform.phase != MayaTransformation::PHASE_TRANS2 ) && 
-                        ( mayaTransform.phase != MayaTransformation::PHASE_TRANS3 ) )
-                    {
-                        mayaTransform.phase += 1;
-                    }
-
-                    COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transformation;
-                    COLLADABU::Math::Vector3 translation = translate->getTranslation ();
-                    if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS1 )
-                    {
-                        mayaTransform.translate1Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
-                        ++mayaTransform.numTranslate1;
-                        for ( unsigned int j=0; j<3; ++j )
-                            mayaTransform.translate1[j] += translation [j];
-                    }
-                    else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS2 )
-                    {
-                        mayaTransform.translate2Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
-                        ++mayaTransform.numTranslate2;
-                        for ( unsigned int j=0; j<3; ++j )
-                            mayaTransform.translate2[j] += translation [j];
-                    }
-                    else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS3 )
-                    {
-                        mayaTransform.translate3Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
-                        ++mayaTransform.numTranslate3;
-                        for ( unsigned int j=0; j<3; ++j )
-                            mayaTransform.translate3[j] += translation [j];
-                    }
+                    handleTranslateValues ( mayaTransform, transformation );
                 }
                 break;
             default:
@@ -567,83 +459,537 @@ namespace COLLADAMaya
             }
         }
 
+        // Check the pivot values.
         if ( validMayaTransform )
         {
-            // Get the number of vectors
-            size_t numTranslate1Vec = mayaTransform.translate1Vec.size ();
-            size_t numTranslate2Vec = mayaTransform.translate2Vec.size ();
-            size_t numTranslate3Vec = mayaTransform.translate3Vec.size ();
+            validMayaTransform = checkPivotValues ( mayaTransform, hasScalePivot, hasRotatePivot );
+        }
 
-            // Just one translate3Vec is allowed.
-            if (  numTranslate3Vec > 1 )
+        return validMayaTransform;
+    }
+
+    // -----------------------------------
+    bool VisualSceneImporter::handleJointRotateValues ( 
+        MayaTransformation &mayaTransform, 
+        const COLLADAFW::Transformation* transformation )
+    {
+        bool validMayaTransform = true; 
+
+        // Rotation is maya conform, if there is not more than one rotation per axis
+        // (except the axis rotations are direct successive).
+
+        // On the first rotation set the actual phase to the rotate orient phase 1.
+        if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE_ORIENT1 )
+        {
+            mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT1;
+
+            COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
+            double angle = rotation->getRotationAngle ();
+            COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
+
+            mayaTransform.axisPhaseRotateOrient1 = axis;
+        }
+
+        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
+        double angle = rotation->getRotationAngle ();
+        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
+
+        // Check if the axis has changed.
+        switch ( mayaTransform.phase )
+        {
+        case MayaTransformation::PHASE_ROTATE_ORIENT1:
             {
-                validMayaTransform = false;
-                return validMayaTransform;
+                // Change the phase set the axis if necessary.
+                if ( mayaTransform.axisPhaseRotateOrient1 != axis )
+                {
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT2;
+                    mayaTransform.axisPhaseRotateOrient1 = axis;
+                }
             }
+            break;
 
-            // If we have one translate3, which is the scalePivotInverse, 
-            // the last Vector of the translate2 has to be the scalePivot.
-            if ( numTranslate3Vec == 1 )
+        case MayaTransformation::PHASE_ROTATE_ORIENT2:
             {
-                // The first translate3 vector has to be the scalePivotInverse.
-                MVector scalePivotInverse = mayaTransform.translate3Vec[0];
-
-                // If we have a scalePivotInverse, we need minimum one translate2 vector. 
-                // The last translate2 vector has to be the scalePivot. 
-                MVector scalePivot (0,0,0);
-                if ( numTranslate2Vec > 0 )
+                // Check, if the axis is not already used.
+                if ( axis == mayaTransform.axisPhaseRotateOrient1 )
                 {
-                    // The last translate2 vector has to be the scalePivot. 
-                    scalePivot = mayaTransform.translate2Vec[numTranslate2Vec-1];
+                    // Set the phase to the next orientation.
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
+                    mayaTransform.axisPhaseRotate1 = axis;
                 }
-                else
+                else if ( mayaTransform.axisPhaseRotateOrient2 != axis )
                 {
-                    // Except we don't have a rotation... 
-                    // Then the scalePivot is the last translate1 vector.
-                    // The last translate2 vector has to be the scalePivot. 
-                    scalePivot = mayaTransform.translate1Vec[numTranslate1Vec-1];
+                    // Change the phase and set the axis if necessary.
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT3;
+                    mayaTransform.axisPhaseRotateOrient3 = axis;
                 }
+            }
+            break;
 
-                // Check, if the vectors are inverse.
-                if ( ( scalePivot * (-1) ) != scalePivotInverse )
+        case MayaTransformation::PHASE_ROTATE_ORIENT3:
+            {
+                // Check, if the axis is not already used.
+                if ( axis == mayaTransform.axisPhaseRotateOrient1 || 
+                    axis == mayaTransform.axisPhaseRotateOrient2 )
+                {
+                    // Set the phase to the next orientation.
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
+                    mayaTransform.axisPhaseRotate1 = axis;
+                }
+            }
+            break;
+
+        case MayaTransformation::PHASE_ROTATE1:
+            {
+                // Change the phase set the axis if necessary.
+                if ( mayaTransform.axisPhaseRotate1 != axis )
+                {
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE2;
+                    mayaTransform.axisPhaseRotate2 = axis;
+                }
+            }
+            break;
+
+        case MayaTransformation::PHASE_ROTATE2:
+            {
+                // Check, if the axis is not already used.
+                if ( axis == mayaTransform.axisPhaseRotate1 )
+                {
+                    // Set the phase to the next orientation.
+                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT1;
+                    mayaTransform.axisPhaseJointOrient1 = axis;
+//                     validMayaTransform = false;
+//                     return validMayaTransform;
+                }
+                else if ( mayaTransform.axisPhaseRotate2 != axis )
+                {
+                    // Change the phase and set the axis if necessary.
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE3;
+                    mayaTransform.axisPhaseRotate3 = axis;
+                }
+            }
+            break;
+
+        case MayaTransformation::PHASE_ROTATE3:
+            {
+                // Check, if the axis is not already used.
+                if ( axis == mayaTransform.axisPhaseRotate1 || 
+                    axis == mayaTransform.axisPhaseRotate2 )
+                {
+                    // Set the phase to the next orientation.
+                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT1;
+                    mayaTransform.axisPhaseJointOrient1 = axis;
+//                     validMayaTransform = false;
+//                     return validMayaTransform;
+                }
+            }
+            break;
+
+        case MayaTransformation::PHASE_JOINT_ORIENT1:
+            {
+                // Change the phase set the axis if necessary.
+                if ( mayaTransform.axisPhaseJointOrient1 != axis )
+                {
+                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT2;
+                    mayaTransform.axisPhaseJointOrient2 = axis;
+                }
+            }
+            break;
+
+        case MayaTransformation::PHASE_JOINT_ORIENT2:
+            {
+                // Check, if the axis is not already used.
+                if ( axis == mayaTransform.axisPhaseRotate1 )
+                {
+                    validMayaTransform = false;
+                    return validMayaTransform;
+                }
+                else if ( mayaTransform.axisPhaseRotate2 != axis )
+                {
+                    // Change the phase and set the axis if necessary.
+                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT3;
+                    mayaTransform.axisPhaseJointOrient3 = axis;
+                }
+            }
+            break;
+
+        case MayaTransformation::PHASE_JOINT_ORIENT3:
+            {
+                // Check, if the axis is not already used.
+                if ( axis == mayaTransform.axisPhaseRotate1 || 
+                    axis == mayaTransform.axisPhaseRotate2 )
+                {
+                    validMayaTransform = false;
+                    return validMayaTransform;
+                }
+            }
+            break;
+
+        default:
+            MGlobal::displayError ( "No valid transformation phase!" );
+            break;
+        }
+
+        // Add the rotation angle.
+        if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE_ORIENT3 )
+        {
+            if ( axis == COLLADABU::Math::Vector3::UNIT_X )
+            {
+                MVector rotation = mayaTransform.rotateOrient.asVector ();
+                rotation.x += angle;
+                mayaTransform.rotateOrient.setValue ( rotation );
+            }
+            else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
+            {
+                MVector rotation = mayaTransform.rotateOrient.asVector ();
+                rotation.y += angle;
+                mayaTransform.rotateOrient.setValue ( rotation );
+            }
+            else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
+            {
+                MVector rotation = mayaTransform.rotateOrient.asVector ();
+                rotation.z += angle;
+                mayaTransform.rotateOrient.setValue ( rotation );
+            }
+        }
+        else if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE3 )
+        {
+            if ( axis == COLLADABU::Math::Vector3::UNIT_X )
+            {
+                MVector rotation = mayaTransform.rotation.asVector ();
+                rotation.x += angle;
+                mayaTransform.rotation.setValue ( rotation );
+            }
+            else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
+            {
+                MVector rotation = mayaTransform.rotation.asVector ();
+                rotation.y += angle;
+                mayaTransform.rotation.setValue ( rotation );
+            }
+            else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
+            {
+                MVector rotation = mayaTransform.rotation.asVector ();
+                rotation.z += angle;
+                mayaTransform.rotation.setValue ( rotation );
+            }
+        }
+        else if ( mayaTransform.phase < MayaTransformation::PHASE_JOINT_ORIENT3 )
+        {
+            if ( axis == COLLADABU::Math::Vector3::UNIT_X )
+            {
+                MVector rotation = mayaTransform.jointOrient.asVector ();
+                rotation.x += angle;
+                mayaTransform.jointOrient.setValue ( rotation );
+            }
+            else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
+            {
+                MVector rotation = mayaTransform.jointOrient.asVector ();
+                rotation.y += angle;
+                mayaTransform.jointOrient.setValue ( rotation );
+            }
+            else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
+            {
+                MVector rotation = mayaTransform.jointOrient.asVector ();
+                rotation.z += angle;
+                mayaTransform.jointOrient.setValue ( rotation );
+            }
+        }
+
+        return validMayaTransform;
+    }
+
+    // -----------------------------------
+    bool VisualSceneImporter::handleTransformRotateValues ( 
+        MayaTransformation &mayaTransform, 
+        const COLLADAFW::Transformation* transformation )
+    {
+        bool validMayaTransform = true; 
+
+        // Rotation is maya conform, if there is not more than one rotation per axis
+        // (except the axis rotations are direct successive).
+
+        // On the first rotation set the actual phase to the rotate phase 1.
+        if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE1 )
+        {
+            mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
+
+            COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
+            double angle = rotation->getRotationAngle ();
+            COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
+
+            mayaTransform.axisPhaseRotate1 = axis;
+        }
+
+        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
+        double angle = rotation->getRotationAngle ();
+        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
+
+        // Check if the axis has changed.
+        switch ( mayaTransform.phase )
+        {
+        case MayaTransformation::PHASE_ROTATE1:
+            {
+                // Change the phase set the axis if necessary.
+                if ( mayaTransform.axisPhaseRotate1 != axis )
+                {
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE2;
+                    mayaTransform.axisPhaseRotate2 = axis;
+                }
+            }
+            break;
+
+        case MayaTransformation::PHASE_ROTATE2:
+            {
+                // Check, if the axis is not already used.
+                if ( axis == mayaTransform.axisPhaseRotate1 )
                 {
                     validMayaTransform = false;
                     return validMayaTransform;
                 }
 
-                // We have a valid scalePivot.
-                hasScalePivot = true;
-            }
-
-
-            // Without a translate1 vector, we can't have a rotatePivot
-            if ( numTranslate1Vec > 0 )
-            {
-                // We also need minimum one translate2 vector, 
-                // respectively minimum two translate2 vectors, if we have a scalePivot.
-                if ( numTranslate2Vec > 0 || ( hasScalePivot && numTranslate2Vec > 1 ) )
+                // Change the phase and set the axis if necessary.
+                if ( mayaTransform.axisPhaseRotate2 != axis )
                 {
-                    // Check if we have a rotatePivotInverse at the beginning of the translate2 vectors
-                    // and the rotatePivot at the end of the translate1 vectors.
-
-                    // The first translate2 vector has to be the rotatePivotInverse.
-                    MVector rotatePivotInverse = mayaTransform.translate2Vec[0];
-
-                    // The last translate1 vector has to be the rotatePivot. 
-                    MVector rotatePivot = mayaTransform.translate1Vec[numTranslate1Vec-1];
-
-                    // Check, if the vectors are inverse.
-                    if ( ( rotatePivot * (-1) ) != rotatePivotInverse )
-                    {
-                        validMayaTransform = false;
-                        return validMayaTransform;
-                    }
-                    hasRotatePivot = true;
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE3;
+                    mayaTransform.axisPhaseRotate3 = axis;
                 }
+            }
+            break;
+
+        case MayaTransformation::PHASE_ROTATE3:
+            {
+                // Check, if the axis is not already used.
+                if ( axis == mayaTransform.axisPhaseRotate1 || 
+                    axis == mayaTransform.axisPhaseRotate2 )
+                {
+                    validMayaTransform = false;
+                    return validMayaTransform;
+                }
+            }
+            break;
+
+        default:
+            MGlobal::displayError ( "No valid transformation phase!" );
+            break;
+        }
+
+        if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE3 )
+        {
+            if ( axis == COLLADABU::Math::Vector3::UNIT_X )
+            {
+                MVector rotation = mayaTransform.rotation.asVector ();
+                rotation.x += angle;
+                mayaTransform.rotation.setValue ( rotation );
+            }
+            else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
+            {
+                MVector rotation = mayaTransform.rotation.asVector ();
+                rotation.y += angle;
+                mayaTransform.rotation.setValue ( rotation );
+            }
+            else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
+            {
+                MVector rotation = mayaTransform.rotation.asVector ();
+                rotation.z += angle;
+                mayaTransform.rotation.setValue ( rotation );
             }
         }
 
         return validMayaTransform;
+    }
+
+    // -----------------------------------
+    void VisualSceneImporter::handleTranslateValues ( 
+        MayaTransformation &mayaTransform, 
+        const COLLADAFW::Transformation* transformation )
+    {
+        // Set the actual phase to a scale phase.
+        if ( ( mayaTransform.phase != MayaTransformation::PHASE_TRANS1 ) && 
+            ( mayaTransform.phase != MayaTransformation::PHASE_TRANS2 ) && 
+            ( mayaTransform.phase != MayaTransformation::PHASE_TRANS3 ) )
+        {
+            mayaTransform.phase += 1;
+        }
+
+        COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transformation;
+        COLLADABU::Math::Vector3 translation = translate->getTranslation ();
+        if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS1 )
+        {
+            mayaTransform.translate1Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
+            ++mayaTransform.numTranslate1;
+            for ( unsigned int j=0; j<3; ++j )
+                mayaTransform.translate1[j] += translation [j];
+        }
+        else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS2 )
+        {
+            mayaTransform.translate2Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
+            ++mayaTransform.numTranslate2;
+            for ( unsigned int j=0; j<3; ++j )
+                mayaTransform.translate2[j] += translation [j];
+        }
+        else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS3 )
+        {
+            mayaTransform.translate3Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
+            ++mayaTransform.numTranslate3;
+            for ( unsigned int j=0; j<3; ++j )
+                mayaTransform.translate3[j] += translation [j];
+        }
+    }
+
+    // -----------------------------------
+    bool VisualSceneImporter::checkPivotValues ( 
+        MayaTransformation &mayaTransform, 
+        bool &hasScalePivot, 
+        bool &hasRotatePivot )
+    {
+        bool validMayaTransform = true; 
+
+        // Get the number of vectors
+        size_t numTranslate1Vec = mayaTransform.translate1Vec.size ();
+        size_t numTranslate2Vec = mayaTransform.translate2Vec.size ();
+        size_t numTranslate3Vec = mayaTransform.translate3Vec.size ();
+
+        // Just one translate3Vec is allowed.
+        if (  numTranslate3Vec > 1 )
+        {
+            validMayaTransform = false;
+            return validMayaTransform;
+        }
+
+        // If we have one translate3, which is the scalePivotInverse, 
+        // the last Vector of the translate2 has to be the scalePivot.
+        if ( numTranslate3Vec == 1 )
+        {
+            // The first translate3 vector has to be the scalePivotInverse.
+            MVector scalePivotInverse = mayaTransform.translate3Vec[0];
+
+            // If we have a scalePivotInverse, we need minimum one translate2 vector. 
+            // The last translate2 vector has to be the scalePivot. 
+            MVector scalePivot (0,0,0);
+            if ( numTranslate2Vec > 0 )
+            {
+                // The last translate2 vector has to be the scalePivot. 
+                scalePivot = mayaTransform.translate2Vec[numTranslate2Vec-1];
+            }
+            else
+            {
+                // Except we don't have a rotation... 
+                // Then the scalePivot is the last translate1 vector.
+                // The last translate2 vector has to be the scalePivot. 
+                scalePivot = mayaTransform.translate1Vec[numTranslate1Vec-1];
+            }
+
+            // Check, if the vectors are inverse.
+            if ( ( scalePivot * (-1) ) != scalePivotInverse )
+            {
+                validMayaTransform = false;
+                return validMayaTransform;
+            }
+
+            // We have a valid scalePivot.
+            hasScalePivot = true;
+        }
+
+        // Without a translate1 vector, we can't have a rotatePivot
+        if ( numTranslate1Vec > 0 )
+        {
+            // We also need minimum one translate2 vector, 
+            // respectively minimum two translate2 vectors, if we have a scalePivot.
+            if ( numTranslate2Vec > 0 || ( hasScalePivot && numTranslate2Vec > 1 ) )
+            {
+                // Check if we have a rotatePivotInverse at the beginning of the translate2 vectors
+                // and the rotatePivot at the end of the translate1 vectors.
+
+                // The first translate2 vector has to be the rotatePivotInverse.
+                MVector rotatePivotInverse = mayaTransform.translate2Vec[0];
+
+                // The last translate1 vector has to be the rotatePivot. 
+                MVector rotatePivot = mayaTransform.translate1Vec[numTranslate1Vec-1];
+
+                // Check, if the vectors are inverse.
+                if ( ( rotatePivot * (-1) ) != rotatePivotInverse )
+                {
+                    validMayaTransform = false;
+                    return validMayaTransform;
+                }
+                hasRotatePivot = true;
+            }
+        }
+
+        return validMayaTransform;
+    }
+
+    // -----------------------------------
+    void VisualSceneImporter::importJointTransform ( 
+        const MayaTransformation &mayaTransform, 
+        MayaDM::Joint* jointNode )
+    {
+        // This is the order of the transforms:
+        //
+        // matrix = [S] * [RO] * [R] * [JO] * [IS] * [T]
+        //
+        // Where S is scale, RO is rotate orient (attribute name is rotateAxis), R is rotation, 
+        // JO is joint orientation, IS is parentScaleInverse, T is translation
+
+        // Get the euler rotation and detect the rotation order.
+        MEulerRotation eulerRotateOrient = mayaTransform.rotateOrient;
+        MEulerRotation::RotationOrder rotateOrientOrder = getRotationOrder ( mayaTransform.axisPhaseRotateOrient1, mayaTransform.axisPhaseRotateOrient2, mayaTransform.axisPhaseRotateOrient3 );
+        MVector rotateOrient = eulerRotateOrient.asVector ();
+
+        // Get the euler rotation and detect the rotation order.
+        MEulerRotation eulerRotation = mayaTransform.rotation;
+        MEulerRotation::RotationOrder rotateOrder = getRotationOrder ( mayaTransform.axisPhaseRotate1, mayaTransform.axisPhaseRotate2, mayaTransform.axisPhaseRotate3 );
+        MVector rotation = eulerRotation.asVector ();
+
+        // Get the euler rotation and detect the rotation order.
+        MEulerRotation eulerJointOrient = mayaTransform.jointOrient;
+        MEulerRotation::RotationOrder jointOrientOrder = getRotationOrder ( mayaTransform.axisPhaseJointOrient1, mayaTransform.axisPhaseJointOrient2, mayaTransform.axisPhaseJointOrient3 );
+        MVector jointOrient = eulerRotateOrient.asVector ();
+
+        // Get the scale.
+        MVector scale = mayaTransform.scale;
+
+        // TODO If the current node is a joint, we have to look for the parent scale.
+//        MVector parentScaleInverse = mayaTransform.parentScaleInverse;
+
+        // Get the number of vectors
+        size_t numTranslate1Vec = mayaTransform.translate1Vec.size ();
+        size_t numTranslate2Vec = mayaTransform.translate2Vec.size ();
+        size_t numTranslate3Vec = mayaTransform.translate3Vec.size ();
+
+        // T = T1 + T2 + T3 - SPT - RPT
+        MVector translate1 = mayaTransform.translate1;
+        MVector translate2 = mayaTransform.translate2;
+        MVector translate3 = mayaTransform.translate3;
+        MVector translate = translate1 + translate2 + translate3;
+
+        // Write the transformations directly into the maya file.
+        if ( translate != MVector (0, 0, 0) )
+            jointNode->setTranslate ( toLinearUnit ( MayaDM::double3 ( translate.x , translate.y, translate.z ) ) );
+
+        // Rotate Orient (attribute name is rotateAxis)
+        if ( rotateOrient != MVector (0, 0, 0) )
+        {
+            jointNode->setRotateAxis ( MayaDM::double3 ( rotateOrient.x, rotateOrient.y, rotateOrient.z ) );
+        }
+
+        if ( rotation != MVector (0, 0, 0) )
+        {
+            if ( rotateOrder != MEulerRotation::kXYZ )
+                jointNode->setRotateOrder ( rotateOrder );
+            jointNode->setRotate ( MayaDM::double3 ( rotation.x, rotation.y, rotation.z ) );
+        }
+
+        if ( jointOrient != MVector (0, 0, 0) )
+        {
+            // TODO
+//             if ( rotateOrder != MEulerRotation::kXYZ )
+//                 jointNode->setJointOrientType ( rotateOrder );
+            jointNode->setJointOrient ( MayaDM::double3 ( jointOrient.x, jointOrient.y, jointOrient.z ) );
+        }
+
+        if ( scale != MVector (1, 1, 1) )
+            jointNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
     }
 
     // -----------------------------------
@@ -746,8 +1092,8 @@ namespace COLLADAMaya
         MVector translate = translate1 + translate2 + translate3 - scalePivotTranslate - rotatePivotTranslate;
 
         // Get the euler rotation and detect the rotation order.
-        MEulerRotation eulerRotation = mayaTransform.eulerRotation;
-        MEulerRotation::RotationOrder order = getRotationOrder ( mayaTransform );
+        MEulerRotation eulerRotation = mayaTransform.rotation;
+        MEulerRotation::RotationOrder order = getRotationOrder ( mayaTransform.axisPhaseRotate1, mayaTransform.axisPhaseRotate2, mayaTransform.axisPhaseRotate3 );
         MVector rotation = eulerRotation.asVector ();
 
         MVector scale = mayaTransform.scale;
@@ -878,6 +1224,19 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
+    const BaseImporter::UniqueIdVec* VisualSceneImporter::findControllerTransformIds ( 
+        const COLLADAFW::UniqueId& controllerId ) const
+    {
+        UniqueIdUniqueIdsMap::const_iterator it = mControllerTransformIdsMap.find ( controllerId );
+
+        if ( it != mControllerTransformIdsMap.end () )
+            return &(*it).second;
+
+        return 0;
+    }
+
+
+    // -----------------------------------
     bool VisualSceneImporter::readNodeInstances ( const COLLADAFW::Node* parentNode )
     {
         const COLLADAFW::UniqueId& parentNodeId = parentNode->getUniqueId ();
@@ -970,6 +1329,27 @@ namespace COLLADAMaya
 
             // Save for every geometry a list of transform nodes, which refer to it.
             mLightTransformIdsMap [ lightId ].push_back ( transformNodeId );
+        }
+
+        return true;
+    }
+
+    // -----------------------------------
+    bool VisualSceneImporter::readControllerInstances ( const COLLADAFW::Node* node )
+    {
+        // Get the unique id of the current node.
+        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
+
+        // Go through the instances and save the ids to the current node.
+        const COLLADAFW::InstanceControllerArray& controllerInstances = node->getInstanceControllers ();
+        size_t numInstances = controllerInstances.getCount ();
+        for ( size_t i=0; i<numInstances; ++i )
+        {
+            const COLLADAFW::InstanceController* instanceController = controllerInstances [i];
+            const COLLADAFW::UniqueId& controllerId = instanceController->getInstanciatedObjectId ();
+
+            // Save for every geometry a list of transform nodes, which refer to it.
+            mControllerTransformIdsMap [ controllerId ].push_back ( transformNodeId );
         }
 
         return true;
@@ -1228,39 +1608,41 @@ namespace COLLADAMaya
 
     // --------------------------------------------
     MEulerRotation::RotationOrder VisualSceneImporter::getRotationOrder ( 
-        const MayaTransformation &mayaTransform )
+        const COLLADABU::Math::Vector3 axis1, 
+        const COLLADABU::Math::Vector3 axis2, 
+        const COLLADABU::Math::Vector3 axis3 )
     {
         // Attention: the order is from behind!
         MEulerRotation::RotationOrder order = MEulerRotation::kXYZ;
 
         // X..
-        if ( mayaTransform.axisPhaseRotate1 == COLLADABU::Math::Vector3::UNIT_X ) 
+        if ( axis1 == COLLADABU::Math::Vector3::UNIT_X ) 
         {
-            if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_Y ) 
+            if ( axis2 == COLLADABU::Math::Vector3::UNIT_Y ) 
             {
-                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_Z ) 
+                if ( axis3 == COLLADABU::Math::Vector3::UNIT_Z ) 
                 {
                     order = MEulerRotation::kZYX; // xyz
                 }
-                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                else if ( axis3 == COLLADABU::Math::Vector3 (0,0,0) )
                 {
                     order = MEulerRotation::kZYX; // xy
                 }
                 else MGlobal::displayError ( "No valid euler rotation order!" );
             }
-            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_Z ) 
+            else if ( axis2 == COLLADABU::Math::Vector3::UNIT_Z ) 
             {
-                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_Y )
+                if ( axis3 == COLLADABU::Math::Vector3::UNIT_Y )
                 {
                     order = MEulerRotation::kYZX; // xzy
                 }
-                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                else if ( axis3 == COLLADABU::Math::Vector3 (0,0,0) )
                 {
                     order = MEulerRotation::kZYX; // xz
                 }
                 else MGlobal::displayError ( "No valid euler rotation order!" );
             }
-            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3 (0,0,0) )
+            else if ( axis2 == COLLADABU::Math::Vector3 (0,0,0) )
             {
                 order = MEulerRotation::kXYZ; // x
             }
@@ -1268,33 +1650,33 @@ namespace COLLADAMaya
         }
 
         // Y..
-        else if ( mayaTransform.axisPhaseRotate1 == COLLADABU::Math::Vector3::UNIT_Y ) 
+        else if ( axis1 == COLLADABU::Math::Vector3::UNIT_Y ) 
         {
-            if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_X ) 
+            if ( axis2 == COLLADABU::Math::Vector3::UNIT_X ) 
             {
-                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_Z ) 
+                if ( axis3 == COLLADABU::Math::Vector3::UNIT_Z ) 
                 {
                     order = MEulerRotation::kZXY; // yxz
                 }
-                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                else if ( axis3 == COLLADABU::Math::Vector3 (0,0,0) )
                 {
                     order = MEulerRotation::kXYZ; // yx
                 }
                 else MGlobal::displayError ( "No valid euler rotation order!" );
             }
-            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_Z ) 
+            else if ( axis2 == COLLADABU::Math::Vector3::UNIT_Z ) 
             {
-                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_X ) 
+                if ( axis3 == COLLADABU::Math::Vector3::UNIT_X ) 
                 {
                     order = MEulerRotation::kXZY; // yzx
                 }
-                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                else if ( axis3 == COLLADABU::Math::Vector3 (0,0,0) )
                 {
                     order = MEulerRotation::kZYX; // yz
                 }
                 else MGlobal::displayError ( "No valid euler rotation order!" );
             }
-            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3 (0,0,0) )
+            else if ( axis2 == COLLADABU::Math::Vector3 (0,0,0) )
             {
                 order = MEulerRotation::kXYZ; // y
             }
@@ -1302,33 +1684,33 @@ namespace COLLADAMaya
         }
 
         // Z..
-        else if ( mayaTransform.axisPhaseRotate1 == COLLADABU::Math::Vector3::UNIT_Z ) 
+        else if ( axis1 == COLLADABU::Math::Vector3::UNIT_Z ) 
         {
-            if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_X ) 
+            if ( axis2 == COLLADABU::Math::Vector3::UNIT_X ) 
             {
-                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_Y ) 
+                if ( axis3 == COLLADABU::Math::Vector3::UNIT_Y ) 
                 {
                     order = MEulerRotation::kYXZ; // zxy
                 }
-                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                else if ( axis3 == COLLADABU::Math::Vector3 (0,0,0) )
                 {
                     order = MEulerRotation::kXYZ; // zx
                 }
                 else MGlobal::displayError ( "No valid euler rotation order!" );
             }
-            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3::UNIT_Y ) 
+            else if ( axis2 == COLLADABU::Math::Vector3::UNIT_Y ) 
             {
-                if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3::UNIT_X ) 
+                if ( axis3 == COLLADABU::Math::Vector3::UNIT_X ) 
                 {
                     order = MEulerRotation::kXYZ; // zyx
                 }
-                else if ( mayaTransform.axisPhaseRotate3 == COLLADABU::Math::Vector3 (0,0,0) )
+                else if ( axis3 == COLLADABU::Math::Vector3 (0,0,0) )
                 {
                     order = MEulerRotation::kXYZ; // zy
                 }
                 else MGlobal::displayError ( "No valid euler rotation order!" );
             }
-            else if ( mayaTransform.axisPhaseRotate2 == COLLADABU::Math::Vector3 (0,0,0) )
+            else if ( axis2 == COLLADABU::Math::Vector3 (0,0,0) )
             {
                 order = MEulerRotation::kXYZ; // z
             }

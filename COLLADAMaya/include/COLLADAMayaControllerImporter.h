@@ -12,31 +12,51 @@
 #define __COLLADAMAYA_CONTROLLERIMPORTER_H__
 
 #include "COLLADAMayaPrerequisites.h"
+#include "COLLADAMayaBaseImporter.h"
+
+#include "COLLADABUIDList.h"
 
 
 namespace COLLADAMaya
 {
 
     /** TODO Documentation */
-	class ControllerImporter 	
+    class ControllerImporter : public BaseImporter
     {
-	private:
+    private:
+
+        /** The standard name for controller without name. */
+        static const String CONTROLLER_NAME;
+
+    private:
+
+        /**
+        * The list of the unique maya controller names.
+        */
+        COLLADABU::IDList mControllerIdList;
+
+        /** 
+        * The map holds the unique ids of the controller nodes to the maya specific nodes. 
+        */
+        UniqueIdMayaNodeMap mMayaControllerNodesMap;
+
 	
 	public:
 
         /** Constructor. */
-		ControllerImporter();
+		ControllerImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
 		virtual ~ControllerImporter();
 
-	private:
+        /**
+        * Imports the data of the current controller.
+        */
+//        void importController ( const COLLADAFW::Controller* controller );
 
-        /** Disable default copy ctor. */
-		ControllerImporter( const ControllerImporter& pre );
+    private:
 
-        /** Disable default assignment operator. */
-		const ControllerImporter& operator= ( const ControllerImporter& pre );
+        MayaNode* findMayaControllerNode ( const COLLADAFW::UniqueId& controllerId );
 
 	};
 

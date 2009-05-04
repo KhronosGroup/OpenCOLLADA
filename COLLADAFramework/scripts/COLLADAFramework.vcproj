@@ -569,6 +569,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWInstanceController.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWInstanceGeometry.h"
 				>
 			</File>
