@@ -2436,6 +2436,10 @@
 			Name="Source Files"
 			Filter="cpp"
 			>
+			<File
+				RelativePath="..\src\COLLADAMayaControllerImporter.cpp"
+				>
+			</File>
 			<Filter
 				Name="Utils"
 				>
@@ -2793,6 +2797,10 @@
 			Name="Header Files"
 			Filter="h"
 			>
+			<File
+				RelativePath="..\include\COLLADAMayaControllerImporter.h"
+				>
+			</File>
 			<Filter
 				Name="Utils"
 				>
