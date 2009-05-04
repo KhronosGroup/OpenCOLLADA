@@ -96,6 +96,9 @@ namespace COLLADAMaya
             // Get the current dag path
             MDagPath dagPath = sceneElement->getPath();
 
+            // Check if the current scene element isn't already exported.
+            if ( findExportedContollerSceneElement ( sceneElement ) ) return;
+
             // Check if the current element is an instance. 
             // We don't need to export instances, because we export the original instanced element.
             bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
@@ -109,14 +112,14 @@ namespace COLLADAMaya
                 SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
                 SceneElement* instancedSceneElement = sceneGraph->findElement ( instancedPath );
 
-                // Check if the geometry of original instanced element is already exported.
-                SceneElement* exportedGeometryElement = sceneGraph->findExportedElement ( instancedPath );
-                if ( exportedGeometryElement == 0 )
-                {
-                    // Export the original instanced element and push it in the exported list. 
-                    GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
-                    geometryExporter->exportControllerOrGeometry ( instancedSceneElement );
-                }
+//                 // Check if the geometry of original instanced element is already exported.
+//                 SceneElement* exportedGeometryElement = sceneGraph->findExportedElement ( instancedPath );
+//                 if ( exportedGeometryElement == 0 )
+//                 {
+//                     // Export the original instanced element and push it in the exported list. 
+//                     GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
+//                     geometryExporter->exportControllerOrGeometry ( instancedSceneElement );
+//                 }
 
                 // Check if the controller of the original instanced element is already exported.
                 std::vector<SceneElement*>::const_iterator controllerIter;
@@ -1477,5 +1480,17 @@ namespace COLLADAMaya
         stack.clear();
     }
 
+    //------------------------------------------------------
+    bool ControllerExporter::findExportedContollerSceneElement ( const SceneElement* sceneElement )
+    {
+        std::vector<SceneElement*>::const_iterator it = mExportedControllerSceneElements.begin ();
+        while ( it != mExportedControllerSceneElements.end () )
+        {
+            if ( *it == sceneElement )
+                return true;
+            ++it;
+        }
+        return false;
+    }
 }
 

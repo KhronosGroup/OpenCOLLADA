@@ -251,7 +251,7 @@ namespace COLLADAMaya
                 // Closes the current effect tag
                 closeMaterial();
 
-                // Push the if of the exported material into the list for the exported materials
+                // Push the id of the exported material into the list for the exported materials
                 mExportedMaterials.push_back ( colladaMaterialId );
             }
         }

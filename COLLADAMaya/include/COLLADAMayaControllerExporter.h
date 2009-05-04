@@ -123,12 +123,6 @@ namespace COLLADAMaya
         bool hasSkinController ( const MObject& node );
         bool hasMorphController ( const MObject& node );
 
-        /** Disable the blend shape influences. */
-        static void disableBlendShape ( ControllerStack &stack );
-
-        /** Enable the blend shape influences. */
-        static void enableBlendShape ( ControllerStack &stack );
-
         /**
         * Iterate upstream finding all the nodes which affect the mesh.
         * @param node The mesh node.
@@ -140,6 +134,12 @@ namespace COLLADAMaya
             const MObject& node,
             ControllerStack& stack,
             ControllerMeshStack& meshStack );
+
+        /** Disable the blend shape influences. */
+        static void disableBlendShape ( ControllerStack &stack );
+
+        /** Enable the blend shape influences. */
+        static void enableBlendShape ( ControllerStack &stack );
 
         /**
          * Disables any effects on the node so that fewer calculations are
@@ -181,7 +181,7 @@ namespace COLLADAMaya
          * and all child elements.
          * @param sceneElement The element to export.
          */
-        void exportControllers(SceneElement* sceneElement);
+        void exportControllers ( SceneElement* sceneElement );
 
         /**
         * Recursive call to exports the controller of the current scene element
@@ -189,13 +189,18 @@ namespace COLLADAMaya
         * @param sceneElement The element to export.
         * @return bool True, if a controller element was exported.
         */
-        bool exportController(SceneElement* sceneElement);
+        bool exportController ( SceneElement* sceneElement );
+
+        /**
+        * Returns true, if the scene element is in the list of exporterd elements.
+        */
+        bool findExportedContollerSceneElement ( const SceneElement* sceneElement );
 
         /**
         * Exports all the mesh affected nodes in the controller stack.
         * @param stack The controller stack.
         */
-        void exportControllerStack(
+        void exportControllerStack (
             SceneElement* sceneElement,
             const ControllerStack& stack );
 
@@ -205,7 +210,7 @@ namespace COLLADAMaya
          * @param controllerNode The node for the controller to export.
          * @param outputShape The path to the output shape.
          */
-        void exportSkinController(
+        void exportSkinController (
             SceneElement* sceneElement,
             const MObject controllerNode,
             MDagPath outputShape );
@@ -215,12 +220,12 @@ namespace COLLADAMaya
          * @param sceneElement The scene element to export.
          * @param controllerNodes The morph controller nodes to export.
          */
-        void exportMorphController(
+        void exportMorphController (
             SceneElement* sceneElement,
             MObjectArray& controllerNodes );
 
 
-        void exportMorphTarget(
+        void exportMorphTarget (
             MPlug& targetVertexListPlug,
             MPlug& targetComponentListPlug,
             uint currentIndex );
@@ -230,7 +235,7 @@ namespace COLLADAMaya
          * @param skinTarget The skin target.
          * @param skinController Reference to the collada skin controller with the export data.
          */
-        void writeSkinController(
+        void writeSkinController (
             const String skinTarget,
             const SkinController& skinController );
 

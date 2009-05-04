@@ -72,6 +72,10 @@ namespace COLLADAMaya
             // Get the current dag path
             MDagPath dagPath = sceneElement->getPath();
 
+            // Check if the current scene element isn't already exported.
+            SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+            if ( sceneGraph->findExportedElement ( dagPath ) ) return;
+
             // Check for instance
             bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
 
@@ -92,7 +96,7 @@ namespace COLLADAMaya
                     {
                         SceneElement* instancedSceneElement = sceneGraph->findElement ( instancedPath );
                         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-                        sceneGraph->addExportedElement( instancedSceneElement );
+                        sceneGraph->addExportedElement ( instancedSceneElement );
                     }
                 }
             }

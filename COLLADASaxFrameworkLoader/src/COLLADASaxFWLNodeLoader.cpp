@@ -57,6 +57,9 @@ namespace COLLADASaxFWL
         if ( attributeData.id )
             newNode->setOriginalId ( (const char*)attributeData.id );
 
+        if ( attributeData.type == ENUM__NodeType__JOINT )
+            newNode->setType ( COLLADAFW::Node::JOINT );
+
 		addToSidTree(attributeData.id, attributeData.sid);
 
 		if ( mNodeStack.empty() )

@@ -8,21 +8,21 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "COLLADAFWStableHeaders.h"
-#include "[!output NAMESPACE][!output CLASS_NAME].h"
+#include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaControllerImporter.h"
 
 
-namespace [!output NAMESPACE]
+namespace COLLADAMaya
 {
 
     //------------------------------
-	[!output CLASS_NAME]::[!output CLASS_NAME]()
+	ControllerImporter::ControllerImporter()
 	{
 	}
 	
     //------------------------------
-	[!output CLASS_NAME]::~[!output CLASS_NAME]()
+	ControllerImporter::~ControllerImporter()
 	{
 	}
 
-} // namespace [!output NAMESPACE]
+} // namespace COLLADAMaya

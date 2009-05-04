@@ -2436,10 +2436,6 @@
 			Name="Source Files"
 			Filter="cpp"
 			>
-			<File
-				RelativePath="..\src\COLLADAMayaControllerImporter.cpp"
-				>
-			</File>
 			<Filter
 				Name="Utils"
 				>
@@ -2740,6 +2736,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMayaControllerImporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMayaDocumentImporter.cpp"
 					>
 				</File>
@@ -2797,10 +2797,6 @@
 			Name="Header Files"
 			Filter="h"
 			>
-			<File
-				RelativePath="..\include\COLLADAMayaControllerImporter.h"
-				>
-			</File>
 			<Filter
 				Name="Utils"
 				>
@@ -3411,6 +3407,10 @@
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaControllerImporter.h"
+					>
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaDocumentImporter.h"

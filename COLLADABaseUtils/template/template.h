@@ -1,14 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAMax.
-
-    Portions of the code are:
-    Copyright (c) 2005-2007 Feeling Software Inc.
-    Copyright (c) 2005-2007 Sony Computer Entertainment America
-
-    Based on the 3dsMax COLLADASW Tools:
-    Copyright (c) 2005-2006 Autodesk Media Entertainment
+    This file is part of COLLADABaseUtils.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -18,7 +11,7 @@
 #ifndef __[!output NAMESPACE_UPPER]_[!output CLASS_NAME_UPPER]_H__
 #define __[!output NAMESPACE_UPPER]_[!output CLASS_NAME_UPPER]_H__
 
-#include "COLLADAMaxPrerequisites.h"
+#include "[!output NAMESPACE]Prerequisites.h"
 [!if USE_BASE_NAMESPACE && BASE_CLASS_NAME != ""]
 #include "[!output BASE_NAMESPACE][!output BASE_CLASS_NAME].h"
 [!endif]
