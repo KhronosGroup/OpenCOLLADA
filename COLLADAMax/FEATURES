@@ -2,7 +2,7 @@ COLLADAMax Nextgen: Export - Supported features
 -------------------------------------------------
 
 Scene graph
-    - Transform nodes
+    - Transformations 
     - Instances
       - Visual scenes
       - Geometries
@@ -43,4 +43,41 @@ XRefs
     - Materials
     - Transformations
     
+    
+
+COLLADAMax Nextgen: Import - Supported features
+-------------------------------------------------
+
+Scene graph
+    - Transformations 
+    - Instances
+      - Visual scenes
+      - Geometries
+      - Materials
+      - Effects
+      - Cameras
+      - Light
+      - Node
+	
+Geometry   
+    - Mesh: 
+	    - POSITION, VERTEX, NORMAL, TEXCOORD (multiple also), COLOR
+	    - triangles, tristrips, trifans, polylists, polygons ( without holes)
+
+Materials / Effects
+    - Texture and color materials
+    - Materials Phong, Blinn, Constant and Lambert
+
+Animation
+    - Animation types: LINEAR, STEP, BEZIER
+    - All kinds of node transformations 
+    - Material parameters like color
+    
+Camera
+    - orthographic and perspective
+
+Light
+    - ambient, point, spot, directional
+    
+
 

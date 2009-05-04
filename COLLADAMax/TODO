@@ -1,10 +1,8 @@
+COLLADAMax Nextgen: Export - Missing features
+-------------------------------------------------
+
 -   General
     - absolute vs. relative path
-    - installer to automatically copy the plug-in and its dependencies to the right place 
-    - 64bit version of the plug-in
-    - build system
-    - layer
-    - import plug-in
     - unit tests
     - test framework to test all the features of the plug-in
     - options to control the behavior of the plug-in. i.e. what and how to export
@@ -12,9 +10,6 @@
     - i18n
     - documentation how to use the plug-in and what features are supported
 
-
-Scene graph
-    - Transform joints
 
 Materials / Effects
     - Material Lambert
@@ -31,11 +26,55 @@ Effects
 
 Instances
     - Animations (clips)
-    - Nodes
 
 Subdivision surfaces, nurbs and splines
 
 Object External References (XREFs)
+
+
+
+
+COLLADAMax Nextgen: Export - Missing features
+-------------------------------------------------
+
+-   General
+    - absolute vs. relative path
+    - unit tests
+    - test framework to test all the features of the plug-in
+    - options to control the behavior of the plug-in. i.e. what and how to export
+    - gui to select options and to report problems
+    - i18n
+    - documentation how to use the plug-in and what features are supported
+
+    
+Animation
+    - Expressions
+    - Animation clips
+    - Constraints (point, orient, parent)
+
+Controller
+    - Skin and morph controller
+    - multiple controllers
+
+Extra
+    - Original id preservation
+    - COLLADA id preservation
+    - Extrag tag preservation
+
+Physical scene
+
+Effects
+    - Hardware shader
+
+Instances
+    - Animations (clips)
+
+Subdivision surfaces, nurbs and splines
+
+Object External References (XREFs)
+
+
+
 
 
 
