@@ -382,7 +382,7 @@ namespace COLLADAMaya
         /**
          * Set the transform values.
          */
-        void importDecomposedTransform ( 
+        void importDecomposedNodeTransform ( 
             const MayaTransformation &mayaTransform, 
             MayaDM::Transform* transformNode, 
             const bool hasRotatePivot,
@@ -391,10 +391,13 @@ namespace COLLADAMaya
         /**
         * Set the transform values.
         */
-        void importJointTransform ( 
+        void importDecomposedJointTransform ( 
             const MayaTransformation &mayaTransform, 
             MayaDM::Joint* jointNode );
 
+        /** 
+         * Returns the rotation order of the three vectors. 
+         */
         MEulerRotation::RotationOrder getRotationOrder ( 
             const COLLADABU::Math::Vector3 axis1, 
             const COLLADABU::Math::Vector3 axis2, 
@@ -404,8 +407,24 @@ namespace COLLADAMaya
          * Imports the transform values from a transform matrix.
          * Data loss: no animation possible!
          */
-        void importMatrixTransform ( 
+        void importMatrixJointTransform ( 
             const COLLADAFW::Node* rootNode, 
+            MayaDM::Transform* transformNode );
+
+        /**
+        * Imports the transform values from a transform matrix.
+        * Data loss: no animation possible!
+        */
+        void importMatrixNodeTransform ( 
+            const COLLADAFW::Node* rootNode, 
+            MayaDM::Transform* transformNode );
+
+        /**
+        * Imports the transform values from a transform matrix.
+        * Data loss: no animation possible!
+        */
+        void importMatrixTransform ( 
+            const COLLADABU::Math::Matrix4& transformMatrix,
             MayaDM::Transform* transformNode );
 
         /**
@@ -425,3 +444,4 @@ namespace COLLADAMaya
 }
 
 #endif // __COLLADA_MAYA_VISUAL_SCENE_IMPORTER_H__
+

@@ -25,6 +25,7 @@ namespace COLLADAFW
     Node::Node(ObjectId objectId) 
 		:ObjectTemplate< COLLADA_TYPE::NODE >( objectId ) 
 		, mType( Node::NODE )
+        , mParentNode (0)
 	{
 	}
 
@@ -35,7 +36,7 @@ namespace COLLADAFW
 	}
 
 	//--------------------------------------------------------------------
-	void Node::getTransformationMatrix(COLLADABU::Math::Matrix4& transformationMatrix) const
+	void Node::getNodeTransformationMatrix(COLLADABU::Math::Matrix4& transformationMatrix) const
 	{
 		transformationMatrix = COLLADABU::Math::Matrix4::IDENTITY;
 
@@ -82,13 +83,32 @@ namespace COLLADAFW
 		}
 	}
 
-	//--------------------------------------------------------------------
-	COLLADABU::Math::Matrix4 Node::getTransformationMatrix() const
-	{
-		COLLADABU::Math::Matrix4 matrix;
-		getTransformationMatrix(matrix);
-		return matrix;
-	}
+    //--------------------------------------------------------------------
+    COLLADABU::Math::Matrix4 Node::getNodeTransformationMatrix() const
+    {
+        COLLADABU::Math::Matrix4 matrix;
+        getNodeTransformationMatrix(matrix);
+        return matrix;
+    }
+
+    //--------------------------------------------------------------------
+    COLLADABU::Math::Matrix4 Node::getJointTransformationMatrix () const
+    {
+        // Get the node transform matrix.
+        COLLADABU::Math::Matrix4 transformMatrix;
+        getNodeTransformationMatrix(transformMatrix);
+
+        // Get the parent scale inverse.
+        COLLADABU::Math::Matrix4 matrix = mParentNode->getNodeTransformationMatrix ();
+        COLLADABU::Math::Vector3 parentScaleInverse = matrix.getScale () * -1;
+        COLLADABU::Math::Matrix4 scaleMatrix;
+        scaleMatrix.makeScale(parentScaleInverse);
+
+        // Multiply the parent scale inverse.
+        transformMatrix = transformMatrix * scaleMatrix;
+
+        return transformMatrix;
+    }
 
 
 } // namespace COLLADAFW

@@ -171,9 +171,17 @@ namespace COLLADAMaya
         // matrix = [SP-1 * S * SH * SP * ST] * [RP-1 * RA * R * JO * RP * RT] * T
         //          [        scale          ] * [          rotation          ] * translation
         //
-        // Where SP is scale pivot translation, S is scale, SH is shear, ST is scale pivot translation
-        // RP is rotation pivot, RA is rotation axis, R is rotation, RP is rotation pivot,
-        // RT is rotation pivot translation, T is translation, JO is joint orientation
+        // [SP] scale pivot translation
+        // [S] scale
+        // [SH] shear
+        // [ST] scale pivot translation
+        // [RP] rotation pivot
+        // [RA] rotation axis
+        // [R] rotation
+        // [RP] rotation pivot
+        // [RT] rotation pivot translation
+        // [T] translation
+        // [JO] joint orientation
         //
         // references: Maya documentation - transform node, Maya documentation - joint node
         // NOTE: Left multiplying, column-order matrices
@@ -183,6 +191,7 @@ namespace COLLADAMaya
         // This just works, if the framework has the transformations in any order of the style
         // T* R* T* S* T*, if the order differs from, we have to transform with a matrix (but 
         // with matrix transformation is no animation possible).
+
         MayaTransformation mayaTransform;
         std::vector<TransformAnimation> transformAnimations;
 
@@ -208,14 +217,17 @@ namespace COLLADAMaya
 
                 // Set the transform values.
                 if ( rootNode->getType () == COLLADAFW::Node::NODE )
-                    importDecomposedTransform ( mayaTransform, transformNode, hasRotatePivot, hasScalePivot );
+                    importDecomposedNodeTransform ( mayaTransform, transformNode, hasRotatePivot, hasScalePivot );
                 else if ( rootNode->getType () == COLLADAFW::Node::JOINT )
-                    importJointTransform ( mayaTransform, (MayaDM::Joint*) transformNode );
+                    importDecomposedJointTransform ( mayaTransform, (MayaDM::Joint*) transformNode );
             }
             else
             {
                 // Set the transform matrix to the transform object
-                importMatrixTransform ( rootNode, transformNode );
+                if ( rootNode->getType () == COLLADAFW::Node::NODE )
+                    importMatrixNodeTransform ( rootNode, transformNode );
+                else if ( rootNode->getType () == COLLADAFW::Node::JOINT )
+                    importMatrixJointTransform ( rootNode, transformNode );
             }
         }
         return true;
@@ -268,13 +280,28 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    void VisualSceneImporter::importMatrixTransform ( 
+    void VisualSceneImporter::importMatrixJointTransform ( 
         const COLLADAFW::Node* rootNode, 
         MayaDM::Transform* transformNode )
     {
-        COLLADABU::Math::Matrix4 transformMatrix;
-        rootNode->getTransformationMatrix ( transformMatrix );
+        COLLADABU::Math::Matrix4 transformMatrix = rootNode->getJointTransformationMatrix ();
+        importMatrixTransform ( transformMatrix, transformNode );
+    }
 
+    // -----------------------------------
+    void VisualSceneImporter::importMatrixNodeTransform ( 
+        const COLLADAFW::Node* rootNode, 
+        MayaDM::Transform* transformNode )
+    {
+        COLLADABU::Math::Matrix4 transformMatrix = rootNode->getNodeTransformationMatrix ();
+        importMatrixTransform ( transformMatrix, transformNode );
+    }
+
+    // -----------------------------------
+    void VisualSceneImporter::importMatrixTransform ( 
+        const COLLADABU::Math::Matrix4& transformMatrix,
+        MayaDM::Transform* transformNode )
+    {
         // Convert the matrix to a double[4][4]
         double mtx[4][4];
         convertMatrix4ToTransposedDouble4x4 ( transformMatrix, mtx );
@@ -282,7 +309,7 @@ namespace COLLADAMaya
         // Convert the matrix to a maya matrix.
         MMatrix matrix ( mtx );
         MTransformationMatrix tm ( matrix );
-        
+
         MStatus status;
         MVector transVec = tm.getTranslation ( MSpace::kTransform, &status );
         transformNode->setTranslate ( toLinearUnit ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ) ) );
@@ -297,14 +324,13 @@ namespace COLLADAMaya
         tm.getScale ( scale, MSpace::kTransform );
         if ( ! ( MVector (1,1,1) == MVector ( scale ) ) )
             transformNode->setScale ( ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
-            //transformNode->setScale ( toUpAxisTypeFactor ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
+        //transformNode->setScale ( toUpAxisTypeFactor ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) ) );
 
         double shear[3];
         tm.getShear ( shear, MSpace::kTransform );
         if ( ! ( MVector (0,0,0) == MVector ( shear ) ) )
             transformNode->setShear ( ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
-            //transformNode->setShear ( toUpAxisTypeAxis ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
-
+        //transformNode->setShear ( toUpAxisTypeAxis ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) ) );
     }
 
     // -----------------------------------
@@ -920,7 +946,7 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    void VisualSceneImporter::importJointTransform ( 
+    void VisualSceneImporter::importDecomposedJointTransform ( 
         const MayaTransformation &mayaTransform, 
         MayaDM::Joint* jointNode )
     {
@@ -993,7 +1019,7 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    void VisualSceneImporter::importDecomposedTransform ( 
+    void VisualSceneImporter::importDecomposedNodeTransform ( 
         const MayaTransformation &mayaTransform, 
         MayaDM::Transform* transformNode,
         const bool hasRotatePivot,
@@ -1283,6 +1309,30 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
+    bool VisualSceneImporter::readControllerInstances ( const COLLADAFW::Node* node )
+    {
+        // Get the unique id of the current node.
+        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
+
+        // Go through the instances and save the ids to the current node.
+        const COLLADAFW::InstanceControllerArray& controllerInstances = node->getInstanceControllers ();
+        size_t numInstances = controllerInstances.getCount ();
+        for ( size_t i=0; i<numInstances; ++i )
+        {
+            const COLLADAFW::InstanceController* instanceController = controllerInstances [i];
+            const COLLADAFW::UniqueId& controllerId = instanceController->getInstanciatedObjectId ();
+
+            // Save for every geometry a list of transform nodes, which refer to it.
+            mControllerTransformIdsMap [ controllerId ].push_back ( transformNodeId );
+
+            // Read the shading engines.
+            readMaterialInstances ( transformNodeId, instanceController );
+        }
+
+        return true;
+    }
+
+    // -----------------------------------
     void VisualSceneImporter::readMaterialInstances ( 
         const COLLADAFW::UniqueId& transformNodeId, 
         const COLLADAFW::InstanceGeometry* instanceGeometry )
@@ -1329,27 +1379,6 @@ namespace COLLADAMaya
 
             // Save for every geometry a list of transform nodes, which refer to it.
             mLightTransformIdsMap [ lightId ].push_back ( transformNodeId );
-        }
-
-        return true;
-    }
-
-    // -----------------------------------
-    bool VisualSceneImporter::readControllerInstances ( const COLLADAFW::Node* node )
-    {
-        // Get the unique id of the current node.
-        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
-
-        // Go through the instances and save the ids to the current node.
-        const COLLADAFW::InstanceControllerArray& controllerInstances = node->getInstanceControllers ();
-        size_t numInstances = controllerInstances.getCount ();
-        for ( size_t i=0; i<numInstances; ++i )
-        {
-            const COLLADAFW::InstanceController* instanceController = controllerInstances [i];
-            const COLLADAFW::UniqueId& controllerId = instanceController->getInstanciatedObjectId ();
-
-            // Save for every geometry a list of transform nodes, which refer to it.
-            mControllerTransformIdsMap [ controllerId ].push_back ( transformNodeId );
         }
 
         return true;
