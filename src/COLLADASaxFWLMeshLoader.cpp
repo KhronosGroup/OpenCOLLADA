@@ -547,7 +547,7 @@ namespace COLLADASaxFWL
 
                     // Write the values.
                     COLLADAFW::IndexList* colorIndices = mCurrentMeshPrimitive->getColorIndices ( j );
-                    colorIndices->getIndices().append ( index + color.mInitialIndex );
+                    colorIndices->getIndices().append ( index + (unsigned int)color.mInitialIndex );
                 }
             }
 
