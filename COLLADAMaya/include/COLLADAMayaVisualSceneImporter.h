@@ -290,7 +290,8 @@ namespace COLLADAMaya
         * Imports the data of the current node.
         */
         void importNode ( 
-            const COLLADAFW::Node* rootNode, 
+            COLLADAFW::Node* rootNode, 
+            COLLADAFW::Node* parentNode = NULL, 
             MayaNode* parentMayaNode = NULL, 
             const bool createNode = true );
 
@@ -337,15 +338,16 @@ namespace COLLADAMaya
          * Imports the current transformations. 
          */
         bool importTransformations ( 
-            const COLLADAFW::Node* rootNode, 
-            MayaDM::Transform* transformNode );
+            const COLLADAFW::Node* node, 
+            MayaDM::Transform* transformNode, 
+            COLLADAFW::Node* parentNode = NULL );
 
         /**
          * Imports a camera lookat transformation.
          * @return Center of interest distance. We need it for creating the camera.
          */
         void importLookatTransform ( 
-            const COLLADAFW::Node* rootNode,
+            const COLLADAFW::Node* node,
             const COLLADAFW::Transformation* transformation,
             MayaDM::Transform* transformNode );
 
@@ -354,7 +356,7 @@ namespace COLLADAMaya
          * transformation and fills the maya transform values.
          */
         bool readMayaTransformations ( 
-            const COLLADAFW::Node* rootNode, 
+            const COLLADAFW::Node* node, 
             MayaTransformation& mayaTransform, 
             MayaDM::Transform* transformNode, 
             std::vector<TransformAnimation>& transformAnimations,
@@ -408,15 +410,16 @@ namespace COLLADAMaya
          * Data loss: no animation possible!
          */
         void importMatrixJointTransform ( 
-            const COLLADAFW::Node* rootNode, 
-            MayaDM::Transform* transformNode );
+            const COLLADAFW::Node* node, 
+            MayaDM::Transform* transformNode,
+            COLLADAFW::Node* parentNode = NULL );
 
         /**
         * Imports the transform values from a transform matrix.
         * Data loss: no animation possible!
         */
         void importMatrixNodeTransform ( 
-            const COLLADAFW::Node* rootNode, 
+            const COLLADAFW::Node* node, 
             MayaDM::Transform* transformNode );
 
         /**

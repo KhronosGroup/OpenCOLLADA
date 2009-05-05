@@ -71,7 +71,6 @@ namespace COLLADASaxFWL
 		{
 			//we are a child of another node
 			COLLADAFW::Node* parentNode = mNodeStack.top();
-            newNode->setParentNode(parentNode);
 			parentNode->getChildNodes().append(newNode);
 		}
 		mNodeStack.push(newNode);

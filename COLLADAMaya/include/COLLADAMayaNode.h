@@ -19,6 +19,7 @@
 #include "COLLADAMayaPrerequisites.h"
 
 #include "COLLADAFWUniqueId.h"
+#include "COLLADAFWNode.h"
 
 
 namespace COLLADAMaya
@@ -50,6 +51,11 @@ namespace COLLADAMaya
          * (the right position in the scene graph depends on the first implementation from there).
          */
         bool mIsCorrectPositioned;
+
+        /**
+         * Pointer to the framework node object.
+         */
+        COLLADAFW::Node* mFrameworkNode;
 
 	public:
 
@@ -96,6 +102,12 @@ namespace COLLADAMaya
         */
         const bool getIsCorrectPositioned () const { return mIsCorrectPositioned; }
         void setIsCorrectPositioned ( const bool val ) { mIsCorrectPositioned = val; }
+
+        /**
+        * Pointer to the framework node object.
+        */
+        const COLLADAFW::Node* getFrameworkNode () const { return mFrameworkNode; }
+        void setFrameworkNode ( COLLADAFW::Node* val ) { mFrameworkNode = val; }
 
 	};
 } // namespace COLLADAMAYA

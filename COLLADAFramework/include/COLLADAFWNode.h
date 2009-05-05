@@ -54,11 +54,6 @@ namespace COLLADAFW
 
 	private:
 
-		/** 
-         * The parent node.
-         */
-		Node* mParentNode;
-
         /**
         * The original object id, if it in the original file format exist. 
         */
@@ -164,77 +159,19 @@ namespace COLLADAFW
         /** List of all instance controller of this node. Array and contents will be delete in destructor.*/
         const InstanceControllerPointerArray& getInstanceControllers () const { return mInstanceControllers; }
 
-        /** 
-        * The parent node.
-        */
-        const Node* getParentNode () const { return mParentNode; }
-
-        /** 
-        * The parent node.
-        */
-        void setParentNode ( Node* val ) { mParentNode = val; }
-
 		/** Get list of all child nodes.*/
 		NodePointerArray& getChildNodes() { return mChildNodes; }
 
 		/** Get list of all child nodes.*/
 		const NodePointerArray& getChildNodes() const { return mChildNodes; }
 
-        /** 
-        * Calculates a baked matrix, representing all the transformations of the joint.
-        * matrix = [SP-1 * S * SH * SP * ST] * [RP-1 * RA * R * JO * RP * RT] * T
-        *          [        scale          ] * [          rotation          ] * translation
-        * (where '*' denotes matrix multiplication and '-1' denotes matrix inversion')
-        * [SP] scale pivot translate (inverse)
-        * [S]  scale
-        * [SH] shear
-        * [ST] scale pivot translate
-        * [RP] rotate pivot (inverse)
-        * [RA] rotation axis
-        * [R]  rotation
-        * [RP] rotate pivot
-        * [RT] rotate pivot translate
-        * [T]  translate
-        * [JO] joint orientation
-        * @param transformationMatrix Will be set to the calculated node transformation matrix.
-        */
-        void getNodeTransformationMatrix(COLLADABU::Math::Matrix4& transformationMatrix) const;
+        /** Calculates a baked matrix, representing all the transformations.
+        @param transformationMatrix Will be set to the calculated node transformation matrix.*/
+        void getTransformationMatrix(COLLADABU::Math::Matrix4& transformationMatrix) const;
 
-        /** 
-        * Calculates a baked matrix, representing all the transformations of the joint.
-        * matrix = [SP-1 * S * SH * SP * ST] * [RP-1 * RA * R * JO * RP * RT] * T
-        *          [        scale          ] * [          rotation          ] * translation
-        * (where '*' denotes matrix multiplication and '-1' denotes matrix inversion')
-        * [SP] scale pivot translate (inverse)
-        * [S]  scale
-        * [SH] shear
-        * [ST] scale pivot translate
-        * [RP] rotate pivot (inverse)
-        * [RA] rotation axis
-        * [R]  rotation
-        * [RP] rotate pivot
-        * [RT] rotate pivot translate
-        * [T]  translate
-        * [JO] joint orientation
-        * @return The calculated node transformation matrix.
-        */
-        COLLADABU::Math::Matrix4 getNodeTransformationMatrix() const;
-
-        /** 
-         * Returns a baked matrix, representing all the transformations of the node.
-         * The transformation matrix for a joint node:
-         * matrix = S * RO * R * JO * S-1 * T
-         * (where '*' denotes matrix multiplication and '-1' denotes matrix inversion')
-         * [S]:  scale
-         * [RO]: rotate orient (attribute name is rotateAxis)
-         * [R]:  rotation
-         * [JO]: joint orient
-         * [S]:  parent scale (inverse)
-         * [T]:  translate
-         * @param parentScale 
-         * @return The calculated joint transformation matrix.
-         */
-        COLLADABU::Math::Matrix4 getJointTransformationMatrix() const;
+        /** Calculates a baked matrix, representing all the transformations.
+        @return The calculated node transformation matrix. */
+        COLLADABU::Math::Matrix4 getTransformationMatrix() const;
 
 		/** Creates a clone of the node and returns a pointer to it.*/
 		Node* clone() const { return FW_NEW Node(*this); }

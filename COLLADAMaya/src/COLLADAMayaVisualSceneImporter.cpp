@@ -97,7 +97,8 @@ namespace COLLADAMaya
 
     // -----------------------------------
     void VisualSceneImporter::importNode ( 
-        const COLLADAFW::Node* node, 
+        COLLADAFW::Node* node, 
+        COLLADAFW::Node* parentNode /*= NULL*/, 
         MayaNode* parentMayaNode /*= NULL*/, 
         const bool createNode /*= true*/ )
     {
@@ -119,6 +120,7 @@ namespace COLLADAMaya
 
         // Create a maya node object of the current node and push it into the map.
         MayaNode* mayaNode = new MayaNode ( transformNodeId, nodeName, parentMayaNode, createNode );
+        mayaNode->setFrameworkNode ( node );
         mMayaTransformNodesMap [ transformNodeId ].push_back ( mayaNode );
 
         // Create the node object (joint or node)
@@ -136,7 +138,7 @@ namespace COLLADAMaya
         }
 
         // Import the transformations.
-        importTransformations ( node, transformNode );
+        importTransformations ( node, transformNode, parentNode );
 
         // We need the maya transform node for connect it with the animations.
         mMayaDMTransformMap [ transformNodeId ] = *transformNode;
@@ -157,14 +159,15 @@ namespace COLLADAMaya
         for ( size_t i=0; i<numChildNodes; ++i )
         {
             COLLADAFW::Node* childNode = childNodes [i];
-            importNode ( childNode, mayaNode, createNode );
+            importNode ( childNode, node, mayaNode, createNode );
         }
     }
 
     // -----------------------------------
     bool VisualSceneImporter::importTransformations ( 
-        const COLLADAFW::Node* rootNode, 
-        MayaDM::Transform* transformNode )
+        const COLLADAFW::Node* node, 
+        MayaDM::Transform* transformNode, 
+        COLLADAFW::Node* parentNode /*= NULL*/ )
     {
         // This is the order of the transforms:
         //
@@ -200,7 +203,7 @@ namespace COLLADAMaya
         bool isLookatTransform = false;
 
         bool validMayaTransform = 
-            readMayaTransformations ( rootNode, mayaTransform, transformNode, transformAnimations, 
+            readMayaTransformations ( node, mayaTransform, transformNode, transformAnimations, 
                                         hasRotatePivot, hasScalePivot, isLookatTransform );
         if ( !isLookatTransform )
         {
@@ -216,18 +219,18 @@ namespace COLLADAMaya
                 }
 
                 // Set the transform values.
-                if ( rootNode->getType () == COLLADAFW::Node::NODE )
+                if ( node->getType () == COLLADAFW::Node::NODE )
                     importDecomposedNodeTransform ( mayaTransform, transformNode, hasRotatePivot, hasScalePivot );
-                else if ( rootNode->getType () == COLLADAFW::Node::JOINT )
+                else if ( node->getType () == COLLADAFW::Node::JOINT )
                     importDecomposedJointTransform ( mayaTransform, (MayaDM::Joint*) transformNode );
             }
             else
             {
                 // Set the transform matrix to the transform object
-                if ( rootNode->getType () == COLLADAFW::Node::NODE )
-                    importMatrixNodeTransform ( rootNode, transformNode );
-                else if ( rootNode->getType () == COLLADAFW::Node::JOINT )
-                    importMatrixJointTransform ( rootNode, transformNode );
+                if ( node->getType () == COLLADAFW::Node::NODE )
+                    importMatrixNodeTransform ( node, transformNode );
+                else if ( node->getType () == COLLADAFW::Node::JOINT )
+                    importMatrixJointTransform ( node, transformNode, parentNode );
             }
         }
         return true;
@@ -281,19 +284,27 @@ namespace COLLADAMaya
 
     // -----------------------------------
     void VisualSceneImporter::importMatrixJointTransform ( 
-        const COLLADAFW::Node* rootNode, 
-        MayaDM::Transform* transformNode )
+        const COLLADAFW::Node* node, 
+        MayaDM::Transform* transformNode,
+        COLLADAFW::Node* parentNode /*= NULL*/ )
     {
-        COLLADABU::Math::Matrix4 transformMatrix = rootNode->getJointTransformationMatrix ();
-        importMatrixTransform ( transformMatrix, transformNode );
+        importMatrixNodeTransform ( node, transformNode );
+
+        // Set the parent scale inverse.
+        if ( parentNode != NULL )
+        {
+            COLLADABU::Math::Vector3 parentScale = parentNode->getTransformationMatrix ().getScale ();
+            MayaDM::double3 values ( -1 * parentScale.x, -1 * parentScale.y, -1 * parentScale.z );
+            ((MayaDM::Joint*)transformNode)->setInverseScale ( values );
+        }
     }
 
     // -----------------------------------
     void VisualSceneImporter::importMatrixNodeTransform ( 
-        const COLLADAFW::Node* rootNode, 
+        const COLLADAFW::Node* node, 
         MayaDM::Transform* transformNode )
     {
-        COLLADABU::Math::Matrix4 transformMatrix = rootNode->getNodeTransformationMatrix ();
+        COLLADABU::Math::Matrix4 transformMatrix = node->getTransformationMatrix ();
         importMatrixTransform ( transformMatrix, transformNode );
     }
 
@@ -374,7 +385,7 @@ namespace COLLADAMaya
 
     // -----------------------------------
     bool VisualSceneImporter::readMayaTransformations ( 
-        const COLLADAFW::Node* rootNode, 
+        const COLLADAFW::Node* node, 
         MayaTransformation& mayaTransform, 
         MayaDM::Transform* transformNode, 
         std::vector<TransformAnimation>& transformAnimations,
@@ -384,7 +395,7 @@ namespace COLLADAMaya
     {
         bool validMayaTransform = true;
 
-        const COLLADAFW::TransformationArray& transforms = rootNode->getTransformations ();
+        const COLLADAFW::TransformationArray& transforms = node->getTransformations ();
         size_t numTransforms = transforms.getCount ();
         for ( size_t i=0; i<numTransforms && validMayaTransform; ++i )
         {
@@ -401,14 +412,14 @@ namespace COLLADAMaya
                 // Create a TransformAnimation objekt and push it in the list.
                 TransformAnimation transformAnim;
                 transformAnim.setAnimationListId ( animationListId );
-                const COLLADAFW::UniqueId& transformNodeId = rootNode->getUniqueId ();
+                const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
                 transformAnim.setTransformNodeId ( transformNodeId );
                 transformAnim.setTransformation ( transformation );
                 transformAnimations.push_back ( transformAnim );
             }
 
             // Check if we handle a joint node.
-            bool isJoint = ( rootNode->getType () == COLLADAFW::Node::JOINT );
+            bool isJoint = ( node->getType () == COLLADAFW::Node::JOINT );
 
             // Set the transformation information in depend of the transform type.
             switch ( transformType )
@@ -416,7 +427,7 @@ namespace COLLADAMaya
             case COLLADAFW::Transformation::LOOKAT:
                 {
                     // Import the camera's lookat transform matrix.
-                    importLookatTransform ( rootNode, transformation, transformNode );
+                    importLookatTransform ( node, transformation, transformNode );
 
                     isLookatTransform = true; 
                     validMayaTransform = false;
@@ -1528,7 +1539,7 @@ namespace COLLADAMaya
 
     // --------------------------------------------
     void VisualSceneImporter::importLookatTransform ( 
-        const COLLADAFW::Node* rootNode,
+        const COLLADAFW::Node* node,
         const COLLADAFW::Transformation* transformation,
         MayaDM::Transform* transformNode )
     {
@@ -1592,7 +1603,7 @@ namespace COLLADAMaya
 
         // Compute the center of interest distance. We want store it for creating the camera.
         double centerOfInterestDistance = ( interestPosition - eyePosition ).length ();
-        const COLLADAFW::UniqueId& transformNodeId = rootNode->getUniqueId ();
+        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
 
         // Set the center of interest distance value in a map to the current transform node.
         mCenterOfInterestDistances [ transformNodeId ] = centerOfInterestDistance;
