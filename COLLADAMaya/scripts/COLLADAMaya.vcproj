@@ -68,7 +68,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
@@ -155,7 +155,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
@@ -410,13 +410,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
 				GenerateManifest="true"
-				IgnoreDefaultLibraryNames="msvcrt"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				LinkTimeCodeGeneration="0"
@@ -497,7 +498,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
@@ -755,7 +756,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				Version="0.9.2"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
@@ -842,7 +843,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
@@ -928,7 +929,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
@@ -1015,7 +1016,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
@@ -1445,7 +1446,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				Version="0.9.2"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
@@ -1531,7 +1532,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
@@ -1788,7 +1789,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
@@ -1875,7 +1876,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
@@ -2131,13 +2132,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
 				GenerateManifest="true"
-				IgnoreDefaultLibraryNames="msvcrt"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				LinkTimeCodeGeneration="0"
@@ -2218,7 +2220,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"

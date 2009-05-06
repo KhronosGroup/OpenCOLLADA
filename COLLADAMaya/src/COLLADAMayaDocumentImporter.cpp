@@ -24,6 +24,7 @@
 #include "COLLADAMayaLightImporter.h"
 #include "COLLADAMayaImageImporter.h"
 #include "COLLADAMayaAnimationImporter.h"
+#include "COLLADAMayaControllerImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
 
 #include "COLLADAFWRoot.h"
@@ -66,17 +67,7 @@ namespace COLLADAMaya
         , mLightImporter (0)
         , mImageImporter (0)
         , mAnimationImporter (0)
-        , mSceneGraphWritten (false)
-        , mLibraryNodesWritten (false)
-        , mAssetWritten (false)
-        , mAnimationsWritten (false)
-        , mSceneGraphRead (false)
-        , mLibraryNodesRead (false)
-        , mGeometryRead (false)
-        , mCameraRead (false)
-        , mLightRead (false)
-        , mImageRead (false)
-        , mAnimationRead (false)
+        , mControllerImporter (0)
         , mNumDocumentParses (0)
         , mUpAxisType ( COLLADAFW::FileInfo::Y_UP )
         , mLinearUnitMeter ( COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER )
@@ -106,6 +97,7 @@ namespace COLLADAMaya
         mLightImporter = new LightImporter ( this );
         mImageImporter = new ImageImporter (this);
         mAnimationImporter = new AnimationImporter (this);
+        mControllerImporter = new ControllerImporter (this);
 
         // Get the sceneID (assign a name to the scene)
         MString sceneName = MFileIO::currentFile ();
@@ -126,6 +118,7 @@ namespace COLLADAMaya
         delete mLightImporter;
         delete mImageImporter;
         delete mAnimationImporter;
+        delete mControllerImporter;
     }
 
     //-----------------------------
@@ -287,6 +280,7 @@ namespace COLLADAMaya
                 mMaterialImporter->writeConnections ();
                 mLightImporter->writeConnections ();
                 mEffectImporter->writeConnections ();
+                mControllerImporter->writeConnections ();
             }
 
             // Close the file

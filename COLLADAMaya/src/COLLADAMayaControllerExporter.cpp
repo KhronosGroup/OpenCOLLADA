@@ -406,6 +406,8 @@ namespace COLLADAMaya
                             if ( sceneGraph->findExportedElement( targetPath ) == NULL )
                             {
                                 SceneElement* targetSceneElement = sceneGraph->findElement( targetPath );
+                                // We have to export the geometry
+                                targetSceneElement->setIsForced ( true );
                                 if ( !targetSceneElement->getNodeId().empty() )
                                     blendShapeTargetId = targetSceneElement->getNodeId();
                                 else blendShapeTargetId = targetSceneElement->getNodeName();

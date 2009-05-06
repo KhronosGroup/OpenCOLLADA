@@ -56,9 +56,11 @@ int main(int argc,char** argv)
     g_argv=argv;
 #endif
 
+#ifdef _DEBUG
     // Activate the error logging. The default name of this file is OpenMayaErrorLog located in 
     // the current directory ( "$(MAYA_LOCATION)/bin/OpenMayaErrorLog.txt" ).
     MGlobal::startErrorLogging();
+#endif
 
 //     // The default name of this file is OpenMayaErrorLog located in the 
 //     // current directory. This can be changed, however, by calling:
@@ -206,8 +208,10 @@ int main(int argc,char** argv)
     getchar();
 #endif
 
+#ifdef _DEBUG
     // Stop the error logging
     MGlobal::stopErrorLogging();
+#endif
 
     // close down maya
     MLibrary::cleanup(0);

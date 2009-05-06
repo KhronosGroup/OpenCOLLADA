@@ -72,21 +72,30 @@ namespace COLLADAMaya
         for ( size_t i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
-            exportGeometries ( sceneElement );
+            exportGeometries ( sceneElement, sceneElement->getIsVisible () );
         }
 
         endExport();
     }
 
     // --------------------------------------------------------
-    void GeometryExporter::exportGeometries ( SceneElement* sceneElement )
+    void GeometryExporter::exportGeometries ( SceneElement* sceneElement, bool isVisible )
     {
         // If we have a external reference, we don't need to export the data here.
         if ( !sceneElement->getIsLocal() ) return;
-        if ( !sceneElement->getIsExportNode () ) return;
 
+        bool exportSceneElement = false;
         SceneElement::Type sceneElementType = sceneElement->getType();
-        if ( sceneElementType == SceneElement::MESH )
+        if ( sceneElementType == SceneElement::MESH && 
+             sceneElement->getIsExportNode () ) 
+        {
+            // Just export, if the parent element is visible 
+            // or the export of the scene element is forced.
+            if ( isVisible || sceneElement->getIsForced () )
+                exportSceneElement = true;
+        }
+
+        if ( exportSceneElement )
         {
             // Get the current dag path
             MDagPath dagPath = sceneElement->getPath();
@@ -122,11 +131,14 @@ namespace COLLADAMaya
             }
         }
 
+        // Check if the element is visible (inherit visibility to children)
+        if ( isVisible ) isVisible = sceneElement->getIsVisible ();
+
         // Recursive call for all the child elements
         for ( uint i=0; i<sceneElement->getChildCount(); ++i )
         {
             SceneElement* childElement = sceneElement->getChild ( i );
-            exportGeometries ( childElement );
+            exportGeometries ( childElement, isVisible );
         }
     }
 

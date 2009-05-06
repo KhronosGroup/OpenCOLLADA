@@ -68,9 +68,10 @@
     {
         MStatus   status;
 
+#ifdef _DEBUG
         // Activate the error logging
         MGlobal::startErrorLogging();
-
+#endif
         // The default name of this file is OpenMayaErrorLog located in the 
         // current directory. This can be changed, however, by calling:
         //MGlobal::setErrorLogPathName("...");
@@ -175,8 +176,10 @@
         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareShaders\" 0;" );
 #endif // MAYA 8.0 and 8.5
 
+#ifdef _DEBUG
         // Stop the error logging
         MGlobal::stopErrorLogging();
+#endif
 
         return status;
     }

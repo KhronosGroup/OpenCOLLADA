@@ -42,6 +42,7 @@ namespace COLLADAMaya
     class LightImporter;
     class ImageImporter;
     class AnimationImporter;
+    class ControllerImporter;
 
 
     /** 
@@ -157,19 +158,6 @@ namespace COLLADAMaya
         double mLinearUnitMeter;
         COLLADAFW::FileInfo::UpAxisType mUpAxisType;
 
-        bool mAssetWritten;
-        bool mSceneGraphWritten;
-        bool mLibraryNodesWritten;
-        bool mAnimationsWritten;
-
-        bool mSceneGraphRead;
-        bool mLibraryNodesRead;
-        bool mGeometryRead;
-        bool mCameraRead;
-        bool mLightRead;
-        bool mImageRead;
-        bool mAnimationRead;
-
         /** Pointer to the visual scene importer. */
         VisualSceneImporter* mVisualSceneImporter;
 
@@ -193,6 +181,9 @@ namespace COLLADAMaya
 
         /** Pointer to the animation importer. */
         AnimationImporter* mAnimationImporter;
+
+        /** Pointer to the controller importer. */
+        ControllerImporter* mControllerImporter;
 
         /** The variable tells, how many times the document is read. */
         size_t mNumDocumentParses;

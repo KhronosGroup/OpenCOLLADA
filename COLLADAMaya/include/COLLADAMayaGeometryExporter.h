@@ -105,7 +105,7 @@ namespace COLLADAMaya
     private:
 
         /** Exports the current scene element and all it's children. */
-        void exportGeometries ( SceneElement* sceneElement );
+        void exportGeometries ( SceneElement* sceneElement, bool isVisible );
 
         /** Handle controller geometries. */
         void handleControllers ( SceneElement* sceneElement );

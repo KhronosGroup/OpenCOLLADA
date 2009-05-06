@@ -154,7 +154,9 @@ namespace COLLADAMaya
             // Export the images
             mImageExporter->exportImages ( imageMap );
 
-            // Export the controllers
+            // Export the controllers. Must be done before the geometries, to decide, which
+            // geometries have to be exported (for example, if the controller need an invisible 
+            // geometry, we also have to export it).
             mControllerExporter->exportControllers();
 
             // Export the geometries
