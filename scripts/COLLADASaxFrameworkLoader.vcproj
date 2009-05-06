@@ -364,6 +364,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLLibraryControllersLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLLibraryEffectsLoader.cpp"
 				>
 			</File>
@@ -523,6 +527,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLLibraryCamerasLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryControllersLoader.h"
 				>
 			</File>
 			<File

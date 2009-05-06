@@ -64,6 +64,9 @@ namespace COLLADASaxFWL
 		/** List of UniqueIdSidAddressPairs.*/
 		typedef std::vector< AnimationSidAddressBinding > AnimationSidAddressBindingList;
 
+		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
+		typedef std::map< COLLADAFW::UniqueId, StringList> SkinDataJointSidsMap;
+
 
 	private:
 	
@@ -116,6 +119,10 @@ namespace COLLADASaxFWL
 		/** The function map we use to parse the COLLADA file. It contains only those elements that are required 
 		to parse all the objects listed in @a mObjectFlags.*/
 		ColladaParserAutoGenPrivate::ElementFunctionMap mFunctionMap;
+
+		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
+		SkinDataJointSidsMap mSkinDataJointSidsMap;
+
 
 	public:
 
@@ -213,6 +220,15 @@ namespace COLLADASaxFWL
 		entry is created.*/
 		COLLADAFW::AnimationList*& getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId);
 
+
+		/** Adds the pair @a skinDataUniqueId, @a jointSids to mSkinDataJointSidsMap.*/
+		void addSkinDataJointSidsMap( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids );
+		
+		/** Returns the sids of the nodes used by a skin controller using skin data with unique id 
+		@a skinDataUniqueId*/
+		const StringList& getJointSidsBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
+
+
 		/** Writes all the visual scenes.*/
 		void writeVisualScenes();
 
@@ -274,6 +290,10 @@ namespace COLLADASaxFWL
 
 		/** Starts loading a library animations.*/
 		virtual bool begin__library_animations( const library_animations__AttributeData& attributeData );
+
+		/** Starts loading a library animations.*/
+		virtual bool begin__library_controllers( const library_controllers__AttributeData& attributeData );
+
 
 		/** Performs all the required post processing.:*/
 		void postProcess();

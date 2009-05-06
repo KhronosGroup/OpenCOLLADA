@@ -22,10 +22,10 @@ namespace COLLADASaxFWL
 
     /** TODO Documentation */
 	class InterpolationTypeSource : public Source < InterpolationTypeArrayElement, SourceBase::DATA_TYPE_INTERPOLATIONTYPE>
-		{
+	{
 	private:
 		/** The interpolation type of the source. If the array is constant, i.e. all interpolation types are equal,
-		this memeber is set to this interpolation type, otherwise it is set to COLLADAFW::AnimationCurve::INTERPOLATION_MIXED.*/
+		this member is set to this interpolation type, otherwise it is set to COLLADAFW::AnimationCurve::INTERPOLATION_MIXED.*/
 		COLLADAFW::AnimationCurve::InterpolationType mInterpolationType;
 
 		/** True, if at least one interpolation type is bezier or hermite, false otherwise.*/

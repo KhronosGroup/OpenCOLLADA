@@ -21,6 +21,7 @@
 #include "COLLADASaxFWLLibraryLightsLoader.h"
 #include "COLLADASaxFWLLibraryImagesLoader.h"
 #include "COLLADASaxFWLLibraryAnimationsLoader.h"
+#include "COLLADASaxFWLLibraryControllersLoader.h"
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLGeometryLoader.h"
 #include "COLLADASaxFWLSaxParserErrorHandler.h"
@@ -370,6 +371,26 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
+	void FileLoader::addSkinDataJointSidsMap( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids )
+	{
+		mSkinDataJointSidsMap[skinDataUniqueId]=jointSids;
+	}
+
+	//-----------------------------
+	const StringList& FileLoader::getJointSidsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
+	{
+		SkinDataJointSidsMap::const_iterator it = mSkinDataJointSidsMap.find(skinDataUniqueId);
+		if ( it == mSkinDataJointSidsMap.end() )
+		{
+			return it->second;
+		}
+		else
+		{
+			return EMPTY_STRING_LIST;
+		}
+	}
+
+	//-----------------------------
 	void FileLoader::writeVisualScenes()
 	{
 		for ( size_t i = 0, count = mVisualScenes.size(); i < count; ++i)
@@ -609,6 +630,20 @@ namespace COLLADASaxFWL
 
 		setPartLoader(libraryAnimationsLoader);
 		setParser(libraryAnimationsLoader);
+		return true;
+	}
+
+
+	//-----------------------------
+	bool FileLoader::begin__library_controllers( const library_controllers__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest(begin__library_controllers(attributeData));
+
+		deleteFilePartLoader();
+		LibraryControllersLoader* libraryControllersLoader = new LibraryControllersLoader(this);
+
+		setPartLoader(libraryControllersLoader);
+		setParser(libraryControllersLoader);
 		return true;
 	}
 

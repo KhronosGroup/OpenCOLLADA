@@ -16,6 +16,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWAnimationList.h"
 
+#include <list>
+
 namespace COLLADASaxFWL
 {
 
@@ -28,6 +30,11 @@ namespace COLLADASaxFWL
 		/** The class of the animation.*/
 		COLLADAFW::AnimationList::AnimationClass animationClass;
 	};
+
+	typedef std::list<String> StringList;
+
+	static StringList EMPTY_STRING_LIST = StringList();
+
 
 } // namespace COLLADASAXFWL
 
