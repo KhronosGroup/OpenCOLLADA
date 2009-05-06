@@ -22,7 +22,7 @@ namespace COLLADASaxFWL
 {
 
     /** Loads all the animations the the library animations */
-	class LibraryAnimationsLoader 	: public SourceArrayLoader
+	class LibraryAnimationsLoader : public SourceArrayLoader
 	{
 	private:
 
@@ -39,7 +39,7 @@ namespace COLLADASaxFWL
         /** Pretty-print name for this animation. Optional. */
         String mName; 
 
-        /** The animation curve currently being filled. Is none null only inside a sampler element.*/
+        /** The animation curve currently being filled. Is not null only inside a sampler element.*/
 		COLLADAFW::AnimationCurve* mCurrentAnimationCurve;
 
 		/** Maps the id of sampler to the unique id of the frame work animation created for this sampler.*/

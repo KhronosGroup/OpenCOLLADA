@@ -155,6 +155,14 @@ namespace COLLADASaxFWL
 		entry is created.*/
 		COLLADAFW::AnimationList*& getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId);
 
+		/** Adds the pair @a skinDataUniqueId, @a jointSids to mSkinDataJointSidsMap.*/
+		void addSkinDataJointSidsMap( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids );
+
+		/** Returns the sids of the nodes used by a skin controller using skin data with unique id 
+		@a skinDataUniqueId*/
+		const StringList& getJointSidsBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
+
+
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
 		void setMeAsParser();
 

@@ -27,7 +27,7 @@ namespace COLLADAFW
 	typedef ArrayPrimitiveType<float> FloatArray;
 	typedef ArrayPrimitiveType<double> DoubleArray;
 
-  //  typedef xsNCName String;
+	//  typedef xsNCName String;
 
 	typedef int ClassId;
 
@@ -579,7 +579,10 @@ namespace COLLADAFW
             ANGULAR = 518,
             PHYSICS_MODEL = 519,
 
-			ANIMATIONLIST = 1000;
+			ANIMATIONLIST = 1000,
+			SKIN_DATA = 1001
+			
+			;
 
 
 

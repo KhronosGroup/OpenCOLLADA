@@ -13,6 +13,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWTypes.h"
+#include "COLLADAFWArray.h"
 
 
 namespace COLLADAFW
@@ -46,7 +47,7 @@ namespace COLLADAFW
 		/** Returns the class id of the class the object is instantiated from.*/
 		ClassId getClassId() const { return mClassId; }
 
-		/** Returns the objec t id that uniquely identifies the object in the set of all objects of the same Type.*/
+		/** Returns the object id that uniquely identifies the object in the set of all objects of the same Type.*/
 		ObjectId getObjectId() const { return mObjectId; }
 
 		/** Returns true if the unique id is valid, false otherwise.*/
@@ -58,6 +59,9 @@ namespace COLLADAFW
         bool operator!=(const UniqueId& uid) const;
 
 	};
+
+	typedef Array<UniqueId> UniqueIdArray;
+
 } // namespace COLLADAFW
 
 #endif // __COLLADAFW_UNIQUEID_H__

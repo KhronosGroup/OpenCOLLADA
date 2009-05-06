@@ -12,6 +12,7 @@
 #include "COLLADAFWValidate.h"
 
 #include "COLLADAFWAnimationCurve.h"
+#include "COLLADAFWSkinControllerData.h"
 
 
 namespace COLLADAFW
@@ -92,5 +93,48 @@ namespace COLLADAFW
 		return true;
 	}
 
+
+	//------------------------------
+	bool validate( const SkinControllerData* skinControllerData )
+	{
+		size_t jointsCount = skinControllerData->getJointsCount();
+		size_t weightsCount = skinControllerData->getWeights().getValuesCount();
+	
+		const UIntValuesArray& jointsPerVertex = skinControllerData->getJointsPerVertex();
+
+		unsigned int jointsVertexPairCount = 0;
+		for ( size_t i = 0, count = jointsPerVertex.getCount(); i < count; ++i)
+		{
+			jointsVertexPairCount += jointsPerVertex[i];
+		}
+
+		// test weight indices
+		const UIntValuesArray& weightIndices = skinControllerData->getWeightIndices();
+
+		if ( jointsVertexPairCount != weightIndices.getCount() )
+			return false;
+
+		for ( size_t i = 0, count = weightIndices.getCount(); i < count; ++i)
+		{
+			if ( weightIndices[i] >= weightsCount)
+				return false;
+		}
+
+		// test joint indices
+		const UIntValuesArray& jointIndices = skinControllerData->getJointIndices();
+
+		if ( jointsVertexPairCount != jointIndices.getCount() )
+			return false;
+
+		for ( size_t i = 0, count = jointIndices.getCount(); i < count; ++i)
+		{
+			if ( jointIndices[i] >= jointsCount)
+				return false;
+		}
+
+
+
+		return true;
+	}
 
 } // namespace COLLADAFW

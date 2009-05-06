@@ -60,6 +60,17 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~SourceArrayLoader();
 
+		/** Assigns the float or double values, stored in @a source in @a floatOrDoubleArray. If type of 
+		@a source is neither float nor double, false is returned and no assignment performed. The values 
+		are not copied, but the source number array is assignment to the @a floatOrDoubleArray array.*/
+		bool assignSourceValuesToFloatOrDoubleArray( SourceBase* source, COLLADAFW::FloatOrDoubleArray& floatOrDoubleArray);
+
+		/** Returns the id of the source being parsed.*/
+		const String& getCurrentSourceId() const { return mCurrentSourceId; }
+
+		/** Clears all the source loaded by the source array loader.*/
+		void clearSources();
+
         /**
         * Provides the bulk of the mesh’s vertex data. See main entry.
         * @param sourceArraySize Parameter to get the size of the source array.

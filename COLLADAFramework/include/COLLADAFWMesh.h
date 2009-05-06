@@ -109,7 +109,7 @@ namespace COLLADAFW
         * Positions have always a stride of three (X, Y and Z parameter). So we don't need to 
         * store this information.
         */
-        void setPositions ( MeshVertexData& positions ) { mPositions = positions; }
+   //     void setPositions ( MeshVertexData& positions ) { mPositions = positions; }
 
         /** 
         * The normals array. 
@@ -133,7 +133,7 @@ namespace COLLADAFW
         * Normals have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        void setNormals ( MeshVertexData& Normals ) { mNormals = Normals; }
+ //       void setNormals ( MeshVertexData& Normals ) { mNormals = Normals; }
 
 		/**
          * Checks, if the mesh has normals.
@@ -185,7 +185,7 @@ namespace COLLADAFW
         * Colors have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        void setColors ( MeshVertexData& Colors ) { mColors = Colors; }
+//        void setColors ( MeshVertexData& Colors ) { mColors = Colors; }
 
 		/** 
         * The 2 dimensional uv coordinates array. 

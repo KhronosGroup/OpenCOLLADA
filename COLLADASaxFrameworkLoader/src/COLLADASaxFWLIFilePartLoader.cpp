@@ -162,6 +162,18 @@ namespace COLLADASaxFWL
 		return getFileLoader()->getAnimationListByUniqueId( animationListUniqueId );
 	}
 
+	//-----------------------------
+	void IFilePartLoader::addSkinDataJointSidsMap( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids )
+	{
+		getFileLoader()->addSkinDataJointSidsMap( skinDataUniqueId, jointSids );
+	}
+
+	//-----------------------------
+	const StringList& IFilePartLoader::getJointSidsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
+	{
+		return getFileLoader()->getJointSidsBySkinDataUniqueId( skinDataUniqueId );
+	}
+
 	//------------------------------
 	bool IFilePartLoader::begin__technique( const technique__AttributeData& attributeData )
 	{

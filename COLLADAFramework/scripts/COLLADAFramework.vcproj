@@ -420,6 +420,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWSkinControllerData.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWTexture.cpp"
 				>
 			</File>
@@ -495,6 +499,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWConstants.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWController.h"
 				>
 			</File>
 			<File
@@ -750,6 +758,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWSkew.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWSkinController.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWSkinControllerData.h"
 				>
 			</File>
 			<File

@@ -17,10 +17,16 @@
 namespace COLLADAFW
 {
 	class AnimationCurve;
+	class SkinControllerData;
    
 	/** Validates an animation curve. 
 	@return True, if the animation is valid, false otherwise.*/
 	bool validate( const AnimationCurve* animationCurve );
+
+	/** Validates skin controller data. 
+	@return True, if the data is valid, false otherwise.*/
+	bool validate( const SkinControllerData* skinControllerData );
+
 
 
 } // namespace COLLADAFW

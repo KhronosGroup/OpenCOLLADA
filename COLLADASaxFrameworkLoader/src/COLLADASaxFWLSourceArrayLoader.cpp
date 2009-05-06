@@ -33,8 +33,46 @@ namespace COLLADASaxFWL
 	//------------------------------
 	SourceArrayLoader::~SourceArrayLoader()
 	{
+		clearSources();
+	}
+
+	//------------------------------
+	void SourceArrayLoader::clearSources()
+	{
 		for ( size_t i = 0, count = mSourceArray.getCount(); i < count; ++i)
 			delete mSourceArray[i];
+		mSourceArray.setCount(0);
+	}
+
+	//------------------------------
+	bool SourceArrayLoader::assignSourceValuesToFloatOrDoubleArray( SourceBase* sourceBase, COLLADAFW::FloatOrDoubleArray& floatOrDoubleArray )
+	{
+		if (sourceBase->getDataType() == SourceBase::DATA_TYPE_FLOAT)
+		{
+			floatOrDoubleArray.setType( COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT);
+			COLLADAFW::FloatArray* values = floatOrDoubleArray.getFloatValues();
+			FloatSource* source = ( FloatSource* ) sourceBase;
+			FloatArrayElement& arrayElement = source->getArrayElement();
+			COLLADAFW::FloatArray& valuesArray = arrayElement.getValues();
+			values->setData ( valuesArray.getData (), valuesArray.getCount () );
+			valuesArray.yieldOwnerShip();
+			return true;
+		}
+		else if (sourceBase->getDataType() == SourceBase::DATA_TYPE_DOUBLE)
+		{
+			floatOrDoubleArray.setType( COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE);
+			COLLADAFW::DoubleArray* values = floatOrDoubleArray.getDoubleValues();
+			DoubleSource* source = ( DoubleSource* ) sourceBase;
+			DoubleArrayElement& arrayElement = source->getArrayElement();
+			COLLADAFW::DoubleArray& valuesArray = arrayElement.getValues();
+			values->setData ( valuesArray.getData (), valuesArray.getCount () );
+			valuesArray.yieldOwnerShip();
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	//------------------------------
@@ -193,5 +231,6 @@ namespace COLLADASaxFWL
 		}
 		return true;
 	}
+
 
 } // namespace COLLADAFW

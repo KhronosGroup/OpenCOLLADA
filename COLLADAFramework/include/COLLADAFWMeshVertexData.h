@@ -152,6 +152,15 @@ namespace COLLADAFW
 			return FloatOrDoubleArray::appendValues ( valuesArray );
 		}
 
+
+	private:
+
+		/** Disable default copy ctor. */
+		MeshVertexData( const MeshVertexData& pre );
+
+		/** Disable default assignment operator. */
+		const MeshVertexData& operator= ( const MeshVertexData& pre );
+
 	};
 
 } // namespace COLLADAFW

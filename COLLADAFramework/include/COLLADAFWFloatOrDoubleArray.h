@@ -105,6 +105,14 @@ namespace COLLADAFW
 
 		/** Destructor. */
 		virtual ~FloatOrDoubleArray();
+
+	private:
+
+		/** Disable default copy ctor. */
+		FloatOrDoubleArray( const FloatOrDoubleArray& pre );
+
+		/** Disable default assignment operator. */
+		const FloatOrDoubleArray& operator= ( const FloatOrDoubleArray& pre );
 	};
 
 } // namespace COLLADAFW
