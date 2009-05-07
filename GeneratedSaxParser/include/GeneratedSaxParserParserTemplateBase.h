@@ -83,6 +83,7 @@ namespace GeneratedSaxParser
 			: Parser(errorHandler),
 			mStackMemoryManager(STACK_SIZE),
             mValidationDataStack(STACK_SIZE),
+            mValidate(true),
 			mLastIncompleteFragmentInCharacterData(0){}
 		virtual ~ParserTemplateBase(){};
 

@@ -683,7 +683,8 @@ namespace GeneratedSaxParser
             size_t fragmentSize = (dataBufferPos - lastDataBufferIndex)*sizeof(ParserChar);
             if (!Utils::isWhiteSpaceOnly(lastDataBufferIndex, fragmentSize))
             {
-                if (callsToDataFunc == 0)
+                // if mStackMemoryManager.top() == 0 -> list with one element
+                if ( callsToDataFunc == 0 && mStackMemoryManager.top() != 0 )
                 {
                     // special case: last inclomplete fragment has to be reused
                     size_t oldPrefixDataSize = mEndOfDataInCurrentObjectOnStack - mLastIncompleteFragmentInCharacterData;
