@@ -59,6 +59,7 @@ namespace COLLADAMax
 			mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode(), COLLADASW::URI::nativePathToUri(NativeString(i->GetCurFilePath().data()).toUtf8String()), xRefExportFileNames ) ),
 			mDeleteExportSceneGraph(true)
     {
+		mOutputFileUri.setScheme( URI::SCHEME_FILE);
 	}
 
 
@@ -72,6 +73,7 @@ namespace COLLADAMax
 		mExportSceneGraph ( exportSceneGraph ),
 		mDeleteExportSceneGraph(false)
 	{
+		mOutputFileUri.setScheme( URI::SCHEME_FILE);
 	}
 
 	//---------------------------------------------------------------

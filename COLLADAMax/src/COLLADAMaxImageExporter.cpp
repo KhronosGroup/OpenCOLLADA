@@ -41,7 +41,8 @@ namespace COLLADAMax
 
         for ( ExportedImageMap::const_iterator it = mExportedImageMap.begin(); it != mExportedImageMap.end(); ++it )
         {
-            addImage ( COLLADASW::Image ( it->first, it->second ) );
+			const ImageInfo& imageInfo = it->second;
+            addImage ( COLLADASW::Image ( imageInfo.fileLocation, imageInfo.imageId ) );
         }
 
         closeLibrary();

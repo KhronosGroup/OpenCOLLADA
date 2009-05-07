@@ -39,6 +39,9 @@
 #include <shaders.h>
 #include <imtl.h> 
 
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
+
 namespace COLLADAMax
 {
 
@@ -62,16 +65,11 @@ namespace COLLADAMax
 
     const String EffectExporter::EMPTY_STRING = "";
 
-
 	const String EffectExporter::SELF_ILLUMINATION_PARAMETER = "self_illumination";
-	
-
 
 	const String EffectExporter::COLOR_PARAMETERS[ 4 ] =
 	{"R", "G", "B", "A"
 	};
-
-
 
 	const String EffectExporter::SHADER_ELEMENT = "shader";
 	const int EffectExporter::SHADER_PARAMETER_COUNT = 7;
@@ -1084,7 +1082,7 @@ namespace COLLADAMax
 			COLLADABU::URI fullFileNameURI = URI::nativePathToUri( fullNativeFileName.toUtf8String() );
 			if ( fullFileNameURI.getScheme().empty() )
 				fullFileNameURI.setScheme(COLLADASW::URI::SCHEME_FILE);
-            String imageId;
+
             // Export the equivalent <image> node in the image library and add
             // the <init_from> element to the sampler's surface definition.
             // "None" is a special Max token, to indicate no texture assigned
@@ -1096,27 +1094,87 @@ namespace COLLADAMax
                 size_t slashIndex = fullFileName.rfind ( '/' );
                 size_t backSlashIndex = fullFileName.rfind ( '\\' );
 
-                if ( slashIndex == String::npos )
+				ImageInfo imageInfo;
+
+				if ( slashIndex == String::npos )
                     slashIndex = backSlashIndex;
                 else if ( backSlashIndex != String::npos && backSlashIndex > slashIndex )
                     slashIndex = backSlashIndex;
 
-                imageId = ( slashIndex != String::npos ) ? fullFileName.substr ( slashIndex + 1 ) : fullFileName;
+                imageInfo.imageId = ( slashIndex != String::npos ) ? fullFileName.substr ( slashIndex + 1 ) : fullFileName;
 
-				imageId = COLLADASW::Utils::replaceDot ( COLLADASW::Utils::checkID(imageId) );
+				imageInfo.imageId = COLLADASW::Utils::replaceDot ( COLLADASW::Utils::checkID(imageInfo.imageId) );
+
+				if ( mDocumentExporter->getOptions().getCopyImages() )
+				{
+					// we need to copy the image in  output directory/images
+					COLLADASW::URI imageTargetPath = createTargetURI(fullFileNameURI);
+					// Copy the texture, if it isn't already there...
+					if ( !boost::filesystem::exists( imageTargetPath.toNativePath () ) )
+					{
+						try 
+						{
+							// Create the target directory, if necessary. 
+							// Note: some systems (window$) requires the string to be 
+							// enclosed in quotes when a space is present.
+							COLLADASW::URI imageTargetPathDir ( imageTargetPath.getPathDir() );
+							boost::filesystem::create_directory ( imageTargetPathDir.toNativePath() );
+
+							// Throws: basic_filesystem_error<Path> if
+							// from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
+							boost::filesystem::copy_file ( boost::filesystem::path ( fullFileNameURI.toNativePath() ), 
+								                           boost::filesystem::path ( imageTargetPath.toNativePath() ) );
+						}
+						catch ( ... )
+						{
+							// todo handle error
+						}
+					}
+
+					bool success = true;
+					imageInfo.fileLocation = imageTargetPath.getRelativeTo(mDocumentExporter->getOutputFileUri(),success, true);
+
+				}
+				else
+				{
+					imageInfo.fileLocation = fullFileNameURI;
+				}
 
                 // image not exported
-                mExportedImageMap[ fullFileNameURI ] = imageId;
+                mExportedImageMap[ fullFileNameURI ] = imageInfo;
+				return imageInfo.imageId;
             }
-
             else
-                imageId = it->second;
+			{
+                return it->second.imageId;
+			}
 
-            return imageId;
         }
 
         return EMPTY_STRING;
     }
+
+	// ------------------------------------------------------------
+	COLLADASW::URI EffectExporter::createTargetURI ( const COLLADASW::URI& sourceUri )
+	{
+		// Target file
+		const COLLADABU::URI& outputFile = mDocumentExporter->getOutputFileUri();
+		
+		String relativePath = mDocumentExporter->getOptions().getImageDirectory();
+		relativePath.append("/");
+		relativePath.append( sourceUri.getPathFile() );
+
+		COLLADASW::URI targetUri ( outputFile, relativePath);
+
+		// Get the pure file name of the source file and set 
+		// the source file name to the target path
+//		targetUri.setPathFile ( sourceUri.getPathFile () );
+		targetUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+
+		// Generate the target file name
+		return targetUri;
+	}
+
 
     //---------------------------------------------------------------
     void EffectExporter::blendColor ( COLLADASW::ColorOrTexture & colorOrTexture, Color blendColor, double ammount )

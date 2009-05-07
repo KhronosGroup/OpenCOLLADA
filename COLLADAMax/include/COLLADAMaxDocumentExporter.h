@@ -161,6 +161,9 @@ namespace COLLADAMax
             return mOptions;
         }
 
+		/** The uri of the main output file.*/
+		const COLLADASW::URI& getOutputFileUri()const { return mOutputFileUri; }
+
 		/** Shows the export options dialog.
 		@param suppressPrompts If set to true, no dialog is shows (for scripting).*/
 		bool showExportOptions(bool suppressPrompts);

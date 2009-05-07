@@ -45,8 +45,17 @@ namespace COLLADAMax
     /** Maps material pointers to effect ids*/
     typedef std::map<Mtl*, String> EffectMap;
 
-    /**map<filename,imageID>*/
-	typedef std::map<COLLADABU::URI, String> ExportedImageMap;
+	struct ImageInfo
+	{
+		/** The id of the image element in the COLLADA file.*/
+		String imageId;
+
+		/** The location of the image to reference in the COLLADA image element.*/
+		COLLADABU::URI fileLocation;
+	};
+
+    /**map<filename(original max absolute file location),imageID>*/
+	typedef std::map<COLLADABU::URI, ImageInfo> ExportedImageMap;
 
 	/** List of INodes*/
 	typedef std::vector<INode*> INodeList;

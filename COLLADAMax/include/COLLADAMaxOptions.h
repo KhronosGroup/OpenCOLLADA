@@ -63,6 +63,8 @@ namespace COLLADAMax
 		bool mCreateClip;					//!< create one animation clip with all the animations of the scene
 		bool mBakeMatrices;					//!< export transforms as matrices
 		bool mRelativePaths;				//!< export relative paths
+		bool mCopyImages;			     	//!< copy images
+		String mImageDirectory;			    //!< The directory of the copied images, relative to the output file
 		bool importUnits;					//!< import assets in their units
 		bool importUpAxis;					//!< import assets in their up-axis
 		bool mCheckIfAnimationIsAnimated;   //!< export animations only if it is really animated (time consuming)
@@ -111,8 +113,15 @@ namespace COLLADAMax
         /** Returns, if the transformations are exported as matrices.*/
         bool getBakeMatrices() const { return mBakeMatrices; }
 
-        /** Returns, if paths are exported as relative paths.*/
-        bool getExportRelativePaths() const { return mRelativePaths; }
+		/** Returns, if paths are exported as relative paths.*/
+		bool getExportRelativePaths() const { return mRelativePaths; }
+
+		/** Returns, if images should be copied.*/
+		bool getCopyImages() const { return mCopyImages; }
+
+		/** The directory of the copied images, relative to the output file.*/
+		String getImageDirectory() const { return mImageDirectory; }
+
 
 		/** Returns, if animations are checked if they are really animated*/
 		bool getCheckIfAnimationsIsAnimated() const { return mCheckIfAnimationIsAnimated;}

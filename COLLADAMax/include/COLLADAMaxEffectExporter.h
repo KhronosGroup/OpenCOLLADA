@@ -288,6 +288,7 @@ namespace COLLADAMax
         /** Blends the color on colorOrTexture with blendColor an amount @a amount.*/
         void EffectExporter::blendColor ( COLLADASW::ColorOrTexture & colorOrTexture, Color blendColor, double amount );
 
+		COLLADASW::URI createTargetURI ( const COLLADASW::URI& sourceUri );
 
     };
 
