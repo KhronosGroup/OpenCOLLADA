@@ -17,6 +17,7 @@
 
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWExtraData.h"
+#include "COLLADAFWInstanceController.h"
 
 
 namespace COLLADAFW
@@ -43,7 +44,30 @@ namespace COLLADASaxFWL
     /** Base class for all loaders that load parts of files or entire files */
 	class IFilePartLoader : protected ColladaParserAutoGen
 	{
+	public:
+		/** Data that needs to be store, intermediately, to assign controllers. One struct for each 
+		instance controller.*/
+		struct InstanceControllerData
+		{
+			/** List of URIs of the skeleton roots, ie the uris in the COLLADA skeleton element.*/
+			std::vector<COLLADABU::URI> skeletonRoots;
+
+			/** The instance controller that instantiates the controller.*/
+			COLLADAFW::InstanceController* instanceController;
+		};
+
+		/** List of all instance controllers that reference the same controller, ie share the same skin 
+		data for skin controllers.*/
+		typedef std::vector<InstanceControllerData> InstanceControllerDataList;
+
+		/** Maps each controller data unique id to the list of nodes instantiating it.*/
+		typedef std::map<COLLADAFW::UniqueId,InstanceControllerDataList> InstanceControllerDataListMap;
+			
+	public:
+		const static InstanceControllerDataList EMPTY_INSTANCE_CONTROLLER_DATALIST;
+
 	private:
+
 		/** The currently working file part loader.*/
 		IFilePartLoader* mPartLoader;
 
@@ -161,6 +185,16 @@ namespace COLLADASaxFWL
 		/** Returns the sids of the nodes used by a skin controller using skin data with unique id 
 		@a skinDataUniqueId*/
 		const StringList& getJointSidsBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
+
+		/** Returns the mapping of the Unique generated from the id of the COLLADA controller element to the 
+		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
+		const InstanceControllerDataListMap& getInstanceControllerDataListMap() const ;
+
+		/** Returns the InstanceControllerDataList of the controller with Unique @a controllerUniqueId.*/
+		const InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId)const;
+
+		/** Returns the InstanceControllerDataList of the controller with Unique @a controllerUniqueId.*/
+		InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId);
 
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/

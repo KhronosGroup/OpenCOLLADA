@@ -391,6 +391,28 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
+	const FileLoader::InstanceControllerDataList& FileLoader::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId ) const
+	{
+		InstanceControllerDataListMap::const_iterator it = mInstanceControllerDataListMap.find(controllerUniqueId);
+		if ( it != mInstanceControllerDataListMap.end())
+		{
+			return it->second;
+		}
+		else
+		{
+			return EMPTY_INSTANCE_CONTROLLER_DATALIST;
+		}
+
+	}
+
+	//-----------------------------
+	FileLoader::InstanceControllerDataList& FileLoader::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId )
+	{
+		return mInstanceControllerDataListMap[controllerUniqueId];
+	}
+
+
+	//-----------------------------
 	void FileLoader::writeVisualScenes()
 	{
 		for ( size_t i = 0, count = mVisualScenes.size(); i < count; ++i)
@@ -638,6 +660,9 @@ namespace COLLADASaxFWL
 	bool FileLoader::begin__library_controllers( const library_controllers__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__library_controllers(attributeData));
+
+		// disable controller support
+		return true;
 
 		deleteFilePartLoader();
 		LibraryControllersLoader* libraryControllersLoader = new LibraryControllersLoader(this);

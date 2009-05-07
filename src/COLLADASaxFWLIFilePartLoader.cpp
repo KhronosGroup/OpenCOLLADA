@@ -18,6 +18,10 @@
 namespace COLLADASaxFWL
 {
 
+
+	const IFilePartLoader::InstanceControllerDataList IFilePartLoader::EMPTY_INSTANCE_CONTROLLER_DATALIST = IFilePartLoader::InstanceControllerDataList();
+
+
     //------------------------------
 	IFilePartLoader::IFilePartLoader()
 		: mPartLoader(0)
@@ -175,6 +179,24 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
+	const IFilePartLoader::InstanceControllerDataListMap& IFilePartLoader::getInstanceControllerDataListMap() const
+	{
+		return getFileLoader()->getInstanceControllerDataListMap();
+	}
+
+	//------------------------------
+	const IFilePartLoader::InstanceControllerDataList& IFilePartLoader::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId ) const
+	{
+		return getFileLoader()->getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
+	}
+
+	//------------------------------
+	IFilePartLoader::InstanceControllerDataList& IFilePartLoader::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId )
+	{
+		return getFileLoader()->getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
+	}
+
+	//------------------------------
 	bool IFilePartLoader::begin__technique( const technique__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__technique(attributeData))
@@ -219,4 +241,5 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	
 } // namespace COLLADASaxFWL
