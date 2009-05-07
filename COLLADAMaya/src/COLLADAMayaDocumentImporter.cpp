@@ -137,7 +137,7 @@ namespace COLLADAMaya
             COLLADASaxFWL::Loader::VISUAL_SCENES_FLAG |
             COLLADASaxFWL::Loader::LIBRARY_NODES_FLAG |
             COLLADASaxFWL::Loader::MATERIAL_FLAG;
-        mSaxLoader.setObjectFlags ( objectFlags );
+        //mSaxLoader.setObjectFlags ( objectFlags );
 
         readColladaDocument();
 
@@ -254,6 +254,7 @@ namespace COLLADAMaya
             // Start the next parsing.
             mParseStep = SECOND_PARSING;
 
+            // TODO
             int objectFlags = 
                 COLLADASaxFWL::Loader::GEOMETRY_FLAG |
                 COLLADASaxFWL::Loader::EFFECT_FLAG |
@@ -262,7 +263,7 @@ namespace COLLADAMaya
                 COLLADASaxFWL::Loader::LIGHT_FLAG |
                 COLLADASaxFWL::Loader::ANIMATION_FLAG |
                 COLLADASaxFWL::Loader::ANIMATION_LIST_FLAG;
-            mSaxLoader.setObjectFlags ( objectFlags );
+            //mSaxLoader.setObjectFlags ( objectFlags );
 
             readColladaDocument ();
         }
@@ -291,7 +292,11 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::readColladaDocument ()
     {
-        COLLADAFW::Root root ( &mSaxLoader, this );
+        COLLADASaxFWL::Loader saxLoader;
+        COLLADAFW::Root root ( &saxLoader, this );
+
+        // TODO
+//        COLLADAFW::Root root ( &mSaxLoader, this );
         String filename = getColladaFilename ();
         String fileUriString = URI::nativePathToUri ( filename );
 
@@ -746,6 +751,20 @@ namespace COLLADAMaya
             getAnimationImporter ()->writeConnections ( animationList );
         }
 
+        return true;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeSkinControllerData ( 
+        const COLLADAFW::SkinControllerData* skinControllerData )
+    {
+        return true;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeController ( 
+        const COLLADAFW::Controller* controller )
+    {
         return true;
     }
 

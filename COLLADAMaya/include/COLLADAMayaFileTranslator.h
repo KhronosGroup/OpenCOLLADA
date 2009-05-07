@@ -66,7 +66,6 @@ namespace COLLADAMaya
          */
         static void* createExporter();
 
-#ifdef CREATE_IMPORT_PLUGIN
         /**
          * The reader() method reads each line of the file and returns a
          * MS::kFailure if it cannot be opened by the translator. If a file type
@@ -80,7 +79,6 @@ namespace COLLADAMaya
         virtual MStatus reader ( const MFileObject &,
                                  const MString &optionsString,
                                  MPxFileTranslator::FileAccessMode mode );
-#endif // CREATE_IMPORT_PLUGIN
         
         /**
          * The writer() method provides a message through the script editor and
@@ -151,14 +149,13 @@ namespace COLLADAMaya
          */
         MStatus exportIntoFile ( const MString& filename, const bool selectionOnly );
 
-#ifdef CREATE_IMPORT_PLUGIN
         /**
          * Parses the COLLADA document and generates the Maya structures.
          * @param filename The collada document name to read in.
          * @return MStatus Error, if something went wrong.
          */
         MStatus importFromFile ( const String& filename );
-#endif //CREATE_IMPORT_PLUGIN
+
     };
 
 }

@@ -219,7 +219,8 @@ namespace COLLADAMaya
         if ( mayaFileName.length () == 0 ) return NULL;
         String sourceFile = mayaFileName.asChar ();
         COLLADASW::URI sourceFileUri ( COLLADASW::URI::nativePathToUri ( sourceFile ) );
-        sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+        if ( !ExportOptions::relativePaths () )
+            sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
 
         COLLADASW::Image* colladaImage = exportImage ( mayaImageId, colladaImageId, sourceFileUri );
         if ( colladaImage == NULL ) return NULL;

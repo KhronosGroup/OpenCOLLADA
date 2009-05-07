@@ -342,6 +342,14 @@ namespace COLLADAMaya
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeAnimationList( const COLLADAFW::AnimationList* animationList );
 
+        /** When this method is called, the writer must write the skin controller data.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData );
+
+        /** When this method is called, the writer must write the controller.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeController( const COLLADAFW::Controller* Controller );
+
         /**
          * Replace offending characters by some that are supported within maya.
          */

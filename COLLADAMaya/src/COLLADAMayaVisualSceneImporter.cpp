@@ -840,13 +840,15 @@ namespace COLLADAMaya
         MayaTransformation &mayaTransform, 
         const COLLADAFW::Transformation* transformation )
     {
-        // Set the actual phase to a scale phase.
-        if ( ( mayaTransform.phase != MayaTransformation::PHASE_TRANS1 ) && 
-            ( mayaTransform.phase != MayaTransformation::PHASE_TRANS2 ) && 
-            ( mayaTransform.phase != MayaTransformation::PHASE_TRANS3 ) )
-        {
-            mayaTransform.phase += 1;
-        }
+        // Set the actual phase to a transform phase.
+        if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS1 ) 
+            mayaTransform.phase = MayaTransformation::PHASE_TRANS1;
+
+        if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS2 )
+            mayaTransform.phase = MayaTransformation::PHASE_TRANS2;
+
+        if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS3 )
+            mayaTransform.phase = MayaTransformation::PHASE_TRANS3;
 
         COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transformation;
         COLLADABU::Math::Vector3 translation = translate->getTranslation ();
