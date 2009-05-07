@@ -27,9 +27,30 @@ namespace GeneratedSaxParser
 	class StackMemoryManager 
 	{
 	private:
-		size_t mCurrentPosition;
-		size_t mMaxMemoryBlob;
-		char* mMemoryBlob;
+        static const size_t MAX_NUM_OF_FRAMES = 12;
+        static const size_t SIZE_OF_NEW_FRAME_FACTOR = 2;
+
+        struct StackFrame
+        {
+            StackFrame() : mCurrentPosition(0), mMaxMemoryBlob(0), mMemoryBlob(0)
+            {}
+            StackFrame(size_t size, char* memoryBlob) :
+                mCurrentPosition(0),
+                mMaxMemoryBlob(size),
+                mMemoryBlob(memoryBlob)
+            {}
+            /** 
+             * Points at beginning of free space inside mMemoryBlob.
+             * Or in other words: points after size of top object.
+             */
+		    size_t mCurrentPosition;
+            /** Size of mMemoryBlob. */
+		    size_t mMaxMemoryBlob;
+            /** Pointer to allocated memory. */
+		    char* mMemoryBlob;
+        };
+        size_t mActiveFrame;
+        StackFrame* mFrames;
 
 	public:
 		StackMemoryManager(size_t stackSize);
@@ -40,7 +61,7 @@ namespace GeneratedSaxParser
 
 		void deleteObject();
 
-        void growObject(size_t amount);
+        void* growObject(size_t amount);
 
         /** Returns ptr to top object on stack or 0 when stack is empty. Object will not be removed. */
         void* top();
@@ -49,6 +70,8 @@ namespace GeneratedSaxParser
         inline size_t getTopObjectSize();
 
         inline void writeNewObjectSize(size_t position, size_t size);
+
+        bool allocateMoreMemory();
 
     private:
 		/** Disable default copy ctor. */

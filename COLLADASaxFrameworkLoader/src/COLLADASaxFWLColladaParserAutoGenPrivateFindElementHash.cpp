@@ -10585,4 +10585,79 @@ bool ColladaParserAutoGenPrivate::findElementHash( ElementData& elementData )
     return true;
 }
 
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::isXsAnyAllowed( const StringHash& elementHash )
+{
+    if ( mElementDataStack.empty() )
+        return false;
+
+    switch ( elementHash )
+    {
+        case HASH_ELEMENT_FX_PROFILE_ABSTRACT:
+            switch ( mElementDataStack.back().typeID )
+            {
+            case 487:
+                return true;
+            default:
+                return false;
+            }
+        case HASH_ELEMENT_GL_HOOK_ABSTRACT:
+            switch ( mElementDataStack.back().typeID )
+            {
+            case 302:
+                return true;
+            default:
+                return false;
+            }
+        case HASH_ELEMENT_INIT_AS_NULL:
+            switch ( mElementDataStack.back().typeID )
+            {
+            case 497:
+                return true;
+            default:
+                return false;
+            }
+        case HASH_ELEMENT_INIT_AS_TARGET:
+            switch ( mElementDataStack.back().typeID )
+            {
+            case 497:
+                return true;
+            default:
+                return false;
+            }
+        case HASH_ELEMENT_TECHNIQUE:
+            switch ( mElementDataStack.back().typeID )
+            {
+            case 562:
+                return true;
+            case 515:
+                return true;
+            case 505:
+                return true;
+            case 596:
+                return true;
+            case 201:
+                return true;
+            case 81:
+                return true;
+            case 230:
+                return true;
+            case 179:
+                return true;
+            case 532:
+                return true;
+            case 92:
+                return true;
+            case 19:
+                return true;
+            case 130:
+                return true;
+            default:
+                return false;
+            }
+    default:
+        return false;
+    }
+}
+
 } // namespace

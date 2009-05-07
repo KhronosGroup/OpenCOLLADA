@@ -121,8 +121,10 @@ namespace GeneratedSaxParser
         NamespacePrefixesMap mNamespaces;
 
 	private:
-		/** Number of elements that have been opened and should be ignored. Use for unknown elements.*/
+		/** Number of elements that have been opened and should be ignored due to mCurrentElementFunctionMap. */
 		size_t mIgnoreElements;
+        /** Number of elements that have been opened and are unknown. */
+        size_t mUnknownElements;
 
 
 	public:
@@ -132,6 +134,7 @@ namespace GeneratedSaxParser
               mCurrentElementFunctionMap(&mElementFunctionMap),
 			  mImpl(impl),
 			  mIgnoreElements(0),
+              mUnknownElements(0),
 			  mUnknownHandler(0),
               mDocumentNamespace(0),
               mDocUsesTargetNamespace(false)
@@ -162,6 +165,7 @@ namespace GeneratedSaxParser
 
     protected:
         virtual bool findElementHash( ElementData& elementData ) = 0;
+        virtual bool isXsAnyAllowed( const StringHash& elementHash ) = 0;
 
 
 	protected:
@@ -949,7 +953,7 @@ namespace GeneratedSaxParser
                 ++dataBufferIndex;
                 if ( (dataBufferIndex * sizeof(DataType)) == bufferSize )
                 {
-                    mStackMemoryManager.growObject(bufferSize);
+                    typedBuffer = (DataType*)mStackMemoryManager.growObject(bufferSize);
                     bufferSize *= 2;
                 }
             }
@@ -1444,23 +1448,26 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::textData(const ParserChar* text,
 															  size_t textLength)
 	{
+        if ( mIgnoreElements > 0 )
+        {
+            return true;
+        }
+        if ( mUnknownElements > 0 )
+        {
+            if ( mUnknownHandler != 0 )
+            {
+                return mUnknownHandler->textData( text, textLength );
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         if ( mElementDataStack.empty() )
             return false;
         ElementData elementData = mElementDataStack.back();
         typename ElementFunctionMap::const_iterator it;
-
-        if ( mIgnoreElements > 0)
-        {
-            if ( mUnknownHandler != 0 )
-            {
-                it = mElementFunctionMap.find(elementData.generatedElementHash);
-                if ( it == mElementFunctionMap.end() )
-                    return mUnknownHandler->textData( text, textLength );
-                else
-                    return true;
-            }
-			return true;
-        }
 
         const ElementFunctionMap* functionMapToUse;
         if ( mCurrentElementFunctionMap )
@@ -1483,25 +1490,28 @@ namespace GeneratedSaxParser
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::elementEnd(const ParserChar* elementName)
 	{
+        if ( mIgnoreElements > 0 )
+        {
+            mIgnoreElements--;
+            return true;
+        }
+        if ( mUnknownElements > 0 )
+        {
+            mUnknownElements--;
+            if ( mUnknownHandler != 0 )
+            {
+                return mUnknownHandler->elementEnd( elementName );
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         if ( mElementDataStack.empty() )
             return false;
         ElementData elementData = mElementDataStack.back();
         mElementDataStack.pop_back();
-
-		if ( mIgnoreElements > 0)
-		{
-			--mIgnoreElements;
-            if ( mUnknownHandler != 0 )
-            {
-                typename ElementFunctionMap::iterator it;
-                it = mElementFunctionMap.find(elementData.generatedElementHash);
-                if ( it == mElementFunctionMap.end() )
-                    return mUnknownHandler->elementEnd( elementName );
-                else
-                    return true;
-            }
-			return true;
-		}
 
         const ElementFunctionMap* functionMapToUse;
         if ( mCurrentElementFunctionMap )
@@ -1531,28 +1541,30 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::elementBegin( const ParserChar* elementName,
 																   const ParserAttributes& attributes)
 	{
+        if ( mIgnoreElements > 0 )
+        {
+            mIgnoreElements++;
+            return true;
+        }
+        if ( mUnknownElements > 0 )
+        {
+            mUnknownElements++;
+            if ( mUnknownHandler != 0 )
+            {
+                return mUnknownHandler->elementBegin( elementName, attributes.attributes );
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         ElementData newElementData;
         newElementData.elementHash = Utils::calculateStringHash(elementName);
         newElementData.generatedElementHash = 0;
         newElementData.typeID = 0;
         newElementData.validationData = 0;
         bool foundElementHash = findElementHash( newElementData );
-
-		if ( mIgnoreElements > 0)
-		{
-            mElementDataStack.push_back(newElementData);
-			++mIgnoreElements;
-            if ( mUnknownHandler != 0 )
-            {
-                typename ElementFunctionMap::iterator it;
-                it = mElementFunctionMap.find(newElementData.elementHash);
-                if ( it == mElementFunctionMap.end() )
-                    return mUnknownHandler->elementBegin( elementName, attributes.attributes );
-                else
-                    return true;
-            }
-			return true;
-		}
 
         const ElementFunctionMap* functionMapToUse;
         if ( mCurrentElementFunctionMap )
@@ -1564,10 +1576,27 @@ namespace GeneratedSaxParser
             it = functionMapToUse->find(newElementData.generatedElementHash);
 		if ( it == functionMapToUse->end() )
 		{
-            mElementDataStack.push_back(newElementData);
-            mIgnoreElements = 1;
-            it = mElementFunctionMap.find(newElementData.elementHash);
-            if ( it == mElementFunctionMap.end() )
+            if ( isXsAnyAllowed( newElementData.elementHash ) )
+            {
+                mUnknownElements = 1;
+            }
+            else
+            {
+                it = mElementFunctionMap.find(newElementData.elementHash);
+                if ( it != mElementFunctionMap.end() )
+                {
+                    mIgnoreElements = 1;
+                }
+                else
+                {
+                    mUnknownElements = 1;
+                }
+            }
+            if ( mIgnoreElements )
+            {
+                return true;
+            }
+            if ( mUnknownElements )
             {
                 if ( mUnknownHandler != 0 )
                 {
@@ -1588,11 +1617,6 @@ namespace GeneratedSaxParser
 			        }
                 }
             }
-            else
-            {
-                return true;
-            }
-
 		}
 		const FunctionStruct& functions = it->second;
 
@@ -1600,7 +1624,6 @@ namespace GeneratedSaxParser
 		void* validationData = 0;
 		if ( !functions.validateBeginFunction || !(static_cast<DerivedClass*>(this)->*functions.validateBeginFunction)(attributes, &attributeData, &validationData) )
         {
-            mElementDataStack.push_back(newElementData);
             // avoid leak
             if ( attributeData )
             {
@@ -1609,7 +1632,6 @@ namespace GeneratedSaxParser
             }
 			return false;
         }
-        mElementDataStack.push_back(newElementData);
 
 		bool success = (static_cast<DerivedClass*>(this)->*functions.beginFunction)(attributeData);
 		if ( attributeData )
@@ -1624,6 +1646,7 @@ namespace GeneratedSaxParser
 
 		if ( success )
 		{
+            mElementDataStack.push_back(newElementData);
 			newElementData.validationData = validationData;
 		}
 		return success;

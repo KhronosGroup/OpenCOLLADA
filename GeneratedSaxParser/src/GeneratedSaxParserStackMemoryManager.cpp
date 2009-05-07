@@ -8,81 +8,121 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
+#include <cstring>
 #include "GeneratedSaxParserStackMemoryManager.h"
 
 namespace GeneratedSaxParser
 {
 	//--------------------------------------------------------------------
 	StackMemoryManager::StackMemoryManager(size_t stackSize)
-		: mCurrentPosition(0),
-		mMaxMemoryBlob(stackSize)
-		
-	{
-		mMemoryBlob = new char[stackSize];
+		: mActiveFrame(0)
+    {
+        mFrames = new StackFrame[ MAX_NUM_OF_FRAMES ];
+		mFrames[ mActiveFrame ] = StackFrame(stackSize, new char[stackSize]);
 	}
 	
 	//--------------------------------------------------------------------
 	StackMemoryManager::~StackMemoryManager()
 	{
-			delete[] mMemoryBlob;
+        for (size_t i=mActiveFrame+1; i>0; --i)
+			delete[] mFrames[ i-1 ].mMemoryBlob;
+        delete[] mFrames;
 	}
 
 	//--------------------------------------------------------------------
 	void* StackMemoryManager::newObject( size_t objectSize )
 	{
-		size_t newDataPos = mCurrentPosition;
+		size_t newDataPos = mFrames[ mActiveFrame ].mCurrentPosition;
 
-		size_t newDataSizePos = mCurrentPosition + objectSize;
+		size_t newDataSizePos = mFrames[ mActiveFrame ].mCurrentPosition + objectSize;
+
+        size_t newCurrentPos = newDataSizePos + sizeof(objectSize);
+		if ( newCurrentPos > mFrames[ mActiveFrame ].mMaxMemoryBlob )
+		{
+            if (!allocateMoreMemory())
+                return 0;
+
+            newDataPos = mFrames[ mActiveFrame ].mCurrentPosition;
+            newDataSizePos = mFrames[ mActiveFrame ].mCurrentPosition + objectSize;
+            newCurrentPos = newDataSizePos + sizeof(objectSize);
+		}
 
         // objectSize will be written at newDataSizePos
-		mCurrentPosition = newDataSizePos + sizeof(objectSize);
-
-		if (mCurrentPosition >= mMaxMemoryBlob)
-		{
-//			assert(false);
-			//realloc();
-		}
+        mFrames[ mActiveFrame ].mCurrentPosition = newCurrentPos;
 
         writeNewObjectSize(newDataSizePos, objectSize);
 
-        return mMemoryBlob + newDataPos;
+        return mFrames[ mActiveFrame ].mMemoryBlob + newDataPos;
 	}
 
     //--------------------------------------------------------------------
 	void StackMemoryManager::deleteObject()
 	{
-		//mCurrentPosition -=  ( (*((size_t*)mMemoryBlob[mCurrentPosition - 1])) + sizeof(mCurrentPosition));
-		//mCurrentPosition -=  ( (*((size_t*)(mMemoryBlob + mCurrentPosition - sizeof(mCurrentPosition)) )) + sizeof(mCurrentPosition));
-        mCurrentPosition -= ( getTopObjectSize() + sizeof(mCurrentPosition) );
+        mFrames[ mActiveFrame ].mCurrentPosition -= ( getTopObjectSize() + sizeof(mFrames[ mActiveFrame ].mCurrentPosition) );
+        if ( mFrames[ mActiveFrame ].mCurrentPosition == 0 && mActiveFrame != 0 )
+        {
+            delete[] mFrames[ mActiveFrame ].mMemoryBlob;
+            mFrames[ mActiveFrame-- ].mMemoryBlob = 0;
+        }
 	}
 
     //-----------------------------------------------------------------
     size_t StackMemoryManager::getTopObjectSize()
     {
-        return *(size_t*)(mMemoryBlob + mCurrentPosition - sizeof(mCurrentPosition));
+        return *(size_t*)(mFrames[ mActiveFrame ].mMemoryBlob + mFrames[ mActiveFrame ].mCurrentPosition - sizeof(mFrames[ mActiveFrame ].mCurrentPosition));
     }
 
     //-----------------------------------------------------------------
     void StackMemoryManager::writeNewObjectSize( size_t position, size_t size )
     {
-        *((size_t*)(mMemoryBlob + position)) = size;
+        *((size_t*)(mFrames[ mActiveFrame ].mMemoryBlob + position)) = size;
     }
 
     //-----------------------------------------------------------------
-    void StackMemoryManager::growObject( size_t amount )
+    void* StackMemoryManager::growObject( size_t amount )
     {
         size_t currentSize = getTopObjectSize();
         size_t newSize = currentSize + amount;
-        size_t newDataSizePos = (mCurrentPosition + amount) - sizeof(newSize);
-        mCurrentPosition = newDataSizePos + sizeof(newSize);
-        // TODO check if new size exceeds allocated memory !!!
+        size_t oldCurrentPos = mFrames[ mActiveFrame ].mCurrentPosition;
+        size_t newDataSizePos = (mFrames[ mActiveFrame ].mCurrentPosition + amount) - sizeof(newSize);
+        size_t newCurrentPos = newDataSizePos + sizeof(newSize);
+        if ( newCurrentPos > mFrames[ mActiveFrame ].mMaxMemoryBlob )
+        {
+            if (!allocateMoreMemory())
+                return 0;
+
+            void* source = mFrames[ mActiveFrame-1 ].mMemoryBlob + oldCurrentPos - currentSize - sizeof(currentSize);
+            memcpy(mFrames[ mActiveFrame ].mMemoryBlob, source, currentSize);
+            // delete last object in last frame
+            mFrames[ mActiveFrame-1 ].mCurrentPosition -= ( currentSize + sizeof(mFrames[ mActiveFrame-1 ].mCurrentPosition) );
+
+            newDataSizePos = mFrames[ mActiveFrame ].mCurrentPosition + newSize;
+            newCurrentPos = newDataSizePos + sizeof(newSize);
+        }
+        mFrames[ mActiveFrame ].mCurrentPosition = newCurrentPos;
         writeNewObjectSize(newDataSizePos, newSize);
+        return top();
     }
 
     //-----------------------------------------------------------------
     void* StackMemoryManager::top()
     {
-        return mCurrentPosition != 0 ? (void*)(mMemoryBlob + mCurrentPosition - getTopObjectSize() - sizeof(mCurrentPosition)) : 0;
+        return mFrames[ mActiveFrame ].mCurrentPosition != 0 ? 
+            (void*)(mFrames[ mActiveFrame ].mMemoryBlob + mFrames[ mActiveFrame ].mCurrentPosition - getTopObjectSize() - sizeof(mFrames[ mActiveFrame ].mCurrentPosition))
+            : 0;
+    }
+
+    //-----------------------------------------------------------------
+    bool StackMemoryManager::allocateMoreMemory()
+    {
+        if ( mActiveFrame == MAX_NUM_OF_FRAMES-1 )
+            return false;
+        size_t sizeOfNewBlob = mFrames[ mActiveFrame ].mMaxMemoryBlob * SIZE_OF_NEW_FRAME_FACTOR;
+        char* newMem = new char[sizeOfNewBlob];
+        if (!newMem)
+            return false;
+        mFrames[ ++mActiveFrame ] = StackFrame(sizeOfNewBlob, newMem);
+        return true;
     }
 
 } // namespace GeneratedSaxParser
