@@ -18,7 +18,7 @@
 namespace COLLADAFW
 {
 
-    /** Instantiates a node within a scene graph.*/
+    /** Instantiates a controller within a scene graph.*/
     typedef InstanceGeometry InstanceController;
 
     typedef ArrayPrimitiveType<InstanceController*> InstanceControllerArray;

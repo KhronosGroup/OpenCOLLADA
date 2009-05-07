@@ -120,8 +120,13 @@ namespace COLLADASaxFWL
 		to parse all the objects listed in @a mObjectFlags.*/
 		ColladaParserAutoGenPrivate::ElementFunctionMap mFunctionMap;
 
+
 		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
 		SkinDataJointSidsMap mSkinDataJointSidsMap;
+
+		/** Maps the Unique generated from the id of the COLLADA controller element to the 
+		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
+		InstanceControllerDataListMap mInstanceControllerDataListMap;
 
 
 	public:
@@ -228,6 +233,15 @@ namespace COLLADASaxFWL
 		@a skinDataUniqueId*/
 		const StringList& getJointSidsBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
 
+		/** Returns the mapping of the Unique generated from the id of the COLLADA controller element to the 
+		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
+		const InstanceControllerDataListMap& getInstanceControllerDataListMap() const { return mInstanceControllerDataListMap;}
+
+		/** Returns the InstanceControllerDataList of the controller with Unique @a controllerUniqueId.*/
+		const InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId)const;
+
+		/** Returns the InstanceControllerDataList of the controller with Unique @a controllerUniqueId.*/
+		InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId);
 
 		/** Writes all the visual scenes.*/
 		void writeVisualScenes();
