@@ -6265,6 +6265,7 @@ void initNameMap();
 
 protected:
 virtual bool findElementHash( ElementData& elementData );
+virtual bool isXsAnyAllowed( const StringHash& elementHash );
 
 };
 
