@@ -135,7 +135,7 @@ namespace COLLADAMaya
         if (status != MStatus::kSuccess) return false;
 
         // Get the maya light id.
-        String mayaLightId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        String mayaLightId = mDocumentExporter->dagPathToColladaName ( dagPath );
 
         // Generate a COLLADA id for the new object
         String colladaLightId;

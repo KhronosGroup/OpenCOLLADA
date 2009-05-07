@@ -1064,7 +1064,7 @@ namespace COLLADAMaya
     {
         // Get the collada light id.
         MDagPath dagPath = sceneElement->getPath();
-        String mayaLightId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        String mayaLightId = mDocumentExporter->dagPathToColladaName ( dagPath );
         LightExporter* lightExporter = mDocumentExporter->getLightExporter ();
         String colladaLightId = lightExporter->findColladaLightId ( mayaLightId );
 
@@ -1082,7 +1082,7 @@ namespace COLLADAMaya
     {
         // Get the collada id.
         MDagPath dagPath = sceneElement->getPath();
-        String mayaId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        String mayaId = mDocumentExporter->dagPathToColladaName ( dagPath );
         CameraExporter* cameraExporter = mDocumentExporter->getCameraExporter ();
         String colladaId = cameraExporter->findColladaCameraId ( mayaId );
 

@@ -53,6 +53,8 @@ namespace COLLADAMaya
         const COLLADABU::URI& imageURI = image->getImageURI ();
         String fileTextureName = imageURI.toNativePath ();
         COLLADABU::Utils::stringFindAndReplace ( fileTextureName, "\\", "/" );
+        if ( fileTextureName.at(0) == '/' )
+            fileTextureName = "." + fileTextureName;
         
         //createNode file -name "file1";
         //    setAttr ".fileTextureName" -type "string" "./tex/checkerRGB.jpg";

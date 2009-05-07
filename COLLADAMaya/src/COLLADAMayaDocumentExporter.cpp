@@ -302,7 +302,7 @@ namespace COLLADAMaya
         //  CDOC->SetEndTime((float) AnimationHelper::AnimationEndTime().as(MTime::kSeconds));
     }
 
-    //---------------------------------------------------------------
+    //---------------------------
     String DocumentExporter::mayaNameToColladaName ( const MString& str, bool removeNamespace )
     {
         // Replace characters that are supported in Maya,
@@ -343,7 +343,7 @@ namespace COLLADAMaya
         return COLLADABU::Utils::checkNCName( mayaReturnString.asChar() );
     }
 
-    //---------------------------------------------------------------
+    //---------------------------
     String DocumentExporter::dagPathToColladaId ( const MDagPath& dagPath )
     {
         // Make an unique COLLADA Id from a dagPath.
@@ -353,7 +353,7 @@ namespace COLLADAMaya
         return mayaNameToColladaName ( dagPath.partialPathName(), false );
     }
 
-    //---------------------------------------------------------------
+    //---------------------------
     String DocumentExporter::dagPathToColladaName ( const MDagPath& dagPath )
     {
         // Get a COLLADA suitable node name from a DAG path
@@ -364,86 +364,103 @@ namespace COLLADAMaya
         return mayaNameToColladaName ( node.name(), true );
     }
 
+    //---------------------------
     SceneGraph* DocumentExporter::getSceneGraph()
     {
         return mSceneGraph;
     }
 
+    //---------------------------
     const SceneGraph* DocumentExporter::getSceneGraph() const
     {
         return mSceneGraph;
     }
 
+    //---------------------------
     const String& DocumentExporter::getFilename() const
     {
         return mFileName;
     }
 
+    //---------------------------
     COLLADASW::StreamWriter* DocumentExporter::getStreamWriter()
     {
         return &mStreamWriter;
     }
 
+    //---------------------------
     AnimationSampleCache* DocumentExporter::getAnimationCache()
     {
         return mAnimationCache;
     }
 
+    //---------------------------
     MaterialExporter* DocumentExporter::getMaterialExporter()
     {
         return mMaterialExporter;
     }
 
+    //---------------------------
     EffectExporter* DocumentExporter::getEffectExporter()
     {
         return mEffectExporter;
     }
 
+    //---------------------------
     ImageExporter* DocumentExporter::getImageExporter()
     {
         return mImageExporter;
     }
 
+    //---------------------------
     GeometryExporter* DocumentExporter::getGeometryExporter()
     {
         return mGeometryExporter;
     }
 
+    //---------------------------
     VisualSceneExporter* DocumentExporter::getVisualSceneExporter()
     {
         return mVisualSceneExporter;
     }
 
+    //---------------------------
     AnimationExporter* DocumentExporter::getAnimationExporter()
     {
         return mAnimationExporter;
     }
 
+    //---------------------------
     AnimationClipExporter* DocumentExporter::getAnimationClipExporter()
     {
         return mAnimationClipExporter;
     }
 
+    //---------------------------
     ControllerExporter* DocumentExporter::getControllerExporter()
     {
         return mControllerExporter;
     }
 
+    //---------------------------
     LightExporter* DocumentExporter::getLightExporter()
     {
         return mLightExporter;
     }
 
+    //---------------------------
     CameraExporter* DocumentExporter::getCameraExporter()
     {
         return mCameraExporter;
     }
 
+    //---------------------------
     const String& DocumentExporter::getSceneID()
     {
         return mSceneId;
     }
 
+    //---------------------------
     const bool DocumentExporter::getExportSelectedOnly () const
     {
         return getSceneGraph ()->getExportSelectedOnly ();

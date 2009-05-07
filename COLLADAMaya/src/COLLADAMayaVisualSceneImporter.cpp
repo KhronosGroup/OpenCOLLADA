@@ -91,7 +91,7 @@ namespace COLLADAMaya
         for ( size_t i=0; i<numNodes; ++i )
         {
             COLLADAFW::Node* node = nodes [i];
-            importNode ( node, 0, false );
+            importNode ( node, 0, 0, false );
         }
     }
 
@@ -843,11 +843,9 @@ namespace COLLADAMaya
         // Set the actual phase to a transform phase.
         if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS1 ) 
             mayaTransform.phase = MayaTransformation::PHASE_TRANS1;
-
-        if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS2 )
+        else if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS2 )
             mayaTransform.phase = MayaTransformation::PHASE_TRANS2;
-
-        if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS3 )
+        else if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS3 )
             mayaTransform.phase = MayaTransformation::PHASE_TRANS3;
 
         COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transformation;
