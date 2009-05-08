@@ -391,7 +391,7 @@ namespace COLLADAMax
 
 					if ( hasAnimatedScaleAxis )
 						colladaNode.addRotate ( ROTATE_SCALE_AXIS_INVERSE_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADASW::MathUtils::radToDeg ( scaleRotation.angle ) );
-					else
+					else if ( !COLLADABU::Math::Utils::equalsZero(scaleRotation.angle) )
 						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADASW::MathUtils::radToDeg ( scaleRotation.angle ) );
 				}
 
@@ -409,7 +409,7 @@ namespace COLLADAMax
 						colladaNode.addRotate ( ROTATE_SCALE_AXIS_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADASW::MathUtils::radToDeg ( scaleRotation.angle ) );
 						animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS, false );
 					}
-					else
+					else if ( !COLLADABU::Math::Utils::equalsZero(scaleRotation.angle) )
 					{
 						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADASW::MathUtils::radToDeg ( scaleRotation.angle ) );
 					}
