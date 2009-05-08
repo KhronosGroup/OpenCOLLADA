@@ -118,6 +118,12 @@ namespace DAE2Ogre
 	}
 
 	//--------------------------------------------------------------------
+	bool OgreWriter::writeScene( const COLLADAFW::Scene* scene )
+	{
+		return true;
+	}
+
+	//--------------------------------------------------------------------
 	bool OgreWriter::writeLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes )
 	{
 		if ( mCurrentRun != SCENEGRAPH_RUN )
@@ -189,6 +195,18 @@ namespace DAE2Ogre
 
 	//--------------------------------------------------------------------
 	bool OgreWriter::writeAnimationList( const COLLADAFW::AnimationList* animationList )
+	{
+		return true;
+	}
+
+	//--------------------------------------------------------------------
+	bool OgreWriter::writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData )
+	{
+		return true;
+	}
+
+	//--------------------------------------------------------------------
+	bool OgreWriter::writeController( const COLLADAFW::Controller* Controller )
 	{
 		return true;
 	}

@@ -115,6 +115,10 @@ namespace DAE2Ogre
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
 
+		/** Writes the scene.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeScene ( const COLLADAFW::Scene* scene );
+
 		/** Handles all nodes in the library nodes.
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
@@ -150,6 +154,14 @@ namespace DAE2Ogre
 		/** Writes the animation.
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeAnimationList( const COLLADAFW::AnimationList* animationList );
+
+		/** Writes the skin controller data.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData );
+
+		/** Writes the controller.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeController( const COLLADAFW::Controller* Controller );
 	
 	protected:
 		friend class BaseWriter;
