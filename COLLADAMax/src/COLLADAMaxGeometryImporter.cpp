@@ -415,7 +415,10 @@ namespace COLLADAMax
 				for ( size_t i = 0; i < vertsCount; ++i)
 				{
 					UVVert& textureVertex = meshMap.tv[i];
-					textureVertex.Set((float)uvArray[uvIndex++], (float)uvArray[uvIndex++], (float)uvArray[uvIndex++]);
+					float x = (float)uvArray[uvIndex++];
+					float y = (float)uvArray[uvIndex++];
+					float z = (float)uvArray[uvIndex++];
+					textureVertex.Set(x, y, z);
 				}
 				break;
 			}
@@ -424,7 +427,10 @@ namespace COLLADAMax
 				for ( size_t i = 0; i < vertsCount; ++i)
 				{
 					UVVert& textureVertex = meshMap.tv[i];
-					textureVertex.Set((float)uvArray[uvIndex++], (float)uvArray[uvIndex++], (float)uvArray[uvIndex++]);
+					float x = (float)uvArray[uvIndex++];
+					float y = (float)uvArray[uvIndex++];
+					float z = (float)uvArray[uvIndex++];
+					textureVertex.Set(x, y, z);
 					uvIndex++;
 				}
 				break;
@@ -1041,7 +1047,10 @@ namespace COLLADAMax
 				for ( size_t i = 0; i < vertsCount; ++i)
 				{
 					UVVert& textureVertex = meshMap->v[i];
-					textureVertex.Set((float)uvArray[uvIndex++], (float)uvArray[uvIndex++], (float)uvArray[uvIndex++]);
+					float x = (float)uvArray[uvIndex++];
+					float y = (float)uvArray[uvIndex++];
+					float z = (float)uvArray[uvIndex++];
+					textureVertex.Set(x, y, z);
 				}
 				break;
 			}
@@ -1050,7 +1059,10 @@ namespace COLLADAMax
 				for ( size_t i = 0; i < vertsCount; ++i)
 				{
 					UVVert& textureVertex = meshMap->v[i];
-					textureVertex.Set((float)uvArray[uvIndex++], (float)uvArray[uvIndex++], (float)uvArray[uvIndex++]);
+					float x = (float)uvArray[uvIndex++];
+					float y = (float)uvArray[uvIndex++];
+					float z = (float)uvArray[uvIndex++];
+					textureVertex.Set(x, y, z);
 					uvIndex++;
 				}
 				break;
