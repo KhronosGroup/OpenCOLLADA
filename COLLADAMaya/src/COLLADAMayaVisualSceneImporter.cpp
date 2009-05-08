@@ -202,10 +202,6 @@ namespace COLLADAMaya
         bool hasScalePivot = false;
         bool isLookatTransform = false;
 
-        if ( COLLADABU::Utils::equals ( node->getName (), "Loft02" ) )
-        {
-            int l=0;
-        }
         bool validMayaTransform = 
             readMayaTransformations ( node, mayaTransform, transformNode, transformAnimations, 
                                         hasRotatePivot, hasScalePivot, isLookatTransform );
