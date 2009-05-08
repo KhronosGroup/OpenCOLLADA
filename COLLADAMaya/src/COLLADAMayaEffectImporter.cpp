@@ -382,7 +382,7 @@ namespace COLLADAMaya
         else if ( emission.isTexture () )
         {
             // Get the texure and the current shader attribute.
-            const COLLADAFW::Texture& texture = diffuse.getTexture ();
+            const COLLADAFW::Texture& texture = emission.getTexture ();
             ShaderAttribute shaderAttribute = ATTR_INCANDESCENE;
 
             // Create a shader node attribute and append it on the list of shader node 
@@ -441,7 +441,7 @@ namespace COLLADAMaya
         else if ( opaque.isTexture () )
         {
             // Get the texure and the current shader attribute.
-            const COLLADAFW::Texture& texture = diffuse.getTexture ();
+            const COLLADAFW::Texture& texture = opaque.getTexture ();
             ShaderAttribute shaderAttribute = ATTR_TRANSPARENT;
 
             // Create a shader node attribute and append it on the list of shader node 
@@ -1068,7 +1068,7 @@ namespace COLLADAMaya
         case EffectImporter::ATTR_TRANSPARENT:
             {
                 MayaDM::Lambert* shaderNode = shaderNodeAttribute.mShaderNode;
-                connectAttr ( file, imageFile->getOutColor (), shaderNode->getTransparency () );
+                connectAttr ( file, imageFile->getOutTransparency (), shaderNode->getTransparency () );
                 break;
             }
         case EffectImporter::ATTR_UNKNOWN:

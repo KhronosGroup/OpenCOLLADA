@@ -249,6 +249,10 @@ namespace COLLADAMaya
         meshName = DocumentImporter::frameworkNameToMayaName ( meshName );
         meshName = mMeshNodeIdList.addId ( meshName );
 
+        // Add the name also to the id list of the materials, about the name of a material 
+        // can't be the same as the name of a geometry or a node.
+
+
         // Create a maya node object of the current node and push it into the map.
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
         MayaNode* mayaMeshNode = new MayaNode ( geometryId, meshName, mayaTransformNode );

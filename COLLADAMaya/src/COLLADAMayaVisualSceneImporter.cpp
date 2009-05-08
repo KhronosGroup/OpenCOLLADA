@@ -202,6 +202,10 @@ namespace COLLADAMaya
         bool hasScalePivot = false;
         bool isLookatTransform = false;
 
+        if ( COLLADABU::Utils::equals ( node->getName (), "Loft02" ) )
+        {
+            int l=0;
+        }
         bool validMayaTransform = 
             readMayaTransformations ( node, mayaTransform, transformNode, transformAnimations, 
                                         hasRotatePivot, hasScalePivot, isLookatTransform );
@@ -512,6 +516,16 @@ namespace COLLADAMaya
     {
         bool validMayaTransform = true; 
 
+        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
+        double angle = rotation->getRotationAngle ();
+        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
+
+        // If the rotation axis is zero, we don't need to handle the rotation. 
+        if ( COLLADABU::Math::Vector3::ZERO == axis )
+        {
+            return validMayaTransform;
+        }
+
         // Rotation is maya conform, if there is not more than one rotation per axis
         // (except the axis rotations are direct successive).
 
@@ -519,17 +533,14 @@ namespace COLLADAMaya
         if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE_ORIENT1 )
         {
             mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT1;
-
-            COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
-            double angle = rotation->getRotationAngle ();
-            COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
-
             mayaTransform.axisPhaseRotateOrient1 = axis;
         }
+        else if ( mayaTransform.phase > MayaTransformation::PHASE_JOINT_ORIENT3 )
+        {
+            validMayaTransform = false;
+            return validMayaTransform;
+        }
 
-        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
-        double angle = rotation->getRotationAngle ();
-        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
 
         // Check if the axis has changed.
         switch ( mayaTransform.phase )
@@ -742,6 +753,16 @@ namespace COLLADAMaya
     {
         bool validMayaTransform = true; 
 
+        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
+        double angle = rotation->getRotationAngle ();
+        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
+
+        // If the rotation axis is zero, we don't need to handle the rotation. 
+        if ( COLLADABU::Math::Vector3::ZERO == axis )
+        {
+            return validMayaTransform;
+        }
+
         // Rotation is maya conform, if there is not more than one rotation per axis
         // (except the axis rotations are direct successive).
 
@@ -749,17 +770,13 @@ namespace COLLADAMaya
         if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE1 )
         {
             mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
-
-            COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
-            double angle = rotation->getRotationAngle ();
-            COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
-
             mayaTransform.axisPhaseRotate1 = axis;
         }
-
-        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
-        double angle = rotation->getRotationAngle ();
-        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
+        else if ( mayaTransform.phase > MayaTransformation::PHASE_ROTATE3 )
+        {
+            validMayaTransform = false;
+            return validMayaTransform;
+        }
 
         // Check if the axis has changed.
         switch ( mayaTransform.phase )
@@ -830,6 +847,11 @@ namespace COLLADAMaya
                 rotation.z += angle;
                 mayaTransform.rotation.setValue ( rotation );
             }
+            else
+            {
+                validMayaTransform = false;
+                return validMayaTransform;
+            }
         }
 
         return validMayaTransform;
@@ -840,6 +862,13 @@ namespace COLLADAMaya
         MayaTransformation &mayaTransform, 
         const COLLADAFW::Transformation* transformation )
     {
+        // Get the translation.
+        COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transformation;
+        COLLADABU::Math::Vector3 translation = translate->getTranslation ();
+
+        // We don't need to handle a zero translation.
+        if ( COLLADABU::Math::Vector3::ZERO == translation ) return;
+
         // Set the actual phase to a transform phase.
         if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS1 ) 
             mayaTransform.phase = MayaTransformation::PHASE_TRANS1;
@@ -848,8 +877,6 @@ namespace COLLADAMaya
         else if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS3 )
             mayaTransform.phase = MayaTransformation::PHASE_TRANS3;
 
-        COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transformation;
-        COLLADABU::Math::Vector3 translation = translate->getTranslation ();
         if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS1 )
         {
             mayaTransform.translate1Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
