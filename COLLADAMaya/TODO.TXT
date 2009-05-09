@@ -1,32 +1,32 @@
--   General
-    -   Linux
-    -   Internationalisation (i18n)
+- General
+    - Linux
+    - Internationalisation (i18n)
 
--   Visual scene export
-    -   Effect texture reference export 
+- Visual scene export
+    - Effect texture reference export (bind vertex)
 	    
--   Effects 
-    -   hlsl shader import / export
-	- 	cgfx shader import
-	- 	parameters import
+- Effects 
+    - hlsl shader import / export
+    - cgfx shader import
+    - parameters import
 
--   Animations 
-    -   path animation export
-    -	skew/shear animation import/export
-    	(possible solution could be the animation formula from collada 1.5)
-	- 	clip animation import
+- Animations 
+    - path animation export
+    - skew (shear) animation import/export
+      (possible solution could be the animation formula from collada 1.5)
+    - clip animation import
 
-- 	Controller 
-	- skin controller import
-	- morph controller import
+- Controller 
+    - skin controller import
+    - morph controller import
 
--   Physical scene import/export
+- Physical scene import/export
 
--   Subdivision surfaces import/export
+- Subdivision surfaces import/export
 
--   Nurbs import/export
+- Nurbs import/export
 
--   Splines import/export
+- Splines import/export
 
--   External references import/export (XREFs):
-    -   write mutiple documents
+- External references import/export (XREFs):
+    - write/read mutiple documents
