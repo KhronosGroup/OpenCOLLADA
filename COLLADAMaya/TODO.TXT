@@ -1,5 +1,4 @@
 - General
-    - Linux
     - Internationalisation (i18n)
 
 - Visual scene export

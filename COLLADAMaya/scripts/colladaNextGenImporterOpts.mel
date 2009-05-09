@@ -81,12 +81,12 @@ global proc int colladaNextGenImporterOpts ( string $parent,
 							-l1 "Normals"
 							colladaImportNormals;
 
-// 					checkBoxGrp
-// 							-l " "
-// 							-ncb 1
-// 							-v1 true
-// 							-l1 "Soft edges"
-// 							colladaImportSoftEdges;
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 true
+							-l1 "Soft edges"
+							colladaImportSoftEdges;
 
 				setParent ..; // columnLayout
 			setParent ..; // frameLayout
@@ -126,11 +126,11 @@ global proc int colladaNextGenImporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaImportNormals;
 				}
-// 				else if ($optionBreakDown[0] == "importSoftEdges")
-// 				{
-// 					$intVal = $optionBreakDown[1];
-// 					checkBoxGrp -e -v1 $intVal colladaImportSoftEdges;
-// 				}
+				else if ($optionBreakDown[0] == "importSoftEdges")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaImportSoftEdges;
+				}
 			}
 		}
 		$bResult = 1;
@@ -147,7 +147,7 @@ global proc int colladaNextGenImporterOpts ( string $parent,
 // 		$currentOptions = $currentOptions + "importUnits=" + `checkBoxGrp -q -v2 colladaImportUpAxis` + ";";
 		$currentOptions = $currentOptions + "importUnits=" + `checkBoxGrp -q -v1 colladaImportUpAxis` + ";";
 		$currentOptions = $currentOptions + "importNormals=" + `checkBoxGrp -q -v1 colladaImportNormals` + ";";
-//		$currentOptions = $currentOptions + "importSoftEdges=" + `checkBoxGrp -q -v1 colladaImportSoftEdges` + ";";
+		$currentOptions = $currentOptions + "importSoftEdges=" + `checkBoxGrp -q -v1 colladaImportSoftEdges` + ";";
 
 		print( "Options: " + $currentOptions + "\n" );
 
