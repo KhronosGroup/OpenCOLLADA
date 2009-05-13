@@ -46,7 +46,7 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     DocumentExporter::DocumentExporter ( const NativeString& fileName )
-            : mStreamWriter ( fileName )
+        : mStreamWriter ( fileName, ExportOptions::doublePrecision () )
             , mFileName ( fileName )
             , mSceneGraph ( NULL )
             , mIsImport ( true )
@@ -63,6 +63,11 @@ namespace COLLADAMaya
             , mCameraExporter ( NULL )
             , mSceneId ( "MayaScene" )
     {
+        if ( ExportOptions::doublePrecision () )
+        {
+#undef TOLERANCE 
+#define TOLERANCE 0.0000000000000001
+        }
     }
 
     //---------------------------------------------------------------
@@ -234,21 +239,19 @@ namespace COLLADAMaya
         asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();
 
         // comments
-        MString optstr = MString ( "ColladaMaya export options: bakeTransforms=" ) + ExportOptions::bakeTransforms()
+        MString optstr = MString ( "ColladaMaya export options: \nbakeTransforms=" ) + ExportOptions::bakeTransforms()
                          + ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes() + ";bakeLighting=" + ExportOptions::bakeLighting()
-                         + ";isSampling=" + ExportOptions::isSampling() + ";\ncurveConstrainSampling=" + ExportOptions::curveConstrainSampling()
-                         + ";removeStaticCurves=" + ExportOptions::removeStaticCurves() + ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat()
-                         + ";\nexportLights=" + ExportOptions::exportLights() + ";exportCameras=" + ExportOptions::exportCameras()
+                         + ";\nisSampling=" + ExportOptions::isSampling() + ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
+                         + ";removeStaticCurves=" + ExportOptions::removeStaticCurves() + ";\nexportCameras=" + ExportOptions::exportCameras() 
+                         + ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat() + ";exportLights=" + ExportOptions::exportLights() 
                          + ";exportJointsAndSkin=" + ExportOptions::exportJointsAndSkin() + ";\nexportAnimations=" + ExportOptions::exportAnimations()
                          + ";exportTriangles=" + ExportOptions::exportTriangles() + ";exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
                          + ";\nexportNormals=" + ExportOptions::exportNormals() + ";exportTexCoords=" + ExportOptions::exportTexCoords()
-                         + ";\nexportVertexColors=" + ExportOptions::exportVertexColors()
-                         + ";exportVertexColorsAnimation=" + ExportOptions::exportVertexColorAnimations()
-                         + ";exportTangents=" + ExportOptions::exportTangents()
-                         + ";\nexportTexTangents=" + ExportOptions::exportTexTangents() 
-                         + ";\nexportConstraints=" + ExportOptions::exportConstraints() + ";exportPhysics=" + ExportOptions::exportPhysics() 
+                         + ";\nexportVertexColors=" + ExportOptions::exportVertexColors() + ";exportVertexColorsAnimation=" + ExportOptions::exportVertexColorAnimations()
+                         + ";exportTangents=" + ExportOptions::exportTangents() + ";exportTexTangents=" + ExportOptions::exportTexTangents() 
                          + ";\nexportXRefs=" + ExportOptions::exportXRefs() + ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs() 
-                         + ";\ncameraXFov=" + ExportOptions::cameraXFov() + ";cameraYFov=" + ExportOptions::cameraYFov();
+                         + ";\ncameraXFov=" + ExportOptions::cameraXFov() + ";cameraYFov=" + ExportOptions::cameraYFov() 
+                         + "doublePrecision=" + ExportOptions::doublePrecision ();
         asset.getContributor().mComments = optstr.asChar();
 
         // Up axis

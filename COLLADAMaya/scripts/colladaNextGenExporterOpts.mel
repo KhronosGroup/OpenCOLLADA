@@ -264,6 +264,23 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 				setParent ..; // columnLayout
 			setParent ..; // frameLayout
 
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "Precision Options" colladaPrecisionFrame;
+				columnLayout -adj true colladaPrecisionOptions;
+
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 false
+							-l1 "Export double precision"
+							colladaExportDoublePrecision;
+							
+					text
+							-l "If double precision is selected, the maximum number of significant digits to be printed is 17."
+							colladaPrecisionText;
+
+				setParent ..; // columnLayout
+			setParent ..; // frameLayout
+
 		setParent ..; // columnLayout
 		setParent ..; // formLayout (optionsBoxForm)
 		
@@ -459,6 +476,15 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v2 $intVal colladaCameraFov;
 				}
+				
+// Precision options
+//				
+				else if ( $optionBreakDown[0] == "doublePrecision" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportDoublePrecision;
+				}
+				
 			}
 		}
 		$bResult = 1;
@@ -516,6 +542,11 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 		$currentOptions = $currentOptions + "exportCameraAsLookat=" + `checkBoxGrp -q -v1 colladaExportCameraAsLookat` + ";";
 		$currentOptions = $currentOptions + "cameraXFov=" + `checkBoxGrp -q -v1 colladaCameraFov` + ";";
 		$currentOptions = $currentOptions + "cameraYFov=" + `checkBoxGrp -q -v2 colladaCameraFov` + ";";
+
+// Precision options
+//
+		$currentOptions = $currentOptions + "doublePrecision=" + `checkBoxGrp -q -v1 colladaExportDoublePrecision` + ";";
+
 
 		//print( "Options: " + $currentOptions + "\n" );
 

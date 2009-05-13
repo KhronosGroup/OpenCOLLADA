@@ -70,7 +70,7 @@ namespace COLLADAMaya
         , mControllerImporter (0)
         , mNumDocumentParses (0)
         , mUpAxisType ( COLLADAFW::FileInfo::Y_UP )
-        , mLinearUnitMeter ( COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER )
+        , mLinearUnitConvertFactor ( 1.0 )
     {
     }
 
@@ -364,13 +364,14 @@ namespace COLLADAMaya
 
         // Get the unit informations.
         const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
+        mLinearUnitConvertFactor = 1.0;
 
         // Set the default value to centimeters.
         String linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
         if ( ImportOptions::importUnits () )
         {
             linearUnitName = unit.getLinearUnitName ();
-            mLinearUnitMeter = unit.getLinearUnitMeter ();
+            double linearUnitMeter = unit.getLinearUnitMeter ();
 
             // Set the linear unit in meters.
             // Maya knows: millimeter, centimeter, meter, foot, inch and yard.
@@ -380,63 +381,72 @@ namespace COLLADAMaya
                 {
                     // Convert to meters
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;;
+                    mLinearUnitConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER; // 1 km = 1000m ==> cf = 1000
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::METER:
                 {
                     // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
+                    mLinearUnitConvertFactor =  1.0;
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::DECIMETER:
                 {
                     // Convert to meters
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER;
+                    mLinearUnitConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER; // 1 dm = 0.1 m ==> cf = 0.1
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::CENTIMETER:
                 {
                     // Don't convert 
-                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
-                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME; 
+                    mLinearUnitConvertFactor =  1.0;
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::MILLIMETER:
                 {
                     // Convert to centimeters
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
-                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_MILLIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
+                    mLinearUnitConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_MILLIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; // 1 mm = 0.01 m ==> cf = 0.1
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::FOOT:
                 {
                     // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT_NAME;
-                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT;
+                    mLinearUnitConvertFactor =  1.0;
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::INCH:
                 {
                     // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH_NAME;
-                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH;
+                    mLinearUnitConvertFactor =  1.0;
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::YARD:
                 {
                     // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD_NAME;
-                    mLinearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD;
+                    mLinearUnitConvertFactor =  1.0;
                     break;
                 }
             default:
                 {
-                    // Set to centimeters
-                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
-                    mLinearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
+                    if ( linearUnitMeter >= COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER )
+                    {
+                        // Set to meter
+                        linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
+                        mLinearUnitConvertFactor = linearUnitMeter / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;  // 1 ? = 1 m
+                    }
+                    else 
+                    {
+                        // Set to centimeters
+                        linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
+                        mLinearUnitConvertFactor = linearUnitMeter / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;  // 1 ? = 0.01 m
+                    }
                     break;
                 }
             }

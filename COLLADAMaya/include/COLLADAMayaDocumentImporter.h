@@ -155,7 +155,7 @@ namespace COLLADAMaya
         * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
         * 0.3048 for the name "foot".
          */
-        double mLinearUnitMeter;
+        double mLinearUnitConvertFactor;
         COLLADAFW::FileInfo::UpAxisType mUpAxisType;
 
         /** Pointer to the visual scene importer. */
@@ -288,7 +288,7 @@ namespace COLLADAMaya
         * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
         * 0.3048 for the name "foot".
         */
-        const double getLinearUnitMeter () const { return mLinearUnitMeter; }
+        const double getLinearUnitConvertFactor () const { return mLinearUnitConvertFactor; }
 
         /** When this method is called, the writer must write the scene.
         @return The writer should return true, if writing succeeded, false otherwise.

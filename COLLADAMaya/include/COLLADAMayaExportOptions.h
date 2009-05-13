@@ -64,6 +64,7 @@ namespace COLLADAMaya
         static bool mDereferenceXRefs;
         static bool mCameraXFov;
         static bool mCameraYFov;
+        static bool mDoublePrecision;
 
         static int mExclusionSetMode;
         static MStringArray mExclusionSets;
@@ -144,6 +145,9 @@ namespace COLLADAMaya
         static bool cameraXFov();
 
         static bool cameraYFov();
+
+        // Precision option
+        static bool doublePrecision();
 
         /** True, if the texture files should be copied to the destination folder. */
         static bool copyTextures();

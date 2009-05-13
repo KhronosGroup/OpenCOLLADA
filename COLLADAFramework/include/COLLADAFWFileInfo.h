@@ -142,7 +142,7 @@ namespace COLLADAFW
                 , mAngularUnitName ( angularUnitName )
                 , mTimeUnitName ( timeUnitName )
             {
-                initializeLinearUnitUnitByName ( mLinearUnitName );
+                initializeLinearUnitUnit ( linearUnitMeter );
                 initializeAngularUnitUnitByName ( mAngularUnitName );
                 initializeTimeUnitUnitByName ( mTimeUnitName );
             }
@@ -167,7 +167,7 @@ namespace COLLADAFW
              * Initializes the linear unit unit with the specified enum value
              * in depend of the given name.
              */
-            void initializeLinearUnitUnitByName ( const String& val );
+            void initializeLinearUnitUnit ( const double val );
 
             /**
             * How many real-world meters in one distance unit as a floating-point number.
@@ -175,7 +175,7 @@ namespace COLLADAFW
             * 0.3048 for the name "foot".
             */
             const double getLinearUnitMeter () const { return mLinearUnitMeter; }
-            void setLinearUnitMeter ( const double val ) { mLinearUnitMeter = val; }
+            void setLinearUnitMeter ( const double val );
 
 			/**
 			* The angular unit;

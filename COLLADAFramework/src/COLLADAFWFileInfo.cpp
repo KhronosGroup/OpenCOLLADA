@@ -95,8 +95,6 @@ namespace COLLADAFW
     void FileInfo::Unit::setLinearUnitName ( const String& val )
     {
         mLinearUnitName = val;
-
-        initializeLinearUnitUnitByName ( mLinearUnitName );
     }
 
     //------------------------------
@@ -108,25 +106,23 @@ namespace COLLADAFW
     }
 
     //------------------------------
-    void FileInfo::Unit::initializeLinearUnitUnitByName ( const String& linearUnitName )
+    void FileInfo::Unit::initializeLinearUnitUnit ( const double linearUnitMeter )
     {
-        if ( COLLADABU::Utils::equalsIgnoreCase ( linearUnitName, LINEAR_UNIT_KILOMETER_NAME ) )
+        if ( linearUnitMeter == LINEAR_UNIT_KILOMETER )
             mLinearUnitUnit = KILOMETER;
-        else if ( COLLADABU::Utils::equalsIgnoreCase ( linearUnitName, LINEAR_UNIT_METER_NAME ) )
+        else if ( linearUnitMeter == LINEAR_UNIT_METER )
             mLinearUnitUnit = METER;
-        else if ( COLLADABU::Utils::equalsIgnoreCase ( linearUnitName, LINEAR_UNIT_METER_NAME ) )
-            mLinearUnitUnit = METER;
-        else if ( COLLADABU::Utils::equalsIgnoreCase ( linearUnitName, LINEAR_UNIT_DECIMETER_NAME ) )
+        else if ( linearUnitMeter == LINEAR_UNIT_DECIMETER )
             mLinearUnitUnit = DECIMETER;
-        else if ( COLLADABU::Utils::equalsIgnoreCase ( linearUnitName, LINEAR_UNIT_CENTIMETER_NAME ) )
+        else if ( linearUnitMeter == LINEAR_UNIT_CENTIMETER )
             mLinearUnitUnit = CENTIMETER;
-        else if ( COLLADABU::Utils::equalsIgnoreCase ( linearUnitName, LINEAR_UNIT_MILLIMETER_NAME ) )
+        else if ( linearUnitMeter == LINEAR_UNIT_MILLIMETER )
             mLinearUnitUnit = MILLIMETER;
-        else if ( COLLADABU::Utils::equalsIgnoreCase ( linearUnitName, LINEAR_UNIT_FOOT_NAME ) )
+        else if ( linearUnitMeter == LINEAR_UNIT_FOOT )
             mLinearUnitUnit = FOOT;
-        else if ( COLLADABU::Utils::equalsIgnoreCase ( linearUnitName, LINEAR_UNIT_INCH_NAME ) )
+        else if ( linearUnitMeter == LINEAR_UNIT_INCH )
             mLinearUnitUnit = INCH;
-        else if ( COLLADABU::Utils::equalsIgnoreCase ( linearUnitName, LINEAR_UNIT_METER_NAME ) )
+        else if ( linearUnitMeter == LINEAR_UNIT_YARD )
             mLinearUnitUnit = YARD;
         else mLinearUnitUnit = UNKNOWN_LINEAR_UNIT;
     }
@@ -147,6 +143,14 @@ namespace COLLADAFW
         if ( COLLADABU::Utils::equalsIgnoreCase ( timeUnitName, TIME_UNIT_FILM_NAME ) )
             mTimeUnitUnit = FILM;
         else mTimeUnitUnit = UNKNOWN_TIME_UNIT;
+    }
+
+    //------------------------------
+    void FileInfo::Unit::setLinearUnitMeter ( const double val )
+    {
+        mLinearUnitMeter = val;
+
+        initializeLinearUnitUnit ( val );
     }
 
 } // namespace COLLADAFW

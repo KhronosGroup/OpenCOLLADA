@@ -35,6 +35,7 @@ namespace COLLADASW
             : mNumberOfOpenElements ( 0 ), mStreamWriter ( 0 )
     {}
 
+    //---------------------------------------------------------------
 	TagCloser::TagCloser( const TagCloser & other )
 	{
 		if ( &other != this )
@@ -85,10 +86,12 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    StreamWriter::StreamWriter ( const NativeString & fileName )
+    StreamWriter::StreamWriter ( const NativeString & fileName, bool doublePrecision /*= false*/ )
             : mLevel ( 0 )
             ,mIndent ( 2 )
             ,mBuffer ( 0 )
+            ,mDoublePrecision (doublePrecision)
+            ,mPrecisionNumber(17)
     {
 		mBuffer = new char[BUFFERSIZE];
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
@@ -109,6 +112,8 @@ namespace COLLADASW
 		}
 
 #else
+        if ( mDoublePrecision )
+            mOutFile.precision ( mPrecisionNumber );
         mOutFile.rdbuf() ->pubsetbuf ( mBuffer, /*sizeof ( mBuffer )*/BUFFERSIZE );
         mOutFile.open ( fileName.c_str() );
 #endif

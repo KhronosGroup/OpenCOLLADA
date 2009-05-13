@@ -28,13 +28,13 @@ namespace COLLADAMaya
     //-----------------------------
     double BaseImporter::toLinearUnit ( const double val )
     {
-        return ( val * mDocumentImporter->getLinearUnitMeter () );
+        return ( val * mDocumentImporter->getLinearUnitConvertFactor () );
     }
 
     //-----------------------------
     float BaseImporter::toLinearUnit ( const float val )
     {
-        return ( val * (float) mDocumentImporter->getLinearUnitMeter () );
+        return ( val * (float) mDocumentImporter->getLinearUnitConvertFactor () );
     }
 
     //-----------------------------

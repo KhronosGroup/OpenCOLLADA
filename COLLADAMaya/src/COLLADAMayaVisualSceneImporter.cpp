@@ -823,7 +823,7 @@ namespace COLLADAMaya
             break;
         }
 
-        if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE3 )
+        if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {

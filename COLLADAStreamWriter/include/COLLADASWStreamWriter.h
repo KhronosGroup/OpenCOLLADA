@@ -94,14 +94,57 @@ namespace COLLADASW
 
     class StreamWriter
     {
+    private:
+
+        /** Contains information about an open tag*/
+        struct OpenTag
+        {
+            OpenTag ( const String* name ) : mName ( name ), mHasContents ( false ), mHasText ( false ) {}
+
+            const String* mName;      //!< The name of the tag
+            bool mHasContents;    //!< true, if contents, i.e. elements or text has been added to the element
+            bool mHasText;     //!< true, if text has been added to the element
+        };
+
+    private:
+
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+        FILE* mStream;        //!< The stream the Collada file will be written to.
+        String mLocale;			//!< The LC_NUMERIC locale that was set before the Streamwriter was instantiated.
+#else
+        std::ofstream mOutFile;         //!< The stream the Collada file will be written to.
+#endif
+
+        /** If true, the float and double values will be exported with a maximum precision of 20 digits. */
+        bool mDoublePrecision;
+
+        /** For e, E and f specifiers: this is the number of digits to be printed after the decimal point.
+        For g and G specifiers: This is the maximum number of significant digits to be printed. */
+        int mPrecisionNumber;
+
+        std::stack<OpenTag> mOpenTags;  //!< A stack that holds all the open tags.
+
+        size_t mLevel;
+
+        size_t mIndent;
+
+        char* mBuffer; // 2MB Puffer!!
+
+        static const int BUFFERSIZE;
+
+        static const String mWhiteSpaceString;
+
+        friend class TagCloser;
+
+        typedef std::list<TagCloser*> TagCloserList;
+        TagCloserList mTagClosers;
 
     public:
         /** Creates a stream writer that writes to file @a fileName*/
-        StreamWriter ( const NativeString& fileName );
+        StreamWriter ( const NativeString& fileName, bool doublePrecision = false );
 
         /** Closes all open tags and closes the stream*/
         ~StreamWriter();
-
 
         /** Writes the document start, including the opening @a \<COLLADASW\> element.
         This member must be called, before any other member function can be called.*/
@@ -323,7 +366,10 @@ namespace COLLADASW
 			else
 			{
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-				fprintf_s ( mStream, "%g", number );
+                if ( mDoublePrecision )
+                    fprintf_s ( mStream, "%.*g", mPrecisionNumber, number );
+                else
+    				fprintf_s ( mStream, "%g", number );
 #else
 				mOutFile << number;
 #endif
@@ -344,9 +390,12 @@ namespace COLLADASW
 			else
 			{
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%g", number );
+                if ( mDoublePrecision )
+                    fprintf_s ( mStream, "%.*g", mPrecisionNumber, number );
+                else
+                    fprintf_s ( mStream, "%g", number );
 #else
-            mOutFile << number;
+                mOutFile << number;
 #endif
 			}
         }
@@ -417,47 +466,11 @@ namespace COLLADASW
         has been calles, conttents should be added, but if not, the xml file will still be valid*/
         void prepareToAddContents();
 
-        /** Contains information about an open tag*/
-
-        struct OpenTag
-        {
-            OpenTag ( const String * name ) : mName ( name ), mHasContents ( false ), mHasText ( false ) {}
-
-            const String * mName;      //!< The name of the tag
-            bool mHasContents;    //!< true, if contents, i.e. elements or text has been added to the element
-            bool mHasText;     //!< true, if text has been added to the element
-        };
-
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-        FILE *mStream;        //!< The stream the Collada file will be written to.
-		String mLocale;			//!< The LC_NUMERIC locale that was set before the Streamwriter was instantiated.
-#else
-        std::ofstream mOutFile;         //!< The stream the Collada file will be written to.
-#endif
-
-        std::stack<OpenTag> mOpenTags;  //!< A stack that holds all the open tags.
-
-        size_t mLevel;
-
-        size_t mIndent;
-
-        char *mBuffer; // 2MB Puffer!!
-
-		static const int BUFFERSIZE;
-
-        static const String mWhiteSpaceString;
-
-        friend class TagCloser;
-
-        typedef std::list<TagCloser*> TagCloserList;
-        TagCloserList mTagClosers;
-
         /** Add @a tagCloser to the list of tag closers*/
         void addTagCloser ( TagCloser * tagCloser );
 
         /** Removes @a tagCloser to the list of tag closers*/
         void removeTagCloser ( TagCloser * tagCloser );
-
 
     };
 

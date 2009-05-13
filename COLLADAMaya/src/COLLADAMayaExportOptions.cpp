@@ -52,6 +52,7 @@ namespace COLLADAMaya
     bool ExportOptions::mDereferenceXRefs = false;
     bool ExportOptions::mCameraXFov = false;
     bool ExportOptions::mCameraYFov = true;
+    bool ExportOptions::mDoublePrecision = false;
     bool ExportOptions::mExportConstraints = true;
     bool ExportOptions::mExportPhysics = true;
     int ExportOptions::mExclusionSetMode = SetHelper::kExcluding;
@@ -103,6 +104,8 @@ namespace COLLADAMaya
         mCameraXFov = false;
         mCameraYFov = true;
 
+        mDoublePrecision = true;
+
         // Parse option String
         if ( optionsString.length() > 0 )
         {
@@ -153,6 +156,7 @@ namespace COLLADAMaya
                 else if ( optionName == "exportTriangles" ) mExportTriangles = value;
                 else if ( optionName == "cameraXFov" ) mCameraXFov = value;
                 else if ( optionName == "cameraYFov" ) mCameraYFov = value;
+                else if ( optionName == "doublePrecision" ) mDoublePrecision = value;
                 else if ( optionName == "isSampling" ) mIsSampling = value;
                 else if ( optionName == "curveConstrainSampling" ) mCurveConstrainSampling = value;
                 else if ( optionName == "removeStaticCurves" ) mRemoveStaticCurves = value;
@@ -352,6 +356,11 @@ namespace COLLADAMaya
     bool ExportOptions::cameraYFov()
     {
         return mCameraYFov;
+    }
+
+    bool ExportOptions::doublePrecision()
+    {
+        return mDoublePrecision;
     }
 
     bool ExportOptions::copyTextures()
