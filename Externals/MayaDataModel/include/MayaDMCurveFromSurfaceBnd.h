@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveFromSurfaceBnd():CurveFromSurface(){}
-	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveFromSurface(file, name, parent, "curveFromSurfaceBnd", create){}
+	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveFromSurface(file, name, parent, "curveFromSurfaceBnd", shared, create){}
 	virtual ~CurveFromSurfaceBnd(){}
 
 	void setFace(int f)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
 	}
 protected:
-	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveFromSurface(file, name, parent, nodeType, create) {}
+	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveFromSurface(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

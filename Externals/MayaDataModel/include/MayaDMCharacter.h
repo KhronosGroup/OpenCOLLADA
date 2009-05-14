@@ -56,8 +56,8 @@ public:
 public:
 
 	Character():ObjectSet(){}
-	Character(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ObjectSet(file, name, parent, "character", create){}
+	Character(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ObjectSet(file, name, parent, "character", shared, create){}
 	virtual ~Character(){}
 
 	void setClipEvaluate(const ClipEvaluate& ce)
@@ -363,8 +363,8 @@ public:
 		fprintf(mFile,"\"%s.ofn\"",mName.c_str());
 	}
 protected:
-	Character(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ObjectSet(file, name, parent, nodeType, create) {}
+	Character(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ObjectSet(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

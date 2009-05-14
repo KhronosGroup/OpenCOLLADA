@@ -30,8 +30,8 @@ public:
 public:
 
 	RigidBody():Shape(){}
-	RigidBody(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "rigidBody", create){}
+	RigidBody(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "rigidBody", shared, create){}
 	virtual ~RigidBody(){}
 
 	void setRunUpCache(const doubleArray& rc)
@@ -872,8 +872,8 @@ public:
 		fprintf(mFile,"\"%s.dd\"",mName.c_str());
 	}
 protected:
-	RigidBody(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	RigidBody(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

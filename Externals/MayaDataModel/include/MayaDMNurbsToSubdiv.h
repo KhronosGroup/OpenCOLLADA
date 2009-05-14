@@ -20,8 +20,8 @@ public:
 public:
 
 	NurbsToSubdiv():AbstractBaseNurbsConversion(){}
-	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseNurbsConversion(file, name, parent, "nurbsToSubdiv", create){}
+	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, "nurbsToSubdiv", shared, create){}
 	virtual ~NurbsToSubdiv(){}
 
 	void setMaxPolyCount(int mpc)
@@ -69,8 +69,8 @@ public:
 		fprintf(mFile,"\"%s.cp\"",mName.c_str());
 	}
 protected:
-	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseNurbsConversion(file, name, parent, nodeType, create) {}
+	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

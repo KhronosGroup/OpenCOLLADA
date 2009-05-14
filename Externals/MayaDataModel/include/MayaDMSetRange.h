@@ -20,8 +20,8 @@ public:
 public:
 
 	SetRange():DependNode(){}
-	SetRange(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "setRange", create){}
+	SetRange(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "setRange", shared, create){}
 	virtual ~SetRange(){}
 
 	void setValue(const float3& v)
@@ -231,8 +231,8 @@ public:
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 	}
 protected:
-	SetRange(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SetRange(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

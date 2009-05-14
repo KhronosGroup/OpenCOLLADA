@@ -20,8 +20,8 @@ public:
 public:
 
 	PsdFileTex():File(){}
-	PsdFileTex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:File(file, name, parent, "psdFileTex", create){}
+	PsdFileTex(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:File(file, name, parent, "psdFileTex", shared, create){}
 	virtual ~PsdFileTex(){}
 
 	void setLayerSetName(const string& lsn)
@@ -55,8 +55,8 @@ public:
 		fprintf(mFile,"\"%s.als\"",mName.c_str());
 	}
 protected:
-	PsdFileTex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:File(file, name, parent, nodeType, create) {}
+	PsdFileTex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:File(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

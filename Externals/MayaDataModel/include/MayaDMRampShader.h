@@ -102,8 +102,8 @@ public:
 public:
 
 	RampShader():DependNode(){}
-	RampShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "rampShader", create){}
+	RampShader(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "rampShader", shared, create){}
 	virtual ~RampShader(){}
 
 	void setRefractionLimit(short rdl)
@@ -1871,8 +1871,8 @@ public:
 		fprintf(mFile,"\"%s.minc.mincz\"",mName.c_str());
 	}
 protected:
-	RampShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RampShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

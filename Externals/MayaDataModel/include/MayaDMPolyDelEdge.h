@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyDelEdge():PolyModifier(){}
-	PolyDelEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyDelEdge", create){}
+	PolyDelEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyDelEdge", shared, create){}
 	virtual ~PolyDelEdge(){}
 
 	void setCleanVertices(bool cv)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.cv\"",mName.c_str());
 	}
 protected:
-	PolyDelEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyDelEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

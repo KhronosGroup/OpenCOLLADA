@@ -20,8 +20,8 @@ public:
 public:
 
 	Partition():Entity(){}
-	Partition(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Entity(file, name, parent, "partition", create){}
+	Partition(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Entity(file, name, parent, "partition", shared, create){}
 	virtual ~Partition(){}
 
 	void setAnnotation(const string& an)
@@ -50,8 +50,8 @@ public:
 		fprintf(mFile,"\"%s.envr\"",mName.c_str());
 	}
 protected:
-	Partition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Entity(file, name, parent, nodeType, create) {}
+	Partition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Entity(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyAppend():PolyModifier(){}
-	PolyAppend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyAppend", create){}
+	PolyAppend(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyAppend", shared, create){}
 	virtual ~PolyAppend(){}
 
 	void setVertices(size_t v_i,const float3& v)
@@ -165,8 +165,8 @@ public:
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 	}
 protected:
-	PolyAppend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyAppend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

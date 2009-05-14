@@ -20,8 +20,8 @@ public:
 public:
 
 	UseBackground():DependNode(){}
-	UseBackground(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "useBackground", create){}
+	UseBackground(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "useBackground", shared, create){}
 	virtual ~UseBackground(){}
 
 	void setShadowMask(float sm)
@@ -682,8 +682,8 @@ public:
 		fprintf(mFile,"\"%s.mio\"",mName.c_str());
 	}
 protected:
-	UseBackground(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	UseBackground(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

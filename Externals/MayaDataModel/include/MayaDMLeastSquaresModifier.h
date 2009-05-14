@@ -50,8 +50,8 @@ public:
 public:
 
 	LeastSquaresModifier():AbstractBaseCreate(){}
-	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "leastSquaresModifier", create){}
+	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "leastSquaresModifier", shared, create){}
 	virtual ~LeastSquaresModifier(){}
 
 	void setAttributeCollection(const AttributeCollection& ac)
@@ -194,8 +194,8 @@ public:
 		fprintf(mFile,"\"%s.ac.ono\"",mName.c_str());
 	}
 protected:
-	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

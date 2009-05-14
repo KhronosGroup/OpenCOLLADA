@@ -20,8 +20,8 @@ public:
 public:
 
 	SamplerInfo():DependNode(){}
-	SamplerInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "samplerInfo", create){}
+	SamplerInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "samplerInfo", shared, create){}
 	virtual ~SamplerInfo(){}
 
 	void setPointCamera(const float3& p)
@@ -371,8 +371,8 @@ public:
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 	}
 protected:
-	SamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	OffsetSurface():AbstractBaseCreate(){}
-	OffsetSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "offsetSurface", create){}
+	OffsetSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "offsetSurface", shared, create){}
 	virtual ~OffsetSurface(){}
 
 	void setDistance(double d)
@@ -51,8 +51,8 @@ public:
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 	}
 protected:
-	OffsetSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	OffsetSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	LightInfo():DependNode(){}
-	LightInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "lightInfo", create){}
+	LightInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "lightInfo", shared, create){}
 	virtual ~LightInfo(){}
 
 	void setLightDirectionOnly(bool ldo)
@@ -94,8 +94,8 @@ public:
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 	}
 protected:
-	LightInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	LightInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

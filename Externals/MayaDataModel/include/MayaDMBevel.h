@@ -20,8 +20,8 @@ public:
 public:
 
 	Bevel():AbstractBaseCreate(){}
-	Bevel(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "bevel", create){}
+	Bevel(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "bevel", shared, create){}
 	virtual ~Bevel(){}
 
 	void setTolerance(double tol)
@@ -117,8 +117,8 @@ public:
 		fprintf(mFile,"\"%s.js\"",mName.c_str());
 	}
 protected:
-	Bevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	Bevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

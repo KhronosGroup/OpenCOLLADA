@@ -53,8 +53,8 @@ public:
 public:
 
 	Follicle():Shape(){}
-	Follicle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "follicle", create){}
+	Follicle(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "follicle", shared, create){}
 	virtual ~Follicle(){}
 
 	void setParameterU(double pu)
@@ -695,8 +695,8 @@ public:
 		fprintf(mFile,"\"%s.msn\"",mName.c_str());
 	}
 protected:
-	Follicle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	Follicle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	Resolution():DependNode(){}
-	Resolution(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "resolution", create){}
+	Resolution(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "resolution", shared, create){}
 	virtual ~Resolution(){}
 
 	void setWidth(int w)
@@ -133,8 +133,8 @@ public:
 		fprintf(mFile,"\"%s.pdu\"",mName.c_str());
 	}
 protected:
-	Resolution(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Resolution(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

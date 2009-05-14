@@ -111,8 +111,8 @@ public:
 public:
 
 	HikFloorContactMarker():Locator(){}
-	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Locator(file, name, parent, "hikFloorContactMarker", create){}
+	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Locator(file, name, parent, "hikFloorContactMarker", shared, create){}
 	virtual ~HikFloorContactMarker(){}
 
 	void setMarkerSize(double msz)
@@ -447,8 +447,8 @@ public:
 		fprintf(mFile,"\"%s.fli.fcr\"",mName.c_str());
 	}
 protected:
-	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Locator(file, name, parent, nodeType, create) {}
+	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Locator(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	ImplicitBox():GeometryShape(){}
-	ImplicitBox(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryShape(file, name, parent, "implicitBox", create){}
+	ImplicitBox(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, "implicitBox", shared, create){}
 	virtual ~ImplicitBox(){}
 
 	void setSize(const double3& siz)
@@ -66,8 +66,8 @@ public:
 		fprintf(mFile,"\"%s.siz.szz\"",mName.c_str());
 	}
 protected:
-	ImplicitBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryShape(file, name, parent, nodeType, create) {}
+	ImplicitBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

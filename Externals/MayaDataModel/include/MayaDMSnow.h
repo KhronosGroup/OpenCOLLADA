@@ -20,8 +20,8 @@ public:
 public:
 
 	Snow():Texture3d(){}
-	Snow(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "snow", create){}
+	Snow(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "snow", shared, create){}
 	virtual ~Snow(){}
 
 	void setSnowColor(const float3& sn)
@@ -180,8 +180,8 @@ public:
 		fprintf(mFile,"\"%s.tn\"",mName.c_str());
 	}
 protected:
-	Snow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Snow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

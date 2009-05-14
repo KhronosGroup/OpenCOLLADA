@@ -20,8 +20,8 @@ public:
 public:
 
 	AttachSurface():AbstractBaseCreate(){}
-	AttachSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "attachSurface", create){}
+	AttachSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "attachSurface", shared, create){}
 	virtual ~AttachSurface(){}
 
 	void setMethod(unsigned int m)
@@ -136,8 +136,8 @@ public:
 		fprintf(mFile,"\"%s.kmk\"",mName.c_str());
 	}
 protected:
-	AttachSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	AttachSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

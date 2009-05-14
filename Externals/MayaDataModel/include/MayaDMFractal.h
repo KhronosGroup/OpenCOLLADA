@@ -20,8 +20,8 @@ public:
 public:
 
 	Fractal():Texture2d(){}
-	Fractal(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "fractal", create){}
+	Fractal(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "fractal", shared, create){}
 	virtual ~Fractal(){}
 
 	void setAmplitude(float a)
@@ -124,8 +124,8 @@ public:
 		fprintf(mFile,"\"%s.ti\"",mName.c_str());
 	}
 protected:
-	Fractal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Fractal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -22,8 +22,8 @@ public:
 public:
 
 	FurPointOnMeshInfo():DependNode(){}
-	FurPointOnMeshInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "furPointOnMeshInfo", create){}
+	FurPointOnMeshInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "furPointOnMeshInfo", shared, create){}
 	virtual ~FurPointOnMeshInfo(){}
 
 	void setInMesh(const mesh& im)
@@ -144,8 +144,8 @@ public:
 		fprintf(mFile,"\"%s.nz\"",mName.c_str());
 	}
 protected:
-	FurPointOnMeshInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	FurPointOnMeshInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

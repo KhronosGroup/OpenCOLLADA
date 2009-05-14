@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveFromMesh():DependNode(){}
-	CurveFromMesh(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "curveFromMesh", create){}
+	CurveFromMesh(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "curveFromMesh", shared, create){}
 	virtual ~CurveFromMesh(){}
 
 	void getInputMesh()const
@@ -33,8 +33,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	CurveFromMesh(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	CurveFromMesh(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

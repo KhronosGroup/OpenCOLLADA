@@ -20,8 +20,8 @@ public:
 public:
 
 	FourByFourMatrix():DependNode(){}
-	FourByFourMatrix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "fourByFourMatrix", create){}
+	FourByFourMatrix(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "fourByFourMatrix", shared, create){}
 	virtual ~FourByFourMatrix(){}
 
 	void setIn00(double i00)
@@ -173,8 +173,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	FourByFourMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	FourByFourMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	ObjectRenderFilter():ObjectFilter(){}
-	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ObjectFilter(file, name, parent, "objectRenderFilter", create){}
+	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, "objectRenderFilter", shared, create){}
 	virtual ~ObjectRenderFilter(){}
 
 	void setShaders(bool shad)
@@ -124,8 +124,8 @@ public:
 		fprintf(mFile,"\"%s.ls\"",mName.c_str());
 	}
 protected:
-	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ObjectFilter(file, name, parent, nodeType, create) {}
+	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

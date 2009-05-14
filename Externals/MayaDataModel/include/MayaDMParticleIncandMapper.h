@@ -20,8 +20,8 @@ public:
 public:
 
 	ParticleIncandMapper():DependNode(){}
-	ParticleIncandMapper(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "particleIncandMapper", create){}
+	ParticleIncandMapper(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "particleIncandMapper", shared, create){}
 	virtual ~ParticleIncandMapper(){}
 
 	void setParticleIncandescence(const float3& pi)
@@ -62,8 +62,8 @@ public:
 		fprintf(mFile,"\"%s.pi.pib\"",mName.c_str());
 	}
 protected:
-	ParticleIncandMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ParticleIncandMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

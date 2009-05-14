@@ -20,8 +20,8 @@ public:
 public:
 
 	FfFilletSrf():AbstractBaseCreate(){}
-	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "ffFilletSrf", create){}
+	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "ffFilletSrf", shared, create){}
 	virtual ~FfFilletSrf(){}
 
 	void setPositionTolerance(double pt)
@@ -73,8 +73,8 @@ public:
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 	}
 protected:
-	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

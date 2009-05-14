@@ -20,8 +20,8 @@ public:
 public:
 
 	MakeNurbsSquare():AbstractBaseCreate(){}
-	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "makeNurbsSquare", create){}
+	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "makeNurbsSquare", shared, create){}
 	virtual ~MakeNurbsSquare(){}
 
 	void setNormal(const double3& nr)
@@ -151,8 +151,8 @@ public:
 		fprintf(mFile,"\"%s.oc4\"",mName.c_str());
 	}
 protected:
-	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

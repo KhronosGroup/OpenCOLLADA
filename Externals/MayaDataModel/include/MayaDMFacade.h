@@ -20,8 +20,8 @@ public:
 public:
 
 	Facade():DependNode(){}
-	Facade(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "facade", create){}
+	Facade(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "facade", shared, create){}
 	virtual ~Facade(){}
 
 	void setSharedLibName(const string& sln)
@@ -84,8 +84,8 @@ public:
 		fprintf(mFile,"\"%s.uid\"",mName.c_str());
 	}
 protected:
-	Facade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Facade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

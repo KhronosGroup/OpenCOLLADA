@@ -20,8 +20,8 @@ public:
 public:
 
 	FfBlendSrfObsolete():AbstractBaseCreate(){}
-	FfBlendSrfObsolete(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "ffBlendSrfObsolete", create){}
+	FfBlendSrfObsolete(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "ffBlendSrfObsolete", shared, create){}
 	virtual ~FfBlendSrfObsolete(){}
 
 	void setPositionTolerance(double pt)
@@ -127,8 +127,8 @@ public:
 		fprintf(mFile,"\"%s.mk\"",mName.c_str());
 	}
 protected:
-	FfBlendSrfObsolete(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	FfBlendSrfObsolete(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

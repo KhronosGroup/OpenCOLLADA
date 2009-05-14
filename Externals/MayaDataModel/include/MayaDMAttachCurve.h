@@ -20,8 +20,8 @@ public:
 public:
 
 	AttachCurve():AbstractBaseCreate(){}
-	AttachCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "attachCurve", create){}
+	AttachCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "attachCurve", shared, create){}
 	virtual ~AttachCurve(){}
 
 	void setReverse1(bool rv1)
@@ -109,8 +109,8 @@ public:
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 	}
 protected:
-	AttachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	AttachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

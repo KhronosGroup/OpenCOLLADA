@@ -31,8 +31,8 @@ public:
 public:
 
 	DragField():Field(){}
-	DragField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Field(file, name, parent, "dragField", create){}
+	DragField(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Field(file, name, parent, "dragField", shared, create){}
 	virtual ~DragField(){}
 
 	void setDirection(const Direction& d)
@@ -113,8 +113,8 @@ public:
 		fprintf(mFile,"\"%s.cti\"",mName.c_str());
 	}
 protected:
-	DragField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Field(file, name, parent, nodeType, create) {}
+	DragField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Field(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

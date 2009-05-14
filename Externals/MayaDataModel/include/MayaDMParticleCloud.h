@@ -20,8 +20,8 @@ public:
 public:
 
 	ParticleCloud():DependNode(){}
-	ParticleCloud(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "particleCloud", create){}
+	ParticleCloud(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "particleCloud", shared, create){}
 	virtual ~ParticleCloud(){}
 
 	void setColor(const float3& c)
@@ -595,8 +595,8 @@ public:
 		fprintf(mFile,"\"%s.rdst\"",mName.c_str());
 	}
 protected:
-	ParticleCloud(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ParticleCloud(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

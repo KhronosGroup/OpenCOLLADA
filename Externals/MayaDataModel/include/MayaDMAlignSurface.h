@@ -20,8 +20,8 @@ public:
 public:
 
 	AlignSurface():AbstractBaseCreate(){}
-	AlignSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "alignSurface", create){}
+	AlignSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "alignSurface", shared, create){}
 	virtual ~AlignSurface(){}
 
 	void setTangentScale1(double ts1)
@@ -203,8 +203,8 @@ public:
 		fprintf(mFile,"\"%s.du\"",mName.c_str());
 	}
 protected:
-	AlignSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	AlignSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

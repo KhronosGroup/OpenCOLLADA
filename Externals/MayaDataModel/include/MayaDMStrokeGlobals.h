@@ -20,8 +20,8 @@ public:
 public:
 
 	StrokeGlobals():DependNode(){}
-	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "strokeGlobals", create){}
+	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "strokeGlobals", shared, create){}
 	virtual ~StrokeGlobals(){}
 
 	void setSceneScale(double pss)
@@ -152,8 +152,8 @@ public:
 		fprintf(mFile,"\"%s.ldr.ldz\"",mName.c_str());
 	}
 protected:
-	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

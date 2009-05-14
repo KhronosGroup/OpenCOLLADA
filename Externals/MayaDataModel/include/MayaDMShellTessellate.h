@@ -20,8 +20,8 @@ public:
 public:
 
 	ShellTessellate():ParentTessellate(){}
-	ShellTessellate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ParentTessellate(file, name, parent, "shellTessellate", create){}
+	ShellTessellate(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ParentTessellate(file, name, parent, "shellTessellate", shared, create){}
 	virtual ~ShellTessellate(){}
 
 	void getInputShell()const
@@ -29,8 +29,8 @@ public:
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 	}
 protected:
-	ShellTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ParentTessellate(file, name, parent, nodeType, create) {}
+	ShellTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ParentTessellate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

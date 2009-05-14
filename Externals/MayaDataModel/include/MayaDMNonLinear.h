@@ -20,8 +20,8 @@ public:
 public:
 
 	NonLinear():GeometryFilter(){}
-	NonLinear(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "nonLinear", create){}
+	NonLinear(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "nonLinear", shared, create){}
 	virtual ~NonLinear(){}
 
 	void setMatrix(const matrix& ma)
@@ -40,8 +40,8 @@ public:
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
 	}
 protected:
-	NonLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	NonLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

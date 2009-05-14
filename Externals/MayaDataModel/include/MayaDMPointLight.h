@@ -89,8 +89,8 @@ public:
 public:
 
 	PointLight():NonExtendedLightShapeNode(){}
-	PointLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NonExtendedLightShapeNode(file, name, parent, "pointLight", create){}
+	PointLight(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, "pointLight", shared, create){}
 	virtual ~PointLight(){}
 
 	void setFogRadius(float fr)
@@ -625,8 +625,8 @@ public:
 		fprintf(mFile,"\"%s.mrc.mlp\"",mName.c_str());
 	}
 protected:
-	PointLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NonExtendedLightShapeNode(file, name, parent, nodeType, create) {}
+	PointLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	BoundaryBase():AbstractBaseCreate(){}
-	BoundaryBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "boundaryBase", create){}
+	BoundaryBase(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "boundaryBase", shared, create){}
 	virtual ~BoundaryBase(){}
 
 	void setEndPointTolerance(double ept)
@@ -54,8 +54,8 @@ public:
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 	}
 protected:
-	BoundaryBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	BoundaryBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	Marble():Texture3d(){}
-	Marble(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "marble", create){}
+	Marble(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "marble", shared, create){}
 	virtual ~Marble(){}
 
 	void setXPixelAngle(float xpa)
@@ -270,8 +270,8 @@ public:
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 	}
 protected:
-	Marble(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Marble(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

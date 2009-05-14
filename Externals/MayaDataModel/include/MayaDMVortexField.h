@@ -31,8 +31,8 @@ public:
 public:
 
 	VortexField():Field(){}
-	VortexField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Field(file, name, parent, "vortexField", create){}
+	VortexField(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Field(file, name, parent, "vortexField", shared, create){}
 	virtual ~VortexField(){}
 
 	void setAxis(const Axis& ax)
@@ -73,8 +73,8 @@ public:
 		fprintf(mFile,"\"%s.ax.axz\"",mName.c_str());
 	}
 protected:
-	VortexField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Field(file, name, parent, nodeType, create) {}
+	VortexField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Field(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

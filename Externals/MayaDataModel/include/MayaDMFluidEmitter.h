@@ -20,8 +20,8 @@ public:
 public:
 
 	FluidEmitter():PointEmitter(){}
-	FluidEmitter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PointEmitter(file, name, parent, "fluidEmitter", create){}
+	FluidEmitter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PointEmitter(file, name, parent, "fluidEmitter", shared, create){}
 	virtual ~FluidEmitter(){}
 
 	void setFluidDropoff(double fdo)
@@ -193,8 +193,8 @@ public:
 		fprintf(mFile,"\"%s.ef\"",mName.c_str());
 	}
 protected:
-	FluidEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PointEmitter(file, name, parent, nodeType, create) {}
+	FluidEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PointEmitter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

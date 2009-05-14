@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveFromSurface():CurveRange(){}
-	CurveFromSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveRange(file, name, parent, "curveFromSurface", create){}
+	CurveFromSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveRange(file, name, parent, "curveFromSurface", shared, create){}
 	virtual ~CurveFromSurface(){}
 
 	void setMinValue(double min)
@@ -60,8 +60,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	CurveFromSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveRange(file, name, parent, nodeType, create) {}
+	CurveFromSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveRange(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

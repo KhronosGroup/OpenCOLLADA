@@ -20,8 +20,8 @@ public:
 public:
 
 	AnimClip():DependNode(){}
-	AnimClip(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "animClip", create){}
+	AnimClip(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "animClip", shared, create){}
 	virtual ~AnimClip(){}
 
 	void setEnable(bool ea)
@@ -262,8 +262,8 @@ public:
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 	}
 protected:
-	AnimClip(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	AnimClip(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

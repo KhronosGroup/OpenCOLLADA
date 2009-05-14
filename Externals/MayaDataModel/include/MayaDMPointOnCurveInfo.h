@@ -25,8 +25,8 @@ public:
 public:
 
 	PointOnCurveInfo():AbstractBaseCreate(){}
-	PointOnCurveInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "pointOnCurveInfo", create){}
+	PointOnCurveInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "pointOnCurveInfo", shared, create){}
 	virtual ~PointOnCurveInfo(){}
 
 	void setParameter(double pr)
@@ -156,8 +156,8 @@ public:
 		fprintf(mFile,"\"%s.rs.cr\"",mName.c_str());
 	}
 protected:
-	PointOnCurveInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	PointOnCurveInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

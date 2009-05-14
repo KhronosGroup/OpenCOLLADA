@@ -20,8 +20,8 @@ public:
 public:
 
 	InsertKnotCurve():AbstractBaseCreate(){}
-	InsertKnotCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "insertKnotCurve", create){}
+	InsertKnotCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "insertKnotCurve", shared, create){}
 	virtual ~InsertKnotCurve(){}
 
 	void setParameter(size_t p_i,double p)
@@ -125,8 +125,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	InsertKnotCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	InsertKnotCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

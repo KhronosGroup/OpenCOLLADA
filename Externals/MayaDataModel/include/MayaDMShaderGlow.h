@@ -20,8 +20,8 @@ public:
 public:
 
 	ShaderGlow():DependNode(){}
-	ShaderGlow(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "shaderGlow", create){}
+	ShaderGlow(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "shaderGlow", shared, create){}
 	virtual ~ShaderGlow(){}
 
 	void setGlowType(unsigned int gt)
@@ -335,8 +335,8 @@ public:
 		fprintf(mFile,"\"%s.ae\"",mName.c_str());
 	}
 protected:
-	ShaderGlow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ShaderGlow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

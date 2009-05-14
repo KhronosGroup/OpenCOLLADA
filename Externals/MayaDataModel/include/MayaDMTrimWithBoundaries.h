@@ -20,8 +20,8 @@ public:
 public:
 
 	TrimWithBoundaries():AbstractBaseCreate(){}
-	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "trimWithBoundaries", create){}
+	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "trimWithBoundaries", shared, create){}
 	virtual ~TrimWithBoundaries(){}
 
 	void setFlipNormal(bool fn)
@@ -69,8 +69,8 @@ public:
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 	}
 protected:
-	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

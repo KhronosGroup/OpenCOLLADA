@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyQuad():PolyModifierWorld(){}
-	PolyQuad(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyQuad", create){}
+	PolyQuad(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyQuad", shared, create){}
 	virtual ~PolyQuad(){}
 
 	void setAngle(double a)
@@ -66,8 +66,8 @@ public:
 		fprintf(mFile,"\"%s.khe\"",mName.c_str());
 	}
 protected:
-	PolyQuad(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyQuad(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

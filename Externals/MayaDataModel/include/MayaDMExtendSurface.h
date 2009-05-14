@@ -20,8 +20,8 @@ public:
 public:
 
 	ExtendSurface():AbstractBaseCreate(){}
-	ExtendSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "extendSurface", create){}
+	ExtendSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "extendSurface", shared, create){}
 	virtual ~ExtendSurface(){}
 
 	void setExtensionType(unsigned int et)
@@ -91,8 +91,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	ExtendSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	ExtendSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

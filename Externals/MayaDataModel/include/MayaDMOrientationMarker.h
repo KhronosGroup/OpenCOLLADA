@@ -20,8 +20,8 @@ public:
 public:
 
 	OrientationMarker():PositionMarker(){}
-	OrientationMarker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PositionMarker(file, name, parent, "orientationMarker", create){}
+	OrientationMarker(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PositionMarker(file, name, parent, "orientationMarker", shared, create){}
 	virtual ~OrientationMarker(){}
 
 	void setFrontTwist(double ft)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 	}
 protected:
-	OrientationMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PositionMarker(file, name, parent, nodeType, create) {}
+	OrientationMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PositionMarker(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

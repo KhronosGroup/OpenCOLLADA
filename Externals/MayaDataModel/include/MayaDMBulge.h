@@ -20,8 +20,8 @@ public:
 public:
 
 	Bulge():Texture2d(){}
-	Bulge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "bulge", create){}
+	Bulge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "bulge", shared, create){}
 	virtual ~Bulge(){}
 
 	void setUWidth(float uw)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.vw\"",mName.c_str());
 	}
 protected:
-	Bulge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Bulge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	SubSurface():AbstractBaseCreate(){}
-	SubSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "subSurface", create){}
+	SubSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "subSurface", shared, create){}
 	virtual ~SubSurface(){}
 
 	void setFirstFaceU(int ffu)
@@ -69,8 +69,8 @@ public:
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 	}
 protected:
-	SubSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	SubSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

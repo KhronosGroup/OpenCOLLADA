@@ -20,8 +20,8 @@ public:
 public:
 
 	TextureEnv():DependNode(){}
-	TextureEnv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "textureEnv", create){}
+	TextureEnv(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "textureEnv", shared, create){}
 	virtual ~TextureEnv(){}
 
 	void setObjectType(char ot)
@@ -143,8 +143,8 @@ public:
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
 	}
 protected:
-	TextureEnv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	TextureEnv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

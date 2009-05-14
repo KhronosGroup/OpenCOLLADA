@@ -52,8 +52,8 @@ public:
 public:
 
 	Ffd():GeometryFilter(){}
-	Ffd(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "ffd", create){}
+	Ffd(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "ffd", shared, create){}
 	virtual ~Ffd(){}
 
 	void setDeformedLattice(const DeformedLattice& dl)
@@ -277,8 +277,8 @@ public:
 		fprintf(mFile,"\"%s.ofd\"",mName.c_str());
 	}
 protected:
-	Ffd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	Ffd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

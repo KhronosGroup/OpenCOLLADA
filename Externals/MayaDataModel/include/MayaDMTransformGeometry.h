@@ -20,8 +20,8 @@ public:
 public:
 
 	TransformGeometry():AbstractBaseCreate(){}
-	TransformGeometry(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "transformGeometry", create){}
+	TransformGeometry(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "transformGeometry", shared, create){}
 	virtual ~TransformGeometry(){}
 
 	void setTransform(const matrix& txf)
@@ -62,8 +62,8 @@ public:
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 	}
 protected:
-	TransformGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	TransformGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

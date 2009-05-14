@@ -54,8 +54,8 @@ public:
 public:
 
 	BlindDataTemplate():DependNode(){}
-	BlindDataTemplate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "blindDataTemplate", create){}
+	BlindDataTemplate(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "blindDataTemplate", shared, create){}
 	virtual ~BlindDataTemplate(){}
 
 	void setTypeId(int tid)
@@ -192,8 +192,8 @@ public:
 		fprintf(mFile,";\n");
 	}
 protected:
-	BlindDataTemplate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	BlindDataTemplate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

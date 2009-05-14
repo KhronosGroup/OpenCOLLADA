@@ -74,8 +74,8 @@ public:
 public:
 
 	ClipLibrary():DependNode(){}
-	ClipLibrary(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "clipLibrary", create){}
+	ClipLibrary(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "clipLibrary", shared, create){}
 	virtual ~ClipLibrary(){}
 
 	void setClipEvalList(size_t cel_i,const ClipEvalList& cel)
@@ -423,8 +423,8 @@ public:
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 	}
 protected:
-	ClipLibrary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ClipLibrary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

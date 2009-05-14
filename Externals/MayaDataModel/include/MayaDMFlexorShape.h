@@ -20,8 +20,8 @@ public:
 public:
 
 	FlexorShape():Shape(){}
-	FlexorShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "flexorShape", create){}
+	FlexorShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "flexorShape", shared, create){}
 	virtual ~FlexorShape(){}
 
 	void setCurrentDriver(short cdr)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 	}
 protected:
-	FlexorShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	FlexorShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

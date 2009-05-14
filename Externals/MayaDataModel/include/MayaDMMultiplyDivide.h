@@ -20,8 +20,8 @@ public:
 public:
 
 	MultiplyDivide():DependNode(){}
-	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "multiplyDivide", create){}
+	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "multiplyDivide", shared, create){}
 	virtual ~MultiplyDivide(){}
 
 	void setOperation(unsigned int op)
@@ -126,8 +126,8 @@ public:
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 	}
 protected:
-	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

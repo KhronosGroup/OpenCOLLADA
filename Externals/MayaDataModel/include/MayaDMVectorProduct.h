@@ -20,8 +20,8 @@ public:
 public:
 
 	VectorProduct():DependNode(){}
-	VectorProduct(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "vectorProduct", create){}
+	VectorProduct(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "vectorProduct", shared, create){}
 	virtual ~VectorProduct(){}
 
 	void setOperation(unsigned int op)
@@ -139,8 +139,8 @@ public:
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 	}
 protected:
-	VectorProduct(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	VectorProduct(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

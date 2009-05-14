@@ -20,8 +20,8 @@ public:
 public:
 
 	ResultCurve():AnimCurve(){}
-	ResultCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AnimCurve(file, name, parent, "resultCurve", create){}
+	ResultCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AnimCurve(file, name, parent, "resultCurve", shared, create){}
 	virtual ~ResultCurve(){}
 
 	void setStart(double st)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.sby\"",mName.c_str());
 	}
 protected:
-	ResultCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AnimCurve(file, name, parent, nodeType, create) {}
+	ResultCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AnimCurve(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

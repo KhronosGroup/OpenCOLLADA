@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveFromSurfaceCoS():CurveFromSurface(){}
-	CurveFromSurfaceCoS(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveFromSurface(file, name, parent, "curveFromSurfaceCoS", create){}
+	CurveFromSurfaceCoS(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveFromSurface(file, name, parent, "curveFromSurfaceCoS", shared, create){}
 	virtual ~CurveFromSurfaceCoS(){}
 
 	void getCurveOnSurface()const
@@ -29,8 +29,8 @@ public:
 		fprintf(mFile,"\"%s.cos\"",mName.c_str());
 	}
 protected:
-	CurveFromSurfaceCoS(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveFromSurface(file, name, parent, nodeType, create) {}
+	CurveFromSurfaceCoS(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveFromSurface(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

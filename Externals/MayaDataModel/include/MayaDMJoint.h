@@ -20,8 +20,8 @@ public:
 public:
 
 	Joint():Transform(){}
-	Joint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "joint", create){}
+	Joint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "joint", shared, create){}
 	virtual ~Joint(){}
 
 	void setJointOrientType(const string& jot)
@@ -424,8 +424,8 @@ public:
 		fprintf(mFile,"\"%s.hni\"",mName.c_str());
 	}
 protected:
-	Joint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	Joint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

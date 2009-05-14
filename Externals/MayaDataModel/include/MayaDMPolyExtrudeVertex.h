@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyExtrudeVertex():PolyModifierWorld(){}
-	PolyExtrudeVertex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyExtrudeVertex", create){}
+	PolyExtrudeVertex(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyExtrudeVertex", shared, create){}
 	virtual ~PolyExtrudeVertex(){}
 
 	void setLength(float l)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 	}
 protected:
-	PolyExtrudeVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyExtrudeVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

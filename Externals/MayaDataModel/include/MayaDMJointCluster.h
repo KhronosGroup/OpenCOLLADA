@@ -35,8 +35,8 @@ public:
 public:
 
 	JointCluster():Cluster(){}
-	JointCluster(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Cluster(file, name, parent, "jointCluster", create){}
+	JointCluster(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Cluster(file, name, parent, "jointCluster", shared, create){}
 	virtual ~JointCluster(){}
 
 	void setChildEnabled(size_t che_i,bool che)
@@ -404,8 +404,8 @@ public:
 		fprintf(mFile,"\"%s.cfs\"",mName.c_str());
 	}
 protected:
-	JointCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Cluster(file, name, parent, nodeType, create) {}
+	JointCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Cluster(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

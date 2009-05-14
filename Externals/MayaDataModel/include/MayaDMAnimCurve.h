@@ -20,8 +20,8 @@ public:
 public:
 
 	AnimCurve():DependNode(){}
-	AnimCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "animCurve", create){}
+	AnimCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "animCurve", shared, create){}
 	virtual ~AnimCurve(){}
 
 	void setTangentType(unsigned int tan)
@@ -429,8 +429,8 @@ public:
 		fprintf(mFile,"\"%s.cc.ccb\"",mName.c_str());
 	}
 protected:
-	AnimCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	AnimCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

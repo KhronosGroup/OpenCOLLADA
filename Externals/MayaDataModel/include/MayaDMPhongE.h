@@ -20,8 +20,8 @@ public:
 public:
 
 	PhongE():Reflect(){}
-	PhongE(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Reflect(file, name, parent, "phongE", create){}
+	PhongE(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Reflect(file, name, parent, "phongE", shared, create){}
 	virtual ~PhongE(){}
 
 	void setRoughness(float rn)
@@ -191,8 +191,8 @@ public:
 		fprintf(mFile,"\"%s.mirf\"",mName.c_str());
 	}
 protected:
-	PhongE(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Reflect(file, name, parent, nodeType, create) {}
+	PhongE(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Reflect(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

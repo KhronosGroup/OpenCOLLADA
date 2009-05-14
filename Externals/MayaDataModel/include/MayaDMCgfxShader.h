@@ -20,13 +20,13 @@ public:
 public:
 
 	CgfxShader():HwShader(){}
-	CgfxShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:HwShader(file, name, parent, "cgfxShader", create){}
+	CgfxShader(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:HwShader(file, name, parent, "cgfxShader", shared, create){}
 	virtual ~CgfxShader(){}
 
 protected:
-	CgfxShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:HwShader(file, name, parent, nodeType, create) {}
+	CgfxShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:HwShader(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

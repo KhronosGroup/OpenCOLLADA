@@ -20,8 +20,8 @@ public:
 public:
 
 	RenderGlobalsList():DependNode(){}
-	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "renderGlobalsList", create){}
+	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "renderGlobalsList", shared, create){}
 	virtual ~RenderGlobalsList(){}
 
 	void getRenderGlobals(size_t rg_i)const
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.rr\"",mName.c_str());
 	}
 protected:
-	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

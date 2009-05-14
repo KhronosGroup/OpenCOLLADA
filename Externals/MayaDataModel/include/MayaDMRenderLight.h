@@ -20,8 +20,8 @@ public:
 public:
 
 	RenderLight():Light(){}
-	RenderLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Light(file, name, parent, "renderLight", create){}
+	RenderLight(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Light(file, name, parent, "renderLight", shared, create){}
 	virtual ~RenderLight(){}
 
 	void getRayInstance()const
@@ -29,8 +29,8 @@ public:
 		fprintf(mFile,"\"%s.ryi\"",mName.c_str());
 	}
 protected:
-	RenderLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Light(file, name, parent, nodeType, create) {}
+	RenderLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Light(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

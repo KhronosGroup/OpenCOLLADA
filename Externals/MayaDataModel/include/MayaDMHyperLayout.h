@@ -33,8 +33,8 @@ public:
 public:
 
 	HyperLayout():DependNode(){}
-	HyperLayout(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "hyperLayout", create){}
+	HyperLayout(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "hyperLayout", shared, create){}
 	virtual ~HyperLayout(){}
 
 	void setHyperPosition(size_t hyp_i,const HyperPosition& hyp)
@@ -201,8 +201,8 @@ public:
 		fprintf(mFile,"\"%s.anf\"",mName.c_str());
 	}
 protected:
-	HyperLayout(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	HyperLayout(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

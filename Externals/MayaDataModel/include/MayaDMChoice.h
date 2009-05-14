@@ -20,8 +20,8 @@ public:
 public:
 
 	Choice():DependNode(){}
-	Choice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "choice", create){}
+	Choice(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "choice", shared, create){}
 	virtual ~Choice(){}
 
 	void setSelector(int s)
@@ -47,8 +47,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	Choice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Choice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

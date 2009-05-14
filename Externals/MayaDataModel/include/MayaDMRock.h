@@ -20,8 +20,8 @@ public:
 public:
 
 	Rock():Texture3d(){}
-	Rock(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "rock", create){}
+	Rock(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "rock", shared, create){}
 	virtual ~Rock(){}
 
 	void setColor1(const float3& c1)
@@ -160,8 +160,8 @@ public:
 		fprintf(mFile,"\"%s.mr\"",mName.c_str());
 	}
 protected:
-	Rock(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Rock(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	PolySoftEdge():PolyModifierWorld(){}
-	PolySoftEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polySoftEdge", create){}
+	PolySoftEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polySoftEdge", shared, create){}
 	virtual ~PolySoftEdge(){}
 
 	void setAngle(double a)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 	}
 protected:
-	PolySoftEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolySoftEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

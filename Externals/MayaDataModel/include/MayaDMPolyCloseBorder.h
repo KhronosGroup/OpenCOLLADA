@@ -19,13 +19,13 @@ class PolyCloseBorder : public PolyModifier
 public:
 
 	PolyCloseBorder():PolyModifier(){}
-	PolyCloseBorder(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyCloseBorder", create){}
+	PolyCloseBorder(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyCloseBorder", shared, create){}
 	virtual ~PolyCloseBorder(){}
 
 protected:
-	PolyCloseBorder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyCloseBorder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

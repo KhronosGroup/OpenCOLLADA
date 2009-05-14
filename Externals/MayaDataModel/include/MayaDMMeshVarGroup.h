@@ -20,8 +20,8 @@ public:
 public:
 
 	MeshVarGroup():BaseGeometryVarGroup(){}
-	MeshVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BaseGeometryVarGroup(file, name, parent, "meshVarGroup", create){}
+	MeshVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, "meshVarGroup", shared, create){}
 	virtual ~MeshVarGroup(){}
 
 	void getCreate(size_t cr_i)const
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 	}
 protected:
-	MeshVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BaseGeometryVarGroup(file, name, parent, nodeType, create) {}
+	MeshVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

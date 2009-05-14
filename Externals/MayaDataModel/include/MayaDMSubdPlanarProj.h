@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdPlanarProj():SubdModifierWorld(){}
-	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SubdModifierWorld(file, name, parent, "subdPlanarProj", create){}
+	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SubdModifierWorld(file, name, parent, "subdPlanarProj", shared, create){}
 	virtual ~SubdPlanarProj(){}
 
 	void setProjectionCenter(const double3& pc)
@@ -210,8 +210,8 @@ public:
 		fprintf(mFile,"\"%s.cid\"",mName.c_str());
 	}
 protected:
-	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SubdModifierWorld(file, name, parent, nodeType, create) {}
+	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SubdModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

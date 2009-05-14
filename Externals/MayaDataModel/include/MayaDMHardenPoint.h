@@ -20,8 +20,8 @@ public:
 public:
 
 	HardenPoint():AbstractBaseCreate(){}
-	HardenPoint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "hardenPoint", create){}
+	HardenPoint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "hardenPoint", shared, create){}
 	virtual ~HardenPoint(){}
 
 	void setIndex(size_t i_i,int i_)
@@ -79,8 +79,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	HardenPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	HardenPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

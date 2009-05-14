@@ -20,8 +20,8 @@ public:
 public:
 
 	DeformFlare():DeformFunc(){}
-	DeformFlare(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DeformFunc(file, name, parent, "deformFlare", create){}
+	DeformFlare(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, "deformFlare", shared, create){}
 	virtual ~DeformFlare(){}
 
 	void setLowBound(double lb)
@@ -88,8 +88,8 @@ public:
 		fprintf(mFile,"\"%s.crv\"",mName.c_str());
 	}
 protected:
-	DeformFlare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DeformFunc(file, name, parent, nodeType, create) {}
+	DeformFlare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

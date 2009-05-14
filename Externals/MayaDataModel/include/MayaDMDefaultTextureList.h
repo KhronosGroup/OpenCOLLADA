@@ -20,8 +20,8 @@ public:
 public:
 
 	DefaultTextureList():DependNode(){}
-	DefaultTextureList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "defaultTextureList", create){}
+	DefaultTextureList(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "defaultTextureList", shared, create){}
 	virtual ~DefaultTextureList(){}
 
 	void getTextures(size_t tx_i)const
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 	}
 protected:
-	DefaultTextureList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DefaultTextureList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

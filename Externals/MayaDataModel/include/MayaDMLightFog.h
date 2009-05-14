@@ -20,8 +20,8 @@ public:
 public:
 
 	LightFog():DependNode(){}
-	LightFog(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "lightFog", create){}
+	LightFog(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "lightFog", shared, create){}
 	virtual ~LightFog(){}
 
 	void setColor(const float3& c)
@@ -307,8 +307,8 @@ public:
 		fprintf(mFile,"\"%s.ot.otb\"",mName.c_str());
 	}
 protected:
-	LightFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	LightFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

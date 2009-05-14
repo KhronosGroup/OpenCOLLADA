@@ -20,8 +20,8 @@ public:
 public:
 
 	Noise():Texture2d(){}
-	Noise(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "noise", create){}
+	Noise(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "noise", shared, create){}
 	virtual ~Noise(){}
 
 	void setAmplitude(float a)
@@ -198,8 +198,8 @@ public:
 		fprintf(mFile,"\"%s.imc.imv\"",mName.c_str());
 	}
 protected:
-	Noise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Noise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

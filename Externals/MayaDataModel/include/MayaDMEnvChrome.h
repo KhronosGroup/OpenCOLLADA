@@ -20,8 +20,8 @@ public:
 public:
 
 	EnvChrome():TextureEnv(){}
-	EnvChrome(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:TextureEnv(file, name, parent, "envChrome", create){}
+	EnvChrome(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:TextureEnv(file, name, parent, "envChrome", shared, create){}
 	virtual ~EnvChrome(){}
 
 	void setSkyColor(const float3& sc)
@@ -395,8 +395,8 @@ public:
 		fprintf(mFile,"\"%s.gdo\"",mName.c_str());
 	}
 protected:
-	EnvChrome(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:TextureEnv(file, name, parent, nodeType, create) {}
+	EnvChrome(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:TextureEnv(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

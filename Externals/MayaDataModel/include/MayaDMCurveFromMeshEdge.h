@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveFromMeshEdge():CurveFromMesh(){}
-	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveFromMesh(file, name, parent, "curveFromMeshEdge", create){}
+	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveFromMesh(file, name, parent, "curveFromMeshEdge", shared, create){}
 	virtual ~CurveFromMeshEdge(){}
 
 	void setEdgeIndex(size_t ei_i,int ei)
@@ -62,8 +62,8 @@ public:
 		fprintf(mFile,"\"%s.ei\"",mName.c_str());
 	}
 protected:
-	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveFromMesh(file, name, parent, nodeType, create) {}
+	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveFromMesh(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

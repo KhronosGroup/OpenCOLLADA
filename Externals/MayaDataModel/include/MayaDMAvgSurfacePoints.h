@@ -25,8 +25,8 @@ public:
 public:
 
 	AvgSurfacePoints():AbstractBaseCreate(){}
-	AvgSurfacePoints(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "avgSurfacePoints", create){}
+	AvgSurfacePoints(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "avgSurfacePoints", shared, create){}
 	virtual ~AvgSurfacePoints(){}
 
 	void setWeight(size_t wt_i,double wt)
@@ -195,8 +195,8 @@ public:
 		fprintf(mFile,"\"%s.r.n.nz\"",mName.c_str());
 	}
 protected:
-	AvgSurfacePoints(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	AvgSurfacePoints(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

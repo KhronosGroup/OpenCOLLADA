@@ -20,8 +20,8 @@ public:
 public:
 
 	Light():Shape(){}
-	Light(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "light", create){}
+	Light(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "light", shared, create){}
 	virtual ~Light(){}
 
 	void setColor(const float3& cl)
@@ -330,8 +330,8 @@ public:
 		fprintf(mFile,"\"%s.ov.ovb\"",mName.c_str());
 	}
 protected:
-	Light(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	Light(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

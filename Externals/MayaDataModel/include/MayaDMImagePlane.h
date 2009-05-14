@@ -20,8 +20,8 @@ public:
 public:
 
 	ImagePlane():DependNode(){}
-	ImagePlane(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "imagePlane", create){}
+	ImagePlane(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "imagePlane", shared, create){}
 	virtual ~ImagePlane(){}
 
 	void setType(unsigned int t)
@@ -483,8 +483,8 @@ public:
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 	}
 protected:
-	ImagePlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ImagePlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

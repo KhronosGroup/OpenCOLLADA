@@ -20,8 +20,8 @@ public:
 public:
 
 	Water():Texture2d(){}
-	Water(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "water", create){}
+	Water(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "water", shared, create){}
 	virtual ~Water(){}
 
 	void setNumberOfWaves(short nw)
@@ -294,8 +294,8 @@ public:
 		fprintf(mFile,"\"%s.fa\"",mName.c_str());
 	}
 protected:
-	Water(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Water(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

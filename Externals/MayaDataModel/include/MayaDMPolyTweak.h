@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyTweak():PolyModifier(){}
-	PolyTweak(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyTweak", create){}
+	PolyTweak(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyTweak", shared, create){}
 	virtual ~PolyTweak(){}
 
 	void setTweak(size_t tk_i,const float3& tk)
@@ -106,8 +106,8 @@ public:
 		fprintf(mFile,"\"%s.tk.tz\"",mName.c_str());
 	}
 protected:
-	PolyTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	Wire():WeightGeometryFilter(){}
-	Wire(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:WeightGeometryFilter(file, name, parent, "wire", create){}
+	Wire(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, "wire", shared, create){}
 	virtual ~Wire(){}
 
 	void setCrossingEffect(float ce)
@@ -381,8 +381,8 @@ public:
 		fprintf(mFile,"\"%s.ho\"",mName.c_str());
 	}
 protected:
-	Wire(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
+	Wire(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyMoveUV():PolyModifier(){}
-	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyMoveUV", create){}
+	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyMoveUV", shared, create){}
 	virtual ~PolyMoveUV(){}
 
 	void setTranslate(const double2& t)
@@ -183,8 +183,8 @@ public:
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 	}
 protected:
-	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

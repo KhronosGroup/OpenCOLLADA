@@ -176,8 +176,8 @@ public:
 public:
 
 	FurDescription():DependNode(){}
-	FurDescription(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "FurDescription", create){}
+	FurDescription(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "FurDescription", shared, create){}
 	virtual ~FurDescription(){}
 
 	void setLightModel(unsigned int lmd)
@@ -1645,8 +1645,8 @@ public:
 		fprintf(mFile,"\"%s.csn\"",mName.c_str());
 	}
 protected:
-	FurDescription(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	FurDescription(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

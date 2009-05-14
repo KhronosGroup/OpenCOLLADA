@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveNormalizer():DependNode(){}
-	CurveNormalizer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "curveNormalizer", create){}
+	CurveNormalizer(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "curveNormalizer", shared, create){}
 	virtual ~CurveNormalizer(){}
 
 	void setScalar(double sc)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 	}
 protected:
-	CurveNormalizer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	CurveNormalizer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

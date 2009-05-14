@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyCylinder():PolyPrimitive(){}
-	PolyCylinder(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyPrimitive(file, name, parent, "polyCylinder", create){}
+	PolyCylinder(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, "polyCylinder", shared, create){}
 	virtual ~PolyCylinder(){}
 
 	void setRadius(double r)
@@ -106,8 +106,8 @@ public:
 		fprintf(mFile,"\"%s.rcp\"",mName.c_str());
 	}
 protected:
-	PolyCylinder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyPrimitive(file, name, parent, nodeType, create) {}
+	PolyCylinder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

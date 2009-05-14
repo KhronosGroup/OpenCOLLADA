@@ -19,13 +19,13 @@ class RenderSphere : public ImplicitSphere
 public:
 
 	RenderSphere():ImplicitSphere(){}
-	RenderSphere(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ImplicitSphere(file, name, parent, "renderSphere", create){}
+	RenderSphere(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ImplicitSphere(file, name, parent, "renderSphere", shared, create){}
 	virtual ~RenderSphere(){}
 
 protected:
-	RenderSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ImplicitSphere(file, name, parent, nodeType, create) {}
+	RenderSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ImplicitSphere(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

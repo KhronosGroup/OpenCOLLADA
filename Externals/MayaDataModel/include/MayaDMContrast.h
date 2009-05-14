@@ -20,8 +20,8 @@ public:
 public:
 
 	Contrast():DependNode(){}
-	Contrast(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "contrast", create){}
+	Contrast(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "contrast", shared, create){}
 	virtual ~Contrast(){}
 
 	void setValue(const float3& v)
@@ -155,8 +155,8 @@ public:
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 	}
 protected:
-	Contrast(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Contrast(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

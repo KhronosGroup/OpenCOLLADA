@@ -31,8 +31,8 @@ public:
 public:
 
 	LineModifier():Shape(){}
-	LineModifier(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "lineModifier", create){}
+	LineModifier(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "lineModifier", shared, create){}
 	virtual ~LineModifier(){}
 
 	void setShape(unsigned int shp)
@@ -362,8 +362,8 @@ public:
 		fprintf(mFile,"\"%s.olm\"",mName.c_str());
 	}
 protected:
-	LineModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	LineModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

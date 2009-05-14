@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyCreateFace():PolyCreator(){}
-	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyCreator(file, name, parent, "polyCreateFace", create){}
+	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyCreator(file, name, parent, "polyCreateFace", shared, create){}
 	virtual ~PolyCreateFace(){}
 
 	void setVertices(size_t v_i,const float3& v)
@@ -171,8 +171,8 @@ public:
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 	}
 protected:
-	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyCreator(file, name, parent, nodeType, create) {}
+	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyCreator(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	RenderLayerManager():DependNode(){}
-	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "renderLayerManager", create){}
+	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "renderLayerManager", shared, create){}
 	virtual ~RenderLayerManager(){}
 
 	void setCurrentRenderLayer(short crl)
@@ -71,8 +71,8 @@ public:
 		fprintf(mFile,"\"%s.rlmi\"",mName.c_str());
 	}
 protected:
-	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

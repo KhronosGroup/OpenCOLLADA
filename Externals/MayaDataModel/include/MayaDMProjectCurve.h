@@ -20,8 +20,8 @@ public:
 public:
 
 	ProjectCurve():AbstractBaseCreate(){}
-	ProjectCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "projectCurve", create){}
+	ProjectCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "projectCurve", shared, create){}
 	virtual ~ProjectCurve(){}
 
 	void setDirection(const double3& d)
@@ -97,8 +97,8 @@ public:
 		fprintf(mFile,"\"%s.un\"",mName.c_str());
 	}
 protected:
-	ProjectCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	ProjectCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

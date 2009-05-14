@@ -20,8 +20,8 @@ public:
 public:
 
 	HyperView():DependNode(){}
-	HyperView(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "hyperView", create){}
+	HyperView(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "hyperView", shared, create){}
 	virtual ~HyperView(){}
 
 	void setPosition(const double2& p)
@@ -189,8 +189,8 @@ public:
 		fprintf(mFile,"\"%s.hl\"",mName.c_str());
 	}
 protected:
-	HyperView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	HyperView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

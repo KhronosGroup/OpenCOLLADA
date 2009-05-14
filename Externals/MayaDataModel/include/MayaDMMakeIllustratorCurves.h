@@ -20,8 +20,8 @@ public:
 public:
 
 	MakeIllustratorCurves():AbstractBaseCreate(){}
-	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "makeIllustratorCurves", create){}
+	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "makeIllustratorCurves", shared, create){}
 	virtual ~MakeIllustratorCurves(){}
 
 	void setIllustratorFilename(const string& ifn)
@@ -112,8 +112,8 @@ public:
 		fprintf(mFile,"\"%s.tl\"",mName.c_str());
 	}
 protected:
-	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	ParticleTranspMapper():DependNode(){}
-	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "particleTranspMapper", create){}
+	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "particleTranspMapper", shared, create){}
 	virtual ~ParticleTranspMapper(){}
 
 	void setParticleTransparency(const float3& pt)
@@ -62,8 +62,8 @@ public:
 		fprintf(mFile,"\"%s.pt.ptb\"",mName.c_str());
 	}
 protected:
-	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	HistorySwitch():GeometryFilter(){}
-	HistorySwitch(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "historySwitch", create){}
+	HistorySwitch(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "historySwitch", shared, create){}
 	virtual ~HistorySwitch(){}
 
 	void setPlayFromCache(bool pfc)
@@ -61,8 +61,8 @@ public:
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 	}
 protected:
-	HistorySwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	HistorySwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

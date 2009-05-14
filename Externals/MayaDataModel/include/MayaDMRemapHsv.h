@@ -53,8 +53,8 @@ public:
 public:
 
 	RemapHsv():DependNode(){}
-	RemapHsv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "remapHsv", create){}
+	RemapHsv(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "remapHsv", shared, create){}
 	virtual ~RemapHsv(){}
 
 	void setColor(const float3& cl)
@@ -393,8 +393,8 @@ public:
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 	}
 protected:
-	RemapHsv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RemapHsv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

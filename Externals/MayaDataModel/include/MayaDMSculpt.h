@@ -20,8 +20,8 @@ public:
 public:
 
 	Sculpt():GeometryFilter(){}
-	Sculpt(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "sculpt", create){}
+	Sculpt(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "sculpt", shared, create){}
 	virtual ~Sculpt(){}
 
 	void setSculptObjectMatrix(const matrix& sm)
@@ -131,8 +131,8 @@ public:
 		fprintf(mFile,"\"%s.exd\"",mName.c_str());
 	}
 protected:
-	Sculpt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	Sculpt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

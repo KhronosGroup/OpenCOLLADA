@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyAutoProj():PolyModifierUV(){}
-	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierUV(file, name, parent, "polyAutoProj", create){}
+	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, "polyAutoProj", shared, create){}
 	virtual ~PolyAutoProj(){}
 
 	void setTranslate(const double3& t)
@@ -262,8 +262,8 @@ public:
 		fprintf(mFile,"\"%s.pg\"",mName.c_str());
 	}
 protected:
-	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierUV(file, name, parent, nodeType, create) {}
+	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

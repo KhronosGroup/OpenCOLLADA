@@ -20,8 +20,8 @@ public:
 public:
 
 	GlobalStitch():AbstractBaseCreate(){}
-	GlobalStitch(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "globalStitch", create){}
+	GlobalStitch(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "globalStitch", shared, create){}
 	virtual ~GlobalStitch(){}
 
 	void setStitchCorners(unsigned int sc)
@@ -165,8 +165,8 @@ public:
 		fprintf(mFile,"\"%s.ue\"",mName.c_str());
 	}
 protected:
-	GlobalStitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	GlobalStitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

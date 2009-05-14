@@ -20,8 +20,8 @@ public:
 public:
 
 	MakeCircularArc():AbstractBaseCreate(){}
-	MakeCircularArc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "makeCircularArc", create){}
+	MakeCircularArc(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "makeCircularArc", shared, create){}
 	virtual ~MakeCircularArc(){}
 
 	void setDegree(unsigned int d)
@@ -83,8 +83,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	MakeCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	MakeCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

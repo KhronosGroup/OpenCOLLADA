@@ -20,8 +20,8 @@ public:
 public:
 
 	NCloth():NParticle(){}
-	NCloth(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NParticle(file, name, parent, "nCloth", create){}
+	NCloth(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NParticle(file, name, parent, "nCloth", shared, create){}
 	virtual ~NCloth(){}
 
 	void setNumSubdivisions(int nsub)
@@ -569,8 +569,8 @@ public:
 		fprintf(mFile,"\"%s.wmt\"",mName.c_str());
 	}
 protected:
-	NCloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NParticle(file, name, parent, nodeType, create) {}
+	NCloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NParticle(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

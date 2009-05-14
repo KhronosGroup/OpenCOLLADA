@@ -20,8 +20,8 @@ public:
 public:
 
 	Lattice():ControlPoint(){}
-	Lattice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ControlPoint(file, name, parent, "lattice", create){}
+	Lattice(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ControlPoint(file, name, parent, "lattice", shared, create){}
 	virtual ~Lattice(){}
 
 	void setSDivisions(short sd)
@@ -130,8 +130,8 @@ public:
 		fprintf(mFile,"\"%s.or.oz\"",mName.c_str());
 	}
 protected:
-	Lattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ControlPoint(file, name, parent, nodeType, create) {}
+	Lattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ControlPoint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

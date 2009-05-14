@@ -20,8 +20,8 @@ public:
 public:
 
 	IkEffector():Transform(){}
-	IkEffector(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "ikEffector", create){}
+	IkEffector(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "ikEffector", shared, create){}
 	virtual ~IkEffector(){}
 
 	void setHideDisplay(bool hd)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.hp\"",mName.c_str());
 	}
 protected:
-	IkEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	IkEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

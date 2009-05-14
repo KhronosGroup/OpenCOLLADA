@@ -20,8 +20,8 @@ public:
 public:
 
 	Flow():DependNode(){}
-	Flow(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "flow", create){}
+	Flow(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "flow", shared, create){}
 	virtual ~Flow(){}
 
 	void setLatticeOnObject(bool lo)
@@ -293,8 +293,8 @@ public:
 		fprintf(mFile,"\"%s.dpt\"",mName.c_str());
 	}
 protected:
-	Flow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Flow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	DpBirailSrf():BirailSrf(){}
-	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BirailSrf(file, name, parent, "dpBirailSrf", create){}
+	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BirailSrf(file, name, parent, "dpBirailSrf", shared, create){}
 	virtual ~DpBirailSrf(){}
 
 	void setBlendFactor(double bl)
@@ -60,8 +60,8 @@ public:
 		fprintf(mFile,"\"%s.tp2\"",mName.c_str());
 	}
 protected:
-	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BirailSrf(file, name, parent, nodeType, create) {}
+	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BirailSrf(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	Blinn():Reflect(){}
-	Blinn(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Reflect(file, name, parent, "blinn", create){}
+	Blinn(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Reflect(file, name, parent, "blinn", shared, create){}
 	virtual ~Blinn(){}
 
 	void setEccentricity(float ec)
@@ -125,8 +125,8 @@ public:
 		fprintf(mFile,"\"%s.mirf\"",mName.c_str());
 	}
 protected:
-	Blinn(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Reflect(file, name, parent, nodeType, create) {}
+	Blinn(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Reflect(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

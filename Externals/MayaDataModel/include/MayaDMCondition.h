@@ -20,8 +20,8 @@ public:
 public:
 
 	Condition():DependNode(){}
-	Condition(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "condition", create){}
+	Condition(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "condition", shared, create){}
 	virtual ~Condition(){}
 
 	void setOperation(unsigned int op)
@@ -144,8 +144,8 @@ public:
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 	}
 protected:
-	Condition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Condition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

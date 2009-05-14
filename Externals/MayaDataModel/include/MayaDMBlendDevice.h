@@ -20,8 +20,8 @@ public:
 public:
 
 	BlendDevice():Blend(){}
-	BlendDevice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Blend(file, name, parent, "blendDevice", create){}
+	BlendDevice(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Blend(file, name, parent, "blendDevice", shared, create){}
 	virtual ~BlendDevice(){}
 
 	void setInputAngle(size_t ia_i,double ia)
@@ -147,8 +147,8 @@ public:
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 	}
 protected:
-	BlendDevice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Blend(file, name, parent, nodeType, create) {}
+	BlendDevice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Blend(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

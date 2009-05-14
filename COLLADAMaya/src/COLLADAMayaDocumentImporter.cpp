@@ -438,7 +438,7 @@ namespace COLLADAMaya
                     if ( linearUnitMeter >= COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER )
                     {
                         // Set to meter
-                        linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
+                        linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
                         mLinearUnitConvertFactor = linearUnitMeter / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;  // 1 ? = 1 m
                     }
                     else 

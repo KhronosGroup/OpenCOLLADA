@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyBlindData():DependNode(){}
-	PolyBlindData(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "polyBlindData", create){}
+	PolyBlindData(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "polyBlindData", shared, create){}
 	virtual ~PolyBlindData(){}
 
 	void setTypeId(int tid)
@@ -47,8 +47,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	PolyBlindData(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	PolyBlindData(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

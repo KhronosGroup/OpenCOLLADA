@@ -19,13 +19,13 @@ class PolyCreaseEdge : public PolyCrease
 public:
 
 	PolyCreaseEdge():PolyCrease(){}
-	PolyCreaseEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyCrease(file, name, parent, "polyCreaseEdge", create){}
+	PolyCreaseEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyCrease(file, name, parent, "polyCreaseEdge", shared, create){}
 	virtual ~PolyCreaseEdge(){}
 
 protected:
-	PolyCreaseEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyCrease(file, name, parent, nodeType, create) {}
+	PolyCreaseEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyCrease(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

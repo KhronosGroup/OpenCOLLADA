@@ -19,13 +19,13 @@ class SubdBlindData : public PolyBlindData
 public:
 
 	SubdBlindData():PolyBlindData(){}
-	SubdBlindData(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyBlindData(file, name, parent, "subdBlindData", create){}
+	SubdBlindData(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyBlindData(file, name, parent, "subdBlindData", shared, create){}
 	virtual ~SubdBlindData(){}
 
 protected:
-	SubdBlindData(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyBlindData(file, name, parent, nodeType, create) {}
+	SubdBlindData(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyBlindData(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

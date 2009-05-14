@@ -20,8 +20,8 @@ public:
 public:
 
 	SurfaceSampler():DependNode(){}
-	SurfaceSampler(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "surfaceSampler", create){}
+	SurfaceSampler(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "surfaceSampler", shared, create){}
 	virtual ~SurfaceSampler(){}
 
 	void setMaxDist(float S00)
@@ -127,8 +127,8 @@ public:
 		fprintf(mFile,"\"%s.S10\"",mName.c_str());
 	}
 protected:
-	SurfaceSampler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SurfaceSampler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

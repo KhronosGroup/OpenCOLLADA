@@ -20,8 +20,8 @@ public:
 public:
 
 	DeformFunc():Shape(){}
-	DeformFunc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "deformFunc", create){}
+	DeformFunc(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "deformFunc", shared, create){}
 	virtual ~DeformFunc(){}
 
 	void setDeformerData(const doubleArray& dd)
@@ -45,8 +45,8 @@ public:
 		fprintf(mFile,"\"%s.hw\"",mName.c_str());
 	}
 protected:
-	DeformFunc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	DeformFunc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

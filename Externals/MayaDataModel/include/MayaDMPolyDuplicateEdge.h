@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyDuplicateEdge():PolyModifier(){}
-	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyDuplicateEdge", create){}
+	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyDuplicateEdge", shared, create){}
 	virtual ~PolyDuplicateEdge(){}
 
 	void setOffset(float of)
@@ -79,8 +79,8 @@ public:
 		fprintf(mFile,"\"%s.stp\"",mName.c_str());
 	}
 protected:
-	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

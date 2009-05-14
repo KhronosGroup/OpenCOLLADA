@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyModifierUV():PolyModifierWorld(){}
-	PolyModifierUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyModifierUV", create){}
+	PolyModifierUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyModifierUV", shared, create){}
 	virtual ~PolyModifierUV(){}
 
 	void setUvSetName(const string& uvs)
@@ -36,8 +36,8 @@ public:
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 	}
 protected:
-	PolyModifierUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyModifierUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

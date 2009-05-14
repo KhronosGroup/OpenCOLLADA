@@ -20,8 +20,8 @@ public:
 public:
 
 	UvChooser():DependNode(){}
-	UvChooser(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "uvChooser", create){}
+	UvChooser(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "uvChooser", shared, create){}
 	virtual ~UvChooser(){}
 
 	void setUvSets(size_t uvs_i,const string& uvs)
@@ -336,8 +336,8 @@ public:
 		fprintf(mFile,"\"%s.oc1.o1z\"",mName.c_str());
 	}
 protected:
-	UvChooser(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	UvChooser(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

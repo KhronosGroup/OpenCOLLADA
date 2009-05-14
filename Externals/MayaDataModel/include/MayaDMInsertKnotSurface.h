@@ -20,8 +20,8 @@ public:
 public:
 
 	InsertKnotSurface():AbstractBaseCreate(){}
-	InsertKnotSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "insertKnotSurface", create){}
+	InsertKnotSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "insertKnotSurface", shared, create){}
 	virtual ~InsertKnotSurface(){}
 
 	void setParameter(size_t p_i,double p)
@@ -134,8 +134,8 @@ public:
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 	}
 protected:
-	InsertKnotSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	InsertKnotSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

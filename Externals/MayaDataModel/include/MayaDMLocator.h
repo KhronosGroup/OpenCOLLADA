@@ -20,8 +20,8 @@ public:
 public:
 
 	Locator():GeometryShape(){}
-	Locator(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryShape(file, name, parent, "locator", create){}
+	Locator(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, "locator", shared, create){}
 	virtual ~Locator(){}
 
 	void setUnderWorldObject(bool uwo)
@@ -142,8 +142,8 @@ public:
 		fprintf(mFile,"\"%s.los.lsz\"",mName.c_str());
 	}
 protected:
-	Locator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryShape(file, name, parent, nodeType, create) {}
+	Locator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

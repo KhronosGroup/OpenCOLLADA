@@ -20,8 +20,8 @@ public:
 public:
 
 	Wood():Texture3d(){}
-	Wood(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "wood", create){}
+	Wood(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "wood", shared, create){}
 	virtual ~Wood(){}
 
 	void setXPixelAngle(float xpa)
@@ -373,8 +373,8 @@ public:
 		fprintf(mFile,"\"%s.d.dmx\"",mName.c_str());
 	}
 protected:
-	Wood(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Wood(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

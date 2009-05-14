@@ -20,8 +20,8 @@ public:
 public:
 
 	ObjectNameFilter():ObjectFilter(){}
-	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ObjectFilter(file, name, parent, "objectNameFilter", create){}
+	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, "objectNameFilter", shared, create){}
 	virtual ~ObjectNameFilter(){}
 
 	void setRegExp(const string& rex)
@@ -56,8 +56,8 @@ public:
 		fprintf(mFile,"\"%s.attr\"",mName.c_str());
 	}
 protected:
-	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ObjectFilter(file, name, parent, nodeType, create) {}
+	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

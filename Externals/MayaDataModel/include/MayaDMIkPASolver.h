@@ -19,13 +19,13 @@ class IkPASolver : public IkSolver
 public:
 
 	IkPASolver():IkSolver(){}
-	IkPASolver(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:IkSolver(file, name, parent, "ikPASolver", create){}
+	IkPASolver(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:IkSolver(file, name, parent, "ikPASolver", shared, create){}
 	virtual ~IkPASolver(){}
 
 protected:
-	IkPASolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:IkSolver(file, name, parent, nodeType, create) {}
+	IkPASolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:IkSolver(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

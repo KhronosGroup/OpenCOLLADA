@@ -20,8 +20,8 @@ public:
 public:
 
 	ParticleSamplerInfo():DependNode(){}
-	ParticleSamplerInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "particleSamplerInfo", create){}
+	ParticleSamplerInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "particleSamplerInfo", shared, create){}
 	virtual ~ParticleSamplerInfo(){}
 
 	void setOutUvType(unsigned int ouvt)
@@ -537,8 +537,8 @@ public:
 		fprintf(mFile,"\"%s.udv5.uv5z\"",mName.c_str());
 	}
 protected:
-	ParticleSamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ParticleSamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

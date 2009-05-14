@@ -19,13 +19,13 @@ class ParamDimension : public NurbsDimShape
 public:
 
 	ParamDimension():NurbsDimShape(){}
-	ParamDimension(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NurbsDimShape(file, name, parent, "paramDimension", create){}
+	ParamDimension(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NurbsDimShape(file, name, parent, "paramDimension", shared, create){}
 	virtual ~ParamDimension(){}
 
 protected:
-	ParamDimension(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NurbsDimShape(file, name, parent, nodeType, create) {}
+	ParamDimension(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NurbsDimShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

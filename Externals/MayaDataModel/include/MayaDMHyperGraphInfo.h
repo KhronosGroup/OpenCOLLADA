@@ -20,8 +20,8 @@ public:
 public:
 
 	HyperGraphInfo():DependNode(){}
-	HyperGraphInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "hyperGraphInfo", create){}
+	HyperGraphInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "hyperGraphInfo", shared, create){}
 	virtual ~HyperGraphInfo(){}
 
 	void getBookmarks(size_t b_i)const
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 	}
 protected:
-	HyperGraphInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	HyperGraphInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

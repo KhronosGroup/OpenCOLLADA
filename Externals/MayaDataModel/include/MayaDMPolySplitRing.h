@@ -31,8 +31,8 @@ public:
 public:
 
 	PolySplitRing():PolyModifierWorld(){}
-	PolySplitRing(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polySplitRing", create){}
+	PolySplitRing(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polySplitRing", shared, create){}
 	virtual ~PolySplitRing(){}
 
 	void setWeight(float wt)
@@ -230,8 +230,8 @@ public:
 		fprintf(mFile,"\"%s.fq\"",mName.c_str());
 	}
 protected:
-	PolySplitRing(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolySplitRing(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

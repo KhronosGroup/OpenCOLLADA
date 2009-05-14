@@ -20,8 +20,8 @@ public:
 public:
 
 	IkSystem():DependNode(){}
-	IkSystem(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "ikSystem", create){}
+	IkSystem(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "ikSystem", shared, create){}
 	virtual ~IkSystem(){}
 
 	void setGlobalSnap(bool gsn)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.sol\"",mName.c_str());
 	}
 protected:
-	IkSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	IkSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

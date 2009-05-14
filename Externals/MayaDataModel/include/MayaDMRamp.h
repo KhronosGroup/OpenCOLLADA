@@ -29,8 +29,8 @@ public:
 public:
 
 	Ramp():Texture2d(){}
-	Ramp(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "ramp", create){}
+	Ramp(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "ramp", shared, create){}
 	virtual ~Ramp(){}
 
 	void setType(unsigned int t)
@@ -254,8 +254,8 @@ public:
 		fprintf(mFile,"\"%s.vnf\"",mName.c_str());
 	}
 protected:
-	Ramp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Ramp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -31,8 +31,8 @@ public:
 public:
 
 	PolyBridgeEdge():PolyModifierWorld(){}
-	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyBridgeEdge", create){}
+	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyBridgeEdge", shared, create){}
 	virtual ~PolyBridgeEdge(){}
 
 	void setTwist(double twt)
@@ -194,8 +194,8 @@ public:
 		fprintf(mFile,"\"%s.sma\"",mName.c_str());
 	}
 protected:
-	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

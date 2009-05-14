@@ -162,8 +162,8 @@ public:
 public:
 
 	HairSystem():Shape(){}
-	HairSystem(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "hairSystem", create){}
+	HairSystem(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "hairSystem", shared, create){}
 	virtual ~HairSystem(){}
 
 	void setSimulationMethod(unsigned int sim)
@@ -1880,8 +1880,8 @@ public:
 		fprintf(mFile,"\"%s.orh\"",mName.c_str());
 	}
 protected:
-	HairSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	HairSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

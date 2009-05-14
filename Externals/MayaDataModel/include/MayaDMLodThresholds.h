@@ -20,8 +20,8 @@ public:
 public:
 
 	LodThresholds():DependNode(){}
-	LodThresholds(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "lodThresholds", create){}
+	LodThresholds(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "lodThresholds", shared, create){}
 	virtual ~LodThresholds(){}
 
 	void setInBoxMin(const double3& bmn)
@@ -190,8 +190,8 @@ public:
 		fprintf(mFile,"\"%s.ol\"",mName.c_str());
 	}
 protected:
-	LodThresholds(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	LodThresholds(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

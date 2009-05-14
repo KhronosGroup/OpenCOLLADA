@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveFromSubdivFace():CurveFromSubdiv(){}
-	CurveFromSubdivFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveFromSubdiv(file, name, parent, "curveFromSubdivFace", create){}
+	CurveFromSubdivFace(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveFromSubdiv(file, name, parent, "curveFromSubdivFace", shared, create){}
 	virtual ~CurveFromSubdivFace(){}
 
 	void setFaceIndexL(size_t fil_i,int fil)
@@ -99,8 +99,8 @@ public:
 		fprintf(mFile,"\"%s.fir\"",mName.c_str());
 	}
 protected:
-	CurveFromSubdivFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveFromSubdiv(file, name, parent, nodeType, create) {}
+	CurveFromSubdivFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveFromSubdiv(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	ImplicitCone():GeometryShape(){}
-	ImplicitCone(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryShape(file, name, parent, "implicitCone", create){}
+	ImplicitCone(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, "implicitCone", shared, create){}
 	virtual ~ImplicitCone(){}
 
 	void setConeAngle(double ca)
@@ -47,8 +47,8 @@ public:
 		fprintf(mFile,"\"%s.cap\"",mName.c_str());
 	}
 protected:
-	ImplicitCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryShape(file, name, parent, nodeType, create) {}
+	ImplicitCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

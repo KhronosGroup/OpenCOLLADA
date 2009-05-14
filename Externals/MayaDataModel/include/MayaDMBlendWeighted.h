@@ -20,8 +20,8 @@ public:
 public:
 
 	BlendWeighted():Blend(){}
-	BlendWeighted(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Blend(file, name, parent, "blendWeighted", create){}
+	BlendWeighted(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Blend(file, name, parent, "blendWeighted", shared, create){}
 	virtual ~BlendWeighted(){}
 
 	void setWeight(size_t w_i,float w)
@@ -62,8 +62,8 @@ public:
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 	}
 protected:
-	BlendWeighted(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Blend(file, name, parent, nodeType, create) {}
+	BlendWeighted(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Blend(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

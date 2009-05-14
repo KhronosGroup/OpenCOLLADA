@@ -20,8 +20,8 @@ public:
 public:
 
 	Texture3d():DependNode(){}
-	Texture3d(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "texture3d", create){}
+	Texture3d(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "texture3d", shared, create){}
 	virtual ~Texture3d(){}
 
 	void setFilter(float f)
@@ -292,8 +292,8 @@ public:
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
 	}
 protected:
-	Texture3d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Texture3d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

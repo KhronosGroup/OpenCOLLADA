@@ -83,8 +83,8 @@ public:
 public:
 
 	Particle():DeformableShape(){}
-	Particle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DeformableShape(file, name, parent, "particle", create){}
+	Particle(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DeformableShape(file, name, parent, "particle", shared, create){}
 	virtual ~Particle(){}
 
 	void setPosition0(const vectorArray& pos0)
@@ -1624,8 +1624,8 @@ public:
 		fprintf(mFile,"\"%s.dpos\"",mName.c_str());
 	}
 protected:
-	Particle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DeformableShape(file, name, parent, nodeType, create) {}
+	Particle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DeformableShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

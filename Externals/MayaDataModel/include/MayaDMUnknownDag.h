@@ -19,13 +19,13 @@ class UnknownDag : public DagNode
 public:
 
 	UnknownDag():DagNode(){}
-	UnknownDag(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DagNode(file, name, parent, "unknownDag", create){}
+	UnknownDag(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DagNode(file, name, parent, "unknownDag", shared, create){}
 	virtual ~UnknownDag(){}
 
 protected:
-	UnknownDag(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DagNode(file, name, parent, nodeType, create) {}
+	UnknownDag(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DagNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

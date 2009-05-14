@@ -29,8 +29,8 @@ public:
 public:
 
 	ResultCurveTimeToTime():ResultCurve(){}
-	ResultCurveTimeToTime(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ResultCurve(file, name, parent, "resultCurveTimeToTime", create){}
+	ResultCurveTimeToTime(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ResultCurve(file, name, parent, "resultCurveTimeToTime", shared, create){}
 	virtual ~ResultCurveTimeToTime(){}
 
 	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv)
@@ -87,8 +87,8 @@ public:
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());
 	}
 protected:
-	ResultCurveTimeToTime(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ResultCurve(file, name, parent, nodeType, create) {}
+	ResultCurveTimeToTime(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ResultCurve(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

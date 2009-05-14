@@ -20,8 +20,8 @@ public:
 public:
 
 	SquareSrf():BoundaryBase(){}
-	SquareSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BoundaryBase(file, name, parent, "squareSrf", create){}
+	SquareSrf(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BoundaryBase(file, name, parent, "squareSrf", shared, create){}
 	virtual ~SquareSrf(){}
 
 	void setCurveFitCheckpoints(int cfc)
@@ -122,8 +122,8 @@ public:
 		fprintf(mFile,"\"%s.cp4\"",mName.c_str());
 	}
 protected:
-	SquareSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BoundaryBase(file, name, parent, nodeType, create) {}
+	SquareSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BoundaryBase(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

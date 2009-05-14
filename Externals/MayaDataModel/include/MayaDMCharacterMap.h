@@ -20,8 +20,8 @@ public:
 public:
 
 	CharacterMap():DependNode(){}
-	CharacterMap(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "characterMap", create){}
+	CharacterMap(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "characterMap", shared, create){}
 	virtual ~CharacterMap(){}
 
 	void setMemberIndex(size_t mi_i,const intArray& mi)
@@ -66,8 +66,8 @@ public:
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 	}
 protected:
-	CharacterMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	CharacterMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

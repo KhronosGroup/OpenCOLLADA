@@ -20,8 +20,8 @@ public:
 public:
 
 	TimeFunction():DependNode(){}
-	TimeFunction(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "timeFunction", create){}
+	TimeFunction(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "timeFunction", shared, create){}
 	virtual ~TimeFunction(){}
 
 	void setInput(double i_)
@@ -38,8 +38,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	TimeFunction(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	TimeFunction(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

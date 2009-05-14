@@ -20,8 +20,8 @@ public:
 public:
 
 	DeformTwist():DeformFunc(){}
-	DeformTwist(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DeformFunc(file, name, parent, "deformTwist", create){}
+	DeformTwist(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, "deformTwist", shared, create){}
 	virtual ~DeformTwist(){}
 
 	void setLowBound(double lb)
@@ -61,8 +61,8 @@ public:
 		fprintf(mFile,"\"%s.ea\"",mName.c_str());
 	}
 protected:
-	DeformTwist(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DeformFunc(file, name, parent, nodeType, create) {}
+	DeformTwist(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	Bump3d():DependNode(){}
-	Bump3d(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "bump3d", create){}
+	Bump3d(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "bump3d", shared, create){}
 	virtual ~Bump3d(){}
 
 	void setXPixelAngle(float xpa)
@@ -218,8 +218,8 @@ public:
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 	}
 protected:
-	Bump3d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Bump3d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

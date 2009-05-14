@@ -20,8 +20,8 @@ public:
 public:
 
 	RenderQuality():DependNode(){}
-	RenderQuality(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "renderQuality", create){}
+	RenderQuality(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "renderQuality", shared, create){}
 	virtual ~RenderQuality(){}
 
 	void setReflections(int rfl)
@@ -223,8 +223,8 @@ public:
 		fprintf(mFile,"\"%s.cct\"",mName.c_str());
 	}
 protected:
-	RenderQuality(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RenderQuality(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

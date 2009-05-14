@@ -20,8 +20,8 @@ public:
 public:
 
 	Leather():Texture3d(){}
-	Leather(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "leather", create){}
+	Leather(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "leather", shared, create){}
 	virtual ~Leather(){}
 
 	void setCellColor(const float3& ce)
@@ -187,8 +187,8 @@ public:
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 	}
 protected:
-	Leather(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Leather(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

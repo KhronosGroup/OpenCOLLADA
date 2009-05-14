@@ -20,8 +20,8 @@ public:
 public:
 
 	HwShader():DependNode(){}
-	HwShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "hwShader", create){}
+	HwShader(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "hwShader", shared, create){}
 	virtual ~HwShader(){}
 
 	void setEnableHwShading(int ehs)
@@ -120,8 +120,8 @@ public:
 		fprintf(mFile,"\"%s.upar\"",mName.c_str());
 	}
 protected:
-	HwShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	HwShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

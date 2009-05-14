@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyUnite():PolyCreator(){}
-	PolyUnite(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyCreator(file, name, parent, "polyUnite", create){}
+	PolyUnite(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyCreator(file, name, parent, "polyUnite", shared, create){}
 	virtual ~PolyUnite(){}
 
 	void setUseOldPolyArchitecture(bool uopa)
@@ -48,8 +48,8 @@ public:
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 	}
 protected:
-	PolyUnite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyCreator(file, name, parent, nodeType, create) {}
+	PolyUnite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyCreator(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

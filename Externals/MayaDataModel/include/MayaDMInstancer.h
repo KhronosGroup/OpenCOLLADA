@@ -20,8 +20,8 @@ public:
 public:
 
 	Instancer():Transform(){}
-	Instancer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "instancer", create){}
+	Instancer(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "instancer", shared, create){}
 	virtual ~Instancer(){}
 
 	void setRotationOrder(unsigned int ror)
@@ -100,8 +100,8 @@ public:
 		fprintf(mFile,"\"%s.hc\"",mName.c_str());
 	}
 protected:
-	Instancer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	Instancer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

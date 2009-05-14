@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyModifier():PolyBase(){}
-	PolyModifier(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyBase(file, name, parent, "polyModifier", create){}
+	PolyModifier(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyBase(file, name, parent, "polyModifier", shared, create){}
 	virtual ~PolyModifier(){}
 
 	void setUseOldPolyArchitecture(bool uopa)
@@ -44,8 +44,8 @@ public:
 		fprintf(mFile,"\"%s.ics\"",mName.c_str());
 	}
 protected:
-	PolyModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyBase(file, name, parent, nodeType, create) {}
+	PolyModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyBase(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

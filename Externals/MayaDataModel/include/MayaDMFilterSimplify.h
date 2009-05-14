@@ -20,8 +20,8 @@ public:
 public:
 
 	FilterSimplify():Filter(){}
-	FilterSimplify(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Filter(file, name, parent, "filterSimplify", create){}
+	FilterSimplify(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Filter(file, name, parent, "filterSimplify", shared, create){}
 	virtual ~FilterSimplify(){}
 
 	void setTolerance(double tol)
@@ -70,8 +70,8 @@ public:
 		fprintf(mFile,"\"%s.ad\"",mName.c_str());
 	}
 protected:
-	FilterSimplify(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Filter(file, name, parent, nodeType, create) {}
+	FilterSimplify(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Filter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

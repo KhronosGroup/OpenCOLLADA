@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyChipOff():PolyMoveFace(){}
-	PolyChipOff(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyMoveFace(file, name, parent, "polyChipOff", create){}
+	PolyChipOff(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyMoveFace(file, name, parent, "polyChipOff", shared, create){}
 	virtual ~PolyChipOff(){}
 
 	void setKeepFacesTogether(bool kft)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.dup\"",mName.c_str());
 	}
 protected:
-	PolyChipOff(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyMoveFace(file, name, parent, nodeType, create) {}
+	PolyChipOff(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyMoveFace(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

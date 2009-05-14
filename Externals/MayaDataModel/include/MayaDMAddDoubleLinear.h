@@ -20,8 +20,8 @@ public:
 public:
 
 	AddDoubleLinear():DependNode(){}
-	AddDoubleLinear(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "addDoubleLinear", create){}
+	AddDoubleLinear(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "addDoubleLinear", shared, create){}
 	virtual ~AddDoubleLinear(){}
 
 	void setInput1(double i1)
@@ -47,8 +47,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	AddDoubleLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	AddDoubleLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	FilterResample():Filter(){}
-	FilterResample(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Filter(file, name, parent, "filterResample", create){}
+	FilterResample(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Filter(file, name, parent, "filterResample", shared, create){}
 	virtual ~FilterResample(){}
 
 	void setTimeStep(double ts)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.kr\"",mName.c_str());
 	}
 protected:
-	FilterResample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Filter(file, name, parent, nodeType, create) {}
+	FilterResample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Filter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

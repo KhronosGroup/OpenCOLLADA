@@ -20,8 +20,8 @@ public:
 public:
 
 	ExtendCurve():AbstractBaseCreate(){}
-	ExtendCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "extendCurve", create){}
+	ExtendCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "extendCurve", shared, create){}
 	virtual ~ExtendCurve(){}
 
 	void setInputPoint(const double3& ip)
@@ -136,8 +136,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	ExtendCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	ExtendCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

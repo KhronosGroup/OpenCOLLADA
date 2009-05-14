@@ -31,8 +31,8 @@ public:
 public:
 
 	AirField():Field(){}
-	AirField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Field(file, name, parent, "airField", create){}
+	AirField(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Field(file, name, parent, "airField", shared, create){}
 	virtual ~AirField(){}
 
 	void setDirection(const Direction& d)
@@ -127,8 +127,8 @@ public:
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());
 	}
 protected:
-	AirField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Field(file, name, parent, nodeType, create) {}
+	AirField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Field(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

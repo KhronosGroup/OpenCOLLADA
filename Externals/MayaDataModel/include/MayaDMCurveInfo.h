@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveInfo():AbstractBaseCreate(){}
-	CurveInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "curveInfo", create){}
+	CurveInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "curveInfo", shared, create){}
 	virtual ~CurveInfo(){}
 
 	void getInputCurve()const
@@ -87,8 +87,8 @@ public:
 		fprintf(mFile,"\"%s.kn\"",mName.c_str());
 	}
 protected:
-	CurveInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	CurveInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

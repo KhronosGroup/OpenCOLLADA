@@ -47,8 +47,8 @@ public:
 public:
 
 	Field():DynBase(){}
-	Field(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DynBase(file, name, parent, "field", create){}
+	Field(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DynBase(file, name, parent, "field", shared, create){}
 	virtual ~Field(){}
 
 	void setMagnitude(double mag)
@@ -385,8 +385,8 @@ public:
 		fprintf(mFile,"\"%s.fc.fci\"",mName.c_str());
 	}
 protected:
-	Field(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DynBase(file, name, parent, nodeType, create) {}
+	Field(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DynBase(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

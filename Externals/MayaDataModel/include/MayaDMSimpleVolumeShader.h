@@ -20,8 +20,8 @@ public:
 public:
 
 	SimpleVolumeShader():DependNode(){}
-	SimpleVolumeShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "simpleVolumeShader", create){}
+	SimpleVolumeShader(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "simpleVolumeShader", shared, create){}
 	virtual ~SimpleVolumeShader(){}
 
 	void setParameter1(float p1)
@@ -179,8 +179,8 @@ public:
 		fprintf(mFile,"\"%s.ot.otb\"",mName.c_str());
 	}
 protected:
-	SimpleVolumeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SimpleVolumeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

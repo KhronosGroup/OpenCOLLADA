@@ -20,8 +20,8 @@ public:
 public:
 
 	CacheBase():DependNode(){}
-	CacheBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "cacheBase", create){}
+	CacheBase(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "cacheBase", shared, create){}
 	virtual ~CacheBase(){}
 
 	void getOutCacheData(size_t ocd_i)const
@@ -38,8 +38,8 @@ public:
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());
 	}
 protected:
-	CacheBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	CacheBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

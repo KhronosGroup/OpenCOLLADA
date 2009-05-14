@@ -20,8 +20,8 @@ public:
 public:
 
 	PostProcessList():DependNode(){}
-	PostProcessList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "postProcessList", create){}
+	PostProcessList(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "postProcessList", shared, create){}
 	virtual ~PostProcessList(){}
 
 	void getPostProcesses(size_t p_i)const
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 	}
 protected:
-	PostProcessList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	PostProcessList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

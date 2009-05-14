@@ -20,8 +20,8 @@ public:
 public:
 
 	ParentTessellate():AbstractBaseNurbsConversion(){}
-	ParentTessellate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseNurbsConversion(file, name, parent, "parentTessellate", create){}
+	ParentTessellate(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, "parentTessellate", shared, create){}
 	virtual ~ParentTessellate(){}
 
 	void setFormat(unsigned int f)
@@ -191,8 +191,8 @@ public:
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 	}
 protected:
-	ParentTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseNurbsConversion(file, name, parent, nodeType, create) {}
+	ParentTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

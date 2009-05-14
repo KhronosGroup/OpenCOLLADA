@@ -24,8 +24,8 @@ public:
 public:
 
 	FurPointOnSubd():DependNode(){}
-	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "furPointOnSubd", create){}
+	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "furPointOnSubd", shared, create){}
 	virtual ~FurPointOnSubd(){}
 
 	void setRelative(bool rel)
@@ -144,8 +144,8 @@ public:
 		fprintf(mFile,"\"%s.nz\"",mName.c_str());
 	}
 protected:
-	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

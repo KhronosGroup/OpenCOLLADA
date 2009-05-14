@@ -19,13 +19,13 @@ class PolySplitEdge : public PolyModifier
 public:
 
 	PolySplitEdge():PolyModifier(){}
-	PolySplitEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polySplitEdge", create){}
+	PolySplitEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polySplitEdge", shared, create){}
 	virtual ~PolySplitEdge(){}
 
 protected:
-	PolySplitEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolySplitEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

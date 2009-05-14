@@ -20,8 +20,8 @@ public:
 public:
 
 	DeformBend():DeformFunc(){}
-	DeformBend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DeformFunc(file, name, parent, "deformBend", create){}
+	DeformBend(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, "deformBend", shared, create){}
 	virtual ~DeformBend(){}
 
 	void setLowBound(double lb)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.cur\"",mName.c_str());
 	}
 protected:
-	DeformBend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DeformFunc(file, name, parent, nodeType, create) {}
+	DeformBend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

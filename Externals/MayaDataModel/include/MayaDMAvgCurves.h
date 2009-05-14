@@ -20,8 +20,8 @@ public:
 public:
 
 	AvgCurves():AbstractBaseCreate(){}
-	AvgCurves(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "avgCurves", create){}
+	AvgCurves(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "avgCurves", shared, create){}
 	virtual ~AvgCurves(){}
 
 	void setWeight1(double w1)
@@ -73,8 +73,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	AvgCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	AvgCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

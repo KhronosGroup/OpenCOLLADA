@@ -20,8 +20,8 @@ public:
 public:
 
 	FilletCurve():AbstractBaseCreate(){}
-	FilletCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "filletCurve", create){}
+	FilletCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "filletCurve", shared, create){}
 	virtual ~FilletCurve(){}
 
 	void setRadius(double r)
@@ -135,8 +135,8 @@ public:
 		fprintf(mFile,"\"%s.bc\"",mName.c_str());
 	}
 protected:
-	FilletCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	FilletCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

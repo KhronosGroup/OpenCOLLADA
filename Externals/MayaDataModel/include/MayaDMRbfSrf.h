@@ -20,8 +20,8 @@ public:
 public:
 
 	RbfSrf():AbstractBaseCreate(){}
-	RbfSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "rbfSrf", create){}
+	RbfSrf(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "rbfSrf", shared, create){}
 	virtual ~RbfSrf(){}
 
 	void setPrimaryRadius(double pr)
@@ -96,8 +96,8 @@ public:
 		fprintf(mFile,"\"%s.tcs\"",mName.c_str());
 	}
 protected:
-	RbfSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	RbfSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

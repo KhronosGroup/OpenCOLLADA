@@ -31,8 +31,8 @@ public:
 public:
 
 	PolyExtrudeFace():PolyMoveFace(){}
-	PolyExtrudeFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyMoveFace(file, name, parent, "polyExtrudeFace", create){}
+	PolyExtrudeFace(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyMoveFace(file, name, parent, "polyExtrudeFace", shared, create){}
 	virtual ~PolyExtrudeFace(){}
 
 	void setKeepFacesTogether(bool kft)
@@ -167,8 +167,8 @@ public:
 		fprintf(mFile,"\"%s.sma\"",mName.c_str());
 	}
 protected:
-	PolyExtrudeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyMoveFace(file, name, parent, nodeType, create) {}
+	PolyExtrudeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyMoveFace(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

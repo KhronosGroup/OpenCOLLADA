@@ -19,13 +19,13 @@ class CurveShape : public ControlPoint
 public:
 
 	CurveShape():ControlPoint(){}
-	CurveShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ControlPoint(file, name, parent, "curveShape", create){}
+	CurveShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ControlPoint(file, name, parent, "curveShape", shared, create){}
 	virtual ~CurveShape(){}
 
 protected:
-	CurveShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ControlPoint(file, name, parent, nodeType, create) {}
+	CurveShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ControlPoint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

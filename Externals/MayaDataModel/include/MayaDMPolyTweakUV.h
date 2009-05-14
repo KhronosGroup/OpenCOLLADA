@@ -33,8 +33,8 @@ public:
 public:
 
 	PolyTweakUV():PolyModifier(){}
-	PolyTweakUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyTweakUV", create){}
+	PolyTweakUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyTweakUV", shared, create){}
 	virtual ~PolyTweakUV(){}
 
 	void setUvTweak(size_t uvtk_i,const float2& uvtk)
@@ -212,8 +212,8 @@ public:
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 	}
 protected:
-	PolyTweakUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyTweakUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	SelectionListOperator():DependNode(){}
-	SelectionListOperator(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "selectionListOperator", create){}
+	SelectionListOperator(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "selectionListOperator", shared, create){}
 	virtual ~SelectionListOperator(){}
 
 	void setOperation(unsigned int op)
@@ -55,8 +55,8 @@ public:
 		fprintf(mFile,"\"%s.ocls\"",mName.c_str());
 	}
 protected:
-	SelectionListOperator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SelectionListOperator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

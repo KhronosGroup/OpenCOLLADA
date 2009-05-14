@@ -20,8 +20,8 @@ public:
 public:
 
 	Lambert():DependNode(){}
-	Lambert(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "lambert", create){}
+	Lambert(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "lambert", shared, create){}
 	virtual ~Lambert(){}
 
 	void setRefractionLimit(short rdl)
@@ -997,8 +997,8 @@ public:
 		fprintf(mFile,"\"%s.minc.mincz\"",mName.c_str());
 	}
 protected:
-	Lambert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Lambert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

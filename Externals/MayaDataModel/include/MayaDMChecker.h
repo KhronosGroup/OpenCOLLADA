@@ -20,8 +20,8 @@ public:
 public:
 
 	Checker():Texture2d(){}
-	Checker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "checker", create){}
+	Checker(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "checker", shared, create){}
 	virtual ~Checker(){}
 
 	void setColor1(const float3& c1)
@@ -110,8 +110,8 @@ public:
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 	}
 protected:
-	Checker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Checker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

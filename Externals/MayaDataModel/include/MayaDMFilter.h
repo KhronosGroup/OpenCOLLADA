@@ -30,8 +30,8 @@ public:
 public:
 
 	Filter():DependNode(){}
-	Filter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "filter", create){}
+	Filter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "filter", shared, create){}
 	virtual ~Filter(){}
 
 	void setDeviceEditorActive(bool dea)
@@ -44,8 +44,8 @@ public:
 		fprintf(mFile,"\"%s.dea\"",mName.c_str());
 	}
 protected:
-	Filter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Filter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

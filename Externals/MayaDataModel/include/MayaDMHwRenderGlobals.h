@@ -20,8 +20,8 @@ public:
 public:
 
 	HwRenderGlobals():DependNode(){}
-	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "hwRenderGlobals", create){}
+	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "hwRenderGlobals", shared, create){}
 	virtual ~HwRenderGlobals(){}
 
 	void setRenderPasses(unsigned int rp)
@@ -319,8 +319,8 @@ public:
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 	}
 protected:
-	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

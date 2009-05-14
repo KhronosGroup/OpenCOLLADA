@@ -20,8 +20,8 @@ public:
 public:
 
 	NComponent():DependNode(){}
-	NComponent(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "nComponent", create){}
+	NComponent(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "nComponent", shared, create){}
 	virtual ~NComponent(){}
 
 	void setComponentGroupId(int cid)
@@ -224,8 +224,8 @@ public:
 		fprintf(mFile,"\"%s.wmt\"",mName.c_str());
 	}
 protected:
-	NComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	NComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

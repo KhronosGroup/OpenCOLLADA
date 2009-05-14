@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyBase():DependNode(){}
-	PolyBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "polyBase", create){}
+	PolyBase(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "polyBase", shared, create){}
 	virtual ~PolyBase(){}
 
 	void getOutput()const
@@ -29,8 +29,8 @@ public:
 		fprintf(mFile,"\"%s.out\"",mName.c_str());
 	}
 protected:
-	PolyBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	PolyBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

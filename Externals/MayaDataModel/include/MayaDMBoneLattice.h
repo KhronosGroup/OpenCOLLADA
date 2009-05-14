@@ -20,8 +20,8 @@ public:
 public:
 
 	BoneLattice():GeometryFilter(){}
-	BoneLattice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "boneLattice", create){}
+	BoneLattice(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "boneLattice", shared, create){}
 	virtual ~BoneLattice(){}
 
 	void setBicep(double bi)
@@ -173,8 +173,8 @@ public:
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 	}
 protected:
-	BoneLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	BoneLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

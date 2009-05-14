@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdTweak():SubdModifier(){}
-	SubdTweak(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SubdModifier(file, name, parent, "subdTweak", create){}
+	SubdTweak(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SubdModifier(file, name, parent, "subdTweak", shared, create){}
 	virtual ~SubdTweak(){}
 
 	void setTweak(size_t tk_i,const double3& tk)
@@ -110,8 +110,8 @@ public:
 		fprintf(mFile,"\"%s.map\"",mName.c_str());
 	}
 protected:
-	SubdTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SubdModifier(file, name, parent, nodeType, create) {}
+	SubdTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SubdModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

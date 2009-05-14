@@ -20,8 +20,8 @@ public:
 public:
 
 	ParticleAgeMapper():DependNode(){}
-	ParticleAgeMapper(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "particleAgeMapper", create){}
+	ParticleAgeMapper(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "particleAgeMapper", shared, create){}
 	virtual ~ParticleAgeMapper(){}
 
 	void setRelativeAge(bool rea)
@@ -72,8 +72,8 @@ public:
 		fprintf(mFile,"\"%s.fae\"",mName.c_str());
 	}
 protected:
-	ParticleAgeMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ParticleAgeMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	ImplicitSphere():GeometryShape(){}
-	ImplicitSphere(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryShape(file, name, parent, "implicitSphere", create){}
+	ImplicitSphere(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, "implicitSphere", shared, create){}
 	virtual ~ImplicitSphere(){}
 
 	void setRadius(double rd)
@@ -38,8 +38,8 @@ public:
 		fprintf(mFile,"\"%s.rd\"",mName.c_str());
 	}
 protected:
-	ImplicitSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryShape(file, name, parent, nodeType, create) {}
+	ImplicitSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

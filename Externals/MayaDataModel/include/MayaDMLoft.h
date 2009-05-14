@@ -20,8 +20,8 @@ public:
 public:
 
 	Loft():AbstractBaseCreate(){}
-	Loft(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "loft", create){}
+	Loft(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "loft", shared, create){}
 	virtual ~Loft(){}
 
 	void setUniform(bool u)
@@ -166,8 +166,8 @@ public:
 		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 	}
 protected:
-	Loft(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	Loft(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

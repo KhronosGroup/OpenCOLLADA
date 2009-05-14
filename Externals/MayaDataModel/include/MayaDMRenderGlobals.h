@@ -20,8 +20,8 @@ public:
 public:
 
 	RenderGlobals():DependNode(){}
-	RenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "renderGlobals", create){}
+	RenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "renderGlobals", shared, create){}
 	virtual ~RenderGlobals(){}
 
 	void setMacCodec(int macc)
@@ -827,8 +827,8 @@ public:
 		fprintf(mFile,"\"%s.oppf\"",mName.c_str());
 	}
 protected:
-	RenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

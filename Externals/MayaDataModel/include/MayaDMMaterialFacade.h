@@ -20,8 +20,8 @@ public:
 public:
 
 	MaterialFacade():Facade(){}
-	MaterialFacade(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Facade(file, name, parent, "materialFacade", create){}
+	MaterialFacade(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Facade(file, name, parent, "materialFacade", shared, create){}
 	virtual ~MaterialFacade(){}
 
 	void setProxyInitProc(const string& pip)
@@ -78,8 +78,8 @@ public:
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 	}
 protected:
-	MaterialFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Facade(file, name, parent, nodeType, create) {}
+	MaterialFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Facade(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

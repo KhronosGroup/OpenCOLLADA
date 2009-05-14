@@ -20,8 +20,8 @@ public:
 public:
 
 	MakeNurbPlane():Primitive(){}
-	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Primitive(file, name, parent, "makeNurbPlane", create){}
+	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Primitive(file, name, parent, "makeNurbPlane", shared, create){}
 	virtual ~MakeNurbPlane(){}
 
 	void setWidth(double w)
@@ -70,8 +70,8 @@ public:
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 	}
 protected:
-	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Primitive(file, name, parent, nodeType, create) {}
+	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Primitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

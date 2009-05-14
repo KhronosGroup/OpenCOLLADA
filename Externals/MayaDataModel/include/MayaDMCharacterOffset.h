@@ -20,8 +20,8 @@ public:
 public:
 
 	CharacterOffset():DependNode(){}
-	CharacterOffset(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "characterOffset", create){}
+	CharacterOffset(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "characterOffset", shared, create){}
 	virtual ~CharacterOffset(){}
 
 	void setInRootTranslate(const double3& rti)
@@ -422,8 +422,8 @@ public:
 		fprintf(mFile,"\"%s.rro.rroz\"",mName.c_str());
 	}
 protected:
-	CharacterOffset(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	CharacterOffset(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

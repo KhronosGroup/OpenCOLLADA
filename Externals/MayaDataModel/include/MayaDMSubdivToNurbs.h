@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdivToNurbs():AbstractBaseCreate(){}
-	SubdivToNurbs(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "subdivToNurbs", create){}
+	SubdivToNurbs(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "subdivToNurbs", shared, create){}
 	virtual ~SubdivToNurbs(){}
 
 	void setOutputType(unsigned int ot)
@@ -56,8 +56,8 @@ public:
 		fprintf(mFile,"\"%s.amr\"",mName.c_str());
 	}
 protected:
-	SubdivToNurbs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	SubdivToNurbs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

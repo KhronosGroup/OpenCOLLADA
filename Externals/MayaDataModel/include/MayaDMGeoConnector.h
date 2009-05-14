@@ -25,8 +25,8 @@ public:
 public:
 
 	GeoConnector():DependNode(){}
-	GeoConnector(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "geoConnector", create){}
+	GeoConnector(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "geoConnector", shared, create){}
 	virtual ~GeoConnector(){}
 
 	void setWorldMatrix(const matrix& wm)
@@ -321,8 +321,8 @@ public:
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 	}
 protected:
-	GeoConnector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	GeoConnector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

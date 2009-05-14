@@ -59,8 +59,8 @@ public:
 public:
 
 	Sampler():DependNode(){}
-	Sampler(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "sampler", create){}
+	Sampler(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "sampler", shared, create){}
 	virtual ~Sampler(){}
 
 	void setMinimum(double min)
@@ -238,8 +238,8 @@ public:
 		fprintf(mFile,"\"%s.f.fd\"",mName.c_str());
 	}
 protected:
-	Sampler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Sampler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

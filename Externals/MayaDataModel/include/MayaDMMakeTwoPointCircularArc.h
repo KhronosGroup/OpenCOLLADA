@@ -20,8 +20,8 @@ public:
 public:
 
 	MakeTwoPointCircularArc():MakeCircularArc(){}
-	MakeTwoPointCircularArc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:MakeCircularArc(file, name, parent, "makeTwoPointCircularArc", create){}
+	MakeTwoPointCircularArc(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:MakeCircularArc(file, name, parent, "makeTwoPointCircularArc", shared, create){}
 	virtual ~MakeTwoPointCircularArc(){}
 
 	void setPoint1(const double3& pt1)
@@ -154,8 +154,8 @@ public:
 		fprintf(mFile,"\"%s.tac\"",mName.c_str());
 	}
 protected:
-	MakeTwoPointCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:MakeCircularArc(file, name, parent, nodeType, create) {}
+	MakeTwoPointCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:MakeCircularArc(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

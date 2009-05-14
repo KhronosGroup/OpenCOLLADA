@@ -20,8 +20,8 @@ public:
 public:
 
 	LodGroup():Transform(){}
-	LodGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "lodGroup", create){}
+	LodGroup(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "lodGroup", shared, create){}
 	virtual ~LodGroup(){}
 
 	void setCameraMatrix(const matrix& cm)
@@ -154,8 +154,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	LodGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	LodGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

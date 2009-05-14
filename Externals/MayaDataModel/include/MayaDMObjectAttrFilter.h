@@ -20,8 +20,8 @@ public:
 public:
 
 	ObjectAttrFilter():ObjectFilter(){}
-	ObjectAttrFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ObjectFilter(file, name, parent, "objectAttrFilter", create){}
+	ObjectAttrFilter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, "objectAttrFilter", shared, create){}
 	virtual ~ObjectAttrFilter(){}
 
 	void setAttrType(unsigned int atyp)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.atyp\"",mName.c_str());
 	}
 protected:
-	ObjectAttrFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ObjectFilter(file, name, parent, nodeType, create) {}
+	ObjectAttrFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

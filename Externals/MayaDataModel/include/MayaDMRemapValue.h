@@ -43,8 +43,8 @@ public:
 public:
 
 	RemapValue():DependNode(){}
-	RemapValue(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "remapValue", create){}
+	RemapValue(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "remapValue", shared, create){}
 	virtual ~RemapValue(){}
 
 	void setInputValue(float i_)
@@ -320,8 +320,8 @@ public:
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 	}
 protected:
-	RemapValue(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RemapValue(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	MakeNurbCircle():AbstractBaseCreate(){}
-	MakeNurbCircle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "makeNurbCircle", create){}
+	MakeNurbCircle(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "makeNurbCircle", shared, create){}
 	virtual ~MakeNurbCircle(){}
 
 	void setFirst(const double3& fp)
@@ -203,8 +203,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	MakeNurbCircle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	MakeNurbCircle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

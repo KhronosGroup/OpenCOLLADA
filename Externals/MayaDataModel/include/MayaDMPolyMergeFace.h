@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyMergeFace():PolyModifier(){}
-	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyMergeFace", create){}
+	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyMergeFace", shared, create){}
 	virtual ~PolyMergeFace(){}
 
 	void setMergeMode(unsigned int mm)
@@ -57,8 +57,8 @@ public:
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 	}
 protected:
-	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

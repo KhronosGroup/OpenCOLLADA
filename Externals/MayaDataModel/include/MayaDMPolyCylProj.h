@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyCylProj():PolyModifierWorld(){}
-	PolyCylProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyCylProj", create){}
+	PolyCylProj(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyCylProj", shared, create){}
 	virtual ~PolyCylProj(){}
 
 	void setProjectionCenter(const double3& pc)
@@ -235,8 +235,8 @@ public:
 		fprintf(mFile,"\"%s.cid\"",mName.c_str());
 	}
 protected:
-	PolyCylProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyCylProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

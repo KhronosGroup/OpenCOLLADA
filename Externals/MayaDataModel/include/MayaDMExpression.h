@@ -20,8 +20,8 @@ public:
 public:
 
 	Expression():DependNode(){}
-	Expression(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "expression", create){}
+	Expression(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "expression", shared, create){}
 	virtual ~Expression(){}
 
 	void setInput(size_t in_i,double in)
@@ -140,8 +140,8 @@ public:
 		fprintf(mFile,"\"%s.uno\"",mName.c_str());
 	}
 protected:
-	Expression(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Expression(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

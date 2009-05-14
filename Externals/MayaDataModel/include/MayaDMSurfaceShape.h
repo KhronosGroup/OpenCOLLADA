@@ -64,8 +64,8 @@ public:
 public:
 
 	SurfaceShape():ControlPoint(){}
-	SurfaceShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ControlPoint(file, name, parent, "surfaceShape", create){}
+	SurfaceShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ControlPoint(file, name, parent, "surfaceShape", shared, create){}
 	virtual ~SurfaceShape(){}
 
 	void setIgnoreHwShader(bool ih)
@@ -524,8 +524,8 @@ public:
 		fprintf(mFile,"\"%s.cdvm.cdvmi\"",mName.c_str());
 	}
 protected:
-	SurfaceShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ControlPoint(file, name, parent, nodeType, create) {}
+	SurfaceShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ControlPoint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

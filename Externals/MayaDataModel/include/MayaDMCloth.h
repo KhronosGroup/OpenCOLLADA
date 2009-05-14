@@ -20,8 +20,8 @@ public:
 public:
 
 	Cloth():Texture2d(){}
-	Cloth(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "cloth", create){}
+	Cloth(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "cloth", shared, create){}
 	virtual ~Cloth(){}
 
 	void setGapColor(const float3& gc)
@@ -202,8 +202,8 @@ public:
 		fprintf(mFile,"\"%s.bs\"",mName.c_str());
 	}
 protected:
-	Cloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Cloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

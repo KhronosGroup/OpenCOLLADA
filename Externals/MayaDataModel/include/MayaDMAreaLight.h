@@ -104,8 +104,8 @@ public:
 public:
 
 	AreaLight():NonExtendedLightShapeNode(){}
-	AreaLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NonExtendedLightShapeNode(file, name, parent, "areaLight", create){}
+	AreaLight(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, "areaLight", shared, create){}
 	virtual ~AreaLight(){}
 
 	void setPointWorld(const float3& pw)
@@ -557,8 +557,8 @@ public:
 		fprintf(mFile,"\"%s.mrc.aobj\"",mName.c_str());
 	}
 protected:
-	AreaLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NonExtendedLightShapeNode(file, name, parent, nodeType, create) {}
+	AreaLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

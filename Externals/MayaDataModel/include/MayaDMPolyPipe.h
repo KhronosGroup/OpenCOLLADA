@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyPipe():PolyPrimitive(){}
-	PolyPipe(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyPrimitive(file, name, parent, "polyPipe", create){}
+	PolyPipe(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, "polyPipe", shared, create){}
 	virtual ~PolyPipe(){}
 
 	void setRadius(double r)
@@ -106,8 +106,8 @@ public:
 		fprintf(mFile,"\"%s.rcp\"",mName.c_str());
 	}
 protected:
-	PolyPipe(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyPrimitive(file, name, parent, nodeType, create) {}
+	PolyPipe(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

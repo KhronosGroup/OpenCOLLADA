@@ -20,8 +20,8 @@ public:
 public:
 
 	CopyUVSet():DependNode(){}
-	CopyUVSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "copyUVSet", create){}
+	CopyUVSet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "copyUVSet", shared, create){}
 	virtual ~CopyUVSet(){}
 
 	void setUvSetName(const string& uvs)
@@ -55,8 +55,8 @@ public:
 		fprintf(mFile,"\"%s.uv2\"",mName.c_str());
 	}
 protected:
-	CopyUVSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	CopyUVSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

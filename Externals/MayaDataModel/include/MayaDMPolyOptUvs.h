@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyOptUvs():PolyModifierUV(){}
-	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierUV(file, name, parent, "polyOptUvs", create){}
+	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, "polyOptUvs", shared, create){}
 	virtual ~PolyOptUvs(){}
 
 	void setIterations(int i_)
@@ -124,8 +124,8 @@ public:
 		fprintf(mFile,"\"%s.gmb\"",mName.c_str());
 	}
 protected:
-	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierUV(file, name, parent, nodeType, create) {}
+	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

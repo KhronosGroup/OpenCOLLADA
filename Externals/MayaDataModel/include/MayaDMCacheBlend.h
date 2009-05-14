@@ -45,8 +45,8 @@ public:
 public:
 
 	CacheBlend():CacheBase(){}
-	CacheBlend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CacheBase(file, name, parent, "cacheBlend", create){}
+	CacheBlend(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CacheBase(file, name, parent, "cacheBlend", shared, create){}
 	virtual ~CacheBlend(){}
 
 	void setInCache(size_t ic_i,const InCache& ic)
@@ -245,8 +245,8 @@ public:
 		fprintf(mFile,"\"%s.cd.w\"",mName.c_str());
 	}
 protected:
-	CacheBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CacheBase(file, name, parent, nodeType, create) {}
+	CacheBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CacheBase(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

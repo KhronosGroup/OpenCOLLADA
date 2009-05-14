@@ -20,8 +20,8 @@ public:
 public:
 
 	ShadingMap():DependNode(){}
-	ShadingMap(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "shadingMap", create){}
+	ShadingMap(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "shadingMap", shared, create){}
 	virtual ~ShadingMap(){}
 
 	void setMapFunctionU(unsigned int mfu)
@@ -578,8 +578,8 @@ public:
 		fprintf(mFile,"\"%s.minc.mincz\"",mName.c_str());
 	}
 protected:
-	ShadingMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ShadingMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

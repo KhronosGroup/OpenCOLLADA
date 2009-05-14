@@ -20,8 +20,8 @@ public:
 public:
 
 	VolumeShader():DependNode(){}
-	VolumeShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "volumeShader", create){}
+	VolumeShader(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "volumeShader", shared, create){}
 	virtual ~VolumeShader(){}
 
 	void setOutColor(const float3& oc)
@@ -139,8 +139,8 @@ public:
 		fprintf(mFile,"\"%s.omo.omob\"",mName.c_str());
 	}
 protected:
-	VolumeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	VolumeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -32,8 +32,8 @@ public:
 public:
 
 	SkinCluster():GeometryFilter(){}
-	SkinCluster(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "skinCluster", create){}
+	SkinCluster(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "skinCluster", shared, create){}
 	virtual ~SkinCluster(){}
 
 	void setWeightList(size_t wl_i,const WeightList& wl)
@@ -471,8 +471,8 @@ public:
 		fprintf(mFile,"\"%s.bp\"",mName.c_str());
 	}
 protected:
-	SkinCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	SkinCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

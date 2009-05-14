@@ -20,8 +20,8 @@ public:
 public:
 
 	VolumeNoise():Texture3d(){}
-	VolumeNoise(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "volumeNoise", create){}
+	VolumeNoise(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "volumeNoise", shared, create){}
 	virtual ~VolumeNoise(){}
 
 	void setXPixelAngle(float xpa)
@@ -324,8 +324,8 @@ public:
 		fprintf(mFile,"\"%s.imc.imz\"",mName.c_str());
 	}
 protected:
-	VolumeNoise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	VolumeNoise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

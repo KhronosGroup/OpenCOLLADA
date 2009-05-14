@@ -20,8 +20,8 @@ public:
 public:
 
 	PolySubdEdge():PolyModifierWorld(){}
-	PolySubdEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polySubdEdge", create){}
+	PolySubdEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polySubdEdge", shared, create){}
 	virtual ~PolySubdEdge(){}
 
 	void setDivisions(int dv)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 	}
 protected:
-	PolySubdEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolySubdEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

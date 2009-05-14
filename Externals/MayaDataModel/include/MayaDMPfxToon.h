@@ -36,8 +36,8 @@ public:
 public:
 
 	PfxToon():PfxGeometry(){}
-	PfxToon(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PfxGeometry(file, name, parent, "pfxToon", create){}
+	PfxToon(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PfxGeometry(file, name, parent, "pfxToon", shared, create){}
 	virtual ~PfxToon(){}
 
 	void setDisplayInViewport(bool div)
@@ -827,8 +827,8 @@ public:
 		fprintf(mFile,"\"%s.opm\"",mName.c_str());
 	}
 protected:
-	PfxToon(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PfxGeometry(file, name, parent, nodeType, create) {}
+	PfxToon(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PfxGeometry(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

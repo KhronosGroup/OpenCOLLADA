@@ -20,8 +20,8 @@ public:
 public:
 
 	Wrap():GeometryFilter(){}
-	Wrap(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "wrap", create){}
+	Wrap(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "wrap", shared, create){}
 	virtual ~Wrap(){}
 
 	void setGeomMatrix(const matrix& gm)
@@ -237,8 +237,8 @@ public:
 		fprintf(mFile,"\"%s.bsd\"",mName.c_str());
 	}
 protected:
-	Wrap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	Wrap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

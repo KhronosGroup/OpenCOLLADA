@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveNormalizerLinear():CurveNormalizer(){}
-	CurveNormalizerLinear(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveNormalizer(file, name, parent, "curveNormalizerLinear", create){}
+	CurveNormalizerLinear(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveNormalizer(file, name, parent, "curveNormalizerLinear", shared, create){}
 	virtual ~CurveNormalizerLinear(){}
 
 	void setAnimInput(double ai)
@@ -38,8 +38,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	CurveNormalizerLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveNormalizer(file, name, parent, nodeType, create) {}
+	CurveNormalizerLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveNormalizer(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

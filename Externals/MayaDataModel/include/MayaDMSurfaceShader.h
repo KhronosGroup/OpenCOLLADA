@@ -20,8 +20,8 @@ public:
 public:
 
 	SurfaceShader():DependNode(){}
-	SurfaceShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "surfaceShader", create){}
+	SurfaceShader(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "surfaceShader", shared, create){}
 	virtual ~SurfaceShader(){}
 
 	void setOutColor(const float3& oc)
@@ -479,8 +479,8 @@ public:
 		fprintf(mFile,"\"%s.maga\"",mName.c_str());
 	}
 protected:
-	SurfaceShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SurfaceShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

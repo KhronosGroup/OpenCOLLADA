@@ -20,8 +20,8 @@ public:
 public:
 
 	RevolvedPrimitive():Primitive(){}
-	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Primitive(file, name, parent, "revolvedPrimitive", create){}
+	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Primitive(file, name, parent, "revolvedPrimitive", shared, create){}
 	virtual ~RevolvedPrimitive(){}
 
 	void setRadius(double r)
@@ -118,8 +118,8 @@ public:
 		fprintf(mFile,"\"%s.asd\"",mName.c_str());
 	}
 protected:
-	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Primitive(file, name, parent, nodeType, create) {}
+	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Primitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

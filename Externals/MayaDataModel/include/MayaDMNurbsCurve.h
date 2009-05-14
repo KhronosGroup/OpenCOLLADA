@@ -20,8 +20,8 @@ public:
 public:
 
 	NurbsCurve():CurveShape(){}
-	NurbsCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveShape(file, name, parent, "nurbsCurve", create){}
+	NurbsCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveShape(file, name, parent, "nurbsCurve", shared, create){}
 	virtual ~NurbsCurve(){}
 
 	void setCached(const nurbsCurve& cc)
@@ -201,8 +201,8 @@ public:
 		fprintf(mFile,"\"%s.mmv.max\"",mName.c_str());
 	}
 protected:
-	NurbsCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveShape(file, name, parent, nodeType, create) {}
+	NurbsCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

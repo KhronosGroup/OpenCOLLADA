@@ -67,8 +67,8 @@ public:
 public:
 
 	DirectionalLight():NonExtendedLightShapeNode(){}
-	DirectionalLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NonExtendedLightShapeNode(file, name, parent, "directionalLight", create){}
+	DirectionalLight(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, "directionalLight", shared, create){}
 	virtual ~DirectionalLight(){}
 
 	void setUseLightPosition(bool up)
@@ -369,8 +369,8 @@ public:
 		fprintf(mFile,"\"%s.mrc.sdal\"",mName.c_str());
 	}
 protected:
-	DirectionalLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NonExtendedLightShapeNode(file, name, parent, nodeType, create) {}
+	DirectionalLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

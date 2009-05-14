@@ -20,8 +20,8 @@ public:
 public:
 
 	GeoConnectable():Shape(){}
-	GeoConnectable(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "geoConnectable", create){}
+	GeoConnectable(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "geoConnectable", shared, create){}
 	virtual ~GeoConnectable(){}
 
 	void getConnectionsToMe(size_t ct_i)const
@@ -88,8 +88,8 @@ public:
 		fprintf(mFile,"\"%s.lsg\"",mName.c_str());
 	}
 protected:
-	GeoConnectable(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	GeoConnectable(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

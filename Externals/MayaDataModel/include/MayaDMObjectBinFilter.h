@@ -20,8 +20,8 @@ public:
 public:
 
 	ObjectBinFilter():ObjectFilter(){}
-	ObjectBinFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ObjectFilter(file, name, parent, "objectBinFilter", create){}
+	ObjectBinFilter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, "objectBinFilter", shared, create){}
 	virtual ~ObjectBinFilter(){}
 
 	void setBinName(const string& bnam)
@@ -36,8 +36,8 @@ public:
 		fprintf(mFile,"\"%s.bnam\"",mName.c_str());
 	}
 protected:
-	ObjectBinFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ObjectFilter(file, name, parent, nodeType, create) {}
+	ObjectBinFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

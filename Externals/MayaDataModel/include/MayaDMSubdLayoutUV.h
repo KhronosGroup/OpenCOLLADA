@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdLayoutUV():SubdModifierUV(){}
-	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SubdModifierUV(file, name, parent, "subdLayoutUV", create){}
+	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SubdModifierUV(file, name, parent, "subdLayoutUV", shared, create){}
 	virtual ~SubdLayoutUV(){}
 
 	void setSeparate(unsigned int se)
@@ -97,8 +97,8 @@ public:
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 	}
 protected:
-	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SubdModifierUV(file, name, parent, nodeType, create) {}
+	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SubdModifierUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

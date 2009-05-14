@@ -44,8 +44,8 @@ public:
 public:
 
 	Tweak():GeometryFilter(){}
-	Tweak(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "tweak", create){}
+	Tweak(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "tweak", shared, create){}
 	virtual ~Tweak(){}
 
 	void setRelativeTweak(bool rtw)
@@ -298,8 +298,8 @@ public:
 		fprintf(mFile,"\"%s.vl.vt[%i].vz\"",mName.c_str(),vt_i);
 	}
 protected:
-	Tweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	Tweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

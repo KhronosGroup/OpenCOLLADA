@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveVarGroup():BaseGeometryVarGroup(){}
-	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BaseGeometryVarGroup(file, name, parent, "curveVarGroup", create){}
+	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, "curveVarGroup", shared, create){}
 	virtual ~CurveVarGroup(){}
 
 	void setDisplaySmoothness(int ds)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 	}
 protected:
-	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BaseGeometryVarGroup(file, name, parent, nodeType, create) {}
+	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

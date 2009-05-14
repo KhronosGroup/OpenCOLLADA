@@ -20,8 +20,8 @@ public:
 public:
 
 	SurfaceLuminance():DependNode(){}
-	SurfaceLuminance(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "surfaceLuminance", create){}
+	SurfaceLuminance(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "surfaceLuminance", shared, create){}
 	virtual ~SurfaceLuminance(){}
 
 	void getNormalCamera()const
@@ -180,8 +180,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	SurfaceLuminance(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SurfaceLuminance(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

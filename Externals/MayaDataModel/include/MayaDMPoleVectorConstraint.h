@@ -20,8 +20,8 @@ public:
 public:
 
 	PoleVectorConstraint():PointConstraint(){}
-	PoleVectorConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PointConstraint(file, name, parent, "poleVectorConstraint", create){}
+	PoleVectorConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PointConstraint(file, name, parent, "poleVectorConstraint", shared, create){}
 	virtual ~PoleVectorConstraint(){}
 
 	void setPivotSpace(const matrix& ps)
@@ -36,8 +36,8 @@ public:
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 	}
 protected:
-	PoleVectorConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PointConstraint(file, name, parent, nodeType, create) {}
+	PoleVectorConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PointConstraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

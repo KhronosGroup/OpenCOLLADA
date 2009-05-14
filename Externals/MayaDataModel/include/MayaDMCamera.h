@@ -71,8 +71,8 @@ public:
 public:
 
 	Camera():Shape(){}
-	Camera(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "camera", create){}
+	Camera(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "camera", shared, create){}
 	virtual ~Camera(){}
 
 	void setRenderable(bool rnd)
@@ -929,8 +929,8 @@ public:
 		fprintf(mFile,"\"%s.mrc.mirp[%i]\"",mName.c_str(),mirp_i);
 	}
 protected:
-	Camera(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	Camera(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

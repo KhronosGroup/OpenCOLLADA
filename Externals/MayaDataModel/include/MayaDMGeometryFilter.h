@@ -27,8 +27,8 @@ public:
 public:
 
 	GeometryFilter():DependNode(){}
-	GeometryFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "geometryFilter", create){}
+	GeometryFilter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "geometryFilter", shared, create){}
 	virtual ~GeometryFilter(){}
 
 	void setInput(size_t ip_i,const Input& ip)
@@ -133,8 +133,8 @@ public:
 		fprintf(mFile,"\"%s.map\"",mName.c_str());
 	}
 protected:
-	GeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	GeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -57,8 +57,8 @@ public:
 public:
 
 	PolyColorPerVertex():PolyModifier(){}
-	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyColorPerVertex", create){}
+	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyColorPerVertex", shared, create){}
 	virtual ~PolyColorPerVertex(){}
 
 	void setColorPerVertex(const ColorPerVertex& cpvx)
@@ -263,8 +263,8 @@ public:
 		fprintf(mFile,"\"%s.rprt\"",mName.c_str());
 	}
 protected:
-	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

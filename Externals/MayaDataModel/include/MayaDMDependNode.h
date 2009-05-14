@@ -21,26 +21,41 @@ protected:
 	FILE* mFile;
 	std::string mName;
 	std::string mParent;
+	bool mShared;
 	std::string mNodeType;
 public:
 	const std::string& getName()const
 	{
-		return mName;	}
+		return mName;
+	}
 	const std::string& getParent()const
 	{
-		return mParent;	}
+		return mParent;
+	}
+	bool getShared()const
+	{
+		return mShared;
+	}
 	const std::string& getType()const
 	{
-		return mNodeType;	}
+		return mNodeType;
+	}
 	void setFile(FILE* file)
 	{
-		mFile = file;	}
+		mFile = file;
+	}
 	void setName(const std::string& name)
 	{
-		mName = name;	}
+		mName = name;
+	}
 	void setParent(const std::string& parent)
 	{
-		mParent = parent;	}
+		mParent = parent;
+	}
+	void setShared(bool parent)
+	{
+		mShared = parent;
+	}
 public:
 
 	DependNode(){}
@@ -85,8 +100,8 @@ public:
 		fprintf(mFile,"\"%s.nds\"",mName.c_str());
 	}
 protected:
-	DependNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:mFile(file), mName(name), mParent(parent), mNodeType(nodeType)
+	DependNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:mFile(file), mName(name), mParent(parent), mNodeType(nodeType), mShared(shared) 
 	{
 		if(create)
 			createNode();
@@ -94,10 +109,14 @@ protected:
 private:
 	void createNode()const
 	{
-		fprintf(mFile, "createNode %s -n \"%s\"", mNodeType.c_str(),mName.c_str());
+		if(mShared)
+			fprintf(mFile, "createNode %s -s -n \"%s\"", mNodeType.c_str(),mName.c_str());
+		else
+			fprintf(mFile, "createNode %s -n \"%s\"", mNodeType.c_str(),mName.c_str());
 		if(mParent != "") 
 			fprintf(mFile, " -p \"%s\"", mParent.c_str());
-		fprintf(mFile, ";\n");	}
+		fprintf(mFile, ";\n");
+	}
 
 };
 }//namespace MayaDM

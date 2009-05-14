@@ -75,8 +75,8 @@ public:
 public:
 
 	PolyColorMod():PolyModifier(){}
-	PolyColorMod(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyColorMod", create){}
+	PolyColorMod(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyColorMod", shared, create){}
 	virtual ~PolyColorMod(){}
 
 	void setBaseColorName(const string& bcn)
@@ -528,8 +528,8 @@ public:
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 	}
 protected:
-	PolyColorMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyColorMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

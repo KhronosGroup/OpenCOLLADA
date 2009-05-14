@@ -34,8 +34,8 @@ public:
 public:
 
 	LayeredTexture():DependNode(){}
-	LayeredTexture(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "layeredTexture", create){}
+	LayeredTexture(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "layeredTexture", shared, create){}
 	virtual ~LayeredTexture(){}
 
 	void setInputs(size_t cs_i,const Inputs& cs)
@@ -244,8 +244,8 @@ public:
 		fprintf(mFile,"\"%s.ot.otb\"",mName.c_str());
 	}
 protected:
-	LayeredTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	LayeredTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

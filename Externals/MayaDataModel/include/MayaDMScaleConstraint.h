@@ -33,8 +33,8 @@ public:
 public:
 
 	ScaleConstraint():Constraint(){}
-	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Constraint(file, name, parent, "scaleConstraint", create){}
+	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Constraint(file, name, parent, "scaleConstraint", shared, create){}
 	virtual ~ScaleConstraint(){}
 
 	void setTarget(size_t tg_i,const Target& tg)
@@ -245,8 +245,8 @@ public:
 		fprintf(mFile,"\"%s.rs.rsz\"",mName.c_str());
 	}
 protected:
-	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Constraint(file, name, parent, nodeType, create) {}
+	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Constraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

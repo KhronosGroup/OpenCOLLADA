@@ -20,8 +20,8 @@ public:
 public:
 
 	Snapshot():DependNode(){}
-	Snapshot(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "snapshot", create){}
+	Snapshot(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "snapshot", shared, create){}
 	virtual ~Snapshot(){}
 
 	void setStartTime(double s)
@@ -135,8 +135,8 @@ public:
 		fprintf(mFile,"\"%s.up\"",mName.c_str());
 	}
 protected:
-	Snapshot(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Snapshot(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

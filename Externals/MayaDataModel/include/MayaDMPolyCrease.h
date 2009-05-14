@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyCrease():PolyModifierWorld(){}
-	PolyCrease(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyCrease", create){}
+	PolyCrease(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyCrease", shared, create){}
 	virtual ~PolyCrease(){}
 
 	void setCrease(size_t cr_i,float cr)
@@ -109,8 +109,8 @@ public:
 		fprintf(mFile,"\"%s.crv\"",mName.c_str());
 	}
 protected:
-	PolyCrease(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyCrease(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

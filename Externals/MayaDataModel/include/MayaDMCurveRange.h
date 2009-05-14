@@ -19,13 +19,13 @@ class CurveRange : public AbstractBaseCreate
 public:
 
 	CurveRange():AbstractBaseCreate(){}
-	CurveRange(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "curveRange", create){}
+	CurveRange(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "curveRange", shared, create){}
 	virtual ~CurveRange(){}
 
 protected:
-	CurveRange(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	CurveRange(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	DetachSurface():AbstractBaseCreate(){}
-	DetachSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "detachSurface", create){}
+	DetachSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "detachSurface", shared, create){}
 	virtual ~DetachSurface(){}
 
 	void setDirection(unsigned int d)
@@ -121,8 +121,8 @@ public:
 		fprintf(mFile,"\"%s.k\"",mName.c_str());
 	}
 protected:
-	DetachSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	DetachSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

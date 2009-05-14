@@ -20,8 +20,8 @@ public:
 public:
 
 	OpticalFX():DependNode(){}
-	OpticalFX(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "opticalFX", create){}
+	OpticalFX(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "opticalFX", shared, create){}
 	virtual ~OpticalFX(){}
 
 	void setActive(bool act)
@@ -619,8 +619,8 @@ public:
 		fprintf(mFile,"\"%s.vb.vbb\"",mName.c_str());
 	}
 protected:
-	OpticalFX(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	OpticalFX(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

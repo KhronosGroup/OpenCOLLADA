@@ -20,8 +20,8 @@ public:
 public:
 
 	Container():DependNode(){}
-	Container(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "container", create){}
+	Container(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "container", shared, create){}
 	virtual ~Container(){}
 
 	void setIsCollapsed(bool isc)
@@ -38,8 +38,8 @@ public:
 		fprintf(mFile,"\"%s.isc\"",mName.c_str());
 	}
 protected:
-	Container(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Container(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

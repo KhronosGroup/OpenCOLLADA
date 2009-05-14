@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyLayoutUV():PolyModifierUV(){}
-	PolyLayoutUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierUV(file, name, parent, "polyLayoutUV", create){}
+	PolyLayoutUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, "polyLayoutUV", shared, create){}
 	virtual ~PolyLayoutUV(){}
 
 	void setSeparate(unsigned int se)
@@ -97,8 +97,8 @@ public:
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 	}
 protected:
-	PolyLayoutUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierUV(file, name, parent, nodeType, create) {}
+	PolyLayoutUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

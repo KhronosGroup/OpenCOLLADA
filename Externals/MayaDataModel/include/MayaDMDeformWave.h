@@ -20,8 +20,8 @@ public:
 public:
 
 	DeformWave():DeformFunc(){}
-	DeformWave(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DeformFunc(file, name, parent, "deformWave", create){}
+	DeformWave(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, "deformWave", shared, create){}
 	virtual ~DeformWave(){}
 
 	void setMaxRadius(double mxr)
@@ -88,8 +88,8 @@ public:
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 	}
 protected:
-	DeformWave(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DeformFunc(file, name, parent, nodeType, create) {}
+	DeformWave(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

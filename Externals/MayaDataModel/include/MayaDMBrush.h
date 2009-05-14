@@ -109,8 +109,8 @@ public:
 public:
 
 	Brush():DependNode(){}
-	Brush(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "brush", create){}
+	Brush(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "brush", shared, create){}
 	virtual ~Brush(){}
 
 	void setTime(double tim)
@@ -3862,8 +3862,8 @@ public:
 		fprintf(mFile,"\"%s.hde\"",mName.c_str());
 	}
 protected:
-	Brush(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Brush(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

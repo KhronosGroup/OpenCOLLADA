@@ -20,8 +20,8 @@ public:
 public:
 
 	DefaultLightList():DependNode(){}
-	DefaultLightList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "defaultLightList", create){}
+	DefaultLightList(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "defaultLightList", shared, create){}
 	virtual ~DefaultLightList(){}
 
 	void getLightDataArray(size_t lda_i)const
@@ -220,8 +220,8 @@ public:
 		fprintf(mFile,"\"%s.ltd.lbdo\"",mName.c_str());
 	}
 protected:
-	DefaultLightList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DefaultLightList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

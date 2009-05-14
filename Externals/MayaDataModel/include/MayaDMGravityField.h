@@ -31,8 +31,8 @@ public:
 public:
 
 	GravityField():Field(){}
-	GravityField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Field(file, name, parent, "gravityField", create){}
+	GravityField(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Field(file, name, parent, "gravityField", shared, create){}
 	virtual ~GravityField(){}
 
 	void setDirection(const Direction& d)
@@ -73,8 +73,8 @@ public:
 		fprintf(mFile,"\"%s.d.dz\"",mName.c_str());
 	}
 protected:
-	GravityField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Field(file, name, parent, nodeType, create) {}
+	GravityField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Field(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

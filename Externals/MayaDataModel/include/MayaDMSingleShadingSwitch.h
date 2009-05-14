@@ -27,8 +27,8 @@ public:
 public:
 
 	SingleShadingSwitch():BaseShadingSwitch(){}
-	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BaseShadingSwitch(file, name, parent, "singleShadingSwitch", create){}
+	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BaseShadingSwitch(file, name, parent, "singleShadingSwitch", shared, create){}
 	virtual ~SingleShadingSwitch(){}
 
 	void setInput(size_t i_i,const Input& i_)
@@ -108,8 +108,8 @@ public:
 		fprintf(mFile,"\"%s.out\"",mName.c_str());
 	}
 protected:
-	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BaseShadingSwitch(file, name, parent, nodeType, create) {}
+	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BaseShadingSwitch(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -65,8 +65,8 @@ public:
 public:
 
 	RenderLayer():DependNode(){}
-	RenderLayer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "renderLayer", create){}
+	RenderLayer(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "renderLayer", shared, create){}
 	virtual ~RenderLayer(){}
 
 	void setGlobal(bool g)
@@ -415,8 +415,8 @@ public:
 		fprintf(mFile,"\"%s.ac\"",mName.c_str());
 	}
 protected:
-	RenderLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RenderLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

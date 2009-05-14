@@ -20,8 +20,8 @@ public:
 public:
 
 	Grid():Texture2d(){}
-	Grid(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "grid", create){}
+	Grid(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "grid", shared, create){}
 	virtual ~Grid(){}
 
 	void setFillerColor(const float3& fc)
@@ -128,8 +128,8 @@ public:
 		fprintf(mFile,"\"%s.vw\"",mName.c_str());
 	}
 protected:
-	Grid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Grid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

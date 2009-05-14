@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyNormalizeUV():PolyModifierUV(){}
-	PolyNormalizeUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierUV(file, name, parent, "polyNormalizeUV", create){}
+	PolyNormalizeUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, "polyNormalizeUV", shared, create){}
 	virtual ~PolyNormalizeUV(){}
 
 	void setNormalizeType(unsigned int nt)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.pa\"",mName.c_str());
 	}
 protected:
-	PolyNormalizeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierUV(file, name, parent, nodeType, create) {}
+	PolyNormalizeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

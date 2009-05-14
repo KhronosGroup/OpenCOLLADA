@@ -20,8 +20,8 @@ public:
 public:
 
 	RgbToHsv():DependNode(){}
-	RgbToHsv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "rgbToHsv", create){}
+	RgbToHsv(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "rgbToHsv", shared, create){}
 	virtual ~RgbToHsv(){}
 
 	void setInRgb(const float3& i_)
@@ -79,8 +79,8 @@ public:
 		fprintf(mFile,"\"%s.o.ov\"",mName.c_str());
 	}
 protected:
-	RgbToHsv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RgbToHsv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

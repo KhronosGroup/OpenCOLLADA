@@ -20,8 +20,8 @@ public:
 public:
 
 	DistanceBetween():DependNode(){}
-	DistanceBetween(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "distanceBetween", create){}
+	DistanceBetween(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "distanceBetween", shared, create){}
 	virtual ~DistanceBetween(){}
 
 	void setPoint1(const double3& p1)
@@ -125,8 +125,8 @@ public:
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 	}
 protected:
-	DistanceBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DistanceBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	CopyColorSet():DependNode(){}
-	CopyColorSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "copyColorSet", create){}
+	CopyColorSet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "copyColorSet", shared, create){}
 	virtual ~CopyColorSet(){}
 
 	void setSrcColorSetName(const string& src)
@@ -55,8 +55,8 @@ public:
 		fprintf(mFile,"\"%s.dst\"",mName.c_str());
 	}
 protected:
-	CopyColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	CopyColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

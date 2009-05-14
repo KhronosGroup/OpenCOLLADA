@@ -20,8 +20,8 @@ public:
 public:
 
 	VertexBakeSet():BakeSet(){}
-	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BakeSet(file, name, parent, "vertexBakeSet", create){}
+	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BakeSet(file, name, parent, "vertexBakeSet", shared, create){}
 	virtual ~VertexBakeSet(){}
 
 	void setBakeColor(bool color)
@@ -187,8 +187,8 @@ public:
 		fprintf(mFile,"\"%s.csn\"",mName.c_str());
 	}
 protected:
-	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BakeSet(file, name, parent, nodeType, create) {}
+	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BakeSet(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	DiskCache():DependNode(){}
-	DiskCache(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "diskCache", create){}
+	DiskCache(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "diskCache", shared, create){}
 	virtual ~DiskCache(){}
 
 	void setEnable(bool ebl)
@@ -96,8 +96,8 @@ public:
 		fprintf(mFile,"\"%s.cpl\"",mName.c_str());
 	}
 protected:
-	DiskCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DiskCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	PlanarTrimSurface():AbstractBaseCreate(){}
-	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "planarTrimSurface", create){}
+	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "planarTrimSurface", shared, create){}
 	virtual ~PlanarTrimSurface(){}
 
 	void setDegree(unsigned int d)
@@ -65,8 +65,8 @@ public:
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 	}
 protected:
-	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

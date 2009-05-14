@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyMoveVertex():PolyModifierWorld(){}
-	PolyMoveVertex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyMoveVertex", create){}
+	PolyMoveVertex(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyMoveVertex", shared, create){}
 	virtual ~PolyMoveVertex(){}
 
 	void setTranslate(const double3& t)
@@ -316,8 +316,8 @@ public:
 		fprintf(mFile,"\"%s.ga\"",mName.c_str());
 	}
 protected:
-	PolyMoveVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyMoveVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

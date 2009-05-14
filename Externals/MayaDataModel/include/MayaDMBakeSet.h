@@ -20,8 +20,8 @@ public:
 public:
 
 	BakeSet():ObjectSet(){}
-	BakeSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ObjectSet(file, name, parent, "bakeSet", create){}
+	BakeSet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ObjectSet(file, name, parent, "bakeSet", shared, create){}
 	virtual ~BakeSet(){}
 
 	void setBakeAlpha(bool alpha)
@@ -92,8 +92,8 @@ public:
 		fprintf(mFile,"\"%s.csh\"",mName.c_str());
 	}
 protected:
-	BakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ObjectSet(file, name, parent, nodeType, create) {}
+	BakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ObjectSet(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

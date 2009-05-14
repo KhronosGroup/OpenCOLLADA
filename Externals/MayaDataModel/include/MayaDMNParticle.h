@@ -20,8 +20,8 @@ public:
 public:
 
 	NParticle():Particle(){}
-	NParticle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Particle(file, name, parent, "nParticle", create){}
+	NParticle(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Particle(file, name, parent, "nParticle", shared, create){}
 	virtual ~NParticle(){}
 
 	void setPlayFromCache(bool pfc)
@@ -469,8 +469,8 @@ public:
 		fprintf(mFile,"\"%s.dcl.dcb\"",mName.c_str());
 	}
 protected:
-	NParticle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Particle(file, name, parent, nodeType, create) {}
+	NParticle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Particle(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

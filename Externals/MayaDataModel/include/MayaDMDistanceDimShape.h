@@ -20,8 +20,8 @@ public:
 public:
 
 	DistanceDimShape():DimensionShape(){}
-	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DimensionShape(file, name, parent, "distanceDimShape", create){}
+	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DimensionShape(file, name, parent, "distanceDimShape", shared, create){}
 	virtual ~DistanceDimShape(){}
 
 	void setStartPoint(const double3& sp)
@@ -103,8 +103,8 @@ public:
 		fprintf(mFile,"\"%s.dist\"",mName.c_str());
 	}
 protected:
-	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DimensionShape(file, name, parent, nodeType, create) {}
+	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DimensionShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

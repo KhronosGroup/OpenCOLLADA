@@ -25,8 +25,8 @@ public:
 public:
 
 	ClosestPointOnSurface():AbstractBaseCreate(){}
-	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "closestPointOnSurface", create){}
+	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "closestPointOnSurface", shared, create){}
 	virtual ~ClosestPointOnSurface(){}
 
 	void setInPosition(const double3& ip)
@@ -100,8 +100,8 @@ public:
 		fprintf(mFile,"\"%s.r.v\"",mName.c_str());
 	}
 protected:
-	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

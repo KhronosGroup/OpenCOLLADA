@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyHelix():PolyPrimitive(){}
-	PolyHelix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyPrimitive(file, name, parent, "polyHelix", create){}
+	PolyHelix(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, "polyHelix", shared, create){}
 	virtual ~PolyHelix(){}
 
 	void setCoils(double c)
@@ -133,8 +133,8 @@ public:
 		fprintf(mFile,"\"%s.oib\"",mName.c_str());
 	}
 protected:
-	PolyHelix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyPrimitive(file, name, parent, nodeType, create) {}
+	PolyHelix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

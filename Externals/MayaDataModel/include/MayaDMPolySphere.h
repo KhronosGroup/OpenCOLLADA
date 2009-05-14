@@ -20,8 +20,8 @@ public:
 public:
 
 	PolySphere():PolyPrimitive(){}
-	PolySphere(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyPrimitive(file, name, parent, "polySphere", create){}
+	PolySphere(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, "polySphere", shared, create){}
 	virtual ~PolySphere(){}
 
 	void setRadius(double r)
@@ -70,8 +70,8 @@ public:
 		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
 	}
 protected:
-	PolySphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyPrimitive(file, name, parent, nodeType, create) {}
+	PolySphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

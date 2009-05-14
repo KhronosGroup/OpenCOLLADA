@@ -20,8 +20,8 @@ public:
 public:
 
 	Boundary():BoundaryBase(){}
-	Boundary(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BoundaryBase(file, name, parent, "boundary", create){}
+	Boundary(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BoundaryBase(file, name, parent, "boundary", shared, create){}
 	virtual ~Boundary(){}
 
 	void setOrder(bool or)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.ep\"",mName.c_str());
 	}
 protected:
-	Boundary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BoundaryBase(file, name, parent, nodeType, create) {}
+	Boundary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BoundaryBase(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

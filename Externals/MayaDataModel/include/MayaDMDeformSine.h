@@ -20,8 +20,8 @@ public:
 public:
 
 	DeformSine():DeformFunc(){}
-	DeformSine(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DeformFunc(file, name, parent, "deformSine", create){}
+	DeformSine(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, "deformSine", shared, create){}
 	virtual ~DeformSine(){}
 
 	void setLowBound(double lb)
@@ -79,8 +79,8 @@ public:
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 	}
 protected:
-	DeformSine(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DeformFunc(file, name, parent, nodeType, create) {}
+	DeformSine(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

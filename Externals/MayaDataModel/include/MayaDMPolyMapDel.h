@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyMapDel():PolyModifier(){}
-	PolyMapDel(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyMapDel", create){}
+	PolyMapDel(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyMapDel", shared, create){}
 	virtual ~PolyMapDel(){}
 
 	void setUvSetName(const string& uvs)
@@ -36,8 +36,8 @@ public:
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 	}
 protected:
-	PolyMapDel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyMapDel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

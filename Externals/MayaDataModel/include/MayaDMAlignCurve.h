@@ -20,8 +20,8 @@ public:
 public:
 
 	AlignCurve():AbstractBaseCreate(){}
-	AlignCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "alignCurve", create){}
+	AlignCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "alignCurve", shared, create){}
 	virtual ~AlignCurve(){}
 
 	void setTangentScale1(double ts1)
@@ -167,8 +167,8 @@ public:
 		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 	}
 protected:
-	AlignCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	AlignCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

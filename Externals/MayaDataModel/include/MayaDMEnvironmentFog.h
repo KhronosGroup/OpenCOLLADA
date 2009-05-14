@@ -19,13 +19,13 @@ class EnvironmentFog : public GeometryShape
 public:
 
 	EnvironmentFog():GeometryShape(){}
-	EnvironmentFog(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryShape(file, name, parent, "environmentFog", create){}
+	EnvironmentFog(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, "environmentFog", shared, create){}
 	virtual ~EnvironmentFog(){}
 
 protected:
-	EnvironmentFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryShape(file, name, parent, nodeType, create) {}
+	EnvironmentFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

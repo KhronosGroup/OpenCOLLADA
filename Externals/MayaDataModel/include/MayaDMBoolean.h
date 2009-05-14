@@ -20,8 +20,8 @@ public:
 public:
 
 	Boolean():AbstractBaseCreate(){}
-	Boolean(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "boolean", create){}
+	Boolean(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "boolean", shared, create){}
 	virtual ~Boolean(){}
 
 	void setOperation(unsigned int op)
@@ -55,8 +55,8 @@ public:
 		fprintf(mFile,"\"%s.osh\"",mName.c_str());
 	}
 protected:
-	Boolean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	Boolean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

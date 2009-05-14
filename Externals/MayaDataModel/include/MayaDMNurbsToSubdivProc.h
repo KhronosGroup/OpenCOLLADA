@@ -20,8 +20,8 @@ public:
 public:
 
 	NurbsToSubdivProc():NurbsToSubdiv(){}
-	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NurbsToSubdiv(file, name, parent, "nurbsToSubdivProc", create){}
+	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NurbsToSubdiv(file, name, parent, "nurbsToSubdivProc", shared, create){}
 	virtual ~NurbsToSubdivProc(){}
 
 	void setSolidType(unsigned int st)
@@ -80,8 +80,8 @@ public:
 		fprintf(mFile,"\"%s.biv\"",mName.c_str());
 	}
 protected:
-	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NurbsToSubdiv(file, name, parent, nodeType, create) {}
+	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NurbsToSubdiv(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

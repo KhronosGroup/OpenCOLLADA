@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyPlatonicSolid():PolyPrimitive(){}
-	PolyPlatonicSolid(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyPrimitive(file, name, parent, "polyPlatonicSolid", create){}
+	PolyPlatonicSolid(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, "polyPlatonicSolid", shared, create){}
 	virtual ~PolyPlatonicSolid(){}
 
 	void setRadius(double r)
@@ -70,8 +70,8 @@ public:
 		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
 	}
 protected:
-	PolyPlatonicSolid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyPrimitive(file, name, parent, nodeType, create) {}
+	PolyPlatonicSolid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -101,8 +101,8 @@ public:
 public:
 
 	ClipScheduler():DependNode(){}
-	ClipScheduler(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "clipScheduler", create){}
+	ClipScheduler(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "clipScheduler", shared, create){}
 	virtual ~ClipScheduler(){}
 
 	void setBlendList(size_t bl_i,const BlendList& bl)
@@ -954,8 +954,8 @@ public:
 		fprintf(mFile,"\"%s.ar\"",mName.c_str());
 	}
 protected:
-	ClipScheduler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ClipScheduler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

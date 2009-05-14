@@ -20,8 +20,8 @@ public:
 public:
 
 	Script():DependNode(){}
-	Script(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "script", create){}
+	Script(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "script", shared, create){}
 	virtual ~Script(){}
 
 	void setBefore(const string& b)
@@ -56,8 +56,8 @@ public:
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 	}
 protected:
-	Script(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Script(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

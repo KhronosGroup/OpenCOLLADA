@@ -102,8 +102,8 @@ public:
 public:
 
 	DagNode():Entity(){}
-	DagNode(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Entity(file, name, parent, "dagNode", create){}
+	DagNode(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Entity(file, name, parent, "dagNode", shared, create){}
 	virtual ~DagNode(){}
 
 	void setVisibility(bool v)
@@ -676,8 +676,8 @@ public:
 		fprintf(mFile,"\"%s.gdr\"",mName.c_str());
 	}
 protected:
-	DagNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Entity(file, name, parent, nodeType, create) {}
+	DagNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Entity(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

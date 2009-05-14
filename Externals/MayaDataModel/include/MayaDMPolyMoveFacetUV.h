@@ -19,13 +19,13 @@ class PolyMoveFacetUV : public PolyMoveUV
 public:
 
 	PolyMoveFacetUV():PolyMoveUV(){}
-	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyMoveUV(file, name, parent, "polyMoveFacetUV", create){}
+	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyMoveUV(file, name, parent, "polyMoveFacetUV", shared, create){}
 	virtual ~PolyMoveFacetUV(){}
 
 protected:
-	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyMoveUV(file, name, parent, nodeType, create) {}
+	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyMoveUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

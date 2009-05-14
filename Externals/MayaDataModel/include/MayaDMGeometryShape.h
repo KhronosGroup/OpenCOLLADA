@@ -41,8 +41,8 @@ public:
 public:
 
 	GeometryShape():Shape(){}
-	GeometryShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "geometryShape", create){}
+	GeometryShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "geometryShape", shared, create){}
 	virtual ~GeometryShape(){}
 
 	void setRenderType(short rt)
@@ -330,8 +330,8 @@ public:
 		fprintf(mFile,"\"%s.ciog.cog[%i].cgid\"",mName.c_str(),cog_i);
 	}
 protected:
-	GeometryShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	GeometryShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

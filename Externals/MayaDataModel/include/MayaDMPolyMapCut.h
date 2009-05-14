@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyMapCut():PolyModifier(){}
-	PolyMapCut(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyMapCut", create){}
+	PolyMapCut(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyMapCut", shared, create){}
 	virtual ~PolyMapCut(){}
 
 	void setUvSetName(const string& uvs)
@@ -36,8 +36,8 @@ public:
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 	}
 protected:
-	PolyMapCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyMapCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

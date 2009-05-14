@@ -20,8 +20,8 @@ public:
 public:
 
 	DeformSquash():DeformFunc(){}
-	DeformSquash(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DeformFunc(file, name, parent, "deformSquash", create){}
+	DeformSquash(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, "deformSquash", shared, create){}
 	virtual ~DeformSquash(){}
 
 	void setLowBound(double lb)
@@ -88,8 +88,8 @@ public:
 		fprintf(mFile,"\"%s.fac\"",mName.c_str());
 	}
 protected:
-	DeformSquash(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DeformFunc(file, name, parent, nodeType, create) {}
+	DeformSquash(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

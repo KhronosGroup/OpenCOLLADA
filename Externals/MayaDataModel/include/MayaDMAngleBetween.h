@@ -25,8 +25,8 @@ public:
 public:
 
 	AngleBetween():DependNode(){}
-	AngleBetween(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "angleBetween", create){}
+	AngleBetween(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "angleBetween", shared, create){}
 	virtual ~AngleBetween(){}
 
 	void setVector1(const double3& v1)
@@ -144,8 +144,8 @@ public:
 		fprintf(mFile,"\"%s.axa.a\"",mName.c_str());
 	}
 protected:
-	AngleBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	AngleBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

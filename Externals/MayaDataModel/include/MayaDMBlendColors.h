@@ -20,8 +20,8 @@ public:
 public:
 
 	BlendColors():DependNode(){}
-	BlendColors(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "blendColors", create){}
+	BlendColors(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "blendColors", shared, create){}
 	virtual ~BlendColors(){}
 
 	void setBlender(float b)
@@ -126,8 +126,8 @@ public:
 		fprintf(mFile,"\"%s.op.opb\"",mName.c_str());
 	}
 protected:
-	BlendColors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	BlendColors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

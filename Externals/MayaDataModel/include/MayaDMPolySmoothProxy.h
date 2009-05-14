@@ -20,8 +20,8 @@ public:
 public:
 
 	PolySmoothProxy():PolyModifier(){}
-	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polySmoothProxy", create){}
+	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polySmoothProxy", shared, create){}
 	virtual ~PolySmoothProxy(){}
 
 	void setMethod(unsigned int mth)
@@ -173,8 +173,8 @@ public:
 		fprintf(mFile,"\"%s.mn\"",mName.c_str());
 	}
 protected:
-	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

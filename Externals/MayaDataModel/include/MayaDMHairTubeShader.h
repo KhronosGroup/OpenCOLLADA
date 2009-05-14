@@ -32,8 +32,8 @@ public:
 public:
 
 	HairTubeShader():Reflect(){}
-	HairTubeShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Reflect(file, name, parent, "hairTubeShader", create){}
+	HairTubeShader(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Reflect(file, name, parent, "hairTubeShader", shared, create){}
 	virtual ~HairTubeShader(){}
 
 	void setTubeDirection(unsigned int tdr)
@@ -342,8 +342,8 @@ public:
 		fprintf(mFile,"\"%s.mirf\"",mName.c_str());
 	}
 protected:
-	HairTubeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Reflect(file, name, parent, nodeType, create) {}
+	HairTubeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Reflect(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

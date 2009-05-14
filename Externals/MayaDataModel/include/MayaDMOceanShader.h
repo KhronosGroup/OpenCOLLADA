@@ -65,8 +65,8 @@ public:
 public:
 
 	OceanShader():DependNode(){}
-	OceanShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "oceanShader", create){}
+	OceanShader(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "oceanShader", shared, create){}
 	virtual ~OceanShader(){}
 
 	void setRefractionLimit(short rdl)
@@ -1705,8 +1705,8 @@ public:
 		fprintf(mFile,"\"%s.minc.mincz\"",mName.c_str());
 	}
 protected:
-	OceanShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	OceanShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

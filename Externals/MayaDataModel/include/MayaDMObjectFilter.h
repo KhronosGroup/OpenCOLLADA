@@ -20,8 +20,8 @@ public:
 public:
 
 	ObjectFilter():DependNode(){}
-	ObjectFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "objectFilter", create){}
+	ObjectFilter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "objectFilter", shared, create){}
 	virtual ~ObjectFilter(){}
 
 	void setChild(bool ch)
@@ -90,8 +90,8 @@ public:
 		fprintf(mFile,"\"%s.fcls\"",mName.c_str());
 	}
 protected:
-	ObjectFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ObjectFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

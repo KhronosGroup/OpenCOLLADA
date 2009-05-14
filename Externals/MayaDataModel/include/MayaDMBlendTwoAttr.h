@@ -20,8 +20,8 @@ public:
 public:
 
 	BlendTwoAttr():Blend(){}
-	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Blend(file, name, parent, "blendTwoAttr", create){}
+	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Blend(file, name, parent, "blendTwoAttr", shared, create){}
 	virtual ~BlendTwoAttr(){}
 
 	void setAttributesBlender(float ab)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.ab\"",mName.c_str());
 	}
 protected:
-	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Blend(file, name, parent, nodeType, create) {}
+	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Blend(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

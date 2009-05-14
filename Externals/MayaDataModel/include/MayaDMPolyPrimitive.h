@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyPrimitive():PolyCreator(){}
-	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyCreator(file, name, parent, "polyPrimitive", create){}
+	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyCreator(file, name, parent, "polyPrimitive", shared, create){}
 	virtual ~PolyPrimitive(){}
 
 	void setAxis(const double3& ax)
@@ -82,8 +82,8 @@ public:
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 	}
 protected:
-	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyCreator(file, name, parent, nodeType, create) {}
+	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyCreator(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

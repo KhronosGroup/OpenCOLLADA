@@ -67,8 +67,8 @@ public:
 public:
 
 	NurbsSurface():SurfaceShape(){}
-	NurbsSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SurfaceShape(file, name, parent, "nurbsSurface", create){}
+	NurbsSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SurfaceShape(file, name, parent, "nurbsSurface", shared, create){}
 	virtual ~NurbsSurface(){}
 
 	void setDivisionsU(unsigned char dvu)
@@ -726,8 +726,8 @@ public:
 		fprintf(mFile,"\"%s.mrc.rfrr\"",mName.c_str());
 	}
 protected:
-	NurbsSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SurfaceShape(file, name, parent, nodeType, create) {}
+	NurbsSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SurfaceShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

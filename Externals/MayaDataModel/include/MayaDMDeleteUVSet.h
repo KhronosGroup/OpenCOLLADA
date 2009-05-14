@@ -20,8 +20,8 @@ public:
 public:
 
 	DeleteUVSet():DependNode(){}
-	DeleteUVSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "deleteUVSet", create){}
+	DeleteUVSet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "deleteUVSet", shared, create){}
 	virtual ~DeleteUVSet(){}
 
 	void setUvSetName(const string& uvs)
@@ -44,8 +44,8 @@ public:
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 	}
 protected:
-	DeleteUVSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DeleteUVSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -25,8 +25,8 @@ public:
 public:
 
 	Cluster():WeightGeometryFilter(){}
-	Cluster(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:WeightGeometryFilter(file, name, parent, "cluster", create){}
+	Cluster(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, "cluster", shared, create){}
 	virtual ~Cluster(){}
 
 	void setPercentResolution(float ptr)
@@ -164,8 +164,8 @@ public:
 		fprintf(mFile,"\"%s.ait\"",mName.c_str());
 	}
 protected:
-	Cluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
+	Cluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

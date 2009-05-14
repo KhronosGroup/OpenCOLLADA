@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyTorus():PolyPrimitive(){}
-	PolyTorus(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyPrimitive(file, name, parent, "polyTorus", create){}
+	PolyTorus(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, "polyTorus", shared, create){}
 	virtual ~PolyTorus(){}
 
 	void setRadius(double r)
@@ -93,8 +93,8 @@ public:
 		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
 	}
 protected:
-	PolyTorus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyPrimitive(file, name, parent, nodeType, create) {}
+	PolyTorus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

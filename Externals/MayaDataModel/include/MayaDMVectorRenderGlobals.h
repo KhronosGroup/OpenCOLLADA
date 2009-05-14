@@ -20,8 +20,8 @@ public:
 public:
 
 	VectorRenderGlobals():DependNode(){}
-	VectorRenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "vectorRenderGlobals", create){}
+	VectorRenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "vectorRenderGlobals", shared, create){}
 	virtual ~VectorRenderGlobals(){}
 
 	void setCurrentFrame(bool cf)
@@ -194,8 +194,8 @@ public:
 		fprintf(mFile,"\"%s.ff\"",mName.c_str());
 	}
 protected:
-	VectorRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	VectorRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

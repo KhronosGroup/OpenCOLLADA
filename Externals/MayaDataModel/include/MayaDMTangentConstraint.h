@@ -27,8 +27,8 @@ public:
 public:
 
 	TangentConstraint():Constraint(){}
-	TangentConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Constraint(file, name, parent, "tangentConstraint", create){}
+	TangentConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Constraint(file, name, parent, "tangentConstraint", shared, create){}
 	virtual ~TangentConstraint(){}
 
 	void setTarget(size_t tg_i,const Target& tg)
@@ -463,8 +463,8 @@ public:
 		fprintf(mFile,"\"%s.rsrr.rrz\"",mName.c_str());
 	}
 protected:
-	TangentConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Constraint(file, name, parent, nodeType, create) {}
+	TangentConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Constraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	OffsetCos():AbstractBaseCreate(){}
-	OffsetCos(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "offsetCos", create){}
+	OffsetCos(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "offsetCos", shared, create){}
 	virtual ~OffsetCos(){}
 
 	void setCutLoop(bool cl)
@@ -101,8 +101,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	OffsetCos(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	OffsetCos(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

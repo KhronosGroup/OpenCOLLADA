@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyWedgeFace():PolyModifierWorld(){}
-	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyWedgeFace", create){}
+	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyWedgeFace", shared, create){}
 	virtual ~PolyWedgeFace(){}
 
 	void setWedgeAngle(double wa)
@@ -80,8 +80,8 @@ public:
 		fprintf(mFile,"\"%s.ed\"",mName.c_str());
 	}
 protected:
-	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

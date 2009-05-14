@@ -20,8 +20,8 @@ public:
 public:
 
 	Reflect():Lambert(){}
-	Reflect(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Lambert(file, name, parent, "reflect", create){}
+	Reflect(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Lambert(file, name, parent, "reflect", shared, create){}
 	virtual ~Reflect(){}
 
 	void setReflectionLimit(short fll)
@@ -142,8 +142,8 @@ public:
 		fprintf(mFile,"\"%s.rsp\"",mName.c_str());
 	}
 protected:
-	Reflect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Lambert(file, name, parent, nodeType, create) {}
+	Reflect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Lambert(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

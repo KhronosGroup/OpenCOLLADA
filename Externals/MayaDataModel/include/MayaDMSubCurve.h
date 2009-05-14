@@ -20,8 +20,8 @@ public:
 public:
 
 	SubCurve():CurveRange(){}
-	SubCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveRange(file, name, parent, "subCurve", create){}
+	SubCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveRange(file, name, parent, "subCurve", shared, create){}
 	virtual ~SubCurve(){}
 
 	void setMinValue(double min)
@@ -60,8 +60,8 @@ public:
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 	}
 protected:
-	SubCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveRange(file, name, parent, nodeType, create) {}
+	SubCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveRange(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

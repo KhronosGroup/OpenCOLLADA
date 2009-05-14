@@ -20,8 +20,8 @@ public:
 public:
 
 	Brownian():Texture3d(){}
-	Brownian(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "brownian", create){}
+	Brownian(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "brownian", shared, create){}
 	virtual ~Brownian(){}
 
 	void setXPixelAngle(float xpa)
@@ -147,8 +147,8 @@ public:
 		fprintf(mFile,"\"%s.w3.w3z\"",mName.c_str());
 	}
 protected:
-	Brownian(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Brownian(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyReduce():PolyModifier(){}
-	PolyReduce(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyReduce", create){}
+	PolyReduce(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyReduce", shared, create){}
 	virtual ~PolyReduce(){}
 
 	void setPercentage(double p)
@@ -189,8 +189,8 @@ public:
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 	}
 protected:
-	PolyReduce(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyReduce(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

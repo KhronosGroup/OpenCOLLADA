@@ -20,8 +20,8 @@ public:
 public:
 
 	SpBirailSrf():BirailSrf(){}
-	SpBirailSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BirailSrf(file, name, parent, "spBirailSrf", create){}
+	SpBirailSrf(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BirailSrf(file, name, parent, "spBirailSrf", shared, create){}
 	virtual ~SpBirailSrf(){}
 
 	void setTangentContinuityProfile1(bool tp1)
@@ -38,8 +38,8 @@ public:
 		fprintf(mFile,"\"%s.tp1\"",mName.c_str());
 	}
 protected:
-	SpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BirailSrf(file, name, parent, nodeType, create) {}
+	SpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BirailSrf(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	BaseGeometryVarGroup():Transform(){}
-	BaseGeometryVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "baseGeometryVarGroup", create){}
+	BaseGeometryVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "baseGeometryVarGroup", shared, create){}
 	virtual ~BaseGeometryVarGroup(){}
 
 	void setMaxCreated(int mc)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.mc\"",mName.c_str());
 	}
 protected:
-	BaseGeometryVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	BaseGeometryVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -53,8 +53,8 @@ public:
 public:
 
 	Ocean():Texture2d(){}
-	Ocean(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "ocean", create){}
+	Ocean(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "ocean", shared, create){}
 	virtual ~Ocean(){}
 
 	void setTime(float ti)
@@ -427,8 +427,8 @@ public:
 		fprintf(mFile,"\"%s.ofm\"",mName.c_str());
 	}
 protected:
-	Ocean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Ocean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	ArrayMapper():DependNode(){}
-	ArrayMapper(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "arrayMapper", create){}
+	ArrayMapper(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "arrayMapper", shared, create){}
 	virtual ~ArrayMapper(){}
 
 	void setMinValue(double min)
@@ -83,8 +83,8 @@ public:
 		fprintf(mFile,"\"%s.ovpp\"",mName.c_str());
 	}
 protected:
-	ArrayMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ArrayMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

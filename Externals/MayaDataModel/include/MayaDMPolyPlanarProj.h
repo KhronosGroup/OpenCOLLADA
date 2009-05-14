@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyPlanarProj():PolyModifierWorld(){}
-	PolyPlanarProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyPlanarProj", create){}
+	PolyPlanarProj(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyPlanarProj", shared, create){}
 	virtual ~PolyPlanarProj(){}
 
 	void setProjectionCenter(const double3& pc)
@@ -276,8 +276,8 @@ public:
 		fprintf(mFile,"\"%s.ptop\"",mName.c_str());
 	}
 protected:
-	PolyPlanarProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyPlanarProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -30,8 +30,8 @@ public:
 public:
 
 	Jiggle():WeightGeometryFilter(){}
-	Jiggle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:WeightGeometryFilter(file, name, parent, "jiggle", create){}
+	Jiggle(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, "jiggle", shared, create){}
 	virtual ~Jiggle(){}
 
 	void setEnable(unsigned int ebl)
@@ -124,8 +124,8 @@ public:
 		fprintf(mFile,"\"%s.bias\"",mName.c_str());
 	}
 protected:
-	Jiggle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
+	Jiggle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

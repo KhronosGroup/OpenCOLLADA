@@ -29,8 +29,8 @@ public:
 public:
 
 	AnimCurveTL():AnimCurve(){}
-	AnimCurveTL(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AnimCurve(file, name, parent, "animCurveTL", create){}
+	AnimCurveTL(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AnimCurve(file, name, parent, "animCurveTL", shared, create){}
 	virtual ~AnimCurveTL(){}
 
 	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv)
@@ -83,8 +83,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	AnimCurveTL(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AnimCurve(file, name, parent, nodeType, create) {}
+	AnimCurveTL(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AnimCurve(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

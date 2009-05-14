@@ -20,8 +20,8 @@ public:
 public:
 
 	MaterialInfo():DependNode(){}
-	MaterialInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "materialInfo", create){}
+	MaterialInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "materialInfo", shared, create){}
 	virtual ~MaterialInfo(){}
 
 	void setTextureFilter(unsigned int tmip)
@@ -59,8 +59,8 @@ public:
 		fprintf(mFile,"\"%s.tmip\"",mName.c_str());
 	}
 protected:
-	MaterialInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	MaterialInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

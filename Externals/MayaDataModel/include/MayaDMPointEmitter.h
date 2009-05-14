@@ -20,8 +20,8 @@ public:
 public:
 
 	PointEmitter():DynBase(){}
-	PointEmitter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DynBase(file, name, parent, "pointEmitter", create){}
+	PointEmitter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DynBase(file, name, parent, "pointEmitter", shared, create){}
 	virtual ~PointEmitter(){}
 
 	void setEmitterType(unsigned int emt)
@@ -638,8 +638,8 @@ public:
 		fprintf(mFile,"\"%s.dss\"",mName.c_str());
 	}
 protected:
-	PointEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DynBase(file, name, parent, nodeType, create) {}
+	PointEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DynBase(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

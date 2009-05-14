@@ -20,8 +20,8 @@ public:
 public:
 
 	PolySmooth():PolyModifier(){}
-	PolySmooth(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polySmooth", create){}
+	PolySmooth(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polySmooth", shared, create){}
 	virtual ~PolySmooth(){}
 
 	void setSmoothness(short sm)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.sm\"",mName.c_str());
 	}
 protected:
-	PolySmooth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolySmooth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

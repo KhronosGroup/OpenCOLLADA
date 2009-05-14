@@ -20,8 +20,8 @@ public:
 public:
 
 	Nucleus():DependNode(){}
-	Nucleus(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "nucleus", create){}
+	Nucleus(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "nucleus", shared, create){}
 	virtual ~Nucleus(){}
 
 	void setStartTime(double sti)
@@ -402,8 +402,8 @@ public:
 		fprintf(mFile,"\"%s.spsc\"",mName.c_str());
 	}
 protected:
-	Nucleus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Nucleus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

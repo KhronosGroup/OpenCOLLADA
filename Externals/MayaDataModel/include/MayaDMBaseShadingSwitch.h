@@ -20,8 +20,8 @@ public:
 public:
 
 	BaseShadingSwitch():DependNode(){}
-	BaseShadingSwitch(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "baseShadingSwitch", create){}
+	BaseShadingSwitch(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "baseShadingSwitch", shared, create){}
 	virtual ~BaseShadingSwitch(){}
 
 	void getObjectId()const
@@ -29,8 +29,8 @@ public:
 		fprintf(mFile,"\"%s.id\"",mName.c_str());
 	}
 protected:
-	BaseShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	BaseShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

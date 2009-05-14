@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyProj():PolyModifierWorld(){}
-	PolyProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyProj", create){}
+	PolyProj(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyProj", shared, create){}
 	virtual ~PolyProj(){}
 
 	void setProjType(short t)
@@ -226,8 +226,8 @@ public:
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 	}
 protected:
-	PolyProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

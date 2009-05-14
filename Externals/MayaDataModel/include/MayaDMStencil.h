@@ -20,8 +20,8 @@ public:
 public:
 
 	Stencil():Texture2d(){}
-	Stencil(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "stencil", create){}
+	Stencil(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "stencil", shared, create){}
 	virtual ~Stencil(){}
 
 	void setImage(const float3& im)
@@ -173,8 +173,8 @@ public:
 		fprintf(mFile,"\"%s.th\"",mName.c_str());
 	}
 protected:
-	Stencil(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Stencil(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

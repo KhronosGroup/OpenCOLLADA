@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdivComponentId():DependNode(){}
-	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "subdivComponentId", create){}
+	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "subdivComponentId", shared, create){}
 	virtual ~SubdivComponentId(){}
 
 	void setInBase(int ib)
@@ -116,8 +116,8 @@ public:
 		fprintf(mFile,"\"%s.of\"",mName.c_str());
 	}
 protected:
-	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

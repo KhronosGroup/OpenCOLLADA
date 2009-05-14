@@ -20,8 +20,8 @@ public:
 public:
 
 	FluidTexture2D():FluidShape(){}
-	FluidTexture2D(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:FluidShape(file, name, parent, "fluidTexture2D", create){}
+	FluidTexture2D(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:FluidShape(file, name, parent, "fluidTexture2D", shared, create){}
 	virtual ~FluidTexture2D(){}
 
 	void setAlphaGain(float ag)
@@ -121,8 +121,8 @@ public:
 		fprintf(mFile,"\"%s.dcl.dcb\"",mName.c_str());
 	}
 protected:
-	FluidTexture2D(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:FluidShape(file, name, parent, nodeType, create) {}
+	FluidTexture2D(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:FluidShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

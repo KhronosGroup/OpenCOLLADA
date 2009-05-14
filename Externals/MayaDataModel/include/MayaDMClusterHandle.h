@@ -25,8 +25,8 @@ public:
 public:
 
 	ClusterHandle():Shape(){}
-	ClusterHandle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "clusterHandle", create){}
+	ClusterHandle(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "clusterHandle", shared, create){}
 	virtual ~ClusterHandle(){}
 
 	void setOrigin(const double3& or)
@@ -107,8 +107,8 @@ public:
 		fprintf(mFile,"\"%s.wn\"",mName.c_str());
 	}
 protected:
-	ClusterHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	ClusterHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

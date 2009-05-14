@@ -19,13 +19,13 @@ class Movie : public File
 public:
 
 	Movie():File(){}
-	Movie(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:File(file, name, parent, "movie", create){}
+	Movie(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:File(file, name, parent, "movie", shared, create){}
 	virtual ~Movie(){}
 
 protected:
-	Movie(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:File(file, name, parent, nodeType, create) {}
+	Movie(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:File(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

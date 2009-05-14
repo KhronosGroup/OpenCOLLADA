@@ -30,8 +30,8 @@ public:
 public:
 
 	RigidSolver():DependNode(){}
-	RigidSolver(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "rigidSolver", create){}
+	RigidSolver(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "rigidSolver", shared, create){}
 	virtual ~RigidSolver(){}
 
 	void setStartTime(double stm)
@@ -587,8 +587,8 @@ public:
 		fprintf(mFile,"\"%s.stt\"",mName.c_str());
 	}
 protected:
-	RigidSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RigidSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

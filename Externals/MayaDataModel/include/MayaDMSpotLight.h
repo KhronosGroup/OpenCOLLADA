@@ -89,8 +89,8 @@ public:
 public:
 
 	SpotLight():NonExtendedLightShapeNode(){}
-	SpotLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NonExtendedLightShapeNode(file, name, parent, "spotLight", create){}
+	SpotLight(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, "spotLight", shared, create){}
 	virtual ~SpotLight(){}
 
 	void setConeAngle(double ca)
@@ -772,8 +772,8 @@ public:
 		fprintf(mFile,"\"%s.mrc.avis\"",mName.c_str());
 	}
 protected:
-	SpotLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NonExtendedLightShapeNode(file, name, parent, nodeType, create) {}
+	SpotLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

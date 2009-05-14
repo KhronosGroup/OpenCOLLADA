@@ -20,8 +20,8 @@ public:
 public:
 
 	DynBase():Transform(){}
-	DynBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "dynBase", create){}
+	DynBase(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "dynBase", shared, create){}
 	virtual ~DynBase(){}
 
 	void setFromWhere(short fw)
@@ -75,8 +75,8 @@ public:
 		fprintf(mFile,"\"%s.ovd\"",mName.c_str());
 	}
 protected:
-	DynBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	DynBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	SurfaceVarGroup():BaseGeometryVarGroup(){}
-	SurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BaseGeometryVarGroup(file, name, parent, "surfaceVarGroup", create){}
+	SurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, "surfaceVarGroup", shared, create){}
 	virtual ~SurfaceVarGroup(){}
 
 	void getCreate(size_t cr_i)const
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 	}
 protected:
-	SurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BaseGeometryVarGroup(file, name, parent, nodeType, create) {}
+	SurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

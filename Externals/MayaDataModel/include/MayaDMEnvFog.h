@@ -20,8 +20,8 @@ public:
 public:
 
 	EnvFog():LightFog(){}
-	EnvFog(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:LightFog(file, name, parent, "envFog", create){}
+	EnvFog(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:LightFog(file, name, parent, "envFog", shared, create){}
 	virtual ~EnvFog(){}
 
 	void setDistanceClipPlanes(unsigned int dcp)
@@ -651,8 +651,8 @@ public:
 		fprintf(mFile,"\"%s.snc.snb\"",mName.c_str());
 	}
 protected:
-	EnvFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:LightFog(file, name, parent, nodeType, create) {}
+	EnvFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:LightFog(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

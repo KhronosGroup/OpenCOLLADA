@@ -19,13 +19,13 @@ class RenderBox : public ImplicitBox
 public:
 
 	RenderBox():ImplicitBox(){}
-	RenderBox(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ImplicitBox(file, name, parent, "renderBox", create){}
+	RenderBox(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ImplicitBox(file, name, parent, "renderBox", shared, create){}
 	virtual ~RenderBox(){}
 
 protected:
-	RenderBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ImplicitBox(file, name, parent, nodeType, create) {}
+	RenderBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ImplicitBox(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

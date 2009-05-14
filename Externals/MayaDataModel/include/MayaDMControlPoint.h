@@ -67,8 +67,8 @@ public:
 public:
 
 	ControlPoint():DeformableShape(){}
-	ControlPoint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DeformableShape(file, name, parent, "controlPoint", create){}
+	ControlPoint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DeformableShape(file, name, parent, "controlPoint", shared, create){}
 	virtual ~ControlPoint(){}
 
 	void setTweak(bool tw)
@@ -558,8 +558,8 @@ public:
 		fprintf(mFile,"\"%s.clst.clsp[%i].clpa\"",mName.c_str(),clsp_i);
 	}
 protected:
-	ControlPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DeformableShape(file, name, parent, nodeType, create) {}
+	ControlPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DeformableShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

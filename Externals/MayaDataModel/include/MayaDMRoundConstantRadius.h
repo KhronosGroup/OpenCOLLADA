@@ -57,8 +57,8 @@ public:
 public:
 
 	RoundConstantRadius():AbstractBaseCreate(){}
-	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "roundConstantRadius", create){}
+	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "roundConstantRadius", shared, create){}
 	virtual ~RoundConstantRadius(){}
 
 	void setInputSurface(size_t is_i,const nurbsSurface& is)
@@ -356,8 +356,8 @@ public:
 		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 	}
 protected:
-	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

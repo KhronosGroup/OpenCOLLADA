@@ -20,8 +20,8 @@ public:
 public:
 
 	OldBlindDataBase():DependNode(){}
-	OldBlindDataBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "oldBlindDataBase", create){}
+	OldBlindDataBase(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "oldBlindDataBase", shared, create){}
 	virtual ~OldBlindDataBase(){}
 
 	void setTypeId(int tid)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.tid\"",mName.c_str());
 	}
 protected:
-	OldBlindDataBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	OldBlindDataBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

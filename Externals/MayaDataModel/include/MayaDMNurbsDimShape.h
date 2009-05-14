@@ -20,8 +20,8 @@ public:
 public:
 
 	NurbsDimShape():DimensionShape(){}
-	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DimensionShape(file, name, parent, "nurbsDimShape", create){}
+	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DimensionShape(file, name, parent, "nurbsDimShape", shared, create){}
 	virtual ~NurbsDimShape(){}
 
 	void setUParamValue(double upv)
@@ -47,8 +47,8 @@ public:
 		fprintf(mFile,"\"%s.ng\"",mName.c_str());
 	}
 protected:
-	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DimensionShape(file, name, parent, nodeType, create) {}
+	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DimensionShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

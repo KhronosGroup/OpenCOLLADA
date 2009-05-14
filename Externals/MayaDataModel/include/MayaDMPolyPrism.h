@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyPrism():PolyPrimitive(){}
-	PolyPrism(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyPrimitive(file, name, parent, "polyPrism", create){}
+	PolyPrism(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, "polyPrism", shared, create){}
 	virtual ~PolyPrism(){}
 
 	void setLength(double l)
@@ -88,8 +88,8 @@ public:
 		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
 	}
 protected:
-	PolyPrism(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyPrimitive(file, name, parent, nodeType, create) {}
+	PolyPrism(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

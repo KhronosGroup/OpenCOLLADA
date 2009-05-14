@@ -20,8 +20,8 @@ public:
 public:
 
 	Cloud():Texture3d(){}
-	Cloud(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "cloud", create){}
+	Cloud(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "cloud", shared, create){}
 	virtual ~Cloud(){}
 
 	void setXPixelAngle(float xpa)
@@ -292,8 +292,8 @@ public:
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 	}
 protected:
-	Cloud(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Cloud(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

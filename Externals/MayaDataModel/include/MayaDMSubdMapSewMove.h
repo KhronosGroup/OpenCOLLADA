@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdMapSewMove():SubdModifierUV(){}
-	SubdMapSewMove(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SubdModifierUV(file, name, parent, "subdMapSewMove", create){}
+	SubdMapSewMove(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SubdModifierUV(file, name, parent, "subdMapSewMove", shared, create){}
 	virtual ~SubdMapSewMove(){}
 
 	void setLimitPieceSize(bool lps)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.nf\"",mName.c_str());
 	}
 protected:
-	SubdMapSewMove(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SubdModifierUV(file, name, parent, nodeType, create) {}
+	SubdMapSewMove(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SubdModifierUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

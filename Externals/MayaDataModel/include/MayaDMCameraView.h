@@ -20,8 +20,8 @@ public:
 public:
 
 	CameraView():DependNode(){}
-	CameraView(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "cameraView", create){}
+	CameraView(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "cameraView", shared, create){}
 	virtual ~CameraView(){}
 
 	void setEye(const double3& e)
@@ -233,8 +233,8 @@ public:
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 	}
 protected:
-	CameraView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	CameraView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

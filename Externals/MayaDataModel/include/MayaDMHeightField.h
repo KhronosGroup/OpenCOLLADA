@@ -20,8 +20,8 @@ public:
 public:
 
 	HeightField():SurfaceShape(){}
-	HeightField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SurfaceShape(file, name, parent, "heightField", create){}
+	HeightField(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SurfaceShape(file, name, parent, "heightField", shared, create){}
 	virtual ~HeightField(){}
 
 	void setResolution(int res)
@@ -93,8 +93,8 @@ public:
 		fprintf(mFile,"\"%s.cnr\"",mName.c_str());
 	}
 protected:
-	HeightField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SurfaceShape(file, name, parent, nodeType, create) {}
+	HeightField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SurfaceShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

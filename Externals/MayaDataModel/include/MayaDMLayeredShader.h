@@ -33,8 +33,8 @@ public:
 public:
 
 	LayeredShader():DependNode(){}
-	LayeredShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "layeredShader", create){}
+	LayeredShader(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "layeredShader", shared, create){}
 	virtual ~LayeredShader(){}
 
 	void setCompositingFlag(unsigned int cf)
@@ -670,8 +670,8 @@ public:
 		fprintf(mFile,"\"%s.minc.mincz\"",mName.c_str());
 	}
 protected:
-	LayeredShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	LayeredShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

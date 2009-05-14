@@ -25,8 +25,8 @@ public:
 public:
 
 	ClosestPointOnMesh():DependNode(){}
-	ClosestPointOnMesh(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "closestPointOnMesh", create){}
+	ClosestPointOnMesh(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "closestPointOnMesh", shared, create){}
 	virtual ~ClosestPointOnMesh(){}
 
 	void setInPosition(const double3& ip)
@@ -124,8 +124,8 @@ public:
 		fprintf(mFile,"\"%s.r.vt\"",mName.c_str());
 	}
 protected:
-	ClosestPointOnMesh(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ClosestPointOnMesh(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

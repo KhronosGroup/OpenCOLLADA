@@ -19,13 +19,13 @@ class DirectedDisc : public GeometryShape
 public:
 
 	DirectedDisc():GeometryShape(){}
-	DirectedDisc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryShape(file, name, parent, "directedDisc", create){}
+	DirectedDisc(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, "directedDisc", shared, create){}
 	virtual ~DirectedDisc(){}
 
 protected:
-	DirectedDisc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryShape(file, name, parent, nodeType, create) {}
+	DirectedDisc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

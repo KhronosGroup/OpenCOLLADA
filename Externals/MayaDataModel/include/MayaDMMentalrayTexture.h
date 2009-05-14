@@ -31,8 +31,8 @@ public:
 public:
 
 	MentalrayTexture():DependNode(){}
-	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "mentalrayTexture", create){}
+	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "mentalrayTexture", shared, create){}
 	virtual ~MentalrayTexture(){}
 
 	void setMiTextureType(unsigned int mitt)
@@ -129,8 +129,8 @@ public:
 		fprintf(mFile,"\"%s.mifr.midp\"",mName.c_str());
 	}
 protected:
-	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

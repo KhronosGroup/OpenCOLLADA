@@ -20,8 +20,8 @@ public:
 public:
 
 	PairBlend():DependNode(){}
-	PairBlend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "pairBlend", create){}
+	PairBlend(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "pairBlend", shared, create){}
 	virtual ~PairBlend(){}
 
 	void setCurrentDriver(unsigned int c)
@@ -253,8 +253,8 @@ public:
 		fprintf(mFile,"\"%s.or.orz\"",mName.c_str());
 	}
 protected:
-	PairBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	PairBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

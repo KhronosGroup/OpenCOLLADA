@@ -20,8 +20,8 @@ public:
 public:
 
 	NonExtendedLightShapeNode():NonAmbientLightShapeNode(){}
-	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NonAmbientLightShapeNode(file, name, parent, "nonExtendedLightShapeNode", create){}
+	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NonAmbientLightShapeNode(file, name, parent, "nonExtendedLightShapeNode", shared, create){}
 	virtual ~NonExtendedLightShapeNode(){}
 
 	void setLightRadius(float lr)
@@ -310,8 +310,8 @@ public:
 		fprintf(mFile,"\"%s.gs\"",mName.c_str());
 	}
 protected:
-	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NonAmbientLightShapeNode(file, name, parent, nodeType, create) {}
+	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NonAmbientLightShapeNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

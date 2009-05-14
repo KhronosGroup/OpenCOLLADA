@@ -20,8 +20,8 @@ public:
 public:
 
 	EnvCube():TextureEnv(){}
-	EnvCube(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:TextureEnv(file, name, parent, "envCube", create){}
+	EnvCube(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:TextureEnv(file, name, parent, "envCube", shared, create){}
 	virtual ~EnvCube(){}
 
 	void setPointWorld(const float3& pw)
@@ -304,8 +304,8 @@ public:
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 	}
 protected:
-	EnvCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:TextureEnv(file, name, parent, nodeType, create) {}
+	EnvCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:TextureEnv(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	Guide():DependNode(){}
-	Guide(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "guide", create){}
+	Guide(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "guide", shared, create){}
 	virtual ~Guide(){}
 
 	void setJointAboveMatrix(const matrix& am)
@@ -110,8 +110,8 @@ public:
 		fprintf(mFile,"\"%s.ag\"",mName.c_str());
 	}
 protected:
-	Guide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Guide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

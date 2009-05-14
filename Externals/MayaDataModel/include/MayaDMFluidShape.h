@@ -256,8 +256,8 @@ public:
 public:
 
 	FluidShape():SurfaceShape(){}
-	FluidShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SurfaceShape(file, name, parent, "fluidShape", create){}
+	FluidShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SurfaceShape(file, name, parent, "fluidShape", shared, create){}
 	virtual ~FluidShape(){}
 
 	void setStartFrame(double stf)
@@ -3491,8 +3491,8 @@ public:
 		fprintf(mFile,"\"%s.mrc.maxs\"",mName.c_str());
 	}
 protected:
-	FluidShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SurfaceShape(file, name, parent, nodeType, create) {}
+	FluidShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SurfaceShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

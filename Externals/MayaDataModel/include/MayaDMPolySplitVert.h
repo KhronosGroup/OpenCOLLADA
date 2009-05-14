@@ -19,13 +19,13 @@ class PolySplitVert : public PolyModifierWorld
 public:
 
 	PolySplitVert():PolyModifierWorld(){}
-	PolySplitVert(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polySplitVert", create){}
+	PolySplitVert(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polySplitVert", shared, create){}
 	virtual ~PolySplitVert(){}
 
 protected:
-	PolySplitVert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolySplitVert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

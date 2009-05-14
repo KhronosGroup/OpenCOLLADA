@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyMirror():PolyModifierWorld(){}
-	PolyMirror(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyMirror", create){}
+	PolyMirror(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyMirror", shared, create){}
 	virtual ~PolyMirror(){}
 
 	void setPivot(const double3& p)
@@ -90,8 +90,8 @@ public:
 		fprintf(mFile,"\"%s.mt\"",mName.c_str());
 	}
 protected:
-	PolyMirror(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyMirror(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	NewtonField():Field(){}
-	NewtonField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Field(file, name, parent, "newtonField", create){}
+	NewtonField(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Field(file, name, parent, "newtonField", shared, create){}
 	virtual ~NewtonField(){}
 
 	void setMinDistance(double min)
@@ -45,8 +45,8 @@ public:
 		fprintf(mFile,"\"%s.omd\"",mName.c_str());
 	}
 protected:
-	NewtonField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Field(file, name, parent, nodeType, create) {}
+	NewtonField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Field(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

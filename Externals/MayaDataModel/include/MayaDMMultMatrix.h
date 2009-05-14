@@ -20,8 +20,8 @@ public:
 public:
 
 	MultMatrix():DependNode(){}
-	MultMatrix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "multMatrix", create){}
+	MultMatrix(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "multMatrix", shared, create){}
 	virtual ~MultMatrix(){}
 
 	void setMatrixIn(size_t i_i,const matrix& i_)
@@ -70,8 +70,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	MultMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	MultMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

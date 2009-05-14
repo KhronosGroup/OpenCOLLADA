@@ -107,8 +107,8 @@ public:
 public:
 
 	Transform():DagNode(){}
-	Transform(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DagNode(file, name, parent, "transform", create){}
+	Transform(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DagNode(file, name, parent, "transform", shared, create){}
 	virtual ~Transform(){}
 
 	void setTranslate(const double3& t)
@@ -965,8 +965,8 @@ public:
 		fprintf(mFile,"\"%s.mrc.migs\"",mName.c_str());
 	}
 protected:
-	Transform(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DagNode(file, name, parent, nodeType, create) {}
+	Transform(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DagNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	HikEffector():Transform(){}
-	HikEffector(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "hikEffector", create){}
+	HikEffector(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "hikEffector", shared, create){}
 	virtual ~HikEffector(){}
 
 	void setPinning(unsigned int pin)
@@ -234,8 +234,8 @@ public:
 		fprintf(mFile,"\"%s.mkl\"",mName.c_str());
 	}
 protected:
-	HikEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	HikEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

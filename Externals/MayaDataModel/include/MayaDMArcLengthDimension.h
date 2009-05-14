@@ -20,8 +20,8 @@ public:
 public:
 
 	ArcLengthDimension():NurbsDimShape(){}
-	ArcLengthDimension(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NurbsDimShape(file, name, parent, "arcLengthDimension", create){}
+	ArcLengthDimension(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NurbsDimShape(file, name, parent, "arcLengthDimension", shared, create){}
 	virtual ~ArcLengthDimension(){}
 
 	void getArcLength()const
@@ -33,8 +33,8 @@ public:
 		fprintf(mFile,"\"%s.alv\"",mName.c_str());
 	}
 protected:
-	ArcLengthDimension(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NurbsDimShape(file, name, parent, nodeType, create) {}
+	ArcLengthDimension(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NurbsDimShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

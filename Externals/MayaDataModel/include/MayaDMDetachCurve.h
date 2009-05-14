@@ -20,8 +20,8 @@ public:
 public:
 
 	DetachCurve():AbstractBaseCreate(){}
-	DetachCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "detachCurve", create){}
+	DetachCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "detachCurve", shared, create){}
 	virtual ~DetachCurve(){}
 
 	void setParameter(size_t p_i,double p)
@@ -112,8 +112,8 @@ public:
 		fprintf(mFile,"\"%s.k\"",mName.c_str());
 	}
 protected:
-	DetachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	DetachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

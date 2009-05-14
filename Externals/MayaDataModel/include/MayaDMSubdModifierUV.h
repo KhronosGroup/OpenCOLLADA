@@ -19,13 +19,13 @@ class SubdModifierUV : public SubdModifierWorld
 public:
 
 	SubdModifierUV():SubdModifierWorld(){}
-	SubdModifierUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SubdModifierWorld(file, name, parent, "subdModifierUV", create){}
+	SubdModifierUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SubdModifierWorld(file, name, parent, "subdModifierUV", shared, create){}
 	virtual ~SubdModifierUV(){}
 
 protected:
-	SubdModifierUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SubdModifierWorld(file, name, parent, nodeType, create) {}
+	SubdModifierUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SubdModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

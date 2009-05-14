@@ -28,8 +28,8 @@ public:
 public:
 
 	TripleShadingSwitch():BaseShadingSwitch(){}
-	TripleShadingSwitch(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BaseShadingSwitch(file, name, parent, "tripleShadingSwitch", create){}
+	TripleShadingSwitch(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BaseShadingSwitch(file, name, parent, "tripleShadingSwitch", shared, create){}
 	virtual ~TripleShadingSwitch(){}
 
 	void setInput(size_t i_i,const Input& i_)
@@ -193,8 +193,8 @@ public:
 		fprintf(mFile,"\"%s.out.oc3\"",mName.c_str());
 	}
 protected:
-	TripleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BaseShadingSwitch(file, name, parent, nodeType, create) {}
+	TripleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BaseShadingSwitch(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	HwReflectionMap():DependNode(){}
-	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "hwReflectionMap", create){}
+	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "hwReflectionMap", shared, create){}
 	virtual ~HwReflectionMap(){}
 
 	void setDecalMode(bool dm)
@@ -129,8 +129,8 @@ public:
 		fprintf(mFile,"\"%s.crtn\"",mName.c_str());
 	}
 protected:
-	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

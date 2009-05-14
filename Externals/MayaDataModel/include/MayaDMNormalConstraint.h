@@ -27,8 +27,8 @@ public:
 public:
 
 	NormalConstraint():Constraint(){}
-	NormalConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Constraint(file, name, parent, "normalConstraint", create){}
+	NormalConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Constraint(file, name, parent, "normalConstraint", shared, create){}
 	virtual ~NormalConstraint(){}
 
 	void setTarget(size_t tg_i,const Target& tg)
@@ -463,8 +463,8 @@ public:
 		fprintf(mFile,"\"%s.rsrr.rrz\"",mName.c_str());
 	}
 protected:
-	NormalConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Constraint(file, name, parent, nodeType, create) {}
+	NormalConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Constraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

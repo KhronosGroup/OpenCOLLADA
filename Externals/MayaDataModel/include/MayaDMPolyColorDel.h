@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyColorDel():PolyModifier(){}
-	PolyColorDel(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyColorDel", create){}
+	PolyColorDel(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyColorDel", shared, create){}
 	virtual ~PolyColorDel(){}
 
 	void setColorSetName(const string& cls)
@@ -36,8 +36,8 @@ public:
 		fprintf(mFile,"\"%s.cls\"",mName.c_str());
 	}
 protected:
-	PolyColorDel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyColorDel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

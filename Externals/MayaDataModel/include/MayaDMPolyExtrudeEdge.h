@@ -31,8 +31,8 @@ public:
 public:
 
 	PolyExtrudeEdge():PolyMoveEdge(){}
-	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyMoveEdge(file, name, parent, "polyExtrudeEdge", create){}
+	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyMoveEdge(file, name, parent, "polyExtrudeEdge", shared, create){}
 	virtual ~PolyExtrudeEdge(){}
 
 	void setKeepFacesTogether(bool kft)
@@ -167,8 +167,8 @@ public:
 		fprintf(mFile,"\"%s.sma\"",mName.c_str());
 	}
 protected:
-	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyMoveEdge(file, name, parent, nodeType, create) {}
+	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyMoveEdge(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

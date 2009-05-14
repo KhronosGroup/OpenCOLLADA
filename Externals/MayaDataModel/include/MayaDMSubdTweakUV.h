@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdTweakUV():SubdModifier(){}
-	SubdTweakUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SubdModifier(file, name, parent, "subdTweakUV", create){}
+	SubdTweakUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SubdModifier(file, name, parent, "subdTweakUV", shared, create){}
 	virtual ~SubdTweakUV(){}
 
 	void setUvTweak(size_t uvtk_i,const float2& uvtk)
@@ -92,8 +92,8 @@ public:
 		fprintf(mFile,"\"%s.uvtk.tv\"",mName.c_str());
 	}
 protected:
-	SubdTweakUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SubdModifier(file, name, parent, nodeType, create) {}
+	SubdTweakUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SubdModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

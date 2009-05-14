@@ -25,8 +25,8 @@ public:
 public:
 
 	TextureToGeom():DependNode(){}
-	TextureToGeom(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "textureToGeom", create){}
+	TextureToGeom(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "textureToGeom", shared, create){}
 	virtual ~TextureToGeom(){}
 
 	void setSegGroupIds(size_t sgi_i,int sgi)
@@ -334,8 +334,8 @@ public:
 		fprintf(mFile,"\"%s.shs\"",mName.c_str());
 	}
 protected:
-	TextureToGeom(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	TextureToGeom(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

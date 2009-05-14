@@ -20,8 +20,8 @@ public:
 public:
 
 	VolumeAxisField():Field(){}
-	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Field(file, name, parent, "volumeAxisField", create){}
+	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Field(file, name, parent, "volumeAxisField", shared, create){}
 	virtual ~VolumeAxisField(){}
 
 	void setInvertAttenuation(bool ia)
@@ -235,8 +235,8 @@ public:
 		fprintf(mFile,"\"%s.tim\"",mName.c_str());
 	}
 protected:
-	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Field(file, name, parent, nodeType, create) {}
+	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Field(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	ParticleColorMapper():DependNode(){}
-	ParticleColorMapper(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "particleColorMapper", create){}
+	ParticleColorMapper(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "particleColorMapper", shared, create){}
 	virtual ~ParticleColorMapper(){}
 
 	void setParticleColor(const float3& pc)
@@ -62,8 +62,8 @@ public:
 		fprintf(mFile,"\"%s.pc.pcb\"",mName.c_str());
 	}
 protected:
-	ParticleColorMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	ParticleColorMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

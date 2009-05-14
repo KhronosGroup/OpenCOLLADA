@@ -20,8 +20,8 @@ public:
 public:
 
 	RebuildCurve():AbstractBaseCreate(){}
-	RebuildCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "rebuildCurve", create){}
+	RebuildCurve(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "rebuildCurve", shared, create){}
 	virtual ~RebuildCurve(){}
 
 	void setFitRebuild(bool fr)
@@ -136,8 +136,8 @@ public:
 		fprintf(mFile,"\"%s.scr\"",mName.c_str());
 	}
 protected:
-	RebuildCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	RebuildCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -32,8 +32,8 @@ public:
 public:
 
 	WeightGeometryFilter():GeometryFilter(){}
-	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "weightGeometryFilter", create){}
+	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "weightGeometryFilter", shared, create){}
 	virtual ~WeightGeometryFilter(){}
 
 	void setWeightList(size_t wl_i,const WeightList& wl)
@@ -114,8 +114,8 @@ public:
 		fprintf(mFile,"\"%s.wl.w[%i]\"",mName.c_str(),w_i);
 	}
 protected:
-	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -19,13 +19,13 @@ class SubdAddTopology : public SubdModifier
 public:
 
 	SubdAddTopology():SubdModifier(){}
-	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SubdModifier(file, name, parent, "subdAddTopology", create){}
+	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SubdModifier(file, name, parent, "subdAddTopology", shared, create){}
 	virtual ~SubdAddTopology(){}
 
 protected:
-	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SubdModifier(file, name, parent, nodeType, create) {}
+	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SubdModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

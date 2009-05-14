@@ -20,8 +20,8 @@ public:
 public:
 
 	NurbsTessellate():ParentTessellate(){}
-	NurbsTessellate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ParentTessellate(file, name, parent, "nurbsTessellate", create){}
+	NurbsTessellate(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ParentTessellate(file, name, parent, "nurbsTessellate", shared, create){}
 	virtual ~NurbsTessellate(){}
 
 	void setSmoothEdge(bool ues)
@@ -83,8 +83,8 @@ public:
 		fprintf(mFile,"\"%s.cvt\"",mName.c_str());
 	}
 protected:
-	NurbsTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ParentTessellate(file, name, parent, nodeType, create) {}
+	NurbsTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ParentTessellate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

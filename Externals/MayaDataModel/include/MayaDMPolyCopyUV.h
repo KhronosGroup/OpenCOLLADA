@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyCopyUV():PolyModifierUV(){}
-	PolyCopyUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierUV(file, name, parent, "polyCopyUV", create){}
+	PolyCopyUV(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, "polyCopyUV", shared, create){}
 	virtual ~PolyCopyUV(){}
 
 	void setUvSetNameInput(const string& uvi)
@@ -36,8 +36,8 @@ public:
 		fprintf(mFile,"\"%s.uvi\"",mName.c_str());
 	}
 protected:
-	PolyCopyUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierUV(file, name, parent, nodeType, create) {}
+	PolyCopyUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

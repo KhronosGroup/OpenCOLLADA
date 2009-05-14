@@ -20,8 +20,8 @@ public:
 public:
 
 	DeleteColorSet():DependNode(){}
-	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "deleteColorSet", create){}
+	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "deleteColorSet", shared, create){}
 	virtual ~DeleteColorSet(){}
 
 	void setColorSetName(const string& cols)
@@ -44,8 +44,8 @@ public:
 		fprintf(mFile,"\"%s.cols\"",mName.c_str());
 	}
 protected:
-	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

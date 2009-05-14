@@ -19,13 +19,13 @@ class PolyDelFacet : public PolyModifier
 public:
 
 	PolyDelFacet():PolyModifier(){}
-	PolyDelFacet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyDelFacet", create){}
+	PolyDelFacet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyDelFacet", shared, create){}
 	virtual ~PolyDelFacet(){}
 
 protected:
-	PolyDelFacet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyDelFacet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

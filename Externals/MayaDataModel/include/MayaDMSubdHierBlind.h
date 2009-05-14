@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdHierBlind():BlindDataTemplate(){}
-	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BlindDataTemplate(file, name, parent, "subdHierBlind", create){}
+	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BlindDataTemplate(file, name, parent, "subdHierBlind", shared, create){}
 	virtual ~SubdHierBlind(){}
 
 	void setWhichOneIndex(int woi)
@@ -30,8 +30,8 @@ public:
 		fprintf(mFile,"\tsetAttr \".woi\" %i;\n", woi);
 	}
 protected:
-	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BlindDataTemplate(file, name, parent, nodeType, create) {}
+	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BlindDataTemplate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

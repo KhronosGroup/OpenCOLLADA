@@ -25,8 +25,8 @@ public:
 public:
 
 	PointOnSurfaceInfo():AbstractBaseCreate(){}
-	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "pointOnSurfaceInfo", create){}
+	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "pointOnSurfaceInfo", shared, create){}
 	virtual ~PointOnSurfaceInfo(){}
 
 	void setParameterU(double u)
@@ -177,8 +177,8 @@ public:
 		fprintf(mFile,"\"%s.r.ntv.nvz\"",mName.c_str());
 	}
 protected:
-	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

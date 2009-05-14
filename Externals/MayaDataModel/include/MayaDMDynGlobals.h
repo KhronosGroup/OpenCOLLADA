@@ -20,8 +20,8 @@ public:
 public:
 
 	DynGlobals():DependNode(){}
-	DynGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "dynGlobals", create){}
+	DynGlobals(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "dynGlobals", shared, create){}
 	virtual ~DynGlobals(){}
 
 	void setOverSamples(int os)
@@ -90,8 +90,8 @@ public:
 		fprintf(mFile,"\"%s.mxf\"",mName.c_str());
 	}
 protected:
-	DynGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DynGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

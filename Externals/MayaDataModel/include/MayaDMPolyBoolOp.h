@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyBoolOp():PolyUnite(){}
-	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyUnite(file, name, parent, "polyBoolOp", create){}
+	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyUnite(file, name, parent, "polyBoolOp", shared, create){}
 	virtual ~PolyBoolOp(){}
 
 	void setOperation(unsigned int op)
@@ -61,8 +61,8 @@ public:
 		fprintf(mFile,"\"%s.fat\"",mName.c_str());
 	}
 protected:
-	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyUnite(file, name, parent, nodeType, create) {}
+	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyUnite(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

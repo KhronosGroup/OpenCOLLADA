@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyTriangulate():PolyModifier(){}
-	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyTriangulate", create){}
+	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyTriangulate", shared, create){}
 	virtual ~PolyTriangulate(){}
 
 	void setMaya80(bool m80)
@@ -30,8 +30,8 @@ public:
 		fprintf(mFile,"\tsetAttr \".m80\" %i;\n", m80);
 	}
 protected:
-	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

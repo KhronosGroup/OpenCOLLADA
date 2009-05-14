@@ -20,8 +20,8 @@ public:
 public:
 
 	RebuildSurface():AbstractBaseNurbsConversion(){}
-	RebuildSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseNurbsConversion(file, name, parent, "rebuildSurface", create){}
+	RebuildSurface(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, "rebuildSurface", shared, create){}
 	virtual ~RebuildSurface(){}
 
 	void setRebuildType(unsigned int rt)
@@ -154,8 +154,8 @@ public:
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 	}
 protected:
-	RebuildSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseNurbsConversion(file, name, parent, nodeType, create) {}
+	RebuildSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

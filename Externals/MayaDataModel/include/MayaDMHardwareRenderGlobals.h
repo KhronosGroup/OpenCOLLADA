@@ -20,8 +20,8 @@ public:
 public:
 
 	HardwareRenderGlobals():DependNode(){}
-	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "hardwareRenderGlobals", create){}
+	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "hardwareRenderGlobals", shared, create){}
 	virtual ~HardwareRenderGlobals(){}
 
 	void setColorTextureResolution(int ctrs)
@@ -322,8 +322,8 @@ public:
 		fprintf(mFile,"\"%s.hwel\"",mName.c_str());
 	}
 protected:
-	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

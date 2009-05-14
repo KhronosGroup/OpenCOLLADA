@@ -20,8 +20,8 @@ public:
 public:
 
 	MakeTextCurves():AbstractBaseCreate(){}
-	MakeTextCurves(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "makeTextCurves", create){}
+	MakeTextCurves(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "makeTextCurves", shared, create){}
 	virtual ~MakeTextCurves(){}
 
 	void setText(const string& t)
@@ -101,8 +101,8 @@ public:
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 	}
 protected:
-	MakeTextCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	MakeTextCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

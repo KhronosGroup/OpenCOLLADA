@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveIntersect():AbstractBaseCreate(){}
-	CurveIntersect(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "curveIntersect", create){}
+	CurveIntersect(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "curveIntersect", shared, create){}
 	virtual ~CurveIntersect(){}
 
 	void setTolerance(double tol)
@@ -106,8 +106,8 @@ public:
 		fprintf(mFile,"\"%s.p2\"",mName.c_str());
 	}
 protected:
-	CurveIntersect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	CurveIntersect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

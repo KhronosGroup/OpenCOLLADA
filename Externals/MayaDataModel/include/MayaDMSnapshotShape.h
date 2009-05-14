@@ -20,8 +20,8 @@ public:
 public:
 
 	SnapshotShape():GeometryShape(){}
-	SnapshotShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryShape(file, name, parent, "snapshotShape", create){}
+	SnapshotShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, "snapshotShape", shared, create){}
 	virtual ~SnapshotShape(){}
 
 	void setPoints(const pointArray& pts)
@@ -65,8 +65,8 @@ public:
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 	}
 protected:
-	SnapshotShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryShape(file, name, parent, nodeType, create) {}
+	SnapshotShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

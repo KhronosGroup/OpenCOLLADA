@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyMoveEdge():PolyMoveVertex(){}
-	PolyMoveEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyMoveVertex(file, name, parent, "polyMoveEdge", create){}
+	PolyMoveEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyMoveVertex(file, name, parent, "polyMoveEdge", shared, create){}
 	virtual ~PolyMoveEdge(){}
 
 	void setLocalRotate(const double3& lr)
@@ -110,8 +110,8 @@ public:
 		fprintf(mFile,"\"%s.lc\"",mName.c_str());
 	}
 protected:
-	PolyMoveEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyMoveVertex(file, name, parent, nodeType, create) {}
+	PolyMoveEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyMoveVertex(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyTransfer():PolyModifier(){}
-	PolyTransfer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyTransfer", create){}
+	PolyTransfer(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyTransfer", shared, create){}
 	virtual ~PolyTransfer(){}
 
 	void setOtherPoly(const mesh& op)
@@ -62,8 +62,8 @@ public:
 		fprintf(mFile,"\"%s.vc\"",mName.c_str());
 	}
 protected:
-	PolyTransfer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyTransfer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

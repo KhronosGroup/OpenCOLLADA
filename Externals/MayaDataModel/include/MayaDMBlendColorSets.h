@@ -20,8 +20,8 @@ public:
 public:
 
 	BlendColorSets():PolyModifier(){}
-	BlendColorSets(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "blendColorSets", create){}
+	BlendColorSets(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "blendColorSets", shared, create){}
 	virtual ~BlendColorSets(){}
 
 	void setBaseColorName(const string& bcn)
@@ -103,8 +103,8 @@ public:
 		fprintf(mFile,"\"%s.bwd\"",mName.c_str());
 	}
 protected:
-	BlendColorSets(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	BlendColorSets(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

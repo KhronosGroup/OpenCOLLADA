@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdivToPoly():DependNode(){}
-	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "subdivToPoly", create){}
+	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "subdivToPoly", shared, create){}
 	virtual ~SubdivToPoly(){}
 
 	void setFormat(unsigned int f)
@@ -319,8 +319,8 @@ public:
 		fprintf(mFile,"\"%s.amr\"",mName.c_str());
 	}
 protected:
-	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

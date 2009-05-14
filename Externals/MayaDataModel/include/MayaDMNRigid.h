@@ -20,8 +20,8 @@ public:
 public:
 
 	NRigid():NParticle(){}
-	NRigid(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:NParticle(file, name, parent, "nRigid", create){}
+	NRigid(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:NParticle(file, name, parent, "nRigid", shared, create){}
 	virtual ~NRigid(){}
 
 	void setSolverDisplay(unsigned int svds)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.svds\"",mName.c_str());
 	}
 protected:
-	NRigid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:NParticle(file, name, parent, nodeType, create) {}
+	NRigid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:NParticle(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

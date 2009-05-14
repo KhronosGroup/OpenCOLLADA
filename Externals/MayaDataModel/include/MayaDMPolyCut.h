@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyCut():PolyModifierWorld(){}
-	PolyCut(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyCut", create){}
+	PolyCut(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyCut", shared, create){}
 	virtual ~PolyCut(){}
 
 	void setCutPlaneCenter(const double3& pc)
@@ -199,8 +199,8 @@ public:
 		fprintf(mFile,"\"%s.cid\"",mName.c_str());
 	}
 protected:
-	PolyCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

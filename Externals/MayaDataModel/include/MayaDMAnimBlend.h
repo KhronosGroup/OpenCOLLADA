@@ -20,8 +20,8 @@ public:
 public:
 
 	AnimBlend():DependNode(){}
-	AnimBlend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "animBlend", create){}
+	AnimBlend(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "animBlend", shared, create){}
 	virtual ~AnimBlend(){}
 
 	void setWeight(double w)
@@ -38,8 +38,8 @@ public:
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 	}
 protected:
-	AnimBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	AnimBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	CreateColorSet():DependNode(){}
-	CreateColorSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "createColorSet", create){}
+	CreateColorSet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "createColorSet", shared, create){}
 	virtual ~CreateColorSet(){}
 
 	void setColorSetName(const string& colos)
@@ -62,8 +62,8 @@ public:
 		fprintf(mFile,"\"%s.rprt\"",mName.c_str());
 	}
 protected:
-	CreateColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	CreateColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

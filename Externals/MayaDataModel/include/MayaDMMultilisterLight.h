@@ -20,8 +20,8 @@ public:
 public:
 
 	MultilisterLight():DependNode(){}
-	MultilisterLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "multilisterLight", create){}
+	MultilisterLight(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "multilisterLight", shared, create){}
 	virtual ~MultilisterLight(){}
 
 	void setPointCamera(const float3& p)
@@ -123,8 +123,8 @@ public:
 		fprintf(mFile,"\"%s.ltd.lbd\"",mName.c_str());
 	}
 protected:
-	MultilisterLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	MultilisterLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

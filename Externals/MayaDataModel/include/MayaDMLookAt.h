@@ -20,8 +20,8 @@ public:
 public:
 
 	LookAt():AimConstraint(){}
-	LookAt(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AimConstraint(file, name, parent, "lookAt", create){}
+	LookAt(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AimConstraint(file, name, parent, "lookAt", shared, create){}
 	virtual ~LookAt(){}
 
 	void setDistanceBetween(double db)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 	}
 protected:
-	LookAt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AimConstraint(file, name, parent, nodeType, create) {}
+	LookAt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AimConstraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

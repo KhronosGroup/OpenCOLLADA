@@ -39,8 +39,8 @@ public:
 public:
 
 	AimConstraint():Constraint(){}
-	AimConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Constraint(file, name, parent, "aimConstraint", create){}
+	AimConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Constraint(file, name, parent, "aimConstraint", shared, create){}
 	virtual ~AimConstraint(){}
 
 	void setTarget(size_t tg_i,const Target& tg)
@@ -702,8 +702,8 @@ public:
 		fprintf(mFile,"\"%s.uooc\"",mName.c_str());
 	}
 protected:
-	AimConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Constraint(file, name, parent, nodeType, create) {}
+	AimConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Constraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

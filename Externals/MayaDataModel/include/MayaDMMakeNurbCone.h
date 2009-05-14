@@ -20,8 +20,8 @@ public:
 public:
 
 	MakeNurbCone():RevolvedPrimitive(){}
-	MakeNurbCone(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:RevolvedPrimitive(file, name, parent, "makeNurbCone", create){}
+	MakeNurbCone(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:RevolvedPrimitive(file, name, parent, "makeNurbCone", shared, create){}
 	virtual ~MakeNurbCone(){}
 
 	void setUseOldInitBehaviour(bool oib)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.oib\"",mName.c_str());
 	}
 protected:
-	MakeNurbCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:RevolvedPrimitive(file, name, parent, nodeType, create) {}
+	MakeNurbCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:RevolvedPrimitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

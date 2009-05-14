@@ -20,8 +20,8 @@ public:
 public:
 
 	PositionMarker():Locator(){}
-	PositionMarker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Locator(file, name, parent, "positionMarker", create){}
+	PositionMarker(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Locator(file, name, parent, "positionMarker", shared, create){}
 	virtual ~PositionMarker(){}
 
 	void setTime(double t)
@@ -34,8 +34,8 @@ public:
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 	}
 protected:
-	PositionMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Locator(file, name, parent, nodeType, create) {}
+	PositionMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Locator(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

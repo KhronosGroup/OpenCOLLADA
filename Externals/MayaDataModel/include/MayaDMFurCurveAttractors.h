@@ -56,8 +56,8 @@ public:
 public:
 
 	FurCurveAttractors():DependNode(){}
-	FurCurveAttractors(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "FurCurveAttractors", create){}
+	FurCurveAttractors(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "FurCurveAttractors", shared, create){}
 	virtual ~FurCurveAttractors(){}
 
 	void setCurveAttractorModel(unsigned int camd)
@@ -410,8 +410,8 @@ public:
 		fprintf(mFile,"\"%s.ctln\"",mName.c_str());
 	}
 protected:
-	FurCurveAttractors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	FurCurveAttractors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

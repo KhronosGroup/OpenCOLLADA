@@ -20,8 +20,8 @@ public:
 public:
 
 	AddMatrix():DependNode(){}
-	AddMatrix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "addMatrix", create){}
+	AddMatrix(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "addMatrix", shared, create){}
 	virtual ~AddMatrix(){}
 
 	void setMatrixIn(size_t i_i,const matrix& i_)
@@ -70,8 +70,8 @@ public:
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 	}
 protected:
-	AddMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	AddMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

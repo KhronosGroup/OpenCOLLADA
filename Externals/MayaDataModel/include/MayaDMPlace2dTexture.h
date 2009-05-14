@@ -20,8 +20,8 @@ public:
 public:
 
 	Place2dTexture():DependNode(){}
-	Place2dTexture(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "place2dTexture", create){}
+	Place2dTexture(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "place2dTexture", shared, create){}
 	virtual ~Place2dTexture(){}
 
 	void setVertexUvOne(const float2& vt1)
@@ -415,8 +415,8 @@ public:
 		fprintf(mFile,"\"%s.do\"",mName.c_str());
 	}
 protected:
-	Place2dTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Place2dTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

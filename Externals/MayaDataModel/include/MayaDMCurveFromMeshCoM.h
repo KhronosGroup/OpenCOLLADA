@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveFromMeshCoM():CurveFromMesh(){}
-	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveFromMesh(file, name, parent, "curveFromMeshCoM", create){}
+	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveFromMesh(file, name, parent, "curveFromMeshCoM", shared, create){}
 	virtual ~CurveFromMeshCoM(){}
 
 	void getCurveOnMesh()const
@@ -29,8 +29,8 @@ public:
 		fprintf(mFile,"\"%s.com\"",mName.c_str());
 	}
 protected:
-	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveFromMesh(file, name, parent, nodeType, create) {}
+	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveFromMesh(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

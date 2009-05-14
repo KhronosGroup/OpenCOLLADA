@@ -20,8 +20,8 @@ public:
 public:
 
 	StitchAsNurbsShell():AbstractBaseCreate(){}
-	StitchAsNurbsShell(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "stitchAsNurbsShell", create){}
+	StitchAsNurbsShell(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "stitchAsNurbsShell", shared, create){}
 	virtual ~StitchAsNurbsShell(){}
 
 	void setTolerance(double tol)
@@ -47,8 +47,8 @@ public:
 		fprintf(mFile,"\"%s.osh\"",mName.c_str());
 	}
 protected:
-	StitchAsNurbsShell(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	StitchAsNurbsShell(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

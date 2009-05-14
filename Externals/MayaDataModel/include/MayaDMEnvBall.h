@@ -20,8 +20,8 @@ public:
 public:
 
 	EnvBall():TextureEnv(){}
-	EnvBall(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:TextureEnv(file, name, parent, "envBall", create){}
+	EnvBall(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:TextureEnv(file, name, parent, "envBall", shared, create){}
 	virtual ~EnvBall(){}
 
 	void setImage(const float3& so)
@@ -182,8 +182,8 @@ public:
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 	}
 protected:
-	EnvBall(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:TextureEnv(file, name, parent, nodeType, create) {}
+	EnvBall(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:TextureEnv(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	HairConstraint():Shape(){}
-	HairConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "hairConstraint", create){}
+	HairConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "hairConstraint", shared, create){}
 	virtual ~HairConstraint(){}
 
 	void setCurveIndices(size_t cin_i,int cin)
@@ -125,8 +125,8 @@ public:
 		fprintf(mFile,"\"%s.opn\"",mName.c_str());
 	}
 protected:
-	HairConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	HairConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	JointLattice():GeometryFilter(){}
-	JointLattice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "jointLattice", create){}
+	JointLattice(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "jointLattice", shared, create){}
 	virtual ~JointLattice(){}
 
 	void setCreasing(double cr)
@@ -199,8 +199,8 @@ public:
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 	}
 protected:
-	JointLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	JointLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	File():Texture2d(){}
-	File(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "file", create){}
+	File(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "file", shared, create){}
 	virtual ~File(){}
 
 	void setFileTextureName(const string& ftn)
@@ -667,8 +667,8 @@ public:
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 	}
 protected:
-	File(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	File(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

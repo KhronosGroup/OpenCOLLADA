@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyPoke():PolyModifierWorld(){}
-	PolyPoke(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyPoke", create){}
+	PolyPoke(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyPoke", shared, create){}
 	virtual ~PolyPoke(){}
 
 	void setTranslate(const double3& t)
@@ -110,8 +110,8 @@ public:
 		fprintf(mFile,"\"%s.cma\"",mName.c_str());
 	}
 protected:
-	PolyPoke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyPoke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

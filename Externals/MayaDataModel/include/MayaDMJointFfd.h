@@ -20,8 +20,8 @@ public:
 public:
 
 	JointFfd():Ffd(){}
-	JointFfd(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Ffd(file, name, parent, "jointFfd", create){}
+	JointFfd(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Ffd(file, name, parent, "jointFfd", shared, create){}
 	virtual ~JointFfd(){}
 
 	void setBaseLattice2Matrix(const matrix& b2)
@@ -71,8 +71,8 @@ public:
 		fprintf(mFile,"\"%s.uc\"",mName.c_str());
 	}
 protected:
-	JointFfd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Ffd(file, name, parent, nodeType, create) {}
+	JointFfd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Ffd(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

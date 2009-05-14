@@ -19,13 +19,13 @@ class PolyCreator : public PolyBase
 public:
 
 	PolyCreator():PolyBase(){}
-	PolyCreator(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyBase(file, name, parent, "polyCreator", create){}
+	PolyCreator(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyBase(file, name, parent, "polyCreator", shared, create){}
 	virtual ~PolyCreator(){}
 
 protected:
-	PolyCreator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyBase(file, name, parent, nodeType, create) {}
+	PolyCreator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyBase(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

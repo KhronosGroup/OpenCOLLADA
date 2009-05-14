@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdivReverseFaces():DependNode(){}
-	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "subdivReverseFaces", create){}
+	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "subdivReverseFaces", shared, create){}
 	virtual ~SubdivReverseFaces(){}
 
 	void setXMirror(bool xm)
@@ -60,8 +60,8 @@ public:
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 	}
 protected:
-	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

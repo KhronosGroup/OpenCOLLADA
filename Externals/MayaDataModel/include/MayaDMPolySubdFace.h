@@ -20,8 +20,8 @@ public:
 public:
 
 	PolySubdFace():PolyModifier(){}
-	PolySubdFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polySubdFace", create){}
+	PolySubdFace(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polySubdFace", shared, create){}
 	virtual ~PolySubdFace(){}
 
 	void setDivisions(int dv)
@@ -70,8 +70,8 @@ public:
 		fprintf(mFile,"\"%s.sbm\"",mName.c_str());
 	}
 protected:
-	PolySubdFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolySubdFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

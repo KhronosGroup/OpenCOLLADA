@@ -20,8 +20,8 @@ public:
 public:
 
 	ObjectScriptFilter():ObjectFilter(){}
-	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ObjectFilter(file, name, parent, "objectScriptFilter", create){}
+	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, "objectScriptFilter", shared, create){}
 	virtual ~ObjectScriptFilter(){}
 
 	void setArrayArg(bool aarg)
@@ -63,8 +63,8 @@ public:
 		fprintf(mFile,"\"%s.unn\"",mName.c_str());
 	}
 protected:
-	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ObjectFilter(file, name, parent, nodeType, create) {}
+	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

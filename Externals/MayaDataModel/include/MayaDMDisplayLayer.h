@@ -41,8 +41,8 @@ public:
 public:
 
 	DisplayLayer():DependNode(){}
-	DisplayLayer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "displayLayer", create){}
+	DisplayLayer(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "displayLayer", shared, create){}
 	virtual ~DisplayLayer(){}
 
 	void setIdentification(short id)
@@ -146,8 +146,8 @@ public:
 		fprintf(mFile,"\"%s.do\"",mName.c_str());
 	}
 protected:
-	DisplayLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DisplayLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

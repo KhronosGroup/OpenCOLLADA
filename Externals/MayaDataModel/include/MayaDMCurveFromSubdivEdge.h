@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveFromSubdivEdge():CurveFromSubdiv(){}
-	CurveFromSubdivEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveFromSubdiv(file, name, parent, "curveFromSubdivEdge", create){}
+	CurveFromSubdivEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveFromSubdiv(file, name, parent, "curveFromSubdivEdge", shared, create){}
 	virtual ~CurveFromSubdivEdge(){}
 
 	void setEdgeIndexL(size_t eil_i,int eil)
@@ -99,8 +99,8 @@ public:
 		fprintf(mFile,"\"%s.eir\"",mName.c_str());
 	}
 protected:
-	CurveFromSubdivEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveFromSubdiv(file, name, parent, nodeType, create) {}
+	CurveFromSubdivEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveFromSubdiv(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	DagPose():DependNode(){}
-	DagPose(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "dagPose", create){}
+	DagPose(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "dagPose", shared, create){}
 	virtual ~DagPose(){}
 
 	void setWorldMatrix(size_t wm_i,const matrix& wm)
@@ -153,8 +153,8 @@ public:
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 	}
 protected:
-	DagPose(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DagPose(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

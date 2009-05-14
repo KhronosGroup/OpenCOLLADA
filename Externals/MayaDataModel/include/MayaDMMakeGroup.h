@@ -20,8 +20,8 @@ public:
 public:
 
 	MakeGroup():DependNode(){}
-	MakeGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "makeGroup", create){}
+	MakeGroup(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "makeGroup", shared, create){}
 	virtual ~MakeGroup(){}
 
 	void setGroupType(unsigned int gt)
@@ -72,8 +72,8 @@ public:
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 	}
 protected:
-	MakeGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	MakeGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

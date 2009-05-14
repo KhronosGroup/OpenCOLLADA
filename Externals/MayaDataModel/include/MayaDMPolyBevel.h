@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyBevel():PolyModifierWorld(){}
-	PolyBevel(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyBevel", create){}
+	PolyBevel(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyBevel", shared, create){}
 	virtual ~PolyBevel(){}
 
 	void setOffsetAsFraction(bool oaf)
@@ -133,8 +133,8 @@ public:
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
 	}
 protected:
-	PolyBevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyBevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

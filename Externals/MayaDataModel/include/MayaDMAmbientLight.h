@@ -20,8 +20,8 @@ public:
 public:
 
 	AmbientLight():RenderLight(){}
-	AmbientLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:RenderLight(file, name, parent, "ambientLight", create){}
+	AmbientLight(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:RenderLight(file, name, parent, "ambientLight", shared, create){}
 	virtual ~AmbientLight(){}
 
 	void setAmbientShade(float as)
@@ -86,8 +86,8 @@ public:
 		fprintf(mFile,"\"%s.gs\"",mName.c_str());
 	}
 protected:
-	AmbientLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:RenderLight(file, name, parent, nodeType, create) {}
+	AmbientLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:RenderLight(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

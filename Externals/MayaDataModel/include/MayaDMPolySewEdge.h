@@ -20,8 +20,8 @@ public:
 public:
 
 	PolySewEdge():PolyModifierWorld(){}
-	PolySewEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polySewEdge", create){}
+	PolySewEdge(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polySewEdge", shared, create){}
 	virtual ~PolySewEdge(){}
 
 	void setTolerance(double t)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 	}
 protected:
-	PolySewEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolySewEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

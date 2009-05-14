@@ -40,8 +40,8 @@ public:
 public:
 
 	OrientConstraint():Constraint(){}
-	OrientConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Constraint(file, name, parent, "orientConstraint", create){}
+	OrientConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Constraint(file, name, parent, "orientConstraint", shared, create){}
 	virtual ~OrientConstraint(){}
 
 	void setTarget(size_t tg_i,const Target& tg)
@@ -511,8 +511,8 @@ public:
 		fprintf(mFile,"\"%s.uooc\"",mName.c_str());
 	}
 protected:
-	OrientConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Constraint(file, name, parent, nodeType, create) {}
+	OrientConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Constraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

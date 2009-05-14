@@ -20,8 +20,8 @@ public:
 public:
 
 	IkHandle():Transform(){}
-	IkHandle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "ikHandle", create){}
+	IkHandle(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "ikHandle", shared, create){}
 	virtual ~IkHandle(){}
 
 	void setSnapEnable(bool hsh)
@@ -410,8 +410,8 @@ public:
 		fprintf(mFile,"\"%s.sio\"",mName.c_str());
 	}
 protected:
-	IkHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	IkHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

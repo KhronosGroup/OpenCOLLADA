@@ -36,8 +36,8 @@ public:
 public:
 
 	SoftMod():WeightGeometryFilter(){}
-	SoftMod(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:WeightGeometryFilter(file, name, parent, "softMod", create){}
+	SoftMod(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, "softMod", shared, create){}
 	virtual ~SoftMod(){}
 
 	void setPercentResolution(float ptr)
@@ -369,8 +369,8 @@ public:
 		fprintf(mFile,"\"%s.fom\"",mName.c_str());
 	}
 protected:
-	SoftMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
+	SoftMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

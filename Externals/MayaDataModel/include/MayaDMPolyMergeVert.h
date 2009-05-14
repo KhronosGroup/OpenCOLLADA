@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyMergeVert():PolyModifierWorld(){}
-	PolyMergeVert(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierWorld(file, name, parent, "polyMergeVert", create){}
+	PolyMergeVert(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyMergeVert", shared, create){}
 	virtual ~PolyMergeVert(){}
 
 	void setDistance(double d)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 	}
 protected:
-	PolyMergeVert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierWorld(file, name, parent, nodeType, create) {}
+	PolyMergeVert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	EnvSky():TextureEnv(){}
-	EnvSky(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:TextureEnv(file, name, parent, "envSky", create){}
+	EnvSky(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:TextureEnv(file, name, parent, "envSky", shared, create){}
 	virtual ~EnvSky(){}
 
 	void setTotalBrightness(float tb)
@@ -474,8 +474,8 @@ public:
 		fprintf(mFile,"\"%s.csa\"",mName.c_str());
 	}
 protected:
-	EnvSky(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:TextureEnv(file, name, parent, nodeType, create) {}
+	EnvSky(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:TextureEnv(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

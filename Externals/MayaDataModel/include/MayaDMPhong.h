@@ -20,8 +20,8 @@ public:
 public:
 
 	Phong():Reflect(){}
-	Phong(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Reflect(file, name, parent, "phong", create){}
+	Phong(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Reflect(file, name, parent, "phong", shared, create){}
 	virtual ~Phong(){}
 
 	void setCosinePower(float cp)
@@ -107,8 +107,8 @@ public:
 		fprintf(mFile,"\"%s.mirf\"",mName.c_str());
 	}
 protected:
-	Phong(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Reflect(file, name, parent, nodeType, create) {}
+	Phong(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Reflect(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

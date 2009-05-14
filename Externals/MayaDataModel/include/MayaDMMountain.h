@@ -20,8 +20,8 @@ public:
 public:
 
 	Mountain():Texture2d(){}
-	Mountain(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture2d(file, name, parent, "mountain", create){}
+	Mountain(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, "mountain", shared, create){}
 	virtual ~Mountain(){}
 
 	void setSnowColor(const float3& sc)
@@ -173,8 +173,8 @@ public:
 		fprintf(mFile,"\"%s.dmx\"",mName.c_str());
 	}
 protected:
-	Mountain(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture2d(file, name, parent, nodeType, create) {}
+	Mountain(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture2d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

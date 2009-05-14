@@ -20,8 +20,8 @@ public:
 public:
 
 	FrameCache():DependNode(){}
-	FrameCache(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "frameCache", create){}
+	FrameCache(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "frameCache", shared, create){}
 	virtual ~FrameCache(){}
 
 	void setVaryTime(double vt)
@@ -65,8 +65,8 @@ public:
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 	}
 protected:
-	FrameCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	FrameCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

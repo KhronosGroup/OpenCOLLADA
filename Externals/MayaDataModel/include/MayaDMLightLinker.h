@@ -40,8 +40,8 @@ public:
 public:
 
 	LightLinker():DependNode(){}
-	LightLinker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "lightLinker", create){}
+	LightLinker(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "lightLinker", shared, create){}
 	virtual ~LightLinker(){}
 
 	void setLink(size_t lnk_i,const Link& lnk)
@@ -277,8 +277,8 @@ public:
 		fprintf(mFile,"\"%s.sign.soig\"",mName.c_str());
 	}
 protected:
-	LightLinker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	LightLinker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

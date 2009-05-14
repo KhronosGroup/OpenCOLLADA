@@ -20,8 +20,8 @@ public:
 public:
 
 	GroupParts():DependNode(){}
-	GroupParts(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "groupParts", create){}
+	GroupParts(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "groupParts", shared, create){}
 	virtual ~GroupParts(){}
 
 	void setInputComponents(const componentList& ic)
@@ -62,8 +62,8 @@ public:
 		fprintf(mFile,"\"%s.gi\"",mName.c_str());
 	}
 protected:
-	GroupParts(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	GroupParts(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

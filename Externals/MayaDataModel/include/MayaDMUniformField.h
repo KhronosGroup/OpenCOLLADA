@@ -31,8 +31,8 @@ public:
 public:
 
 	UniformField():Field(){}
-	UniformField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Field(file, name, parent, "uniformField", create){}
+	UniformField(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Field(file, name, parent, "uniformField", shared, create){}
 	virtual ~UniformField(){}
 
 	void setDirection(const Direction& d)
@@ -77,8 +77,8 @@ public:
 		fprintf(mFile,"\"%s.inh\"",mName.c_str());
 	}
 protected:
-	UniformField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Field(file, name, parent, nodeType, create) {}
+	UniformField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Field(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

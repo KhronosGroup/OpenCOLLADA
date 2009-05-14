@@ -20,8 +20,8 @@ public:
 public:
 
 	Projection():Texture3d(){}
-	Projection(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "projection", create){}
+	Projection(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "projection", shared, create){}
 	virtual ~Projection(){}
 
 	void setXPixelAngle(float xpa)
@@ -578,8 +578,8 @@ public:
 		fprintf(mFile,"\"%s.tv.tvz\"",mName.c_str());
 	}
 protected:
-	Projection(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Projection(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

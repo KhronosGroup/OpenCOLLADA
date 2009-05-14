@@ -351,8 +351,8 @@ public:
 public:
 
 	HikHandle():IkHandle(){}
-	HikHandle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:IkHandle(file, name, parent, "hikHandle", create){}
+	HikHandle(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:IkHandle(file, name, parent, "hikHandle", shared, create){}
 	virtual ~HikHandle(){}
 
 	void setTime(double tim)
@@ -1764,8 +1764,8 @@ public:
 		fprintf(mFile,"\"%s.re.rlro\"",mName.c_str());
 	}
 protected:
-	HikHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:IkHandle(file, name, parent, nodeType, create) {}
+	HikHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:IkHandle(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	RigidConstraint():Transform(){}
-	RigidConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "rigidConstraint", create){}
+	RigidConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "rigidConstraint", shared, create){}
 	virtual ~RigidConstraint(){}
 
 	void setConstraintType(unsigned int typ)
@@ -252,8 +252,8 @@ public:
 		fprintf(mFile,"\"%s.udp.upz\"",mName.c_str());
 	}
 protected:
-	RigidConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	RigidConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

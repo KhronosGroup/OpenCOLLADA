@@ -20,8 +20,8 @@ public:
 public:
 
 	ObjectMultiFilter():ObjectFilter(){}
-	ObjectMultiFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:ObjectFilter(file, name, parent, "objectMultiFilter", create){}
+	ObjectMultiFilter(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, "objectMultiFilter", shared, create){}
 	virtual ~ObjectMultiFilter(){}
 
 	void setFilterType(unsigned int ftyp)
@@ -38,8 +38,8 @@ public:
 		fprintf(mFile,"\"%s.ftyp\"",mName.c_str());
 	}
 protected:
-	ObjectMultiFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:ObjectFilter(file, name, parent, nodeType, create) {}
+	ObjectMultiFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

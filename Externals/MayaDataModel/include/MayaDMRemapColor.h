@@ -53,8 +53,8 @@ public:
 public:
 
 	RemapColor():DependNode(){}
-	RemapColor(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "remapColor", create){}
+	RemapColor(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "remapColor", shared, create){}
 	virtual ~RemapColor(){}
 
 	void setColor(const float3& cl)
@@ -393,8 +393,8 @@ public:
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 	}
 protected:
-	RemapColor(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	RemapColor(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

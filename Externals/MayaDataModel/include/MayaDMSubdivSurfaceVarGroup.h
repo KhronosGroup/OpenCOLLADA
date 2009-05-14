@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdivSurfaceVarGroup():BaseGeometryVarGroup(){}
-	SubdivSurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BaseGeometryVarGroup(file, name, parent, "subdivSurfaceVarGroup", create){}
+	SubdivSurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, "subdivSurfaceVarGroup", shared, create){}
 	virtual ~SubdivSurfaceVarGroup(){}
 
 	void getCreate(size_t cr_i)const
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 	}
 protected:
-	SubdivSurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BaseGeometryVarGroup(file, name, parent, nodeType, create) {}
+	SubdivSurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

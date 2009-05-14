@@ -20,8 +20,8 @@ public:
 public:
 
 	DeleteComponent():DependNode(){}
-	DeleteComponent(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "deleteComponent", create){}
+	DeleteComponent(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "deleteComponent", shared, create){}
 	virtual ~DeleteComponent(){}
 
 	void setDeleteComponents(const componentList& dc)
@@ -48,8 +48,8 @@ public:
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 	}
 protected:
-	DeleteComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	DeleteComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

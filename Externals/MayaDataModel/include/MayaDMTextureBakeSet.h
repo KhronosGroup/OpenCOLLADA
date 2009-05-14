@@ -20,8 +20,8 @@ public:
 public:
 
 	TextureBakeSet():BakeSet(){}
-	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:BakeSet(file, name, parent, "textureBakeSet", create){}
+	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:BakeSet(file, name, parent, "textureBakeSet", shared, create){}
 	virtual ~TextureBakeSet(){}
 
 	void setSeparation(unsigned int sep)
@@ -235,8 +235,8 @@ public:
 		fprintf(mFile,"\"%s.nsp\"",mName.c_str());
 	}
 protected:
-	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:BakeSet(file, name, parent, nodeType, create) {}
+	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:BakeSet(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

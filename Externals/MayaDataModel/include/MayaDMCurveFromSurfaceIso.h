@@ -20,8 +20,8 @@ public:
 public:
 
 	CurveFromSurfaceIso():CurveFromSurface(){}
-	CurveFromSurfaceIso(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:CurveFromSurface(file, name, parent, "curveFromSurfaceIso", create){}
+	CurveFromSurfaceIso(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:CurveFromSurface(file, name, parent, "curveFromSurfaceIso", shared, create){}
 	virtual ~CurveFromSurfaceIso(){}
 
 	void setIsoparmValue(double iv)
@@ -52,8 +52,8 @@ public:
 		fprintf(mFile,"\"%s.rv\"",mName.c_str());
 	}
 protected:
-	CurveFromSurfaceIso(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:CurveFromSurface(file, name, parent, nodeType, create) {}
+	CurveFromSurfaceIso(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:CurveFromSurface(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

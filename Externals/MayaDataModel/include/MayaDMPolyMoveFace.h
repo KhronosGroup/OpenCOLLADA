@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyMoveFace():PolyMoveEdge(){}
-	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyMoveEdge(file, name, parent, "polyMoveFace", create){}
+	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyMoveEdge(file, name, parent, "polyMoveFace", shared, create){}
 	virtual ~PolyMoveFace(){}
 
 	void setOffset(float off)
@@ -128,8 +128,8 @@ public:
 		fprintf(mFile,"\"%s.m.mz\"",mName.c_str());
 	}
 protected:
-	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyMoveEdge(file, name, parent, nodeType, create) {}
+	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyMoveEdge(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

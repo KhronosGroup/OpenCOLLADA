@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyStraightenUVBorder():PolyModifierUV(){}
-	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifierUV(file, name, parent, "polyStraightenUVBorder", create){}
+	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, "polyStraightenUVBorder", shared, create){}
 	virtual ~PolyStraightenUVBorder(){}
 
 	void setCurvature(float c)
@@ -61,8 +61,8 @@ public:
 		fprintf(mFile,"\"%s.gt\"",mName.c_str());
 	}
 protected:
-	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifierUV(file, name, parent, nodeType, create) {}
+	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

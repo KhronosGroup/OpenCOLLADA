@@ -58,8 +58,8 @@ public:
 public:
 
 	ParentConstraint():Constraint(){}
-	ParentConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Constraint(file, name, parent, "parentConstraint", create){}
+	ParentConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Constraint(file, name, parent, "parentConstraint", shared, create){}
 	virtual ~ParentConstraint(){}
 
 	void setTarget(size_t tg_i,const Target& tg)
@@ -953,8 +953,8 @@ public:
 		fprintf(mFile,"\"%s.inc\"",mName.c_str());
 	}
 protected:
-	ParentConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Constraint(file, name, parent, nodeType, create) {}
+	ParentConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Constraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

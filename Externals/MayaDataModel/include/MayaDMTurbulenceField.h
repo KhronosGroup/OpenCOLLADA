@@ -20,8 +20,8 @@ public:
 public:
 
 	TurbulenceField():Field(){}
-	TurbulenceField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Field(file, name, parent, "turbulenceField", create){}
+	TurbulenceField(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Field(file, name, parent, "turbulenceField", shared, create){}
 	virtual ~TurbulenceField(){}
 
 	void setFrequency(double frq)
@@ -88,8 +88,8 @@ public:
 		fprintf(mFile,"\"%s.intr\"",mName.c_str());
 	}
 protected:
-	TurbulenceField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Field(file, name, parent, nodeType, create) {}
+	TurbulenceField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Field(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

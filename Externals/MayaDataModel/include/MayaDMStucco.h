@@ -20,8 +20,8 @@ public:
 public:
 
 	Stucco():Texture3d(){}
-	Stucco(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "stucco", create){}
+	Stucco(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "stucco", shared, create){}
 	virtual ~Stucco(){}
 
 	void setShaker(float sh)
@@ -192,8 +192,8 @@ public:
 		fprintf(mFile,"\"%s.on.onz\"",mName.c_str());
 	}
 protected:
-	Stucco(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Stucco(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	SurfaceInfo():AbstractBaseCreate(){}
-	SurfaceInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "surfaceInfo", create){}
+	SurfaceInfo(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "surfaceInfo", shared, create){}
 	virtual ~SurfaceInfo(){}
 
 	void getInputSurface()const
@@ -92,8 +92,8 @@ public:
 		fprintf(mFile,"\"%s.kv\"",mName.c_str());
 	}
 protected:
-	SurfaceInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	SurfaceInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

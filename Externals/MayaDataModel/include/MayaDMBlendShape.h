@@ -60,8 +60,8 @@ public:
 public:
 
 	BlendShape():GeometryFilter(){}
-	BlendShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:GeometryFilter(file, name, parent, "blendShape", create){}
+	BlendShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, "blendShape", shared, create){}
 	virtual ~BlendShape(){}
 
 	void setTopologyCheck(bool tc)
@@ -436,8 +436,8 @@ public:
 		fprintf(mFile,"\"%s.to.tz\"",mName.c_str());
 	}
 protected:
-	BlendShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:GeometryFilter(file, name, parent, nodeType, create) {}
+	BlendShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

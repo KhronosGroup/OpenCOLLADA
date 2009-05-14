@@ -20,8 +20,8 @@ public:
 public:
 
 	Constraint():Transform(){}
-	Constraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Transform(file, name, parent, "constraint", create){}
+	Constraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Transform(file, name, parent, "constraint", shared, create){}
 	virtual ~Constraint(){}
 
 	void setEnableRestPosition(bool erp)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.lo\"",mName.c_str());
 	}
 protected:
-	Constraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Transform(file, name, parent, nodeType, create) {}
+	Constraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Transform(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

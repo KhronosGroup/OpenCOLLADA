@@ -25,8 +25,8 @@ public:
 public:
 
 	Spring():Shape(){}
-	Spring(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "spring", create){}
+	Spring(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "spring", shared, create){}
 	virtual ~Spring(){}
 
 	void setEnd1Weight(double f)
@@ -416,8 +416,8 @@ public:
 		fprintf(mFile,"\"%s.ooi\"",mName.c_str());
 	}
 protected:
-	Spring(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	Spring(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -42,8 +42,8 @@ public:
 public:
 
 	DynamicConstraint():Shape(){}
-	DynamicConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "dynamicConstraint", create){}
+	DynamicConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "dynamicConstraint", shared, create){}
 	virtual ~DynamicConstraint(){}
 
 	void setIsDynamic(bool isd)
@@ -547,8 +547,8 @@ public:
 		fprintf(mFile,"\"%s.cld\"",mName.c_str());
 	}
 protected:
-	DynamicConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	DynamicConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

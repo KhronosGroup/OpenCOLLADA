@@ -20,8 +20,8 @@ public:
 public:
 
 	TransferAttributes():WeightGeometryFilter(){}
-	TransferAttributes(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:WeightGeometryFilter(file, name, parent, "transferAttributes", create){}
+	TransferAttributes(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, "transferAttributes", shared, create){}
 	virtual ~TransferAttributes(){}
 
 	void setTransferPositions(unsigned int pos)
@@ -228,8 +228,8 @@ public:
 		fprintf(mFile,"\"%s.clb\"",mName.c_str());
 	}
 protected:
-	TransferAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
+	TransferAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

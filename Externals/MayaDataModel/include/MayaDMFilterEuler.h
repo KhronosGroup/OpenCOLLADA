@@ -20,8 +20,8 @@ public:
 public:
 
 	FilterEuler():Filter(){}
-	FilterEuler(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Filter(file, name, parent, "filterEuler", create){}
+	FilterEuler(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Filter(file, name, parent, "filterEuler", shared, create){}
 	virtual ~FilterEuler(){}
 
 	void setSmooth(unsigned int s)
@@ -137,8 +137,8 @@ public:
 		fprintf(mFile,"\"%s.use\"",mName.c_str());
 	}
 protected:
-	FilterEuler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Filter(file, name, parent, nodeType, create) {}
+	FilterEuler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Filter(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -39,8 +39,8 @@ public:
 public:
 
 	PointConstraint():Constraint(){}
-	PointConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Constraint(file, name, parent, "pointConstraint", create){}
+	PointConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Constraint(file, name, parent, "pointConstraint", shared, create){}
 	virtual ~PointConstraint(){}
 
 	void setTarget(size_t tg_i,const Target& tg)
@@ -470,8 +470,8 @@ public:
 		fprintf(mFile,"\"%s.rst.rtz\"",mName.c_str());
 	}
 protected:
-	PointConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Constraint(file, name, parent, nodeType, create) {}
+	PointConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Constraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

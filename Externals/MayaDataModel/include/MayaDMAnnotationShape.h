@@ -20,8 +20,8 @@ public:
 public:
 
 	AnnotationShape():DimensionShape(){}
-	AnnotationShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DimensionShape(file, name, parent, "annotationShape", create){}
+	AnnotationShape(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DimensionShape(file, name, parent, "annotationShape", shared, create){}
 	virtual ~AnnotationShape(){}
 
 	void setText(const string& txt)
@@ -102,8 +102,8 @@ public:
 		fprintf(mFile,"\"%s.daro\"",mName.c_str());
 	}
 protected:
-	AnnotationShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DimensionShape(file, name, parent, nodeType, create) {}
+	AnnotationShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DimensionShape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

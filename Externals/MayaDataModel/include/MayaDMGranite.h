@@ -20,8 +20,8 @@ public:
 public:
 
 	Granite():Texture3d(){}
-	Granite(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Texture3d(file, name, parent, "granite", create){}
+	Granite(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, "granite", shared, create){}
 	virtual ~Granite(){}
 
 	void setColor1(const float3& c1)
@@ -272,8 +272,8 @@ public:
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 	}
 protected:
-	Granite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Texture3d(file, name, parent, nodeType, create) {}
+	Granite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Texture3d(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

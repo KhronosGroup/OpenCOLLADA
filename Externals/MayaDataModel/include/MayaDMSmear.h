@@ -20,8 +20,8 @@ public:
 public:
 
 	Smear():DependNode(){}
-	Smear(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "smear", create){}
+	Smear(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "smear", shared, create){}
 	virtual ~Smear(){}
 
 	void setInRgb(const float3& i_)
@@ -75,8 +75,8 @@ public:
 		fprintf(mFile,"\"%s.o.ov\"",mName.c_str());
 	}
 protected:
-	Smear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Smear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

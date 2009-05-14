@@ -32,8 +32,8 @@ public:
 public:
 
 	PolyToSubdiv():DependNode(){}
-	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "polyToSubdiv", create){}
+	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "polyToSubdiv", shared, create){}
 	virtual ~PolyToSubdiv(){}
 
 	void setInMesh(const mesh& i_)
@@ -220,8 +220,8 @@ public:
 		fprintf(mFile,"\"%s.qc\"",mName.c_str());
 	}
 protected:
-	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

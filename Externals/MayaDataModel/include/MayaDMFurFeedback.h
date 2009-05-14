@@ -65,8 +65,8 @@ public:
 public:
 
 	FurFeedback():Locator(){}
-	FurFeedback(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Locator(file, name, parent, "FurFeedback", create){}
+	FurFeedback(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Locator(file, name, parent, "FurFeedback", shared, create){}
 	virtual ~FurFeedback(){}
 
 	void setInputSurface(const nurbsSurface& is)
@@ -3781,8 +3781,8 @@ public:
 		fprintf(mFile,"\"%s.mrc.tpr\"",mName.c_str());
 	}
 protected:
-	FurFeedback(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Locator(file, name, parent, nodeType, create) {}
+	FurFeedback(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Locator(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

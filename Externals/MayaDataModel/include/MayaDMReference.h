@@ -30,8 +30,8 @@ public:
 public:
 
 	Reference():DependNode(){}
-	Reference(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "reference", create){}
+	Reference(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "reference", shared, create){}
 	virtual ~Reference(){}
 
 	void setFileNames(size_t fn_i,const string& fn)
@@ -255,8 +255,8 @@ public:
 		fprintf(mFile,"\"%s.lk\"",mName.c_str());
 	}
 protected:
-	Reference(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	Reference(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

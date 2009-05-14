@@ -43,8 +43,8 @@ public:
 public:
 
 	VolumeLight():PointLight(){}
-	VolumeLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PointLight(file, name, parent, "volumeLight", create){}
+	VolumeLight(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PointLight(file, name, parent, "volumeLight", shared, create){}
 	virtual ~VolumeLight(){}
 
 	void setLightShape(unsigned int lis)
@@ -300,8 +300,8 @@ public:
 		fprintf(mFile,"\"%s.ema\"",mName.c_str());
 	}
 protected:
-	VolumeLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PointLight(file, name, parent, nodeType, create) {}
+	VolumeLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PointLight(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

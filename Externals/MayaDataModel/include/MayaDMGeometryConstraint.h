@@ -27,8 +27,8 @@ public:
 public:
 
 	GeometryConstraint():Constraint(){}
-	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Constraint(file, name, parent, "geometryConstraint", create){}
+	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Constraint(file, name, parent, "geometryConstraint", shared, create){}
 	virtual ~GeometryConstraint(){}
 
 	void setTarget(size_t tg_i,const Target& tg)
@@ -110,8 +110,8 @@ public:
 		fprintf(mFile,"\"%s.cgm\"",mName.c_str());
 	}
 protected:
-	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Constraint(file, name, parent, nodeType, create) {}
+	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Constraint(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

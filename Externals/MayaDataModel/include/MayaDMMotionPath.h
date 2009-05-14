@@ -20,8 +20,8 @@ public:
 public:
 
 	MotionPath():DependNode(){}
-	MotionPath(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "motionPath", create){}
+	MotionPath(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "motionPath", shared, create){}
 	virtual ~MotionPath(){}
 
 	void setUValue(double u)
@@ -327,8 +327,8 @@ public:
 		fprintf(mFile,"\"%s.bl\"",mName.c_str());
 	}
 protected:
-	MotionPath(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	MotionPath(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	PlusMinusAverage():DependNode(){}
-	PlusMinusAverage(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "plusMinusAverage", create){}
+	PlusMinusAverage(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "plusMinusAverage", shared, create){}
 	virtual ~PlusMinusAverage(){}
 
 	void setOperation(unsigned int op)
@@ -251,8 +251,8 @@ public:
 		fprintf(mFile,"\"%s.o3.o3z\"",mName.c_str());
 	}
 protected:
-	PlusMinusAverage(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	PlusMinusAverage(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

@@ -20,8 +20,8 @@ public:
 public:
 
 	ProjectTangent():AbstractBaseCreate(){}
-	ProjectTangent(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "projectTangent", create){}
+	ProjectTangent(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "projectTangent", shared, create){}
 	virtual ~ProjectTangent(){}
 
 	void setTangentScale(double ts)
@@ -108,8 +108,8 @@ public:
 		fprintf(mFile,"\"%s.ie\"",mName.c_str());
 	}
 protected:
-	ProjectTangent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	ProjectTangent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

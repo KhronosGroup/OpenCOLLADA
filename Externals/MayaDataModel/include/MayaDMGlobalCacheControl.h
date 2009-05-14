@@ -20,8 +20,8 @@ public:
 public:
 
 	GlobalCacheControl():DependNode(){}
-	GlobalCacheControl(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "globalCacheControl", create){}
+	GlobalCacheControl(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "globalCacheControl", shared, create){}
 	virtual ~GlobalCacheControl(){}
 
 	void setEnableStatus(unsigned int ebls)
@@ -43,8 +43,8 @@ public:
 		fprintf(mFile,"\"%s.webl\"",mName.c_str());
 	}
 protected:
-	GlobalCacheControl(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	GlobalCacheControl(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

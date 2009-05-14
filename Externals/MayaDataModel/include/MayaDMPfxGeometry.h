@@ -20,8 +20,8 @@ public:
 public:
 
 	PfxGeometry():Shape(){}
-	PfxGeometry(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Shape(file, name, parent, "pfxGeometry", create){}
+	PfxGeometry(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Shape(file, name, parent, "pfxGeometry", shared, create){}
 	virtual ~PfxGeometry(){}
 
 	void setDisplayPercent(double dpc)
@@ -342,8 +342,8 @@ public:
 		fprintf(mFile,"\"%s.ofc\"",mName.c_str());
 	}
 protected:
-	PfxGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Shape(file, name, parent, nodeType, create) {}
+	PfxGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Shape(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

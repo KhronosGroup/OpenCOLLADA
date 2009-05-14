@@ -20,8 +20,8 @@ public:
 public:
 
 	SubdAutoProj():SubdModifierUV(){}
-	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:SubdModifierUV(file, name, parent, "subdAutoProj", create){}
+	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:SubdModifierUV(file, name, parent, "subdAutoProj", shared, create){}
 	virtual ~SubdAutoProj(){}
 
 	void setPlanes(int p)
@@ -97,8 +97,8 @@ public:
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 	}
 protected:
-	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:SubdModifierUV(file, name, parent, nodeType, create) {}
+	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:SubdModifierUV(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

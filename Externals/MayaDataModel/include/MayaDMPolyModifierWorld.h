@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyModifierWorld():PolyModifier(){}
-	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyModifier(file, name, parent, "polyModifierWorld", create){}
+	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, "polyModifierWorld", shared, create){}
 	virtual ~PolyModifierWorld(){}
 
 	void setInputMatrix(const matrix& ix)
@@ -54,8 +54,8 @@ public:
 		fprintf(mFile,"\"%s.mp\"",mName.c_str());
 	}
 protected:
-	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyModifier(file, name, parent, nodeType, create) {}
+	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

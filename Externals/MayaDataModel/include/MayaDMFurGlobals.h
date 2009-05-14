@@ -20,8 +20,8 @@ public:
 public:
 
 	FurGlobals():DependNode(){}
-	FurGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:DependNode(file, name, parent, "FurGlobals", create){}
+	FurGlobals(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:DependNode(file, name, parent, "FurGlobals", shared, create){}
 	virtual ~FurGlobals(){}
 
 	void setRenderFur(bool rh)
@@ -254,8 +254,8 @@ public:
 		fprintf(mFile,"\"%s.dgr\"",mName.c_str());
 	}
 protected:
-	FurGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:DependNode(file, name, parent, nodeType, create) {}
+	FurGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:DependNode(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

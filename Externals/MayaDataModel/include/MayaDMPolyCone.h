@@ -20,8 +20,8 @@ public:
 public:
 
 	PolyCone():PolyPrimitive(){}
-	PolyCone(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:PolyPrimitive(file, name, parent, "polyCone", create){}
+	PolyCone(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, "polyCone", shared, create){}
 	virtual ~PolyCone(){}
 
 	void setRadius(double r)
@@ -97,8 +97,8 @@ public:
 		fprintf(mFile,"\"%s.rcp\"",mName.c_str());
 	}
 protected:
-	PolyCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:PolyPrimitive(file, name, parent, nodeType, create) {}
+	PolyCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

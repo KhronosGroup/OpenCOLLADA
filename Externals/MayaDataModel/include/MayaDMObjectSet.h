@@ -20,8 +20,8 @@ public:
 public:
 
 	ObjectSet():Entity(){}
-	ObjectSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:Entity(file, name, parent, "objectSet", create){}
+	ObjectSet(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:Entity(file, name, parent, "objectSet", shared, create){}
 	virtual ~ObjectSet(){}
 
 	void setMemberWireframeColor(short mwc)
@@ -111,8 +111,8 @@ public:
 		fprintf(mFile,"\"%s.ub\"",mName.c_str());
 	}
 protected:
-	ObjectSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:Entity(file, name, parent, nodeType, create) {}
+	ObjectSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:Entity(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM

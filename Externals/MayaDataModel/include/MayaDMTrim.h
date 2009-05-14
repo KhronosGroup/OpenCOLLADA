@@ -20,8 +20,8 @@ public:
 public:
 
 	Trim():AbstractBaseCreate(){}
-	Trim(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
-		:AbstractBaseCreate(file, name, parent, "trim", create){}
+	Trim(FILE* file,const std::string& name,const std::string& parent="",bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, "trim", shared, create){}
 	virtual ~Trim(){}
 
 	void setLocatorU(size_t lu_i,double lu)
@@ -160,8 +160,8 @@ public:
 		fprintf(mFile,"\"%s.sbl\"",mName.c_str());
 	}
 protected:
-	Trim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
-		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
+	Trim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool shared=false,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, shared, create) {}
 
 };
 }//namespace MayaDM
