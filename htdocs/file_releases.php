@@ -53,7 +53,7 @@
 							 -->
 							<li><a href="http://sourceforge.net/forum/?group_id=136478" title="Source Forge Forums for COLLADA Plug-ins">Forums</a></li>
 							<li><a href="http://sourceforge.net/project/screenshots.php?group_id=136478" title="Screenshots of COLLADA Plug-ins">Screenshots</a></li>
-							<li><a href="http://sourceforge.net/svn/?group_id=136478" title="Browse the colladamaya code repository">Code</a></li>
+							<li><a href="http://sourceforge.net/scm/?type=svn&group_id=254488" title="Browse the colladamaya code repository">Code</a></li>
 							<li><a href="http://sourceforge.net/project/showfiles.php?group_id=136478" title="Download the latest Version of COLLADA Plug-ins">Downloads</a></li>
 							<li><a href="http://sourceforge.net/tracker/?group_id=136478" title="Tell us a bug">BugTracker</a></li>
 							<li><a href="http://sourceforge.net/search/?group_id=136478&amp;type_of_search=pervasive" title="SF.net Search">Search</a></li>
