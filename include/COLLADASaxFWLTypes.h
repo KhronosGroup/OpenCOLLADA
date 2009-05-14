@@ -18,6 +18,11 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include <list>
 
+namespace COLLADAFW
+{
+	class Node;
+}
+
 namespace COLLADASaxFWL
 {
 
@@ -33,7 +38,13 @@ namespace COLLADASaxFWL
 
 	typedef std::list<String> StringList;
 
+	typedef std::list<COLLADABU::URI> URIList;
+
 	static StringList EMPTY_STRING_LIST = StringList();
+
+
+	typedef std::vector<COLLADAFW::Node*> NodeList;
+
 
 
 } // namespace COLLADASAXFWL

@@ -57,6 +57,9 @@ namespace COLLADASaxFWL
         /** Constructor. */
 		SidAddress( const String& sidAddress );
 
+		/** Constructor. */
+		SidAddress( const COLLADABU::URI& id, const String& sid);
+
         /** Destructor. */
 		virtual ~SidAddress();
 

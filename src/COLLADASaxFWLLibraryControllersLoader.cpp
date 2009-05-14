@@ -103,6 +103,15 @@ namespace COLLADASaxFWL
 		}
 		return true;
 	}
+
+	//------------------------------
+	bool LibraryControllersLoader::end__library_controllers()
+	{
+		SaxVirtualFunctionTest(end__library_controllers());
+		finish();
+		return true;
+	}
+
 	//------------------------------
 	bool LibraryControllersLoader::begin__controller( const controller__AttributeData& attributeData )
 	{

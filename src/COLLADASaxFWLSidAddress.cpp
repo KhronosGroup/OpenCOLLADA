@@ -26,7 +26,17 @@ namespace COLLADASaxFWL
 	{
 		parseAddress( sidAddress );
 	}
-	
+
+	SidAddress::SidAddress( const COLLADABU::URI& id, const String& sid )
+		: mId(id.getFragment())
+		, mMemberSelection(MEMBER_SELECTION_NONE)
+		, mFirstIndex(0)
+		, mSecondIndex(0)
+		, mIsValid( !id.getFragment().empty() && !sid.empty() )
+	{
+		mSids.push_back( sid );
+	}
+
     //------------------------------
 	SidAddress::~SidAddress()
 	{
@@ -40,7 +50,7 @@ namespace COLLADASaxFWL
 			STATE_BEGIN,					//!< Nothing has been parsed yet
 			STATE_ID,						//!< The id has been parsed and set
 			STATE_SID,						//!< One or more sids have been parsed
-			STATE_MEMBER_SELECTION_DOT,     //!< A dot for member selection has been foudn, next is memeber name
+			STATE_MEMBER_SELECTION_DOT,     //!< A dot for member selection has been found, next is member name
 			STATE_MEMBER_SELECTION_NAME
 
 		};

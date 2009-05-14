@@ -71,6 +71,9 @@ namespace COLLADASaxFWL
 		/** The material info of the geometry instantiated in the current instance geometry.*/
 		GeometryMaterialIdInfo* mCurrentMaterialInfo;
 
+		/** The InstanceControllerData of the current instance controller.*/
+		InstanceControllerData *mCurrentInstanceControllerData;
+
 	public:
 
 		/** Constructor. */
@@ -211,6 +214,16 @@ namespace COLLADASaxFWL
 
 		/** We don't need to do anything here.*/
 		virtual bool end__instance_light(){SaxVirtualFunctionTest(end__instance_light()); return true;}
+
+		virtual bool begin__instance_controller( const instance_controller__AttributeData& attributeData );
+		virtual bool end__instance_controller();
+
+
+		virtual bool begin__skeleton(){return true;}
+		virtual bool end__skeleton(){return true;}
+
+		virtual bool data__skeleton( COLLADABU::URI value );
+
 
 	};
 
