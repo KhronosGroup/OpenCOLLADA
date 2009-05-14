@@ -21,8 +21,8 @@ protected:
 	FILE* mFile;
 	std::string mName;
 	std::string mParent;
-	bool mShared;
 	std::string mNodeType;
+	bool mShared;
 public:
 	const std::string& getName()const
 	{
@@ -54,7 +54,7 @@ public:
 	}
 	void setShared(bool parent)
 	{
-		mShared = parent;
+		mShared = shared;
 	}
 public:
 
