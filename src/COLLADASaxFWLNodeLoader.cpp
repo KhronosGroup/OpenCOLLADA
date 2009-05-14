@@ -34,7 +34,7 @@ namespace COLLADASaxFWL
 		: FilePartLoader(callingFilePartLoader),
 		mCurrentTransformation(0),
 		mTransformationNumbersReceived(0),
-		mCurrentInstanceGeometry(0),
+		mCurrentInstanceWithMaterial(0),
 		mCurrentMaterialInfo(0),
 		mCurrentMaterialBinding(0),
 		mCurrentInstanceControllerData(0)
@@ -109,6 +109,17 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+
+	//------------------------------
+	bool NodeLoader::endInstanceWithMaterial()
+	{
+		copyStlContainerToArray( mCurrentMaterialBindings, mCurrentInstanceWithMaterial->getMaterialBindings());
+
+		mCurrentInstanceWithMaterial = 0;
+		mCurrentMaterialInfo = 0;
+		mCurrentMaterialBindings.clear();
+		return true;
+	}
 
 	//------------------------------
 	bool NodeLoader::begin__node( const node__AttributeData& attributeData )
@@ -375,8 +386,9 @@ namespace COLLADASaxFWL
 		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Geometry::ID());
 		mCurrentMaterialInfo = &getMeshMaterialIdInfo(instantiatedGeometryUniqueId);
 
-		mCurrentInstanceGeometry = new COLLADAFW::InstanceGeometry(instantiatedGeometryUniqueId);
-		currentNode->getInstanceGeometries().append(mCurrentInstanceGeometry);
+		COLLADAFW::InstanceGeometry* instanceGeometry = new COLLADAFW::InstanceGeometry(instantiatedGeometryUniqueId);
+		mCurrentInstanceWithMaterial = instanceGeometry;
+		currentNode->getInstanceGeometries().append(instanceGeometry);
 
 		return true;
 	}
@@ -386,11 +398,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::end__instance_geometry()
 	{
 		SaxVirtualFunctionTest(end__instance_geometry());
-		copyStlContainerToArray( mCurrentMaterialBindings, mCurrentInstanceGeometry->getMaterialBindings());
-		
-		mCurrentInstanceGeometry = 0;
-		mCurrentMaterialInfo = 0;
-		mCurrentMaterialBindings.clear();
+		endInstanceWithMaterial();
 		return true;
 	}
 
@@ -400,7 +408,7 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(begin__instance_material(attributeData));
 		// remove this, as soon as we support controllers
-		if ( !mCurrentInstanceGeometry )
+		if ( !mCurrentInstanceWithMaterial )
 			return true;
 
 		COLLADAFW::MaterialId materialId = attributeData.symbol ? mCurrentMaterialInfo->getMaterialId((const char*)attributeData.symbol) : 0;
@@ -417,7 +425,7 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(end__instance_material());
 		// remove this, as soon as we support controllers
-		if ( !mCurrentInstanceGeometry )
+		if ( !mCurrentInstanceWithMaterial )
 			return true;
 
 		copyStlContainerToArray( mCurrentTextureCoordinateBindings, mCurrentMaterialBinding->getTextureCoordinateBindingArray());
@@ -433,7 +441,7 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(begin__bind_vertex_input(attributeData));
 		// remove this, as soon as we support controllers
-		if ( !mCurrentInstanceGeometry )
+		if ( !mCurrentInstanceWithMaterial )
 			return true;
 
 		COLLADAFW::InstanceGeometry::TextureCoordinateBinding texCoordinateBinding;
@@ -488,8 +496,10 @@ namespace COLLADASaxFWL
 		SaxVirtualFunctionTest(begin__instance_controller(attributeData));
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 		COLLADAFW::UniqueId instantiatedControllerUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::SkinControllerData::ID() );
+		mCurrentMaterialInfo = &getMeshMaterialIdInfo(instantiatedControllerUniqueId);
 
 		COLLADAFW::InstanceController* instanceController = FW_NEW COLLADAFW::InstanceController(instantiatedControllerUniqueId);
+		mCurrentInstanceWithMaterial = instanceController;
 		currentNode->getInstanceControllers().append(instanceController);
 
 		InstanceControllerData instanceControllerData;
@@ -505,6 +515,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::end__instance_controller()
 	{
 		SaxVirtualFunctionTest(end__instance_controller());
+		endInstanceWithMaterial();
 		mCurrentInstanceControllerData = 0;
 		return true;
 	}

@@ -56,8 +56,8 @@ namespace COLLADASaxFWL
 		be placed in the transformation.*/
 		size_t mTransformationNumbersReceived;
 
-		/** Instance geometry currently being filled.*/
-		COLLADAFW::InstanceGeometry* mCurrentInstanceGeometry;
+		/** Instance with material (geometry or controller) currently being filled.*/
+		COLLADAFW::InstanceGeometry* mCurrentInstanceWithMaterial;
 
 		/** Material binding currently being filled.*/
 		COLLADAFW::InstanceGeometry::MaterialBinding* mCurrentMaterialBinding;
@@ -107,6 +107,8 @@ namespace COLLADASaxFWL
 		/** This method handles the ending of a transformation independent of its type.*/
 		bool endTransformation();
 
+		/** Assigns the bound materials to the current instance with material (geometry or controller).*/
+		bool endInstanceWithMaterial();
 
 		/** Sax callback function for the beginning of nodes, as child of a node.*/
 		virtual bool begin__node( const node__AttributeData& attributeData );
