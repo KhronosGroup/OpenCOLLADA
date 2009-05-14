@@ -10,6 +10,8 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLLibraryControllersLoader.h"
+#include "COLLADASaxFWLLoader.h"
+#include "COLLADASaxFWLFileLoader.h"
 
 #include "COLLADAFWSkinControllerData.h"
 #include "COLLADAFWIWriter.h"
@@ -232,7 +234,30 @@ namespace COLLADASaxFWL
 
 				const StringList& nodeSids = it->second;
 
-				addSkinDataJointSidsMap( mCurrentSkinControllerData->getUniqueId(), nodeSids);
+				const COLLADAFW::UniqueId& controllerUniqueId = mCurrentSkinControllerData->getUniqueId();
+				addSkinDataJointSidsMap( controllerUniqueId, nodeSids);
+
+				// try to write the SkinController here
+				if ( (getObjectFlags() & Loader::CONTROLLER_FLAG) != 0 )
+				{
+					InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
+					InstanceControllerDataList::iterator listIt = instanceControllerDataList.begin();
+
+					while ( listIt != instanceControllerDataList.end() )
+					{
+						const InstanceControllerData& instanceControllerData = *listIt;
+						bool success = getFileLoader()->createAndWriteSkinController( instanceControllerData, controllerUniqueId, nodeSids);
+						//on success we need to remove this controller instance
+						if ( success )
+						{
+							listIt = instanceControllerDataList.erase( listIt );
+						}
+						else
+						{
+							listIt++;
+						}
+					}
+				}
 
 				mCurrentSkinControllerData->setJointsCount(nodeSids.size());
 			}
