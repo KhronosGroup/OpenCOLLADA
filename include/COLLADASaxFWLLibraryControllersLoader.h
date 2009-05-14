@@ -14,6 +14,8 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLSourceArrayLoader.h"
 
+#include "Math/COLLADABUMathMatrix4.h"
+
 
 namespace COLLADAFW
 {
@@ -75,6 +77,12 @@ namespace COLLADASaxFWL
 		/** The current offset while parsing a v element.*/
 		uint64 mCurrentOffset;
 
+		/** The bind shape matrix of the current skin controller.*/
+		COLLADABU::Math::Matrix4 mCurrentBindShapeMatrix;
+
+		/** The index of the current matrix element, while parsing the bind_shape_matrix element.*/
+		size_t mCurrentMatrixIndex;
+
 	public:
 
         /** Constructor. */
@@ -129,6 +137,12 @@ namespace COLLADASaxFWL
 		virtual bool begin__Name_array( const Name_array__AttributeData& attributeData );
 		virtual bool end__Name_array();
 		virtual bool data__Name_array( const ParserString* data, size_t length );
+
+
+		virtual bool begin__bind_shape_matrix(){SaxVirtualFunctionTest(begin__bind_shape_matrix()); return true;}
+		virtual bool end__bind_shape_matrix();
+		virtual bool data__bind_shape_matrix( const float* data, size_t length );
+
 
 
 	private:

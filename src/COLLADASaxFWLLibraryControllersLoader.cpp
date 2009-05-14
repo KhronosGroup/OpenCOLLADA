@@ -58,6 +58,8 @@ namespace COLLADASaxFWL
 		, mWeightsOffset(0)
 		, mCurrentMaxOffset(0)
 		, mCurrentOffset(0)
+		, mCurrentBindShapeMatrix( COLLADABU::Math::Matrix4::IDENTITY)
+		, mCurrentMatrixIndex(0)
 	{}
 
     //------------------------------
@@ -141,6 +143,7 @@ namespace COLLADASaxFWL
 		SaxVirtualFunctionTest(end__controller());
 		mCurrentControllerId.clear();
 		mCurrentControllerName.clear();
+		mCurrentMatrixIndex = 0;
 		return true;
 	}
 
@@ -258,9 +261,58 @@ namespace COLLADASaxFWL
 						}
 					}
 				}
-
 				mCurrentSkinControllerData->setJointsCount(nodeSids.size());
 			}
+			break;
+		case SEMANTIC_INV_BIND_MATRIX:
+			{
+				if ( !mCurrentSkinControllerData)
+				{
+					break;
+				}
+
+				String sourceId = getIdFromURIFragmentType(attributeData.source);
+				SourceBase* sourceBase = getSourceById ( sourceId );
+
+				if ( !sourceBase || (sourceBase->getDataType() != SourceBase::DATA_TYPE_REAL) )
+				{
+					// TODO handle error
+					break;
+				}
+
+				if ( sourceBase->getStride() != 16 )
+				{
+					// TODO handle error
+					break;
+				}
+
+				const RealSource *inverseBindMatricesSource = (const RealSource *)sourceBase;
+				const RealArrayElement& inverseBindMatricesElement = inverseBindMatricesSource->getArrayElement();
+
+				const RealArray& inverseBindMatricesArray = inverseBindMatricesElement.getValues();
+
+				size_t matrixElementsCount = inverseBindMatricesArray.getCount();
+
+				size_t matrixCount = matrixElementsCount / 16;
+
+
+				COLLADAFW::Matrix4Array& inverseBindMatrices = mCurrentSkinControllerData->getInverseBindMatrices();
+				inverseBindMatrices.allocMemory( matrixCount );
+				inverseBindMatrices.setCount( matrixCount );
+
+				size_t index = 0;
+				for ( size_t i = 0; i < matrixCount; ++i)
+				{
+					// fill the matrix
+					COLLADABU::Math::Matrix4 matrix;
+					for ( size_t j = 0; j < 16; ++j,++index)
+					{
+						matrix.setElement( j, inverseBindMatricesArray[index]);
+					}
+					inverseBindMatrices[i] = matrix;
+				}
+			}
+			break;
 		}
 
 		return true;
@@ -429,6 +481,31 @@ namespace COLLADASaxFWL
 		{
 			const ParserString& parserString = data[i];
 			mJointSids->push_back( String( parserString.str, parserString.length ) );
+		}
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryControllersLoader::data__bind_shape_matrix( const float* data, size_t length )
+	{
+		SaxVirtualFunctionTest(data__bind_shape_matrix(data, length));
+		for ( size_t i = 0; i < length; ++i)
+		{
+			size_t row = mCurrentMatrixIndex / 4;
+			size_t column = mCurrentMatrixIndex % 4;
+			mCurrentBindShapeMatrix.setElement(row, column, data[i]);
+			mCurrentMatrixIndex++;
+		}
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryControllersLoader::end__bind_shape_matrix()
+	{
+		SaxVirtualFunctionTest(end__bind_shape_matrix());
+		if (mCurrentSkinControllerData)
+		{
+			mCurrentSkinControllerData->setBindShapeMatrix( mCurrentBindShapeMatrix );
 		}
 		return true;
 	}
