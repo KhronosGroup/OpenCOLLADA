@@ -420,6 +420,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWSkinController.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWSkinControllerData.cpp"
 				>
 			</File>

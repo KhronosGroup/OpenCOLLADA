@@ -34,9 +34,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		SkinController( ObjectId objectId )
-			: Controller( objectId, Controller::CONTROLLER_TYPE_SKIN )
-		{}
+		SkinController( ObjectId objectId );
 
         /** Destructor. */
 		virtual ~SkinController(){}
@@ -53,10 +51,9 @@ namespace COLLADAFW
 		/** The unique ids of the nodes, referenced by the skin controller.*/
 		const COLLADAFW::UniqueIdArray& getBones() const { return mBones; }
 
-	private:
-
-        /** Disable default copy ctor. */
 		SkinController( const SkinController& pre );
+
+	private:
 
         /** Disable default assignment operator. */
 		const SkinController& operator= ( const SkinController& pre );
