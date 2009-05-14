@@ -31,6 +31,7 @@
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWEffect.h"
 #include "COLLADAFWAnimationList.h"
+#include "COLLADAFWSkinController.h"
 
 #include "COLLADAFWObject.h"
 
@@ -228,12 +229,32 @@ namespace COLLADASaxFWL
 				requiredFunctionMaps|= COLLADA_LIBRARY_VISUAL_SCENES;
 				mAfterLoadParsedObjectFlags |= Loader::VISUAL_SCENES_FLAG;
 
+				requiredFunctionMaps|= COLLADA_LIBRARY_NODES;
+				mAfterLoadParsedObjectFlags |= Loader::LIBRARY_NODES_FLAG;
+
 				requiredFunctionMaps|= COLLADA_LIBRARY_EFFECTS;
 				mAfterLoadParsedObjectFlags |= Loader::EFFECT_FLAG;
 
 				//requiredFunctionMaps|= COLLADA_LIBRARY_CAMERAS;
 				//requiredFunctionMaps|= COLLADA_LIBRARY_LIGHTS;
 			}
+
+			if ( (mObjectFlags & Loader::CONTROLLER_FLAG) != 0 )
+			{
+				requiredFunctionMaps|= COLLADA_LIBRARY_CONTROLLERS;
+
+				requiredFunctionMaps|= COLLADA_LIBRARY_VISUAL_SCENES;
+				mAfterLoadParsedObjectFlags |= Loader::VISUAL_SCENES_FLAG;
+
+				requiredFunctionMaps|= COLLADA_LIBRARY_NODES;
+				mAfterLoadParsedObjectFlags |= Loader::LIBRARY_NODES_FLAG;
+			}
+
+			if ( (mObjectFlags & Loader::SKIN_CONTROLLER_DATA_FLAG) != 0 )
+			{
+				requiredFunctionMaps|= COLLADA_LIBRARY_CONTROLLERS;
+			}
+
 
 			// Fills function map
 			for ( size_t i = 0; i < libraryFlagsFunctionMapMapSize; ++i )
@@ -292,6 +313,11 @@ namespace COLLADASaxFWL
 			writeAnimationLists();
 		}
 
+		if ( (getObjectFlags() & Loader::CONTROLLER_FLAG) != 0 )
+		{
+			createAndWriteSkinControllers();
+		}
+
 		writer()->finish();
 	}
 
@@ -344,6 +370,13 @@ namespace COLLADASaxFWL
 		return currentNode;
 	}
 
+	//---------------------------------
+	const SidTreeNode* FileLoader::resolveSid( const COLLADABU::URI& id,  const String& sid)
+	{
+		SidAddress sidAddress(id, sid);
+		return resolveSid(sidAddress);
+	}
+
 	//-----------------------------
 	SidTreeNode* FileLoader::findSidTreeNodeByStringId( const String& id )
 	{
@@ -380,7 +413,7 @@ namespace COLLADASaxFWL
 	const StringList& FileLoader::getJointSidsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
 	{
 		SkinDataJointSidsMap::const_iterator it = mSkinDataJointSidsMap.find(skinDataUniqueId);
-		if ( it == mSkinDataJointSidsMap.end() )
+		if ( it != mSkinDataJointSidsMap.end() )
 		{
 			return it->second;
 		}
@@ -494,6 +527,106 @@ namespace COLLADASaxFWL
 		}
 
 	}
+
+	//-----------------------------
+	bool FileLoader::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, const COLLADAFW::UniqueId& controllerDataUniqueId )
+	{
+		if ( !controllerDataUniqueId.isValid() )
+			return false;
+
+		const StringList& sids = getJointSidsBySkinDataUniqueId( controllerDataUniqueId );
+		const URIList& skeletonRoots = instanceControllerData.skeletonRoots;
+
+		NodeList joints;
+
+		for ( StringList::const_iterator it = sids.begin(); it != sids.end(); ++it)
+		{
+			const String sid = *it;
+
+			bool jointFound = false;
+
+			for ( URIList::const_iterator skeletonIt = skeletonRoots.begin(); skeletonIt != skeletonRoots.end(); ++skeletonIt)
+			{
+				const COLLADABU::URI& skeletonUri = *skeletonIt;
+
+				SidAddress sidAddress( skeletonUri, sid );
+				const SidTreeNode* joint = resolveSid( sidAddress );
+				if ( joint )
+				{
+					// the joint could be found
+					if ( joint->getTargetType() != SidTreeNode::TARGETTYPECLASS_OBJECT )
+					{
+						// we could resolve the sid, but is not a joint/node
+						break;
+					}
+
+					const COLLADAFW::Object* object = joint->getObjectTarget();
+
+					if ( object->getClassId() != COLLADAFW::Node::ID() )
+					{
+						// we could resolve the sid, but is not a joint/node
+						break;
+					}
+
+					joints.push_back( (COLLADAFW::Node*)object );
+
+					jointFound = true;
+					//search for the next joint
+					break;
+				}
+			}
+			
+			if ( !jointFound )
+				return false;
+		}
+
+		COLLADAFW::SkinController* skinController = FW_NEW COLLADAFW::SkinController( getUniqueId(COLLADAFW::SkinController::ID()).getObjectId());
+
+		COLLADAFW::UniqueIdArray &jointsUniqueIds = skinController->getBones();
+		jointsUniqueIds.allocMemory( joints.size() );
+		jointsUniqueIds.setCount(joints.size());
+
+		size_t i = 0;
+		NodeList::const_iterator it = joints.begin();
+		for ( ; it != joints.end(); ++it, ++i )
+		{
+			const COLLADAFW::Node* node = *it;
+			jointsUniqueIds[i] = node->getUniqueId();
+		}
+
+		skinController->setSkinControllerData(controllerDataUniqueId);
+
+		instanceControllerData.instanceController->setInstanciatedObjectId( skinController->getUniqueId() );
+
+		bool success = writer()->writeController(skinController);
+
+		FW_DELETE skinController;
+
+		return success;
+	}
+
+
+	//-----------------------------
+	bool FileLoader::createAndWriteSkinControllers()
+	{
+		InstanceControllerDataListMap::const_iterator mapIt = mInstanceControllerDataListMap.begin();
+
+		for ( ; mapIt != mInstanceControllerDataListMap.end(); ++mapIt )
+		{
+			const COLLADAFW::UniqueId& skinDataUniqueId = mapIt->first;
+			const InstanceControllerDataList& instanceControllerDataList = mapIt->second;
+
+			InstanceControllerDataList::const_iterator listIt = instanceControllerDataList.begin();
+		
+			for ( ; listIt != instanceControllerDataList.end(); ++listIt)
+			{
+				const InstanceControllerData& instanceControllerData = *listIt;
+				createAndWriteSkinController( instanceControllerData, skinDataUniqueId);
+			}
+		}
+		return true;
+	}
+
 
 	//-----------------------------
 	void FileLoader::writeAnimationLists()
@@ -660,9 +793,6 @@ namespace COLLADASaxFWL
 	bool FileLoader::begin__library_controllers( const library_controllers__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__library_controllers(attributeData));
-
-		// disable controller support
-		return true;
 
 		deleteFilePartLoader();
 		LibraryControllersLoader* libraryControllersLoader = new LibraryControllersLoader(this);

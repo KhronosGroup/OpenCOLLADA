@@ -39,7 +39,19 @@ namespace COLLADAFW
 		{}
 
         /** Destructor. */
-		virtual ~SkinController();
+		virtual ~SkinController(){}
+
+		/** The unique id of the skin controller data.*/
+		const COLLADAFW::UniqueId& getSkinControllerData() const { return mSkinControllerData; }
+
+		/** The unique id of the skin controller data.*/
+		void setSkinControllerData( const COLLADAFW::UniqueId& skinControllerData) { mSkinControllerData = skinControllerData; }
+
+		/** The unique ids of the nodes, referenced by the skin controller.*/
+		COLLADAFW::UniqueIdArray& getBones() { return mBones; }
+
+		/** The unique ids of the nodes, referenced by the skin controller.*/
+		const COLLADAFW::UniqueIdArray& getBones() const { return mBones; }
 
 	private:
 

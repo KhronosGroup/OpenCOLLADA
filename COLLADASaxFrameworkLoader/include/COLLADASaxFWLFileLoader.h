@@ -204,13 +204,13 @@ namespace COLLADASaxFWL
 			newNode->setTarget( target );
 		}
 
-
 		/** Moves one node up in the sid tree. Call this method whenever an element, for which addToSidTree() was
 		called, is closed.*/
 		void moveUpInSidTree();
 
 		/** Tries to resolve the a sidaddress. If resolving failed, null is returned.*/
 		const SidTreeNode* resolveSid( const SidAddress& sidAddress);
+		const SidTreeNode* resolveSid( const COLLADABU::URI& id, const String& sid);
 
 		/** Tries to find element in sid tree with @a id. If not found, null is returned.*/ 
 		SidTreeNode* findSidTreeNodeByStringId( const String& id); 
@@ -258,6 +258,12 @@ namespace COLLADASaxFWL
 		/** Stores the binding stored in @a binding in the appropriate animation list*/
 		void createMissingAnimationList( const AnimationSidAddressBinding& binding );
 
+		/** Creates a controller which instantiation is described by @a InstanceControllerData and that uses 
+		the controller with id @a controllerDataUniqueId.*/
+		bool createAndWriteSkinController( const InstanceControllerData& instanceControllerData, const COLLADAFW::UniqueId& controllerDataUniqueId );
+
+		/** Creates all skincontrollers instantiated in the visual scene.*/
+		bool createAndWriteSkinControllers();
 
 		/** Writes all animation lists.*/
 		void writeAnimationLists();

@@ -28,7 +28,7 @@ namespace COLLADAFW
 		virtual ~Object(){};
 
 		/** Returns the class id of the object.*/
-		virtual ClassId getClassId()=0;
+		virtual ClassId getClassId() const =0;
 
 //		Object* getParent() { return mParent; }
 
@@ -66,7 +66,7 @@ namespace COLLADAFW
 		static ClassId ID() { return classId; }
 
 		/** Returns the class id of the object.*/
-		ClassId getClassId() { return ID(); }
+		ClassId getClassId() const { return ID(); }
 
 		/** Returns the object id of the object.*/
 		ObjectId getObjectId() const { return mUniqueId.getObjectId(); }

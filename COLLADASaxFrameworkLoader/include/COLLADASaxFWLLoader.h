@@ -54,20 +54,22 @@ namespace COLLADASaxFWL
 		enum ObjectFlags
 		{
 			NO_FLAG                    = 0,
-			ASSET_FLAG                 = 1<<0,
-			SCENE_FLAG                 = 1<<1,
-			VISUAL_SCENES_FLAG         = 1<<2,
-			LIBRARY_NODES_FLAG         = 1<<3,
-			GEOMETRY_FLAG              = 1<<4,
-			MATERIAL_FLAG              = 1<<5,
-			EFFECT_FLAG                = 1<<6,
-			CAMERA_FLAG                = 1<<7,
-			IMAGE_FLAG                 = 1<<8,
-			LIGHT_FLAG                 = 1<<9,
+			ASSET_FLAG                 = 1<< 0,
+			SCENE_FLAG                 = 1<< 1,
+			VISUAL_SCENES_FLAG         = 1<< 2,
+			LIBRARY_NODES_FLAG         = 1<< 3,
+			GEOMETRY_FLAG              = 1<< 4,
+			MATERIAL_FLAG              = 1<< 5,
+			EFFECT_FLAG                = 1<< 6,
+			CAMERA_FLAG                = 1<< 7,
+			IMAGE_FLAG                 = 1<< 8,
+			LIGHT_FLAG                 = 1<< 9,
 			ANIMATION_FLAG             = 1<<10,
 			ANIMATION_LIST_FLAG        = 1<<11,
+			SKIN_CONTROLLER_DATA_FLAG  = 1<<12,
+			CONTROLLER_FLAG            = 1<<13,
 
-			ALL_OBJECTS_MASK           = (1<<12) - 1,
+			ALL_OBJECTS_MASK           = (1<<14) - 1,
 		};
 
 	private:

@@ -35,7 +35,7 @@ namespace COLLADAFW
 	
 	public:
         /** Destructor. */
-		virtual ~Controller();
+		virtual ~Controller(){}
 
 	protected:
 		/** Constructor. */

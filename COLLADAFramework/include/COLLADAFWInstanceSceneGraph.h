@@ -52,6 +52,9 @@ namespace COLLADAFW
 		/** Returns the unique id of the instantiated object.*/
 		const UniqueId& getInstanciatedObjectId() const { return mInstanciatedObjectId; }
 
+		/** Sets the unique id of the instantiated object.*/
+		void setInstanciatedObjectId(const UniqueId& instanciatedObjectId) { mInstanciatedObjectId = instanciatedObjectId; }
+
 		virtual InstanceSceneGraph* clone() const { return new InstanceSceneGraph(*this); }
 
 	};

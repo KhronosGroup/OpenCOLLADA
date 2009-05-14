@@ -50,7 +50,7 @@ namespace COLLADASaxFWL
 		struct InstanceControllerData
 		{
 			/** List of URIs of the skeleton roots, ie the uris in the COLLADA skeleton element.*/
-			std::vector<COLLADABU::URI> skeletonRoots;
+			URIList skeletonRoots;
 
 			/** The instance controller that instantiates the controller.*/
 			COLLADAFW::InstanceController* instanceController;

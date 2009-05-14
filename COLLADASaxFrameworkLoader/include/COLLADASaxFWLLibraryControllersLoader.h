@@ -86,6 +86,8 @@ namespace COLLADASaxFWL
 		/** Write the indices of the v element into the framework.*/
 		bool writeVIndices ( const sint64* data, size_t length );
 
+		virtual bool end__library_controllers( );
+
 
 		virtual bool begin__controller( const controller__AttributeData& attributeData );
 		virtual bool end__controller();

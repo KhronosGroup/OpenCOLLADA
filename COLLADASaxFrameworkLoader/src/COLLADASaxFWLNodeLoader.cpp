@@ -24,6 +24,7 @@
 #include "COLLADAFWMaterial.h"
 #include "COLLADAFWCamera.h"
 #include "COLLADAFWLight.h"
+#include "COLLADAFWSkinControllerData.h"
 
 
 namespace COLLADASaxFWL
@@ -35,7 +36,8 @@ namespace COLLADASaxFWL
 		mTransformationNumbersReceived(0),
 		mCurrentInstanceGeometry(0),
 		mCurrentMaterialInfo(0),
-		mCurrentMaterialBinding(0)
+		mCurrentMaterialBinding(0),
+		mCurrentInstanceControllerData(0)
 	{
 	}
 
@@ -60,7 +62,7 @@ namespace COLLADASaxFWL
         if ( attributeData.type == ENUM__NodeType__JOINT )
             newNode->setType ( COLLADAFW::Node::JOINT );
 
-		addToSidTree(attributeData.id, attributeData.sid);
+		addToSidTree(attributeData.id, attributeData.sid, newNode);
 
 		if ( mNodeStack.empty() )
 		{
@@ -476,6 +478,44 @@ namespace COLLADASaxFWL
 
 		COLLADAFW::InstanceLight* instanceLight = FW_NEW COLLADAFW::InstanceLight(instantiatedLightUniqueId);
 		currentNode->getInstanceLights().append(instanceLight);
+
+		return true;
+	}
+
+	//------------------------------
+	bool NodeLoader::begin__instance_controller( const instance_controller__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest(begin__instance_controller(attributeData));
+		COLLADAFW::Node* currentNode = mNodeStack.top();
+		COLLADAFW::UniqueId instantiatedControllerUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::SkinControllerData::ID() );
+
+		COLLADAFW::InstanceController* instanceController = FW_NEW COLLADAFW::InstanceController(instantiatedControllerUniqueId);
+		currentNode->getInstanceControllers().append(instanceController);
+
+		InstanceControllerData instanceControllerData;
+		instanceControllerData.instanceController = instanceController;
+		InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(instantiatedControllerUniqueId);
+		instanceControllerDataList.push_back(instanceControllerData);
+		mCurrentInstanceControllerData = &instanceControllerDataList.back();
+
+		return true;
+	}
+
+	//------------------------------
+	bool NodeLoader::end__instance_controller()
+	{
+		SaxVirtualFunctionTest(end__instance_controller());
+		mCurrentInstanceControllerData = 0;
+		return true;
+	}
+
+	//------------------------------
+	bool NodeLoader::data__skeleton( COLLADABU::URI value )
+	{
+		if (mCurrentInstanceControllerData)
+		{
+			mCurrentInstanceControllerData->skeletonRoots.push_back( value );
+		}
 
 		return true;
 	}
