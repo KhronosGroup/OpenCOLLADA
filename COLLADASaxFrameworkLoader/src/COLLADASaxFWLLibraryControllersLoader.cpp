@@ -162,16 +162,17 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(end__skin());
 
+		bool success = true;
 		if ( validate( mCurrentSkinControllerData ) )
 		{
-			writer()->writeSkinControllerData( mCurrentSkinControllerData );
+			success = writer()->writeSkinControllerData( mCurrentSkinControllerData );
 		}
 
 		FW_DELETE mCurrentSkinControllerData;
 		mCurrentSkinControllerData  = 0;
 		mJointSidsMap.clear();
 		mJointSids = 0;
-		return true;
+		return success;
 	}
 
 	//------------------------------

@@ -23,6 +23,9 @@ namespace COLLADAFW
 	//------------------------------
 	bool validate( const AnimationCurve* animationCurve )
 	{
+		if ( !animationCurve )
+			return false;
+
 		size_t keyCount = animationCurve->getKeyCount();
 		size_t dimension = animationCurve->getOutDimension();
 
@@ -97,8 +100,14 @@ namespace COLLADAFW
 	//------------------------------
 	bool validate( const SkinControllerData* skinControllerData )
 	{
+		if ( !skinControllerData )
+			return false;
+
 		size_t jointsCount = skinControllerData->getJointsCount();
 		size_t weightsCount = skinControllerData->getWeights().getValuesCount();
+
+		if ( skinControllerData->getInverseBindMatrices().getCount() != jointsCount )
+			return false;
 	
 		const UIntValuesArray& jointsPerVertex = skinControllerData->getJointsPerVertex();
 
@@ -131,9 +140,6 @@ namespace COLLADAFW
 			if ( jointIndices[i] >= jointsCount)
 				return false;
 		}
-
-
-
 		return true;
 	}
 
