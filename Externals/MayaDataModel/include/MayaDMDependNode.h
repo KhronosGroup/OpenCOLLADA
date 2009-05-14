@@ -52,7 +52,7 @@ public:
 	{
 		mParent = parent;
 	}
-	void setShared(bool parent)
+	void setShared(bool shared)
 	{
 		mShared = shared;
 	}
