@@ -71,6 +71,7 @@ namespace COLLADAMaya
         , mNumDocumentParses (0)
         , mUpAxisType ( COLLADAFW::FileInfo::Y_UP )
         , mLinearUnitConvertFactor ( 1.0 )
+        , mDigitTolerance (FLOAT_TOLERANCE)
     {
     }
 

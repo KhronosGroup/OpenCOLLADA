@@ -27,37 +27,37 @@ namespace COLLADAMaya
 
     // ----------------------------------------------------------
     // Fills the two dimensional array @a copy with the values contained in @a original
-    static void convertMMatrixToDouble4x4 ( double copy[][4], const MMatrix& original )
+    static void convertMMatrixToDouble4x4 ( double copy[][4], const MMatrix& original, const double tolerance )
     {
-        if (COLLADABU::Math::Utils::equalsZero(original[0][0])) copy[0][0] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[0][0], tolerance )) copy[0][0] = 0.0;
         else copy[0][0] = original[0][0];
-        if (COLLADABU::Math::Utils::equalsZero(original[0][1])) copy[1][0] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[0][1], tolerance )) copy[1][0] = 0.0;
         else copy[1][0] = original[0][1];
-        if (COLLADABU::Math::Utils::equalsZero(original[0][2])) copy[2][0] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[0][2], tolerance )) copy[2][0] = 0.0;
         else copy[2][0] = original[0][2];
         copy[3][0] = 0;
 
-        if (COLLADABU::Math::Utils::equalsZero(original[1][0])) copy[0][1] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[1][0], tolerance )) copy[0][1] = 0.0;
         else copy[0][1] = original[1][0];
-        if (COLLADABU::Math::Utils::equalsZero(original[1][1])) copy[1][1] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[1][1], tolerance )) copy[1][1] = 0.0;
         else copy[1][1] = original[1][1];
-        if (COLLADABU::Math::Utils::equalsZero(original[1][2])) copy[2][1] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[1][2], tolerance )) copy[2][1] = 0.0;
         else copy[2][1] = original[1][2];
         copy[3][1] = 0;
 
-        if (COLLADABU::Math::Utils::equalsZero(original[2][0])) copy[0][2] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[2][0], tolerance )) copy[0][2] = 0.0;
         else copy[0][2] = original[2][0];
-        if (COLLADABU::Math::Utils::equalsZero(original[2][1])) copy[1][2] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[2][1], tolerance )) copy[1][2] = 0.0;
         else copy[1][2] = original[2][1];
-        if (COLLADABU::Math::Utils::equalsZero(original[2][2])) copy[2][2] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[2][2], tolerance )) copy[2][2] = 0.0;
         else copy[2][2] = original[2][2];
         copy[3][2] = 0;
 
-        if (COLLADABU::Math::Utils::equalsZero(original[3][0])) copy[0][3] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[3][0], tolerance )) copy[0][3] = 0.0;
         else copy[0][3] = original[3][0];
-        if (COLLADABU::Math::Utils::equalsZero(original[3][1])) copy[1][3] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[3][1], tolerance )) copy[1][3] = 0.0;
         else copy[1][3] = original[3][1];
-        if (COLLADABU::Math::Utils::equalsZero(original[3][2])) copy[2][3] = 0.0;
+        if (COLLADABU::Math::Utils::equalsZero ( original[3][2], tolerance )) copy[2][3] = 0.0;
         else copy[2][3] = original[3][2];
         copy[3][3] = 1;
     }

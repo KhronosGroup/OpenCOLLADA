@@ -31,6 +31,13 @@ namespace COLLADAMaya
     typedef COLLADABU::URI URI;
 	typedef COLLADABU::NativeString NativeString;
 
+    /** The default tolerance for double-sized floating-point comparison functions. */
+#define DOUBLE_TOLERANCE 0.0
+
+    /** The default tolerance for single-sized floating-point comparison functions. */
+#define FLOAT_TOLERANCE 0.0001f
+
+
 #ifndef uint
     typedef unsigned int uint;
 #endif

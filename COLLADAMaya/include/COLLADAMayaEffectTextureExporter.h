@@ -149,6 +149,12 @@ namespace COLLADAMaya
 
     private:
 
+        /** Returns the tolerance value for double value comparison. */
+        const double getTolerance () const 
+        {
+            return mDocumentExporter->getTolerance ();
+        }
+
         /** Checks if the source file exist and is valid. If not, the method 
         returns false. Fills the full file URI of the texture in dependency
         of the current export options. */

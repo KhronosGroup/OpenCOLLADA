@@ -41,11 +41,10 @@ namespace COLLADABU
 
 			/** Returns true if @a value1 and @a value2 are equal within @a tolerance*/
 			template<class T>
-			static bool equals ( const T & value1, const T & value2, const T & tolerance = (T)TOLERANCE )
+			static bool equals ( const T& value1, const T& value2, const T& tolerance = (T)TOLERANCE )
 			{
 				return value1 - value2 < tolerance && value1 - value2 > -tolerance;
 			}
-
 
 			/** Returns true if @a value1 and @a value2 are equal within the default tolerance*/
 			/*        template<class T>
@@ -57,22 +56,28 @@ namespace COLLADABU
 
 			/** Returns true if @a value1, @a value2 and @a value3 are equal within the tolerance*/
 			template<class T>
-			static bool equals3 ( const T & value1, const T & value2, const T & value3 )
+			static bool equals3 ( const T& value1, const T& value2, const T& value3, const T& tolerance = (T)TOLERANCE )
 			{
-				return equals ( value1, value2 ) && equals ( value2, value3 ) &&equals ( value3, value1 );
+				return equals ( value1, value2, tolerance ) && equals ( value2, value3, tolerance ) && equals ( value3, value1, tolerance );
 			}
 
 
 			/** Returns true if @a value is equal to zero within the tolerance*/
-			static bool equalsZero ( const float & value )
+			static bool equalsZero ( const float& value, const float tolerance = (float)TOLERANCE )
 			{
-				return equals ( value, 0.0f );
+				return equals ( value, 0.0f, tolerance );
 			}
 
+            /** Returns true if @a value is equal to zero within the tolerance*/
+            static bool equalsZero ( const float& value, const double tolerance )
+            {
+                return equals ( value, 0.0f, (float)tolerance );
+            }
+
 			/** Returns true if @a value is equal to zero within the tolerance*/
-			static bool equalsZero ( const double & value )
+			static bool equalsZero ( const double& value, const double tolerance = (double)TOLERANCE )
 			{
-				return equals ( value, 0.0 );
+				return equals ( value, 0.0, tolerance );
 			}
 
 			template<class T>

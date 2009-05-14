@@ -150,6 +150,9 @@ namespace COLLADAMaya
         /** The LC_NUMERIC locale that was set before the Streamwriter was instantiated. */
         String mLocale;			
 
+        /** Tolerance value in double to compare values. */
+        double mDigitTolerance;
+
         /**
         * How many real-world meters in one distance unit as a floating-point number.
         * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
@@ -224,6 +227,9 @@ namespace COLLADAMaya
         * @return const String& The current maya ascii file
         */
         const COLLADABU::URI& getMayaAsciiFileURI () const;
+
+        /** Returns the tolerance value for double value comparison. */
+        const double getTolerance () const { return mDigitTolerance; }
 
         /** Pointer to the visual scene importer. */
         VisualSceneImporter* getVisualSceneImporter () { return mVisualSceneImporter; }

@@ -260,7 +260,7 @@ namespace COLLADAMaya
 
         // Drop-off
         double dropOff;
-        if ( COLLADABU::Math::Utils::equals ( light->getFallOffExponent (), 0.0 ) ) dropOff = 0.0;
+        if ( COLLADABU::Math::Utils::equalsZero ( light->getFallOffExponent (), getTolerance () ) ) dropOff = 0.0;
         else dropOff = 1.0; // COLLADA 1.4 took out the fallOffScale, for some reason.
         spotLight->setDropoff ( dropOff );
 

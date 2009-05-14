@@ -62,11 +62,11 @@ namespace COLLADAMaya
             , mLightExporter ( NULL )
             , mCameraExporter ( NULL )
             , mSceneId ( "MayaScene" )
+            , mDigitTolerance (FLOAT_TOLERANCE)
     {
         if ( ExportOptions::doublePrecision () )
         {
-#undef TOLERANCE 
-#define TOLERANCE 0.0000000000000001
+            mDigitTolerance = DOUBLE_TOLERANCE;
         }
     }
 

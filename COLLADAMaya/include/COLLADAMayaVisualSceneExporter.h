@@ -120,6 +120,12 @@ namespace COLLADAMaya
 
     private:
 
+        /** Returns the tolerance value for double value comparison. */
+        const double getTolerance () const 
+        {
+            return mDocumentExporter->getTolerance ();
+        }
+
         /**
          * Exports all the nodes in a node and all its child nodes recursive.
          * @param sceneElement The node to export.

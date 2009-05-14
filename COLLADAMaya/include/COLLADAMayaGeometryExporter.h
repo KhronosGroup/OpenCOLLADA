@@ -104,6 +104,12 @@ namespace COLLADAMaya
 
     private:
 
+        /** Returns the tolerance value for double value comparison. */
+        const double getTolerance () const 
+        {
+            return mDocumentExporter->getTolerance ();
+        }
+
         /** Exports the current scene element and all it's children. */
         void exportGeometries ( SceneElement* sceneElement, bool isVisible );
 

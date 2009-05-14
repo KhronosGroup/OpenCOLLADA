@@ -286,6 +286,12 @@ namespace COLLADAMaya
 
     private:
 
+        /** Returns the tolerance value for double value comparison. */
+        const double getTolerance () const 
+        {
+            return getDocumentImporter ()->getTolerance ();
+        }
+
         /*
         * Imports the data of the current node.
         */
@@ -332,7 +338,8 @@ namespace COLLADAMaya
          */
         void convertMatrix4ToTransposedDouble4x4 ( 
             const COLLADABU::Math::Matrix4& inputMatrix, 
-            double outputMatrix[][4] );
+            double outputMatrix[][4], 
+            const double tolerance );
 
         /** 
          * Imports the current transformations. 

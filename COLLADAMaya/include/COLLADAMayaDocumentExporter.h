@@ -115,6 +115,9 @@ namespace COLLADAMaya
         /** The id of the current scene. */
         String mSceneId;
 
+        /** Tolerance value in double to compare values. */
+        double mDigitTolerance;
+
     public:
 
         /**
@@ -123,6 +126,9 @@ namespace COLLADAMaya
          */
         DocumentExporter ( const NativeString& fileName );
         virtual ~DocumentExporter();
+
+        /** Returns the tolerance value for double value comparison. */
+        const double getTolerance () const { return mDigitTolerance; }
 
         /**
         * Exports all data of the current scene.

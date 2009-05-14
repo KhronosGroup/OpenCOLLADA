@@ -111,6 +111,12 @@ namespace COLLADAMaya
 
     private:
 
+        /** Returns the tolerance value for double value comparison. */
+        const double getTolerance () const 
+        {
+            return getDocumentImporter ()->getTolerance ();
+        }
+
         /**
          * Creates a light.
          */

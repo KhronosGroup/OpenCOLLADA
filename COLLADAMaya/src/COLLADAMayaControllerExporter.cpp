@@ -695,7 +695,7 @@ namespace COLLADAMaya
             uint weightCount = weights.length();
             for (uint i = 0; i < weightCount; ++i)
             {
-                if (!COLLADABU::Math::Utils::equals(weights[i], Weight(0)))
+                if (!COLLADABU::Math::Utils::equals(weights[i], Weight(0), getTolerance ()))
                 {
                     vertex[i] = (float)weights[i];
                 }
@@ -735,13 +735,13 @@ namespace COLLADAMaya
             filterFn.getWeights(clusterIndex, components, weights);
 
             uint counter = 0;
-            for (MItGeometry componentIt(shapePath, components);
+            for ( MItGeometry componentIt(shapePath, components);
                 !componentIt.isDone() && counter < weights.length();
-                componentIt.next())
+                componentIt.next() )
             {
                 // append the weight at its correct position: i
                 float weight = weights[counter++];
-                if (COLLADABU::Math::Utils::equals(weight, 0.0f))
+                if ( COLLADABU::Math::Utils::equalsZero ( weight, getTolerance () ) )
                 {
                     SkinControllerVertex& vertex = colladaInfluences[componentIt.index()];
                     vertex[i] = weight;
@@ -1093,7 +1093,7 @@ namespace COLLADAMaya
         {
             MMatrix mayaBindPoses = bindPosesVec[i];
             double bindPoses[4][4];
-            convertMMatrixToDouble4x4(bindPoses, mayaBindPoses);
+            convertMMatrixToDouble4x4 ( bindPoses, mayaBindPoses, getTolerance () );
 
             // Convert the  maya internal unit type of the transform part of the
             // matrix from centimeters into the working units of the current scene!
@@ -1133,10 +1133,10 @@ namespace COLLADAMaya
                 // influence. We don't write the one weights, cause we have written
                 // (see below) a one weight in front of the vertex_weights array and
                 // always reference to it from the vertex_weights array.
-                if ( !COLLADABU::Math::Utils::equalsZero( vertex[j] ) &&
-                     !COLLADABU::Math::Utils::equals( vertex[j], 1.0f ) )
+                if ( !COLLADABU::Math::Utils::equalsZero ( vertex[j], getTolerance () ) &&
+                     !COLLADABU::Math::Utils::equals ( vertex[j], 1.0f, (float)getTolerance () ) )
                 {
-                    vertexVec.push_back(vertex[j]);
+                    vertexVec.push_back ( vertex[j] );
                     ++numVertexPoints;
                 }
             }
@@ -1174,7 +1174,7 @@ namespace COLLADAMaya
         // Write the bind shape transform matrix in the collada document.
         const MMatrix& mayaBindShapeMatrix = skinController.getBindShapeTransform();
         double bindShapeMatrix[4][4] ;
-        convertMMatrixToDouble4x4 ( bindShapeMatrix, mayaBindShapeMatrix );
+        convertMMatrixToDouble4x4 ( bindShapeMatrix, mayaBindShapeMatrix, getTolerance () );
 
         // Convert the  maya internal unit type of the transform part of the
         // matrix from centimeters into the working units of the current scene!
@@ -1267,7 +1267,7 @@ namespace COLLADAMaya
             {
                 vertexMatches.push_back( (*it).first );
 
-                if ( !COLLADABU::Math::Utils::equals( (*it).second, 1.0f ) )
+                if ( !COLLADABU::Math::Utils::equals( (*it).second, 1.0f, (float)getTolerance () ) )
                     vertexMatches.push_back( weightOffset++ );
                 else
                     // There is a one in the first position of the weight source array.

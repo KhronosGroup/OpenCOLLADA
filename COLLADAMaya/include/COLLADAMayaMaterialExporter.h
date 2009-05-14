@@ -126,6 +126,12 @@ namespace COLLADAMaya
 
     private:
 
+        /** Returns the tolerance value for double value comparison. */
+        const double getTolerance () const 
+        {
+            return mDocumentExporter->getTolerance ();
+        }
+
         /** Set the filename of the current shader to export. */
         void setShaderFxFileUri ( const COLLADASW::URI& shaderFxFileName );
 

@@ -211,7 +211,7 @@ namespace COLLADASW
             mSW->closeElement();
         }
 
-        if ( !MathUtils::equals ( mFallOffExponent, 0.0f ) )
+        if ( !MathUtils::equalsZero ( mFallOffExponent ) )
         {
             mSW->openElement ( CSWC::CSW_ELEMENT_FALLOFF_EXPONENT );
             if ( !mFallOffExponentSid.empty() )

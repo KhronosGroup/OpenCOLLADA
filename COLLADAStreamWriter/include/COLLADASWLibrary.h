@@ -18,7 +18,6 @@ namespace COLLADASW
 {
 
     /** Base class for all libraries*/
-
     class Library : public ElementWriter
     {
 
