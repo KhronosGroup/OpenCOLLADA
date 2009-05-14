@@ -122,16 +122,28 @@ namespace COLLADABU
             }
 
 
-            inline void setElement( int i, int j, Real value )
-            {
-                mState = UNKNOWN;
-                m[ i ][ j ] = value;
-            }
+			inline void setElement( int i, int j, Real value )
+			{
+				mState = UNKNOWN;
+				m[ i ][ j ] = value;
+			}
 
 			inline void setElement( size_t i, size_t j, Real value )
 			{
 				mState = UNKNOWN;
 				m[ i ][ j ] = value;
+			}
+
+			inline void setElement( int i, Real value )
+			{
+				mState = UNKNOWN;
+				_m[ i ] = value;
+			}
+
+			inline void setElement( size_t i, Real value )
+			{
+				mState = UNKNOWN;
+				_m[ i ] = value;
 			}
 
 			/** Creates a standard 4x4 transformation matrix with a zero translation part from a rotation/scaling 3x3 matrix.

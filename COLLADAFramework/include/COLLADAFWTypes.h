@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayPrimitiveType.h"
+#include "Math/COLLADABUMathMatrix4.h"
 
 
 namespace COLLADAFW
@@ -26,6 +27,9 @@ namespace COLLADAFW
 
 	typedef ArrayPrimitiveType<float> FloatArray;
 	typedef ArrayPrimitiveType<double> DoubleArray;
+
+
+	typedef Array<COLLADABU::Math::Matrix4> Matrix4Array;
 
 	//  typedef xsNCName String;
 

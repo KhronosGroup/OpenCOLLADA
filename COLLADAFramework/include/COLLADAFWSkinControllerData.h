@@ -17,6 +17,8 @@
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
 
+#include "Math/COLLADABUMathMatrix4.h"
+
 namespace COLLADAFW
 {
 
@@ -31,6 +33,12 @@ namespace COLLADAFW
 		controller. The vertex count of the source must be equal to the vertex count of the skin 
 		controller.*/
 		UniqueId mSource;
+
+		/** Provides extra information about the position and orientation of the base mesh before binding.*/
+		COLLADABU::Math::Matrix4 mBindShapeMatrix;
+
+		/** Array of the inverse bind matrices. One for each joint.*/
+		Matrix4Array mInverseBindMatrices;
 
 		/** The weights of the skin controller. */
 		FloatOrDoubleArray mWeights;
@@ -54,6 +62,18 @@ namespace COLLADAFW
 
         /** Destructor. */
 		virtual ~SkinControllerData();
+
+		/** Provides extra information about the position and orientation of the base mesh before binding.*/
+		const COLLADABU::Math::Matrix4& getBindShapeMatrix() const { return mBindShapeMatrix; }
+
+		/** Provides extra information about the position and orientation of the base mesh before binding.*/
+		void setBindShapeMatrix( const COLLADABU::Math::Matrix4& bindShapeMatrix) { mBindShapeMatrix = bindShapeMatrix; }
+
+		/** Array of the inverse bind matrices. One for each joint.*/
+		COLLADAFW::Matrix4Array& getInverseBindMatrices() { return mInverseBindMatrices; }
+
+		/** Array of the inverse bind matrices. One for each joint.*/
+		const COLLADAFW::Matrix4Array& getInverseBindMatrices() const { return mInverseBindMatrices; }
 
 		/** Returns the number of joints this controller can use.*/
 		size_t getJointsCount() const { return mJointsCount; }

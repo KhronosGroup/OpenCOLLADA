@@ -15,6 +15,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWAnimationList.h"
+#include "COLLADAFWTypes.h"
 
 #include <list>
 
@@ -42,6 +43,12 @@ namespace COLLADASaxFWL
 
 	static StringList EMPTY_STRING_LIST = StringList();
 
+
+#ifdef COLLADASAXFWL_REAL_IS_FLOAT
+	typedef COLLADAFW::FloatArray RealArray;
+#else
+	typedef COLLADAFW::DoubleArray RealArray;
+#endif
 
 	typedef std::vector<COLLADAFW::Node*> NodeList;
 
