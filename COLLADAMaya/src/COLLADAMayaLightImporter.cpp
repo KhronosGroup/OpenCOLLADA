@@ -35,9 +35,9 @@ namespace COLLADAMaya
     //------------------------------
 	LightImporter::LightImporter ( DocumentImporter* documentImporter ) 
         : BaseImporter ( documentImporter )
-        , mDefaultLightLinker ( documentImporter->getFile (), DEFAULT_LIGHT_LINKER_NAME, "", false )
-        , mDefaultLightList ( documentImporter->getFile (), ":" + DEFAULT_LIGHT_LIST_NAME, "", false )
-        , mDefaultLightSet ( documentImporter->getFile (), ":" + DEFAULT_LIGHT_SET_NAME, "", false )
+        , mDefaultLightLinker ( NULL, DEFAULT_LIGHT_LINKER_NAME, "", false, false )
+        , mDefaultLightList ( NULL, ":" + DEFAULT_LIGHT_LIST_NAME, "", false, false )
+        , mDefaultLightSet ( NULL, ":" + DEFAULT_LIGHT_SET_NAME, "", false, false )
 	{}
 	
     //------------------------------
@@ -306,7 +306,7 @@ namespace COLLADAMaya
         size_t lightLinkerLinkIndex = 0;
 
         // Get the default light set.
-        MayaDM::ObjectSet defaultLightSet ( file, DEFAULT_LIGHT_SET_NAME, "", false );
+        MayaDM::ObjectSet defaultLightSet ( file, DEFAULT_LIGHT_SET_NAME, "", false, false );
 
         // Connect the existing shader engines with the first light linker link's object.
         MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
@@ -340,7 +340,7 @@ namespace COLLADAMaya
         }
 
         // Create the dummy object of the initial shading group.
-        MayaDM::ShadingEngine initialShadingEngine ( file, ":" + MaterialImporter::INITIAL_SHADING_ENGINE_NAME, "", false );
+        MayaDM::ShadingEngine initialShadingEngine ( file, ":" + MaterialImporter::INITIAL_SHADING_ENGINE_NAME, "", false, false );
 
         // Connect the default light set message with the next light linker link's light
         // connectAttr ":defaultLightSet.message" "lightLinker1.link[1].light";
@@ -412,7 +412,7 @@ namespace COLLADAMaya
                 MayaNode* mayaTransformNode = (*transformNodes) [0];
                 String transformNodeName = mayaTransformNode->getName ();
                 String transformNodePath = mayaTransformNode->getNodePath ();
-                MayaDM::Transform transformNode ( file, transformNodePath, "", false );
+                MayaDM::Transform transformNode ( file, transformNodePath, "", false, false );
 
                 // Connect the light transforms instance object groups with the default light set.
                 //connectAttr "spotLight1.instObjGroups" ":defaultLightSet.dagSetMembers" -nextAvailable;

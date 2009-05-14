@@ -89,6 +89,13 @@ namespace COLLADAMaya
         // First release the existing libraries.
         releaseLibraries();
 
+        // Get the sceneID (assign a name to the scene)
+        MString sceneName = MFileIO::currentFile ();
+        if ( sceneName.length() != 0 ) mSceneId = sceneName.asChar();
+
+        // Create the maya file.
+
+        // Create the libraries.
         mVisualSceneImporter = new VisualSceneImporter ( this );
         mGeometryImporter = new GeometryImporter ( this );
         mMaterialImporter = new MaterialImporter ( this );
@@ -98,10 +105,6 @@ namespace COLLADAMaya
         mImageImporter = new ImageImporter (this);
         mAnimationImporter = new AnimationImporter (this);
         mControllerImporter = new ControllerImporter (this);
-
-        // Get the sceneID (assign a name to the scene)
-        MString sceneName = MFileIO::currentFile ();
-        if ( sceneName.length() != 0 ) mSceneId = sceneName.asChar();
 
         // Initialize the reference manager
         ReferenceManager::getInstance()->initialize ();
@@ -222,7 +225,7 @@ namespace COLLADAMaya
         bool retValue = createMayaAsciiFile ();
         assert ( retValue );
 
-        // TODO Initialise the maya default objects.
+        // Initialise the maya default objects.
         if ( retValue ) 
         {
             mLightImporter->initialiseDefaultLightObjects ();

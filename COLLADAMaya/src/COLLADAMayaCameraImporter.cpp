@@ -11,6 +11,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaCameraImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
+#include "COLLADAMayaSyntax.h"
 
 #include "COLLADAFWCamera.h"
 
@@ -115,9 +116,19 @@ namespace COLLADAMaya
         MayaNode* mayaCameraNode = new MayaNode ( cameraId, cameraName, mayaTransformNode );
         mMayaCameraNodesMap [ cameraId ] = mayaCameraNode;
 
+        // Check if we want to write a shared default camera.
+        bool isSharedCamera = false;
+        if (   COLLADABU::Utils::equals ( camera->getName (), CAMERA_PERSP_SHAPE ) 
+            || COLLADABU::Utils::equals ( camera->getName (), CAMERA_TOP_SHAPE ) 
+            || COLLADABU::Utils::equals ( camera->getName (), CAMERA_FRONT_SHAPE ) 
+            || COLLADABU::Utils::equals ( camera->getName (), CAMERA_SIDE_SHAPE ) )
+        {
+            isSharedCamera = true;
+        }
+
         // Create the maya camera object and write it into the maya ascii file.
         FILE* file = getDocumentImporter ()->getFile ();
-        MayaDM::Camera mayaCamera ( file, cameraName, mayaTransformNode->getNodePath () );
+        MayaDM::Camera mayaCamera ( file, cameraName, mayaTransformNode->getNodePath (), isSharedCamera );
 
         // Add the original id attribute.
         String colladaId = camera->getOriginalId ();
