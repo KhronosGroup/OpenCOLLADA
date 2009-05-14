@@ -286,6 +286,9 @@ namespace COLLADAMaya
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset );
 
+        /** Convert the value to a valid maya unit value in depend on the current precision. */
+        double toMayaUnitValue ( double unitValue );
+
         /** Returns the type of the current up axis. */
         const COLLADAFW::FileInfo::UpAxisType& getUpAxisType () const { return mUpAxisType; }
 

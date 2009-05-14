@@ -377,6 +377,9 @@ namespace COLLADAMaya
             linearUnitName = unit.getLinearUnitName ();
             double linearUnitMeter = unit.getLinearUnitMeter ();
 
+            // Set the valid maya values in depend on the current precision.
+            linearUnitMeter = toMayaUnitValue ( linearUnitMeter );
+
             // Set the linear unit in meters.
             // Maya knows: millimeter, centimeter, meter, foot, inch and yard.
             switch ( unit.getLinearUnitUnit () )
@@ -497,6 +500,28 @@ namespace COLLADAMaya
 //         fprintf ( mFile, "fileInfo \"osv\" \"%s\";\n", operatingSystemVersion.c_str () );
 
         return true;
+    }
+
+    //-----------------------------
+    double DocumentImporter::toMayaUnitValue ( double unitValue )
+    {
+        if ( COLLADABU::Math::Utils::equalsZero ( unitValue, getTolerance () ) )
+            unitValue = 0.0;
+        else if ( COLLADABU::Math::Utils::equals ( unitValue, COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER, getTolerance () ) )
+            unitValue = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER;
+        else if ( COLLADABU::Math::Utils::equals ( unitValue, COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER, getTolerance () ) )
+            unitValue = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
+        else if ( COLLADABU::Math::Utils::equals ( unitValue, COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER, getTolerance () ) )
+            unitValue = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER;
+        else if ( COLLADABU::Math::Utils::equals ( unitValue, COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER, getTolerance () ) )
+            unitValue = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
+        else if ( COLLADABU::Math::Utils::equals ( unitValue, COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT, getTolerance () ) )
+            unitValue = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT;
+        else if ( COLLADABU::Math::Utils::equals ( unitValue, COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH, getTolerance () ) )
+            unitValue = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH;
+        else if ( COLLADABU::Math::Utils::equals ( unitValue, COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD, getTolerance () ) )
+            unitValue = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD;
+        return unitValue;
     }
 
     //-----------------------------
