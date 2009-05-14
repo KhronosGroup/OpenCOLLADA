@@ -262,6 +262,13 @@ namespace COLLADASaxFWL
 		the controller with id @a controllerDataUniqueId.*/
 		bool createAndWriteSkinController( const InstanceControllerData& instanceControllerData, const COLLADAFW::UniqueId& controllerDataUniqueId );
 
+		/** Creates a controller which instantiation is described by @a InstanceControllerData and that uses 
+		the controller with id @a controllerDataUniqueId. The sids used to reslove joints are @a sids.*/
+		bool createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+										   const COLLADAFW::UniqueId& controllerDataUniqueId, 
+										   const StringList& sids);
+
+
 		/** Creates all skincontrollers instantiated in the visual scene.*/
 		bool createAndWriteSkinControllers();
 

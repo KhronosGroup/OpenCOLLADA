@@ -359,7 +359,16 @@ namespace COLLADASaxFWL
 
 		SidTreeNode* currentNode = startingPoint;
 		const SidAddress::SidList& sids = sidAddress.getSids();
-		for ( size_t i = 0, count = sids.size(); i < count; ++i)
+
+		size_t i = 0;
+
+		if ( !sids.empty() && (sids.front() == startingPoint->getSid()) )
+		{
+			// the first one is the start element it self exclude it from recursive search
+			i = 1;
+		}
+
+		for ( size_t count = sids.size(); i < count; ++i)
 		{
 			const String& currentSid = sids[i];
 			currentNode = currentNode->findChildBySid( currentSid );
@@ -529,12 +538,23 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	bool FileLoader::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, const COLLADAFW::UniqueId& controllerDataUniqueId )
+	bool FileLoader::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+		                                           const COLLADAFW::UniqueId& controllerDataUniqueId)
+	{
+		if ( !controllerDataUniqueId.isValid() )
+			return false;
+		const StringList& sids = getJointSidsBySkinDataUniqueId( controllerDataUniqueId );
+		return createAndWriteSkinController( instanceControllerData, controllerDataUniqueId, sids );
+	}
+
+	//-----------------------------
+	bool FileLoader::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+												   const COLLADAFW::UniqueId& controllerDataUniqueId, 
+												   const StringList& sids)
 	{
 		if ( !controllerDataUniqueId.isValid() )
 			return false;
 
-		const StringList& sids = getJointSidsBySkinDataUniqueId( controllerDataUniqueId );
 		const URIList& skeletonRoots = instanceControllerData.skeletonRoots;
 
 		NodeList joints;
@@ -640,7 +660,7 @@ namespace COLLADASaxFWL
 	}
 
     //-----------------------------
-    bool FileLoader::begin__asset ()
+    bool FileLoader::begin__asset()
     {
 		SaxVirtualFunctionTest(begin__asset());
 		deleteFilePartLoader();
@@ -651,7 +671,7 @@ namespace COLLADASaxFWL
     }
 
     //------------------------------
-    bool FileLoader::begin__scene ()
+    bool FileLoader::begin__scene()
     {
         SaxVirtualFunctionTest(begin__scene()); 
         deleteFilePartLoader();

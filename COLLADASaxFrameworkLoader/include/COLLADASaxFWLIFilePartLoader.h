@@ -19,6 +19,9 @@
 #include "COLLADAFWExtraData.h"
 #include "COLLADAFWInstanceController.h"
 
+#include <list>
+#include <map>
+
 
 namespace COLLADAFW
 {
@@ -58,7 +61,7 @@ namespace COLLADASaxFWL
 
 		/** List of all instance controllers that reference the same controller, ie share the same skin 
 		data for skin controllers.*/
-		typedef std::vector<InstanceControllerData> InstanceControllerDataList;
+		typedef std::list<InstanceControllerData> InstanceControllerDataList;
 
 		/** Maps each controller data unique id to the list of nodes instantiating it.*/
 		typedef std::map<COLLADAFW::UniqueId,InstanceControllerDataList> InstanceControllerDataListMap;
