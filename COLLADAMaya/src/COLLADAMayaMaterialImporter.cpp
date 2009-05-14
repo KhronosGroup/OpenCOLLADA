@@ -150,7 +150,7 @@ namespace COLLADAMaya
          {
              // Get the initial shading engine.
              FILE* file = getDocumentImporter ()->getFile ();
-             MayaDM::ShadingEngine shadingEngine ( file, INITIAL_SHADING_ENGINE_NAME.c_str (), "", false );
+             MayaDM::ShadingEngine shadingEngine ( file, INITIAL_SHADING_ENGINE_NAME.c_str (), "", false, false );
 
              // Get the initial material info.
              MayaDM::MaterialInfo materialInfo ( file, INITIAL_MATERIAL_INFO_NAME.c_str () );
@@ -277,7 +277,7 @@ namespace COLLADAMaya
             connectAttr ( file, shadingEngine.getMessage (), materialInfo.getShadingGroup () );
 
             // Create the default object (not in the maya file!).
-            MayaDM::Partition defaultRenderPartition ( file, DEFAULT_RENDER_PARTITION, "", false );
+            MayaDM::Partition defaultRenderPartition ( file, DEFAULT_RENDER_PARTITION, "", false, false );
             // References to the partition nodes this set is a member of. 
             // connectAttr "ShadingEngine_1.pa" ":renderPartition.st" -na;
             connectNextAttr ( file, shadingEngine.getPartition (), defaultRenderPartition.getSets () );
@@ -569,7 +569,7 @@ namespace COLLADAMaya
         const EffectImporter::UniqueIdMayaEffectsMap& effectMap = effectImporter->getMaterialIdMayaEffectMap ();
 
         // Create the default object (not in the maya file!).
-        MayaDM::DefaultShaderList defaultShaderList ( file, DEFAULT_SHADER_LIST, "", false );
+        MayaDM::DefaultShaderList defaultShaderList ( file, DEFAULT_SHADER_LIST, "", false, false );
 
         EffectImporter::UniqueIdMayaEffectsMap::const_iterator it = effectMap.begin ();
         while ( it != effectMap.end () )
