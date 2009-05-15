@@ -407,7 +407,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::begin__instance_material( const instance_material__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__instance_material(attributeData));
-		// remove this, as soon as we support controllers
+
 		if ( !mCurrentInstanceWithMaterial )
 			return true;
 
@@ -424,7 +424,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::end__instance_material()
 	{
 		SaxVirtualFunctionTest(end__instance_material());
-		// remove this, as soon as we support controllers
+
 		if ( !mCurrentInstanceWithMaterial )
 			return true;
 
@@ -440,7 +440,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::begin__bind_vertex_input( const bind_vertex_input__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__bind_vertex_input(attributeData));
-		// remove this, as soon as we support controllers
+
 		if ( !mCurrentInstanceWithMaterial )
 			return true;
 

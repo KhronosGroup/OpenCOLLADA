@@ -94,13 +94,20 @@ namespace COLLADASaxFWL
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer();
 
-		/** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been
+		/** Returns the COLLADAFW::UniqueId of the element with uri @a uriString. If the uri has been
 		passed to this method before, the same 	COLLADAFW::UniqueId will be returned, if not, a
 		new one is created.
-		@param uri The uri of the element to get the COLLADAFW::UniqueId for
+		@param uriString The uriString of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
 		const COLLADAFW::UniqueId& getUniqueId(const String& uriString, COLLADAFW::ClassId classId);
+
+		/** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been
+		passed to this method before, the same 	COLLADAFW::UniqueId will be returned,  if not, an 
+		invalid unique id will be returned.
+		@param uriString The uriString of the element to get the COLLADAFW::UniqueId for
+		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
+		const COLLADAFW::UniqueId& getUniqueId(const String& uriString);
 
 		/** Returns the COLLADAFW::UniqueId of the element with id  @a colladaId in the current file.
 		If the id within this file has been passed to this method before, the same 	COLLADAFW::UniqueId
@@ -125,6 +132,13 @@ namespace COLLADASaxFWL
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
 		const COLLADAFW::UniqueId& getUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId );
+
+		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has
+		been passed to this method before, the same COLLADAFW::UniqueId will be returned,   if not, an 
+		invalid unique id will be returned.
+		@param uriString The uriString of the element to get the COLLADAFW::UniqueId for
+		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
+		const COLLADAFW::UniqueId& getUniqueIdFromUrl( const COLLADABU::URI& url );
 
 		/** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new
 		COLLADAFW::UniqueId will be created and returned. Use this member for collada elements that
@@ -183,7 +197,10 @@ namespace COLLADASaxFWL
 		COLLADAFW::AnimationList*& getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId);
 
 		/** Adds the pair @a skinDataUniqueId, @a jointSids to mSkinDataJointSidsMap.*/
-		void addSkinDataJointSidsMap( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids );
+		void addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids );
+
+		/** Adds the pair @a skinDataUniqueId, @a skinSource to mSkinDataSkinSourceMap.*/
+		void addSkinDataSkinSourcePair( const COLLADAFW::UniqueId& skinDataUniqueId, const COLLADABU::URI& skinSource );
 
 		/** Returns the sids of the nodes used by a skin controller using skin data with unique id 
 		@a skinDataUniqueId*/

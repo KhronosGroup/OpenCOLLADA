@@ -28,6 +28,7 @@
 #include "COLLADASaxFWLSidAddress.h"
 #include "COLLADASaxFWLColladaParserAutoGenFunctionMapFactory.h"
 
+#include "COLLADAFWConstants.h"
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWEffect.h"
 #include "COLLADAFWAnimationList.h"
@@ -413,7 +414,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	void FileLoader::addSkinDataJointSidsMap( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids )
+	void FileLoader::addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids )
 	{
 		mSkinDataJointSidsMap[skinDataUniqueId]=jointSids;
 	}
@@ -429,6 +430,26 @@ namespace COLLADASaxFWL
 		else
 		{
 			return EMPTY_STRING_LIST;
+		}
+	}
+
+	//-----------------------------
+	void FileLoader::addSkinDataSkinSourcePair( const COLLADAFW::UniqueId& skinDataUniqueId, const COLLADABU::URI& skinSource )
+	{
+		mSkinDataSkinSourceMap[skinDataUniqueId]=skinSource;
+	}
+
+	//-----------------------------
+	const COLLADABU::URI* FileLoader::getSkinSourceBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
+	{
+		SkinDataSkinSourceMap::const_iterator it = mSkinDataSkinSourceMap.find(skinDataUniqueId);
+		if ( it != mSkinDataSkinSourceMap.end() )
+		{
+			return &it->second;
+		}
+		else
+		{
+			return 0;
 		}
 	}
 
@@ -539,17 +560,19 @@ namespace COLLADASaxFWL
 
 	//-----------------------------
 	bool FileLoader::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
-		                                           const COLLADAFW::UniqueId& controllerDataUniqueId)
+												   const COLLADAFW::UniqueId& controllerDataUniqueId,
+												   const COLLADAFW::UniqueId& sourceUniqueId)
 	{
 		if ( !controllerDataUniqueId.isValid() )
 			return false;
 		const StringList& sids = getJointSidsBySkinDataUniqueId( controllerDataUniqueId );
-		return createAndWriteSkinController( instanceControllerData, controllerDataUniqueId, sids );
+		return createAndWriteSkinController( instanceControllerData, controllerDataUniqueId, sourceUniqueId, sids );
 	}
 
 	//-----------------------------
 	bool FileLoader::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
 												   const COLLADAFW::UniqueId& controllerDataUniqueId, 
+												   const COLLADAFW::UniqueId& sourceUniqueId,
 												   const StringList& sids)
 	{
 		if ( !controllerDataUniqueId.isValid() )
@@ -615,6 +638,7 @@ namespace COLLADASaxFWL
 		}
 
 		skinController->setSkinControllerData(controllerDataUniqueId);
+		skinController->setSource(sourceUniqueId);
 
 		instanceControllerData.instanceController->setInstanciatedObjectId( skinController->getUniqueId() );
 
@@ -641,7 +665,22 @@ namespace COLLADASaxFWL
 			for ( ; listIt != instanceControllerDataList.end(); ++listIt)
 			{
 				const InstanceControllerData& instanceControllerData = *listIt;
-				createAndWriteSkinController( instanceControllerData, skinDataUniqueId);
+				const COLLADABU::URI* sourceUrl = getSkinSourceBySkinDataUniqueId( skinDataUniqueId );
+
+				if ( !sourceUrl )
+				{
+					// TODO handle error
+					continue;
+				}
+
+				const COLLADAFW::UniqueId& sourceUniqueId = getUniqueIdFromUrl(*sourceUrl);
+				if ( !sourceUniqueId.isValid() )
+				{
+					// TODO handle error
+					continue;
+				}
+
+				createAndWriteSkinController( instanceControllerData, skinDataUniqueId,sourceUniqueId);
 			}
 		}
 		return true;
