@@ -44,10 +44,20 @@ namespace COLLADASaxFWL
 	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueId( const String& uriString, COLLADAFW::ClassId classId )
 	{
 		assert( getColladaLoader() );
-		
+
 		COLLADABU::URI uri(getFileUri(), uriString);
 
 		return getColladaLoader()->getUniqueId(uri, classId);
+	}
+
+	//-----------------------------
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueId( const String& uriString)
+	{
+		assert( getColladaLoader() );
+
+		COLLADABU::URI uri(getFileUri(), uriString);
+
+		return getColladaLoader()->getUniqueId(uri);
 	}
 
 	//-----------------------------
@@ -84,6 +94,16 @@ namespace COLLADASaxFWL
 		COLLADABU::URI absoluteUri(getFileUri(), url.getURIString());
 
 		return getColladaLoader()->getUniqueId(absoluteUri, classId);
+	}
+
+	//-----------------------------
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdFromUrl( const COLLADABU::URI& url )
+	{
+		assert( getColladaLoader() );
+
+		COLLADABU::URI absoluteUri(getFileUri(), url.getURIString());
+
+		return getColladaLoader()->getUniqueId(absoluteUri);
 	}
 
 
@@ -167,9 +187,15 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	void IFilePartLoader::addSkinDataJointSidsMap( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids )
+	void IFilePartLoader::addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids )
 	{
-		getFileLoader()->addSkinDataJointSidsMap( skinDataUniqueId, jointSids );
+		getFileLoader()->addSkinDataJointSidsPair( skinDataUniqueId, jointSids );
+	}
+
+	//-----------------------------
+	void IFilePartLoader::addSkinDataSkinSourcePair( const COLLADAFW::UniqueId& skinDataUniqueId, const COLLADABU::URI& skinSource )
+	{
+		getFileLoader()->addSkinDataSkinSourcePair( skinDataUniqueId, skinSource );
 	}
 
 	//-----------------------------

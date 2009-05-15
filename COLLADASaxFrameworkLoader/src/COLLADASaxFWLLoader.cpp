@@ -89,6 +89,20 @@ namespace COLLADASaxFWL
 	}
 
 	//---------------------------------
+	const COLLADAFW::UniqueId& Loader::getUniqueId( const COLLADABU::URI& uri)
+	{
+		URIUniqueIdMap::iterator it = mURIUniqueIdMap.find(uri);
+		if ( it == mURIUniqueIdMap.end() )
+		{
+			return COLLADAFW::UniqueId::INVALID;
+		}
+		else
+		{
+			return it.second();
+		}
+	}
+
+	//---------------------------------
 	COLLADAFW::UniqueId Loader::getUniqueId( COLLADAFW::ClassId classId )
 	{
 		return COLLADAFW::UniqueId(classId, mLoaderUtil.getLowestObjectIdFor(classId));

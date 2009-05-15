@@ -154,6 +154,11 @@ namespace COLLADASaxFWL
 		SaxVirtualFunctionTest(begin__skin(attributeData));
 		mCurrentSkinControllerData = FW_NEW COLLADAFW::SkinControllerData(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::SkinControllerData::ID()).getObjectId());
 
+		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source);
+		if ( !mCurrentControllerSourceUniqueId.isValid())
+		{
+			addSkinDataSkinSourcePair( mCurrentSkinControllerData->getUniqueId(), attributeData.source);
+		}
 		return true;
 	}
 
@@ -172,6 +177,7 @@ namespace COLLADASaxFWL
 		mCurrentSkinControllerData  = 0;
 		mJointSidsMap.clear();
 		mJointSids = 0;
+		mCurrentControllerSourceUniqueId = COLLADAFW::UniqueId::INVALID;
 		return success;
 	}
 
@@ -239,10 +245,10 @@ namespace COLLADASaxFWL
 				const StringList& nodeSids = it->second;
 
 				const COLLADAFW::UniqueId& controllerUniqueId = mCurrentSkinControllerData->getUniqueId();
-				addSkinDataJointSidsMap( controllerUniqueId, nodeSids);
+				addSkinDataJointSidsPair( controllerUniqueId, nodeSids);
 
 				// try to write the SkinController here
-				if ( (getObjectFlags() & Loader::CONTROLLER_FLAG) != 0 )
+				if ( ((getObjectFlags() & Loader::CONTROLLER_FLAG) != 0) && (mCurrentControllerSourceUniqueId.isValid()) )
 				{
 					InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
 					InstanceControllerDataList::iterator listIt = instanceControllerDataList.begin();
@@ -250,7 +256,10 @@ namespace COLLADASaxFWL
 					while ( listIt != instanceControllerDataList.end() )
 					{
 						const InstanceControllerData& instanceControllerData = *listIt;
-						bool success = getFileLoader()->createAndWriteSkinController( instanceControllerData, controllerUniqueId, nodeSids);
+						bool success = getFileLoader()->createAndWriteSkinController( instanceControllerData, 
+																					  controllerUniqueId, 
+																					  mCurrentControllerSourceUniqueId,
+																					  nodeSids);
 						//on success we need to remove this controller instance
 						if ( success )
 						{

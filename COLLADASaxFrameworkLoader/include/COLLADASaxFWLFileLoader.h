@@ -67,6 +67,9 @@ namespace COLLADASaxFWL
 		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
 		typedef std::map< COLLADAFW::UniqueId, StringList> SkinDataJointSidsMap;
 
+		/** Maps unique ids of skin data to the source uri string.*/
+		typedef std::map< COLLADAFW::UniqueId/*skin controller data*/, COLLADABU::URI/*source uri string*/> SkinDataSkinSourceMap;
+
 
 	private:
 	
@@ -120,7 +123,6 @@ namespace COLLADASaxFWL
 		to parse all the objects listed in @a mObjectFlags.*/
 		ColladaParserAutoGenPrivate::ElementFunctionMap mFunctionMap;
 
-
 		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
 		SkinDataJointSidsMap mSkinDataJointSidsMap;
 
@@ -128,6 +130,8 @@ namespace COLLADASaxFWL
 		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
 		InstanceControllerDataListMap mInstanceControllerDataListMap;
 
+		/** Maps unique ids of skin data to the source uri string.*/
+		SkinDataSkinSourceMap mSkinDataSkinSourceMap;
 
 	public:
 
@@ -225,13 +229,18 @@ namespace COLLADASaxFWL
 		entry is created.*/
 		COLLADAFW::AnimationList*& getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId);
 
-
 		/** Adds the pair @a skinDataUniqueId, @a jointSids to mSkinDataJointSidsMap.*/
-		void addSkinDataJointSidsMap( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids );
-		
+		void addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids );
+
 		/** Returns the sids of the nodes used by a skin controller using skin data with unique id 
 		@a skinDataUniqueId*/
 		const StringList& getJointSidsBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
+
+		/** Adds the pair @a skinDataUniqueId, @a skinSource to mSkinDataSkinSourceMap.*/
+		void addSkinDataSkinSourcePair( const COLLADAFW::UniqueId& skinDataUniqueId, const COLLADABU::URI& skinSource );
+
+		/** Returns the skin source string of the skin controller, @a skinDataUniqueId was created from.*/
+		const COLLADABU::URI* getSkinSourceBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
 
 		/** Returns the mapping of the Unique generated from the id of the COLLADA controller element to the 
 		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
@@ -260,32 +269,35 @@ namespace COLLADASaxFWL
 
 		/** Creates a controller which instantiation is described by @a InstanceControllerData and that uses 
 		the controller with id @a controllerDataUniqueId.*/
-		bool createAndWriteSkinController( const InstanceControllerData& instanceControllerData, const COLLADAFW::UniqueId& controllerDataUniqueId );
+		bool createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+										   const COLLADAFW::UniqueId& controllerDataUniqueId,
+							               const COLLADAFW::UniqueId& sourceUniqueId);
 
 		/** Creates a controller which instantiation is described by @a InstanceControllerData and that uses 
-		the controller with id @a controllerDataUniqueId. The sids used to reslove joints are @a sids.*/
+		the controller with id @a controllerDataUniqueId. The sids used to resolve joints are @a sids.*/
 		bool createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
-										   const COLLADAFW::UniqueId& controllerDataUniqueId, 
+										   const COLLADAFW::UniqueId& controllerDataUniqueId,
+										   const COLLADAFW::UniqueId& sourceUniqueId,
 										   const StringList& sids);
 
 
-		/** Creates all skincontrollers instantiated in the visual scene.*/
+		/** Creates all skin controllers instantiated in the visual scene.*/
 		bool createAndWriteSkinControllers();
 
 		/** Writes all animation lists.*/
 		void writeAnimationLists();
 
 	protected:
-		/** Returns a pointer to the collada loader. */
+		/** Returns a pointer to the COLLADA loader. */
 		Loader* getColladaLoader() { return mColladaLoader; }
 
-		/** Returns a const pointer to the collada document. */
+		/** Returns a const pointer to the COLLADA document. */
 		const Loader* getColladaLoader() const { return mColladaLoader; }
 
-		/** Informs about the end of reading the collada file. */
+		/** Informs about the end of reading the COLLADA file. */
 		virtual bool end__COLLADA();
 
-        /** Sax callback function for the beginning of the collada document asset information.*/
+        /** Sax callback function for the beginning of the COLLADA document asset information.*/
         virtual bool begin__asset();
 
         /** Starts loading the scene.*/

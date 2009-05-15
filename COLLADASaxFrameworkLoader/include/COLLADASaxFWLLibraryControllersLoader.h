@@ -46,6 +46,9 @@ namespace COLLADASaxFWL
 		/** The id of the current controller.*/
 		String mCurrentControllerId;
 
+		/** The id of the current controller source.*/
+		COLLADAFW::UniqueId mCurrentControllerSourceUniqueId;
+
 		/** The name of the current controller.*/
 		String mCurrentControllerName;
 

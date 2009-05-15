@@ -29,11 +29,6 @@ namespace COLLADAFW
 		/** The number of joints this controller can use.*/
 		size_t mJointsCount;
 
-		/** The unique id of the source that gets modified by this controller. Must be a mesh or a 
-		controller. The vertex count of the source must be equal to the vertex count of the skin 
-		controller.*/
-		UniqueId mSource;
-
 		/** Provides extra information about the position and orientation of the base mesh before binding.*/
 		COLLADABU::Math::Matrix4 mBindShapeMatrix;
 
@@ -83,17 +78,6 @@ namespace COLLADAFW
 
 		/** Returns the number of vertices of the mesh modified by this controller.*/
 		size_t getVertexCount() const { return mJointsPerVertex.getCount(); }
-
-		/** Returns the unique id of the source that gets modified by this controller. Must be a mesh or a 
-		controller. The vertex count of the source must be equal to the vertex count of the skin 
-		controller.*/
-		const COLLADAFW::UniqueId& getSource() const { return mSource; }
-
-		/** Sets the unique id of the source that gets modified by this controller. Must be a mesh or a 
-		controller. The vertex count of the source must be equal to the vertex count of the skin 
-		controller.*/
-		void setSource( const COLLADAFW::UniqueId& source) { mSource = source; }
-
 
 		/** Returns the weights of the skin controller. */
 		const COLLADAFW::FloatOrDoubleArray& getWeights() const { return mWeights; }
