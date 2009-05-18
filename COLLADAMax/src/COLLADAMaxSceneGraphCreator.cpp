@@ -35,30 +35,6 @@ namespace COLLADAMax
 	{
 	}
 
-
-	//---------------------------------------------------------------
-	void SceneGraphCreator::Matrix4ToMaxMatrix3 ( Matrix3 & copy,  const COLLADABU::Math::Matrix4& original )
-	{
-		Point4 column;
-		column[ 0 ] = (float)original.getElement(0,0);
-		column[ 1 ] = (float)original.getElement(0,1);
-		column[ 2 ] = (float)original.getElement(0,2);
-		column[ 3 ] = convertSpaceUnit((float)original.getElement(0,3));
-		copy.SetColumn(0, column);
-
-		column[ 0 ] = (float)original.getElement(1,0);
-		column[ 1 ] = (float)original.getElement(1,1);
-		column[ 2 ] = (float)original.getElement(1,2);
-		column[ 3 ] = convertSpaceUnit((float)original.getElement(1,3));
-		copy.SetColumn(1, column);
-
-		column[ 0 ] = (float)original.getElement(2,0);
-		column[ 1 ] = (float)original.getElement(2,1);
-		column[ 2 ] = (float)original.getElement(2,2);
-		column[ 3 ] = convertSpaceUnit((float)original.getElement(2,3));
-		copy.SetColumn(2, column);
-	}
-
 	//------------------------------
 	void SceneGraphCreator::setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode)
 	{
@@ -104,12 +80,16 @@ namespace COLLADAMax
 			RefResult res = newImportNode->Reference(getDummyObject());
 
 			importInstanceGeometries(node->getInstanceGeometries(), newImportNode);
+			importInstanceControllers(node->getInstanceControllers(), newImportNode);
 			importInstanceCameras(node->getInstanceCameras(), newImportNode);
 			importInstanceLights(node->getInstanceLights(), newImportNode);
 		}
 		else
 		{
 			newImportNode = importInstanceGeometry( node, parentINode );
+
+			if ( !newImportNode )
+				newImportNode = importInstanceController( node, parentINode );
 
 			if ( !newImportNode )
 				newImportNode = importInstanceCamera( node, parentINode );
@@ -202,6 +182,11 @@ namespace COLLADAMax
 		return importInstances<COLLADAFW::InstanceGeometry, &SceneGraphCreator::storeMaterialBindings>(instanceGeometryArray, parentImportNode);
 	}
 
+	//------------------------------
+	bool SceneGraphCreator::importInstanceControllers( const COLLADAFW::InstanceControllerPointerArray& instanceControllerArray, ImpNode* parentImportNode )
+	{
+		return importInstances<COLLADAFW::InstanceController, &SceneGraphCreator::storeMaterialBindings>(instanceControllerArray, parentImportNode);
+	}
 
 	//------------------------------
 	bool SceneGraphCreator::importInstanceCameras( const COLLADAFW::InstanceCameraPointerArray& instanceCameraArray, ImpNode* parentImportNode )
@@ -267,6 +252,11 @@ namespace COLLADAMax
 		return importInstance<COLLADAFW::InstanceGeometry, &COLLADAFW::Node::getInstanceGeometries, &SceneGraphCreator::storeMaterialBindings>(node, parentINode);
 	}
 
+	//------------------------------
+	ImpNode* SceneGraphCreator::importInstanceController( const COLLADAFW::Node* node, INode* parentINode )
+	{
+		return importInstance<COLLADAFW::InstanceController, &COLLADAFW::Node::getInstanceControllers, &SceneGraphCreator::storeMaterialBindings>(node, parentINode);
+	}
 
 	//------------------------------
 	ImpNode* SceneGraphCreator::importInstanceCamera( const COLLADAFW::Node* node, INode* parentINode )

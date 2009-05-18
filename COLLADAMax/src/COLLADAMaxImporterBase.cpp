@@ -387,6 +387,12 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	void ImporterBase::addUniqueIdControllerPair( const COLLADAFW::UniqueId& controllerData, const COLLADAFW::Controller* controller )
+	{
+		mDocumentImporter->getUniqueIdControllerMap().insert(std::make_pair(controllerData, controller));
+	}
+
+	//------------------------------
 	const COLLADAFW::AnimationList* ImporterBase::getAnimationList( const COLLADAFW::Animatable* animatable )
 	{
 		if ( !animatable )
@@ -408,6 +414,29 @@ namespace COLLADAMax
 	const DocumentImporter::UniqueIdList& ImporterBase::getVertexColorObjects()
 	{
 		return mDocumentImporter->getVertexColorObjects();
+	}
+
+	//---------------------------------------------------------------
+	void ImporterBase::Matrix4ToMaxMatrix3 ( Matrix3 & copy,  const COLLADABU::Math::Matrix4& original )
+	{
+		Point4 column;
+		column[ 0 ] = (float)original.getElement(0,0);
+		column[ 1 ] = (float)original.getElement(0,1);
+		column[ 2 ] = (float)original.getElement(0,2);
+		column[ 3 ] = convertSpaceUnit((float)original.getElement(0,3));
+		copy.SetColumn(0, column);
+
+		column[ 0 ] = (float)original.getElement(1,0);
+		column[ 1 ] = (float)original.getElement(1,1);
+		column[ 2 ] = (float)original.getElement(1,2);
+		column[ 3 ] = convertSpaceUnit((float)original.getElement(1,3));
+		copy.SetColumn(1, column);
+
+		column[ 0 ] = (float)original.getElement(2,0);
+		column[ 1 ] = (float)original.getElement(2,1);
+		column[ 2 ] = (float)original.getElement(2,2);
+		column[ 3 ] = convertSpaceUnit((float)original.getElement(2,3));
+		copy.SetColumn(2, column);
 	}
 
 	//------------------------------

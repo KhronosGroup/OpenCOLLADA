@@ -2595,6 +2595,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxControllerImporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxDocumentImporter.cpp"
 					>
 				</File>
@@ -2640,6 +2644,10 @@
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMaxSceneGraphCreator.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxSkinControllerDataImporter.cpp"
 					>
 				</File>
 				<File
@@ -2833,6 +2841,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\COLLADAMaxControllerImporter.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\COLLADAMaxDocumentImporter.h"
 					>
 				</File>
@@ -2878,6 +2890,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxSceneGraphCreator.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxSkinControllerDataImporter.h"
 					>
 				</File>
 				<File

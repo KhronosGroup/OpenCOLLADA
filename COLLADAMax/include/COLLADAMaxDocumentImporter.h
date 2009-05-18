@@ -27,6 +27,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWColor.h"
 #include "COLLADAFWImage.h"
 #include "COLLADAFWInstanceGeometry.h"
+#include "COLLADAFWController.h"
 
 #include <list>
 
@@ -56,6 +57,12 @@ namespace COLLADAMax
 	class DocumentImporter 	: COLLADAFW::IWriter
 	{
 	public:
+		enum ParsingPasses
+		{
+			GENERAL_PASS,			//!< The first pass to gather all data except controller data
+			CONTROLLER_DATA_PASS    //!< The second pass to gather controller data
+		};
+
 		/** Maps Unique id to INodes.*/
 		typedef std::multimap<COLLADAFW::UniqueId, INode*> UniqueIdINodeMultiMap;
 
@@ -128,6 +135,10 @@ namespace COLLADAMax
 
 		/** Holds all already imported animation list, sorted by their unique id.*/
 		typedef std::map< COLLADAFW::UniqueId /* AnimationList*/, COLLADAFW::AnimationList*> UniqueIdAnimationListMap;
+
+		/** Maps unique ids of controller data to the corresponding controller.*/
+		typedef std::multimap< COLLADAFW::UniqueId /* Controller data*/, const COLLADAFW::Controller*> UniqueIdControllerMultiMap;
+
 
 		struct FileInfo
 		{
@@ -238,11 +249,22 @@ namespace COLLADAMax
 		/** Holds all already imported animation list, sorted by their unique id.*/
 		UniqueIdAnimationListMap mUniqueIdAnimationListMap;
 
+		/** Maps unique ids of controller data to the corresponding controller.*/
+		UniqueIdControllerMultiMap mUniqueIdControllerMap;
+
+		// TODO check if we need this map
+		/** Maps unique ids of  skin controller to the INode that references the controller.*/
+		UniqueIdINodeMap mSkinControllerINodeMap;
+
 		/** Holds informations about the entire file being loaded.*/
 		FileInfo mFileInfo;
 
 		/** Functors used to convert values from frame work units into max units.*/
 		UnitConversionFunctors mUnitConversionFunctors;
+
+		/** The current pass we are performing.*/
+		ParsingPasses mCurrentParsingPass;
+
 	public:
 		/** Constructor .
 		@param maxInterface The max interface.
@@ -347,17 +369,11 @@ namespace COLLADAMax
 
 		/** When this method is called, the writer must write the skin controller data.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
-		virtual bool writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData )
-		{
-			return true;
-		}
+		virtual bool writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData );
 
 		/** When this method is called, the writer must write the controller.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
-		virtual bool writeController( const COLLADAFW::Controller* Controller )
-		{
-			return true;
-		}
+		virtual bool writeController( const COLLADAFW::Controller* Controller );
 
 
 	private:
@@ -434,6 +450,12 @@ namespace COLLADAMax
 
 		/** Holds all already imported animation list, sorted by their unique id.*/
 		UniqueIdAnimationListMap&  getUniqueIdAnimationListMap() { return mUniqueIdAnimationListMap; }
+
+		/** Maps unique ids of controller data to the corresponding controller.*/
+		UniqueIdControllerMultiMap& getUniqueIdControllerMap() { return mUniqueIdControllerMap; }
+
+		/** Maps unique ids of  skin controller to the INode that references the controller.*/
+		UniqueIdINodeMap& getSkinControllerINodeMap() { return mSkinControllerINodeMap; }
 
 		/** Functors used to convert values from frame work units into max units.*/
 		const UnitConversionFunctors& getUnitConversionFunctors() const { return mUnitConversionFunctors; }

@@ -44,9 +44,6 @@ namespace COLLADAMax
 		/** Destructor. */
 		virtual ~SceneGraphCreator();
 
-		/** Converts a COLLADAFW Matrix4 into a max Matrix3.*/
-		void Matrix4ToMaxMatrix3 ( Matrix3 & copy,  const COLLADABU::Math::Matrix4& original  );
-
 		/** Creates the scene graph.*/
 		bool create();
 
@@ -67,6 +64,9 @@ namespace COLLADAMax
 		/** Imports all the instance geometries in  @a instanceGeometryArray and attaches them to @a parentImportNode.*/
 		bool importInstanceGeometries( const COLLADAFW::InstanceGeometryPointerArray& instanceGeometryArray, ImpNode* parentImportNode );
 
+		/** Imports all the instance controllers in  @a instanceControllerArray and attaches them to @a parentImportNode.*/
+		bool importInstanceControllers( const COLLADAFW::InstanceControllerPointerArray& instanceControllerArray, ImpNode* parentImportNode );
+
 		/** Imports all the instance cameras in  @a instanceGeometryArray and attaches them to @a parentImportNode.*/
 		bool importInstanceCameras( const COLLADAFW::InstanceCameraPointerArray& instanceCameraArray, ImpNode* parentImportNode );
 
@@ -86,6 +86,12 @@ namespace COLLADAMax
 		properties of @a node (name, transformation). The new INode is attached to @a parentImportNode. 
 		Use this member, if a node has exactly one instance geometry.*/
 		ImpNode* importInstanceGeometry( const COLLADAFW::Node* node, INode* parentINode );
+
+		/** Imports the first instance controller in @a node. It is assumed that @a node has at least one
+		instance controller. A new INode is created, that references the instantiated controller and has the
+		properties of @a node (name, transformation). The new INode is attached to @a parentImportNode. 
+		Use this member, if a node has exactly one instance controller.*/
+		ImpNode* importInstanceController( const COLLADAFW::Node* node, INode* parentINode );
 
 		/** Imports the first instance camera in @a node. It is assumed that @a node has at least one
 		instance camera. A new INode is created, that references the instantiated camera and has the

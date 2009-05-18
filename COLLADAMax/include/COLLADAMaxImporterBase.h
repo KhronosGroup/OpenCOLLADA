@@ -242,12 +242,26 @@ namespace COLLADAMax
 		/** Functors used to convert values from frame work units into max units.*/
 		const DocumentImporter::UnitConversionFunctors& getUnitConversionFunctors() const { return mDocumentImporter->getUnitConversionFunctors(); }
 
+		/** Maps unique ids of controller data to the corresponding controller.*/
+		const DocumentImporter::UniqueIdControllerMultiMap& getUniqueIdControllerMap() const { return mDocumentImporter->getUniqueIdControllerMap(); }
+
+		/** Adds the pair @a controllerData, @a controller to the UniqueIdControllerMultiMap.*/
+		void addUniqueIdControllerPair( const COLLADAFW::UniqueId& controllerData, const COLLADAFW::Controller* controller);
+
+		/** Maps unique ids of controller data to the corresponding controller.*/
+		INode* getINodeBySkinController( const COLLADAFW::UniqueId& skinController ) const { return mDocumentImporter->getSkinControllerINodeMap()[skinController]; }
+
+		/** Adds the pair @a controllerData, @a controller to the UniqueIdControllerMultiMap.*/
+		void addSkinControllerINodePair( const COLLADAFW::UniqueId& skinController, INode* inode) { mDocumentImporter->getSkinControllerINodeMap()[skinController] = inode;}
 
 		/** Returns informations about the entire file being loaded.*/
 		const DocumentImporter::FileInfo& getFileInfo() const { return mDocumentImporter->getFileInfo(); }
 
 		/** Converts @a originalValue in units provided by file info to units currently set in max.*/
 		float convertSpaceUnit( float originalValue );
+
+		/** Converts a COLLADAFW Matrix4 into a max Matrix3.*/
+		void Matrix4ToMaxMatrix3 ( Matrix3 & copy,  const COLLADABU::Math::Matrix4& original  );
 
 	private:
 

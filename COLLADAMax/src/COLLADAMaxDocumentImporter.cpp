@@ -28,6 +28,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxImageImporter.h"
 #include "COLLADAMaxAnimationImporter.h"
 #include "COLLADAMaxAnimationListImporter.h"
+#include "COLLADAMaxControllerImporter.h"
+#include "COLLADAMaxSkinControllerDataImporter.h"
 #include "COLLADAMaxAnimationAssigner.h"
 #include "COLLADAMaxSceneGraphCreator.h"
 #include "COLLADAMaxFWLErrorHandler.h"
@@ -55,6 +57,7 @@ namespace COLLADAMax
 		, mImportFilePath(filepath)
 		, mNumberOfAmbientColors(0)
 		, mDummyObject((DummyObject*) getMaxImportInterface()->Create(HELPER_CLASS_ID, Class_ID(DUMMY_CLASS_ID, 0)))
+		, mCurrentParsingPass(GENERAL_PASS)
 	{
 		mUnitConversionFunctors.lengthConversion = 0;
 		mUnitConversionFunctors.inverseLengthConversion = 0;
@@ -83,11 +86,15 @@ namespace COLLADAMax
 		for ( UniqueIdAnimationListMap::const_iterator it = mUniqueIdAnimationListMap.begin(); it != mUniqueIdAnimationListMap.end(); ++it)
 			delete it->second;
 
+		// Delete all the controllers
+		for ( UniqueIdControllerMultiMap::const_iterator it = mUniqueIdControllerMap.begin(); it != mUniqueIdControllerMap.end(); ++it)
+			delete it->second;
+
+
 		delete mUnitConversionFunctors.lengthConversion;
 		delete mUnitConversionFunctors.angleConversion;
 		delete mUnitConversionFunctors.timeConversion;
 	}
-
 
 	//---------------------------------------------------------------
 	bool DocumentImporter::import()
@@ -104,20 +111,23 @@ namespace COLLADAMax
 			mMaxImportInterface->SetAmbient(0, Point3(mAmbientColor.getRed(), mAmbientColor.getGreen(), mAmbientColor.getBlue() ));
 		}
 
-
 		if ( !createSceneGraph() )
 			return false;
-
 
 		MaterialCreator materialCreator(this);
 		if ( !materialCreator.create() )
 			return false;
 
-
-
 		if ( !assignControllers(materialCreator) )
 			return false;
 
+		mCurrentParsingPass = CONTROLLER_DATA_PASS;
+
+		COLLADASaxFWL::Loader loader2(&errorHandler);
+
+		COLLADAFW::Root root2(&loader2, this);
+		if ( !root.loadDocument(mImportFilePath) )
+			return false;
 
 		return true;
 	}
@@ -260,6 +270,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeVisualScene( const COLLADAFW::VisualScene* visualScene )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		VisualSceneImporter visualSceneImporter(this, visualScene);
 		return visualSceneImporter.import();
 	}
@@ -267,6 +280,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		LibraryNodesImporter libraryNodesImporter(this, libraryNodes);
 		bool success = libraryNodesImporter.import();
 		return success;
@@ -275,6 +291,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeGeometry( const COLLADAFW::Geometry* geometry )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		GeometryImporter geometryImporter(this, geometry);
 		return geometryImporter.import();
 	}
@@ -282,6 +301,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeMaterial( const COLLADAFW::Material* material )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		MaterialImporter materialImporter(this, material);
 		return materialImporter.import();
 	}
@@ -289,6 +311,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeEffect( const COLLADAFW::Effect* effect )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		EffectImporter effectImporter(this, effect);
 		return effectImporter.import();
 	}
@@ -296,6 +321,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeCamera( const COLLADAFW::Camera* camera )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		CameraImporter cameraImporter(this, camera);
 		return cameraImporter.import();
 	}
@@ -303,6 +331,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeImage( const COLLADAFW::Image* image )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		ImageImporter imageImporter(this, image);
 		return imageImporter.import();
 	}
@@ -310,6 +341,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeLight( const COLLADAFW::Light* light )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		LightImporter lightImporter(this, light);
 		return lightImporter.import();
 	}
@@ -317,6 +351,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeAnimation( const COLLADAFW::Animation* animation )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		AnimationImporter animationImporter(this, animation);
 		return animationImporter.import();
 	}
@@ -324,8 +361,31 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeAnimationList( const COLLADAFW::AnimationList* animationList )
 	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
 		AnimationListImporter animationListImporter(this, animationList);
 		return animationListImporter.import();
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::writeController( const COLLADAFW::Controller* controller )
+	{
+		if ( mCurrentParsingPass != GENERAL_PASS )
+			return true;
+
+		ControllerImporter controllerImporter(this, controller);
+		return controllerImporter.import();
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData )
+	{
+		if ( mCurrentParsingPass != CONTROLLER_DATA_PASS )
+			return true;
+
+		SkinControllerDataImporter skinControllerDataImporter(this, skinControllerData);
+		return skinControllerDataImporter.import();
 	}
 
 	//---------------------------------------------------------------
