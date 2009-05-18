@@ -29,7 +29,7 @@ namespace COLLADAFW
 		COLLADAFW::UniqueId mSkinControllerData;
 
 		/** The unique ids of the nodes, referenced by the skin controller.*/
-		UniqueIdArray mBones;
+		UniqueIdArray mJoints;
 
 		/** The unique id of the source that gets modified by this controller. Must be a mesh or a 
 		controller. The vertex count of the source must be equal to the vertex count of the skin 
@@ -41,7 +41,9 @@ namespace COLLADAFW
         /** Constructor. */
 		SkinController( ObjectId objectId );
 
-        /** Destructor. */
+		SkinController( const SkinController& pre );
+
+		/** Destructor. */
 		virtual ~SkinController(){}
 
 		/** The unique id of the skin controller data.*/
@@ -51,10 +53,10 @@ namespace COLLADAFW
 		void setSkinControllerData( const COLLADAFW::UniqueId& skinControllerData) { mSkinControllerData = skinControllerData; }
 
 		/** The unique ids of the nodes, referenced by the skin controller.*/
-		COLLADAFW::UniqueIdArray& getBones() { return mBones; }
+		COLLADAFW::UniqueIdArray& getJoints() { return mJoints; }
 
 		/** The unique ids of the nodes, referenced by the skin controller.*/
-		const COLLADAFW::UniqueIdArray& getBones() const { return mBones; }
+		const COLLADAFW::UniqueIdArray& getJoints() const { return mJoints; }
 
 		/** Returns the unique id of the source that gets modified by this controller. Must be a mesh or a 
 		controller. The vertex count of the source must be equal to the vertex count of the skin 
@@ -65,8 +67,6 @@ namespace COLLADAFW
 		controller. The vertex count of the source must be equal to the vertex count of the skin 
 		controller.*/
 		void setSource( const COLLADAFW::UniqueId& source) { mSource = source; }
-
-		SkinController( const SkinController& pre );
 
 	private:
 

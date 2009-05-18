@@ -25,14 +25,15 @@ namespace COLLADAFW
 	SkinController::SkinController( const SkinController& pre )
 		: Controller( pre.getObjectId(), Controller::CONTROLLER_TYPE_SKIN )
 		, mSkinControllerData(pre.mSkinControllerData)
+		, mSource(pre.mSource)
 	{
-		const UniqueIdArray& preBones = pre.mBones;
+		const UniqueIdArray& preBones = pre.mJoints;
 		size_t bonesCount = preBones.getCount();
-		mBones.allocMemory(bonesCount);
-		mBones.setCount(bonesCount);
+		mJoints.allocMemory(bonesCount);
+		mJoints.setCount(bonesCount);
 		for ( size_t i = 0; i < bonesCount; ++i )
 		{
-			mBones[i] = preBones[i];
+			mJoints[i] = preBones[i];
 		}
 	}
 

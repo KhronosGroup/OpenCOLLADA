@@ -37,6 +37,10 @@ namespace COLLADAFW
         /** Destructor. */
 		virtual ~Controller(){}
 
+	public:
+		/** Type of the controller.*/
+		ControllerType getControllerType() const { return mControllerType; }
+
 	protected:
 		/** Constructor. */
 		Controller( ObjectId objectId, ControllerType controllerType)
