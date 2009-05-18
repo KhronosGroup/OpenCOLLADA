@@ -299,6 +299,11 @@ namespace COLLADASaxFWL
 			writeEffects();
 		}
 
+		if ( (getObjectFlags() & Loader::CONTROLLER_FLAG) != 0 )
+		{
+			createAndWriteSkinControllers();
+		}
+
 		if ( (getObjectFlags() & Loader::VISUAL_SCENES_FLAG) != 0 )
 		{
 			writeVisualScenes();
@@ -312,11 +317,6 @@ namespace COLLADASaxFWL
 		if ( (getObjectFlags() & Loader::ANIMATION_LIST_FLAG) != 0 )
 		{
 			writeAnimationLists();
-		}
-
-		if ( (getObjectFlags() & Loader::CONTROLLER_FLAG) != 0 )
-		{
-			createAndWriteSkinControllers();
 		}
 
 		writer()->finish();

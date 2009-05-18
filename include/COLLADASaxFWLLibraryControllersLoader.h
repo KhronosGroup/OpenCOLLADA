@@ -97,6 +97,10 @@ namespace COLLADASaxFWL
 		/** Write the indices of the v element into the framework.*/
 		bool writeVIndices ( const sint64* data, size_t length );
 
+		bool beginJointsArray();
+		bool dataJointArray( const ParserString* data, size_t length );
+
+
 		virtual bool end__library_controllers( );
 
 
@@ -140,6 +144,10 @@ namespace COLLADASaxFWL
 		virtual bool begin__Name_array( const Name_array__AttributeData& attributeData );
 		virtual bool end__Name_array();
 		virtual bool data__Name_array( const ParserString* data, size_t length );
+
+		virtual bool begin__IDREF_array( const IDREF_array__AttributeData& attributeData );
+		virtual bool end__IDREF_array();
+		virtual bool data__IDREF_array( const ParserString* value, size_t length );
 
 
 		virtual bool begin__bind_shape_matrix(){SaxVirtualFunctionTest(begin__bind_shape_matrix()); return true;}

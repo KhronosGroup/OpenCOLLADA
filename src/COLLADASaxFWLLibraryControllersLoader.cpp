@@ -109,6 +109,35 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
+	bool LibraryControllersLoader::beginJointsArray()
+	{
+		const String& sourceId = getCurrentSourceId();
+
+		// Without id we will never be able to us this array again. Don't store it.
+		if ( sourceId.empty() )
+			return true;
+
+		mJointSids = &mJointSidsMap[sourceId];
+
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryControllersLoader::dataJointArray( const ParserString* data, size_t length )
+	{
+		if ( !mJointSids )
+			return true;
+
+		for ( size_t i = 0; i < length;  ++i)
+		{
+			const ParserString& parserString = data[i];
+			mJointSids->push_back( String( parserString.str, parserString.length ) );
+		}
+		return true;
+	}
+
+
+	//------------------------------
 	bool LibraryControllersLoader::end__library_controllers()
 	{
 		SaxVirtualFunctionTest(end__library_controllers());
@@ -155,10 +184,7 @@ namespace COLLADASaxFWL
 		mCurrentSkinControllerData = FW_NEW COLLADAFW::SkinControllerData(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::SkinControllerData::ID()).getObjectId());
 
 		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source);
-		if ( !mCurrentControllerSourceUniqueId.isValid())
-		{
-			addSkinDataSkinSourcePair( mCurrentSkinControllerData->getUniqueId(), attributeData.source);
-		}
+		addSkinDataSkinSourcePair( mCurrentSkinControllerData->getUniqueId(), attributeData.source);
 		return true;
 	}
 
@@ -455,21 +481,11 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-
 	//------------------------------
 	bool LibraryControllersLoader::begin__Name_array( const Name_array__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__Name_array(attributeData));
-
-		const String& sourceId = getCurrentSourceId();
-
-		// Without id we will never be able to us this array again. Don't store it.
-		if ( sourceId.empty() )
-			return true;
-
-		mJointSids = &mJointSidsMap[sourceId];
-
-		return true;
+		return beginJointsArray();
 	}
 
 	//------------------------------
@@ -483,16 +499,28 @@ namespace COLLADASaxFWL
 	bool LibraryControllersLoader::data__Name_array( const ParserString* data, size_t length )
 	{
 		SaxVirtualFunctionTest(data__Name_array(data, length));
-		
-		if ( !mJointSids )
-			return true;
-		
-		for ( size_t i = 0; i < length;  ++i)
-		{
-			const ParserString& parserString = data[i];
-			mJointSids->push_back( String( parserString.str, parserString.length ) );
-		}
+		return dataJointArray( data, length);
+	}
+
+	//------------------------------
+	bool LibraryControllersLoader::begin__IDREF_array( const IDREF_array__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest(begin__IDREF_array(attributeData));
+		return beginJointsArray();
+	}
+
+	//------------------------------
+	bool LibraryControllersLoader::end__IDREF_array()
+	{
+		SaxVirtualFunctionTest(end__IDREF_array());
 		return true;
+	}
+
+	//------------------------------
+	bool LibraryControllersLoader::data__IDREF_array( const ParserString* data, size_t length )
+	{
+		SaxVirtualFunctionTest(data__IDREF_array(data, length));
+		return dataJointArray( data, length);
 	}
 
 	//------------------------------
