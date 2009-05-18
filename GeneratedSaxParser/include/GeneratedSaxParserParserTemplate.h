@@ -17,6 +17,7 @@
 #include "GeneratedSaxParserUtils.h"
 #include "GeneratedSaxParserParserTemplateBase.h"
 #include "GeneratedSaxParserIUnknownElementHandler.h"
+#include "GeneratedSaxParserINamespaceHandler.h"
 
 
 #include <map>
@@ -101,6 +102,7 @@ namespace GeneratedSaxParser
     public:
 		typedef std::map<StringHash, FunctionStruct> ElementFunctionMap;
         typedef std::map<StringHash, StringHash> NamespacePrefixesMap;
+        typedef std::map<StringHash, INamespaceHandler*> NamespaceHandlerMap;
 
 
 	protected:
@@ -119,12 +121,18 @@ namespace GeneratedSaxParser
         bool mDocUsesTargetNamespace;
         /** XML namespace prefixes declared by currently parsed document. */
         NamespacePrefixesMap mNamespaces;
+        /** Currently registered namespace handlers. */
+        NamespaceHandlerMap mNamespaceHandlers;
+        /** Currently used namespace handler. */
+        INamespaceHandler* mActiveNamespaceHandler;
 
 	private:
 		/** Number of elements that have been opened and should be ignored due to mCurrentElementFunctionMap. */
 		size_t mIgnoreElements;
         /** Number of elements that have been opened and are unknown. */
         size_t mUnknownElements;
+        /** Number of elements that have been opened and are in a different namespace. */
+        size_t mNamespaceElements;
 
 
 	public:
@@ -133,11 +141,13 @@ namespace GeneratedSaxParser
 		  ParserTemplateBase(errorHandler),
               mCurrentElementFunctionMap(&mElementFunctionMap),
 			  mImpl(impl),
+              mUnknownHandler(0),
+              mDocumentNamespace(0),
+              mDocUsesTargetNamespace(false),
+              mActiveNamespaceHandler(0),
 			  mIgnoreElements(0),
               mUnknownElements(0),
-			  mUnknownHandler(0),
-              mDocumentNamespace(0),
-              mDocUsesTargetNamespace(false)
+              mNamespaceElements(0)
 		  {};
 		virtual ~ParserTemplate(){};
 
@@ -146,6 +156,12 @@ namespace GeneratedSaxParser
 
         /** Registers a handler for unknown elements. Only the last registered will be used. */
         void registerUnknownElementHandler(IUnknownElementHandler* handler) {mUnknownHandler = handler;}
+
+        /** Registers a handler for given namespace. */
+        void registerNamespaceHandler( const StringHash& namespaceHash, INamespaceHandler* handler );
+
+        /** Unregisters handler for given namespace. */
+        void unregisterNamespaceHandler( const StringHash& namespaceHash );
 
         /** Returns currently used ElementFunctionMap. */
         const ElementFunctionMap* getElementFunctionMap() {return mCurrentElementFunctionMap;}
@@ -504,7 +520,7 @@ namespace GeneratedSaxParser
             ParserError::ErrorType (*itemTypeValidationFunc)( DataType )
             )
 	{
-		size_t dataBufferIndex = 0;
+        size_t dataBufferIndex = 0;
 		const ParserChar* dataBufferPos = text;
 		const ParserChar* bufferEnd = text + textLength;
 		const ParserChar* lastDataBufferIndex = dataBufferPos;
@@ -683,11 +699,11 @@ namespace GeneratedSaxParser
             size_t fragmentSize = (dataBufferPos - lastDataBufferIndex)*sizeof(ParserChar);
             if (!Utils::isWhiteSpaceOnly(lastDataBufferIndex, fragmentSize))
             {
-                // if mStackMemoryManager.top() == 0 -> list with one element
-                if ( callsToDataFunc == 0 && mStackMemoryManager.top() != 0 )
+                // if mLastIncompleteFragmentInCharacterData == 0 -> list with one element
+                if ( callsToDataFunc == 0 && mLastIncompleteFragmentInCharacterData != 0 )
                 {
                     // special case: last inclomplete fragment has to be reused
-                    size_t oldPrefixDataSize = mEndOfDataInCurrentObjectOnStack - mLastIncompleteFragmentInCharacterData;
+                    size_t oldPrefixDataSize = mEndOfDataInCurrentObjectOnStack - mLastIncompleteFragmentInCharacterData - 1;
                     mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
                     mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1 + oldPrefixDataSize);
                     memcpy(mLastIncompleteFragmentInCharacterData + oldPrefixDataSize, lastDataBufferIndex, fragmentSize);
@@ -1464,6 +1480,10 @@ namespace GeneratedSaxParser
                 return true;
             }
         }
+        if ( mNamespaceElements > 0 )
+        {
+            return mActiveNamespaceHandler->textData( text, textLength );
+        }
 
         if ( mElementDataStack.empty() )
             return false;
@@ -1507,6 +1527,12 @@ namespace GeneratedSaxParser
             {
                 return true;
             }
+        }
+        if ( mNamespaceElements > 0 )
+        {
+            mNamespaceElements--;
+            StringHashPair hashPair = Utils::calculateStringHashWithNamespace( elementName );
+            return mActiveNamespaceHandler->elementEnd( hashPair.second, elementName );
         }
 
         if ( mElementDataStack.empty() )
@@ -1559,6 +1585,12 @@ namespace GeneratedSaxParser
                 return true;
             }
         }
+        if ( mNamespaceElements > 0 )
+        {
+            mNamespaceElements++;
+            StringHashPair hashPair = Utils::calculateStringHashWithNamespace( elementName );
+            return mActiveNamespaceHandler->elementBegin( hashPair.second, elementName, attributes.attributes );
+        }
 
         ElementData newElementData;
         newElementData.elementHash = Utils::calculateStringHash(elementName);
@@ -1577,6 +1609,18 @@ namespace GeneratedSaxParser
             it = functionMapToUse->find(newElementData.generatedElementHash);
 		if ( it == functionMapToUse->end() )
 		{
+            StringHashPair hashPair = Utils::calculateStringHashWithNamespace( elementName );
+            if ( hashPair.first != 0 )
+            {
+                StringHash nsHash = mNamespaces[ hashPair.first ];
+                INamespaceHandler* nsHandler = mNamespaceHandlers[ nsHash ];
+                if ( nsHandler != 0 )
+                {
+                    mActiveNamespaceHandler = nsHandler;
+                    mNamespaceElements = 1;
+                    return nsHandler->elementBegin( hashPair.second, elementName, attributes.attributes );
+                }
+            }
             if ( isXsAnyAllowed( newElementData.elementHash ) )
             {
                 mUnknownElements = 1;
@@ -1785,6 +1829,24 @@ namespace GeneratedSaxParser
         StringHash attributeHash)
     {
         return characterData2List<uint64, Utils::toUint64>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+    }
+
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    void ParserTemplate<DerivedClass, ImplClass>::registerNamespaceHandler( const StringHash& namespaceHash, INamespaceHandler* handler )
+    {
+        if ( handler && namespaceHash )
+        {
+            mNamespaceHandlers[ namespaceHash ] = handler;
+        }
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    void ParserTemplate<DerivedClass, ImplClass>::unregisterNamespaceHandler( const StringHash& namespaceHash )
+    {
+        mNamespaceHandlers.erase( namespaceHash );
     }
 
 

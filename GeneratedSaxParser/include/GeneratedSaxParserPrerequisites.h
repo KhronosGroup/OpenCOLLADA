@@ -13,6 +13,7 @@
 
 #include <string>
 
+#include "COLLADABUPlatform.h"
 
 namespace GeneratedSaxParser
 {
@@ -47,9 +48,7 @@ namespace GeneratedSaxParser
         size_t size;
     };
 
-#if defined (_MSC_VER) && defined(_WIN32)
-    // MSVC 32 bit
-    // -> MSVC, windows, 32 bit
+#if defined COLLADABU_OS_WIN32
     typedef signed char sint8;
     typedef signed short sint16;
     typedef signed int sint32;
@@ -60,9 +59,7 @@ namespace GeneratedSaxParser
     typedef unsigned int uint32;
     typedef unsigned long long uint64;
 
-#elif defined (__MINGW32__)
-    // MINGW 32 bit
-    // -> GCC, windows, 32 bit
+#elif defined COLLADABU_OS_LINUX
     typedef signed char sint8;
     typedef signed short sint16;
     typedef signed int sint32;
@@ -73,20 +70,7 @@ namespace GeneratedSaxParser
     typedef unsigned int uint32;
     typedef unsigned long long uint64;
 
-#elif defined (__GNUC__) && defined ( __linux ) // TODO findout 32 or 64
-    // GCC, linux, 32 bit
-    typedef signed char sint8;
-    typedef signed short sint16;
-    typedef signed int sint32;
-    typedef signed long long sint64;
-
-    typedef unsigned char uint8;
-    typedef unsigned short uint16;
-    typedef unsigned int uint32;
-    typedef unsigned long long uint64;
-
-#elif defined (__GNUC__) && defined ( __APPLE__ ) // TODO findout 32 or 64
-    // GCC, osx, 32 bit
+#elif defined COLLADABU_OS_MAC32
     typedef signed char sint8;
     typedef signed short sint16;
     typedef signed int sint32;
@@ -98,7 +82,7 @@ namespace GeneratedSaxParser
     typedef unsigned long long uint64;
 
 #else
-    // TODO 64 bit, intel compiler
+    // TODO 64 bit, compiler specific differences, e.g. mingw or intel compiler
 #error "Specify primitive type sizes for your platform, please."
 #endif
 

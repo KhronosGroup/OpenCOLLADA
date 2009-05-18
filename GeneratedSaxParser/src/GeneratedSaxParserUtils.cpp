@@ -772,6 +772,11 @@ namespace GeneratedSaxParser
     //--------------------------------------------------------------------
     COLLADABU::URI Utils::toURI(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
     {
+        if ( *buffer == bufferEnd )
+        {
+            failed = false;
+            return COLLADABU::URI(0);
+        }
         const ParserString& string = toStringListItem(buffer, bufferEnd, failed);
         return COLLADABU::URI(string.str, string.length);
     }
@@ -779,6 +784,11 @@ namespace GeneratedSaxParser
     //--------------------------------------------------------------------
     COLLADABU::URI Utils::toURI(const ParserChar** buffer, bool& failed)
     {
+        if ( **buffer == '\0' )
+        {
+            failed = false;
+            return COLLADABU::URI(0);
+        }
         const ParserString& string = toStringListItem(buffer, failed);
         return COLLADABU::URI(string.str, string.length);
     }

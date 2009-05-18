@@ -697,6 +697,7 @@ struct surface____fx_surface_common__ValidationData
 struct init_as_null__ValidationData
 {
     size_t _wildcard;
+    size_t validationWholeSize;
 };
 
 struct init_cube__ValidationData

@@ -279,6 +279,19 @@ namespace GeneratedSaxParser
 			             StringHash attributeHash,
 			             const ParserChar* additionalText);
 
+        /** Passes an error with the specified properties to the error handler.
+        @param severity The severity of the error.
+        @param errorType The error type of the error.
+        @param elementHash The hash of the element the error occurred in.
+        @param attribute The name of the attribute the error occurred in.
+        @param additionalText Additional text describing the error.
+        @return True when abort required, false when continue is possible.
+        */
+        bool handleError( ParserError::Severity severity,
+            ParserError::ErrorType errorType,
+            StringHash elementHash,
+            const ParserChar* attribute,
+            const ParserChar* additionalText );
 
 
     protected:
@@ -374,7 +387,7 @@ namespace GeneratedSaxParser
 
         //find first whitespace in buffer
         const ParserChar* bufferPos = *buffer;
-        while ( !Utils::isWhiteSpace(*bufferPos) )
+        while ( !Utils::isWhiteSpace(*bufferPos) && bufferPos < bufferEnd )
             ++bufferPos;
 
         size_t prefixBufferSize = prefixBufferPos - prefixBufferStartPos;

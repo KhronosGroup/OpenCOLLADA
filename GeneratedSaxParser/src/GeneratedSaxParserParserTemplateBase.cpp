@@ -97,20 +97,11 @@ namespace GeneratedSaxParser
 												 StringHash attributeHash,
 												 const ParserChar* additionalText /*= ""*/ )
 	{
-		IErrorHandler* errorHandler = getErrorHandler();
-		if ( !errorHandler )
-			return (severity == ParserError::SEVERITY_CRITICAL) ? true : false;
-
-		ParserError error(severity,
-						  errorType,
-						  getNameByStringHash(elementHash),
-						  getNameByStringHash(attributeHash),
-						  getLineNumber(),
-						  getColumnNumber(),
-						  additionalText ? (const char*)additionalText : "");
-		bool handlerWantsToAbort = errorHandler->handleError(error);
-
-		return (severity == ParserError::SEVERITY_CRITICAL) ? true : handlerWantsToAbort;
+        return handleError(severity,
+            errorType,
+            elementHash,
+            getNameByStringHash(attributeHash),
+            additionalText);
 	}
 
 	//--------------------------------------------------------------------
@@ -127,6 +118,29 @@ namespace GeneratedSaxParser
 			attributeHash,
 			additionalText);
 	}
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::handleError( ParserError::Severity severity,
+        ParserError::ErrorType errorType,
+        StringHash elementHash,
+        const ParserChar* attribute,
+        const ParserChar* additionalText /*= ""*/ )
+    {
+        IErrorHandler* errorHandler = getErrorHandler();
+        if ( !errorHandler )
+            return (severity == ParserError::SEVERITY_CRITICAL) ? true : false;
+
+        ParserError error(severity,
+            errorType,
+            getNameByStringHash(elementHash),
+            attribute,
+            getLineNumber(),
+            getColumnNumber(),
+            additionalText ? (const char*)additionalText : "");
+        bool handlerWantsToAbort = errorHandler->handleError(error);
+
+        return (severity == ParserError::SEVERITY_CRITICAL) ? true : handlerWantsToAbort;
+    }
 
 	//--------------------------------------------------------------------
 	const char* ParserTemplateBase::getNameByStringHash( const StringHash& hash ) const
