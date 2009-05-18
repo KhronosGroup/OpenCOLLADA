@@ -625,7 +625,7 @@ namespace COLLADASaxFWL
 
 		COLLADAFW::SkinController* skinController = FW_NEW COLLADAFW::SkinController( getUniqueId(COLLADAFW::SkinController::ID()).getObjectId());
 
-		COLLADAFW::UniqueIdArray &jointsUniqueIds = skinController->getBones();
+		COLLADAFW::UniqueIdArray &jointsUniqueIds = skinController->getJoints();
 		jointsUniqueIds.allocMemory( joints.size() );
 		jointsUniqueIds.setCount(joints.size());
 
