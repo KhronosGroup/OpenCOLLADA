@@ -131,7 +131,7 @@ namespace COLLADASaxFWL
             break;
         default:
             // Not implemented source
-            std::cerr << "Source with semantic " << semantic << "not implemented!" << std::endl;
+//            std::cerr << "Source with semantic " << semantic << "not implemented!" << std::endl;
             retValue = false;
         }
 
@@ -1426,6 +1426,7 @@ namespace COLLADASaxFWL
 		case TRISTRIPS:
 		case POLYLIST:
 		case POLYGONS:
+        case POLYGONS_HOLE:
 			{
 				if ( mPOrPhElementCountOfCurrentPrimitive == 0)
 				{
