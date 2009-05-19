@@ -195,7 +195,19 @@ namespace COLLADAMax
 			importSkin->AddWeights(referencingINode, (int) i, vertexBones, vertexWeights);
 		}
 
-
+		// From Josée Carrier of the SPARKS SDK support:
+		// There is a known issue in 3dsMax 8 with the UI. Force a refresh by modifying a param block element.
+		//-
+		// skin_advance = 2: from enum in maxsdk\samples\modifiers\bonesdef\BonesDef_Constants.h
+		int skin_advance = 2;
+		IParamBlock2* pblock_advance = mSkinModifier->GetParamBlockByID(skin_advance);
+		// skin_advance_bonelimit=7: from enum in maxsdk\samples\modifiers\bonesdef\BonesDef_Constants.h
+		int skin_advance_bonelimit = 7;
+		// Get and set the parameter value to force a refresh
+		int tmpBoneLimit = 20;
+		pblock_advance->GetValue(skin_advance_bonelimit, 0, tmpBoneLimit, FOREVER);
+		pblock_advance->SetValue(skin_advance_bonelimit, 0, tmpBoneLimit);
+		//-
 		return true;
 	}
 

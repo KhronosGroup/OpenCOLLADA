@@ -224,6 +224,7 @@ namespace COLLADAMax
 	{
 		const DocumentImporter::NodeMaterialBindingsList& materialBindings = getNodeMaterialBindings();
 		DocumentImporter::NodeMaterialBindingsList::const_iterator it = materialBindings.begin();
+		DocumentImporter::NodeMaterialBindingsList::const_iterator itEnd = materialBindings.end();
 
 
 		//int index = 0;
@@ -304,7 +305,7 @@ namespace COLLADAMax
 		for ( ; it != materialBindings.end(); ++it)
 		{
 			int materialId = (int)it->getMaterialId();
-				largestMaterialId = materialId;
+			largestMaterialId = materialId;
 		}
 
 		if ( largestMaterialId == 1 && false )
