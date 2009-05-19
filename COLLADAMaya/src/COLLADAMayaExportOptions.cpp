@@ -104,7 +104,7 @@ namespace COLLADAMaya
         mCameraXFov = false;
         mCameraYFov = true;
 
-        mDoublePrecision = true;
+        mDoublePrecision = false;
 
         // Parse option String
         if ( optionsString.length() > 0 )

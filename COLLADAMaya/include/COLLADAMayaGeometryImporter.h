@@ -236,7 +236,11 @@ namespace COLLADAMaya
             const COLLADAFW::Mesh* mesh, 
             const COLLADAFW::MeshPrimitive* primitiveElement, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
-            MayaDM::Mesh &meshNode );
+            MayaDM::Mesh &meshNode,
+            const size_t blockSize, 
+            const size_t numGlobalFaces, 
+            size_t& globalFaceIndex, 
+            size_t& endPosition );
 
         /*
         *	Write the face values of the given primitive element into the maya file.
@@ -245,7 +249,11 @@ namespace COLLADAMaya
             const COLLADAFW::Mesh* mesh, 
             const COLLADAFW::MeshPrimitive* primitiveElement, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
-            MayaDM::Mesh &meshNode );
+            MayaDM::Mesh &meshNode,
+            const size_t blockSize, 
+            const size_t numGlobalFaces, 
+            size_t& globalFaceIndex, 
+            size_t& endPosition );
 
         /*
         *	Write the face values of the given primitive element into the maya file.
@@ -254,7 +262,11 @@ namespace COLLADAMaya
             const COLLADAFW::Mesh* mesh, 
             const COLLADAFW::MeshPrimitive* primitiveElement, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
-            MayaDM::Mesh &meshNode );
+            MayaDM::Mesh &meshNode,
+            const size_t blockSize, 
+            const size_t numGlobalFaces, 
+            size_t& globalFaceIndex, 
+            size_t& endPosition );
 
         /**
          * Set the face infos into the maya poly face element.
@@ -340,13 +352,6 @@ namespace COLLADAMaya
          *	Write the normals values into the maya file.
          */
         void writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
-
-        /*
-         *	Appends the normal values of all mesh primitive elements into the maya file.
-         */
-        void appendNormalValues ( 
-            const COLLADAFW::Mesh* mesh, 
-            MayaDM::Mesh &meshNode );
 
         /*
          *	Write the vertex position values into the maya file.

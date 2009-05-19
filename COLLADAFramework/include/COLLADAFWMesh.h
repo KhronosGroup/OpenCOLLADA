@@ -303,7 +303,8 @@ namespace COLLADAFW
          * Counts the number of all faces in all primitive elements in the current mesh.
          */
         const size_t getFacesCount () const;
-};
+
+    };
 }
 
 #endif // __COLLADA_MESH_H__

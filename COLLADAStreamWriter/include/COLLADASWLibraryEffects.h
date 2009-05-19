@@ -47,7 +47,7 @@ namespace COLLADASW
         void openEffect ( const String& id = EMPTY_STRING );
 
         /** Add @a effectProfile to the current effect*/
-        void addEffectProfile ( EffectProfile& effectProfile );;
+        void addEffectProfile ( EffectProfile& effectProfile );
 
         /** Closes the tag opened by openEffect()*/
         void closeEffect();

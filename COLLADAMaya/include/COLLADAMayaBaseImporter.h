@@ -62,6 +62,9 @@ namespace COLLADAMaya
 
     public:
 
+        /** The maya block size value for writing maya ascii files. */
+        static const size_t MAYA_BLOCK_SIZE;
+
         /** The standard name for the collada id attribute. */
         static const String COLLADA_ID_ATTRIBUTE_NAME;
 
@@ -143,6 +146,12 @@ namespace COLLADAMaya
 
         /** Returns a pointer to the current document importer. */
         const DocumentImporter* getDocumentImporter () const { return mDocumentImporter; }
+
+        /** Returns the tolerance value for double value comparison. */
+        const double getTolerance () const 
+        {
+            return getDocumentImporter ()->getTolerance ();
+        }
 
     };
 }

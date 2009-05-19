@@ -179,7 +179,7 @@ namespace COLLADAFW
     //----------------------------------
     const size_t Mesh::getFacesCount() const
     {
-        // The number of normals in the current mesh.
+        // The number of faces in the current mesh.
         size_t numFaces = 0;
 
         // We have to go through every mesh primitive.
@@ -196,6 +196,5 @@ namespace COLLADAFW
 
         return numFaces;
     }
-
 
 } // namespace COLLADAFW

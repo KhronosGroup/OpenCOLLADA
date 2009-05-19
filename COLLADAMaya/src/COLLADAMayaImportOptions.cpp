@@ -34,9 +34,9 @@ namespace COLLADAMaya
     void ImportOptions::set ( const MString& optionsString, MPxFileTranslator::FileAccessMode mode )
     {
         // Default option values
-        mImportUpAxis = false;
+        mImportUpAxis = true;
         mImportUnits = true;
-        mImportNormals = false;
+        mImportNormals = true;
         mImportSoftEdges = true;
 
         mHasError = false;

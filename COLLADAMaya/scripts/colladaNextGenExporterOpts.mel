@@ -275,7 +275,7 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 							colladaExportDoublePrecision;
 							
 					text
-							-l "If double precision is selected, the maximum number of significant digits to be printed is 17."
+							-l "If double precision is selected, the maximum number of significant \n digits to be printed is increased from 7 to 17 significant digits."
 							colladaPrecisionText;
 
 				setParent ..; // columnLayout

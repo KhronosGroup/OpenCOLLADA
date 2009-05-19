@@ -21,6 +21,9 @@
 namespace COLLADAMaya
 {
 
+    /** The maya block size value for writing maya ascii files. */
+    const size_t BaseImporter::MAYA_BLOCK_SIZE = 4000;
+
     /** The standard name for the collada id attribute. */
     const String BaseImporter::COLLADA_ID_ATTRIBUTE_NAME = "colladaId";
 

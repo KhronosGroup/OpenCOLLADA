@@ -32,7 +32,7 @@ namespace COLLADAMaya
     const String EffectImporter::EFFECT_NAME = "effect";
     const String EffectImporter::PLACE_2D_TEXTURE_NAME = "place2dTexture";
     const String EffectImporter::PLACE_3D_TEXTURE_NAME = "place3dTexture";
-    const String EffectImporter::DEFAULT_TEXTURE_LIST = ":defaultTextureList1";
+    const String EffectImporter::DEFAULT_TEXTURE_LIST = "defaultTextureList1";
 
 
     //------------------------------
@@ -912,7 +912,7 @@ namespace COLLADAMaya
         ImageImporter* imageImporter = getDocumentImporter ()->getImageImporter ();
 
         //  Create the defaultTextureList object
-        MayaDM::DefaultTextureList defaultTextureList ( file, DEFAULT_TEXTURE_LIST, "", false );
+        MayaDM::DefaultTextureList defaultTextureList ( file, ":" + DEFAULT_TEXTURE_LIST, "", false, false );
 
         EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
         const UniqueIdShaderNodesMap& effectShaderNodesMap = effectImporter->getEffectShaderNodesMap ();

@@ -392,8 +392,9 @@ namespace COLLADAMaya
         String message( stream.str() );
         MGlobal::displayInfo ( message.c_str() );
 
-        // Open the maya ascii file in the maya instance
+        // TODO Open the maya ascii file in the maya instance
         MFileIO::importFile ( mayaAsciiFileName.c_str () );
+        //MFileIO::open ( mayaAsciiFileName.c_str (), "mayaAscii", true ); 
         MGlobal::displayInfo ( "Maya ascii file opened.");
 
 //         mayaAsciiFileURI.setPathExtension ( ".nextgen.mb" );
