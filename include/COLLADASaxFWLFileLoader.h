@@ -284,6 +284,9 @@ namespace COLLADASaxFWL
 		/** Creates all skin controllers instantiated in the visual scene.*/
 		bool createAndWriteSkinControllers();
 
+		/** Writes all the morph controllers, stored in the loaders morph controller list.*/
+		bool writeMorphControllers();
+
 		/** Writes all animation lists.*/
 		void writeAnimationLists();
 
