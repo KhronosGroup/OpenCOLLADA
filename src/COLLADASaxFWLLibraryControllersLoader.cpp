@@ -443,7 +443,7 @@ namespace COLLADASaxFWL
 						}
 
 						String sourceId = getIdFromURIFragmentType(attributeData.source);
-						SourceBase* sourceBase = getSourceById ( sourceId );
+						SourceBase* sourceBase = getSourceById( sourceId );
 
 						if ( !sourceBase || (sourceBase->getDataType() != SourceBase::DATA_TYPE_REAL) )
 						{
@@ -458,6 +458,8 @@ namespace COLLADASaxFWL
 						}
 						const RealSource *weightSource = (const RealSource *)sourceBase;
 						COLLADAFW::FloatOrDoubleArray& morphWeights = mCurrentMorphController->getMorphWeights();
+						addToSidTree( sourceId.c_str(), 0, &morphWeights );
+						moveUpInSidTree();
 
 						setRealValues( morphWeights, weightSource );
 					}

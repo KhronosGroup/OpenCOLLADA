@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;&quot;$(BOOST_ROOT)&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -180,7 +180,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;&quot;$(BOOST_ROOT)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
