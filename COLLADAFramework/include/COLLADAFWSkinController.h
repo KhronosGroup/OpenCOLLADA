@@ -26,7 +26,7 @@ namespace COLLADAFW
 	private:
 
 		/** The unique id of the skin controller data.*/
-		COLLADAFW::UniqueId mSkinControllerData;
+		UniqueId mSkinControllerData;
 
 		/** The unique ids of the nodes, referenced by the skin controller.*/
 		UniqueIdArray mJoints;

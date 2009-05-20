@@ -89,8 +89,6 @@ namespace COLLADASaxFWL
 
 		void parseAddress( const String& sidAddress);
 
-		static String nextToken(  /*out*/ char& separator,  /*in out*/ size_t& startPos, const String& string);
-
 	};
 
 } // namespace COLLADASAXFWL

@@ -13,13 +13,14 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWTypes.h"
+#include "COLLADAFWAnimatable.h"
 
 
 namespace COLLADAFW
 {
 
 	/** Holds either a float or a double array */
-	class FloatOrDoubleArray 	
+	class FloatOrDoubleArray : public Animatable
 	{
 	public:
 		/** Values can be stored as float or double values. */
