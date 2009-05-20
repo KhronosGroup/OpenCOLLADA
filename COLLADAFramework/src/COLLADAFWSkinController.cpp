@@ -27,13 +27,13 @@ namespace COLLADAFW
 		, mSkinControllerData(pre.mSkinControllerData)
 		, mSource(pre.mSource)
 	{
-		const UniqueIdArray& preBones = pre.mJoints;
-		size_t bonesCount = preBones.getCount();
+		const UniqueIdArray& preJoints = pre.mJoints;
+		size_t bonesCount = preJoints.getCount();
 		mJoints.allocMemory(bonesCount);
 		mJoints.setCount(bonesCount);
 		for ( size_t i = 0; i < bonesCount; ++i )
 		{
-			mJoints[i] = preBones[i];
+			mJoints[i] = preJoints[i];
 		}
 	}
 

@@ -33,6 +33,7 @@
 #include "COLLADAFWEffect.h"
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWSkinController.h"
+#include "COLLADAFWMorphController.h"
 
 #include "COLLADAFWObject.h"
 
@@ -302,6 +303,7 @@ namespace COLLADASaxFWL
 		if ( (getObjectFlags() & Loader::CONTROLLER_FLAG) != 0 )
 		{
 			createAndWriteSkinControllers();
+			writeMorphControllers();
 		}
 
 		if ( (getObjectFlags() & Loader::VISUAL_SCENES_FLAG) != 0 )
@@ -680,12 +682,24 @@ namespace COLLADASaxFWL
 					continue;
 				}
 
-				createAndWriteSkinController( instanceControllerData, skinDataUniqueId,sourceUniqueId);
+				createAndWriteSkinController( instanceControllerData, skinDataUniqueId, sourceUniqueId );
 			}
 		}
 		return true;
 	}
 
+	//-----------------------------
+	bool FileLoader::writeMorphControllers()
+	{
+		const Loader::MorphControllerList& morphControllerList = mColladaLoader->getMorphControllerList();
+		Loader::MorphControllerList::const_iterator it = morphControllerList.begin();
+		for ( ; it != morphControllerList.end(); ++it)
+		{
+			if ( ! writer()->writeController( *it ) )
+				return false;
+		}
+		return true;
+	}
 
 	//-----------------------------
 	void FileLoader::writeAnimationLists()

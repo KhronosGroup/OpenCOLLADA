@@ -14,6 +14,8 @@
 #include "COLLADASaxFWLFileLoader.h"
 
 #include "COLLADAFWSkinControllerData.h"
+#include "COLLADAFWMorphController.h"
+#include "COLLADAFWGeometry.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWValidate.h"
 
@@ -26,6 +28,8 @@ namespace COLLADASaxFWL
 		SEMANTIC_JOINT,
 		SEMANTIC_INV_BIND_MATRIX,
 		SEMANTIC_WEIGHT,
+		SEMANTIC_MORPH_TARGET,
+		SEMANTIC_MORPH_WEIGHT
 	};
 
 	//------------------------------
@@ -43,6 +47,14 @@ namespace COLLADASaxFWL
 		{
 			return SEMANTIC_WEIGHT;
 		}
+		else if ( strcmp(semanticString, "MORPH_TARGET" ) == 0 )
+		{
+			return SEMANTIC_MORPH_TARGET;
+		}
+		else if ( strcmp(semanticString, "MORPH_WEIGHT" ) == 0 )
+		{
+			return SEMANTIC_MORPH_WEIGHT;
+		}
 		return SEMANTIC_UNKNOWN;
 	}
 
@@ -50,7 +62,9 @@ namespace COLLADASaxFWL
     //------------------------------
 	LibraryControllersLoader::LibraryControllersLoader( IFilePartLoader* callingFilePartLoader )
 		: SourceArrayLoader(callingFilePartLoader)
+		, mCurrentControllerType( UNKNOWN_CONTROLLER )
 		, mCurrentSkinControllerData(0)
+		, mCurrentMorphController(0)
 		, mCurrentInputParent( INPUT_PARENT_UNKNOWN )
 		, mJointSids( 0 )
 		, mCurrentJointsVertexPairCount( 0 )
@@ -181,6 +195,7 @@ namespace COLLADASaxFWL
 	bool LibraryControllersLoader::begin__skin( const skin__AttributeData& attributeData )
 	{
 		SaxVirtualFunctionTest(begin__skin(attributeData));
+		mCurrentControllerType = SKIN_CONTROLLER;
 		mCurrentSkinControllerData = FW_NEW COLLADAFW::SkinControllerData(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::SkinControllerData::ID()).getObjectId());
 
 		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source);
@@ -204,8 +219,38 @@ namespace COLLADASaxFWL
 		mJointSidsMap.clear();
 		mJointSids = 0;
 		mCurrentControllerSourceUniqueId = COLLADAFW::UniqueId::INVALID;
+		mCurrentControllerType = UNKNOWN_CONTROLLER;
 		return success;
 	}
+
+	//------------------------------
+	bool LibraryControllersLoader::begin__morph( const morph__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest(begin__morph(attributeData));
+		mCurrentControllerType = MORPH_CONTROLLER;
+		mCurrentMorphController = FW_NEW COLLADAFW::MorphController(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::MorphController::ID()).getObjectId());
+		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source, COLLADAFW::Geometry::ID());
+		mCurrentMorphController->setSource( mCurrentControllerSourceUniqueId);
+
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryControllersLoader::end__morph()
+	{
+		SaxVirtualFunctionTest(end__morph());
+		if ( mCurrentMorphController )
+		{
+			addMorphController( mCurrentMorphController );
+		}
+		mJointSidsMap.clear();
+		mJointSids = 0;
+		mCurrentMorphController = 0;
+		mCurrentControllerSourceUniqueId = COLLADAFW::UniqueId::INVALID;
+		mCurrentControllerType = UNKNOWN_CONTROLLER;
+		return true;
+	}
+
 
 	//------------------------------
 	bool LibraryControllersLoader::begin__joints()
@@ -254,98 +299,169 @@ namespace COLLADASaxFWL
 			return true;
 		}
 
-		switch ( semantic )
+		switch ( mCurrentControllerType )
 		{
-		case SEMANTIC_JOINT:
+		case SKIN_CONTROLLER:
 			{
-				String sourceId = getIdFromURIFragmentType(attributeData.source);
-				StringListMap::const_iterator it = mJointSidsMap.find(sourceId);
-
-				// check if the node sid array could be found
-				if ( it == mJointSidsMap.end() )
-					break;
-
-				if ( !mCurrentSkinControllerData )
-					break;
-
-				const StringList& nodeSids = it->second;
-
-				const COLLADAFW::UniqueId& controllerUniqueId = mCurrentSkinControllerData->getUniqueId();
-				addSkinDataJointSidsPair( controllerUniqueId, nodeSids);
-
-				// try to write the SkinController here
-				if ( ((getObjectFlags() & Loader::CONTROLLER_FLAG) != 0) && (mCurrentControllerSourceUniqueId.isValid()) )
+				switch ( semantic )
 				{
-					InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
-					InstanceControllerDataList::iterator listIt = instanceControllerDataList.begin();
-
-					while ( listIt != instanceControllerDataList.end() )
+				case SEMANTIC_JOINT:
 					{
-						const InstanceControllerData& instanceControllerData = *listIt;
-						bool success = getFileLoader()->createAndWriteSkinController( instanceControllerData, 
-																					  controllerUniqueId, 
-																					  mCurrentControllerSourceUniqueId,
-																					  nodeSids);
-						//on success we need to remove this controller instance
-						if ( success )
+						if ( !mCurrentSkinControllerData )
 						{
-							listIt = instanceControllerDataList.erase( listIt );
+							break;
 						}
-						else
+
+						String sourceId = getIdFromURIFragmentType(attributeData.source);
+						StringListMap::const_iterator it = mJointSidsMap.find(sourceId);
+
+						// check if the node sid array could be found
+						if ( it == mJointSidsMap.end() )
+							break;
+
+						const StringList& nodeSids = it->second;
+
+						const COLLADAFW::UniqueId& controllerUniqueId = mCurrentSkinControllerData->getUniqueId();
+						addSkinDataJointSidsPair( controllerUniqueId, nodeSids);
+
+						// try to write the SkinController here
+						if ( ((getObjectFlags() & Loader::CONTROLLER_FLAG) != 0) && (mCurrentControllerSourceUniqueId.isValid()) )
 						{
-							listIt++;
+							InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
+							InstanceControllerDataList::iterator listIt = instanceControllerDataList.begin();
+
+							while ( listIt != instanceControllerDataList.end() )
+							{
+								const InstanceControllerData& instanceControllerData = *listIt;
+								bool success = getFileLoader()->createAndWriteSkinController( instanceControllerData, 
+																					   		  controllerUniqueId, 
+									                                                          mCurrentControllerSourceUniqueId,
+									                                                          nodeSids);
+								//on success we need to remove this controller instance
+								if ( success )
+								{
+									listIt = instanceControllerDataList.erase( listIt );
+								}
+								else
+								{
+									listIt++;
+								}
+							}
+						}
+						mCurrentSkinControllerData->setJointsCount(nodeSids.size());
+					}
+					break;
+				case SEMANTIC_INV_BIND_MATRIX:
+					{
+						if ( !mCurrentSkinControllerData)
+						{
+							break;
+						}
+
+						String sourceId = getIdFromURIFragmentType(attributeData.source);
+						SourceBase* sourceBase = getSourceById ( sourceId );
+
+						if ( !sourceBase || (sourceBase->getDataType() != SourceBase::DATA_TYPE_REAL) )
+						{
+							// TODO handle error
+							break;
+						}
+
+						if ( sourceBase->getStride() != 16 )
+						{
+							// TODO handle error
+							break;
+						}
+
+						const RealSource *inverseBindMatricesSource = (const RealSource *)sourceBase;
+						const RealArrayElement& inverseBindMatricesElement = inverseBindMatricesSource->getArrayElement();
+
+						const RealArray& inverseBindMatricesArray = inverseBindMatricesElement.getValues();
+
+						size_t matrixElementsCount = inverseBindMatricesArray.getCount();
+
+						size_t matrixCount = matrixElementsCount / 16;
+
+
+						COLLADAFW::Matrix4Array& inverseBindMatrices = mCurrentSkinControllerData->getInverseBindMatrices();
+						inverseBindMatrices.allocMemory( matrixCount );
+						inverseBindMatrices.setCount( matrixCount );
+
+						size_t index = 0;
+						for ( size_t i = 0; i < matrixCount; ++i)
+						{
+							// fill the matrix
+							COLLADABU::Math::Matrix4 matrix;
+							for ( size_t j = 0; j < 16; ++j,++index)
+							{
+								matrix.setElement( j, inverseBindMatricesArray[index]);
+							}
+							inverseBindMatrices[i] = matrix;
 						}
 					}
+					break;
 				}
-				mCurrentSkinControllerData->setJointsCount(nodeSids.size());
 			}
 			break;
-		case SEMANTIC_INV_BIND_MATRIX:
+		case MORPH_CONTROLLER:
 			{
-				if ( !mCurrentSkinControllerData)
+				switch ( semantic )
 				{
-					break;
-				}
-
-				String sourceId = getIdFromURIFragmentType(attributeData.source);
-				SourceBase* sourceBase = getSourceById ( sourceId );
-
-				if ( !sourceBase || (sourceBase->getDataType() != SourceBase::DATA_TYPE_REAL) )
-				{
-					// TODO handle error
-					break;
-				}
-
-				if ( sourceBase->getStride() != 16 )
-				{
-					// TODO handle error
-					break;
-				}
-
-				const RealSource *inverseBindMatricesSource = (const RealSource *)sourceBase;
-				const RealArrayElement& inverseBindMatricesElement = inverseBindMatricesSource->getArrayElement();
-
-				const RealArray& inverseBindMatricesArray = inverseBindMatricesElement.getValues();
-
-				size_t matrixElementsCount = inverseBindMatricesArray.getCount();
-
-				size_t matrixCount = matrixElementsCount / 16;
-
-
-				COLLADAFW::Matrix4Array& inverseBindMatrices = mCurrentSkinControllerData->getInverseBindMatrices();
-				inverseBindMatrices.allocMemory( matrixCount );
-				inverseBindMatrices.setCount( matrixCount );
-
-				size_t index = 0;
-				for ( size_t i = 0; i < matrixCount; ++i)
-				{
-					// fill the matrix
-					COLLADABU::Math::Matrix4 matrix;
-					for ( size_t j = 0; j < 16; ++j,++index)
+				case SEMANTIC_MORPH_TARGET:
 					{
-						matrix.setElement( j, inverseBindMatricesArray[index]);
+						if ( !mCurrentMorphController )
+						{
+							break;
+						}
+
+						String sourceId = getIdFromURIFragmentType(attributeData.source);
+						StringListMap::const_iterator it = mJointSidsMap.find(sourceId);
+
+						// check if the node sid array could be found
+						if ( it == mJointSidsMap.end() )
+							break;
+
+						const StringList& meshIds = it->second;
+						size_t meshIdCount = meshIds.size();
+
+						COLLADAFW::UniqueIdArray& morphTargets = mCurrentMorphController->getMorphTargets();
+						morphTargets.allocMemory(meshIdCount);
+						morphTargets.setCount(meshIdCount);
+						StringList::const_iterator itTarget = meshIds.begin();
+						for ( size_t i = 0 ; itTarget != meshIds.end(); ++itTarget, ++i)
+						{
+							morphTargets[i] = getUniqueIdFromId( itTarget->c_str(), COLLADAFW::Geometry::ID());
+						}
+
 					}
-					inverseBindMatrices[i] = matrix;
+					break;
+				case SEMANTIC_MORPH_WEIGHT:
+					{
+						if ( !mCurrentMorphController)
+						{
+							break;
+						}
+
+						String sourceId = getIdFromURIFragmentType(attributeData.source);
+						SourceBase* sourceBase = getSourceById ( sourceId );
+
+						if ( !sourceBase || (sourceBase->getDataType() != SourceBase::DATA_TYPE_REAL) )
+						{
+							// TODO handle error
+							break;
+						}
+
+						if ( sourceBase->getStride() != 1 )
+						{
+							// TODO handle error
+							break;
+						}
+						const RealSource *weightSource = (const RealSource *)sourceBase;
+						COLLADAFW::FloatOrDoubleArray& morphWeights = mCurrentMorphController->getMorphWeights();
+
+						setRealValues( morphWeights, weightSource );
+					}
+					break;
 				}
 			}
 			break;

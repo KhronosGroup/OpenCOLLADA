@@ -32,6 +32,7 @@ namespace COLLADAFW
 	class LibraryNodes;
 	class Effect;
 	class AnimationList;
+	class MorphController;
 }
 
 
@@ -90,6 +91,9 @@ namespace COLLADASaxFWL
 		/** List of effects.*/
 		typedef std::vector<COLLADAFW::Effect*> EffectList;
 
+		/** List of morph controller.*/
+		typedef std::vector<COLLADAFW::MorphController*> MorphControllerList;
+
 
 	private:
 		/** Loader utils that will help us to fill the model.*/
@@ -137,6 +141,10 @@ namespace COLLADASaxFWL
 		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		EffectList mEffects;
+
+		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed. This is required to assign animations of the morph weights.*/
+		MorphControllerList mMorphControllerList;
 
 		/** Maps unique ids of animation list to the corresponding animation list. All animation list in this map 
 		will be deleted by the FileLoader.*/
@@ -218,8 +226,9 @@ namespace COLLADASaxFWL
 		will be deleted by the FileLoader.*/
 		UniqueIdAnimationListMap& getUniqueIdAnimationListMap() { return mUniqueIdAnimationListMap; }
 
-
-
+		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed. This is required to assign animations of the morph weights.*/
+		MorphControllerList& getMorphControllerList() { return mMorphControllerList; }
 
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer(){ return mWriter; }

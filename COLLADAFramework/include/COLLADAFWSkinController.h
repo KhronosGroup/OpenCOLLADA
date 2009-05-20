@@ -32,7 +32,7 @@ namespace COLLADAFW
 		UniqueIdArray mJoints;
 
 		/** The unique id of the source that gets modified by this controller. Must be a mesh or a 
-		controller. The vertex count of the source must be equal to the vertex count of the skin 
+		morph controller. The vertex count of the source must be equal to the vertex count of the skin 
 		controller.*/
 		UniqueId mSource;
 

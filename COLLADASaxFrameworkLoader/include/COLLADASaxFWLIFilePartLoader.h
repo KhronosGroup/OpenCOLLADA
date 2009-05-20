@@ -29,6 +29,7 @@ namespace COLLADAFW
 	class Object;
 	class Animatable;
 	class AnimationList;
+	class MorphController;
 }
 
 namespace COLLADABU
@@ -201,6 +202,10 @@ namespace COLLADASaxFWL
 
 		/** Adds the pair @a skinDataUniqueId, @a skinSource to mSkinDataSkinSourceMap.*/
 		void addSkinDataSkinSourcePair( const COLLADAFW::UniqueId& skinDataUniqueId, const COLLADABU::URI& skinSource );
+
+		/** Adds @a morphController to the list of morph controllers. The morph controller will be deleted after
+		if has been written through the IWriter interface.*/
+		void addMorphController( COLLADAFW::MorphController* morphController);
 
 		/** Returns the sids of the nodes used by a skin controller using skin data with unique id 
 		@a skinDataUniqueId*/

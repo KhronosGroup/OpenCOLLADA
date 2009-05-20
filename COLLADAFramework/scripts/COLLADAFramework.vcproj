@@ -368,6 +368,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWMorphController.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWNode.cpp"
 				>
 			</File>
@@ -650,6 +654,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWModifier.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWMorphController.h"
 				>
 			</File>
 			<File

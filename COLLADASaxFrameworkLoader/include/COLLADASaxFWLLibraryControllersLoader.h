@@ -20,6 +20,7 @@
 namespace COLLADAFW
 {
 	class SkinControllerData;
+	class MorphController;
 }
 
 namespace COLLADASaxFWL
@@ -37,9 +38,20 @@ namespace COLLADASaxFWL
 			INPUT_PARENT_VERTEX_WEIGHTS
 		};
 
+		/** Types of controllers that can be loaded by this class.*/
+		enum ControllerTypes
+		{
+			UNKNOWN_CONTROLLER,
+			SKIN_CONTROLLER,
+			MORPH_CONTROLLER
+		};
+
 		typedef std::map< String /*Id of the name array*/,  StringList> StringListMap;
 
 	private:
+		/** The type of the controller currently being parsed.*/
+		ControllerTypes mCurrentControllerType;
+
 		/** The original object id, if it in the original file format exist. */
 		String mOriginalId;
 
@@ -54,6 +66,9 @@ namespace COLLADASaxFWL
 
 		/** The SkinControllerData currently being filled. */
 		COLLADAFW::SkinControllerData* mCurrentSkinControllerData;
+
+		/** The MorphController currently being filled. */
+		COLLADAFW::MorphController* mCurrentMorphController;
 
 		/** The current parent element of a possible input element. Unknown if input is 
 		currently not allowed.*/
@@ -110,6 +125,10 @@ namespace COLLADASaxFWL
 
 		virtual bool begin__skin( const skin__AttributeData& attributeData );
 		virtual bool end__skin();
+
+		virtual bool begin__morph( const morph__AttributeData& attributeData );
+		virtual bool end__morph();
+
 
 		bool begin__source( const source__AttributeData& attributes );
 		bool end__source();

@@ -52,6 +52,9 @@ namespace COLLADASaxFWL
 		COLLADA XSD and returns the id it points to.*/
 		static String getIdFromURIFragmentType( const char* uriFragment );
 
+		/** Copies the values contained in @a realSource into @a realsArray .*/
+		static void setRealValues( COLLADAFW::FloatOrDoubleArray& realsArray, const RealSource* realSource );
+
 	protected:
 
         /** Constructor. */

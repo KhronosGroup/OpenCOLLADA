@@ -289,19 +289,6 @@ namespace COLLADASaxFWL
 	{
 	}
 
-	/** Copies the values contained in @a realSource into @a realsArray .*/
-	//------------------------------
-	void setRealValues( COLLADAFW::FloatOrDoubleArray& realsArray, const RealSource* realSource )
-	{
-		if ( !realsArray.empty() )
-		{
-			// There already must have been an input with semantic INPUT. We ignore all following.
-			return;
-		}
-		realsArray.setType( SourceArrayLoader::DATA_TYPE_REAL );
-		const RealArrayElement& realArrayElement = realSource->getArrayElement();
-		realsArray.appendValues(realArrayElement.getValues());
-	}
 
 	//------------------------------
 	AnimationInfo* LibraryAnimationsLoader::getAnimationInfoBySamplerId( const String& samplerId )

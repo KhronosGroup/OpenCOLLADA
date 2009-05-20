@@ -199,6 +199,12 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
+	void IFilePartLoader::addMorphController( COLLADAFW::MorphController* morphController )
+	{
+		getColladaLoader()->getMorphControllerList().push_back(morphController);
+	}
+
+	//-----------------------------
 	const StringList& IFilePartLoader::getJointSidsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
 	{
 		return getFileLoader()->getJointSidsBySkinDataUniqueId( skinDataUniqueId );
