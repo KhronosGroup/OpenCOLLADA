@@ -66,7 +66,9 @@ namespace COLLADAMax
 	ImpNode* SceneGraphCreator::importNode( const COLLADAFW::Node* node, INode* parentINode )
 	{
 		bool singleInstance = (node->getInstanceGeometries().getCount() +
-			node->getInstanceCameras().getCount() ) == 1;
+							   node->getInstanceControllers().getCount() +
+			                   node->getInstanceCameras().getCount() +
+							   node->getInstanceLights().getCount() ) == 1;
 		ImpNode* newImportNode = 0;
 		const COLLADAFW::UniqueId& nodeUniqueId = node->getUniqueId();
 

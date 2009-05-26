@@ -36,7 +36,7 @@ namespace COLLADAMax
     /** Creates and assigns skin controllers using SkinControllerData  and the controller information 
 	stored in the first pass.*/
 	class SkinControllerDataImporter : public ImporterBase 
-		{
+	{
 	private:
 		/** The controller data to import.*/
 		const COLLADAFW::SkinControllerData* mSkinControllerData;

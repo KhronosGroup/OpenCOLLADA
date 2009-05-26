@@ -117,6 +117,20 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	DocumentImporter::UniqueIdINodeMultiMapConstIterator ImporterBase::getUniqueIdObjectINodesBegin() const
+	{
+		const DocumentImporter::UniqueIdINodeMultiMap& uniqueIdINodeMap = mDocumentImporter->getUniqueIdObjectINodeMap();
+		return uniqueIdINodeMap.begin();
+	}
+
+	//------------------------------
+	DocumentImporter::UniqueIdINodeMultiMapConstIterator ImporterBase::getUniqueIdObjectINodesEnd() const
+	{
+		const DocumentImporter::UniqueIdINodeMultiMap& uniqueIdINodeMap = mDocumentImporter->getUniqueIdObjectINodeMap();
+		return uniqueIdINodeMap.end();
+	}
+
+	//------------------------------
 	ImpNode* ImporterBase::getReferencingImpNodesByUniqueId( const COLLADAFW::UniqueId& uniqueId )
 	{
 		const DocumentImporter::UniqueIdImpNodeMultiMap& uniqueIdReferencingImpNodeMap = mDocumentImporter->getUniqueIdReferencingImpNodeMap();
@@ -391,6 +405,28 @@ namespace COLLADAMax
 	{
 		mDocumentImporter->getUniqueIdControllerMap().insert(std::make_pair(controllerData, controller));
 	}
+
+	//------------------------------
+	void ImporterBase::addMorphController( const COLLADAFW::MorphController* morphController )
+	{
+		mDocumentImporter->getUniqueIdMorphControllerMap().insert(std::make_pair(morphController->getUniqueId(), morphController));
+	}
+
+	//------------------------------
+	const COLLADAFW::MorphController* ImporterBase::getMorphControllerByUniqueId( const COLLADAFW::UniqueId& morphControllerUniqueId ) const
+	{
+		const DocumentImporter::UniqueIdMorphControllerMap&  map = mDocumentImporter->getUniqueIdMorphControllerMap();
+		DocumentImporter::UniqueIdMorphControllerMap::const_iterator it = map.find( morphControllerUniqueId );
+		if ( it == map.end() )
+		{
+			return 0;
+		}
+		else
+		{
+			return it->second;
+		}
+	}
+
 
 	//------------------------------
 	const COLLADAFW::AnimationList* ImporterBase::getAnimationList( const COLLADAFW::Animatable* animatable )

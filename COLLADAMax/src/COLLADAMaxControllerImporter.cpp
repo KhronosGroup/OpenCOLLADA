@@ -37,6 +37,7 @@ namespace COLLADAMax
 	{
 	}
 
+	//------------------------------
 	bool ControllerImporter::import()
 	{
 		if ( mController->getControllerType() == COLLADAFW::Controller::CONTROLLER_TYPE_SKIN )
@@ -44,8 +45,16 @@ namespace COLLADAMax
 			const COLLADAFW::SkinController* skinController = (const COLLADAFW::SkinController*)mController;
 			const COLLADAFW::UniqueId& controllerDataUniqueId = skinController->getSkinControllerData();
 			if ( controllerDataUniqueId.isValid() )
+			{
 				addUniqueIdControllerPair(controllerDataUniqueId, new COLLADAFW::SkinController(*skinController));
+			}
+		} 
+		else if ( mController->getControllerType() == COLLADAFW::Controller::CONTROLLER_TYPE_MORPH )
+		{
+			const COLLADAFW::MorphController* morphController = (const COLLADAFW::MorphController*)mController;
+			addMorphController( new COLLADAFW::MorphController(*morphController) );
 		}
+
 		return true;
 	}
 } // namespace COLLADAMax

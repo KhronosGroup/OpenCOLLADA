@@ -28,6 +28,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWImage.h"
 #include "COLLADAFWInstanceGeometry.h"
 #include "COLLADAFWController.h"
+#include "COLLADAFWMorphController.h"
 
 #include <list>
 
@@ -65,6 +66,9 @@ namespace COLLADAMax
 
 		/** Maps Unique id to INodes.*/
 		typedef std::multimap<COLLADAFW::UniqueId, INode*> UniqueIdINodeMultiMap;
+
+		/** Const iterator of the map above.*/
+		typedef UniqueIdINodeMultiMap::const_iterator UniqueIdINodeMultiMapConstIterator;
 
 		/** Maps Unique id to ImpNodes.*/
 		typedef std::multimap<COLLADAFW::UniqueId, ImpNode*> UniqueIdImpNodeMultiMap;
@@ -139,6 +143,8 @@ namespace COLLADAMax
 		/** Maps unique ids of controller data to the corresponding controller.*/
 		typedef std::multimap< COLLADAFW::UniqueId /* Controller data*/, const COLLADAFW::Controller*> UniqueIdControllerMultiMap;
 
+		/** Maps Unique ids of morph controllers to the morph controller.*/
+		typedef std::map< COLLADAFW::UniqueId /* Controller data*/, const COLLADAFW::MorphController* > UniqueIdMorphControllerMap;
 
 		struct FileInfo
 		{
@@ -251,6 +257,9 @@ namespace COLLADAMax
 
 		/** Maps unique ids of controller data to the corresponding controller.*/
 		UniqueIdControllerMultiMap mUniqueIdControllerMap;
+
+		/** Maps Unique ids of all morph controllers found during the first pass to the morph controller.*/
+		UniqueIdMorphControllerMap mUniqueIdMorphControllersMap;
 
 		// TODO check if we need this map
 		/** Maps unique ids of  skin controller to the INode that references the controller.*/
@@ -382,11 +391,14 @@ namespace COLLADAMax
         /** Disable default assignment operator. */
 		const DocumentImporter& operator= ( const DocumentImporter& pre );
 
-		/** Assigns the imported controllers to the corresponding objects.*/
+		/** Assigns the imported controllers (animations)to the corresponding objects.*/
 		bool assignControllers( const MaterialCreator& materialCreator );
 
 		/** Creates the scene graph.*/
 		bool createSceneGraph();
+
+		/** Creates the scene graph.*/
+		bool createMorphController();
 
 		/** Returns the dummy object used for nodes that do not have an object assigned to.*/
 		DummyObject* getDummyObject(){ return mDummyObject; }
@@ -453,6 +465,9 @@ namespace COLLADAMax
 
 		/** Maps unique ids of controller data to the corresponding controller.*/
 		UniqueIdControllerMultiMap& getUniqueIdControllerMap() { return mUniqueIdControllerMap; }
+
+		/** Maps Unique ids of all morph controllers found during the first pass to the morph controller.*/
+		UniqueIdMorphControllerMap& getUniqueIdMorphControllerMap() { return mUniqueIdMorphControllersMap; }
 
 		/** Maps unique ids of  skin controller to the INode that references the controller.*/
 		UniqueIdINodeMap& getSkinControllerINodeMap() { return mSkinControllerINodeMap; }

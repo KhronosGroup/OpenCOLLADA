@@ -32,6 +32,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxSkinControllerDataImporter.h"
 #include "COLLADAMaxAnimationAssigner.h"
 #include "COLLADAMaxSceneGraphCreator.h"
+#include "COLLADAMaxMorphControllerCreator.h"
 #include "COLLADAMaxFWLErrorHandler.h"
 
 #include "COLLADAFWFileInfo.h"
@@ -90,6 +91,10 @@ namespace COLLADAMax
 		for ( UniqueIdControllerMultiMap::const_iterator it = mUniqueIdControllerMap.begin(); it != mUniqueIdControllerMap.end(); ++it)
 			delete it->second;
 
+		// Delete all the controllers
+		for ( UniqueIdMorphControllerMap::const_iterator it = mUniqueIdMorphControllersMap.begin(); it != mUniqueIdMorphControllersMap.end(); ++it)
+			delete it->second;
+
 
 		delete mUnitConversionFunctors.lengthConversion;
 		delete mUnitConversionFunctors.angleConversion;
@@ -114,6 +119,9 @@ namespace COLLADAMax
 		if ( !createSceneGraph() )
 			return false;
 
+		if ( !createMorphController() )
+			return false;
+
 		MaterialCreator materialCreator(this);
 		if ( !materialCreator.create() )
 			return false;
@@ -125,6 +133,7 @@ namespace COLLADAMax
 
 		COLLADASaxFWL::Loader loader2(&errorHandler);
 
+		// We need the second pass to create skin controllers
 		COLLADAFW::Root root2(&loader2, this);
 		if ( !root.loadDocument(mImportFilePath) )
 			return false;
@@ -194,6 +203,13 @@ namespace COLLADAMax
 			return sceneGraphCreator.create();
 		}
 		return true;
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::createMorphController()
+	{
+		MorphControllerCreator morphControllerCreator(this);
+		return morphControllerCreator.create();
 	}
 
 	//---------------------------------------------------------------

@@ -65,11 +65,6 @@ namespace COLLADAMax
 	//------------------------------
 	bool SkinControllerDataImporter::createSkinModifier( const COLLADAFW::SkinController* skinController, const COLLADAFW::SkinControllerData* skinControllerData )
 	{
-		mSkinModifier = (Modifier*) createMaxObject(OSM_CLASS_ID, SKIN_CLASSID);
-
-		if ( !mSkinModifier )
-			return true;
-
 		Object* object = getObjectByUniqueId(skinController->getSource());
 		
 		if ( !object )
@@ -79,6 +74,10 @@ namespace COLLADAMax
 			return true;
 		}
 
+		mSkinModifier = (Modifier*) createMaxObject(OSM_CLASS_ID, SKIN_CLASSID);
+
+		if ( !mSkinModifier )
+			return true;
 
 		//probably we need to check if object is already a derived object
 		mDerivedObject = CreateDerivedObject(object);

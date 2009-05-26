@@ -110,6 +110,12 @@ namespace COLLADAMax
 		/** Fills @a nodeList with all INodes that reference the object with UniqueId @a uniqueId.*/
 		void getObjectINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, INodeList& nodelist );
 
+		/** Returns the the iterator pointing to the first element in the map of Unique id and object nodes.*/
+		DocumentImporter::UniqueIdINodeMultiMapConstIterator getUniqueIdObjectINodesBegin() const;
+
+		/** Returns the the iterator pointing beyond the last element in the map of Unique id and object nodes.*/
+		DocumentImporter::UniqueIdINodeMultiMapConstIterator getUniqueIdObjectINodesEnd() const;
+
 		/** Returns an INodes that reference the node with UniqueId @a uniqueId or zero if no such node is 
 		in the map. */
 		ImpNode* getReferencingImpNodesByUniqueId( const COLLADAFW::UniqueId& uniqueId );
@@ -247,6 +253,13 @@ namespace COLLADAMax
 
 		/** Adds the pair @a controllerData, @a controller to the UniqueIdControllerMultiMap.*/
 		void addUniqueIdControllerPair( const COLLADAFW::UniqueId& controllerData, const COLLADAFW::Controller* controller);
+
+		/** Returns the morph controller with unique id @a morphControllerUniqueId. Null if not found. */
+		const COLLADAFW::MorphController* getMorphControllerByUniqueId( const COLLADAFW::UniqueId& morphControllerUniqueId ) const;
+
+		/** Adds @a morphController to map of all morph controllers found during the first pass. The morph controller will
+		be deleted at the end of the import.*/
+		void addMorphController( const COLLADAFW::MorphController* morphController );
 
 		/** Maps unique ids of controller data to the corresponding controller.*/
 		INode* getINodeBySkinController( const COLLADAFW::UniqueId& skinController ) const { return mDocumentImporter->getSkinControllerINodeMap()[skinController]; }

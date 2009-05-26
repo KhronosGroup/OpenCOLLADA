@@ -68,11 +68,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -155,11 +155,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x64.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -242,11 +242,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -332,11 +332,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib morpher_x64.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -420,11 +420,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -507,11 +507,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x64.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -594,11 +594,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -684,11 +684,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib morpher_x64.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -773,11 +773,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -863,11 +863,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib morpher_x64.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib;$(NOINHERIT)"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -951,11 +951,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1038,11 +1038,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x64.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib;$(NOINHERIT)"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1124,11 +1124,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1211,11 +1211,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x64.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1298,11 +1298,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -1388,11 +1388,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib morpher_x64.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -1476,11 +1476,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1563,11 +1563,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x64.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1650,11 +1650,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib morpher_x86.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -1740,11 +1740,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
+				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib morpher_x64.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="0.9.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -2639,6 +2639,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxMorphControllerCreator.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxNodeImporter.cpp"
 					>
 				</File>
@@ -2882,6 +2886,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxMaterialImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxMorphControllerCreator.h"
 					>
 				</File>
 				<File
