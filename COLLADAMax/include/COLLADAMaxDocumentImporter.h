@@ -29,6 +29,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWInstanceGeometry.h"
 #include "COLLADAFWController.h"
 #include "COLLADAFWMorphController.h"
+#include "COLLADAFWSkinController.h"
 
 #include <list>
 
@@ -146,6 +147,9 @@ namespace COLLADAMax
 		/** Maps Unique ids of morph controllers to the morph controller.*/
 		typedef std::map< COLLADAFW::UniqueId /* Controller data*/, const COLLADAFW::MorphController* > UniqueIdMorphControllerMap;
 
+		/** Maps Unique ids of skin controllers to the skin controller.*/
+		typedef std::map< COLLADAFW::UniqueId /* Controller data*/, const COLLADAFW::SkinController* > UniqueIdSkinControllerMap;
+
 		struct FileInfo
 		{
 			COLLADABU::URI absoluteFileUri;
@@ -260,6 +264,13 @@ namespace COLLADAMax
 
 		/** Maps Unique ids of all morph controllers found during the first pass to the morph controller.*/
 		UniqueIdMorphControllerMap mUniqueIdMorphControllersMap;
+
+		/** Maps the unique ids of  morph controllers that are NOT instantiated in the scene graph but 
+		used as source by a skin controller to the INode that references this skin controller.*/
+		UniqueIdINodeMap mMorphUniqueIdINodeMap;
+
+		/** Maps Unique ids of all skin controllers found during the first pass to the skin controller.*/
+		UniqueIdSkinControllerMap mUniqueIdSkinControllersMap;
 
 		// TODO check if we need this map
 		/** Maps unique ids of  skin controller to the INode that references the controller.*/
@@ -469,8 +480,15 @@ namespace COLLADAMax
 		/** Maps Unique ids of all morph controllers found during the first pass to the morph controller.*/
 		UniqueIdMorphControllerMap& getUniqueIdMorphControllerMap() { return mUniqueIdMorphControllersMap; }
 
+		/** Maps Unique ids of all skin controllers found during the first pass to the skin controller.*/
+		UniqueIdSkinControllerMap& getUniqueIdSkinControllerMap() { return mUniqueIdSkinControllersMap; }
+
 		/** Maps unique ids of  skin controller to the INode that references the controller.*/
 		UniqueIdINodeMap& getSkinControllerINodeMap() { return mSkinControllerINodeMap; }
+
+		/** Maps the unique ids of  morph controllers that are NOT instantiated in the scene graph but 
+		used as source by a skin controller to the INode that references this skin controller.*/
+		UniqueIdINodeMap& getMorphUniqueIdINodeMap() { return mMorphUniqueIdINodeMap; }
 
 		/** Functors used to convert values from frame work units into max units.*/
 		const UnitConversionFunctors& getUnitConversionFunctors() const { return mUnitConversionFunctors; }

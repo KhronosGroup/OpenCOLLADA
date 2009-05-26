@@ -187,7 +187,7 @@ namespace COLLADAMax
 	//------------------------------
 	bool SceneGraphCreator::importInstanceControllers( const COLLADAFW::InstanceControllerPointerArray& instanceControllerArray, ImpNode* parentImportNode )
 	{
-		return importInstances<COLLADAFW::InstanceController, &SceneGraphCreator::storeMaterialBindings>(instanceControllerArray, parentImportNode);
+		return importInstances<COLLADAFW::InstanceController, &SceneGraphCreator::postProcessInstanceController>(instanceControllerArray, parentImportNode);
 	}
 
 	//------------------------------
@@ -257,7 +257,7 @@ namespace COLLADAMax
 	//------------------------------
 	ImpNode* SceneGraphCreator::importInstanceController( const COLLADAFW::Node* node, INode* parentINode )
 	{
-		return importInstance<COLLADAFW::InstanceController, &COLLADAFW::Node::getInstanceControllers, &SceneGraphCreator::storeMaterialBindings>(node, parentINode);
+		return importInstance<COLLADAFW::InstanceController, &COLLADAFW::Node::getInstanceControllers, &SceneGraphCreator::postProcessInstanceController>(node, parentINode);
 	}
 
 	//------------------------------
@@ -357,6 +357,25 @@ namespace COLLADAMax
 		}
 	}
 
+	//------------------------------
+	void SceneGraphCreator::postProcessInstanceController( INode* node, COLLADAFW::InstanceController* instanceController )
+	{
+		storeMaterialBindings( node, instanceController );
+
+		const COLLADAFW::UniqueId& controllerUniqueId = instanceController->getInstanciatedObjectId();
+
+		const COLLADAFW::SkinController* skinController = getSkinControllerByUniqueId( controllerUniqueId );
+
+		if ( skinController )
+		{
+			const COLLADAFW::UniqueId& skinSource = skinController->getSource();
+			if ( skinSource.getClassId() == COLLADAFW::MorphController::ID() )
+			{
+				addMorphControllerINodePair( skinSource, node);
+			}
+		}
+
+	}
 
 
 } // namespace COLLADAMax

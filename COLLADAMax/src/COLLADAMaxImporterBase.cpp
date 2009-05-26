@@ -427,6 +427,27 @@ namespace COLLADAMax
 		}
 	}
 
+	//------------------------------
+	void ImporterBase::addSkinController( const COLLADAFW::SkinController* skinController )
+	{
+		mDocumentImporter->getUniqueIdSkinControllerMap().insert(std::make_pair(skinController->getUniqueId(), skinController));
+	}
+
+	//------------------------------
+	const COLLADAFW::SkinController* ImporterBase::getSkinControllerByUniqueId( const COLLADAFW::UniqueId& skinControllerUniqueId ) const
+	{
+		const DocumentImporter::UniqueIdSkinControllerMap&  map = mDocumentImporter->getUniqueIdSkinControllerMap();
+		DocumentImporter::UniqueIdSkinControllerMap::const_iterator it = map.find( skinControllerUniqueId );
+		if ( it == map.end() )
+		{
+			return 0;
+		}
+		else
+		{
+			return it->second;
+		}
+	}
+
 
 	//------------------------------
 	const COLLADAFW::AnimationList* ImporterBase::getAnimationList( const COLLADAFW::Animatable* animatable )

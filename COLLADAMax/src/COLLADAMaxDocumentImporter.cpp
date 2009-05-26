@@ -88,7 +88,7 @@ namespace COLLADAMax
 			delete it->second;
 
 		// Delete all the controllers
-		for ( UniqueIdControllerMultiMap::const_iterator it = mUniqueIdControllerMap.begin(); it != mUniqueIdControllerMap.end(); ++it)
+		for ( UniqueIdSkinControllerMap::const_iterator it = mUniqueIdSkinControllersMap.begin(); it != mUniqueIdSkinControllersMap.end(); ++it)
 			delete it->second;
 
 		// Delete all the controllers

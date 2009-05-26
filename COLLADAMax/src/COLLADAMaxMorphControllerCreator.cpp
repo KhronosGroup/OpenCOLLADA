@@ -39,6 +39,7 @@ namespace COLLADAMax
 	//------------------------------
 	bool MorphControllerCreator::create()
 	{
+		// create all the morph controller that are instantiated in the scene graph
 		DocumentImporter::UniqueIdINodeMultiMapConstIterator firstInstance = getUniqueIdObjectINodesBegin();
 		DocumentImporter::UniqueIdINodeMultiMapConstIterator lastInstance = getUniqueIdObjectINodesEnd();
 		for ( DocumentImporter::UniqueIdINodeMultiMapConstIterator it = firstInstance; it != lastInstance; ++it )
@@ -55,6 +56,24 @@ namespace COLLADAMax
 				}
 			}
 		}
+
+		// create all the morph controller that are the source of a skin controller
+		const DocumentImporter::UniqueIdINodeMap& morphControllers = getMorphUniqueIdINodeMap();
+		for ( DocumentImporter::UniqueIdINodeMap::const_iterator it = morphControllers.begin(); it != morphControllers.end(); ++it )
+		{
+			const COLLADAFW::UniqueId& morphControllerUniqueId = it->first;
+			INode* referencingINode = it->second;
+
+			const COLLADAFW::MorphController* morphController = getMorphControllerByUniqueId( morphControllerUniqueId );
+			if ( morphController )
+			{
+				if ( !createMorphController( morphController, referencingINode) )
+				{
+					return false;
+				}
+			}
+		}
+
 		return true;
 	}
 
@@ -162,6 +181,7 @@ namespace COLLADAMax
 			referencingINode->SetObjectRef(mDerivedObject);
 		}
 
+		addUniqueIdObjectPair( morphController->getUniqueId(), mDerivedObject );
 		return true;
 	}
 
@@ -178,11 +198,11 @@ namespace COLLADAMax
 		MNMesh* polyMesh = 0;
 		Mesh* triangleMesh = 0;
 	
-		if ( geometryObjectClassId == EPOLYOBJ_CLASS_ID )
+		if ( (geometryObjectClassId == EPOLYOBJ_CLASS_ID)  || (geometryObjectClassId.PartA() == POLYOBJ_CLASS_ID) )
 		{
 			polyMesh = &((PolyObject*)geometryObject)->GetMesh();
 		}
-		else if ( geometryObjectClassId.PartA() == TRIOBJ_CLASS_ID )
+		else if ( (geometryObjectClassId.PartA() == TRIOBJ_CLASS_ID) || (geometryObjectClassId.PartA() == EDITTRIOBJ_CLASS_ID ) )
 		{
 			triangleMesh = &((TriObject*)geometryObject)->GetMesh();
 		}

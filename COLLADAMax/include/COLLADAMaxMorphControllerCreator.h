@@ -55,6 +55,8 @@ namespace COLLADAMax
         /** Disable default assignment operator. */
 		const MorphControllerCreator& operator= ( const MorphControllerCreator& pre );
 
+		/** Creates a morph controller (modifier) using the data in @a morphController and assigns the to 
+		@a referencingINode.*/
 		bool createMorphController( const COLLADAFW::MorphController* morphController, INode* referencingINode );
 	
 		/** Sets the vertex data of the morph channel. This is required for channels that use geometries not

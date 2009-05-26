@@ -261,11 +261,26 @@ namespace COLLADAMax
 		be deleted at the end of the import.*/
 		void addMorphController( const COLLADAFW::MorphController* morphController );
 
+		/** Returns the skin controller with unique id @a skinControllerUniqueId. Null if not found. */
+		const COLLADAFW::SkinController* getSkinControllerByUniqueId( const COLLADAFW::UniqueId& skinControllerUniqueId ) const;
+
+		/** Adds @a skinController to map of all skin controllers found during the first pass. The skin controller will
+		be deleted at the end of the import.*/
+		void addSkinController( const COLLADAFW::SkinController* skinController );
+
 		/** Maps unique ids of controller data to the corresponding controller.*/
 		INode* getINodeBySkinController( const COLLADAFW::UniqueId& skinController ) const { return mDocumentImporter->getSkinControllerINodeMap()[skinController]; }
 
 		/** Adds the pair @a controllerData, @a controller to the UniqueIdControllerMultiMap.*/
 		void addSkinControllerINodePair( const COLLADAFW::UniqueId& skinController, INode* inode) { mDocumentImporter->getSkinControllerINodeMap()[skinController] = inode;}
+
+		/** Maps the unique ids of  morph controllers that are NOT instantiated in the scene graph but 
+		used as source by a skin controller to the INode that references this skin controller.*/
+		const DocumentImporter::UniqueIdINodeMap& getMorphUniqueIdINodeMap( ) const { return mDocumentImporter->getMorphUniqueIdINodeMap(); }
+
+		/** Maps the unique ids of  morph controllers that are NOT instantiated in the scene graph but 
+		used as source by a skin controller to the INode that references this skin controller.*/
+		void addMorphControllerINodePair( const COLLADAFW::UniqueId& morphController, INode* inode) { mDocumentImporter->getMorphUniqueIdINodeMap()[morphController] = inode;}
 
 		/** Returns informations about the entire file being loaded.*/
 		const DocumentImporter::FileInfo& getFileInfo() const { return mDocumentImporter->getFileInfo(); }

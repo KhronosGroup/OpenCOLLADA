@@ -112,8 +112,11 @@ namespace COLLADAMax
 		nodes with reference the same object and transformation controller.*/
 		bool recursivelyCloneINode( ImpNode* parentImportNode, INode* nodeToClone );
 
-		/** Store the information about material bindings of @a instanceGeometry attached to max node @a node*/
+		/** Store the information about material bindings of @a instanceGeometry attached to max node @a node.*/
 		void storeMaterialBindings( INode* node, COLLADAFW::InstanceGeometry* instanceGeometry);
+
+		/** Store the information about material bindings of @a instanceController attached to max node @a node. */
+		void postProcessInstanceController( INode* node, COLLADAFW::InstanceController* instanceController );
 
 
 	private:

@@ -79,8 +79,16 @@ namespace COLLADAMax
 		if ( !mSkinModifier )
 			return true;
 
-		//probably we need to check if object is already a derived object
-		mDerivedObject = CreateDerivedObject(object);
+		if ( (object->ClassID() == derivObjClassID) || (object->ClassID() == WSMDerivObjClassID) )
+		{
+			// Object is a derived object, just attach ourselves to it
+			mDerivedObject = (IDerivedObject*) object;
+		}
+		else
+		{
+			// Create the derived object for the target and the modifier
+			mDerivedObject = CreateDerivedObject(object);
+		}
 
 		mDerivedObject->AddModifier(mSkinModifier);
 

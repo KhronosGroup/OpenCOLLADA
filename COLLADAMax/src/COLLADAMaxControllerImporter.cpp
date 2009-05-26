@@ -46,13 +46,18 @@ namespace COLLADAMax
 			const COLLADAFW::UniqueId& controllerDataUniqueId = skinController->getSkinControllerData();
 			if ( controllerDataUniqueId.isValid() )
 			{
-				addUniqueIdControllerPair(controllerDataUniqueId, new COLLADAFW::SkinController(*skinController));
+				COLLADAFW::SkinController* clonedSkinController = new COLLADAFW::SkinController(*skinController);
+				addUniqueIdControllerPair(controllerDataUniqueId, clonedSkinController);
+				// clonedSkinController will be deleted by ImporterBase after import
+				addSkinController( clonedSkinController );
 			}
 		} 
 		else if ( mController->getControllerType() == COLLADAFW::Controller::CONTROLLER_TYPE_MORPH )
 		{
 			const COLLADAFW::MorphController* morphController = (const COLLADAFW::MorphController*)mController;
-			addMorphController( new COLLADAFW::MorphController(*morphController) );
+			COLLADAFW::MorphController* clonedMorphController = new COLLADAFW::MorphController(*morphController);
+			// clonedMorphController will be deleted by ImporterBase after import
+			addMorphController( clonedMorphController );
 		}
 
 		return true;
