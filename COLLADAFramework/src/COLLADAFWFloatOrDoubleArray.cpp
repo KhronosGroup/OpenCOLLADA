@@ -35,6 +35,23 @@ namespace COLLADAFW
 	{}
 
 	//------------------------------
+	FloatOrDoubleArray::FloatOrDoubleArray( const FloatOrDoubleArray& pre )
+		: Animatable( pre)
+		, mType(pre.mType)
+		, mValuesF(FloatArray::OWNER)
+		, mValuesD(DoubleArray::OWNER)
+	{
+		if ( mType == DATA_TYPE_FLOAT )
+		{
+			pre.mValuesF.cloneArray( mValuesF );
+		}
+		else if ( mType == DATA_TYPE_DOUBLE )
+		{
+			pre.mValuesD.cloneArray( mValuesD );
+		}
+	}
+
+	//------------------------------
 	size_t FloatOrDoubleArray::getValuesCount() const
 	{
 		if ( mType == DATA_TYPE_FLOAT )

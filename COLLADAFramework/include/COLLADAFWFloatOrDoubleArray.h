@@ -48,6 +48,8 @@ namespace COLLADAFW
 
 		FloatOrDoubleArray(DataType type);
 
+		/** Default copy ctor. */
+		FloatOrDoubleArray( const FloatOrDoubleArray& pre );
 
 		/** The data type of the stored values. */
 		DataType getType() const { return mType; }
@@ -109,8 +111,6 @@ namespace COLLADAFW
 
 	private:
 
-		/** Disable default copy ctor. */
-		FloatOrDoubleArray( const FloatOrDoubleArray& pre );
 
 		/** Disable default assignment operator. */
 		const FloatOrDoubleArray& operator= ( const FloatOrDoubleArray& pre );

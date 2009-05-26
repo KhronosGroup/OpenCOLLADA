@@ -234,7 +234,7 @@ namespace COLLADAFW
 		/** Returns a reference to the last element in the array. The array must not be empty.*/
 		const Type& back() const { assert(mData && (mCount > 0)); return mData[mCount - 1]; }
 
-		/** Clones the array inti @a clonedArray.*/
+		/** Clones the array into @a clonedArray.*/
 		void cloneArray( ArrayPrimitiveType<Type>& clonedArray ) const
 		{
 			clonedArray.allocMemory(getCapacity());

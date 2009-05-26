@@ -26,6 +26,7 @@ namespace COLLADAFW
 	MorphController::MorphController( const MorphController& pre )
 		: Controller( pre.getObjectId(), Controller::CONTROLLER_TYPE_MORPH )
 		, mSource(pre.mSource)
+		, mMorphWeights(pre.mMorphWeights)
 	{
 		const UniqueIdArray& preMorphTargets = pre.mMorphTargets;
 		size_t bonesCount = preMorphTargets.getCount();
