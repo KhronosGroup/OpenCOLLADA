@@ -1,7 +1,6 @@
-; create from existing DLM file via
+; create from existing DLM file (taken from the 64bit max installation) via
 ; dumpbin /exports Morpher.dlm
-; lib /def:Morpher.def /machine:x64 /out:morpher_x64.lib
-; lib /def:Morpher.def /machine:x86 /out:morpher_x86.lib
+; lib /def:Morpher_x86.def /machine:x86 /out:morpher_x86.lib
 
 LIBRARY Morpher.dlm
 EXPORTS

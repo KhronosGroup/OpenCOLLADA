@@ -48,7 +48,8 @@ namespace GeneratedSaxParser
         size_t size;
     };
 
-#if defined COLLADABU_OS_WIN32
+#if defined COLLADABU_OS_WIN
+    // VisualStudio 2005 uses same sizes for 32 and 64 bit
     typedef signed char sint8;
     typedef signed short sint16;
     typedef signed int sint32;
@@ -70,7 +71,8 @@ namespace GeneratedSaxParser
     typedef unsigned int uint32;
     typedef unsigned long long uint64;
 
-#elif defined COLLADABU_OS_MAC32
+#elif defined COLLADABU_OS_MAC
+    // XCode uses same sizes for 32 and 64 bit
     typedef signed char sint8;
     typedef signed short sint16;
     typedef signed int sint32;
