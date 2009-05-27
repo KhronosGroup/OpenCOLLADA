@@ -20,7 +20,14 @@
 #include "COLLADASaxFWLSidTreeNode.h"
 #include "COLLADASaxFWLLoader.h"
 
-#include "GeneratedSaxParserLibxmlSaxParser.h"
+#if defined(GENERATEDSAXPARSER_XMLPARSER_LIBXML)
+#	include "GeneratedSaxParserLibxmlSaxParser.h"
+#elif defined(GENERATEDSAXPARSER_XMLPARSER_EXPAT)
+#	include "GeneratedSaxParserExpatSaxParser.h"
+#else
+# error "No prepocesser flag set to chose the xml parser to use"
+#endif
+
 #include "GeneratedSaxParserRawUnknownElementHandler.h"
 
 #include "COLLADAFWUniqueId.h"
@@ -82,7 +89,12 @@ namespace COLLADASaxFWL
 		/** The parent (in the notion of the framework  data model) of the currently parsed element.*/
 		COLLADAFW::Object* mObject;
 
-		GeneratedSaxParser::LibxmlSaxParser mLibxmlSaxParse;
+		/** The xml parser to use.*/
+#if defined(GENERATEDSAXPARSER_XMLPARSER_LIBXML)
+		GeneratedSaxParser::LibxmlSaxParser mXmlSaxParser;
+#elif defined(GENERATEDSAXPARSER_XMLPARSER_EXPAT)
+		GeneratedSaxParser::ExpatSaxParser mXmlSaxParser;
+#endif
 
 		/** The current node within the sid tree.*/
 		SidTreeNode *mCurrentSidTreeNode;
