@@ -45,6 +45,7 @@ namespace COLLADAMaya
     //------------------------------
 	ControllerImporter::ControllerImporter ( DocumentImporter* documentImporter )
         : BaseImporter ( documentImporter )
+        , mObjectGroupsInitialIndex (0)
 	{
 	}
 	
