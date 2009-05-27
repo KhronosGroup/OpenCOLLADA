@@ -45,6 +45,8 @@
 namespace COLLADASaxFWL
 {
 
+	size_t XMLPARSER_BUFFERSIZE = 64*1024;
+
 	enum LibraryFlags
 	{
 		COLLADA_NO_FLAGS                     = 0,    
@@ -139,7 +141,11 @@ namespace COLLADASaxFWL
          : ColladaParserAutoGenPrivate(0, saxParserErrorHandler)
 		 , mColladaLoader(colladaLoader)
 		 , mFileURI(fileURI)
-		 , mLibxmlSaxParse(this)
+#if defined(GENERATEDSAXPARSER_XMLPARSER_LIBXML)
+		 , mXmlSaxParser(this)
+#elif defined(GENERATEDSAXPARSER_XMLPARSER_EXPAT)
+		 , mXmlSaxParser(this, XMLPARSER_BUFFERSIZE)
+#endif
 		 , mCurrentSidTreeNode( colladaLoader->getSidTreeRoot() )
 		 , mIdStringSidTreeNodeMap( colladaLoader->getIdStringSidTreeNodeMap() )
 		 , mVisualScenes( colladaLoader->getVisualScenes() )
@@ -282,7 +288,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::load()
 	{
-		bool success = mLibxmlSaxParse.parseFile(mFileURI.toNativePath().c_str());
+		bool success = mXmlSaxParser.parseFile(mFileURI.toNativePath().c_str());
 		postProcess();
 		return success;
 	}
