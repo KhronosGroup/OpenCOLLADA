@@ -26,6 +26,15 @@ namespace COLLADAFW
 	class SkinControllerData : public ObjectTemplate<COLLADA_TYPE::SKIN_DATA>	
 	{
 	private:
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
+        /** The name of the skin controller.*/
+        String mName;
+
 		/** The number of joints this controller can use.*/
 		size_t mJointsCount;
 
@@ -57,6 +66,16 @@ namespace COLLADAFW
 
         /** Destructor. */
 		virtual ~SkinControllerData();
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
 
 		/** Provides extra information about the position and orientation of the base mesh before binding.*/
 		const COLLADABU::Math::Matrix4& getBindShapeMatrix() const { return mBindShapeMatrix; }

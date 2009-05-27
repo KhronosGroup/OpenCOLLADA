@@ -29,7 +29,6 @@
 #include "COLLADAMayaMaterialExporter.h"
 #include "COLLADAMayaLightExporter.h"
 #include "COLLADAMayaCameraExporter.h"
-//#include "COLLADAMaya.h"
 
 #include <maya/MFnIkHandle.h>
 #include <maya/MFnMesh.h>
@@ -532,7 +531,7 @@ namespace COLLADAMaya
             String colladaNodeId = findColladaNodeId ( mayaNodeId );
             if ( COLLADABU::Utils::equals ( colladaNodeId, COLLADABU::Utils::EMPTY_STRING ) )
             {
-                colladaNodeId = createColladaNodeId ( dagPath );
+                colladaNodeId = getColladaNodeId ( dagPath );
             }
 
             mVisualSceneNode->setNodeURL ( COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, colladaNodeId ) );
@@ -546,11 +545,11 @@ namespace COLLADAMaya
             String mayaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
 
             // Set the node name.
-            String nodeName = mDocumentExporter->mayaNameToColladaName ( node.name ().asChar () );
-            //String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
+            //String nodeName = mDocumentExporter->mayaNameToColladaName ( node.name ().asChar () );
+            String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
 
             // Generate a COLLADA id for the new object.
-            String colladaNodeId = createColladaNodeId ( dagPath );
+            String colladaNodeId = getColladaNodeId ( dagPath );
 
             // Make the id unique and store it in a map.
             colladaNodeId = mNodeIdList.addId ( colladaNodeId );
@@ -989,13 +988,13 @@ namespace COLLADAMaya
         // it needs. This element is meaningless for morph controllers.
 
         // Get the skeleton id from the element
-        const std::set<String>& skeletonIds = sceneElement->getSkeletonIds ();
-        if ( skeletonIds.size () > 0 )
+        const std::set<URI>& skeletonURIs = sceneElement->getSkeletonURIs ();
+        if ( skeletonURIs.size () > 0 )
         {
-            std::set<String>::const_iterator it = skeletonIds.begin ();
-            while ( it != skeletonIds.end () )
+            std::set<URI>::const_iterator it = skeletonURIs.begin ();
+            while ( it != skeletonURIs.end () )
             {
-                instanceController.addSkeleton ( COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, *it ) );
+                instanceController.addSkeleton ( *it );
                 ++it;
             }
         }
@@ -1030,14 +1029,21 @@ namespace COLLADAMaya
         }
 
         // Get the maya mesh id.
-        String mayaMeshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
+        String mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPath );
+
+        // Check for instances.
+        bool isInstanced = fnMesh.isInstanced ( true );
+        if ( isInstanced )
+        {
+            // Take the first instance.
+            MDagPathArray dagPathes;
+            fnMesh.getAllPaths ( dagPathes );
+            mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPathes[0] );
+        }
 
         // Get the geometry collada id.
         GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
         String colladaMeshId = geometryExporter->findColladaGeometryId ( mayaMeshId );
-//         String mayaMeshId = sceneElement->getNodeId();
-//         if ( mayaMeshId.empty() )
-//             mayaMeshId = sceneElement->getNodeName();
 
         // Get the uri of the current scene
         COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaMeshId  ) );
@@ -1202,7 +1208,7 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------
-    COLLADAMaya::String VisualSceneExporter::createColladaNodeId ( 
+    COLLADAMaya::String VisualSceneExporter::getColladaNodeId ( 
         const MDagPath &dagPath )
     {
         String colladaNodeId;
@@ -1221,8 +1227,8 @@ namespace COLLADAMaya
         else
         {
             // Generate a COLLADA id for the new object
-            colladaNodeId = mDocumentExporter->mayaNameToColladaName ( node.name ().asChar () );
-            //colladaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
+            //colladaNodeId = mDocumentExporter->mayaNameToColladaName ( node.name ().asChar () );
+            colladaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
         }	
         
         return colladaNodeId;

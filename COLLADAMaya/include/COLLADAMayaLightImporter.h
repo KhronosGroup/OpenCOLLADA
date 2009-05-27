@@ -14,8 +14,6 @@
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaBaseImporter.h"
 
-#include "COLLADABUIDList.h"
-
 #include <MayaDMLightList.h>
 #include <MayaDMObjectSet.h>
 #include <MayaDMSpotLight.h>

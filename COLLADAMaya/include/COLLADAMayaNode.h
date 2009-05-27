@@ -52,10 +52,11 @@ namespace COLLADAMaya
          */
         bool mIsCorrectPositioned;
 
-        /**
-         * Pointer to the framework node object.
-         */
-        COLLADAFW::Node* mFrameworkNode;
+        /** 
+        * The type of the <node> element. Valid values are JOINT or NODE. The default is 
+        * NODE. Optional. 
+        */
+        COLLADAFW::Node::NodeType mType;
 
 	public:
 
@@ -69,6 +70,7 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& uniqueId, 
             const String name, 
             MayaNode* parent = NULL, 
+            const COLLADAFW::Node::NodeType nodeType = COLLADAFW::Node::NODE,
             const bool isCorrectPositioned=true );
 
         virtual ~MayaNode() {}
@@ -77,6 +79,11 @@ namespace COLLADAMaya
          * Returns the unique id of the object.
          */
         const COLLADAFW::UniqueId& getUniqueId() const { return mUniqueId; }
+
+        /** 
+        * The type of the <node> element. Valid values are JOINT or NODE. The default is NODE. Optional. 
+        */
+        const COLLADAFW::Node::NodeType getType () const { return mType; }
 
         /**
         * The parent node.
@@ -102,12 +109,6 @@ namespace COLLADAMaya
         */
         const bool getIsCorrectPositioned () const { return mIsCorrectPositioned; }
         void setIsCorrectPositioned ( const bool val ) { mIsCorrectPositioned = val; }
-
-        /**
-        * Pointer to the framework node object.
-        */
-        const COLLADAFW::Node* getFrameworkNode () const { return mFrameworkNode; }
-        void setFrameworkNode ( COLLADAFW::Node* val ) { mFrameworkNode = val; }
 
 	};
 } // namespace COLLADAMAYA

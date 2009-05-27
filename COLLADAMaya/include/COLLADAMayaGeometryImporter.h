@@ -23,7 +23,6 @@
 
 #include "COLLADAFWMesh.h"
 
-#include "COLLADABUIDList.h"
 #include "Math/COLLADABUMathVector3.h"
 
 #include "MayaDMTypes.h"
@@ -44,9 +43,6 @@ namespace COLLADAMaya
 
         /** The standard name for geometry without name. */
         static const String GEOMETRY_NAME;
-
-        /** The standard name for a maya group. */
-        static const String GROUPID_NAME;
 
     public:
 
@@ -85,18 +81,18 @@ namespace COLLADAMaya
         */
         COLLADABU::IDList mMeshNodeIdList;
 
-        /**
-        * The list of the unique maya group id names.
-        */
-        COLLADABU::IDList mGroupIdList;
-
         /** 
          * The map holds the unique ids of the geometry nodes to the maya specific nodes. 
          */
         UniqueIdMayaNodeMap mMayaMeshNodesMap;
 
         /** 
-        * The map holds the unique ids of the geometry nodes to the  specific nodes. 
+        * The map holds the unique ids of the geometry nodes to the maya controller mesh nodes. 
+        */
+        UniqueIdMayaDMMeshMap mMayaDMControllerMeshNodesMap;
+
+        /** 
+        * The map holds the unique ids of the geometry nodes to the specific nodes. 
         */
         UniqueIdMayaDMMeshMap mMayaDMMeshNodesMap;
 
@@ -149,6 +145,11 @@ namespace COLLADAMaya
         const MayaDM::Mesh* findMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
 
         /** 
+        * The map holds the unique ids of the nodes to the  specific nodes. 
+        */
+        const MayaDM::Mesh* findMayaDMControllerMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+
+        /** 
         * The map holds the number of primitive elements to the geometry id.
         */
         const size_t findPrimitivesCount ( const COLLADAFW::UniqueId& geometryId );
@@ -190,12 +191,25 @@ namespace COLLADAMaya
         void importMesh ( const COLLADAFW::Mesh* mesh );
 
         /**
+         * Make the mesh instances and import the mesh data.
+         */
+        void importMesh ( 
+            const COLLADAFW::Mesh* mesh, 
+            const UniqueIdVec* transformNodeIds,
+            const bool isMeshController = false );
+
+        /** 
+        * Imports the data of the current mesh element. 
+        */
+        void importController ( const COLLADAFW::Mesh* mesh );
+
+        /**
         * Writes the geometry of the current mesh.
         */
         void createMesh ( 
             const COLLADAFW::Mesh* mesh, 
             MayaNode* parentMayaNode, 
-            size_t numNodeInstances );
+            const bool isMeshController = false );
 
         /**
          * Create maya group ids for every mesh primitive (if there is more than one).
@@ -339,7 +353,7 @@ namespace COLLADAMaya
             MayaDM::Mesh &meshNode );
 
         /*
-         *	Write the uv coordinates into the maya file.
+         * Write the uv coordinates into the maya file.
          */
         void writeUVSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
 

@@ -47,11 +47,6 @@ namespace COLLADAMaya
         static bool   connectToList ( const MObject& source, const MString& sourceAttribute, const MObject& destination, const MString& destinationAttribute, int* index = NULL );
         static bool   connectToList ( const MPlug& source, const MObject& destination, const MString& destinationAttribute, int* index = NULL );
         static bool   hasConnection ( const MPlug& plug, bool asSource = true, bool asDestination = true );
-        static bool   disconnect ( const MPlug& source, const MPlug& destination );
-        static bool   disconnect ( const MPlug& plug, bool sources = true, bool destinations = true );
-
-        // Handle mesh-related node connections that use grouped components
-        static void   groupConnect ( MPlug& source, const MObject& destination, const MObject& finalMesh );
 
         // Get/set the bind pose for a transform
         static MMatrix  getBindPoseInverse ( const MObject& controller, const MObject& influence );

@@ -828,6 +828,19 @@ namespace COLLADAMaya
         return 0;
     }
 
+    //------------------------------
+    const bool EffectImporter::isConnectedImage ( const COLLADAFW::UniqueId& imageId ) const
+    {
+        std::vector<COLLADAFW::UniqueId>::const_iterator it = mConnectedImageList.begin ();
+        while ( it != mConnectedImageList.end () )
+        {
+            if ( imageId == *it )
+                return true;
+            ++it;
+        }
+        return false;
+    }
+
     // --------------------------
     void EffectImporter::writeConnections ()
     {
@@ -942,15 +955,18 @@ namespace COLLADAMaya
                 for ( size_t i=0; i<numSamplers; ++i )
                 {
                     const SamplerInfo samplerInfo = (*samplerInfos) [i];
-
                     if ( samplerId == samplerInfo.mSamplerId )
                     {
                         const COLLADAFW::UniqueId& imageId = samplerInfo.mImageId;
                         const MayaDM::File* imageFile = imageImporter->findMayaImageFile ( imageId );
 
-                        // TODO Check if this connection already exist.
-                        // connectAttr "file1.message" ":defaultTextureList1.textures" -nextAvailable;
-                        connectNextAttr ( file, imageFile->getMessage (), defaultTextureList.getTextures () );
+                        // Check if this connection already exist.
+                        if ( !isConnectedImage ( imageId ) )
+                        {
+                            // connectAttr "file1.message" ":defaultTextureList1.textures" -nextAvailable;
+                            connectNextAttr ( file, imageFile->getMessage (), defaultTextureList.getTextures () );
+                            mConnectedImageList.push_back ( imageId );
+                        }
 
                         // Connect the image file out color with the material's texture attribute.
                         // connectAttr "file1.outColor" "lambert2.color";
@@ -1079,5 +1095,6 @@ namespace COLLADAMaya
             }
         }
     }
+
 
 } // namespace COLLADAMaya

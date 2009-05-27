@@ -18,6 +18,8 @@
 #include "COLLADAMayaException.h"
 #include "COLLADAMayaVisualSceneImporter.h"
 #include "COLLADAMayaImportOptions.h"
+#include "COLLADAMayaControllerImporter.h"
+
 
 #include <maya/MFnMesh.h>
 #include <maya/MFnTransform.h>
@@ -38,7 +40,6 @@ namespace COLLADAMaya
 {
     
     const String GeometryImporter::GEOMETRY_NAME = "Geometry";
-    const String GeometryImporter::GROUPID_NAME = "GroupId";
 
 
     // --------------------------------------------
@@ -82,7 +83,13 @@ namespace COLLADAMaya
         case COLLADAFW::Geometry::GEO_TYPE_MESH:
             {
                 COLLADAFW::Mesh* mesh = ( COLLADAFW::Mesh* ) geometry;
+
+                // Import the mesh data, if it is referenced from a transform node.
                 importMesh ( mesh );
+
+                // Import the controller mesh data, if the mesh is referenced from a controller.
+                importController ( mesh );
+
                 break;
             }
         default:
@@ -93,23 +100,49 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
+    void GeometryImporter::importController ( const COLLADAFW::Mesh* mesh )
+    {
+        // Get the unique id.
+        const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+
+        // Check, if the mesh is referenced from a controller object.
+        ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+        const COLLADAFW::SkinController* skinController = controllerImporter->findSkinControllerBySourceId ( geometryId );
+        if ( skinController == 0 ) return;
+
+        // Create an original mesh object under the transform node of the skin controller.
+        const COLLADAFW::UniqueId& controllerId = skinController->getUniqueId ();
+
+        // Get the node instances.
+        VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
+        const UniqueIdVec* controllerTransformIds = visualSceneImporter->findControllerTransformIds ( controllerId );
+        if ( controllerTransformIds == 0 ) return;
+
+        // Make the mesh instances and import the mesh data.
+        importMesh ( mesh, controllerTransformIds, true );
+    }
+
+    // --------------------------------------------
     void GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )
     {
         // Get the unique framework mesh id 
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
 
-        // Get the transform node of the current mesh.
+        // Get the transform node(s) of the current mesh.
         VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
-
-        // Get all visual scene nodes, which use this geometry and make the parent connections.
         const UniqueIdVec* transformNodeIds = visualSceneImporter->findGeometryTransformIds ( geometryId );
-        if ( transformNodeIds == 0 )
-        {
-            // TODO handle skin controller
-            MGlobal::displayError ( "No transform node for geometry " + MString ( mesh->getName ().c_str () ) );
-            std::cerr << "No transform node for geometry " << mesh->getName () << endl;
-            return;
-        }
+        if ( transformNodeIds == 0 ) return;
+
+        // Make the mesh instances and import the mesh data.
+        importMesh ( mesh, transformNodeIds );
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::importMesh ( 
+        const COLLADAFW::Mesh* mesh, 
+        const UniqueIdVec* transformNodeIds, 
+        const bool isMeshController /*= false*/ )
+    {
         // Get the node instances.
         UniqueIdVec::const_iterator nodesIter = transformNodeIds->begin ();
         size_t numNodeInstances = transformNodeIds->size ();
@@ -122,6 +155,7 @@ namespace COLLADAMaya
         {
             // Get the maya node of the current transform node.
             const COLLADAFW::UniqueId& transformNodeId = *nodesIter;
+            VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
             MayaNodesList* transformNodes = visualSceneImporter->findMayaTransformNode ( transformNodeId );
             if ( transformNodes->size () == 0 )
             {
@@ -139,11 +173,12 @@ namespace COLLADAMaya
             if ( nodesIter == transformNodeIds->begin() )
             {
                 // Create the current mesh node.
-                createMesh ( mesh, mayaTransformNode, numNodeInstances );
+                createMesh ( mesh, mayaTransformNode, isMeshController );
             }
             else
             {
-                // Get the path to the mesh.
+                // Make the parent connections.
+                const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
                 MayaNode* mayaMeshNode = findMayaMeshNode ( geometryId );
                 String meshNodePath = mayaMeshNode->getNodePath ();
 
@@ -158,6 +193,114 @@ namespace COLLADAMaya
 
             ++nodesIter;
         }
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::createMesh ( 
+        const COLLADAFW::Mesh* mesh, 
+        MayaNode* mayaTransformNode, 
+        const bool isMeshController /*= false*/ )
+    {
+        // Create a unique name.
+        String meshName = mesh->getName ();
+        if ( COLLADABU::Utils::equals ( meshName, "" ) ) 
+            meshName = GEOMETRY_NAME;
+        meshName = DocumentImporter::frameworkNameToMayaName ( meshName );
+        meshName = mMeshNodeIdList.addId ( meshName );
+
+        // TODO
+        // Add the name also to the id list of the materials, about the name of a material 
+        // can't be the same as the name of a geometry or a node.
+
+        // Get the maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // Get the parent transform node name.
+        const COLLADAFW::UniqueId& transformNodeId = mayaTransformNode->getUniqueId ();
+        String transformNodePath = mayaTransformNode->getNodePath ();
+
+        // Get the unique object id.
+        const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+
+        // Create the controller mesh object first.
+        if ( isMeshController )
+        {
+            // Create the mesh node - no special settings...
+            MayaDM::Mesh controllerMeshNode ( file, meshName, transformNodePath );
+            mMayaDMMeshNodesMap [geometryId] = controllerMeshNode;
+
+            // Change the name of the mesh to create.
+            meshName += "Orig";
+            meshName = mMeshNodeIdList.addId ( meshName );
+        }
+
+        // Create a maya node object of the current node and push it into the map.
+        MayaNode* mayaMeshNode = new MayaNode ( geometryId, meshName, mayaTransformNode );
+        mMayaMeshNodesMap [ geometryId ] = mayaMeshNode;
+
+        // Create the current maya data model mesh node.
+        MayaDM::Mesh meshNode ( file, meshName, transformNodePath );
+
+        // With a controller element, we save the other generated mesh object 
+        // in the reference list and the original object in the controllers list.
+        if ( isMeshController )
+            mMayaDMControllerMeshNodesMap [geometryId] = meshNode;
+        else
+            mMayaDMMeshNodesMap [geometryId] = meshNode;
+
+        // Add the original id attribute.
+        String colladaId = mesh->getOriginalId ();
+        if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+        {
+            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
+            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+        }
+
+        // Handle a mesh which is instanced from a controller object.
+        // Boolean attribute that specifies whether the dagNode is an intermediate object resulting 
+        // from a construction history operation. dagNodes with this attribute set to true are not 
+        // visible and/or rendered.
+        if ( isMeshController )
+            meshNode.setIntermediateObject ( true );
+
+        // Writes the object groups for every mesh primitive and
+        // gets all shader engines, which are used by the primitive elements of the mesh.
+        writeObjectGroups ( mesh, meshNode, transformNodeId );
+
+        // Write the vertex positions. 
+        writeVertexPositions ( mesh, meshNode );
+
+        // Write the normals. 
+        if ( ImportOptions::importNormals () )
+            writeNormals ( mesh, meshNode );
+
+        // Write the uv corrdinates.
+        writeUVSets ( mesh, meshNode );
+
+        // Write the uv corrdinates.
+        writeColorSets ( mesh, meshNode );
+
+        // The vector of edge indices. We use it to write the list of edges into 
+        // the maya file. The vector is already sorted.
+        std::vector<COLLADAFW::Edge> edgeIndices;
+
+        // We store the edge indices also in a sorted map. The dublicate data holding 
+        // is reasonable, because we need the index of a given edge. The search of  
+        // values in a map is much faster than in a vector!
+        std::map<COLLADAFW::Edge,size_t> edgeIndicesMap;
+
+        // Iterates over the mesh primitives and reads the edge indices.
+        getEdgeIndices ( mesh, edgeIndices, edgeIndicesMap );
+
+        // Write the edge indices of all primitive elements into the maya file.
+        writeEdges ( mesh, edgeIndices, meshNode );
+
+        // Write the face informations of all primitive elements into the maya file.
+        writeFaces ( mesh, edgeIndicesMap, meshNode );
+
+        // Fills the PrimitivesMap and the ShadingEnginePrimitivesMap. 
+        // Used to create the connections between the shading engines and the geometries.
+        setMeshPrimitiveShadingEngines ( mesh );
     }
 
     // --------------------------------------------
@@ -221,8 +364,7 @@ namespace COLLADAMaya
                 if ( groupInfo == 0 )
                 {
                     // Create the maya group object 
-                    String groupName ( GROUPID_NAME );
-                    groupName = mGroupIdList.addId ( groupName, true, true );
+                    String groupName = getDocumentImporter ()->getGroupIdList ().addId ( GROUPID_NAME, true, true );
                     FILE* file = getDocumentImporter ()->getFile ();
                     MayaDM::GroupId groupId ( file, groupName );
 
@@ -235,97 +377,6 @@ namespace COLLADAMaya
 
             ++geometryInstanceIndex;
         }
-    }
-
-    // --------------------------------------------
-    void GeometryImporter::createMesh ( 
-        const COLLADAFW::Mesh* mesh, 
-        MayaNode* mayaTransformNode, 
-        size_t numNodeInstances )
-    {
-        // Create a unique name.
-        String meshName = mesh->getName ();
-        if ( COLLADABU::Utils::equals ( meshName, "" ) ) 
-            meshName = GEOMETRY_NAME;
-        meshName = DocumentImporter::frameworkNameToMayaName ( meshName );
-        meshName = mMeshNodeIdList.addId ( meshName );
-
-        // TODO
-        // Add the name also to the id list of the materials, about the name of a material 
-        // can't be the same as the name of a geometry or a node.
-
-
-        // Create a maya node object of the current node and push it into the map.
-        const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
-        MayaNode* mayaMeshNode = new MayaNode ( geometryId, meshName, mayaTransformNode );
-        mMayaMeshNodesMap [ geometryId ] = mayaMeshNode;
-
-        // Get the parent transform node name.
-        if ( mayaTransformNode == NULL ) 
-        {
-            assert ( mayaTransformNode != NULL );
-            MGlobal::displayError ( "No transform node! ");
-            return;
-        }
-        const COLLADAFW::UniqueId& transformNodeId = mayaTransformNode->getUniqueId ();
-        String transformNodePath = mayaTransformNode->getNodePath ();
-
-        // Create the current mesh node.
-        FILE* file = getDocumentImporter ()->getFile ();
-        MayaDM::Mesh meshNode ( file, meshName, transformNodePath );
-        mMayaDMMeshNodesMap [geometryId] = meshNode;
-
-        // Add the original id attribute.
-        String colladaId = mesh->getOriginalId ();
-        if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
-        {
-            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
-        }
-
-        // Writes the object groups for every mesh primitive and
-        // gets all shader engines, which are used by the primitive elements of the mesh.
-        writeObjectGroups ( mesh, meshNode, transformNodeId );
-
-        // Write the vertex positions. 
-        writeVertexPositions ( mesh, meshNode );
-
-        // Write the normals. 
-        if ( ImportOptions::importNormals () )
-        {
-            writeNormals ( mesh, meshNode );
-        }
-
-        // Write the uv corrdinates.
-        writeUVSets ( mesh, meshNode );
-
-        // TODO Implementation: set current uv set
-//        writeCurrentUVSet ( mesh, meshNode );
-
-        // Write the uv corrdinates.
-        writeColorSets ( mesh, meshNode );
-
-        // The vector of edge indices. We use it to write the list of edges into 
-        // the maya file. The vector is already sorted.
-        std::vector<COLLADAFW::Edge> edgeIndices;
-
-        // We store the edge indices also in a sorted map. The dublicate data holding 
-        // is reasonable, because we need the index of a given edge. The search of  
-        // values in a map is much faster than in a vector!
-        std::map<COLLADAFW::Edge,size_t> edgeIndicesMap;
-
-        // Iterates over the mesh primitives and reads the edge indices.
-        getEdgeIndices ( mesh, edgeIndices, edgeIndicesMap );
-
-        // Write the edge indices of all primitive elements into the maya file.
-        writeEdges ( mesh, edgeIndices, meshNode );
-
-        // Write the face informations of all primitive elements into the maya file.
-        writeFaces ( mesh, edgeIndicesMap, meshNode );
-
-        // Fills the PrimitivesMap and the ShadingEnginePrimitivesMap. 
-        // Used to create the connections between the shading engines and the geometries.
-        setMeshPrimitiveShadingEngines ( mesh );
     }
 
     // --------------------------------------------
@@ -355,18 +406,21 @@ namespace COLLADAMaya
         //          addAttr (objectGrpCompList)
 
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
-
         size_t globalInstanceCount = 0;
 
         // Count the geometry instances.
         const UniqueIdVec* geometryInstanceTransformIds = visualSceneImporter->findGeometryTransformIds ( geometryId );
-        size_t numGeometryInstancesTransformIds = geometryInstanceTransformIds->size ();
-        for ( size_t n=0; n<numGeometryInstancesTransformIds; ++n )
+        // TODO Nothing happens, if we don't have instances???
+        if ( geometryInstanceTransformIds )
         {
-            // Count the transform node instances, which have the geometry as a child.
-            const COLLADAFW::UniqueId& currentTransformNodeId = (*geometryInstanceTransformIds) [n];
-            size_t numTransformNodeInstances = visualSceneImporter->getNumTransformInstances ( currentTransformNodeId );
-            globalInstanceCount += numTransformNodeInstances;
+            size_t numGeometryInstancesTransformIds = geometryInstanceTransformIds->size ();
+            for ( size_t n=0; n<numGeometryInstancesTransformIds; ++n )
+            {
+                // Count the transform node instances, which have the geometry as a child.
+                const COLLADAFW::UniqueId& currentTransformNodeId = (*geometryInstanceTransformIds) [n];
+                size_t numTransformNodeInstances = visualSceneImporter->getNumTransformInstances ( currentTransformNodeId );
+                globalInstanceCount += numTransformNodeInstances;
+            }
         }
 
         // Iterate over the object instances.
@@ -594,7 +648,9 @@ namespace COLLADAMaya
         for ( size_t i=0; i<numUVSets; ++i )
         {
             // Set the name of the current uv set.
-            meshNode.setUvSetName ( i, uvCoords.getName ( i ) );
+            String uvSetName = uvCoords.getName ( i );
+            meshNode.setUvSetName ( i, uvSetName );
+            if ( i == 0 ) meshNode.setCurrentUVSet ( uvSetName );
 
             size_t stride = uvCoords.getStride ( i );
             assert ( stride > 1 && stride <= 4 );
@@ -667,7 +723,9 @@ namespace COLLADAMaya
         for ( size_t c=0; c<numColorSets; ++c )
         {
             // Set the name of the current color set.
-            meshNode.setColorName ( c, colors.getName ( c ) );
+            String colorName = colors.getName ( c );
+            meshNode.setColorName ( c, colorName );
+            if ( c == 0 ) meshNode.setCurrentColorSet ( colorName );
 
             size_t stride = colors.getStride ( c );
             assert ( stride == 1 || stride == 3 || stride <= 4 );
@@ -1491,6 +1549,16 @@ namespace COLLADAMaya
         return NULL;
     }
 
+    // --------------------------------------------
+    const MayaDM::Mesh* GeometryImporter::findMayaDMControllerMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const
+    {
+        UniqueIdMayaDMMeshMap::const_iterator it = mMayaDMControllerMeshNodesMap.find ( uniqueId );
+        if ( it != mMayaDMControllerMeshNodesMap.end () )
+            return &(*it).second;
+
+        return NULL;
+    }
+    
     // --------------------------------------------
     MayaDM::Mesh* GeometryImporter::findMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId )
     {

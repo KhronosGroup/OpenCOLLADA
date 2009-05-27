@@ -164,18 +164,15 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest(begin__controller(attributeData));
 		if ( attributeData.id )
-		{
 			mCurrentControllerId = attributeData.id;
-		}
 
 		if ( attributeData.name )
-		{
 			mCurrentControllerName = attributeData.name;
-		}
 		else if ( attributeData.id )
-		{
 			mCurrentControllerName = attributeData.id;
-		}
+
+        if ( attributeData.id )
+            mOriginalId = ( (const char*)attributeData.id );
 
 		return true;
 	}

@@ -100,7 +100,7 @@ namespace COLLADAMaya
         /** Set the list of skeleton-Ids. It indicates where a skin
             controller is to start to search for the joint nodes
             it needs. This element is meaningless for morph controllers. */
-        std::set<String> mSkeletonIds;
+        std::set<URI> mSkeletonURIs;
 
     public:
 
@@ -255,20 +255,15 @@ namespace COLLADAMaya
          */
         bool getHasJoint () { return mHasJoint; }
 
-        /** Set the skeletonId. It indicates where a skin
+        /** Set the skeleton uri. It indicates where a skin
         controller is to start to search for the joint nodes
         it needs. This element is meaningless for morph controllers. */
-        const std::set<String>& getSkeletonIds () const { return mSkeletonIds; }
+        const std::set<URI>& getSkeletonURIs () const { return mSkeletonURIs; }
 
-        /** Set the skeletonId. It indicates where a skin
+        /** Set the skeleton uri. It indicates where a skin
         controller is to start to search for the joint nodes
         it needs. This element is meaningless for morph controllers. */
-        void setSkeletonIds ( const std::set<String>& val ) { mSkeletonIds = val; }
-
-        /** Set the skeletonId. It indicates where a skin
-        controller is to start to search for the joint nodes
-        it needs. This element is meaningless for morph controllers. */
-        void addSkeletonId ( const String& val ) { mSkeletonIds.insert ( val ); }
+        void addSkeletonURI ( const URI& val ) { mSkeletonURIs.insert ( val ); }
 
     private:
 

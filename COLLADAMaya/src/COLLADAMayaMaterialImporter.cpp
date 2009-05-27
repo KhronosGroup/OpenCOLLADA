@@ -18,6 +18,7 @@
 #include "COLLADAMayaEffectImporter.h"
 #include "COLLADAMayaGeometryImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
+#include "COLLADAMayaControllerImporter.h"
 
 #include "MayaDMMesh.h"
 #include "MayaDMLambert.h"
@@ -190,11 +191,9 @@ namespace COLLADAMaya
     // -----------------------------------
     void MaterialImporter::writeShaderData ( 
         const COLLADAFW::UniqueId& transformId, 
-        const COLLADAFW::InstanceGeometry* instanceGeometry )
+        const COLLADAFW::InstanceGeometry* instanceGeometry, 
+        const COLLADAFW::UniqueId& geometryId )
     {
-         // Get the geometry id.
-         const COLLADAFW::UniqueId& geometryId = instanceGeometry->getInstanciatedObjectId ();
-
          // Create a shading binding object for the current geometry.
          GeometryBinding geometryBinding;
          geometryBinding.setGeometryId ( geometryId );
@@ -389,6 +388,11 @@ namespace COLLADAMaya
         // Get a pointer to the geometry importer.
         GeometryImporter* geometryImporter = getDocumentImporter ()->getGeometryImporter ();
         VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
+        ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+
+        // If we have one or more controllers, the material groupIds have to 
+        // connect to the geometry object groups on a later index position.
+        const size_t objectGroupsInitialIndex = controllerImporter->getObjectGroupsInitialIndex ();
 
         size_t geometryInstance = 0;
 
@@ -434,17 +438,11 @@ namespace COLLADAMaya
                         MGlobal::displayError ( "Mesh doesn't exist! ");
                         return;
                     }
-                    MayaNode* mayaMeshNode = geometryImporter->findMayaMeshNode ( geometryId );
 
                     // Set the current transformation path.
                     String meshName = mesh->getName ();
                     String meshPath = transformPathes [transformInstance] + "|" + meshName;
                     mesh->setName ( meshPath );
-
-                    //std::vector<GroupInfo>* groupInfos = geometryImporter->findShadingBindingGroups ( geometryId, transformId, shadingEngineId );
-                    //size_t numPrimitiveElements = groupInfos->size ();
-                    //size_t numPrimitiveElements = shadingBindingGroups->size ();
-                    //size_t numPrimitiveElements = numMaterialInfos;
 
                     // We just need connections to objectGroups, if we have multiple geometry 
                     // instances or multiple mesh primitive elements.
@@ -463,10 +461,10 @@ namespace COLLADAMaya
                                 const size_t primitiveIndex = (*primitiveIndices) [i];
 
                                 // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
-                                connectNextAttr ( file, mesh->getObjectGroups ( primitiveIndex ), shadingEngine.getDagSetMembers () );
+                                connectNextAttr ( file, mesh->getObjectGroups ( objectGroupsInitialIndex+primitiveIndex ), shadingEngine.getDagSetMembers () );
 
                                 // connectAttr "lambert2SG.memberWireframeColor" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGrpColor";
-                                connectAttr ( file, shadingEngine.getMemberWireframeColor (), mesh->getObjectGrpColor ( primitiveIndex ) );
+                                connectAttr ( file, shadingEngine.getMemberWireframeColor (), mesh->getObjectGrpColor ( objectGroupsInitialIndex+primitiveIndex ) );
                             }
                         }
                     }
@@ -497,7 +495,7 @@ namespace COLLADAMaya
                             if ( transformInstanceIndex == transformInstance )
                             {
                                 // connectAttr "groupId1.groupId" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGroupId";
-                                connectAttr ( file, groupId.getGroupId (), mesh->getObjectGroupId ( primitiveIndex ) );
+                                connectAttr ( file, groupId.getGroupId (), mesh->getObjectGroupId ( objectGroupsInitialIndex+primitiveIndex ) );
                             }
                         }
                     }

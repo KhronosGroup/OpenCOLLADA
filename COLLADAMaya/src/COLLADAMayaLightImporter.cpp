@@ -418,7 +418,8 @@ namespace COLLADAMaya
                 //connectAttr "spotLight1.instObjGroups" ":defaultLightSet.dagSetMembers" -nextAvailable;
                 //connectAttr "|spotLight2.instObjGroups" ":defaultLightSet.dagSetMembers" -nextAvailable;
                 //connectAttr "spotLight3.instObjGroups" ":defaultLightSet.dagSetMembers" -nextAvailable;
-                connectAttr ( file, transformNode.getInstObjGroups (0), mDefaultLightSet.getDagSetMembers (lightSetIndex) );
+                connectNextAttr ( file, transformNode.getInstObjGroups (), mDefaultLightSet.getDagSetMembers () );
+                //connectAttr ( file, transformNode.getInstObjGroups (0), mDefaultLightSet.getDagSetMembers (lightSetIndex) );
                 ++lightSetIndex;
 
                 ++nodesIter;

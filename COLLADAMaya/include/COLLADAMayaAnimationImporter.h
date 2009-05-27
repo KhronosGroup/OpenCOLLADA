@@ -22,8 +22,6 @@
 #include "COLLADAFWSkew.h"
 #include "COLLADAFWTranslate.h"
 
-#include "COLLADABUIDList.h"
-
 #include "MayaDMAnimCurveTL.h"
 #include "MayaDMAnimCurveTU.h"
 #include "MayaDMAnimCurveTA.h"
@@ -273,13 +271,6 @@ namespace COLLADAMaya
             MayaDM::AnimCurve* animCurve, 
             const size_t outputIndex,
             const bool normalize = true );
-
-        /**
-        * Returns the value at the given position of the given array as double value.
-        */
-        double getDoubleValue ( 
-            const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
-            const size_t position );
 
         /**
         * Returns true, if the given id is in the list.

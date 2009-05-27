@@ -24,6 +24,7 @@
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaAnimationExporter.h"
+#include "COLLADAMayaVisualSceneExporter.h"
 
 #include <assert.h>
 
@@ -607,9 +608,23 @@ namespace COLLADAMaya
         unsigned int numInfluences = influences.length();
         for ( unsigned int i=0; i<numInfluences; ++i )
         {
+            // Get the scene element.
             MDagPath skeletonPath = influences [i];
-            String skeletonId = mDocumentExporter->dagPathToColladaId( skeletonPath );
-            sceneElement->addSkeletonId ( skeletonId );
+            SceneElement* sceneElement = mDocumentExporter->getSceneGraph ()->findElement ( skeletonPath );
+
+            // Get the collada id.
+            String mayaNodeId = sceneElement->getNodeId();
+            if ( mayaNodeId.empty() )
+                mayaNodeId = sceneElement->getNodeName();
+            VisualSceneExporter* visualSceneExporter = mDocumentExporter->getVisualSceneExporter ();
+            String colladaNodeId = visualSceneExporter->findColladaNodeId ( mayaNodeId );
+
+            colladaNodeId = visualSceneExporter->getColladaNodeId ( skeletonPath );
+
+            // Get the uri of the current scene
+            COLLADASW::URI skeletonUri ( visualSceneExporter->getSceneElementURI ( sceneElement, colladaNodeId ) );
+            // String skeletonId = mDocumentExporter->dagPathToColladaId( skeletonPath );
+            sceneElement->addSkeletonURI ( skeletonUri );
 
             // Set the id on the other instanced nodes.
             bool isInstanced = targetDagPath.isInstanced ();
@@ -620,7 +635,7 @@ namespace COLLADAMaya
             {
                 SceneElement* foundElement = mDocumentExporter->getSceneGraph()->findElement( pathes[i] );
                 if ( foundElement != NULL )
-                    foundElement->addSkeletonId ( skeletonId );
+                    foundElement->addSkeletonURI ( skeletonUri );
             }
         }
 
@@ -695,9 +710,10 @@ namespace COLLADAMaya
             uint weightCount = weights.length();
             for (uint i = 0; i < weightCount; ++i)
             {
-                if (!COLLADABU::Math::Utils::equals(weights[i], Weight(0), getTolerance ()))
+                Weight weight = weights[i];
+                if (!COLLADABU::Math::Utils::equals(weight, Weight(0), getTolerance ()))
                 {
-                    vertex[i] = (float)weights[i];
+                    vertex[i] = (float)weight;
                 }
             }
         }

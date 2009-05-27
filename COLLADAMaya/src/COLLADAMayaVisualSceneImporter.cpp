@@ -20,6 +20,7 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaMaterialImporter.h"
 #include "COLLADAMayaConversion.h"
+#include "COLLADAMayaControllerImporter.h"
 
 #include "MayaDMJoint.h"
 #include "MayaDMDependNode.h"
@@ -106,11 +107,6 @@ namespace COLLADAMaya
         const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
         if ( findMayaTransformNode ( transformNodeId ) != 0 ) return;
 
-        // Check for a parent node name
-        String parentNodeName = ""; 
-        if ( parentMayaNode != 0 )
-            parentNodeName = parentMayaNode->getName ();
-        
         // Get the unique node name
         String nodeName = node->getName ();
         if ( COLLADABU::Utils::equals ( nodeName, "" ) )
@@ -118,13 +114,18 @@ namespace COLLADAMaya
         nodeName = DocumentImporter::frameworkNameToMayaName ( nodeName );
         nodeName = mTransformNodeIdList.addId ( nodeName );
 
+        // Check for a parent node name
+        String parentNodeName = ""; 
+        if ( parentMayaNode != 0 )
+            parentNodeName = parentMayaNode->getName ();
+
         // Create a maya node object of the current node and push it into the map.
-        MayaNode* mayaNode = new MayaNode ( transformNodeId, nodeName, parentMayaNode, createNode );
-        mayaNode->setFrameworkNode ( node );
+        COLLADAFW::Node::NodeType nodeType = node->getType ();
+        MayaNode* mayaNode = new MayaNode ( transformNodeId, nodeName, parentMayaNode, nodeType, createNode );
         mMayaTransformNodesMap [ transformNodeId ].push_back ( mayaNode );
 
         // Create the node object (joint or node)
-        MayaDM::Transform* transformNode = createMayaNode ( node, nodeName, parentNodeName );
+        MayaDM::Transform* transformNode = createMayaDMNode ( node, nodeName, parentNodeName );
 
         // Get the current maya ascii file to write the data.
         FILE* file = getDocumentImporter ()->getFile ();
@@ -237,53 +238,6 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    void VisualSceneImporter::convertMatrix4ToTransposedDouble4x4 ( 
-        const COLLADABU::Math::Matrix4& inputMatrix, 
-        double outputMatrix[][4], 
-        const double tolerance )
-    {
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][0],tolerance)) outputMatrix[0][0] = 0.0;
-        else outputMatrix[0][0] = inputMatrix[0][0];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][1],tolerance)) outputMatrix[1][0] = 0.0;
-        else outputMatrix[1][0] = inputMatrix[0][1];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][2],tolerance)) outputMatrix[2][0] = 0.0;
-        else outputMatrix[2][0] = inputMatrix[0][2];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][3],tolerance)) outputMatrix[3][0] = 0.0;
-        else outputMatrix[3][0] = inputMatrix[0][3];
-//        outputMatrix[3][0] = 0;
-
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][0],tolerance)) outputMatrix[0][1] = 0.0;
-        else outputMatrix[0][1] = inputMatrix[1][0];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][1],tolerance)) outputMatrix[1][1] = 0.0;
-        else outputMatrix[1][1] = inputMatrix[1][1];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][2],tolerance)) outputMatrix[2][1] = 0.0;
-        else outputMatrix[2][1] = inputMatrix[1][2];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][3],tolerance)) outputMatrix[3][1] = 0.0;
-        else outputMatrix[3][1] = inputMatrix[1][3];
-//        outputMatrix[3][1] = 0;
-
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][0],tolerance)) outputMatrix[0][2] = 0.0;
-        else outputMatrix[0][2] = inputMatrix[2][0];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][1],tolerance)) outputMatrix[1][2] = 0.0;
-        else outputMatrix[1][2] = inputMatrix[2][1];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][2],tolerance)) outputMatrix[2][2] = 0.0;
-        else outputMatrix[2][2] = inputMatrix[2][2];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][3],tolerance)) outputMatrix[3][2] = 0.0;
-        else outputMatrix[3][2] = inputMatrix[2][3];
-//        outputMatrix[3][2] = 0;
-
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][0],tolerance)) outputMatrix[0][3] = 0.0;
-        else outputMatrix[0][3] = inputMatrix[3][0];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][1],tolerance)) outputMatrix[1][3] = 0.0;
-        else outputMatrix[1][3] = inputMatrix[3][1];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][2],tolerance)) outputMatrix[2][3] = 0.0;
-        else outputMatrix[2][3] = inputMatrix[3][2];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][3],tolerance)) outputMatrix[3][3] = 0.0;
-        else outputMatrix[3][3] = inputMatrix[3][3];
-//        outputMatrix[3][3] = 1;
-    }
-
-    // -----------------------------------
     void VisualSceneImporter::importMatrixJointTransform ( 
         const COLLADAFW::Node* node, 
         MayaDM::Transform* transformNode,
@@ -346,7 +300,7 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    MayaDM::Transform* VisualSceneImporter::createMayaNode ( 
+    MayaDM::Transform* VisualSceneImporter::createMayaDMNode ( 
         const COLLADAFW::Node* node, 
         const String& nodeName, 
         const String& parentNodeName )
@@ -363,15 +317,11 @@ namespace COLLADAMaya
         case COLLADAFW::Node::JOINT:
             {
                 transformNode = new MayaDM::Joint ( file, nodeName.c_str (), parentNodeName );
-//                 String message = "VisualSceneImporter::importVisualScene :: Transform type JOINT not implemented!";
-//                 std::cerr << message << std::endl;
-//                 MGlobal::displayError ( message.c_str () );
-//                 assert ( "Transform type JOINT not implemented!" );
                 break;
             }
         case COLLADAFW::Node::NODE:
             {
-                // Create the transform node of the current root node.
+                // Create the transform node object of the current node.
                 transformNode = new MayaDM::Transform ( file, nodeName.c_str (), parentNodeName );
                 break;
             }
@@ -548,7 +498,7 @@ namespace COLLADAMaya
                 if ( mayaTransform.axisPhaseRotateOrient1 != axis )
                 {
                     mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT2;
-                    mayaTransform.axisPhaseRotateOrient1 = axis;
+                    mayaTransform.axisPhaseRotateOrient2 = axis;
                 }
             }
             break;
@@ -603,8 +553,6 @@ namespace COLLADAMaya
                     // Set the phase to the next orientation.
                     mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT1;
                     mayaTransform.axisPhaseJointOrient1 = axis;
-//                     validMayaTransform = false;
-//                     return validMayaTransform;
                 }
                 else if ( mayaTransform.axisPhaseRotate2 != axis )
                 {
@@ -624,8 +572,6 @@ namespace COLLADAMaya
                     // Set the phase to the next orientation.
                     mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT1;
                     mayaTransform.axisPhaseJointOrient1 = axis;
-//                     validMayaTransform = false;
-//                     return validMayaTransform;
                 }
             }
             break;
@@ -676,67 +622,67 @@ namespace COLLADAMaya
         }
 
         // Add the rotation angle.
-        if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE_ORIENT3 )
+        if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE_ORIENT3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {
-                MVector rotation = mayaTransform.rotateOrient.asVector ();
-                rotation.x += angle;
-                mayaTransform.rotateOrient.setValue ( rotation );
+                MVector rotationVec = mayaTransform.rotateOrient.asVector ();
+                rotationVec.x += angle;
+                mayaTransform.rotateOrient.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
             {
-                MVector rotation = mayaTransform.rotateOrient.asVector ();
-                rotation.y += angle;
-                mayaTransform.rotateOrient.setValue ( rotation );
+                MVector rotationVec = mayaTransform.rotateOrient.asVector ();
+                rotationVec.y += angle;
+                mayaTransform.rotateOrient.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
             {
-                MVector rotation = mayaTransform.rotateOrient.asVector ();
-                rotation.z += angle;
-                mayaTransform.rotateOrient.setValue ( rotation );
+                MVector rotationVec = mayaTransform.rotateOrient.asVector ();
+                rotationVec.z += angle;
+                mayaTransform.rotateOrient.setValue ( rotationVec );
             }
         }
-        else if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE3 )
+        else if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {
-                MVector rotation = mayaTransform.rotation.asVector ();
-                rotation.x += angle;
-                mayaTransform.rotation.setValue ( rotation );
+                MVector rotationVec = mayaTransform.rotation.asVector ();
+                rotationVec.x += angle;
+                mayaTransform.rotation.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
             {
-                MVector rotation = mayaTransform.rotation.asVector ();
-                rotation.y += angle;
-                mayaTransform.rotation.setValue ( rotation );
+                MVector rotationVec = mayaTransform.rotation.asVector ();
+                rotationVec.y += angle;
+                mayaTransform.rotation.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
             {
-                MVector rotation = mayaTransform.rotation.asVector ();
-                rotation.z += angle;
-                mayaTransform.rotation.setValue ( rotation );
+                MVector rotationVec = mayaTransform.rotation.asVector ();
+                rotationVec.z += angle;
+                mayaTransform.rotation.setValue ( rotationVec );
             }
         }
-        else if ( mayaTransform.phase < MayaTransformation::PHASE_JOINT_ORIENT3 )
+        else if ( mayaTransform.phase <= MayaTransformation::PHASE_JOINT_ORIENT3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {
-                MVector rotation = mayaTransform.jointOrient.asVector ();
-                rotation.x += angle;
-                mayaTransform.jointOrient.setValue ( rotation );
+                MVector rotationVec = mayaTransform.jointOrient.asVector ();
+                rotationVec.x += angle;
+                mayaTransform.jointOrient.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
             {
-                MVector rotation = mayaTransform.jointOrient.asVector ();
-                rotation.y += angle;
-                mayaTransform.jointOrient.setValue ( rotation );
+                MVector rotationVec = mayaTransform.jointOrient.asVector ();
+                rotationVec.y += angle;
+                mayaTransform.jointOrient.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
             {
-                MVector rotation = mayaTransform.jointOrient.asVector ();
-                rotation.z += angle;
-                mayaTransform.jointOrient.setValue ( rotation );
+                MVector rotationVec = mayaTransform.jointOrient.asVector ();
+                rotationVec.z += angle;
+                mayaTransform.jointOrient.setValue ( rotationVec );
             }
         }
 
@@ -1005,7 +951,7 @@ namespace COLLADAMaya
         // Get the euler rotation and detect the rotation order.
         MEulerRotation eulerJointOrient = mayaTransform.jointOrient;
         MEulerRotation::RotationOrder jointOrientOrder = getRotationOrder ( mayaTransform.axisPhaseJointOrient1, mayaTransform.axisPhaseJointOrient2, mayaTransform.axisPhaseJointOrient3 );
-        MVector jointOrient = eulerRotateOrient.asVector ();
+        MVector jointOrient = eulerJointOrient.asVector ();
 
         // Get the scale.
         MVector scale = mayaTransform.scale;
@@ -1337,7 +1283,7 @@ namespace COLLADAMaya
             mGeometryTransformIdsMap [ geometryId ].push_back ( transformNodeId );
 
             // Read the shading engines.
-            readMaterialInstances ( transformNodeId, instanceGeometry );
+            readMaterialInstances ( transformNodeId, instanceGeometry, geometryId );
         }
 
         return true;
@@ -1360,8 +1306,17 @@ namespace COLLADAMaya
             // Save for every geometry a list of transform nodes, which refer to it.
             mControllerTransformIdsMap [ controllerId ].push_back ( transformNodeId );
 
+            // TODO Get the geometryId of the geometry, which is controlled from the current controller object.
+            ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+            const COLLADAFW::UniqueId* geometryId = controllerImporter->getControllersGeometryId ( controllerId );
+            if ( geometryId == NULL )
+            {
+                cerr << "No geometry for the current controller!" << endl;
+                return false;
+            }
+
             // Read the shading engines.
-            readMaterialInstances ( transformNodeId, instanceController );
+            readMaterialInstances ( transformNodeId, instanceController, *geometryId );
         }
 
         return true;
@@ -1370,11 +1325,12 @@ namespace COLLADAMaya
     // -----------------------------------
     void VisualSceneImporter::readMaterialInstances ( 
         const COLLADAFW::UniqueId& transformNodeId, 
-        const COLLADAFW::InstanceGeometry* instanceGeometry )
+        const COLLADAFW::InstanceGeometry* instanceGeometry, 
+        const COLLADAFW::UniqueId& geometryId )
     {
         // Write the shader data.
         MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
-        materialImporter->writeShaderData ( transformNodeId, instanceGeometry );
+        materialImporter->writeShaderData ( transformNodeId, instanceGeometry, geometryId );
     }
 
     // -----------------------------------
@@ -1484,7 +1440,7 @@ namespace COLLADAMaya
 
                     // Create the maya transform nodes for the internal transform graph of this
                     // node instance and all child nodes.
-                    MayaNode* mayaInstanceNode = new MayaNode ( instanceNodeId, childNodeName, mayaParentNode );
+                    MayaNode* mayaInstanceNode = new MayaNode ( instanceNodeId, childNodeName, mayaParentNode, mayaChildNode->getType () );
                     mMayaTransformNodesMap [ instanceNodeId ].push_back ( mayaInstanceNode );
                 }
             }

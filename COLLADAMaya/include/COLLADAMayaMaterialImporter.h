@@ -21,8 +21,6 @@
 #include "COLLADAMayaShadingBinding.h"
 #include "COLLADAMayaGeometryBinding.h"
 
-#include "COLLADABUIDList.h"
-
 #include "MayaDMDependNode.h"
 #include "MayaDMShadingEngine.h"
 #include "MayaDMMaterialInfo.h"
@@ -150,7 +148,8 @@ namespace COLLADAMaya
         /** Write the shader data into the maya file. */
         void writeShaderData ( 
             const COLLADAFW::UniqueId& transformNodeId, 
-            const COLLADAFW::InstanceGeometry* instanceGeometry );
+            const COLLADAFW::InstanceGeometry* instanceGeometry,
+            const COLLADAFW::UniqueId& geometryId );
 
         /**
          * Create the shader engine and the material info objects and returns them.

@@ -78,10 +78,35 @@ namespace COLLADAMaya
     //---------------------------------
     DocumentImporter::~DocumentImporter()
     {
-        releaseLibraries(); 
-
         // Close the maya ascii file
         closeMayaAsciiFile ();
+
+        // A copy of the framework's library visual scenes elements. 
+        for ( size_t i=0; i< mVisualScenesList.size (); ++i )
+        {
+            COLLADAFW::VisualScene* visualScene = mVisualScenesList [i];
+            delete visualScene;
+        }
+        mVisualScenesList.clear ();
+
+        // A copy of the framework's library nodes elements. 
+        for ( size_t i=0; i< mLibraryNodesList.size (); ++i )
+        {
+            COLLADAFW::LibraryNodes* libraryNodes = mLibraryNodesList [i];
+            delete libraryNodes;
+        }
+        mLibraryNodesList.clear ();
+
+        // A copy of the framework's library materials elements. 
+        for ( size_t i=0; i< mMaterialsList.size (); ++i )
+        {
+            COLLADAFW::Material* material = mMaterialsList [i];
+            delete material;
+        }
+        mMaterialsList.clear ();
+
+        // Delete the library elements.
+        releaseLibraries(); 
     }
 
     //---------------------------------
@@ -140,7 +165,8 @@ namespace COLLADAMaya
             COLLADASaxFWL::Loader::ASSET_FLAG | 
             COLLADASaxFWL::Loader::VISUAL_SCENES_FLAG |
             COLLADASaxFWL::Loader::LIBRARY_NODES_FLAG |
-            COLLADASaxFWL::Loader::MATERIAL_FLAG;
+            COLLADASaxFWL::Loader::MATERIAL_FLAG |
+            COLLADASaxFWL::Loader::CONTROLLER_FLAG;
         //mSaxLoader.setObjectFlags ( objectFlags );
 
         readColladaDocument();
@@ -266,7 +292,8 @@ namespace COLLADAMaya
                 COLLADASaxFWL::Loader::IMAGE_FLAG |
                 COLLADASaxFWL::Loader::LIGHT_FLAG |
                 COLLADASaxFWL::Loader::ANIMATION_FLAG |
-                COLLADASaxFWL::Loader::ANIMATION_LIST_FLAG;
+                COLLADASaxFWL::Loader::ANIMATION_LIST_FLAG | 
+                COLLADASaxFWL::Loader::SKIN_CONTROLLER_DATA_FLAG;
             //mSaxLoader.setObjectFlags ( objectFlags );
 
             readColladaDocument ();
@@ -282,15 +309,23 @@ namespace COLLADAMaya
             // the connections can be written into the maya file.
             if ( mFile != 0 )
             {
-                mMaterialImporter->writeConnections ();
-                mLightImporter->writeConnections ();
-                mEffectImporter->writeConnections ();
-                mControllerImporter->writeConnections ();
+                writeConnections();
             }
 
             // Close the file
             closeMayaAsciiFile ();
         }
+    }
+
+    //-----------------------------
+    void DocumentImporter::writeConnections ()
+    {
+        // If we have one or more controllers, the material groupIds have to 
+        // connect to the geometry object groups on a later index position.
+        mControllerImporter->writeConnections ();
+        mMaterialImporter->writeConnections ();
+        mLightImporter->writeConnections ();
+        mEffectImporter->writeConnections ();
     }
 
     //-----------------------------
@@ -797,6 +832,18 @@ namespace COLLADAMaya
     bool DocumentImporter::writeSkinControllerData ( 
         const COLLADAFW::SkinControllerData* skinControllerData )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeSkinControllerData(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+        
+        if ( mParseStep == SECOND_PARSING )
+        {
+            mControllerImporter->importSkinControllerData ( skinControllerData );
+        }
+
         return true;
     }
 
@@ -804,6 +851,20 @@ namespace COLLADAMaya
     bool DocumentImporter::writeController ( 
         const COLLADAFW::Controller* controller )
     {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeController(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
+        if ( mParseStep <= COPY_FIRST_ELEMENTS )
+        {
+            // Make a copy of the material element and push it into the list.
+            mParseStep = COPY_FIRST_ELEMENTS;
+            mControllerImporter->storeController ( controller );
+        }
+
         return true;
     }
 

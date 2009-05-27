@@ -15,10 +15,8 @@
 #include "COLLADAMayaBaseImporter.h"
 #include "COLLADAMayaEffectAnimation.h"
 
-#include "COLLADABUIDList.h"
-
 #include "COLLADAFWEffectCommon.h"
-//#include "COLLADAFWFloatOrParam.h"
+#include "COLLADAFWFloatOrParam.h"
 
 #include "MayaDMLambert.h"
 #include "MayaDMBlinn.h"
@@ -178,6 +176,11 @@ namespace COLLADAMaya
          * The map holds for every animation id the information about the animated effect element.
          */
         EffectAnimationMap mEffectAnimationMap;
+
+        /**
+         * The list contains all image ids, which are already connected to the default texture list.
+         */
+        std::vector<COLLADAFW::UniqueId> mConnectedImageList;
 
     public:
 
@@ -359,6 +362,11 @@ namespace COLLADAMaya
         void connectTextureAttribute ( 
             const EffectImporter::ShaderNodeAttribute& shaderNodeAttribute, 
             const MayaDM::File* imageFile );
+
+        /**
+         * Check if the image is already in the list of the connected images.
+         */
+        const bool isConnectedImage ( const COLLADAFW::UniqueId& imageId ) const;
 
 	};
 

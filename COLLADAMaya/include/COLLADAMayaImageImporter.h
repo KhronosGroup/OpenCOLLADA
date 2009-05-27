@@ -15,8 +15,6 @@
 #include "COLLADAMayaBaseImporter.h"
 #include "COLLADAMayaEffectImporter.h"
 
-#include "COLLADABUIDList.h"
-
 #include "COLLADAFWImage.h"
 
 #include <MayaDMFile.h>

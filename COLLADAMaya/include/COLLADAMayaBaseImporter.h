@@ -19,10 +19,13 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentImporter.h"
 
+#include "COLLADABUIDList.h"
 #include "Math/COLLADABUMathVector3.h"
 
 #include "MayaDMTypes.h"
 #include "MayaDMLambert.h"
+
+#include "COLLADAFWFloatOrDoubleArray.h"
 
 
 namespace COLLADAMaya
@@ -67,6 +70,11 @@ namespace COLLADAMaya
 
         /** The standard name for the collada id attribute. */
         static const String COLLADA_ID_ATTRIBUTE_NAME;
+
+    protected:
+
+        /** The standard name for a group without name. */
+        static const String GROUPID_NAME;
 
     private:
 
@@ -152,6 +160,21 @@ namespace COLLADAMaya
         {
             return getDocumentImporter ()->getTolerance ();
         }
+
+        /*
+        *	Transform the input matrix and convert it in a double[4][4] matrix.
+        */
+        void convertMatrix4ToTransposedDouble4x4 ( 
+            const COLLADABU::Math::Matrix4& inputMatrix, 
+            double outputMatrix[][4], 
+            const double tolerance );
+
+        /**
+        * Returns the value at the given position of the given array as double value.
+        */
+        double getDoubleValue ( 
+            const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
+            const size_t position );
 
     };
 }

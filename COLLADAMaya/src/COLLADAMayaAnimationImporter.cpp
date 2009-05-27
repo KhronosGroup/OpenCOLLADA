@@ -1087,39 +1087,6 @@ namespace COLLADAMaya
     }
 
     //------------------------------
-    double AnimationImporter::getDoubleValue ( 
-        const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
-        const size_t position )
-    {
-        double inputValue = 0;
-
-        size_t numInputValues = inputValuesArray.getValuesCount ();
-        if ( position > numInputValues -1 )
-            MGlobal::displayError ("Out of range error!");
-
-        const COLLADAFW::FloatOrDoubleArray::DataType& inputDataType = inputValuesArray.getType ();
-        switch ( inputDataType )
-        {
-        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE:
-            {
-                const COLLADAFW::DoubleArray* inputValues = inputValuesArray.getDoubleValues ();
-                inputValue = (*inputValues) [position];
-            }
-            break;
-        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT:
-            {
-                const COLLADAFW::FloatArray* inputValues = inputValuesArray.getFloatValues ();
-                inputValue = (double)(*inputValues) [position];
-            }
-            break;
-        default:
-            MGlobal::displayError ( "AnimationImporter::setInTangents(): inputDataType unknown data type!" );
-        }
-
-        return inputValue;
-    }
-
-    //------------------------------
     const bool AnimationImporter::findAnimation ( const COLLADAFW::UniqueId& animationId )
     {
         UniqueIdVec::const_iterator it = mAnimationIds.begin ();

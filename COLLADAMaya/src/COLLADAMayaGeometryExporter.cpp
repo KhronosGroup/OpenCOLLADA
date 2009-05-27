@@ -189,7 +189,8 @@ namespace COLLADAMaya
         if ( status != MStatus::kSuccess ) return false;
 
         // Get the maya mesh id.
-        String mayaMeshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
+        String mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        String mayaMeshName = mDocumentExporter->dagPathToColladaName ( dagPath );
 
         // Generate a COLLADA id for the new object.
         String colladaMeshId;
@@ -217,23 +218,15 @@ namespace COLLADAMaya
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();
 
-//         // Check if the geometry isn't already exported
-//         std::vector<String>::iterator geometryIter;
-//         geometryIter = find ( mExportedGeometries.begin(), mExportedGeometries.end(), meshId );
-//         if ( geometryIter != mExportedGeometries.end() ) return false;
-// 
-//         // Push the geometry in the list of exported geometries
-//         mExportedGeometries.push_back ( meshId );
-
         // Write the mesh data
-        return exportMesh ( fnMesh, colladaMeshId, mayaMeshId );
+        return exportMesh ( fnMesh, colladaMeshId, mayaMeshName );
     }
 
     // --------------------------------------------------------
     bool GeometryExporter::exportMesh ( 
         MFnMesh& fnMesh, 
         const String& colladaMeshId, 
-        const String& mayaMeshId )
+        const String& mayaMeshName )
     {
         // Clear the list with the current polygons and the list with the vertexes
         mPolygonSources.clear();
@@ -247,7 +240,7 @@ namespace COLLADAMaya
         std::vector<String> texcoordIds = generateTexCoordIds ( uvSetNames, colladaMeshId );
 
         // Opens the mesh tag in the collada document
-        openMesh ( colladaMeshId, mayaMeshId );
+        openMesh ( colladaMeshId, mayaMeshName );
 
         // Export the vertex positions
         exportVertexPositions ( fnMesh, colladaMeshId );

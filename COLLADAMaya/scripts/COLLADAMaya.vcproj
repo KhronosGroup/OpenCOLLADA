@@ -72,7 +72,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -159,7 +159,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -241,7 +241,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -329,7 +329,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
@@ -414,7 +414,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -502,7 +502,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -585,7 +585,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -675,7 +675,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -759,7 +759,7 @@
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="msvcrt"
@@ -847,7 +847,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -933,7 +933,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -1020,7 +1020,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -1105,7 +1105,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -1196,7 +1196,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
@@ -1280,7 +1280,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -1369,7 +1369,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
@@ -1400,173 +1400,6 @@
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
 				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH80%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH80%\scripts\others&quot;&#x0D;&#x0A;"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DebugPlugin70|Win32"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
-				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				UsePrecompiledHeader="1"
-				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
-				Version="0.9.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
-				IgnoreDefaultLibraryNames="msvcrt"
-				GenerateDebugInformation="true"
-				LinkTimeCodeGeneration="0"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH70%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH70%\scripts\others&quot;&#x0D;&#x0A;"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DebugPlugin70|x64"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
-				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;$(NOINHERIT)"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="1"
-				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
-				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="0.9.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
-				IgnoreDefaultLibraryNames="msvcrt"
-				GenerateDebugInformation="true"
-				TargetMachine="17"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine=""
-				ExcludedFromBuild="true"
 			/>
 		</Configuration>
 		<Configuration
@@ -1619,7 +1452,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -1708,7 +1541,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
@@ -1793,7 +1626,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -1880,7 +1713,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -1910,178 +1743,6 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				CommandLine=""
-			/>
-		</Configuration>
-		<Configuration
-			Name="ReleasePlugin70|Win32"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
-				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
-				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
-				WarningLevel="2"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
-				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="0.9.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
-				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames=""
-				OptimizeReferences="1"
-				EnableCOMDATFolding="1"
-				LinkTimeCodeGeneration="0"
-				EntryPointSymbol=""
-				ResourceOnlyDLL="false"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH70%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH70%\scripts\others&quot;&#x0D;&#x0A;"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ReleasePlugin70|x64"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
-				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
-				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
-				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="0.9.2"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
-				IgnoreAllDefaultLibraries="false"
-				LinkTimeCodeGeneration="1"
-				TargetMachine="17"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH70%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH70%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -2136,7 +1797,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -2224,7 +1885,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -2307,7 +1968,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -2397,7 +2058,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.9.2"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
@@ -2533,22 +2194,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="ReleasePlugin70|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin70|x64"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="ReleaseConsole2009|Win32"
 						>
 						<Tool
@@ -2558,6 +2203,22 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseConsole2009|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -3130,20 +2791,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="DebugPlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DebugPlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
 						>
 						<Tool
@@ -3172,20 +2819,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="ReleasePlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="DebugConsole2009|Win32"
 						>
 						<Tool
@@ -3208,6 +2841,34 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseConsole2009|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -3330,20 +2991,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="DebugPlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DebugPlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
 						>
 						<Tool
@@ -3372,20 +3019,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="ReleasePlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="DebugConsole2009|Win32"
 						>
 						<Tool
@@ -3408,6 +3041,34 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseConsole2009|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -3534,20 +3195,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="DebugPlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DebugPlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
 						>
 						<Tool
@@ -3576,20 +3223,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="ReleasePlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="DebugConsole2009|Win32"
 						>
 						<Tool
@@ -3612,6 +3245,34 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseConsole2009|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -3746,20 +3407,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="DebugPlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DebugPlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
 						>
 						<Tool
@@ -3788,20 +3435,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="ReleasePlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="DebugConsole2009|Win32"
 						>
 						<Tool
@@ -3824,6 +3457,34 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseConsole2009|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -3954,20 +3615,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="DebugPlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DebugPlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
 						>
 						<Tool
@@ -3996,20 +3643,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="ReleasePlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="DebugConsole2009|Win32"
 						>
 						<Tool
@@ -4032,6 +3665,34 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseConsole2009|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -4170,20 +3831,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="DebugPlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DebugPlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
 						>
 						<Tool
@@ -4212,20 +3859,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="ReleasePlugin70|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin70|x64"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="DebugConsole2009|Win32"
 						>
 						<Tool
@@ -4248,6 +3881,34 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseConsole2009|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						>
 						<Tool
 							Name="VCCustomBuildTool"

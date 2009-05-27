@@ -29,6 +29,8 @@
 
 #include "MayaDMMesh.h"
 
+#include "COLLADABUIDList.h"
+
 #include <set>
 
 
@@ -59,21 +61,24 @@ namespace COLLADAMaya
      *      - Copy visual scene
      *      - Copy library nodes
      *      - Copy materials
+     *      - Copy controllers
      * 1.3) Read scene (is always at the end of a collada document)
      * 
      * 2.) Between first and second parsing:
      * 2.1) Import referenced visual scene
      * 2.3) Import referenced library nodes
      * 2.4) Import node instances
-     * 2.5) Import materials
+     * 2.5) Import (referenced?) materials (TODO Why not directly import? Depends on import all or just referenced materials)
      *
      * 3.) Second parsing:
      * 3.1) Import all data directly, the order doesn't matter:
+     *      - Import geometries
      *      - Import effects
      *      - Import cameras 
-     *      - Import lights
      *      - Import images 
+     *      - Import lights
      *      - Import animations
+     *      - Import skinControllerDatas
      * 4.) After second parsing:
      * 4.1) Make all connections, the order doesn't matter:
      *      - materials / effects
@@ -98,7 +103,7 @@ namespace COLLADAMaya
             NO_PARSING = 0,
             FIRST_PARSING,
             IMPORT_ASSET,
-            COPY_FIRST_ELEMENTS,          // no order: scene, visual scene, library nodes, materials
+            COPY_FIRST_ELEMENTS,          // no order: scene, visual scene, library nodes, materials, writeController
 //            READ_SCENE,
 //             COPY_VISUAL_SCENE,
 //             COPY_LIBRARY_NODES,
@@ -129,7 +134,7 @@ namespace COLLADAMaya
         /** A copy of the framework's library nodes elements. */
         std::vector<COLLADAFW::LibraryNodes*> mLibraryNodesList;
 
-        /** A copy of the framework's library nodes elements. */
+        /** A copy of the framework's library materials elements. */
         std::vector<COLLADAFW::Material*> mMaterialsList;
 
         /** The buffer for fprintf. */
@@ -152,6 +157,11 @@ namespace COLLADAMaya
 
         /** Tolerance value in double to compare values. */
         double mDigitTolerance;
+
+        /**
+        * The list of the unique maya groupId names.
+        */
+        COLLADABU::IDList mGroupIdList;
 
         /**
         * How many real-world meters in one distance unit as a floating-point number.
@@ -263,6 +273,10 @@ namespace COLLADAMaya
         AnimationImporter* getAnimationImporter () { return mAnimationImporter; }
         const AnimationImporter* getAnimationImporter () const { return mAnimationImporter; }
         
+        /** Pointer to the controller importer. */
+        ControllerImporter* getControllerImporter () { return mControllerImporter; }
+        const ControllerImporter* getControllerImporter () const { return mControllerImporter; }
+
         /** This method will be called if an error in the loading process occurred and the loader 
         cannot continue to to load. The writer should undo all operations that have been performed.
         @param errorMessage A message containing informations about the error that occurred.
@@ -277,6 +291,11 @@ namespace COLLADAMaya
         * After the read of the collada document, the connections can be written into the maya file.
         */
         virtual void finish ();
+
+        /**
+         * Makes all the neccessary connections.
+         */
+        void writeConnections ();
 
         /** Start the import of the model.
         @return True on success, false otherwise. */
@@ -363,6 +382,11 @@ namespace COLLADAMaya
          * Replace offending characters by some that are supported within maya.
          */
         static String frameworkNameToMayaName ( const String& name );
+
+        /**
+        * The list of the unique maya groupId names.
+        */
+        COLLADABU::IDList& getGroupIdList () { return mGroupIdList; }
 
     private:
 

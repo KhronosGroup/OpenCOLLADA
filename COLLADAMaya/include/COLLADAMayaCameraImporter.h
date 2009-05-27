@@ -19,8 +19,6 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 
-#include "COLLADABUIDList.h"
-
 #include <MayaDMCamera.h>
 
 

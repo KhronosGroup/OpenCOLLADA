@@ -118,6 +118,14 @@ namespace COLLADAMaya
         */
         const String findColladaNodeId ( const String& mayaNodeId );
 
+        /**
+        * Creates the uri for the scene element. Checks for instances 
+        * and creates the right element.
+        */
+        COLLADASW::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = "" );
+
+        String getColladaNodeId ( const MDagPath &dagPath );
+
     private:
 
         /** Returns the tolerance value for double value comparison. */
@@ -179,12 +187,6 @@ namespace COLLADAMaya
         void exportLightInstance ( const SceneElement* childElement );
 
         /**
-         * Creates the uri for the scene element. Checks for instances 
-         * and creates the right element.
-         */
-        COLLADASW::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = "" );
-
-        /**
         * Exports the camera instances of the given transform scene element.
         * @param childElement The transform scene element.
         */
@@ -212,8 +214,6 @@ namespace COLLADAMaya
          * @param sceneElement The scene element of the node.
          */
         void openVisualSceneNode ( const SceneElement *sceneElement );
-
-        String createColladaNodeId ( const MDagPath &dagPath );
 
         /**
          * Compute local space parameters and export them. These parameters are:

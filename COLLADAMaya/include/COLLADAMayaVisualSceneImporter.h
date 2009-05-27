@@ -29,8 +29,6 @@
 #include "COLLADAFWLibraryNodes.h"
 #include "COLLADAFWSkew.h"
 
-#include "COLLADABUIDList.h"
-
 #include "Math/COLLADABUMathUtils.h"
 #include "Math/COLLADABUMathMatrix4.h"
 #include "Math/COLLADABUMathQuaternion.h"
@@ -205,12 +203,17 @@ namespace COLLADAMaya
         /** 
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
-        const MayaNodesList* findMayaTransformNode ( const COLLADAFW::UniqueId& transformId ) const;
+        const UniqueIdMayaNodesMap& getMayaTransformNodesMap () const { return mMayaTransformNodesMap; }
 
         /** 
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
         MayaNodesList* findMayaTransformNode ( const COLLADAFW::UniqueId& transformId );
+
+        /** 
+        * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
+        */
+        const MayaNodesList* findMayaTransformNode ( const COLLADAFW::UniqueId& transformId ) const;
 
         /**
          * The map holds for every transform node a list of all existing parent transform nodes
@@ -320,20 +323,13 @@ namespace COLLADAMaya
          */
         void readMaterialInstances ( 
             const COLLADAFW::UniqueId& transformNodeId, 
-            const COLLADAFW::InstanceGeometry* instanceGeometry );
+            const COLLADAFW::InstanceGeometry* instanceGeometry,
+            const COLLADAFW::UniqueId& geometryId );
 
         /**
          * Handle the node instances. 
          */
         bool readNodeInstances ( const COLLADAFW::Node* node );
-
-        /*
-         *	Transform the input matrix and convert it in a double[4][4] matrix.
-         */
-        void convertMatrix4ToTransposedDouble4x4 ( 
-            const COLLADABU::Math::Matrix4& inputMatrix, 
-            double outputMatrix[][4], 
-            const double tolerance );
 
         /** 
          * Imports the current transformations. 
@@ -434,7 +430,7 @@ namespace COLLADAMaya
         /**
         * Creates a node or joint object.
         */
-        MayaDM::Transform* createMayaNode ( 
+        MayaDM::Transform* createMayaDMNode ( 
             const COLLADAFW::Node* node, 
             const String& nodeName, 
             const String& parentNodeName );
