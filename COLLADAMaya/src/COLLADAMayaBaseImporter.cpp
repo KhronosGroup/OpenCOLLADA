@@ -28,7 +28,8 @@ namespace COLLADAMaya
     const String BaseImporter::COLLADA_ID_ATTRIBUTE_NAME = "colladaId";
 
     /** The standard name for a group without name. */
-    const String BaseImporter::GROUPID_NAME = "GroupId";
+    const String BaseImporter::GROUP_ID_NAME = "GroupId";
+    const String BaseImporter::GROUP_PARTS_NAME = "GroupParts";
 
 
     //-----------------------------

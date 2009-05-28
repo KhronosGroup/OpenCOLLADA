@@ -49,7 +49,6 @@ namespace COLLADAMaya
         static const String SKIN_CLUSTER_NAME;
         static const String TWEAK_NAME;
         static const String SET_NAME;
-        static const String GROUP_PARTS_NAME;
 
     public:
 
@@ -78,10 +77,10 @@ namespace COLLADAMaya
             void setJointCount ( const size_t& val ) { mJointCount = val; }
         };
 
-    private:
-
-        // Create a data store object to hold all the MayaDM objects of the current controller.
-        // The objects will be needed, to make all the connections.
+        /**
+         * Create a data store object to hold all the MayaDM objects of the current controller.
+         * The objects will be needed, to make all the connections.
+         */
         class ControllerData
         {
         private:
@@ -130,7 +129,6 @@ namespace COLLADAMaya
         */
         COLLADABU::IDList mSkinClusterIdList;
         COLLADABU::IDList mTweakIdList;
-        COLLADABU::IDList mGroupPartsIdList;
 
         /** 
         * The map holds the unique ids of the controller nodes to the maya specific nodes. 
@@ -225,6 +223,11 @@ namespace COLLADAMaya
          * The method returns the initial index position in depend on the number of controllers.
          */
         const size_t getObjectGroupsInitialIndex () const { return mObjectGroupsInitialIndex; }
+
+        /**
+        * The map holds a list of controller objects.
+        */
+        const ControllerData* findControllerData ( const COLLADAFW::UniqueId& skinControllerDataId );
 
     private:
 

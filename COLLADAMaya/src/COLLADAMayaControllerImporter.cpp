@@ -39,7 +39,6 @@ namespace COLLADAMaya
     const String ControllerImporter::SKIN_CLUSTER_NAME = "SkinCluster";
     const String ControllerImporter::TWEAK_NAME = "Tweak";
     const String ControllerImporter::SET_NAME = "Set";
-    const String ControllerImporter::GROUP_PARTS_NAME = "GroupParts";
 
 
     //------------------------------
@@ -112,6 +111,26 @@ namespace COLLADAMaya
         // deformed. Influence objects can be joints or any transform.
         createSkinCluster ( skinControllerData, controllerData );
 
+        // Create the groupId and the groupParts for the skinCluster.
+        String groupIdName = GROUP_ID_NAME;
+        groupIdName = DocumentImporter::frameworkNameToMayaName ( groupIdName );
+
+        String groupIdName1 = getDocumentImporter ()->getGroupIdIdList ().addId ( groupIdName, true, true );
+        MayaDM::GroupId groupId1 ( file, groupIdName1 );
+        groupId1.setIsHistoricallyInteresting (0);
+        controllerData.setGroupId1 ( groupId1 );
+
+        String groupPartsName = GROUP_PARTS_NAME;
+        groupPartsName = DocumentImporter::frameworkNameToMayaName ( groupPartsName );
+        MayaDM::componentList compList;
+        compList.push_back ( "vtx[*]" );
+
+        String groupPartsName1 = getDocumentImporter ()->getGroupPartsIdList ().addId ( groupPartsName, true, true );
+        MayaDM::GroupParts groupParts1 ( file, groupPartsName1 );
+        groupParts1.setIsHistoricallyInteresting (0);
+        groupParts1.setInputComponents ( compList );
+        controllerData.setGroupParts1 ( groupParts1 );
+
         // Create the tweak object and the set.
         String tweakName = TWEAK_NAME;
         tweakName = DocumentImporter::frameworkNameToMayaName ( tweakName );
@@ -125,32 +144,13 @@ namespace COLLADAMaya
         tweakSet.setVerticesOnlySet (true);
         controllerData.setTweakSet ( tweakSet );
 
-        // Create the groupIds and the groupParts.
-        String groupIdName = GROUPID_NAME;
-        groupIdName = DocumentImporter::frameworkNameToMayaName ( groupIdName );
-        
-        String groupIdName1 = getDocumentImporter ()->getGroupIdList ().addId ( groupIdName, true, true );
-        MayaDM::GroupId groupId1 ( file, groupIdName1 );
-        groupId1.setIsHistoricallyInteresting (0);
-        controllerData.setGroupId1 ( groupId1 );
-        
-        String groupIdName2 = getDocumentImporter ()->getGroupIdList ().addId ( groupIdName, true, true );
+        // Create the groupId and the groupParts for the tweak.
+        String groupIdName2 = getDocumentImporter ()->getGroupIdIdList ().addId ( groupIdName, true, true );
         MayaDM::GroupId groupId2 ( file, groupIdName2 );
         groupId2.setIsHistoricallyInteresting (0);
         controllerData.setGroupId2 ( groupId2 );
 
-        String groupPartsName = GROUP_PARTS_NAME;
-        groupPartsName = DocumentImporter::frameworkNameToMayaName ( groupPartsName );
-        MayaDM::componentList compList;
-        compList.push_back ( "vtx[*]" );
-
-        String groupPartsName1 = mGroupPartsIdList.addId ( groupPartsName, true, true );
-        MayaDM::GroupParts groupParts1 ( file, groupPartsName1 );
-        groupParts1.setIsHistoricallyInteresting (0);
-        groupParts1.setInputComponents ( compList );
-        controllerData.setGroupParts1 ( groupParts1 );
-
-        String groupPartsName2 = mGroupPartsIdList.addId ( groupPartsName, true, true );
+        String groupPartsName2 = getDocumentImporter ()->getGroupPartsIdList ().addId ( groupPartsName, true, true );
         MayaDM::GroupParts groupParts2 ( file, groupPartsName2 );
         groupParts2.setIsHistoricallyInteresting (0);
         groupParts2.setInputComponents ( compList );
@@ -356,6 +356,15 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
+    const ControllerImporter::ControllerData* ControllerImporter::findControllerData ( const COLLADAFW::UniqueId& skinControllerDataId )
+    {
+        std::map<COLLADAFW::UniqueId, ControllerData>::const_iterator it = mControllers.find ( skinControllerDataId );
+        if ( it != mControllers.end () )
+            return &(it->second);
+        return 0;
+    }
+
+    // --------------------------------------------
     void ControllerImporter::writeConnections ()
     {
         writeJointConnections ();
@@ -465,9 +474,7 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& skinControllerDataId = it->first;
             const COLLADAFW::SkinController* skinController = findSkinController ( skinControllerDataId );
 
-            // Returns the unique id of the source that gets modified by this controller. 
-            // Must be a mesh or a controller.
-            // TODO Get the source object (can be either a mesh geometry or another controller element).
+            // Get the source object (can be either a mesh geometry or a morph controller element).
             const COLLADAFW::UniqueId& sourceId = skinController->getSource ();
 
             // Look for the source object in the geometries.
@@ -495,9 +502,15 @@ namespace COLLADAMaya
                 const MayaDM::ObjectSet& tweakSet = controllerData.getTweakSet ();
                 connectAttr ( file, tweakSet.getMemberWireframeColor (), mesh->getObjectGrpColor (1) );
 
-                // connectAttr "skinCluster1.outputGeometry[0]" "pCubeShape1.inMesh";
-                const MayaDM::SkinCluster& skinCluster = controllerData.getSkinCluster ();
-                connectAttr ( file, skinCluster.getOutputGeometry (0), mesh->getInMesh () );
+                // Just do this connection, if we don't use groupParts 
+                // (no multiple mesh primitive elements in the current geometry)
+                const size_t numPrimitiveElements = geometryImporter->findPrimitivesCount ( sourceId );
+                if ( numPrimitiveElements == 1 )
+                {
+                    // connectAttr "skinCluster1.outputGeometry[0]" "pCubeShape1.inMesh";
+                    const MayaDM::SkinCluster& skinCluster = controllerData.getSkinCluster ();
+                    connectAttr ( file, skinCluster.getOutputGeometry (0), mesh->getInMesh () );
+                }
 
                 // connectAttr "tweak1.vlist[0].vertex[0]" "pCubeShape1.tweakLocation";
                 const MayaDM::Tweak& tweak = controllerData.getTweak ();

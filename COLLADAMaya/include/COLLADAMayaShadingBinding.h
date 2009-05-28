@@ -17,6 +17,7 @@
 #include "COLLADAFWMaterial.h"
 
 #include "MayaDMGroupId.h"
+#include "MayaDMGroupParts.h"
 
 
 namespace COLLADAMaya
@@ -66,6 +67,8 @@ namespace COLLADAMaya
     {
     private:
         MayaDM::GroupId mGroupId;
+        MayaDM::GroupParts mGroupParts;
+        bool mHasGroupParts;
         COLLADAFW::MaterialId mShadingEngineId;
         size_t mTransformInstanceIndex;
         size_t mPrimitiveIndex;
@@ -74,6 +77,7 @@ namespace COLLADAMaya
         GroupInfo () 
             : mTransformInstanceIndex (0)
             , mPrimitiveIndex (0)
+            , mHasGroupParts (false)
         {}
 
         GroupInfo ( 
@@ -85,11 +89,17 @@ namespace COLLADAMaya
             , mShadingEngineId ( shadingEngineId )
             , mTransformInstanceIndex ( transformInstanceIndex )
             , mPrimitiveIndex ( primitiveIndex )
+            , mHasGroupParts (false)
         {}
+
         virtual ~GroupInfo () {}
 
         const MayaDM::GroupId& getGroupId () const { return mGroupId; }
         void setGroupId ( const MayaDM::GroupId& val ) { mGroupId = val; }
+
+        const bool getHasGroupParts () const { return mHasGroupParts; }
+        const MayaDM::GroupParts& getGroupParts () const { return mGroupParts; }
+        void setGroupParts ( MayaDM::GroupParts& val ) { mGroupParts = val; mHasGroupParts = true; }
 
         const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
         void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }

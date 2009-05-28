@@ -309,7 +309,7 @@ namespace COLLADAMaya
             // the connections can be written into the maya file.
             if ( mFile != 0 )
             {
-                writeConnections();
+                writeConnections ();
             }
 
             // Close the file
@@ -326,6 +326,7 @@ namespace COLLADAMaya
         mMaterialImporter->writeConnections ();
         mLightImporter->writeConnections ();
         mEffectImporter->writeConnections ();
+        mGeometryImporter->writeConnections ();
     }
 
     //-----------------------------

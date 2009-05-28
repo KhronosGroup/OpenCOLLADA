@@ -74,7 +74,8 @@ namespace COLLADAMaya
     protected:
 
         /** The standard name for a group without name. */
-        static const String GROUPID_NAME;
+        static const String GROUP_ID_NAME;
+        static const String GROUP_PARTS_NAME;
 
     private:
 

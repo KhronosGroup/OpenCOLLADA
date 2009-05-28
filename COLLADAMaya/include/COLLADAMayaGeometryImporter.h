@@ -113,6 +113,13 @@ namespace COLLADAMaya
          */
         ShadingBindingGroupInfoMap mShadingBindingGroupMap;
 
+        /**
+         * The map holds the list of components of a mesh. Needed for the groupParts of a mesh's 
+         * material, if the mesh element has a controller element (then the groups has to be 
+         * organised in groupParts).
+         */
+        std::map<COLLADAFW::UniqueId, std::vector<MayaDM::componentList>> mMeshComponentLists;
+
     public:
 
         /** Constructor. */
@@ -180,8 +187,21 @@ namespace COLLADAMaya
         /**
         * Get the groupId assignement data for the current geometry under the transform.
         */
-        std::vector<GroupInfo>* findShadingBindingGroups ( 
-            const ShadingBinding& shadingBinding );
+        std::vector<GroupInfo>* findShadingBindingGroups ( const ShadingBinding& shadingBinding );
+
+        /**
+        * The map holds the list of components of a mesh. Needed for the groupParts of a mesh's 
+        * material, if the mesh element has a controller element (then the groups has to be 
+        * organised in groupParts).
+        */
+        const std::vector<MayaDM::componentList>* findComponentLists ( const COLLADAFW::UniqueId& geometryId );
+
+        /**
+         * Writes the connection attributes into the maya ascii file. 
+         * If there exist a controller for the current mesh, we also need to organize the groupIds 
+         * of the mesh's primitive elements in groupParts (make the connections for this). 
+         */
+        void writeConnections ();
 
     private:
 

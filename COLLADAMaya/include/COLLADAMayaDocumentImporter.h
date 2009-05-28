@@ -161,7 +161,12 @@ namespace COLLADAMaya
         /**
         * The list of the unique maya groupId names.
         */
-        COLLADABU::IDList mGroupIdList;
+        COLLADABU::IDList mGroupIdIdList;
+
+        /**
+        * The list of the unique maya groupParts names.
+        */
+        COLLADABU::IDList mGroupPartsIdList;
 
         /**
         * How many real-world meters in one distance unit as a floating-point number.
@@ -386,7 +391,12 @@ namespace COLLADAMaya
         /**
         * The list of the unique maya groupId names.
         */
-        COLLADABU::IDList& getGroupIdList () { return mGroupIdList; }
+        COLLADABU::IDList& getGroupIdIdList () { return mGroupIdIdList; }
+
+        /**
+        * The list of the unique maya groupId names.
+        */
+        COLLADABU::IDList& getGroupPartsIdList () { return mGroupPartsIdList; }
 
     private:
 

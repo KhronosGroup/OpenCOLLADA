@@ -311,8 +311,16 @@ namespace COLLADAMaya
     {
         // This method is called for every geometry instance.
 
+        // The maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
         // Get the unique id of the current geometry.
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+
+        // Look for a list of componentLists of the current geometry.
+        const std::vector<MayaDM::componentList>* componentLists = findComponentLists ( geometryId );
+        size_t componentListsCount = 0;
+        if ( componentLists ) componentListsCount = componentLists->size ();
 
         // Create a group for every mesh primitive of every instanciated geometry 
         // and every transform instance, which has a reference to the geometry.
@@ -327,6 +335,11 @@ namespace COLLADAMaya
             // We have to go through every mesh primitive.
             const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
             size_t meshPrimitivesCount = meshPrimitives.getCount ();
+            if ( meshPrimitivesCount != componentListsCount )
+            {
+                std::cerr << "No component lists generated for the current geometry's primitives!" << endl;
+                return;
+            }
 
             // We don't need to create groups if we just have one primitive.
             if ( meshPrimitivesCount <= 1 ) return;
@@ -342,37 +355,35 @@ namespace COLLADAMaya
                 // to the mesh instance and the index of the geometry's primitives.
                 ShadingBinding shadingBinding ( geometryId, transformNodeId, shadingEngineId );
 
-                // Create a groupInfo object.
-                GroupInfo* groupInfo = 0;
+                // Create the maya groupId object 
+                String groupName = getDocumentImporter ()->getGroupIdIdList ().addId ( GROUP_ID_NAME, true, true );
+                MayaDM::GroupId groupId ( file, groupName );
+                groupId.setIsHistoricallyInteresting (0);
 
-//                 // TODO Have a look, if there is already a group of another primitive index, 
-//                 // which uses the same shadingEngineId and materialId.
-//                 ShadingBindingGroupInfoMap::iterator it = mShadingBindingGroupMap.find ( shadingBinding );
-//                 if ( it != mShadingBindingGroupMap.end () )
-//                 {
-//                     std::vector<GroupInfo>& groupInfos = it->second;
-//                     for ( size_t i=0; i<groupInfos.size (); ++i )
-//                     {
-//                         const GroupInfo& currentGroupInfo = groupInfos [i];
-//                         if ( shadingEngineId == currentGroupInfo.getShadingEngineId () )
-//                         {
-//                             // Just make a copy of the already existing groupId object.
-//                             groupInfo = new GroupInfo ( currentGroupInfo );
-//                         }
-//                     }
-//                 }
-                if ( groupInfo == 0 )
+                // Create a groupInfo object and push it in the map of shading binding groupInfos.
+                GroupInfo groupInfo ( groupId, shadingEngineId, transformInstanceIndex, primitiveIndex );
+
+                // If we have a controller element, we need also groupParts to manage the group objects.
+                ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+                bool hasController = ( controllerImporter->findSkinControllerBySourceId ( geometryId ) != 0 );
+                if ( hasController )
                 {
-                    // Create the maya group object 
-                    String groupName = getDocumentImporter ()->getGroupIdList ().addId ( GROUPID_NAME, true, true );
-                    FILE* file = getDocumentImporter ()->getFile ();
-                    MayaDM::GroupId groupId ( file, groupName );
+                    String groupPartsName = getDocumentImporter ()->getGroupPartsIdList ().addId ( GROUP_PARTS_NAME, true, true );
+                    MayaDM::GroupParts groupParts ( file, groupPartsName );
 
-                    groupInfo = new GroupInfo ( groupId, shadingEngineId, transformInstanceIndex, primitiveIndex );
+                    // Get the component list of the geometry's primitive element, which contains 
+                    // the string with the face informations for the component list.
+                    MayaDM::componentList componentList = (*componentLists) [primitiveIndex];
+
+                    // setAttr ".inputComponents" -type "componentList" 1 "f[0:5]";
+                    groupParts.setInputComponents ( componentList );
+
+                    // Set the groupParts object.
+                    groupInfo.setGroupParts ( groupParts );
                 }
 
-                mShadingBindingGroupMap [shadingBinding].push_back ( *groupInfo );
-                delete groupInfo;
+                // Push the groupInfo object in the map of shading binding groupInfos.
+                mShadingBindingGroupMap [shadingBinding].push_back ( groupInfo );
             }
 
             ++geometryInstanceIndex;
@@ -397,6 +408,7 @@ namespace COLLADAMaya
         const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
         size_t meshPrimitivesCount = meshPrimitives.getCount ();
 
+        // TODO But something other, if we have a controller element!
         // We don't need this, if we have just one primitive.
         if ( meshPrimitivesCount <= 1 ) return;
 
@@ -410,7 +422,6 @@ namespace COLLADAMaya
 
         // Count the geometry instances.
         const UniqueIdVec* geometryInstanceTransformIds = visualSceneImporter->findGeometryTransformIds ( geometryId );
-        // TODO Nothing happens, if we don't have instances???
         if ( geometryInstanceTransformIds )
         {
             size_t numGeometryInstancesTransformIds = geometryInstanceTransformIds->size ();
@@ -423,37 +434,41 @@ namespace COLLADAMaya
             }
         }
 
-        // Iterate over the object instances.
-        for ( size_t j=0; j<globalInstanceCount; ++j )
+        // Iterate over the mesh primitives
+        size_t initialFaceIndex = 0;
+        for ( size_t i=0; i<meshPrimitivesCount; ++i )
         {
-            size_t initialFaceIndex = 0;
+            // Get the number of faces of the current primitive element.
+            const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
 
-            // Iterate over the mesh primitives
-            for ( size_t i=0; i<meshPrimitivesCount; ++i )
+            // TODO Is this also with trifans, etc. the right number???
+//            size_t numFaces = meshPrimitive->getGroupedVertexElementsCount ();
+            size_t numFaces = meshPrimitive->getFaceCount ();
+
+//             COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) primitiveElement;
+//             COLLADAFW::Trifans::VertexCountArray& vertexCountArray = 
+//                trifans->getGroupedVerticesVertexCountArray ();
+//             size_t faceCount2 = meshPrimitive->getGroupedVerticesVertexCount (i);
+
+            // Create the string with the face informations for the component list.
+            String val = "f[" + COLLADABU::Utils::toString ( initialFaceIndex ) 
+                + ":" + COLLADABU::Utils::toString ( numFaces-1 + initialFaceIndex ) + "]";
+
+            // Create the component list.
+            MayaDM::componentList componentList;
+            componentList.push_back ( val );
+
+            // Set the component list in the list of components of the current mesh
+            // (will be needed for the organisation of the material groups in groupParts), 
+            // if we use a controller element, which also handles groups).
+            mMeshComponentLists [geometryId].push_back ( componentList );
+
+            // Increment the initial face index.
+            initialFaceIndex += numFaces;
+
+            // Iterate over the object instances.
+            for ( size_t j=0; j<globalInstanceCount; ++j )
             {
-                // Get the number of faces of the current primitive element.
-                const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
-
-                // TODO Is this also with trifans, etc. the right number???
-//              size_t numFaces = meshPrimitive->getGroupedVertexElementsCount ();
-                size_t numFaces = meshPrimitive->getFaceCount ();
-
-//                COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) primitiveElement;
-//                COLLADAFW::Trifans::VertexCountArray& vertexCountArray = 
-//                    trifans->getGroupedVerticesVertexCountArray ();
-//                size_t faceCount2 = meshPrimitive->getGroupedVerticesVertexCount (i);
-
-                // Create the string with the face informations for the component list.
-                String val = "f[" + COLLADABU::Utils::toString ( initialFaceIndex ) 
-                    + ":" + COLLADABU::Utils::toString ( numFaces-1 + initialFaceIndex ) + "]";
-
-                // Create the component list.
-                MayaDM::componentList componentList;
-                componentList.push_back ( val );
-
-                // Increment the initial face index.
-                initialFaceIndex += numFaces;
-
                 // Write instance object group component list data into the file.
                 meshNode.setObjectGrpCompList ( j, i, componentList );
             }
@@ -1671,4 +1686,118 @@ namespace COLLADAMaya
         return it->second;
     }
 
+    // --------------------------------------------
+    const std::vector<MayaDM::componentList>* GeometryImporter::findComponentLists ( const COLLADAFW::UniqueId& geometryId )
+    {
+        std::map<COLLADAFW::UniqueId, std::vector<MayaDM::componentList>>::const_iterator it;
+        it = mMeshComponentLists.find ( geometryId );
+        if ( it != mMeshComponentLists.end () )
+            return &(it->second);
+        return 0;
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::writeConnections ()
+    {
+        // If there exist a controller for the current mesh, we also need to organize the 
+        // groupIds of the mesh's primitive elements in groupParts. 
+        // For this, we always have to connect the groupParts ids with the groupId ids.
+        // In addition, we have to connect the inputGeometry attribute of the first primitive 
+        // element's groupParts object with the first outputGeometry attribute of the 
+        // controller's mesh skinCluster object. The following primitive element groupParts 
+        // inputGeometry attribute has to be connected to the previous groupParts outputGeometry 
+        // attribute. 
+        // The outputGeometry attribute of the last primitive element groupParts has to be 
+        // connected to the inMesh attribute of  the current mesh object.
+
+        // Get a pointer to the maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // Store the previous groupId and groupParts objects.
+        const MayaDM::GroupParts* previousGroupParts = 0;
+        const MayaDM::GroupId* previousGroupId = 0;
+
+        ShadingBindingGroupInfoMap::const_iterator it = mShadingBindingGroupMap.begin ();
+        while ( it != mShadingBindingGroupMap.end () )
+        {
+            const ShadingBinding& shadingBinding = it->first;
+            const COLLADAFW::UniqueId& geometryId = shadingBinding.getGeometryId ();
+
+            // Get the count of primitive elements in the current geometry.
+            const size_t numPrimitiveElements = findPrimitivesCount ( geometryId );
+
+            ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+            const COLLADAFW::SkinController* skinController = controllerImporter->findSkinControllerBySourceId ( geometryId );
+            if ( skinController )
+            {
+                // Get the skinCluster object.
+                const COLLADAFW::UniqueId& skinControllerDataId = skinController->getSkinControllerData ();
+                const ControllerImporter::ControllerData* controllerData = controllerImporter->findControllerData ( skinControllerDataId );
+                const MayaDM::SkinCluster& skinCluster = controllerData->getSkinCluster ();
+
+                // Iterate over the groupInfos.
+                const std::vector<GroupInfo>& groupInfos = it->second;
+                size_t numGroupInfos = groupInfos.size ();
+                for ( size_t i=0; i<numGroupInfos; ++i )
+                {
+                    // Get the current group info.
+                    const GroupInfo& groupInfo = groupInfos [i];
+
+                    // Get the groupParts object for the current mesh primitive.
+                    const bool hasGroupParts = groupInfo.getHasGroupParts ();
+                    if ( !hasGroupParts )
+                    {
+                        std::cerr << "No groupParts defined!" << endl;
+                        continue;
+                    }
+                    const MayaDM::GroupParts& groupParts = groupInfo.getGroupParts ();
+
+                    // Get the groupId object for the current mesh primitive.
+                    const MayaDM::GroupId& groupId = groupInfo.getGroupId ();                            
+
+                    // Handle the primitive element in depend on the primitive index.
+                    size_t primitiveIndex = groupInfo.getPrimitiveIndex ();
+                    if ( primitiveIndex == 0 )
+                    {
+                        // connectAttr "skinCluster1.outputGeometry[0]" "groupParts3.inputGeometry";
+                        connectAttr ( file, skinCluster.getOutputGeometry (0), groupParts.getInputGeometry () );
+                    }
+                    else
+                    {
+                        if ( previousGroupParts == 0 )
+                        {
+                            std::cerr << "No previous groupParts object!" << endl;
+                            continue;
+                        }
+
+                        // connectAttr "groupParts3.outputGeometry" "groupParts4.inputGeometry";
+                        connectAttr ( file, previousGroupParts->getOutputGeometry (), groupParts.getInputGeometry () );
+                    }
+
+                    // connectAttr "groupId3.groupId" "groupParts3.groupId";
+                    connectAttr ( file, groupId.getGroupId (), groupParts.getGroupId () );
+
+                    // Handle the last primitive element connections.
+                    if ( primitiveIndex == numPrimitiveElements-1 )
+                    {
+                        // Get the current mesh.
+                        MayaDM::Mesh* mesh = findMayaDMMeshNode ( geometryId );
+                        if ( mesh == 0 )
+                        {
+                            std::cerr << "No mesh object exist!" << endl;
+                            continue;
+                        }
+                        // connectAttr "groupParts5.outputGeometry" "polySurfaceShape1.inMesh";
+                        connectAttr ( file, groupParts.getOutputGeometry (), mesh->getInMesh () );
+                    }
+
+                    // Store the groupId and groupParts objects.
+                    previousGroupId = &groupId;
+                    previousGroupParts = &groupParts;
+                }
+            }
+
+            ++it;
+        }
+    }
 }

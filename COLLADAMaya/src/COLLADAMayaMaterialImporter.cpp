@@ -79,16 +79,9 @@ namespace COLLADAMaya
         String colladaMaterialId = material->getOriginalId ();
         mMaterialIdOriginalColladaId [ materialId ] = colladaMaterialId;
 
-        // TODO
-//         // Create the shader data with the shading engine and the material info of the material.
-//         MaterialImporter::ShadingData* shaderData = createShaderData ( materialId );
-
         // Create a material node with the name and store it in a map.
         MayaNode* mayaMaterialNode = new MayaNode ( materialId, materialName );
         mMayaMaterialNodesMap [materialId] = mayaMaterialNode;
-
-        // TODO Multiple materials can use the same effect. 
-        // About this, vor every collada material a maya material has to be created.
 
         // Store the effect id of the current material id.
         const COLLADAFW::UniqueId& effectId = material->getInstantiatedEffect ();
@@ -209,13 +202,6 @@ namespace COLLADAMaya
 
             // Get the material id.
             const COLLADAFW::UniqueId& materialId = materialBinding.getReferencedMaterial ();
-
-            // TODO We need a shading engine and a material info for every maya effect.
-            // But an effect can be referenced from multiple materials!!!
-
-//             // Get the unique shading engine name and get / create the shader data.
-//             String shadingEngineName = materialBinding.getName ();
-//             ShadingData* shaderData = createShaderData ( materialId, shadingEngineName );
 
             // Get the shading engine id. This id is unique for one geometry.
             COLLADAFW::MaterialId shadingEngineId = materialBinding.getMaterialId ();
@@ -409,6 +395,16 @@ namespace COLLADAMaya
             const std::vector<MaterialInformation>& materialInfosList = geometryBindingIter->second;
             size_t numMaterialInfos = materialInfosList.size ();
 
+            // Look for a list of componentLists of the current geometry.
+            const std::vector<MayaDM::componentList>* componentLists = geometryImporter->findComponentLists ( geometryId );
+            size_t componentListsCount = 0;
+            if ( componentLists ) componentListsCount = componentLists->size ();
+            if ( numMaterialInfos != componentListsCount )
+            {
+                std::cerr << "No component lists generated for the current geometry's primitives!" << endl;
+                return;
+            }
+
             // Get all pathes of the current transformation.
             std::vector<String> transformPathes;
             visualSceneImporter->getTransformPathes ( transformPathes, transformId );
@@ -435,14 +431,18 @@ namespace COLLADAMaya
                     // Get the maya mesh object.
                     MayaDM::Mesh* mesh = geometryImporter->findMayaDMMeshNode ( geometryId );
                     if ( mesh == 0 )    {
-                        MGlobal::displayError ( "Mesh doesn't exist! ");
+                        MGlobal::displayError ( "Mesh doesn't exist!" );
+                        std::cerr << "Mesh doesn't exist!" << endl;
                         return;
                     }
 
                     // Set the current transformation path.
                     String meshName = mesh->getName ();
-                    String meshPath = transformPathes [transformInstance] + "|" + meshName;
-                    mesh->setName ( meshPath );
+                    if ( numTransformInstances > 1 )
+                    {
+                        String meshPath = transformPathes [transformInstance] + "|" + meshName;
+                        mesh->setName ( meshPath );
+                    }
 
                     // We just need connections to objectGroups, if we have multiple geometry 
                     // instances or multiple mesh primitive elements.
@@ -494,6 +494,7 @@ namespace COLLADAMaya
 
                             if ( transformInstanceIndex == transformInstance )
                             {
+                                // TODO Don't write the transformation path, if the mesh has a controller!
                                 // connectAttr "groupId1.groupId" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGroupId";
                                 connectAttr ( file, groupId.getGroupId (), mesh->getObjectGroupId ( objectGroupsInitialIndex+primitiveIndex ) );
                             }
@@ -501,7 +502,10 @@ namespace COLLADAMaya
                     }
 
                     // Reset the name of the mesh object.
-                    mesh->setName ( meshName );
+                    if ( numTransformInstances > 1 )
+                    {
+                        mesh->setName ( meshName );
+                    }
                 }
                 ++geometryInstance;
             }
