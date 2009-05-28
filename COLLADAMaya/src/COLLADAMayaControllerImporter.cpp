@@ -63,18 +63,22 @@ namespace COLLADAMaya
         }
 
         {
-            std::map<COLLADAFW::UniqueId, COLLADAFW::SkinController*>::const_iterator it;
-            it = mSkinControllersMap.begin ();
+            std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>>::iterator it = mSkinControllersMap.begin ();
             while ( it != mSkinControllersMap.end () )
             {
-                COLLADAFW::SkinController* skinController = it->second;
-                delete skinController;
+                std::vector<COLLADAFW::SkinController*>& skinControllers = it->second;
+                for ( size_t i=0; i<skinControllers.size (); ++i )
+                {
+                    COLLADAFW::SkinController* skinController = skinControllers[i];
+                    delete skinController;
+                }
+                skinControllers.clear ();
                 ++it;
             }
             mSkinControllersMap.clear ();
         }
 
-	}
+    }
 
     // --------------------------------------------
     void ControllerImporter::importSkinControllerData ( 
@@ -277,15 +281,10 @@ namespace COLLADAMaya
 
                 // Returns the unique id of the source that gets modified by this controller. 
                 // Must be a mesh or a controller.
-                const COLLADAFW::UniqueId& controllerSourceId = skinController->getSource ();
-
-                // Get the skin controller data id.
-                const COLLADAFW::UniqueId& skinControllerDataId = skinController->getSkinControllerData ();
+                const COLLADAFW::UniqueId& sourceId = skinController->getSource ();
 
                 // Make a copy of the controller element.
-                mSkinControllersMap [skinControllerDataId] = new COLLADAFW::SkinController ( *skinController );
-
-
+                mSkinControllersMap[sourceId].push_back ( new COLLADAFW::SkinController (*skinController) );
             }
             break;
         case COLLADAFW::Controller::CONTROLLER_TYPE_MORPH:
@@ -318,25 +317,32 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    const COLLADAFW::SkinController* ControllerImporter::findSkinController ( const COLLADAFW::UniqueId& skinControllerDataId )
+    const COLLADAFW::SkinController* ControllerImporter::findSkinControllerByDataId ( const COLLADAFW::UniqueId& skinControllerDataId )
     {
-        std::map<COLLADAFW::UniqueId, COLLADAFW::SkinController*>::const_iterator it;
-        it = mSkinControllersMap.find ( skinControllerDataId );
-        if ( it != mSkinControllersMap.end () )
-            return it->second;
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>>::const_iterator it = mSkinControllersMap.begin ();
+        while ( it != mSkinControllersMap.end () )
+        {
+            const std::vector<COLLADAFW::SkinController*>& skinControllers = it->second;
+            for ( size_t i=0; i<skinControllers.size (); ++i )
+            {
+                const COLLADAFW::SkinController* skinController = skinControllers[i];
+                if ( skinController->getSkinControllerData () == skinControllerDataId )
+                    return skinController;
+            }
+            ++it;
+        }
         return 0;
     }
 
     // --------------------------------------------
-    const COLLADAFW::SkinController* ControllerImporter::findSkinControllerBySourceId ( const COLLADAFW::UniqueId& sourceId )
+    const std::vector<COLLADAFW::SkinController*>* ControllerImporter::findSkinControllersBySourceId ( const COLLADAFW::UniqueId& sourceId )
     {
-        std::map<COLLADAFW::UniqueId, COLLADAFW::SkinController*>::const_iterator it;
-        it = mSkinControllersMap.begin ();
-        while ( it != mSkinControllersMap.end () )
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>>::const_iterator it;
+        it = mSkinControllersMap.find ( sourceId );
+        if ( it != mSkinControllersMap.end () )
         {
-            if ( it->second->getSource () == sourceId )
-                return it->second;
-            ++it;
+            const std::vector<COLLADAFW::SkinController*>& skinControllers = it->second;
+            return &skinControllers;
         }
         return 0;
     }
@@ -344,12 +350,16 @@ namespace COLLADAMaya
     // --------------------------------------------
     const COLLADAFW::UniqueId* ControllerImporter::getControllersGeometryId ( const COLLADAFW::UniqueId& controllerId )
     {
-        std::map<COLLADAFW::UniqueId, COLLADAFW::SkinController*>::const_iterator it = mSkinControllersMap.begin ();
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>>::const_iterator it = mSkinControllersMap.begin ();
         while ( it != mSkinControllersMap.end () )
         {
-            COLLADAFW::SkinController* skinController = it->second;
-            if ( skinController->getUniqueId () == controllerId )
-                return &(skinController->getSource ());
+            const std::vector<COLLADAFW::SkinController*>& skinControllers = it->second;
+            for ( size_t i=0; i<skinControllers.size (); ++i )
+            {
+                const COLLADAFW::SkinController* skinController = skinControllers[i];
+                if ( skinController->getUniqueId () == controllerId )
+                    return &(skinController->getSource ());
+            }
             ++it;
         }
         return 0;
@@ -421,7 +431,7 @@ namespace COLLADAMaya
 
             // Get the list of joints of the current controller.
             const COLLADAFW::UniqueId& skinControllerDataId = it2->first;
-            const COLLADAFW::SkinController* skinController = findSkinController ( skinControllerDataId );
+            const COLLADAFW::SkinController* skinController = findSkinControllerByDataId ( skinControllerDataId );
             if ( skinController == 0 )
             {
                 std::cerr << "No skin controller element found!" << endl;
@@ -472,7 +482,7 @@ namespace COLLADAMaya
 
             // Get the list of joints of the current controller.
             const COLLADAFW::UniqueId& skinControllerDataId = it->first;
-            const COLLADAFW::SkinController* skinController = findSkinController ( skinControllerDataId );
+            const COLLADAFW::SkinController* skinController = findSkinControllerByDataId ( skinControllerDataId );
 
             // Get the source object (can be either a mesh geometry or a morph controller element).
             const COLLADAFW::UniqueId& sourceId = skinController->getSource ();

@@ -22,6 +22,7 @@ namespace COLLADAFW
 
 	}
 
+    //------------------------------
 	SkinController::SkinController( const SkinController& pre )
 		: Controller( pre.getObjectId(), Controller::CONTROLLER_TYPE_SKIN )
 		, mSkinControllerData(pre.mSkinControllerData)

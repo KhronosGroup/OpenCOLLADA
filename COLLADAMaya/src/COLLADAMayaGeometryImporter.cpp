@@ -107,19 +107,29 @@ namespace COLLADAMaya
 
         // Check, if the mesh is referenced from a controller object.
         ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
-        const COLLADAFW::SkinController* skinController = controllerImporter->findSkinControllerBySourceId ( geometryId );
-        if ( skinController == 0 ) return;
+        const std::vector<COLLADAFW::SkinController*>* skinControllers = controllerImporter->findSkinControllersBySourceId ( geometryId );
+        if ( skinControllers == 0 ) return;
 
-        // Create an original mesh object under the transform node of the skin controller.
-        const COLLADAFW::UniqueId& controllerId = skinController->getUniqueId ();
+        UniqueIdVec controllerTransformIds;
+        for ( size_t i=0; i<skinControllers->size (); ++i )
+        {
+            const COLLADAFW::SkinController* skinController = (*skinControllers) [i];
 
-        // Get the node instances.
-        VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
-        const UniqueIdVec* controllerTransformIds = visualSceneImporter->findControllerTransformIds ( controllerId );
-        if ( controllerTransformIds == 0 ) return;
+            // Create an original mesh object under the transform node of the skin controller.
+            const COLLADAFW::UniqueId& controllerId = skinController->getUniqueId ();
+
+            // Get the node instances.
+            VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
+            const UniqueIdVec* currentTransformIds = visualSceneImporter->findControllerTransformIds ( controllerId );
+            if ( currentTransformIds == 0 ) continue;
+
+            for ( size_t j=0; j<currentTransformIds->size (); ++j )
+                controllerTransformIds.push_back ( (*currentTransformIds) [j] );
+        }
+        if ( controllerTransformIds.size () == 0 ) return;
 
         // Make the mesh instances and import the mesh data.
-        importMesh ( mesh, controllerTransformIds, true );
+        importMesh ( mesh, &controllerTransformIds, true );
     }
 
     // --------------------------------------------
@@ -222,6 +232,10 @@ namespace COLLADAMaya
         // Get the unique object id.
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
 
+        // Create a maya node object of the current node and push it into the map.
+        MayaNode* mayaMeshNode = new MayaNode ( geometryId, meshName, mayaTransformNode );
+        mMayaMeshNodesMap [ geometryId ] = mayaMeshNode;
+
         // Create the controller mesh object first.
         if ( isMeshController )
         {
@@ -233,10 +247,6 @@ namespace COLLADAMaya
             meshName += "Orig";
             meshName = mMeshNodeIdList.addId ( meshName );
         }
-
-        // Create a maya node object of the current node and push it into the map.
-        MayaNode* mayaMeshNode = new MayaNode ( geometryId, meshName, mayaTransformNode );
-        mMayaMeshNodesMap [ geometryId ] = mayaMeshNode;
 
         // Create the current maya data model mesh node.
         MayaDM::Mesh meshNode ( file, meshName, transformNodePath );
@@ -365,7 +375,7 @@ namespace COLLADAMaya
 
                 // If we have a controller element, we need also groupParts to manage the group objects.
                 ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
-                bool hasController = ( controllerImporter->findSkinControllerBySourceId ( geometryId ) != 0 );
+                bool hasController = ( controllerImporter->findSkinControllersBySourceId ( geometryId ) != 0 );
                 if ( hasController )
                 {
                     String groupPartsName = getDocumentImporter ()->getGroupPartsIdList ().addId ( GROUP_PARTS_NAME, true, true );
@@ -1727,9 +1737,12 @@ namespace COLLADAMaya
             const size_t numPrimitiveElements = findPrimitivesCount ( geometryId );
 
             ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
-            const COLLADAFW::SkinController* skinController = controllerImporter->findSkinControllerBySourceId ( geometryId );
-            if ( skinController )
+            const std::vector<COLLADAFW::SkinController*>* skinControllers = controllerImporter->findSkinControllersBySourceId ( geometryId );
+            if ( skinControllers )
             {
+                // TODO Iterate...
+                const COLLADAFW::SkinController* skinController = (*skinControllers)[0];
+
                 // Get the skinCluster object.
                 const COLLADAFW::UniqueId& skinControllerDataId = skinController->getSkinControllerData ();
                 const ControllerImporter::ControllerData* controllerData = controllerImporter->findControllerData ( skinControllerDataId );

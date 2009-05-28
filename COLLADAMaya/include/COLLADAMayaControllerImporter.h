@@ -147,9 +147,9 @@ namespace COLLADAMaya
         std::map<COLLADAFW::UniqueId, ControllerJointInfo> mJointInfosMap;
 
         /**
-         * The map holds for a unique id of a mesh or morph controller the skin controller data.
+         * The map holds the skin controller objects for every source (mesh or morph controller).
          */
-        std::map<COLLADAFW::UniqueId, COLLADAFW::SkinController*> mSkinControllersMap;
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>> mSkinControllersMap;
 
         /**
          * The map holds a list of controller objects.
@@ -204,13 +204,13 @@ namespace COLLADAMaya
          * Returns the skin controller element, with the given skinControllerDataId. 
          * If no skin controller  uses the source, the method returns null.
          */
-        const COLLADAFW::SkinController* findSkinController ( const COLLADAFW::UniqueId& skinControllerDataId );
+        const COLLADAFW::SkinController* findSkinControllerByDataId ( const COLLADAFW::UniqueId& skinControllerDataId );
 
         /**
         * Returns the skin controller element, which uses the given source. If no skin controller 
         * uses the source, the method returns null.
         */
-        const COLLADAFW::SkinController* findSkinControllerBySourceId ( const COLLADAFW::UniqueId& sourceId );
+        const std::vector<COLLADAFW::SkinController*>* findSkinControllersBySourceId ( const COLLADAFW::UniqueId& sourceId );
 
         /**
          * Returns the geometryId of the skinController's id.
