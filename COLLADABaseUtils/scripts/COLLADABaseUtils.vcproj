@@ -42,8 +42,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\Externals\UTF\include;..\..\Externals\pcre\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -108,8 +108,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include"
-				PreprocessorDefinitions="WIN64;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\Externals\UTF\include;..\..\Externals\pcre\include"
+				PreprocessorDefinitions="WIN64;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -174,8 +174,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\include;..\include\Math;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\Externals\UTF\include;..\..\Externals\pcre\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="1"
 				PrecompiledHeaderThrough="COLLADABUStableHeaders.h"
@@ -238,8 +238,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\include;..\include\Math;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include"
-				PreprocessorDefinitions="WIN64;NDEBUG;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\Externals\UTF\include;..\..\Externals\pcre\include"
+				PreprocessorDefinitions="WIN64;NDEBUG;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="1"
 				PrecompiledHeaderThrough="COLLADABUStableHeaders.h"

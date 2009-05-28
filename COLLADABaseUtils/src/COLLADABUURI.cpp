@@ -13,14 +13,14 @@
 #include "COLLADABUStringUtils.h"
 
 #include <algorithm>
-
-#include <boost/regex.hpp>
-#include <boost/algorithm/string/case_conv.hpp>
-
-//#include <pcrecpp.h>
+#include "pcre.h"
 
 namespace COLLADABU
 {
+
+
+	const int regExpMatchesVectorLength = 30;    /* should be a multiple of 3 */
+
 
 	const String URI::SCHEME_FILE = "file";
 	const String URI::SCHEME_HTTP = "http";
@@ -126,12 +126,14 @@ namespace COLLADABU
 	}
 
 
-
-	void setStringFromMatches(String& matchString, boost::smatch matches, int index)
+	void setStringFromMatches(String& matchString, const String& entireString, int *resultPositions, int index)
 	{
-		boost::smatch::const_reference match = matches[index];
-		if ( match.matched )
-			matchString = String(match.first, match.second);
+		int& startPosition = resultPositions[2*index];
+		int& endPosition = resultPositions[2*index+1];
+		if ( startPosition >= 0)
+		{
+			matchString.assign( entireString, startPosition, endPosition - startPosition);
+		}
 	}
 
 
@@ -262,28 +264,57 @@ namespace COLLADABU
 
 			// The following implementation cannot handle paths like this:
 			// /tmp/se.3/file
-			//static pcrecpp::RE re("(.*/)?([^.]*)?(\\..*)?");
-			//dir = baseName = extension = "";
-			//re.FullMatch(path, &dir, &baseName, &extension);
 
+			// regular expression: "(.*/)?(.*)?"
+			static const char _findDir[71]={69,82,67,80,71,0,0,0,0,0,0,0,1,0,0,0,2,0,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,27,103,95,0,9,0,1,57,12,28,47,
+				85,0,9,103,95,0,7,0,2,57,12,85,0,7,85,0,27,0,};
+			pcre* findDir = (pcre*) _findDir;
+
+
+			// regular expression: "([^.]*)?(\.(.*))?"
+			static const char _findExt[79]={69,82,67,80,79,0,0,0,0,0,0,0,1,0,0,0,3,0,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,35,103,95,0,7,0,1,44,46,85,0,7
+				,103,95,0,17,0,2,28,46,95,0,7,0,3,57,12,85,0,7,85,0,17,85,0,35,0,};
+			pcre* findExt = (pcre*) _findExt;
 			
-			static boost::regex findDir("(.*/)?(.*)?");
-			static boost::regex findExt("([^.]*)?(\\.(.*))?");
 			String tmpFile;
 			dir.clear();
 			baseName.clear();
 			extension.clear();
-			boost::smatch dirMatches; 
-			if(regex_match(path, dirMatches, findDir)) 
-			{	
-				setStringFromMatches(dir, dirMatches, 1);
-				setStringFromMatches(tmpFile, dirMatches, 2);
 
-				boost::smatch extMatches;
-				if(regex_match(tmpFile, extMatches, findExt)) 
+			int dirMatches[regExpMatchesVectorLength];
+
+			int  dirResult = pcre_exec(
+										findDir,           /* the compiled pattern */
+										0,                 /* no extra data - we didn't study the pattern */
+										path.c_str(),      /* the subject string */
+										(int)path.size(),  /* the length of the subject */
+										0,                 /* start at offset 0 in the subject */
+										0,                 /* default options */
+										dirMatches,     /* output vector for substring information */
+										regExpMatchesVectorLength); /* number of elements in the output vector */
+
+			if ( dirResult >= 0 )
+			{	
+				setStringFromMatches(dir, path, dirMatches, 1);
+				setStringFromMatches(tmpFile, path, dirMatches, 2);
+
+				int extMatches[regExpMatchesVectorLength];
+
+				int  extResult = pcre_exec(
+											findExt,           /* the compiled pattern */
+											0,                 /* no extra data - we didn't study the pattern */
+											tmpFile.c_str(),      /* the subject string */
+											(int)tmpFile.size(),  /* the length of the subject */
+											0,                 /* start at offset 0 in the subject */
+											0,                 /* default options */
+											extMatches,     /* output vector for substring information */
+											regExpMatchesVectorLength); /* number of elements in the output vector */
+
+				
+				if ( extResult >= 0 )
 				{
-					setStringFromMatches(baseName, extMatches, 1);
-					setStringFromMatches(extension, extMatches, 3);
+					setStringFromMatches(baseName, tmpFile, extMatches, 1);
+					setStringFromMatches(extension, tmpFile, extMatches, 3);
 				}
 			}
 	}
@@ -767,7 +798,12 @@ namespace COLLADABU
 				characters[1] = *relativeTo_path;
 				characters[2] = 0;
 
-				boost::to_lower(characters);
+
+				std::transform(
+					characters,
+					characters+2,
+					characters,
+					tolower );
 
 				if  ( characters[0] != characters[1] ) 
 					break;
@@ -832,27 +868,37 @@ namespace COLLADABU
 		String& query,
 		String& fragment) 
 	{
-			// This regular expression for parsing URI references comes from the URI spec:
-			//   http://tools.ietf.org/html/rfc3986#appendix-B
-		static boost::regex re("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
-			//String s1, s3, s6, s8;
+		// This regular expression for parsing URI references comes from the URI spec:
+		//   http://tools.ietf.org/html/rfc3986#appendix-B
+		// regular expression: "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
+		static const char _matchUri[240]={69,82,67,80,-16,0,0,0,16,0,0,0,1,0,0,0,9,0,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,-60,26,103,95,0,49,0,1,95, 0,39,0,2,79,-1,-1,-1,-1,-9,127,-1,123,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,72,85,0,39,28,58,85,0,49,103,95,0,51,0,3,28,47,28,47,95,0,39,0,4,79,-1,-1,-1,-1,-9,127,-1,127,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,70,85,0,39,85,0,51,95,0,39,0,5,79,-1,-1,-1,-1,-9,-1,-1,127,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,70,85,0,39,103,95,0,17,0,6,28,63,95,0,7,0,7,44,35,85,0,7,85,0,17,103,95,0,17,0,8,28,35,95,0,7,0,9,57,12,85,0,7,85,0,17,85,0,-60,0,};
+		pcre* matchUri = (pcre*) _matchUri;
 
 
-			boost::smatch matches;
-			if(regex_match(uriRef, matches, re)) 
-			{
-				setStringFromMatches(scheme, matches, 2);
-				setStringFromMatches(authority, matches, 4);
-				setStringFromMatches(path, matches, 5);
-				setStringFromMatches(query, matches, 6);
-				setStringFromMatches(fragment, matches, 9);
-				return true;
-			}
+		int uriMatches[regExpMatchesVectorLength];
 
-			//if (re.FullMatch(uriRef, &s1, &scheme, &s3, &authority, &path, &s6, &query, &s8, &fragment))
-			//	return true;
+		int  uriResult = pcre_exec(
+									matchUri,					/* the compiled pattern */
+									0,							/* no extra data - we didn't study the pattern */
+									uriRef.c_str(),				/* the subject string */
+									(int)uriRef.size(),			/* the length of the subject */
+									0,							/* start at offset 0 in the subject */
+									0,							/* default options */
+									uriMatches,				/* output vector for substring information */
+									regExpMatchesVectorLength);		/* number of elements in the output vector */
 
-			return false;
+
+		if ( uriResult >= 0 )
+		{
+			setStringFromMatches(scheme, uriRef, uriMatches, 2);
+			setStringFromMatches(authority, uriRef, uriMatches, 4);
+			setStringFromMatches(path, uriRef, uriMatches, 5);
+			setStringFromMatches(query, uriRef, uriMatches, 6);
+			setStringFromMatches(fragment, uriRef, uriMatches, 9);
+			return true;
+		}
+
+		return false;
 	}
 
 	namespace {
