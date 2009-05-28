@@ -1,26 +1,26 @@
 /*
-    Copyright (c) 2008-2009 NetAllied Systems GmbH
+Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADASaxFrameworkLoader.
+This file is part of COLLADASaxFrameworkLoader.
 
-    Licensed under the MIT Open Source License, 
-    for details please see LICENSE file or the website
-    http://www.opensource.org/licenses/mit-license.php
+Licensed under the MIT Open Source License, 
+for details please see LICENSE file or the website
+http://www.opensource.org/licenses/mit-license.php
 */
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLSidAddress.h"
 
-#include <boost/regex.hpp>
-#include <boost/regex/v4/match_flags.hpp>
+#include "pcre.h"
 
 
 namespace COLLADASaxFWL
 {
 
+	const int regExpMatchesVectorLength = 30;    /* should be a multiple of 3 */
 	const char* sidSeparator = "/";
 
-    //------------------------------
+	//------------------------------
 	SidAddress::SidAddress( const String& sidAddress )
 		: mMemberSelection(MEMBER_SELECTION_NONE)
 		, mFirstIndex(0)
@@ -40,7 +40,7 @@ namespace COLLADASaxFWL
 		mSids.push_back( sid );
 	}
 
-    //------------------------------
+	//------------------------------
 	SidAddress::~SidAddress()
 	{
 	}
@@ -49,14 +49,14 @@ namespace COLLADASaxFWL
 	void SidAddress::parseAddress( const String& sidAddress )
 	{
 		/* An sid path looks as follows
-			<id>/sid1/sid2/sid3<accessor>
-			where,
-			<id> is either a valid id or a "." for relative paths
-			<accessor> is either "." followed by a name eg "ANGLE"
-			              or a one dimensional array access of the form (<number>)
-						  or a two dimensional array access of the form (<number>)(<number>)
-						  or empty
-			The number of sids is arbitrary an can be zero
+		<id>/sid1/sid2/sid3<accessor>
+		where,
+		<id> is either a valid id or a "." for relative paths
+		<accessor> is either "." followed by a name eg "ANGLE"
+		or a one dimensional array access of the form (<number>)
+		or a two dimensional array access of the form (<number>)(<number>)
+		or empty
+		The number of sids is arbitrary an can be zero
 
 		*/
 
@@ -87,110 +87,143 @@ namespace COLLADASaxFWL
 		}
 
 		const char * secondPart = sidAddress.c_str() + lastSidSeparator + 1;
+		int secondPartLength = (int)sidAddress.length() - (int)lastSidSeparator - 1;
 
 
-		static boost::regex accessorNameRegex("(.+)\\.(.+)");
-		boost::cmatch accessorNameRegexMatches; 
+		// regular expression: "(.+)\.(.+)"
+		static const char _accessorNameRegex[69]={69,82,67,80,69,0,0,0,0,0,0,0,5,0,0,0,2,0,0,0,0,0,46,2,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,25,95,0,7,0,1,59,12,85,0,7,28,46,95,0,7,0,2,59,12,85,0,7,85,0,25,0,};
+		pcre* accessorNameRegex = (pcre*) _accessorNameRegex;
 
-		static boost::regex accessorIndexRegex("(.+)(?:\\(([0-9]+)\\))?(?:\\(([0-9]+)\\))?");
-		boost::cmatch accessorIndexRegexMatches; 
+		int accessorNameMatches[regExpMatchesVectorLength];
 
-		if ( boost::regex_match(secondPart, accessorNameRegexMatches, accessorNameRegex) )
+
+		int  accessorNameResult = pcre_exec(
+											accessorNameRegex,			/* the compiled pattern */
+											0,							/* no extra data - we didn't study the pattern */
+											secondPart,					/* the subject string */
+											secondPartLength,			/* the length of the subject */
+											0,							/* start at offset 0 in the subject */
+											0,							/* default options */
+											accessorNameMatches,		/* output vector for substring information */
+											regExpMatchesVectorLength);	/* number of elements in the output vector */
+
+
+		if ( accessorNameResult >= 0 )
 		{
 			// first try the name accessor
 			// this matches only, if the name accessor is present. Therefor there are exactly two matches 
-			boost::cmatch::const_reference idOrSidMatch = accessorNameRegexMatches[1];
-			assert(idOrSidMatch.matched);
-			if ( idOrSidMatch.matched )
+			int idOrSidStart = accessorNameMatches[2*1];
+			int idOrSidEnd = accessorNameMatches[2*1+1];
+			//			boost::cmatch::const_reference idOrSidMatch = accessorNameRegexMatches[1];
+			assert( idOrSidStart >= 0 );
+			if ( idOrSidStart >= 0 )
 			{
 				if ( hasId )
 				{
-					mSids.push_back(String(idOrSidMatch.first, idOrSidMatch.second - idOrSidMatch.first));
+					mSids.push_back(String( secondPart + idOrSidStart, idOrSidEnd - idOrSidStart));
 				}
 				else
 				{
-					if ( *idOrSidMatch.first != '.' )
-						mId.assign(idOrSidMatch.first, idOrSidMatch.second - idOrSidMatch.first);
+					if ( secondPart[idOrSidStart] != '.' )
+						mId.assign(secondPart + idOrSidStart, idOrSidEnd - idOrSidStart);
 					hasId = true;
 				}
 			}
 
-			boost::cmatch::const_reference nameMatch = accessorNameRegexMatches[2];
-			assert(nameMatch.matched);
-			if ( nameMatch.matched )
+			int& nameStart = accessorNameMatches[2*2];
+			int& nameEnd = accessorNameMatches[2*2+1];
+			assert(nameStart>=0);
+			if ( nameStart>=0 )
 			{
-				mMemberSelectionName.assign(nameMatch.first, nameMatch.second - nameMatch.first);
+				mMemberSelectionName.assign(secondPart + nameStart, nameEnd - nameStart);
 			}
 
 			mMemberSelection = MEMBER_SELECTION_NAME;
 
 			mIsValid = true;
 		}
-		else if ( boost::regex_match(secondPart, accessorIndexRegexMatches, accessorIndexRegex, boost::regex_constants::match_any) )
+		else 
 		{
-			size_t matchesCount = accessorIndexRegexMatches.size();
-			//check all other cases
-			// the first match is id or sid
-			boost::cmatch::const_reference idOrSidMatch = accessorIndexRegexMatches[1];
-			assert(idOrSidMatch.matched);
-			if ( idOrSidMatch.matched )
-			{
-				if ( hasId )
-				{
-					mSids.push_back(String(idOrSidMatch.first, idOrSidMatch.second - idOrSidMatch.first));
-				}
-				else
-				{
-					if ( *idOrSidMatch.first != '.' )
-						mId.assign(idOrSidMatch.first, idOrSidMatch.second - idOrSidMatch.first);
-					hasId = true;
-				}
-			}
-			mMemberSelection = MEMBER_SELECTION_NONE;
+			// regular expression: "([^(]+)(?:\(([0-9]+)\))?(?:\(([0-9]+)\))?"
+			char _accessorIndexRegex[163]={69,82,67,80,-93,0,0,0,0,0,0,0,1,0,0,0,3,0,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,119,95,0,7,0,1,46,40,85,0,7,103,94,0,49,28,40,95,0,39,0,2,78,0,0,0,0,0,0,-1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,85,0,39,28,41,85,0,49,103,94,0,49,28,40,95,0,39,0,3,78,0,0,0,0,0,0,-1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,85,0,39,28,41,85,0,49,85,0,119,0,};
+			pcre* accessorIndexRegex = (pcre*) _accessorIndexRegex;
 
-			// this one matches only if two indices are specified. In case of one index, only the next matches
-			boost::cmatch::const_reference firstIndexMatch = accessorIndexRegexMatches[2];
-			if ( firstIndexMatch.matched )
-			{
-				mMemberSelection = MEMBER_SELECTION_TWO_INDICES;
-				bool failed = false;
-				const char* bufferBegin = firstIndexMatch.first;
-				mFirstIndex = (size_t)GeneratedSaxParser::Utils::toUint32(&bufferBegin, firstIndexMatch.second, failed);
-				if ( failed )
-				{
-					mIsValid = false;
-					return;
-				}
-			}
+			int accessorIndexMatches[regExpMatchesVectorLength];
 
-			// this one matches if two indices or only index are specified. 
-			boost::cmatch::const_reference secondIndexMatch = accessorIndexRegexMatches[3];
-			if ( secondIndexMatch.matched )
+			int  accessorIndexResult = pcre_exec(
+				accessorIndexRegex,			/* the compiled pattern */
+				0,							/* no extra data - we didn't study the pattern */
+				secondPart,					/* the subject string */
+				secondPartLength,			/* the length of the subject */
+				0,							/* start at offset 0 in the subject */
+				0,							/* default options */
+				accessorIndexMatches,		/* output vector for substring information */
+				regExpMatchesVectorLength);
+
+			if ( accessorIndexResult >= 0 )
 			{
-				bool failed = false;
-				const char* bufferBegin = secondIndexMatch.first;
-				size_t index = (size_t)GeneratedSaxParser::Utils::toUint32(&bufferBegin, secondIndexMatch.second, failed);
-				if ( mMemberSelection != MEMBER_SELECTION_TWO_INDICES )
+				//check all other cases
+				// the first match is id or sid
+				int& idOrSidStart = accessorIndexMatches[2*1];
+				int& idOrSidEnd = accessorIndexMatches[2*1+1];
+				//			boost::cmatch::const_reference idOrSidMatch = accessorNameRegexMatches[1];
+				assert( idOrSidStart >= 0 );
+
+				if ( idOrSidStart >= 0 )
+				{
+					if ( hasId )
+					{
+						mSids.push_back(String( secondPart + idOrSidStart, idOrSidEnd - idOrSidStart));
+					}
+					else
+					{
+						if ( secondPart[idOrSidStart] != '.' )
+							mId.assign(secondPart + idOrSidStart, idOrSidEnd - idOrSidStart);
+						hasId = true;
+					}
+				}
+				mMemberSelection = MEMBER_SELECTION_NONE;
+
+				// this one matches only if two indices are specified. In case of one index, only the next matches
+				int& firstIndexStart = accessorIndexMatches[2*2];
+				int& firstIndexEnd = accessorIndexMatches[2*2+1];
+				if ( firstIndexStart >= 0)
 				{
 					mMemberSelection = MEMBER_SELECTION_ONE_INDEX;
-					mFirstIndex = index;
+					bool failed = false;
+					const char* bufferBegin = secondPart + firstIndexStart;
+					mFirstIndex = (size_t)GeneratedSaxParser::Utils::toUint32(&bufferBegin, secondPart + firstIndexEnd, failed);
+					if ( failed )
+					{
+						mIsValid = false;
+						return;
+					}
 				}
-				else
-				{
-					mSecondIndex = index;
-				}
-				if ( failed )
-				{
-					mIsValid = false;
-					return;
-				}
-			}
 
-			mIsValid = true;
-		}
-		else
-		{
-			mIsValid = false;
+				// this one matches if two indices or only index are specified. 
+				int& secondIndexStart = accessorIndexMatches[2*3];
+				int& secondIndexEnd = accessorIndexMatches[2*3+1];
+				if ( secondIndexStart >= 0)
+				{
+					bool failed = false;
+					const char* bufferBegin = secondPart + secondIndexStart;
+					size_t index = (size_t)GeneratedSaxParser::Utils::toUint32(&bufferBegin, secondPart + secondIndexEnd, failed);
+					
+					mMemberSelection = MEMBER_SELECTION_TWO_INDICES;
+					mSecondIndex = index;
+					if ( failed )
+					{
+						mIsValid = false;
+						return;
+					}
+				}
+
+				mIsValid = true;
+			}
+			else
+			{
+				mIsValid = false;
+			}
 		}
 
 	}
