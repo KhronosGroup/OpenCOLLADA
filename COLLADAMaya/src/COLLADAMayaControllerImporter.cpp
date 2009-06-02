@@ -63,7 +63,7 @@ namespace COLLADAMaya
         }
 
         {
-            std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>>::iterator it = mSkinControllersMap.begin ();
+            std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*> >::iterator it = mSkinControllersMap.begin ();
             while ( it != mSkinControllersMap.end () )
             {
                 std::vector<COLLADAFW::SkinController*>& skinControllers = it->second;
@@ -319,7 +319,7 @@ namespace COLLADAMaya
     // --------------------------------------------
     const COLLADAFW::SkinController* ControllerImporter::findSkinControllerByDataId ( const COLLADAFW::UniqueId& skinControllerDataId )
     {
-        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>>::const_iterator it = mSkinControllersMap.begin ();
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*> >::const_iterator it = mSkinControllersMap.begin ();
         while ( it != mSkinControllersMap.end () )
         {
             const std::vector<COLLADAFW::SkinController*>& skinControllers = it->second;
@@ -337,7 +337,7 @@ namespace COLLADAMaya
     // --------------------------------------------
     const std::vector<COLLADAFW::SkinController*>* ControllerImporter::findSkinControllersBySourceId ( const COLLADAFW::UniqueId& sourceId )
     {
-        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>>::const_iterator it;
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*> >::const_iterator it;
         it = mSkinControllersMap.find ( sourceId );
         if ( it != mSkinControllersMap.end () )
         {
@@ -350,7 +350,7 @@ namespace COLLADAMaya
     // --------------------------------------------
     const COLLADAFW::UniqueId* ControllerImporter::getControllersGeometryId ( const COLLADAFW::UniqueId& controllerId )
     {
-        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>>::const_iterator it = mSkinControllersMap.begin ();
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*> >::const_iterator it = mSkinControllersMap.begin ();
         while ( it != mSkinControllersMap.end () )
         {
             const std::vector<COLLADAFW::SkinController*>& skinControllers = it->second;

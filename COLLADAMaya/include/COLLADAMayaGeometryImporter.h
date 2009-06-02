@@ -118,7 +118,7 @@ namespace COLLADAMaya
          * material, if the mesh element has a controller element (then the groups has to be 
          * organised in groupParts).
          */
-        std::map<COLLADAFW::UniqueId, std::vector<MayaDM::componentList>> mMeshComponentLists;
+        std::map<COLLADAFW::UniqueId, std::vector<MayaDM::componentList> > mMeshComponentLists;
 
     public:
 

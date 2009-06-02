@@ -149,7 +149,7 @@ namespace COLLADAMaya
         /**
          * The map holds the skin controller objects for every source (mesh or morph controller).
          */
-        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*>> mSkinControllersMap;
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*> > mSkinControllersMap;
 
         /**
          * The map holds a list of controller objects.

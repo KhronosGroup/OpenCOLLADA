@@ -176,7 +176,6 @@
 		CE0B3F0C0F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0B3ED30F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h */; };
 		CE0B3F0D0F56AFD8004F8570 /* COLLADAMayaVisualSceneImporter.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0B3ED40F56AFD8004F8570 /* COLLADAMayaVisualSceneImporter.h */; };
 		CE0B3F2D0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0B3F2C0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a */; };
-		CE0B3F2F0F56B07D004F8570 /* libboost_regex-xgcc40-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0B3F2E0F56B07D004F8570 /* libboost_regex-xgcc40-mt.a */; };
 		CE0B3F310F56B096004F8570 /* libboost_system-xgcc40-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0B3F300F56B096004F8570 /* libboost_system-xgcc40-mt.a */; };
 		CE0B3FF50F56D037004F8570 /* COLLADABUMathMatrix3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3FF00F56D037004F8570 /* COLLADABUMathMatrix3.cpp */; };
 		CE0B3FF60F56D037004F8570 /* COLLADABUMathMatrix4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3FF10F56D037004F8570 /* COLLADABUMathMatrix4.cpp */; };
@@ -190,6 +189,19 @@
 		CE0B40590F56DD7B004F8570 /* COLLADABUMathQuaternion.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0B40530F56DD7B004F8570 /* COLLADABUMathQuaternion.h */; };
 		CE0B405A0F56DD7B004F8570 /* COLLADABUMathUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0B40540F56DD7B004F8570 /* COLLADABUMathUtils.h */; };
 		CE0B405B0F56DD7B004F8570 /* COLLADABUMathVector3.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0B40550F56DD7B004F8570 /* COLLADABUMathVector3.h */; };
+		CE3E66840FD54A4C003D1AD2 /* pcre.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3E66810FD54A4C003D1AD2 /* pcre.h */; };
+		CE3E66850FD54A4C003D1AD2 /* pcre_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3E66820FD54A4C003D1AD2 /* pcre_internal.h */; };
+		CE3E66860FD54A4C003D1AD2 /* ucp.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3E66830FD54A4C003D1AD2 /* ucp.h */; };
+		CE3E66880FD54A5F003D1AD2 /* config_mac.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3E66870FD54A5F003D1AD2 /* config_mac.h */; };
+		CE3E668F0FD54A76003D1AD2 /* pcre_chartables.c in Sources */ = {isa = PBXBuildFile; fileRef = CE3E66890FD54A76003D1AD2 /* pcre_chartables.c */; };
+		CE3E66900FD54A76003D1AD2 /* pcre_exec.c in Sources */ = {isa = PBXBuildFile; fileRef = CE3E668A0FD54A76003D1AD2 /* pcre_exec.c */; };
+		CE3E66910FD54A76003D1AD2 /* pcre_globals.c in Sources */ = {isa = PBXBuildFile; fileRef = CE3E668B0FD54A76003D1AD2 /* pcre_globals.c */; };
+		CE3E66920FD54A76003D1AD2 /* pcre_newline.c in Sources */ = {isa = PBXBuildFile; fileRef = CE3E668C0FD54A76003D1AD2 /* pcre_newline.c */; };
+		CE3E66930FD54A76003D1AD2 /* pcre_tables.c in Sources */ = {isa = PBXBuildFile; fileRef = CE3E668D0FD54A76003D1AD2 /* pcre_tables.c */; };
+		CE3E66940FD54A76003D1AD2 /* pcre_try_flipped.c in Sources */ = {isa = PBXBuildFile; fileRef = CE3E668E0FD54A76003D1AD2 /* pcre_try_flipped.c */; };
+		CE3E66A10FD54BD4003D1AD2 /* COLLADAFWMorphController.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3E66A00FD54BD4003D1AD2 /* COLLADAFWMorphController.h */; };
+		CE3E66A30FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE3E66A20FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp */; };
+		CE3E66B60FD54FA7003D1AD2 /* COLLADAFWSkinController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE784F2F0FB5AAC100F2F8D6 /* COLLADAFWSkinController.cpp */; };
 		CE4A34C90F98E47A00E32945 /* COLLADAMayaVersionInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4A34C80F98E47A00E32945 /* COLLADAMayaVersionInfo.h */; };
 		CE784F0F0FB5AA0D00F2F8D6 /* COLLADASaxFWLColladaParserAutoGenFunctionMapFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = CE784F0C0FB5AA0D00F2F8D6 /* COLLADASaxFWLColladaParserAutoGenFunctionMapFactory.h */; };
 		CE784F100FB5AA0D00F2F8D6 /* COLLADASaxFWLLibraryControllersLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = CE784F0D0FB5AA0D00F2F8D6 /* COLLADASaxFWLLibraryControllersLoader.h */; };
@@ -515,6 +527,13 @@
 			remoteGlobalIDString = CE0B3F4F0F56B194004F8570;
 			remoteInfo = COLLADABaseUtils;
 		};
+		CE3E66980FD54A94003D1AD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE3E667A0FD54A21003D1AD2 /* pcre */;
+			remoteInfo = pcre;
+		};
 		CE7955330F5FFA180072ACF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -743,7 +762,6 @@
 		CE0B3ED30F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaVisualSceneExporter.h; path = include/COLLADAMayaVisualSceneExporter.h; sourceTree = "<group>"; };
 		CE0B3ED40F56AFD8004F8570 /* COLLADAMayaVisualSceneImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaVisualSceneImporter.h; path = include/COLLADAMayaVisualSceneImporter.h; sourceTree = "<group>"; };
 		CE0B3F2C0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_filesystem-xgcc40-mt.a"; path = "/usr/local/lib/libboost_filesystem-xgcc40-mt.a"; sourceTree = "<absolute>"; };
-		CE0B3F2E0F56B07D004F8570 /* libboost_regex-xgcc40-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_regex-xgcc40-mt.a"; path = "/usr/local/lib/libboost_regex-xgcc40-mt.a"; sourceTree = "<absolute>"; };
 		CE0B3F300F56B096004F8570 /* libboost_system-xgcc40-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_system-xgcc40-mt.a"; path = "/usr/local/lib/libboost_system-xgcc40-mt.a"; sourceTree = "<absolute>"; };
 		CE0B3F500F56B194004F8570 /* libCOLLADABaseUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCOLLADABaseUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0B3FF00F56D037004F8570 /* COLLADABUMathMatrix3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADABUMathMatrix3.cpp; path = ../COLLADABaseUtils/src/Math/COLLADABUMathMatrix3.cpp; sourceTree = SOURCE_ROOT; };
@@ -758,6 +776,19 @@
 		CE0B40530F56DD7B004F8570 /* COLLADABUMathQuaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADABUMathQuaternion.h; path = ../COLLADABaseUtils/include/Math/COLLADABUMathQuaternion.h; sourceTree = SOURCE_ROOT; };
 		CE0B40540F56DD7B004F8570 /* COLLADABUMathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADABUMathUtils.h; path = ../COLLADABaseUtils/include/Math/COLLADABUMathUtils.h; sourceTree = SOURCE_ROOT; };
 		CE0B40550F56DD7B004F8570 /* COLLADABUMathVector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADABUMathVector3.h; path = ../COLLADABaseUtils/include/Math/COLLADABUMathVector3.h; sourceTree = SOURCE_ROOT; };
+		CE3E667B0FD54A21003D1AD2 /* libpcre.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpcre.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE3E66810FD54A4C003D1AD2 /* pcre.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pcre.h; path = ../Externals/pcre/include/pcre.h; sourceTree = SOURCE_ROOT; };
+		CE3E66820FD54A4C003D1AD2 /* pcre_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pcre_internal.h; path = ../Externals/pcre/include/pcre_internal.h; sourceTree = SOURCE_ROOT; };
+		CE3E66830FD54A4C003D1AD2 /* ucp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ucp.h; path = ../Externals/pcre/include/ucp.h; sourceTree = SOURCE_ROOT; };
+		CE3E66870FD54A5F003D1AD2 /* config_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config_mac.h; path = ../Externals/pcre/include/config_mac.h; sourceTree = SOURCE_ROOT; };
+		CE3E66890FD54A76003D1AD2 /* pcre_chartables.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pcre_chartables.c; path = ../Externals/pcre/src/pcre_chartables.c; sourceTree = SOURCE_ROOT; };
+		CE3E668A0FD54A76003D1AD2 /* pcre_exec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pcre_exec.c; path = ../Externals/pcre/src/pcre_exec.c; sourceTree = SOURCE_ROOT; };
+		CE3E668B0FD54A76003D1AD2 /* pcre_globals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pcre_globals.c; path = ../Externals/pcre/src/pcre_globals.c; sourceTree = SOURCE_ROOT; };
+		CE3E668C0FD54A76003D1AD2 /* pcre_newline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pcre_newline.c; path = ../Externals/pcre/src/pcre_newline.c; sourceTree = SOURCE_ROOT; };
+		CE3E668D0FD54A76003D1AD2 /* pcre_tables.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pcre_tables.c; path = ../Externals/pcre/src/pcre_tables.c; sourceTree = SOURCE_ROOT; };
+		CE3E668E0FD54A76003D1AD2 /* pcre_try_flipped.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pcre_try_flipped.c; path = ../Externals/pcre/src/pcre_try_flipped.c; sourceTree = SOURCE_ROOT; };
+		CE3E66A00FD54BD4003D1AD2 /* COLLADAFWMorphController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWMorphController.h; path = ../COLLADAFramework/include/COLLADAFWMorphController.h; sourceTree = SOURCE_ROOT; };
+		CE3E66A20FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAFWMorphController.cpp; path = ../COLLADAFramework/src/COLLADAFWMorphController.cpp; sourceTree = SOURCE_ROOT; };
 		CE4A34C80F98E47A00E32945 /* COLLADAMayaVersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaVersionInfo.h; path = include/COLLADAMayaVersionInfo.h; sourceTree = "<group>"; };
 		CE6095210E93CD6B007F776B /* libCOLLADAStreamWriter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCOLLADAStreamWriter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE784F0C0FB5AA0D00F2F8D6 /* COLLADASaxFWLColladaParserAutoGenFunctionMapFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADASaxFWLColladaParserAutoGenFunctionMapFactory.h; path = ../COLLADASaxFrameworkLoader/include/COLLADASaxFWLColladaParserAutoGenFunctionMapFactory.h; sourceTree = SOURCE_ROOT; };
@@ -1081,6 +1112,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE3E66790FD54A21003D1AD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE60951F0E93CD6B007F776B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1117,7 +1155,6 @@
 				CE7FF17E0E9B9F2C00B97D2A /* OpenGL.framework in Frameworks */,
 				CE7FF1820E9B9F3600B97D2A /* Cg.framework in Frameworks */,
 				CE0B3F2D0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a in Frameworks */,
-				CE0B3F2F0F56B07D004F8570 /* libboost_regex-xgcc40-mt.a in Frameworks */,
 				CE0B3F310F56B096004F8570 /* libboost_system-xgcc40-mt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1134,6 +1171,7 @@
 				CE787BCD0F583F350019C2D7 /* libGeneratedSaxParser.a */,
 				CE787C010F583FC80019C2D7 /* libCOLLADAFramework.a */,
 				CE787CFE0F5840830019C2D7 /* libCOLLADASaxFrameworkLoader.a */,
+				CE3E667B0FD54A21003D1AD2 /* libpcre.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1142,7 +1180,6 @@
 			isa = PBXGroup;
 			children = (
 				CE0B3F300F56B096004F8570 /* libboost_system-xgcc40-mt.a */,
-				CE0B3F2E0F56B07D004F8570 /* libboost_regex-xgcc40-mt.a */,
 				CE0B3F2C0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a */,
 				CE7FF36C0E9CD94500B97D2A /* Source */,
 				CE7FF2930E9CD90A00B97D2A /* Include */,
@@ -1190,6 +1227,11 @@
 		CE7FF2930E9CD90A00B97D2A /* Include */ = {
 			isa = PBXGroup;
 			children = (
+				CE3E66A00FD54BD4003D1AD2 /* COLLADAFWMorphController.h */,
+				CE3E66870FD54A5F003D1AD2 /* config_mac.h */,
+				CE3E66810FD54A4C003D1AD2 /* pcre.h */,
+				CE3E66820FD54A4C003D1AD2 /* pcre_internal.h */,
+				CE3E66830FD54A4C003D1AD2 /* ucp.h */,
 				CE784F330FB5ACF200F2F8D6 /* COLLADAMayaControllerImporter.h */,
 				CE784F340FB5ACF200F2F8D6 /* COLLADAMayaEffectAnimation.h */,
 				CE784F350FB5ACF200F2F8D6 /* COLLADAMayaTransformAnimation.h */,
@@ -1484,6 +1526,13 @@
 		CE7FF36C0E9CD94500B97D2A /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				CE3E66A20FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp */,
+				CE3E66890FD54A76003D1AD2 /* pcre_chartables.c */,
+				CE3E668A0FD54A76003D1AD2 /* pcre_exec.c */,
+				CE3E668B0FD54A76003D1AD2 /* pcre_globals.c */,
+				CE3E668C0FD54A76003D1AD2 /* pcre_newline.c */,
+				CE3E668D0FD54A76003D1AD2 /* pcre_tables.c */,
+				CE3E668E0FD54A76003D1AD2 /* pcre_try_flipped.c */,
 				CE784F390FB5AD1B00F2F8D6 /* COLLADAMayaControllerImporter.cpp */,
 				CE784F3A0FB5AD1B00F2F8D6 /* COLLADAMayaEffectAnimation.cpp */,
 				CE784F3B0FB5AD1B00F2F8D6 /* COLLADAMayaTransformAnimation.cpp */,
@@ -1705,6 +1754,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE3E66770FD54A21003D1AD2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE3E66840FD54A4C003D1AD2 /* pcre.h in Headers */,
+				CE3E66850FD54A4C003D1AD2 /* pcre_internal.h in Headers */,
+				CE3E66860FD54A4C003D1AD2 /* ucp.h in Headers */,
+				CE3E66880FD54A5F003D1AD2 /* config_mac.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CE60951D0E93CD6B007F776B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1798,6 +1858,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3E66A10FD54BD4003D1AD2 /* COLLADAFWMorphController.h in Headers */,
 				CE787C550F583FE00019C2D7 /* COLLADAFWAnnotate.h in Headers */,
 				CE787C560F583FE00019C2D7 /* COLLADAFWArray.h in Headers */,
 				CE787C570F583FE00019C2D7 /* COLLADAFWArrayPrimitiveType.h in Headers */,
@@ -2035,6 +2096,23 @@
 			productReference = CE0B3F500F56B194004F8570 /* libCOLLADABaseUtils.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		CE3E667A0FD54A21003D1AD2 /* pcre */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE3E66800FD54A3F003D1AD2 /* Build configuration list for PBXNativeTarget "pcre" */;
+			buildPhases = (
+				CE3E66770FD54A21003D1AD2 /* Headers */,
+				CE3E66780FD54A21003D1AD2 /* Sources */,
+				CE3E66790FD54A21003D1AD2 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pcre;
+			productName = pcre;
+			productReference = CE3E667B0FD54A21003D1AD2 /* libpcre.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		CE6095200E93CD6B007F776B /* COLLADAStreamWriter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE6095240E93CD8A007F776B /* Build configuration list for PBXNativeTarget "COLLADAStreamWriter" */;
@@ -2125,6 +2203,7 @@
 				CE79553C0F5FFA6F0072ACF3 /* PBXTargetDependency */,
 				CE79553E0F5FFA730072ACF3 /* PBXTargetDependency */,
 				CE7955C90F6004760072ACF3 /* PBXTargetDependency */,
+				CE3E66990FD54A94003D1AD2 /* PBXTargetDependency */,
 			);
 			name = COLLADAMaya;
 			productName = libCOLLADAMaya;
@@ -2150,6 +2229,7 @@
 				CE787BCC0F583F350019C2D7 /* GeneratedSaxParser */,
 				CE787C000F583FC80019C2D7 /* COLLADAFramework */,
 				CE787CFD0F5840830019C2D7 /* COLLADASaxFrameworkLoader */,
+				CE3E667A0FD54A21003D1AD2 /* pcre */,
 			);
 		};
 /* End PBXProject section */
@@ -2188,6 +2268,19 @@
 				CE7952750F5FC5400072ACF3 /* COLLADABUStringUtils.cpp in Sources */,
 				CE7952760F5FC5400072ACF3 /* COLLADABUURI.cpp in Sources */,
 				CE7952770F5FC5400072ACF3 /* COLLADABUUtils.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE3E66780FD54A21003D1AD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE3E668F0FD54A76003D1AD2 /* pcre_chartables.c in Sources */,
+				CE3E66900FD54A76003D1AD2 /* pcre_exec.c in Sources */,
+				CE3E66910FD54A76003D1AD2 /* pcre_globals.c in Sources */,
+				CE3E66920FD54A76003D1AD2 /* pcre_newline.c in Sources */,
+				CE3E66930FD54A76003D1AD2 /* pcre_tables.c in Sources */,
+				CE3E66940FD54A76003D1AD2 /* pcre_try_flipped.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2270,6 +2363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3E66B60FD54FA7003D1AD2 /* COLLADAFWSkinController.cpp in Sources */,
 				CE787CC30F58400C0019C2D7 /* COLLADAFWCamera.cpp in Sources */,
 				CE787CC40F58400C0019C2D7 /* COLLADAFWColor.cpp in Sources */,
 				CE787CC50F58400C0019C2D7 /* COLLADAFWConstants.cpp in Sources */,
@@ -2302,6 +2396,7 @@
 				CE8D7C4B0F98C014007F8DF9 /* COLLADAFWFloatOrDoubleArray.cpp in Sources */,
 				CE8D7C4C0F98C014007F8DF9 /* COLLADAFWValidate.cpp in Sources */,
 				CE784F320FB5AAC100F2F8D6 /* COLLADAFWSkinControllerData.cpp in Sources */,
+				CE3E66A30FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2418,6 +2513,11 @@
 			isa = PBXTargetDependency;
 			target = CE0B3F4F0F56B194004F8570 /* COLLADABaseUtils */;
 			targetProxy = CE0B3F980F56B21E004F8570 /* PBXContainerItemProxy */;
+		};
+		CE3E66990FD54A94003D1AD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE3E667A0FD54A21003D1AD2 /* pcre */;
+			targetProxy = CE3E66980FD54A94003D1AD2 /* PBXContainerItemProxy */;
 		};
 		CE7955340F5FFA180072ACF3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2597,6 +2697,7 @@
 					"-lCOLLADAFramework",
 					"-lCOLLADASaxFrameworkLoader",
 					"-lGeneratedSaxParser",
+					"-lpcre",
 					"-shared",
 				);
 				PREBINDING = NO;
@@ -2759,6 +2860,54 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = COLLADABaseUtils;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
+			};
+			name = "Release 2009";
+		};
+		CE3E667C0FD54A21003D1AD2 /* Debug 2008 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PREBINDING = NO;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Debug 2008";
+		};
+		CE3E667D0FD54A21003D1AD2 /* Debug 2009 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PREBINDING = NO;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Debug 2009";
+		};
+		CE3E667E0FD54A21003D1AD2 /* Release 2008 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PREBINDING = NO;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Release 2008";
+		};
+		CE3E667F0FD54A21003D1AD2 /* Release 2009 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PREBINDING = NO;
+				PRODUCT_NAME = pcre;
 			};
 			name = "Release 2009";
 		};
@@ -3093,6 +3242,7 @@
 					OSMac_,
 					NDEBUG,
 					REQUIRE_IOSTREAM,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
 				);
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
@@ -3112,6 +3262,7 @@
 					OSMac_,
 					REQUIRE_IOSTREAM,
 					NDEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
 				);
 				HEADER_SEARCH_PATHS = (
 					"/usr/local/include/boost-1_36",
@@ -3347,6 +3498,7 @@
 					"-lCOLLADAFramework",
 					"-lCOLLADASaxFrameworkLoader",
 					"-lGeneratedSaxParser",
+					"-lpcre",
 					"-shared",
 				);
 				PREBINDING = NO;
@@ -3423,6 +3575,17 @@
 				CE0B3F520F56B194004F8570 /* Debug 2009 */,
 				CE0B3F530F56B194004F8570 /* Release 2008 */,
 				CE0B3F540F56B194004F8570 /* Release 2009 */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release 2008";
+		};
+		CE3E66800FD54A3F003D1AD2 /* Build configuration list for PBXNativeTarget "pcre" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE3E667C0FD54A21003D1AD2 /* Debug 2008 */,
+				CE3E667D0FD54A21003D1AD2 /* Debug 2009 */,
+				CE3E667E0FD54A21003D1AD2 /* Release 2008 */,
+				CE3E667F0FD54A21003D1AD2 /* Release 2009 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2008";

@@ -1699,7 +1699,7 @@ namespace COLLADAMaya
     // --------------------------------------------
     const std::vector<MayaDM::componentList>* GeometryImporter::findComponentLists ( const COLLADAFW::UniqueId& geometryId )
     {
-        std::map<COLLADAFW::UniqueId, std::vector<MayaDM::componentList>>::const_iterator it;
+        std::map<COLLADAFW::UniqueId, std::vector<MayaDM::componentList> >::const_iterator it;
         it = mMeshComponentLists.find ( geometryId );
         if ( it != mMeshComponentLists.end () )
             return &(it->second);
