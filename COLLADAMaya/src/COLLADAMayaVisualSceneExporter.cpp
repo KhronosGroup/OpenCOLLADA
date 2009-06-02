@@ -643,6 +643,7 @@ namespace COLLADAMaya
 
         if ( mIsJoint ) exportRotation ( ATTR_JOINT_ORIENT, jointOrientation );
         exportRotation ( ATTR_ROTATE, rotation );
+        if ( mIsJoint ) exportRotation ( ATTR_ROTATE_AXIS, rotationAxis );
 
         exportTranslation ( ATTR_ROTATE_PIVOT_INVERSE, rotatePivot * -1, false );
         exportTranslation ( ATTR_SCALE_PIVOT_TRANSLATION, scalePivotTranslation, false );
@@ -810,11 +811,19 @@ namespace COLLADAMaya
         // Go through the axes for the rotations.
         for ( uint i=0; i<3; ++i )
         {
-            bool rotationIsNecessary;
-            // A joint must always have a rotation.
-            if ( mIsJoint ) rotationIsNecessary = true;
-            // You have to write the rotation, if the element is animated.
-            else rotationIsNecessary = ( isAnimated[i] || !( !mIsFirstRotation && isZero[i] ));
+            bool rotationIsNecessary = false;
+
+            // Check, if we have to write the rotation.
+            if ( mIsJoint && COLLADABU::Utils::equalsIgnoreCase ( name, ATTR_JOINT_ORIENT )) 
+            {
+                // A joint must always have a rotation.
+                rotationIsNecessary = true;
+            }
+            else 
+            {
+                // You have to write the rotation, if the element is animated.
+                rotationIsNecessary = ( isAnimated[i] || !( !mIsFirstRotation && isZero[i] ));
+            }
 
             if ( mTransformObject != MObject::kNullObj && rotationIsNecessary )
             {
