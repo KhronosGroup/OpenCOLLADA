@@ -22,6 +22,8 @@ unit might reference this" and so it will always be supplied to the linker. */
 
 #if (defined(WIN64) || defined(WIN32))
 #	include "config_win.h"
+#elif (defined(__APPLE__) || defined(OSMac_))
+#   include "config_mac.h"
 #elif defined(HAVE_CONFIG_H)
 #	include "config.h"
 #endif

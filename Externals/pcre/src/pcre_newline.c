@@ -49,6 +49,8 @@ http://unicode.org/unicode/reports/tr18/. */
 
 #if (defined(WIN64) || defined(WIN32))
 #	include "config_win.h"
+#elif (defined(__APPLE__) || defined(OSMac_))
+#   include "config_mac.h"
 #elif defined(HAVE_CONFIG_H)
 #	include "config.h"
 #endif

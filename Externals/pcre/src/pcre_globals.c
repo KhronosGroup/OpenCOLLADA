@@ -48,6 +48,8 @@ differently, and global variables are not used (see pcre.in). */
 
 #if (defined(WIN64) || defined(WIN32))
 #	include "config_win.h"
+#elif (defined(__APPLE__) || defined(OSMac_))
+#   include "config_mac.h"
 #elif defined(HAVE_CONFIG_H)
 #	include "config.h"
 #endif
