@@ -121,48 +121,6 @@ namespace COLLADAMaya
 //     }
 
     // -----------------------------------
-    void BaseImporter::convertMatrix4ToTransposedDouble4x4 ( 
-        const COLLADABU::Math::Matrix4& inputMatrix, 
-        double outputMatrix[][4], 
-        const double tolerance )
-    {
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][0],tolerance)) outputMatrix[0][0] = 0.0;
-        else outputMatrix[0][0] = inputMatrix[0][0];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][1],tolerance)) outputMatrix[1][0] = 0.0;
-        else outputMatrix[1][0] = inputMatrix[0][1];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][2],tolerance)) outputMatrix[2][0] = 0.0;
-        else outputMatrix[2][0] = inputMatrix[0][2];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][3],tolerance)) outputMatrix[3][0] = 0.0;
-        else outputMatrix[3][0] = inputMatrix[0][3];
-
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][0],tolerance)) outputMatrix[0][1] = 0.0;
-        else outputMatrix[0][1] = inputMatrix[1][0];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][1],tolerance)) outputMatrix[1][1] = 0.0;
-        else outputMatrix[1][1] = inputMatrix[1][1];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][2],tolerance)) outputMatrix[2][1] = 0.0;
-        else outputMatrix[2][1] = inputMatrix[1][2];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][3],tolerance)) outputMatrix[3][1] = 0.0;
-        else outputMatrix[3][1] = inputMatrix[1][3];
-
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][0],tolerance)) outputMatrix[0][2] = 0.0;
-        else outputMatrix[0][2] = inputMatrix[2][0];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][1],tolerance)) outputMatrix[1][2] = 0.0;
-        else outputMatrix[1][2] = inputMatrix[2][1];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][2],tolerance)) outputMatrix[2][2] = 0.0;
-        else outputMatrix[2][2] = inputMatrix[2][2];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][3],tolerance)) outputMatrix[3][2] = 0.0;
-        else outputMatrix[3][2] = inputMatrix[2][3];
-
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][0],tolerance)) outputMatrix[0][3] = 0.0;
-        else outputMatrix[0][3] = inputMatrix[3][0];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][1],tolerance)) outputMatrix[1][3] = 0.0;
-        else outputMatrix[1][3] = inputMatrix[3][1];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][2],tolerance)) outputMatrix[2][3] = 0.0;
-        else outputMatrix[2][3] = inputMatrix[3][2];
-        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][3],tolerance)) outputMatrix[3][3] = 0.0;
-        else outputMatrix[3][3] = inputMatrix[3][3];
-    }
-
     //------------------------------
     double BaseImporter::getDoubleValue ( 
         const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 

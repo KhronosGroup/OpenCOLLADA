@@ -153,7 +153,8 @@ namespace COLLADAMaya
         void importSkinControllerData ( const COLLADAFW::SkinControllerData* skinControllerData );
 
         /**
-         * Create a maya skin cluster object and the skin cluster object set.
+         * Create a maya skin cluster object and the skin cluster object set with all needed maya
+         * objects to create the connections of the skinCluster.
          * SkinCluster nodes are created during a smooth bindSkin. The purpose of the skinCluster 
          * is to store a weight per influence object for each component of each geometry that is 
          * deformed. Influence objects can be joints or any transform.
@@ -163,6 +164,11 @@ namespace COLLADAMaya
         void createSkinCluster ( 
             const COLLADAFW::SkinControllerData* skinControllerData, 
             MayaSkinClusterData& controllerData );
+
+        /**
+        * Create all maya objects, which are needed to connect a maya skinCluster to a geometry.
+        */
+        void createSkinClusterBindingObjects ( MayaSkinClusterData &controllerData );
 
         /**
          * Write the weights into the maya ascii file.

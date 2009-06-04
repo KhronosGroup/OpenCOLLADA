@@ -202,10 +202,17 @@ namespace COLLADAMaya
         bool hasRotatePivot = false;
         bool hasScalePivot = false;
         bool isLookatTransform = false;
+        bool validMayaTransform = false;
 
-        bool validMayaTransform = 
-            readMayaTransformations ( node, mayaTransform, transformNode, transformAnimations, 
-                                        hasRotatePivot, hasScalePivot, isLookatTransform );
+        // Check if we handle a joint node.
+        bool isJoint = ( node->getType () == COLLADAFW::Node::JOINT );
+        //if ( !isJoint )
+        {
+            validMayaTransform = 
+                readMayaTransformations ( node, mayaTransform, transformNode, transformAnimations, 
+                                            hasRotatePivot, hasScalePivot, isLookatTransform );
+        }
+
         if ( !isLookatTransform )
         {
             if ( validMayaTransform )
@@ -270,7 +277,7 @@ namespace COLLADAMaya
     {
         // Convert the matrix to a double[4][4]
         double mtx[4][4];
-        convertMatrix4ToTransposedDouble4x4 ( transformMatrix, mtx, getTolerance () );
+        convertMatrix4ToTransposedDouble4x4 ( mtx, transformMatrix, getTolerance () );
 
         // Convert the matrix to a maya matrix.
         MMatrix matrix ( mtx );
@@ -480,7 +487,7 @@ namespace COLLADAMaya
         if ( mayaTransform.phase < MayaTransformation::PHASE_JOINT_ORIENT1 )
         {
             mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT1;
-            mayaTransform.axisPhaseRotateOrient1 = axis;
+            mayaTransform.axisPhaseJointOrient1 = axis;
         }
         else if ( mayaTransform.phase > MayaTransformation::PHASE_ROTATE_ORIENT3 )
         {
@@ -1318,19 +1325,6 @@ namespace COLLADAMaya
                 cerr << "No geometry for the current controller!" << endl;
                 return false;
             }
-
-            // TODO Store the transforms of the geometry!
-            struct ControllerTransform
-            {
-                COLLADAFW::UniqueId controllerId;
-                COLLADAFW::UniqueId transformId;
-            };
-            std::map<COLLADAFW::UniqueId, ControllerTransform> mControllerGeometryTransformIds;
-
-            ControllerTransform controllerTransform;
-            controllerTransform.controllerId = controllerId;
-            controllerTransform.transformId = transformNodeId;
-            //mControllerGeometryTransformIds [geometryId].push_back ( controllerTransform );
 
             // Read the shading engines. Store the information, that the material instance is  
             // referenced from a controller object. We need this information if we do the 

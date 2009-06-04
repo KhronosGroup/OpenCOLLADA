@@ -80,10 +80,46 @@ namespace COLLADAMaya
 
     }
 
+    //------------------------------
+    void ControllerImporter::storeController ( const COLLADAFW::Controller* controller )
+    {
+        // This is the first parsing. We just copy the controller.
+        // On the second parsing, we create the maya skinController object with the data.
+        if ( controller == 0 ) return;
+
+        // Check if the current controller is already imported.
+        const COLLADAFW::UniqueId& controllerId = controller->getUniqueId ();
+        if ( findMayaControllerNode ( controllerId ) != 0 ) return;
+
+        COLLADAFW::Controller::ControllerType controllerType = controller->getControllerType ();
+        switch ( controllerType )
+        {
+        case COLLADAFW::Controller::CONTROLLER_TYPE_SKIN:
+            {
+                // Get the skin controller object.
+                COLLADAFW::SkinController* skinController = (COLLADAFW::SkinController*)controller;
+
+                // Returns the unique id of the source that gets modified by this controller. 
+                // Must be a mesh or a controller.
+                const COLLADAFW::UniqueId& sourceId = skinController->getSource ();
+
+                // Make a copy of the controller element.
+                mSkinControllersMap[sourceId].push_back ( new COLLADAFW::SkinController (*skinController) );
+            }
+            break;
+        case COLLADAFW::Controller::CONTROLLER_TYPE_MORPH:
+            cerr << "Morph controller not implemented!" << endl;
+            break;
+        default:
+            cerr << "Unknown controller type!" << endl;
+        }
+    }
+
     // --------------------------------------------
     void ControllerImporter::importSkinControllerData ( 
         const COLLADAFW::SkinControllerData* skinControllerData )
     {
+        // This is the second parsing. On the first parsing, we have already copied the controller.
         if ( skinControllerData == 0 ) return;
 
         // Check if the current controller is already imported.
@@ -93,14 +129,13 @@ namespace COLLADAMaya
         // Get the current maya file.
         FILE* file = getDocumentImporter ()->getFile ();
 
-        // TODO Get all controller objects, which use the current skinControllerData.
+        // Get all controller objects, which use the current skinControllerData.
         // We have to create the skinController data for every skinController object.
         const std::vector<COLLADAFW::SkinController*>& skinControllers = findSkinControllersByDataId ( skinControllerDataId );
         for ( size_t i=0; i<skinControllers.size (); ++i )
         {
             // Get the current controller.
             const COLLADAFW::SkinController* skinController = skinControllers[i];
-            const COLLADAFW::UniqueId& controllerId = skinController->getUniqueId ();
 
             // Add the original id attribute.
             String colladaId = skinControllerData->getOriginalId ();
@@ -109,11 +144,6 @@ namespace COLLADAMaya
                 MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
                 MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
             }
-
-            // Every controller has two groupIds, which have to be connected to the geometry object 
-            // groups. About this, the initial index position for connections to the geometry's 
-            // object groups have to be on a later index position.
-            addControllerToObjectGroupsInitialIndex ( controllerId );
 
             // Create a data store object to hold all the MayaDM objects of the current controller.
             // The objects will be needed, to make all the connections.
@@ -124,53 +154,72 @@ namespace COLLADAMaya
             // deformed. Influence objects can be joints or any transform.
             createSkinCluster ( skinControllerData, controllerData );
 
-            // Create the groupId and the groupParts for the skinCluster.
-            String groupIdName = GROUP_ID_NAME;
-            groupIdName = DocumentImporter::frameworkNameToMayaName ( groupIdName );
-
-            String groupIdName1 = getDocumentImporter ()->getGroupIdIdList ().addId ( groupIdName, true, true );
-            MayaDM::GroupId groupId1 ( file, groupIdName1 );
-            groupId1.setIsHistoricallyInteresting (0);
-            controllerData.setGroupId1 ( groupId1 );
-
-            String groupPartsName = GROUP_PARTS_NAME;
-            groupPartsName = DocumentImporter::frameworkNameToMayaName ( groupPartsName );
-            MayaDM::componentList compList;
-            compList.push_back ( "vtx[*]" );
-
-            String groupPartsName1 = getDocumentImporter ()->getGroupPartsIdList ().addId ( groupPartsName, true, true );
-            MayaDM::GroupParts groupParts1 ( file, groupPartsName1 );
-            groupParts1.setIsHistoricallyInteresting (0);
-            groupParts1.setInputComponents ( compList );
-            controllerData.setGroupParts1 ( groupParts1 );
-
-            // Create the tweak object and the set.
-            String tweakName = TWEAK_NAME;
-            tweakName = DocumentImporter::frameworkNameToMayaName ( tweakName );
-            tweakName = mTweakIdList.addId ( tweakName, true, true );
-            MayaDM::Tweak tweak ( file, tweakName );
-            controllerData.setTweak ( tweak );
-
-            String tweakSetName = tweakName + SET_NAME;
-            MayaDM::ObjectSet tweakSet ( file, tweakSetName );
-            tweakSet.setIsHistoricallyInteresting (0);
-            tweakSet.setVerticesOnlySet (true);
-            controllerData.setTweakSet ( tweakSet );
-
-            // Create the groupId and the groupParts for the tweak.
-            String groupIdName2 = getDocumentImporter ()->getGroupIdIdList ().addId ( groupIdName, true, true );
-            MayaDM::GroupId groupId2 ( file, groupIdName2 );
-            groupId2.setIsHistoricallyInteresting (0);
-            controllerData.setGroupId2 ( groupId2 );
-
-            String groupPartsName2 = getDocumentImporter ()->getGroupPartsIdList ().addId ( groupPartsName, true, true );
-            MayaDM::GroupParts groupParts2 ( file, groupPartsName2 );
-            groupParts2.setIsHistoricallyInteresting (0);
-            groupParts2.setInputComponents ( compList );
-            controllerData.setGroupParts2 ( groupParts2 );
-
             // Hold the controller data in a map.
+            const COLLADAFW::UniqueId& controllerId = skinController->getUniqueId ();
             mMayaSkinClustersDataMap [ controllerId ] = controllerData;
+
+            // Every controller has two groupIds, which have to be connected to the geometry object 
+            // groups. About this, the initial index position for connections to the geometry's 
+            // object groups have to be on a later index position.
+            addControllerToObjectGroupsInitialIndex ( controllerId );
+
+//             // TODO Read the controllers bind pose joint matrix of every joint and set it.
+//             // Get the joints and the bindPose matrices of the skinController.
+//             const COLLADAFW::UniqueIdArray& jointIds = skinController->getJoints ();
+//             const COLLADAFW::Matrix4Array& inverseBindMatrices = skinControllerData->getInverseBindMatrices ();
+//             if ( jointIds.getCount () != inverseBindMatrices.getCount () )
+//             {
+//                 std::cerr << "The number of joints in the skinCluster is not the same then the number of bind matrices! Can't import!" << endl;
+//                 continue;
+//             }
+// 
+//             for ( size_t i=0; i<jointIds.getCount (); ++i )
+//             {
+//                 // Get the current joint.
+//                 const COLLADAFW::UniqueId& jointId = jointIds [i];
+//                 VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
+//                 const MayaDM::Transform* transformNode = visualSceneImporter->findMayaDMTransform ( jointId );
+//                 MayaDM::Joint* jointNode = (MayaDM::Joint*)transformNode;
+// 
+//                 // Get the bindPose matrix of the skinController for the current joint.
+//                 const COLLADABU::Math::Matrix4& inverseBindMatrix = inverseBindMatrices [i];
+// 
+//                 const COLLADABU::Math::Matrix3 matrix3 ( 
+//                     inverseBindMatrix[0][0], inverseBindMatrix[0][1], inverseBindMatrix[0][2],
+//                     inverseBindMatrix[1][0], inverseBindMatrix[1][1], inverseBindMatrix[1][2],
+//                     inverseBindMatrix[2][0], inverseBindMatrix[2][1], inverseBindMatrix[2][2] );
+//                 const COLLADABU::Math::Vector3 vector3_1 ( inverseBindMatrix[0][3], inverseBindMatrix[1][3], inverseBindMatrix[2][3] );
+//                 const COLLADABU::Math::Vector3 vector3_2 = matrix3.inverse ( getTolerance () ) * vector3_1 * (-1);
+// 
+//                 // Generate the bindPose matrix.
+//                 COLLADABU::Math::Matrix4 bindPoseMatrix = inverseBindMatrix.transpose ();
+//                 bindPoseMatrix.setElement ( 3, 0, 0 );
+//                 bindPoseMatrix.setElement ( 3, 1, 0 );
+//                 bindPoseMatrix.setElement ( 3, 2, 0 );
+//                 bindPoseMatrix.setElement ( 3, 3, 1 );
+// 
+//                 bindPoseMatrix.setElement ( 0, 3, vector3_2 [0] );
+//                 bindPoseMatrix.setElement ( 1, 3, vector3_2 [1] );
+//                 bindPoseMatrix.setElement ( 2, 3, vector3_2 [2] );
+// 
+//                 // Convert the matrix to a double[4][4] and then to a mayaDM matrix.
+//                 double m[4][4];
+//                 convertMatrix4ToTransposedDouble4x4 ( m, bindPoseMatrix, getTolerance () );
+//                 MayaDM::matrix bpm (m);
+// 
+//                 // Convert the matrix to a maya matrix.
+//                 MMatrix matrix ( m );
+//                 MTransformationMatrix tm ( matrix );
+// 
+//                 double rotation[3];
+//                 MTransformationMatrix::RotationOrder order;
+//                 tm.getRotation ( rotation, order, MSpace::kTransform );
+// 
+//                 // Select the joint object and set the bindPose attribute.
+//                 mayaSelect ( file, jointNode->getName (), true );
+//                 jointNode->setBindPose ( bpm );
+//                 //jointNode->setRotate ( toAngularUnit ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) ) );
+//             }
         }
     }
 
@@ -295,7 +344,7 @@ namespace COLLADAMaya
 
             // Convert the matrix to a double[4][4]
             double pm[4][4];
-            convertMatrix4ToTransposedDouble4x4 ( inverseBindMatrix, pm, getTolerance () );
+            convertMatrix4ToTransposedDouble4x4 ( pm, inverseBindMatrix, getTolerance () );
             MayaDM::matrix mayaPm ( pm );
 
             // Do the unit conversion of the transform values, if necessary.
@@ -314,7 +363,7 @@ namespace COLLADAMaya
 
             // Convert the matrix to a double[4][4]
             double gm[4][4];
-            convertMatrix4ToTransposedDouble4x4 ( bindShapeMatrix, gm, getTolerance () );
+            convertMatrix4ToTransposedDouble4x4 ( gm, bindShapeMatrix, getTolerance () );
 
             // Do the unit conversion of the transform values, if necessary.
             gm[3][0] = toLinearUnit ( gm[3][0] );
@@ -331,6 +380,9 @@ namespace COLLADAMaya
         skinClusterSet.setIsHistoricallyInteresting (0);
         skinClusterSet.setVerticesOnlySet (true);
         controllerData.setSkinClusterSet ( skinClusterSet );
+
+        // Create all maya objects, which are needed to connect a maya skinCluster to a geometry.
+        createSkinClusterBindingObjects ( controllerData );
     }
 
     //------------------------------
@@ -363,38 +415,57 @@ namespace COLLADAMaya
         currentWeightList.clear ();
     }
 
-    //------------------------------
-    void ControllerImporter::storeController ( const COLLADAFW::Controller* controller )
+    // --------------------------------------------
+    void ControllerImporter::createSkinClusterBindingObjects ( 
+        MayaSkinClusterData &controllerData )
     {
-        if ( controller == 0 ) return;
+        // Get a pointer to the maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
 
-        // Check if the current controller is already imported.
-        const COLLADAFW::UniqueId& controllerId = controller->getUniqueId ();
-        if ( findMayaControllerNode ( controllerId ) != 0 ) return;
+        // Create the groupId and the groupParts for the skinCluster.
+        String groupIdName = GROUP_ID_NAME;
+        groupIdName = DocumentImporter::frameworkNameToMayaName ( groupIdName );
 
-        COLLADAFW::Controller::ControllerType controllerType = controller->getControllerType ();
-        switch ( controllerType )
-        {
-        case COLLADAFW::Controller::CONTROLLER_TYPE_SKIN:
-            {
-                // Get the skin controller object.
-                COLLADAFW::SkinController* skinController = (COLLADAFW::SkinController*)controller;
+        String groupIdName1 = getDocumentImporter ()->getGroupIdIdList ().addId ( groupIdName, true, true );
+        MayaDM::GroupId groupId1 ( file, groupIdName1 );
+        groupId1.setIsHistoricallyInteresting (0);
+        controllerData.setGroupId1 ( groupId1 );
 
-                // Returns the unique id of the source that gets modified by this controller. 
-                // Must be a mesh or a controller.
-                const COLLADAFW::UniqueId& sourceId = skinController->getSource ();
+        String groupPartsName = GROUP_PARTS_NAME;
+        groupPartsName = DocumentImporter::frameworkNameToMayaName ( groupPartsName );
+        MayaDM::componentList compList;
+        compList.push_back ( "vtx[*]" );
 
-                // Make a copy of the controller element.
-                mSkinControllersMap[sourceId].push_back ( new COLLADAFW::SkinController (*skinController) );
-            }
-            break;
-        case COLLADAFW::Controller::CONTROLLER_TYPE_MORPH:
-            cerr << "Morph controller not implemented!" << endl;
-            break;
-        default:
-            cerr << "Unknown controller type!" << endl;
-        }
+        String groupPartsName1 = getDocumentImporter ()->getGroupPartsIdList ().addId ( groupPartsName, true, true );
+        MayaDM::GroupParts groupParts1 ( file, groupPartsName1 );
+        groupParts1.setIsHistoricallyInteresting (0);
+        groupParts1.setInputComponents ( compList );
+        controllerData.setGroupParts1 ( groupParts1 );
 
+        // Create the tweak object and the set.
+        String tweakName = TWEAK_NAME;
+        tweakName = DocumentImporter::frameworkNameToMayaName ( tweakName );
+        tweakName = mTweakIdList.addId ( tweakName, true, true );
+        MayaDM::Tweak tweak ( file, tweakName );
+        controllerData.setTweak ( tweak );
+
+        String tweakSetName = tweakName + SET_NAME;
+        MayaDM::ObjectSet tweakSet ( file, tweakSetName );
+        tweakSet.setIsHistoricallyInteresting (0);
+        tweakSet.setVerticesOnlySet (true);
+        controllerData.setTweakSet ( tweakSet );
+
+        // Create the groupId and the groupParts for the tweak.
+        String groupIdName2 = getDocumentImporter ()->getGroupIdIdList ().addId ( groupIdName, true, true );
+        MayaDM::GroupId groupId2 ( file, groupIdName2 );
+        groupId2.setIsHistoricallyInteresting (0);
+        controllerData.setGroupId2 ( groupId2 );
+
+        String groupPartsName2 = getDocumentImporter ()->getGroupPartsIdList ().addId ( groupPartsName, true, true );
+        MayaDM::GroupParts groupParts2 ( file, groupPartsName2 );
+        groupParts2.setIsHistoricallyInteresting (0);
+        groupParts2.setInputComponents ( compList );
+        controllerData.setGroupParts2 ( groupParts2 );
     }
 
     // --------------------------------------------
@@ -680,7 +751,6 @@ namespace COLLADAMaya
                 mesh->setName ( meshPath );
             }
 
-            // TODO Are this always the right ids? 
             // Just one controller per geometry, always at the beginning, the primitve element 
             // indices come always after the controller indices.
 

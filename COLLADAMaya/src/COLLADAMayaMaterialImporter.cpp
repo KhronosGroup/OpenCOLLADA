@@ -320,7 +320,7 @@ namespace COLLADAMaya
             // Get the sourceId. Is either a geometryId or a controllerId.
             const COLLADAFW::UniqueId& sourceId = geometryBinding.getSourceId ();
 
-            // TODO Handle controller
+            // Handle controller
             COLLADAFW::UniqueId geometryId;
             if ( controllerId )
             {
@@ -419,7 +419,7 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& transformId = geometryBinding.getTransformId ();
             const COLLADAFW::UniqueId* controllerId = geometryBinding.getControllerId ();
 
-            // TODO Handle controller
+            // Handle controller
             COLLADAFW::UniqueId geometryId;
             GeometryImporter::MeshControllerData* meshControllerData = 0;
             if ( controllerId )
@@ -476,10 +476,9 @@ namespace COLLADAMaya
                     MayaDM::Mesh* mesh = 0;
                     if ( controllerId )
                     {
-                        // TODO Handle controllers! If the mesh is instanciated over a controller object,
-                        // and it is instanciated from a geometry, then we have to use the original
-                        // mesh object from the mayaDMControllerMeshNodes.
-//                        mesh = geometryImporter->findMayaDMControllerMeshNode ( geometryId );
+                        // If the mesh is instanciated over a controller object, and it is 
+                        // instanciated from a geometry, then we have to use the original mesh 
+                        // object from the mayaDMControllerMeshNodes.
                         mesh = meshControllerData->getControllerMeshNode ();
                     }
                     else 

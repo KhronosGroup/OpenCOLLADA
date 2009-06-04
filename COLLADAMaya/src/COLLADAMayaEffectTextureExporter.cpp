@@ -362,7 +362,7 @@ namespace COLLADAMaya
         MMatrix projectionMx;
         DagHelper::getPlugValue ( projection, ATTR_PLACEMENT_MATRIX, projectionMx );
         double sceneMatrix[4][4];
-        convertMMatrixToDouble4x4 ( sceneMatrix, projectionMx, getTolerance () );
+        convertMayaMatrixToTransposedDouble4x4 ( sceneMatrix, projectionMx, getTolerance () );
 
         // Convert the  maya internal unit type of the transform part of the
         // matrix from centimeters into the working units of the current scene!

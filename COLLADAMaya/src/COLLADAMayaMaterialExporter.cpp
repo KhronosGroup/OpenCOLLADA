@@ -494,7 +494,7 @@ namespace COLLADAMaya
                     mayaMatrix = mayaMatrix.transpose();
 
                 double matrix[4][4];
-                convertMMatrixToDouble4x4 ( matrix, mayaMatrix, getTolerance () );
+                convertMayaMatrixToTransposedDouble4x4 ( matrix, mayaMatrix, getTolerance () );
                 setParam.appendValues( matrix );
                 setParam.closeParam();
                 break;

@@ -1189,16 +1189,21 @@ namespace COLLADAMaya
                                 switch ( animationClass )
                                 {
                                 case COLLADAFW::AnimationList::COLOR_R:
-                                    connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorR () );                                    break;
+                                    connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorR () );
+                                    break;
                                 case COLLADAFW::AnimationList::COLOR_G:
-                                    connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorG () );                                    break;
+                                    connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorG () );
+                                    break;
                                 case COLLADAFW::AnimationList::COLOR_B:
-                                    connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorB () );                                    break;
+                                    connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorB () );
+                                    break;
                                 default:
                                     MGlobal::displayInfo ( "Animation class for effect type \"COLOR_OR_TEXTURE_STANDARD_COLOR\" not implemented!" );
                                     break;
                                 }
-                            }                        }                    }
+                            }
+                        }
+                    }
                     break;
                 case EffectAnimation::FLOAT_OR_PARAM_COSINE_POWER:
                 case EffectAnimation::FLOAT_OR_PARAM_ECCENTRICITY:
@@ -1231,10 +1236,18 @@ namespace COLLADAMaya
                                     switch ( animatedValueType )
                                     {
                                     case EffectAnimation::FLOAT_OR_PARAM_COSINE_POWER:
-                                        connectAttr ( file, animCurveTU->getOutput (),((MayaDM::Phong*)lambertNode)->getCosinePower () );                                        break;                                    case EffectAnimation::FLOAT_OR_PARAM_ECCENTRICITY:
-                                        connectAttr ( file, animCurveTU->getOutput (),((MayaDM::Blinn*)lambertNode)->getEccentricity () );                                        break;                                    case EffectAnimation::FLOAT_OR_PARAM_REFLECTIVITY:
-                                        connectAttr ( file, animCurveTU->getOutput (),((MayaDM::Reflect*)lambertNode)->getReflectivity () );                                        break;                                    case EffectAnimation::FLOAT_OR_PARAM_REFRACTIVE_INDEX:
-                                        connectAttr ( file, animCurveTU->getOutput (),lambertNode->getRefractiveIndex () );                                        break;                                    default:
+                                        connectAttr ( file, animCurveTU->getOutput (),((MayaDM::Phong*)lambertNode)->getCosinePower () );
+                                        break;
+                                    case EffectAnimation::FLOAT_OR_PARAM_ECCENTRICITY:
+                                        connectAttr ( file, animCurveTU->getOutput (),((MayaDM::Blinn*)lambertNode)->getEccentricity () );
+                                        break;
+                                    case EffectAnimation::FLOAT_OR_PARAM_REFLECTIVITY:
+                                        connectAttr ( file, animCurveTU->getOutput (),((MayaDM::Reflect*)lambertNode)->getReflectivity () );
+                                        break;
+                                    case EffectAnimation::FLOAT_OR_PARAM_REFRACTIVE_INDEX:
+                                        connectAttr ( file, animCurveTU->getOutput (),lambertNode->getRefractiveIndex () );
+                                        break;
+                                    default:
                                         MGlobal::displayInfo ( "Animation class for effect type \"FLOAT\" not implemented!" );
                                         break;
                                     }
@@ -1243,7 +1256,8 @@ namespace COLLADAMaya
                                     MGlobal::displayInfo ( "Animation class for effect type \"FLOAT_OR_PARAM_...\" not implemented!" );
                                     break;
                                 }
-                            }                        }
+                            }
+                        }
                     }
                     break;
                 default:
@@ -1521,7 +1535,7 @@ namespace COLLADAMaya
                 const MayaDM::AnimCurve* animCurve = (*animCurves) [curveIndex];
                 MayaDM::AnimCurveTL* animCurveTL = (MayaDM::AnimCurveTL*) animCurve;
 
-                // TODO Connect the animation curve and the current transform node.
+                // Connect the animation curve and the current transform node.
                 // connectAttr "pCube1_translateX.output" "pCube1.translateX";
                 const COLLADAFW::AnimationList::AnimationClass& animationClass = animationBinding.animationClass;
                 switch ( animationClass )
@@ -1536,19 +1550,27 @@ namespace COLLADAMaya
                     connectAttr ( file, animCurveTL->getOutput (), transform->getTranslateZ () );
                     break;
                 case COLLADAFW::AnimationList::POSITION_XYZ:
-                    connectAttr ( file, animCurveTL->getOutput (), transform->getTranslate () );
-//                     switch ( curveIndex )
-//                     {
-//                     case 0:
-//                         connectAttr ( file, animationCurve->getOutput (), transform->getTranslateX () );
-//                         break;
-//                     case 1:
-//                         connectAttr ( file, animationCurve->getOutput (), transform->getTranslateY () );
-//                         break;
-//                     case 2:
-//                         connectAttr ( file, animationCurve->getOutput (), transform->getTranslateZ () );
-//                         break;
-//                     }
+                    {
+                        if ( animationCurveCount == 1 )
+                        {
+                            connectAttr ( file, animCurveTL->getOutput (), transform->getTranslate () );
+                        }
+                        else
+                        {
+                            switch ( curveIndex )
+                            {
+                            case 0:
+                                connectAttr ( file, animCurveTL->getOutput (), transform->getTranslateX () );
+                                break;
+                            case 1:
+                                connectAttr ( file, animCurveTL->getOutput (), transform->getTranslateY () );
+                                break;
+                            case 2:
+                                connectAttr ( file, animCurveTL->getOutput (), transform->getTranslateZ () );
+                                break;
+                            }
+                        }
+                    }
                     break;
                 default:
                     MGlobal::displayInfo ( "Animation class for transformation type \"TRANSLATE\" not implemented!" );

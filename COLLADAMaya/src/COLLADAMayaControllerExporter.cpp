@@ -1109,7 +1109,7 @@ namespace COLLADAMaya
         {
             MMatrix mayaBindPoses = bindPosesVec[i];
             double bindPoses[4][4];
-            convertMMatrixToDouble4x4 ( bindPoses, mayaBindPoses, getTolerance () );
+            convertMayaMatrixToTransposedDouble4x4 ( bindPoses, mayaBindPoses, getTolerance () );
 
             // Convert the  maya internal unit type of the transform part of the
             // matrix from centimeters into the working units of the current scene!
@@ -1190,7 +1190,7 @@ namespace COLLADAMaya
         // Write the bind shape transform matrix in the collada document.
         const MMatrix& mayaBindShapeMatrix = skinController.getBindShapeTransform();
         double bindShapeMatrix[4][4] ;
-        convertMMatrixToDouble4x4 ( bindShapeMatrix, mayaBindShapeMatrix, getTolerance () );
+        convertMayaMatrixToTransposedDouble4x4 ( bindShapeMatrix, mayaBindShapeMatrix, getTolerance () );
 
         // Convert the  maya internal unit type of the transform part of the
         // matrix from centimeters into the working units of the current scene!

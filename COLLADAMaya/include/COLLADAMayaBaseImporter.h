@@ -162,14 +162,6 @@ namespace COLLADAMaya
             return getDocumentImporter ()->getTolerance ();
         }
 
-        /*
-        *	Transform the input matrix and convert it in a double[4][4] matrix.
-        */
-        void convertMatrix4ToTransposedDouble4x4 ( 
-            const COLLADABU::Math::Matrix4& inputMatrix, 
-            double outputMatrix[][4], 
-            const double tolerance );
-
         /**
         * Returns the value at the given position of the given array as double value.
         */
