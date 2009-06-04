@@ -149,7 +149,7 @@ namespace COLLADAMaya
         void writeShaderData ( 
             const COLLADAFW::UniqueId& transformNodeId, 
             const COLLADAFW::InstanceGeometry* instanceGeometry,
-            const COLLADAFW::UniqueId& geometryId );
+            const COLLADAFW::UniqueId* controllerId );
 
         /**
          * Create the shader engine and the material info objects and returns them.

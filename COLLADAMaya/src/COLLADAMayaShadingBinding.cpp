@@ -16,7 +16,7 @@ namespace COLLADAMaya
 {
 
     //------------------------------
-	ShadingBinding::ShadingBinding()
+    ShadingBinding::ShadingBinding() : mControllerId (0)
 	{
 	}
 
@@ -24,10 +24,12 @@ namespace COLLADAMaya
     ShadingBinding::ShadingBinding ( 
         const COLLADAFW::UniqueId& geometryId, 
         const COLLADAFW::UniqueId& transformId, 
-        const COLLADAFW::MaterialId& shadingEngineId ) 
+        const COLLADAFW::MaterialId& shadingEngineId,
+        const COLLADAFW::UniqueId* controllerId /*= 0*/ ) 
         : mGeometryId (geometryId)
         , mTransformId (transformId)
         , mShadingEngineId (shadingEngineId)
+        , mControllerId (controllerId)
     {
 
     }

@@ -501,10 +501,6 @@ namespace COLLADAMaya
         if ( ImportOptions::importUpAxis () )
         {
             mUpAxisType = asset->getUpAxisType ();
-        }
-        else
-        {
-            mUpAxisType = asset->getUpAxisType ();
             String upAxis = "y";
             switch ( mUpAxisType )
             {

@@ -12,6 +12,7 @@
 #include "COLLADAFWFileInfo.h"
 
 #include "COLLADABUUtils.h"
+#include "Math/COLLADABUMathUtils.h"
 
 
 namespace COLLADAFW
@@ -23,7 +24,7 @@ namespace COLLADAFW
 
     const double FileInfo::Unit::LINEAR_UNIT_KILOMETER = 1000;
     const double FileInfo::Unit::LINEAR_UNIT_METER = 1;
-    const double FileInfo::Unit::LINEAR_UNIT_DECIMETER = 0.01;
+    const double FileInfo::Unit::LINEAR_UNIT_DECIMETER = 0.1;
     const double FileInfo::Unit::LINEAR_UNIT_CENTIMETER = 0.01;
     const double FileInfo::Unit::LINEAR_UNIT_MILLIMETER = 0.001;
     const double FileInfo::Unit::LINEAR_UNIT_FOOT = 0.3048;
@@ -108,21 +109,21 @@ namespace COLLADAFW
     //------------------------------
     void FileInfo::Unit::initializeLinearUnitUnit ( const double linearUnitMeter )
     {
-        if ( linearUnitMeter == LINEAR_UNIT_KILOMETER )
+        if ( COLLADABU::Math::Utils::equals ( linearUnitMeter, LINEAR_UNIT_KILOMETER ) )
             mLinearUnitUnit = KILOMETER;
-        else if ( linearUnitMeter == LINEAR_UNIT_METER )
+        else if ( COLLADABU::Math::Utils::equals ( linearUnitMeter, LINEAR_UNIT_METER ) )
             mLinearUnitUnit = METER;
-        else if ( linearUnitMeter == LINEAR_UNIT_DECIMETER )
+        else if ( COLLADABU::Math::Utils::equals ( linearUnitMeter, LINEAR_UNIT_DECIMETER ) )
             mLinearUnitUnit = DECIMETER;
-        else if ( linearUnitMeter == LINEAR_UNIT_CENTIMETER )
+        else if ( COLLADABU::Math::Utils::equals ( linearUnitMeter, LINEAR_UNIT_CENTIMETER ) )
             mLinearUnitUnit = CENTIMETER;
-        else if ( linearUnitMeter == LINEAR_UNIT_MILLIMETER )
+        else if ( COLLADABU::Math::Utils::equals ( linearUnitMeter, LINEAR_UNIT_MILLIMETER ) )
             mLinearUnitUnit = MILLIMETER;
-        else if ( linearUnitMeter == LINEAR_UNIT_FOOT )
+        else if ( COLLADABU::Math::Utils::equals ( linearUnitMeter, LINEAR_UNIT_FOOT ) )
             mLinearUnitUnit = FOOT;
-        else if ( linearUnitMeter == LINEAR_UNIT_INCH )
+        else if ( COLLADABU::Math::Utils::equals ( linearUnitMeter, LINEAR_UNIT_INCH ) )
             mLinearUnitUnit = INCH;
-        else if ( linearUnitMeter == LINEAR_UNIT_YARD )
+        else if ( COLLADABU::Math::Utils::equals ( linearUnitMeter, LINEAR_UNIT_YARD ) )
             mLinearUnitUnit = YARD;
         else mLinearUnitUnit = UNKNOWN_LINEAR_UNIT;
     }

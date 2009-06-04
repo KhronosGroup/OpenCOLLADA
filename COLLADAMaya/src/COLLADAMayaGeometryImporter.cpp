@@ -87,8 +87,14 @@ namespace COLLADAMaya
                 // Import the mesh data, if it is referenced from a transform node.
                 importMesh ( mesh );
 
+                // Import the mesh data, if the geometry is referenced from a transform node.
+                bool meshImported = importMesh ( mesh );
+
+                // If a skinControllerData object is referenced from multiple controllers,
+                // just the first one has to create the original mesh object.
+
                 // Import the controller mesh data, if the mesh is referenced from a controller.
-                importController ( mesh );
+                importController ( mesh, meshImported );
 
                 break;
             }
@@ -100,7 +106,9 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    void GeometryImporter::importController ( const COLLADAFW::Mesh* mesh )
+    void GeometryImporter::importController ( 
+        const COLLADAFW::Mesh* mesh, 
+        bool meshAlreadyImported )
     {
         // Get the unique id.
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
@@ -110,9 +118,12 @@ namespace COLLADAMaya
         const std::vector<COLLADAFW::SkinController*>* skinControllers = controllerImporter->findSkinControllersBySourceId ( geometryId );
         if ( skinControllers == 0 ) return;
 
-        UniqueIdVec controllerTransformIds;
         for ( size_t i=0; i<skinControllers->size (); ++i )
         {
+            // Every skin controller needs his own controller mesh object. All connections of 
+            // skinController elements, materials and groups will be done directly to this mesh.
+            // The original mesh geometry object has to be created just once, either as an intermediate
+            // object or, if it is referenced from an instance geometry, directly as normal mesh.
             const COLLADAFW::SkinController* skinController = (*skinControllers) [i];
 
             // Create an original mesh object under the transform node of the skin controller.
@@ -120,20 +131,17 @@ namespace COLLADAMaya
 
             // Get the node instances.
             VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
-            const UniqueIdVec* currentTransformIds = visualSceneImporter->findControllerTransformIds ( controllerId );
-            if ( currentTransformIds == 0 ) continue;
+            const UniqueIdVec* controllerTransformIds = visualSceneImporter->findControllerTransformIds ( controllerId );
+            if ( controllerTransformIds == 0 ) continue;
 
-            for ( size_t j=0; j<currentTransformIds->size (); ++j )
-                controllerTransformIds.push_back ( (*currentTransformIds) [j] );
+            // Make the mesh instances and import the mesh data.
+            importMesh ( mesh, controllerTransformIds, &controllerId, meshAlreadyImported );
+            meshAlreadyImported = true;
         }
-        if ( controllerTransformIds.size () == 0 ) return;
-
-        // Make the mesh instances and import the mesh data.
-        importMesh ( mesh, &controllerTransformIds, true );
     }
 
     // --------------------------------------------
-    void GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )
+    bool GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )
     {
         // Get the unique framework mesh id 
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
@@ -141,17 +149,20 @@ namespace COLLADAMaya
         // Get the transform node(s) of the current mesh.
         VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
         const UniqueIdVec* transformNodeIds = visualSceneImporter->findGeometryTransformIds ( geometryId );
-        if ( transformNodeIds == 0 ) return;
+        if ( transformNodeIds == 0 ) return false;
 
         // Make the mesh instances and import the mesh data.
         importMesh ( mesh, transformNodeIds );
+
+        return true;
     }
 
     // --------------------------------------------
     void GeometryImporter::importMesh ( 
         const COLLADAFW::Mesh* mesh, 
         const UniqueIdVec* transformNodeIds, 
-        const bool isMeshController /*= false*/ )
+        const COLLADAFW::UniqueId* controllerId /*= 0*/,
+        const bool meshAlreadyImported /*= false*/ )
     {
         // Get the node instances.
         UniqueIdVec::const_iterator nodesIter = transformNodeIds->begin ();
@@ -183,7 +194,7 @@ namespace COLLADAMaya
             if ( nodesIter == transformNodeIds->begin() )
             {
                 // Create the current mesh node.
-                createMesh ( mesh, mayaTransformNode, isMeshController );
+                createMesh ( mesh, mayaTransformNode, controllerId, meshAlreadyImported );
             }
             else
             {
@@ -199,7 +210,7 @@ namespace COLLADAMaya
 
             // Create maya groupId objects for every mesh primitive (if there is more than one).
             // This method is called for every geometry instance.
-            createGroupNodes ( mesh, transformNodeId, geometryInstanceIndex );
+            createGroupNodes ( mesh, transformNodeId, geometryInstanceIndex, controllerId );
 
             ++nodesIter;
         }
@@ -209,7 +220,8 @@ namespace COLLADAMaya
     void GeometryImporter::createMesh ( 
         const COLLADAFW::Mesh* mesh, 
         MayaNode* mayaTransformNode, 
-        const bool isMeshController /*= false*/ )
+        const COLLADAFW::UniqueId* controllerId /*= 0*/, 
+        const bool meshAlreadyImported /*= false*/ )
     {
         // Create a unique name.
         String meshName = mesh->getName ();
@@ -236,27 +248,63 @@ namespace COLLADAMaya
         MayaNode* mayaMeshNode = new MayaNode ( geometryId, meshName, mayaTransformNode );
         mMayaMeshNodesMap [ geometryId ] = mayaMeshNode;
 
+        // We just need a MeshControllerData element, if we have a mesh controller object
+        // to store the information of the controllerId, geometryId and transformId with the 
+        // combination of the original mesh node object and the controller mesh object.
+        MeshControllerData meshControllerData;
+
         // Create the controller mesh object first.
-        if ( isMeshController )
+        if ( controllerId )
         {
+            meshControllerData.setControllerId ( *controllerId );
+            meshControllerData.setGeometryId ( geometryId );
+            meshControllerData.setTransformId ( transformNodeId );
+
             // Create the mesh node - no special settings...
             MayaDM::Mesh controllerMeshNode ( file, meshName, transformNodePath );
-            mMayaDMMeshNodesMap [geometryId] = controllerMeshNode;
+            meshControllerData.setControllerMeshNode ( controllerMeshNode );
 
-            // Change the name of the mesh to create.
+            // Check if the original mesh is already created. If not, we have to create it 
+            // here as a intermediate object, otherwise we can return here.
+            if ( meshAlreadyImported ) 
+            {
+                // Get the original mesh node from the list of maya mesh nodes.
+                MayaDM::Mesh* originalMeshNode = findMayaDMMeshNode ( geometryId );
+                meshControllerData.setOriginalMeshNode ( *originalMeshNode );
+
+                // Store the meshControllerData object.
+                mMeshControllerDataList.push_back ( meshControllerData );
+
+                // The original mesh is already created, we can leave the creation.
+                return;
+            }
+
+//             // Push the controller mesh node in the list of mayaDMMeshNodes.
+//             mMayaDMMeshNodesMap [geometryId] = controllerMeshNode;
+
+            // Create the original mesh as an intermediate object.
             meshName += "Orig";
             meshName = mMeshNodeIdList.addId ( meshName );
         }
 
         // Create the current maya data model mesh node.
         MayaDM::Mesh meshNode ( file, meshName, transformNodePath );
+        mMayaDMMeshNodesMap [geometryId] = meshNode;
 
-        // With a controller element, we save the other generated mesh object 
-        // in the reference list and the original object in the controllers list.
-        if ( isMeshController )
-            mMayaDMControllerMeshNodesMap [geometryId] = meshNode;
-        else
-            mMayaDMMeshNodesMap [geometryId] = meshNode;
+        if ( controllerId )
+        {
+            // Handle a mesh which is instanced from a controller object.
+            // Boolean attribute that specifies whether the dagNode is an intermediate object resulting 
+            // from a construction history operation. dagNodes with this attribute set to true are not 
+            // visible and/or rendered.
+            meshNode.setIntermediateObject ( true );
+
+            // Set the original mesh data.
+            meshControllerData.setOriginalMeshNode ( meshNode );
+
+            // Store the meshControllerData object.
+            mMeshControllerDataList.push_back ( meshControllerData );
+        }
 
         // Add the original id attribute.
         String colladaId = mesh->getOriginalId ();
@@ -265,13 +313,6 @@ namespace COLLADAMaya
             MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
             MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
         }
-
-        // Handle a mesh which is instanced from a controller object.
-        // Boolean attribute that specifies whether the dagNode is an intermediate object resulting 
-        // from a construction history operation. dagNodes with this attribute set to true are not 
-        // visible and/or rendered.
-        if ( isMeshController )
-            meshNode.setIntermediateObject ( true );
 
         // Writes the object groups for every mesh primitive and
         // gets all shader engines, which are used by the primitive elements of the mesh.
@@ -317,7 +358,8 @@ namespace COLLADAMaya
     void GeometryImporter::createGroupNodes ( 
         const COLLADAFW::Mesh* mesh, 
         const COLLADAFW::UniqueId& transformNodeId, 
-        size_t& geometryInstanceIndex )
+        size_t& geometryInstanceIndex,
+        const COLLADAFW::UniqueId* controllerId /*= 0*/ )
     {
         // This method is called for every geometry instance.
 
@@ -345,14 +387,14 @@ namespace COLLADAMaya
             // We have to go through every mesh primitive.
             const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
             size_t meshPrimitivesCount = meshPrimitives.getCount ();
+
+            // We don't need to create groups if we just have one primitive.
+            if ( meshPrimitivesCount <= 1 ) return;
             if ( meshPrimitivesCount != componentListsCount )
             {
                 std::cerr << "No component lists generated for the current geometry's primitives!" << endl;
                 return;
             }
-
-            // We don't need to create groups if we just have one primitive.
-            if ( meshPrimitivesCount <= 1 ) return;
 
             // Create a group for every primitive.
             for ( size_t primitiveIndex=0; primitiveIndex<meshPrimitivesCount; ++primitiveIndex )
@@ -363,7 +405,7 @@ namespace COLLADAMaya
 
                 // Assign the group to the unique geometry id, the transform node 
                 // to the mesh instance and the index of the geometry's primitives.
-                ShadingBinding shadingBinding ( geometryId, transformNodeId, shadingEngineId );
+                ShadingBinding shadingBinding ( geometryId, transformNodeId, shadingEngineId, controllerId );
 
                 // Create the maya groupId object 
                 String groupName = getDocumentImporter ()->getGroupIdIdList ().addId ( GROUP_ID_NAME, true, true );
@@ -418,7 +460,6 @@ namespace COLLADAMaya
         const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
         size_t meshPrimitivesCount = meshPrimitives.getCount ();
 
-        // TODO But something other, if we have a controller element!
         // We don't need this, if we have just one primitive.
         if ( meshPrimitivesCount <= 1 ) return;
 
@@ -557,7 +598,6 @@ namespace COLLADAMaya
                 break;
             case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
                 {
-                    COLLADABU::Math::Vector3 converted;
                     const COLLADAFW::ArrayPrimitiveType<double>* values = positions.getDoubleValues ();
                     toLinearUnit ( (*values)[i], (*values)[i+1], (*values)[i+2], converted );
                 }
@@ -1585,6 +1625,16 @@ namespace COLLADAMaya
     }
     
     // --------------------------------------------
+    MayaDM::Mesh* GeometryImporter::findMayaDMControllerMeshNode ( const COLLADAFW::UniqueId& uniqueId ) 
+    {
+        UniqueIdMayaDMMeshMap::iterator it = mMayaDMControllerMeshNodesMap.find ( uniqueId );
+        if ( it != mMayaDMControllerMeshNodesMap.end () )
+            return &(*it).second;
+
+        return NULL;
+    }
+
+    // --------------------------------------------
     MayaDM::Mesh* GeometryImporter::findMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId )
     {
         UniqueIdMayaDMMeshMap::iterator it = mMayaDMMeshNodesMap.find ( uniqueId );
@@ -1697,12 +1747,30 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    const std::vector<MayaDM::componentList>* GeometryImporter::findComponentLists ( const COLLADAFW::UniqueId& geometryId )
+    const std::vector<MayaDM::componentList>* GeometryImporter::findComponentLists ( 
+        const COLLADAFW::UniqueId& geometryId )
     {
         std::map<COLLADAFW::UniqueId, std::vector<MayaDM::componentList> >::const_iterator it;
         it = mMeshComponentLists.find ( geometryId );
         if ( it != mMeshComponentLists.end () )
             return &(it->second);
+        return 0;
+    }
+
+    // --------------------------------------------
+    GeometryImporter::MeshControllerData* GeometryImporter::findMeshControllerDataByControllerAndTransformId ( 
+        const COLLADAFW::UniqueId& controllerId, 
+        const COLLADAFW::UniqueId& transformId )
+    {
+        for ( size_t i=0; i<mMeshControllerDataList.size (); ++i )
+        {
+            MeshControllerData& meshControllerData = mMeshControllerDataList [i];
+            if ( meshControllerData.getControllerId () == controllerId &&
+                meshControllerData.getTransformId () == transformId )
+            {
+                return &meshControllerData;
+            }
+        }
         return 0;
     }
 
@@ -1732,21 +1800,28 @@ namespace COLLADAMaya
         {
             const ShadingBinding& shadingBinding = it->first;
             const COLLADAFW::UniqueId& geometryId = shadingBinding.getGeometryId ();
+            const COLLADAFW::UniqueId& transformId = shadingBinding.getTransformId();
+            const COLLADAFW::UniqueId* controllerId = shadingBinding.getControllerId ();
 
             // Get the count of primitive elements in the current geometry.
             const size_t numPrimitiveElements = findPrimitivesCount ( geometryId );
 
-            ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
-            const std::vector<COLLADAFW::SkinController*>* skinControllers = controllerImporter->findSkinControllersBySourceId ( geometryId );
-            if ( skinControllers )
+            if ( controllerId )
             {
-                // TODO Iterate...
-                const COLLADAFW::SkinController* skinController = (*skinControllers)[0];
+                // Get the current controller object.
+                ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+                const COLLADAFW::SkinController* skinController = controllerImporter->findSkinController ( *controllerId );
 
                 // Get the skinCluster object.
                 const COLLADAFW::UniqueId& skinControllerDataId = skinController->getSkinControllerData ();
-                const ControllerImporter::ControllerData* controllerData = controllerImporter->findControllerData ( skinControllerDataId );
-                const MayaDM::SkinCluster& skinCluster = controllerData->getSkinCluster ();
+                const ControllerImporter::MayaSkinClusterData* mayaSkinClusterData = controllerImporter->findMayaSkinClusterData ( *controllerId );
+                if ( mayaSkinClusterData == 0 )
+                {
+                    std::cerr << "No skin cluster data for the current controller!" << endl;
+                    ++it;
+                    continue;
+                }
+                const MayaDM::SkinCluster& skinCluster = mayaSkinClusterData->getSkinCluster ();
 
                 // Iterate over the groupInfos.
                 const std::vector<GroupInfo>& groupInfos = it->second;
@@ -1793,8 +1868,20 @@ namespace COLLADAMaya
                     // Handle the last primitive element connections.
                     if ( primitiveIndex == numPrimitiveElements-1 )
                     {
-                        // Get the current mesh.
-                        MayaDM::Mesh* mesh = findMayaDMMeshNode ( geometryId );
+                        // Get the current mesh (either the original object, or if we have a mesh
+                        // controller, we need the mesh controller object.
+                        MayaDM::Mesh* mesh = 0;
+                        if ( controllerId == 0 )
+                        {
+                            mesh = findMayaDMMeshNode ( geometryId );
+                        }
+                        else
+                        {
+                            // If the current mesh has a mesh controller object, 
+                            // we need the controller mesh element instead of the original.
+                            MeshControllerData* meshControllerData = findMeshControllerDataByControllerAndTransformId ( *controllerId, transformId );
+                            mesh = meshControllerData->getControllerMeshNode ();
+                        }
                         if ( mesh == 0 )
                         {
                             std::cerr << "No mesh object exist!" << endl;

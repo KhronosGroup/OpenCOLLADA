@@ -24,9 +24,9 @@ namespace COLLADAMaya
     bool ImportOptions::mFileLoadDeferRefOptionVar = false;
     bool ImportOptions::mHasError = false;
 
-    bool ImportOptions::mImportUpAxis = false;
+    bool ImportOptions::mImportUpAxis = true;
     bool ImportOptions::mImportUnits = true;
-    bool ImportOptions::mImportNormals = false;
+    bool ImportOptions::mImportNormals = true;
     bool ImportOptions::mImportSoftEdges = true;
     
     

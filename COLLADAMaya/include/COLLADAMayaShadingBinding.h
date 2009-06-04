@@ -33,6 +33,7 @@ namespace COLLADAMaya
         COLLADAFW::UniqueId mGeometryId;
         COLLADAFW::UniqueId mTransformId;
         COLLADAFW::MaterialId mShadingEngineId;
+        const COLLADAFW::UniqueId* mControllerId;
 
     public:
 
@@ -41,7 +42,8 @@ namespace COLLADAMaya
         ShadingBinding ( 
             const COLLADAFW::UniqueId& geometryId, 
             const COLLADAFW::UniqueId& transformId, 
-            const COLLADAFW::MaterialId& shadingEngineId );
+            const COLLADAFW::MaterialId& shadingEngineId,
+            const COLLADAFW::UniqueId* controllerId = 0 );
 
         virtual ~ShadingBinding ();
 
@@ -53,6 +55,9 @@ namespace COLLADAMaya
 
         const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
         void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }
+
+        const COLLADAFW::UniqueId* getControllerId () const { return mControllerId; }
+        void setControllerId ( COLLADAFW::UniqueId* val ) { mControllerId = val; }
 
         bool operator<(const ShadingBinding& rhs) const;
         bool operator==(const ShadingBinding& uid) const;

@@ -16,21 +16,11 @@ namespace COLLADAMaya
 {
 
     //------------------------------
-	GeometryBinding::GeometryBinding()
-	{
-	}
-	
-    //------------------------------
-	GeometryBinding::~GeometryBinding()
-	{
-	}
-
-    //------------------------------
     bool GeometryBinding::operator< ( const GeometryBinding& rhs ) const
     {
-        if ( mGeometryId < rhs.mGeometryId )
+        if ( mSourceId < rhs.mSourceId )
             return true;
-        if ( mGeometryId > rhs.mGeometryId )
+        if ( mSourceId > rhs.mSourceId )
             return false;
 
         if ( mTransformId < rhs.mTransformId )
@@ -44,7 +34,7 @@ namespace COLLADAMaya
     //------------------------------
     bool GeometryBinding::operator== ( const GeometryBinding& uid ) const
     {
-        if ( mGeometryId != uid.mGeometryId ) return false;
+        if ( mSourceId != uid.mSourceId ) return false;
         if ( mTransformId != uid.mTransformId ) return false;
         return true;
     }

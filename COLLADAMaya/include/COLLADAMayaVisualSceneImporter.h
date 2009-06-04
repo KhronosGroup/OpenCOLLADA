@@ -78,15 +78,15 @@ namespace COLLADAMaya
             virtual ~MayaTransformation () {}
 
             static const size_t PHASE_TRANS1            = 1;
-            static const size_t PHASE_ROTATE_ORIENT1    = 2;
-            static const size_t PHASE_ROTATE_ORIENT2    = 3;
-            static const size_t PHASE_ROTATE_ORIENT3    = 4;
+            static const size_t PHASE_JOINT_ORIENT1     = 2;
+            static const size_t PHASE_JOINT_ORIENT2     = 3;
+            static const size_t PHASE_JOINT_ORIENT3     = 4;
             static const size_t PHASE_ROTATE1           = 5;
             static const size_t PHASE_ROTATE2           = 6;
             static const size_t PHASE_ROTATE3           = 7;
-            static const size_t PHASE_JOINT_ORIENT1     = 8;
-            static const size_t PHASE_JOINT_ORIENT2     = 9;
-            static const size_t PHASE_JOINT_ORIENT3     = 10;
+            static const size_t PHASE_ROTATE_ORIENT1    = 8;
+            static const size_t PHASE_ROTATE_ORIENT2    = 9;
+            static const size_t PHASE_ROTATE_ORIENT3    = 10;
             static const size_t PHASE_TRANS2            = 11;
             static const size_t PHASE_SCALE             = 12;
             static const size_t PHASE_TRANS3            = 13;
@@ -95,14 +95,14 @@ namespace COLLADAMaya
             std::vector<MVector> translate1Vec;
             size_t numTranslate1;
 
-            MEulerRotation rotateOrient; // = 0,0,0
-            COLLADABU::Math::Vector3 axisPhaseRotateOrient1, axisPhaseRotateOrient2, axisPhaseRotateOrient3;
+            MEulerRotation jointOrient; // = 0,0,0
+            COLLADABU::Math::Vector3 axisPhaseJointOrient1, axisPhaseJointOrient2, axisPhaseJointOrient3;
 
             MEulerRotation rotation; // = 0,0,0
             COLLADABU::Math::Vector3 axisPhaseRotate1, axisPhaseRotate2, axisPhaseRotate3;
 
-            MEulerRotation jointOrient; // = 0,0,0
-            COLLADABU::Math::Vector3 axisPhaseJointOrient1, axisPhaseJointOrient2, axisPhaseJointOrient3;
+            MEulerRotation rotateOrient; // = 0,0,0
+            COLLADABU::Math::Vector3 axisPhaseRotateOrient1, axisPhaseRotateOrient2, axisPhaseRotateOrient3;
 
             MVector translate2; // = 0,0,0
             std::vector<MVector> translate2Vec;
@@ -322,9 +322,9 @@ namespace COLLADAMaya
          * Read the shading engines.
          */
         void readMaterialInstances ( 
-            const COLLADAFW::UniqueId& transformNodeId, 
+            const COLLADAFW::UniqueId& transformId, 
             const COLLADAFW::InstanceGeometry* instanceGeometry,
-            const COLLADAFW::UniqueId& geometryId );
+            const COLLADAFW::UniqueId* controllerId = 0 );
 
         /**
          * Handle the node instances. 

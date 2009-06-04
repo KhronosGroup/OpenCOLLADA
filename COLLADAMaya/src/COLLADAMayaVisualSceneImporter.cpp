@@ -476,13 +476,13 @@ namespace COLLADAMaya
         // Rotation is maya conform, if there is not more than one rotation per axis
         // (except the axis rotations are direct successive).
 
-        // On the first rotation set the actual phase to the rotate orient phase 1.
-        if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE_ORIENT1 )
+        // On the first rotation set the actual phase to the joint orient phase 1.
+        if ( mayaTransform.phase < MayaTransformation::PHASE_JOINT_ORIENT1 )
         {
-            mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT1;
+            mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT1;
             mayaTransform.axisPhaseRotateOrient1 = axis;
         }
-        else if ( mayaTransform.phase > MayaTransformation::PHASE_JOINT_ORIENT3 )
+        else if ( mayaTransform.phase > MayaTransformation::PHASE_ROTATE_ORIENT3 )
         {
             validMayaTransform = false;
             return validMayaTransform;
@@ -492,40 +492,40 @@ namespace COLLADAMaya
         // Check if the axis has changed.
         switch ( mayaTransform.phase )
         {
-        case MayaTransformation::PHASE_ROTATE_ORIENT1:
+        case MayaTransformation::PHASE_JOINT_ORIENT1:
             {
                 // Change the phase set the axis if necessary.
-                if ( mayaTransform.axisPhaseRotateOrient1 != axis )
+                if ( mayaTransform.axisPhaseJointOrient1 != axis )
                 {
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT2;
-                    mayaTransform.axisPhaseRotateOrient2 = axis;
+                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT2;
+                    mayaTransform.axisPhaseJointOrient2 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE_ORIENT2:
+        case MayaTransformation::PHASE_JOINT_ORIENT2:
             {
                 // Check, if the axis is not already used.
-                if ( axis == mayaTransform.axisPhaseRotateOrient1 )
+                if ( axis == mayaTransform.axisPhaseJointOrient1 )
                 {
                     // Set the phase to the next orientation.
                     mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
                     mayaTransform.axisPhaseRotate1 = axis;
                 }
-                else if ( mayaTransform.axisPhaseRotateOrient2 != axis )
+                else if ( mayaTransform.axisPhaseJointOrient2 != axis )
                 {
                     // Change the phase and set the axis if necessary.
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT3;
-                    mayaTransform.axisPhaseRotateOrient3 = axis;
+                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT3;
+                    mayaTransform.axisPhaseJointOrient3 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE_ORIENT3:
+        case MayaTransformation::PHASE_JOINT_ORIENT3:
             {
                 // Check, if the axis is not already used.
-                if ( axis == mayaTransform.axisPhaseRotateOrient1 || 
-                    axis == mayaTransform.axisPhaseRotateOrient2 )
+                if ( axis == mayaTransform.axisPhaseJointOrient1 || 
+                    axis == mayaTransform.axisPhaseJointOrient2 )
                 {
                     // Set the phase to the next orientation.
                     mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
@@ -551,8 +551,8 @@ namespace COLLADAMaya
                 if ( axis == mayaTransform.axisPhaseRotate1 )
                 {
                     // Set the phase to the next orientation.
-                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT1;
-                    mayaTransform.axisPhaseJointOrient1 = axis;
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT1;
+                    mayaTransform.axisPhaseRotateOrient1 = axis;
                 }
                 else if ( mayaTransform.axisPhaseRotate2 != axis )
                 {
@@ -570,24 +570,24 @@ namespace COLLADAMaya
                     axis == mayaTransform.axisPhaseRotate2 )
                 {
                     // Set the phase to the next orientation.
-                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT1;
-                    mayaTransform.axisPhaseJointOrient1 = axis;
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT1;
+                    mayaTransform.axisPhaseRotateOrient1 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_JOINT_ORIENT1:
+        case MayaTransformation::PHASE_ROTATE_ORIENT1:
             {
                 // Change the phase set the axis if necessary.
-                if ( mayaTransform.axisPhaseJointOrient1 != axis )
+                if ( mayaTransform.axisPhaseRotateOrient1 != axis )
                 {
-                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT2;
-                    mayaTransform.axisPhaseJointOrient2 = axis;
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT2;
+                    mayaTransform.axisPhaseRotateOrient2 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_JOINT_ORIENT2:
+        case MayaTransformation::PHASE_ROTATE_ORIENT2:
             {
                 // Check, if the axis is not already used.
                 if ( axis == mayaTransform.axisPhaseRotate1 )
@@ -598,13 +598,13 @@ namespace COLLADAMaya
                 else if ( mayaTransform.axisPhaseRotate2 != axis )
                 {
                     // Change the phase and set the axis if necessary.
-                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT3;
-                    mayaTransform.axisPhaseJointOrient3 = axis;
+                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT3;
+                    mayaTransform.axisPhaseRotateOrient3 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_JOINT_ORIENT3:
+        case MayaTransformation::PHASE_ROTATE_ORIENT3:
             {
                 // Check, if the axis is not already used.
                 if ( axis == mayaTransform.axisPhaseRotate1 || 
@@ -622,25 +622,25 @@ namespace COLLADAMaya
         }
 
         // Add the rotation angle.
-        if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE_ORIENT3 )
+        if ( mayaTransform.phase <= MayaTransformation::PHASE_JOINT_ORIENT3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {
-                MVector rotationVec = mayaTransform.rotateOrient.asVector ();
+                MVector rotationVec = mayaTransform.jointOrient.asVector ();
                 rotationVec.x += angle;
-                mayaTransform.rotateOrient.setValue ( rotationVec );
+                mayaTransform.jointOrient.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
             {
-                MVector rotationVec = mayaTransform.rotateOrient.asVector ();
+                MVector rotationVec = mayaTransform.jointOrient.asVector ();
                 rotationVec.y += angle;
-                mayaTransform.rotateOrient.setValue ( rotationVec );
+                mayaTransform.jointOrient.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
             {
-                MVector rotationVec = mayaTransform.rotateOrient.asVector ();
+                MVector rotationVec = mayaTransform.jointOrient.asVector ();
                 rotationVec.z += angle;
-                mayaTransform.rotateOrient.setValue ( rotationVec );
+                mayaTransform.jointOrient.setValue ( rotationVec );
             }
         }
         else if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE3 )
@@ -664,25 +664,25 @@ namespace COLLADAMaya
                 mayaTransform.rotation.setValue ( rotationVec );
             }
         }
-        else if ( mayaTransform.phase <= MayaTransformation::PHASE_JOINT_ORIENT3 )
+        else if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE_ORIENT3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {
-                MVector rotationVec = mayaTransform.jointOrient.asVector ();
+                MVector rotationVec = mayaTransform.rotateOrient.asVector ();
                 rotationVec.x += angle;
-                mayaTransform.jointOrient.setValue ( rotationVec );
+                mayaTransform.rotateOrient.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Y )
             {
-                MVector rotationVec = mayaTransform.jointOrient.asVector ();
+                MVector rotationVec = mayaTransform.rotateOrient.asVector ();
                 rotationVec.y += angle;
-                mayaTransform.jointOrient.setValue ( rotationVec );
+                mayaTransform.rotateOrient.setValue ( rotationVec );
             }
             else if ( axis == COLLADABU::Math::Vector3::UNIT_Z )
             {
-                MVector rotationVec = mayaTransform.jointOrient.asVector ();
+                MVector rotationVec = mayaTransform.rotateOrient.asVector ();
                 rotationVec.z += angle;
-                mayaTransform.jointOrient.setValue ( rotationVec );
+                mayaTransform.rotateOrient.setValue ( rotationVec );
             }
         }
 
@@ -1120,14 +1120,18 @@ namespace COLLADAMaya
             //transformNode->setShear ( toUpAxisTypeAxis ( MayaDM::double3 ( skew.x, skew.y, skew.z ) ) );
 
         if ( rotatePivot != MVector (0, 0, 0) )
-            transformNode->setRotatePivot ( toLinearUnit ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) ) );
+            transformNode->setRotatePivot ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) );
+            //transformNode->setRotatePivot ( toLinearUnit ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) ) );
         if ( rotatePivotTranslate != MVector (0, 0, 0) )
-            transformNode->setRotatePivotTranslate ( toLinearUnit ( MayaDM::double3 ( rotatePivotTranslate.x, rotatePivotTranslate.y, rotatePivotTranslate.z ) ) );
+            transformNode->setRotatePivotTranslate ( MayaDM::double3 ( rotatePivotTranslate.x, rotatePivotTranslate.y, rotatePivotTranslate.z ) );
+            //transformNode->setRotatePivotTranslate ( toLinearUnit ( MayaDM::double3 ( rotatePivotTranslate.x, rotatePivotTranslate.y, rotatePivotTranslate.z ) ) );
 
         if ( scalePivot != MVector (0, 0, 0) )
-            transformNode->setScalePivot ( toLinearUnit ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) ) );
+            transformNode->setScalePivot ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) );
+            //transformNode->setScalePivot ( toLinearUnit ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) ) );
         if ( scalePivotTranslate != MVector (0, 0, 0) )
-            transformNode->setScalePivotTranslate ( toLinearUnit ( MayaDM::double3 ( scalePivotTranslate.x, scalePivotTranslate.y, scalePivotTranslate.z ) ) );
+            transformNode->setScalePivotTranslate ( MayaDM::double3 ( scalePivotTranslate.x, scalePivotTranslate.y, scalePivotTranslate.z ) );
+            //transformNode->setScalePivotTranslate ( toLinearUnit ( MayaDM::double3 ( scalePivotTranslate.x, scalePivotTranslate.y, scalePivotTranslate.z ) ) );
         
         if ( order != MEulerRotation::kXYZ )
             transformNode->setRotateOrder ( order );
@@ -1283,7 +1287,7 @@ namespace COLLADAMaya
             mGeometryTransformIdsMap [ geometryId ].push_back ( transformNodeId );
 
             // Read the shading engines.
-            readMaterialInstances ( transformNodeId, instanceGeometry, geometryId );
+            readMaterialInstances ( transformNodeId, instanceGeometry );
         }
 
         return true;
@@ -1303,10 +1307,10 @@ namespace COLLADAMaya
             const COLLADAFW::InstanceController* instanceController = controllerInstances [i];
             const COLLADAFW::UniqueId& controllerId = instanceController->getInstanciatedObjectId ();
 
-            // Save for every geometry a list of transform nodes, which refer to it.
-            mControllerTransformIdsMap [ controllerId ].push_back ( transformNodeId );
+            // Save for every controller a list of transform nodes, which refer to it.
+            mControllerTransformIdsMap[controllerId].push_back ( transformNodeId );
 
-            // TODO Get the geometryId of the geometry, which is controlled from the current controller object.
+            // Get the geometryId of the geometry, which is controlled from the current controller object.
             ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
             const COLLADAFW::UniqueId* geometryId = controllerImporter->getControllersGeometryId ( controllerId );
             if ( geometryId == NULL )
@@ -1315,8 +1319,23 @@ namespace COLLADAMaya
                 return false;
             }
 
-            // Read the shading engines.
-            readMaterialInstances ( transformNodeId, instanceController, *geometryId );
+            // TODO Store the transforms of the geometry!
+            struct ControllerTransform
+            {
+                COLLADAFW::UniqueId controllerId;
+                COLLADAFW::UniqueId transformId;
+            };
+            std::map<COLLADAFW::UniqueId, ControllerTransform> mControllerGeometryTransformIds;
+
+            ControllerTransform controllerTransform;
+            controllerTransform.controllerId = controllerId;
+            controllerTransform.transformId = transformNodeId;
+            //mControllerGeometryTransformIds [geometryId].push_back ( controllerTransform );
+
+            // Read the shading engines. Store the information, that the material instance is  
+            // referenced from a controller object. We need this information if we do the 
+            // connections between the geometries and the shadingEngines.
+            readMaterialInstances ( transformNodeId, instanceController, &controllerId );
         }
 
         return true;
@@ -1324,13 +1343,13 @@ namespace COLLADAMaya
 
     // -----------------------------------
     void VisualSceneImporter::readMaterialInstances ( 
-        const COLLADAFW::UniqueId& transformNodeId, 
+        const COLLADAFW::UniqueId& transformId, 
         const COLLADAFW::InstanceGeometry* instanceGeometry, 
-        const COLLADAFW::UniqueId& geometryId )
+        const COLLADAFW::UniqueId* controllerId /*= 0*/ )
     {
         // Write the shader data.
         MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
-        materialImporter->writeShaderData ( transformNodeId, instanceGeometry, geometryId );
+        materialImporter->writeShaderData ( transformId, instanceGeometry, controllerId );
     }
 
     // -----------------------------------

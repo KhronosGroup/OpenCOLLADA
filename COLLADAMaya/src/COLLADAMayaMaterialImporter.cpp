@@ -185,18 +185,22 @@ namespace COLLADAMaya
     void MaterialImporter::writeShaderData ( 
         const COLLADAFW::UniqueId& transformId, 
         const COLLADAFW::InstanceGeometry* instanceGeometry, 
-        const COLLADAFW::UniqueId& geometryId )
+        const COLLADAFW::UniqueId* controllerId )
     {
-         // Create a shading binding object for the current geometry.
-         GeometryBinding geometryBinding;
-         geometryBinding.setGeometryId ( geometryId );
-         geometryBinding.setTransformId ( transformId );
+        // Get the sourceId, which bind the material.
+        const COLLADAFW::UniqueId& sourceId = instanceGeometry->getInstanciatedObjectId ();
 
-         // Go through the bound materials
-         const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindingsArray = instanceGeometry->getMaterialBindings ();
-         size_t numOfBindings = materialBindingsArray.getCount ();
-         for ( size_t i=0; i<numOfBindings; ++i )
-         {
+        // Create a shading binding object for the current geometry.
+        GeometryBinding geometryBinding;
+        geometryBinding.setSourceId ( sourceId );
+        geometryBinding.setTransformId ( transformId );
+        geometryBinding.setControllerId ( controllerId );
+
+        // Go through the bound materials
+        const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindingsArray = instanceGeometry->getMaterialBindings ();
+        size_t numOfBindings = materialBindingsArray.getCount ();
+        for ( size_t i=0; i<numOfBindings; ++i )
+        {
             // Get the current material binding.
             const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindingsArray [i];
 
@@ -310,13 +314,38 @@ namespace COLLADAMaya
         while ( geometryBindingIter != mGeometryBindingMaterialInfosMap.end () )
         {
             const GeometryBinding& geometryBinding = geometryBindingIter->first;
-            const COLLADAFW::UniqueId& geometryId = geometryBinding.getGeometryId ();
             const COLLADAFW::UniqueId& transformId = geometryBinding.getTransformId ();
+            const COLLADAFW::UniqueId* controllerId = geometryBinding.getControllerId ();
+
+            // Get the sourceId. Is either a geometryId or a controllerId.
+            const COLLADAFW::UniqueId& sourceId = geometryBinding.getSourceId ();
+
+            // TODO Handle controller
+            COLLADAFW::UniqueId geometryId;
+            if ( controllerId )
+            {
+                // Get the geometryId of the current controller element.
+                ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+                GeometryImporter* geometryImporter = getDocumentImporter ()->getGeometryImporter ();
+                GeometryImporter::MeshControllerData* meshControllerData = geometryImporter->findMeshControllerDataByControllerAndTransformId ( sourceId, transformId );
+                if ( meshControllerData == 0 )
+                {
+                    std::cerr << "No meshControllerData exist for the current geometry and transform!" << endl;
+                    ++geometryBindingIter;
+                    continue;
+                }
+                geometryId = meshControllerData->getGeometryId ();
+            }
+            else 
+            {
+                geometryId = sourceId;
+            }
 
             // Get the list of materialIds for the current shading binding.
             const std::vector<MaterialInformation>& materialInfosList = geometryBindingIter->second;
             size_t numMaterialInfos = materialInfosList.size ();
 
+            // There exist a materialInfo for every mesh primitive element.
             for ( size_t primitiveIndex=0; primitiveIndex<numMaterialInfos; ++primitiveIndex )
             {
                 const MaterialInformation& materialInfo = materialInfosList [primitiveIndex];
@@ -378,8 +407,7 @@ namespace COLLADAMaya
 
         // If we have one or more controllers, the material groupIds have to 
         // connect to the geometry object groups on a later index position.
-        const size_t objectGroupsInitialIndex = controllerImporter->getObjectGroupsInitialIndex ();
-
+        size_t objectGroupsInitialIndex = 0;
         size_t geometryInstance = 0;
 
         // Find all geometry mesh primitives, which use this effect and create the connections.
@@ -387,23 +415,38 @@ namespace COLLADAMaya
         while ( geometryBindingIter != mGeometryBindingMaterialInfosMap.end () )
         {
             const GeometryBinding& geometryBinding = geometryBindingIter->first;
-            const COLLADAFW::UniqueId& geometryId = geometryBinding.getGeometryId ();
+            const COLLADAFW::UniqueId& sourceId = geometryBinding.getSourceId ();
             const COLLADAFW::UniqueId& transformId = geometryBinding.getTransformId ();
+            const COLLADAFW::UniqueId* controllerId = geometryBinding.getControllerId ();
+
+            // TODO Handle controller
+            COLLADAFW::UniqueId geometryId;
+            GeometryImporter::MeshControllerData* meshControllerData = 0;
+            if ( controllerId )
+            {
+                // Get the geometryId of the current controller element.
+                meshControllerData = geometryImporter->findMeshControllerDataByControllerAndTransformId ( sourceId, transformId );
+                if ( meshControllerData == 0 )
+                {
+                    std::cerr << "No meshControllerData exist for the current geometry and transform!" << endl;
+                    ++geometryBindingIter;
+                    continue;
+                }
+                geometryId = meshControllerData->getGeometryId ();
+
+                // If we have one or more controllers, the material groupIds have to 
+                // connect to the geometry object groups on a later index position.
+                objectGroupsInitialIndex = controllerImporter->findObjectGroupsInitialIndex ( *controllerId );
+            }
+            else 
+            {
+                geometryId = sourceId;
+            }
 
             // Get the list of materialIds for the current geometry binding.
             // There has to be a material info element for every mesh primitive element.
             const std::vector<MaterialInformation>& materialInfosList = geometryBindingIter->second;
             size_t numMaterialInfos = materialInfosList.size ();
-
-            // Look for a list of componentLists of the current geometry.
-            const std::vector<MayaDM::componentList>* componentLists = geometryImporter->findComponentLists ( geometryId );
-            size_t componentListsCount = 0;
-            if ( componentLists ) componentListsCount = componentLists->size ();
-            if ( numMaterialInfos != componentListsCount )
-            {
-                std::cerr << "No component lists generated for the current geometry's primitives!" << endl;
-                return;
-            }
 
             // Get all pathes of the current transformation.
             std::vector<String> transformPathes;
@@ -413,6 +456,7 @@ namespace COLLADAMaya
             size_t numTransformInstances = transformPathes.size ();
             for ( size_t transformInstance=0; transformInstance<numTransformInstances; ++transformInstance )
             {
+                // There has to be a material info element for every mesh primitive element.
                 for ( size_t materialIndex=0; materialIndex<numMaterialInfos; ++materialIndex )
                 {
                     const MaterialInformation& materialInfo = materialInfosList [materialIndex];
@@ -429,16 +473,31 @@ namespace COLLADAMaya
                     const MayaDM::ShadingEngine& shadingEngine = shaderData->getShadingEngine ();
 
                     // Get the maya mesh object.
-                    MayaDM::Mesh* mesh = geometryImporter->findMayaDMMeshNode ( geometryId );
-                    if ( mesh == 0 )    {
+                    MayaDM::Mesh* mesh = 0;
+                    if ( controllerId )
+                    {
+                        // TODO Handle controllers! If the mesh is instanciated over a controller object,
+                        // and it is instanciated from a geometry, then we have to use the original
+                        // mesh object from the mayaDMControllerMeshNodes.
+//                        mesh = geometryImporter->findMayaDMControllerMeshNode ( geometryId );
+                        mesh = meshControllerData->getControllerMeshNode ();
+                    }
+                    else 
+                    {
+                        // Get the mesh from the normal mayaDMMeshNode list.
+                        mesh = geometryImporter->findMayaDMMeshNode ( geometryId );
+                    }
+                    if ( mesh == 0 )    
+                    {
                         MGlobal::displayError ( "Mesh doesn't exist!" );
                         std::cerr << "Mesh doesn't exist!" << endl;
                         return;
                     }
 
+                    // TODO Can't we always use the full path?
                     // Set the current transformation path.
                     String meshName = mesh->getName ();
-                    if ( numTransformInstances > 1 )
+                    if ( numTransformInstances >= 1 )
                     {
                         String meshPath = transformPathes [transformInstance] + "|" + meshName;
                         mesh->setName ( meshPath );
@@ -454,11 +513,12 @@ namespace COLLADAMaya
                         // Do the connection to this shading engine for every primitive element, 
                         // which use this shading engine.
                         std::vector<size_t>* primitiveIndices = geometryImporter->getShadingEnginePrimitiveIndices ( geometryId, shadingEngineId );
-                        if ( primitiveIndices != 0 )
+//                        if ( primitiveIndices != 0 )
                         {
-                            for ( size_t i=0; i<primitiveIndices->size (); ++i )
+//                            for ( size_t i=0; i<primitiveIndices->size (); ++i )
                             {
-                                const size_t primitiveIndex = (*primitiveIndices) [i];
+//                                const size_t primitiveIndex = (*primitiveIndices) [i];
+                                const size_t primitiveIndex = materialIndex;
 
                                 // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
                                 connectNextAttr ( file, mesh->getObjectGroups ( objectGroupsInitialIndex+primitiveIndex ), shadingEngine.getDagSetMembers () );
@@ -502,7 +562,7 @@ namespace COLLADAMaya
                     }
 
                     // Reset the name of the mesh object.
-                    if ( numTransformInstances > 1 )
+                    if ( numTransformInstances >= 1 )
                     {
                         mesh->setName ( meshName );
                     }

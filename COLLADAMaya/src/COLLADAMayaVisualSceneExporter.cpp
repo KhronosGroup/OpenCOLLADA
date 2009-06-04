@@ -168,7 +168,7 @@ namespace COLLADAMaya
             sceneElement->setType ( SceneElement::TRANSFORM );
 
             // Taken out of unvisible transforms. 
-            if ( !ExportOptions::exportInvisibleNodes () && !isVisible ) return false;
+            if ( !ExportOptions::exportInvisibleNodes () && !isVisible && !isExportNode ) return false;
 
             // Export the scene graph node for all transform-derivatives
             if ( dagPath.hasFn ( MFn::kJoint ) )

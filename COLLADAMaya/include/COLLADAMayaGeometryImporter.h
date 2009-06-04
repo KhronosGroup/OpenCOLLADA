@@ -74,6 +74,43 @@ namespace COLLADAMaya
             void setPrimitiveIndex ( const size_t val ) { mPrimitiveIndex = val; }
         };
 
+        /** 
+         * Store the information of the controller id, the geometryId and the transformId in the 
+         * combination of the original mesh node object and the controller mesh object.
+         */
+        class MeshControllerData 
+        {
+        private:
+            COLLADAFW::UniqueId mControllerId;
+            COLLADAFW::UniqueId mGeometryId;
+            COLLADAFW::UniqueId mTransformId;
+            MayaDM::Mesh mOriginalMeshNode;
+            MayaDM::Mesh mControllerMeshNode;
+
+        public:
+            MeshControllerData () {}
+            virtual ~MeshControllerData () {}
+
+            const COLLADAFW::UniqueId& getControllerId () const { return mControllerId; }
+            void setControllerId ( const COLLADAFW::UniqueId& val ) { mControllerId = val; }
+
+            const COLLADAFW::UniqueId& getGeometryId () const { return mGeometryId; }
+            void setGeometryId ( const COLLADAFW::UniqueId& val ) { mGeometryId = val; }
+
+            const COLLADAFW::UniqueId& getTransformId () const { return mTransformId; }
+            void setTransformId ( const COLLADAFW::UniqueId& val ) { mTransformId = val; }
+
+            MayaDM::Mesh* getOriginalMeshNode () { return &mOriginalMeshNode; }
+            const MayaDM::Mesh* getOriginalMeshNode () const { return &mOriginalMeshNode; }
+//            const MayaDM::Mesh& getOriginalMeshNode () const { return mOriginalMeshNode; }
+            void setOriginalMeshNode ( const MayaDM::Mesh& val ) { mOriginalMeshNode = val; }
+
+            MayaDM::Mesh* getControllerMeshNode () { return &mControllerMeshNode; }
+            const MayaDM::Mesh* getControllerMeshNode () const { return &mControllerMeshNode; }
+//            const MayaDM::Mesh& getControllerMeshNode () const { return mControllerMeshNode; }
+            void setControllerMeshNode ( const MayaDM::Mesh& val ) { mControllerMeshNode = val; }
+        };
+
     private:
 
         /**
@@ -120,6 +157,14 @@ namespace COLLADAMaya
          */
         std::map<COLLADAFW::UniqueId, std::vector<MayaDM::componentList> > mMeshComponentLists;
 
+        /** 
+        * Store the information of the controller id, the geometryId and the transformId in the 
+        * combination of the original mesh node object and the controller mesh object.
+        * There can be multiple objects per any uniqueId, but there can be only one object per 
+        * combination of controllerId and transformId.
+        */
+        std::vector<MeshControllerData> mMeshControllerDataList;
+
     public:
 
         /** Constructor. */
@@ -128,7 +173,9 @@ namespace COLLADAMaya
         /** Destructor. */
         virtual ~GeometryImporter ();
 
-        /** Imports the geometry element. */
+        /** 
+        * Imports the geometry element. 
+        */
         void importGeometry ( const COLLADAFW::Geometry* geometry );
 
         /** 
@@ -150,6 +197,11 @@ namespace COLLADAMaya
         * The map holds the unique ids of the nodes to the  specific nodes. 
         */
         const MayaDM::Mesh* findMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+
+        /** 
+        * The map holds the unique ids of the nodes to the  specific nodes. 
+        */
+        MayaDM::Mesh* findMayaDMControllerMeshNode ( const COLLADAFW::UniqueId& uniqueId );
 
         /** 
         * The map holds the unique ids of the nodes to the  specific nodes. 
@@ -196,6 +248,14 @@ namespace COLLADAMaya
         */
         const std::vector<MayaDM::componentList>* findComponentLists ( const COLLADAFW::UniqueId& geometryId );
 
+        /** 
+        * Store the information of the controller id, the geometryId and the transformId in the 
+        * combination of the original mesh node object and the controller mesh object.
+        */
+        MeshControllerData* findMeshControllerDataByControllerAndTransformId ( 
+            const COLLADAFW::UniqueId& controllerId, 
+            const COLLADAFW::UniqueId& transformId );
+
         /**
          * Writes the connection attributes into the maya ascii file. 
          * If there exist a controller for the current mesh, we also need to organize the groupIds 
@@ -208,7 +268,7 @@ namespace COLLADAMaya
         /** 
         * Imports the data of the current mesh element. 
         */
-        void importMesh ( const COLLADAFW::Mesh* mesh );
+        bool importMesh ( const COLLADAFW::Mesh* mesh );
 
         /**
          * Make the mesh instances and import the mesh data.
@@ -216,12 +276,15 @@ namespace COLLADAMaya
         void importMesh ( 
             const COLLADAFW::Mesh* mesh, 
             const UniqueIdVec* transformNodeIds,
-            const bool isMeshController = false );
+            const COLLADAFW::UniqueId* controllerId = 0, 
+            const bool meshAlreadyImported = false );
 
         /** 
         * Imports the data of the current mesh element. 
         */
-        void importController ( const COLLADAFW::Mesh* mesh );
+        void importController ( 
+            const COLLADAFW::Mesh* mesh, 
+            bool meshAlreadyImported );
 
         /**
         * Writes the geometry of the current mesh.
@@ -229,7 +292,8 @@ namespace COLLADAMaya
         void createMesh ( 
             const COLLADAFW::Mesh* mesh, 
             MayaNode* parentMayaNode, 
-            const bool isMeshController = false );
+            const COLLADAFW::UniqueId* controllerId = 0, 
+            const bool meshAlreadyImported = false );
 
         /**
          * Create maya group ids for every mesh primitive (if there is more than one).
@@ -237,7 +301,8 @@ namespace COLLADAMaya
         void createGroupNodes ( 
             const COLLADAFW::Mesh* mesh, 
             const COLLADAFW::UniqueId& transformNodeId, 
-            size_t& geometryInstanceIndex );
+            size_t& geometryInstanceIndex,
+            const COLLADAFW::UniqueId* controllerId /*= 0*/ );
 
         /**
          * Create the object group instances and the object groups and write it into the maya file.

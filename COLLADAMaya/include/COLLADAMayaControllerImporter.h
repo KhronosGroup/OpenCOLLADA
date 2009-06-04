@@ -53,35 +53,10 @@ namespace COLLADAMaya
     public:
 
         /**
-        * The indices of joints assigned to a joint/vertex pair of a controller element. 
-        * The number of pairs for the i'th vertex is given by the i'th value in mJointsPerVertex.
-        */
-        class ControllerJointInfo
-        {
-        private:
-            COLLADAFW::UniqueId controllerId;
-            std::vector<unsigned int> mJointIndices;
-            size_t mJointCount;
-
-        public:
-            ControllerJointInfo () : mJointCount (0) {}
-            virtual ~ControllerJointInfo () {};
-
-            const COLLADAFW::UniqueId& getControllerId () const { return controllerId; }
-            void setControllerId ( const COLLADAFW::UniqueId& val ) { controllerId = val; }
-
-            std::vector<unsigned int>& getJointIndices () { return mJointIndices; }
-            const std::vector<unsigned int>& getJointIndices () const { return mJointIndices; }
-
-            const size_t& getJointCount () const { return mJointCount; }
-            void setJointCount ( const size_t& val ) { mJointCount = val; }
-        };
-
-        /**
          * Create a data store object to hold all the MayaDM objects of the current controller.
          * The objects will be needed, to make all the connections.
          */
-        class ControllerData
+        class MayaSkinClusterData
         {
         private:
             MayaDM::SkinCluster mSkinCluster;
@@ -94,8 +69,8 @@ namespace COLLADAMaya
             MayaDM::GroupParts mGroupParts2;
 
         public:
-            ControllerData () {}
-            virtual ~ControllerData () {}
+            MayaSkinClusterData () {}
+            virtual ~MayaSkinClusterData () {}
 
             const MayaDM::SkinCluster& getSkinCluster () const { return mSkinCluster; }
             void setSkinCluster ( const MayaDM::SkinCluster& val ) { mSkinCluster = val; }
@@ -138,14 +113,8 @@ namespace COLLADAMaya
         /** 
         * The map holds the unique ids of the skin controller nodes to the maya specific nodes. 
         */
-        UniqueIdMayaNodeMap mMayaSkinControllerNodesMap;
+        std::vector<COLLADAFW::UniqueId> mSkinControllerDataIds;
 	
-        /**
-        * The indices of joints assigned to a joint/vertex pair of a controller element. 
-        * The number of pairs for the i'th vertex is given by the i'th value in mJointsPerVertex.
-        */
-        std::map<COLLADAFW::UniqueId, ControllerJointInfo> mJointInfosMap;
-
         /**
          * The map holds the skin controller objects for every source (mesh or morph controller).
          */
@@ -154,14 +123,14 @@ namespace COLLADAMaya
         /**
          * The map holds a list of controller objects.
          */
-        std::map<COLLADAFW::UniqueId, ControllerData> mControllers;
+        std::map<COLLADAFW::UniqueId, MayaSkinClusterData> mMayaSkinClustersDataMap;
 
         /**
         * The initial index position in depend on the number of controllers.
         * If we have one or more controllers, the material groupIds have to 
         * connect to the geometry object groups on a later index position.
         */
-        size_t mObjectGroupsInitialIndex;
+        std::map<COLLADAFW::UniqueId, size_t> mObjectGroupsInitialIndexMap;
 
 	public:
 
@@ -193,7 +162,17 @@ namespace COLLADAMaya
          */
         void createSkinCluster ( 
             const COLLADAFW::SkinControllerData* skinControllerData, 
-            ControllerData& controllerData );
+            MayaSkinClusterData& controllerData );
+
+        /**
+         * Write the weights into the maya ascii file.
+         */
+        void writeWeights ( 
+            MayaDM::SkinCluster &skinCluster, 
+            std::vector<double> &currentWeightList, 
+            const size_t influenceIndex, 
+            const unsigned int jointStartIndex, 
+            const unsigned int jointEndIndex );
 
         /**
          * Make the connections for the controller.
@@ -204,7 +183,13 @@ namespace COLLADAMaya
          * Returns the skin controller element, with the given skinControllerDataId. 
          * If no skin controller  uses the source, the method returns null.
          */
-        const COLLADAFW::SkinController* findSkinControllerByDataId ( const COLLADAFW::UniqueId& skinControllerDataId );
+        const std::vector<COLLADAFW::SkinController*> findSkinControllersByDataId ( const COLLADAFW::UniqueId& skinControllerDataId );
+
+        /**
+        * Returns the skin controller element, which uses the given source. If no skin controller 
+        * uses the source, the method returns null.
+        */
+        const COLLADAFW::SkinController* findSkinController ( const COLLADAFW::UniqueId& controllerId );
 
         /**
         * Returns the skin controller element, which uses the given source. If no skin controller 
@@ -222,12 +207,12 @@ namespace COLLADAMaya
          * connect to the geometry object groups on a later index position.
          * The method returns the initial index position in depend on the number of controllers.
          */
-        const size_t getObjectGroupsInitialIndex () const { return mObjectGroupsInitialIndex; }
+        const size_t findObjectGroupsInitialIndex ( const COLLADAFW::UniqueId& controllerId ) const;
 
         /**
         * The map holds a list of controller objects.
         */
-        const ControllerData* findControllerData ( const COLLADAFW::UniqueId& skinControllerDataId );
+        const MayaSkinClusterData* findMayaSkinClusterData ( const COLLADAFW::UniqueId& controllerId );
 
     private:
 
@@ -237,7 +222,7 @@ namespace COLLADAMaya
         * If we have one or more controllers, the material groupIds have to 
         * connect to the geometry object groups on a later index position.
         */
-        void addControllerToObjectGroupsInitialIndex () { mObjectGroupsInitialIndex += 2; }
+        void addControllerToObjectGroupsInitialIndex ( const COLLADAFW::UniqueId& controllerId );
 
         /**
          * Make the controller connections to the joints.
@@ -262,7 +247,7 @@ namespace COLLADAMaya
         /**
         * Get the maya skin controller node with the given unique id.
         */
-        MayaNode* findMayaSkinControllerDataNode ( const COLLADAFW::UniqueId& skinControllerId );
+        bool skinControllerDataIdExported ( const COLLADAFW::UniqueId& skinControllerId );
 
     };
 

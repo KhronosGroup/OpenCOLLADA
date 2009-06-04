@@ -26,24 +26,43 @@ namespace COLLADAMaya
     class GeometryBinding
     {
     private:
-        COLLADAFW::UniqueId mGeometryId;
+        COLLADAFW::UniqueId mSourceId;
         COLLADAFW::UniqueId mTransformId;
 
+        /** Not null, if the current geometry is under the current 
+        transformation referenced over a controller element. */
+        const COLLADAFW::UniqueId* mControllerId;
+
     public:
-        GeometryBinding ();
+        GeometryBinding () : mControllerId (0) {}
+
         GeometryBinding ( 
             const COLLADAFW::UniqueId& geometryId, 
-            const COLLADAFW::UniqueId& transformId ) 
-            : mGeometryId (geometryId)
+            const COLLADAFW::UniqueId& transformId,
+            const COLLADAFW::UniqueId* controllerId ) 
+            : mSourceId (geometryId)
             , mTransformId (transformId)
+            , mControllerId (controllerId)
         {}
-        virtual ~GeometryBinding ();
 
-        const COLLADAFW::UniqueId& getGeometryId () const { return mGeometryId; }
-        void setGeometryId ( const COLLADAFW::UniqueId& val ) { mGeometryId = val; }
+        virtual ~GeometryBinding () {}
+
+        /**
+         * Can be either a geometry or a controller.
+         */
+        const COLLADAFW::UniqueId& getSourceId () const { return mSourceId; }
+        /**
+        * Can be either a geometry or a controller.
+        */
+        void setSourceId ( const COLLADAFW::UniqueId& val ) { mSourceId = val; }
 
         const COLLADAFW::UniqueId& getTransformId () const { return mTransformId; }
         void setTransformId ( const COLLADAFW::UniqueId& val ) { mTransformId = val; }
+
+        /** Not null, if the current geometry is under the current 
+        transformation referenced over a controller element. */
+        const COLLADAFW::UniqueId* getControllerId () const { return mControllerId; }
+        void setControllerId ( const COLLADAFW::UniqueId* val ) { mControllerId = val; }
 
         bool operator<(const GeometryBinding& rhs) const;
         bool operator==(const GeometryBinding& uid) const;
