@@ -13,6 +13,7 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLFilePartLoader.h"
+#include "COLLADASaxFWLXmlTypes.h"
 
 
 namespace COLLADAFW
@@ -25,7 +26,7 @@ namespace COLLADASaxFWL
 {
 
     /** TODO Documentation */
-	class LibraryMaterialsLoader : public FilePartLoader 
+	class LibraryMaterialsLoader : public FilePartLoader
 		{
 	private:
 		/** The material currently being parsed.*/
@@ -49,7 +50,7 @@ namespace COLLADASaxFWL
 		virtual bool begin__instance_effect( const instance_effect__AttributeData& attributeData );
 
 		/** We don't need to do anything here.*/
-		virtual bool end__instance_effect(){SaxVirtualFunctionTest(end__instance_effect()); return true;}
+		virtual bool end__instance_effect(){return true;}
 
 		/** Finishes the material loader.*/
 		virtual bool end__library_materials();

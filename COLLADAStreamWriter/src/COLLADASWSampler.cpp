@@ -9,17 +9,23 @@
 */
 
 #include "COLLADASWSampler.h"
+#include "COLLADASWParamTemplate.h"
 
 namespace COLLADASW
 {
 
     const String Sampler::SAMPLER_SID_SUFFIX = "-sampler";
+	const String Sampler::SURFACE_SID_SUFFIX = "-surface";
 
     //-------------------------------
-    Sampler::Sampler ( const SamplerType& samplerType, const String& source )
+    Sampler::Sampler ( 
+        const SamplerType& samplerType,
+        const String& samplerSid, 
+        const String& surfaceSid/* = ""*/ )
         : BaseExtraTechnique()
         , mSamplerType ( samplerType )
-        , mSource ( source )
+        , mSamplerSid ( samplerSid )
+        , mSurfaceSid ( surfaceSid )
         , mMinFilter ( Sampler::SAMPLER_FILTER_NONE )
         , mMagFilter ( Sampler::SAMPLER_FILTER_NONE )
         , mMipFilter ( Sampler::SAMPLER_FILTER_NONE )
@@ -37,7 +43,8 @@ namespace COLLADASW
     Sampler::Sampler()
         : BaseExtraTechnique()
         , mSamplerType ( Sampler::SAMPLER_TYPE_UNSPECIFIED )
-        , mSource ( "" )
+        , mSamplerSid ( COLLADABU::Utils::EMPTY_STRING )
+        , mSurfaceSid ( COLLADABU::Utils::EMPTY_STRING )
         , mMinFilter ( Sampler::SAMPLER_FILTER_NONE )
         , mMagFilter ( Sampler::SAMPLER_FILTER_NONE )
         , mMipFilter ( Sampler::SAMPLER_FILTER_NONE )
@@ -189,7 +196,8 @@ namespace COLLADASW
         mMipmapBias = val;
     }
 
-    //-------------------------------
+#if 0
+	//-------------------------------
     const String& Sampler::getSource() const
     {
         return mSource;
@@ -200,6 +208,7 @@ namespace COLLADASW
     {
         mSource = val;
     }
+#endif
 
     //-------------------------------
     const String& Sampler::getSamplerTypeString( const SamplerType& samplerType )
@@ -217,6 +226,31 @@ namespace COLLADASW
         default: return CSWC::EMPTY_STRING;
         }
     }
+
+	//---------------------------------------------------------------
+	const String& Sampler::getSurfaceTypeString ( SamplerType surfaceType ) const
+	{
+		switch ( surfaceType )
+		{
+		case Sampler::SAMPLER_TYPE_1D:
+			return CSWC::CSW_SURFACE_TYPE_1D;
+		case Sampler::SAMPLER_TYPE_2D:
+			return CSWC::CSW_SURFACE_TYPE_2D;
+		case Sampler::SAMPLER_TYPE_3D:
+			return CSWC::CSW_SURFACE_TYPE_3D;
+		case Sampler::SAMPLER_TYPE_CUBE:
+			return CSWC::CSW_SURFACE_TYPE_CUBE;
+		case Sampler::SAMPLER_TYPE_DEPTH:
+			return CSWC::CSW_SURFACE_TYPE_DEPTH;
+		case Sampler::SAMPLER_TYPE_RECT:
+			return CSWC::CSW_SURFACE_TYPE_RECT;
+		case Sampler::SAMPLER_TYPE_UNSPECIFIED:
+			return CSWC::CSW_SURFACE_TYPE_UNTYPED;
+		default:
+			return CSWC::EMPTY_STRING;
+		}
+	}
+
 
     //-------------------------------
     const String& Sampler::getSamplerFilterString ( const Sampler::SamplerFilter& samplerFilter )
@@ -263,62 +297,159 @@ namespace COLLADASW
     }
 
     //-------------------------------
-    void Sampler::add ( StreamWriter* sw ) const
+    void Sampler::add_1_4_1 ( StreamWriter* sw, const String& source ) const
     {
         sw->openElement ( getSamplerTypeString ( mSamplerType ) );
 
         if ( mSamplerType != Sampler::SAMPLER_TYPE_STATE )
-            sw->appendTextElement ( CSWC::CSW_ELEMENT_SOURCE, mSource );
+            sw->appendTextElement ( CSWC::CSW_ELEMENT_SOURCE, source );
 
-        if ( mWrap_s != Sampler::WRAP_MODE_WRAP && mWrap_s != Sampler::WRAP_MODE_UNSPECIFIED )
-            sw->appendTextElement ( CSWC::CSW_ELEMENT_WRAP_S, getWrapModeString ( mWrap_s ) );
-
-        if ( mWrap_t != Sampler::WRAP_MODE_WRAP && mWrap_t != Sampler::WRAP_MODE_UNSPECIFIED )
-            sw->appendTextElement ( CSWC::CSW_ELEMENT_WRAP_T, getWrapModeString ( mWrap_t ) );
-
-        if ( mWrap_p != Sampler::WRAP_MODE_WRAP && mWrap_p != Sampler::WRAP_MODE_UNSPECIFIED )
-            sw->appendTextElement ( CSWC::CSW_ELEMENT_WRAP_P, getWrapModeString ( mWrap_p ) );
-
-        if ( mMinFilter != Sampler::SAMPLER_FILTER_NONE )
-            sw->appendTextElement ( CSWC::CSW_ELEMENT_MINFILTER, getSamplerFilterString ( mMinFilter ) );
-
-        if ( mMagFilter != Sampler::SAMPLER_FILTER_NONE )
-            sw->appendTextElement ( CSWC::CSW_ELEMENT_MAGFILTER, getSamplerFilterString ( mMagFilter ) );
-
-        if ( mMipFilter != Sampler::SAMPLER_FILTER_NONE )
-            sw->appendTextElement ( CSWC::CSW_ELEMENT_MIPFILTER, getSamplerFilterString ( mMipFilter ) );
-
-        if ( mUseBorderColor )
-        {
-            sw->openElement ( CSWC::CSW_ELEMENT_BORDER_COLOR );
-            sw->appendValues ( mBorderColor.getRed(), mBorderColor.getGreen(), mBorderColor.getBlue(), mBorderColor.getAlpha() );
-            sw->closeElement ();
-        }
-
-        bool writeMipMapLevel = false;
-        if ( mMipmapMaxlevel != 0 &&
-            ( mSamplerType == SAMPLER_TYPE_1D || mSamplerType == SAMPLER_TYPE_DEPTH ) )
-            writeMipMapLevel = true;
-        if ( mMipmapMaxlevel != 255 &&
-            ( mSamplerType != SAMPLER_TYPE_1D || mSamplerType != SAMPLER_TYPE_DEPTH || mSamplerType != SAMPLER_TYPE_UNSPECIFIED ) )
-            writeMipMapLevel = true;
-        if ( writeMipMapLevel )
-        {
-            sw->openElement ( CSWC::CSW_ELEMENT_MIPMAP_MAXLEVEL );
-            sw->appendValues ( mMipmapMaxlevel );
-            sw->closeElement ();
-        }
-
-        if ( mMipmapBias != 0.0f )
-        {
-            sw->openElement ( CSWC::CSW_ELEMENT_MIPMAP_BIAS );
-            sw->appendValues ( mMipmapBias );
-            sw->closeElement ();
-        }
-
-        addExtraTechniques ( sw );
+		addCommon( sw );
 
         sw->closeElement (); // mSamplerType
     }
+
+
+	//-------------------------------
+	void Sampler::add_1_5_0 ( StreamWriter* sw ) const
+	{
+		sw->openElement ( getSamplerTypeString ( mSamplerType ) );
+
+		if ( !mImageId.empty() )
+		{
+			sw->openElement( CSWC::CSW_ELEMENT_INSTANCE_IMAGE );
+			sw->appendAttribute( CSWC::CSW_ATTRIBUTE_URL, "#" + mImageId );
+			sw->closeElement (); // CSW_ELEMENT_INSTANCE_IMAGE
+		}
+
+		addCommon( sw );
+		
+		sw->closeElement (); // mSamplerType
+	}
+
+
+	//-------------------------------
+	void Sampler::addCommon ( StreamWriter* sw ) const
+	{
+		if ( mWrap_s != Sampler::WRAP_MODE_WRAP && mWrap_s != Sampler::WRAP_MODE_UNSPECIFIED )
+			sw->appendTextElement ( CSWC::CSW_ELEMENT_WRAP_S, getWrapModeString ( mWrap_s ) );
+
+		if ( mWrap_t != Sampler::WRAP_MODE_WRAP && mWrap_t != Sampler::WRAP_MODE_UNSPECIFIED )
+			sw->appendTextElement ( CSWC::CSW_ELEMENT_WRAP_T, getWrapModeString ( mWrap_t ) );
+
+		if ( mWrap_p != Sampler::WRAP_MODE_WRAP && mWrap_p != Sampler::WRAP_MODE_UNSPECIFIED )
+			sw->appendTextElement ( CSWC::CSW_ELEMENT_WRAP_P, getWrapModeString ( mWrap_p ) );
+
+		if ( mMinFilter != Sampler::SAMPLER_FILTER_NONE )
+			sw->appendTextElement ( CSWC::CSW_ELEMENT_MINFILTER, getSamplerFilterString ( mMinFilter ) );
+
+		if ( mMagFilter != Sampler::SAMPLER_FILTER_NONE )
+			sw->appendTextElement ( CSWC::CSW_ELEMENT_MAGFILTER, getSamplerFilterString ( mMagFilter ) );
+
+		if ( mMipFilter != Sampler::SAMPLER_FILTER_NONE )
+			sw->appendTextElement ( CSWC::CSW_ELEMENT_MIPFILTER, getSamplerFilterString ( mMipFilter ) );
+
+		if ( mUseBorderColor )
+		{
+			sw->openElement ( CSWC::CSW_ELEMENT_BORDER_COLOR );
+			sw->appendValues ( mBorderColor.getRed(), mBorderColor.getGreen(), mBorderColor.getBlue(), mBorderColor.getAlpha() );
+			sw->closeElement ();
+		}
+
+		bool writeMipMapLevel = false;
+		if ( mMipmapMaxlevel != 0 &&
+			( mSamplerType == SAMPLER_TYPE_1D || mSamplerType == SAMPLER_TYPE_DEPTH ) )
+			writeMipMapLevel = true;
+		if ( mMipmapMaxlevel != 255 &&
+			( mSamplerType != SAMPLER_TYPE_1D || mSamplerType != SAMPLER_TYPE_DEPTH || mSamplerType != SAMPLER_TYPE_UNSPECIFIED ) )
+			writeMipMapLevel = true;
+		if ( writeMipMapLevel )
+		{
+			sw->openElement ( CSWC::CSW_ELEMENT_MIPMAP_MAXLEVEL );
+			sw->appendValues ( mMipmapMaxlevel );
+			sw->closeElement ();
+		}
+
+		if ( mMipmapBias != 0.0f )
+		{
+			sw->openElement ( CSWC::CSW_ELEMENT_MIPMAP_BIAS );
+			sw->appendValues ( mMipmapBias );
+			sw->closeElement ();
+		}
+
+		addExtraTechniques ( sw );
+	}
+
+	//-------------------------------
+	template<class ParamSurfaceType, class ParamSamplerType> 
+	void Sampler::addInParam ( 
+        StreamWriter* sw, 
+        std::vector<COLLADASW::Annotation>* surfaceAnnotations /*= 0*/, 
+        std::vector<COLLADASW::Annotation>* samplerAnnotations /*= 0*/ ) const
+	{
+		if ( sw->getCOLLADAVersion() == StreamWriter::COLLADA_1_4_1 )
+		{
+			// Add the surface <newparam>
+			ParamSurfaceType paramSurface ( sw );
+			paramSurface.openParam ( mSurfaceSid );
+            if ( surfaceAnnotations ) paramSurface.addAnnotations ( *surfaceAnnotations );
+			addSurface ( sw );
+			paramSurface.closeParam ();
+
+			// Add the sampler <newparam>
+			ParamSamplerType paramSampler ( sw );
+			paramSampler.openParam ( mSamplerSid );
+            if ( samplerAnnotations ) paramSampler.addAnnotations ( *samplerAnnotations );
+			add_1_4_1 ( sw, mSurfaceSid );
+			paramSampler.closeParam ();
+		}
+		else if ( sw->getCOLLADAVersion() == StreamWriter::COLLADA_1_5_0 )
+		{
+			// Add the sampler <newparam>
+			ParamSamplerType paramSampler ( sw );
+			paramSampler.openParam ( mSamplerSid );
+            if ( surfaceAnnotations ) paramSampler.addAnnotations ( *surfaceAnnotations );
+            if ( samplerAnnotations ) paramSampler.addAnnotations ( *samplerAnnotations );
+			add_1_5_0( sw );
+			paramSampler.closeParam ();
+		}
+	}
+
+	// ----------------------------------------
+	void Sampler::addInSetParam( 
+        StreamWriter* sw, 
+        std::vector<COLLADASW::Annotation>* surfaceAnnotations /*= 0*/, 
+        std::vector<COLLADASW::Annotation>* samplerAnnotations /*= 0*/ ) const
+	{
+		addInParam<SetParamSurface, SetParamSampler>( sw, surfaceAnnotations, samplerAnnotations );
+	}
+
+	// ----------------------------------------
+	void Sampler::addInNewParam( 
+        StreamWriter* sw, 
+        std::vector<COLLADASW::Annotation>* surfaceAnnotations /*= 0*/, 
+        std::vector<COLLADASW::Annotation>* samplerAnnotations /*= 0*/ ) const
+	{
+		addInParam<NewParamSurface, NewParamSampler>( sw, surfaceAnnotations, samplerAnnotations );
+	}
+
+	// ----------------------------------------
+	void Sampler::addSurface ( StreamWriter* sw ) const
+	{
+		sw->openElement ( CSWC::CSW_ELEMENT_SURFACE );
+		sw->appendAttribute( CSWC::CSW_ATTRIBUTE_TYPE, getSurfaceTypeString ( mSamplerType ) );
+
+		sw->openElement( CSWC::CSW_ELEMENT_INIT_FROM );
+
+		if ( !mImageId.empty() )
+			sw->appendValues( mImageId );
+
+		sw->closeElement(); //CSW_ELEMENT_INIT_FROM
+
+		addExtraTechniques ( sw );
+
+		sw->closeElement(); // COLLADASW_ELEMENT_SURFACE
+	}
+
 
 }

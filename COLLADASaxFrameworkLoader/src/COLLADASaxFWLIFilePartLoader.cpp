@@ -12,6 +12,10 @@
 #include "COLLADASaxFWLIFilePartLoader.h"
 #include "COLLADASaxFWLLoader.h"
 #include "COLLADASaxFWLFileLoader.h"
+#include "COLLADASaxFWLIErrorHandler.h"
+#include "COLLADASaxFWLIParserImpl.h"
+#include "COLLADASaxFWLIParserImpl14.h"
+#include "COLLADASaxFWLIParserImpl15.h"
 #include "COLLADAFWExtraKeys.h"
 
 
@@ -25,6 +29,7 @@ namespace COLLADASaxFWL
     //------------------------------
 	IFilePartLoader::IFilePartLoader()
 		: mPartLoader(0)
+        , mParserImpl(0)
 	{
 	}
 	
@@ -32,6 +37,11 @@ namespace COLLADASaxFWL
 	IFilePartLoader::~IFilePartLoader()
 	{
 		deleteFilePartLoader();
+        if ( mParserImpl )
+        {
+            delete mParserImpl;
+            mParserImpl = 0;
+        }
 	}
 
 	//-----------------------------
@@ -127,7 +137,23 @@ namespace COLLADASaxFWL
 	//------------------------------
 	void IFilePartLoader::setMeAsParser()
 	{
-		setParser(this);
+        assert(mParserImpl);
+        switch ( mParserImpl->getCOLLADAVersion() )
+        {
+        case COLLADA_14:
+            {
+                IParserImpl14* impl14 = (IParserImpl14*)mParserImpl;
+                setParser( impl14->getGeneratedParser() );
+                break;
+            }
+        case COLLADA_15:
+            {
+                IParserImpl15* impl15 = (IParserImpl15*)mParserImpl;
+                setParser( impl15->getGeneratedParser() );
+                break;
+            }
+        }
+		
 	}
 
 	//------------------------------
@@ -158,6 +184,12 @@ namespace COLLADASaxFWL
 
 	//------------------------------
 	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target )
+	{
+		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
+	}
+
+	//------------------------------
+	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, Targetable* target )
 	{
 		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
 	}
@@ -231,14 +263,14 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool IFilePartLoader::begin__technique( const technique__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__technique(attributeData))
+		//SaxVirtualFunctionTest(begin__technique(attributeData))
 		if ( attributeData.profile )
 		{
 			mTechniqueProfileName.assign( attributeData.profile );
 		}
 		else
 		{
-			mTechniqueProfileName.clear();	
+			mTechniqueProfileName.clear();
 		}
 		return true;
 	}
@@ -246,7 +278,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool IFilePartLoader::end__technique()
 	{
-		SaxVirtualFunctionTest(end__technique())
+		//SaxVirtualFunctionTest(end__technique())
 		GeneratedSaxParser::RawUnknownElementHandler& rawUnknownElementHandler = getFileLoader()->getRawUnknownElementHandler();
 
 		COLLADAFW::ExtraData* extraData = getExtraData();
@@ -273,5 +305,32 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-	
+	//------------------------------
+	bool IFilePartLoader::handleFWLError( const SaxFWLError& saxFWLError )
+	{
+		IErrorHandler* errorHandler = getColladaLoader()->getErrorHandler();
+		bool stopParsing = false; 
+		if ( errorHandler )
+		{
+			stopParsing = errorHandler->handleError( &saxFWLError );
+		}
+		return (saxFWLError.getSeverity() == IError::SEVERITY_CRITICAL) ? true : stopParsing;
+	}
+
+	//------------------------------
+	bool IFilePartLoader::handleFWLError( SaxFWLError::ErrorType errorType, String errorMessage, IError::Severity severity /*= IError::SEVERITY_ERROR_NONCRITICAL */ )
+	{
+		SaxFWLError saxFWLError(errorType, errorMessage, severity);
+		if ( getFileLoader()->getParsingStatus() == FileLoader::PARSING_PARSING )
+		{
+			const GeneratedSaxParser::SaxParser* saxParser = getFileLoader()->getSaxParser();
+			if ( saxParser )
+			{
+				saxFWLError.setLineNumber( saxParser->getLineNumer() );
+				saxFWLError.setColumnNumber( saxParser->getColumnNumer() );
+			}
+		}
+		return handleFWLError( saxFWLError );
+	}
+
 } // namespace COLLADASaxFWL

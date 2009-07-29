@@ -106,9 +106,9 @@ namespace COLLADASW
         Light ( 
             StreamWriter* streamWriter, 
             const String& lightId,
-            const LightType& lightType, 
-            const float intensity = 1.0f,
-            const String& lightName = ElementWriter::EMPTY_STRING );
+            const LightType& lightType,
+            const String& lightName = ElementWriter::EMPTY_STRING, 
+            const float intensity = 1.0f );
 
         /** Destructor */
         virtual ~Light() {}
@@ -253,9 +253,9 @@ namespace COLLADASW
         AmbientLight ( 
             StreamWriter* streamWriter, 
             const String& lightId,
-            const float intensity = 1.0f,
-            const String& lightName = ElementWriter::EMPTY_STRING )
-        : Light ( streamWriter, lightId, AMBIENT, intensity, lightName )
+            const String& lightName = ElementWriter::EMPTY_STRING,
+            const float intensity = 1.0f )
+        : Light ( streamWriter, lightId, AMBIENT, lightName, intensity )
         {}
 
         virtual ~AmbientLight() {}
@@ -280,9 +280,9 @@ namespace COLLADASW
         DirectionalLight ( 
             StreamWriter* streamWriter, 
             const String& lightId,
-            const float intensity = 1.0f,
-            const String& lightName = ElementWriter::EMPTY_STRING )
-        : Light ( streamWriter, lightId, DIRECTIONAL, intensity, lightName ) 
+            const String& lightName = ElementWriter::EMPTY_STRING,
+            const float intensity = 1.0f )
+        : Light ( streamWriter, lightId, DIRECTIONAL, lightName, intensity ) 
         {}
 
         virtual ~DirectionalLight() {}
@@ -307,9 +307,9 @@ namespace COLLADASW
         PointLight ( 
             StreamWriter* streamWriter, 
             const String& lightId,
-            const float intensity = 1.0f,
-            const String& lightName = ElementWriter::EMPTY_STRING )
-        : Light ( streamWriter, lightId, POINT, intensity, lightName )
+            const String& lightName = ElementWriter::EMPTY_STRING,
+            const float intensity = 1.0f )
+        : Light ( streamWriter, lightId, POINT, lightName, intensity )
         {}
 
         virtual ~PointLight() {}
@@ -334,9 +334,9 @@ namespace COLLADASW
         SpotLight ( 
             StreamWriter* streamWriter, 
             const String& lightId,
-            const float intensity = 1.0f,
-            const String& lightName = ElementWriter::EMPTY_STRING )
-        : Light ( streamWriter, lightId, POINT, intensity, lightName )
+            const String& lightName = ElementWriter::EMPTY_STRING,
+            const float intensity = 1.0f )
+        : Light ( streamWriter, lightId, POINT, lightName, intensity )
         {}
 
 

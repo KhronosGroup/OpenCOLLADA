@@ -24,9 +24,8 @@ namespace COLLADAFW
 
     //------------------------------
 	SkinController::SkinController( const SkinController& pre )
-		: Controller( pre.getObjectId(), Controller::CONTROLLER_TYPE_SKIN )
+		: Controller( pre.getObjectId(), Controller::CONTROLLER_TYPE_SKIN, pre.getSource () )
 		, mSkinControllerData(pre.mSkinControllerData)
-		, mSource(pre.mSource)
 	{
 		const UniqueIdArray& preJoints = pre.mJoints;
 		size_t bonesCount = preJoints.getCount();

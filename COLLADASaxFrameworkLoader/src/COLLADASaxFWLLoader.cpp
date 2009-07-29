@@ -19,7 +19,10 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWLibraryNodes.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWEffect.h"
+#include "COLLADAFWLight.h"
+#include "COLLADAFWCamera.h"
 #include "COLLADAFWAnimationList.h"
+#include "COLLADASaxFWLUtils.h"
 
 #include <sys/types.h>
 #include <sys/timeb.h>
@@ -37,31 +40,28 @@ namespace COLLADASaxFWL
 	{
 	}
 
+
 	//---------------------------------
 	Loader::~Loader()
 	{
 		delete mSidTreeRoot;
 
 		// delete visual scenes
-		for ( size_t i = 0, count = mVisualScenes.size(); i < count; ++i)
-		{
-			COLLADAFW::VisualScene *visualScene = mVisualScenes[i];
-			FW_DELETE visualScene;
-		}
+		deleteVectorFW(mVisualScenes);
 
 		// delete library nodes
-		for ( size_t i = 0, count = mLibraryNodes.size(); i < count; ++i)
-		{
-			COLLADAFW::LibraryNodes *libraryNodes = mLibraryNodes[i];
-			FW_DELETE libraryNodes;
-		}
+		deleteVectorFW(mLibraryNodes);
 
 		// delete effects
-		for ( size_t i = 0, count = mEffects.size(); i < count; ++i)
-		{
-			COLLADAFW::Effect *effect = mEffects[i];
-			FW_DELETE effect;
-		}
+		deleteVectorFW(mEffects);
+
+		// delete lights
+		deleteVectorFW(mLights);
+
+		// delete cameras
+		deleteVectorFW(mCameras);
+
+		// We do not delete formulas here. They are deleted by the Formulas class
 
 		// delete animation lists
 		Loader::UniqueIdAnimationListMap::const_iterator it = mUniqueIdAnimationListMap.begin();

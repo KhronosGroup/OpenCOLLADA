@@ -94,6 +94,12 @@ namespace COLLADASW
 
     class StreamWriter
     {
+	public:
+		enum COLLADAVersion
+		{
+			COLLADA_1_4_1,
+			COLLADA_1_5_0
+		};
     private:
 
         /** Contains information about an open tag*/
@@ -139,9 +145,12 @@ namespace COLLADASW
         typedef std::list<TagCloser*> TagCloserList;
         TagCloserList mTagClosers;
 
+		/** The version of the COLLADA file.*/
+		COLLADAVersion mCOLLADAVersion;
+
     public:
         /** Creates a stream writer that writes to file @a fileName*/
-        StreamWriter ( const NativeString& fileName, bool doublePrecision = false );
+        StreamWriter ( const NativeString& fileName, bool doublePrecision = false, COLLADAVersion cOLLADAVersion = COLLADA_1_4_1);
 
         /** Closes all open tags and closes the stream*/
         ~StreamWriter();
@@ -282,6 +291,8 @@ namespace COLLADASW
         /** Adds an element with name @a elementName that contains only @a text.*/
         void appendURIElement ( const String& elementName, const URI& text );
 
+		/** Returns the version of the COLLADA file that ias written by the StreamWriter.*/
+		COLLADAVersion getCOLLADAVersion() const { return mCOLLADAVersion; } 
 
     private:
 

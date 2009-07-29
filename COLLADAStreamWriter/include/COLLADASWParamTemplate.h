@@ -16,14 +16,13 @@
 #include "COLLADASWAnnotation.h"
 #include "COLLADASWValueType.h"
 #include "COLLADASWSampler.h"
-#include "COLLADASWSurface.h"
 #include "COLLADASWConstants.h"
 
 namespace COLLADASW
 {
 
     /** A class to add a param to the stream.*/
-    template < const String* paramName, class ClassType, ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
+    template < const String* paramName, ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
     class BaseParamTemplate : public ParamBase
     {
 
@@ -41,8 +40,8 @@ namespace COLLADASW
     };
 
     /** A class to add a <newparam> to the stream.*/
-    template < class Type, const ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
-    class NewParam : public BaseParamTemplate < &CSWC::CSW_ELEMENT_NEWPARAM, Type, paramType >
+    template < const ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
+    class NewParam : public BaseParamTemplate < &CSWC::CSW_ELEMENT_NEWPARAM, paramType >
     {
     public:
 
@@ -65,7 +64,7 @@ namespace COLLADASW
         /** Constructor
         @param streamWriter The stream the asset should be written to.*/
         NewParam ( StreamWriter* streamWriter )
-        : BaseParamTemplate < &CSWC::CSW_ELEMENT_NEWPARAM, Type, paramType > ( streamWriter )
+        : BaseParamTemplate < &CSWC::CSW_ELEMENT_NEWPARAM,  paramType > ( streamWriter )
         {}
 
         /** Destructor*/
@@ -111,20 +110,20 @@ namespace COLLADASW
 
     };
 
-    typedef NewParam < bool, ValueType::BOOL > NewParamBool;
-    typedef NewParam < int, ValueType::INT > NewParamInt;
-    typedef NewParam < String, ValueType::STRING > NewParamString;
-    typedef NewParam < double, ValueType::FLOAT > NewParamFloat;
-    typedef NewParam < double, ValueType::FLOAT2 > NewParamFloat2;
-    typedef NewParam < double, ValueType::FLOAT3 > NewParamFloat3;
-    typedef NewParam < double, ValueType::FLOAT4 > NewParamFloat4;
-    typedef NewParam < double[4][4], ValueType::FLOAT4x4 > NewParamFloat4x4;
-    typedef NewParam < Surface, ValueType::SURFACE > NewParamSurface;
-    typedef NewParam < Sampler > NewParamSampler;
+    typedef NewParam < ValueType::BOOL > NewParamBool;
+    typedef NewParam < ValueType::INT > NewParamInt;
+    typedef NewParam < ValueType::STRING > NewParamString;
+    typedef NewParam < ValueType::FLOAT > NewParamFloat;
+    typedef NewParam < ValueType::FLOAT2 > NewParamFloat2;
+    typedef NewParam < ValueType::FLOAT3 > NewParamFloat3;
+    typedef NewParam < ValueType::FLOAT4 > NewParamFloat4;
+    typedef NewParam < ValueType::FLOAT4x4 > NewParamFloat4x4;
+    typedef NewParam < ValueType::SURFACE > NewParamSurface;
+	typedef NewParam < ValueType::VALUE_TYPE_UNSPECIFIED> NewParamSampler;
 
     /** A class to add a <setparam> to the stream.*/
-    template < class Type, const ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
-    class SetParam : public BaseParamTemplate < &CSWC::CSW_ELEMENT_SETPARAM, Type, paramType >
+    template < const ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
+    class SetParam : public BaseParamTemplate < &CSWC::CSW_ELEMENT_SETPARAM,  paramType >
     {
 
     public:
@@ -132,7 +131,7 @@ namespace COLLADASW
         /** Constructor
         @param streamWriter The stream the asset should be written to.*/
         SetParam ( StreamWriter* streamWriter )
-        : BaseParamTemplate < &CSWC::CSW_ELEMENT_SETPARAM, Type, paramType > ( streamWriter )
+        : BaseParamTemplate < &CSWC::CSW_ELEMENT_SETPARAM, paramType > ( streamWriter )
         {}
 
         /** Destructor*/
@@ -157,16 +156,16 @@ namespace COLLADASW
 
     };
 
-    typedef SetParam < bool, ValueType::BOOL > SetParamBool;
-    typedef SetParam < int, ValueType::INT > SetParamInt;
-    typedef SetParam < String, ValueType::STRING > SetParamString;
-    typedef SetParam < double, ValueType::FLOAT > SetParamFloat;
-    typedef SetParam < double, ValueType::FLOAT2 > SetParamFloat2;
-    typedef SetParam < double, ValueType::FLOAT3 > SetParamFloat3;
-    typedef SetParam < double, ValueType::FLOAT4 > SetParamFloat4;
-    typedef SetParam < double[4][4], ValueType::FLOAT4x4 > SetParamFloat4x4;
-    typedef SetParam < Surface, ValueType::SURFACE > SetParamSurface;
-    typedef SetParam < Sampler > SetParamSampler;
+    typedef SetParam < ValueType::BOOL > SetParamBool;
+    typedef SetParam < ValueType::INT > SetParamInt;
+    typedef SetParam < ValueType::STRING > SetParamString;
+    typedef SetParam < ValueType::FLOAT > SetParamFloat;
+    typedef SetParam < ValueType::FLOAT2 > SetParamFloat2;
+    typedef SetParam < ValueType::FLOAT3 > SetParamFloat3;
+    typedef SetParam < ValueType::FLOAT4 > SetParamFloat4;
+    typedef SetParam < ValueType::FLOAT4x4 > SetParamFloat4x4;
+    typedef SetParam < ValueType::SURFACE > SetParamSurface;
+	typedef SetParam < ValueType::VALUE_TYPE_UNSPECIFIED > SetParamSampler;
 
 
 } //namespace COLLADASW

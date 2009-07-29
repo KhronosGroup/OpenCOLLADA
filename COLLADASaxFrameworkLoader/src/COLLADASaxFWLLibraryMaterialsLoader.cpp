@@ -35,7 +35,6 @@ namespace COLLADASaxFWL
     //------------------------------
 	bool LibraryMaterialsLoader::begin__material( const material__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__material(attributeData)); 
 		mCurrentMaterial = FW_NEW COLLADAFW::Material(getUniqueIdFromId(attributeData.id, COLLADAFW::Material::ID()).getObjectId());
 		
         if ( attributeData.name )
@@ -52,7 +51,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryMaterialsLoader::end__material()
 	{
-		SaxVirtualFunctionTest(end__material()); 
 		bool success = true;
 		if ( (getObjectFlags() & Loader::MATERIAL_FLAG) != 0 )
 		{
@@ -67,7 +65,6 @@ namespace COLLADASaxFWL
     //------------------------------
 	bool LibraryMaterialsLoader::begin__instance_effect( const instance_effect__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__instance_effect(attributeData)); 
 		mCurrentMaterial->setInstantiatedEffect(getUniqueIdFromUrl(attributeData.url, COLLADAFW::Effect::ID()));
 		return true;
 	}
@@ -75,7 +72,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryMaterialsLoader::end__library_materials()
 	{
-		SaxVirtualFunctionTest(end__library_materials()); 
+		moveUpInSidTree();
 		finish();
 		return true;
 	}

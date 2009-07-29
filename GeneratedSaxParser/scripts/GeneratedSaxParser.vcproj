@@ -610,6 +610,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\src\GeneratedSaxParserNamespaceStack.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\GeneratedSaxParserParser.cpp"
 				>
 			</File>
@@ -644,6 +648,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\include\GeneratedSaxParser.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\GeneratedSaxParserCoutErrorHandler.h"
 				>
 			</File>
@@ -665,6 +673,10 @@
 			</File>
 			<File
 				RelativePath="..\include\GeneratedSaxParserLibxmlSaxParser.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\GeneratedSaxParserNamespaceStack.h"
 				>
 			</File>
 			<File

@@ -14,6 +14,7 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
 #include "COLLADAFWTypes.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
@@ -36,7 +37,7 @@ namespace COLLADAFW
      • Patch
      This is by no means an exhaustive list. Currently, COLLADA supports only polygonal meshes and splines.
     */
-	class Geometry : public ObjectTemplate < COLLADA_TYPE::GEOMETRY >
+	class Geometry : public ObjectTemplate < COLLADA_TYPE::GEOMETRY >, public ExtraData
     {
 	public:
 

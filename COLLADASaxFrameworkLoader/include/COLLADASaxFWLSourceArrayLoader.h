@@ -14,6 +14,7 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLSource.h"
 #include "COLLADASaxFWLFilePartLoader.h"
+#include "COLLADASaxFWLXmlTypes.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
 
 
@@ -119,6 +120,7 @@ namespace COLLADASaxFWL
 		SourceType* beginArray( uint64 count, const ParserChar* id );
 
 
+    public:
 		/** Sax callback function for the beginning of a float array element.*/
 		virtual bool begin__float_array( const float_array__AttributeData& attributeData );
 
@@ -147,10 +149,10 @@ namespace COLLADASaxFWL
 		virtual bool begin__param( const param__AttributeData& attributeData );
 
 		/** We don't need to do anything here.*/
-		virtual bool end__param(){ SaxVirtualFunctionTest(end__param()); return true;}
+		virtual bool end__param(){return true;}
 
 		/** We don't need to do anything here.*/
-		virtual bool data__param( const ParserChar* value, size_t length ){SaxVirtualFunctionTest(data__param(value, length)); return true;}
+		virtual bool data__param( const ParserChar* value, size_t length ){return true;}
 
 
 	private:

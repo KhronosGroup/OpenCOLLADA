@@ -14,6 +14,7 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
 #include "COLLADAFWUniqueId.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
@@ -21,7 +22,7 @@ namespace COLLADAFW
 
     /** Represents a material. Material instantiate effects and have the ability to overwrite certain 
 	parameters of the instantiated effect.*/
-	class Material : public ObjectTemplate<COLLADA_TYPE::MATERIAL>
+	class Material : public ObjectTemplate<COLLADA_TYPE::MATERIAL>, public ExtraData
 	{
 	private:
 	

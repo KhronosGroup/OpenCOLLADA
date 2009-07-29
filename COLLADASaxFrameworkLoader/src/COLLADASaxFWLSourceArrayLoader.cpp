@@ -172,7 +172,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool SourceArrayLoader::begin__float_array( const float_array__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__float_array(attributeData));
 		return beginArray<FloatSource>( attributeData.count, attributeData.id ) != 0;
 	}
 
@@ -180,14 +179,12 @@ namespace COLLADASaxFWL
 	bool SourceArrayLoader::end__float_array()
 	{
 		// we don't need to do anything here
-		SaxVirtualFunctionTest(end__float_array());	
 		return true;
 	}
 
 	//------------------------------
 	bool SourceArrayLoader::data__float_array( const float* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__float_array(data, length));
 		FloatSource* source = (FloatSource*)mCurrentSoure;
 		COLLADAFW::FloatArray& array  = source->getArrayElement().getValues();
 		array.appendValues(data, length);
@@ -198,7 +195,6 @@ namespace COLLADASaxFWL
 	bool SourceArrayLoader::begin__animation__source__technique_common()
 	{
 		//we don't need to do anything here
-		SaxVirtualFunctionTest(begin__animation__source__technique_common());
 		return true;
 	}
 
@@ -206,14 +202,12 @@ namespace COLLADASaxFWL
 	bool SourceArrayLoader::end__animation__source__technique_common()
 	{
 		//we don't need to do anything here
-		SaxVirtualFunctionTest(end__animation__source__technique_common());
 		return true;
 	}
 
 	//------------------------------
 	bool SourceArrayLoader::begin__accessor( const accessor__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__accessor(attributeData));
 		// As soon as we support all array types, remove this check
 		if ( mCurrentSoure )
 			mCurrentSoure->setStride((int)attributeData.stride);
@@ -224,14 +218,12 @@ namespace COLLADASaxFWL
 	bool SourceArrayLoader::end__accessor()
 	{
 		//we don't need to do anything here
-		SaxVirtualFunctionTest(end__accessor());
 		return true;
 	}
 
 	//------------------------------
 	bool SourceArrayLoader::begin__param( const param__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__param(attributeData));
 		if ( mCurrentSoure )
 		{
 			SourceBase::AccessorParameter accessorParameter;

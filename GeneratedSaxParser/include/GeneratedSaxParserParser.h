@@ -40,6 +40,7 @@ namespace GeneratedSaxParser
 	protected:
 		size_t getLineNumber()const;
 		size_t getColumnNumber()const;
+        SaxParser* getSaxParser() {return mSaxParser;}
 
 	private:
         /** Disable default copy ctor. */

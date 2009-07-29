@@ -11,8 +11,6 @@
 #ifndef __COLLADASAXFWL_STABLE_HEADERS_H__
 #define __COLLADASAXFWL_STABLE_HEADERS_H__
 
-#include "COLLADASaxFWLException.h"
-
 //STL
 #include <vector>
 #include <sstream>
@@ -21,6 +19,7 @@
 #include <string>
 #include <iostream>
 
-#include "COLLADASaxFWLColladaParserAutoGen.h"
+#include "COLLADASaxFWLColladaParserAutoGen14.h"
+#include "COLLADASaxFWLColladaParserAutoGen15.h"
 
 #endif //__COLLADASAXFWL_STABLE_HEADERS_H__

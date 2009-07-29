@@ -22,14 +22,61 @@ using namespace COLLADABU;
 namespace COLLADASW
 {
 
+    class BindVertexInput
+	{
+	private:
+		/** Which effect parameter to bind. Required.*/
+		String mSemantic;
+
+		/** Which input semantic to bind. Required.*/
+		String mInputSemantic;
+
+		/** Which input set to bind. Optional. -1 if not set.*/
+		int mInputSet;
+	public:
+
+		BindVertexInput(const COLLADASW::String& semantic, const COLLADASW::String& inputSemantic, int inputSet = -1)
+			: mSemantic(semantic), mInputSemantic(inputSemantic), mInputSet(inputSet){}
+
+		/** Which effect parameter to bind. Required.*/
+		const COLLADASW::String& getSemantic() const { return mSemantic; }
+
+		/** Which effect parameter to bind. Required.*/
+		void setSemantic(const COLLADASW::String& semantic) { mSemantic = semantic; }
+
+		/** Which input semantic to bind. Required.*/
+		const COLLADASW::String& getInputSemantic() const { return mInputSemantic; }
+
+		/** Which input semantic to bind. Required.*/
+		void setInputSemantic(const COLLADASW::String& inputSemantic) { mInputSemantic = inputSemantic; }
+		
+		/** Which input set to bind. Optional. -1 if not set.*/
+		int getInputSet() const { return mInputSet; }
+
+		/** Which input set to bind. Optional. -1 if not set.*/
+		void setInputSet(int inputSet) { mInputSet = inputSet; }
+
+	private:
+		/** Set this class a friend, so it can call the add() method.  */
+		friend class InstanceMaterial;
+
+		/** Add all the instance materials, added using push_back(), to the stream*/
+		void add( StreamWriter* sw);
+
+	};
+
+
     class InstanceMaterialList;
 
     /** A class that holds informations of an @a \<instance_material\> element*/
     class InstanceMaterial
     {
-
+	private:
+		/** List of all the BindVertexInput*/
+		typedef std::list<BindVertexInput> BindVertexInputList;
     private:
 
+		BindVertexInputList mBindVertexInputList;
         String mSymbol;
         URI mTarget;
 
@@ -43,16 +90,21 @@ namespace COLLADASW
         : mSymbol ( symbol ), mTarget ( target ) {}
 
         /** Returns the symbol*/
-        const String & getSymbol() const
-        {
-            return mSymbol;
-        }
+        const String & getSymbol() const {return mSymbol; }
 
         /** Returns the target*/
-        const URI & getTarget() const
-        {
-            return mTarget;
-        }
+        const URI & getTarget() const { return mTarget; }
+
+		/** Adds @a input to list of inputs that should be added*/
+		void push_back ( const BindVertexInput& input ) { mBindVertexInputList.push_back ( input ); }
+
+	private:
+		/** Set this class a friend, so it can call the add() method.  */
+		friend class InstanceMaterialList;
+
+		/** Add all the instance materials, added using push_back(), to the stream*/
+		void add( StreamWriter* sw);
+
 
     };
 
@@ -70,16 +122,10 @@ namespace COLLADASW
         virtual ~InstanceMaterialList() {}
 
         /** Adds @a input to list of inputs that should be added*/
-        void push_back ( InstanceMaterial input )
-        {
-            mList.push_back ( input );
-        }
+        void push_back ( const InstanceMaterial& input ) { mList.push_back ( input ); }
 
         /** Return true, if the list of material bindings is empty, false otherwise*/
-        bool empty() const
-        {
-            return mList.empty();
-        }
+        bool empty() const { return mList.empty(); }
 
     private:
 

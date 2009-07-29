@@ -19,6 +19,7 @@ namespace GeneratedSaxParser
     /**
      * This interface allows implementors to handle XML elements 
      * present in different XML namespaces.
+     * May be used in a part of a document where any element is allowed.
      * ElementNames are passed with namespace prefix.
      * ElementNameHashes are passed without namespace prefix.
      */

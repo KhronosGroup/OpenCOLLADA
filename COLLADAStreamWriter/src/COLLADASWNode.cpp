@@ -194,6 +194,9 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void Node::end()
     {
+        // Write the extra technique tags in the collada document
+        addExtraTechniques ( mSW );
+
         mNodeCloser.close();
     }
 

@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
+#include "COLLADAFWExtraData.h"
 
 #include "COLLADABUURI.h"
 
@@ -31,7 +32,7 @@ namespace COLLADAFW
     by texture look-up functions to access noncolor values such as displacement, normal, or height field
     values.
     */
-	class Image : public ObjectTemplate < COLLADA_TYPE::IMAGE >
+	class Image : public ObjectTemplate < COLLADA_TYPE::IMAGE >, public ExtraData
     {
 	public:
 		enum SourceType

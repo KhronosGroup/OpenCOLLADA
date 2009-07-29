@@ -55,6 +55,7 @@ namespace COLLADASaxFWL
 		getFileLoader()->addVisualScene(mVisualScene);
 		mVisualScene = 0;
 		finish();
+		moveUpInSidTree();
 		return true;
 	}
 

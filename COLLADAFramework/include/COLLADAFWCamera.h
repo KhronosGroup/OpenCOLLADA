@@ -14,6 +14,7 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
 #include "COLLADAFWExtraData.h"
+#include "COLLADAFWAnimatableFloat.h"
 
 
 namespace COLLADAFW
@@ -62,19 +63,19 @@ namespace COLLADAFW
 		DescriptionType mDescriptionType;
 
 		/** The horizontal field of view or magnification of the view.*/ 
-		double mXFovOrXMag;
+		AnimatableFloat mXFovOrXMag;
 
 		/** The vertical field of view or magnification of the view.*/ 
-		double mYFovOrYMag;
+		AnimatableFloat mYFovOrYMag;
 
 		/** The aspect ratio.*/
-		double mAspectRatio;
+		AnimatableFloat mAspectRatio;
 
 		/** The near clipping plane.*/
-		double mNearClippingPlane;
+		AnimatableFloat mNearClippingPlane;
 
 		/** The far clipping plane.*/
-		double mFarClippingPlane;
+		AnimatableFloat mFarClippingPlane;
 
 	public:
 
@@ -113,43 +114,64 @@ namespace COLLADAFW
 		void setDescriptionType(DescriptionType descriptionType) { mDescriptionType = descriptionType; }
 
 		/** Returns the horizontal field of view. Use only for perspective cameras.*/ 
-		double getXFov() const { return mXFovOrXMag; }
+		const AnimatableFloat& getXFov() const { return mXFovOrXMag; }
+
+		/** Returns the horizontal field of view. Use only for perspective cameras.*/ 
+		AnimatableFloat& getXFov() { return mXFovOrXMag; }
 
 		/** Sets the horizontal field of view. Use only for perspective cameras.*/ 
 		void setXFov(double xFov) { mXFovOrXMag = xFov; }
 
 		/** Returns the horizontal magnification of the view. Use only for orthographic cameras.*/ 
-		double getXMag() const { return mXFovOrXMag; }
+		const AnimatableFloat& getXMag() const { return mXFovOrXMag; }
+
+		/** Returns the horizontal magnification of the view. Use only for orthographic cameras.*/ 
+		AnimatableFloat& getXMag() { return mXFovOrXMag; }
 
 		/** Sets the horizontal magnification of the view. Use only for orthographic cameras.*/ 
 		void setXMag(double xMag) { mXFovOrXMag = xMag; }
 
 		/** Returns the vertical field of view. Use only for perspective cameras.*/ 
-		double getYFov() const { return mYFovOrYMag; }
+		const AnimatableFloat& getYFov() const { return mYFovOrYMag; }
+
+		/** Returns the vertical field of view. Use only for perspective cameras.*/ 
+		AnimatableFloat& getYFov() { return mYFovOrYMag; }
 
 		/** Sets the vertical field of view. Use only for perspective cameras.*/ 
 		void setYFov(double yFov) { mYFovOrYMag = yFov; }
 
 		/** Returns the vertical magnification of the view. Use only for orthographic cameras.*/ 
-		double getYMag() const { return mYFovOrYMag; }
+		const AnimatableFloat& getYMag() const { return mYFovOrYMag; }
+
+		/** Returns the vertical magnification of the view. Use only for orthographic cameras.*/ 
+		AnimatableFloat& getYMag() { return mYFovOrYMag; }
 
 		/** Sets the vertical magnification of the view. Use only for orthographic cameras.*/ 
 		void setYMag(double yMag) { mYFovOrYMag = yMag; }
 
 		/** Returns the aspect ratio.*/ 
-		double getAspectRatio() const { return mAspectRatio; }
+		const AnimatableFloat& getAspectRatio() const { return mAspectRatio; }
+
+		/** Returns the aspect ratio.*/ 
+		AnimatableFloat& getAspectRatio() { return mAspectRatio; }
 
 		/** Sets the aspect ratio.*/ 
 		void setAspectRatio(double aspectRatio) { mAspectRatio = aspectRatio; }
 
 		/** Returns the near clipping plane.*/
-		double getNearClippingPlane() const { return mNearClippingPlane; }
+		const AnimatableFloat& getNearClippingPlane() const { return mNearClippingPlane; }
+
+		/** Returns the near clipping plane.*/
+		AnimatableFloat& getNearClippingPlane() { return mNearClippingPlane; }
 
 		/** Sets the near clipping plane.*/
 		void setNearClippingPlane(double nearClippingPlane) { mNearClippingPlane = nearClippingPlane; }
 
 		/** Returns the far clipping plane.*/
-		double getFarClippingPlane() const { return mFarClippingPlane; }
+		const AnimatableFloat& getFarClippingPlane() const { return mFarClippingPlane; }
+
+		/** Returns the far clipping plane.*/
+		AnimatableFloat& getFarClippingPlane() { return mFarClippingPlane; }
 
 		/** Sets the far clipping plane.*/
 		void setFarClippingPlane(double farClippingPlane) { mFarClippingPlane = farClippingPlane; }

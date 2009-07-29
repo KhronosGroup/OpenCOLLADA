@@ -386,7 +386,76 @@ namespace GeneratedSaxParser
         static bool toBool( const ParserChar** buffer, bool& failed  );
 
 
-	private:
+        /**
+         * Checks if given floating point value is infinity.
+         * @tparam T Type of floating point value.
+         * @param value Value to check.
+         * @return true if value is infinity.
+         */
+        template<typename T>
+        static bool isInf(T value);
+
+        /**
+         * Checks if given floating point value is negative infinity.
+         * @tparam T Type of floating point value.
+         * @param value Value to check.
+         * @return true if value is negative infinity.
+         */
+        template<typename T>
+        static bool isNegativeInf(T value);
+
+        /**
+         * Checks if given floating point value is Not a Number.
+         * @tparam T Type of floating point value.
+         * @param value Value to check.
+         * @return true if value is Not a Number.
+         */
+        template<typename T>
+        static bool isNaN(T value);
+
+        /**
+         * Checks if given float value is infinity.
+         * @param value Value to check.
+         * @return true if value is infinity.
+         */
+        static bool isInf(float value);
+
+        /**
+         * Checks if given double value is infinity.
+         * @param value Value to check.
+         * @return true if value is infinity.
+         */
+        static bool isInf(double value);
+
+        /**
+         * Checks if given float value is negative infinity.
+         * @param value Value to check.
+         * @return true if value is negative infinity.
+         */
+        static bool isNegativeInf(float value);
+
+        /**
+         * Checks if given double value is negative infinity.
+         * @param value Value to check.
+         * @return true if value is negative infinity.
+         */
+        static bool isNegativeInf(double value);
+
+        /**
+         * Checks if given float value is Not a Number.
+         * @param value Value to check.
+         * @return true if value is Not a Number.
+         */
+        static bool isNaN(float value);
+
+        /**
+         * Checks if given double value is Not a Number.
+         * @param value Value to check.
+         * @return true if value is Not a Number.
+         */
+        static bool isNaN(double value);
+
+    private:
         /** Disable default copy ctor. */
 		Utils( const Utils& pre );
         /** Disable default assignment operator. */
@@ -394,7 +463,8 @@ namespace GeneratedSaxParser
 
 	};
 
-	template<class EnumType, class BaseType, EnumType EnumMapCount>
+    //--------------------------------------------------------------------
+    template<class EnumType, class BaseType, EnumType EnumMapCount>
 	EnumType GeneratedSaxParser::Utils::toEnum( const ParserChar* buffer, 
 											  bool& failed, 
 											  const std::pair<BaseType, EnumType>* enumMap,
@@ -425,6 +495,7 @@ namespace GeneratedSaxParser
 		return EnumMapCount;
 	}
 
+    //--------------------------------------------------------------------
     template<class EnumType, class BaseType, EnumType EnumMapCount>
     EnumType GeneratedSaxParser::Utils::toEnum( const ParserChar** buffer, 
         const ParserChar* bufferEnd,

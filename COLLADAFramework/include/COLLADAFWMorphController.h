@@ -14,15 +14,24 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWController.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
 {
 
 	/** A morph controller.  */
-	class MorphController : public Controller 
+	class MorphController : public Controller, public ExtraData
 	{
 	private:
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
+
+        /** The name of the light.*/
+        String mName;
 
 		/** The unique ids of the morph targets (geometries).*/
 		UniqueIdArray mMorphTargets;
@@ -30,19 +39,33 @@ namespace COLLADAFW
 		/** The morph weights.*/
 		FloatOrDoubleArray mMorphWeights;
 
-		/** The unique id of the source that gets modified by this controller. Must be a mesh. The vertex count of 
-		the source must be equal to the vertex count of the skin controller.*/
-		UniqueId mSource;
-	
 	public:
 
         /** Constructor. */
 		MorphController( ObjectId objectId );
 
+        /** Copy-Constructor. */
 		MorphController( const MorphController& pre );
 
 		/** Destructor. */
 		virtual ~MorphController(){}
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+
+        /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+
+        /** Returns name of the controller.*/
+        const COLLADAFW::String& getName() const { return mName; }
+
+        /** Sets name of the controller.*/
+        void setName(const COLLADAFW::String& name) { mName = name; }
+
 
 		/** The unique ids of the morph targets (geometries).*/
 		COLLADAFW::UniqueIdArray& getMorphTargets() { return mMorphTargets; }
@@ -55,17 +78,6 @@ namespace COLLADAFW
 
 		/** The morph weights.*/
 		COLLADAFW::FloatOrDoubleArray& getMorphWeights() { return mMorphWeights; }
-
-		/** Returns the unique id of the source that gets modified by this controller. Must be a mesh or a 
-		controller. The vertex count of the source must be equal to the vertex count of the skin 
-		controller.*/
-		const COLLADAFW::UniqueId& getSource() const { return mSource; }
-
-		/** Sets the unique id of the source that gets modified by this controller. Must be a mesh or a 
-		controller. The vertex count of the source must be equal to the vertex count of the skin 
-		controller.*/
-		void setSource( const COLLADAFW::UniqueId& source) { mSource = source; }
-
 
 	private:
         /** Disable default assignment operator. */

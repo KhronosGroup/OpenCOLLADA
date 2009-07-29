@@ -30,6 +30,7 @@ namespace COLLADASaxFWL
 		parseAddress( sidAddress );
 	}
 
+	//------------------------------
 	SidAddress::SidAddress( const COLLADABU::URI& id, const String& sid )
 		: mId(id.getFragment())
 		, mMemberSelection(MEMBER_SELECTION_NONE)
@@ -38,6 +39,16 @@ namespace COLLADASaxFWL
 		, mIsValid( !id.getFragment().empty() && !sid.empty() )
 	{
 		mSids.push_back( sid );
+	}
+
+	//------------------------------
+	SidAddress::SidAddress( const COLLADABU::URI& id )
+		: mId(id.getFragment())
+		, mMemberSelection(MEMBER_SELECTION_NONE)
+		, mFirstIndex(0)
+		, mSecondIndex(0)
+		, mIsValid( !id.getFragment().empty() )
+	{
 	}
 
 	//------------------------------
@@ -226,5 +237,37 @@ namespace COLLADASaxFWL
 			}
 		}
 
+	}
+
+	//------------------------------
+	String SidAddress::getSidAddressString() const
+	{
+		if ( !mIsValid )
+			return String();
+
+		std::ostringstream stream;
+		stream << mId;
+		SidList::const_iterator it = mSids.begin();
+		for ( ; it != mSids.end(); ++it )
+		{
+			stream << "/" << *it;
+		}
+		switch ( mMemberSelection )
+		{
+		case MEMBER_SELECTION_NAME:
+			stream << "." << mMemberSelectionName;
+			break;
+		case MEMBER_SELECTION_ONE_INDEX:
+			stream << "(" << mFirstIndex << ")";
+			break;
+		case MEMBER_SELECTION_TWO_INDICES:
+			stream << "(" << mFirstIndex << ")";
+			stream << "(" << mSecondIndex<< ")";
+			break;
+		default:
+			break;
+		}
+
+		return stream.str();
 	}
 } // namespace COLLADASaxFWL

@@ -48,9 +48,6 @@ namespace GeneratedSaxParser
 
 		switch ( mErrorType )
 		{
-        case ERROR_XML_DIFFERENT_TARGETNAMESPACE:
-            errorMessage << "ERROR_XML_DIFFERENT_TARGETNAMESPACE ";
-            break;
 		case ERROR_UNKNOWN_ELEMENT:
 			errorMessage << "ERROR_UNKNOWN_ELEMENT ";
 			break;
@@ -63,6 +60,9 @@ namespace GeneratedSaxParser
 		case ERROR_ATTRIBUTE_PARSING_FAILED:
 			errorMessage << "ERROR_ATTRIBUTE_PARSING_FAILED ";
 			break;
+        case ERROR_REQUIRED_ATTRIBUTE_MISSING:
+            errorMessage << "ERROR_REQUIRED_ATTRIBUTE_MISSING ";
+            break;
         case ERROR_VALIDATION_MAX_OCCURS_EXCEEDED:
             errorMessage << "ERROR_VALIDATION_MAX_OCCURS_EXCEEDED ";
             break;
@@ -107,6 +107,9 @@ namespace GeneratedSaxParser
             break;
         case ERROR_VALIDATION_MAX_LENGTH:
             errorMessage << "ERROR_VALIDATION_MAX_LENGTH ";
+            break;
+        case ERROR_VALIDATION_PATTERN:
+            errorMessage << "ERROR_VALIDATION_PATTERN ";
             break;
         case SIMPLE_TYPE_VALIDATION_OK:
             errorMessage << "SIMPLE_TYPE_VALIDATION_OK ";

@@ -28,7 +28,6 @@ namespace COLLADASaxFWL
 	typedef float Double;
 #endif
 
-
 }
 
 
@@ -44,9 +43,15 @@ namespace COLLADASaxFWL
 	// C::begin__elementName( SaxVirtualFunctionTest(begin__elementName) .... )
 	// 
 #ifdef MakeVirtualFunctionTest
-#	define SaxVirtualFunctionTest(f) if (false) static_cast<ColladaParserAutoGen*>(this)->f; 
+#	define SaxVirtualFunctionTest14(f) if (false) static_cast<ColladaParserAutoGen14*>(this)->f; 
 #else
-#	define SaxVirtualFunctionTest(f)
+#	define SaxVirtualFunctionTest14(f)
+#endif //MakeVirtualFunctionTest
+
+#ifdef MakeVirtualFunctionTest
+#	define SaxVirtualFunctionTest15(f) if (false) static_cast<ColladaParserAutoGen15*>(this)->f; 
+#else
+#	define SaxVirtualFunctionTest15(f)
 #endif //MakeVirtualFunctionTest
 
 

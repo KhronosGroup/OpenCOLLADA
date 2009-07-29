@@ -17,13 +17,15 @@ namespace COLLADASW
     const String CSWC::CSW_ERR_UNKNOWN_INPUT = "UNKNOWN INPUT ERROR";
 
     const String CSWC::XML_START_ELEMENT = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-    const String CSWC::CSW_NAMESPACE = "http://www.collada.org/2005/11/COLLADASchema";
-    const String CSWC::CSW_VERSION = "1.4.1";
+    const String CSWC::CSW_NAMESPACE_1_4_1 = "http://www.collada.org/2005/11/COLLADASchema";
+    const String CSWC::CSW_VERSION_1_4_1 = "1.4.1";
+
+	const String CSWC::CSW_NAMESPACE_1_5_0 = "http://www.collada.org/2008/03/COLLADASchema";
+	const String CSWC::CSW_VERSION_1_5_0 = "1.5.0";
+	const String CSWC::CSW_SCHEMALOCATION_1_5_0 = "http://www.collada.org/2008/03/COLLADASchema http://www.khronos.org/files/collada_schema_1_5";
+	const String CSWC::CSW_XMLNS_XSI_1_5_0 = "http://www.w3.org/2001/XMLSchema-instance";
 
     const String CSWC::CSW_PLATFORM_PC_OGL               = "PC-OGL";
-
-    const String CSWC::CSW_PROFILE_COLLADA               = "COLLADA";
-    const String CSWC::CSW_PROFILE_MAYA                  = "MAYA";
 
     const String CSWC::CSW_ELEMENT_ACCESSOR = "accessor";
     const String CSWC::CSW_ELEMENT_ALL = "all";
@@ -38,7 +40,8 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_BLINN = "blinn";
     const String CSWC::CSW_ELEMENT_BIND = "bind";
     const String CSWC::CSW_ELEMENT_BIND_MATERIAL = "bind_material";
-    const String CSWC::CSW_ELEMENT_BIND_SHAPE_MATRIX = "bind_shape_matrix";
+	const String CSWC::CSW_ELEMENT_BIND_SHAPE_MATRIX = "bind_shape_matrix";
+	const String CSWC::CSW_ELEMENT_BIND_VERTEX_INPUT = "bind_vertex_input";
     const String CSWC::CSW_ELEMENT_BORDER_COLOR = "border_color";
     const String CSWC::CSW_ELEMENT_CAMERA = "camera";
     const String CSWC::CSW_ELEMENT_CAMERA_ORTHOGRAPHIC = "orthographic";
@@ -58,7 +61,8 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_COLLADA = "COLLADA";
     const String CSWC::CSW_ELEMENT_COLOR = "color";
     const String CSWC::CSW_ELEMENT_COLOR_CLEAR = "color_clear";
-    const String CSWC::CSW_ELEMENT_COLOR_TARGET = "color_target";
+	const String CSWC::CSW_ELEMENT_COLOR_TARGET = "color_target";
+	const String CSWC::CSW_ELEMENT_CREATE_2D = "create_2d";
     const String CSWC::CSW_ELEMENT_DATA = "data";
     const String CSWC::CSW_ELEMENT_DEPTH_CLEAR = "depth_clear";
     const String CSWC::CSW_ELEMENT_DEPTH_TARGET = "depth_target";
@@ -92,7 +96,8 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_INSTANCE_CAMERA = "instance_camera";
     const String CSWC::CSW_ELEMENT_INSTANCE_CONTROLLER = "instance_controller";
     const String CSWC::CSW_ELEMENT_INSTANCE_EFFECT = "instance_effect";
-    const String CSWC::CSW_ELEMENT_INSTANCE_GEOMETRY = "instance_geometry";
+	const String CSWC::CSW_ELEMENT_INSTANCE_GEOMETRY = "instance_geometry";
+	const String CSWC::CSW_ELEMENT_INSTANCE_IMAGE = "instance_image";
     const String CSWC::CSW_ELEMENT_INSTANCE_LIGHT = "instance_light";
     const String CSWC::CSW_ELEMENT_INSTANCE_MATERIAL = "instance_material";
     const String CSWC::CSW_ELEMENT_INSTANCE_NODE = "instance_node";
@@ -149,7 +154,8 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_PROFILE_CG = "profile_CG";
     const String CSWC::CSW_ELEMENT_PROFILE_GLES = "profile_GLES";
     const String CSWC::CSW_ELEMENT_PROFILE_GLSL = "profile_GLSL";
-    const String CSWC::CSW_ELEMENT_RANGE = "range";
+	const String CSWC::CSW_ELEMENT_RANGE = "range";
+	const String CSWC::CSW_ELEMENT_REF = "ref";
 	const String CSWC::CSW_ELEMENT_QUADRATIC_ATTENUATION = "quadratic_attenuation";
     const String CSWC::CSW_ELEMENT_REFLECTIVE = "reflective";
     const String CSWC::CSW_ELEMENT_REFLECTIVITY = "reflectivity";
@@ -209,7 +215,9 @@ namespace COLLADASW
     const String CSWC::CSW_ATTRIBUTE_END = "end";
     const String CSWC::CSW_ATTRIBUTE_FACE = "face";
     const String CSWC::CSW_ATTRIBUTE_ID = "id";
-    const String CSWC::CSW_ATTRIBUTE_INDEX = "index";
+	const String CSWC::CSW_ATTRIBUTE_INDEX = "index";
+	const String CSWC::CSW_ATTRIBUTE_INPUT_SEMANTIC = "input_semantic";
+	const String CSWC::CSW_ATTRIBUTE_INPUT_SET = "input_set";
     const String CSWC::CSW_ATTRIBUTE_MATERIAL = "material";
     const String CSWC::CSW_ATTRIBUTE_METER = "meter";
     const String CSWC::CSW_ATTRIBUTE_METHOD = "method";
@@ -237,7 +245,9 @@ namespace COLLADASW
     const String CSWC::CSW_ATTRIBUTE_URL = "url";
     const String CSWC::CSW_ATTRIBUTE_VALUE = "value";
     const String CSWC::CSW_ATTRIBUTE_VERSION = "version";
-    const String CSWC::CSW_ATTRIBUTE_XMLNS = "xmlns";
+	const String CSWC::CSW_ATTRIBUTE_XMLNS = "xmlns";
+	const String CSWC::CSW_ATTRIBUTE_XMLNS_XSI = "xmlns:xsi";
+	const String CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION = "xsi:schemaLocation";
 
     const String CSWC::CSW_SEMANTIC_BINDMATRIX = "INV_BIND_MATRIX";
     const String CSWC::CSW_SEMANTIC_COLOR = "COLOR";

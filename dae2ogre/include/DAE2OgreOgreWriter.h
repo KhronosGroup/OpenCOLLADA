@@ -162,6 +162,12 @@ namespace DAE2Ogre
 		/** Writes the controller.
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeController( const COLLADAFW::Controller* Controller );
+
+		/** When this method is called, the writer must write the formulas. All the formulas of the entire
+		COLLADA file are contained in @a formulas.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeFormulas( const COLLADAFW::Formulas* formulas ){return true;}
+
 	
 	protected:
 		friend class BaseWriter;

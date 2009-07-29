@@ -11,6 +11,10 @@
 #ifndef __COLLADASTREAMWRITER_SURFACE_H__
 #define __COLLADASTREAMWRITER_SURFACE_H__
 
+
+#error "Do not uses this class. It is not supported by the stream writer. It might be used again if we support more features of surfaces."
+#error "Use Sampler instead. This class is able to destinguish between COLLADA 1.4 and 1.5."
+
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
 #include "COLLADASWExtraTechnique.h"

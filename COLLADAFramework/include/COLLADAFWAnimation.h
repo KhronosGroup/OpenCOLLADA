@@ -13,6 +13,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
@@ -20,7 +21,7 @@ namespace COLLADAFW
 
 	/** The base class for animation. Currently we only support animation curves, but in future probably 
 	formulas, too. */
-	class Animation : public ObjectTemplate<COLLADA_TYPE::ANIMATION>
+	class Animation : public ObjectTemplate<COLLADA_TYPE::ANIMATION>, public ExtraData
 	{
 	public:
 		enum AnimationType

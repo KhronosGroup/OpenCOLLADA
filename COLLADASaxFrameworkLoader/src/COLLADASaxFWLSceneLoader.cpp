@@ -34,8 +34,6 @@ namespace COLLADASaxFWL
     //------------------------------
     bool SceneLoader::begin__instance_visual_scene ( const instance_visual_scene__AttributeData& attributeData )
     {
-        SaxVirtualFunctionTest(begin__instance_visual_scene(attributeData));
-
         COLLADAFW::UniqueId visualSceneUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::VisualScene::ID() );
         mCurrentScene->setInstanceVisualScene ( FW_NEW COLLADAFW::InstanceVisualScene(visualSceneUniqueId) );
 
@@ -51,7 +49,6 @@ namespace COLLADASaxFWL
     //------------------------------
     bool SceneLoader::end__scene()
     {
-        SaxVirtualFunctionTest(end__scene());
         bool success = true;
 		if ( (getObjectFlags() & Loader::SCENE_FLAG) != 0 )
 		{

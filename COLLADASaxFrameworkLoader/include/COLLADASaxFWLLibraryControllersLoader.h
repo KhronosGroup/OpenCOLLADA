@@ -141,7 +141,7 @@ namespace COLLADASaxFWL
 		bool begin__input____InputLocal( const input____InputLocal__AttributeData& attributeData );
 
 		/** We don't need to do anything here.*/
-		bool end__input____InputLocal() { SaxVirtualFunctionTest(end__input____InputLocal()); return true;}
+		bool end__input____InputLocal() {return true;}
 
 
 		virtual bool begin__vertex_weights( const vertex_weights__AttributeData& attributeData );
@@ -169,7 +169,7 @@ namespace COLLADASaxFWL
 		virtual bool data__IDREF_array( const ParserString* value, size_t length );
 
 
-		virtual bool begin__bind_shape_matrix(){SaxVirtualFunctionTest(begin__bind_shape_matrix()); return true;}
+		virtual bool begin__bind_shape_matrix(){return true;}
 		virtual bool end__bind_shape_matrix();
 		virtual bool data__bind_shape_matrix( const float* data, size_t length );
 

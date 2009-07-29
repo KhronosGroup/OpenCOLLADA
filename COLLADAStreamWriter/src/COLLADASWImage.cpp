@@ -11,6 +11,8 @@
 #include "COLLADASWImage.h"
 #include "COLLADASWConstants.h"
 
+#include <cassert>
+
 namespace COLLADASW
 {
 
@@ -37,10 +39,33 @@ namespace COLLADASW
         if ( !mNameNC.empty() )
             sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, mNameNC );
 
-        if ( !mData.empty() )
-            sw->appendTextElement ( CSWC::CSW_ELEMENT_DATA, mData );
-        else
-            sw->appendURIElement( CSWC::CSW_ELEMENT_INIT_FROM, mFileURI );
+		if ( sw->getCOLLADAVersion() == StreamWriter::COLLADA_1_4_1 )
+		{
+			if ( !mData.empty() )
+				sw->appendTextElement ( CSWC::CSW_ELEMENT_DATA, mData );
+			else
+				sw->appendURIElement( CSWC::CSW_ELEMENT_INIT_FROM, mFileURI );
+		}
+		else if ( sw->getCOLLADAVersion() == StreamWriter::COLLADA_1_5_0 )
+		{
+//			sw->openElement ( CSWC::CSW_ELEMENT_CREATE_2D);
+
+			if ( !mFormat.empty() )
+			{
+				sw->appendTextElement ( CSWC::CSW_ELEMENT_FORMAT, mFormat);
+			}
+			sw->openElement ( CSWC::CSW_ELEMENT_INIT_FROM);
+
+			sw->appendURIElement( CSWC::CSW_ELEMENT_REF, mFileURI );
+
+			sw->closeElement(); // CSW_ELEMENT_INIT_FROM
+
+//			sw->closeElement(); // CSW_ELEMENT_CREATE_2D
+		}
+		else
+		{
+			assert(false);
+		}
 
         addExtraTechniques ( sw );
 

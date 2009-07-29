@@ -38,7 +38,7 @@ namespace COLLADASaxFWL
 		virtual ~SaxParserError();
 
 		/** Returns the type of the error.*/
-		ErrorType getErrorType() const { return IError::ERROR_SAXPARSER; }
+		ErrorClass getErrorClass() const { return IError::ERROR_SAXPARSER; }
 
 		/** Returns the severity of the error.*/
 		Severity getSeverity() const;

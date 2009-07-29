@@ -16,7 +16,6 @@
 #include "COLLADASWAnnotation.h"
 #include "COLLADASWValueType.h"
 #include "COLLADASWSampler.h"
-#include "COLLADASWSurface.h"
 #include "COLLADASWConstants.h"
 
 namespace COLLADASW
@@ -99,6 +98,16 @@ namespace COLLADASW
             annotation.appendValues ( val, nval );
             annotation.closeValuesElement ();
             annotation.closeAnnotation ();
+        }
+
+        /** Adds a annotation to the param. */
+        void addAnnotations ( std::vector<Annotation>& annotations )
+        {
+            for ( size_t i=0; i<annotations.size (); ++i )
+            {
+                COLLADASW::Annotation& annotation = annotations [i];
+                annotation.add ();
+            }
         }
 
         /** Opens the param's value element of the given type. */

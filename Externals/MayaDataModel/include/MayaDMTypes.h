@@ -502,22 +502,22 @@ Example
 */
 struct matrix
 {
-	double m[4][4];
+    double m[4][4];
     matrix(double mtx[4][4]) 
     {
         setAllElements ( mtx[0][0],mtx[0][1],mtx[0][2],mtx[0][3],
-                         mtx[1][0],mtx[1][1],mtx[1][2],mtx[1][3],
-                         mtx[2][0],mtx[2][1],mtx[2][2],mtx[2][3],
-                         mtx[3][0],mtx[3][1],mtx[3][2],mtx[3][3] );
+            mtx[1][0],mtx[1][1],mtx[1][2],mtx[1][3],
+            mtx[2][0],mtx[2][1],mtx[2][2],mtx[2][3],
+            mtx[3][0],mtx[3][1],mtx[3][2],mtx[3][3] );
     }
 
     matrix(double m00, double m01, double m02, double m03,
-		   double m10, double m11, double m12, double m13,
-		   double m20, double m21, double m22, double m23,
-		   double m30, double m31, double m32, double m33)
-	{
+        double m10, double m11, double m12, double m13,
+        double m20, double m21, double m22, double m23,
+        double m30, double m31, double m32, double m33)
+    {
         setAllElements(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
-	}
+    }
 
     void setAllElements ( 
         double m00, double m01, double m02, double m03, 
@@ -545,6 +545,7 @@ struct matrix
         m[3][2] = m32;
         m[3][3] = m33;
     }
+
 	// member access, allows use of construct mat[r][c]
 	inline double* operator[] ( size_t iRow ) const
 	{

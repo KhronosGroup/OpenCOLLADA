@@ -21,7 +21,6 @@ namespace COLLADAFW
     /*
     * An edge contains two int values, which contains the vertex indices of the points, 
     * which descripe the edge.
-    * If the sort order of the vertex indices will be changed, the reverse flag will be set.
     */
     class Edge
     {
@@ -30,29 +29,20 @@ namespace COLLADAFW
         /** The vertex indices of the points, which descripe the edge. */
         int mVertexIndices[2];
 
-        /** Flag, if the edge is stored in reverse direction. */
-        bool reverse;
-
     public:
 
         /** Constructor. */
-        Edge () : reverse (false) {}
-
-        /** Constructor. 
-        Set the edge vertex indices sorted. */
-        Edge ( int index1, int index2 ) : reverse ( false)
+        Edge () 
         {
-            if ( index1 < index2 )
-            {
-                mVertexIndices[0] = index1;
-                mVertexIndices[1] = index2;
-            }
-            else
-            {
-                mVertexIndices[0] = index2;
-                mVertexIndices[1] = index1;
-                reverse = true;
-            }
+            mVertexIndices[0] = -1;
+            mVertexIndices[1] = -1;
+        }
+
+        /** Constructor. */
+        Edge ( int index1, int index2 ) 
+        {
+            mVertexIndices[0] = index1;
+            mVertexIndices[1] = index2;
         }
 
         /** Destructor. */
@@ -61,21 +51,9 @@ namespace COLLADAFW
         /** Set the edge vertex indices sorted. */
         void setVertexIndices ( int index1, int index2 ) 
         {
-            if ( index1 < index2 )
-            {
-                mVertexIndices[0] = index1;
-                mVertexIndices[1] = index2;
-            }
-            else
-            {
-                mVertexIndices[0] = index2;
-                mVertexIndices[1] = index1;
-                reverse = true;
-            }
+            mVertexIndices[0] = index1;
+            mVertexIndices[1] = index2;
         }
-
-        /** Returns the reverse flag. */
-        const bool isReverse () const { return reverse; };
 
         int operator[](size_t i) const
         {
@@ -83,10 +61,11 @@ namespace COLLADAFW
             return mVertexIndices [i];
         }
 
-        bool operator==(const Edge& e2)
+        bool operator==(const Edge& e2) const
         {
             if ( (*this)[0] != e2[0] ) return false;
             if ( (*this)[1] != e2[1] ) return false;
+
             return true;
         }
 

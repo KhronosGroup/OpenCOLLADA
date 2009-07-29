@@ -44,7 +44,8 @@ namespace COLLADAFW
 			AXISANGLE,
 			ANGLE,
 			MATRIX4X4,
-			MATRIX4X4_ELEMENT,
+			ARRAY_ELEMENT_1D,       //!< Array element accessed via one index
+			ARRAY_ELEMENT_2D,		//!< Array element accessed via two indices	
 			FLOAT
 		};
 
@@ -96,6 +97,7 @@ namespace COLLADAFW
 		{
 			mAnimationBindings.clear();
 			pre.getAnimationBindings().cloneArray( mAnimationBindings );
+            return *this;
 		}
 
 	};

@@ -11,22 +11,9 @@
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLFileLoader.h"
 #include "COLLADASaxFWLLoader.h"
-#include "COLLADASaxFWLAssetLoader.h"
-#include "COLLADASaxFWLSceneLoader.h"
-#include "COLLADASaxFWLVisualSceneLoader.h"
-#include "COLLADASaxFWLLibraryNodesLoader.h"
-#include "COLLADASaxFWLLibraryMaterialsLoader.h"
-#include "COLLADASaxFWLLibraryEffectsLoader.h"
-#include "COLLADASaxFWLLibraryCamerasLoader.h"
-#include "COLLADASaxFWLLibraryLightsLoader.h"
-#include "COLLADASaxFWLLibraryImagesLoader.h"
-#include "COLLADASaxFWLLibraryAnimationsLoader.h"
-#include "COLLADASaxFWLLibraryControllersLoader.h"
-#include "COLLADASaxFWLMeshLoader.h"
-#include "COLLADASaxFWLGeometryLoader.h"
 #include "COLLADASaxFWLSaxParserErrorHandler.h"
 #include "COLLADASaxFWLSidAddress.h"
-#include "COLLADASaxFWLColladaParserAutoGenFunctionMapFactory.h"
+#include "COLLADASaxFWLVersionParser.h"
 
 #include "COLLADAFWConstants.h"
 #include "COLLADAFWVisualScene.h"
@@ -34,103 +21,26 @@
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWSkinController.h"
 #include "COLLADAFWMorphController.h"
+#include "COLLADAFWIWriter.h"
 
 #include "COLLADAFWObject.h"
+
+#if defined(GENERATEDSAXPARSER_XMLPARSER_LIBXML)
+#	include "GeneratedSaxParserLibxmlSaxParser.h"
+#elif defined(GENERATEDSAXPARSER_XMLPARSER_EXPAT)
+#	include "GeneratedSaxParserExpatSaxParser.h"
+#else
+#	error "No prepocesser flag set to chose the xml parser to use"
+#endif
 
 #if defined(COLLADABU_OS_WIN)
 #pragma warning(disable:4355)
 #endif
 
+using namespace COLLADASaxFWL14;
 
 namespace COLLADASaxFWL
 {
-
-	size_t XMLPARSER_BUFFERSIZE = 64*1024;
-
-	enum LibraryFlags
-	{
-		COLLADA_NO_FLAGS                     = 0,    
-		COLLADA_ASSET                        = 1<< 0,
-		COLLADA_LIBRARY_ANIMATION_CLIPS      = 1<< 1,
-		COLLADA_LIBRARY_ANIMATIONS           = 1<< 2,
-		COLLADA_LIBRARY_ARTICULATED_SYSTEMS  = 1<< 3,
-		COLLADA_LIBRARY_CAMERAS              = 1<< 4,
-		COLLADA_LIBRARY_CONTROLLERS          = 1<< 5,
-		COLLADA_LIBRARY_EFFECTS              = 1<< 6,
-		COLLADA_LIBRARY_FORCE_FIELDS         = 1<< 7,
-		COLLADA_LIBRARY_FORMULAS             = 1<< 8,
-		COLLADA_LIBRARY_GEOMETRIES           = 1<< 9,
-		COLLADA_LIBRARY_IMAGES               = 1<<10,
-		COLLADA_LIBRARY_JOINTS               = 1<<11,
-		COLLADA_LIBRARY_KINEMATICS_MODELS    = 1<<12,
-		COLLADA_LIBRARY_KINEMATICS_SCENES    = 1<<13,
-		COLLADA_LIBRARY_LIGHTS               = 1<<14,
-		COLLADA_LIBRARY_MATERIALS            = 1<<15,
-		COLLADA_LIBRARY_NODES                = 1<<16,
-		COLLADA_LIBRARY_PHYSICS_MATERIALS    = 1<<17,
-		COLLADA_LIBRARY_PHYSICS_MODELS       = 1<<18,
-		COLLADA_LIBRARY_PHYSICS_SCENES       = 1<<19,
-		COLLADA_LIBRARY_VISUAL_SCENES        = 1<<20,
-		COLLADA_SCENE                        = 1<<21
-	};
-
-	struct LibraryFlagsFunctionMapPair
-	{
-		LibraryFlags flag;
-		const ColladaParserAutoGenPrivate::ElementFunctionMap& functionMap;
-	};
-
-
-	LibraryFlagsFunctionMapPair COLLADA_ASSET_PAIR = {COLLADA_ASSET, FunctionMapFactory::createFunctionMap__asset__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_ANIMATION_CLIPS_PAIR = {COLLADA_LIBRARY_ANIMATION_CLIPS, FunctionMapFactory::createFunctionMap__library_animation_clips__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_ANIMATIONS_PAIR = {COLLADA_LIBRARY_ANIMATIONS, FunctionMapFactory::createFunctionMap__library_animations__allChildren() };
-//	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_ARTICULATED_SYSTEMS_PAIR = {COLLADA_LIBRARY_ARTICULATED_SYSTEMS, FunctionMapFactory::createFunctionMap__library_articulated_systems__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_CAMERAS_PAIR = {COLLADA_LIBRARY_CAMERAS, FunctionMapFactory::createFunctionMap__library_cameras__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_CONTROLLERS_PAIR = {COLLADA_LIBRARY_CONTROLLERS, FunctionMapFactory::createFunctionMap__library_controllers__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_EFFECTS_PAIR = {COLLADA_LIBRARY_EFFECTS, FunctionMapFactory::createFunctionMap__library_effects__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_FORCE_FIELDS_PAIR = {COLLADA_LIBRARY_FORCE_FIELDS, FunctionMapFactory::createFunctionMap__library_force_fields__allChildren() };
-//	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_FORMULAS_PAIR = {COLLADA_LIBRARY_FORMULAS, FunctionMapFactory::createFunctionMap__library_formulas__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_GEOMETRIES_PAIR = {COLLADA_LIBRARY_GEOMETRIES, FunctionMapFactory::createFunctionMap__library_geometries__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_IMAGES_PAIR = {COLLADA_LIBRARY_IMAGES, FunctionMapFactory::createFunctionMap__library_images__allChildren() };
-//	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_JOINTS_PAIR = {COLLADA_LIBRARY_JOINTS, FunctionMapFactory::createFunctionMap__library_joints__allChildren() };
-//	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_KINEMATICS_MODELS_PAIR = {COLLADA_LIBRARY_KINEMATICS_MODELS, FunctionMapFactory::createFunctionMap__library_kinematics_models__allChildren() };
-//	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_KINEMATICS_SCENES_PAIR = {COLLADA_LIBRARY_KINEMATICS_SCENES, FunctionMapFactory::createFunctionMap__library_kinematics_scenes__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_LIGHTS_PAIR = {COLLADA_LIBRARY_LIGHTS, FunctionMapFactory::createFunctionMap__library_lights__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_MATERIALS_PAIR = {COLLADA_LIBRARY_MATERIALS, FunctionMapFactory::createFunctionMap__library_materials__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_NODES_PAIR = {COLLADA_LIBRARY_NODES, FunctionMapFactory::createFunctionMap__library_nodes__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_PHYSICS_MATERIALS_PAIR = {COLLADA_LIBRARY_PHYSICS_MATERIALS, FunctionMapFactory::createFunctionMap__library_physics_materials__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_PHYSICS_MODELS_PAIR = {COLLADA_LIBRARY_PHYSICS_MODELS, FunctionMapFactory::createFunctionMap__library_physics_models__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_PHYSICS_SCENES_PAIR = {COLLADA_LIBRARY_PHYSICS_SCENES, FunctionMapFactory::createFunctionMap__library_physics_scenes__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_LIBRARY_VISUAL_SCENES_PAIR = {COLLADA_LIBRARY_VISUAL_SCENES, FunctionMapFactory::createFunctionMap__library_visual_scenes__allChildren() };
-	LibraryFlagsFunctionMapPair COLLADA_SCENE_PAIR = {COLLADA_SCENE, FunctionMapFactory::createFunctionMap__scene__allChildren() };
-
-
-	LibraryFlagsFunctionMapPair libraryFlagsFunctionMapMap[] = {COLLADA_ASSET_PAIR,
-		                                                        COLLADA_LIBRARY_ANIMATION_CLIPS_PAIR,
-		                                                        COLLADA_LIBRARY_ANIMATIONS_PAIR,
-		                                                        COLLADA_LIBRARY_CAMERAS_PAIR,
-		                                                        COLLADA_LIBRARY_CONTROLLERS_PAIR,
-		                                                        COLLADA_LIBRARY_EFFECTS_PAIR,
-		                                                        COLLADA_LIBRARY_FORCE_FIELDS_PAIR,
-		                                                        COLLADA_LIBRARY_GEOMETRIES_PAIR,
-		                                                        COLLADA_LIBRARY_IMAGES_PAIR,
-		                                                        COLLADA_LIBRARY_LIGHTS_PAIR,
-		                                                        COLLADA_LIBRARY_MATERIALS_PAIR,
-		                                                        COLLADA_LIBRARY_NODES_PAIR,
-				                                                COLLADA_LIBRARY_PHYSICS_MATERIALS_PAIR,
-		                                                        COLLADA_LIBRARY_PHYSICS_MODELS_PAIR,
-		                                                        COLLADA_LIBRARY_PHYSICS_SCENES_PAIR,
-		                                                        COLLADA_LIBRARY_VISUAL_SCENES_PAIR,
-		                                                        COLLADA_SCENE_PAIR};
-
-	size_t libraryFlagsFunctionMapMapSize = sizeof(libraryFlagsFunctionMapMap)/sizeof(LibraryFlagsFunctionMapPair);
-
-	template<class Flags>
-	bool setInFirstUnsetInSecond(int firstFlags, int secondFlags, Flags flag)
-	{
-		return ( (firstFlags & flag) != 0 ) && ( (secondFlags & flag) == 0 );
-	}
-
 
     //-----------------------------
 	FileLoader::FileLoader ( Loader* colladaLoader, 
@@ -138,146 +48,27 @@ namespace COLLADASaxFWL
 							 SaxParserErrorHandler* saxParserErrorHandler, 
 							 int objectFlags,
 							 int& parsedObjectFlags)
-         : ColladaParserAutoGenPrivate(0, saxParserErrorHandler)
-		 , mColladaLoader(colladaLoader)
-		 , mFileURI(fileURI)
-#if defined(GENERATEDSAXPARSER_XMLPARSER_LIBXML)
-		 , mXmlSaxParser(this)
-#elif defined(GENERATEDSAXPARSER_XMLPARSER_EXPAT)
-		 , mXmlSaxParser(this, XMLPARSER_BUFFERSIZE)
-#endif
+         : mColladaLoader( colladaLoader )
+		 , mFileURI( fileURI )
+         , mParsingStatus( PARSING_NOT_STARTED )
 		 , mCurrentSidTreeNode( colladaLoader->getSidTreeRoot() )
 		 , mIdStringSidTreeNodeMap( colladaLoader->getIdStringSidTreeNodeMap() )
 		 , mVisualScenes( colladaLoader->getVisualScenes() )
 		 , mLibraryNodes( colladaLoader->getLibraryNodes() )
 		 , mEffects( colladaLoader->getEffects() )
+		 , mLights( colladaLoader->getLights() )
+		 , mCameras( colladaLoader->getCameras() )
+		 , mFormulas( colladaLoader->getFormulaList() )
 		 , mUniqueIdAnimationListMap( colladaLoader->getUniqueIdAnimationListMap() )
 		 , mObjectFlags( objectFlags )
 		 , mParsedObjectFlags( parsedObjectFlags )
+		 , mSkinControllerSet( compare )
+         , mSaxParserErrorHandler( saxParserErrorHandler )
+         , mPrivateParser14( 0 )
+         , mPrivateParser15( 0 )
+         , mXmlSaxParser( 0 )
 	{
 
-		// A combination of ObjectFlags, indicating which objects will have been parsed, after load() 
-		// has been called. These will be contained for sure.
-		// We need this to ensure that objects that are store by the Loader ( visual scene, library nodes, 
-		// effects, cameras, lights) are parsed only once.
-		int mAfterLoadParsedObjectFlags = mParsedObjectFlags | mObjectFlags;
-
-		setCallbackObject(this);
-//		registerUnknownElementHandler( &mRawUnknownElementHandler );
-
-		if ( (objectFlags & Loader::ALL_OBJECTS_MASK ) != Loader::ALL_OBJECTS_MASK )
-		{
-			// we need to set a customized function map, since we don't need all COLLADA libraries 
-			//determine which COLLADA elements we need to parse to get all date needed to parse objects in mObjectFlags
-			int requiredFunctionMaps = 0;
-
-			if ( (mObjectFlags & Loader::ASSET_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_ASSET;
-			}
-
-			if ( (mObjectFlags & Loader::SCENE_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_SCENE;
-			}
-
-			if ( setInFirstUnsetInSecond(mObjectFlags, mParsedObjectFlags, Loader::VISUAL_SCENES_FLAG) )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_VISUAL_SCENES;
-				requiredFunctionMaps|= COLLADA_LIBRARY_ANIMATIONS;
-			}
-
-			if ( setInFirstUnsetInSecond(mObjectFlags, mParsedObjectFlags, Loader::LIBRARY_NODES_FLAG) )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_NODES;
-				requiredFunctionMaps|= COLLADA_LIBRARY_ANIMATIONS;
-			}
-
-			if ( (mObjectFlags & Loader::GEOMETRY_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_GEOMETRIES;
-			}
-
-			if ( (mObjectFlags & Loader::MATERIAL_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_MATERIALS;
-			}
-
-			if ( setInFirstUnsetInSecond(mObjectFlags, mParsedObjectFlags, Loader::EFFECT_FLAG) )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_EFFECTS;
-				requiredFunctionMaps|= COLLADA_LIBRARY_ANIMATIONS;
-			}
-
-			if ( (mObjectFlags & Loader::CAMERA_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_CAMERAS;
-				//requiredFunctionMaps|= COLLADA_LIBRARY_ANIMATIONS;
-			}
-
-			if ( (mObjectFlags & Loader::IMAGE_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_IMAGES;
-			}
-
-			if ( (mObjectFlags & Loader::LIGHT_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_LIGHTS;
-			}
-
-			if ( (mObjectFlags & Loader::ANIMATION_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_ANIMATIONS;
-			}
-
-			if ( (mObjectFlags & Loader::ANIMATION_LIST_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_ANIMATIONS;
-
-				requiredFunctionMaps|= COLLADA_LIBRARY_VISUAL_SCENES;
-				mAfterLoadParsedObjectFlags |= Loader::VISUAL_SCENES_FLAG;
-
-				requiredFunctionMaps|= COLLADA_LIBRARY_NODES;
-				mAfterLoadParsedObjectFlags |= Loader::LIBRARY_NODES_FLAG;
-
-				requiredFunctionMaps|= COLLADA_LIBRARY_EFFECTS;
-				mAfterLoadParsedObjectFlags |= Loader::EFFECT_FLAG;
-
-				//requiredFunctionMaps|= COLLADA_LIBRARY_CAMERAS;
-				//requiredFunctionMaps|= COLLADA_LIBRARY_LIGHTS;
-			}
-
-			if ( (mObjectFlags & Loader::CONTROLLER_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_CONTROLLERS;
-
-				requiredFunctionMaps|= COLLADA_LIBRARY_VISUAL_SCENES;
-				mAfterLoadParsedObjectFlags |= Loader::VISUAL_SCENES_FLAG;
-
-				requiredFunctionMaps|= COLLADA_LIBRARY_NODES;
-				mAfterLoadParsedObjectFlags |= Loader::LIBRARY_NODES_FLAG;
-			}
-
-			if ( (mObjectFlags & Loader::SKIN_CONTROLLER_DATA_FLAG) != 0 )
-			{
-				requiredFunctionMaps|= COLLADA_LIBRARY_CONTROLLERS;
-			}
-
-
-			// Fills function map
-			for ( size_t i = 0; i < libraryFlagsFunctionMapMapSize; ++i )
-			{
-				const LibraryFlagsFunctionMapPair& libraryFlagsFunctionMapPair = libraryFlagsFunctionMapMap[i];
-				if ( (requiredFunctionMaps & libraryFlagsFunctionMapPair.flag) != 0 )
-				{
-					mFunctionMap.insert(libraryFlagsFunctionMapPair.functionMap.begin(), libraryFlagsFunctionMapPair.functionMap.end());
-				}
-			}
-
-			setElementFunctionMap(&mFunctionMap);
-
-			parsedObjectFlags = mAfterLoadParsedObjectFlags;
-		}
 	}
 
 	//-----------------------------
@@ -288,9 +79,11 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::load()
 	{
-		bool success = mXmlSaxParser.parseFile(mFileURI.toNativePath().c_str());
-		postProcess();
-		return success;
+        VersionParser parser( mSaxParserErrorHandler, this, mObjectFlags, mParsedObjectFlags );
+        mParsingStatus = PARSING_PARSING;
+        bool success = parser.createAndLaunchParser();
+        mParsingStatus = PARSING_FINISHED;
+        return success;
 	}
 
 	//---------------------------------
@@ -304,6 +97,16 @@ namespace COLLADASaxFWL
 		if ( (getObjectFlags() & Loader::EFFECT_FLAG) != 0 )
 		{
 			writeEffects();
+		}
+
+		if ( (getObjectFlags() & Loader::LIGHT_FLAG) != 0 )
+		{
+			writeLights();
+		}
+
+		if ( (getObjectFlags() & Loader::CAMERA_FLAG) != 0 )
+		{
+			writeCameras();
 		}
 
 		if ( (getObjectFlags() & Loader::CONTROLLER_FLAG) != 0 )
@@ -514,6 +317,26 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
+	void FileLoader::writeLights()
+	{
+		for ( size_t i = 0, count = mLights.size(); i < count; ++i)
+		{
+			COLLADAFW::Light *light = mLights[i];
+			writer()->writeLight(light);
+		}
+	}
+
+	//-----------------------------
+	void FileLoader::writeCameras()
+	{
+		for ( size_t i = 0, count = mCameras.size(); i < count; ++i)
+		{
+			COLLADAFW::Camera *camera = mCameras[i];
+			writer()->writeCamera(camera);
+		}
+	}
+
+	//-----------------------------
 	void FileLoader::createMissingAnimationLists()
 	{
 		AnimationSidAddressBindingList::const_iterator it = mAnimationSidAddressBindings.begin();
@@ -550,16 +373,24 @@ namespace COLLADASaxFWL
 				COLLADAFW::AnimationList::AnimationBinding animationBinding;
 				animationBinding.animation = binding.animationInfo.uniqueId;
 				animationBinding.animationClass = binding.animationInfo.animationClass;
-				if ( animationBinding.animationClass == COLLADAFW::AnimationList::MATRIX4X4_ELEMENT )
+				
+				switch ( binding.sidAddress.getMemberSelection() )
 				{
+				case SidAddress::MEMBER_SELECTION_ONE_INDEX:
+					animationBinding.firstIndex = binding.sidAddress.getFirstIndex();
+					animationBinding.secondIndex = 0;
+					animationBinding.animationClass = COLLADAFW::AnimationList::ARRAY_ELEMENT_1D;
+					break;
+				case SidAddress::MEMBER_SELECTION_TWO_INDICES:
 					animationBinding.firstIndex = binding.sidAddress.getFirstIndex();
 					animationBinding.secondIndex = binding.sidAddress.getSecondIndex();
-				}
-				else
-				{
+					animationBinding.animationClass = COLLADAFW::AnimationList::ARRAY_ELEMENT_2D;
+					break;
+				default:
 					animationBinding.firstIndex = 0;
 					animationBinding.secondIndex = 0;
 				}
+
 				animationList->getAnimationBindings().append( animationBinding );
 			}
 		}
@@ -626,14 +457,17 @@ namespace COLLADASaxFWL
 					break;
 				}
 			}
-			
 			if ( !jointFound )
-				return false;
+			{
+				std::stringstream msg;
+				msg << "Could not resolve sid \"" << sid << "\" referenced in skin controller.";
+				return handleFWLError( SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg.str() );
+		}
 		}
 
-		COLLADAFW::SkinController* skinController = FW_NEW COLLADAFW::SkinController( getUniqueId(COLLADAFW::SkinController::ID()).getObjectId());
+		COLLADAFW::SkinController skinController( getUniqueId(COLLADAFW::SkinController::ID()).getObjectId());
 
-		COLLADAFW::UniqueIdArray &jointsUniqueIds = skinController->getJoints();
+		COLLADAFW::UniqueIdArray &jointsUniqueIds = skinController.getJoints();
 		jointsUniqueIds.allocMemory( joints.size() );
 		jointsUniqueIds.setCount(joints.size());
 
@@ -645,14 +479,27 @@ namespace COLLADASaxFWL
 			jointsUniqueIds[i] = node->getUniqueId();
 		}
 
-		skinController->setSkinControllerData(controllerDataUniqueId);
-		skinController->setSource(sourceUniqueId);
+		skinController.setSkinControllerData(controllerDataUniqueId);
+		skinController.setSource(sourceUniqueId);
 
-		instanceControllerData.instanceController->setInstanciatedObjectId( skinController->getUniqueId() );
+		bool success = true;
+		// Check if we have already wrote a skin controller that describes the same controller, i.e. has same
+		// source, skin data and joints. If so, do not write it again and reference the previously used in the
+		// scene graph
+		const COLLADAFW::SkinController* skinControllerToWrite = 0;
+		SkinControllerSet::const_iterator skinControllerIt = mSkinControllerSet.find( skinController );
+		if ( skinControllerIt == mSkinControllerSet.end() )
+		{
+			skinControllerToWrite = &skinController;
+			success = writer()->writeController(skinControllerToWrite);
+			mSkinControllerSet.insert( skinController );
+		}
+		else
+		{
+			skinControllerToWrite = &(*skinControllerIt);
+		}
 
-		bool success = writer()->writeController(skinController);
-
-		FW_DELETE skinController;
+		instanceControllerData.instanceController->setInstanciatedObjectId( skinControllerToWrite->getUniqueId() );
 
 		return success;
 	}
@@ -687,8 +534,8 @@ namespace COLLADASaxFWL
 					// TODO handle error
 					continue;
 				}
-
-				createAndWriteSkinController( instanceControllerData, skinDataUniqueId, sourceUniqueId );
+				if ( !createAndWriteSkinController( instanceControllerData, skinDataUniqueId, sourceUniqueId ) )
+					return false;
 			}
 		}
 		return true;
@@ -701,7 +548,19 @@ namespace COLLADASaxFWL
 		Loader::MorphControllerList::const_iterator it = morphControllerList.begin();
 		for ( ; it != morphControllerList.end(); ++it)
 		{
-			if ( ! writer()->writeController( *it ) )
+			const COLLADAFW::MorphController* morphController = *it;
+			const COLLADAFW::UniqueId& morphControllerUniqueId = morphController->getUniqueId();
+			const InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(morphControllerUniqueId);
+
+			// Set the InstanciatedObjectId of the instance controller
+			InstanceControllerDataList::const_iterator it = instanceControllerDataList.begin();
+			for ( ; it != instanceControllerDataList.end(); ++it )
+			{
+				const InstanceControllerData& instanceControllerData = *it;
+				instanceControllerData.instanceController->setInstanciatedObjectId( morphControllerUniqueId );
+			}
+
+			if ( ! writer()->writeController( morphController ) )
 				return false;
 		}
 		return true;
@@ -718,69 +577,6 @@ namespace COLLADASaxFWL
 		}
 	}
 
-    //-----------------------------
-    bool FileLoader::begin__asset()
-    {
-		SaxVirtualFunctionTest(begin__asset());
-		deleteFilePartLoader();
-        AssetLoader* assetLoader = new AssetLoader(this);
-        setPartLoader(assetLoader);
-        setParser(assetLoader);
-        return true;
-    }
-
-    //------------------------------
-    bool FileLoader::begin__scene()
-    {
-        SaxVirtualFunctionTest(begin__scene()); 
-        deleteFilePartLoader();
-        SceneLoader* sceneLoader = new SceneLoader(this);
-        setPartLoader(sceneLoader);
-        setParser(sceneLoader);
-        return true;
-    }
-
-    //-----------------------------
-	bool FileLoader::begin__visual_scene( const visual_scene__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__visual_scene(attributeData));
-		deleteFilePartLoader();
-		VisualSceneLoader* visualSceneLoader = new VisualSceneLoader(this, attributeData.id);
-		setPartLoader(visualSceneLoader);
-		setParser(visualSceneLoader);
-		return true;
-	}
-
-	//-----------------------------
-	bool FileLoader::begin__geometry( const geometry__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__geometry(attributeData));
-		deleteFilePartLoader();
-		GeometryLoader* geometryLoader = new GeometryLoader(this);
-
-		if ( attributeData.name )
-			geometryLoader->setGeometryName ((const char *) attributeData.name);
-        if ( attributeData.id )
-            geometryLoader->setGeometryId ((const char *) attributeData.id);
-
-		setPartLoader(geometryLoader);
-		setParser(geometryLoader);
-		return true;
-	}
-
-	//-----------------------------
-	bool FileLoader::begin__library_nodes( const library_nodes__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__library_nodes(attributeData));
-		deleteFilePartLoader();
-		LibraryNodesLoader* libraryNodesLoader = new LibraryNodesLoader(this);
-
-		setPartLoader(libraryNodesLoader);
-		setParser(libraryNodesLoader);
-		addToSidTree( attributeData.id, 0);
-		return true;
-	}
-
 	//-----------------------------
 	const COLLADABU::URI& FileLoader::getFileUri()
 	{
@@ -788,104 +584,52 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	void FileLoader::setParser( IFilePartLoader* parserToBeSet )
+    void FileLoader::setParser( COLLADASaxFWL14::ColladaParserAutoGen14* parserToBeSet )
 	{
-		setCallbackObject(parserToBeSet);
+        assert(mPrivateParser14);
+        mPrivateParser14->setCallbackObject(parserToBeSet);
 	}
 
-	//-----------------------------
-	bool FileLoader::begin__library_materials( const library_materials__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__library_materials(attributeData));
-		deleteFilePartLoader();
-		LibraryMaterialsLoader* libraryMaterialsLoader = new LibraryMaterialsLoader(this);
-
-		setPartLoader(libraryMaterialsLoader);
-		setParser(libraryMaterialsLoader);
-		addToSidTree( attributeData.id, 0);
-		return true;
-	}
-
-	//-----------------------------
-	bool FileLoader::begin__library_effects( const library_effects__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__library_effects(attributeData));
-		deleteFilePartLoader();
-		LibraryEffectsLoader* libraryEffectsLoader = new LibraryEffectsLoader(this);
-
-		setPartLoader(libraryEffectsLoader);
-		setParser(libraryEffectsLoader);
-		return true;
-	}
-
-	//-----------------------------
-	bool FileLoader::begin__library_cameras( const library_cameras__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__library_cameras(attributeData));
-		deleteFilePartLoader();
-		LibraryCamerasLoader* libraryCamerasLoader = new LibraryCamerasLoader(this);
-
-		setPartLoader(libraryCamerasLoader);
-		setParser(libraryCamerasLoader);
-		return true;
-	}
-
-	//-----------------------------
-	bool FileLoader::begin__library_lights( const library_lights__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__library_lights(attributeData));
-		deleteFilePartLoader();
-		LibraryLightsLoader* libraryLightsLoader = new LibraryLightsLoader(this);
-
-		setPartLoader(libraryLightsLoader);
-		setParser(libraryLightsLoader);
-		return true;
-	}
-
-	//-----------------------------
-	bool FileLoader::begin__library_images( const library_images__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__library_images(attributeData));
-		deleteFilePartLoader();
-		LibraryImagesLoader* libraryImagesLoader = new LibraryImagesLoader(this);
-
-		setPartLoader(libraryImagesLoader);
-		setParser(libraryImagesLoader);
-		return true;
-	}
-
-	//-----------------------------
-	bool FileLoader::begin__library_animations( const library_animations__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__library_animations(attributeData));
-
-		deleteFilePartLoader();
-		LibraryAnimationsLoader* libraryAnimationsLoader = new LibraryAnimationsLoader(this);
-
-		setPartLoader(libraryAnimationsLoader);
-		setParser(libraryAnimationsLoader);
-		return true;
-	}
-
-
-	//-----------------------------
-	bool FileLoader::begin__library_controllers( const library_controllers__AttributeData& attributeData )
-	{
-		SaxVirtualFunctionTest(begin__library_controllers(attributeData));
-
-		deleteFilePartLoader();
-		LibraryControllersLoader* libraryControllersLoader = new LibraryControllersLoader(this);
-
-		setPartLoader(libraryControllersLoader);
-		setParser(libraryControllersLoader);
-		return true;
-	}
-
-	//-----------------------------
-    bool FileLoader::end__COLLADA()
+    //-----------------------------
+    void FileLoader::setParser( COLLADASaxFWL15::ColladaParserAutoGen15* parserToBeSet )
     {
-		SaxVirtualFunctionTest(end__COLLADA());
-        return true;
+        assert(mPrivateParser15);
+        mPrivateParser15->setCallbackObject(parserToBeSet);
     }
 
+	//-----------------------------
+	bool FileLoader::compare( const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs )
+	{
+
+		if (lhs.getSkinControllerData() < rhs.getSkinControllerData() )
+			return true;
+		if (lhs.getSkinControllerData() > rhs.getSkinControllerData() )
+			return false;
+
+		if (lhs.getSource() < rhs.getSource() )
+			return true;
+		if (lhs.getSource() > rhs.getSource() )
+			return false;
+
+		const COLLADAFW::UniqueIdArray& lhsJoints = lhs.getJoints();
+		const COLLADAFW::UniqueIdArray& rhsJoints = rhs.getJoints();
+		size_t lhsJointsCount = lhsJoints.getCount();
+		size_t rhsJointsCount = rhsJoints.getCount();
+		if (lhsJointsCount < rhsJointsCount )
+			return true;
+		if (lhsJointsCount > rhsJointsCount )
+			return false;
+
+		for ( size_t i = 0; i < lhsJointsCount; ++i)
+		{
+			const COLLADAFW::UniqueId& lhsJoint = lhsJoints[i];
+			const COLLADAFW::UniqueId& rhsJoint = rhsJoints[i];
+			if (lhsJoint < rhsJoint )
+				return true;
+			if (lhsJoint > rhsJoint )
+				return false;
+		}
+
+		return false;
+	}
 } // namespace COLLADASaxFWL

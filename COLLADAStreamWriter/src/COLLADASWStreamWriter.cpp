@@ -12,10 +12,12 @@
 
 #include <string>
 #include <fstream>
-#include <assert.h>
+#include <cassert>
 
 #include "COLLADASWConstants.h"
 #include "COLLADASWException.h"
+
+#include "COLLADABUStringUtils.h"
 
 
 namespace COLLADASW
@@ -86,12 +88,13 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    StreamWriter::StreamWriter ( const NativeString & fileName, bool doublePrecision /*= false*/ )
+    StreamWriter::StreamWriter ( const NativeString & fileName, bool doublePrecision /*= false*/, COLLADAVersion cOLLADAVersion /*= COLLADA_1_4_1*/ )
             : mLevel ( 0 )
             ,mIndent ( 2 )
             ,mBuffer ( 0 )
             ,mDoublePrecision (doublePrecision)
             ,mPrecisionNumber(17)
+			,mCOLLADAVersion(cOLLADAVersion)
     {
 		mBuffer = new char[BUFFERSIZE];
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
@@ -138,8 +141,22 @@ namespace COLLADASW
     {
         appendNCNameString ( CSWC::XML_START_ELEMENT );
         openElement ( CSWC::CSW_ELEMENT_COLLADA );
-        appendAttribute ( CSWC::CSW_ATTRIBUTE_XMLNS, CSWC::CSW_NAMESPACE );
-        appendAttribute ( CSWC::CSW_ATTRIBUTE_VERSION, CSWC::CSW_VERSION );
+		if ( getCOLLADAVersion() == COLLADA_1_4_1 )
+		{
+			appendAttribute ( CSWC::CSW_ATTRIBUTE_XMLNS, CSWC::CSW_NAMESPACE_1_4_1 );
+			appendAttribute ( CSWC::CSW_ATTRIBUTE_VERSION, CSWC::CSW_VERSION_1_4_1 );
+		}
+		else if ( getCOLLADAVersion() == COLLADA_1_5_0 )
+		{
+			appendAttribute ( CSWC::CSW_ATTRIBUTE_XMLNS, CSWC::CSW_NAMESPACE_1_5_0 );
+			appendAttribute ( CSWC::CSW_ATTRIBUTE_VERSION, CSWC::CSW_VERSION_1_5_0 );
+			appendAttribute ( CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, CSWC::CSW_SCHEMALOCATION_1_5_0 );
+			appendAttribute ( CSWC::CSW_ATTRIBUTE_XMLNS_XSI, CSWC::CSW_XMLNS_XSI_1_5_0 );
+		}
+		else
+		{
+			assert(false);
+		}
     }
 
     //---------------------------------------------------------------
@@ -158,7 +175,7 @@ namespace COLLADASW
 		appendNCNameString ( name );
 		appendChar ( '=' );
 		appendChar ( '\"' );
-		appendString ( uri.getURIString() );
+		appendString ( COLLADABU::StringUtils::translateToXML(uri.getURIString()) );
 		appendChar ( '\"' );
     }
 
@@ -801,7 +818,7 @@ namespace COLLADASW
     void StreamWriter::appendURIElement ( const String& elementName, const COLLADABU::URI& uri )
     {
         openElement ( elementName );
-        appendText ( uri.getURIString() );
+		appendText ( COLLADABU::StringUtils::translateToXML(uri.getURIString()) );
         closeElement();
     }
 

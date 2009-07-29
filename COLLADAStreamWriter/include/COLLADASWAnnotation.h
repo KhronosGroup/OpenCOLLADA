@@ -37,20 +37,41 @@ namespace COLLADASW
 
     private:
 
-//         /** The name of the current annotation. */
-//         String mName;
-// 
-//         /** Consists of a COLLADASW type element that contains a 
-//         value of that type. Valid type elements are:
-//         bool, bool2, bool3, bool4, int, int2, int3, int4, float,
-//         float2, float3, float4, float2x2, float3x3, float4x4, string */
-//         ValueType::ColladaType mValueType;
-// 
-//         /** The value for the element. */
-//         Type mValue;
-// 
-//         /** Number of values to insert (for arrays and pointer) */
-//        int mNValues;
+        enum UnionType
+        {
+            UNION_TYPE_FLOAT,
+            UNION_TYPE_BOOL,
+            UNION_TYPE_INT,
+            UNION_TYPE_STRING,
+            UNION_TYPE_UNKNOWN,
+        };
+
+    private:
+
+        /** The name of the current annotation. */
+        String mName;
+
+        /** Consists of a COLLADASW type element that contains a 
+        value of that type. Valid type elements are:
+        bool, bool2, bool3, bool4, int, int2, int3, int4, float,
+        float2, float3, float4, float2x2, float3x3, float4x4, string */
+        ValueType::ColladaType mValueType;
+
+        /**
+         * The union stores the value, in depend on the type.
+         */
+        union AnnotationValues {
+            const char* strVal;
+            const int* intVal;
+            const bool* boolVal;
+            const float* floatVal;
+        } mValue;
+
+        /** The value type of the used union value. */
+        UnionType mUnionType;
+
+        /** Number of values to insert (for arrays and pointer) */
+        int mNumValues;
 
         /** Tag closer for the annotation. */
         TagCloser mAnnoCloser;
@@ -58,24 +79,86 @@ namespace COLLADASW
     public:
         
         /** Constructor. */
-        Annotation ( StreamWriter *sw ) : ElementWriter ( sw ) {}
+        Annotation ( StreamWriter *sw ) : ElementWriter ( sw ), mUnionType ( UNION_TYPE_UNKNOWN ) {}
 
-//         /** Constructor. */
-//         Annotation ( 
-//             StreamWriter *sw, 
-//             const String &name, 
-//             const ValueType::ColladaType &valueType, 
-//             const Type val, 
-//             int nVal=-1 ) 
-//         : ElementWriter ( sw ) 
-//         , mName ( name ) 
-//         , mValueType ( valueType )
-//         , mValue ( val ) 
-//         , mNValues ( nVal )
-//         {}
+        /** Constructor. */
+        Annotation ( 
+            StreamWriter *sw, 
+            const String &name, 
+            const ValueType::ColladaType &valueType, 
+            const float* val, 
+            int nVal=-1 ) 
+        : ElementWriter ( sw ) 
+        , mName ( name ) 
+        , mValueType ( valueType )
+        , mNumValues ( nVal )
+        , mUnionType ( UNION_TYPE_FLOAT )
+        {
+            mValue.floatVal = val; 
+        }
+
+        /** Constructor. */
+        Annotation ( 
+            StreamWriter *sw, 
+            const String &name, 
+            const ValueType::ColladaType &valueType, 
+            const bool* val, 
+            int nVal=-1 ) 
+            : ElementWriter ( sw ) 
+            , mName ( name ) 
+            , mValueType ( valueType )
+            , mNumValues ( nVal )
+            , mUnionType ( UNION_TYPE_BOOL )
+        {
+            mValue.boolVal = val;
+        }
+
+        /** Constructor. */
+        Annotation ( 
+            StreamWriter *sw, 
+            const String &name, 
+            const ValueType::ColladaType &valueType, 
+            const int* val, 
+            int nVal=-1 ) 
+            : ElementWriter ( sw ) 
+            , mName ( name ) 
+            , mValueType ( valueType )
+            , mNumValues ( nVal )
+            , mUnionType ( UNION_TYPE_INT )
+        {
+            mValue.intVal = val;
+        }
+
+        /** Constructor. */
+        Annotation ( 
+            StreamWriter *sw, 
+            const String &name, 
+            const ValueType::ColladaType &valueType, 
+            const char* val, 
+            int nVal=-1 ) 
+            : ElementWriter ( sw ) 
+            , mName ( name ) 
+            , mValueType ( valueType )
+            , mNumValues ( nVal )
+            , mUnionType ( UNION_TYPE_STRING )
+        {
+            mValue.strVal = val;
+        }
 
         /** Destructor. */
         virtual ~Annotation () {}
+
+//         const float* getFloatValues ( int& numValues ) const { numValues = mNumValues; return mValue.floatVal; }
+//         void setFloatValues ( float* val, const int numValues ) { mNumValues = numValues; mValue.floatVal = val; }
+// 
+//         const int* getIntValues ( int& numValues ) const { numValues = mNumValues; return mValue.intVal; }
+//         void setIntValues ( int* val, const int numValues ) { mNumValues = numValues; mValue.intVal = val; }
+// 
+//         const bool* getBoolValues ( int& numValues ) const { numValues = mNumValues; return mValue.boolVal; }
+//         void setBoolValues ( bool* val, const int numValues ) { mNumValues = numValues; mValue.boolVal = val; }
+// 
+//         const String getStringValue () const { return String(mValue.strVal); }
+//         void setStringValue ( char* val ) { mNumValues = 1; mValue.strVal = val; }
 
         /** Write the annotation manual. */
         void openAnnotation ( const String &name ) 
@@ -86,7 +169,7 @@ namespace COLLADASW
         }
 
         /** Write the annotation manual. */
-        void closeAnnotation ()
+        void closeAnnotation () 
         {
             mAnnoCloser.close ();
         }
@@ -114,7 +197,13 @@ namespace COLLADASW
         template <class T> 
         void appendValues ( const T* values, int nval )
         {
-            mSW->appendValues ( values, nval );
+            if ( nval > 0 )
+            {
+                for ( int i=0; i<nval; ++i )
+                {
+                    mSW->appendValues ( values[i] );
+                }
+            }
         }
 
         /** Adds a strongly typed annotation remark to the parent object into 
@@ -139,6 +228,34 @@ namespace COLLADASW
             closeAnnotation ();
         }
 
+        /**
+         * Adds a strongly typed annotation remark to the parent object into the collada document.
+         */
+        void add () 
+        {
+            openAnnotation ( mName );
+            openValuesElement ( mValueType );
+
+            switch ( mUnionType )
+            {
+            case UNION_TYPE_FLOAT:
+                appendValues ( mValue.floatVal, mNumValues );
+                break;
+            case UNION_TYPE_INT:
+                appendValues ( mValue.intVal, mNumValues );
+                break;
+            case UNION_TYPE_STRING:
+                appendValues ( String (mValue.strVal) );
+                break;
+            case UNION_TYPE_BOOL:
+                appendValues ( mValue.boolVal, mNumValues );
+                break;
+            default:
+                break;
+            }
+            closeValuesElement ();
+            closeAnnotation ();
+        }
     };
 
 }

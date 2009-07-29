@@ -11,6 +11,9 @@
 		<Platform
 			Name="Win32"
 		/>
+		<Platform
+			Name="x64"
+		/>
 	</Platforms>
 	<ToolFiles>
 	</ToolFiles>
@@ -41,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\COLLADASaxFrameworkLoader\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,9 +65,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib LibXML-d.lib"
+				AdditionalDependencies=" "
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\LibXML\bin\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories=""
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -122,7 +125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\COLLADASaxFrameworkLoader\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -141,14 +144,177 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib LibXML.lib"
+				AdditionalDependencies=" "
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\LibXML\bin\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="&#x0D;&#x0A;set runtimeDir=&quot;..\runtime\$(ConfigurationName)&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist %runtimeDir% (&#x0D;&#x0A;echo Creating plugin directory %runtimeDir%&#x0D;&#x0A;mkdir %runtimeDir% &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;echo copy dae2ogre&#x0D;&#x0A;copy $(TargetPath) %runtimeDir% &gt;nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine=""
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\COLLADASaxFrameworkLoader\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" "
+				LinkIncremental="2"
+				AdditionalLibraryDirectories=""
+				GenerateManifest="true"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="&#x0D;&#x0A;set runtimeDir=&quot;..\runtime\$(ConfigurationName)&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist %runtimeDir% (&#x0D;&#x0A;echo Creating plugin directory %runtimeDir%&#x0D;&#x0A;mkdir %runtimeDir% &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;echo copy dae2ogre&#x0D;&#x0A;copy $(TargetPath) %runtimeDir% &gt;nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine=""
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\COLLADASaxFrameworkLoader\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" "
+				LinkIncremental="1"
+				AdditionalLibraryDirectories=""
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"

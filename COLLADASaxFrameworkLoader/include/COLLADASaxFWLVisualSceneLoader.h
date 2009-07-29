@@ -26,7 +26,7 @@ namespace COLLADASaxFWL
 {
 
     /** Imports the entire visual scene and sends it to the writer. */
-	class VisualSceneLoader : public NodeLoader 
+	class VisualSceneLoader : public NodeLoader
 	{
 	private:
 
@@ -52,6 +52,7 @@ namespace COLLADASaxFWL
 		/** Appends the root node to the array of root nodes of the visual scene,*/
 		void handleRootNode( COLLADAFW::Node* rootNode );
 
+    public:
 		/** Sax callback function for the beginning of nodes, as child of a visual scene.*/
 		virtual bool begin__visual_scene__node( const node__AttributeData& attributeData );
 

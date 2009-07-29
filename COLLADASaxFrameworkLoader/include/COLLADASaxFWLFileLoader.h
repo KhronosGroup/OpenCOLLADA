@@ -15,24 +15,22 @@
 
 #include "COLLADASaxFWLTypes.h"
 #include "COLLADASaxFWLIFilePartLoader.h"
-#include "COLLADASaxFWLColladaParserAutoGenPrivate.h"
+#include "COLLADASaxFWLColladaParserAutoGen14Private.h"
 #include "COLLADASaxFWLSidAddress.h"
 #include "COLLADASaxFWLSidTreeNode.h"
 #include "COLLADASaxFWLLoader.h"
 
-#if defined(GENERATEDSAXPARSER_XMLPARSER_LIBXML)
-#	include "GeneratedSaxParserLibxmlSaxParser.h"
-#elif defined(GENERATEDSAXPARSER_XMLPARSER_EXPAT)
-#	include "GeneratedSaxParserExpatSaxParser.h"
-#else
-# error "No prepocesser flag set to chose the xml parser to use"
-#endif
+#include "COLLADASaxFWLColladaParserAutoGen14Private.h"
+#include "COLLADASaxFWLColladaParserAutoGen15Private.h"
 
 #include "GeneratedSaxParserRawUnknownElementHandler.h"
 
 #include "COLLADAFWUniqueId.h"
+#include "COLLADAFWSkinController.h"
 
 #include "COLLADABUURI.h"
+
+#include <set>
 
 
 namespace COLLADABU
@@ -55,10 +53,20 @@ namespace COLLADASaxFWL
 	class SaxParserErrorHandler;
 
 	/** Loader to a COLLADA document. Referenced documents are not loaded.*/
-	class FileLoader : public IFilePartLoader, public ColladaParserAutoGenPrivate
+	class FileLoader : public IFilePartLoader
     {
+	public:
+		enum ParsingStatus
+		{
+			PARSING_NOT_STARTED,        //!< Parsing of the .dae fiel has not been started
+			PARSING_PARSING,            //!< The .dae file is beeing parsed
+			PARSING_FINISHED            //!< Parsing of the .dae file has been finished
+		};
+
 	private:
-		/** Contains the binding of an animation to the referenced object. Required to create animation lists*/
+        friend class VersionParser;
+
+        /** Contains the binding of an animation to the referenced object. Required to create animation lists*/
 		struct AnimationSidAddressBinding
 		{
 			AnimationSidAddressBinding( const AnimationInfo& _animationInfo, const SidAddress& _sidAddress)
@@ -77,24 +85,22 @@ namespace COLLADASaxFWL
 		/** Maps unique ids of skin data to the source uri string.*/
 		typedef std::map< COLLADAFW::UniqueId/*skin controller data*/, COLLADABU::URI/*source uri string*/> SkinDataSkinSourceMap;
 
+		/** Set of SkinControllers.*/
+		typedef std::set< COLLADAFW::SkinController, bool(*)(const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs)> SkinControllerSet;
 
 	private:
 	
-		/** The collada loader */
+		/** The COLLADA loader */
 		Loader* mColladaLoader;
 
 		/** The uri of the file that should be imported.*/
 		COLLADABU::URI mFileURI;
 
+		/** Parsing status of the FileLoader.*/
+		ParsingStatus mParsingStatus;
+
 		/** The parent (in the notion of the framework  data model) of the currently parsed element.*/
 		COLLADAFW::Object* mObject;
-
-		/** The xml parser to use.*/
-#if defined(GENERATEDSAXPARSER_XMLPARSER_LIBXML)
-		GeneratedSaxParser::LibxmlSaxParser mXmlSaxParser;
-#elif defined(GENERATEDSAXPARSER_XMLPARSER_EXPAT)
-		GeneratedSaxParser::ExpatSaxParser mXmlSaxParser;
-#endif
 
 		/** The current node within the sid tree.*/
 		SidTreeNode *mCurrentSidTreeNode;
@@ -114,6 +120,18 @@ namespace COLLADASaxFWL
 		completely been parsed.*/
 		Loader::EffectList& mEffects;
 
+		/** List of all lights in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		Loader::LightList& mLights;
+
+		/** List of all cameras in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		Loader::CameraList& mCameras;
+
+		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
+		Loader::FormulaList& mFormulas;
+
 		/** List all the connections of animations and sid addresses of the targets.*/
 		AnimationSidAddressBindingList mAnimationSidAddressBindings;
 
@@ -128,12 +146,8 @@ namespace COLLADASaxFWL
 		parse process.*/
 		int mObjectFlags;
 
-		/** A combination of ObjectFlags, indicating which objects have be parsed already.*/
-		int& mParsedObjectFlags;
-
-		/** The function map we use to parse the COLLADA file. It contains only those elements that are required 
-		to parse all the objects listed in @a mObjectFlags.*/
-		ColladaParserAutoGenPrivate::ElementFunctionMap mFunctionMap;
+        /** A combination of ObjectFlags, indicating which objects have be parsed already.*/
+        int& mParsedObjectFlags;
 
 		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
 		SkinDataJointSidsMap mSkinDataJointSidsMap;
@@ -145,7 +159,21 @@ namespace COLLADASaxFWL
 		/** Maps unique ids of skin data to the source uri string.*/
 		SkinDataSkinSourceMap mSkinDataSkinSourceMap;
 
-	public:
+		/** Set of all SkinController already created and written.*/
+		SkinControllerSet mSkinControllerSet;
+
+        /** Error handler to be used. */
+        SaxParserErrorHandler* mSaxParserErrorHandler;
+
+        /** Generated private parser for COLLADA 1.4. */
+        COLLADASaxFWL14::ColladaParserAutoGen14Private* mPrivateParser14;
+        /** Generated private parser for COLLADA 1.5. */
+        COLLADASaxFWL15::ColladaParserAutoGen15Private* mPrivateParser15;
+
+        /** Parser object which knows line and column numbers in parsed file. */
+        GeneratedSaxParser::SaxParser* mXmlSaxParser;
+
+    public:
 
         /** Constructor.
 		@param colladaLoader The collada loader this file loader is being used by. Used to retrieve document 
@@ -167,10 +195,21 @@ namespace COLLADASaxFWL
         virtual ~FileLoader();
 
 		/** Sets the parser to @a parserToBeSet.*/
-		void setParser(IFilePartLoader* parserToBeSet);
+        void setParser( COLLADASaxFWL14::ColladaParserAutoGen14* parserToBeSet );
+        /** Sets the parser to @a parserToBeSet.*/
+        void setParser( COLLADASaxFWL15::ColladaParserAutoGen15* parserToBeSet );
 
-		/** Loads the data into the frame work data model.*/
+        /** Returns error handler for xml parser. */
+        SaxParserErrorHandler* getErrorHandler() {return mSaxParserErrorHandler;}
+
+		/** Returns the unknown element handler that stores the unknown elements as raw xml data.*/
+		GeneratedSaxParser::RawUnknownElementHandler& getRawUnknownElementHandler() { return  mRawUnknownElementHandler; }
+
+        /** Loads the data into the frame work data model.*/
 		bool load();
+
+		/** Returns the xml sax parser.*/
+		const GeneratedSaxParser::SaxParser* getSaxParser() const { return mXmlSaxParser; }
 
 		/** Returns a pointer to the file loader. */
 		virtual FileLoader* getFileLoader() { return this; }
@@ -178,8 +217,8 @@ namespace COLLADASaxFWL
 		/** Returns a pointer to the file loader. */
 		virtual const FileLoader* getFileLoader() const { return this; }
 
-		/** Returns the UnknownElementHandler. It contains all the data contained in unknown elements.*/
-		GeneratedSaxParser::RawUnknownElementHandler& getRawUnknownElementHandler() { return mRawUnknownElementHandler; }
+		/** Returns the parsing status of the file loader.*/
+		ParsingStatus getParsingStatus() const { return mParsingStatus; }
 
 		/** A combination of ObjectFlags, indicating which objects should be parsed during the 
 		parse process.*/
@@ -196,6 +235,18 @@ namespace COLLADASaxFWL
 		/** Adds @a effect to the list of effects. It will be sent to the writer and delete by the
 		file loader.*/
 		void addEffect( COLLADAFW::Effect* effect ) { mEffects.push_back(effect); }
+
+		/** Adds @a light to the list of lights. It will be sent to the writer and delete by the
+		file loader.*/
+		void addLight( COLLADAFW::Light* light ) { mLights.push_back(light); }
+
+		/** Adds @a camera to the list of cameras. It will be sent to the writer and delete by the
+		file loader.*/
+		void addCamera( COLLADAFW::Camera* camera ) { mCameras.push_back(camera); }
+
+		/** Adds @a formula to the list of formulas. It will be sent to the writer and delete by the
+		file loader.*/
+		void addFormula( COLLADAFW::Formula* formula ) { mFormulas.push_back(formula); }
 
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
@@ -270,8 +321,14 @@ namespace COLLADASaxFWL
 		/** Writes all the library nodes.*/
 		void writeLibraryNodes();
 
-		/** Writes all the visual scenes.*/
+		/** Writes all the effects.*/
 		void writeEffects();
+
+		/** Writes all the lights.*/
+		void writeLights();
+
+		/** Writes all the cameras.*/
+		void writeCameras();
 
 		/** Creates all the animation lists.*/
 		void createMissingAnimationLists();
@@ -309,48 +366,17 @@ namespace COLLADASaxFWL
 		/** Returns a const pointer to the COLLADA document. */
 		const Loader* getColladaLoader() const { return mColladaLoader; }
 
-		/** Informs about the end of reading the COLLADA file. */
-		virtual bool end__COLLADA();
-
-        /** Sax callback function for the beginning of the COLLADA document asset information.*/
-        virtual bool begin__asset();
-
-        /** Starts loading the scene.*/
-        virtual bool begin__scene();
-
-		/** Starts loading a visual scene.*/
-		virtual bool begin__geometry( const geometry__AttributeData& attributeData );
-
-		/** Starts loading a visual scene.*/
-		virtual bool begin__visual_scene( const visual_scene__AttributeData& attributeData );
-
-		/** Starts loading a library nodes.*/
-		virtual bool begin__library_nodes( const library_nodes__AttributeData& attributeData );
-
-		/** Starts loading a library materials.*/
-		virtual bool begin__library_materials( const library_materials__AttributeData& attributeData );
-
-		/** Starts loading a library effects.*/
-		virtual bool begin__library_effects( const library_effects__AttributeData& attributeData );
-
-		/** Starts loading a library cameras.*/
-		virtual bool begin__library_cameras( const library_cameras__AttributeData& attributeData );
-
-		/** Starts loading a library lights.*/
-		virtual bool begin__library_lights( const library_lights__AttributeData& attributeData );
-
-		/** Starts loading a library images.*/
-		virtual bool begin__library_images( const library_images__AttributeData& attributeData );
-
-		/** Starts loading a library animations.*/
-		virtual bool begin__library_animations( const library_animations__AttributeData& attributeData );
-
-		/** Starts loading a library animations.*/
-		virtual bool begin__library_controllers( const library_controllers__AttributeData& attributeData );
-
-
 		/** Performs all the required post processing.:*/
 		void postProcess();
+
+        void setSaxParser( GeneratedSaxParser::SaxParser* parserToBeSet ) { mXmlSaxParser = parserToBeSet; }
+        /** Sets the private parser to @a parserToBeSet.*/
+        void setPrivateParser( COLLADASaxFWL14::ColladaParserAutoGen14Private* parserToBeSet )
+        {mPrivateParser14 = parserToBeSet;}
+        /** Sets the private parser to @a parserToBeSet.*/
+        void setPrivateParser( COLLADASaxFWL15::ColladaParserAutoGen15Private* parserToBeSet )
+        {mPrivateParser15 = parserToBeSet;}
+
 
     private:
 
@@ -359,6 +385,14 @@ namespace COLLADASaxFWL
 
         /** Disable default assignment operator. */
 		const FileLoader& operator= ( const FileLoader& pre );
+
+
+		/** Compares to SkinControllers. The comparison is suitable for using SkinController as key in stl
+		containers but has no deeper meaning. The unique id of the SkinControllers themselves is not
+		taken into account. Is basically compares if two SkinControllers describe exactly the same skin controller
+		i.e. have the same source, joints and SkinControllerData.*/
+		static bool compare( const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs);
+
 	};
 	
 } // namespace COLLADASaxFWL

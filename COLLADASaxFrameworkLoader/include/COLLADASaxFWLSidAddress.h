@@ -13,6 +13,8 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 
+#include "COLLADABUURI.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -25,10 +27,10 @@ namespace COLLADASaxFWL
 		
 		enum MemberSelection
 		{
-			MEMBER_SELECTION_NONE,			//!< No member is selected, all values are targeted
-			MEMBER_SELECTION_NAME,			//!< A member is selected by name, evaluate mMemberSelection
-			MEMBER_SELECTION_ONE_INDEX,		//!< A member is selected by an index, evaluate mFirstIndex
-			MEMBER_SELECTION_TWO_INDICES	//!< A member is selected by two indices, evaluate mFirstIndex and mSecondIndex
+			MEMBER_SELECTION_NONE,			//!< No member is selected, all values are targeted ("id/sid")
+			MEMBER_SELECTION_NAME,			//!< A member is selected by name, evaluate mMemberSelection ("id/sid.name")
+			MEMBER_SELECTION_ONE_INDEX,		//!< A member is selected by an index, evaluate mFirstIndex ("id/sid(0)")
+			MEMBER_SELECTION_TWO_INDICES	//!< A member is selected by two indices, evaluate mFirstIndex and mSecondIndex ("id/sid(0)(3)")
 		};
 	private:
 		/** The id of the starting point. Empty, if address is relative.*/
@@ -60,6 +62,9 @@ namespace COLLADASaxFWL
 		/** Constructor. */
 		SidAddress( const COLLADABU::URI& id, const String& sid);
 
+		/** Constructor. */
+		SidAddress( const COLLADABU::URI& id);
+
         /** Destructor. */
 		virtual ~SidAddress();
 
@@ -83,6 +88,9 @@ namespace COLLADASaxFWL
 
 		/** True, if the address is a valid sid address, false otherwise.*/
 		bool isValid() const { return mIsValid; }
+
+		/** Returns the sid address as a string.*/
+		String getSidAddressString() const;
 
 
 	private:

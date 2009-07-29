@@ -26,4 +26,14 @@ namespace GeneratedSaxParser
 	{
 	}
 
+    //--------------------------------------------------------------------
+    void SaxParser::setParser( Parser* parser )
+    {
+        if ( parser )
+        {
+            mParser = parser;
+            mParser->setSaxParser(this);
+        }
+    }
+
 } // namespace COLLADAPARSER

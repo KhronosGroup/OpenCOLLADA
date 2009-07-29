@@ -270,12 +270,6 @@ namespace COLLADAFW
 		to submeshes when the mesh gets instantiated.*/
 		void setMaterialId(COLLADAFW::MaterialId val) { mMaterialId = val; }
 		
-		/*
-         *	Fills the array with the index list of the edges 
-         *  (the index list referes on the position indices)
-         */
-        COLLADAFW::UIntValuesArray& getEdgeIndices ( COLLADAFW::UIntValuesArray& edgeIndices );
-
         /*
         * Determine the edge indices (unique edges, also for multiple primitive elements)
         * and write it into the lists (the indices referes on the position indices).
@@ -344,7 +338,7 @@ namespace COLLADAFW
         /*
         * Determine the number of grouped vertex elements in the current mesh primitive.
         */
-        int getGroupedVertexElementsCount () const;
+        const size_t getGroupedVertexElementsCount () const;
 
         /*
         * Appends the data of an edge, if it is not already in the list.

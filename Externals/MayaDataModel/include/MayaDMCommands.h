@@ -51,33 +51,6 @@ namespace MayaDM
 		parent(file, childName, parentName, absolute, addObject, noConnections, relative, removeObject, true, world);
 	}
 
-//     template<typename C>
-//     C setParent ( FILE* file, C& childNode, DagNode& parentNode,
-//         bool absolute = false, bool addObject = false, bool noConnections = false, 
-//         bool relative = false, bool removeObject = false, bool shape = false, 
-//         bool world = false ) //     {
-//         parent(file, childNode.getName(), parentNode.getName(), absolute, addObject, noConnections, relative, removeObject, shape, world);
-//         if(addObject && !removeObject)
-//         {
-//             C newInstance = childNode;
-//             newInstance.setParent(parentNode.getName());
-//             return newInstance;
-//         }
-//         else if(!addObject && !removeObject)
-//         {
-//             childNode.setParent(parentNode.getName());
-//             return childNode;
-//         }
-//         else if (removeObject)
-//         {
-//             childNode.
-//         }
-//         if (world)
-//         {
-//             childNode.setParent("");
-//             return childNode;
-//         }
-//     }
 
     /**
      * Method to add an attribute to a maya node.
@@ -86,52 +59,108 @@ namespace MayaDM
         FILE* file, 
         const std::string& nodeName, 
         const std::string& attributeName, 
-        const std::string& attributeType,
-        const std::string& dataType )
+        const std::string& flagName,
+        const std::string& flagValue )
     {
         fprintf ( file, "addAttr -ln \"%s\"", attributeName.c_str() );
-
-        if ( strcmp(attributeType.c_str(), "") != 0 )
-        {
-            if ( strcmp (attributeType.c_str(), "float") )
-                fprintf ( file, " -at \"%s\"", attributeType.c_str() );
-            else fprintf ( file, " -at %s", attributeType.c_str() );
-        }
-        if ( strcmp(dataType.c_str(), "") != 0 )
-        {
-            if ( strcmp (dataType.c_str(), "string") || strcmp (dataType.c_str(), "matrix") )
-                fprintf ( file, " -dt \"%s\"", dataType.c_str() );
-            else fprintf ( file, " -dt %s", dataType.c_str() );
-        }
-
+        fprintf ( file, " -%s \"%s\"", flagName.c_str (), flagValue.c_str () );
         fprintf ( file, " %s", nodeName.c_str() );
         fprintf ( file, ";\n" );
     }
 
     /**
-    * Method to add an attribute to the currently selected maya node.
+    * Method to add an attribute with one flag to the currently selected maya node.
     */
-    static void addAttr ( 
+    static bool addAttr ( 
         FILE* file, 
         const std::string& attributeName, 
-        const std::string& attributeType,
-        const std::string& dataType )
+        const std::string& flagName,
+        const std::string& flagValue )
     {
+        if ( !file ) 
+        {
+            std::cerr << "addAttr: file not valid! Can't add Attribute!" << endl;
+            return false;
+        }
         fprintf ( file, "\taddAttr -ln \"%s\"", attributeName.c_str() );
+        fprintf ( file, " -%s \"%s\"", flagName.c_str (), flagValue.c_str () );
+        fprintf ( file, ";\n" );
 
-        if ( strcmp(attributeType.c_str(), "") != 0 )
-        {
-            if ( strcmp (attributeType.c_str(), "float") )
-                fprintf ( file, " -at \"%s\"", attributeType.c_str() );
-            else fprintf ( file, " -at %s", attributeType.c_str() );
-        }
-        if ( strcmp(dataType.c_str(), "") != 0 )
-        {
-            if ( strcmp (dataType.c_str(), "string") || strcmp (dataType.c_str(), "matrix") )
-                fprintf ( file, " -dt \"%s\"", dataType.c_str() );
-            else fprintf ( file, " -dt %s", dataType.c_str() );
-        }
+        return true;
+    }
 
+    /**
+    * Method to add an attribute with multiple flags to the currently selected maya node.
+    */
+    static bool addAttr ( 
+        FILE* file, 
+        const std::string& attributeName, 
+        const std::vector<std::string>& flagNames,
+        const std::vector<std::string>& flagValues )
+    {
+        if ( !file ) 
+        {
+            std::cerr << "addAttr: file not valid! Can't add Attribute!" << endl;
+            return false;
+        }
+        if ( flagNames.size () != flagValues.size () )
+        {
+            std::cerr << "addAttr: Number of flag names and values is not the same! Can't add Attribute." << endl;
+            return false;
+        }
+        fprintf ( file, "\taddAttr -ln \"%s\"", attributeName.c_str() );
+        for ( size_t i=0; i<flagNames.size (); ++i )
+            fprintf ( file, " -%s \"%s\"", flagNames[i].c_str (), flagValues[i].c_str () );
+        fprintf ( file, ";\n" );
+
+        return true;
+    }
+
+    static void startAddAttr ( FILE* file, const bool insertTab )
+    {
+        if ( insertTab )
+            fprintf ( file, "\taddAttr" );
+        else
+            fprintf ( file, "addAttr" );
+    }
+    static void endAddAttr ( FILE* file )
+    {
+        fprintf ( file, ";\n" );
+    }
+    static void appendSetAttrStartValues ( FILE* file )
+    {
+        fprintf ( file, "{" );
+    }
+    static void appendSetAttrAppendValue ( FILE* file, const std::string& aliasName, const std::string& aliasValue )
+    {
+        fprintf ( file, "{" );
+    }
+    static void appendSetAttrEndValues ( FILE* file )
+    {
+        fprintf ( file, "};\n" );
+    }
+    static void appendAttrFlag ( FILE* file, const std::string& flagName, const std::string& flagValue )
+    {
+        fprintf ( file, " -%s \"%s\"", flagName.c_str(), flagValue.c_str () );
+    }
+    static void appendAttrFlag ( FILE* file, const std::string& flagName, const bool flagValue )
+    {
+        fprintf ( file, " -%s %i", flagName.c_str(), ( int ) flagValue );
+    }
+    static void appendAttrFlag ( FILE* file, const std::string& flagName, const double flagValue )
+    {
+        fprintf ( file, " -%s %g ", flagName.c_str(), flagValue );
+    }
+    static void appendAttrFlag ( FILE* file, const std::string& flagName, const float flagValue )
+    {
+        fprintf ( file, " -%s %g ", flagName.c_str(), flagValue );
+    }
+    static void appendAttrFlag ( FILE* file, const std::string& flagName, const unsigned int flagValue )
+    {
+        fprintf ( file, " -%s %u ", flagName.c_str(), flagValue );
+    }
+    static void appendAttrFlag ( FILE* file )
+    {
         fprintf ( file, ";\n" );
     }
 
@@ -142,19 +171,14 @@ namespace MayaDM
         FILE* file, 
         const std::string& nodeName, 
         const std::string& attributeName, 
-        const std::string& attributeType,
-        const std::string& dataType, 
+        const std::string& flagName,
+        const std::string& flagValue, 
         const std::string& attributeValue )
     {
         fprintf ( file, "setAttr %s.%s", nodeName.c_str(), attributeName.c_str() );
-
-        fprintf ( file, " -type " );
-        if ( strcmp(attributeType.c_str(), "") != 0 )
-            fprintf ( file, "\"%s\"", attributeType.c_str() );
-        if ( strcmp(dataType.c_str(), "") != 0 )
-            fprintf ( file, "\"%s\"", dataType.c_str() );
-
-        fprintf ( file, " \"%s\"", attributeValue.c_str() );
+        fprintf ( file, " -%s \"%s\"", flagName.c_str (), flagValue.c_str () );
+        if ( strcmp ( attributeValue.c_str(), "" ) != 0 )
+            fprintf ( file, " \"%s\"", attributeValue.c_str() );
         fprintf ( file, ";\n" );
     }
 
@@ -164,19 +188,39 @@ namespace MayaDM
     static void setAttr ( 
         FILE* file, 
         const std::string& attributeName, 
-        const std::string& attributeType,
-        const std::string& dataType, 
+        const std::string& flagName,
+        const std::string& flagValue, 
         const std::string& attributeValue )
     {
         fprintf ( file, "\tsetAttr .%s", attributeName.c_str() );
+        fprintf ( file, " -%s \"%s\"", flagName.c_str (), flagValue.c_str () );
+        if ( strcmp ( attributeValue.c_str(), "" ) != 0 )
+            fprintf ( file, " \"%s\"", attributeValue.c_str() );
+        fprintf ( file, ";\n" );
+    }
+    static void setAttr ( 
+        FILE* file, 
+        const std::string& attributeName, 
+        const std::string& flagName,
+        const bool flagValue, 
+        const std::string& attributeValue )
+    {
+        fprintf ( file, "\tsetAttr .%s", attributeName.c_str() );
+        fprintf ( file, " -%s %i", flagName.c_str (), flagValue );
+        if ( strcmp ( attributeValue.c_str(), "" ) != 0 )
+            fprintf ( file, " \"%s\"", attributeValue.c_str() );
+        fprintf ( file, ";\n" );
+    }
 
-        fprintf ( file, " -type " );
-        if ( strcmp(attributeType.c_str(), "") != 0 )
-            fprintf ( file, "\"%s\"", attributeType.c_str() );
-        if ( strcmp(dataType.c_str(), "") != 0 )
-            fprintf ( file, "\"%s\"", dataType.c_str() );
-
-        fprintf ( file, " \"%s\"", attributeValue.c_str() );
+    static void startSetAttr ( FILE* file, std::string attributeName, std::string nodeName )
+    {
+        if ( strcmp ( nodeName.c_str(), "" ) == 0 )
+            fprintf ( file, "\tsetAttr .%s", attributeName.c_str() );
+        else
+            fprintf ( file, "setAttr %s.%s", nodeName.c_str(), attributeName.c_str() );
+    }
+    static void endSetAttr ( FILE* file )
+    {
         fprintf ( file, ";\n" );
     }
 
@@ -271,21 +315,6 @@ namespace MayaDM
     {                                           
         fprintf(file,"camera -e");
         fprintf(file, " -ow %f", orthographicWidth);
-        fprintf(file, " %s", name.c_str());
-        fprintf(file, ";\n");
-    }
-
-    /**
-    * Edit the orthographicHeight of the camera element.
-    * @param FILE* file The file to write the edit value.
-    * @param const std::string& name The name of the camera to edit.
-    * @param const double orthographicHeight The value to set.
-    */
-    static void editCameraOrthographicHeight(FILE* file, const std::string& name, 
-        const double orthographicHeight)
-    {                                           
-        fprintf(file,"camera -e");
-        fprintf(file, " -oh %f", orthographicHeight);
         fprintf(file, " %s", name.c_str());
         fprintf(file, ";\n");
     }

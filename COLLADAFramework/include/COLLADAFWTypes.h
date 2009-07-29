@@ -22,6 +22,8 @@ namespace COLLADAFW
 	typedef ArrayPrimitiveType<unsigned int> UIntValuesArray;
 	typedef ArrayPrimitiveType<int> IntValuesArray;
 
+	typedef ArrayPrimitiveType<size_t> SizeTValuesArray;
+
 	typedef ArrayPrimitiveType<unsigned long long> ULongLongValuesArray;
 	typedef ArrayPrimitiveType<long long> LongLongValuesArray;
 
@@ -584,9 +586,15 @@ namespace COLLADAFW
             PHYSICS_MODEL = 519,
 
 			ANIMATIONLIST = 1000,
-			SKIN_DATA = 1001
-			
-			;
+			SKIN_DATA = 1001,
+
+			FORMULA = 1002,
+			FORMULAS = 1003,
+
+			JOINT = 1004
+
+
+            ;
 
 
 

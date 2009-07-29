@@ -14,6 +14,8 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
 #include "COLLADAFWColor.h"
+#include "COLLADAFWAnimatableFloat.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
@@ -22,7 +24,7 @@ namespace COLLADAFW
 	/** A light of one of the types: ambient, directional, point, spot.
 	Formula for attenuation:
 	A = constant_attenuation + ( D * linear_attenuation ) + ( D^2 * quadratic_attenuation )*/
-	class Light : public ObjectTemplate < COLLADA_TYPE::LIGHT >
+	class Light : public ObjectTemplate < COLLADA_TYPE::LIGHT >, public ExtraData
 	{
 	public:
 
@@ -55,23 +57,23 @@ namespace COLLADAFW
 
 		/** The constant coefficient in the attenuation formula.
 		Used by point and spot lights.*/
-		double mConstantAttenuation;
+		AnimatableFloat mConstantAttenuation;
 
 		/** The linear coefficient in the attenuation formula.
 		Used by point and spot lights.*/
-		double mLinearAttenuation;
+		AnimatableFloat mLinearAttenuation;
 
 		/** The quadratic coefficient in the attenuation formula.
 		Used by point and spot lights.*/
-		double mQuadraticAttenuation;
+		AnimatableFloat mQuadraticAttenuation;
 
 		/** The fall off angle.
 		Used by spot and  lights.*/
-		double mFallOffAngle;
+		AnimatableFloat mFallOffAngle;
 
 		/** The fall off exponent.
 		Used by spot and  lights.*/
-		double mFallOffExponent;
+		AnimatableFloat mFallOffExponent;
 
 	public:
 
@@ -117,7 +119,11 @@ namespace COLLADAFW
 
 		/** Returns the constant coefficient in the attenuation formula.
 		Used by point and spot lights.*/
-		double getConstantAttenuation() const { return mConstantAttenuation; }
+		const AnimatableFloat& getConstantAttenuation() const { return mConstantAttenuation; }
+
+		/** Returns the constant coefficient in the attenuation formula.
+		Used by point and spot lights.*/
+		AnimatableFloat& getConstantAttenuation() { return mConstantAttenuation; }
 
 		/** Sets the constant coefficient in the attenuation formula.
 		Used by point and spot lights.*/
@@ -125,7 +131,11 @@ namespace COLLADAFW
 
 		/** Returns the linear coefficient in the attenuation formula.
 		Used by point and spot lights.*/
-		double getLinearAttenuation() const { return mLinearAttenuation; }
+		const AnimatableFloat&  getLinearAttenuation() const { return mLinearAttenuation; }
+
+		/** Returns the linear coefficient in the attenuation formula.
+		Used by point and spot lights.*/
+		AnimatableFloat&  getLinearAttenuation() { return mLinearAttenuation; }
 
 		/** Sets the linear coefficient in the attenuation formula.
 		Used by point and spot lights.*/
@@ -133,7 +143,11 @@ namespace COLLADAFW
 
 		/** Returns the quadratic coefficient in the attenuation formula.
 		Used by point and spot lights.*/
-		double getQuadraticAttenuation() const { return mQuadraticAttenuation; }
+		const AnimatableFloat& getQuadraticAttenuation() const { return mQuadraticAttenuation; }
+
+		/** Returns the quadratic coefficient in the attenuation formula.
+		Used by point and spot lights.*/
+		AnimatableFloat& getQuadraticAttenuation() { return mQuadraticAttenuation; }
 
 		/** Sets the quadratic coefficient in the attenuation formula.
 		Used by point and spot lights.*/
@@ -141,7 +155,11 @@ namespace COLLADAFW
 
 		/** Returns fall off angle.
 		Used by spot and  lights.*/
-		double getFallOffAngle() const { return mFallOffAngle; }
+		const AnimatableFloat&  getFallOffAngle() const { return mFallOffAngle; }
+
+		/** Returns fall off angle.
+		Used by spot and  lights.*/
+		AnimatableFloat&  getFallOffAngle() { return mFallOffAngle; }
 
 		/** Sets fall off angle.
 		Used by spot and  lights.*/
@@ -149,7 +167,11 @@ namespace COLLADAFW
 
 		/** Returns fall off exponent.
 		Used by spot and  lights.*/
-		double getFallOffExponent() const { return mFallOffExponent; }
+		const AnimatableFloat&  getFallOffExponent() const { return mFallOffExponent; }
+
+		/** Returns fall off exponent.
+		Used by spot and  lights.*/
+		AnimatableFloat&  getFallOffExponent() { return mFallOffExponent; }
 
 		/** Sets fall off exponent.
 		Used by spot and  lights.*/

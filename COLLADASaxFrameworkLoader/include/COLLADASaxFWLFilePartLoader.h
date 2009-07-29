@@ -51,8 +51,11 @@ namespace COLLADASaxFWL
 		int getObjectFlags() const;
 
 
-		/** Sets the parser to @a parserToBeSet.*/
-		void setParser(IFilePartLoader* parserToBeSet);
+        /** Sets the parser to @a parserToBeSet.*/
+        virtual void setParser( COLLADASaxFWL14::ColladaParserAutoGen14* parserToBeSet );
+        /** Sets the parser to @a parserToBeSet.*/
+        virtual void setParser( COLLADASaxFWL15::ColladaParserAutoGen15* parserToBeSet );
+
 
 
 		/** Should be called by a FilePartLoader to indicate that it has finish loading

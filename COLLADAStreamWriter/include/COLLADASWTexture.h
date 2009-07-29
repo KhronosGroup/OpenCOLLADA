@@ -15,7 +15,6 @@
 #include "COLLADASWElementWriter.h"
 #include "COLLADASWExtraTechnique.h"
 #include "COLLADASWColor.h"
-#include "COLLADASWSurface.h"
 #include "COLLADASWSampler.h"
 #include <vector>
 #include <map>
@@ -35,7 +34,7 @@ namespace COLLADASW
         String mImageID;
 
         /** The surface. For possible type values see domFx_surface_type_enum in domTypes.h. Required. */
-        Surface mSurface;
+//        Surface mSurface;
 
         /** Declares the storage for the graphical representation of an object. */
         Sampler mSampler;
@@ -79,10 +78,10 @@ namespace COLLADASW
         void setImageId ( String imageId );
 
         /** Returns the surface. */
-        const Surface& getSurface() const;
+//        const Surface& getSurface() const;
 
         /** Returns the surface. */
-        void setSurface ( const Surface& surface );
+//        void setSurface ( const Surface& surface );
 
         /** Declares the storage for the graphical representation of an object. */
         const Sampler& getSampler () const;

@@ -21,6 +21,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWInstanceController.h"
 #include "COLLADAFWArrayPrimitiveType.h"
 #include "COLLADAFWPointerArray.h"
+#include "COLLADAFWExtraData.h"
 
 #include "Math/COLLADABUMathVector3.h"
 
@@ -42,7 +43,7 @@ namespace COLLADAFW
 	typedef ArrayPrimitiveType<Node*> NodeArray;
 	typedef PointerArray<Node> NodePointerArray;
 
-	class Node : public ObjectTemplate<COLLADA_TYPE::NODE>
+	class Node : public ObjectTemplate<COLLADA_TYPE::NODE>, public ExtraData
 	{
     public:
         

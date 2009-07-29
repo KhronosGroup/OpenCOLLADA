@@ -37,7 +37,7 @@ namespace GeneratedSaxParser
 		size_t newDataSizePos = mFrames[ mActiveFrame ].mCurrentPosition + objectSize;
 
         size_t newCurrentPos = newDataSizePos + sizeof(objectSize);
-		if ( newCurrentPos > mFrames[ mActiveFrame ].mMaxMemoryBlob )
+		while ( newCurrentPos > mFrames[ mActiveFrame ].mMaxMemoryBlob )
 		{
             if (!allocateMoreMemory())
                 return 0;
@@ -59,7 +59,7 @@ namespace GeneratedSaxParser
 	void StackMemoryManager::deleteObject()
 	{
         mFrames[ mActiveFrame ].mCurrentPosition -= ( getTopObjectSize() + sizeof(mFrames[ mActiveFrame ].mCurrentPosition) );
-        if ( mFrames[ mActiveFrame ].mCurrentPosition == 0 && mActiveFrame != 0 )
+        while ( mFrames[ mActiveFrame ].mCurrentPosition == 0 && mActiveFrame != 0 )
         {
             delete[] mFrames[ mActiveFrame ].mMemoryBlob;
             mFrames[ mActiveFrame-- ].mMemoryBlob = 0;
@@ -88,16 +88,19 @@ namespace GeneratedSaxParser
         size_t newCurrentPos = newDataSizePos + sizeof(newSize);
         if ( newCurrentPos > mFrames[ mActiveFrame ].mMaxMemoryBlob )
         {
-            if (!allocateMoreMemory())
-                return 0;
-
-            void* source = mFrames[ mActiveFrame-1 ].mMemoryBlob + oldCurrentPos - currentSize - sizeof(currentSize);
+            size_t numOfAllocs = 0;
+            while ( newCurrentPos > mFrames[ mActiveFrame ].mMaxMemoryBlob )
+            {
+                if (!allocateMoreMemory())
+                    return 0;
+                newDataSizePos = mFrames[ mActiveFrame ].mCurrentPosition + newSize;
+                newCurrentPos = newDataSizePos + sizeof(newSize);
+                numOfAllocs++;
+            }
+            void* source = mFrames[ mActiveFrame-numOfAllocs ].mMemoryBlob + oldCurrentPos - currentSize - sizeof(currentSize);
             memcpy(mFrames[ mActiveFrame ].mMemoryBlob, source, currentSize);
             // delete last object in last frame
-            mFrames[ mActiveFrame-1 ].mCurrentPosition -= ( currentSize + sizeof(mFrames[ mActiveFrame-1 ].mCurrentPosition) );
-
-            newDataSizePos = mFrames[ mActiveFrame ].mCurrentPosition + newSize;
-            newCurrentPos = newDataSizePos + sizeof(newSize);
+            mFrames[ mActiveFrame-numOfAllocs ].mCurrentPosition -= ( currentSize + sizeof(mFrames[ mActiveFrame-numOfAllocs ].mCurrentPosition) );
         }
         mFrames[ mActiveFrame ].mCurrentPosition = newCurrentPos;
         writeNewObjectSize(newDataSizePos, newSize);

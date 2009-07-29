@@ -22,28 +22,11 @@ namespace COLLADAFW
 	/** Base class of all classes that can be referenced in the model.*/
 	class Object
 	{
-	private:
-//		Object* mParent;
 	public:
 		virtual ~Object(){};
 
 		/** Returns the class id of the object.*/
 		virtual ClassId getClassId() const =0;
-
-//		Object* getParent() { return mParent; }
-
-	protected:
-		Object(Object* parent) /*: mParent(parent)*/{}
-
-//		void setParent(Object* parent) { mParent = parent; }
-
-
-	private:
-		/** Disable default copy ctor. */
-//		Object( const Object& pre );
-		/** Disable default assignment operator. */
-//		const Object& operator= ( const Object& pre );
-
 	};
 
 
@@ -56,7 +39,7 @@ namespace COLLADAFW
 		UniqueId mUniqueId;
 
 	public:
-		ObjectTemplate(ObjectId objectId, Object* parent = 0) : Object(parent), mUniqueId(classId, objectId){};
+		ObjectTemplate(ObjectId objectId) : mUniqueId(classId, objectId){};
 		virtual ~ObjectTemplate(){};
 
 		/** Returns the unique id of the object.*/
@@ -71,18 +54,15 @@ namespace COLLADAFW
 		/** Returns the object id of the object.*/
 		ObjectId getObjectId() const { return mUniqueId.getObjectId(); }
 
-	private:
-        /** Disable default copy ctor. */
-	//	ObjectTemplate( const ObjectTemplate& pre );
-        /** Disable default assignment operator. */
-	//	const ObjectTemplate& operator= ( const ObjectTemplate& pre );
-
 	};
 
 
 	template<class ObjectType>
 	ObjectType* objectSafeCast(Object* object)
 	{
+		if ( !object)
+			return 0;
+
 		if ( object->getClassId() == ObjectType::ID() )
 			return (ObjectType*)object;
 		else

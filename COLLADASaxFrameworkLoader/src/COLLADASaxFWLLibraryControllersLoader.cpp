@@ -154,7 +154,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::end__library_controllers()
 	{
-		SaxVirtualFunctionTest(end__library_controllers());
+		moveUpInSidTree();
 		finish();
 		return true;
 	}
@@ -162,7 +162,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__controller( const controller__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__controller(attributeData));
 		if ( attributeData.id )
 			mCurrentControllerId = attributeData.id;
 
@@ -180,7 +179,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::end__controller()
 	{
-		SaxVirtualFunctionTest(end__controller());
 		mCurrentControllerId.clear();
 		mCurrentControllerName.clear();
 		mCurrentMatrixIndex = 0;
@@ -191,10 +189,11 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__skin( const skin__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__skin(attributeData));
 		mCurrentControllerType = SKIN_CONTROLLER;
 		mCurrentSkinControllerData = FW_NEW COLLADAFW::SkinControllerData(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::SkinControllerData::ID()).getObjectId());
 
+        mCurrentSkinControllerData->setOriginalId ( mOriginalId );
+        mCurrentSkinControllerData->setName ( mCurrentControllerName );
 		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source);
 		addSkinDataSkinSourcePair( mCurrentSkinControllerData->getUniqueId(), attributeData.source);
 		return true;
@@ -203,8 +202,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::end__skin()
 	{
-		SaxVirtualFunctionTest(end__skin());
-
 		bool success = true;
 		if ( validate( mCurrentSkinControllerData ) )
 		{
@@ -223,11 +220,12 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__morph( const morph__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__morph(attributeData));
 		mCurrentControllerType = MORPH_CONTROLLER;
 		mCurrentMorphController = FW_NEW COLLADAFW::MorphController(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::MorphController::ID()).getObjectId());
 		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source, COLLADAFW::Geometry::ID());
 		mCurrentMorphController->setSource( mCurrentControllerSourceUniqueId);
+        mCurrentMorphController->setOriginalId ( mOriginalId );
+        mCurrentMorphController->setName ( mCurrentControllerName );
 
 		return true;
 	}
@@ -235,7 +233,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::end__morph()
 	{
-		SaxVirtualFunctionTest(end__morph());
 		if ( mCurrentMorphController )
 		{
 			addMorphController( mCurrentMorphController );
@@ -252,7 +249,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__joints()
 	{
-		SaxVirtualFunctionTest(begin__joints());
 		mCurrentInputParent = INPUT_PARENT_JOINTS;
 		return true;
 	}
@@ -260,21 +256,18 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__source( const source__AttributeData& attributes )
 	{
-		SaxVirtualFunctionTest(begin__source(attributes));
 		return beginSource(attributes);
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::end__source(  )
 	{
-		SaxVirtualFunctionTest(end__source());
 		return endSource();
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::end__joints()
 	{
-		SaxVirtualFunctionTest(end__joints());
 		mCurrentInputParent = INPUT_PARENT_UNKNOWN;
 		return true;
 	}
@@ -282,8 +275,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__input____InputLocal( const input____InputLocal__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__input____InputLocal(attributeData));
-		
 		// we ignore inputs that don't have semantics or source
 		if ( !attributeData.semantic || !attributeData.source  )
 		{
@@ -360,13 +351,13 @@ namespace COLLADASaxFWL
 
 						if ( !sourceBase || (sourceBase->getDataType() != SourceBase::DATA_TYPE_REAL) )
 						{
-							// TODO handle error
+                            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "SourceBase of skin controller with semantic SEMANTIC_INV_BIND_MATRIX not valid!" );
 							break;
 						}
 
 						if ( sourceBase->getStride() != 16 )
 						{
-							// TODO handle error
+                            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Stride of sourceBase of skin controller with semantic SEMANTIC_INV_BIND_MATRIX not valid!" );
 							break;
 						}
 
@@ -444,13 +435,13 @@ namespace COLLADASaxFWL
 
 						if ( !sourceBase || (sourceBase->getDataType() != SourceBase::DATA_TYPE_REAL) )
 						{
-							// TODO handle error
+                            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "SourceBase of skin controller with semantic SEMANTIC_MORPH_WEIGHT not valid!" );
 							break;
 						}
 
 						if ( sourceBase->getStride() != 1 )
 						{
-							// TODO handle error
+                            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Stride of sourceBase of skin controller with semantic SEMANTIC_MORPH_WEIGHT not valid!" );
 							break;
 						}
 						const RealSource *weightSource = (const RealSource *)sourceBase;
@@ -472,7 +463,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__vertex_weights( const vertex_weights__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__vertex_weights(attributeData));
 		mCurrentInputParent = INPUT_PARENT_VERTEX_WEIGHTS;
 		return true;
 	}
@@ -480,7 +470,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::end__vertex_weights()
 	{
-		SaxVirtualFunctionTest(end__vertex_weights());
 		mCurrentInputParent = INPUT_PARENT_UNKNOWN;
 		mJointOffset = 0;
 		mWeightsOffset = 0;
@@ -492,8 +481,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__input____InputLocalOffset( const input____InputLocalOffset__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__input____InputLocalOffset(attributeData));
-
 		if ( attributeData.offset > mCurrentMaxOffset )
 		{
 			mCurrentMaxOffset = attributeData.offset;
@@ -537,7 +524,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::end__input____InputLocalOffset()
 	{
-		SaxVirtualFunctionTest(end__input____InputLocalOffset());
 		return true;
 	}
 
@@ -545,21 +531,18 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__vcount()
 	{
-		SaxVirtualFunctionTest(begin__vcount());
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::end__vcount()
 	{
-		SaxVirtualFunctionTest(end__vcount());
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::data__vcount( const unsigned long long* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__vcount(data, length));
 		if ( !mCurrentSkinControllerData )
 			return true;
 		COLLADAFW::UIntValuesArray& jointsPerVertex = mCurrentSkinControllerData->getJointsPerVertex();
@@ -577,21 +560,18 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__v()
 	{
-		SaxVirtualFunctionTest(begin__v());
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::end__v()
 	{
-		SaxVirtualFunctionTest(end__v());
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::data__v( const sint64* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__v(data, length));
 		writeVIndices(data, length);
 		return true;
 	}
@@ -599,49 +579,42 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__Name_array( const Name_array__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__Name_array(attributeData));
 		return beginJointsArray();
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::end__Name_array()
 	{
-		SaxVirtualFunctionTest(end__Name_array());
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::data__Name_array( const ParserString* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__Name_array(data, length));
 		return dataJointArray( data, length);
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::begin__IDREF_array( const IDREF_array__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__IDREF_array(attributeData));
 		return beginJointsArray();
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::end__IDREF_array()
 	{
-		SaxVirtualFunctionTest(end__IDREF_array());
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::data__IDREF_array( const ParserString* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__IDREF_array(data, length));
 		return dataJointArray( data, length);
 	}
 
 	//------------------------------
 	bool LibraryControllersLoader::data__bind_shape_matrix( const float* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__bind_shape_matrix(data, length));
 		for ( size_t i = 0; i < length; ++i)
 		{
 			size_t row = mCurrentMatrixIndex / 4;
@@ -655,7 +628,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::end__bind_shape_matrix()
 	{
-		SaxVirtualFunctionTest(end__bind_shape_matrix());
 		if (mCurrentSkinControllerData)
 		{
 			mCurrentSkinControllerData->setBindShapeMatrix( mCurrentBindShapeMatrix );

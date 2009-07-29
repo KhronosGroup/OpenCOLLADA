@@ -868,6 +868,17 @@ namespace COLLADABU
 		String& query,
 		String& fragment) 
 	{
+
+		// For performance reasons we treat the special case of an URI containing only a fragment
+		// separately, by checking if the uriRef starts with an "#" and treat the rest as
+		// the fragment
+		if ( !uriRef.empty() && uriRef[0] == '#')
+		{
+			fragment.assign( uriRef, 1, uriRef.length() - 1 );
+			return true;
+		}
+
+
 		// This regular expression for parsing URI references comes from the URI spec:
 		//   http://tools.ietf.org/html/rfc3986#appendix-B
 		// regular expression: "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"

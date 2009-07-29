@@ -18,6 +18,7 @@
 #include "GeneratedSaxParserParserTemplateBase.h"
 #include "GeneratedSaxParserIUnknownElementHandler.h"
 #include "GeneratedSaxParserINamespaceHandler.h"
+#include "GeneratedSaxParserNamespaceStack.h"
 
 
 #include <map>
@@ -101,7 +102,6 @@ namespace GeneratedSaxParser
 
     public:
 		typedef std::map<StringHash, FunctionStruct> ElementFunctionMap;
-        typedef std::map<StringHash, StringHash> NamespacePrefixesMap;
         typedef std::map<StringHash, INamespaceHandler*> NamespaceHandlerMap;
 
 
@@ -115,18 +115,19 @@ namespace GeneratedSaxParser
         /** Currently used handler for unknown elements. */
         IUnknownElementHandler* mUnknownHandler;
 
-        /** XML namespace used by currently parsed document. */
-        StringHash mDocumentNamespace;
-        /** Indicates if currently parsed document uses targetNamespace of XSD. */
-        bool mDocUsesTargetNamespace;
-        /** XML namespace prefixes declared by currently parsed document. */
-        NamespacePrefixesMap mNamespaces;
         /** Currently registered namespace handlers. */
         NamespaceHandlerMap mNamespaceHandlers;
         /** Currently used namespace handler. */
         INamespaceHandler* mActiveNamespaceHandler;
 
-	private:
+        /** Stack of XML namespace declarations. */
+        NamespacesStack mNamespacesStack;
+        /** Generated-Element-Hash to XML-Namespace-Hash. */
+        NamespacePrefixesMap mElementToNamespaceMap;
+        /** If true, generated methods are called even when xml namespace is wrong. */
+        bool mLaxNamespaceHandling;
+
+    private:
 		/** Number of elements that have been opened and should be ignored due to mCurrentElementFunctionMap. */
 		size_t mIgnoreElements;
         /** Number of elements that have been opened and are unknown. */
@@ -142,9 +143,8 @@ namespace GeneratedSaxParser
               mCurrentElementFunctionMap(&mElementFunctionMap),
 			  mImpl(impl),
               mUnknownHandler(0),
-              mDocumentNamespace(0),
-              mDocUsesTargetNamespace(false),
               mActiveNamespaceHandler(0),
+              mLaxNamespaceHandling(false),
 			  mIgnoreElements(0),
               mUnknownElements(0),
               mNamespaceElements(0)
@@ -172,6 +172,11 @@ namespace GeneratedSaxParser
         /** Returns complete ElementFunctionMap (the one containing all function pointers). */
         const ElementFunctionMap& getCompleteElementFunctionMap() {return mElementFunctionMap;}
 
+        /** Returns whether lax namespace handling is turned on. */
+        bool isLaxNamespaceHandling() {return mLaxNamespaceHandling;}
+        /** Enables/Disables lax namespace handling. */
+        void setLaxNamespaceHandling(bool value) {mLaxNamespaceHandling=value;}
+
     public:
 		bool elementBegin(const ParserChar* elementName, const ParserAttributes& attributes );
 
@@ -182,7 +187,10 @@ namespace GeneratedSaxParser
     protected:
         virtual bool findElementHash( ElementData& elementData ) = 0;
         virtual bool isXsAnyAllowed( const StringHash& elementHash ) = 0;
+        virtual bool isDifferentNamespaceAllowed() = 0;
 
+        /** Checks for xmlns and xmlns:<name> attributes to add them to mNamespacesStack. */
+        void parseNamespaceDeclarations( const ParserAttributes& attributes );
 
 	protected:
 		template<class DataType,
@@ -191,186 +199,264 @@ namespace GeneratedSaxParser
 		bool characterData2Data(const ParserChar* text,
                 size_t textLength,
                 DataType (DerivedClass::*toDataWithPrefix)( const ParserChar*, const ParserChar*, const ParserChar**, const ParserChar*, bool& ),
-                bool ( ImplClass::*dataFunction ) ( const DataType*, size_t ),
+                bool ( ImplClass::*dataFunction ) ( const DataType*, size_t )
+#ifdef GENERATEDSAXPARSER_VALIDATION
+                ,
                 ParserError::ErrorType (*listValidationFunc)( const DataType*, size_t ) = 0,
                 size_t* wholeListLength = 0,
                 ParserError::ErrorType (*itemTypeValidationFunc)( DataType ) = 0
+#endif
                 );
 
         bool characterData2StringData(const ParserChar* text,
             size_t textLength,
-            stringListDataFunctionPtr stringListDataFunction,
+            stringListDataFunctionPtr stringListDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const ParserString*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( ParserString ) = 0
+#endif
             );
 
         bool characterData2BoolData(const ParserChar* text,
             size_t textLength,
-            boolDataFunctionPtr boolDataFunction,
+            boolDataFunctionPtr boolDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const bool*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( bool ) = 0
+#endif
             );
 
 		bool characterData2FloatData( const ParserChar* text,
             size_t textLength,
-            floatDataFunctionPtr floatDataFunction,
+            floatDataFunctionPtr floatDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const float*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( float ) = 0
+#endif
             );
 		bool characterData2DoubleData( const ParserChar* text,
             size_t textLength,
-            doubleDataFunctionPtr doubleDataFunction,
+            doubleDataFunctionPtr doubleDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const double*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( double ) = 0
+#endif
             );
 
 		bool characterData2Sint8Data( const ParserChar* text,
             size_t textLength,
-            sint8DataFunctionPtr charDataFunction,
+            sint8DataFunctionPtr charDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const sint8*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( sint8 ) = 0
+#endif
             );
 		bool characterData2Uint8Data( const ParserChar* text,
             size_t textLength,
-            uint8DataFunctionPtr unsignedCharDataFunction,
+            uint8DataFunctionPtr unsignedCharDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const uint8*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( uint8 ) = 0
+#endif
             );
 
 		bool characterData2Sint16Data( const ParserChar* text,
             size_t textLength,
-            sint16DataFunctionPtr shortDataFunction,
+            sint16DataFunctionPtr shortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const sint16*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( sint16 ) = 0
+#endif
             );
 		bool characterData2Uint16Data( const ParserChar* text,
             size_t textLength,
-            uint16DataFunctionPtr unsignedShortDataFunction,
+            uint16DataFunctionPtr unsignedShortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const uint16*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( uint16 ) = 0
+#endif
             );
 
 		bool characterData2Sint32Data( const ParserChar* text,
             size_t textLength,
-            sint32DataFunctionPtr intDataFunction,
+            sint32DataFunctionPtr intDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const sint32*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( sint32 ) = 0
+#endif
             );
 		bool characterData2Uint32Data( const ParserChar* text,
             size_t textLength,
-            uint32DataFunctionPtr unsignedIntDataFunction,
+            uint32DataFunctionPtr unsignedIntDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const uint32*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( uint32 ) = 0
+#endif
             );
 
 		bool characterData2Sint64Data( const ParserChar* text,
             size_t textLength,
-            sint64DataFunctionPtr longDataFunction,
+            sint64DataFunctionPtr longDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const sint64*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( sint64 ) = 0
+#endif
             );
 		bool characterData2Uint64Data( const ParserChar* text,
             size_t textLength,
-            uint64DataFunctionPtr unsignedLongDataFunction,
+            uint64DataFunctionPtr unsignedLongDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const uint64*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( uint64 ) = 0
+#endif
             );
 
         template<class DataType, DataType (*toData)( const ParserChar**, const ParserChar*, bool& )>
 		bool dataEnd(
-            bool ( ImplClass::*dataFunction ) ( const DataType*, size_t ),
+            bool ( ImplClass::*dataFunction ) ( const DataType*, size_t )
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const DataType*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( DataType ) = 0
+#endif
             );
 
         bool stringListDataEnd(
-            stringListDataFunctionPtr stringListDataFunction,
+            stringListDataFunctionPtr stringListDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const ParserString*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( ParserString ) = 0
+#endif
             );
         bool boolDataEnd(
-            boolDataFunctionPtr boolDataFunction,
+            boolDataFunctionPtr boolDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const bool*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( bool ) = 0
+#endif
             );
 		bool floatDataEnd(
-            floatDataFunctionPtr floatDataFunction,
+            floatDataFunctionPtr floatDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const float*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( float ) = 0
+#endif
             );
         bool doubleDataEnd(
-            doubleDataFunctionPtr doubleDataFunction,
+            doubleDataFunctionPtr doubleDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const double*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( double ) = 0
+#endif
             );
 
 		bool sint8DataEnd(
-            sint8DataFunctionPtr charDataFunction,
+            sint8DataFunctionPtr charDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const sint8*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( sint8 ) = 0
+#endif
             );
 		bool uint8DataEnd(
-            uint8DataFunctionPtr unsignedCharDataFunction,
+            uint8DataFunctionPtr unsignedCharDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const uint8*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( uint8 ) = 0
+#endif
             );
 
 		bool sint16DataEnd(
-            sint16DataFunctionPtr shortDataFunction,
+            sint16DataFunctionPtr shortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const sint16*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( sint16 ) = 0
+#endif
             );
 		bool uint16DataEnd(
-            uint16DataFunctionPtr unsignedShortDataFunction,
+            uint16DataFunctionPtr unsignedShortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const uint16*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( uint16 ) = 0
+#endif
             );
 
 		bool sint32DataEnd(
-            sint32DataFunctionPtr intDataFunction,
+            sint32DataFunctionPtr intDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const sint32*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( sint32 ) = 0
+#endif
             );
 		bool uint32DataEnd(
-            uint32DataFunctionPtr unsignedIntDataFunction,
+            uint32DataFunctionPtr unsignedIntDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const uint32*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( uint32 ) = 0
+#endif
             );
 
 		bool sint64DataEnd(
-            sint64DataFunctionPtr longDataFunction,
+            sint64DataFunctionPtr longDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const sint64*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( sint64 ) = 0
+#endif
             );
 		bool uint64DataEnd(
-            uint64DataFunctionPtr unsignedLongDataFunction,
+            uint64DataFunctionPtr unsignedLongDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const uint64*, size_t ) = 0,
             size_t* wholeListLength = 0,
             ParserError::ErrorType (*itemTypeValidationFunc)( uint64 ) = 0
+#endif
             );
 
 
@@ -389,73 +475,125 @@ namespace GeneratedSaxParser
         */
         template<typename DataType,
             DataType (*toData)(const ParserChar** buffer, bool& failed)>
-            bool characterData2List(const ParserChar* text, XSList<DataType>& list,
+            bool characterData2List(const ParserChar* text, XSList<DataType>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
                 ParserError::ErrorType (*itemTypeValidationFunc)(DataType) = 0,
                 StringHash elementHash = 0,
-                StringHash attributeHash = 0);
+                StringHash attributeHash = 0
+#endif
+                );
 
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2StringList(const ParserChar* text, XSList<ParserString>& list,
+        bool characterData2StringList(const ParserChar* text, XSList<ParserString>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(ParserString) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2BoolList(const ParserChar* text, XSList<bool>& list,
+        bool characterData2BoolList(const ParserChar* text, XSList<bool>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(bool) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2FloatList(const ParserChar* text, XSList<float>& list,
+        bool characterData2FloatList(const ParserChar* text, XSList<float>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(float) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2DoubleList(const ParserChar* text, XSList<double>& list,
+        bool characterData2DoubleList(const ParserChar* text, XSList<double>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(double) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
 
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2Sint8List(const ParserChar* text, XSList<sint8>& list,
+        bool characterData2Sint8List(const ParserChar* text, XSList<sint8>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(sint8) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2Sint16List(const ParserChar* text, XSList<sint16>& list,
+        bool characterData2Sint16List(const ParserChar* text, XSList<sint16>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(sint16) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2Sint32List(const ParserChar* text, XSList<sint32>& list,
+        bool characterData2Sint32List(const ParserChar* text, XSList<sint32>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(sint32) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2Sint64List(const ParserChar* text, XSList<sint64>& list,
+        bool characterData2Sint64List(const ParserChar* text, XSList<sint64>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(sint64) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
 
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2Uint8List(const ParserChar* text, XSList<uint8>& list,
+        bool characterData2Uint8List(const ParserChar* text, XSList<uint8>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(uint8) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2Uint16List(const ParserChar* text, XSList<uint16>& list,
+        bool characterData2Uint16List(const ParserChar* text, XSList<uint16>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(uint16) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2Uint32List(const ParserChar* text, XSList<uint32>& list,
+        bool characterData2Uint32List(const ParserChar* text, XSList<uint32>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(uint32) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
         /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
-        bool characterData2Uint64List(const ParserChar* text, XSList<uint64>& list,
+        bool characterData2Uint64List(const ParserChar* text, XSList<uint64>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(uint64) = 0,
             StringHash elementHash = 0,
-            StringHash attributeHash = 0);
+            StringHash attributeHash = 0
+#endif
+            );
 
         /**
          * Converts a string into a list of enums.
@@ -514,10 +652,13 @@ namespace GeneratedSaxParser
             const ParserChar* text,
             size_t textLength,
             DataType (DerivedClass::*toDataWithPrefix)( const ParserChar*, const ParserChar*, const ParserChar**, const ParserChar*, bool& ),
-            bool ( ImplClass::*dataFunction ) ( const DataType*, size_t ),
+            bool ( ImplClass::*dataFunction ) ( const DataType*, size_t )
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*listValidationFunc)( const DataType*, size_t ),
             size_t* wholeListLength,
             ParserError::ErrorType (*itemTypeValidationFunc)( DataType )
+#endif
             )
 	{
         size_t dataBufferIndex = 0;
@@ -557,6 +698,7 @@ namespace GeneratedSaxParser
 				}
 			}
             haveToDeleteParsedFragmentData = true;
+#ifdef GENERATEDSAXPARSER_VALIDATION
             if ( itemTypeValidationFunc != 0)
             {
                 ParserError::ErrorType simpleTypeValidationResult = (itemTypeValidationFunc)(fragmentData);
@@ -577,6 +719,7 @@ namespace GeneratedSaxParser
                     }
                 }
             }
+#endif
 			dataBufferIndex = 1;
 		}
 
@@ -598,6 +741,7 @@ namespace GeneratedSaxParser
 			    failed = failed | (dataBufferPos == bufferEnd);
 			    if ( !failed )
 			    {
+#ifdef GENERATEDSAXPARSER_VALIDATION
                     if ( itemTypeValidationFunc != 0)
                     {
                         ParserError::ErrorType simpleTypeValidationResult = (itemTypeValidationFunc)(dataValue);
@@ -614,10 +758,12 @@ namespace GeneratedSaxParser
                             }
                         }
                     }
+#endif
 				    typedBuffer[dataBufferIndex] = dataValue;
 				    ++dataBufferIndex;
 				    if ( dataBufferIndex == TYPED_VALUES_BUFFER_SIZE )
 				    {
+#ifdef GENERATEDSAXPARSER_VALIDATION
                         if ( listValidationFunc != 0)
                         {
                             *wholeListLength += dataBufferIndex;
@@ -644,7 +790,8 @@ namespace GeneratedSaxParser
                                 }
                             }
                         }
-					    (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
+#endif
+                        (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
 					    dataBufferIndex = 0;
                         callsToDataFunc++;
 				    }
@@ -658,6 +805,7 @@ namespace GeneratedSaxParser
 			    // we need to store the not parsed fraction
 			    if ( dataBufferIndex > 0)
                 {
+#ifdef GENERATEDSAXPARSER_VALIDATION
                     if ( listValidationFunc != 0)
                     {
                         *wholeListLength += dataBufferIndex;
@@ -684,7 +832,8 @@ namespace GeneratedSaxParser
                             }
                         }
                     }
-				    (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
+#endif
+                    (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
                     callsToDataFunc++;
                 }
 			    mStackMemoryManager.deleteObject();
@@ -931,10 +1080,14 @@ namespace GeneratedSaxParser
     template<class DataType,
         DataType (*toData)( const ParserChar**, bool& )>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2List(const ParserChar* text,
-            XSList<DataType>& list,
+            XSList<DataType>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            ,
             ParserError::ErrorType (*itemTypeValidationFunc)(DataType),
             StringHash elementHash,
-            StringHash attributeHash)
+            StringHash attributeHash
+#endif
+            )
     {
         size_t bufferSize = 1 * sizeof(DataType); // TODO find a sane start buffer size and make it a constant
         DataType* typedBuffer = (DataType*)mStackMemoryManager.newObject(bufferSize);
@@ -951,6 +1104,7 @@ namespace GeneratedSaxParser
             DataType dataValue = toData(&dataBufferPos, failed);
             if ( !failed )
             {
+#ifdef GENERATEDSAXPARSER_VALIDATION
                 if (itemTypeValidationFunc != 0)
                 {
                     ParserError::ErrorType simpleTypeValidationResult = itemTypeValidationFunc(dataValue);
@@ -966,6 +1120,7 @@ namespace GeneratedSaxParser
                         }
                     }
                 }
+#endif
                 typedBuffer[dataBufferIndex] = dataValue;
                 ++dataBufferIndex;
                 if ( (dataBufferIndex * sizeof(DataType)) == bufferSize )
@@ -996,10 +1151,18 @@ namespace GeneratedSaxParser
             size_t length = std::min(20, bufferLength);
             memcpy(dataBufferError, dataBufferPos, length);
             dataBufferError[length] = '\0';
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+                ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
+                elementHash,
+                attributeHash,
+                dataBufferError))
+#else
             if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
                 ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
                 0,
                 dataBufferError))
+#endif
             {
                 return false;
             }
@@ -1015,13 +1178,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2FloatData(
         const ParserChar* text,
         size_t textLength,
-        floatDataFunctionPtr floatDataFunction,
+        floatDataFunctionPtr floatDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const float*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( float )
+#endif
         )
 	{
-		return characterData2Data<float, Utils::toFloat>(text, textLength, &DerivedClass::toFloatPrefix, floatDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<float, Utils::toFloat>(text, textLength, &DerivedClass::toFloatPrefix, floatDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 
@@ -1030,14 +1200,21 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2DoubleData(
         const ParserChar* text,
         size_t textLength,
-        doubleDataFunctionPtr doubleDataFunction,
+        doubleDataFunctionPtr doubleDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const double*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( double )
+#endif
         )
 	{
-		return characterData2Data<double, Utils::toDouble>(text, textLength, &DerivedClass::toDoublePrefix, doubleDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
-	}
+		return characterData2Data<double, Utils::toDouble>(text, textLength, &DerivedClass::toDoublePrefix, doubleDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
+    }
 
 
 	//--------------------------------------------------------------------
@@ -1045,13 +1222,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Sint8Data(
         const ParserChar* text,
         size_t textLength,
-        sint8DataFunctionPtr charDataFunction,
+        sint8DataFunctionPtr charDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const sint8*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( sint8 )
+#endif
         )
 	{
-		return characterData2Data<sint8, Utils::toSint8>(text, textLength, &DerivedClass::toSint8Prefix, charDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<sint8, Utils::toSint8>(text, textLength, &DerivedClass::toSint8Prefix, charDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
@@ -1059,13 +1243,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Uint8Data(
         const ParserChar* text,
         size_t textLength,
-        uint8DataFunctionPtr unsignedCharDataFunction,
+        uint8DataFunctionPtr unsignedCharDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const uint8*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( uint8 )
+#endif
         )
 	{
-		return characterData2Data<uint8, Utils::toUint8>(text, textLength, &DerivedClass::toUint8Prefix, unsignedCharDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<uint8, Utils::toUint8>(text, textLength, &DerivedClass::toUint8Prefix, unsignedCharDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
@@ -1073,13 +1264,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Sint16Data(
         const ParserChar* text,
         size_t textLength,
-        sint16DataFunctionPtr shortDataFunction,
+        sint16DataFunctionPtr shortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const sint16*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( sint16 )
+#endif
         )
 	{
-		return characterData2Data<sint16, Utils::toSint16>(text, textLength, &DerivedClass::toSint16Prefix, shortDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<sint16, Utils::toSint16>(text, textLength, &DerivedClass::toSint16Prefix, shortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
@@ -1087,13 +1285,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Uint16Data(
         const ParserChar* text,
         size_t textLength,
-        uint16DataFunctionPtr unsignedShortDataFunction,
+        uint16DataFunctionPtr unsignedShortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const uint16*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( uint16 )
+#endif
         )
 	{
-		return characterData2Data<uint16, Utils::toUint16>(text, textLength, &DerivedClass::toUint16Prefix, unsignedShortDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<uint16, Utils::toUint16>(text, textLength, &DerivedClass::toUint16Prefix, unsignedShortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
@@ -1101,13 +1306,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Sint32Data(
         const ParserChar* text,
         size_t textLength,
-        sint32DataFunctionPtr intDataFunction,
+        sint32DataFunctionPtr intDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const sint32*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( sint32 )
+#endif
         )
 	{
-		return characterData2Data<sint32, Utils::toSint32>(text, textLength, &DerivedClass::toSint32Prefix, intDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<sint32, Utils::toSint32>(text, textLength, &DerivedClass::toSint32Prefix, intDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
@@ -1115,13 +1327,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Uint32Data(
         const ParserChar* text,
         size_t textLength,
-        uint32DataFunctionPtr unsignedIntDataFunction,
+        uint32DataFunctionPtr unsignedIntDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const uint32*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( uint32 )
+#endif
         )
 	{
-		return characterData2Data<uint32, Utils::toUint32>(text, textLength, &DerivedClass::toUint32Prefix, unsignedIntDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<uint32, Utils::toUint32>(text, textLength, &DerivedClass::toUint32Prefix, unsignedIntDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
@@ -1129,13 +1348,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Sint64Data(
         const ParserChar* text,
         size_t textLength,
-        sint64DataFunctionPtr longDataFunction,
+        sint64DataFunctionPtr longDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const sint64*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( sint64 )
+#endif
         )
 	{
-		return characterData2Data<sint64, Utils::toSint64>(text, textLength, &DerivedClass::toSint64Prefix, longDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<sint64, Utils::toSint64>(text, textLength, &DerivedClass::toSint64Prefix, longDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
@@ -1143,13 +1369,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Uint64Data(
         const ParserChar* text,
         size_t textLength,
-        uint64DataFunctionPtr unsignedLongDataFunction,
+        uint64DataFunctionPtr unsignedLongDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const uint64*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( uint64 )
+#endif
         )
 	{
-		return characterData2Data<uint64, Utils::toUint64>(text, textLength, &DerivedClass::toUint64Prefix, unsignedLongDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<uint64, Utils::toUint64>(text, textLength, &DerivedClass::toUint64Prefix, unsignedLongDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
@@ -1157,13 +1390,20 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2BoolData(
         const ParserChar* text,
         size_t textLength,
-        boolDataFunctionPtr boolDataFunction,
+        boolDataFunctionPtr boolDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const bool*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( bool )
+#endif
         )
 	{
-		return characterData2Data<bool, Utils::toBool>(text, textLength, &DerivedClass::toBoolPrefix, boolDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return characterData2Data<bool, Utils::toBool>(text, textLength, &DerivedClass::toBoolPrefix, boolDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 
@@ -1172,23 +1412,33 @@ namespace GeneratedSaxParser
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2StringData(
         const ParserChar* text,
         size_t textLength,
-        stringListDataFunctionPtr stringListDataFunction,
+        stringListDataFunctionPtr stringListDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const ParserString*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( ParserString )
+#endif
         )
     {
-        return characterData2Data<ParserString, Utils::toStringListItem>(text, textLength, &DerivedClass::toStringListPrefix, stringListDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+        return characterData2Data<ParserString, Utils::toStringListItem>(text, textLength, &DerivedClass::toStringListPrefix, stringListDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
     }
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	template<class DataType, DataType (*toData)( const ParserChar**, const ParserChar*, bool& )>
 	bool ParserTemplate<DerivedClass, ImplClass>::dataEnd(
-        bool ( ImplClass::*dataFunction ) ( const DataType*, size_t ),
+        bool ( ImplClass::*dataFunction ) ( const DataType*, size_t )
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const DataType*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( DataType )
+#endif
         )
 	{
 		if ( mLastIncompleteFragmentInCharacterData )
@@ -1218,6 +1468,7 @@ namespace GeneratedSaxParser
 					}
 				}
 			}
+#ifdef GENERATEDSAXPARSER_VALIDATION
             if ( !failed )
             {
                 if ( itemTypeValidationFunc != 0)
@@ -1256,7 +1507,7 @@ namespace GeneratedSaxParser
                     }
                 }
             }
-
+#endif
             if ( !failed )
                 (mImpl->*dataFunction)(&typedValue, 1);
 
@@ -1318,145 +1569,229 @@ namespace GeneratedSaxParser
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::stringListDataEnd(
-        stringListDataFunctionPtr stringListDataFunction,
+        stringListDataFunctionPtr stringListDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const ParserString*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( ParserString )
+#endif
         )
     {
-        return dataEnd<ParserString, Utils::toStringListItem>(stringListDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+        return dataEnd<ParserString, Utils::toStringListItem>(stringListDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::boolDataEnd(
-        boolDataFunctionPtr boolDataFunction,
+        boolDataFunctionPtr boolDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const bool*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( bool )
+#endif
         )
     {
-        return dataEnd<bool, Utils::toBool>(boolDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+        return dataEnd<bool, Utils::toBool>(boolDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
     }
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::floatDataEnd(
-        floatDataFunctionPtr floatDataFunction,
+        floatDataFunctionPtr floatDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const float*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( float )
+#endif
         )
 	{
-		return dataEnd<float, Utils::toFloat>(floatDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return dataEnd<float, Utils::toFloat>(floatDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::doubleDataEnd(
-        doubleDataFunctionPtr doubleDataFunction,
+        doubleDataFunctionPtr doubleDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const double*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( double )
+#endif
         )
     {
-        return dataEnd<double, Utils::toDouble>(doubleDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+        return dataEnd<double, Utils::toDouble>(doubleDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
     }
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::sint8DataEnd(
-        sint8DataFunctionPtr charDataFunction,
+        sint8DataFunctionPtr charDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const sint8*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( sint8 )
+#endif
         )
 	{
-		return dataEnd<sint8, Utils::toSint8>(charDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return dataEnd<sint8, Utils::toSint8>(charDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::uint8DataEnd(
-        uint8DataFunctionPtr unsignedCharDataFunction,
+        uint8DataFunctionPtr unsignedCharDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const uint8*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( uint8 )
+#endif
         )
 	{
-		return dataEnd<uint8, Utils::toUint8>(unsignedCharDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return dataEnd<uint8, Utils::toUint8>(unsignedCharDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::sint16DataEnd(
-        sint16DataFunctionPtr shortDataFunction,
+        sint16DataFunctionPtr shortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const sint16*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( sint16 )
+#endif
         )
 	{
-		return dataEnd<sint16, Utils::toSint16>(shortDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return dataEnd<sint16, Utils::toSint16>(shortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::uint16DataEnd(
-        uint16DataFunctionPtr unsignedShortDataFunction,
+        uint16DataFunctionPtr unsignedShortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const uint16*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( uint16 )
+#endif
         )
 	{
-		return dataEnd<uint16, Utils::toUint16>(unsignedShortDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return dataEnd<uint16, Utils::toUint16>(unsignedShortDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::sint32DataEnd(
-        sint32DataFunctionPtr intDataFunction,
+        sint32DataFunctionPtr intDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const sint32*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( sint32 )
+#endif
         )
 	{
-		return dataEnd<sint32, Utils::toSint32>(intDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return dataEnd<sint32, Utils::toSint32>(intDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::uint32DataEnd(
-        uint32DataFunctionPtr unsignedIntDataFunction,
+        uint32DataFunctionPtr unsignedIntDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const uint32*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( uint32 )
+#endif
         )
 	{
-		return dataEnd<uint32, Utils::toUint32>(unsignedIntDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return dataEnd<uint32, Utils::toUint32>(unsignedIntDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::sint64DataEnd(
-        sint64DataFunctionPtr longDataFunction,
+        sint64DataFunctionPtr longDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const sint64*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( sint64 )
+#endif
         )
 	{
-		return dataEnd<sint64, Utils::toSint64>(longDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return dataEnd<sint64, Utils::toSint64>(longDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::uint64DataEnd(
-        uint64DataFunctionPtr unsignedLongDataFunction,
+        uint64DataFunctionPtr unsignedLongDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*listValidationFunc)( const uint64*, size_t ),
         size_t* wholeListLength,
         ParserError::ErrorType (*itemTypeValidationFunc)( uint64 )
+#endif
         )
 	{
-		return dataEnd<uint64, Utils::toUint64>(unsignedLongDataFunction, listValidationFunc, wholeListLength, itemTypeValidationFunc);
+		return dataEnd<uint64, Utils::toUint64>(unsignedLongDataFunction
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , listValidationFunc, wholeListLength, itemTypeValidationFunc
+#endif
+            );
 	}
 
 
@@ -1511,6 +1846,14 @@ namespace GeneratedSaxParser
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::elementEnd(const ParserChar* elementName)
 	{
+        if ( !mNamespacesStack.empty() )
+        {
+            mNamespacesStack.top().counter--;
+            if ( mNamespacesStack.top().counter == 0 )
+            {
+                mNamespacesStack.pop();
+            }
+        }
         if ( mIgnoreElements > 0 )
         {
             mIgnoreElements--;
@@ -1538,7 +1881,6 @@ namespace GeneratedSaxParser
         if ( mElementDataStack.empty() )
             return false;
         ElementData elementData = mElementDataStack.back();
-        mElementDataStack.pop_back();
 
         const ElementFunctionMap* functionMapToUse;
         if ( mCurrentElementFunctionMap )
@@ -1547,13 +1889,21 @@ namespace GeneratedSaxParser
             functionMapToUse = &mElementFunctionMap;
         typename ElementFunctionMap::const_iterator it = functionMapToUse->find(elementData.generatedElementHash);
 		if ( it == functionMapToUse->end() )
+        {
+            mElementDataStack.pop_back();
 			return false;
+        }
 		const FunctionStruct& functions = it->second;
 
 		if ( !functions.validateEndFunction || !(static_cast<DerivedClass*>(this)->*functions.validateEndFunction)())
+        {
+            mElementDataStack.pop_back();
 			return false;
+        }
 
-		if ( !functions.endFunction || !(static_cast<DerivedClass*>(this)->*functions.endFunction)() )
+        mElementDataStack.pop_back();
+
+        if ( !functions.endFunction || !(static_cast<DerivedClass*>(this)->*functions.endFunction)() )
 			return false;
 
 		if ( elementData.validationData )
@@ -1568,6 +1918,11 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass, ImplClass>::elementBegin( const ParserChar* elementName,
 																   const ParserAttributes& attributes)
 	{
+        if ( (mIgnoreElements > 0 || mUnknownElements > 0 || mNamespaceElements > 0) 
+            && !mNamespacesStack.empty() )
+        {
+            mNamespacesStack.top().counter++;
+        }
         if ( mIgnoreElements > 0 )
         {
             mIgnoreElements++;
@@ -1592,12 +1947,38 @@ namespace GeneratedSaxParser
             return mActiveNamespaceHandler->elementBegin( hashPair.second, elementName, attributes.attributes );
         }
 
+        if ( isDifferentNamespaceAllowed() )
+        {
+            parseNamespaceDeclarations( attributes );
+        }
         ElementData newElementData;
-        newElementData.elementHash = Utils::calculateStringHash(elementName);
+        StringHashPair elementNsPair = Utils::calculateStringHashWithNamespace(elementName);
+        newElementData.elementHash = elementNsPair.second;
+        StringHash currentNsPrefix = elementNsPair.first;
+        StringHash namespaceHash = 0;
+        if ( !mNamespacesStack.empty() )
+        {
+            mNamespacesStack.top().counter++;
+            typename NamespacePrefixesMap::iterator nsIter = mNamespacesStack.top().namespaces.find( currentNsPrefix );
+            if ( nsIter != mNamespacesStack.top().namespaces.end() )
+            {
+                namespaceHash = nsIter->second;
+            }
+        }
         newElementData.generatedElementHash = 0;
         newElementData.typeID = 0;
         newElementData.validationData = 0;
         bool foundElementHash = findElementHash( newElementData );
+
+        bool correctNamespace = false;
+        if ( foundElementHash )
+        {
+            typename NamespacePrefixesMap::const_iterator nsFromMap = mElementToNamespaceMap.find( newElementData.generatedElementHash );
+            if ( nsFromMap != mElementToNamespaceMap.end() && nsFromMap->second == namespaceHash )
+            {
+                correctNamespace = true;
+            }
+        }
 
         const ElementFunctionMap* functionMapToUse;
         if ( mCurrentElementFunctionMap )
@@ -1605,21 +1986,16 @@ namespace GeneratedSaxParser
         else
             functionMapToUse = &mElementFunctionMap;
         typename ElementFunctionMap::const_iterator it = functionMapToUse->end();
-        if ( foundElementHash )
+        if ( foundElementHash && (correctNamespace || mLaxNamespaceHandling) )
             it = functionMapToUse->find(newElementData.generatedElementHash);
 		if ( it == functionMapToUse->end() )
 		{
-            StringHashPair hashPair = Utils::calculateStringHashWithNamespace( elementName );
-            if ( hashPair.first != 0 )
+            INamespaceHandler* nsHandler = mNamespaceHandlers[ namespaceHash ];
+            if ( nsHandler != 0 )
             {
-                StringHash nsHash = mNamespaces[ hashPair.first ];
-                INamespaceHandler* nsHandler = mNamespaceHandlers[ nsHash ];
-                if ( nsHandler != 0 )
-                {
-                    mActiveNamespaceHandler = nsHandler;
-                    mNamespaceElements = 1;
-                    return nsHandler->elementBegin( hashPair.second, elementName, attributes.attributes );
-                }
+                mActiveNamespaceHandler = nsHandler;
+                mNamespaceElements = 1;
+                return nsHandler->elementBegin( newElementData.elementHash, elementName, attributes.attributes );
             }
             if ( isXsAnyAllowed( newElementData.elementHash ) )
             {
@@ -1628,7 +2004,7 @@ namespace GeneratedSaxParser
             else
             {
                 it = mElementFunctionMap.find(newElementData.elementHash);
-                if ( it != mElementFunctionMap.end() )
+                if ( it != mElementFunctionMap.end() && correctNamespace )
                 {
                     mIgnoreElements = 1;
                 }
@@ -1702,133 +2078,229 @@ namespace GeneratedSaxParser
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2StringList(const ParserChar* text,
-        XSList<ParserString>& list,
+        XSList<ParserString>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(ParserString),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<ParserString, Utils::toStringListItem>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<ParserString, Utils::toStringListItem>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2BoolList(const ParserChar* text,
-        XSList<bool>& list,
+        XSList<bool>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(bool),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<bool, Utils::toBool>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<bool, Utils::toBool>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2FloatList(const ParserChar* text,
-        XSList<float>& list,
+        XSList<float>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(float),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<float, Utils::toFloat>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<float, Utils::toFloat>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2DoubleList(const ParserChar* text,
-        XSList<double>& list,
+        XSList<double>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(double),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<double, Utils::toDouble>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<double, Utils::toDouble>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2Sint8List(const ParserChar* text,
-        XSList<sint8>& list,
+        XSList<sint8>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(sint8),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<sint8, Utils::toSint8>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<sint8, Utils::toSint8>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2Sint16List(const ParserChar* text,
-        XSList<sint16>& list,
+        XSList<sint16>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(sint16),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<sint16, Utils::toSint16>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<sint16, Utils::toSint16>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2Sint32List(const ParserChar* text,
-        XSList<sint32>& list,
+        XSList<sint32>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(sint32),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<sint32, Utils::toSint32>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<sint32, Utils::toSint32>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2Sint64List(const ParserChar* text,
-        XSList<sint64>& list,
+        XSList<sint64>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(sint64),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<sint64, Utils::toSint64>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<sint64, Utils::toSint64>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2Uint8List(const ParserChar* text,
-        XSList<uint8>& list,
+        XSList<uint8>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(uint8),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<uint8, Utils::toUint8>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<uint8, Utils::toUint8>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2Uint16List(const ParserChar* text,
-        XSList<uint16>& list,
+        XSList<uint16>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(uint16),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<uint16, Utils::toUint16>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<uint16, Utils::toUint16>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2Uint32List(const ParserChar* text,
-        XSList<uint32>& list,
+        XSList<uint32>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(uint32),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<uint32, Utils::toUint32>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<uint32, Utils::toUint32>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
     bool ParserTemplate<DerivedClass, ImplClass>::characterData2Uint64List(const ParserChar* text,
-        XSList<uint64>& list,
+        XSList<uint64>& list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+        ,
         ParserError::ErrorType (*itemTypeValidationFunc)(uint64),
         StringHash elementHash,
-        StringHash attributeHash)
+        StringHash attributeHash
+#endif
+        )
     {
-        return characterData2List<uint64, Utils::toUint64>(text, list, itemTypeValidationFunc, elementHash, attributeHash);
+        return characterData2List<uint64, Utils::toUint64>(text, list
+#ifdef GENERATEDSAXPARSER_VALIDATION
+            , itemTypeValidationFunc, elementHash, attributeHash
+#endif
+            );
     }
 
 
@@ -1849,6 +2321,54 @@ namespace GeneratedSaxParser
         mNamespaceHandlers.erase( namespaceHash );
     }
 
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    void ParserTemplate<DerivedClass, ImplClass>::parseNamespaceDeclarations( const ParserAttributes& attributes )
+    {
+        const ParserChar** attributeArray = attributes.attributes;
+        if ( attributeArray )
+        {
+            NamespaceStackFrame stackFrame;
+            if ( !mNamespacesStack.empty() )
+            {
+                const NamespaceStackFrame& topElement = mNamespacesStack.top();
+                typename NamespacePrefixesMap::const_iterator it = topElement.namespaces.begin();
+                for (; it != topElement.namespaces.end(); ++it)
+                {
+                    stackFrame.namespaces.insert(*it);
+                }
+            }
+            while (true)
+            {
+                const ParserChar * attribute = *attributeArray;
+                if ( !attribute )
+                    break;
+                StringHashPair hashPair = GeneratedSaxParser::Utils::calculateStringHashWithNamespace(attribute);
+                attributeArray++;
+                if ( !attributeArray )
+                    return;
+                const ParserChar* attributeValue = *attributeArray;
+                attributeArray++;
+
+                StringHash prefix = hashPair.first;
+                StringHash name = hashPair.second;
+                if ( prefix == 0 && name == XML_ATTRIBUTE_XMLNS_HASH )
+                {
+                    // set default namespace
+                    stackFrame.namespaces[ 0 ] = GeneratedSaxParser::Utils::calculateStringHash( attributeValue );
+                }
+                else if ( prefix == XML_ATTRIBUTE_XMLNS_HASH )
+                {
+                    // set namespace with prefix
+                    stackFrame.namespaces[ name ] = GeneratedSaxParser::Utils::calculateStringHash( attributeValue );
+                }
+            }
+            if ( !stackFrame.namespaces.empty() )
+            {
+                mNamespacesStack.push( stackFrame );
+            }
+        }
+    }
 
 } // namespace GeneratedSaxParser
 

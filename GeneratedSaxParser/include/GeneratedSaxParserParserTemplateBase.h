@@ -446,7 +446,10 @@ namespace GeneratedSaxParser
         ParserChar* newBufferPostParse = newBuffer;
         DataType value = toData( (const ParserChar**)&newBufferPostParse, newBuffer + newBufferSize + 1, failed);
         *buffer += (newBufferPostParse - newBuffer - prefixBufferSize);
-        mStackMemoryManager.deleteObject();
+
+        // see comment in overloaded method
+        //mStackMemoryManager.deleteObject();
+
         return value;
     }
 

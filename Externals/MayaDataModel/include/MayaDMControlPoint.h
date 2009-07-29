@@ -278,7 +278,7 @@ public:
 	}
 	void setRepresentation(size_t clst_i,unsigned int rprt)
 	{
-		if(rprt == 3) return;
+		if(rprt == 2) return;
 		fprintf(mFile,"\tsetAttr \".clst[%i].rprt\" %i;\n", clst_i,rprt);
 	}
 	void setColorSetPoints(size_t clst_i,size_t clsp_i,const ColorSet::ColorSetPoints& clsp)

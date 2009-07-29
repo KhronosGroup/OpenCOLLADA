@@ -13,7 +13,8 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLTypes.h"
-#include "COLLADASaxFWLColladaParserAutoGen.h"
+#include "COLLADASaxFWLSaxFWLError.h"
+#include "COLLADASaxFWLXmlTypes.h"
 
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWExtraData.h"
@@ -23,6 +24,16 @@
 #include <map>
 
 
+namespace COLLADASaxFWL14
+{
+    class ColladaParserAutoGen14;
+    class ColladaParserAutoGen14Private;
+}
+namespace COLLADASaxFWL15
+{
+    class ColladaParserAutoGen15;
+    class ColladaParserAutoGen15Private;
+}
 namespace COLLADAFW
 {
 	class IWriter;
@@ -44,12 +55,19 @@ namespace COLLADASaxFWL
 	class GeometryMaterialIdInfo;
 	class SidTreeNode;
 	class SidAddress;
+    class RootParser14;
+    class RootParser15;
+    class IParserImpl;
+	class Targetable;
 
     /** Base class for all loaders that load parts of files or entire files */
-	class IFilePartLoader : protected ColladaParserAutoGen
+    class IFilePartLoader
 	{
 	public:
-		/** Data that needs to be store, intermediately, to assign controllers. One struct for each 
+        friend class RootParser14;
+        friend class RootParser15;
+
+        /** Data that needs to be store, intermediately, to assign controllers. One struct for each 
 		instance controller.*/
 		struct InstanceControllerData
 		{
@@ -78,7 +96,10 @@ namespace COLLADASaxFWL
 		/** The name of the profile of the last parsed technique element.*/
 		String mTechniqueProfileName;
 
-	public:
+        /** Object derived from a generated parser. */
+        IParserImpl* mParserImpl;
+
+    public:
 
 		/** Returns a pointer to the collada loader. */
 		virtual Loader* getColladaLoader() =0;
@@ -94,6 +115,22 @@ namespace COLLADASaxFWL
 
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer();
+
+		/** Reports an error to the error handler. If this method returns true, the 
+		loader stops parsing immediately. If severity is not CRITICAL and this method 
+		returns true, the loader continues loading. */
+		bool handleFWLError( const SaxFWLError& saxFWLError );
+
+		/** Reports an error to the error handler. If this method returns true, the 
+		loader stops parsing immediately. If severity is not CRITICAL and this method 
+		returns true, the loader continues loading. 
+		@param errorType The type of the error.
+		@param errorMessage The error message describing the error.
+		@param reportLineAndColumnNumber If true, the current line and number of the xml parser are set.
+		@param severity The severity of the error. */
+		bool handleFWLError( SaxFWLError::ErrorType errorType, 
+			              String errorMessage,
+			              IError::Severity severity = IError::SEVERITY_ERROR_NONCRITICAL );
 
 		/** Returns the COLLADAFW::UniqueId of the element with uri @a uriString. If the uri has been
 		passed to this method before, the same 	COLLADAFW::UniqueId will be returned, if not, a
@@ -182,6 +219,14 @@ namespace COLLADASaxFWL
 		*/
 		void addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target );
 
+		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
+		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
+		is closed.
+		@param id The id of the element. Might be 0;
+		@param sid The sid of the element. Might be 0;
+		@param target The target assigned to the sid tree node
+		*/
+		void addToSidTree( const char* colladaId, const char* colladaSid, Targetable* target );
 
 		/** Moves one node up in the sid tree. Call this method whenever an element, for which addToSidTree() was
 		called, is closed.*/
@@ -225,8 +270,15 @@ namespace COLLADASaxFWL
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
 		void setMeAsParser();
 
-		/** Sets the parser to @a parserToBeSet.*/
-		virtual void setParser(IFilePartLoader* parserToBeSet)=0;
+        /** Sets the parser to @a parserToBeSet.*/
+        virtual void setParser( COLLADASaxFWL14::ColladaParserAutoGen14* parserToBeSet )=0;
+        /** Sets the parser to @a parserToBeSet.*/
+        virtual void setParser( COLLADASaxFWL15::ColladaParserAutoGen15* parserToBeSet )=0;
+
+        /** Sets abstract parser implementation. */
+        void setParserImpl( IParserImpl* parserImpl ){mParserImpl = parserImpl;}
+        /** Returns currently set parser implementation. */
+        IParserImpl* getParserImpl(){return mParserImpl;}
 
 		/** Sets the part loader.*/
 		void setPartLoader(IFilePartLoader* partLoader){mPartLoader=partLoader;}

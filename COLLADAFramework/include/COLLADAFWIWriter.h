@@ -30,6 +30,7 @@ namespace COLLADAFW
 	class AnimationList;
 	class SkinControllerData;
 	class Controller;
+    class Formulas;
 
 
 	/** Class that needs to be implemented by a writer. 
@@ -113,9 +114,9 @@ namespace COLLADAFW
 
 		/** When this method is called, the writer must write the controller.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
-		virtual bool writeController( const Controller* Controller ) = 0;
+		virtual bool writeController( const Controller* controller ) = 0;
 
-	private:
+    private:
 
         /** Disable default copy ctor. */
 		IWriter ( const IWriter& pre );

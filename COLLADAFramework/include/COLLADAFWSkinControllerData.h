@@ -16,6 +16,7 @@
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
+#include "COLLADAFWExtraData.h"
 
 #include "Math/COLLADABUMathMatrix4.h"
 
@@ -23,7 +24,7 @@ namespace COLLADAFW
 {
 
     /** Holds the data of a skin controller, i.e. the weights per vertex per joint */
-	class SkinControllerData : public ObjectTemplate<COLLADA_TYPE::SKIN_DATA>	
+	class SkinControllerData : public ObjectTemplate<COLLADA_TYPE::SKIN_DATA>, public ExtraData
 	{
 	private:
 
@@ -76,6 +77,12 @@ namespace COLLADAFW
         * The original object id, if it in the original file format exist. 
         */
         void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+
+        /** Returns name of the controller.*/
+        const COLLADAFW::String& getName() const { return mName; }
+
+        /** Sets name of the controller.*/
+        void setName(const COLLADAFW::String& name) { mName = name; }
 
 		/** Provides extra information about the position and orientation of the base mesh before binding.*/
 		const COLLADABU::Math::Matrix4& getBindShapeMatrix() const { return mBindShapeMatrix; }

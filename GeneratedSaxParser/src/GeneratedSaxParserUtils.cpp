@@ -12,6 +12,7 @@
 #include <math.h>
 #include <memory>
 #include <string.h>
+#include <limits>
 
 namespace GeneratedSaxParser
 {
@@ -206,7 +207,24 @@ namespace GeneratedSaxParser
 			}
 		}
 
-		double value = 0.0;
+        // check for 'NaN'
+        if ( s[0] == 'N' && s[1] == 'a' && s[2] == 'N' )
+        {
+            if ( &s[3] == bufferEnd || isWhiteSpace(s[3]) )
+            {
+                *buffer = s + 3;
+                failed = false;
+                return std::numeric_limits<FloatingPointType>::quiet_NaN();
+            }
+            else
+            {
+                *buffer = s;
+                failed = true;
+                return 0;
+            }
+        }
+
+        double value = 0.0;
 		FloatingPointType sign = 1.0;
 		if (*s == '-')
 		{
@@ -218,7 +236,24 @@ namespace GeneratedSaxParser
 			++s;
 		}
 
-		FloatingPointType decimals = 0.0;
+        // check for 'INF', '+INF', '-INF'
+        if ( s[0] == 'I' && s[1] == 'N' && s[2] == 'F' )
+        {
+            if ( &s[3] == bufferEnd || isWhiteSpace(s[3]) )
+            {
+                *buffer = s + 3;
+                failed = false;
+                return sign * std::numeric_limits<FloatingPointType>::infinity();
+            }
+            else
+            {
+                *buffer = s;
+                failed = true;
+                return 0;
+            }
+        }
+
+        FloatingPointType decimals = 0.0;
 		int exponent = 0;
 		bool infinity = false;
 		bool charBeforeDecimalPoint = false;
@@ -340,7 +375,22 @@ namespace GeneratedSaxParser
 			}
 		}
 
-		double value = 0.0;
+        // check for 'NaN'
+        if ( s[0] == 'N' && s[1] == 'a' && s[2] == 'N' )
+        {
+            if ( s[3] == '\0' || isWhiteSpace(s[3]) )
+            {
+                failed = false;
+                return std::numeric_limits<FloatingPointType>::quiet_NaN();
+            }
+            else
+            {
+                failed = true;
+                return 0;
+            }
+        }
+
+        double value = 0.0;
 		FloatingPointType sign = 1.0;
 		if (*s == '-')
 		{
@@ -352,7 +402,22 @@ namespace GeneratedSaxParser
 			++s;
 		}
 
-		FloatingPointType decimals = 0.0;
+        // check for 'INF', '+INF', '-INF'
+        if ( s[0] == 'I' && s[1] == 'N' && s[2] == 'F' )
+        {
+            if ( s[3] == '\0' || isWhiteSpace(s[3]) )
+            {
+                failed = false;
+                return sign * std::numeric_limits<FloatingPointType>::infinity();
+            }
+            else
+            {
+                failed = true;
+                return 0;
+            }
+        }
+
+        FloatingPointType decimals = 0.0;
 		int exponent = 0;
 		bool infinity = false;
 		bool charBeforeDecimalPoint = false;
@@ -460,6 +525,23 @@ namespace GeneratedSaxParser
             }
         }
 
+        // check for 'NaN'
+        if ( s[0] == 'N' && s[1] == 'a' && s[2] == 'N' )
+        {
+            if ( s[3] == '\0' || isWhiteSpace(s[3]) )
+            {
+                *buffer = s + 3;
+                failed = false;
+                return std::numeric_limits<FloatingPointType>::quiet_NaN();
+            }
+            else
+            {
+                *buffer = s;
+                failed = true;
+                return 0;
+            }
+        }
+
         double value = 0.0;
         FloatingPointType sign = 1.0;
         if (*s == '-')
@@ -470,6 +552,23 @@ namespace GeneratedSaxParser
         else if (*s == '+')
         {
             ++s;
+        }
+
+        // check for 'INF', '+INF', '-INF'
+        if ( s[0] == 'I' && s[1] == 'N' && s[2] == 'F' )
+        {
+            if ( s[3] == '\0' || isWhiteSpace(s[3]) )
+            {
+                *buffer = s + 3;
+                failed = false;
+                return sign * std::numeric_limits<FloatingPointType>::infinity();
+            }
+            else
+            {
+                *buffer = s;
+                failed = true;
+                return 0;
+            }
         }
 
         FloatingPointType decimals = 0.0;
@@ -1430,5 +1529,65 @@ namespace GeneratedSaxParser
         return false;
     }
 
+    //--------------------------------------------------------------------
+    template<typename T>
+    bool GeneratedSaxParser::Utils::isInf( T value )
+    {
+        return value == std::numeric_limits<T>::infinity();
+    }
+
+    //--------------------------------------------------------------------
+    template<typename T>
+    bool GeneratedSaxParser::Utils::isNegativeInf( T value )
+    {
+        return value == -std::numeric_limits<T>::infinity();
+    }
+
+    //--------------------------------------------------------------------
+    template<typename T>
+    bool GeneratedSaxParser::Utils::isNaN( T value )
+    {
+#ifdef COLLADABU_OS_WIN
+        return _isnan( value ) ? true : false;
+#else
+        return isnan( value );
+#endif
+    }
+
+    //--------------------------------------------------------------------
+    bool Utils::isInf( float value )
+    {
+        return isInf<float>( value );
+    }
+
+    //--------------------------------------------------------------------
+    bool Utils::isInf( double value )
+    {
+        return isInf<double>( value );
+    }
+
+    //--------------------------------------------------------------------
+    bool Utils::isNegativeInf( float value )
+    {
+        return isNegativeInf<float>( value );
+    }
+
+    //--------------------------------------------------------------------
+    bool Utils::isNegativeInf( double value )
+    {
+        return isNegativeInf<double>( value );
+    }
+
+    //--------------------------------------------------------------------
+    bool Utils::isNaN( float value )
+    {
+        return isNaN<float>( value );
+    }
+
+    //--------------------------------------------------------------------
+    bool Utils::isNaN( double value )
+    {
+        return isNaN<double>( value );
+    }
 
 } // namespace GeneratedSaxParser

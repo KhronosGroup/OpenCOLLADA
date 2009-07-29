@@ -145,7 +145,7 @@ namespace COLLADAFW
 		*/
 		FloatOrParam mIndexOfRefraction;
 
-		/** All the samplers used as texture in the CommanEffect.*/
+		/** All the samplers used as texture in the CommonEffect.*/
 		SamplerPointerArray mSamplers;
 
 	public:

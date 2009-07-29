@@ -29,7 +29,7 @@ namespace COLLADASW
     //------------------------------
     bool Texture::isValid() const
     {
-        return ( !mImageID.empty() ) && ( mSurface.getSurfaceType() != Surface::SURFACE_TYPE_UNSPECIFIED );
+        return ( !mImageID.empty() ) && ( mSampler.getSamplerType() != Sampler::SAMPLER_TYPE_UNSPECIFIED );
     }
 
     //------------------------------
@@ -57,7 +57,8 @@ namespace COLLADASW
     }
 
     //------------------------------
-    const Surface& Texture::getSurface() const
+#if 0
+	const Surface& Texture::getSurface() const
     {
         return mSurface;
     }
@@ -67,7 +68,7 @@ namespace COLLADASW
     {
         mSurface = surface;
     }
-
+#endif
     //------------------------------
     const Sampler& Texture::getSampler() const
     {
@@ -75,7 +76,7 @@ namespace COLLADASW
     }
 
     //------------------------------
-    void Texture::setSampler( const Sampler& val )
+    void Texture::setSampler ( const Sampler& val )
     {
         mSampler = val;
     }
@@ -83,13 +84,19 @@ namespace COLLADASW
     //------------------------------
     COLLADASW::String Texture::getSamplerSid() const
     {
-        return mImageID + Sampler::SAMPLER_SID_SUFFIX;
+        if ( COLLADABU::Utils::equals ( mSampler.getSamplerSid (), COLLADABU::Utils::EMPTY_STRING ) )
+            return mImageID + Sampler::SAMPLER_SID_SUFFIX;
+
+        return mSampler.getSamplerSid ();
     }
 
     //------------------------------
     COLLADASW::String Texture::getSurfaceSid() const
     {
-        return mSurface.getSurfaceSid();
+        if ( COLLADABU::Utils::equals ( mSampler.getSurfaceSid (), COLLADABU::Utils::EMPTY_STRING ) )
+            return mImageID + Sampler::SURFACE_SID_SUFFIX;
+
+        return mSampler.getSurfaceSid ();
     }
 
     //------------------------------

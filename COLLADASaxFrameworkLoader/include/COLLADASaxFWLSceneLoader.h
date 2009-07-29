@@ -13,6 +13,7 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLFilePartLoader.h"
+#include "COLLADASaxFWLXmlTypes.h"
 
 #include "COLLADAFWInstanceVisualScene.h"
 #include "COLLADAFWScene.h"
@@ -22,7 +23,7 @@ namespace COLLADASaxFWL
 {
 
     /** TODO Documentation */
-	class SceneLoader : public FilePartLoader 
+	class SceneLoader : public FilePartLoader
     {
 	private:
 	

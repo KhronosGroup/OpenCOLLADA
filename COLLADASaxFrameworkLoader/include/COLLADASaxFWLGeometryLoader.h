@@ -13,6 +13,7 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLSource.h"
+#include "COLLADASaxFWLXmlTypes.h"
 
 #include "COLLADASaxFWLFilePartLoader.h"
 

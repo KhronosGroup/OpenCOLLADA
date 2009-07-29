@@ -33,20 +33,41 @@ namespace COLLADAFW
 		/** Type of the controller.*/
 		ControllerType mControllerType;
 	
+        /** The unique id of the source that gets modified by this controller. Must be a mesh or a 
+        morph controller. The vertex count of the source must be equal to the vertex count of the skin 
+        controller.*/
+        UniqueId mSource;
+
+    protected:
+        /** Constructor. */
+        Controller( ObjectId objectId, ControllerType controllerType )
+            : ObjectTemplate<COLLADA_TYPE::CONTROLLER>(objectId)
+            , mControllerType(controllerType)
+        {}
+
+        /** Constructor. */
+        Controller( ObjectId objectId, ControllerType controllerType, UniqueId source )
+            : ObjectTemplate<COLLADA_TYPE::CONTROLLER>(objectId)
+            , mControllerType(controllerType)
+            , mSource(source)
+        {}
+
 	public:
         /** Destructor. */
 		virtual ~Controller(){}
 
-	public:
 		/** Type of the controller.*/
 		ControllerType getControllerType() const { return mControllerType; }
 
-	protected:
-		/** Constructor. */
-		Controller( ObjectId objectId, ControllerType controllerType)
-			: ObjectTemplate<COLLADA_TYPE::CONTROLLER>(objectId)
-			, mControllerType(controllerType)
-		{}
+        /** Returns the unique id of the source that gets modified by this controller. Must be a mesh or a 
+        controller. The vertex count of the source must be equal to the vertex count of the skin 
+        controller.*/
+        const COLLADAFW::UniqueId& getSource() const { return mSource; }
+
+        /** Sets the unique id of the source that gets modified by this controller. Must be a mesh or a 
+        controller. The vertex count of the source must be equal to the vertex count of the skin 
+        controller.*/
+        void setSource( const COLLADAFW::UniqueId& source) { mSource = source; }
 
 	};
 

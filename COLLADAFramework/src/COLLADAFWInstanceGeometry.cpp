@@ -54,6 +54,12 @@ namespace COLLADAFW
 	}
 
 	
+	// ----------------------------------
+	InstanceGeometry::InstanceGeometry()
+		: InstanceSceneGraph()
+	{
+	}
+
     // ----------------------------------
 	InstanceGeometry::InstanceGeometry( UniqueId instanciatedGeometryId )
 		: InstanceSceneGraph(instanciatedGeometryId)

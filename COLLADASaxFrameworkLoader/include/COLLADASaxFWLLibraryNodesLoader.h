@@ -48,6 +48,8 @@ namespace COLLADASaxFWL
 		/** Appends the root node to the array of root nodes of the visual scene,*/
 		void handleRootNode( COLLADAFW::Node* rootNode );
 
+    public:
+
 		/** Sax callback function for the beginning of nodes, as child of a library nodes.*/
 		virtual bool begin__node( const node__AttributeData& attributeData );
 

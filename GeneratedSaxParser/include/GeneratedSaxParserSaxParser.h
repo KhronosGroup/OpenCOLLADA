@@ -18,7 +18,7 @@ namespace GeneratedSaxParser
 {
 	class Parser;
 
-	class SaxParser 	
+	class SaxParser
 	{
 
 	private:
@@ -33,6 +33,7 @@ namespace GeneratedSaxParser
 		virtual size_t getColumnNumer()const=0;
 
 		Parser* getParser(){return mParser;}
+        void setParser( Parser* parser );
 
 	private:
         /** Disable default copy ctor. */

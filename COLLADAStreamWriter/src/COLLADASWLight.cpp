@@ -20,8 +20,8 @@ namespace COLLADASW
         StreamWriter* streamWriter, 
         const String& lightId, 
         const LightType& lightType, 
-        const float intensity, 
-        const String& lightName )
+        const String& lightName, 
+        const float intensity )
     : ElementWriter ( streamWriter )
     , BaseExtraTechnique ( )
     , mLightId ( lightId )

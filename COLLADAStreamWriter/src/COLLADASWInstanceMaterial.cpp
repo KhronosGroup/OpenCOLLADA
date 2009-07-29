@@ -19,11 +19,32 @@ namespace COLLADASW
     {
         for ( List::iterator it = mList.begin(); it != mList.end(); ++it )
         {
-            mSW->openElement ( CSWC::CSW_ELEMENT_INSTANCE_MATERIAL );
-            mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_SYMBOL, it->getSymbol() );
-            mSW->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_TARGET, it->getTarget() );
-            mSW->closeElement();
+			it->add( mSW );
         }
     }
 
+
+	//---------------------------------------------------------------
+	void InstanceMaterial::add( StreamWriter* sw )
+	{
+		sw->openElement ( CSWC::CSW_ELEMENT_INSTANCE_MATERIAL );
+		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_SYMBOL, getSymbol() );
+		sw->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_TARGET, getTarget() );
+		for ( BindVertexInputList::iterator it = mBindVertexInputList.begin(); it != mBindVertexInputList.end(); ++it)
+		{
+			it->add( sw );
+		}
+
+		sw->closeElement();
+	}
+
+	//---------------------------------------------------------------
+	void BindVertexInput::add( StreamWriter* sw )
+	{
+		sw->openElement ( CSWC::CSW_ELEMENT_INSTANCE_MATERIAL );
+		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_SEMANTIC, getSemantic() );
+		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_INPUT_SEMANTIC, getInputSemantic() );
+		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_INPUT_SET, getInputSet() );
+		sw->closeElement();
+	}
 } //namespace COLLADASW

@@ -47,4 +47,11 @@ namespace COLLADABU
         return returnConverted ? idCandidate : newId + "_" + Utils::toString ( numberSuffix );
     }
 
+    //-------------------------------------
+    bool IDList::containsId ( const String& id )
+    {
+        if ( mIdSet.find ( id ) == mIdSet.end () ) return false;
+        return true;
+    }
+
 } // namespace COLLADABU

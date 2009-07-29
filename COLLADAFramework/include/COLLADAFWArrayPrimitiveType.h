@@ -1,11 +1,11 @@
 /*
-    Copyright (c) 2008-2009 NetAllied Systems GmbH
+Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+This file is part of COLLADAFramework.
 
-    Licensed under the MIT Open Source License,
-    for details please see LICENSE file or the website
-    http://www.opensource.org/licenses/mit-license.php
+Licensed under the MIT Open Source License,
+for details please see LICENSE file or the website
+http://www.opensource.org/licenses/mit-license.php
 */
 
 #ifndef __COLLADAFW_ARRAYPRIMITIVETYPE_H__
@@ -19,13 +19,13 @@
 namespace COLLADAFW
 {
 	/**
-    Array template that simplifies handling of C-arrays.
-    The memory will be allocated with malloc, freed with free and resized with realloc.
-    Don't take this class for other data types then the primitives data types, because no
-    constructors and destructors will be called!
-    */
+	Array template that simplifies handling of C-arrays.
+	The memory will be allocated with malloc, freed with free and resized with realloc.
+	Don't take this class for other data types then the primitives data types, because no
+	constructors and destructors will be called!
+	*/
 	template<class Type>
-    class ArrayPrimitiveType
+	class ArrayPrimitiveType
 	{
 	public:
 		/** Flags to control the behavior of the array.*/
@@ -69,13 +69,13 @@ namespace COLLADAFW
 
 	public:
 
-        /** Constructor. */
-        ArrayPrimitiveType()
+		/** Constructor. */
+		ArrayPrimitiveType()
 			: mData (0)
 			, mCount (0)
 			, mCapacity (0)
 			, mFlags(DEFAULT_CONSTRUCTOR_FLAGS)
-        {}
+		{}
 
 
 		/** Constructor. */
@@ -86,11 +86,11 @@ namespace COLLADAFW
 			, mFlags(flags)
 		{}
 
-        /** Destructor. */
-        ~ArrayPrimitiveType ()
-        {
+		/** Destructor. */
+		~ArrayPrimitiveType ()
+		{
 			clear();
-        }
+		}
 
 		/** Clears the array, i.e. releasese memory if nescesary and reset all members.*/
 		void clear()
@@ -135,40 +135,40 @@ namespace COLLADAFW
 		void setCapacity ( const size_t capacity ) { mCapacity = capacity; }
 
 		/** Allocates memory for @a size elements of type DataType.
-        Must not be called more than once, without calling releaseMemory() in between.
+		Must not be called more than once, without calling releaseMemory() in between.
 		The memory must be released using releaseMemory().
 		@param size The size of the array
 		@param flags Flags that allow to control, how the memory should be released.*/
 		void allocMemory ( size_t capacity, int flags = DEFAULT_ALLOC_FLAGS )
-        {
+		{
 			if ( capacity == 0 )
 				setData ( 0, 0, 0 );
 			else
 				setData ( ( Type* ) ( malloc ( capacity * sizeof (Type) ) ), 0, capacity );
 			mFlags |= flags;
-        }
+		}
 
 		/** Releases the memory that has been allocated by allocateMemory().
-        Must not be called, if the memory has not been allocated by allocateMemory().*/
+		Must not be called, if the memory has not been allocated by allocateMemory().*/
 		void releaseMemory ()
-        {
+		{
 			free ( mData );
 			setData ( 0, 0, 0 );
-        }
+		}
 
-        /**
-        * Increases the capacity of the array, if necessary, to ensure that it can hold at least
-        * the number of elements specified by the minimum capacity argument.
-        * @param minCapacity the desired minimum capacity
-        */
-        void reallocMemory ( size_t minCapacity )
-        {
+		/**
+		* Increases the capacity of the array, if necessary, to ensure that it can hold at least
+		* the number of elements specified by the minimum capacity argument.
+		* @param minCapacity the desired minimum capacity
+		*/
+		void reallocMemory ( size_t minCapacity )
+		{
 			if ( minCapacity <= mCapacity)
 				return;
-            size_t newCapacity = ( mCapacity * 3 ) / 2 + 1;
-            if (newCapacity < minCapacity)
-                newCapacity = minCapacity;
-            mCapacity = newCapacity;
+			size_t newCapacity = ( mCapacity * 3 ) / 2 + 1;
+			if (newCapacity < minCapacity)
+				newCapacity = minCapacity;
+			mCapacity = newCapacity;
 
 			if ( mData )
 			{
@@ -180,24 +180,24 @@ namespace COLLADAFW
 			{
 				allocMemory(newCapacity, mFlags);
 			}
-        }
+		}
 
 		/** Appends @a newValue to the end of array. If not enough memory was allocated, a resize
-        of the array will be done! */
+		of the array will be done! */
 		Type& append ( const Type& newValue )
-        {
-            if ( mCount >= mCapacity )
+		{
+			if ( mCount >= mCapacity )
 				reallocMemory (mCount + 1);
 
-            return mData [ mCount++ ] = newValue;
-        }
+			return mData [ mCount++ ] = newValue;
+		}
 
-        /** Appends @a newValue to the end of array. If not enough memory was allocated,
-        a resize of the array will be done! */
-        ArrayPrimitiveType<Type>* appendValues ( const ArrayPrimitiveType<Type>& valuesArray )
-        {
+		/** Appends @a newValue to the end of array. If not enough memory was allocated,
+		a resize of the array will be done! */
+		ArrayPrimitiveType<Type>* appendValues ( const ArrayPrimitiveType<Type>& valuesArray )
+		{
 			return appendValues(valuesArray.getData(), valuesArray.getCount());
-        }
+		}
 
 
 		/** Appends @a newValue to the end of array. If not enough memory was allocated,
@@ -250,6 +250,8 @@ namespace COLLADAFW
 		{
 			mFlags &= ~OWNER;
 		}
+
+	private:
 
 		/** Disable default copy ctor. */
 		ArrayPrimitiveType ( const ArrayPrimitiveType<Type>& pre );

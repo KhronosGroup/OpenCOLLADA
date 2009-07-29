@@ -8,7 +8,7 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "COLLADASWSurface.h"
+//#include "COLLADASWSurface.h"
 #include "COLLADASWConstants.h"
 
 namespace COLLADASW
@@ -67,9 +67,14 @@ namespace COLLADASW
         getInitOption ().add ( sw );
 
         if ( !mFormat.empty() )
+		{
             sw->appendTextElement ( CSWC::CSW_ELEMENT_FORMAT, mFormat );
+		}
 
-        if ( mFormatHint.getIsInitialized() ) mFormatHint.add();
+        if ( mFormatHint.getIsInitialized() )
+		{
+			mFormatHint.add();
+		}
 
         if ( !( mSize.width==0 && mSize.height==0 && mSize.depth==0 ) )
         {

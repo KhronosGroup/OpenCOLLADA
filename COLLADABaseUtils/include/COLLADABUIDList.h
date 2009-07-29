@@ -52,6 +52,11 @@ namespace COLLADABU
         */
         String addId ( const String & newId, bool returnConverted = true, bool alwaysAddNumberSuffix = false );
 
+        /**
+         * Returns true, if the given id already exists in the current id set.
+         */
+        bool containsId ( const String& id );
+
     private:
         /** Disable default copy ctor. */
 		IDList( const IDList& pre );

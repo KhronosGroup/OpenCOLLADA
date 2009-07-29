@@ -98,7 +98,7 @@ namespace COLLADASaxFWL
 		bool begin__input____InputLocal( const input____InputLocal__AttributeData& attributeData );
 
 		/** We don't need to do anything here.*/
-		bool end__input____InputLocal() { SaxVirtualFunctionTest(end__input____InputLocal()); return true;}
+		bool end__input____InputLocal() {return true;}
 
 		virtual bool begin__Name_array( const Name_array__AttributeData& attributeData );
 		virtual bool end__Name_array();

@@ -26,13 +26,15 @@ namespace COLLADASW
         static const String CSW_ERR_UNKNOWN_INPUT;
 
         static const String XML_START_ELEMENT;
-        static const String CSW_NAMESPACE;
-        static const String CSW_VERSION;
+        static const String CSW_NAMESPACE_1_4_1;
+        static const String CSW_VERSION_1_4_1;
 
-        static const String CSW_PLATFORM_PC_OGL;
+		static const String CSW_NAMESPACE_1_5_0;
+		static const String CSW_VERSION_1_5_0;
+		static const String CSW_SCHEMALOCATION_1_5_0;
+		static const String CSW_XMLNS_XSI_1_5_0;
 
-        static const String CSW_PROFILE_COLLADA;
-        static const String CSW_PROFILE_MAYA;
+		static const String CSW_PLATFORM_PC_OGL;
 
         static const String CSW_ELEMENT_ACCESSOR;
         static const String CSW_ELEMENT_AMBIENT;
@@ -46,7 +48,8 @@ namespace COLLADASW
         static const String CSW_ELEMENT_BLINN;
         static const String CSW_ELEMENT_BIND;
         static const String CSW_ELEMENT_BIND_MATERIAL;
-        static const String CSW_ELEMENT_BIND_SHAPE_MATRIX;
+		static const String CSW_ELEMENT_BIND_SHAPE_MATRIX;
+		static const String CSW_ELEMENT_BIND_VERTEX_INPUT;
         static const String CSW_ELEMENT_BORDER_COLOR;
         static const String CSW_ELEMENT_CAMERA;
         static const String CSW_ELEMENT_CAMERA_ORTHOGRAPHIC;
@@ -66,7 +69,8 @@ namespace COLLADASW
         static const String CSW_ELEMENT_COLLADA;
         static const String CSW_ELEMENT_COLOR;
         static const String CSW_ELEMENT_COLOR_CLEAR;
-        static const String CSW_ELEMENT_COLOR_TARGET;
+		static const String CSW_ELEMENT_COLOR_TARGET;
+		static const String CSW_ELEMENT_CREATE_2D;
         static const String CSW_ELEMENT_DATA;
         static const String CSW_ELEMENT_DEPTH_CLEAR;
         static const String CSW_ELEMENT_DEPTH_TARGET;
@@ -103,7 +107,8 @@ namespace COLLADASW
         static const String CSW_ELEMENT_INSTANCE_CAMERA;
         static const String CSW_ELEMENT_INSTANCE_CONTROLLER;
         static const String CSW_ELEMENT_INSTANCE_EFFECT;
-        static const String CSW_ELEMENT_INSTANCE_GEOMETRY;
+		static const String CSW_ELEMENT_INSTANCE_GEOMETRY;
+		static const String CSW_ELEMENT_INSTANCE_IMAGE;
         static const String CSW_ELEMENT_INSTANCE_LIGHT;
         static const String CSW_ELEMENT_INSTANCE_MATERIAL;
         static const String CSW_ELEMENT_INSTANCE_NODE;
@@ -158,7 +163,8 @@ namespace COLLADASW
         static const String CSW_ELEMENT_PROFILE_CG;
         static const String CSW_ELEMENT_PROFILE_GLES;
         static const String CSW_ELEMENT_PROFILE_GLSL;
-        static const String CSW_ELEMENT_RANGE;
+		static const String CSW_ELEMENT_RANGE;
+		static const String CSW_ELEMENT_REF;
 		static const String CSW_ELEMENT_QUADRATIC_ATTENUATION;
         static const String CSW_ELEMENT_REFLECTIVE;
         static const String CSW_ELEMENT_REFLECTIVITY;
@@ -219,7 +225,9 @@ namespace COLLADASW
         static const String CSW_ATTRIBUTE_END;
         static const String CSW_ATTRIBUTE_FACE;
         static const String CSW_ATTRIBUTE_ID;
-        static const String CSW_ATTRIBUTE_INDEX;
+		static const String CSW_ATTRIBUTE_INDEX;
+		static const String CSW_ATTRIBUTE_INPUT_SEMANTIC;
+		static const String CSW_ATTRIBUTE_INPUT_SET;
         static const String CSW_ATTRIBUTE_MATERIAL;
         static const String CSW_ATTRIBUTE_METER;
         static const String CSW_ATTRIBUTE_METHOD;
@@ -247,7 +255,9 @@ namespace COLLADASW
         static const String CSW_ATTRIBUTE_URL;
         static const String CSW_ATTRIBUTE_VALUE;
         static const String CSW_ATTRIBUTE_VERSION;
-        static const String CSW_ATTRIBUTE_XMLNS;
+		static const String CSW_ATTRIBUTE_XMLNS;
+		static const String CSW_ATTRIBUTE_XMLNS_XSI;
+		static const String CSW_ATTRIBUTE_XSI_SCHEMALOCATION;
 
         static const String CSW_SEMANTIC_BINDMATRIX;
         static const String CSW_SEMANTIC_COLOR;

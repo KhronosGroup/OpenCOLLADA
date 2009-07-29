@@ -16,17 +16,21 @@
 #include "COLLADASWExtraTechnique.h"
 #include "COLLADASWConstants.h"
 #include "COLLADASWColor.h"
+#include "COLLADASWAnnotation.h"
 
 namespace COLLADASW
 {
 
-    /** Declares the storage for the graphical representation of an object. */
+    /** Declares the storage for the graphical representation of an object. 
+	In COLLADA 1.4 parts of this are represented in the <surface> element. It supports 
+	only init_from images. For other inits the surface class might be used in future.*/
     class Sampler : public BaseExtraTechnique
     {
 
     public:
 
         static const String SAMPLER_SID_SUFFIX;
+		static const String SURFACE_SID_SUFFIX;
 
     public:
 
@@ -98,7 +102,7 @@ namespace COLLADASW
         /** An xs:NCName, which is the sid of a <surface>. A <sampler*> is a 
         definition of how a shader will resolve a color out of a <surface>. 
         <source> identifies the <surface> to read. */
-        String mSource;
+//        String mSource;
 
         /** Texture minimization. Enumerated type fx_sampler_filter_common. 
         Applying a texture to a primitive implies a mapping from texture image 
@@ -136,10 +140,32 @@ namespace COLLADASW
         that is used by the sampler to evaluate the MIPmap chain. */
         float mMipmapBias;
 
+		/** The id of the image used for the sampler. Other samplers are not supported
+		In COLALDA 1.4 this is written in to a surface element, in 1.5 in a sampler element.*/
+		String mImageId;
+
+		/** The format of the current surface. 
+		Contains a string representing the texel format for this
+		surface. If this element is not specified or understood by
+		the application, then the application will attempt to use
+		<format_hint> if it is provided; otherwise, it should
+		use a common format linear R8G8B8A8. 
+		Only used in COLLADA 1.4. In COLLADA 1.5 this information is contained int h eimage*/
+		String mFormat;
+
+        /** The sid of the sampler. */
+        String mSamplerSid;
+
+        /** The sid of the surface. */
+        String mSurfaceSid; 
+
     public:
 
         /** Constructor. */
-        Sampler ( const SamplerType &samplerType, const String &source = "" );
+        Sampler ( 
+            const SamplerType& samplerType,
+            const String& samplerSid, 
+            const String& surfaceSid = "" );
 
         /**Constructor that creates an invalid surface.*/
         Sampler();
@@ -148,16 +174,40 @@ namespace COLLADASW
         void initializeMembers();
 
         /** Destructor. */
-        ~Sampler () {}
+        virtual ~Sampler () {}
 
         /** Set the samplers type. */
-        void setSamplerType ( const COLLADASW::Sampler::SamplerType& val ) { mSamplerType = val; }
+        void setSamplerType ( const SamplerType& val ) { mSamplerType = val; }
 
-        /** An xs:NCName, which is the sid of a <surface>. A <sampler*> is a 
+		/** Returns the samplers type. */
+		SamplerType getSamplerType() const { return mSamplerType; }
+
+        /** The sid of the sampler. */
+        const COLLADASW::String& getSamplerSid () const { return mSamplerSid; }
+
+        /** The sid of the surface. */
+        const COLLADASW::String& getSurfaceSid () const { return mSurfaceSid; }
+
+        /** The image format. */
+		const COLLADASW::String& getFormat() const { return mFormat; }
+
+		void setFormat( const COLLADASW::String& format) { mFormat = format; }
+
+#if 0
+		/** An xs:NCName, which is the sid of a <surface>. A <sampler*> is a 
         definition of how a shader will resolve a color out of a <surface>. 
         <source> identifies the <surface> to read. */
         const String& getSource () const;
         void setSource ( const String& val );
+#endif
+
+		/** The URL of the image used for the sampler. Other samplers are not supported
+		In COLALDA 1.4 this is written in to a surface element, in 1.5 in a sampler element.*/
+		const COLLADASW::String& getImageUrl() const { return mImageId; }
+
+		/** The id of the image used for the sampler. Other samplers are not supported
+		In COLALDA 1.4 this is written in to a surface element, in 1.5 in a sampler element.*/
+		void setImageId( const COLLADASW::String& imageId) { mImageId = imageId; }
 
         /** Sets the min filter. */
         void setMinFilter ( const SamplerFilter& filter );
@@ -220,6 +270,9 @@ namespace COLLADASW
         /** Returns the COLLADASW string for the given sampler type. */
         static const String& getSamplerTypeString ( const SamplerType &samplerType );
 
+		/** Returns the COLLADASW string for the given surface type (which is identical to the sampler type).*/
+		const String& getSurfaceTypeString ( SamplerType surfaceType ) const;
+
         /** Returns a reference to the COLLADASW name of the SamplerFilter. */
         static const String& getSamplerFilterString ( const SamplerFilter &samplerFilter );
 
@@ -227,8 +280,34 @@ namespace COLLADASW
         static const String& getWrapModeString ( const WrapMode &wrapMode );
 
         /** Declares the storage for the graphical representation of an object. */
-        void add ( StreamWriter *sw ) const;
-    };
+//        void add ( StreamWriter *sw ) const;
+
+		void addInSetParam( 
+            StreamWriter* sw, 
+            std::vector<COLLADASW::Annotation>* surfaceAnnotations = 0, 
+            std::vector<COLLADASW::Annotation>* samplerAnnotations = 0 ) const;
+
+		void addInNewParam( 
+            StreamWriter* sw, 
+            std::vector<COLLADASW::Annotation>* surfaceAnnotations = 0, 
+            std::vector<COLLADASW::Annotation>* samplerAnnotations = 0 ) const;
+	
+	private:
+
+		void addCommon ( StreamWriter* sw ) const;
+
+		void add_1_4_1 ( StreamWriter* sw, const String& source ) const;
+	
+		void add_1_5_0 ( StreamWriter* sw ) const;
+	
+		template<class ParamSurfaceType, class ParamSamplerType> 
+		void addInParam ( 
+            StreamWriter* sw, 
+            std::vector<COLLADASW::Annotation>* surfaceAnnotations = 0, 
+            std::vector<COLLADASW::Annotation>* samplerAnnotations = 0 ) const;
+	
+		void addSurface ( StreamWriter* sw ) const;
+	};
 }
 
 #endif // __COLLADASTREAMWRITER_SAMPLER_H__

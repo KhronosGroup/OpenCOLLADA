@@ -199,6 +199,10 @@ namespace COLLADASW
         addSampler ( mSpecular );
         addSampler ( mReflective );
         addSampler ( mTransparent );
+		if ( mExtraTechniqueColorOrTexture.isTexture() )
+		{
+			addSampler(mExtraTechniqueColorOrTexture);
+		}
     }
 
 
@@ -217,19 +221,9 @@ namespace COLLADASW
             if ( iter == mSampledImages.end() )
             {
                 // Push the id of the image in the list of sampled surface image ids
-                mSampledImages.push_back( texture.getImageId() );
+                mSampledImages.push_back ( texture.getImageId() );
 
-                // Add the surface <newparam>
-                COLLADASW::NewParamSurface paramSurface ( mSW );
-                paramSurface.openParam ( texture.getSurfaceSid() );
-                texture.getSurface().add ( mSW );
-                paramSurface.closeParam ();
-                
-                // Add the sampler <newparam>
-                COLLADASW::NewParamSampler paramSampler ( mSW );
-                paramSampler.openParam ( texture.getSamplerSid() );
-                texture.getSampler().add ( mSW );
-                paramSampler.closeParam ();
+				texture.getSampler().addInNewParam ( mSW );
             }
 
         }
