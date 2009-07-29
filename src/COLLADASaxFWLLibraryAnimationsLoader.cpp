@@ -308,8 +308,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::end__library_animations()
 	{
-		SaxVirtualFunctionTest(end__library_animations());
-
+		moveUpInSidTree();
 		finish();
 		return true;
 	}
@@ -317,14 +316,12 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__source( const source__AttributeData& attributes )
 	{
-		SaxVirtualFunctionTest(begin__source(attributes));
 		return beginSource(attributes);
 	}
 
 	//------------------------------
 	bool LibraryAnimationsLoader::end__source(  )
 	{
-		SaxVirtualFunctionTest(end__source());
 		return endSource();
 	}
 
@@ -332,8 +329,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__animation( const animation__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__animation(attributeData));
-
         if ( attributeData.name ) 
             mName = (const char*)attributeData.name;
         else if ( attributeData.id) 
@@ -348,8 +343,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::end__animation()
 	{
-		SaxVirtualFunctionTest(end__animation());
-
         mOriginalId = COLLADABU::Utils::EMPTY_STRING;
 
 		return true;
@@ -358,8 +351,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__sampler( const sampler__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__sampler(attributeData));
-
 		mCurrentAnimationCurve = FW_NEW COLLADAFW::AnimationCurve(getUniqueIdFromId(attributeData.id, COLLADAFW::Animation::ID()).getObjectId());
 
 		mCurrentAnimationCurve->setName ( mName );
@@ -378,7 +369,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::end__sampler()
 	{
-		SaxVirtualFunctionTest(end__sampler());
 		bool success = true;
 		if ( !mCurrentAnimationCurveRequiresTangents )
 		{
@@ -387,6 +377,12 @@ namespace COLLADASaxFWL
 		}
 		if ( (getObjectFlags() & Loader::ANIMATION_FLAG) != 0 )
 		{
+			//assume linear interpolation if no interpolation is set
+			if ( mCurrentAnimationCurve->getInterpolationType() == COLLADAFW::AnimationCurve::INTERPOLATION_UNKNOWN )
+			{
+				mCurrentAnimationCurve->setInterpolationType(COLLADAFW::AnimationCurve::INTERPOLATION_LINEAR );
+			}
+
 			if ( COLLADAFW::validate( mCurrentAnimationCurve ) )
 			{
 				success = writer()->writeAnimation(mCurrentAnimationCurve);
@@ -406,7 +402,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__channel( const channel__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__channel(attributeData));
 		String samplerId = getIdFromURIFragmentType(attributeData.source);
 
 		AnimationInfo* animationInfo = getAnimationInfoBySamplerId( samplerId );
@@ -414,7 +409,7 @@ namespace COLLADASaxFWL
 		if ( !animationInfo )
 			return true;
 
-		SidAddress sidAddress( attributeData.target );
+		SidAddress sidAddress( String(attributeData.target) );
 #if 0
 		const SidTreeNode* sidTreeNode = resolveSid( sidAddress );
 
@@ -467,7 +462,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::end__channel()
 	{
-		SaxVirtualFunctionTest(end__channel());
 		return true;
 	}
 
@@ -475,8 +469,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__input____InputLocal( const input____InputLocal__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__input____InputLocal(attributeData));
-
 		// we ignore inputs that don't have semantics or source
 		if ( !attributeData.semantic || !attributeData.source  )
 		{
@@ -680,7 +672,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__Name_array( const Name_array__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__Name_array(attributeData));
 		return beginArray<InterpolationTypeSource>( attributeData.count, attributeData.id ) != 0;
 		return true;
 	}
@@ -688,14 +679,12 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::end__Name_array()
 	{
-		SaxVirtualFunctionTest(end__Name_array());
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryAnimationsLoader::data__Name_array( const ParserString* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__Name_array(data, length));
 		InterpolationTypeSource* interpolationTypeSource = (InterpolationTypeSource*)mCurrentSoure;
 		for ( size_t i = 0; i < length;  ++i)
 		{

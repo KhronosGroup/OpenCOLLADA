@@ -17,6 +17,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWTypes.h"
 
+#include "GeneratedSaxParser.h"
+
 #include <list>
 
 namespace COLLADAFW
@@ -27,7 +29,25 @@ namespace COLLADAFW
 namespace COLLADASaxFWL
 {
 
-	struct AnimationInfo
+    typedef GeneratedSaxParser::sint8 sint8;
+    typedef GeneratedSaxParser::sint16 sint16;
+    typedef GeneratedSaxParser::sint32 sint32;
+    typedef GeneratedSaxParser::sint64 sint64;
+    typedef GeneratedSaxParser::uint8 uint8;
+    typedef GeneratedSaxParser::uint16 uint16;
+    typedef GeneratedSaxParser::uint32 uint32;
+    typedef GeneratedSaxParser::uint64 uint64;
+
+    typedef GeneratedSaxParser::StringHash StringHash;
+    typedef GeneratedSaxParser::ParserChar ParserChar;
+    typedef GeneratedSaxParser::ParserString ParserString;
+    typedef GeneratedSaxParser::ParserAttributes ParserAttributes;
+    typedef GeneratedSaxParser::Utils Utils;
+    typedef GeneratedSaxParser::ParserError ParserError;
+    typedef GeneratedSaxParser::StringHashPair StringHashPair;
+
+
+    struct AnimationInfo
 	{
 		static const AnimationInfo INVALID;
 		/** The unique id of the animation*/

@@ -27,7 +27,8 @@ namespace COLLADASaxFWL
 		, mCurrentShaderParameterType(UNKNOWN_SHADER_TYPE)
 		, mCurrentColorValueIndex(0)
 		, mCurrentSampler(0)
-        , mTransparency (1)
+        , mTransparency(1)
+		, mNextSamplerIndex(0)
 	{
 	}
 	
@@ -168,16 +169,44 @@ namespace COLLADASaxFWL
 					}
 				}
 
-				SidSamplerInfoMap::const_iterator it = mSidSamplerInfoMap.find((const char*)attributeData.texture);
-				if ( it == mSidSamplerInfoMap.end() )
-					break;
+                // Check if the texture is referenced.
+                String textureSid = (const char *)attributeData.texture;
+				SidSamplerInfoMap::const_iterator it = mEffectProfileSidSamplerInfoMap.find(textureSid);
+				if ( it == mEffectProfileSidSamplerInfoMap.end() )
+                {
+                    it = mEffectSidSamplerInfoMap.find((const char*)attributeData.texture);
+                    if ( it == mEffectSidSamplerInfoMap.end() )
+                    {
+                        handleFWLError ( SaxFWLError::ERROR_UNRESOLVED_REFERENCE, "Texture not defined!" );
+                        break;
+                    }
+                }
 
+
+				// TODO Push the texture sid of the current sampler in the list of used samplers
+				// of the current effect profile. 
+				size_t samplerIndex = 0;
+				StringIndexMap::const_iterator samplerIt = mEffectProfileSamplersMap.find(textureSid);
+				if ( samplerIt == mEffectProfileSamplersMap.end() )
+				{
+					// This sid has not been used before. Add to map with next index
+					samplerIndex = mNextSamplerIndex;
+					mEffectProfileSamplersMap.insert(std::make_pair(textureSid, mNextSamplerIndex++));
+				}
+				else
+				{
+					// This sid is already in the map. Use its index
+					samplerIndex = samplerIt->second;
+				}
+
+				// Initialize the texture element.
 				const SamplerInfo& samplerInfo = it->second;
-
 				colorOrTexture->setType(COLLADAFW::ColorOrTexture::TEXTURE);
 				COLLADAFW::Texture& texture = colorOrTexture->getTexture();
-				texture.setSamplerId( samplerInfo.id );
+				texture.setSamplerId( samplerIndex );
 				texture.setTextureMapId( getTextureMapIdBySematic( attributeData.texcoord) );
+
+
 				break;
 			}
 		}
@@ -292,7 +321,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__effect( const effect__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__effect(attributeData)); 
 		mCurrentEffect = FW_NEW COLLADAFW::Effect(getUniqueIdFromId(attributeData.id, COLLADAFW::Effect::ID()).getObjectId());
 		
         if ( attributeData.name )
@@ -311,17 +339,26 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__effect()
 	{
-		SaxVirtualFunctionTest(end__effect()); 
 		getFileLoader()->addEffect(mCurrentEffect);
-		mCurrentEffect = 0;
-		moveUpInSidTree();
+
+        mCurrentEffect = 0;
+        SidSamplerInfoMap::iterator samplerIt = mEffectSidSamplerInfoMap.begin();
+        for ( ; samplerIt != mEffectSidSamplerInfoMap.end(); ++samplerIt)
+        {
+            SamplerInfo& samplerInfo = samplerIt->second;
+            delete samplerInfo.sampler;
+        }
+        mEffectSidSamplerInfoMap.clear();
+        mEffectSidSurfaceMap.clear();
+        
+        moveUpInSidTree();
+
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__profile_COMMON( const profile_COMMON__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__profile_COMMON(attributeData)); 
 		mCurrentProfile = PROFILE_COMMON;
 		mCurrentEffect->getCommonEffects().append(FW_NEW COLLADAFW::EffectCommon() );
 		addToSidTree( attributeData.id, 0);
@@ -335,21 +372,35 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__profile_COMMON()
 	{
-		SaxVirtualFunctionTest(end__profile_COMMON()); 
 		// Calculate the opacity value.
 		calculateOpacity ();
 
-		mTransparent.getColor ().set ( -1, -1, -1, -1 );
+        // Fill the array of samplers of the current profile.
+        if ( !fillSamplerArray() )
+			return false;
 
+        SidSamplerInfoMap::iterator samplerIt = mEffectProfileSidSamplerInfoMap.begin();
+        for ( ; samplerIt != mEffectProfileSidSamplerInfoMap.end(); ++samplerIt)
+        {
+            SamplerInfo& samplerInfo = samplerIt->second;
+            delete samplerInfo.sampler;
+        }
+        mEffectProfileSidSamplerInfoMap.clear();
+        mEffectProfileSidSurfaceMap.clear();
+        mEffectProfileSamplersMap.clear ();
+		mNextSamplerIndex = 0;
+
+		mTransparent.getColor ().set ( -1, -1, -1, -1 );
 		mCurrentProfile = PROFILE_UNKNOWN;
+
 		moveUpInSidTree();
-		return true;
+
+        return true;
 	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__surface____fx_surface_common( const surface____fx_surface_common__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__surface____fx_surface_common(attributeData)); 
 		mCurrentSurface.surfaceType = attributeData.type;
 		return true;
 	}
@@ -357,8 +408,12 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__surface____fx_surface_common()
 	{
-		SaxVirtualFunctionTest(end__surface____fx_surface_common()); 
-		mSidSurfaceMap.insert(std::make_pair(mCurrentNewParamSid, mCurrentSurface));
+        // Check if we have a surface defined directly under an effect or under an effect profile.
+        if ( mCurrentProfile == PROFILE_UNKNOWN )
+            mEffectSidSurfaceMap.insert(std::make_pair(mCurrentNewParamSid, mCurrentSurface));
+        else
+            mEffectProfileSidSurfaceMap.insert(std::make_pair(mCurrentNewParamSid, mCurrentSurface));
+
 		mCurrentSurfaceInitFrom.clear();
 		return true;
 	}
@@ -366,7 +421,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__init_from____fx_surface_init_from_common()
 	{
-		SaxVirtualFunctionTest(end__init_from____fx_surface_init_from_common()); 
 		mCurrentSurface.imageUniqueId = getUniqueIdFromId((const ParserChar*)mCurrentSurfaceInitFrom.c_str(), COLLADAFW::Image::ID());
 		return true;
 	}
@@ -374,15 +428,38 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::data__init_from____fx_surface_init_from_common( const ParserChar* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__init_from____fx_surface_init_from_common(data, length)); 
 		mCurrentSurfaceInitFrom.append((const char* )data, length);
 		return true;
 	}
 
+    //------------------------------
+    bool LibraryEffectsLoader::begin__instance_image( const instance_image__AttributeData& attributeData )
+    {
+        if ( (attributeData.present_attributes & instance_image__AttributeData::ATTRIBUTE_URL_PRESENT) == instance_image__AttributeData::ATTRIBUTE_URL_PRESENT )
+        {
+            mCurrentSampler->setSource(getUniqueIdFromUrl(attributeData.url, COLLADAFW::Image::ID()));
+        }
+        return true;
+    }
+
+    //------------------------------
+    bool LibraryEffectsLoader::begin__newparam____fx_newparam_common( const newparam____fx_newparam_common__AttributeData& attributeData )
+    {
+        if ( attributeData.sid )
+            mCurrentNewParamSid = (const char *)attributeData.sid;	
+        return true;
+    }
+
+    //------------------------------
+    bool LibraryEffectsLoader::end__newparam____fx_newparam_common()
+    {
+        mCurrentNewParamSid.clear();
+        return true;
+    }
+
 	//------------------------------
 	bool LibraryEffectsLoader::begin__newparam____common_newparam_type( const newparam____common_newparam_type__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__newparam____common_newparam_type(attributeData)); 
 		if ( attributeData.sid )
 			mCurrentNewParamSid = (const char *)attributeData.sid;	
 		return true;
@@ -391,7 +468,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__newparam____common_newparam_type()
 	{
-		SaxVirtualFunctionTest(end__newparam____common_newparam_type()); 
 		mCurrentNewParamSid.clear();
 		return true;
 	}
@@ -399,7 +475,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__sampler2D____fx_sampler2D_common()
 	{
-		SaxVirtualFunctionTest(begin__sampler2D____fx_sampler2D_common()); 
 		mCurrentSampler = new COLLADAFW::Sampler();
 		mCurrentSampler->setSamplerType( COLLADAFW::Sampler::SAMPLER_TYPE_2D );
 		return true;
@@ -408,12 +483,17 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__sampler2D____fx_sampler2D_common()
 	{
-		SaxVirtualFunctionTest(end__sampler2D____fx_sampler2D_common()); 
 		SamplerInfo samplerInfo;
 		samplerInfo.sampler = mCurrentSampler;
 		samplerInfo.id = 0;
 		samplerInfo.surfaceSid = mCurrentSamplerSource;
-		mSidSamplerInfoMap.insert(std::make_pair(mCurrentNewParamSid, samplerInfo));
+        
+        // Check if we have a sampler defined directly under an effect or under an effect profile.
+        if ( mCurrentProfile == PROFILE_UNKNOWN )
+            mEffectSidSamplerInfoMap.insert(std::make_pair(mCurrentNewParamSid, samplerInfo));
+        else
+    		mEffectProfileSidSamplerInfoMap.insert(std::make_pair(mCurrentNewParamSid, samplerInfo));
+
 		mCurrentSampler = 0;
 		mCurrentSamplerSource.clear();
 		return true;
@@ -422,7 +502,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::data__source____NCName( const ParserChar* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__source____NCName(data, length)); 
 		mCurrentSamplerSource.append((const char* )data, length);
 		return true;
 	}
@@ -431,63 +510,34 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__profile_COMMON__technique(attributeData)); 
 		addToSidTree( attributeData.id, attributeData.sid );
-		COLLADAFW::EffectCommon& commonEffect =  *mCurrentEffect->getCommonEffects().back();
-		COLLADAFW::SamplerPointerArray& samplerArray = commonEffect.getSamplerPointerArray();
-		SidSamplerInfoMap::iterator samplerIt = mSidSamplerInfoMap.begin();
-		for ( ; samplerIt != mSidSamplerInfoMap.end(); ++samplerIt)
-		{
-			SamplerInfo& samplerInfo = samplerIt->second;
-			samplerInfo.id = samplerArray.getCount();
-			COLLADAFW::Sampler* sampler = samplerInfo.sampler;
-			SidSurfaceMap::const_iterator surfaceIt = mSidSurfaceMap.find( samplerInfo.surfaceSid );
-			if ( surfaceIt != mSidSurfaceMap.end() )
-			{
-				const Surface& surface = surfaceIt->second;
-				sampler->setSource(surface.imageUniqueId);
 
-				// copy sampler into common effect
-				samplerArray.append( sampler->clone() );
-			}
-		}
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::end__profile_COMMON__technique()
 	{
-		SaxVirtualFunctionTest(end__profile_COMMON__technique()); 
-		SidSamplerInfoMap::iterator samplerIt = mSidSamplerInfoMap.begin();
-		for ( ; samplerIt != mSidSamplerInfoMap.end(); ++samplerIt)
-		{
-			SamplerInfo& samplerInfo = samplerIt->second;
-			delete samplerInfo.sampler;
-		}
-		mSidSamplerInfoMap.clear();
-		mSidSurfaceMap.clear();
 		moveUpInSidTree();
-		return true;
+		
+        return true;
 	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__profile_COMMON__technique__constant()
 	{
-		SaxVirtualFunctionTest(begin__profile_COMMON__technique__constant()); 
 		return setCommonEffectShaderType(COLLADAFW::EffectCommon::SHADER_CONSTANT);
 	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__lambert()
 	{
-		SaxVirtualFunctionTest(begin__lambert()); 
 		return setCommonEffectShaderType(COLLADAFW::EffectCommon::SHADER_LAMBERT);
 	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__blinn()
 	{
-		SaxVirtualFunctionTest(begin__blinn()); 
 		return setCommonEffectShaderType(COLLADAFW::EffectCommon::SHADER_BLINN);
 	}
 
@@ -495,14 +545,13 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__phong()
 	{
-		SaxVirtualFunctionTest(begin__phong()); 
 		return setCommonEffectShaderType(COLLADAFW::EffectCommon::SHADER_PHONG);
 	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::end__library_effects()
 	{
-		SaxVirtualFunctionTest(end__library_effects()); 
+		moveUpInSidTree();
 		finish();
 		return true;
 	}
@@ -510,7 +559,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__common_color_or_texture_type____color( const common_color_or_texture_type____color__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__common_color_or_texture_type____color(attributeData)); 
 		COLLADAFW::ColorOrTexture* colorOrTexture = getCurrentColorOrTexture();
 		addToSidTree( 0, attributeData.sid, &colorOrTexture->getColor() );
 		return true;
@@ -519,7 +567,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__common_color_or_texture_type____color()
 	{
-		SaxVirtualFunctionTest(end__common_color_or_texture_type____color()); 
 		mCurrentColorValueIndex = 0;
 		moveUpInSidTree();
 		return true;
@@ -528,21 +575,18 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::data__common_color_or_texture_type____color( const float* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__common_color_or_texture_type____color(data, length)); 
 		return handleColorData(data, length);
 	}
 
     //------------------------------
 	bool LibraryEffectsLoader::begin__texture( const texture__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__texture(attributeData)); 
 		return handleTexture( attributeData);
 	}
 
     //------------------------------
     bool LibraryEffectsLoader::begin__common_float_or_param_type____float ( const common_float_or_param_type____float__AttributeData& attributeData )
     {
-        SaxVirtualFunctionTest(begin__common_float_or_param_type____float(attributeData)); 
         switch ( mCurrentShaderParameterType)
         {
         case SHADER_PARAMETER_SHININESS:
@@ -564,7 +608,6 @@ namespace COLLADASaxFWL
     //------------------------------
     bool LibraryEffectsLoader::end__common_float_or_param_type____float ()
     {
-        SaxVirtualFunctionTest(end__common_float_or_param_type____float()); 
         moveUpInSidTree();
         return true;
     }
@@ -572,7 +615,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::data__common_float_or_param_type____float( float value )
 	{
-		SaxVirtualFunctionTest(data__common_float_or_param_type____float(value)); 
 		switch ( mCurrentShaderParameterType)
 		{
 		case SHADER_PARAMETER_SHININESS:
@@ -594,7 +636,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__emission()
 	{
-		SaxVirtualFunctionTest(begin__emission()); 
 		mCurrentShaderParameterType = SHADER_PARAMETER_EMISSION; 
 		return true;
 	}
@@ -602,7 +643,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__emission()
 	{
-		SaxVirtualFunctionTest(end__emission()); 
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
@@ -610,7 +650,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__ambient____common_color_or_texture_type()
 	{
-		SaxVirtualFunctionTest(begin__ambient____common_color_or_texture_type());  
 		mCurrentShaderParameterType = SHADER_PARAMETER_AMBIENT; 
 		return true;
 	}
@@ -618,7 +657,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__ambient____common_color_or_texture_type()
 	{
-		SaxVirtualFunctionTest(end__ambient____common_color_or_texture_type());  
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
@@ -626,7 +664,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__diffuse()
 	{
-		SaxVirtualFunctionTest(begin__diffuse());  
 		mCurrentShaderParameterType = SHADER_PARAMETER_DIFFUSE; 
 		return true;
 	}
@@ -634,7 +671,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__diffuse()
 	{
-		SaxVirtualFunctionTest(end__diffuse());  
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
@@ -642,7 +678,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__specular()
 	{
-		SaxVirtualFunctionTest(begin__specular());  
 		mCurrentShaderParameterType = SHADER_PARAMETER_SPECULAR; 
 		return true;
 	}
@@ -650,7 +685,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__specular()
 	{
-		SaxVirtualFunctionTest(end__specular());  
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
@@ -658,7 +692,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__shininess()
 	{
-		SaxVirtualFunctionTest(begin__shininess()); 
 		mCurrentShaderParameterType = SHADER_PARAMETER_SHININESS; 
 		return true;
 	}
@@ -666,7 +699,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__shininess()
 	{
-		SaxVirtualFunctionTest(end__shininess());  
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
@@ -674,7 +706,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__reflective()
 	{
-		SaxVirtualFunctionTest(begin__reflective());  
 		mCurrentShaderParameterType = SHADER_PARAMETER_REFLECTIVE; 
 		return true;
 	}
@@ -682,7 +713,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__reflective()
 	{
-		SaxVirtualFunctionTest(end__reflective());  
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
@@ -690,7 +720,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__reflectivity()
 	{
-		SaxVirtualFunctionTest(begin__reflectivity());  
 		mCurrentShaderParameterType = SHADER_PARAMETER_REFLECTIVITY; 
 		return true;
 	}
@@ -698,7 +727,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__reflectivity()
 	{
-		SaxVirtualFunctionTest(end__reflectivity());  
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
@@ -706,16 +734,21 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__transparent ( const transparent__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__transparent(attributeData));  
-		ENUM__fx_opaque_enum opaque = attributeData.opaque;
+		ENUM__fx_opaque opaque = attributeData.opaque;
 		switch ( opaque )
 		{
-		case ENUM__fx_opaque_enum__A_ONE:
+        case ENUM__fx_opaque__A_ZERO:
+            mOpaqueMode = A_ZERO;
+            break;
+		case ENUM__fx_opaque__A_ONE:
 			mOpaqueMode = A_ONE;
 			break;
-		case ENUM__fx_opaque_enum__RGB_ZERO:
+		case ENUM__fx_opaque__RGB_ZERO:
 			mOpaqueMode = RGB_ZERO;
 			break;
+        case ENUM__fx_opaque__RGB_ONE:
+            mOpaqueMode = RGB_ONE;
+            break;
 		default:
 			mOpaqueMode = UNSPECIFIED_OPAQUE;
 			break;
@@ -728,7 +761,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__transparent()
 	{
-		SaxVirtualFunctionTest(end__transparent());  
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
@@ -736,7 +768,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__transparency()
 	{
-		SaxVirtualFunctionTest(begin__transparency());  
 		mCurrentShaderParameterType = SHADER_PARAMETER_TRANSPARENCY; 
 		return true;
 	}
@@ -744,7 +775,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__transparency()
 	{
-		SaxVirtualFunctionTest(end__transparency()); 
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
@@ -752,7 +782,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__index_of_refraction()
 	{
-		SaxVirtualFunctionTest(begin__index_of_refraction());  
 		mCurrentShaderParameterType = SHADER_PARAMETER_INDEX_OF_REFRACTION; 
 		return true;
 	}
@@ -760,9 +789,77 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__index_of_refraction()
 	{
-		SaxVirtualFunctionTest(end__index_of_refraction());  
 		mCurrentShaderParameterType = UNKNOWN_SHADER_TYPE; 
 		return true;
 	}
+
+    //------------------------------
+    bool LibraryEffectsLoader::fillSamplerArray ()
+    {
+        COLLADAFW::EffectCommon& commonEffect =  *mCurrentEffect->getCommonEffects().back();
+        COLLADAFW::SamplerPointerArray& samplerArray = commonEffect.getSamplerPointerArray();
+
+        // Iterate over the list of used samplers in the current effect profile 
+        // and push them in the sampler array.
+		size_t samplerCount = mEffectProfileSamplersMap.size();
+		samplerArray.reallocMemory(samplerCount);
+		samplerArray.setCount(samplerCount);
+        StringIndexMap::const_iterator it = mEffectProfileSamplersMap.begin ();
+        while ( it != mEffectProfileSamplersMap.end () )
+        {
+            String samplerSid = it->first;
+			size_t samplerIndex = it->second;
+
+            bool validSampler =  false;
+            SidSamplerInfoMap::iterator samplerIt = mEffectProfileSidSamplerInfoMap.find ( samplerSid );
+            if ( samplerIt == mEffectProfileSidSamplerInfoMap.end () )
+            {
+                samplerIt = mEffectSidSamplerInfoMap.find ( samplerSid );
+                if ( samplerIt != mEffectSidSamplerInfoMap.end () ) validSampler = true;
+            }
+            else validSampler = true;
+
+            if ( validSampler )
+            {
+                SamplerInfo& samplerInfo = samplerIt->second;
+                samplerInfo.id = samplerArray.getCount();
+                COLLADAFW::Sampler* sampler = samplerInfo.sampler;
+                if ( !sampler->getSourceImage().isValid() )
+                {
+                    bool validSurface = false;
+                    SidSurfaceMap::const_iterator surfaceIt = mEffectProfileSidSurfaceMap.find( samplerInfo.surfaceSid );
+                    if ( surfaceIt == mEffectProfileSidSurfaceMap.end() )
+                    {
+                        surfaceIt = mEffectSidSurfaceMap.find( samplerInfo.surfaceSid );
+                        if ( surfaceIt != mEffectSidSurfaceMap.end() ) validSurface = true;
+                    }
+                    else validSurface = true;
+                    if ( validSurface )
+                    {
+                        const Surface& surface = surfaceIt->second;
+                        sampler->setSource(surface.imageUniqueId);
+
+                        // copy sampler into common effect
+                        samplerArray[samplerIndex] = sampler->clone();
+                    }
+                }
+                else
+                {
+					samplerArray[samplerIndex] = sampler->clone();
+                }
+            }
+            else
+			{
+				// we a null sampler here, to ensure the index of all of the following sampler remain correct
+				samplerArray[samplerIndex] = 0;
+
+				if ( !handleFWLError ( SaxFWLError::ERROR_UNRESOLVED_REFERENCE, "No sampler for texture \"" + samplerSid + "\" defined!" ))
+					return false;
+			}
+            ++it;
+        }
+
+		return true;
+    }
 
 } // namespace COLLADASaxFWL

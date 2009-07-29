@@ -11,6 +11,7 @@
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLFilePartLoader.h"
 #include "COLLADASaxFWLFileLoader.h"
+#include "COLLADASaxFWLIParserImpl.h"
 
 #include <cassert>
 
@@ -42,11 +43,17 @@ namespace COLLADASaxFWL
 	}
 
 
-	//------------------------------
-	void FilePartLoader::setParser(IFilePartLoader* parserToBeSet)
-	{
-		mCallingFilePartLoader->setParser(parserToBeSet);
-	}
+    //------------------------------
+    void FilePartLoader::setParser( COLLADASaxFWL14::ColladaParserAutoGen14* parserToBeSet )
+    {
+        mCallingFilePartLoader->setParser(parserToBeSet);
+    }
+
+    //------------------------------
+    void FilePartLoader::setParser( COLLADASaxFWL15::ColladaParserAutoGen15* parserToBeSet )
+    {
+        mCallingFilePartLoader->setParser(parserToBeSet);
+    }
 
 	//------------------------------
 	int FilePartLoader::getObjectFlags() const

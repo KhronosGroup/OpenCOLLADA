@@ -13,8 +13,9 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLFilePartLoader.h"
-#include "COLLADAFWEffectCommon.h"
+#include "COLLADASaxFWLXmlTypes.h"
 
+#include "COLLADAFWEffectCommon.h"
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWColorOrTexture.h"
 
@@ -26,12 +27,11 @@ namespace COLLADAFW
 }
 
 
-
 namespace COLLADASaxFWL
 {
 
     /** TODO Documentation */
-	class LibraryEffectsLoader : public FilePartLoader 
+	class LibraryEffectsLoader : public FilePartLoader
 	{
 	private:
 		enum Profile
@@ -62,13 +62,15 @@ namespace COLLADASaxFWL
 
 		struct Surface
 		{
-			ENUM__fx_surface_type_enum surfaceType;
+			ENUM__fx_surface_type surfaceType;
 
 			/** The unique id of the image used by the surface.*/
 			COLLADAFW::UniqueId imageUniqueId;
 		};
 
 		typedef std::map<String, Surface> SidSurfaceMap;
+
+		typedef std::map<String, size_t> StringIndexMap;
 
 		struct SamplerInfo
 		{
@@ -138,17 +140,29 @@ namespace COLLADASaxFWL
 		/** The init from string of the current surface.*/
 		String mCurrentSurfaceInitFrom;
 
-		/** Maps sids of surfaces to the surface.*/
-		SidSurfaceMap mSidSurfaceMap;
+		/** Maps sids of surfaces directly defined under an effect to the surface.*/
+		SidSurfaceMap mEffectSidSurfaceMap;
 
-		/** The source of the current sampler.*/
+        /** Maps sids of surfaces defined under an effect profile to the surface.*/
+        SidSurfaceMap mEffectProfileSidSurfaceMap;
+
+        /** The source of the current sampler.*/
 		String mCurrentSamplerSource;
 
 		/** The current sampler.*/
 		COLLADAFW::Sampler* mCurrentSampler;
 
-		/** Maps sids of samplers to the samplers info.*/
-		SidSamplerInfoMap mSidSamplerInfoMap;
+        /** Maps sids of samplers directly defined under an effect to the samplers info.*/
+        SidSamplerInfoMap mEffectSidSamplerInfoMap;
+
+		/** Maps sids of samplers defined under an effect profile to the samplers info.*/
+		SidSamplerInfoMap mEffectProfileSidSamplerInfoMap;
+
+        /**List of used texture sids in the current effect profile. */
+        StringIndexMap mEffectProfileSamplersMap;
+
+		/** The index of the next sampler to add to mEffectProfileSamplersMap.*/
+		size_t mNextSamplerIndex;
 
 	public:
 
@@ -164,6 +178,13 @@ namespace COLLADASaxFWL
 
 		/** Sends current material to the writer an deletes it afterwards.*/
 		virtual bool end__effect();
+
+
+        /** Store the sid of the new param.*/
+        virtual bool begin__newparam____fx_newparam_common( const newparam____fx_newparam_common__AttributeData& attributeData );
+
+        /** Clear the sid of the new param.*/
+        virtual bool end__newparam____fx_newparam_common();
 
 
 		/** Set the current profile to PROFILE_COMMON. Create and append common effect to current 
@@ -206,10 +227,10 @@ namespace COLLADASaxFWL
 
 
 		/** We don't need to do anything here.*/
-		virtual bool begin__source____NCName(){SaxVirtualFunctionTest(begin__source____NCName()); return true;}
+		virtual bool begin__source____NCName(){return true;}
 
 		/** We don't need to do anything here.*/
-		virtual bool end__source____NCName(){SaxVirtualFunctionTest(end__source____NCName()); return true;}
+		virtual bool end__source____NCName(){return true;}
 
 		/** Store data in mCurrentSamplerSource.*/
 		virtual bool data__source____NCName( const ParserChar* data, size_t length );
@@ -218,7 +239,11 @@ namespace COLLADASaxFWL
 		/** Resolve all the samplers and copy them to the current effect.*/
 		virtual bool begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData );
 
-		/** Delete all temporary samplers.*/
+        /** Iterate over the list of used samplers in the current effect profile and push them 
+            in the sampler array. */
+        bool fillSamplerArray();
+
+        /** Delete all temporary samplers.*/
 		virtual bool end__profile_COMMON__technique();
 
 
@@ -226,14 +251,14 @@ namespace COLLADASaxFWL
 		virtual bool begin__profile_COMMON__technique__constant();
 
 		/** We don't need to do anything here.*/
-		virtual bool end__profile_COMMON__technique__constant(){SaxVirtualFunctionTest(end__profile_COMMON__technique__constant()); return true;}
+		virtual bool end__profile_COMMON__technique__constant(){return true;}
 
 
 		/** Set the shader type of the current profile.*/
 		virtual bool begin__lambert();
 
 		/** We don't need to do anything here.*/
-		virtual bool end__lambert(){SaxVirtualFunctionTest(end__lambert()); return true;}
+		virtual bool end__lambert(){return true;}
 
 
 		/** Set the shader type of the current profile.*/
@@ -270,7 +295,7 @@ namespace COLLADASaxFWL
 		virtual bool begin__blinn();
 
 		/** We don't need to do anything here.*/
-		virtual bool end__blinn(){SaxVirtualFunctionTest(end__blinn()); return true;}
+		virtual bool end__blinn(){return true;}
 
 
 		/** Sets the shader parameter type.*/
@@ -291,9 +316,13 @@ namespace COLLADASaxFWL
 		/** Stores texture data into the correct texture object.*/
 		virtual bool begin__texture( const texture__AttributeData& attributeData );
 		/** We don't need to do anything here.*/
-		virtual bool end__texture(){SaxVirtualFunctionTest(end__texture()); return true;}
+		virtual bool end__texture(){return true;}
 
-		/** Finishes loading a library effects.*/
+        /** Handles COLLADA 1.5 specific textures. */
+        virtual bool begin__instance_image( const instance_image__AttributeData& attributeData );
+        virtual bool end__instance_image(){return true;}
+
+        /** Finishes loading a library effects.*/
 		virtual bool end__library_effects();
 
 	private:

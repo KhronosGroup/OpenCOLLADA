@@ -13,6 +13,8 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLFilePartLoader.h"
+#include "COLLADASaxFWLXmlTypes.h"
+
 
 namespace COLLADAFW
 {
@@ -24,7 +26,7 @@ namespace COLLADASaxFWL
 {
 
 	/** Loads all the images in a library images.  */
-	class LibraryImagesLoader : public FilePartLoader 
+	class LibraryImagesLoader : public FilePartLoader
 		{
 	private:
 		/** The current image.*/
@@ -63,7 +65,7 @@ namespace COLLADASaxFWL
 		virtual bool begin__data();
 
 		/** We don't need to do anything here.*/
-		virtual bool end__data(){ SaxVirtualFunctionTest(end__data()); return true;}
+		virtual bool end__data(){return true;}
 
 		/** Store data in current image.*/
 		virtual bool data__data( const uint8* data, size_t length );

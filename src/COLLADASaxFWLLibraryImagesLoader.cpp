@@ -35,7 +35,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::end__library_images()
 	{
-		SaxVirtualFunctionTest(end__library_images()); 
+		moveUpInSidTree();
 		finish();
 		return true;
 	}
@@ -43,7 +43,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::begin__image( const image__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__image(attributeData)); 
 		mCurrentImage = FW_NEW COLLADAFW::Image( getUniqueIdFromId( attributeData.id, COLLADAFW::Image::ID()).getObjectId() );
 
 		if ( attributeData.name )
@@ -67,7 +66,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::end__image()
 	{
-		SaxVirtualFunctionTest(end__image()); 
 		bool success = true;
 		if ( (getObjectFlags() & Loader::IMAGE_FLAG) != 0 )
 		{
@@ -80,7 +78,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::begin__init_from____anyURI()
 	{
-		SaxVirtualFunctionTest(begin__init_from____anyURI()); 
 		mCurrentImage->setSourceType( COLLADAFW::Image::SOURCE_TYPE_URI );
 		return true;
 	}
@@ -88,7 +85,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::end__init_from____anyURI()
 	{
-		SaxVirtualFunctionTest(end__init_from____anyURI()); 
 		// we don't need to do anything here
 		return true;
 	}
@@ -96,7 +92,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::data__init_from____anyURI( COLLADABU::URI value )
 	{
-		SaxVirtualFunctionTest(data__init_from____anyURI(value)); 
 		mCurrentImage->setImageURI( value );
 		return true;
 	}
@@ -104,7 +99,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::begin__data()
 	{
-		SaxVirtualFunctionTest(begin__data()); 
 		// disabled see COLALDAFW::Image
 		//mCurrentImage->setSourceType( COLLADAFW::Image::SOURCE_TYPE_DATA);
 		return true;
@@ -113,7 +107,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::data__data( const uint8* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__data(data, length)); 
 		// disabled see COLALDAFW::Image
 		//COLLADAFW::Image::CharacterArray& dataArray = mCurrentImage->getData();
 		//dataArray.appendValues( (char *)data, length );

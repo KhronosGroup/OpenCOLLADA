@@ -27,9 +27,10 @@ namespace COLLADASaxFWL
             SEVERITY_CRITICAL
 		};
 
-		enum ErrorType
+		enum ErrorClass
 		{
-			ERROR_SAXPARSER      // SaxParserError
+			ERROR_SAXPARSER,      // SaxParserError
+			ERROR_SAXFWL          // SaxFWLError
 		};
 	public:
         /** Constructor. */
@@ -39,7 +40,7 @@ namespace COLLADASaxFWL
 		virtual ~IError();
 
 		/** Returns the type of the error.*/
-		ErrorType virtual getErrorType() const=0;
+		ErrorClass virtual getErrorClass() const=0;
 
 		/** Returns the severity of the error.*/
 		Severity virtual getSeverity() const=0;

@@ -31,6 +31,9 @@ namespace COLLADAFW
 	class VisualScene;
 	class LibraryNodes;
 	class Effect;
+	class Light;
+	class Camera;
+	class Formula;
 	class AnimationList;
 	class MorphController;
 }
@@ -69,8 +72,10 @@ namespace COLLADASaxFWL
 			ANIMATION_LIST_FLAG        = 1<<11,
 			SKIN_CONTROLLER_DATA_FLAG  = 1<<12,
 			CONTROLLER_FLAG            = 1<<13,
+			FORMULA_FLAG               = 1<<14,
+			KINEMATICS_FLAG            = 1<<15,
 
-			ALL_OBJECTS_MASK           = (1<<14) - 1,
+			ALL_OBJECTS_MASK           = (1<<16) - 1,
 		};
 
 	private:
@@ -91,9 +96,17 @@ namespace COLLADASaxFWL
 		/** List of effects.*/
 		typedef std::vector<COLLADAFW::Effect*> EffectList;
 
+		/** List of lights.*/
+		typedef std::vector<COLLADAFW::Light*> LightList;
+
+		/** List of cameras.*/
+		typedef std::vector<COLLADAFW::Camera*> CameraList;
+
 		/** List of morph controller.*/
 		typedef std::vector<COLLADAFW::MorphController*> MorphControllerList;
 
+		/** List of formulas.*/
+		typedef std::vector<COLLADAFW::Formula*> FormulaList;
 
 	private:
 		/** Loader utils that will help us to fill the model.*/
@@ -142,6 +155,14 @@ namespace COLLADASaxFWL
 		completely been parsed.*/
 		EffectList mEffects;
 
+		/** List of all lights in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		LightList mLights;
+
+		/** List of all cameras in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		CameraList mCameras;
+
 		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to assign animations of the morph weights.*/
 		MorphControllerList mMorphControllerList;
@@ -149,6 +170,10 @@ namespace COLLADASaxFWL
 		/** Maps unique ids of animation list to the corresponding animation list. All animation list in this map 
 		will be deleted by the FileLoader.*/
 		UniqueIdAnimationListMap mUniqueIdAnimationListMap;
+
+		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
+		FormulaList mFormulas;
 
 	public:
 
@@ -173,6 +198,9 @@ namespace COLLADASaxFWL
 	private:
 		friend class IFilePartLoader;
 		friend class FileLoader;
+
+		/** The error handler to pass the errors to.*/
+		IErrorHandler* getErrorHandler() {return mErrorHandler;}
 
 		/** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been 
 		passed to this method before, the same 	COLLADAFW::UniqueId will be returned, if not, a 
@@ -221,6 +249,18 @@ namespace COLLADASaxFWL
 		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		EffectList& getEffects() { return mEffects; }
+
+		/** List of all lights in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		LightList& getLights() { return mLights; }
+
+		/** List of all cameras in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		CameraList& getCameras() { return mCameras; }
+
+		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
+		FormulaList& getFormulaList() { return mFormulas; }
 
 		/** Maps unique ids of animation list to the corresponding animation list. All animation list in this map 
 		will be deleted by the FileLoader.*/

@@ -9,7 +9,8 @@
 */
 
 #include "COLLADASaxFWLStableHeaders.h"
-#include "COLLADASaxFWLMeshLoader.h"
+#include "COLLADASaxFWLMeshLoader14.h"
+#include "COLLADASaxFWLMeshLoader15.h"
 #include "COLLADASaxFWLGeometryLoader.h"
 
 namespace COLLADASaxFWL
@@ -28,18 +29,33 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool GeometryLoader::begin__mesh()
 	{
-		SaxVirtualFunctionTest(begin__mesh());
-		MeshLoader* meshLoader = new MeshLoader(this, mGeometryId, mGeometryName);
-		setPartLoader(meshLoader);
-		setParser(meshLoader);
+        MeshLoader* meshLoader = new MeshLoader(this, mGeometryId, mGeometryName);
+        setPartLoader(meshLoader);
+        switch (this->getParserImpl()->getCOLLADAVersion())
+        {
+        case COLLADA_14:
+            {
+            MeshLoader14* meshloader14 = new MeshLoader14( meshLoader );
+            meshLoader->setParserImpl(meshloader14);
+            setParser(meshloader14);
+            break;
+            }
+        case COLLADA_15:
+            {
+            MeshLoader15* meshloader15 = new MeshLoader15( meshLoader );
+            meshLoader->setParserImpl(meshloader15);
+            setParser(meshloader15);
+            break;
+            }
+        }
 		return true;
 	}
 
 	//------------------------------
 	bool GeometryLoader::end__geometry()
 	{
-		SaxVirtualFunctionTest(end__geometry());
 		finish();
+		moveUpInSidTree();
 		return true;
 	}
 

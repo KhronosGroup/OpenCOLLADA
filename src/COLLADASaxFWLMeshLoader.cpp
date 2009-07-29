@@ -12,6 +12,7 @@
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLGeometryMaterialIdInfo.h"
 #include "COLLADASaxFWLLoader.h"
+#include "COLLADASaxFWLFileLoader.h"
 
 #include "COLLADAFWTriangles.h"
 #include "COLLADAFWTristrips.h"
@@ -153,10 +154,10 @@ namespace COLLADASaxFWL
         COLLADABU::URI inputUrl = input.getSource ();
         String sourceId = inputUrl.getFragment ();
         SourceBase* sourceBase = getSourceById ( sourceId );
-
+        if ( sourceBase == 0 ) return false;
+        
         // Check if the source element is already loaded.
-        if ( sourceBase->getIsLoaded () ) 
-			return false;
+        if ( sourceBase->getIsLoaded () ) return false;
 
         // Get the source input array
         const SourceBase::DataType& dataType = sourceBase->getDataType ();
@@ -168,6 +169,9 @@ namespace COLLADASaxFWL
                 FloatSource* source = ( FloatSource* ) sourceBase;
                 FloatArrayElement& arrayElement = source->getArrayElement ();
                 COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement.getValues ();
+
+                // TODO
+                unsigned long long stride = source->getStride ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
@@ -245,6 +249,7 @@ namespace COLLADASaxFWL
         COLLADABU::URI inputUrl = input.getSource ();
         String sourceId = inputUrl.getFragment ();
         SourceBase* sourceBase = getSourceById ( sourceId );
+        if ( sourceBase == 0 ) return false;
 
         // Check if the source element is already loaded.
         if ( sourceBase->getIsLoaded () ) return false;
@@ -337,6 +342,7 @@ namespace COLLADASaxFWL
         COLLADABU::URI inputUrl = input.getSource ();
         String sourceId = inputUrl.getFragment ();
         SourceBase* sourceBase = getSourceById ( sourceId );
+        if ( sourceBase == 0 ) return false;
 
         // Check if the source element is already loaded.
         if ( sourceBase->getIsLoaded () ) return false;
@@ -429,6 +435,7 @@ namespace COLLADASaxFWL
         COLLADABU::URI inputUrl = input.getSource ();
         String sourceId = inputUrl.getFragment ();
         SourceBase* sourceBase = getSourceById ( sourceId );
+        if ( sourceBase == 0 ) return false;
 
         // Check if the source element is already loaded.
         if ( sourceBase->getIsLoaded () ) return false;
@@ -598,6 +605,8 @@ namespace COLLADASaxFWL
     {
         const InputShared* positionInput = mMeshPrimitiveInputs.getPositionInput ();
         assert ( positionInput != 0 );
+        if ( positionInput == 0 )
+            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "No positions, can't import!", IError::SEVERITY_CRITICAL );
 
         // Get the offset value, the initial index values and alloc the memory.
         mPositionsOffset = positionInput->getOffset ();
@@ -605,6 +614,14 @@ namespace COLLADASaxFWL
         String sourceId = inputUrl.getFragment ();
         const SourceBase* sourceBase = getSourceById ( sourceId );
         assert ( sourceBase != 0 );
+        if ( sourceBase == 0 )
+            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positions sourceBase is null.", IError::SEVERITY_CRITICAL );
+
+        // only stride 3 makes sense for normals
+        unsigned long long stride = sourceBase->getStride();
+        if ( stride != 3 )
+            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positios stride is not three.", IError::SEVERITY_CRITICAL );
+
         mPositionsIndexOffset = (unsigned int)sourceBase->getInitialIndex();
     }
 
@@ -618,17 +635,25 @@ namespace COLLADASaxFWL
             // Get the offset value, the initial index values and alloc the memory.
             mNormalsOffset = normalInput->getOffset ();
             const SourceBase* sourceBase = getSourceById ( normalInput->getSource ().getFragment () );
-            unsigned long long stride = sourceBase->getStride();
-            // only stride 3 makes sense for normals
-            if ( stride == 3 )
-            {
-                mNormalsIndexOffset = (unsigned int)(sourceBase->getInitialIndex() / stride);
-                mUseNormals = true;
-            }
-            else
+            if ( !sourceBase )
             {
                 mNormalsIndexOffset = 0;
                 mUseNormals = false;
+            }
+            else 
+            {
+                // only stride 3 makes sense for normals
+                unsigned long long stride = sourceBase->getStride();
+                if ( stride == 3 )
+                {
+                    mNormalsIndexOffset = (unsigned int)(sourceBase->getInitialIndex() / stride);
+                    mUseNormals = true;
+                }
+                else
+                {
+                    mNormalsIndexOffset = 0;
+                    mUseNormals = false;
+                }
             }
         }
         else
@@ -725,7 +750,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__mesh() 
 	{
-		SaxVirtualFunctionTest(end__mesh());
 		bool success = true;
 		if ( (getObjectFlags() & Loader::GEOMETRY_FLAG) != 0 )
 		{
@@ -739,21 +763,18 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__source( const source__AttributeData& attributes )
 	{
-		SaxVirtualFunctionTest(begin__source(attributes));
 		return beginSource(attributes);
 	}
 
 	//------------------------------
 	bool MeshLoader::end__source(  )
 	{
-		SaxVirtualFunctionTest(end__source());
 		return endSource();
 	}
 
 	//------------------------------
 	bool MeshLoader::begin__vertices( const vertices__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__vertices(attributeData));
 		if ( attributeData.id )
 			mVerticesInputs.setId( attributeData.id );
 		if ( attributeData.name )
@@ -764,7 +785,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__vertices()
 	{
-		SaxVirtualFunctionTest(end__vertices());
 		//we don't need to do anything here
 		return true;
 	}
@@ -772,7 +792,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__input____InputLocal( const input____InputLocal__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__input____InputLocal(attributeData));
 		mCurrentVertexInput = new InputUnshared(attributeData.semantic, attributeData.source);
 		return true;
 	}
@@ -780,7 +799,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__input____InputLocal()
 	{
-		SaxVirtualFunctionTest(end__input____InputLocal());
 		mVerticesInputs.getInputArray().append(mCurrentVertexInput);
 		mCurrentVertexInput = 0;
 		return true;
@@ -789,7 +807,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__triangles( const triangles__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__triangles(attributeData));
 		mCurrentPrimitiveType = TRIANGLES;
 		if ( attributeData.material )
 			mCurrentMeshMaterial = attributeData.material;
@@ -800,7 +817,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__triangles()
 	{
-		SaxVirtualFunctionTest(end__triangles());
 		mMeshPrimitiveInputs.clearInputs();
 		mCurrentPrimitiveType = NONE;
 		return true;
@@ -810,24 +826,23 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__input____InputLocalOffset( const input____InputLocalOffset__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__input____InputLocalOffset(attributeData));
 		return beginInput(attributeData);
 	}
 
 	//------------------------------
 	bool MeshLoader::end__input____InputLocalOffset()
 	{
-		SaxVirtualFunctionTest(end__input____InputLocalOffset());
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::beginInput( const input____InputLocalOffset__AttributeData& attributeData )
 	{
+		bool setPresent = (attributeData.present_attributes & input____InputLocalOffset__AttributeData::ATTRIBUTE_SET_PRESENT) == input____InputLocalOffset__AttributeData::ATTRIBUTE_SET_PRESENT;
 		mMeshPrimitiveInputs.appendInputElement(new InputShared(attributeData.semantic, 
 			attributeData.source, 
 			attributeData.offset,
-			attributeData.set));
+			setPresent ? attributeData.set : 0));
 		return true;
 	}
 
@@ -879,7 +894,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__polylist( const polylist__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__polylist(attributeData));
 		mCurrentPrimitiveType = POLYLIST;
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
@@ -892,7 +906,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__polylist()
 	{
-		SaxVirtualFunctionTest(end__polylist());
 		// check if there are enough vertices as expected by the vcount and that there exist at least
 		// one polygon. If not, we will discard it
 		if ( mCurrentVertexCount >= mCurrentExpectedVertexCount && mCurrentVertexCount > 0 )
@@ -916,14 +929,12 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__lines( const lines__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__lines(attributeData));
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__lines()
 	{
-		SaxVirtualFunctionTest(end__lines());
 		initCurrentValues();
 		return true;
 	}
@@ -931,7 +942,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__linestrips( const linestrips__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__linestrips(attributeData));
 		initCurrentValues();
 		return true;
 	}
@@ -939,7 +949,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__linestrips()
 	{
-		SaxVirtualFunctionTest(end__linestrips());
 		return true;
 	}
 
@@ -961,7 +970,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__vcount()
 	{
-		SaxVirtualFunctionTest(begin__vcount());
 //		initializeOffsets();
 		return true;
 	}
@@ -969,14 +977,12 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__vcount()
 	{
-		SaxVirtualFunctionTest(end__vcount());
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::data__vcount( const unsigned long long* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__vcount(data, length));
 		COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
 		COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 		size_t count = vertexCountArray.getCount();
@@ -1013,7 +1019,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__polygons( const polygons__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__polygons(attributeData));
 		mCurrentPrimitiveType = POLYGONS;
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
 		// The actual size might be bigger, but its a lower bound
@@ -1027,7 +1032,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__polygons()
 	{
-		SaxVirtualFunctionTest(end__polygons());
 		// check if there is at least one polygon. If not, we will discard it.
 		if ( mCurrentFaceCount > 0 )
 		{
@@ -1092,7 +1096,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__ph()
 	{
-		SaxVirtualFunctionTest(begin__ph());
 		mCurrentPhHasEmptyP = true;
 		mCurrentPrimitiveType = POLYGONS_HOLE;
 		return true;
@@ -1101,7 +1104,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__ph()
 	{
-		SaxVirtualFunctionTest(end__ph());
 		mCurrentPrimitiveType = POLYGONS;
 		mPOrPhElementCountOfCurrentPrimitive++;
 		return true;
@@ -1143,14 +1145,12 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__h()
 	{
-		SaxVirtualFunctionTest(begin__h());
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__h()
 	{
-		SaxVirtualFunctionTest(end__h());
 		int currentFaceVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
 		if ( currentFaceVertexCount > 0 )
 		{
@@ -1165,7 +1165,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::data__h( const uint64* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__h(data, length));
 		// If the p element of the parent ph is empty, we don't need to read the h element
 		if ( mCurrentPhHasEmptyP )
 			return true;
@@ -1175,7 +1174,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__tristrips( const tristrips__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__tristrips(attributeData));
 		COLLADAFW::Tristrips* tristrips = new COLLADAFW::Tristrips();
 		// The actual size might be bigger, but its a lower bound
 		tristrips->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
@@ -1189,7 +1187,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__tristrips()
 	{
-		SaxVirtualFunctionTest(end__tristrips());
 		mCurrentPrimitiveType = TRISTRIPS;
 		// check if there is at least one tristrip. If not, we will discard it.
 		if ( mCurrentFaceCount > 0 )
@@ -1273,7 +1270,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__trifans( const trifans__AttributeData& attributeData )
 	{
-		SaxVirtualFunctionTest(begin__trifans(attributeData));
 		mCurrentPrimitiveType = TRIFANS;
 		COLLADAFW::Trifans* trifans = new COLLADAFW::Trifans();
 		// The actual size might be bigger, but its a lower bound
@@ -1287,7 +1283,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__trifans()
 	{
-		SaxVirtualFunctionTest(end__trifans());
 		// check if there is at least one trifan. If not, we will discard it.
 		if ( mCurrentFaceCount > 0 )
 		{
@@ -1368,7 +1363,6 @@ namespace COLLADASaxFWL
 
 	bool MeshLoader::begin__p()
 	{
-		SaxVirtualFunctionTest(begin__p());
 		switch ( mCurrentPrimitiveType )
 		{
 		case TRIANGLES:
@@ -1441,7 +1435,6 @@ namespace COLLADASaxFWL
 
 	bool MeshLoader::end__p()
 	{
-		SaxVirtualFunctionTest(end__p());
 		mPOrPhElementCountOfCurrentPrimitive++;
 		switch ( mCurrentPrimitiveType )
 		{
@@ -1564,7 +1557,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::data__p( const unsigned long long* data, size_t length )
 	{
-		SaxVirtualFunctionTest(data__p(data, length));
 		return writePrimitiveIndices(data, length);
 	}
 
