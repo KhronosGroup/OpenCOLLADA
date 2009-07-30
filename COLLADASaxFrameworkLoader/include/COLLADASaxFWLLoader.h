@@ -109,6 +109,9 @@ namespace COLLADASaxFWL
 		typedef std::vector<COLLADAFW::Formula*> FormulaList;
 
 	private:
+		/** The version of the collada document.*/
+		COLLADAVersion mCOLLADAVersion;
+
 		/** Loader utils that will help us to fill the model.*/
 		COLLADAFW::LoaderUtils mLoaderUtil;
 
@@ -183,6 +186,8 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~Loader();
 
+		/** The version of the collada document.*/
+		COLLADAVersion getCOLLADAVersion() const { return mCOLLADAVersion; }
 
         /** Starts loading the model and feeds the writer with data.
 		@param fileName The name of the fills that should be loaded.
@@ -198,6 +203,9 @@ namespace COLLADASaxFWL
 	private:
 		friend class IFilePartLoader;
 		friend class FileLoader;
+
+		/** The version of the collada document.*/
+		void setCOLLADAVersion(COLLADAVersion cOLLADAVersion) { mCOLLADAVersion = cOLLADAVersion; }
 
 		/** The error handler to pass the errors to.*/
 		IErrorHandler* getErrorHandler() {return mErrorHandler;}

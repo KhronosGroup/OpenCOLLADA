@@ -20,6 +20,14 @@ namespace COLLADASaxFWL
     typedef std::string String;
 
 
+	enum COLLADAVersion
+	{  
+		COLLADA_UNKNOWN,
+		COLLADA_14,
+		COLLADA_15
+	};
+
+
 #define COLLADASAXFWL_REAL_IS_FLOAT
 
 #ifdef COLLADASAXFWL_REAL_IS_FLOAT

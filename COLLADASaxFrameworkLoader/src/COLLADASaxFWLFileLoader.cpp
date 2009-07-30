@@ -632,4 +632,10 @@ namespace COLLADASaxFWL
 
 		return false;
 	}
+
+	void FileLoader::setCOLLADAVersion( COLLADAVersion cOLLADAVersion )
+	{
+		mCOLLADAVersion = cOLLADAVersion;
+		mColladaLoader->setCOLLADAVersion(cOLLADAVersion);
+	}
 } // namespace COLLADASaxFWL
