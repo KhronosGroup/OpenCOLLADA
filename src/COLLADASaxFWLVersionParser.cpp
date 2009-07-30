@@ -369,10 +369,12 @@ namespace COLLADASaxFWL
                         StringHash attrVal = GeneratedSaxParser::Utils::calculateStringHash( attributeValue );
                         if ( attrVal == HASH_NAMESPACE_COLLADA_14 )
                         {
+							mFileLoader->setCOLLADAVersion(COLLADA_14);
                             return parse14( elementName, attributes );
                         }
                         else if ( attrVal == HASH_NAMESPACE_COLLADA_15 )
                         {
+							mFileLoader->setCOLLADAVersion(COLLADA_15);
                             return parse15( elementName, attributes );
                         }
                     }

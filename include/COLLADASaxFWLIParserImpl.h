@@ -15,11 +15,7 @@
 
 namespace COLLADASaxFWL
 {
-    enum COLLADAVersion
-    {
-        COLLADA_14,
-        COLLADA_15
-    };
+
 
     /**
      * A tagging interface common to all classes inheriting one of the generated parsers.

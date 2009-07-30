@@ -89,7 +89,9 @@ namespace COLLADASaxFWL
 		typedef std::set< COLLADAFW::SkinController, bool(*)(const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs)> SkinControllerSet;
 
 	private:
-	
+		/** The version of the collada document.*/
+		COLLADAVersion mCOLLADAVersion;
+
 		/** The COLLADA loader */
 		Loader* mColladaLoader;
 
@@ -193,6 +195,9 @@ namespace COLLADASaxFWL
  
         /** Destructor. */
         virtual ~FileLoader();
+
+		/** The version of the collada document.*/
+		COLLADAVersion getCOLLADAVersion() const { return mCOLLADAVersion; }
 
 		/** Sets the parser to @a parserToBeSet.*/
         void setParser( COLLADASaxFWL14::ColladaParserAutoGen14* parserToBeSet );
@@ -379,6 +384,7 @@ namespace COLLADASaxFWL
 
 
     private:
+		friend class VersionParser;
 
         /** Disable default copy ctor. */
 		FileLoader( const FileLoader& pre );
@@ -392,6 +398,11 @@ namespace COLLADASaxFWL
 		taken into account. Is basically compares if two SkinControllers describe exactly the same skin controller
 		i.e. have the same source, joints and SkinControllerData.*/
 		static bool compare( const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs);
+
+		/** The version of the collada document.*/
+		void setCOLLADAVersion(COLLADAVersion cOLLADAVersion);
+
+
 
 	};
 	
