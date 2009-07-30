@@ -8,6 +8,7 @@
 
 //--------------------------------------------------------------------
 ValidationErrorHandler::ValidationErrorHandler()
+	: mHasHandledError(false)
 {
 }
 
@@ -35,5 +36,6 @@ bool ValidationErrorHandler::handleError( const COLLADASaxFWL::IError* error )
 
 		std::cout << parserError.getErrorMessage() << std::endl;
 	}
+	mHasHandledError = true;
 	return true;
 }
