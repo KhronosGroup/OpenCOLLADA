@@ -97,7 +97,7 @@ namespace COLLADASaxFWL
 			// Write the indices
 			if (  mCurrentOffset == mJointOffset )
 			{
-				COLLADAFW::UIntValuesArray& jointIndices = mCurrentSkinControllerData->getJointIndices();
+				COLLADAFW::IntValuesArray& jointIndices = mCurrentSkinControllerData->getJointIndices();
 				jointIndices.append ( index );
 			}
 
