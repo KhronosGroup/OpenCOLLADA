@@ -16,7 +16,6 @@
 namespace COLLADASaxFWL
 {
 
-
     /**
      * A tagging interface common to all classes inheriting one of the generated parsers.
      */

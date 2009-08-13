@@ -35,4 +35,9 @@ namespace COLLADASaxFWL
 		return isCritical ? IError::SEVERITY_CRITICAL : IError::SEVERITY_ERROR_NONCRITICAL;
 	}
 
+	//------------------------------
+	String SaxParserError::getFullErrorMessage() const
+	{
+		return  mError.getErrorMessage();
+	}
 } // namespace COLLADASaxFWL

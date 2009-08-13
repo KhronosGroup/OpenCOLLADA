@@ -24,9 +24,11 @@ namespace COLLADASaxFWL
 	public:
 		enum ErrorType
 		{
-			ERROR_UNRESOLVED_REFERENCE,         // An element that is referenced, could not be resolved.
-			ERROR_UNRESOLVED_FORMULA,           // A formula referenced in a formula, could not be resolved.
-			ERROR_DATA_NOT_VALID                // Data not valid.
+			ERROR_UNRESOLVED_REFERENCE,             // An element that is referenced, could not be resolved.
+			ERROR_UNRESOLVED_FORMULA,               // A formula referenced in a formula, could not be resolved.
+			ERROR_UNRESOLVED_PARAMETER,             // A parameter referenced in a formula, could not be resolved.
+			ERROR_PARAMETER_COUNT_DOESNOT_MATCH,    // A parameter referenced in a formula, could not be resolved.
+			ERROR_DATA_NOT_VALID                    // Data not valid.
 		};
 	private:
 		/** The type of the error.*/
@@ -67,7 +69,7 @@ namespace COLLADASaxFWL
 		const COLLADASaxFWL::String& getErrorMessage() const { return mErrorMessage; }
 
 		/** The full error message describing the error, including all information.*/
-		COLLADASaxFWL::String getFullErrorMessage() const;
+		String getFullErrorMessage() const;
 
 		/** The line number the error occurred in. Might be zero if the location could not be
 		determined.*/

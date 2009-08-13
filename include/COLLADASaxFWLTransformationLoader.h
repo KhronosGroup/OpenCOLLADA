@@ -12,6 +12,7 @@
 #define __COLLADASAXFWL_TRANSFORMATIONLOADER_H__
 
 #include "COLLADASaxFWLPrerequisites.h"
+#include "COLLADAFWPrerequisites.h"
 
 
 namespace COLLADAFW
