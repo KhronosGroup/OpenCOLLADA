@@ -21,7 +21,7 @@
 namespace COLLADASaxFWL
 {
 
-	class Targetable;
+	class IntermediateTargetable;
 
     /** The SidTreeNode is used to build the Sid tree. The Sid tree  represents the parent child relation between elements
 	that can have sids. This tree is used to resolve sids.
@@ -54,7 +54,7 @@ namespace COLLADASaxFWL
 			TARGETTYPECLASS_UNKNOWN,
 			TARGETTYPECLASS_OBJECT,
 			TARGETTYPECLASS_ANIMATABLE,
-			TARGETTYPECLASS_TARGETABLE
+			TARGETTYPECLASS_INTERMEDIATETARGETABLE
 		};
 
 	private:
@@ -62,7 +62,7 @@ namespace COLLADASaxFWL
 		{
 			COLLADAFW::Animatable * animatable;
 			COLLADAFW::Object * object;
-			Targetable * targetable;
+			IntermediateTargetable * intermediateTargetable;
 		};
 
 	private:
@@ -107,8 +107,8 @@ namespace COLLADASaxFWL
 		/** Returns the target, if it is an animatable, null otherwise.*/
 		COLLADAFW::Animatable* getAnimatableTarget() const { return (mTargetType==TARGETTYPECLASS_ANIMATABLE) ? mTarget.animatable: 0; }
 
-		/** Returns the target, if it is a Targetable, null otherwise.*/
-		Targetable* getTargetableTarget() const { return (mTargetType==TARGETTYPECLASS_TARGETABLE) ? mTarget.targetable : 0; }
+		/** Returns the target, if it is a IntermediateTargetable, null otherwise.*/
+		IntermediateTargetable* getTargetableTarget() const { return (mTargetType==TARGETTYPECLASS_INTERMEDIATETARGETABLE) ? mTarget.intermediateTargetable : 0; }
 
 		/** Sets the target to @a target and the target type to @a TARGETTYPECLASS_OBJECT.*/
 		void setTarget(COLLADAFW::Object* target) { mTarget.object = target; mTargetType = TARGETTYPECLASS_OBJECT; }
@@ -117,7 +117,7 @@ namespace COLLADASaxFWL
 		void setTarget(COLLADAFW::Animatable* target) { mTarget.animatable = target; mTargetType = TARGETTYPECLASS_ANIMATABLE; }
 
 		/** Sets the target to @a target and the target type to @a TARGETTYPECLASS_ANIMATABLE.*/
-		void setTarget(Targetable* target) { mTarget.targetable= target; mTargetType = TARGETTYPECLASS_TARGETABLE; }
+		void setTarget(IntermediateTargetable* target) { mTarget.intermediateTargetable= target; mTargetType = TARGETTYPECLASS_INTERMEDIATETARGETABLE; }
 
 		/** Creates a new child with sid @a sid and adds it to the list of children. */
 		SidTreeNode* createAndAddChild( const String& sid);

@@ -189,7 +189,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, Targetable* target )
+	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target )
 	{
 		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
 	}

@@ -58,7 +58,7 @@ namespace COLLADASaxFWL
     class RootParser14;
     class RootParser15;
     class IParserImpl;
-	class Targetable;
+	class IntermediateTargetable;
 
     /** Base class for all loaders that load parts of files or entire files */
     class IFilePartLoader
@@ -226,7 +226,7 @@ namespace COLLADASaxFWL
 		@param sid The sid of the element. Might be 0;
 		@param target The target assigned to the sid tree node
 		*/
-		void addToSidTree( const char* colladaId, const char* colladaSid, Targetable* target );
+		void addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target );
 
 		/** Moves one node up in the sid tree. Call this method whenever an element, for which addToSidTree() was
 		called, is closed.*/

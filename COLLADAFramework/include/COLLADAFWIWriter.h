@@ -116,6 +116,11 @@ namespace COLLADAFW
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writeController( const Controller* controller ) = 0;
 
+        /** When this method is called, the writer must write the formulas. All the formulas of the entire
+		COLLADA file are contained in @a formulas.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeFormulas( const Formulas* formulas ) = 0;
+
     private:
 
         /** Disable default copy ctor. */

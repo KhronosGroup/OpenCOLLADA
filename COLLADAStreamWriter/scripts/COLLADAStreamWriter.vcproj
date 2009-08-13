@@ -566,6 +566,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASWBuffer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASWCamera.cpp"
 				>
 			</File>
@@ -574,11 +578,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASWCharacterBuffer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASWColor.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\COLLADASWConstants.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWdtoa.cpp"
 				>
 			</File>
 			<File
@@ -611,6 +623,14 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADASWFormatHint.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWftoa.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWFWriteBufferFlusher.cpp"
 				>
 			</File>
 			<File
@@ -852,11 +872,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASWBuffer.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASWCamera.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWCameraOptic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWCharacterBuffer.h"
 				>
 			</File>
 			<File
@@ -873,6 +901,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWConstants.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWdtoa.h"
 				>
 			</File>
 			<File
@@ -897,6 +929,18 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWFormatHint.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWftoa.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWFWriteBufferFlusher.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWIBufferFlusher.h"
 				>
 			</File>
 			<File
@@ -937,6 +981,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWInstanceNode.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWitoa.h"
 				>
 			</File>
 			<File

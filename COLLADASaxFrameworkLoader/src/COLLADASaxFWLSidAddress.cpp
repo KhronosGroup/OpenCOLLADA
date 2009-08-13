@@ -10,6 +10,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLSidAddress.h"
+#include "COLLADABUPcreCompiledPattern.h"
 
 #include "pcre.h"
 
@@ -103,7 +104,8 @@ namespace COLLADASaxFWL
 
 		// regular expression: "(.+)\.(.+)"
 		static const char _accessorNameRegex[69]={69,82,67,80,69,0,0,0,0,0,0,0,5,0,0,0,2,0,0,0,0,0,46,2,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,25,95,0,7,0,1,59,12,85,0,7,28,46,95,0,7,0,2,59,12,85,0,7,85,0,25,0,};
-		pcre* accessorNameRegex = (pcre*) _accessorNameRegex;
+		static const COLLADABU::PcreCompiledPattern accessorNameRegexCompiledPattern("(.+)\\.(.+)", _accessorNameRegex);
+		pcre* accessorNameRegex = accessorNameRegexCompiledPattern.getPattern();
 
 		int accessorNameMatches[regExpMatchesVectorLength];
 
@@ -157,7 +159,8 @@ namespace COLLADASaxFWL
 		{
 			// regular expression: "([^(]+)(?:\(([0-9]+)\))?(?:\(([0-9]+)\))?"
 			char _accessorIndexRegex[163]={69,82,67,80,-93,0,0,0,0,0,0,0,1,0,0,0,3,0,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,119,95,0,7,0,1,46,40,85,0,7,103,94,0,49,28,40,95,0,39,0,2,78,0,0,0,0,0,0,-1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,85,0,39,28,41,85,0,49,103,94,0,49,28,40,95,0,39,0,3,78,0,0,0,0,0,0,-1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,85,0,39,28,41,85,0,49,85,0,119,0,};
-			pcre* accessorIndexRegex = (pcre*) _accessorIndexRegex;
+			static const COLLADABU::PcreCompiledPattern accessorIndexRegexCompiledPattern("([^(]+)(?:\\(([0-9]+)\\))?(?:\\(([0-9]+)\\))?", _accessorIndexRegex);
+			pcre* accessorIndexRegex = accessorIndexRegexCompiledPattern.getPattern();
 
 			int accessorIndexMatches[regExpMatchesVectorLength];
 

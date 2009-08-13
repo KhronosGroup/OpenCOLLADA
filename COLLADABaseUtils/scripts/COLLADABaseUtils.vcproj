@@ -43,7 +43,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\Externals\UTF\include;..\..\Externals\pcre\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC;COLLADABU_USE_PCRE_PRECOMPILED"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -109,7 +109,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\Externals\UTF\include;..\..\Externals\pcre\include"
-				PreprocessorDefinitions="WIN64;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC"
+				PreprocessorDefinitions="WIN64;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC;COLLADABU_USE_PCRE_PRECOMPILED"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -175,7 +175,7 @@
 				Name="VCCLCompilerTool"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\Externals\UTF\include;..\..\Externals\pcre\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC;COLLADABU_USE_PCRE_PRECOMPILED"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="1"
 				PrecompiledHeaderThrough="COLLADABUStableHeaders.h"
@@ -239,7 +239,7 @@
 				Name="VCCLCompilerTool"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\Externals\UTF\include;..\..\Externals\pcre\include"
-				PreprocessorDefinitions="WIN64;NDEBUG;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC"
+				PreprocessorDefinitions="WIN64;NDEBUG;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;PCRE_STATIC;COLLADABU_USE_PCRE_PRECOMPILED"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="1"
 				PrecompiledHeaderThrough="COLLADABUStableHeaders.h"
@@ -294,6 +294,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADABUNativeString.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADABUPcreCompiledPattern.cpp"
 				>
 			</File>
 			<File
@@ -410,6 +414,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADABUNativeString.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADABUPcreCompiledPattern.h"
 				>
 			</File>
 			<File

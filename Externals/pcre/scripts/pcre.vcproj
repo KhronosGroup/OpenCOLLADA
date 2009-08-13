@@ -292,6 +292,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\pcre_compile.c"
+				>
+			</File>
+			<File
 				RelativePath="..\src\pcre_exec.c"
 				>
 			</File>

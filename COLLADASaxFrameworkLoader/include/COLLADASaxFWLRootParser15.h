@@ -69,6 +69,15 @@ namespace COLLADASaxFWL
         /** Starts loading a library animations.*/
         virtual bool begin__library_controllers( const COLLADASaxFWL15::library_controllers__AttributeData& attributeData );
 
+        /** Starts loading a library formulas.*/
+        virtual bool begin__library_formulas( const COLLADASaxFWL15::library_formulas__AttributeData& attributeData );
+
+		/** Starts loading a library joints.*/
+		virtual bool begin__library_joints( const COLLADASaxFWL15::library_joints__AttributeData& attributeData );
+
+		/** Starts loading a library kinematics models.*/
+		virtual bool begin__library_kinematics_models( const COLLADASaxFWL15::library_kinematics_models__AttributeData& attributeData );
+
 
     private:
         /** Disable default c-ctor and assignment op. */

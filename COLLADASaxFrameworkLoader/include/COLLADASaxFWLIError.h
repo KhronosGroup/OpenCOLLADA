@@ -45,6 +45,10 @@ namespace COLLADASaxFWL
 		/** Returns the severity of the error.*/
 		Severity virtual getSeverity() const=0;
 
+		/** The full error message describing the error, including all information.*/
+		virtual String getFullErrorMessage() const=0;
+
+
 	private:
 
         /** Disable default copy ctor. */

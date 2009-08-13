@@ -338,7 +338,7 @@
 		<Configuration
 			Name="Debug Expat|x64"
 			OutputDirectory="..\lib\win\$(PlatformName)\Expat"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -465,7 +465,7 @@
 		<Configuration
 			Name="Release Expat|x64"
 			OutputDirectory="..\lib\win\$(PlatformName)\Expat"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"

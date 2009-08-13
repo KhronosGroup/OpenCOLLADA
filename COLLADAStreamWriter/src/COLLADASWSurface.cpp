@@ -8,7 +8,7 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-//#include "COLLADASWSurface.h"
+#include "COLLADASWSurface.h"
 #include "COLLADASWConstants.h"
 
 namespace COLLADASW

@@ -46,6 +46,9 @@ namespace COLLADASaxFWL
         /** Returns the current error to get the error message. */
         const GeneratedSaxParser::ParserError& getError () { return mError; }
 
+		/** The full error message describing the error, including all information.*/
+		String getFullErrorMessage() const;
+
 	private:
 
         /** Disable default copy ctor. */

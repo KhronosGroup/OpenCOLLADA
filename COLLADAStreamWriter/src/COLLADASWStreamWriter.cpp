@@ -84,56 +84,31 @@ namespace COLLADASW
 
     const String StreamWriter::mWhiteSpaceString ( WHITESPACESTRINGLENGTH,' ' );
 
-	const int StreamWriter::BUFFERSIZE = 2097152;
+	const int StreamWriter::FWRITEBUFFERSIZE = 1024*64;
+	const int StreamWriter::CHARACTERBUFFERSIZE = 1024*64*64;
 
 
     //---------------------------------------------------------------
     StreamWriter::StreamWriter ( const NativeString & fileName, bool doublePrecision /*= false*/, COLLADAVersion cOLLADAVersion /*= COLLADA_1_4_1*/ )
-            : mLevel ( 0 )
-            ,mIndent ( 2 )
-            ,mBuffer ( 0 )
-            ,mDoublePrecision (doublePrecision)
-            ,mPrecisionNumber(17)
-			,mCOLLADAVersion(cOLLADAVersion)
+            : mBufferFlusher(fileName.c_str(), FWRITEBUFFERSIZE)
+			, mCharacterBuffer( CHARACTERBUFFERSIZE, &mBufferFlusher )
+			, mLevel ( 0 )
+            , mIndent ( 2 )
+            , mDoublePrecision (doublePrecision)
+			, mCOLLADAVersion(cOLLADAVersion)
     {
-		mBuffer = new char[BUFFERSIZE];
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-		mLocale = setlocale(LC_NUMERIC, 0);
-		setlocale(LC_NUMERIC, "C");
-        errno_t error = fopen_s ( &mStream, fileName.c_str(), "w" );
-        if ( error != 0 )
-        {
-			delete[] mBuffer;
-			throw StreamWriterException(StreamWriterException::ERROR_FILE_OPEN, "Could not open file \"" + fileName + "\" for writing. errno_t = " + Utils::toString(error) );
-        }
-		
-		bool failed = ( setvbuf ( mStream , mBuffer, _IOFBF, BUFFERSIZE ) != 0 );
-		if ( failed )
+		errno_t error = mBufferFlusher.getError();
+		if ( error != 0 )
 		{
-			delete[] mBuffer;
-			throw StreamWriterException(StreamWriterException::ERROR_SET_BUFFER, "Could not set buffer for writing.");
+			throw StreamWriterException(StreamWriterException::ERROR_FILE_OPEN, "Could not open file \"" + fileName + "\" for writing. errno_t = " + Utils::toString(error) );
 		}
 
-#else
-        if ( mDoublePrecision )
-            mOutFile.precision ( mPrecisionNumber );
-        mOutFile.rdbuf() ->pubsetbuf ( mBuffer, /*sizeof ( mBuffer )*/BUFFERSIZE );
-        mOutFile.open ( fileName.c_str() );
-#endif
     }
 
     //---------------------------------------------------------------
     StreamWriter::~StreamWriter()
     {
         endDocument();
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-        fclose ( mStream );
-		setlocale(LC_NUMERIC, mLocale.c_str());
-#else
-        mOutFile.close();
-#endif
-        delete[] mBuffer;
-
     }
 
     //---------------------------------------------------------------
@@ -837,12 +812,6 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::addWhiteSpace ( const size_t number )
     {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-
-        for ( size_t i = 0; i<number; ++i )
-            appendChar ( ' ' );
-
-#else
         size_t numberOfWholeStrings = number / WHITESPACESTRINGLENGTH;
 
         size_t remainder = number % WHITESPACESTRINGLENGTH;
@@ -851,9 +820,6 @@ namespace COLLADASW
             appendNCNameString ( mWhiteSpaceString );
 
         appendNCNameString ( mWhiteSpaceString, remainder );
-
-#endif
-
     }
 
 

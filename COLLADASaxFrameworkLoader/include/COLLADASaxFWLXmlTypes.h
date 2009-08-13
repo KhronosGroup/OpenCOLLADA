@@ -3281,6 +3281,95 @@ namespace COLLADASaxFWL
         GeneratedSaxParser::XSList<const ParserChar*> unknownAttributes;
     };
 
+
+	//*******************************************   kinematics   ********************************************
+
+	struct joint__AttributeData
+	{
+		static const joint__AttributeData DEFAULT;
+
+		const ParserChar* id;
+		const ParserChar* name;
+		const ParserChar* sid;
+	};
+
+	struct prismatic__AttributeData
+	{
+		static const prismatic__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+	};
+
+	struct axis____axis_type__AttributeData
+	{
+		static const axis____axis_type__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+		const ParserChar* name;
+	};
+
+	struct min____minmax_type__AttributeData
+	{
+		static const min____minmax_type__AttributeData DEFAULT;
+
+		const ParserChar* name;
+		const ParserChar* sid;
+	};
+
+	typedef min____minmax_type__AttributeData max____minmax_type__AttributeData;
+
+	struct revolute__AttributeData
+	{
+		static const revolute__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+	};
+
+
+	struct kinematics_model__AttributeData
+	{
+		static const kinematics_model__AttributeData DEFAULT;
+
+		const ParserChar* id;
+		const ParserChar* name;
+	};
+
+	struct newparam____kinematics_newparam_type__AttributeData
+	{
+		static const newparam____kinematics_newparam_type__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+	};
+
+	struct instance_joint__AttributeData
+	{
+		static const instance_joint__AttributeData DEFAULT;
+
+		static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+		uint32 present_attributes;
+
+		COLLADABU::URI url;
+		const ParserChar* sid;
+		const ParserChar* name;
+	};
+
+	struct link__AttributeData
+	{
+		static const link__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+		const ParserChar* name;
+	};
+
+	struct attachment_AttributeData
+	{
+		static const attachment_AttributeData DEFAULT;
+
+		const ParserChar* joint;
+	};
+
+
 }
 
 #endif // __COLLADASAXFWL_XMLTYPES_H__

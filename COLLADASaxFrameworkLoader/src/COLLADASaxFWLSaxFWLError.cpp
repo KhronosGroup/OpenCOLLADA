@@ -12,6 +12,8 @@
 #include "COLLADASaxFWLSaxFWLError.h"
 
 
+#define ERRORTYPE2STRING(typename) case typename: errorMessage << #typename; break;
+
 namespace COLLADASaxFWL
 {
 
@@ -42,10 +44,11 @@ namespace COLLADASaxFWL
 
 		switch ( mErrorType )
 		{
-		case ERROR_UNRESOLVED_REFERENCE:
-        case ERROR_DATA_NOT_VALID:
-			errorMessage << "ERROR_UNRESOLVED_REFERENCE";
-			break;
+			ERRORTYPE2STRING(ERROR_UNRESOLVED_REFERENCE);
+			ERRORTYPE2STRING(ERROR_UNRESOLVED_FORMULA);
+			ERRORTYPE2STRING(ERROR_UNRESOLVED_PARAMETER);
+			ERRORTYPE2STRING(ERROR_PARAMETER_COUNT_DOESNOT_MATCH);
+			ERRORTYPE2STRING(ERROR_DATA_NOT_VALID);
 		default:
 			assert(false);
 		}

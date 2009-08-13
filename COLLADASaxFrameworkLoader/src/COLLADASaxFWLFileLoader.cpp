@@ -130,6 +130,16 @@ namespace COLLADASaxFWL
 			writeAnimationLists();
 		}
 
+		if ( (getObjectFlags() & Loader::FORMULA_FLAG) != 0 )
+		{
+			linkAndWriteFormulas();
+		}
+
+		if ( (getObjectFlags() & Loader::KINEMATICS_FLAG) != 0 )
+		{
+			createAndWriteKinematicsScene();
+		}
+
 		writer()->finish();
 	}
 

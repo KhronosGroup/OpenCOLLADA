@@ -16,11 +16,8 @@
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWColor.h"
 
-#if defined(COLLADABU_OS_WIN) && !defined(COLLADASTREAMWRITER_USE_FPRINTF_S)
-#	define COLLADASTREAMWRITER_USE_FPRINTF_S
-#	include "Math/COLLADABUMathUtils.h"
-#	include "COLLADABUUtils.h"
-#endif
+#include "COLLADASWCharacterBuffer.h"
+#include "COLLADASWFWriteBufferFlusher.h"
 
 #include <fstream>
 #include <stack>
@@ -113,20 +110,12 @@ namespace COLLADASW
         };
 
     private:
+		FWriteBufferFlusher mBufferFlusher;
 
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-        FILE* mStream;        //!< The stream the Collada file will be written to.
-        String mLocale;			//!< The LC_NUMERIC locale that was set before the Streamwriter was instantiated.
-#else
-        std::ofstream mOutFile;         //!< The stream the Collada file will be written to.
-#endif
+		CharacterBuffer mCharacterBuffer;
 
-        /** If true, the float and double values will be exported with a maximum precision of 20 digits. */
+        /** If true, the double values will be exported with a maximum precision of 20 digits. */
         bool mDoublePrecision;
-
-        /** For e, E and f specifiers: this is the number of digits to be printed after the decimal point.
-        For g and G specifiers: This is the maximum number of significant digits to be printed. */
-        int mPrecisionNumber;
 
         std::stack<OpenTag> mOpenTags;  //!< A stack that holds all the open tags.
 
@@ -134,9 +123,9 @@ namespace COLLADASW
 
         size_t mIndent;
 
-        char* mBuffer; // 2MB Puffer!!
+		static const int FWRITEBUFFERSIZE;
 
-        static const int BUFFERSIZE;
+		static const int CHARACTERBUFFERSIZE;
 
         static const String mWhiteSpaceString;
 
@@ -299,68 +288,34 @@ namespace COLLADASW
         /** Adds the string @a str to the stream*/
         inline void appendString ( String & str )
         {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            String searchString = "%", replaceString = "%%";
-            Utils::stringFindAndReplace( str, searchString, replaceString );
-            fprintf_s ( mStream, str.c_str() );
-#else
-            mOutFile.write ( str.c_str(), ( std::streamsize ) str.length() );
-#endif
+			appendNCNameString(str);
         }
 
-        /** Adds the string @a str to the stream.
-            We replace all "%" with "%%" if we write with printf.
-            Do a copy of the const string to proceed. */
+        /** Adds the string @a str to the stream.*/
         inline void appendString ( const String & str )
         {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            String searchString = "%";
-            size_t found = str.find ( searchString );
-            if ( found != String::npos )
-            {
-                String strCopy ( str );
-                String replaceString = "%%";
-                Utils::stringFindAndReplace( strCopy, searchString, replaceString );
-                fprintf_s ( mStream, strCopy.c_str() );
-            }
-            else
-            {
-                fprintf_s ( mStream, str.c_str() );
-            }
-#else
-            mOutFile.write ( str.c_str(), ( std::streamsize ) str.length() );
-#endif
+			appendNCNameString(str);
         }
 
         /** Adds the string @a str to the stream.
             The string have to be a valid ncname. */
         inline void appendNCNameString ( const String & str )
         {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, str.c_str() );
-#else
-            mOutFile.write ( str.c_str(), ( std::streamsize ) str.length() );
-#endif
+			appendNCNameString(str, str.length());
         }
 
         /** Adds the first @n characters of string @a str to the stream.
         @a n must not be larger than the length of @a str.*/
-#ifndef COLLADASTREAMWRITER_USE_FPRINTF_S
         inline void appendNCNameString ( const String & str, size_t n )
         {
-            mOutFile.write ( str.c_str(), ( std::streamsize ) n );
+			mCharacterBuffer.copyToBuffer( str.c_str(), n);
         }
 
-#endif
 
         /** Adds the char @a c to the stream*/
         inline void appendChar ( const char c )
         {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%c", c );
-#else
-            mOutFile.put ( c );
-#endif
+			mCharacterBuffer.copyToBuffer( c );
         }
 
         /** Adds the double @a number to the stream*/
@@ -368,22 +323,11 @@ namespace COLLADASW
         {
 			if ( COLLADABU::Math::Utils::equals<double>(number, 0, std::numeric_limits<double>::epsilon()) )
 			{
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-				fprintf_s ( mStream, "0");
-#else
-				mOutFile << "0";
-#endif
+				appendChar('0');
 			}
 			else
 			{
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-                if ( mDoublePrecision )
-                    fprintf_s ( mStream, "%.*g", mPrecisionNumber, number );
-                else
-    				fprintf_s ( mStream, "%g", number );
-#else
-				mOutFile << number;
-#endif
+				mCharacterBuffer.copyToBufferAsChar( number, mDoublePrecision );
 			}
         }
 
@@ -392,73 +336,42 @@ namespace COLLADASW
         {
 			if ( COLLADABU::Math::Utils::equals<float>(number, 0, std::numeric_limits<float>::epsilon()) )
 			{
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-				fprintf_s ( mStream, "0");
-#else
-				mOutFile << "0";
-#endif
+				appendChar('0');
 			}
 			else
 			{
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-                if ( mDoublePrecision )
-                    fprintf_s ( mStream, "%.*g", mPrecisionNumber, number );
-                else
-                    fprintf_s ( mStream, "%g", number );
-#else
-                mOutFile << number;
-#endif
+				mCharacterBuffer.copyToBufferAsChar( number );
 			}
         }
 
         /** Adds the long @a number to the stream*/
         inline void appendNumber ( const int number )
         {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%d", number );
-#else
-            mOutFile << number;
-#endif
+			mCharacterBuffer.copyToBufferAsChar( number );
         }
 
         /** Adds the long @a number to the stream*/
         inline void appendNumber ( const unsigned int number )
         {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%u", number );
-#else
-            mOutFile << number;
-#endif
+			mCharacterBuffer.copyToBufferAsChar( number );
         }
 
         /** Adds the long @a number to the stream*/
         inline void appendNumber ( const long number )
         {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%li", number );
-#else
-            mOutFile << number;
-#endif
+			mCharacterBuffer.copyToBufferAsChar( number );
         }
 
         /** Adds the long @a number to the stream*/
         inline void appendNumber ( const unsigned long number )
         {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-			fprintf_s ( mStream, "%lu", number );
-#else
-            mOutFile << number;
-#endif
+			mCharacterBuffer.copyToBufferAsChar( number );
         }
 
         /** Adds the bool @a value to the stream*/
         void appendBoolean ( const bool value )
         {
-#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%i", ( int ) value );
-#else
-            mOutFile << value;
-#endif
+			mCharacterBuffer.copyToBufferAsChar( value );
         }
 
         /** Adds a new line to the stream*/

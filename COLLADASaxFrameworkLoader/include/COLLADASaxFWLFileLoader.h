@@ -364,6 +364,11 @@ namespace COLLADASaxFWL
 		/** Writes all animation lists.*/
 		void writeAnimationLists();
 
+		void linkAndWriteFormulas();
+
+		/** Creates and writes the kinematics scene.*/
+		void createAndWriteKinematicsScene();
+		
 	protected:
 		/** Returns a pointer to the COLLADA loader. */
 		Loader* getColladaLoader() { return mColladaLoader; }
@@ -401,8 +406,6 @@ namespace COLLADASaxFWL
 
 		/** The version of the collada document.*/
 		void setCOLLADAVersion(COLLADAVersion cOLLADAVersion);
-
-
 
 	};
 	

@@ -38,7 +38,7 @@ namespace GeneratedSaxParser
 
 		static StringHash calculateStringHash(const ParserChar* text);
 
-        static StringHashPair Utils::calculateStringHashWithNamespace( const ParserChar* text );
+        static StringHashPair calculateStringHashWithNamespace( const ParserChar* text );
 
         static StringHash calculateStringHash(const ParserChar* text, bool& failed);
 

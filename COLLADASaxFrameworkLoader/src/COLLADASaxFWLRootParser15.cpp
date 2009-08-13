@@ -175,6 +175,7 @@ namespace COLLADASaxFWL
         return true;
     }
 
+
 	//-----------------------------
     bool RootParser15::end__COLLADA()
     {
