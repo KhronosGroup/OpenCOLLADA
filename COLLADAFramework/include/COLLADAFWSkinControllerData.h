@@ -58,7 +58,7 @@ namespace COLLADAFW
 
 		/** Indices of joints assigned to a joint/vertex pair. The number of pairs for the i'th vertex is 
 		given by the i'th value in mJointsPerVertex.*/
-		UIntValuesArray mJointIndices;
+		IntValuesArray mJointIndices;
 
 	public:
 
@@ -121,8 +121,8 @@ namespace COLLADAFW
 
 		/** Returns the indices of joints assigned to a joint/vertex pair. The number of pairs for the i'th vertex is 
 		given by the i'th value in mJointsPerVertex.*/
-		const COLLADAFW::UIntValuesArray& getJointIndices() const { return mJointIndices; }
-		COLLADAFW::UIntValuesArray& getJointIndices() { return mJointIndices; }
+		const IntValuesArray& getJointIndices() const { return mJointIndices; }
+		COLLADAFW::IntValuesArray& getJointIndices() { return mJointIndices; }
 
 	private:
 

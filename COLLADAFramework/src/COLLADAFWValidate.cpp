@@ -130,7 +130,7 @@ namespace COLLADAFW
 		}
 
 		// test joint indices
-		const UIntValuesArray& jointIndices = skinControllerData->getJointIndices();
+		const IntValuesArray& jointIndices = skinControllerData->getJointIndices();
 
 		if ( jointsVertexPairCount != jointIndices.getCount() )
 			return false;
