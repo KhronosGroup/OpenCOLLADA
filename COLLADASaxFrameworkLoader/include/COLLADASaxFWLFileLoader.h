@@ -366,9 +366,6 @@ namespace COLLADASaxFWL
 
 		void linkAndWriteFormulas();
 
-		/** Creates and writes the kinematics scene.*/
-		void createAndWriteKinematicsScene();
-		
 	protected:
 		/** Returns a pointer to the COLLADA loader. */
 		Loader* getColladaLoader() { return mColladaLoader; }
