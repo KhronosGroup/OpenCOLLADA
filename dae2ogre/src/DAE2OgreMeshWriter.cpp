@@ -21,7 +21,9 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWTristrips.h"
 
+#if defined(WIN32) || defined(WIN64)
 #include <windows.h>
+#endif
 
 namespace DAE2Ogre
 {

@@ -42,7 +42,7 @@ namespace DAE2Ogre
 			GEOMETRY_RUN
 		};
 
-		typedef std::list<const COLLADAFW::LibraryNodes> LibraryNodesList;
+		typedef std::list<COLLADAFW::LibraryNodes> LibraryNodesList;
 
 		struct InstanceGeometryInfo
 		{
