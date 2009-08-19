@@ -1,0 +1,30 @@
+Requirements:
+-------------
+To link with the COLLADASaxFrameworkLoader, you need following installations:
+- 	Latest version of libxml2 library or framework
+
+Supported and tested versions of libraries:
+-	libxml2 2.6.30
+
+Suitable libraries can be found in the ../Externals directory.
+You can download the latest versions from:
+-	libxml2 - http://xmlsoft.org/downloads.html
+
+Download OpenCOLLADA and compile the sources of COLLADASaxFrameworkLoader
+as a static library. 
+
+Windows:
+---------
+You also need a c++ compiler. The current Project was build with 
+Microsoft Visual Studio 2005 and the VC2005 platform SDK. You can 
+find the vs project file in the "scripts" directory.
+
+OSX:
+---------
+The current Xcode project builds a static library with XCode 3.1. Applications
+that link with it must also include the libxml.framework installed in
+/Library/Frameworks. See the dae2ogre.xcodeproj file for an example.
+
+Open the Xcode project and build it.
+
+The "COLLADASaxFrameworkLoader.a" file will be created in the "build" directory. 
