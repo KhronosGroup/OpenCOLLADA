@@ -1,0 +1,415 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D94103A102CEF390056403B /* OgreVertexElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D13EE831023C8DC00EDCE34 /* OgreVertexElement.cpp */; };
+		4D94103B102CEF390056403B /* DAE2OgreSerializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D13EE841023C8DC00EDCE34 /* DAE2OgreSerializer.cpp */; };
+		4D94103C102CEF390056403B /* DAE2OgreSceneGraphWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D13EE851023C8DC00EDCE34 /* DAE2OgreSceneGraphWriter.cpp */; };
+		4D94103D102CEF390056403B /* DAE2OgreOgreWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D13EE861023C8DC00EDCE34 /* DAE2OgreOgreWriter.cpp */; };
+		4D94103E102CEF390056403B /* DAE2OgreMeshWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D13EE871023C8DC00EDCE34 /* DAE2OgreMeshWriter.cpp */; };
+		4D94103F102CEF390056403B /* DAE2OgreBaseWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D13EE881023C8DC00EDCE34 /* DAE2OgreBaseWriter.cpp */; };
+		4D941040102CEF390056403B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; };
+		4DE72E32103BBC89004AE462 /* libxml.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE72E31103BBC89004AE462 /* libxml.framework */; };
+		4DE7350A103BC30D004AE462 /* libCOLLADASaxFrameworkLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE734A7103BBE20004AE462 /* libCOLLADASaxFrameworkLoader.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4DE734A6103BBE20004AE462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
+			remoteInfo = COLLADASaxFrameworkLoader;
+		};
+		4DE734A8103BBE20004AE462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D0AE89210323FC000764973;
+			remoteInfo = COLLADABaseUtils;
+		};
+		4DE734AA103BBE20004AE462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D0AE8E210323FEA00764973;
+			remoteInfo = COLLADAFramework;
+		};
+		4DE734AC103BBE20004AE462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D0AE84010323F4100764973;
+			remoteInfo = GeneratedSaxParser;
+		};
+		4DE734AE103BBE20004AE462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D0AEA3A1032405D00764973;
+			remoteInfo = UTF;
+		};
+		4DE734B0103BBE20004AE462 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4D0AEA141032402D00764973;
+			remoteInfo = pcre;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76F690486A84900D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		4D13EE7A1023C8C000EDCE34 /* DAE2OgreOgreWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAE2OgreOgreWriter.h; sourceTree = "<group>"; };
+		4D13EE7B1023C8C000EDCE34 /* OgreVertexElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OgreVertexElement.h; sourceTree = "<group>"; };
+		4D13EE7C1023C8C000EDCE34 /* OgreMeshFileFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OgreMeshFileFormat.h; sourceTree = "<group>"; };
+		4D13EE7D1023C8C000EDCE34 /* DAE2OgreStableHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAE2OgreStableHeaders.h; sourceTree = "<group>"; };
+		4D13EE7E1023C8C000EDCE34 /* DAE2OgreSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAE2OgreSerializer.h; sourceTree = "<group>"; };
+		4D13EE7F1023C8C000EDCE34 /* DAE2OgreSceneGraphWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAE2OgreSceneGraphWriter.h; sourceTree = "<group>"; };
+		4D13EE801023C8C000EDCE34 /* DAE2OgrePrerequisites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAE2OgrePrerequisites.h; sourceTree = "<group>"; };
+		4D13EE811023C8C000EDCE34 /* DAE2OgreMeshWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAE2OgreMeshWriter.h; sourceTree = "<group>"; };
+		4D13EE821023C8C000EDCE34 /* DAE2OgreBaseWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAE2OgreBaseWriter.h; sourceTree = "<group>"; };
+		4D13EE831023C8DC00EDCE34 /* OgreVertexElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OgreVertexElement.cpp; sourceTree = "<group>"; };
+		4D13EE841023C8DC00EDCE34 /* DAE2OgreSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAE2OgreSerializer.cpp; sourceTree = "<group>"; };
+		4D13EE851023C8DC00EDCE34 /* DAE2OgreSceneGraphWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAE2OgreSceneGraphWriter.cpp; sourceTree = "<group>"; };
+		4D13EE861023C8DC00EDCE34 /* DAE2OgreOgreWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAE2OgreOgreWriter.cpp; sourceTree = "<group>"; };
+		4D13EE871023C8DC00EDCE34 /* DAE2OgreMeshWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAE2OgreMeshWriter.cpp; sourceTree = "<group>"; };
+		4D13EE881023C8DC00EDCE34 /* DAE2OgreBaseWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAE2OgreBaseWriter.cpp; sourceTree = "<group>"; };
+		4DE72E31103BBC89004AE462 /* libxml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libxml.framework; path = Library/Frameworks/libxml.framework; sourceTree = SDKROOT; };
+		4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = COLLADASaxFrameworkLoader.xcodeproj; path = ../COLLADASaxFrameworkLoader/COLLADASaxFrameworkLoader.xcodeproj; sourceTree = SOURCE_ROOT; };
+		8DD76F6C0486A84900D96B5E /* dae2ogre */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dae2ogre; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76F660486A84900D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DE7350A103BC30D004AE462 /* libCOLLADASaxFrameworkLoader.a in Frameworks */,
+				4DE72E32103BBC89004AE462 /* libxml.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* dae2ogre */ = {
+			isa = PBXGroup;
+			children = (
+				4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */,
+				4D13EE781023C81A00EDCE34 /* Include */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				C6859E8C029090F304C91782 /* Documents */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+				4DE72E31103BBC89004AE462 /* libxml.framework */,
+			);
+			name = dae2ogre;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				4D13EE831023C8DC00EDCE34 /* OgreVertexElement.cpp */,
+				4D13EE841023C8DC00EDCE34 /* DAE2OgreSerializer.cpp */,
+				4D13EE851023C8DC00EDCE34 /* DAE2OgreSceneGraphWriter.cpp */,
+				4D13EE861023C8DC00EDCE34 /* DAE2OgreOgreWriter.cpp */,
+				4D13EE871023C8DC00EDCE34 /* DAE2OgreMeshWriter.cpp */,
+				4D13EE881023C8DC00EDCE34 /* DAE2OgreBaseWriter.cpp */,
+				08FB7796FE84155DC02AAC07 /* main.cpp */,
+			);
+			name = Source;
+			path = src;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76F6C0486A84900D96B5E /* dae2ogre */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4D13EE781023C81A00EDCE34 /* Include */ = {
+			isa = PBXGroup;
+			children = (
+				4D13EE7A1023C8C000EDCE34 /* DAE2OgreOgreWriter.h */,
+				4D13EE7B1023C8C000EDCE34 /* OgreVertexElement.h */,
+				4D13EE7C1023C8C000EDCE34 /* OgreMeshFileFormat.h */,
+				4D13EE7D1023C8C000EDCE34 /* DAE2OgreStableHeaders.h */,
+				4D13EE7E1023C8C000EDCE34 /* DAE2OgreSerializer.h */,
+				4D13EE7F1023C8C000EDCE34 /* DAE2OgreSceneGraphWriter.h */,
+				4D13EE801023C8C000EDCE34 /* DAE2OgrePrerequisites.h */,
+				4D13EE811023C8C000EDCE34 /* DAE2OgreMeshWriter.h */,
+				4D13EE821023C8C000EDCE34 /* DAE2OgreBaseWriter.h */,
+			);
+			name = Include;
+			path = include;
+			sourceTree = "<group>";
+		};
+		4DE7349B103BBE20004AE462 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DE734A7103BBE20004AE462 /* libCOLLADASaxFrameworkLoader.a */,
+				4DE734A9103BBE20004AE462 /* libCOLLADABaseUtils.a */,
+				4DE734AB103BBE20004AE462 /* libCOLLADAFramework.a */,
+				4DE734AD103BBE20004AE462 /* libGeneratedSaxParser.a */,
+				4DE734AF103BBE20004AE462 /* UTF.o */,
+				4DE734B1103BBE20004AE462 /* libpcre.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6859E8C029090F304C91782 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Documents;
+			path = doc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DD76F620486A84900D96B5E /* dae2ogre */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "dae2ogre" */;
+			buildPhases = (
+				4D940F28102CE3FA0056403B /* Sources */,
+				8DD76F660486A84900D96B5E /* Frameworks */,
+				8DD76F690486A84900D96B5E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dae2ogre;
+			productInstallPath = "$(HOME)/bin";
+			productName = dae2ogre;
+			productReference = 8DD76F6C0486A84900D96B5E /* dae2ogre */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "dae2ogre" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* dae2ogre */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4DE7349B103BBE20004AE462 /* Products */;
+					ProjectRef = 4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				8DD76F620486A84900D96B5E /* dae2ogre */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4DE734A7103BBE20004AE462 /* libCOLLADASaxFrameworkLoader.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCOLLADASaxFrameworkLoader.a;
+			remoteRef = 4DE734A6103BBE20004AE462 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DE734A9103BBE20004AE462 /* libCOLLADABaseUtils.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCOLLADABaseUtils.a;
+			remoteRef = 4DE734A8103BBE20004AE462 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DE734AB103BBE20004AE462 /* libCOLLADAFramework.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCOLLADAFramework.a;
+			remoteRef = 4DE734AA103BBE20004AE462 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DE734AD103BBE20004AE462 /* libGeneratedSaxParser.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGeneratedSaxParser.a;
+			remoteRef = 4DE734AC103BBE20004AE462 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DE734AF103BBE20004AE462 /* UTF.o */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.objfile";
+			path = UTF.o;
+			remoteRef = 4DE734AE103BBE20004AE462 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DE734B1103BBE20004AE462 /* libpcre.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libpcre.a;
+			remoteRef = 4DE734B0103BBE20004AE462 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4D940F28102CE3FA0056403B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D94103A102CEF390056403B /* OgreVertexElement.cpp in Sources */,
+				4D94103B102CEF390056403B /* DAE2OgreSerializer.cpp in Sources */,
+				4D94103C102CEF390056403B /* DAE2OgreSceneGraphWriter.cpp in Sources */,
+				4D94103D102CEF390056403B /* DAE2OgreOgreWriter.cpp in Sources */,
+				4D94103E102CEF390056403B /* DAE2OgreMeshWriter.cpp in Sources */,
+				4D94103F102CEF390056403B /* DAE2OgreBaseWriter.cpp in Sources */,
+				4D941040102CEF390056403B /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB923208733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_GLIBCXX_DEBUG=1",
+					"_GLIBCXX_DEBUG_PEDANTIC=1",
+				);
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../COLLADABaseUtils/lib\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADABaseUtils.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADABaseUtils.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADAFramework.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADAFramework.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADASaxFrameworkLoader.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADASaxFrameworkLoader.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/GeneratedSaxParser.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/GeneratedSaxParser.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/pcre.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/pcre.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/Debug\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/Release\"",
+				);
+				PRODUCT_NAME = dae2ogre;
+			};
+			name = Debug;
+		};
+		1DEB923308733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../COLLADABaseUtils/lib\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADABaseUtils.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADABaseUtils.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADAFramework.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADAFramework.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADASaxFrameworkLoader.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/COLLADASaxFrameworkLoader.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/GeneratedSaxParser.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/GeneratedSaxParser.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/pcre.build/Objects-normal/i386\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/COLLADASaxFrameworkLoader.build/Release/pcre.build/Objects-normal/ppc\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/Debug\"",
+					"\"$(SRCROOT)/../COLLADASaxFrameworkLoader/build/Release\"",
+				);
+				PRODUCT_NAME = dae2ogre;
+			};
+			name = Release;
+		};
+		1DEB923608733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = GENERATEDSAXPARSER_XMLPARSER_LIBXML;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADAFramework/include,
+					../COLLADASaxFrameworkLoader/include,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		1DEB923708733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = GENERATEDSAXPARSER_XMLPARSER_LIBXML;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADAFramework/include,
+					../COLLADASaxFrameworkLoader/include,
+				);
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "dae2ogre" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923208733DC60010E9CD /* Debug */,
+				1DEB923308733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "dae2ogre" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923608733DC60010E9CD /* Debug */,
+				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
