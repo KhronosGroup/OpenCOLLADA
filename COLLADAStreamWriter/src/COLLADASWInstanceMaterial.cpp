@@ -41,7 +41,7 @@ namespace COLLADASW
 	//---------------------------------------------------------------
 	void BindVertexInput::add( StreamWriter* sw )
 	{
-		sw->openElement ( CSWC::CSW_ELEMENT_INSTANCE_MATERIAL );
+		sw->openElement ( CSWC::CSW_ELEMENT_BIND_VERTEX_INPUT );
 		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_SEMANTIC, getSemantic() );
 		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_INPUT_SEMANTIC, getInputSemantic() );
 		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_INPUT_SET, getInputSet() );
