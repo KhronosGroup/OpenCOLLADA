@@ -13,6 +13,7 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLNodeLoader.h"
+#include "COLLADASaxFWLFilePartLoader.h"
 
 #include "COLLADAFWNode.h"
 
@@ -26,7 +27,7 @@ namespace COLLADASaxFWL
 {
 
     /** Imports the entire visual scene and sends it to the writer. */
-	class VisualSceneLoader : public NodeLoader
+	class VisualSceneLoader : public FilePartLoader, public NodeLoader
 	{
 	private:
 

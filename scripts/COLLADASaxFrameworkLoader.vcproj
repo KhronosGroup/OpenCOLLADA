@@ -51,7 +51,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -120,7 +120,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -185,7 +185,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -251,7 +251,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -319,7 +319,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -388,7 +388,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -453,7 +453,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -519,7 +519,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -587,7 +587,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -656,7 +656,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -724,7 +724,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -793,7 +793,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -858,7 +858,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -924,7 +924,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -989,7 +989,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -1055,7 +1055,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -1104,11 +1104,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLCOLLADACsymbol.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLFileLoader.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\COLLADASaxFWLFilePartLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLFormulasLinker.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLFormulasLoader.cpp"
 				>
 			</File>
 			<File
@@ -1144,7 +1156,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLJointsLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLKinematicsIntermediateData.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLKinematicsSceneCreator.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLLibraryAnimationsLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLLibraryArticulatedSystemsLoader.cpp"
 				>
 			</File>
 			<File
@@ -1160,7 +1188,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLLibraryFormulasLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLLibraryImagesLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLLibraryJointsLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLLibraryKinematicsModelsLoader.cpp"
 				>
 			</File>
 			<File
@@ -1190,6 +1230,138 @@
 			<File
 				RelativePath="..\src\COLLADASaxFWLNodeLoader.cpp"
 				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLPrecompiledHeaders.cpp"
+				>
+				<FileConfiguration
+					Name="Debug LibXML|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug LibXML|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release LibXML|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release LibXML|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug Expat|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug Expat|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release Expat|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release Expat|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug LibXML NoValidation|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug LibXML NoValidation|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug Expat NoValidation|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug Expat NoValidation|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release Expat NoValidation|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release Expat NoValidation|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release LibXML NoValidation|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release LibXML NoValidation|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\COLLADASaxFWLRootParser14.cpp"
@@ -1499,11 +1671,19 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLFormulasLoader15.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\generated15\COLLADASaxFWLGeometryLoader15.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\src\generated15\COLLADASaxFWLLibraryAnimationsLoader15.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLLibraryArticulatedSystemsLoader15.cpp"
 					>
 				</File>
 				<File
@@ -1519,7 +1699,19 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLLibraryFormulasLoader15.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\generated15\COLLADASaxFWLLibraryImagesLoader15.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLLibraryJointsLoader15.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLLibraryKinematicsModelsLoader15.cpp"
 					>
 				</File>
 				<File
@@ -1574,6 +1766,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLCOLLADACsymbol.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLException.h"
 				>
 			</File>
@@ -1586,7 +1782,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLFormulasLinker.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLFormulasLoader.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLGeometryLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLGeometryMaterialIdInfo.h"
 				>
 			</File>
 			<File
@@ -1614,6 +1822,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLIntermediateTargetable.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLInterpolationTypeSource.h"
 				>
 			</File>
@@ -1630,7 +1842,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLJointsLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLKinematicsIntermediateData.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLKinematicsSceneCreator.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLLibraryAnimationsLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryArticulatedSystemsLoader.h"
 				>
 			</File>
 			<File
@@ -1643,6 +1871,22 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLLibraryEffectsLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryFormulasLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryImagesLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryJointsLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryKinematicsModelsLoader.h"
 				>
 			</File>
 			<File
@@ -1997,11 +2241,19 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLFormulasLoader15.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\generated15\COLLADASaxFWLGeometryLoader15.h"
 					>
 				</File>
 				<File
 					RelativePath="..\include\generated15\COLLADASaxFWLLibraryAnimationsLoader15.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLLibraryArticulatedSystemsLoader15.h"
 					>
 				</File>
 				<File
@@ -2017,7 +2269,19 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLLibraryFormulasLoader15.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\generated15\COLLADASaxFWLLibraryImagesLoader15.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLLibraryJointsLoader15.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLLibraryKinematicsModelsLoader15.h"
 					>
 				</File>
 				<File

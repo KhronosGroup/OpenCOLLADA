@@ -108,7 +108,7 @@ namespace COLLADASaxFWL
 		COLLADAFW::Animatable* getAnimatableTarget() const { return (mTargetType==TARGETTYPECLASS_ANIMATABLE) ? mTarget.animatable: 0; }
 
 		/** Returns the target, if it is a IntermediateTargetable, null otherwise.*/
-		IntermediateTargetable* getTargetableTarget() const { return (mTargetType==TARGETTYPECLASS_INTERMEDIATETARGETABLE) ? mTarget.intermediateTargetable : 0; }
+		IntermediateTargetable* getIntermediateTargetableTarget() const { return (mTargetType==TARGETTYPECLASS_INTERMEDIATETARGETABLE) ? mTarget.intermediateTargetable : 0; }
 
 		/** Sets the target to @a target and the target type to @a TARGETTYPECLASS_OBJECT.*/
 		void setTarget(COLLADAFW::Object* target) { mTarget.object = target; mTargetType = TARGETTYPECLASS_OBJECT; }

@@ -388,21 +388,5 @@ return mLoader->data__skeleton(value);
 }
 
 
-bool NodeLoader14::begin__technique( const COLLADASaxFWL14::technique__AttributeData& attributeData )
-{
-SaxVirtualFunctionTest14(begin__technique(attributeData));
-COLLADASaxFWL::technique__AttributeData attrData;
-attrData.profile = attributeData.profile;
-return mLoader->begin__technique(attrData);
-}
-
-
-bool NodeLoader14::end__technique()
-{
-SaxVirtualFunctionTest14(end__technique());
-return mLoader->end__technique();
-}
-
-
 
 }

@@ -130,6 +130,9 @@ namespace COLLADASaxFWL
 		completely been parsed.*/
 		Loader::CameraList& mCameras;
 
+		/** List of all joints already created. They will be written as part of kinematics.*/
+		KinematicsIntermediateData& mKinematicsIntermediateData;
+
 		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
 		Loader::FormulaList& mFormulas;
@@ -253,6 +256,18 @@ namespace COLLADASaxFWL
 		file loader.*/
 		void addFormula( COLLADAFW::Formula* formula ) { mFormulas.push_back(formula); }
 
+		/** Adds @a joint to the list of joints. It will be written as part of kinematics, if used.*/
+		void addJoint( COLLADAFW::Joint* joint ) { mKinematicsIntermediateData.getJoints().push_back(joint); }
+
+		/** Adds @a joint to the list of InstanceJoints. It will be written as part of kinematics, if used.*/
+		void addInstanceJoint( KinematicInstance* instanceJoint ) { mKinematicsIntermediateData.getInstanceJoints().push_back(instanceJoint); }
+
+		/** Adds @a kinematicsModel to the list of joints. It will be written as part of kinematics, if used.*/
+		void addKinematicsModel( KinematicsModel* kinematicsModel ) { mKinematicsIntermediateData.getKinematicsModels().push_back(kinematicsModel); }
+
+		/** Adds @a kinematicsController to the list of joints. It will be written as part of kinematics, if used.*/
+		void addKinematicsController( KinematicsController* kinematicsController ) { mKinematicsIntermediateData.getKinematicsControllers().push_back(kinematicsController); }
+
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
 		is closed.
@@ -283,6 +298,10 @@ namespace COLLADASaxFWL
 		/** Tries to resolve the a sidaddress. If resolving failed, null is returned.*/
 		const SidTreeNode* resolveSid( const SidAddress& sidAddress);
 		const SidTreeNode* resolveSid( const COLLADABU::URI& id, const String& sid);
+
+		/** Resolves an sid in the element referenced by @a instancingElement. It uses teh sids ins @a sidAddress, 
+		starting with sid with index @a firstSidIndex. */
+		const SidTreeNode* resolveSidInInstance( const SidTreeNode* instancingElement, const SidAddress& sidAddress,  size_t firstSidIndex);
 
 		/** Tries to find element in sid tree with @a id. If not found, null is returned.*/ 
 		SidTreeNode* findSidTreeNodeByStringId( const String& id); 
@@ -319,6 +338,9 @@ namespace COLLADASaxFWL
 
 		/** Returns the InstanceControllerDataList of the controller with Unique @a controllerUniqueId.*/
 		InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId);
+
+		/** Returns the intermediate data to build up the kinematics after the COLLADA file has been parsed.*/
+		const KinematicsIntermediateData& getKinematicsIntermediateData() const { return mKinematicsIntermediateData; }
 
 		/** Writes all the visual scenes.*/
 		void writeVisualScenes();
@@ -366,6 +388,9 @@ namespace COLLADASaxFWL
 
 		void linkAndWriteFormulas();
 
+		/** Creates and writes the kinematics scene.*/
+		void createAndWriteKinematicsScene();
+		
 	protected:
 		/** Returns a pointer to the COLLADA loader. */
 		Loader* getColladaLoader() { return mColladaLoader; }

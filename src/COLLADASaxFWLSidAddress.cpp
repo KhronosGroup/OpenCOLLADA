@@ -127,7 +127,6 @@ namespace COLLADASaxFWL
 			// this matches only, if the name accessor is present. Therefor there are exactly two matches 
 			int idOrSidStart = accessorNameMatches[2*1];
 			int idOrSidEnd = accessorNameMatches[2*1+1];
-			//			boost::cmatch::const_reference idOrSidMatch = accessorNameRegexMatches[1];
 			assert( idOrSidStart >= 0 );
 			if ( idOrSidStart >= 0 )
 			{
@@ -180,7 +179,6 @@ namespace COLLADASaxFWL
 				// the first match is id or sid
 				int& idOrSidStart = accessorIndexMatches[2*1];
 				int& idOrSidEnd = accessorIndexMatches[2*1+1];
-				//			boost::cmatch::const_reference idOrSidMatch = accessorNameRegexMatches[1];
 				assert( idOrSidStart >= 0 );
 
 				if ( idOrSidStart >= 0 )

@@ -25,6 +25,10 @@
 #include "COLLADASaxFWLLibraryControllersLoader15.h"
 #include "COLLADASaxFWLMeshLoader15.h"
 #include "COLLADASaxFWLGeometryLoader15.h"
+#include "COLLADASaxFWLLibraryFormulasLoader15.h"
+#include "COLLADASaxFWLLibraryJointsLoader15.h"
+#include "COLLADASaxFWLLibraryKinematicsModelsLoader15.h"
+#include "COLLADASaxFWLLibraryArticulatedSystemsLoader15.h"
 
 namespace COLLADASaxFWL
 {
@@ -175,6 +179,37 @@ namespace COLLADASaxFWL
         return true;
     }
 
+    //-----------------------------
+    bool RootParser15::begin__library_formulas( const COLLADASaxFWL15::library_formulas__AttributeData& attributeData )
+    {
+        SaxVirtualFunctionTest15(begin__library_formulas(attributeData));
+        beginCommonWithId<LibraryFormulasLoader, LibraryFormulasLoader15>(attributeData.id);
+        return true;
+    }
+
+	//-----------------------------
+	bool RootParser15::begin__library_joints( const COLLADASaxFWL15::library_joints__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest15(begin__library_joints(attributeData));
+		beginCommonWithId<LibraryJointsLoader, LibraryJointsLoader15>(attributeData.id);
+		return true;
+	}
+
+	//-----------------------------
+	bool RootParser15::begin__library_kinematics_models( const COLLADASaxFWL15::library_kinematics_models__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest15(begin__library_kinematics_models(attributeData));
+		beginCommonWithId<LibraryKinematicsModelsLoader, LibraryKinematicsModelsLoader15>(attributeData.id);
+		return true;
+	}
+
+	//-----------------------------
+	bool RootParser15::begin__library_articulated_systems( const COLLADASaxFWL15::library_articulated_systems__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest15(begin__library_articulated_systems(attributeData));
+		beginCommonWithId<LibraryArticulatedSystemsLoader, LibraryArticulatedSystemsLoader15>(attributeData.id);
+		return true;
+	}
 
 	//-----------------------------
     bool RootParser15::end__COLLADA()

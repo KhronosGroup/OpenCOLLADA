@@ -118,10 +118,6 @@ virtual bool end__skeleton();
 
 virtual bool data__skeleton( COLLADABU::URI value );
 
-virtual bool begin__technique____technique_type( const COLLADASaxFWL15::technique____technique_type__AttributeData& attributeData );
-
-virtual bool end__technique____technique_type();
-
 
 private:
 /** Disable default copy ctor. */

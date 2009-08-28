@@ -12,7 +12,8 @@
 #define __COLLADASAXFWL_NODELOADER_H__
 
 #include "COLLADASaxFWLPrerequisites.h"
-#include "COLLADASaxFWLFilePartLoader.h"
+#include "COLLADASaxFWLHelperLoaderBase.h"
+#include "COLLADASaxFWLFileLoader.h"
 #include "COLLADASaxFWLXmlTypes.h"
 #include "COLLADASaxFWLTransformationLoader.h"
 
@@ -33,7 +34,7 @@ namespace COLLADASaxFWL
 {
 
 	/** Imports the entire visual scene and sends it to the writer. */
-	class NodeLoader : public FilePartLoader
+	class NodeLoader : public HelperLoaderBase
 	{
 	private:
 		
@@ -70,12 +71,12 @@ namespace COLLADASaxFWL
 		GeometryMaterialIdInfo* mCurrentMaterialInfo;
 
 		/** The InstanceControllerData of the current instance controller.*/
-		InstanceControllerData *mCurrentInstanceControllerData;
+		FileLoader::InstanceControllerData *mCurrentInstanceControllerData;
 
 	public:
 
 		/** Constructor. */
-		NodeLoader(IFilePartLoader* callingFilePartLoader);
+		NodeLoader();
 
 		/** Destructor. */
 		virtual ~NodeLoader();

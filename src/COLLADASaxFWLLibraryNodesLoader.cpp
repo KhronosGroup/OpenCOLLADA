@@ -21,9 +21,10 @@ namespace COLLADASaxFWL
 
     //------------------------------
 	LibraryNodesLoader::LibraryNodesLoader(IFilePartLoader* callingFilePartLoader)
-		: NodeLoader(callingFilePartLoader),
+		: FilePartLoader(callingFilePartLoader),
 		mLibraryNodes(new COLLADAFW::LibraryNodes())
 	{
+		NodeLoader::setHandlingFilePartLoader(this);
 	}
 	
     //------------------------------
