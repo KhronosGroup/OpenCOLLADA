@@ -26,10 +26,19 @@ bool ValidationErrorHandler::handleError( const COLLADASaxFWL::IError* error )
 		const GeneratedSaxParser::ParserError& parserError = saxParserError->getError();
 
 		// Workaround to avoid wrong error
-		if ( parserError.getErrorType() == GeneratedSaxParser::ParserError::ERROR_VALIDATION_MIN_OCCURS_UNMATCHED )
+		if ( parserError.getErrorType() == GeneratedSaxParser::ParserError::ERROR_VALIDATION_MIN_OCCURS_UNMATCHED)
 		{
 			if ( strcmp(parserError.getElement(), "effect") == 0 )
 			{
+				return true;
+			}
+		}
+		if ( parserError.getErrorType() == GeneratedSaxParser::ParserError::ERROR_VALIDATION_SEQUENCE_PREVIOUS_SIBLING_NOT_PRESENT)
+		{
+			if ( (strcmp(parserError.getElement(), "extra") == 0) 
+				&& (strcmp(parserError.getAdditionalText().c_str(), "sibling: fx_profile_abstract") == 0)) 
+			{
+
 				return true;
 			}
 		}
