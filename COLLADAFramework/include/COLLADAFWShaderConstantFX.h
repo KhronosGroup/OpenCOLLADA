@@ -64,44 +64,44 @@ namespace COLLADAFW
         virtual ~ShaderConstantFX() {};
 
         /** Declares the amount of light emitted from the surface of this object. */
-        const COLLADAFW::ColorOrTexture getEmission () const { return mEmission; }
+        const ColorOrTexture getEmission () const { return mEmission; }
 
         /** Declares the amount of light emitted from the surface of this object. */
-        void setEmission ( const COLLADAFW::ColorOrTexture Emission ) { mEmission = Emission; }
+        void setEmission ( const ColorOrTexture Emission ) { mEmission = Emission; }
 
         /** Declares the color of a perfect mirror reflection. */
-        const COLLADAFW::ColorOrTexture getReflective () const { return mReflective; }
+        const ColorOrTexture getReflective () const { return mReflective; }
 
         /** Declares the color of a perfect mirror reflection. */
-        void setReflective ( const COLLADAFW::ColorOrTexture Reflective ) { mReflective = Reflective; }
+        void setReflective ( const ColorOrTexture Reflective ) { mReflective = Reflective; }
 
         /** Declares the amount of perfect mirror reflection to be added to the reflected light 
         as a value between 0.0 and 1.0. */
-        const COLLADAFW::FloatOrParam getReflectivity () const { return mReflectivity; }
+        const FloatOrParam getReflectivity () const { return mReflectivity; }
 
         /** Declares the amount of perfect mirror reflection to be added to the reflected light 
         as a value between 0.0 and 1.0. */
-        void setReflectivity ( const COLLADAFW::FloatOrParam Reflectivity ) { mReflectivity = Reflectivity; }
+        void setReflectivity ( const FloatOrParam Reflectivity ) { mReflectivity = Reflectivity; }
 
         /** Declares the color of perfectly refracted light. */
-        const COLLADAFW::ColorOrTexture getTransparent () const { return mTransparent; }
+        const ColorOrTexture getTransparent () const { return mTransparent; }
 
         /** Declares the color of perfectly refracted light. */
-        void setTransparent ( const COLLADAFW::ColorOrTexture Transparent ) { mTransparent = Transparent; }
+        void setTransparent ( const ColorOrTexture Transparent ) { mTransparent = Transparent; }
 
         /** Declares the amount of perfectly refracted light added to the reflected color as a 
         scalar value between 0.0 and 1.0. */
-        const COLLADAFW::FloatOrParam getTransparency () const { return mTransparency; }
+        const FloatOrParam getTransparency () const { return mTransparency; }
 
         /** Declares the amount of perfectly refracted light added to the reflected color as a 
         scalar value between 0.0 and 1.0. */
-        void setTransparency ( const COLLADAFW::FloatOrParam Transparency ) { mTransparency = Transparency; }
+        void setTransparency ( const FloatOrParam Transparency ) { mTransparency = Transparency; }
 
         /** Declares the index of refraction for perfectly refracted light as a single scalar index. */
-        const COLLADAFW::FloatOrParam getIndexOfRefraction () const { return mIndexOfRefraction; }
+        const FloatOrParam getIndexOfRefraction () const { return mIndexOfRefraction; }
 
         /** Declares the index of refraction for perfectly refracted light as a single scalar index. */
-        void setIndexOfRefraction ( const COLLADAFW::FloatOrParam IndexOfRefraction ) { mIndexOfRefraction = IndexOfRefraction; }
+        void setIndexOfRefraction ( const FloatOrParam IndexOfRefraction ) { mIndexOfRefraction = IndexOfRefraction; }
 
 	private:
 

@@ -58,7 +58,7 @@ namespace COLLADAFW
         virtual ~Modifier() {}
 
         /** The linkage modifier. */
-        const COLLADAFW::Modifier::LinkageModifier getLinkageModifier () const { return mLinkageModifier; }
+        const Modifier::LinkageModifier getLinkageModifier () const { return mLinkageModifier; }
 
 	private:
 

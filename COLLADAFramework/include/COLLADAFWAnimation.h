@@ -51,18 +51,18 @@ namespace COLLADAFW
         /**
         * The original object id, if it in the original file format exist. 
         */
-        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+        const String& getOriginalId () const { return mOriginalId; }
 
         /**
         * The original object id, if it in the original file format exist. 
         */
-        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+        void setOriginalId ( const String& val ) { mOriginalId = val; }
 
         /** Pretty-print name for this animation. Optional. */
-        const COLLADAFW::String& getName () const { return mName; }
+        const String& getName () const { return mName; }
 
         /** Pretty-print name for this animation. Optional. */
-        void setName ( const COLLADAFW::String& val ) { mName = val; }
+        void setName ( const String& val ) { mName = val; }
 
         /** The type of the animation.*/
 		AnimationType getAnimationType() const { return mAnimationType; }

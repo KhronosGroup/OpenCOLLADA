@@ -43,7 +43,7 @@ namespace COLLADAFW
 		/** 
          * Returns the id of the sampler. 
          * The sampler id is the array index position in the samplers array 
-         * (see COLLADAFW::EffectCommon::mSamplers from type COLLADAFW::SamplerPointerArray).
+         * (see EffectCommon::mSamplers from type SamplerPointerArray).
          */
 		SamplerID getSamplerId() const { return mSamplerId; }
 

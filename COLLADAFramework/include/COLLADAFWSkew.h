@@ -8,8 +8,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADAFW_SHEAR_H__
-#define __COLLADAFW_SHEAR_H__
+#ifndef __COLLADAFW_SKEW_H__
+#define __COLLADAFW_SKEW_H__
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWTransformation.h"
@@ -88,4 +88,4 @@ namespace COLLADAFW
 
 } // namespace COLLADAFW
 
-#endif // __COLLADAFW_SHEAR_H__
+#endif // __COLLADAFW_SKEW_H__

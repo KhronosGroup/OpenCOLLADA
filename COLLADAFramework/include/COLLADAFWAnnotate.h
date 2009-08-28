@@ -67,7 +67,7 @@ namespace COLLADAFW
         float, float2, float3, float4, 
         float2x2, float3x3, float4x4, 
         string */
-        const COLLADAFW::ValueType getValue () const { return mValue; }
+        const ValueType getValue () const { return mValue; }
 
         /** A strongly typed value that represents the VALUE in an object of the form 
         SYMBOL = VALUE. Consists of a COLLADA type element that contains a value of that type. 
@@ -77,7 +77,7 @@ namespace COLLADAFW
         float, float2, float3, float4, 
         float2x2, float3x3, float4x4, 
         string */
-        void setValue ( const COLLADAFW::ValueType Value ) { mValue = Value; }
+        void setValue ( const ValueType Value ) { mValue = Value; }
 
 	private:
 

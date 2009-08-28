@@ -57,16 +57,16 @@ namespace COLLADAFW
 		virtual ~ShaderPhong() {};
 
         /** Declares the color of light specularly reflected from the surface of this object. */
-        const COLLADAFW::ColorOrTexture getSpecular () const { return mSpecular; }
+        const ColorOrTexture getSpecular () const { return mSpecular; }
 
         /** Declares the color of light specularly reflected from the surface of this object. */
-        void setSpecular ( const COLLADAFW::ColorOrTexture Specular ) { mSpecular = Specular; }
+        void setSpecular ( const ColorOrTexture Specular ) { mSpecular = Specular; }
 
         /** Declares the specularity or roughness of the specular reflection lobe. */
-        const COLLADAFW::FloatOrParam getShininess () const { return mShininess; }
+        const FloatOrParam getShininess () const { return mShininess; }
 
         /** Declares the specularity or roughness of the specular reflection lobe. */
-        void setShininess ( const COLLADAFW::FloatOrParam Shininess ) { mShininess = Shininess; }
+        void setShininess ( const FloatOrParam Shininess ) { mShininess = Shininess; }
 
     private:
 

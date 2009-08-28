@@ -88,18 +88,18 @@ namespace COLLADAFW
         /**
         * The original object id, if it in the original file format exist. 
         */
-        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+        const String& getOriginalId () const { return mOriginalId; }
 
         /**
         * The original object id, if it in the original file format exist. 
         */
-        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+        void setOriginalId ( const String& val ) { mOriginalId = val; }
 
 		/** Returns the name of the camera.*/
-		const COLLADAFW::String& getName() const { return mName; }
+		const String& getName() const { return mName; }
 
 		/** Sets the name of the camera.*/
-		void setName(const COLLADAFW::String& name) { mName = name; }
+		void setName(const String& name) { mName = name; }
 
 		/** Returns the type of the camera.*/
 		CameraType getCameraType() const { return mCameraType; }

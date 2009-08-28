@@ -13,13 +13,84 @@ http://www.opensource.org/licenses/mit-license.php
 
 namespace COLLADAFW
 {
+	static const String UNIQUEID = "UniqueID";
 	
 	const UniqueId UniqueId::INVALID = UniqueId();
 
 
+
+	//-------------------------------
+	UniqueId::UniqueId( const String& ascii )
+	{
+		fromAscii(ascii);
+	}
+
 	//-------------------------------
 	UniqueId::~UniqueId()
 	{
+	}
+
+	//-------------------------------
+	COLLADAFW::String UniqueId::toAscii() const
+	{
+		// sample: UniqueId(1,4)
+		std::stringstream stream;
+		stream << UNIQUEID << '(' << mClassId << ',' << mObjectId << ')';
+		return stream.str();
+	}
+
+	//-------------------------------
+	bool UniqueId::fromAscii( const String& ascii )
+	{
+		if ( !fromAscii_intern(ascii) )
+		{
+			*this = INVALID;
+			return false;
+		}
+		return true;
+	}
+
+	//-------------------------------
+	bool UniqueId::fromAscii_intern( const String& ascii )
+	{
+		static const size_t UNIQUEID_LENGTH = UNIQUEID.length();
+		static const char digits[] = "0123456789";
+
+		// sample: UniqueId(1,4)
+		if ( ascii.length() < UNIQUEID_LENGTH )
+		{
+			return false;
+		}
+
+		if ( ascii.compare(0, UNIQUEID_LENGTH, UNIQUEID ) != 0 )
+		{
+			return false;
+		}
+
+		size_t classIdFirstNonDigit = ascii.find_last_not_of( digits, UNIQUEID_LENGTH+1 );
+		if ( (classIdFirstNonDigit == ascii.npos) || (classIdFirstNonDigit == UNIQUEID_LENGTH+1))
+		{
+			// no digit follows the opening bracket 
+			return false;
+		}
+		if ( ascii[classIdFirstNonDigit] == ',' )
+		{
+			// missing comma ofter first number
+			return false;
+		}
+		//parse
+		mClassId = atoi( &ascii[UNIQUEID_LENGTH+1]);
+
+		size_t objectIdFirstNonDigit = ascii.find_last_not_of( digits, classIdFirstNonDigit + 1);
+		if ( (objectIdFirstNonDigit == ascii.npos) || (objectIdFirstNonDigit == classIdFirstNonDigit + 1) )
+		{
+			// no digit follows the opening bracket 
+			return false;
+		}
+
+		ObjectId mObjectId = atoi( &ascii[classIdFirstNonDigit+1]);
+
+		return true;
 	}
 
     //-------------------------------

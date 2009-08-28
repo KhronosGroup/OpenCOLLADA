@@ -23,7 +23,7 @@ namespace COLLADAFW
 	{
 	}
 
-	COLLADAFW::ObjectId LoaderUtils::getLowestObjectIdFor( ClassId classId )
+	ObjectId LoaderUtils::getLowestObjectIdFor( ClassId classId )
 	{
 		ClassIdObjectIdMap::iterator it = mLowestObjectIdMap.find(classId);
 		

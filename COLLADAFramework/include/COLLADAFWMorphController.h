@@ -53,31 +53,31 @@ namespace COLLADAFW
         /**
         * The original object id, if it in the original file format exist. 
         */
-        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+        const String& getOriginalId () const { return mOriginalId; }
 
         /**
         * The original object id, if it in the original file format exist. 
         */
-        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+        void setOriginalId ( const String& val ) { mOriginalId = val; }
 
         /** Returns name of the controller.*/
-        const COLLADAFW::String& getName() const { return mName; }
+        const String& getName() const { return mName; }
 
         /** Sets name of the controller.*/
-        void setName(const COLLADAFW::String& name) { mName = name; }
+        void setName(const String& name) { mName = name; }
 
 
 		/** The unique ids of the morph targets (geometries).*/
-		COLLADAFW::UniqueIdArray& getMorphTargets() { return mMorphTargets; }
+		UniqueIdArray& getMorphTargets() { return mMorphTargets; }
 
 		/** The unique ids of the morph targets (geometries).*/
-		const COLLADAFW::UniqueIdArray& getMorphTargets() const { return mMorphTargets; }
+		const UniqueIdArray& getMorphTargets() const { return mMorphTargets; }
 
 		/** The morph weights.*/
-		const COLLADAFW::FloatOrDoubleArray& getMorphWeights() const { return mMorphWeights; }
+		const FloatOrDoubleArray& getMorphWeights() const { return mMorphWeights; }
 
 		/** The morph weights.*/
-		COLLADAFW::FloatOrDoubleArray& getMorphWeights() { return mMorphWeights; }
+		FloatOrDoubleArray& getMorphWeights() { return mMorphWeights; }
 
 	private:
         /** Disable default assignment operator. */

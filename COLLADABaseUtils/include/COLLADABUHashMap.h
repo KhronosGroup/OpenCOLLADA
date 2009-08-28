@@ -107,7 +107,7 @@ namespace COLLADABU
 
 
 	template<class KeyType, class ValueType, class HashType, HashType (*calculateHash)(const KeyType& key)>
-	const ValueType& COLLADABU::HashMap<KeyType, ValueType, HashType, calculateHash>::operator[]( const KeyType& key ) const
+	const ValueType& HashMap<KeyType, ValueType, HashType, calculateHash>::operator[]( const KeyType& key ) const
 	{
 		return mMap[HashValuePair(calculateHash(key), key)];
 	}

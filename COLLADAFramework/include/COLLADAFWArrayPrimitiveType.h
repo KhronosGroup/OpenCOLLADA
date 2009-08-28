@@ -14,6 +14,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArray.h"
 #include <string.h>
+#include <cassert>
 
 
 namespace COLLADAFW

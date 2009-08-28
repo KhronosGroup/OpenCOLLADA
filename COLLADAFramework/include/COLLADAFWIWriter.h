@@ -31,6 +31,7 @@ namespace COLLADAFW
 	class SkinControllerData;
 	class Controller;
     class Formulas;
+	class KinematicsScene;
 
 
 	/** Class that needs to be implemented by a writer. 
@@ -120,6 +121,11 @@ namespace COLLADAFW
 		COLLADA file are contained in @a formulas.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeFormulas( const Formulas* formulas ) = 0;
+
+		/** When this method is called, the writer must write the kinematics scene. 
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeKinematicsScene( const KinematicsScene* kinematicsScene ) = 0;
+
 
     private:
 

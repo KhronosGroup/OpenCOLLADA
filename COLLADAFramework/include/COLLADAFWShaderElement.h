@@ -44,10 +44,10 @@ namespace COLLADAFW
         virtual ~ShaderElement () {}
 
         /** The type of the current shader. */
-        const COLLADAFW::ShaderElement::Type getType () const { return mType; }
+        const ShaderElement::Type getType () const { return mType; }
 
         /** The type of the current shader. */
-        void setType ( const COLLADAFW::ShaderElement::Type Type ) { mType = Type; }
+        void setType ( const ShaderElement::Type Type ) { mType = Type; }
 
     private:
 

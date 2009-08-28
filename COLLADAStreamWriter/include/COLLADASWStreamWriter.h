@@ -231,41 +231,82 @@ namespace COLLADASW
         void appendValues ( const std::vector<unsigned long>& values );
 
         /** Adds @a number to the COLLADASW file.*/
-        void appendValues ( const int number );
+        void appendValues ( int number );
 
         /** Adds @a number to the COLLADASW file.*/
-        void appendValues ( const int number, const int number2 );
+        void appendValues ( int number, int number2 );
 
         /** Adds @a number to the COLLADASW file.*/
-        void appendValues ( const unsigned int number );
+        void appendValues ( unsigned int number );
 
         /** Adds @a number to the COLLADASW file.*/
-        void appendValues ( const unsigned int number, const unsigned int number2 );
+        void appendValues ( unsigned int number, unsigned int number2 );
 
-        /** Adds @a number to the COLLADASW file.*/
-        void appendValues ( const long number );
+		/** Adds @a number to the COLLADASW file.*/
+		void appendValues ( long number );
 
-        /** Adds @a number to the COLLADASW file.*/
-        void appendValues ( const unsigned long number );
+		/** Adds @a number1 and @a number2 to the COLLADASW file.*/
+		void appendValues ( long  number1, long  number2 );
 
-        /** Adds @a number1 and @a number2 to the COLLADASW file.*/
-        void appendValues ( const unsigned long number1, const unsigned long number2 );
+		/** Adds @a number1, @a number2 and @a number3 to the COLLADASW file.*/
+		void appendValues ( long  number1, long  number2, long  number3 );
 
-        /** Adds @a number1, @a number2 and @a number3 to the COLLADASW file.*/
-        void appendValues ( const unsigned long number1, const unsigned long number2, const unsigned long number3 );
+		/** Adds @a number1, @a number2, @a number3 and @a number4 to the COLLADASW file.*/
+		void appendValues ( long  number1, long  number2, long  number3, long  number4 );
 
-        /** Adds @a number1, @a number2, @a number3 and @a number4 to the COLLADASW file.*/
-        void appendValues ( const unsigned long number1, const unsigned long number2, const unsigned long number3, const unsigned long number4 );
+		/** Adds @a number to the COLLADASW file.*/
+		void appendValues ( unsigned long number );
+
+		/** Adds @a number1 and @a number2 to the COLLADASW file.*/
+		void appendValues ( unsigned long number1, unsigned long number2 );
+
+		/** Adds @a number1, @a number2 and @a number3 to the COLLADASW file.*/
+		void appendValues ( unsigned long number1, unsigned long number2, unsigned long number3 );
+
+		/** Adds @a number1, @a number2, @a number3 and @a number4 to the COLLADASW file.*/
+		void appendValues ( unsigned long number1, unsigned long number2, unsigned long number3, unsigned long number4 );
+
+		/** Adds @a number to the COLLADASW file.*/
+		void appendValues ( long long number );
+
+		/** Adds @a number1 and @a number2 to the COLLADASW file.*/
+		void appendValues ( long long number1, long long number2 );
+
+		/** Adds @a number1, @a number2 and @a number3 to the COLLADASW file.*/
+		void appendValues ( long long number1, long long number2, long long number3 );
+
+		/** Adds @a number1, @a number2, @a number3 and @a number4 to the COLLADASW file.*/
+		void appendValues ( long long number1, long long number2, long long number3, long long number4 );
+
+		/** Adds @a number to the COLLADASW file.*/
+		void appendValues ( unsigned long long number );
+
+		/** Adds @a number1 and @a number2 to the COLLADASW file.*/
+		void appendValues ( unsigned long long number1, unsigned long long number2 );
+
+		/** Adds @a number1, @a number2 and @a number3 to the COLLADASW file.*/
+		void appendValues ( unsigned long long number1, unsigned long long number2, unsigned long long number3 );
+
+		/** Adds @a number1, @a number2, @a number3 and @a number4 to the COLLADASW file.*/
+		void appendValues ( unsigned long long number1, unsigned long long number2, unsigned long long number3, unsigned long long number4 );
 
         /** Adds the float @a number to the COLLADASW file.*/
-        void appendValues ( const bool value );
+        void appendValues ( bool value );
 
         /** Adds the float @a number to the COLLADASW file.*/
-        void appendValues ( const Color value );
+        void appendValues ( const Color& value );
 
-        /** Adds @a text to the COLLADASW file.
-        No checks are performed, if @a text contains forbidden characters. */
-        void appendValues ( const String& text );
+		/** Adds @a text to the COLLADASW file.
+		No checks are performed, if @a text contains forbidden characters. */
+		void appendValues ( const String& text );
+
+		/** Adds @a text to the COLLADASW file.
+		No checks are performed, if @a text contains forbidden characters. */
+		void appendValues ( const char* text );
+
+		/** Adds @a text to the COLLADASW file.
+		No checks are performed, if @a text contains forbidden characters. */
+		void appendValues ( const char* text, size_t length );
 
         /** Opens a new element with the name @a name.
         The string must persist at least until the corresponding closeElement() member is called.*/
@@ -285,17 +326,23 @@ namespace COLLADASW
 
     private:
 
-        /** Adds the string @a str to the stream*/
-        inline void appendString ( String & str )
-        {
+		/** Adds the string @a str to the stream.*/
+		inline void appendString ( const String & str )
+		{
 			appendNCNameString(str);
-        }
+		}
 
-        /** Adds the string @a str to the stream.*/
-        inline void appendString ( const String & str )
-        {
-			appendNCNameString(str);
-        }
+		/** Adds the string @a str to the stream.*/
+		inline void appendString ( const char* text )
+		{
+			appendString(text, strlen(text));
+		}
+
+		/** Adds the string @a str to the stream.*/
+		inline void appendString ( const char* text, size_t length )
+		{
+			mCharacterBuffer.copyToBuffer( text, length );
+		}
 
         /** Adds the string @a str to the stream.
             The string have to be a valid ncname. */
@@ -313,13 +360,13 @@ namespace COLLADASW
 
 
         /** Adds the char @a c to the stream*/
-        inline void appendChar ( const char c )
+        inline void appendChar ( char c )
         {
 			mCharacterBuffer.copyToBuffer( c );
         }
 
         /** Adds the double @a number to the stream*/
-        inline void appendNumber ( const double number )
+        inline void appendNumber ( double number )
         {
 			if ( COLLADABU::Math::Utils::equals<double>(number, 0, std::numeric_limits<double>::epsilon()) )
 			{
@@ -332,7 +379,7 @@ namespace COLLADASW
         }
 
         /** Adds the float @a number to the stream*/
-        inline void appendNumber ( const float number )
+        inline void appendNumber ( float number )
         {
 			if ( COLLADABU::Math::Utils::equals<float>(number, 0, std::numeric_limits<float>::epsilon()) )
 			{
@@ -345,31 +392,43 @@ namespace COLLADASW
         }
 
         /** Adds the long @a number to the stream*/
-        inline void appendNumber ( const int number )
+        inline void appendNumber ( int number )
         {
 			mCharacterBuffer.copyToBufferAsChar( number );
         }
 
         /** Adds the long @a number to the stream*/
-        inline void appendNumber ( const unsigned int number )
+        inline void appendNumber ( unsigned int number )
         {
 			mCharacterBuffer.copyToBufferAsChar( number );
         }
 
-        /** Adds the long @a number to the stream*/
-        inline void appendNumber ( const long number )
-        {
+		/** Adds the long @a number to the stream*/
+		inline void appendNumber ( long number )
+		{
 			mCharacterBuffer.copyToBufferAsChar( number );
-        }
+		}
 
-        /** Adds the long @a number to the stream*/
-        inline void appendNumber ( const unsigned long number )
-        {
+		/** Adds the long @a number to the stream*/
+		inline void appendNumber ( unsigned long number )
+		{
 			mCharacterBuffer.copyToBufferAsChar( number );
-        }
+		}
+
+		/** Adds the long long @a number to the stream*/
+		inline void appendNumber ( long long number )
+		{
+			mCharacterBuffer.copyToBufferAsChar( number );
+		}
+
+		/** Adds the long long @a number to the stream*/
+		inline void appendNumber ( unsigned long long number )
+		{
+			mCharacterBuffer.copyToBufferAsChar( number );
+		}
 
         /** Adds the bool @a value to the stream*/
-        void appendBoolean ( const bool value )
+        void appendBoolean ( bool value )
         {
 			mCharacterBuffer.copyToBufferAsChar( value );
         }
@@ -381,7 +440,7 @@ namespace COLLADASW
         }
 
         /** Adds @a number white spaces to the stream*/
-        void addWhiteSpace ( const size_t number );
+        void addWhiteSpace (  size_t number );
 
     private:
 

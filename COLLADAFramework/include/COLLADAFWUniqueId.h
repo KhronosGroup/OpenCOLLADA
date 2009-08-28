@@ -42,6 +42,11 @@ namespace COLLADAFW
 
 		/** Constructor. Creates UniqueId with ClassId @a classId an ObjectId @a objectId.*/
 		UniqueId(ClassId classId, ObjectId objectId) : mClassId(classId), mObjectId(objectId){}
+
+		/** Constructor. Creates UniqueId from string @a ascii. This text representation is used in formula 
+		to reference parameters.*/
+		UniqueId(const String& ascii);
+
 		virtual ~UniqueId();
 
 		/** Returns the class id of the class the object is instantiated from.*/
@@ -53,10 +58,25 @@ namespace COLLADAFW
 		/** Returns true if the unique id is valid, false otherwise.*/
 		bool isValid() const { return mClassId != COLLADA_TYPE::NO_TYPE; }
 
+		/** Creates an ascii representation of the unique id.*/
+		String toAscii() const;
+
+		/** Parses the ascii representation and sets this values according to @a ascii.
+		To ensure parsing always succeeds, only parse string created by toAscii().
+		@return True on success, false if parsing failed.*/
+		bool fromAscii( const String& ascii);
+
 		bool operator<(const UniqueId& rhs) const;
         bool operator>(const UniqueId& rhs) const;
         bool operator==(const UniqueId& uid) const;
         bool operator!=(const UniqueId& uid) const;
+
+	private:
+		/** Parses the ascii representation and sets this values according to @a ascii.
+		To ensure parsing always succeeds, only parse string created by toAscii().
+		@return True on success, false if parsing failed.*/
+		bool fromAscii_intern( const String& ascii);
+
 
 	};
 

@@ -27,6 +27,10 @@ namespace COLLADAFW
 
 		/** Returns the class id of the object.*/
 		virtual ClassId getClassId() const =0;
+
+		/** Returns the unique id of the object.*/
+		virtual const UniqueId& getUniqueId() const = 0;
+
 	};
 
 
@@ -54,11 +58,32 @@ namespace COLLADAFW
 		/** Returns the object id of the object.*/
 		ObjectId getObjectId() const { return mUniqueId.getObjectId(); }
 
+	protected:
+		/** Sets the unique id of the object.*/
+		void setUniqueId(const UniqueId& uniqueId)
+		{ 
+			assert( uniqueId.getClassId() == classId ); 
+			mUniqueId = uniqueId; 
+		}
+
+
 	};
 
 
 	template<class ObjectType>
 	ObjectType* objectSafeCast(Object* object)
+	{
+		if ( !object)
+			return 0;
+
+		if ( object->getClassId() == ObjectType::ID() )
+			return (ObjectType*)object;
+		else
+			return 0;
+	}
+
+	template<class ObjectType>
+	const ObjectType* objectSafeCast(const Object* object)
 	{
 		if ( !object)
 			return 0;

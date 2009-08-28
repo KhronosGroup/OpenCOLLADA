@@ -51,7 +51,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAFWStableHeaders.h"
 				WarningLevel="2"
 				Detect64BitPortabilityProblems="true"
@@ -120,7 +120,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAFWStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -185,7 +185,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAFWStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -251,7 +251,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAFWStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -332,6 +332,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWFormula.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWFormulas.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWGeometry.cpp"
 				>
 			</File>
@@ -380,26 +388,34 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|x64"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
 			</File>
@@ -455,12 +471,36 @@
 				RelativePath="..\src\COLLADAFWVisualScene.cpp"
 				>
 			</File>
+			<Filter
+				Name="kinematics"
+				>
+				<File
+					RelativePath="..\src\COLLADAFWAxisInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAFWKinematicsController.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAFWKinematicsModel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAFWKinematicsScene.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\include\COLLADAFW.h"
+				>
+			</File>
 			<File
 				RelativePath="..\include\COLLADAFWAnimatable.h"
 				>
@@ -559,6 +599,14 @@
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWFormula.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWFormulas.h"
+				>
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWGeometry.h"
@@ -789,6 +837,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWTargetableValue.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWTechnique.h"
 				>
 			</File>
@@ -836,6 +888,46 @@
 				RelativePath="..\include\COLLADAFWVisualScene.h"
 				>
 			</File>
+			<Filter
+				Name="kinematics"
+				>
+				<File
+					RelativePath="..\include\COLLADAFWAxisInfo.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAFWFormulaNewParam.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAFWJoint.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAFWJointPrimitive.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAFWKinematicsController.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAFWKinematicsModel.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAFWKinematicsScene.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAFWMotionProfile.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAFWTarget.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

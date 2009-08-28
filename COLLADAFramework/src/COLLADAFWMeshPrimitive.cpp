@@ -95,18 +95,18 @@ namespace COLLADAFW
         std::vector<Edge>& edgeIndices,
         std::map<Edge,size_t>& edgeIndicesMap )
     {
-        COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = this->getPrimitiveType ();
+        MeshPrimitive::PrimitiveType primitiveType = this->getPrimitiveType ();
         switch ( primitiveType )
         {
-        case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+        case MeshPrimitive::TRIANGLE_FANS:
             appendTrifansEdgeIndices ( edgeIndices, edgeIndicesMap );
             break;
-        case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+        case MeshPrimitive::TRIANGLE_STRIPS:
             appendTristripsEdgeIndices ( edgeIndices, edgeIndicesMap );
             break;
-        case COLLADAFW::MeshPrimitive::POLYGONS:
-        case COLLADAFW::MeshPrimitive::POLYLIST:
-        case COLLADAFW::MeshPrimitive::TRIANGLES:
+        case MeshPrimitive::POLYGONS:
+        case MeshPrimitive::POLYLIST:
+        case MeshPrimitive::TRIANGLES:
             appendPolygonEdgeIndices(edgeIndices, edgeIndicesMap);
             break;
         default:
@@ -124,7 +124,7 @@ namespace COLLADAFW
         const size_t groupedVertexElementsCount = getGroupedVertexElementsCount ();
 
         // Get the position indices.
-        const COLLADAFW::UIntValuesArray& positionIndices = getPositionIndices ();
+        const UIntValuesArray& positionIndices = getPositionIndices ();
 
         // The points of an edge
         int edgeStartVertexIndex=0, edgeEndVertexIndex=0;
@@ -173,7 +173,7 @@ namespace COLLADAFW
         std::map<Edge,size_t>& edgeIndicesMap )
     {
         // Get the position indices.
-        const COLLADAFW::UIntValuesArray& positionIndices = getPositionIndices ();
+        const UIntValuesArray& positionIndices = getPositionIndices ();
 
         // The points of an edge
         int edgeStartVtxIndex=0, edgeEndVtxIndex=0;
@@ -183,8 +183,8 @@ namespace COLLADAFW
         size_t positionIndex=0;
 
         // Iterate over the grouped vertices and get the edges for every group.
-        COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) this;
-        COLLADAFW::Trifans::VertexCountArray& vertexCountArray =
+        Trifans* trifans = (Trifans*) this;
+        Trifans::VertexCountArray& vertexCountArray =
             trifans->getGroupedVerticesVertexCountArray ();
         size_t groupedVertexElementsCount = vertexCountArray.getCount ();
         for ( size_t groupedVerticesIndex=0; groupedVerticesIndex<groupedVertexElementsCount; ++groupedVerticesIndex )
@@ -238,7 +238,7 @@ namespace COLLADAFW
         std::map<Edge,size_t>& edgeIndicesMap )
     {
         // Get the position indices.
-        const COLLADAFW::UIntValuesArray& positionIndices = getPositionIndices ();
+        const UIntValuesArray& positionIndices = getPositionIndices ();
 
         // The points of an edge
         int edgeStartVtxIndex=0, edgeEndVtxIndex=0;
@@ -248,8 +248,8 @@ namespace COLLADAFW
         size_t positionIndex=0;
 
         // Iterate over the grouped vertices and get the edges for every group.
-        COLLADAFW::Tristrips* trifans = (COLLADAFW::Tristrips*) this;
-        COLLADAFW::Tristrips::VertexCountArray& vertexCountArray =
+        Tristrips* trifans = (Tristrips*) this;
+        Tristrips::VertexCountArray& vertexCountArray =
             trifans->getGroupedVerticesVertexCountArray ();
         size_t groupedVertexElementsCount = vertexCountArray.getCount ();
         for ( size_t groupedVerticesIndex=0; groupedVerticesIndex<groupedVertexElementsCount; ++groupedVerticesIndex )
@@ -302,31 +302,31 @@ namespace COLLADAFW
         // Get the number of grouped vertex elements (faces, holes, tristrips or trifans).
         size_t groupedVertexElementsCount = 0;
 
-        COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = this->getPrimitiveType ();
+        MeshPrimitive::PrimitiveType primitiveType = this->getPrimitiveType ();
         switch ( primitiveType )
         {
-        case COLLADAFW::MeshPrimitive::TRIANGLES:
+        case MeshPrimitive::TRIANGLES:
             {
                 groupedVertexElementsCount = this->getFaceCount ();
                 break;
             }
-        case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+        case MeshPrimitive::TRIANGLE_FANS:
             {
-                COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) this;
+                Trifans* trifans = (Trifans*) this;
                 groupedVertexElementsCount = trifans->getTrifanCount ();
                 break;
             }
-        case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+        case MeshPrimitive::TRIANGLE_STRIPS:
             {
-                COLLADAFW::Tristrips* tristrips = (COLLADAFW::Tristrips*) this;
+                Tristrips* tristrips = (Tristrips*) this;
                 groupedVertexElementsCount = tristrips->getTristripCount ();
                 break;
             }
-        case COLLADAFW::MeshPrimitive::POLYGONS:
-        case COLLADAFW::MeshPrimitive::POLYLIST:
+        case MeshPrimitive::POLYGONS:
+        case MeshPrimitive::POLYLIST:
             {
-                COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) this;
-                COLLADAFW::Polygons::VertexCountArray& vertexCountArray =
+                Polygons* polygons = (Polygons*) this;
+                Polygons::VertexCountArray& vertexCountArray =
                     polygons->getGroupedVerticesVertexCountArray ();
                 groupedVertexElementsCount = vertexCountArray.getCount ();
             }

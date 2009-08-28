@@ -62,12 +62,12 @@ namespace COLLADAFW
         /** Returns the unique id of the source that gets modified by this controller. Must be a mesh or a 
         controller. The vertex count of the source must be equal to the vertex count of the skin 
         controller.*/
-        const COLLADAFW::UniqueId& getSource() const { return mSource; }
+        const UniqueId& getSource() const { return mSource; }
 
         /** Sets the unique id of the source that gets modified by this controller. Must be a mesh or a 
         controller. The vertex count of the source must be equal to the vertex count of the skin 
         controller.*/
-        void setSource( const COLLADAFW::UniqueId& source) { mSource = source; }
+        void setSource( const UniqueId& source) { mSource = source; }
 
 	};
 

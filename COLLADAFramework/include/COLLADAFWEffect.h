@@ -88,12 +88,12 @@ namespace COLLADAFW
         /**
         * The original object id, if it in the original file format exist. 
         */
-        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+        const String& getOriginalId () const { return mOriginalId; }
 
         /**
         * The original object id, if it in the original file format exist. 
         */
-        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+        void setOriginalId ( const String& val ) { mOriginalId = val; }
 
         /** Pretty-print name for this effect. Optional. */
         const String getName () const { return mName; }

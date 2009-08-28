@@ -36,7 +36,7 @@ namespace COLLADAFW
     {
 
     public:
-		typedef COLLADAFW::ArrayPrimitiveType<VertexCountType> VertexCountArray;
+		typedef ArrayPrimitiveType<VertexCountType> VertexCountArray;
 
     private:
         /**

@@ -159,12 +159,12 @@ namespace COLLADAFW
         /**
         * The original object id, if it in the original file format exist. 
         */
-        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+        const String& getOriginalId () const { return mOriginalId; }
 
         /**
         * The original object id, if it in the original file format exist. 
         */
-        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+        void setOriginalId ( const String& val ) { mOriginalId = val; }
 
 
 		/** Returns the type of the shader used by the effect.*/
@@ -360,7 +360,7 @@ namespace COLLADAFW
         Phong
         Lambert
         */
-        COLLADAFW::ColorOrTexture& getOpacity () { return mOpacity; }
+        ColorOrTexture& getOpacity () { return mOpacity; }
 
         /** Declares the opaque color. 
         Used by the following shaders:
@@ -369,7 +369,7 @@ namespace COLLADAFW
         Phong
         Lambert
         */
-        const COLLADAFW::ColorOrTexture& getOpacity () const { return mOpacity; }
+        const ColorOrTexture& getOpacity () const { return mOpacity; }
 
         /** Declares the opaque color. 
         Used by the following shaders:
@@ -378,7 +378,7 @@ namespace COLLADAFW
         Phong
         Lambert
         */
-        void setOpacity ( const COLLADAFW::ColorOrTexture& val ) { mOpacity = val; }
+        void setOpacity ( const ColorOrTexture& val ) { mOpacity = val; }
 
 		/** Declares the index of refraction for perfectly refracted light as a single scalar index. 
 		Used by the following shaders:

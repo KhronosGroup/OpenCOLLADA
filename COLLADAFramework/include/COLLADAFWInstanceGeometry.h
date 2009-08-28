@@ -67,16 +67,16 @@ namespace COLLADAFW
 			MaterialBinding ( const MaterialId& materialId, const UniqueId& referencedMaterial ); 
 
 			/** @return MaterialId of the mesh primitives that should get bind to a material.*/
-			COLLADAFW::MaterialId getMaterialId() const { return mMaterialId; }
+			MaterialId getMaterialId() const { return mMaterialId; }
 
 			/** Sets the MaterialId of the mesh primitives that should get bind to a material.*/
-			void setMaterialId(COLLADAFW::MaterialId val) { mMaterialId = val; }
+			void setMaterialId(MaterialId val) { mMaterialId = val; }
 
 			/** @return Unique id of the material that should get bind to the mesh primitives.*/
-			const COLLADAFW::UniqueId& getReferencedMaterial() const { return mReferencedMaterial; }
+			const UniqueId& getReferencedMaterial() const { return mReferencedMaterial; }
 
 			/** Sets the Unique id of the material that should get bind to the mesh primitives.*/
-			void setReferencedMaterial(const COLLADAFW::UniqueId& val) { mReferencedMaterial = val; }
+			void setReferencedMaterial(const UniqueId& val) { mReferencedMaterial = val; }
 
 			/** The comparison operator that only compares the material ids.*/
 			bool operator<( const MaterialBinding& rhs) const { return mMaterialId < rhs.mMaterialId; }

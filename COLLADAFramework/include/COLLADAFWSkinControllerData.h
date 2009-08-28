@@ -71,18 +71,18 @@ namespace COLLADAFW
         /**
         * The original object id, if it in the original file format exist. 
         */
-        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+        const String& getOriginalId () const { return mOriginalId; }
 
         /**
         * The original object id, if it in the original file format exist. 
         */
-        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+        void setOriginalId ( const String& val ) { mOriginalId = val; }
 
         /** Returns name of the controller.*/
-        const COLLADAFW::String& getName() const { return mName; }
+        const String& getName() const { return mName; }
 
         /** Sets name of the controller.*/
-        void setName(const COLLADAFW::String& name) { mName = name; }
+        void setName(const String& name) { mName = name; }
 
 		/** Provides extra information about the position and orientation of the base mesh before binding.*/
 		const COLLADABU::Math::Matrix4& getBindShapeMatrix() const { return mBindShapeMatrix; }
@@ -91,10 +91,10 @@ namespace COLLADAFW
 		void setBindShapeMatrix( const COLLADABU::Math::Matrix4& bindShapeMatrix) { mBindShapeMatrix = bindShapeMatrix; }
 
 		/** Array of the inverse bind matrices. One for each joint.*/
-		COLLADAFW::Matrix4Array& getInverseBindMatrices() { return mInverseBindMatrices; }
+		Matrix4Array& getInverseBindMatrices() { return mInverseBindMatrices; }
 
 		/** Array of the inverse bind matrices. One for each joint.*/
-		const COLLADAFW::Matrix4Array& getInverseBindMatrices() const { return mInverseBindMatrices; }
+		const Matrix4Array& getInverseBindMatrices() const { return mInverseBindMatrices; }
 
 		/** Returns the number of joints this controller can use.*/
 		size_t getJointsCount() const { return mJointsCount; }
@@ -106,23 +106,23 @@ namespace COLLADAFW
 		size_t getVertexCount() const { return mJointsPerVertex.getCount(); }
 
 		/** Returns the weights of the skin controller. */
-		const COLLADAFW::FloatOrDoubleArray& getWeights() const { return mWeights; }
-		COLLADAFW::FloatOrDoubleArray& getWeights() { return mWeights; }
+		const FloatOrDoubleArray& getWeights() const { return mWeights; }
+		FloatOrDoubleArray& getWeights() { return mWeights; }
 
 		/** Returns the array defining how many joints are connected to a vertex. The length must be equal to mVertexCount.
 		The i'th index corresponds to the i'th vertex of the source.*/
-		const COLLADAFW::UIntValuesArray& getJointsPerVertex() const { return mJointsPerVertex; }
-		COLLADAFW::UIntValuesArray& getJointsPerVertex() { return mJointsPerVertex; }
+		const UIntValuesArray& getJointsPerVertex() const { return mJointsPerVertex; }
+		UIntValuesArray& getJointsPerVertex() { return mJointsPerVertex; }
 
 		/** Returns the indices of weights assigned to a joint/vertex pair. The number of pairs for the i'th vertex is 
 		given by the i'th value in mJointsPerVertex.*/
-		const COLLADAFW::UIntValuesArray& getWeightIndices() const { return mWeightIndices; }
-		COLLADAFW::UIntValuesArray& getWeightIndices() { return mWeightIndices; }
+		const UIntValuesArray& getWeightIndices() const { return mWeightIndices; }
+		UIntValuesArray& getWeightIndices() { return mWeightIndices; }
 
 		/** Returns the indices of joints assigned to a joint/vertex pair. The number of pairs for the i'th vertex is 
 		given by the i'th value in mJointsPerVertex.*/
 		const IntValuesArray& getJointIndices() const { return mJointIndices; }
-		COLLADAFW::IntValuesArray& getJointIndices() { return mJointIndices; }
+		IntValuesArray& getJointIndices() { return mJointIndices; }
 
 	private:
 

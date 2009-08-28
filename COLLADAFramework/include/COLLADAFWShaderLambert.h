@@ -52,16 +52,16 @@ namespace COLLADAFW
 		virtual ~ShaderLambert() {};
 
         /** Declares the amount of ambient light emitted from the surface of this object. */
-        const COLLADAFW::ColorOrTexture getAmbient () const { return mAmbient; }
+        const ColorOrTexture getAmbient () const { return mAmbient; }
 
         /** Declares the amount of ambient light emitted from the surface of this object. */
-        void setAmbient ( const COLLADAFW::ColorOrTexture Ambient ) { mAmbient = Ambient; }
+        void setAmbient ( const ColorOrTexture Ambient ) { mAmbient = Ambient; }
 
         /** Declares the amount of light diffusely reflected from the surface of this object. */
-        const COLLADAFW::FloatOrParam getDiffuse () const { return mDiffuse; }
+        const FloatOrParam getDiffuse () const { return mDiffuse; }
 
         /** Declares the amount of light diffusely reflected from the surface of this object. */
-        void setDiffuse ( const COLLADAFW::FloatOrParam Diffuse ) { mDiffuse = Diffuse; }
+        void setDiffuse ( const FloatOrParam Diffuse ) { mDiffuse = Diffuse; }
 
     private:
 

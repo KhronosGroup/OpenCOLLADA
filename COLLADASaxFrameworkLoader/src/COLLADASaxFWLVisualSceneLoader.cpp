@@ -20,9 +20,10 @@ namespace COLLADASaxFWL
 {
 
 	VisualSceneLoader::VisualSceneLoader( IFilePartLoader* callingFilePartLoader, const char* id )
-		: NodeLoader(callingFilePartLoader),
+		: FilePartLoader(callingFilePartLoader),
 		mVisualScene(new COLLADAFW::VisualScene(getUniqueIdFromId(id, COLLADAFW::VisualScene::ID()).getObjectId()))
 	{
+		NodeLoader::setHandlingFilePartLoader(this);
 	}
 
     //------------------------------

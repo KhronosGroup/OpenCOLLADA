@@ -11,8 +11,6 @@
 #ifndef __COLLADAFW_STABLE_HEADERS_H__
 #define __COLLADAFW_STABLE_HEADERS_H__
 
-#include "COLLADAFWException.h"
-
 //STL
 #include <vector>
 #include <sstream>
@@ -20,5 +18,14 @@
 #include <math.h>
 #include <string>
 #include <iostream>
+#include <map>
+#include <list>
+#include <set>
+#include <cassert>
+
+
+// base utils headers
+#include "COLLADABU.h"
+
 
 #endif //__COLLADAFW_STABLE_HEADERS_H__

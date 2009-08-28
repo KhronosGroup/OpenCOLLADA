@@ -3370,6 +3370,103 @@ namespace COLLADASaxFWL
 	};
 
 
+	struct articulated_system__AttributeData
+	{
+		static const articulated_system__AttributeData DEFAULT;
+
+		const ParserChar* id;
+		const ParserChar* name;
+	};
+
+	struct instance_kinematics_model__AttributeData
+	{
+		static const instance_kinematics_model__AttributeData DEFAULT;
+
+		static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+		uint32 present_attributes;
+
+		COLLADABU::URI url;
+		const ParserChar* sid;
+		const ParserChar* name;
+	};
+
+	struct bind____kinematics_bind_type__AttributeData
+	{
+		static const bind____kinematics_bind_type__AttributeData DEFAULT;
+
+		const ParserChar* symbol;
+	};
+
+	struct param____kinematics_param_type__AttributeData
+	{
+		static const param____kinematics_param_type__AttributeData DEFAULT;
+
+		const ParserChar* ref;
+	};
+
+	struct setparam____kinematics_setparam_type__AttributeData
+	{
+		static const setparam____kinematics_setparam_type__AttributeData DEFAULT;
+
+		const ParserChar* ref;
+	};
+
+	struct axis_info____kinematics_axis_info_type__AttributeData
+	{
+		static const axis_info____kinematics_axis_info_type__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+		const ParserChar* name;
+		const ParserChar* axis;
+	};
+
+	struct index__AttributeData
+	{
+		static const index__AttributeData DEFAULT;
+
+		const ParserChar* semantic;
+	};
+
+	struct frame__AttributeData
+	{
+		static const frame__AttributeData DEFAULT;
+
+		const ParserChar* link;
+	};
+
+	struct instance_articulated_system__AttributeData
+	{
+		static const instance_articulated_system__AttributeData DEFAULT;
+
+		static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+		uint32 present_attributes;
+
+		const ParserChar* sid;
+		COLLADABU::URI url;
+		const ParserChar* name;
+	};
+
+	struct axis_info____motion_axis_info_type__AttributeData
+	{
+		static const axis_info____motion_axis_info_type__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+		const ParserChar* axis;
+		const ParserChar* name;
+	};
+
+	struct effector_info__AttributeData
+	{
+		static const effector_info__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+		const ParserChar* name;
+	};
+
+
+
 }
 
 #endif // __COLLADASAXFWL_XMLTYPES_H__

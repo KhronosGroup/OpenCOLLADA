@@ -66,7 +66,7 @@ namespace COLLADASaxFWL
 		ErrorType getErrorType() const { return mErrorType; }
 
 		/** The error message describing the error.*/
-		const COLLADASaxFWL::String& getErrorMessage() const { return mErrorMessage; }
+		const String& getErrorMessage() const { return mErrorMessage; }
 
 		/** The full error message describing the error, including all information.*/
 		String getFullErrorMessage() const;

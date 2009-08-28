@@ -169,32 +169,32 @@ namespace COLLADAFW
 		/** 
 		* The index list of the positions array. 
 		*/
-		COLLADAFW::UIntValuesArray& getPositionIndices () { return mPositionIndices; }
+		UIntValuesArray& getPositionIndices () { return mPositionIndices; }
 
 		/** 
 		* The index list of the positions array. 
 		*/
-		const COLLADAFW::UIntValuesArray& getPositionIndices () const { return mPositionIndices; }
+		const UIntValuesArray& getPositionIndices () const { return mPositionIndices; }
 
         /** 
         * The index list of the positions array. 
         */
-        void setPositionIndices ( const COLLADAFW::UIntValuesArray& PositionIndices ) { mPositionIndices = PositionIndices; }
+        void setPositionIndices ( const UIntValuesArray& PositionIndices ) { mPositionIndices = PositionIndices; }
 
 		/** 
 		* The index list of the normals array. 
 		*/
-		COLLADAFW::UIntValuesArray& getNormalIndices () { return mNormalIndices; }
+		UIntValuesArray& getNormalIndices () { return mNormalIndices; }
 
 		/** 
 		* The index list of the normals array. 
 		*/
-		const COLLADAFW::UIntValuesArray& getNormalIndices () const{ return mNormalIndices; }
+		const UIntValuesArray& getNormalIndices () const{ return mNormalIndices; }
 
         /** 
         * The index list of the normals array. 
         */
-        void setNormalIndices ( const COLLADAFW::UIntValuesArray& NormalIndices ) { mNormalIndices = NormalIndices; }
+        void setNormalIndices ( const UIntValuesArray& NormalIndices ) { mNormalIndices = NormalIndices; }
 
         /** 
         * The index list of the colors array. 
@@ -264,11 +264,11 @@ namespace COLLADAFW
 
 		/** @return The material id of the sub mesh. This material id is used to assign material 
 		to submeshes when the mesh gets instantiated.*/
-		COLLADAFW::MaterialId getMaterialId() const { return mMaterialId; }
+		MaterialId getMaterialId() const { return mMaterialId; }
 
 		/** Sets the material id of the sub mesh. This material id is used to assign material 
 		to submeshes when the mesh gets instantiated.*/
-		void setMaterialId(COLLADAFW::MaterialId val) { mMaterialId = val; }
+		void setMaterialId(MaterialId val) { mMaterialId = val; }
 		
         /*
         * Determine the edge indices (unique edges, also for multiple primitive elements)

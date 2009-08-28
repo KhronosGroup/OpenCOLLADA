@@ -74,17 +74,32 @@ namespace COLLADASaxFWL
 		/** List of all the sid in the address, starting with the first.*/
 		const SidList& getSids() const { return mSids; }
 
+		/** Appends @a sid to the list of sids.*/
+		void appendSid( const String& sid) { mSids.push_back(sid); }
+
 		/** Defines the method of member selection.*/
 		MemberSelection getMemberSelection() const { return mMemberSelection; }
 
+		/** Defines the method of member selection.*/
+		void setMemberSelection( MemberSelection memberSelection ) { mMemberSelection = memberSelection; }
+
 		/** The name of the member selection.*/
 		const String& getMemberSelectionName() const { return mMemberSelectionName; }
-		
+
+		/** The name of the member selection.*/
+		void setMemberSelectionName( const String& memberSelectionName) { mMemberSelectionName = memberSelectionName; }
+
 		/** The first index of a matrix.*/
 		size_t getFirstIndex() const { return mFirstIndex; }
 
+		/** The first index of a matrix.*/
+		void setFirstIndex( size_t firstIndex) { mFirstIndex = firstIndex; }
+
 		/** The second index of a matrix.*/
 		size_t getSecondIndex() const { return mSecondIndex; }
+
+		/** The second index of a matrix.*/
+		void setSecondIndex( size_t secondIndex) { mSecondIndex = secondIndex; }
 
 		/** True, if the address is a valid sid address, false otherwise.*/
 		bool isValid() const { return mIsValid; }

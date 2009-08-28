@@ -11,6 +11,8 @@
 #include "COLLADABUStableHeaders.h"
 #include "COLLADABUPcreCompiledPattern.h"
 
+#include "pcre.h"
+
 #include <cassert>
 
 #ifdef COLLADABU_USE_PCRE_PRECOMPILED

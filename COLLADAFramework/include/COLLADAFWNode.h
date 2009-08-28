@@ -103,12 +103,12 @@ namespace COLLADAFW
         /**
         * The original object id, if it in the original file format exist. 
         */
-        const COLLADAFW::String& getOriginalId () const { return mOriginalId; }
+        const String& getOriginalId () const { return mOriginalId; }
 
         /**
         * The original object id, if it in the original file format exist. 
         */
-        void setOriginalId ( const COLLADAFW::String& val ) { mOriginalId = val; }
+        void setOriginalId ( const String& val ) { mOriginalId = val; }
 
 		/** Returns the name of the node*/
 		const String& getName() const { return mName; }
@@ -118,11 +118,11 @@ namespace COLLADAFW
 
         /** The type of the <node> element. Valid values are JOINT or NODE. The default is
         NODE. Optional. */
-        const COLLADAFW::Node::NodeType getType () const { return mType; }
+        const Node::NodeType getType () const { return mType; }
 
         /** The type of the <node> element. Valid values are JOINT or NODE. The default is
         NODE. Optional. */
-        void setType ( const COLLADAFW::Node::NodeType Type ) { mType = Type; }
+        void setType ( const Node::NodeType Type ) { mType = Type; }
 
 		/** Get list of all transformations of the node.*/
 		TransformationPointerArray& getTransformations() { return mTransformations; }

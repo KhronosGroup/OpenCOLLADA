@@ -159,15 +159,15 @@ namespace COLLADAFW
         size_t numNormals = 0;
 
         // We have to go through every mesh primitive.
-        const COLLADAFW::MeshPrimitiveArray& meshPrimitives = this->getMeshPrimitives ();
+        const MeshPrimitiveArray& meshPrimitives = this->getMeshPrimitives ();
         size_t count = meshPrimitives.getCount ();
         for ( size_t i=0; i<count; ++i )
         {
             // Get the current primitive element.
-            const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
+            const MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
 
             // Get the normal indices of the current primitive.
-            const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices ();
+            const UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices ();
 
             // Add the normals to the sum of normals
             numNormals += normalIndices.getCount ();
@@ -183,12 +183,12 @@ namespace COLLADAFW
         size_t numFaces = 0;
 
         // We have to go through every mesh primitive.
-        const COLLADAFW::MeshPrimitiveArray& meshPrimitives = this->getMeshPrimitives ();
+        const MeshPrimitiveArray& meshPrimitives = this->getMeshPrimitives ();
         size_t count = meshPrimitives.getCount ();
         for ( size_t i=0; i<count; ++i )
         {
             // Get the current primitive element.
-            const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
+            const MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
 
             // Add the face count to the sum of faces
             numFaces += meshPrimitive->getFaceCount ();

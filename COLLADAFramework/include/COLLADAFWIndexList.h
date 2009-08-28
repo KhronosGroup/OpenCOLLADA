@@ -55,8 +55,8 @@ namespace COLLADAFW
         void setStride ( size_t stride ) { mStride = stride; }
         size_t getStride () const { return mStride; }
 
-        const COLLADAFW::String& getName () const { return mName; }
-        void setName ( const COLLADAFW::String& val ) { mName = val; }
+        const String& getName () const { return mName; }
+        void setName ( const String& val ) { mName = val; }
 
         size_t getInitialIndex () const { return mInitialIndex; }
         void setInitialIndex ( size_t val ) { mInitialIndex = val; }

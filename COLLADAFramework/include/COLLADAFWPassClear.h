@@ -64,10 +64,10 @@ namespace COLLADAFW
 		virtual ~PassColorClear();
 
         /** The color value. */
-        const COLLADAFW::Color getColor () const { return mColor; }
+        const Color getColor () const { return mColor; }
 
         /** The color value. */
-        void setColor ( const COLLADAFW::Color Color ) { mColor = Color; }
+        void setColor ( const Color Color ) { mColor = Color; }
 
 	private:
 

@@ -14,6 +14,8 @@
 #include "COLLADASaxFWLSaxParserErrorHandler.h"
 #include "COLLADASaxFWLSidAddress.h"
 #include "COLLADASaxFWLVersionParser.h"
+#include "COLLADASaxFWLKinematicsSceneCreator.h"
+#include "COLLADASaxFWLFormulasLinker.h"
 
 #include "COLLADAFWConstants.h"
 #include "COLLADAFWVisualScene.h"
@@ -22,6 +24,8 @@
 #include "COLLADAFWSkinController.h"
 #include "COLLADAFWMorphController.h"
 #include "COLLADAFWIWriter.h"
+#include "COLLADAFWKinematicsScene.h"
+#include "COLLADAFWFormulas.h"
 
 #include "COLLADAFWObject.h"
 
@@ -58,6 +62,7 @@ namespace COLLADASaxFWL
 		 , mEffects( colladaLoader->getEffects() )
 		 , mLights( colladaLoader->getLights() )
 		 , mCameras( colladaLoader->getCameras() )
+		 , mKinematicsIntermediateData( colladaLoader->getKinematicsIntermediateData() )
 		 , mFormulas( colladaLoader->getFormulaList() )
 		 , mUniqueIdAnimationListMap( colladaLoader->getUniqueIdAnimationListMap() )
 		 , mObjectFlags( objectFlags )
@@ -130,6 +135,15 @@ namespace COLLADASaxFWL
 			writeAnimationLists();
 		}
 
+		if ( (getObjectFlags() & Loader::FORMULA_FLAG) != 0 )
+		{
+			linkAndWriteFormulas();
+		}
+
+		if ( (getObjectFlags() & Loader::KINEMATICS_FLAG) != 0 )
+		{
+			createAndWriteKinematicsScene();
+		}
 
 		writer()->finish();
 	}
@@ -184,10 +198,18 @@ namespace COLLADASaxFWL
 		for ( size_t count = sids.size(); i < count; ++i)
 		{
 			const String& currentSid = sids[i];
-			currentNode = currentNode->findChildBySid( currentSid );
+			SidTreeNode* childNode = currentNode->findChildBySid( currentSid );
 			
-			if ( !currentNode )
-				return 0;
+			if ( !childNode )
+			{
+				// we could not find the sid as a child of currentNode
+				// lets try if the sid is in an instantiated element
+				return resolveSidInInstance( currentNode, sidAddress, i);
+			}
+			else
+			{
+				currentNode = childNode;
+			}
 		}
 		return currentNode;
 	}
@@ -198,6 +220,62 @@ namespace COLLADASaxFWL
 		SidAddress sidAddress(id, sid);
 		return resolveSid(sidAddress);
 	}
+
+	const SidTreeNode* FileLoader::resolveSidInInstance( const SidTreeNode* instancingElement, const SidAddress& sidAddress,  size_t firstSidIndex)
+	{
+		// the sid address we use to resolve the sid in the instantiated element
+		const COLLADABU::URI* uri = 0;
+
+		//check if instancingElement instantiates an element
+		switch ( instancingElement->getTargetType() )
+		{
+		case SidTreeNode::TARGETTYPECLASS_INTERMEDIATETARGETABLE:
+			{
+				IntermediateTargetable* iTargetable = instancingElement->getIntermediateTargetableTarget();
+				switch ( iTargetable->getClassId() )
+				{
+				case INTERMEDIATETARGETABLE_TYPE::KINEMATICS_INSTANCE:
+					{
+						KinematicInstance* ki = intermediateTargetableSafeCast<KinematicInstance>(iTargetable);
+						uri = &ki->getUrl();
+					}
+				}
+
+			}
+// 		case SidTreeNode::TARGETTYPECLASS_OBJECT:
+// 			{
+// 				COLLADAFW::Object* iObject = instancingElement->getObjectTarget();
+// 				switch ( iObject->getClassId() )
+// 				{
+// 				case COLLADAFW::COLLADA_TYPE::JOINT:
+// 					{
+// 						KinematicInstance* ki = (KinematicInstance*) iObject;
+// 						uri = &ki->getUrl();
+// 					}
+// 				}
+// 			}
+		}
+
+		if ( !uri )
+		{
+			// we could not find an instantiated element
+			return 0;
+		}
+
+		SidAddress newSidAddress( *uri );
+		const SidAddress::SidList& allSids = sidAddress.getSids();
+		size_t allSidsCount = allSids.size();
+		for ( size_t i = firstSidIndex; i < allSidsCount; ++i)
+		{
+			newSidAddress.appendSid( allSids[i] );
+		}	
+		newSidAddress.setFirstIndex( sidAddress.getFirstIndex() );
+		newSidAddress.setSecondIndex( sidAddress.getSecondIndex() );
+		newSidAddress.setMemberSelection( sidAddress.getMemberSelection() );
+		newSidAddress.setMemberSelectionName( sidAddress.getMemberSelectionName() );
+		return resolveSid( newSidAddress );
+	}
+	
 
 	//-----------------------------
 	SidTreeNode* FileLoader::findSidTreeNodeByStringId( const String& id )
@@ -576,6 +654,34 @@ namespace COLLADASaxFWL
 			COLLADAFW::AnimationList* animationList = it->second;
 			writer()->writeAnimationList( animationList );
 		}
+	}
+
+	//-----------------------------
+	void FileLoader::linkAndWriteFormulas()
+	{
+		COLLADAFW::Formulas* formulas = FW_NEW COLLADAFW::Formulas();
+		COLLADAFW::FormulaArray& formulaList = formulas->getFormulas();
+
+		Loader::FormulaList::const_iterator it = mFormulas.begin();
+		for (; it != mFormulas.end(); ++it)
+		{
+			formulaList.append( *it );
+		}
+
+		FormulasLinker formulasLinker(this, formulaList);
+		formulasLinker.link();
+
+		writer()->writeFormulas(formulas);
+		FW_DELETE formulas;
+	}
+
+	//-----------------------------
+	void FileLoader::createAndWriteKinematicsScene()
+	{
+		KinematicsSceneCreator kinematicsSceneCreator( this );
+		COLLADAFW::KinematicsScene* kinematicsScene = kinematicsSceneCreator.createAndGetKinematicsScene();
+		writer()->writeKinematicsScene( kinematicsScene );
+		FW_DELETE kinematicsScene;
 	}
 
 	//-----------------------------

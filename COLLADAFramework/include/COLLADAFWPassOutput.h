@@ -48,10 +48,10 @@ namespace COLLADAFW
         virtual ~PassOutput() {}
 
         /** The current output type. */
-        const COLLADAFW::PassOutput::OutputType getOutputType () const { return mOutputType; }
+        const PassOutput::OutputType getOutputType () const { return mOutputType; }
 
         /** The current output type. */
-        void setOutputType ( const COLLADAFW::PassOutput::OutputType outputType ) { mOutputType = outputType; }
+        void setOutputType ( const PassOutput::OutputType outputType ) { mOutputType = outputType; }
 
         /** Which of the multiple render targets is being set. The default is 0. Optional. */
         const unsigned int getIndex () const { return mIndex; }

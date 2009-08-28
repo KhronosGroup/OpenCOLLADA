@@ -14,6 +14,7 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLGeometryMaterialIdInfo.h"
 #include "COLLADASaxFWLSidTreeNode.h"
+#include "COLLADASaxFWLKinematicsIntermediateData.h"
 
 #include "COLLADAFWILoader.h"
 #include "COLLADAFWLoaderUtils.h"
@@ -174,6 +175,9 @@ namespace COLLADASaxFWL
 		will be deleted by the FileLoader.*/
 		UniqueIdAnimationListMap mUniqueIdAnimationListMap;
 
+		/** Intermediate data to build up the kinematics after the COLLADA file has been parsed.*/
+		KinematicsIntermediateData mKinematicsIntermediateData;
+
 		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
 		FormulaList mFormulas;
@@ -265,6 +269,9 @@ namespace COLLADASaxFWL
 		/** List of all cameras in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		CameraList& getCameras() { return mCameras; }
+
+		/** Returns the intermediate data to build up the kinematics after the COLLADA file has been parsed.*/
+		KinematicsIntermediateData& getKinematicsIntermediateData() { return mKinematicsIntermediateData; }
 
 		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/

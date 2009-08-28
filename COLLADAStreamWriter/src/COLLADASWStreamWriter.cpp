@@ -572,7 +572,7 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const int number )
+    void StreamWriter::appendValues ( int number )
     {
         prepareToAddContents();
         if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
@@ -581,27 +581,7 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const int number, const int number2 )
-    {
-        prepareToAddContents();
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
-        appendNumber ( number );
-        appendChar ( ' ' );
-        appendNumber ( number2 );
-        mOpenTags.top().mHasText = true;
-    }
-
-    //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const unsigned int number )
-    {
-        prepareToAddContents();
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
-        appendNumber ( number );
-        mOpenTags.top().mHasText = true;
-    }
-
-    //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const unsigned int number, const unsigned int number2 )
+    void StreamWriter::appendValues ( int number, int number2 )
     {
         prepareToAddContents();
         if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
@@ -612,7 +592,7 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const long number )
+    void StreamWriter::appendValues ( unsigned int number )
     {
         prepareToAddContents();
         if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
@@ -621,68 +601,263 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const unsigned long number )
+    void StreamWriter::appendValues ( unsigned int number, unsigned int number2 )
     {
         prepareToAddContents();
         if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
         appendNumber ( number );
-        mOpenTags.top().mHasText = true;
-    }
-
-    //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const unsigned long number1, const unsigned long number2 )
-    {
-        prepareToAddContents();
-
-        if ( mOpenTags.top().mHasText )
-            appendChar ( ' ' );
-
-        appendNumber ( number1 );
         appendChar ( ' ' );
         appendNumber ( number2 );
-
         mOpenTags.top().mHasText = true;
     }
 
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( long number )
+	{
+		prepareToAddContents();
+		if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+		appendNumber ( number );
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( long number1, long number2 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( long number1, long number2, long number3 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+		appendChar ( ' ' );
+		appendNumber ( number3 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( long number1, long number2, long number3, long number4 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+		appendChar ( ' ' );
+		appendNumber ( number3 );
+		appendChar ( ' ' );
+		appendNumber ( number4 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( unsigned long number )
+	{
+		prepareToAddContents();
+		if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+		appendNumber ( number );
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( unsigned long number1, unsigned long number2 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( unsigned long number1, unsigned long number2, unsigned long number3 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+		appendChar ( ' ' );
+		appendNumber ( number3 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( unsigned long number1, unsigned long number2, unsigned long number3, unsigned long number4 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+		appendChar ( ' ' );
+		appendNumber ( number3 );
+		appendChar ( ' ' );
+		appendNumber ( number4 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( long long number )
+	{
+		prepareToAddContents();
+		if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+		appendNumber ( number );
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( long long number1, long long number2 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( long long number1, long long number2, long long number3 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+		appendChar ( ' ' );
+		appendNumber ( number3 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( long long number1, long long number2, long long number3, long long number4 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+		appendChar ( ' ' );
+		appendNumber ( number3 );
+		appendChar ( ' ' );
+		appendNumber ( number4 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( unsigned long long number )
+	{
+		prepareToAddContents();
+		if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+		appendNumber ( number );
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( unsigned long long number1, unsigned long long number2 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( unsigned long long number1, unsigned long long number2, unsigned long long number3 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+		appendChar ( ' ' );
+		appendNumber ( number3 );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( unsigned long long number1, unsigned long long number2, unsigned long long number3, unsigned long long number4 )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendNumber ( number1 );
+		appendChar ( ' ' );
+		appendNumber ( number2 );
+		appendChar ( ' ' );
+		appendNumber ( number3 );
+		appendChar ( ' ' );
+		appendNumber ( number4 );
+
+		mOpenTags.top().mHasText = true;
+	}
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const unsigned long number1, const unsigned long number2, const unsigned long number3 )
-    {
-        prepareToAddContents();
-
-        if ( mOpenTags.top().mHasText )
-            appendChar ( ' ' );
-
-        appendNumber ( number1 );
-        appendChar ( ' ' );
-        appendNumber ( number2 );
-        appendChar ( ' ' );
-        appendNumber ( number3 );
-
-        mOpenTags.top().mHasText = true;
-    }
-
-    //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const unsigned long number1, const unsigned long number2, const unsigned long number3, const unsigned long number4 )
-    {
-        prepareToAddContents();
-
-        if ( mOpenTags.top().mHasText )
-            appendChar ( ' ' );
-
-        appendNumber ( number1 );
-        appendChar ( ' ' );
-        appendNumber ( number2 );
-        appendChar ( ' ' );
-        appendNumber ( number3 );
-        appendChar ( ' ' );
-        appendNumber ( number4 );
-
-        mOpenTags.top().mHasText = true;
-    }
-
-    //---------------------------------------------------------------
-    void StreamWriter::appendValues( const Color val )
+    void StreamWriter::appendValues( const Color& val )
     {
         prepareToAddContents();
 
@@ -702,7 +877,7 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const bool value )
+    void StreamWriter::appendValues (  bool value )
     {
         prepareToAddContents();
 
@@ -715,18 +890,44 @@ namespace COLLADASW
     }
 
 
-    //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const String& text )
-    {
-        prepareToAddContents();
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( const String& text )
+	{
+		prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
-            appendChar ( ' ' );
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
 
-        appendString ( text );
+		appendString ( text );
 
-        mOpenTags.top().mHasText = true;
-    }
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( const char* text )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendString ( text );
+
+		mOpenTags.top().mHasText = true;
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues ( const char* text, size_t length )
+	{
+		prepareToAddContents();
+
+		if ( mOpenTags.top().mHasText )
+			appendChar ( ' ' );
+
+		appendString ( text, length );
+
+		mOpenTags.top().mHasText = true;
+	}
 
     //---------------------------------------------------------------
     TagCloser StreamWriter::openElement ( const String & name )
@@ -810,7 +1011,7 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    void StreamWriter::addWhiteSpace ( const size_t number )
+    void StreamWriter::addWhiteSpace ( size_t number )
     {
         size_t numberOfWholeStrings = number / WHITESPACESTRINGLENGTH;
 

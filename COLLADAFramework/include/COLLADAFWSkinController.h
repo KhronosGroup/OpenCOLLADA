@@ -43,16 +43,16 @@ namespace COLLADAFW
 		virtual ~SkinController(){}
 
 		/** The unique id of the skin controller data.*/
-		const COLLADAFW::UniqueId& getSkinControllerData() const { return mSkinControllerData; }
+		const UniqueId& getSkinControllerData() const { return mSkinControllerData; }
 
 		/** The unique id of the skin controller data.*/
-		void setSkinControllerData( const COLLADAFW::UniqueId& skinControllerData) { mSkinControllerData = skinControllerData; }
+		void setSkinControllerData( const UniqueId& skinControllerData) { mSkinControllerData = skinControllerData; }
 
 		/** The unique ids of the nodes, referenced by the skin controller.*/
-		COLLADAFW::UniqueIdArray& getJoints() { return mJoints; }
+		UniqueIdArray& getJoints() { return mJoints; }
 
 		/** The unique ids of the nodes, referenced by the skin controller.*/
-		const COLLADAFW::UniqueIdArray& getJoints() const { return mJoints; }
+		const UniqueIdArray& getJoints() const { return mJoints; }
 
 	private:
 
