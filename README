@@ -15,9 +15,16 @@ NOTE: The COLLADA.sln solution, contained in this directory, exists only for dev
 
 Directories
 -----------
+COLLADABaseUtils            Utils used by many of the other projects
+COLLADAFramework            Datamodel used to load COLLADA files
 COLLADAMax                  COLLADAMax NextGen plug-in sources
 COLLADAMaya                 COLLADAMaya NextGen plug-in sources
 COLLADAStreamWriter         COLLADAStreamWriter sources (Library to write COLLADA files) 
-Externals                   Third party projects required to build the NextGen plug-ins            
+COLLADASaxFrameworkLoader   Library that loads COLLADA files in a sax like manner into the framework data model
+COLLADAValidator            XML validator for COLLADA files, based on the COLLADASaxFrameworkLoader
+dae2ogre                    Demo project that converts COLLADA files to OGRE meshes
+Externals                   Third party projects required to build the NextGen plug-ins    
+GeneratedSaxParser          Library used to load xml files in the way used by COLLADASaxFrameworkLoader      
+
 
 
