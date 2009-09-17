@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE xsa PUBLIC "-//LM Garshol//DTD XML Software Autoupdate 1.0//EN//XML" "http://www.garshol.priv.no/download/xsa/xsa.dtd">
+<xsa>
+  <vendor>
+    <name>Daniel Veillard</name>
+    <email>daniel@veillard.com</email>
+    <url>http://veillard.com/</url>
+  </vendor>
+  <product id="libxml2">
+    <name>libxml2</name>
+    <version>2.6.31</version>
+    <last-release> Jan 11 2008</last-release>
+    <info-url>http://xmlsoft.org/</info-url>
+    <changes>   - Security fix: missing of checks in UTF-8 parsing
+   - Bug fixes: regexp bug, dump attribute from XHTML document, fix
+      xmlFree(NULL) to not crash in debug mode, Schematron parsing crash
+      (Rob Richards), global lock free on Windows (Marc-Antoine Ruel),
+      XSD crash due to double free (Rob Richards), indentation fix in
+      xmlTextWriterFullEndElement (Felipe Pena), error in attribute type
+      parsing if attribute redeclared, avoid crash in hash list scanner if
+      deleting elements, column counter bug fix (Christian Schmidt),
+      HTML embed element saving fix (Stefan Behnel), avoid -L/usr/lib
+      output from xml2-config (Fred Crozat), avoid an xmllint crash 
+      (Stefan Kost), don't stop HTML parsing on out of range chars.
+      
+   - Code cleanup: fix open() call third argument, regexp cut'n paste
+      copy error, unused variable in __xmlGlobalInitMutexLock (Hannes Eder),
+      some make distcheck realted fixes (John Carr)
+   - Improvements: HTTP Header: includes port number (William Brack),
+      testURI --debug option, 
+
+</changes>
+  </product>
+</xsa>
