@@ -72,6 +72,10 @@ virtual bool begin__revolute( const COLLADASaxFWL15::revolute__AttributeData& at
 
 virtual bool end__revolute();
 
+virtual bool begin__technique____technique_type( const COLLADASaxFWL15::technique____technique_type__AttributeData& attributeData );
+
+virtual bool end__technique____technique_type();
+
 
 private:
 /** Disable default copy ctor. */

@@ -321,7 +321,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__effect( const effect__AttributeData& attributeData )
 	{
-		mCurrentEffect = FW_NEW COLLADAFW::Effect(getUniqueIdFromId(attributeData.id, COLLADAFW::Effect::ID()).getObjectId());
+		mCurrentEffect = FW_NEW COLLADAFW::Effect(getUniqueIdFromId(attributeData.id, COLLADAFW::Effect::ID()));
 		
         if ( attributeData.name )
             mCurrentEffect->setName ( (const char*)attributeData.name );

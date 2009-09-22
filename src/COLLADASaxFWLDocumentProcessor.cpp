@@ -1,0 +1,452 @@
+/*
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
+
+    This file is part of COLLADASaxFrameworkLoader.
+
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+
+#include "COLLADASaxFWLStableHeaders.h"
+#include "COLLADASaxFWLDocumentProcessor.h"
+
+
+namespace COLLADASaxFWL
+{
+
+	//-----------------------------
+	DocumentProcessor::DocumentProcessor ( Loader* colladaLoader, 
+		SaxParserErrorHandler* saxParserErrorHandler, 
+		int objectFlags,
+		int& parsedObjectFlags)
+		: mColladaLoader( colladaLoader )
+		, mCurrentSidTreeNode( colladaLoader->getSidTreeRoot() )
+		, mIdStringSidTreeNodeMap( colladaLoader->getIdStringSidTreeNodeMap() )
+		, mVisualScenes( colladaLoader->getVisualScenes() )
+		, mLibraryNodes( colladaLoader->getLibraryNodes() )
+		, mEffects( colladaLoader->getEffects() )
+		, mLights( colladaLoader->getLights() )
+		, mCameras( colladaLoader->getCameras() )
+		, mKinematicsIntermediateData( colladaLoader->getKinematicsIntermediateData() )
+		, mFormulas( colladaLoader->getFormulaList() )
+		, mUniqueIdAnimationListMap( colladaLoader->getUniqueIdAnimationListMap() )
+		, mObjectFlags( objectFlags )
+		, mParsedObjectFlags( parsedObjectFlags )
+		, mSkinControllerSet( compare )
+		, mSaxParserErrorHandler( saxParserErrorHandler )
+	{
+
+	}	
+    //------------------------------
+	DocumentProcessor::~DocumentProcessor()
+	{
+	}
+
+	//---------------------------------
+	SidTreeNode* DocumentProcessor::addToSidTree( const char* colladaId, const char* colladaSid )
+	{
+		mCurrentSidTreeNode = mCurrentSidTreeNode->createAndAddChild( colladaSid ? colladaSid : "");
+
+		if ( colladaId && *colladaId )
+		{
+			mIdStringSidTreeNodeMap[colladaId] = mCurrentSidTreeNode;
+		}
+		return mCurrentSidTreeNode;
+	}
+
+	//---------------------------------
+	void DocumentProcessor::moveUpInSidTree()
+	{
+		assert(mCurrentSidTreeNode);
+		mCurrentSidTreeNode = mCurrentSidTreeNode->getParent();
+	}
+
+	//---------------------------------
+	const SidTreeNode* DocumentProcessor::resolveSid( const SidAddress& sidAddress )
+	{
+		if ( !sidAddress.isValid() )
+			return 0;
+
+		SidTreeNode* startingPoint = 0;
+		const String& id = sidAddress.getId();
+		if ( !id.empty() )
+		{
+			// search for element with id 
+			startingPoint = findSidTreeNodeByStringId( id );
+		}
+
+		if ( !startingPoint )
+			return 0;
+
+		SidTreeNode* currentNode = startingPoint;
+		const SidAddress::SidList& sids = sidAddress.getSids();
+
+		size_t i = 0;
+
+		if ( !sids.empty() && (sids.front() == startingPoint->getSid()) )
+		{
+			// the first one is the start element it self exclude it from recursive search
+			i = 1;
+		}
+
+		for ( size_t count = sids.size(); i < count; ++i)
+		{
+			const String& currentSid = sids[i];
+			SidTreeNode* childNode = currentNode->findChildBySid( currentSid );
+
+			if ( !childNode )
+			{
+				// we could not find the sid as a child of currentNode
+				// lets try if the sid is in an instantiated element
+				return resolveSidInInstance( currentNode, sidAddress, i);
+			}
+			else
+			{
+				currentNode = childNode;
+			}
+		}
+		return currentNode;
+	}
+
+	//---------------------------------
+	const SidTreeNode* DocumentProcessor::resolveSid( const COLLADABU::URI& id,  const String& sid)
+	{
+		SidAddress sidAddress(id, sid);
+		return resolveSid(sidAddress);
+	}
+
+	//---------------------------------
+	const SidTreeNode* DocumentProcessor::resolveSidInInstance( const SidTreeNode* instancingElement, const SidAddress& sidAddress,  size_t firstSidIndex)
+	{
+		// the sid address we use to resolve the sid in the instantiated element
+		const COLLADABU::URI* uri = 0;
+
+		//check if instancingElement instantiates an element
+		switch ( instancingElement->getTargetType() )
+		{
+		case SidTreeNode::TARGETTYPECLASS_INTERMEDIATETARGETABLE:
+			{
+				IntermediateTargetable* iTargetable = instancingElement->getIntermediateTargetableTarget();
+				switch ( iTargetable->getClassId() )
+				{
+				case INTERMEDIATETARGETABLE_TYPE::KINEMATICS_INSTANCE:
+					{
+						KinematicInstance* ki = intermediateTargetableSafeCast<KinematicInstance>(iTargetable);
+						uri = &ki->getUrl();
+					}
+				}
+
+			}
+			// 		case SidTreeNode::TARGETTYPECLASS_OBJECT:
+			// 			{
+			// 				COLLADAFW::Object* iObject = instancingElement->getObjectTarget();
+			// 				switch ( iObject->getClassId() )
+			// 				{
+			// 				case COLLADAFW::COLLADA_TYPE::JOINT:
+			// 					{
+			// 						KinematicInstance* ki = (KinematicInstance*) iObject;
+			// 						uri = &ki->getUrl();
+			// 					}
+			// 				}
+			// 			}
+		}
+
+		if ( !uri )
+		{
+			// we could not find an instantiated element
+			return 0;
+		}
+
+		SidAddress newSidAddress( *uri );
+		const SidAddress::SidList& allSids = sidAddress.getSids();
+		size_t allSidsCount = allSids.size();
+		for ( size_t i = firstSidIndex; i < allSidsCount; ++i)
+		{
+			newSidAddress.appendSid( allSids[i] );
+		}	
+		newSidAddress.setFirstIndex( sidAddress.getFirstIndex() );
+		newSidAddress.setSecondIndex( sidAddress.getSecondIndex() );
+		newSidAddress.setMemberSelection( sidAddress.getMemberSelection() );
+		newSidAddress.setMemberSelectionName( sidAddress.getMemberSelectionName() );
+		return resolveSid( newSidAddress );
+	}
+
+
+	//-----------------------------
+	SidTreeNode* DocumentProcessor::findSidTreeNodeByStringId( const String& id )
+	{
+		Loader::IdStringSidTreeNodeMap::iterator it = mIdStringSidTreeNodeMap.find(id);
+		if ( it == mIdStringSidTreeNodeMap.end() )
+		{
+			return 0;
+		}
+		else
+		{
+			return it->second;
+		}
+	}
+
+	//-----------------------------
+	void DocumentProcessor::addToAnimationSidAddressBindings( const AnimationInfo& animationInfo, const SidAddress& targetSidAddress )
+	{
+		AnimationSidAddressBinding binding( animationInfo, targetSidAddress);
+		mAnimationSidAddressBindings.push_back(binding);
+	}
+
+	COLLADAFW::AnimationList*& DocumentProcessor::getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId )
+	{
+		return mUniqueIdAnimationListMap[animationListUniqueId];
+	}
+
+	//-----------------------------
+	void DocumentProcessor::addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids )
+	{
+		mSkinDataJointSidsMap[skinDataUniqueId]=jointSids;
+	}
+
+	//-----------------------------
+	const StringList& DocumentProcessor::getJointSidsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
+	{
+		SkinDataJointSidsMap::const_iterator it = mSkinDataJointSidsMap.find(skinDataUniqueId);
+		if ( it != mSkinDataJointSidsMap.end() )
+		{
+			return it->second;
+		}
+		else
+		{
+			return EMPTY_STRING_LIST;
+		}
+	}
+
+	//-----------------------------
+	void DocumentProcessor::addSkinDataSkinSourcePair( const COLLADAFW::UniqueId& skinDataUniqueId, const COLLADABU::URI& skinSource )
+	{
+		mSkinDataSkinSourceMap[skinDataUniqueId]=skinSource;
+	}
+
+	//-----------------------------
+	const COLLADABU::URI* DocumentProcessor::getSkinSourceBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
+	{
+		SkinDataSkinSourceMap::const_iterator it = mSkinDataSkinSourceMap.find(skinDataUniqueId);
+		if ( it != mSkinDataSkinSourceMap.end() )
+		{
+			return &it->second;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	//-----------------------------
+	const DocumentProcessor::InstanceControllerDataList& DocumentProcessor::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId ) const
+	{
+		InstanceControllerDataListMap::const_iterator it = mInstanceControllerDataListMap.find(controllerUniqueId);
+		if ( it != mInstanceControllerDataListMap.end())
+		{
+			return it->second;
+		}
+		else
+		{
+			return EMPTY_INSTANCE_CONTROLLER_DATALIST;
+		}
+
+	}
+
+	//-----------------------------
+	DocumentProcessor::InstanceControllerDataList& DocumentProcessor::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId )
+	{
+		return mInstanceControllerDataListMap[controllerUniqueId];
+	}
+
+
+	//-----------------------------
+	bool DocumentProcessor::compare( const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs )
+	{
+
+		if (lhs.getSkinControllerData() < rhs.getSkinControllerData() )
+			return true;
+		if (lhs.getSkinControllerData() > rhs.getSkinControllerData() )
+			return false;
+
+		if (lhs.getSource() < rhs.getSource() )
+			return true;
+		if (lhs.getSource() > rhs.getSource() )
+			return false;
+
+		const COLLADAFW::UniqueIdArray& lhsJoints = lhs.getJoints();
+		const COLLADAFW::UniqueIdArray& rhsJoints = rhs.getJoints();
+		size_t lhsJointsCount = lhsJoints.getCount();
+		size_t rhsJointsCount = rhsJoints.getCount();
+		if (lhsJointsCount < rhsJointsCount )
+			return true;
+		if (lhsJointsCount > rhsJointsCount )
+			return false;
+
+		for ( size_t i = 0; i < lhsJointsCount; ++i)
+		{
+			const COLLADAFW::UniqueId& lhsJoint = lhsJoints[i];
+			const COLLADAFW::UniqueId& rhsJoint = rhsJoints[i];
+			if (lhsJoint < rhsJoint )
+				return true;
+			if (lhsJoint > rhsJoint )
+				return false;
+		}
+
+		return false;
+	}
+
+	//-----------------------------
+	void DocumentProcessor::setCOLLADAVersion( COLLADAVersion cOLLADAVersion )
+	{
+		mCOLLADAVersion = cOLLADAVersion;
+		mColladaLoader->setCOLLADAVersion(cOLLADAVersion);
+	}
+
+	//-----------------------------
+	bool DocumentProcessor::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+		const COLLADAFW::UniqueId& controllerDataUniqueId,
+		const COLLADAFW::UniqueId& sourceUniqueId)
+	{
+		if ( !controllerDataUniqueId.isValid() )
+			return false;
+		const StringList& sids = getJointSidsBySkinDataUniqueId( controllerDataUniqueId );
+		return createAndWriteSkinController( instanceControllerData, controllerDataUniqueId, sourceUniqueId, sids );
+	}
+
+	//-----------------------------
+	bool DocumentProcessor::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+		const COLLADAFW::UniqueId& controllerDataUniqueId, 
+		const COLLADAFW::UniqueId& sourceUniqueId,
+		const StringList& sids)
+	{
+		if ( !controllerDataUniqueId.isValid() )
+			return false;
+
+		const URIList& skeletonRoots = instanceControllerData.skeletonRoots;
+
+		NodeList joints;
+
+		for ( StringList::const_iterator it = sids.begin(); it != sids.end(); ++it)
+		{
+			const String sid = *it;
+
+			bool jointFound = false;
+
+			for ( URIList::const_iterator skeletonIt = skeletonRoots.begin(); skeletonIt != skeletonRoots.end(); ++skeletonIt)
+			{
+				const COLLADABU::URI& skeletonUri = *skeletonIt;
+
+				SidAddress sidAddress( skeletonUri, sid );
+				const SidTreeNode* joint = resolveSid( sidAddress );
+				if ( joint )
+				{
+					// the joint could be found
+					if ( joint->getTargetType() != SidTreeNode::TARGETTYPECLASS_OBJECT )
+					{
+						// we could resolve the sid, but is not a joint/node
+						break;
+					}
+
+					const COLLADAFW::Object* object = joint->getObjectTarget();
+
+					if ( object->getClassId() != COLLADAFW::Node::ID() )
+					{
+						// we could resolve the sid, but is not a joint/node
+						break;
+					}
+
+					joints.push_back( (COLLADAFW::Node*)object );
+
+					jointFound = true;
+					//search for the next joint
+					break;
+				}
+			}
+			if ( !jointFound )
+			{
+				std::stringstream msg;
+				msg << "Could not resolve sid \"" << sid << "\" referenced in skin controller.";
+				return handleFWLError( SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg.str() );
+			}
+		}
+
+		COLLADAFW::SkinController skinController( getUniqueId(COLLADAFW::SkinController::ID()));
+
+		COLLADAFW::UniqueIdArray &jointsUniqueIds = skinController.getJoints();
+		jointsUniqueIds.allocMemory( joints.size() );
+		jointsUniqueIds.setCount(joints.size());
+
+		size_t i = 0;
+		NodeList::const_iterator it = joints.begin();
+		for ( ; it != joints.end(); ++it, ++i )
+		{
+			const COLLADAFW::Node* node = *it;
+			jointsUniqueIds[i] = node->getUniqueId();
+		}
+
+		skinController.setSkinControllerData(controllerDataUniqueId);
+		skinController.setSource(sourceUniqueId);
+
+		bool success = true;
+		// Check if we have already wrote a skin controller that describes the same controller, i.e. has same
+		// source, skin data and joints. If so, do not write it again and reference the previously used in the
+		// scene graph
+		const COLLADAFW::SkinController* skinControllerToWrite = 0;
+		SkinControllerSet::const_iterator skinControllerIt = mSkinControllerSet.find( skinController );
+		if ( skinControllerIt == mSkinControllerSet.end() )
+		{
+			skinControllerToWrite = &skinController;
+			success = writer()->writeController(skinControllerToWrite);
+			mSkinControllerSet.insert( skinController );
+		}
+		else
+		{
+			skinControllerToWrite = &(*skinControllerIt);
+		}
+
+		instanceControllerData.instanceController->setInstanciatedObjectId( skinControllerToWrite->getUniqueId() );
+
+		return success;
+	}
+
+
+	//-----------------------------
+	bool DocumentProcessor::createAndWriteSkinControllers()
+	{
+		InstanceControllerDataListMap::const_iterator mapIt = mInstanceControllerDataListMap.begin();
+
+		for ( ; mapIt != mInstanceControllerDataListMap.end(); ++mapIt )
+		{
+			const COLLADAFW::UniqueId& skinDataUniqueId = mapIt->first;
+			const InstanceControllerDataList& instanceControllerDataList = mapIt->second;
+
+			InstanceControllerDataList::const_iterator listIt = instanceControllerDataList.begin();
+
+			for ( ; listIt != instanceControllerDataList.end(); ++listIt)
+			{
+				const InstanceControllerData& instanceControllerData = *listIt;
+				const COLLADABU::URI* sourceUrl = getSkinSourceBySkinDataUniqueId( skinDataUniqueId );
+
+				if ( !sourceUrl )
+				{
+					// TODO handle error
+					continue;
+				}
+
+				const COLLADAFW::UniqueId& sourceUniqueId = getUniqueIdFromUrl(*sourceUrl);
+				if ( !sourceUniqueId.isValid() )
+				{
+					// TODO handle error
+					continue;
+				}
+				if ( !createAndWriteSkinController( instanceControllerData, skinDataUniqueId, sourceUniqueId ) )
+					return false;
+			}
+		}
+		return true;
+	}
+
+
+} // namespace COLLADASaxFWL

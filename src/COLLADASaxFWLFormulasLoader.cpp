@@ -49,11 +49,20 @@ namespace COLLADASaxFWL
 	{
 	}
 
+	//-----------------------------------------------------------------
+	COLLADAFW::ExtraData* FormulasLoader::getExtraData()
+	{
+		if ( mCurrentFormula )
+		{
+			return mCurrentFormula;
+		}
+		return 0;
+	}
 
 	//-----------------------------------------------------------------
 	bool FormulasLoader::begin__formula( const formula__AttributeData& attributeData )
 	{
-		mCurrentFormula = FW_NEW COLLADAFW::Formula( getHandlingFilePartLoader()->getUniqueIdFromId( attributeData.id, COLLADAFW::Formula::ID()).getObjectId() );
+		mCurrentFormula = FW_NEW COLLADAFW::Formula( getHandlingFilePartLoader()->getUniqueIdFromId( attributeData.id, COLLADAFW::Formula::ID()) );
 		if ( attributeData.name )
 			mCurrentFormula->setName( attributeData.name );
 		else if ( attributeData.id )

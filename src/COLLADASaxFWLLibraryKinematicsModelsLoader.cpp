@@ -24,6 +24,7 @@ namespace COLLADASaxFWL
 	LibraryKinematicsModelsLoader::LibraryKinematicsModelsLoader( IFilePartLoader* callingFilePartLoader )
 		: FilePartLoader(callingFilePartLoader)
 		, mCurrentKinematicsModel(0)
+		, mCurrentJointInstance(0)
 		, mCurrentAttachment(0)
 	{
 		FormulasLoader::setHandlingFilePartLoader(this);
@@ -33,6 +34,38 @@ namespace COLLADASaxFWL
     //------------------------------
 	LibraryKinematicsModelsLoader::~LibraryKinematicsModelsLoader()
 	{
+	}
+
+	//------------------------------
+	const char* LibraryKinematicsModelsLoader::getSecondKey()
+	{
+		// we are inside a joint instance
+		if ( mCurrentJointInstance )
+		{
+			return COLLADAFW::ExtraKeys::INSTANCEJOINT;
+		}
+
+		return 0;
+	}
+
+	//------------------------------
+	COLLADAFW::ExtraData* LibraryKinematicsModelsLoader::getExtraData()
+	{
+		// we are inside a joint instance
+		if ( mCurrentJointInstance )
+		{
+			return mCurrentJointInstance;
+		}
+
+		// check if we are inside a formula
+		COLLADAFW::ExtraData* formula = FormulasLoader::getExtraData();
+		if ( formula )
+		{
+			return formula;
+		}
+
+		// we are not inside a child of the kinematics model, therefore the extra must be one of the kin model
+		return mCurrentKinematicsModel;
 	}
 
 	//------------------------------
@@ -112,15 +145,16 @@ namespace COLLADASaxFWL
 	{
 		// Get the unique id of the joint, that will replace this instance in the kinematics model
 		COLLADAFW::UniqueId jointId = getUniqueId( COLLADAFW::Joint::ID() );
-		KinematicInstance* jointInstance = new KinematicInstance( attributeData.url, jointId );
-		getFileLoader()->addInstanceJoint( jointInstance );
-		addToSidTree( 0, attributeData.sid, jointInstance );
+		mCurrentJointInstance = new KinematicInstance( attributeData.url, jointId );
+		getFileLoader()->addInstanceJoint( mCurrentJointInstance );
+		addToSidTree( 0, attributeData.sid, mCurrentJointInstance );
 		return true;
 	}
 
 	//------------------------------
 	bool LibraryKinematicsModelsLoader::end__instance_joint()
 	{
+		mCurrentJointInstance = 0;
 		moveUpInSidTree();
 		return true;
 	}

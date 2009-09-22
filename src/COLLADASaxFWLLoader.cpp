@@ -11,7 +11,9 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLLoader.h"
 #include "COLLADASaxFWLFileLoader.h"
+#include "COLLADASaxFWLPostProcessor.h"
 #include "COLLADASaxFWLSaxParserErrorHandler.h"
+#include "COLLADASaxFWLUtils.h"
 
 #include "COLLADABUURI.h"
 
@@ -22,7 +24,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWLight.h"
 #include "COLLADAFWCamera.h"
 #include "COLLADAFWAnimationList.h"
-#include "COLLADASaxFWLUtils.h"
+#include "COLLADAFWConstants.h"
 
 #include <sys/types.h>
 #include <sys/timeb.h>
@@ -32,7 +34,9 @@ namespace COLLADASaxFWL
 {
 
 	Loader::Loader( IErrorHandler* errorHandler )
-		: mErrorHandler(errorHandler)
+		: mNextFileId(0)
+		, mCurrentFileId(0)
+		, mErrorHandler(errorHandler)
 		, mNextTextureMapId(0)
 		, mObjectFlags( Loader::ALL_OBJECTS_MASK )
 		, mParsedObjectFlags( Loader::NO_FLAG )
@@ -70,8 +74,6 @@ namespace COLLADASaxFWL
 			COLLADAFW::AnimationList* animationList = it->second;
 			FW_DELETE animationList;
 		}
-
-
 	}
 
     //---------------------------------
@@ -80,7 +82,7 @@ namespace COLLADASaxFWL
 		URIUniqueIdMap::iterator it = mURIUniqueIdMap.find(uri);
 		if ( it == mURIUniqueIdMap.end() )
 		{
-			return mURIUniqueIdMap[uri] = COLLADAFW::UniqueId(classId, mLoaderUtil.getLowestObjectIdFor(classId));
+			return mURIUniqueIdMap[uri] = COLLADAFW::UniqueId(classId, mLoaderUtil.getLowestObjectIdFor(classId), getFileId(uri));
 		}
 		else
 		{
@@ -105,7 +107,74 @@ namespace COLLADASaxFWL
 	//---------------------------------
 	COLLADAFW::UniqueId Loader::getUniqueId( COLLADAFW::ClassId classId )
 	{
-		return COLLADAFW::UniqueId(classId, mLoaderUtil.getLowestObjectIdFor(classId));
+		return COLLADAFW::UniqueId(classId, mLoaderUtil.getLowestObjectIdFor(classId), mCurrentFileId);
+	}
+
+	//---------------------------------
+	COLLADAFW::FileId Loader::getFileId( const COLLADABU::URI& uri )
+	{
+		// check if the uri is relative
+		bool isRelative = uri.getScheme().empty() && 
+			              uri.getAuthority().empty() && 
+						  uri.getPath().empty() && 
+						  uri.getQuery().empty();
+		if ( isRelative )
+		{
+			// its a relative uri. The file id is that of the current file
+			return mCurrentFileId;
+		}
+
+		// the uri is not relative. We need to find the correct file id
+		const COLLADABU::URI* usedUri = 0;
+
+		COLLADABU::URI uriWithoutFragment;
+		
+		if ( uri.getFragment().empty() )
+		{
+			// the passed uri has no fragment, we can use it without modification
+			usedUri = &uri;
+		}
+		else
+		{
+			// the passed uri has a fragment, we need to make a copy without fragment
+			uriWithoutFragment.set( uri.getScheme(), uri.getAuthority(), uri.getPath(), uri.getQuery(), COLLADAFW::Constants::EMPTY_STRING);
+			usedUri = &uriWithoutFragment;
+		}
+
+		URIFileIdMap::iterator it = mURIFileIdMap.find( *usedUri );
+
+		if ( it == mURIFileIdMap.end() )
+		{
+			COLLADAFW::FileId fileId = mNextFileId++;
+			addFileIdUriPair( fileId, *usedUri );
+			return fileId;
+		}
+		else
+		{
+			return it.second();
+		}
+	}
+
+	//---------------------------------
+	const COLLADABU::URI& Loader::getFileUri( COLLADAFW::FileId fileId )
+	{
+		FileIdURIMap::const_iterator it = mFileIdURIMap.find( fileId );
+
+		if ( it == mFileIdURIMap.end() )
+		{
+			return COLLADABU::URI::INVALID;
+		}
+		else
+		{
+			return it->second;
+		}
+	}
+
+	//---------------------------------
+	void Loader::addFileIdUriPair( COLLADAFW::FileId fileId, const COLLADABU::URI& uri )
+	{
+		mURIFileIdMap[uri] = fileId;
+		mFileIdURIMap[fileId] = uri;
 	}
 
 	//---------------------------------
@@ -117,12 +186,29 @@ namespace COLLADASaxFWL
 
 		SaxParserErrorHandler saxParserErrorHandler(mErrorHandler);
 
-		FileLoader fileLoader(this, 
-			                  COLLADABU::URI::URI(COLLADABU::URI::nativePathToUri(fileName)), 
-							  &saxParserErrorHandler, 
-							  mObjectFlags,
-							  mParsedObjectFlags);
-		fileLoader.load();
+		COLLADABU::URI rootFileUri(COLLADABU::URI::nativePathToUri(fileName));
+		
+		// the root file has always file id 0
+		addFileIdUriPair( mNextFileId++, rootFileUri );
+
+		while ( mCurrentFileId < mNextFileId )
+		{
+			FileLoader fileLoader(this, 
+								  getFileUri( mCurrentFileId ),
+								  &saxParserErrorHandler, 
+								  mObjectFlags,
+								  mParsedObjectFlags);
+			fileLoader.load();
+
+			mCurrentFileId++;
+		}
+
+		PostProcessor postProcessor(this, 
+				                    &saxParserErrorHandler, 
+				                    mObjectFlags,
+				                    mParsedObjectFlags);
+		postProcessor.postProcess();
+
 		mParsedObjectFlags |= mObjectFlags;
 
 		return true;

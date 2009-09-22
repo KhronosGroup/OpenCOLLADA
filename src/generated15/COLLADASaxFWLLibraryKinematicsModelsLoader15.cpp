@@ -201,5 +201,21 @@ return mLoader->data__rotate(data, length);
 }
 
 
+bool LibraryKinematicsModelsLoader15::begin__technique____technique_type( const COLLADASaxFWL15::technique____technique_type__AttributeData& attributeData )
+{
+SaxVirtualFunctionTest15(begin__technique____technique_type(attributeData));
+COLLADASaxFWL::technique__AttributeData attrData;
+attrData.profile = attributeData.profile;
+return mLoader->begin__technique(attrData);
+}
+
+
+bool LibraryKinematicsModelsLoader15::end__technique____technique_type()
+{
+SaxVirtualFunctionTest15(end__technique____technique_type());
+return mLoader->end__technique();
+}
+
+
 
 }

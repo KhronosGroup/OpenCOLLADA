@@ -35,7 +35,7 @@ namespace COLLADASaxFWL
     //------------------------------
 	bool LibraryMaterialsLoader::begin__material( const material__AttributeData& attributeData )
 	{
-		mCurrentMaterial = FW_NEW COLLADAFW::Material(getUniqueIdFromId(attributeData.id, COLLADAFW::Material::ID()).getObjectId());
+		mCurrentMaterial = FW_NEW COLLADAFW::Material(getUniqueIdFromId(attributeData.id, COLLADAFW::Material::ID()));
 		
         if ( attributeData.name )
 			mCurrentMaterial->setName ( (const char*)attributeData.name );

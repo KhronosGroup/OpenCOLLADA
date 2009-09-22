@@ -43,7 +43,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::begin__image( const image__AttributeData& attributeData )
 	{
-		mCurrentImage = FW_NEW COLLADAFW::Image( getUniqueIdFromId( attributeData.id, COLLADAFW::Image::ID()).getObjectId() );
+		mCurrentImage = FW_NEW COLLADAFW::Image( getUniqueIdFromId( attributeData.id, COLLADAFW::Image::ID()) );
 
 		if ( attributeData.name )
 			mCurrentImage->setName( (const char*) attributeData.name );

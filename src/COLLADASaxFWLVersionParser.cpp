@@ -328,7 +328,7 @@ namespace COLLADASaxFWL
 #endif
         bool success = versionSaxParser.parseFile( fileName );
 
-        mFileLoader->postProcess();
+ //       mFileLoader->postProcess();
 
         delete mPrivateParser14;
         delete mPrivateParser15;

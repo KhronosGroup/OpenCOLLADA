@@ -33,9 +33,15 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
+	COLLADAFW::ExtraData* JointsLoader::getExtraData()
+	{
+		return mCurrentJoint;
+	}
+
+	//------------------------------
 	bool JointsLoader::beginJointPrimitive( COLLADAFW::JointPrimitive::Type jointPrimitiveType, const char * sid)
 	{
-		mCurrentJointPrimitive = FW_NEW COLLADAFW::JointPrimitive( getHandlingFilePartLoader()->getUniqueId( COLLADAFW::JointPrimitive::ID()).getObjectId(), jointPrimitiveType );
+		mCurrentJointPrimitive = FW_NEW COLLADAFW::JointPrimitive( getHandlingFilePartLoader()->getUniqueId( COLLADAFW::JointPrimitive::ID()), jointPrimitiveType );
 		mCurrentJoint->getJointPrimitives().append( mCurrentJointPrimitive );
 		getHandlingFilePartLoader()->addToSidTree(0, sid, mCurrentJointPrimitive);
 		return true;
@@ -52,7 +58,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool JointsLoader::begin__joint( const joint__AttributeData& attributeData )
 	{
-		mCurrentJoint = FW_NEW COLLADAFW::Joint( getHandlingFilePartLoader()->getUniqueIdFromId( attributeData.id, COLLADAFW::Joint::ID()).getObjectId() );
+		mCurrentJoint = FW_NEW COLLADAFW::Joint( getHandlingFilePartLoader()->getUniqueIdFromId( attributeData.id, COLLADAFW::Joint::ID()) );
 		if ( attributeData.name )
 		{
 			mCurrentJoint->setName(attributeData.name);

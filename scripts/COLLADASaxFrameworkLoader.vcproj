@@ -1108,6 +1108,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLDocumentProcessor.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLFileLoader.cpp"
 				>
 			</File>
@@ -1229,6 +1233,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADASaxFWLNodeLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLPostProcessor.cpp"
 				>
 			</File>
 			<File
@@ -1770,6 +1778,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLDocumentProcessor.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLException.h"
 				>
 			</File>
@@ -1923,6 +1935,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLPolygons.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLPostProcessor.h"
 				>
 			</File>
 			<File

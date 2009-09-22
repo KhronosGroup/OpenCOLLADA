@@ -19,6 +19,7 @@ namespace COLLADASaxFWL
     //------------------------------
 	LibraryArticulatedSystemsLoader::LibraryArticulatedSystemsLoader( IFilePartLoader* callingFilePartLoader )
 		: FilePartLoader(callingFilePartLoader)
+		, mCurrentArticulatedSystemExtra(0)
 		, mCurrentKinematicsController(0)
 		, mCurrentKinematicsInstanceKinematicsModel(0)
 		, mValueElementParentType(VALUE_ELEMENT_NONE)
@@ -30,6 +31,38 @@ namespace COLLADASaxFWL
     //------------------------------
 	LibraryArticulatedSystemsLoader::~LibraryArticulatedSystemsLoader()
 	{
+	}
+
+	//------------------------------
+	const char* LibraryArticulatedSystemsLoader::getSecondKey()
+	{
+		// we are inside a kinematics element
+		if ( mCurrentKinematicsController )
+		{
+			return COLLADAFW::ExtraKeys::KINEMATICS;
+		}
+		else
+		{
+			return COLLADAFW::ExtraKeys::ARTICULATEDSYSTEM;
+		}
+	}
+
+	//------------------------------
+	COLLADAFW::ExtraData* LibraryArticulatedSystemsLoader::getExtraData()
+	{
+		// we are inside a kinematics element
+		if ( mCurrentKinematicsController )
+		{
+			return mCurrentKinematicsController;
+		}
+		
+		if ( mCurrentArticulatedSystemExtra )
+		{
+			return mCurrentArticulatedSystemExtra;
+		}
+		// we should never get here
+		assert(false);
+		return 0;
 	}
 
 	//------------------------------
@@ -65,6 +98,7 @@ namespace COLLADASaxFWL
 	{
 		mCurrentArticulatedId.clear();
 		mCurrentArticulatedName.clear();
+		mCurrentArticulatedSystemExtra = 0;
 		moveUpInSidTree();
 		return true;
 	}
@@ -73,6 +107,7 @@ namespace COLLADASaxFWL
 	bool LibraryArticulatedSystemsLoader::begin__kinematics()
 	{
 		mCurrentKinematicsController = new KinematicsController( mCurrentArticulatedId, mCurrentArticulatedName );
+		mCurrentArticulatedSystemExtra = mCurrentKinematicsController;
 		return true;
 	}
 
