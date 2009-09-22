@@ -12,6 +12,7 @@
 #define __COLLADABU_MATH_UTILS_H__
 
 #include "COLLADABUPrerequisites.h"
+#include "COLLADABUMathVector3.h"
 
 #define TOLERANCE 0.0001f
 
@@ -46,6 +47,15 @@ namespace COLLADABU
 				return value1 - value2 < tolerance && value1 - value2 > -tolerance;
 			}
 
+			/** Returns true if @a value1 and @a value2 are equal within @a tolerance*/
+			static bool equals ( const Vector3& value1, const Vector3& value2, const double& tolerance = TOLERANCE )
+			{
+				return equals( value1[0], value2[0], tolerance ) &&
+					   equals( value1[1], value2[1], tolerance ) &&
+					   equals( value1[2], value2[2], tolerance );
+			}
+			
+
 			/** Returns true if @a value1 and @a value2 are equal within the default tolerance*/
 			/*        template<class T>
 			static bool equals ( const T & value1, const T & value2 )
@@ -78,6 +88,12 @@ namespace COLLADABU
 			static bool equalsZero ( const double& value, const double tolerance = (double)TOLERANCE )
 			{
 				return equals ( value, 0.0, tolerance );
+			}
+
+			/** Returns true if @a value is equal to zero within the tolerance*/
+			static bool equalsZero ( const Vector3& value, const double tolerance = (double)TOLERANCE )
+			{
+				return equals( value, Vector3::ZERO, tolerance );
 			}
 
 			template<class T>
