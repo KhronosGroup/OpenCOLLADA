@@ -32,7 +32,7 @@ namespace COLLADAFW
 	
 	public:
 
-		VisualScene(ObjectId objectId);
+		VisualScene(const UniqueId& uniqueId);
 		virtual ~VisualScene();
 
 		/** Returns the name of the visual scene*/

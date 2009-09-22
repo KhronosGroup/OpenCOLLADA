@@ -16,8 +16,8 @@ namespace COLLADAFW
 {
 
 	//------------------------------
-	Image::Image( ObjectId objectId)
-		: ObjectTemplate< COLLADA_TYPE::IMAGE >(objectId)
+	Image::Image( const UniqueId& uniqueId)
+		: ObjectTemplate< COLLADA_TYPE::IMAGE >(uniqueId)
 		, mSourceType(SOURCE_TYPE_UNKNOWN)
 		, mHeight(0)
 		, mWidth(0)

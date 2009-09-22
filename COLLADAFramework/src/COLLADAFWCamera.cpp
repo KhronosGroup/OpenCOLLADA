@@ -16,8 +16,8 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	Camera::Camera( ObjectId objectId)
-		: ObjectTemplate< COLLADA_TYPE::CAMERA >(objectId)
+	Camera::Camera( const UniqueId& uniqueId)
+		: ObjectTemplate< COLLADA_TYPE::CAMERA >(uniqueId)
 		, mCameraType(UNDEFINED_CAMERATYPE)
 		, mDescriptionType( UNDEFINED )
 		, mXFovOrXMag(0)

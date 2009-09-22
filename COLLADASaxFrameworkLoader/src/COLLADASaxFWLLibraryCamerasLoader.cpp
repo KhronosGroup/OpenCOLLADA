@@ -75,7 +75,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::begin__camera( const camera__AttributeData& attributeData )
 	{
-		mCurrentCamera = FW_NEW COLLADAFW::Camera( getUniqueIdFromId( attributeData.id, COLLADAFW::Camera::ID()).getObjectId() );
+		mCurrentCamera = FW_NEW COLLADAFW::Camera( getUniqueIdFromId( attributeData.id, COLLADAFW::Camera::ID()) );
 
 		if ( attributeData.name )
 			mCurrentCamera->setName( (const char*) attributeData.name );

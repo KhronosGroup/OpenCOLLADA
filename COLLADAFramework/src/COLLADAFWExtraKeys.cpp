@@ -23,6 +23,13 @@ namespace COLLADAFW
 
 	const char* ExtraKeys::CAMERA = "camera";
 	const char* ExtraKeys::OPTICS = "optics";
+	
+
+	/************ kinematics ****************/
+	const char* ExtraKeys::INSTANCEJOINT = "instancejoint";
+	const char* ExtraKeys::KINEMATICS = "kinematics";
+	const char* ExtraKeys::ARTICULATEDSYSTEM = "articulatedsystem";
+
 
 
 } // namespace COLLADAFW

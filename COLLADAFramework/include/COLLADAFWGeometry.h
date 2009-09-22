@@ -65,7 +65,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Geometry ( ObjectId objectId, GeometryType geometryType );
+		Geometry ( const UniqueId& uniqueId, GeometryType geometryType );
 
         /** Destructor. */
 		virtual ~Geometry();

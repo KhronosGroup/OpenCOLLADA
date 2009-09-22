@@ -16,15 +16,15 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	MorphController::MorphController( ObjectId objectId ) 
-		: Controller( objectId, Controller::CONTROLLER_TYPE_MORPH)
+	MorphController::MorphController( const UniqueId& uniqueId ) 
+		: Controller( uniqueId, Controller::CONTROLLER_TYPE_MORPH)
 	{
 
 	}
 
 	//------------------------------
 	MorphController::MorphController( const MorphController& pre )
-		: Controller( pre.getObjectId(), Controller::CONTROLLER_TYPE_MORPH, pre.getSource () )
+		: Controller( pre.getUniqueId(), Controller::CONTROLLER_TYPE_MORPH, pre.getSource () )
 		, mMorphWeights(pre.mMorphWeights)
         , mOriginalId(pre.mOriginalId)
         , mName(pre.mName)

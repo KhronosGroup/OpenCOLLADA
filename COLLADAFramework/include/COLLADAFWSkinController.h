@@ -34,7 +34,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		SkinController( ObjectId objectId );
+		SkinController( const UniqueId& uniqueId );
 
         /** Copy-Constructor. */
 		SkinController( const SkinController& pre );

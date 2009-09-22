@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\include\AST;..\..\LibXML\include"
+				AdditionalIncludeDirectories="..\include;..\include\ast;..\..\LibXML\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MATHMLSOLVER_EXPORTS"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -114,7 +114,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\include\AST;..\..\LibXML\include"
+				AdditionalIncludeDirectories="..\include;..\include\ast;..\..\LibXML\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MATHMLSOLVER_EXPORTS"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -182,7 +182,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;..\include\AST;..\..\LibXML\include"
+				AdditionalIncludeDirectories="..\include;..\include\ast;..\..\LibXML\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MATHMLSOLVER_EXPORTS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -248,7 +248,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;..\include\AST;..\..\LibXML\include"
+				AdditionalIncludeDirectories="..\include;..\include\ast;..\..\LibXML\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MATHMLSOLVER_EXPORTS"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -361,39 +361,39 @@
 				Name="ast"
 				>
 				<File
-					RelativePath="..\src\AST\MathMLASTArithmeticExpression.cpp"
+					RelativePath="..\src\ast\MathMLASTArithmeticExpression.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\AST\MathMLASTBinaryComparisionExpression.cpp"
+					RelativePath="..\src\ast\MathMLASTBinaryComparisionExpression.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\AST\MathMLASTConstantExpression.cpp"
+					RelativePath="..\src\ast\MathMLASTConstantExpression.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\AST\MathMLASTFragmentExpression.cpp"
+					RelativePath="..\src\ast\MathMLASTFragmentExpression.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\AST\MathMLASTFunctionExpression.cpp"
+					RelativePath="..\src\ast\MathMLASTFunctionExpression.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\AST\MathMLASTLogicExpression.cpp"
+					RelativePath="..\src\ast\MathMLASTLogicExpression.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\AST\MathMLASTStringVisitor.cpp"
+					RelativePath="..\src\ast\MathMLASTStringVisitor.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\AST\MathMLASTUnaryArithmeticExpression.cpp"
+					RelativePath="..\src\ast\MathMLASTUnaryArithmeticExpression.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\AST\MathMLASTVariableExpression.cpp"
+					RelativePath="..\src\ast\MathMLASTVariableExpression.cpp"
 					>
 				</File>
 			</Filter>
@@ -455,47 +455,47 @@
 				Name="ast"
 				>
 				<File
-					RelativePath="..\include\AST\MathMLASTArithmeticExpression.h"
+					RelativePath="..\include\ast\MathMLASTArithmeticExpression.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTBinaryComparisionExpression.h"
+					RelativePath="..\include\ast\MathMLASTBinaryComparisionExpression.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTConstantExpression.h"
+					RelativePath="..\include\ast\MathMLASTConstantExpression.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTFragmentExpression.h"
+					RelativePath="..\include\ast\MathMLASTFragmentExpression.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTFunctionExpression.h"
+					RelativePath="..\include\ast\MathMLASTFunctionExpression.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTLogicExpression.h"
+					RelativePath="..\include\ast\MathMLASTLogicExpression.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTNode.h"
+					RelativePath="..\include\ast\MathMLASTNode.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTStringVisitor.h"
+					RelativePath="..\include\ast\MathMLASTStringVisitor.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTUnaryArithmeticExpression.h"
+					RelativePath="..\include\ast\MathMLASTUnaryArithmeticExpression.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTVariableExpression.h"
+					RelativePath="..\include\ast\MathMLASTVariableExpression.h"
 					>
 				</File>
 				<File
-					RelativePath="..\include\AST\MathMLASTVisitor.h"
+					RelativePath="..\include\ast\MathMLASTVisitor.h"
 					>
 				</File>
 			</Filter>

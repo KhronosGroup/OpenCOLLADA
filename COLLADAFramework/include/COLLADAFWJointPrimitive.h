@@ -55,8 +55,8 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		JointPrimitive( ObjectId objectId, Type type )
-			: ObjectTemplate < COLLADA_TYPE::JOINTPRIMITIVE >( objectId )
+		JointPrimitive( const UniqueId& uniqueId, Type type )
+			: ObjectTemplate < COLLADA_TYPE::JOINTPRIMITIVE >( uniqueId )
 			, mType(type)
 			, mHardLimitMin(std::numeric_limits<float>::quiet_NaN())
 			, mHardLimitMax(std::numeric_limits<float>::quiet_NaN())

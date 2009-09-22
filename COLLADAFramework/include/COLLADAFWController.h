@@ -40,14 +40,14 @@ namespace COLLADAFW
 
     protected:
         /** Constructor. */
-        Controller( ObjectId objectId, ControllerType controllerType )
-            : ObjectTemplate<COLLADA_TYPE::CONTROLLER>(objectId)
+        Controller( const UniqueId& uniqueId, ControllerType controllerType )
+            : ObjectTemplate<COLLADA_TYPE::CONTROLLER>(uniqueId)
             , mControllerType(controllerType)
         {}
 
         /** Constructor. */
-        Controller( ObjectId objectId, ControllerType controllerType, UniqueId source )
-            : ObjectTemplate<COLLADA_TYPE::CONTROLLER>(objectId)
+        Controller( const UniqueId& uniqueId, ControllerType controllerType, UniqueId source )
+            : ObjectTemplate<COLLADA_TYPE::CONTROLLER>(uniqueId)
             , mControllerType(controllerType)
             , mSource(source)
         {}

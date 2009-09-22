@@ -43,7 +43,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryLightsLoader::begin__light( const light__AttributeData& attributeData )
 	{
-		mCurrentLight = FW_NEW COLLADAFW::Light( getUniqueIdFromId( attributeData.id, COLLADAFW::Light::ID()).getObjectId() );
+		mCurrentLight = FW_NEW COLLADAFW::Light( getUniqueIdFromId( attributeData.id, COLLADAFW::Light::ID()));
 
 		if ( attributeData.name )
 			mCurrentLight->setName( (const char*) attributeData.name );

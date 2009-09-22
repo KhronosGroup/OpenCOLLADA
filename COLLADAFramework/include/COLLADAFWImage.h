@@ -91,7 +91,7 @@ namespace COLLADAFW
 	public:
 
 		/** @param objectId The object id of the image.*/
-		Image( ObjectId objectId );
+		Image( const UniqueId& uniqueId );
 
         /** Destructor. */
         virtual ~Image();

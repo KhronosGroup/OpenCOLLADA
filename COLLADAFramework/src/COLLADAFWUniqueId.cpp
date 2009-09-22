@@ -75,7 +75,7 @@ namespace COLLADAFW
 		}
 		if ( ascii[classIdFirstNonDigit] == ',' )
 		{
-			// missing comma ofter first number
+			// missing comma after first number
 			return false;
 		}
 		//parse
@@ -88,7 +88,7 @@ namespace COLLADAFW
 			return false;
 		}
 
-		ObjectId mObjectId = atoi( &ascii[classIdFirstNonDigit+1]);
+		mObjectId = atoi( &ascii[classIdFirstNonDigit+1]);
 
 		return true;
 	}
@@ -106,6 +106,11 @@ namespace COLLADAFW
 		if ( mObjectId > rhs.mObjectId )
 			return false;
 
+		if ( mFileId < rhs.mFileId )
+			return true;
+		if ( mFileId > rhs.mFileId )
+			return false;
+
 		return false;
 	}
 
@@ -117,10 +122,15 @@ namespace COLLADAFW
         if ( mClassId < rhs.mClassId )
             return false;
 
-        if ( mObjectId > rhs.mObjectId )
-            return true;
-        if ( mObjectId < rhs.mObjectId )
-            return false;
+		if ( mObjectId > rhs.mObjectId )
+			return true;
+		if ( mObjectId < rhs.mObjectId )
+			return false;
+
+		if ( mFileId > rhs.mFileId )
+			return true;
+		if ( mFileId < rhs.mFileId )
+			return false;
 
         return false;
     }
@@ -128,17 +138,13 @@ namespace COLLADAFW
     //-------------------------------
     bool UniqueId::operator== ( const UniqueId& uid ) const
     {
-        if ( mClassId != uid.getClassId () ) return false;
-        if ( mObjectId != uid.getObjectId () ) return false;
-        return true;
+		return (mClassId == uid.mClassId) && (mObjectId == uid.mObjectId) && (mFileId == uid.mFileId);
     }
 
     //-------------------------------
     bool UniqueId::operator!= ( const UniqueId& uid ) const
     {
-        if ( mClassId != uid.getClassId () ) return true;
-        if ( mObjectId != uid.getObjectId () ) return true;
-        return false;
+		return (mClassId != uid.mClassId) || (mObjectId != uid.mObjectId) || (mFileId != uid.mFileId);
     }
 
 } // namespace COLLADAFW

@@ -42,6 +42,9 @@ namespace COLLADASaxFWL
 		/** The kinematics model, that is currently being parsed. Null if none is being parsed.*/
 		KinematicsModel* mCurrentKinematicsModel;
 
+		/** The joint instance, that is currently being parsed. Null if none is being parsed.*/
+		KinematicInstance* mCurrentJointInstance;
+
 		/** Stack of the links in the current model.*/
 		LinkStack mLinkStack;
 
@@ -55,6 +58,12 @@ namespace COLLADASaxFWL
 
         /** Destructor. */
 		virtual ~LibraryKinematicsModelsLoader();
+
+		/** Returns the second part of the key, either instance joint or null.*/
+		virtual const char* getSecondKey();
+
+		/** Returns the ExtraData object, that should be used to store the extra data. The current kinematics model object.*/
+		virtual COLLADAFW::ExtraData* getExtraData();
 
 		bool beginAttachment( KinematicAttachment::Type attachmentType, const attachment_AttributeData& attributeData );
 		bool endAttachment();

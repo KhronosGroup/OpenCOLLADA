@@ -34,14 +34,16 @@ namespace COLLADAFW
 		/** The object id that uniquely identifies the object in the set of all objects of the same Type.*/
 		ObjectId mObjectId;
 
+		/** The id of the COLLADA file that contains the object.*/
+		FileId mFileId;
 
 	public:
 		/** Default constructor. Creates a UniqueId with ClassId COLALDA_TYPES::No_TYPE, which is an invalid ClassId.
 		Therefore the UniqueId is considered to be invalid.*/
-		UniqueId() : mClassId(COLLADA_TYPE::NO_TYPE), mObjectId(0){}
+		UniqueId() : mClassId(COLLADA_TYPE::NO_TYPE), mObjectId(0), mFileId(0){}
 
 		/** Constructor. Creates UniqueId with ClassId @a classId an ObjectId @a objectId.*/
-		UniqueId(ClassId classId, ObjectId objectId) : mClassId(classId), mObjectId(objectId){}
+		UniqueId(ClassId classId, ObjectId objectId, FileId fileId) : mClassId(classId), mObjectId(objectId), mFileId(fileId){}
 
 		/** Constructor. Creates UniqueId from string @a ascii. This text representation is used in formula 
 		to reference parameters.*/
@@ -54,6 +56,9 @@ namespace COLLADAFW
 
 		/** Returns the object id that uniquely identifies the object in the set of all objects of the same Type.*/
 		ObjectId getObjectId() const { return mObjectId; }
+
+		/** Returns the id of the COLLADA file that contains the object.*/
+		FileId getFileId() const { return mFileId; }
 
 		/** Returns true if the unique id is valid, false otherwise.*/
 		bool isValid() const { return mClassId != COLLADA_TYPE::NO_TYPE; }

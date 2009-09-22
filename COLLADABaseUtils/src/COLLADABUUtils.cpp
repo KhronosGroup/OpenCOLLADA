@@ -86,9 +86,9 @@ namespace COLLADABU
         {
             switch ( srcString[i])
             {
-            case '\r':
-                returnString += "&#13";
-                break;
+//             case '\r':
+//                 returnString += "&#13";
+//                 break;
             case '<':
                 returnString += "&lt;";
                 break;

@@ -33,5 +33,16 @@ namespace COLLADAFW
 	{
 	}
 
+	//------------------------------
+	void ExtraData::appendExtraData( const ExtraDataArray& extraData )
+	{
+		mExtraDataArray.appendValues(extraData);
+	}
+
+	//------------------------------
+	void ExtraData::appendExtraData( const ExtraData& extraData )
+	{
+		appendExtraData(extraData.getExtraDataArray());
+	}
 
 } // namespace COLLADAFW

@@ -60,10 +60,10 @@ namespace COLLADASaxFWL
 	}
 
     //------------------------------
-	KinematicsSceneCreator::KinematicsSceneCreator( FileLoader* fileLoader )
+	KinematicsSceneCreator::KinematicsSceneCreator( DocumentProcessor* documentProcessor )
 		: mKinematicsScene(0)
-		, mFileLoader(fileLoader)
-		, mKinematicsIntermediateData( fileLoader->getKinematicsIntermediateData())
+		, mDocumentProcessor(documentProcessor)
+		, mKinematicsIntermediateData( documentProcessor->getKinematicsIntermediateData())
 		, mLargestLinkNumber(0)
 		, mLargestJointIndex(0)
 	{
@@ -114,8 +114,10 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::KinematicsModel* KinematicsSceneCreator::createFWKinematicsModel(KinematicsModel* kinematicsModel)
 	{
-		COLLADAFW::UniqueId uniqueId = mFileLoader->getUniqueIdFromId( kinematicsModel->getId().c_str(), COLLADAFW::KinematicsModel::ID());
-		COLLADAFW::KinematicsModel* fwKinematicsModel = FW_NEW COLLADAFW::KinematicsModel(uniqueId.getObjectId());
+		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->getUniqueIdFromId( kinematicsModel->getId().c_str(), COLLADAFW::KinematicsModel::ID());
+		COLLADAFW::KinematicsModel* fwKinematicsModel = FW_NEW COLLADAFW::KinematicsModel(uniqueId);
+
+		fwKinematicsModel-> appendExtraData(*kinematicsModel);
 
 		COLLADAFW::SizeTValuesArray& fwBaseLinks = fwKinematicsModel->getBaseLinks();
 
@@ -148,7 +150,7 @@ namespace COLLADASaxFWL
 			KinematicAttachment* attachment = *it;
 			
 			const SidAddress& jointAddress = attachment->getJoint();
-			const SidTreeNode* jointTreeNode = mFileLoader->resolveSid( jointAddress );
+			const SidTreeNode* jointTreeNode = mDocumentProcessor->resolveSid( jointAddress );
 			if ( !jointTreeNode )
 			{
 				//TODO: handle error
@@ -158,14 +160,17 @@ namespace COLLADASaxFWL
 			COLLADAFW::Joint* joint = 0;
 			// Used if the joint is an instance joint in collada
 			const COLLADAFW::UniqueId* jointUniqueId = 0;
+			// the extra data of an instance joint that must be added to the joint extra data
+			const COLLADAFW::ExtraData* instanceJointExtraData = 0;
 
 			if ( jointTreeNode->getTargetType() == SidTreeNode::TARGETTYPECLASS_INTERMEDIATETARGETABLE )
 			{
 				//this must be a KinematicInstance
 				const KinematicInstance* instanceJoint = intermediateTargetableSafeCast<KinematicInstance>(jointTreeNode->getIntermediateTargetableTarget());
 				assert(instanceJoint);
+				instanceJointExtraData = instanceJoint;
 				SidAddress referencedJointAddress( instanceJoint->getUrl() );
-				const SidTreeNode* referencedJointTreeNode = mFileLoader->resolveSid( referencedJointAddress );
+				const SidTreeNode* referencedJointTreeNode = mDocumentProcessor->resolveSid( referencedJointAddress );
 				
 				assert( referencedJointTreeNode->getTargetType() == SidTreeNode::TARGETTYPECLASS_OBJECT );
 				jointUniqueId = &instanceJoint->getReplacingObjectUniqueId();
@@ -194,6 +199,12 @@ namespace COLLADASaxFWL
 				// If the joint is in the kinematics model in COLLADA we clone it completely, if it 
 				// is instantiated we need to take the unique id from the instance
 				COLLADAFW::Joint* clonedJoint = jointUniqueId ? joint->clone(*jointUniqueId) : joint->clone();
+				// if the is extra from the instance, we need to append it to the joint
+				if ( instanceJointExtraData )
+				{
+					clonedJoint->appendExtraData(*instanceJointExtraData);
+				}
+
 				fwJoints.append( clonedJoint );
 
 				const COLLADAFW::JointPrimitivePointerArray& jointPrimitives = joint->getJointPrimitives();
@@ -246,9 +257,10 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::KinematicsController* KinematicsSceneCreator::createFWKinematicsController(KinematicsController* kinematicsController)
 	{
-		COLLADAFW::UniqueId uniqueId = mFileLoader->getUniqueIdFromId( kinematicsController->getId().c_str(), COLLADAFW::KinematicsModel::ID());
-		COLLADAFW::KinematicsController* fwKinematicsController = FW_NEW COLLADAFW::KinematicsController(uniqueId.getObjectId());
+		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->getUniqueIdFromId( kinematicsController->getId().c_str(), COLLADAFW::KinematicsModel::ID());
+		COLLADAFW::KinematicsController* fwKinematicsController = FW_NEW COLLADAFW::KinematicsController(uniqueId);
 
+		fwKinematicsController->appendExtraData(*kinematicsController);
 
 		// get instance kinematics models
 		const KinematicsInstanceKinematicsModels& instanceKinematicsModels =  kinematicsController->getKinematicsInstanceKinematicsModels();
@@ -308,7 +320,7 @@ namespace COLLADASaxFWL
 	COLLADAFW::AxisInfo KinematicsSceneCreator::createFWAxisInfo( const AxisInfo& axisInfo, bool& success )
 	{
 		const SidAddress& jointPrimitiveAddress = axisInfo.getJointPrimitiveRefAddress();
-		const SidTreeNode* jointPrimitiveSidTreeNode = mFileLoader->resolveSid( jointPrimitiveAddress );
+		const SidTreeNode* jointPrimitiveSidTreeNode = mDocumentProcessor->resolveSid( jointPrimitiveAddress );
 		if ( !jointPrimitiveSidTreeNode )
 		{
 			// TODO report error joint primitive could not be resolved
@@ -356,7 +368,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::UniqueId KinematicsSceneCreator::processInstanceKinematicsModel(const KinematicsInstanceKinematicsModel& instanceKinematicsModel)
 	{
-		COLLADAFW::UniqueId kinematicsModelUniqueId =  mFileLoader->getUniqueIdFromUrl( instanceKinematicsModel.getUrl() );
+		COLLADAFW::UniqueId kinematicsModelUniqueId =  mDocumentProcessor->getUniqueIdFromUrl( instanceKinematicsModel.getUrl() );
 		if ( !kinematicsModelUniqueId.isValid() )
 		{
 			return COLLADAFW::UniqueId::INVALID;

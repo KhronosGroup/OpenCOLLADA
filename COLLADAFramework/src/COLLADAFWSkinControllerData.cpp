@@ -16,8 +16,8 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	SkinControllerData::SkinControllerData( ObjectId objectId )
-		: ObjectTemplate< COLLADA_TYPE::SKIN_DATA >(objectId)
+	SkinControllerData::SkinControllerData( const UniqueId& uniqueId )
+		: ObjectTemplate< COLLADA_TYPE::SKIN_DATA >(uniqueId)
 		, mBindShapeMatrix(COLLADABU::Math::Matrix4::IDENTITY)
 		, mJointsPerVertex(UIntValuesArray::OWNER)
 		, mWeightIndices(UIntValuesArray::OWNER)

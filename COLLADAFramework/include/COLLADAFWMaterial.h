@@ -40,7 +40,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Material ( ObjectId objectId );
+		Material ( const UniqueId& uniqueId );
 
         /** Destructor. */
 		virtual ~Material ();

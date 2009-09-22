@@ -96,7 +96,7 @@ namespace COLLADAFW
 	public:
 
 		/** Creates a node with object id @a objectId.*/
-		Node(ObjectId objectId);
+		Node(const UniqueId& uniqueId);
 
 		virtual ~Node();
 

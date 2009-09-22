@@ -71,6 +71,12 @@ namespace COLLADAFW
 		/** Returns the list of the extra data key value pairs.*/
 		ExtraDataArray& getExtraDataArray() { return mExtraDataArray; }
 
+		/** Appends all the extra data pairs in @a extraDataArray to the extra data array.*/
+		void appendExtraData(const ExtraDataArray& extraDataArray);
+
+		/** Appends all the extra data pairs in @a extraData to the extra data array.*/
+		void appendExtraData(const ExtraData& extraData);
+
 
 	};
 

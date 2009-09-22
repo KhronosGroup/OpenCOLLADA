@@ -21,7 +21,7 @@ namespace COLLADASaxFWL
 
 	VisualSceneLoader::VisualSceneLoader( IFilePartLoader* callingFilePartLoader, const char* id )
 		: FilePartLoader(callingFilePartLoader),
-		mVisualScene(new COLLADAFW::VisualScene(getUniqueIdFromId(id, COLLADAFW::VisualScene::ID()).getObjectId()))
+		mVisualScene(new COLLADAFW::VisualScene(getUniqueIdFromId(id, COLLADAFW::VisualScene::ID())))
 	{
 		NodeLoader::setHandlingFilePartLoader(this);
 	}

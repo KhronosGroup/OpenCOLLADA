@@ -63,7 +63,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		SkinControllerData( ObjectId objectId );
+		SkinControllerData( const UniqueId& uniqueId );
 
         /** Destructor. */
 		virtual ~SkinControllerData();

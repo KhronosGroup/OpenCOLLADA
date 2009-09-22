@@ -82,7 +82,7 @@ namespace COLLADAFW
     public:
 
         /** Constructor. */
-        Mesh ( ObjectId objectId );
+        Mesh ( const UniqueId& uniqueId );
 
         /** Destructor. */
         virtual ~Mesh ();

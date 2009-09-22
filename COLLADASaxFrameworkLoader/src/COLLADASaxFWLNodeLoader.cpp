@@ -49,7 +49,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::beginNode( const node__AttributeData& attributeData )
 	{
-		COLLADAFW::Node* newNode = new COLLADAFW::Node( getHandlingFilePartLoader()->getUniqueIdFromId(attributeData.id, COLLADAFW::Node::ID()).getObjectId());
+		COLLADAFW::Node* newNode = new COLLADAFW::Node( getHandlingFilePartLoader()->getUniqueIdFromId(attributeData.id, COLLADAFW::Node::ID()));
 
 		if ( attributeData.name )
 			newNode->setName ( (const char*)attributeData.name );

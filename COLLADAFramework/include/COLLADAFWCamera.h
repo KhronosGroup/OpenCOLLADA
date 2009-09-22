@@ -80,7 +80,7 @@ namespace COLLADAFW
 	public:
 
 		/** @param objectId The object id of the camera.*/
-		Camera( ObjectId objectId );
+		Camera( const UniqueId& uniqueId );
 
         /** Destructor. */
 		virtual ~Camera();

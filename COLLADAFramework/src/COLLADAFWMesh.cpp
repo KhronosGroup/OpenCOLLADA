@@ -16,8 +16,8 @@ namespace COLLADAFW
 {
 
     //----------------------------------
-    Mesh::Mesh( ObjectId objectId )
-        : Geometry ( objectId, Geometry::GEO_TYPE_MESH )
+    Mesh::Mesh( const UniqueId& uniqueId )
+        : Geometry ( uniqueId, Geometry::GEO_TYPE_MESH )
         , mMeshPrimitives(MeshPrimitiveArray::OWNER)
     {
 

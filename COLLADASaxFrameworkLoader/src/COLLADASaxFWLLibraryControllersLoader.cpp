@@ -190,7 +190,7 @@ namespace COLLADASaxFWL
 	bool LibraryControllersLoader::begin__skin( const skin__AttributeData& attributeData )
 	{
 		mCurrentControllerType = SKIN_CONTROLLER;
-		mCurrentSkinControllerData = FW_NEW COLLADAFW::SkinControllerData(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::SkinControllerData::ID()).getObjectId());
+		mCurrentSkinControllerData = FW_NEW COLLADAFW::SkinControllerData(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::SkinControllerData::ID()));
 
         mCurrentSkinControllerData->setOriginalId ( mOriginalId );
         mCurrentSkinControllerData->setName ( mCurrentControllerName );
@@ -221,7 +221,7 @@ namespace COLLADASaxFWL
 	bool LibraryControllersLoader::begin__morph( const morph__AttributeData& attributeData )
 	{
 		mCurrentControllerType = MORPH_CONTROLLER;
-		mCurrentMorphController = FW_NEW COLLADAFW::MorphController(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::MorphController::ID()).getObjectId());
+		mCurrentMorphController = FW_NEW COLLADAFW::MorphController(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::MorphController::ID()));
 		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source, COLLADAFW::Geometry::ID());
 		mCurrentMorphController->setSource( mCurrentControllerSourceUniqueId);
         mCurrentMorphController->setOriginalId ( mOriginalId );

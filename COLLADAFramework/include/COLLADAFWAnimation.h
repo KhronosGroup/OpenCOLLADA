@@ -70,8 +70,8 @@ namespace COLLADAFW
 	protected:
 
 		/** Constructor. */
-		Animation( ObjectId objectId, AnimationType animationType)
-			: ObjectTemplate<COLLADA_TYPE::ANIMATION>(objectId)
+		Animation( const UniqueId& uniqueId, AnimationType animationType)
+			: ObjectTemplate<COLLADA_TYPE::ANIMATION>(uniqueId)
 			, mAnimationType(animationType)
 		{}
 

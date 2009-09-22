@@ -16,8 +16,8 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	Light::Light( ObjectId objectId )
-		: ObjectTemplate< COLLADA_TYPE::LIGHT >(objectId)
+	Light::Light( const UniqueId& uniqueId )
+		: ObjectTemplate< COLLADA_TYPE::LIGHT >(uniqueId)
 		, mLightType(UNDEFINED)
 		, mColor()
 		, mConstantAttenuation(1)

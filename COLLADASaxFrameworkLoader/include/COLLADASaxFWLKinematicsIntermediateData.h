@@ -17,6 +17,7 @@
 #include "COLLADASaxFWLIntermediateTargetable.h"
 
 #include "COLLADAFWTransformation.h"
+#include "COLLADAFWExtraData.h"
 
 #include "COLLADABUURI.h"
 
@@ -35,7 +36,7 @@ namespace COLLADASaxFWL
 	typedef std::vector<COLLADAFW::Transformation*> TransformationList;
 
 	/** An instance within kinematics.*/
-	class KinematicInstance : public IntermediateTargetableTemplate<INTERMEDIATETARGETABLE_TYPE::KINEMATICS_INSTANCE>
+	class KinematicInstance : public IntermediateTargetableTemplate<INTERMEDIATETARGETABLE_TYPE::KINEMATICS_INSTANCE>, public COLLADAFW::ExtraData
 	{
 	private:
 		/** The URI of the referenced element in the COLLADA file.*/
@@ -118,7 +119,7 @@ namespace COLLADASaxFWL
 
 
 	/** A kinematics model as described in COLLADA.*/
-	class KinematicsModel: public IntermediateTargetableTemplate<INTERMEDIATETARGETABLE_TYPE::KINEMATICMODEL>
+	class KinematicsModel: public IntermediateTargetableTemplate<INTERMEDIATETARGETABLE_TYPE::KINEMATICMODEL>, public COLLADAFW::ExtraData
 	{
 	private:
 		KinematicLinkList mBaseLinks;
@@ -323,7 +324,7 @@ namespace COLLADASaxFWL
 	typedef std::vector<KinematicsInstanceKinematicsModel> KinematicsInstanceKinematicsModels;
 
 	/** A kinematics controller as described in COLLADA articulated system.*/
-	class KinematicsController: public IntermediateTargetableTemplate<INTERMEDIATETARGETABLE_TYPE::KINEMATICCONTROLLER>
+	class KinematicsController: public IntermediateTargetableTemplate<INTERMEDIATETARGETABLE_TYPE::KINEMATICCONTROLLER>, public COLLADAFW::ExtraData
 	{
 	private:
 		/** The id of the kinematics controller.*/

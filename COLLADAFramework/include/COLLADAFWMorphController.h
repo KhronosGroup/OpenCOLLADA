@@ -42,7 +42,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		MorphController( ObjectId objectId );
+		MorphController( const UniqueId& uniqueId );
 
         /** Copy-Constructor. */
 		MorphController( const MorphController& pre );

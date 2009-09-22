@@ -16,15 +16,15 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	SkinController::SkinController( ObjectId objectId ) 
-		: Controller( objectId, Controller::CONTROLLER_TYPE_SKIN )
+	SkinController::SkinController( const UniqueId& uniqueId ) 
+		: Controller( uniqueId, Controller::CONTROLLER_TYPE_SKIN )
 	{
 
 	}
 
     //------------------------------
 	SkinController::SkinController( const SkinController& pre )
-		: Controller( pre.getObjectId(), Controller::CONTROLLER_TYPE_SKIN, pre.getSource () )
+		: Controller( pre.getUniqueId(), Controller::CONTROLLER_TYPE_SKIN, pre.getSource () )
 		, mSkinControllerData(pre.mSkinControllerData)
 	{
 		const UniqueIdArray& preJoints = pre.mJoints;

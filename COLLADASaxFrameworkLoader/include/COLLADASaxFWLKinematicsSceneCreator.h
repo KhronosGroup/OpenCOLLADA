@@ -26,7 +26,7 @@ namespace COLLADAFW
 
 namespace COLLADASaxFWL
 {
-	class FileLoader;
+	class DocumentProcessor;
 	class KinematicsIntermediateData;
 	class KinematicsModel;
 	class KinematicLink;
@@ -49,7 +49,7 @@ namespace COLLADASaxFWL
 		COLLADAFW::KinematicsScene* mKinematicsScene;
 
 		/** The file loader that has all the information about the kinematics scene.*/
-		FileLoader* mFileLoader;
+		DocumentProcessor* mDocumentProcessor;
 
 		/** The kinematics intermediate data th kinematics scene will be created from. It is 
 		provided by mFileLoader.*/
@@ -76,7 +76,7 @@ namespace COLLADASaxFWL
 	public:
 
         /** Constructor. */
-		KinematicsSceneCreator( FileLoader* fileLoader);
+		KinematicsSceneCreator( DocumentProcessor* documentProcessor);
 
         /** Destructor. */
 		virtual ~KinematicsSceneCreator();

@@ -81,8 +81,8 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		AnimationCurve( ObjectId objectId )
-			: Animation(objectId, Animation::ANIMATION_CURVE)
+		AnimationCurve( const UniqueId& uniqueId )
+			: Animation(uniqueId, Animation::ANIMATION_CURVE)
 			, mInPhysicalDimension(PHYSICAL_DIMENSION_UNKNOWN)
 			, mOutPhysicalDimensions(PhysicalDimensionArray::OWNER)
 			, mOutDimension(0)

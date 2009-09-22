@@ -18,13 +18,14 @@
 #include "COLLADAFWAxisInfo.h"
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWObject.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
 {
 
     /** TODO Documentation */
-	class KinematicsController 	: ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>
+	class KinematicsController 	: ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>, public ExtraData
 	{
 	private:
 
@@ -45,7 +46,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		KinematicsController(ObjectId objectId);
+		KinematicsController(const UniqueId& uniqueId);
 
         /** Destructor. */
 		virtual ~KinematicsController();

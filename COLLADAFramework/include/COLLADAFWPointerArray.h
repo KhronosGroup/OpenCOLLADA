@@ -34,7 +34,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		PointerArray() : ArrayPrimitiveType<T*>(Array<T*>::OWNER){}
+		PointerArray() : ArrayPrimitiveType<T*>(ArrayPrimitiveType<T*>::OWNER){}
 
         /** Destructor. */
 		virtual ~PointerArray()
@@ -44,14 +44,26 @@ namespace COLLADAFW
 
         /** Disable default copy ctor. */
 		PointerArray( const PointerArray& pre )
-			: ArrayPrimitiveType<T*>(Array<T*>::OWNER)
+			: ArrayPrimitiveType<T*>(ArrayPrimitiveType<T*>::OWNER)
 		{
 			// clone the array contents
 			cloneContents(pre);
 		}
 
+		/** Clones the values in @a valuesArray and appends the pointers.*/
+		void appendValues( const PointerArray<T>& valuesArray )
+		{
+			size_t newCount = mCount + valuesArray.getCount();
+			ArrayPrimitiveType<T*>::reallocMemory(newCount);
+			for ( size_t i = mCount, j = 0; i < newCount; ++i, ++j)
+			{
+				(*this)[i] = valuesArray[j]->clone();
+			}
+			ArrayPrimitiveType<T*>::mCount = newCount;
+		}
+
         /** Disable default assignment operator. */
-		const PointerArray& operator= ( const PointerArray& pre )
+		const PointerArray& operator=( const PointerArray& pre )
 		{
 			if ( &pre != this )
 			{
@@ -70,7 +82,9 @@ namespace COLLADAFW
 			size_t newCount = pre.getCount();
 			ArrayPrimitiveType<T*>::reallocMemory(newCount);
 			for ( size_t i = 0; i < newCount; ++i)
+			{
 				(*this)[i] = pre[i]->clone();
+			}
 			ArrayPrimitiveType<T*>::mCount = newCount;
 		}
 

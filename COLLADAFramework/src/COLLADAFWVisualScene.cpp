@@ -14,8 +14,8 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 	//--------------------------------------------------------------------
-	VisualScene::VisualScene( ObjectId objectId )
-		:ObjectTemplate< COLLADA_TYPE::VISUAL_SCENE >( objectId ) 
+	VisualScene::VisualScene( const UniqueId& uniqueId )
+		:ObjectTemplate< COLLADA_TYPE::VISUAL_SCENE >( uniqueId ) 
 	{}
 
 	//--------------------------------------------------------------------

@@ -73,8 +73,8 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		AnimationList( ObjectId objectId ) 
-			: ObjectTemplate<COLLADA_TYPE::ANIMATIONLIST>(objectId)
+		AnimationList( const UniqueId& uniqueId ) 
+			: ObjectTemplate<COLLADA_TYPE::ANIMATIONLIST>(uniqueId)
 			, mAnimationBindings(AnimationBindings::OWNER)
 		{}
 
@@ -87,7 +87,7 @@ namespace COLLADAFW
 
         /**  */
 		AnimationList( const AnimationList& pre )
-			: ObjectTemplate<COLLADA_TYPE::ANIMATIONLIST>( pre.getUniqueId().getObjectId())
+			: ObjectTemplate<COLLADA_TYPE::ANIMATIONLIST>( pre.getUniqueId())
 		{
 			pre.getAnimationBindings().cloneArray( mAnimationBindings );
 		}

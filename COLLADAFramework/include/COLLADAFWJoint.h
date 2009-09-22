@@ -37,8 +37,8 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Joint( ObjectId objectId ) 
-			: ObjectTemplate< COLLADA_TYPE::JOINT >(objectId){}
+		Joint( const UniqueId& uniqueId ) 
+			: ObjectTemplate< COLLADA_TYPE::JOINT >(uniqueId){}
 
         /** Destructor. */
 		virtual ~Joint(){}

@@ -80,7 +80,7 @@ namespace COLLADAFW
     public:
 
         /** Constructor. */
-		Effect( ObjectId objectId );
+		Effect( const UniqueId& uniqueId );
 
         /** Destructor. */
 		virtual ~Effect();

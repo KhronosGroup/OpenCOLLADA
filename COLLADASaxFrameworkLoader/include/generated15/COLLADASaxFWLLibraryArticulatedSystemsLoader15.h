@@ -190,6 +190,10 @@ virtual bool begin__jerk____common_float2_or_param_type();
 
 virtual bool end__jerk____common_float2_or_param_type();
 
+virtual bool begin__technique____technique_type( const COLLADASaxFWL15::technique____technique_type__AttributeData& attributeData );
+
+virtual bool end__technique____technique_type();
+
 
 private:
 /** Disable default copy ctor. */

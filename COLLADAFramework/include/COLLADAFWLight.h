@@ -78,7 +78,7 @@ namespace COLLADAFW
 	public:
 
 		/** @param objectId The object id of the camera.*/
-		Light( ObjectId objectId );
+		Light( const UniqueId& uniqueId );
 
         /** Destructor. */
 		virtual ~Light();

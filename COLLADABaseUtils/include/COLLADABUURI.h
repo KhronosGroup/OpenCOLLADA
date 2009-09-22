@@ -106,6 +106,8 @@ namespace COLLADABU
 		static const String SCHEME_HTTP;
 		static const String SCHEME_HTTPS;
 
+		static const URI INVALID;
+
 	private:
 		/** Resolved version of the URI */
 		String mUriString;
@@ -123,7 +125,7 @@ namespace COLLADABU
 		String mQuery;
 		/** fragment component */
 		String mFragment;
-		/** Inidcates, if the URi is valid*/
+		/** Indicates, if the URi is valid*/
 		bool mIsValid;
 
 	public:

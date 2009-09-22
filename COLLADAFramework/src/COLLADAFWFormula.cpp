@@ -17,8 +17,8 @@
 namespace COLLADAFW
 {
     //------------------------------
-    Formula::Formula( ObjectId objectId )
-        : ObjectTemplate<COLLADA_TYPE::FORMULA> ( objectId )
+    Formula::Formula( const UniqueId& uniqueId )
+        : ObjectTemplate<COLLADA_TYPE::FORMULA> ( uniqueId )
 		, mMathmlAsts( MathmlAstArray::OWNER )
     {
     }

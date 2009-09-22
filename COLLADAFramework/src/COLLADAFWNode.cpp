@@ -22,8 +22,8 @@ namespace COLLADAFW
 {
 
 	//--------------------------------------------------------------------
-    Node::Node(ObjectId objectId) 
-		:ObjectTemplate< COLLADA_TYPE::NODE >( objectId ) 
+    Node::Node(const UniqueId& uniqueId) 
+		:ObjectTemplate< COLLADA_TYPE::NODE >( uniqueId ) 
 		, mType( Node::NODE )
 	{
 	}

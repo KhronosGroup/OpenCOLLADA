@@ -19,7 +19,7 @@
 namespace COLLADASaxFWL
 {
 
-	class FileLoader;
+	class DocumentProcessor;
 	class COLLADACsymbol;
 
     /** Links all the formulas, i.e. it replaces COLLADACsymbol AST INodes by either FragmentExpression or */
@@ -27,7 +27,7 @@ namespace COLLADASaxFWL
 	{
 	private:
 		/** The file loader.*/
-		FileLoader* mFileLoader;
+		DocumentProcessor* mDocumentProcessor;
 		
 		/** All the formulas that should be linked.*/
 		COLLADAFW::FormulaArray& mFormulas;
@@ -35,7 +35,7 @@ namespace COLLADASaxFWL
 	public:
 
         /** Constructor. */
-		FormulasLinker( FileLoader* fileLoader, COLLADAFW::FormulaArray& formulas);
+		FormulasLinker( DocumentProcessor* documentProcessor, COLLADAFW::FormulaArray& formulas);
 
         /** Destructor. */
 		virtual ~FormulasLinker();

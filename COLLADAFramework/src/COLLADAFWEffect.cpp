@@ -15,8 +15,8 @@
 namespace COLLADAFW
 {
 
-	Effect::Effect( ObjectId objectId )
-		: ObjectTemplate<COLLADA_TYPE::EFFECT> ( objectId )
+	Effect::Effect( const UniqueId& uniqueId )
+		: ObjectTemplate<COLLADA_TYPE::EFFECT> ( uniqueId )
 	{
 	}
 

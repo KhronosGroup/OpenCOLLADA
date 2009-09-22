@@ -52,6 +52,9 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~JointsLoader();
 
+		/** Returns the ExtraData object, that should be used to store the extra data. The current joint object.*/
+		virtual COLLADAFW::ExtraData* getExtraData();
+
 		bool beginJointPrimitive( COLLADAFW::JointPrimitive::Type jointPrimitiveType, const char * sid);
 
 		bool endJointPrimitive();

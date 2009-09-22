@@ -16,8 +16,8 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	KinematicsController::KinematicsController(ObjectId objectId)
-		: ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>(objectId)
+	KinematicsController::KinematicsController(const UniqueId& uniqueId)
+		: ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>(uniqueId)
 		, mKinematicsModelUniqueIds(UniqueIdArray::OWNER)
 		, mAxisInfos(AxisInfoArray::OWNER)
 	{

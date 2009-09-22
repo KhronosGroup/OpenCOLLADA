@@ -26,6 +26,8 @@ namespace COLLADABU
 	const String URI::SCHEME_FILE = "file";
 	const String URI::SCHEME_HTTP = "http";
 	const String URI::SCHEME_HTTPS = "https";
+	
+	const URI URI::INVALID = URI();
 
 
 

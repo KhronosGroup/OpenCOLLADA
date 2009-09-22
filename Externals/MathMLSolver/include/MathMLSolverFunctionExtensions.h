@@ -31,7 +31,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 #include <cmath>
 
-#include "MathMLSymbolTable.h"
+#include "MathMLSymboltable.h"
 
 namespace MathML
 {

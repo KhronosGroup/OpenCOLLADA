@@ -29,6 +29,12 @@ namespace COLLADAFW
 
 		static const char* CAMERA;
 		static const char* OPTICS;
+
+		/************ kinematics ****************/
+		static const char* INSTANCEJOINT;
+		static const char* KINEMATICS;
+		static const char* ARTICULATEDSYSTEM;
+
 	};
 
 } // namespace COLLADAFW

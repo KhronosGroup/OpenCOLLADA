@@ -39,6 +39,8 @@ namespace COLLADAFW
 
 	typedef unsigned long long ObjectId;
 
+	typedef unsigned long FileId;
+
 	typedef unsigned long MaterialId;
 
 	typedef unsigned long TextureMapId;

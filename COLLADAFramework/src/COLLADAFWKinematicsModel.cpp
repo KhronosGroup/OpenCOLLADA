@@ -16,8 +16,8 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	KinematicsModel::KinematicsModel(ObjectId objectId)
-		: ObjectTemplate<COLLADA_TYPE::KINEMATICS_MODEL>(objectId)
+	KinematicsModel::KinematicsModel(const UniqueId& uniqueId)
+		: ObjectTemplate<COLLADA_TYPE::KINEMATICS_MODEL>(uniqueId)
 		, mBaseLinks(SizeTValuesArray::OWNER)
 	{
 	}

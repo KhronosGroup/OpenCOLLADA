@@ -65,9 +65,9 @@ namespace COLLADABU
         {
             switch ( srcString[i])
             {
-            case '\r':  
-                returnString += String("&#13");
-                break;
+//             case '\r':  
+//                 returnString += String("&#13");
+//                 break;
             case '<':  
                 returnString += String("&lt;");
                 break;
@@ -101,9 +101,9 @@ namespace COLLADABU
 		{
 			switch ( srcString[i])
 			{
-			case '\r':  
-				returnString += L"&#13";
-				break;
+// 			case '\r':  
+// 				returnString += L"&#13";
+// 				break;
 			case '<':  
 				returnString += L"&lt;";
 				break;

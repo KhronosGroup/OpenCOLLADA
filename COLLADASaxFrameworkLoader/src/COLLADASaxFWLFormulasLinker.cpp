@@ -29,8 +29,8 @@ namespace COLLADASaxFWL
 {
 
     //------------------------------
-	FormulasLinker::FormulasLinker( FileLoader* fileLoader, COLLADAFW::FormulaArray& formulas )
-		: mFileLoader(fileLoader)
+	FormulasLinker::FormulasLinker( DocumentProcessor* documentProcessor, COLLADAFW::FormulaArray& formulas )
+		: mDocumentProcessor(documentProcessor)
 		, mFormulas(formulas)
 	{
 	}
@@ -150,7 +150,7 @@ namespace COLLADASaxFWL
 		if ( csymbol->getCSymbolType() == COLLADACsymbol::FUNCTION )
 		{
 			// the csymbol is a function. Try to find the corresponding formula
-			const SidTreeNode* targetSidTreeNode = mFileLoader->resolveSid( targetAddress );
+			const SidTreeNode* targetSidTreeNode = mDocumentProcessor->resolveSid( targetAddress );
 
 			if ( !targetSidTreeNode )
 			{
@@ -163,7 +163,7 @@ namespace COLLADASaxFWL
 				}
 				msg.append( "could not be resolved." );
 
-				success = mFileLoader->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_FORMULA, msg);
+				success = mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_FORMULA, msg);
 			}
 
 			COLLADAFW::Formula* targetFormula = 0;
@@ -212,7 +212,7 @@ namespace COLLADASaxFWL
 					}
 					msg.append( "does not match parameters count." );
 
-					success = mFileLoader->handleFWLError(SaxFWLError::ERROR_PARAMETER_COUNT_DOESNOT_MATCH, msg);
+					success = mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_PARAMETER_COUNT_DOESNOT_MATCH, msg);
 				}
 				else
 				{
@@ -241,7 +241,7 @@ namespace COLLADASaxFWL
 				}
 				msg.append( "is not a <formula> element." );
 
-				success = mFileLoader->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_FORMULA, msg);
+				success = mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_FORMULA, msg);
 			}
 			return fragmentExpression;
 		}
@@ -267,7 +267,7 @@ namespace COLLADASaxFWL
 
 			// Try to find the referenced parameter in the entire COLLADA file, using ordinary sid address
 			// syntax
-			const SidTreeNode* targetSidTreeNode = mFileLoader->resolveSid( targetAddress );
+			const SidTreeNode* targetSidTreeNode = mDocumentProcessor->resolveSid( targetAddress );
 
 			if ( !targetSidTreeNode )
 			{
@@ -280,7 +280,7 @@ namespace COLLADASaxFWL
 				}
 				msg.append( "could not be resolved." );
 
-				success = mFileLoader->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_PARAMETER, msg);
+				success = mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_PARAMETER, msg);
 			}
 			else
 			{

@@ -44,6 +44,8 @@ namespace COLLADASaxFWL
 {
 
 	class IErrorHandler;
+	class DocumentProcessor;
+	class PostProcessor;
 
 
 	/** Loader to a COLLADA document and all the documents that are referenced it.*/
@@ -81,6 +83,11 @@ namespace COLLADASaxFWL
 
 	private:
 		typedef COLLADABU::HashMap<COLLADABU::URI, COLLADAFW::UniqueId, unsigned long, COLLADABU::calculateHash> URIUniqueIdMap;
+
+		typedef COLLADABU::HashMap<COLLADABU::URI, COLLADAFW::FileId, unsigned long, COLLADABU::calculateHash> URIFileIdMap;
+
+		/** Maps file id to uri.*/
+		typedef std::map<COLLADAFW::FileId, COLLADABU::URI> FileIdURIMap;
 
 		/** Maps the id of a collada element to the corresponding sit tree node.*/
 		typedef std::map<String /*id*/, SidTreeNode*> IdStringSidTreeNodeMap;
@@ -121,6 +128,18 @@ namespace COLLADASaxFWL
 
 		/** Maps each already processed dae element to its COLLADAFW::UniqueId. */
 		URIUniqueIdMap mURIUniqueIdMap;
+
+		/** Maps each uri to the file id assigned to it. The Uris need to have empty fragments.*/
+		URIFileIdMap mURIFileIdMap;
+
+		/** Maps each file id, already assigned to an uri, to that uri.*/
+		FileIdURIMap mFileIdURIMap;
+
+		/** The file id that will be used for the next file.*/
+		COLLADAFW::FileId mNextFileId;
+
+		/** The file id of the file currently being loaded.*/
+		COLLADAFW::FileId mCurrentFileId;
 
 		/** Maps the unique id of each geometry to the corresponding GeometryMaterialIdInfo.*/
 		UniqueIdMeshMaterialIdInfoMap mGeometryMeshMaterialIdInfoMapMap;
@@ -207,6 +226,8 @@ namespace COLLADASaxFWL
 	private:
 		friend class IFilePartLoader;
 		friend class FileLoader;
+		friend class PostProcessor;
+		friend class DocumentProcessor;
 
 		/** The version of the collada document.*/
 		void setCOLLADAVersion(COLLADAVersion cOLLADAVersion) { mCOLLADAVersion = cOLLADAVersion; }
@@ -235,6 +256,19 @@ namespace COLLADASaxFWL
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
 		COLLADAFW::UniqueId getUniqueId(COLLADAFW::ClassId classId);
+
+		/** Returns the file id of the file pointed to by the path in @a uri. If @a uri is relative, 
+		the file id of the current file is returned. If the an uri with the same path has been passed to 
+		this method before, the same file id is returned, if not a new one is created.*/
+		COLLADAFW::FileId getFileId(const COLLADABU::URI& uri);
+
+		/** Returns the Uri the file id @a fileId was assigned to by getFileId(). If @a fileId has not been 
+		assigned to any Uri, an invalid uri is returned.*/
+		const COLLADABU::URI& getFileUri( COLLADAFW::FileId fileId );
+
+		/** Add the pair of @a fileId and @a uri to mURIFileIdMap and mFileIdURIMap. It is assumed, neither 
+		@a fileId nor @a uri have been passed to that method before.*/
+		void addFileIdUriPair( COLLADAFW::FileId fileId, const COLLADABU::URI& uri );
 
 		/** Returns the GeometryMaterialIdInfo object of the geometry with @a uniqueId. If this method has 
 		not been called before with the same uniqueId, an empty GeometryMaterialIdInfo is created, added to

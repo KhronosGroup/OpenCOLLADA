@@ -16,8 +16,8 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	Geometry::Geometry ( ObjectId objectId, GeometryType geometryType )
-		: ObjectTemplate < COLLADA_TYPE::GEOMETRY > ( objectId ),
+	Geometry::Geometry ( const UniqueId& uniqueId, GeometryType geometryType )
+		: ObjectTemplate < COLLADA_TYPE::GEOMETRY > ( uniqueId ),
 		  mType(geometryType)
 	{
 	}
