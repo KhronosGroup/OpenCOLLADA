@@ -205,13 +205,13 @@ namespace COLLADASaxFWL
 		{
 			const COLLADAFW::MorphController* morphController = *it;
 			const COLLADAFW::UniqueId& morphControllerUniqueId = morphController->getUniqueId();
-			const InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(morphControllerUniqueId);
+			const Loader::InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(morphControllerUniqueId);
 
 			// Set the InstanciatedObjectId of the instance controller
-			InstanceControllerDataList::const_iterator it = instanceControllerDataList.begin();
+			Loader::InstanceControllerDataList::const_iterator it = instanceControllerDataList.begin();
 			for ( ; it != instanceControllerDataList.end(); ++it )
 			{
-				const InstanceControllerData& instanceControllerData = *it;
+				const Loader::InstanceControllerData& instanceControllerData = *it;
 				instanceControllerData.instanceController->setInstanciatedObjectId( morphControllerUniqueId );
 			}
 

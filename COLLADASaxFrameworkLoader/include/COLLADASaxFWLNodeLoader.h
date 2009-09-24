@@ -71,7 +71,7 @@ namespace COLLADASaxFWL
 		GeometryMaterialIdInfo* mCurrentMaterialInfo;
 
 		/** The InstanceControllerData of the current instance controller.*/
-		FileLoader::InstanceControllerData *mCurrentInstanceControllerData;
+		Loader::InstanceControllerData *mCurrentInstanceControllerData;
 
 	public:
 

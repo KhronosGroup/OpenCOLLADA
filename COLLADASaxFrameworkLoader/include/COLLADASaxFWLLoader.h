@@ -15,6 +15,7 @@
 #include "COLLADASaxFWLGeometryMaterialIdInfo.h"
 #include "COLLADASaxFWLSidTreeNode.h"
 #include "COLLADASaxFWLKinematicsIntermediateData.h"
+#include "COLLADASaxFWLTypes.h"
 
 #include "COLLADAFWILoader.h"
 #include "COLLADAFWLoaderUtils.h"
@@ -81,7 +82,7 @@ namespace COLLADASaxFWL
 			ALL_OBJECTS_MASK           = (1<<16) - 1,
 		};
 
-	private:
+	public:
 		typedef COLLADABU::HashMap<COLLADABU::URI, COLLADAFW::UniqueId, unsigned long, COLLADABU::calculateHash> URIUniqueIdMap;
 
 		typedef COLLADABU::HashMap<COLLADABU::URI, COLLADAFW::FileId, unsigned long, COLLADABU::calculateHash> URIFileIdMap;
@@ -113,8 +114,39 @@ namespace COLLADASaxFWL
 		/** List of morph controller.*/
 		typedef std::vector<COLLADAFW::MorphController*> MorphControllerList;
 
+		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
+		typedef std::map< COLLADAFW::UniqueId, StringList> SkinDataJointSidsMap;
+
+		/** Maps unique ids of skin data to the source uri string.*/
+		typedef std::map< COLLADAFW::UniqueId/*skin controller data*/, COLLADABU::URI/*source uri string*/> SkinDataSkinSourceMap;
+
+		/** Set of SkinControllers.*/
+		typedef std::set< COLLADAFW::SkinController, bool(*)(const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs)> SkinControllerSet;
+
+		/** Data that needs to be store, intermediately, to assign controllers. One struct for each 
+		instance controller.*/
+		struct InstanceControllerData
+		{
+			/** List of URIs of the skeleton roots, ie the uris in the COLLADA skeleton element.*/
+			URIList skeletonRoots;
+
+			/** The instance controller that instantiates the controller.*/
+			COLLADAFW::InstanceController* instanceController;
+		};
+
+		/** List of all instance controllers that reference the same controller, ie share the same skin 
+		data for skin controllers.*/
+		typedef std::list<InstanceControllerData> InstanceControllerDataList;
+
+		/** Maps each controller data unique id to the list of nodes instantiating it.*/
+		typedef std::map<COLLADAFW::UniqueId,InstanceControllerDataList> InstanceControllerDataListMap;
+
+
 		/** List of formulas.*/
 		typedef std::vector<COLLADAFW::Formula*> FormulaList;
+
+	public:
+		const static InstanceControllerDataList EMPTY_INSTANCE_CONTROLLER_DATALIST;
 
 	private:
 		/** The version of the collada document.*/
@@ -189,6 +221,20 @@ namespace COLLADASaxFWL
 		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to assign animations of the morph weights.*/
 		MorphControllerList mMorphControllerList;
+
+		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
+		SkinDataJointSidsMap mSkinDataJointSidsMap;
+
+		/** Maps the Unique generated from the id of the COLLADA controller element to the 
+		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
+		InstanceControllerDataListMap mInstanceControllerDataListMap;
+
+		/** Maps unique ids of skin data to the source uri string.*/
+		SkinDataSkinSourceMap mSkinDataSkinSourceMap;
+
+		/** Set of all SkinController already created and written.*/
+		SkinControllerSet mSkinControllerSet;
+
 
 		/** Maps unique ids of animation list to the corresponding animation list. All animation list in this map 
 		will be deleted by the FileLoader.*/
@@ -318,6 +364,27 @@ namespace COLLADASaxFWL
 		/** List of all effects in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to assign animations of the morph weights.*/
 		MorphControllerList& getMorphControllerList() { return mMorphControllerList; }
+
+		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
+		SkinDataJointSidsMap& getSkinDataJointSidsMap() { return mSkinDataJointSidsMap; }
+		
+		/** Maps the Unique generated from the id of the COLLADA controller element to the 
+		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
+		InstanceControllerDataListMap& getInstanceControllerDataListMap() { return mInstanceControllerDataListMap; }
+
+		/** Maps unique ids of skin data to the source uri string.*/
+		SkinDataSkinSourceMap& getSkinDataSkinSourceMap() { 
+			return mSkinDataSkinSourceMap; 
+		}
+
+		/** Set of all SkinController already created and written.*/
+		SkinControllerSet& getSkinControllerSet() { return mSkinControllerSet; }
+
+		/** Compares to SkinControllers. The comparison is suitable for using SkinController as key in stl
+		containers but has no deeper meaning. The unique id of the SkinControllers themselves is not
+		taken into account. Is basically compares if two SkinControllers describe exactly the same skin controller
+		i.e. have the same source, joints and SkinControllerData.*/
+		static bool compare( const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs);
 
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer(){ return mWriter; }

@@ -53,9 +53,9 @@ namespace COLLADAFW
 		/** Clones the values in @a valuesArray and appends the pointers.*/
 		void appendValues( const PointerArray<T>& valuesArray )
 		{
-			size_t newCount = mCount + valuesArray.getCount();
+			size_t newCount = ArrayPrimitiveType<T*>::mCount + valuesArray.getCount();
 			ArrayPrimitiveType<T*>::reallocMemory(newCount);
-			for ( size_t i = mCount, j = 0; i < newCount; ++i, ++j)
+			for ( size_t i = ArrayPrimitiveType<T*>::mCount, j = 0; i < newCount; ++i, ++j)
 			{
 				(*this)[i] = valuesArray[j]->clone();
 			}

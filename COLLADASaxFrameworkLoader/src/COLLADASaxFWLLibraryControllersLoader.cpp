@@ -195,7 +195,8 @@ namespace COLLADASaxFWL
         mCurrentSkinControllerData->setOriginalId ( mOriginalId );
         mCurrentSkinControllerData->setName ( mCurrentControllerName );
 		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source);
-		addSkinDataSkinSourcePair( mCurrentSkinControllerData->getUniqueId(), attributeData.source);
+		COLLADABU::URI absoluteUri(getFileUri(), attributeData.source.getURIString());
+		addSkinDataSkinSourcePair( mCurrentSkinControllerData->getUniqueId(), absoluteUri);
 		return true;
 	}
 
@@ -315,12 +316,12 @@ namespace COLLADASaxFWL
 						// try to write the SkinController here
 						if ( ((getObjectFlags() & Loader::CONTROLLER_FLAG) != 0) && (mCurrentControllerSourceUniqueId.isValid()) )
 						{
-							InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
-							InstanceControllerDataList::iterator listIt = instanceControllerDataList.begin();
+							Loader::InstanceControllerDataList& instanceControllerDataList = getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
+							Loader::InstanceControllerDataList::iterator listIt = instanceControllerDataList.begin();
 
 							while ( listIt != instanceControllerDataList.end() )
 							{
-								const InstanceControllerData& instanceControllerData = *listIt;
+								const Loader::InstanceControllerData& instanceControllerData = *listIt;
 								bool success = getFileLoader()->createAndWriteSkinController( instanceControllerData, 
 																					   		  controllerUniqueId, 
 									                                                          mCurrentControllerSourceUniqueId,
@@ -597,7 +598,9 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__IDREF_array( const IDREF_array__AttributeData& attributeData )
 	{
-		return beginJointsArray();
+		return true;
+		// Not quite sure if we should evaluate IDREF_array here
+		//return beginJointsArray();
 	}
 
 	//------------------------------
@@ -609,6 +612,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::data__IDREF_array( const ParserString* data, size_t length )
 	{
+		return true;
+		// Not quite sure if we should evaluate IDREF_array here
 		return dataJointArray( data, length);
 	}
 

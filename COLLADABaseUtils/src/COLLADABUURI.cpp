@@ -220,7 +220,15 @@ namespace COLLADABU
 
 	void URI::copyFrom(const URI& copyFrom)
 	{
-		set(copyFrom.originalStr());
+//		set(copyFrom.originalStr());
+		mUriString = copyFrom.mUriString;
+		mOriginalURIString = copyFrom.mOriginalURIString;
+		mScheme = copyFrom.mScheme;
+		mAuthority = copyFrom.mScheme;
+		mPath = copyFrom.mPath;
+		mQuery = copyFrom.mQuery;
+		mFragment = copyFrom.mFragment;
+		mIsValid = copyFrom.mIsValid;
 	}
 
 	URI& URI::operator=(const URI& other) {

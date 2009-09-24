@@ -668,6 +668,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\GeneratedSaxParserINamespaceHandler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\GeneratedSaxParserIUnknownElementHandler.h"
 				>
 			</File>

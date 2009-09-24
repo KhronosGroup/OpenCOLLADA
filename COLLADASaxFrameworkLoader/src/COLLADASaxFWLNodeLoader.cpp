@@ -349,13 +349,13 @@ namespace COLLADASaxFWL
 		COLLADAFW::UniqueId instantiatedControllerUniqueId = getHandlingFilePartLoader()->getUniqueIdFromUrl( attributeData.url, COLLADAFW::SkinControllerData::ID() );
 		mCurrentMaterialInfo = &getHandlingFilePartLoader()->getMeshMaterialIdInfo(instantiatedControllerUniqueId);
 
-		COLLADAFW::InstanceController* instanceController = FW_NEW COLLADAFW::InstanceController();
+		COLLADAFW::InstanceController* instanceController = FW_NEW COLLADAFW::InstanceController(instantiatedControllerUniqueId);
 		mCurrentInstanceWithMaterial = instanceController;
 		currentNode->getInstanceControllers().append(instanceController);
 
-		FileLoader::InstanceControllerData instanceControllerData;
+		Loader::InstanceControllerData instanceControllerData;
 		instanceControllerData.instanceController = instanceController;
-		FileLoader::InstanceControllerDataList& instanceControllerDataList = getHandlingFilePartLoader()->getInstanceControllerDataListByControllerUniqueId(instantiatedControllerUniqueId);
+		Loader::InstanceControllerDataList& instanceControllerDataList = getHandlingFilePartLoader()->getInstanceControllerDataListByControllerUniqueId(instantiatedControllerUniqueId);
 		instanceControllerDataList.push_back(instanceControllerData);
 		mCurrentInstanceControllerData = &instanceControllerDataList.back();
 

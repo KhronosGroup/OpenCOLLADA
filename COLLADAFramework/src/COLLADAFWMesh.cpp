@@ -169,8 +169,28 @@ namespace COLLADAFW
             // Get the normal indices of the current primitive.
             const UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices ();
 
-            // Add the normals to the sum of normals
-            numNormals += normalIndices.getCount ();
+            switch ( meshPrimitive->getPrimitiveType () )
+            {
+            case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+            case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+                {
+                    COLLADAFW::MeshPrimitiveWithFaceVertexCount<unsigned int>* trifans = (COLLADAFW::MeshPrimitiveWithFaceVertexCount<unsigned int>*) meshPrimitive;
+                    COLLADAFW::MeshPrimitiveWithFaceVertexCount<unsigned int>::VertexCountArray& vertexCountArray = trifans->getGroupedVerticesVertexCountArray ();
+                    size_t groupedVtxCount = vertexCountArray.getCount ();
+                    for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
+                    {
+                        // Iterate over the indices and write their normal values into the maya file.
+                        size_t indexCount = vertexCountArray[groupedVtxIndex]; //normalIndices.getCount();
+                        numNormals += (indexCount - 2) * 3;
+                    }
+                }
+                break;
+            default:
+                {
+                    // Add the normals to the sum of normals
+                    numNormals += normalIndices.getCount ();
+                }
+            }
         }
 
         return numNormals;
