@@ -21,6 +21,7 @@
 #include "COLLADAFWLoaderUtils.h"
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWTypes.h"
+#include "COLLADAFWSkinController.h"
 
 #include "COLLADABUHashMap.h"
 #include "COLLADABUHashFunctions.h"
