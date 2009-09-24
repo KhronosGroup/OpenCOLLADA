@@ -33,7 +33,10 @@ namespace COLLADASaxFWL
 		, mUniqueIdAnimationListMap( colladaLoader->getUniqueIdAnimationListMap() )
 		, mObjectFlags( objectFlags )
 		, mParsedObjectFlags( parsedObjectFlags )
-		, mSkinControllerSet( compare )
+		, mSkinDataJointSidsMap( colladaLoader->getSkinDataJointSidsMap() )
+		, mInstanceControllerDataListMap( colladaLoader->getInstanceControllerDataListMap() )
+		, mSkinDataSkinSourceMap( colladaLoader->getSkinDataSkinSourceMap() )
+		, mSkinControllerSet( colladaLoader->getSkinControllerSet() )
 		, mSaxParserErrorHandler( saxParserErrorHandler )
 	{
 
@@ -208,7 +211,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	const StringList& DocumentProcessor::getJointSidsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
 	{
-		SkinDataJointSidsMap::const_iterator it = mSkinDataJointSidsMap.find(skinDataUniqueId);
+		Loader::SkinDataJointSidsMap::const_iterator it = mSkinDataJointSidsMap.find(skinDataUniqueId);
 		if ( it != mSkinDataJointSidsMap.end() )
 		{
 			return it->second;
@@ -228,7 +231,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	const COLLADABU::URI* DocumentProcessor::getSkinSourceBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
 	{
-		SkinDataSkinSourceMap::const_iterator it = mSkinDataSkinSourceMap.find(skinDataUniqueId);
+		Loader::SkinDataSkinSourceMap::const_iterator it = mSkinDataSkinSourceMap.find(skinDataUniqueId);
 		if ( it != mSkinDataSkinSourceMap.end() )
 		{
 			return &it->second;
@@ -240,62 +243,27 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const DocumentProcessor::InstanceControllerDataList& DocumentProcessor::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId ) const
+	const Loader::InstanceControllerDataList& DocumentProcessor::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId ) const
 	{
-		InstanceControllerDataListMap::const_iterator it = mInstanceControllerDataListMap.find(controllerUniqueId);
+		Loader::InstanceControllerDataListMap::const_iterator it = mInstanceControllerDataListMap.find(controllerUniqueId);
 		if ( it != mInstanceControllerDataListMap.end())
 		{
 			return it->second;
 		}
 		else
 		{
-			return EMPTY_INSTANCE_CONTROLLER_DATALIST;
+			return Loader::EMPTY_INSTANCE_CONTROLLER_DATALIST;
 		}
 
 	}
 
 	//-----------------------------
-	DocumentProcessor::InstanceControllerDataList& DocumentProcessor::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId )
+	Loader::InstanceControllerDataList& DocumentProcessor::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId )
 	{
 		return mInstanceControllerDataListMap[controllerUniqueId];
 	}
 
 
-	//-----------------------------
-	bool DocumentProcessor::compare( const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs )
-	{
-
-		if (lhs.getSkinControllerData() < rhs.getSkinControllerData() )
-			return true;
-		if (lhs.getSkinControllerData() > rhs.getSkinControllerData() )
-			return false;
-
-		if (lhs.getSource() < rhs.getSource() )
-			return true;
-		if (lhs.getSource() > rhs.getSource() )
-			return false;
-
-		const COLLADAFW::UniqueIdArray& lhsJoints = lhs.getJoints();
-		const COLLADAFW::UniqueIdArray& rhsJoints = rhs.getJoints();
-		size_t lhsJointsCount = lhsJoints.getCount();
-		size_t rhsJointsCount = rhsJoints.getCount();
-		if (lhsJointsCount < rhsJointsCount )
-			return true;
-		if (lhsJointsCount > rhsJointsCount )
-			return false;
-
-		for ( size_t i = 0; i < lhsJointsCount; ++i)
-		{
-			const COLLADAFW::UniqueId& lhsJoint = lhsJoints[i];
-			const COLLADAFW::UniqueId& rhsJoint = rhsJoints[i];
-			if (lhsJoint < rhsJoint )
-				return true;
-			if (lhsJoint > rhsJoint )
-				return false;
-		}
-
-		return false;
-	}
 
 	//-----------------------------
 	void DocumentProcessor::setCOLLADAVersion( COLLADAVersion cOLLADAVersion )
@@ -305,7 +273,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	bool DocumentProcessor::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+	bool DocumentProcessor::createAndWriteSkinController( const Loader::InstanceControllerData& instanceControllerData, 
 		const COLLADAFW::UniqueId& controllerDataUniqueId,
 		const COLLADAFW::UniqueId& sourceUniqueId)
 	{
@@ -316,7 +284,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	bool DocumentProcessor::createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+	bool DocumentProcessor::createAndWriteSkinController( const Loader::InstanceControllerData& instanceControllerData, 
 		const COLLADAFW::UniqueId& controllerDataUniqueId, 
 		const COLLADAFW::UniqueId& sourceUniqueId,
 		const StringList& sids)
@@ -394,7 +362,7 @@ namespace COLLADASaxFWL
 		// source, skin data and joints. If so, do not write it again and reference the previously used in the
 		// scene graph
 		const COLLADAFW::SkinController* skinControllerToWrite = 0;
-		SkinControllerSet::const_iterator skinControllerIt = mSkinControllerSet.find( skinController );
+		Loader::SkinControllerSet::const_iterator skinControllerIt = mSkinControllerSet.find( skinController );
 		if ( skinControllerIt == mSkinControllerSet.end() )
 		{
 			skinControllerToWrite = &skinController;
@@ -415,18 +383,18 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool DocumentProcessor::createAndWriteSkinControllers()
 	{
-		InstanceControllerDataListMap::const_iterator mapIt = mInstanceControllerDataListMap.begin();
+		Loader::InstanceControllerDataListMap::const_iterator mapIt = mInstanceControllerDataListMap.begin();
 
 		for ( ; mapIt != mInstanceControllerDataListMap.end(); ++mapIt )
 		{
 			const COLLADAFW::UniqueId& skinDataUniqueId = mapIt->first;
-			const InstanceControllerDataList& instanceControllerDataList = mapIt->second;
+			const Loader::InstanceControllerDataList& instanceControllerDataList = mapIt->second;
 
-			InstanceControllerDataList::const_iterator listIt = instanceControllerDataList.begin();
+			Loader::InstanceControllerDataList::const_iterator listIt = instanceControllerDataList.begin();
 
 			for ( ; listIt != instanceControllerDataList.end(); ++listIt)
 			{
-				const InstanceControllerData& instanceControllerData = *listIt;
+				const Loader::InstanceControllerData& instanceControllerData = *listIt;
 				const COLLADABU::URI* sourceUrl = getSkinSourceBySkinDataUniqueId( skinDataUniqueId );
 
 				if ( !sourceUrl )
@@ -435,7 +403,7 @@ namespace COLLADASaxFWL
 					continue;
 				}
 
-				const COLLADAFW::UniqueId& sourceUniqueId = getUniqueIdFromUrl(*sourceUrl);
+				const COLLADAFW::UniqueId& sourceUniqueId = getUniqueIdFromUrl(*sourceUrl, true);
 				if ( !sourceUniqueId.isValid() )
 				{
 					// TODO handle error

@@ -33,6 +33,9 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADASaxFWL
 {
 
+	const Loader::InstanceControllerDataList Loader::EMPTY_INSTANCE_CONTROLLER_DATALIST = Loader::InstanceControllerDataList();
+
+
 	Loader::Loader( IErrorHandler* errorHandler )
 		: mNextFileId(0)
 		, mCurrentFileId(0)
@@ -41,6 +44,8 @@ namespace COLLADASaxFWL
 		, mObjectFlags( Loader::ALL_OBJECTS_MASK )
 		, mParsedObjectFlags( Loader::NO_FLAG )
 		, mSidTreeRoot( new SidTreeNode("", 0) )
+		, mSkinControllerSet( compare )
+
 	{
 	}
 
@@ -233,5 +238,42 @@ namespace COLLADASaxFWL
 			return it->second;
 		}
 	}
+
+	//-----------------------------
+	bool Loader::compare( const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs )
+	{
+
+		if (lhs.getSkinControllerData() < rhs.getSkinControllerData() )
+			return true;
+		if (lhs.getSkinControllerData() > rhs.getSkinControllerData() )
+			return false;
+
+		if (lhs.getSource() < rhs.getSource() )
+			return true;
+		if (lhs.getSource() > rhs.getSource() )
+			return false;
+
+		const COLLADAFW::UniqueIdArray& lhsJoints = lhs.getJoints();
+		const COLLADAFW::UniqueIdArray& rhsJoints = rhs.getJoints();
+		size_t lhsJointsCount = lhsJoints.getCount();
+		size_t rhsJointsCount = rhsJoints.getCount();
+		if (lhsJointsCount < rhsJointsCount )
+			return true;
+		if (lhsJointsCount > rhsJointsCount )
+			return false;
+
+		for ( size_t i = 0; i < lhsJointsCount; ++i)
+		{
+			const COLLADAFW::UniqueId& lhsJoint = lhsJoints[i];
+			const COLLADAFW::UniqueId& rhsJoint = rhsJoints[i];
+			if (lhsJoint < rhsJoint )
+				return true;
+			if (lhsJoint > rhsJoint )
+				return false;
+		}
+
+		return false;
+	}
+
 
 } // namespace COLLADA

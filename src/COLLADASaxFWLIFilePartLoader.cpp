@@ -23,7 +23,6 @@ namespace COLLADASaxFWL
 {
 
 
-	const IFilePartLoader::InstanceControllerDataList IFilePartLoader::EMPTY_INSTANCE_CONTROLLER_DATALIST = IFilePartLoader::InstanceControllerDataList();
 
 
     //------------------------------
@@ -107,13 +106,20 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdFromUrl( const COLLADABU::URI& url )
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdFromUrl( const COLLADABU::URI& url, bool isAbsolute )
 	{
 		assert( getColladaLoader() );
+		
+		if ( isAbsolute )
+		{
+			return getColladaLoader()->getUniqueId(url);
+		}
+		else
+		{
+			COLLADABU::URI absoluteUri(getFileUri(), url.getURIString());
 
-		COLLADABU::URI absoluteUri(getFileUri(), url.getURIString());
-
-		return getColladaLoader()->getUniqueId(absoluteUri);
+			return getColladaLoader()->getUniqueId(absoluteUri);
+		}
 	}
 
 
@@ -243,19 +249,19 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	const IFilePartLoader::InstanceControllerDataListMap& IFilePartLoader::getInstanceControllerDataListMap() const
+	const Loader::InstanceControllerDataListMap& IFilePartLoader::getInstanceControllerDataListMap() const
 	{
 		return getFileLoader()->getInstanceControllerDataListMap();
 	}
 
 	//------------------------------
-	const IFilePartLoader::InstanceControllerDataList& IFilePartLoader::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId ) const
+	const Loader::InstanceControllerDataList& IFilePartLoader::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId ) const
 	{
 		return getFileLoader()->getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
 	}
 
 	//------------------------------
-	IFilePartLoader::InstanceControllerDataList& IFilePartLoader::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId )
+	Loader::InstanceControllerDataList& IFilePartLoader::getInstanceControllerDataListByControllerUniqueId( const COLLADAFW::UniqueId& controllerUniqueId )
 	{
 		return getFileLoader()->getInstanceControllerDataListByControllerUniqueId(controllerUniqueId);
 	}
@@ -321,7 +327,7 @@ namespace COLLADASaxFWL
 	bool IFilePartLoader::handleFWLError( SaxFWLError::ErrorType errorType, String errorMessage, IError::Severity severity /*= IError::SEVERITY_ERROR_NONCRITICAL */ )
 	{
 		SaxFWLError saxFWLError(errorType, errorMessage, severity);
-		if ( getFileLoader()->getParsingStatus() == FileLoader::PARSING_PARSING )
+		if ( getFileLoader() && (getFileLoader()->getParsingStatus() == FileLoader::PARSING_PARSING) )
 		{
 			const GeneratedSaxParser::SaxParser* saxParser = getFileLoader()->getSaxParser();
 			if ( saxParser )

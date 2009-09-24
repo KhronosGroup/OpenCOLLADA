@@ -61,14 +61,6 @@ namespace COLLADASaxFWL
 		/** List of UniqueIdSidAddressPairs.*/
 		typedef std::vector< AnimationSidAddressBinding > AnimationSidAddressBindingList;
 
-		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
-		typedef std::map< COLLADAFW::UniqueId, StringList> SkinDataJointSidsMap;
-
-		/** Maps unique ids of skin data to the source uri string.*/
-		typedef std::map< COLLADAFW::UniqueId/*skin controller data*/, COLLADABU::URI/*source uri string*/> SkinDataSkinSourceMap;
-
-		/** Set of SkinControllers.*/
-		typedef std::set< COLLADAFW::SkinController, bool(*)(const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs)> SkinControllerSet;
 	
 	protected:
 
@@ -129,17 +121,17 @@ namespace COLLADASaxFWL
 		int& mParsedObjectFlags;
 
 		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
-		SkinDataJointSidsMap mSkinDataJointSidsMap;
+		Loader::SkinDataJointSidsMap& mSkinDataJointSidsMap;
 
 		/** Maps the Unique generated from the id of the COLLADA controller element to the 
 		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
-		InstanceControllerDataListMap mInstanceControllerDataListMap;
+		Loader::InstanceControllerDataListMap& mInstanceControllerDataListMap;
 
 		/** Maps unique ids of skin data to the source uri string.*/
-		SkinDataSkinSourceMap mSkinDataSkinSourceMap;
+		Loader::SkinDataSkinSourceMap& mSkinDataSkinSourceMap;
 
 		/** Set of all SkinController already created and written.*/
-		SkinControllerSet mSkinControllerSet;
+		Loader::SkinControllerSet& mSkinControllerSet;
 
 		/** Error handler to be used. */
 		SaxParserErrorHandler* mSaxParserErrorHandler;
@@ -271,26 +263,26 @@ namespace COLLADASaxFWL
 
 		/** Returns the mapping of the Unique generated from the id of the COLLADA controller element to the 
 		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
-		const InstanceControllerDataListMap& getInstanceControllerDataListMap() const { return mInstanceControllerDataListMap;}
+		const Loader::InstanceControllerDataListMap& getInstanceControllerDataListMap() const { return mInstanceControllerDataListMap;}
 
 		/** Returns the InstanceControllerDataList of the controller with Unique @a controllerUniqueId.*/
-		const InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId)const;
+		const Loader::InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId)const;
 
 		/** Returns the InstanceControllerDataList of the controller with Unique @a controllerUniqueId.*/
-		InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId);
+		Loader::InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId);
 
 		/** Returns the intermediate data to build up the kinematics after the COLLADA file has been parsed.*/
 		const KinematicsIntermediateData& getKinematicsIntermediateData() const { return mKinematicsIntermediateData; }
 
 		/** Creates a controller which instantiation is described by @a InstanceControllerData and that uses 
 		the controller with id @a controllerDataUniqueId.*/
-		bool createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+		bool createAndWriteSkinController( const Loader::InstanceControllerData& instanceControllerData, 
 			const COLLADAFW::UniqueId& controllerDataUniqueId,
 			const COLLADAFW::UniqueId& sourceUniqueId);
 
 		/** Creates a controller which instantiation is described by @a InstanceControllerData and that uses 
 		the controller with id @a controllerDataUniqueId. The sids used to resolve joints are @a sids.*/
-		bool createAndWriteSkinController( const InstanceControllerData& instanceControllerData, 
+		bool createAndWriteSkinController( const Loader::InstanceControllerData& instanceControllerData, 
 			const COLLADAFW::UniqueId& controllerDataUniqueId,
 			const COLLADAFW::UniqueId& sourceUniqueId,
 			const StringList& sids);
@@ -317,11 +309,6 @@ namespace COLLADASaxFWL
         /** Disable default assignment operator. */
 		const DocumentProcessor& operator= ( const DocumentProcessor& pre );
 
-		/** Compares to SkinControllers. The comparison is suitable for using SkinController as key in stl
-		containers but has no deeper meaning. The unique id of the SkinControllers themselves is not
-		taken into account. Is basically compares if two SkinControllers describe exactly the same skin controller
-		i.e. have the same source, joints and SkinControllerData.*/
-		static bool compare( const COLLADAFW::SkinController& lhs, const COLLADAFW::SkinController& rhs);
 
 		/** The version of the collada document.*/
 		void setCOLLADAVersion(COLLADAVersion cOLLADAVersion);

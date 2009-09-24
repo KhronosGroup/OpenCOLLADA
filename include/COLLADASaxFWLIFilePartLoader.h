@@ -15,6 +15,7 @@
 #include "COLLADASaxFWLTypes.h"
 #include "COLLADASaxFWLSaxFWLError.h"
 #include "COLLADASaxFWLXmlTypes.h"
+#include "COLLADASaxFWLLoader.h"
 
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWExtraData.h"
@@ -50,7 +51,7 @@ namespace COLLADABU
 
 namespace COLLADASaxFWL
 {
-	class Loader;
+//	class Loader;
 	class FileLoader;
 	class GeometryMaterialIdInfo;
 	class SidTreeNode;
@@ -67,26 +68,7 @@ namespace COLLADASaxFWL
         friend class RootParser14;
         friend class RootParser15;
 
-        /** Data that needs to be store, intermediately, to assign controllers. One struct for each 
-		instance controller.*/
-		struct InstanceControllerData
-		{
-			/** List of URIs of the skeleton roots, ie the uris in the COLLADA skeleton element.*/
-			URIList skeletonRoots;
-
-			/** The instance controller that instantiates the controller.*/
-			COLLADAFW::InstanceController* instanceController;
-		};
-
-		/** List of all instance controllers that reference the same controller, ie share the same skin 
-		data for skin controllers.*/
-		typedef std::list<InstanceControllerData> InstanceControllerDataList;
-
-		/** Maps each controller data unique id to the list of nodes instantiating it.*/
-		typedef std::map<COLLADAFW::UniqueId,InstanceControllerDataList> InstanceControllerDataListMap;
 			
-	public:
-		const static InstanceControllerDataList EMPTY_INSTANCE_CONTROLLER_DATALIST;
 
 	private:
 
@@ -175,8 +157,10 @@ namespace COLLADASaxFWL
 		been passed to this method before, the same COLLADAFW::UniqueId will be returned,   if not, an 
 		invalid unique id will be returned.
 		@param uriString The uriString of the element to get the COLLADAFW::UniqueId for
+		@param isAbsolute If true, the url is assumed to be absolute, otherwise it will be made absolute 
+		using the current file urie.
 		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
-		const COLLADAFW::UniqueId& getUniqueIdFromUrl( const COLLADABU::URI& url );
+		const COLLADAFW::UniqueId& getUniqueIdFromUrl( const COLLADABU::URI& url, bool isAbsolute = false  );
 
 		/** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new
 		COLLADAFW::UniqueId will be created and returned. Use this member for collada elements that
@@ -258,13 +242,13 @@ namespace COLLADASaxFWL
 
 		/** Returns the mapping of the Unique generated from the id of the COLLADA controller element to the 
 		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
-		const InstanceControllerDataListMap& getInstanceControllerDataListMap() const ;
+		const Loader::InstanceControllerDataListMap& getInstanceControllerDataListMap() const ;
 
 		/** Returns the InstanceControllerDataList of the controller with Unique @a controllerUniqueId.*/
-		const InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId)const;
+		const Loader::InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId)const;
 
 		/** Returns the InstanceControllerDataList of the controller with Unique @a controllerUniqueId.*/
-		InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId);
+		Loader::InstanceControllerDataList& getInstanceControllerDataListByControllerUniqueId(const COLLADAFW::UniqueId& controllerUniqueId);
 
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
