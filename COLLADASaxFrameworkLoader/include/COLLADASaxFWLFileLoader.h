@@ -42,9 +42,6 @@ namespace COLLADASaxFWL
 		};
 
 	private:
-        friend class VersionParser;
-
-	private:
 		/** The uri of the file that should be imported.*/
 		COLLADABU::URI mFileURI;
 
