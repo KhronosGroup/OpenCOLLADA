@@ -3044,7 +3044,7 @@ bool ColladaParserAutoGen14Private::_freeAttributes__float_array( void* attribut
 }
 
 //---------------------------------------------------------------------
-const int_array__AttributeData int_array__AttributeData::DEFAULT = {0, 0, 0, 0, -2147483648, 2147483647};
+const int_array__AttributeData int_array__AttributeData::DEFAULT = {0, 0, 0, 0, -2147483647-1, 2147483647};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGen14Private::_data__int_array( const ParserChar* text, size_t textLength )
@@ -38980,7 +38980,7 @@ bool ColladaParserAutoGen14Private::_freeAttributes__profile_GLES__technique__pa
 }
 
 //---------------------------------------------------------------------
-const profile_GLES__technique__pass__stencil_mask__AttributeData profile_GLES__technique__pass__stencil_mask__AttributeData::DEFAULT = {4294967295, 0};
+const profile_GLES__technique__pass__stencil_mask__AttributeData profile_GLES__technique__pass__stencil_mask__AttributeData::DEFAULT = {4294967295ULL, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGen14Private::_data__profile_GLES__technique__pass__stencil_mask( const ParserChar* text, size_t textLength )
@@ -60394,7 +60394,7 @@ bool ColladaParserAutoGen14Private::_freeAttributes__profile_GLSL__technique__pa
 }
 
 //---------------------------------------------------------------------
-const profile_GLSL__technique__pass__stencil_mask__AttributeData profile_GLSL__technique__pass__stencil_mask__AttributeData::DEFAULT = {4294967295, 0};
+const profile_GLSL__technique__pass__stencil_mask__AttributeData profile_GLSL__technique__pass__stencil_mask__AttributeData::DEFAULT = {4294967295ULL, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGen14Private::_data__profile_GLSL__technique__pass__stencil_mask( const ParserChar* text, size_t textLength )
