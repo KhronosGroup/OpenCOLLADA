@@ -97,7 +97,7 @@ namespace COLLADASW
             , mDoublePrecision (doublePrecision)
 			, mCOLLADAVersion(cOLLADAVersion)
     {
-		errno_t error = mBufferFlusher.getError();
+		int error = mBufferFlusher.getError();
 		if ( error != 0 )
 		{
 			throw StreamWriterException(StreamWriterException::ERROR_FILE_OPEN, "Could not open file \"" + fileName + "\" for writing. errno_t = " + Utils::toString(error) );
