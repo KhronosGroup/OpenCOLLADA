@@ -57,11 +57,6 @@ namespace COLLADASaxFWL
 		COLLADAFW::AnimationList::AnimationClass animationClass;
 	};
 
-	typedef std::list<String> StringList;
-
-	typedef std::list<COLLADABU::URI> URIList;
-
-	static StringList EMPTY_STRING_LIST = StringList();
 
 
 #ifdef COLLADASAXFWL_REAL_IS_FLOAT

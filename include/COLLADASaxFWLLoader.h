@@ -15,7 +15,6 @@
 #include "COLLADASaxFWLGeometryMaterialIdInfo.h"
 #include "COLLADASaxFWLSidTreeNode.h"
 #include "COLLADASaxFWLKinematicsIntermediateData.h"
-#include "COLLADASaxFWLTypes.h"
 
 #include "COLLADAFWILoader.h"
 #include "COLLADAFWLoaderUtils.h"
@@ -48,6 +47,14 @@ namespace COLLADASaxFWL
 	class IErrorHandler;
 	class DocumentProcessor;
 	class PostProcessor;
+
+
+	typedef std::list<String> StringList;
+
+	typedef std::list<COLLADABU::URI> URIList;
+
+	static StringList EMPTY_STRING_LIST = StringList();
+
 
 
 	/** Loader to a COLLADA document and all the documents that are referenced it.*/
