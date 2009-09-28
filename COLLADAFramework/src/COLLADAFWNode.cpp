@@ -48,7 +48,8 @@ namespace COLLADAFW
 			case Transformation::ROTATE:
 				{
 					Rotate* rotate = (Rotate*)transform;
-                    const COLLADABU::Math::Vector3& axis = rotate->getRotationAxis();
+                    COLLADABU::Math::Vector3 axis = rotate->getRotationAxis();
+					axis.normalise();
 					double angle = rotate->getRotationAngle();
 					transformationMatrix = transformationMatrix * COLLADABU::Math::Matrix4(COLLADABU::Math::Quaternion(COLLADABU::Math::Utils::degToRad(angle), axis));
 					break;
