@@ -10,7 +10,7 @@
 
 #ifdef COMPILED_FROM_DSP
 #include "winconfig.h"
-#elif defined(MACOS_CLASSIC)
+#elif (defined(__APPLE__) || defined(OSMac_)) && (defined(__GNUC__) || defined(__xlC__) || defined(__xlc__)) || defined(__APPLE_CC__) 
 #include "macconfig.h"
 #elif defined(__amigaos4__)
 #include "amigaconfig.h"
