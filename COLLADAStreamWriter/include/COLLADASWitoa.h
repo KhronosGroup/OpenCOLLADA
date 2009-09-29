@@ -95,20 +95,18 @@ namespace COLLADASW
 	}
 
 
-	template<class IntegerType> 
-	size_t itoa( IntegerType value, char* buffer, unsigned char radix);
 
 
-	template<> static size_t itoa( char value              , char* buffer, unsigned char radix) { return itoaImplSigned<char              >( value, buffer, radix );}
-	template<> static size_t itoa( unsigned char value     , char* buffer, unsigned char radix) { return itoaImpl<unsigned char     >( value, buffer, radix );}
-	template<> static size_t itoa( short value             , char* buffer, unsigned char radix) { return itoaImplSigned<short             >( value, buffer, radix );}
-	template<> static size_t itoa( unsigned short value    , char* buffer, unsigned char radix) { return itoaImpl<unsigned short    >( value, buffer, radix );}
-	template<> static size_t itoa( int value               , char* buffer, unsigned char radix) { return itoaImplSigned<int               >( value, buffer, radix );}
-	template<> static size_t itoa( unsigned int value      , char* buffer, unsigned char radix) { return itoaImpl<unsigned int      >( value, buffer, radix );}
-	template<> static size_t itoa( long value              , char* buffer, unsigned char radix) { return itoaImplSigned<long              >( value, buffer, radix );}
-	template<> static size_t itoa( unsigned long value     , char* buffer, unsigned char radix) { return itoaImpl<unsigned long     >( value, buffer, radix );}
-	template<> static size_t itoa( long long value         , char* buffer, unsigned char radix) { return itoaImplSigned<long long         >( value, buffer, radix );}
-	template<> static size_t itoa( unsigned long long value, char* buffer, unsigned char radix) { return itoaImpl<unsigned long long>( value, buffer, radix );}
+	static size_t itoa( char value              , char* buffer, unsigned char radix) { return itoaImplSigned<char              >( value, buffer, radix );}
+	static size_t itoa( unsigned char value     , char* buffer, unsigned char radix) { return itoaImpl<unsigned char     >( value, buffer, radix );}
+	static size_t itoa( short value             , char* buffer, unsigned char radix) { return itoaImplSigned<short             >( value, buffer, radix );}
+	static size_t itoa( unsigned short value    , char* buffer, unsigned char radix) { return itoaImpl<unsigned short    >( value, buffer, radix );}
+	static size_t itoa( int value               , char* buffer, unsigned char radix) { return itoaImplSigned<int               >( value, buffer, radix );}
+	static size_t itoa( unsigned int value      , char* buffer, unsigned char radix) { return itoaImpl<unsigned int      >( value, buffer, radix );}
+	static size_t itoa( long value              , char* buffer, unsigned char radix) { return itoaImplSigned<long              >( value, buffer, radix );}
+	static size_t itoa( unsigned long value     , char* buffer, unsigned char radix) { return itoaImpl<unsigned long     >( value, buffer, radix );}
+	static size_t itoa( long long value         , char* buffer, unsigned char radix) { return itoaImplSigned<long long         >( value, buffer, radix );}
+	static size_t itoa( unsigned long long value, char* buffer, unsigned char radix) { return itoaImpl<unsigned long long>( value, buffer, radix );}
 
 
 
