@@ -37,11 +37,11 @@ namespace COLLADASaxFWL
             INTERPOLATION, /** Sampler interpolation type. See also "Curve Interpolation" in Chapter 4: Programming Guide. */
             INV_BIND_MATRIX, /** Inverse of local-to-world matrix. */
             JOINT, /** Skin influence identifier */
-            LINEAR_STEPS, /** Number of piece-wise linear approximation steps to use for the spline segment that follows this CV. See also “Curve Interpolation” in Chapter 4: Programming Guide. */
+            LINEAR_STEPS, /** Number of piece-wise linear approximation steps to use for the spline segment that follows this CV. See also ï¿½Curve Interpolationï¿½ in Chapter 4: Programming Guide. */
             MORPH_TARGET, /** Morph targets for mesh morphing */
             MORPH_WEIGHT, /** Weights for mesh morphing */
             NORMAL, /** Normal vector */
-            OUTPUT, /** Sampler output. See also “Curve Interpolation” in Chapter 4: Programming Guide. */
+            OUTPUT, /** Sampler output. See also ï¿½Curve Interpolationï¿½ in Chapter 4: Programming Guide. */
             OUT_TANGENT, /** Tangent vector for succeeding control point. See also "Curve Interpolation" in Chapter 4: Programming Guide. */
             POSITION, /** Geometric coordinate vector. See also "Curve Interpolation" in Chapter 4: Programming Guide. */
             TANGENT, /** Geometric tangent vector */
@@ -64,7 +64,7 @@ namespace COLLADASaxFWL
      * semantic information.
      * The <source> and <input> elements are part of the COLLADA dataflow model. This model is also
      * known as stream processing, pipe, or producer-consumer. An input connection is the dataflow 
-     * path from a <source> to a sink (the dataflow consumers, which are <input>’s parents, such as 
+     * path from a <source> to a sink (the dataflow consumers, which are <input>ï¿½s parents, such as 
      * <vertices>).
      * In COLLADA, all inputs are driven by index values. A consumer samples an input by supplying 
      * an index value to an input. Some consumers have simple inputs that are driven by unique 
