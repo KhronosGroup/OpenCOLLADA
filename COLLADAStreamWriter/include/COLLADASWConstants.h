@@ -63,7 +63,8 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_CONSTANT_ATTENUATION;
         static const String CSW_ELEMENT_CONSTANT;
         static const String CSW_ELEMENT_CONTRIBUTOR;
-        static const String CSW_ELEMENT_CONTROLLER;
+		static const String CSW_ELEMENT_CONTROLLER;
+		static const String CSW_ELEMENT_CONTROL_VERTICES;
         static const String CSW_ELEMENT_COPYRIGHT;
         static const String CSW_ELEMENT_CREATED;
         static const String CSW_ELEMENT_COLLADA;
@@ -185,6 +186,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_SOURCE;
         static const String CSW_ELEMENT_SPECULAR;
         static const String CSW_ELEMENT_SOURCE_DATA;
+		static const String CSW_ELEMENT_SPLINE;
 		static const String CSW_ELEMENT_SPOT;
         static const String CSW_ELEMENT_STENCIL_CLEAR;
         static const String CSW_ELEMENT_STENCIL_TARGET;
@@ -221,7 +223,8 @@ namespace COLLADASW
         static const String CSW_ELEMENT_ZNEAR;
 
 
-        static const String CSW_ATTRIBUTE_COUNT;
+		static const String CSW_ATTRIBUTE_CLOSED;
+		static const String CSW_ATTRIBUTE_COUNT;
         static const String CSW_ATTRIBUTE_END;
         static const String CSW_ATTRIBUTE_FACE;
         static const String CSW_ATTRIBUTE_ID;

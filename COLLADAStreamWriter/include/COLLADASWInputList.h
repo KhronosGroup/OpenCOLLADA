@@ -25,6 +25,7 @@ namespace COLLADASW
     class PrimitivesBase;
     class BaseInputElement;
     class Vertices;
+	class ControlVertices;
 
     /** The geometry source data types. */
     enum Semantics
@@ -32,8 +33,11 @@ namespace COLLADASW
         POSITION = 0, /**< Used for position data. */
         VERTEX, /**< Used to input the vertex sources within a polygon set. */
         NORMAL, /**< Used for surface normal vectors. */
-        TANGENT, /**< Used for surface tangent vectors. */
-        BINORMAL, /**< Used for surface binormal vectors. */
+		TANGENT, /**< Used for surface tangent vectors. */
+		IN_TANGENT, /**< Used for in tangents for splines. */
+		OUT_TANGENT, /**< Used for out tangents for splines. */
+		INTERPOLATION, /**< Used for interpolations for splines. */
+		BINORMAL, /**< Used for surface binormal vectors. */
         TEXCOORD, /**< Used for texture coordinates. */
         TEXTANGENT, /**< Used for texture-aligned surface tangent vectors. */
         TEXBINORMAL, /**< Used for texture-aligned surface binormal vectors. */
@@ -116,8 +120,11 @@ namespace COLLADASW
         /** Declare friend, so the class can use the 'add()' method. */
         friend class BaseInputElement;
 
-        /** Declare friend, so the class can use the 'add()' method. */
-        friend class Vertices;
+		/** Declare friend, so the class can use the 'add()' method. */
+		friend class Vertices;
+
+		/** Declare friend, so the class can use the 'add()' method. */
+		friend class ControlVertices;
 
         /** List of all the inputs*/
         typedef std::list<Input> List;

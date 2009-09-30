@@ -590,6 +590,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASWControlVertices.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASWdtoa.cpp"
 				>
 			</File>
@@ -901,6 +905,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWConstants.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWControlVertices.h"
 				>
 			</File>
 			<File

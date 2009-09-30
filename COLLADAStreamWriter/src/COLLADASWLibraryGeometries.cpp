@@ -17,7 +17,10 @@ namespace COLLADASW
 {
 
     const String LibraryGeometries::GEOMETRY_ID_PRAEFIX = "geom-";
-    const String LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX = "-positions";
+	const String LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX = "-positions";
+	const String LibraryGeometries::INTANGENT_SOURCE_ID_SUFFIX = "-intangents";
+	const String LibraryGeometries::OUTTANGENT_SOURCE_ID_SUFFIX = "-outtangents";
+	const String LibraryGeometries::INTERPOLATION_SOURCE_ID_SUFFIX = "-interpolations";
     const String LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX = "-normals";
 	const String LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX = "-map-channel";
 	const String LibraryGeometries::TEXTANGENT_SOURCE_ID_SUFFIX = "-textangents";
@@ -29,39 +32,39 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    LibraryGeometries::LibraryGeometries ( COLLADASW::StreamWriter * streamWriter )
-            : Library ( streamWriter, CSWC::CSW_ELEMENT_LIBRARY_GEOMETRIES )
+    LibraryGeometries::LibraryGeometries( COLLADASW::StreamWriter * streamWriter )
+            : Library( streamWriter, CSWC::CSW_ELEMENT_LIBRARY_GEOMETRIES )
     {}
 
     //---------------------------------------------------------------
-    String LibraryGeometries::getSuffixBySemantic ( Semantics type )
+    String LibraryGeometries::getSuffixBySemantic( Semantics type )
     {
         String suffix;
 
-        switch ( type )
+        switch( type )
         {
 
-        case ( COLLADASW::POSITION ) :
+        case COLLADASW::POSITION:
             suffix = LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX;
             break;
 
-        case ( COLLADASW::VERTEX ) :
+        case COLLADASW::VERTEX:
             suffix = LibraryGeometries::VERTICES_ID_SUFFIX;
             break;
 
-        case ( COLLADASW::NORMAL ) :
+        case COLLADASW::NORMAL:
             suffix = LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX;
             break;
 
-        case ( COLLADASW::TEXCOORD ) :
+        case COLLADASW::TEXCOORD:
             suffix = LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX;
             break;
 
-        case ( COLLADASW::TANGENT ) :
+        case COLLADASW::TANGENT:
             suffix = LibraryGeometries::TANGENT_ID_SUFFIX;
             break;
 
-        case ( COLLADASW::BINORMAL ) :
+        case COLLADASW::BINORMAL:
             suffix = LibraryGeometries::BINORMAL_ID_SUFFIX;
             break;
 
@@ -73,34 +76,47 @@ namespace COLLADASW
         return suffix;
     }
 
-    //---------------------------------------------------------------
-    void LibraryGeometries::openMesh ( const String & geoId, const String & geoName, const String & meshId )
-    {
-        openGeometry ( geoId, geoName );
-        mCurrentMeshCloser = mSW->openElement ( CSWC::CSW_ELEMENT_MESH );
+	//---------------------------------------------------------------
+	void LibraryGeometries::openMesh( const String & geoId, const String & geoName )
+	{
+		openGeometry( geoId, geoName );
+		mCurrentMeshOrSplineCloser = mSW->openElement( CSWC::CSW_ELEMENT_MESH );
 
-        if ( !meshId.empty() )
-            mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_ID, meshId );
-    }
+	}
+
+	//---------------------------------------------------------------
+	void LibraryGeometries::openSpline( bool closed, const String & geoId, const String & geoName )
+	{
+		openGeometry( geoId, geoName );
+		mCurrentMeshOrSplineCloser = mSW->openElement( CSWC::CSW_ELEMENT_SPLINE );
+
+		mSW->appendAttribute( CSWC::CSW_ATTRIBUTE_CLOSED, closed );
+	}
 
     //---------------------------------------------------------------
-    void LibraryGeometries::openGeometry ( const String & id, const String & name )
+    void LibraryGeometries::openGeometry( const String & id, const String & name )
     {
         openLibrary();
-        mCurrentGeometryCloser = mSW->openElement ( CSWC::CSW_ELEMENT_GEOMETRY );
+        mCurrentGeometryCloser = mSW->openElement( CSWC::CSW_ELEMENT_GEOMETRY );
 
-        if ( !id.empty() )
-            mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_ID, id );
+        if( !id.empty() )
+            mSW->appendAttribute( CSWC::CSW_ATTRIBUTE_ID, id );
 
-        if ( !name.empty() )
-            mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, name );
+        if( !name.empty() )
+            mSW->appendAttribute( CSWC::CSW_ATTRIBUTE_NAME, name );
     }
 
-    //---------------------------------------------------------------
-    void LibraryGeometries::closeMesh()
-    {
-        mCurrentMeshCloser.close();
-    }
+	//---------------------------------------------------------------
+	void LibraryGeometries::closeMesh()
+	{
+		mCurrentMeshOrSplineCloser.close();
+	}
+
+	//---------------------------------------------------------------
+	void LibraryGeometries::closeSpline()
+	{
+		mCurrentMeshOrSplineCloser.close();
+	}
 
     //---------------------------------------------------------------
     void LibraryGeometries::closeGeometry()

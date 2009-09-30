@@ -55,7 +55,8 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_CONSTANT = "constant";
 	const String CSWC::CSW_ELEMENT_CONSTANT_ATTENUATION = "constant_attenuation";
     const String CSWC::CSW_ELEMENT_CONTRIBUTOR = "contributor";
-    const String CSWC::CSW_ELEMENT_CONTROLLER = "controller";
+	const String CSWC::CSW_ELEMENT_CONTROLLER = "controller";
+	const String CSWC::CSW_ELEMENT_CONTROL_VERTICES = "control_vertices";
     const String CSWC::CSW_ELEMENT_COPYRIGHT = "copyright";
     const String CSWC::CSW_ELEMENT_CREATED = "created";
     const String CSWC::CSW_ELEMENT_COLLADA = "COLLADA";
@@ -176,6 +177,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_SPECULAR = "specular";
     const String CSWC::CSW_ELEMENT_SOURCE = "source";
     const String CSWC::CSW_ELEMENT_SOURCE_DATA = "source_data";
+	const String CSWC::CSW_ELEMENT_SPLINE = "spline";
 	const String CSWC::CSW_ELEMENT_SPOT = "spot";
     const String CSWC::CSW_ELEMENT_STENCIL_CLEAR = "stencil_clear";
     const String CSWC::CSW_ELEMENT_STENCIL_TARGET = "stencil_target";
@@ -211,6 +213,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_ZFAR = "zfar";
     const String CSWC::CSW_ELEMENT_ZNEAR = "znear";
 
+	const String CSWC::CSW_ATTRIBUTE_CLOSED = "closed";
     const String CSWC::CSW_ATTRIBUTE_COUNT = "count";
     const String CSWC::CSW_ATTRIBUTE_END = "end";
     const String CSWC::CSW_ATTRIBUTE_FACE = "face";
