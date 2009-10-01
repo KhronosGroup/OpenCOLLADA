@@ -98,6 +98,7 @@ namespace COLLADASW
             mSW->openElement ( CSWC::CSW_ELEMENT_INCLUDE );
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_SID, mIncludeSid );
             mSW->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_URL, mIncludeURI.getURIString() );
+            mSW->closeElement ();
         }
     }
 
@@ -118,6 +119,7 @@ namespace COLLADASW
             mSW->openElement ( CSWC::CSW_ELEMENT_INCLUDE );
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_SID, mIncludeSid );
             mSW->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_URL, mIncludeURI.getURIString() );
+            mSW->closeElement ();
         }
     }
 
