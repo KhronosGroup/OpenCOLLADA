@@ -224,7 +224,7 @@ namespace COLLADABU
 		mUriString = copyFrom.mUriString;
 		mOriginalURIString = copyFrom.mOriginalURIString;
 		mScheme = copyFrom.mScheme;
-		mAuthority = copyFrom.mScheme;
+		mAuthority = copyFrom.mAuthority;
 		mPath = copyFrom.mPath;
 		mQuery = copyFrom.mQuery;
 		mFragment = copyFrom.mFragment;
