@@ -8,11 +8,14 @@ if test -z $NUM_PROCS; then
    export NUM_PROCS=-j2
 fi
 echo installing static libraries to ${DIR}/lib/ with $NUM_PROCS proessors
+
+mkdir -p ${DIR}/lib
+
 export SCRIPTPATH=$PWD
 
                cd ../Externals/LibXML &&
-               sh ./autogen.sh --disable-shared --enable-static --prefix=${DIR} &&
-               ( make  $NUM_PROCS  install || cp .libs/lib* ${DIR}/lib/)
+               sh ./autogen.sh --disable-shared --enable-static --without-iconv --prefix=${DIR} &&
+               ( (make  $NUM_PROCS && make install) || cp .libs/lib* ${DIR}/lib/) &&
                cd ../.. &&
                cd Externals/pcre/scripts &&
                ruby $SCRIPTPATH/vcproj2cmake.rb pcre.vcproj &&
@@ -29,7 +32,7 @@ export SCRIPTPATH=$PWD
                cd ../../.. &&
                cd Externals/UTF &&
                gcc -g -O2 -c src/ConvertUTF.c -Iinclude/
-               ar cru ConvertUTF.a ConvertUTF.o
+               ar cru libConvertUTF.a ConvertUTF.o
                cd ../.. &&
                cd GeneratedSaxParser/scripts &&
                ruby $SCRIPTPATH/vcproj2cmake.rb GeneratedSaxParser.vcproj &&
@@ -63,3 +66,4 @@ export SCRIPTPATH=$PWD
                cd ../.. &&
                find GeneratedSaxParser COLLADA* Externals -name *.a -exec cp {} ${DIR}/lib/ \; &&
 echo installed static libraries to ${DIR}/lib/
+
