@@ -38,6 +38,7 @@ namespace COLLADAFW
 	class Formula;
 	class AnimationList;
 	class MorphController;
+	class InstanceController;
 }
 
 
