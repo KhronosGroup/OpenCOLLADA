@@ -14,6 +14,8 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLTypes.h"
 
+#include "GeneratedSaxParser.h"
+
 namespace COLLADASaxFWL
 {
 

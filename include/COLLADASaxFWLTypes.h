@@ -17,8 +17,6 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWTypes.h"
 
-#include "GeneratedSaxParser.h"
-
 #include <list>
 
 namespace COLLADAFW
