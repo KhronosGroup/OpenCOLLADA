@@ -271,7 +271,10 @@ namespace COLLADASaxFWL
 		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
 		FormulaList mFormulas;
 
-		/** List all the connections of animations and sid addresses of the targets.*/
+		/** List all the connections of animations and sid addresses of the targets.
+		TODO: This list has to become a member of FileLoader. The animation post processing needs to be done per 
+		file in FileLoader, since the SidAddresses stored in this List are only valid within the file they were
+		found.*/
 		AnimationSidAddressBindingList mAnimationSidAddressBindings;
 
 	public:
