@@ -138,16 +138,16 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	void PostProcessor::createMissingAnimationLists()
 	{
-		AnimationSidAddressBindingList::const_iterator it = mAnimationSidAddressBindings.begin();
+		Loader::AnimationSidAddressBindingList::const_iterator it = mAnimationSidAddressBindings.begin();
 		for ( ; it != mAnimationSidAddressBindings.end(); ++it )
 		{
-			const AnimationSidAddressBinding& binding = *it;
+			const Loader::AnimationSidAddressBinding& binding = *it;
 			createMissingAnimationList( binding );
 		}
 	}
 
 	//-----------------------------
-	void PostProcessor::createMissingAnimationList( const AnimationSidAddressBinding& binding )
+	void PostProcessor::createMissingAnimationList( const Loader::AnimationSidAddressBinding& binding )
 	{
 		const SidTreeNode* sidTreeNode = resolveSid( binding.sidAddress);
 		if ( sidTreeNode )

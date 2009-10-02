@@ -30,6 +30,7 @@ namespace COLLADASaxFWL
 		, mCameras( colladaLoader->getCameras() )
 		, mKinematicsIntermediateData( colladaLoader->getKinematicsIntermediateData() )
 		, mFormulas( colladaLoader->getFormulaList() )
+		, mAnimationSidAddressBindings( colladaLoader->getAnimationSidAddressBindings() )
 		, mUniqueIdAnimationListMap( colladaLoader->getUniqueIdAnimationListMap() )
 		, mObjectFlags( objectFlags )
 		, mParsedObjectFlags( parsedObjectFlags )
@@ -193,7 +194,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	void DocumentProcessor::addToAnimationSidAddressBindings( const AnimationInfo& animationInfo, const SidAddress& targetSidAddress )
 	{
-		AnimationSidAddressBinding binding( animationInfo, targetSidAddress);
+		Loader::AnimationSidAddressBinding binding( animationInfo, targetSidAddress);
 		mAnimationSidAddressBindings.push_back(binding);
 	}
 

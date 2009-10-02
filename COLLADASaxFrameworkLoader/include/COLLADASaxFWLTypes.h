@@ -28,25 +28,6 @@ namespace COLLADAFW
 
 namespace COLLADASaxFWL
 {
-
-    typedef GeneratedSaxParser::sint8 sint8;
-    typedef GeneratedSaxParser::sint16 sint16;
-    typedef GeneratedSaxParser::sint32 sint32;
-    typedef GeneratedSaxParser::sint64 sint64;
-    typedef GeneratedSaxParser::uint8 uint8;
-    typedef GeneratedSaxParser::uint16 uint16;
-    typedef GeneratedSaxParser::uint32 uint32;
-    typedef GeneratedSaxParser::uint64 uint64;
-
-    typedef GeneratedSaxParser::StringHash StringHash;
-    typedef GeneratedSaxParser::ParserChar ParserChar;
-    typedef GeneratedSaxParser::ParserString ParserString;
-    typedef GeneratedSaxParser::ParserAttributes ParserAttributes;
-    typedef GeneratedSaxParser::Utils Utils;
-    typedef GeneratedSaxParser::ParserError ParserError;
-    typedef GeneratedSaxParser::StringHashPair StringHashPair;
-
-
     struct AnimationInfo
 	{
 		static const AnimationInfo INVALID;
