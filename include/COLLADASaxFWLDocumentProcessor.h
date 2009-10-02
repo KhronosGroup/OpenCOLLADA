@@ -48,22 +48,6 @@ namespace COLLADASaxFWL
 	{
 	protected:
 
-		/** Contains the binding of an animation to the referenced object. Required to create animation lists*/
-		struct AnimationSidAddressBinding
-		{
-			AnimationSidAddressBinding( const AnimationInfo& _animationInfo, const SidAddress& _sidAddress)
-				: animationInfo(_animationInfo), sidAddress(_sidAddress) {}
-			AnimationInfo animationInfo;
-
-			SidAddress sidAddress;
-		};
-
-		/** List of UniqueIdSidAddressPairs.*/
-		typedef std::vector< AnimationSidAddressBinding > AnimationSidAddressBindingList;
-
-	
-	protected:
-
 		/** The version of the collada document.*/
 		COLLADAVersion mCOLLADAVersion;
 
@@ -104,7 +88,7 @@ namespace COLLADASaxFWL
 		Loader::FormulaList& mFormulas;
 
 		/** List all the connections of animations and sid addresses of the targets.*/
-		AnimationSidAddressBindingList mAnimationSidAddressBindings;
+		Loader::AnimationSidAddressBindingList& mAnimationSidAddressBindings;
 
 		/** Maps unique ids of animation list to the corresponding animation list. All animation list in this map 
 		will be deleted by the FileLoader.*/

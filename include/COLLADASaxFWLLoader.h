@@ -15,6 +15,7 @@
 #include "COLLADASaxFWLGeometryMaterialIdInfo.h"
 #include "COLLADASaxFWLSidTreeNode.h"
 #include "COLLADASaxFWLKinematicsIntermediateData.h"
+#include "COLLADASaxFWLTypes.h"
 
 #include "COLLADAFWILoader.h"
 #include "COLLADAFWLoaderUtils.h"
@@ -155,6 +156,19 @@ namespace COLLADASaxFWL
 		/** List of formulas.*/
 		typedef std::vector<COLLADAFW::Formula*> FormulaList;
 
+		/** Contains the binding of an animation to the referenced object. Required to create animation lists*/
+		struct AnimationSidAddressBinding
+		{
+			AnimationSidAddressBinding( const AnimationInfo& _animationInfo, const SidAddress& _sidAddress)
+				: animationInfo(_animationInfo), sidAddress(_sidAddress) {}
+			AnimationInfo animationInfo;
+
+			SidAddress sidAddress;
+		};
+
+		/** List of UniqueIdSidAddressPairs.*/
+		typedef std::vector< AnimationSidAddressBinding > AnimationSidAddressBindingList;
+
 	public:
 		const static InstanceControllerDataList EMPTY_INSTANCE_CONTROLLER_DATALIST;
 
@@ -256,6 +270,9 @@ namespace COLLADASaxFWL
 		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
 		FormulaList mFormulas;
+
+		/** List all the connections of animations and sid addresses of the targets.*/
+		AnimationSidAddressBindingList mAnimationSidAddressBindings;
 
 	public:
 
@@ -366,6 +383,9 @@ namespace COLLADASaxFWL
 		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
 		FormulaList& getFormulaList() { return mFormulas; }
+
+		/** List all the connections of animations and sid addresses of the targets.*/
+		AnimationSidAddressBindingList& getAnimationSidAddressBindings() { return mAnimationSidAddressBindings; }
 
 		/** Maps unique ids of animation list to the corresponding animation list. All animation list in this map 
 		will be deleted by the FileLoader.*/

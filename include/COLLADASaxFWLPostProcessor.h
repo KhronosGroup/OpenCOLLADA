@@ -78,7 +78,7 @@ namespace COLLADASaxFWL
 		void createMissingAnimationLists();
 
 		/** Stores the binding stored in @a binding in the appropriate animation list*/
-		void createMissingAnimationList( const AnimationSidAddressBinding& binding );
+		void createMissingAnimationList( const Loader::AnimationSidAddressBinding& binding );
 
 
 		/** Writes all the morph controllers, stored in the loaders morph controller list.*/
