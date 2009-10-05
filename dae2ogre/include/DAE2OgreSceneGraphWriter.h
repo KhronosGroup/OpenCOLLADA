@@ -64,11 +64,11 @@ namespace DAE2Ogre
         /** Disable default assignment operator. */
 		const SceneGraphWriter& operator= ( const SceneGraphWriter& pre );
 
-		void SceneGraphWriter::createUniqueIdNodeMap( COLLADAFW::Node* node );
+		void createUniqueIdNodeMap( COLLADAFW::Node* node );
 
-		void SceneGraphWriter::createUniqueIdNodeMap( const COLLADAFW::NodePointerArray& nodes );
+		void createUniqueIdNodeMap( const COLLADAFW::NodePointerArray& nodes );
 
-		void SceneGraphWriter::createUniqueIdNodeMap();
+		void createUniqueIdNodeMap();
 
 		bool writeNodes(  const COLLADAFW::NodePointerArray& nodesToWriter);
 

@@ -108,18 +108,18 @@ namespace DAE2Ogre
 
 		void addTupleIndex( const Tuple& tuple);
 
-		void MeshWriter::writeGeometry( );
-		size_t MeshWriter::getVertexSizeInByte() const;
-		void MeshWriter::writeVertexElement( unsigned short source, size_t offset, Ogre::VertexElementType type, Ogre::VertexElementSemantic semantic, unsigned short index );
-		void MeshWriter::writeVertexBuffer( );
-		size_t MeshWriter::calcSubMeshSize( int numIndices, const String& submeshName );
-		void MeshWriter::calcMeshSize( );
-		void MeshWriter::writeSubMeshOperation( COLLADAFW::MeshPrimitive::PrimitiveType primitiveType );
-		void MeshWriter::calculateMeshBounds();
-		void MeshWriter::writeSubMeshNameTableEntry( const String& name, uint16 index );
-		void MeshWriter::writeBoundsInfo( );
-		void MeshWriter::writeSubMeshNameTable( );
-		size_t MeshWriter::calcSubMeshNameSize( const String& subMeshName );
+		void writeGeometry( );
+		size_t getVertexSizeInByte() const;
+		void writeVertexElement( unsigned short source, size_t offset, Ogre::VertexElementType type, Ogre::VertexElementSemantic semantic, unsigned short index );
+		void writeVertexBuffer( );
+		size_t calcSubMeshSize( int numIndices, const String& submeshName );
+		void calcMeshSize( );
+		void writeSubMeshOperation( COLLADAFW::MeshPrimitive::PrimitiveType primitiveType );
+		void calculateMeshBounds();
+		void writeSubMeshNameTableEntry( const String& name, uint16 index );
+		void writeBoundsInfo( );
+		void writeSubMeshNameTable( );
+		size_t calcSubMeshNameSize( const String& subMeshName );
 	};
 
 

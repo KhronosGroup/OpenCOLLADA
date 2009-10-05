@@ -34,7 +34,7 @@ namespace DAE2Ogre
 		: mInputFile(inputFile)
 		, mOutputFile(outputFile)
 		, mCurrentRun(SCENEGRAPH_RUN)
-		, mVisualScene(0)
+	, mVisualScene(COLLADAFW::UniqueId())
 	{
 	}
 
