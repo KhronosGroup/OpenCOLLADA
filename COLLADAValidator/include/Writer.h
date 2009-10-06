@@ -145,6 +145,13 @@ namespace COLLADAFW
 			return true; 
 		}
 
+		/** When this method is called, the writer must write the kinematics scene. 
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeKinematicsScene( const COLLADAFW::KinematicsScene* kinematicsScene )		
+		{ 
+			return true; 
+		}
+
 		// private function declarations
 	private:
         /** Disable default copy ctor. */
