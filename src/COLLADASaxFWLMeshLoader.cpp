@@ -678,6 +678,11 @@ namespace COLLADASaxFWL
                 // TODO Id management!
                 String sourceId = input->getSource ().getFragment ();
                 SourceBase* sourceBase = getSourceById ( sourceId );
+                if ( sourceBase == 0 ) 
+                {
+                    handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "SourceBase of tex coords with semantic TEXCOORD not valid!" );
+                    return;
+                }
 
                 // only stride 1, 2, 3 or 4 makes sense for uv coords
                 size_t stride = ( size_t ) sourceBase->getStride();
@@ -713,6 +718,11 @@ namespace COLLADASaxFWL
                 // TODO Id management!
                 String sourceId = input->getSource ().getFragment ();
                 SourceBase* sourceBase = getSourceById ( sourceId );
+                if ( sourceBase == 0 ) 
+                {
+                    handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "SourceBase of tex coords with semantic TEXCOORD not valid!" );
+                    return;
+                }
 
                 // only stride 1, 2, 3 or 4 makes sense for uv coords
                 size_t stride = ( size_t ) sourceBase->getStride();
