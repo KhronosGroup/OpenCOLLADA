@@ -51,6 +51,8 @@ namespace COLLADASW
 
     class StreamWriter;
 
+	typedef unsigned long ElementIndexType;
+
 
     /** Class that simplifies closes open elements*/
 
@@ -59,7 +61,9 @@ namespace COLLADASW
 
     public:
         TagCloser();
-		TagCloser ( const TagCloser & other );
+
+		/** We use the default copy ctor.*/
+//		TagCloser ( const TagCloser & other );
         ~TagCloser();
 
         /** Closes all elements that have been open and not closed, since this object has been instantiated*/
@@ -69,21 +73,10 @@ namespace COLLADASW
 
     private:
         friend class StreamWriter;
-        TagCloser ( StreamWriter * streamWriter );
+        TagCloser ( StreamWriter * streamWriter, ElementIndexType elementIndex );
 
-        inline void increaseOpenElements()
-        {
-            if ( mNumberOfOpenElements != 0 ) mNumberOfOpenElements++;
-        };
-
-        inline void decreaseOpenElements()
-        {
-            if ( mNumberOfOpenElements != 0 ) mNumberOfOpenElements--;
-        };
-
-        size_t mNumberOfOpenElements;
         StreamWriter * mStreamWriter;
-
+		ElementIndexType mElementIndex; //!< the index of the open tag
     };
 
 
@@ -102,12 +95,20 @@ namespace COLLADASW
         /** Contains information about an open tag*/
         struct OpenTag
         {
-            OpenTag ( const String* name ) : mName ( name ), mHasContents ( false ), mHasText ( false ) {}
+            OpenTag ( const String* name, ElementIndexType elementIndex ) 
+				: mName ( name )
+				, mElementIndex( elementIndex )
+				, mHasContents( false )
+				, mHasText ( false ) 
+			{}
 
-            const String* mName;      //!< The name of the tag
-            bool mHasContents;    //!< true, if contents, i.e. elements or text has been added to the element
-            bool mHasText;     //!< true, if text has been added to the element
+            const String* mName;            //!< The name of the tag
+			ElementIndexType mElementIndex; //!< the index of the open tag
+            bool mHasContents;              //!< true, if contents, i.e. elements or text has been added to the element
+            bool mHasText;                  //!< true, if text has been added to the element
         };
+
+		typedef std::deque<OpenTag> OpenTagStack;
 
     private:
 		FWriteBufferFlusher mBufferFlusher;
@@ -117,7 +118,7 @@ namespace COLLADASW
         /** If true, the double values will be exported with a maximum precision of 20 digits. */
         bool mDoublePrecision;
 
-        std::stack<OpenTag> mOpenTags;  //!< A stack that holds all the open tags.
+        OpenTagStack mOpenTags;  //!< A stack that holds all the open tags.
 
         size_t mLevel;
 
@@ -131,8 +132,8 @@ namespace COLLADASW
 
         friend class TagCloser;
 
-        typedef std::list<TagCloser*> TagCloserList;
-        TagCloserList mTagClosers;
+		/** Each element gets a continuous index. This is the index the next opened element gets.*/
+		ElementIndexType mNextElementIndex;
 
 		/** The version of the COLLADA file.*/
 		COLLADAVersion mCOLLADAVersion;
@@ -326,6 +327,10 @@ namespace COLLADASW
 
     private:
 
+		/** Closes all elements opened since the element with index @a elementIndex has been open, 
+		including the element itself. */
+		void closeElements( ElementIndexType elementIndex );
+
 		/** Adds the string @a str to the stream.*/
 		inline void appendString ( const String & str )
 		{
@@ -448,12 +453,6 @@ namespace COLLADASW
         This function must be called before any contents is added to an element. After this function
         has been calles, conttents should be added, but if not, the xml file will still be valid*/
         void prepareToAddContents();
-
-        /** Add @a tagCloser to the list of tag closers*/
-        void addTagCloser ( TagCloser * tagCloser );
-
-        /** Removes @a tagCloser to the list of tag closers*/
-        void removeTagCloser ( TagCloser * tagCloser );
 
     };
 

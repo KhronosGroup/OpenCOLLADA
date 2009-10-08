@@ -24,51 +24,29 @@ namespace COLLADASW
 {
 
     //---------------------------------------------------------------
-    TagCloser::TagCloser ( StreamWriter * streamWriter )
-            : mNumberOfOpenElements ( 1 ), mStreamWriter ( streamWriter )
+    TagCloser::TagCloser ( StreamWriter * streamWriter, ElementIndexType elementIndex )
+            : mStreamWriter( streamWriter ),
+			mElementIndex(elementIndex)
     {
         assert ( mStreamWriter != 0 );
-
-        mStreamWriter->addTagCloser ( this );
     }
 
     //---------------------------------------------------------------
     TagCloser::TagCloser()
-            : mNumberOfOpenElements ( 0 ), mStreamWriter ( 0 )
+		: mStreamWriter( 0 ),
+		mElementIndex(0)
     {}
-
-    //---------------------------------------------------------------
-	TagCloser::TagCloser( const TagCloser & other )
-	{
-		if ( &other != this )
-		{
-			mStreamWriter = other.mStreamWriter;
-			mNumberOfOpenElements = other.mNumberOfOpenElements;
-
-			if ( mStreamWriter )
-				mStreamWriter->addTagCloser ( this );
-		}
-	}
 
     //---------------------------------------------------------------
     TagCloser::~TagCloser()
     {
-        if ( mStreamWriter )
-            mStreamWriter->removeTagCloser ( this );
     }
 
     //---------------------------------------------------------------
     TagCloser & TagCloser::operator= ( const TagCloser & other )
     {
-        if ( &other != this )
-        {
-            mStreamWriter = other.mStreamWriter;
-            mNumberOfOpenElements = other.mNumberOfOpenElements;
-
-            if ( mStreamWriter )
-                mStreamWriter->addTagCloser ( this );
-        }
-
+		mStreamWriter = other.mStreamWriter;
+		mElementIndex= other.mElementIndex;
         return *this;
     }
 
@@ -76,11 +54,8 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void TagCloser::close()
     {
-        while ( mNumberOfOpenElements > 0 )
-            mStreamWriter->closeElement();
+		mStreamWriter->closeElements( mElementIndex );
     }
-
-
 
     const String StreamWriter::mWhiteSpaceString ( WHITESPACESTRINGLENGTH,' ' );
 
@@ -96,13 +71,13 @@ namespace COLLADASW
             , mIndent ( 2 )
             , mDoublePrecision (doublePrecision)
 			, mCOLLADAVersion(cOLLADAVersion)
+			, mNextElementIndex(0)
     {
 		int error = mBufferFlusher.getError();
 		if ( error != 0 )
 		{
 			throw StreamWriterException(StreamWriterException::ERROR_FILE_OPEN, "Could not open file \"" + fileName + "\" for writing. errno_t = " + Utils::toString(error) );
 		}
-
     }
 
     //---------------------------------------------------------------
@@ -144,7 +119,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendURIAttribute ( const String &name, const COLLADABU::URI &uri )
     {
-        assert ( !mOpenTags.top().mHasContents );
+        assert ( !mOpenTags.back().mHasContents );
 
 		appendChar ( ' ' );
 		appendNCNameString ( name );
@@ -157,7 +132,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const String &value )
     {
-        assert ( !mOpenTags.top().mHasContents );
+        assert ( !mOpenTags.back().mHasContents );
 
         if ( !value.empty() )
         {
@@ -173,7 +148,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const double value )
     {
-        assert ( !mOpenTags.top().mHasContents );
+        assert ( !mOpenTags.back().mHasContents );
 
         appendChar ( ' ' );
         appendNCNameString ( name );
@@ -187,7 +162,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const unsigned long val )
     {
-        assert ( !mOpenTags.top().mHasContents );
+        assert ( !mOpenTags.back().mHasContents );
 
         appendChar ( ' ' );
         appendNCNameString ( name );
@@ -200,7 +175,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const unsigned int val )
     {
-        assert ( !mOpenTags.top().mHasContents );
+        assert ( !mOpenTags.back().mHasContents );
 
         appendChar ( ' ' );
         appendNCNameString ( name );
@@ -213,7 +188,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const int val )
     {
-        assert ( !mOpenTags.top().mHasContents );
+        assert ( !mOpenTags.back().mHasContents );
 
         appendChar ( ' ' );
         appendNCNameString ( name );
@@ -228,7 +203,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
         appendString ( text );
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
 
@@ -237,12 +212,12 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( number );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -250,14 +225,14 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( number1 );
         appendChar ( ' ' );
         appendNumber ( number2 );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
 
@@ -266,7 +241,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( number1 );
@@ -275,7 +250,7 @@ namespace COLLADASW
         appendChar ( ' ' );
         appendNumber ( number3 );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -283,7 +258,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( number1 );
@@ -294,7 +269,7 @@ namespace COLLADASW
         appendChar ( ' ' );
         appendNumber ( number4 );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -302,12 +277,12 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( number );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -315,14 +290,14 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( number1 );
         appendChar ( ' ' );
         appendNumber ( number2 );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
 
@@ -331,7 +306,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( number1 );
@@ -340,7 +315,7 @@ namespace COLLADASW
         appendChar ( ' ' );
         appendNumber ( number3 );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -349,7 +324,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( number1 );
@@ -360,7 +335,7 @@ namespace COLLADASW
         appendChar ( ' ' );
         appendNumber ( number4 );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -368,7 +343,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 
         for ( size_t i=0; i<length; ++i )
         {
@@ -376,7 +351,7 @@ namespace COLLADASW
             appendChar ( ' ' );
         }
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -384,7 +359,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 
         for ( size_t i=0; i<length; ++i )
         {
@@ -392,7 +367,7 @@ namespace COLLADASW
             appendChar ( ' ' );
         }
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -400,7 +375,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( matrix[0][0] );
@@ -438,7 +413,7 @@ namespace COLLADASW
         appendChar ( ' ' );
         appendNumber ( matrix[3][3] );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -446,7 +421,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 
         for ( size_t i=0; i<length; ++i )
         {
@@ -454,7 +429,7 @@ namespace COLLADASW
             appendChar ( ' ' );
         }
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -462,7 +437,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( matrix[0][0] );
@@ -500,7 +475,7 @@ namespace COLLADASW
         appendChar ( ' ' );
         appendNumber ( matrix[3][3] );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -508,7 +483,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 
         std::vector<float>::const_iterator it = values.begin();
         for ( ; it!=values.end(); ++it )
@@ -517,7 +492,7 @@ namespace COLLADASW
             appendChar ( ' ' );
         }
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -525,7 +500,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 
         std::vector<double>::const_iterator it = values.begin();
         for ( ; it!=values.end(); ++it )
@@ -534,7 +509,7 @@ namespace COLLADASW
             appendChar ( ' ' );
         }
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -542,7 +517,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 
         std::vector<String>::const_iterator it = values.begin();
         for ( ; it!=values.end(); ++it )
@@ -551,7 +526,7 @@ namespace COLLADASW
             appendChar ( ' ' );
         }
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
@@ -559,7 +534,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 
         std::vector<unsigned long>::const_iterator it = values.begin();
         for ( ; it!=values.end(); ++it )
@@ -568,56 +543,56 @@ namespace COLLADASW
             appendChar ( ' ' );
         }
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
     void StreamWriter::appendValues ( int number )
     {
         prepareToAddContents();
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
         appendNumber ( number );
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
     void StreamWriter::appendValues ( int number, int number2 )
     {
         prepareToAddContents();
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
         appendNumber ( number );
         appendChar ( ' ' );
         appendNumber ( number2 );
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
     void StreamWriter::appendValues ( unsigned int number )
     {
         prepareToAddContents();
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
         appendNumber ( number );
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
     //---------------------------------------------------------------
     void StreamWriter::appendValues ( unsigned int number, unsigned int number2 )
     {
         prepareToAddContents();
-        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
         appendNumber ( number );
         appendChar ( ' ' );
         appendNumber ( number2 );
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
 	//---------------------------------------------------------------
 	void StreamWriter::appendValues ( long number )
 	{
 		prepareToAddContents();
-		if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+		if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 		appendNumber ( number );
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -625,14 +600,14 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
 		appendChar ( ' ' );
 		appendNumber ( number2 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 
@@ -641,7 +616,7 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
@@ -650,7 +625,7 @@ namespace COLLADASW
 		appendChar ( ' ' );
 		appendNumber ( number3 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -658,7 +633,7 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
@@ -669,16 +644,16 @@ namespace COLLADASW
 		appendChar ( ' ' );
 		appendNumber ( number4 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
 	void StreamWriter::appendValues ( unsigned long number )
 	{
 		prepareToAddContents();
-		if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+		if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 		appendNumber ( number );
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -686,14 +661,14 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
 		appendChar ( ' ' );
 		appendNumber ( number2 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 
@@ -702,7 +677,7 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
@@ -711,7 +686,7 @@ namespace COLLADASW
 		appendChar ( ' ' );
 		appendNumber ( number3 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -719,7 +694,7 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
@@ -730,16 +705,16 @@ namespace COLLADASW
 		appendChar ( ' ' );
 		appendNumber ( number4 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
 	void StreamWriter::appendValues ( long long number )
 	{
 		prepareToAddContents();
-		if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+		if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 		appendNumber ( number );
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -747,14 +722,14 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
 		appendChar ( ' ' );
 		appendNumber ( number2 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 
@@ -763,7 +738,7 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
@@ -772,7 +747,7 @@ namespace COLLADASW
 		appendChar ( ' ' );
 		appendNumber ( number3 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -780,7 +755,7 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
@@ -791,7 +766,7 @@ namespace COLLADASW
 		appendChar ( ' ' );
 		appendNumber ( number4 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 
@@ -799,9 +774,9 @@ namespace COLLADASW
 	void StreamWriter::appendValues ( unsigned long long number )
 	{
 		prepareToAddContents();
-		if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+		if ( mOpenTags.back().mHasText ) appendChar ( ' ' );
 		appendNumber ( number );
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -809,14 +784,14 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
 		appendChar ( ' ' );
 		appendNumber ( number2 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 
@@ -825,7 +800,7 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
@@ -834,7 +809,7 @@ namespace COLLADASW
 		appendChar ( ' ' );
 		appendNumber ( number3 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -842,7 +817,7 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendNumber ( number1 );
@@ -853,7 +828,7 @@ namespace COLLADASW
 		appendChar ( ' ' );
 		appendNumber ( number4 );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
     //---------------------------------------------------------------
@@ -861,7 +836,7 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendNumber ( val.getRed() );
@@ -872,7 +847,7 @@ namespace COLLADASW
         appendChar ( ' ' );
         appendNumber ( val.getAlpha() );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
 
@@ -881,12 +856,12 @@ namespace COLLADASW
     {
         prepareToAddContents();
 
-        if ( mOpenTags.top().mHasText )
+        if ( mOpenTags.back().mHasText )
             appendChar ( ' ' );
 
         appendBoolean ( value );
 
-        mOpenTags.top().mHasText = true;
+        mOpenTags.back().mHasText = true;
     }
 
 
@@ -895,12 +870,12 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendString ( text );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -908,12 +883,12 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendString ( text );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
 	//---------------------------------------------------------------
@@ -921,12 +896,12 @@ namespace COLLADASW
 	{
 		prepareToAddContents();
 
-		if ( mOpenTags.top().mHasText )
+		if ( mOpenTags.back().mHasText )
 			appendChar ( ' ' );
 
 		appendString ( text, length );
 
-		mOpenTags.top().mHasText = true;
+		mOpenTags.back().mHasText = true;
 	}
 
     //---------------------------------------------------------------
@@ -938,12 +913,10 @@ namespace COLLADASW
         mLevel++;
         appendChar ( '<' );
         appendNCNameString ( name );
-        mOpenTags.push ( OpenTag ( &name ) );
+		ElementIndexType nextElementIndex = mNextElementIndex++;
+        mOpenTags.push_back( OpenTag ( &name, nextElementIndex ) );
 
-        for ( TagCloserList::iterator it = mTagClosers.begin(); it != mTagClosers.end(); it++ )
-            ( *it )->increaseOpenElements();
-
-        return TagCloser ( this );
+        return TagCloser ( this, nextElementIndex );
     }
 
 
@@ -954,9 +927,9 @@ namespace COLLADASW
 
         mLevel--;
 
-        if ( mOpenTags.top().mHasContents )
+        if ( mOpenTags.back().mHasContents )
         {
-            if ( !mOpenTags.top().mHasText )
+            if ( !mOpenTags.back().mHasText )
             {
                 appendNewLine();
                 addWhiteSpace ( mLevel * mIndent );
@@ -965,7 +938,7 @@ namespace COLLADASW
             appendChar ( '<' );
 
             appendChar ( '/' );
-            appendNCNameString ( *mOpenTags.top().mName );
+            appendNCNameString ( *mOpenTags.back().mName );
             appendChar ( '>' );
         }
 
@@ -975,12 +948,39 @@ namespace COLLADASW
             appendChar ( '>' );
         }
 
-        mOpenTags.pop();
-
-        for ( TagCloserList::iterator it = mTagClosers.begin(); it != mTagClosers.end(); it++ )
-            ( *it )->decreaseOpenElements();
+        mOpenTags.pop_back();
     }
 
+	//---------------------------------------------------------------
+	void StreamWriter::closeElements( ElementIndexType elementIndex )
+	{
+		// we need to determine how many elements need to be close
+		// we search from the end until we find the first element index  <= elementIndex and count the elements
+		// If this is == elementIndex, we need close elmentsToClose elements
+		// If it is < elementIndex, the element has been close before, nothing to do 
+		ElementIndexType elmentsToClose = 0;
+		OpenTagStack::const_reverse_iterator it = mOpenTags.rbegin();
+		for ( ; it != mOpenTags.rend(); ++it)
+		{
+			elmentsToClose++;
+			const ElementIndexType& currentTagIndex = it->mElementIndex;
+			if ( currentTagIndex < elementIndex)
+			{
+				// the element is not in the stack, i.e. has already been closed
+				return;
+			}
+			if ( currentTagIndex == elementIndex)
+			{
+				// we need to close elmentsToClose elements
+				for ( ElementIndexType i = 0; i < elmentsToClose; ++i)
+				{
+					closeElement();
+				}
+				return;
+			}
+		}
+		// if we reach this point, the searched element is not in the stack, i.e. already, nothing to do
+	}
 
     //---------------------------------------------------------------
     void StreamWriter::appendTextElement ( const String& elementName, const String& text )
@@ -1001,10 +1001,10 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::prepareToAddContents()
     {
-        if ( !mOpenTags.empty() && !mOpenTags.top().mHasContents )
+        if ( !mOpenTags.empty() && !mOpenTags.back().mHasContents )
         {
             appendChar ( '>' );
-            mOpenTags.top().mHasContents = true;
+            mOpenTags.back().mHasContents = true;
         }
     }
 
@@ -1022,20 +1022,5 @@ namespace COLLADASW
 
         appendNCNameString ( mWhiteSpaceString, remainder );
     }
-
-
-    //---------------------------------------------------------------
-    void StreamWriter::addTagCloser ( TagCloser * tagCloser )
-    {
-        mTagClosers.push_back ( tagCloser );
-    }
-
-
-    //---------------------------------------------------------------
-    void StreamWriter::removeTagCloser ( TagCloser * tagCloser )
-    {
-        mTagClosers.remove ( tagCloser );
-    }
-
 
 } //namespace COLLADASW
