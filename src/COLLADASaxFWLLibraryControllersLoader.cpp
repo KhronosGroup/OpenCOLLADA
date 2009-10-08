@@ -598,9 +598,9 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__IDREF_array( const IDREF_array__AttributeData& attributeData )
 	{
-		return true;
+//		return true;
 		// Not quite sure if we should evaluate IDREF_array here
-		//return beginJointsArray();
+		return beginJointsArray();
 	}
 
 	//------------------------------
@@ -612,7 +612,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::data__IDREF_array( const ParserString* data, size_t length )
 	{
-		return true;
+//		return true;
 		// Not quite sure if we should evaluate IDREF_array here
 		return dataJointArray( data, length);
 	}
