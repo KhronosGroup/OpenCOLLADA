@@ -1090,6 +1090,137 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
+		<Configuration
+			Name="Release LibXML ProgDB|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\LibXML"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;GENERATEDSAXPARSER_VALIDATION;PCRE_STATIC"
+				RuntimeLibrary="2"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName)-ProgDB.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release LibXML ProgDB|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\LibXML"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC"
+				RuntimeLibrary="2"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName)-ProgDB.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -1364,6 +1495,22 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release LibXML NoValidation|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release LibXML ProgDB|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release LibXML ProgDB|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2111,6 +2258,13 @@
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Release LibXML ProgDB|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\include\generated14\COLLADASaxFWLGeometryLoader14.h"
@@ -2250,6 +2404,13 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release LibXML NoValidation|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release LibXML ProgDB|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
