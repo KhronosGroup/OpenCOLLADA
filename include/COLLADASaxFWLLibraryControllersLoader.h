@@ -75,10 +75,13 @@ namespace COLLADASaxFWL
 		InputParent mCurrentInputParent;
 
 		/** The sids of the joints of the current skin controller.*/
-		StringList *mJointSids;
+		StringList *mJointSidsOrIds;
 
 		/** Maps ids of name array to the list of name in the name array.*/
 		StringListMap mJointSidsMap;
+
+		/** Maps ids of id_ref array to the list of ids in the id_ref array.*/
+		StringListMap mJointIdsMap;
 
 		/** The expected joints/vertex pair count of the current skin data.*/
 		size_t mCurrentJointsVertexPairCount;
@@ -112,7 +115,9 @@ namespace COLLADASaxFWL
 		/** Write the indices of the v element into the framework.*/
 		bool writeVIndices ( const sint64* data, size_t length );
 
-		bool beginJointsArray();
+		/** Sets the String list, the values of an id_ref or name_array should be stored in.
+		@param isIdArray If true, values are stored in idMap otherwise in in sid map*/
+		bool beginJointsArray(bool isIdArray);
 		bool dataJointArray( const ParserString* data, size_t length );
 
 

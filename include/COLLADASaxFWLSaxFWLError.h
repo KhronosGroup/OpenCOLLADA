@@ -28,6 +28,7 @@ namespace COLLADASaxFWL
 			ERROR_UNRESOLVED_FORMULA,               // A formula referenced in a formula, could not be resolved.
 			ERROR_UNRESOLVED_PARAMETER,             // A parameter referenced in a formula, could not be resolved.
 			ERROR_PARAMETER_COUNT_DOESNOT_MATCH,    // A parameter referenced in a formula, could not be resolved.
+			ERROR_SOURCE_NOT_FOUND,					// A source referenced an an input element could not be resolved
 			ERROR_DATA_NOT_VALID                    // Data not valid.
 		};
 	private:

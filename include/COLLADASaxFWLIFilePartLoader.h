@@ -227,7 +227,7 @@ namespace COLLADASaxFWL
 		COLLADAFW::AnimationList*& getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId);
 
 		/** Adds the pair @a skinDataUniqueId, @a jointSids to mSkinDataJointSidsMap.*/
-		void addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids );
+		void addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& sidsOrIds, bool areIds );
 
 		/** Adds the pair @a skinDataUniqueId, @a skinSource to mSkinDataSkinSourceMap.*/
 		void addSkinDataSkinSourcePair( const COLLADAFW::UniqueId& skinDataUniqueId, const COLLADABU::URI& skinSource );
@@ -236,9 +236,9 @@ namespace COLLADASaxFWL
 		if has been written through the IWriter interface.*/
 		void addMorphController( COLLADAFW::MorphController* morphController);
 
-		/** Returns the sids of the nodes used by a skin controller using skin data with unique id 
+		/** Returns the sids or ids of the nodes used by a skin controller using skin data with unique id 
 		@a skinDataUniqueId*/
-		const StringList& getJointSidsBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
+		const Loader::JointSidsOrIds& getJointSidsOrIdsBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
 
 		/** Returns the mapping of the Unique generated from the id of the COLLADA controller element to the 
 		InstanceControllerDataList containing all instance controllers that reference the same controller.*/

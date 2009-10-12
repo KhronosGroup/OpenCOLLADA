@@ -127,8 +127,18 @@ namespace COLLADASaxFWL
 		/** List of morph controller.*/
 		typedef std::vector<COLLADAFW::MorphController*> MorphControllerList;
 
-		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
-		typedef std::map< COLLADAFW::UniqueId, StringList> SkinDataJointSidsMap;
+		struct JointSidsOrIds
+		{
+			JointSidsOrIds():areIds(true){}
+
+			/** List of sids or ids.*/
+			StringList sidsOrIds;
+			/** True if sidsOrIds contains ids, false if sidsOrIds contains sids.*/
+			bool areIds;
+		};
+
+		/** Maps unique ids of skin data to the sids or ids of the joints of this skin controller.*/
+		typedef std::map< COLLADAFW::UniqueId, JointSidsOrIds> SkinDataJointSidsMap;
 
 		/** Maps unique ids of skin data to the source uri string.*/
 		typedef std::map< COLLADAFW::UniqueId/*skin controller data*/, COLLADABU::URI/*source uri string*/> SkinDataSkinSourceMap;
@@ -173,6 +183,7 @@ namespace COLLADASaxFWL
 
 	public:
 		const static InstanceControllerDataList EMPTY_INSTANCE_CONTROLLER_DATALIST;
+		static const JointSidsOrIds EMPTY_JOINTSIDSORIDS;
 
 	private:
 		/** The version of the collada document.*/
@@ -248,7 +259,7 @@ namespace COLLADASaxFWL
 		completely been parsed. This is required to assign animations of the morph weights.*/
 		MorphControllerList mMorphControllerList;
 
-		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
+		/** Maps unique ids of skin data to the sids or ids of the joints of this skin controller.*/
 		SkinDataJointSidsMap mSkinDataJointSidsMap;
 
 		/** Maps the Unique generated from the id of the COLLADA controller element to the 
@@ -400,7 +411,7 @@ namespace COLLADASaxFWL
 		completely been parsed. This is required to assign animations of the morph weights.*/
 		MorphControllerList& getMorphControllerList() { return mMorphControllerList; }
 
-		/** Maps unique ids of skin data to the sids of the joints of this skin controller.*/
+		/** Maps unique ids of skin data to the sids or ids of the joints of this skin controller.*/
 		SkinDataJointSidsMap& getSkinDataJointSidsMap() { return mSkinDataJointSidsMap; }
 		
 		/** Maps the Unique generated from the id of the COLLADA controller element to the 

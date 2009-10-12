@@ -225,9 +225,9 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	void IFilePartLoader::addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids )
+	void IFilePartLoader::addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& sidsOrIds, bool areIds )
 	{
-		getFileLoader()->addSkinDataJointSidsPair( skinDataUniqueId, jointSids );
+		getFileLoader()->addSkinDataJointSidsPair( skinDataUniqueId, sidsOrIds, areIds );
 	}
 
 	//-----------------------------
@@ -243,9 +243,9 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const StringList& IFilePartLoader::getJointSidsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
+	const Loader::JointSidsOrIds& IFilePartLoader::getJointSidsOrIdsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
 	{
-		return getFileLoader()->getJointSidsBySkinDataUniqueId( skinDataUniqueId );
+		return getFileLoader()->getJointSidsOrIdsBySkinDataUniqueId( skinDataUniqueId );
 	}
 
 	//------------------------------

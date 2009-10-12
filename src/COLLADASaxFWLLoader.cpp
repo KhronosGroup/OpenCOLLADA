@@ -35,6 +35,8 @@ namespace COLLADASaxFWL
 
 	const Loader::InstanceControllerDataList Loader::EMPTY_INSTANCE_CONTROLLER_DATALIST = Loader::InstanceControllerDataList();
 
+	const Loader::JointSidsOrIds Loader::EMPTY_JOINTSIDSORIDS;
+
 
 	Loader::Loader( IErrorHandler* errorHandler )
 		: mNextFileId(0)
