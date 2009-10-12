@@ -77,7 +77,11 @@ namespace GeneratedSaxParser
 									0,
 									0,
 									fileName);
-				getParser()->getErrorHandler()->handleError(error);
+				IErrorHandler* errorHandler = getParser()->getErrorHandler();
+				if ( errorHandler )
+				{
+					errorHandler->handleError(error);
+				}
 				return false;
 			}
 
