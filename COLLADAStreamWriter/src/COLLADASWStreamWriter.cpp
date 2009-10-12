@@ -959,7 +959,7 @@ namespace COLLADASW
 		// If this is == elementIndex, we need close elmentsToClose elements
 		// If it is < elementIndex, the element has been close before, nothing to do 
 		ElementIndexType elmentsToClose = 0;
-		OpenTagStack::const_reverse_iterator it = mOpenTags.rbegin();
+		OpenTagStack::reverse_iterator it = mOpenTags.rbegin();
 		for ( ; it != mOpenTags.rend(); ++it)
 		{
 			elmentsToClose++;
