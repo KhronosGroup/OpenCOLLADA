@@ -214,8 +214,13 @@ namespace COLLADASaxFWL
 		called, is closed.*/
 		void moveUpInSidTree();
 
+		/** Tries to resolve the an ID. If resolving failed, null is returned.*/
+		const SidTreeNode* resolveId( const String& id );
+
 		/** Tries to resolve the a sidaddress. If resolving failed, null is returned.*/
 		const SidTreeNode* resolveSid( const SidAddress& sidAddress);
+
+		/** Tries to resolve the a sidaddress. If resolving failed, null is returned.*/
 		const SidTreeNode* resolveSid( const COLLADABU::URI& id, const String& sid);
 
 		/** Resolves an sid in the element referenced by @a instancingElement. It uses teh sids ins @a sidAddress, 
@@ -233,11 +238,11 @@ namespace COLLADASaxFWL
 		COLLADAFW::AnimationList*& getAnimationListByUniqueId( const COLLADAFW::UniqueId& animationListUniqueId);
 
 		/** Adds the pair @a skinDataUniqueId, @a jointSids to mSkinDataJointSidsMap.*/
-		void addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids );
+		void addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& sidsOrIds, bool areIds );
 
 		/** Returns the sids of the nodes used by a skin controller using skin data with unique id 
 		@a skinDataUniqueId*/
-		const StringList& getJointSidsBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
+		const Loader::JointSidsOrIds& getJointSidsOrIdsBySkinDataUniqueId(const COLLADAFW::UniqueId& skinDataUniqueId) const;
 
 		/** Adds the pair @a skinDataUniqueId, @a skinSource to mSkinDataSkinSourceMap.*/
 		void addSkinDataSkinSourcePair( const COLLADAFW::UniqueId& skinDataUniqueId, const COLLADABU::URI& skinSource );
@@ -265,11 +270,15 @@ namespace COLLADASaxFWL
 			const COLLADAFW::UniqueId& sourceUniqueId);
 
 		/** Creates a controller which instantiation is described by @a InstanceControllerData and that uses 
-		the controller with id @a controllerDataUniqueId. The sids used to resolve joints are @a sids.*/
+		the controller with id @a controllerDataUniqueId.
+		@param sidsOrIds The sids or ids used to resolve joints.
+		@param resolveIds If true, the strings in @a sidsOrIds are resolved as Ids, otherwise as Sids
+		*/
 		bool createAndWriteSkinController( const Loader::InstanceControllerData& instanceControllerData, 
 			const COLLADAFW::UniqueId& controllerDataUniqueId,
 			const COLLADAFW::UniqueId& sourceUniqueId,
-			const StringList& sids);
+			const StringList& sidsOrIds,
+			bool resolveIds);
 
 
 		/** Creates all skin controllers instantiated in the visual scene.*/

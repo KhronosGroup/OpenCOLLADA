@@ -66,7 +66,7 @@ namespace COLLADASaxFWL
 		, mCurrentSkinControllerData(0)
 		, mCurrentMorphController(0)
 		, mCurrentInputParent( INPUT_PARENT_UNKNOWN )
-		, mJointSids( 0 )
+		, mJointSidsOrIds( 0 )
 		, mCurrentJointsVertexPairCount( 0 )
 		, mJointOffset(0)
 		, mWeightsOffset(0)
@@ -123,7 +123,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool LibraryControllersLoader::beginJointsArray()
+	bool LibraryControllersLoader::beginJointsArray( bool isIdArray )
 	{
 		const String& sourceId = getCurrentSourceId();
 
@@ -131,7 +131,14 @@ namespace COLLADASaxFWL
 		if ( sourceId.empty() )
 			return true;
 
-		mJointSids = &mJointSidsMap[sourceId];
+		if ( isIdArray )
+		{
+			mJointSidsOrIds = &mJointIdsMap[sourceId];
+		}
+		else
+		{
+			mJointSidsOrIds = &mJointSidsMap[sourceId];
+		}
 
 		return true;
 	}
@@ -139,13 +146,13 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::dataJointArray( const ParserString* data, size_t length )
 	{
-		if ( !mJointSids )
+		if ( !mJointSidsOrIds )
 			return true;
 
 		for ( size_t i = 0; i < length;  ++i)
 		{
 			const ParserString& parserString = data[i];
-			mJointSids->push_back( String( parserString.str, parserString.length ) );
+			mJointSidsOrIds->push_back( String( parserString.str, parserString.length ) );
 		}
 		return true;
 	}
@@ -212,7 +219,7 @@ namespace COLLADASaxFWL
 		FW_DELETE mCurrentSkinControllerData;
 		mCurrentSkinControllerData  = 0;
 		mJointSidsMap.clear();
-		mJointSids = 0;
+		mJointSidsOrIds = 0;
 		mCurrentControllerSourceUniqueId = COLLADAFW::UniqueId::INVALID;
 		mCurrentControllerType = UNKNOWN_CONTROLLER;
 		return success;
@@ -239,7 +246,7 @@ namespace COLLADASaxFWL
 			addMorphController( mCurrentMorphController );
 		}
 		mJointSidsMap.clear();
-		mJointSids = 0;
+		mJointSidsOrIds = 0;
 		mCurrentMorphController = 0;
 		mCurrentControllerSourceUniqueId = COLLADAFW::UniqueId::INVALID;
 		mCurrentControllerType = UNKNOWN_CONTROLLER;
@@ -302,16 +309,34 @@ namespace COLLADASaxFWL
 						}
 
 						String sourceId = getIdFromURIFragmentType(attributeData.source);
-						StringListMap::const_iterator it = mJointSidsMap.find(sourceId);
 
+						const StringList* nodeSidsOrIds = 0;
+						bool isIdArray = false;
+						StringListMap::const_iterator itSid = mJointSidsMap.find(sourceId);
 						// check if the node sid array could be found
-						if ( it == mJointSidsMap.end() )
-							break;
-
-						const StringList& nodeSids = it->second;
+						if ( itSid != mJointSidsMap.end() )
+						{
+							nodeSidsOrIds = &itSid->second;
+							isIdArray = false;
+						}
+						else
+						{
+							// check if it is an id_array
+							StringListMap::const_iterator itId = mJointIdsMap.find(sourceId);
+							if ( itId != mJointIdsMap.end() )
+							{
+								nodeSidsOrIds = &itId->second;
+								isIdArray = true;
+							}
+							else
+							{
+								handleFWLError ( SaxFWLError::ERROR_SOURCE_NOT_FOUND, "Source with id \"" + sourceId + "\" in skin controller with  id \"" + mOriginalId + "\" used in input with semantic SEMANTIC_JOINT could not be found!" );
+								break;
+							}
+						}
 
 						const COLLADAFW::UniqueId& controllerUniqueId = mCurrentSkinControllerData->getUniqueId();
-						addSkinDataJointSidsPair( controllerUniqueId, nodeSids);
+						addSkinDataJointSidsPair( controllerUniqueId, *nodeSidsOrIds, isIdArray);
 
 						// try to write the SkinController here
 						if ( ((getObjectFlags() & Loader::CONTROLLER_FLAG) != 0) && (mCurrentControllerSourceUniqueId.isValid()) )
@@ -325,7 +350,8 @@ namespace COLLADASaxFWL
 								bool success = getFileLoader()->createAndWriteSkinController( instanceControllerData, 
 																					   		  controllerUniqueId, 
 									                                                          mCurrentControllerSourceUniqueId,
-									                                                          nodeSids);
+									                                                          *nodeSidsOrIds,
+																							  isIdArray);
 								//on success we need to remove this controller instance
 								if ( success )
 								{
@@ -337,7 +363,7 @@ namespace COLLADASaxFWL
 								}
 							}
 						}
-						mCurrentSkinControllerData->setJointsCount(nodeSids.size());
+						mCurrentSkinControllerData->setJointsCount(nodeSidsOrIds->size());
 					}
 					break;
 				case SEMANTIC_INV_BIND_MATRIX:
@@ -580,7 +606,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__Name_array( const Name_array__AttributeData& attributeData )
 	{
-		return beginJointsArray();
+		return beginJointsArray( false );
 	}
 
 	//------------------------------
@@ -598,9 +624,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryControllersLoader::begin__IDREF_array( const IDREF_array__AttributeData& attributeData )
 	{
-//		return true;
-		// Not quite sure if we should evaluate IDREF_array here
-		return beginJointsArray();
+		return beginJointsArray( true );
 	}
 
 	//------------------------------

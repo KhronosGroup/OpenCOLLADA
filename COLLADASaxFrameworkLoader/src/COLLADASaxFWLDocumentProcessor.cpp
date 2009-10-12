@@ -67,6 +67,12 @@ namespace COLLADASaxFWL
 	}
 
 	//---------------------------------
+	const SidTreeNode* DocumentProcessor::resolveId( const String& id )
+	{
+		return findSidTreeNodeByStringId( id );
+	}
+
+	//---------------------------------
 	const SidTreeNode* DocumentProcessor::resolveSid( const SidAddress& sidAddress )
 	{
 		if ( !sidAddress.isValid() )
@@ -204,13 +210,16 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	void DocumentProcessor::addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& jointSids )
+	void DocumentProcessor::addSkinDataJointSidsPair( const COLLADAFW::UniqueId& skinDataUniqueId, const StringList& sidsOrIds, bool areIds )
 	{
-		mSkinDataJointSidsMap[skinDataUniqueId]=jointSids;
+		Loader::JointSidsOrIds jointSidsOrIds;
+		jointSidsOrIds.sidsOrIds = sidsOrIds;
+		jointSidsOrIds.areIds = areIds;
+		mSkinDataJointSidsMap[skinDataUniqueId]=jointSidsOrIds;
 	}
 
 	//-----------------------------
-	const StringList& DocumentProcessor::getJointSidsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
+	const Loader::JointSidsOrIds& DocumentProcessor::getJointSidsOrIdsBySkinDataUniqueId( const COLLADAFW::UniqueId& skinDataUniqueId ) const
 	{
 		Loader::SkinDataJointSidsMap::const_iterator it = mSkinDataJointSidsMap.find(skinDataUniqueId);
 		if ( it != mSkinDataJointSidsMap.end() )
@@ -219,7 +228,7 @@ namespace COLLADASaxFWL
 		}
 		else
 		{
-			return EMPTY_STRING_LIST;
+			return Loader::EMPTY_JOINTSIDSORIDS;
 		}
 	}
 
@@ -280,15 +289,16 @@ namespace COLLADASaxFWL
 	{
 		if ( !controllerDataUniqueId.isValid() )
 			return false;
-		const StringList& sids = getJointSidsBySkinDataUniqueId( controllerDataUniqueId );
-		return createAndWriteSkinController( instanceControllerData, controllerDataUniqueId, sourceUniqueId, sids );
+		const Loader::JointSidsOrIds& sidsOrIds = getJointSidsOrIdsBySkinDataUniqueId( controllerDataUniqueId );
+		return createAndWriteSkinController( instanceControllerData, controllerDataUniqueId, sourceUniqueId, sidsOrIds.sidsOrIds, sidsOrIds.areIds );
 	}
 
 	//-----------------------------
 	bool DocumentProcessor::createAndWriteSkinController( const Loader::InstanceControllerData& instanceControllerData, 
 		const COLLADAFW::UniqueId& controllerDataUniqueId, 
 		const COLLADAFW::UniqueId& sourceUniqueId,
-		const StringList& sids)
+		const StringList& sidsOrIds,
+		bool resolveIds)
 	{
 		if ( !controllerDataUniqueId.isValid() )
 			return false;
@@ -297,47 +307,84 @@ namespace COLLADASaxFWL
 
 		NodeList joints;
 
-		for ( StringList::const_iterator it = sids.begin(); it != sids.end(); ++it)
+		for ( StringList::const_iterator it = sidsOrIds.begin(); it != sidsOrIds.end(); ++it)
 		{
-			const String sid = *it;
+			const String sidOrId = *it;
 
 			bool jointFound = false;
 
-			for ( URIList::const_iterator skeletonIt = skeletonRoots.begin(); skeletonIt != skeletonRoots.end(); ++skeletonIt)
+			if ( resolveIds )
 			{
-				const COLLADABU::URI& skeletonUri = *skeletonIt;
-
-				SidAddress sidAddress( skeletonUri, sid );
-				const SidTreeNode* joint = resolveSid( sidAddress );
+				const SidTreeNode* joint = resolveSid( sidOrId );
 				if ( joint )
 				{
 					// the joint could be found
-					if ( joint->getTargetType() != SidTreeNode::TARGETTYPECLASS_OBJECT )
+					if ( joint->getTargetType() == SidTreeNode::TARGETTYPECLASS_OBJECT )
+					{
+						const COLLADAFW::Object* object = joint->getObjectTarget();
+
+						if ( object->getClassId() == COLLADAFW::Node::ID() )
+						{
+							joints.push_back( (COLLADAFW::Node*)object );
+
+							jointFound = true;
+							//search for the next joint
+						}
+						else
+						{
+							// we could resolve the sid, but is not a joint/node
+						}
+					}
+					else
 					{
 						// we could resolve the sid, but is not a joint/node
-						break;
 					}
-
-					const COLLADAFW::Object* object = joint->getObjectTarget();
-
-					if ( object->getClassId() != COLLADAFW::Node::ID() )
-					{
-						// we could resolve the sid, but is not a joint/node
-						break;
-					}
-
-					joints.push_back( (COLLADAFW::Node*)object );
-
-					jointFound = true;
-					//search for the next joint
-					break;
 				}
 			}
+			else
+			{
+				for ( URIList::const_iterator skeletonIt = skeletonRoots.begin(); skeletonIt != skeletonRoots.end(); ++skeletonIt)
+				{
+					const COLLADABU::URI& skeletonUri = *skeletonIt;
+
+					SidAddress sidAddress( skeletonUri, sidOrId );
+					const SidTreeNode* joint = resolveSid( sidAddress );
+					if ( joint )
+					{
+						// the joint could be found
+						if ( joint->getTargetType() != SidTreeNode::TARGETTYPECLASS_OBJECT )
+						{
+							// we could resolve the sid, but is not a joint/node
+							break;
+						}
+
+						const COLLADAFW::Object* object = joint->getObjectTarget();
+
+						if ( object->getClassId() != COLLADAFW::Node::ID() )
+						{
+							// we could resolve the sid, but is not a joint/node
+							break;
+						}
+
+						joints.push_back( (COLLADAFW::Node*)object );
+
+						jointFound = true;
+						//search for the next joint
+						break;
+					}
+				}
+			}
+
+
 			if ( !jointFound )
 			{
 				std::stringstream msg;
-				msg << "Could not resolve sid \"" << sid << "\" referenced in skin controller.";
-				return handleFWLError( SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg.str() );
+				msg << "Could not resolve " << (resolveIds ? "id" : "sid") << " \"";
+				msg << sidOrId << "\" referenced in skin controller.";
+				if ( handleFWLError( SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg.str() ))
+				{
+					return false;
+				}
 			}
 		}
 
