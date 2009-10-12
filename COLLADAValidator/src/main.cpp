@@ -20,7 +20,8 @@ const char* programName = "COLLADAValidator_Expat.exe";
 #	error "No prepocesser flag set to chose the xml parser to use"
 #endif
 
-bool hasHandledError = false;
+bool hasHandledSaxParserError = false;
+bool hasHandledSaxFWLError = false;
 COLLADASaxFWL::COLLADAVersion version = COLLADASaxFWL::COLLADA_UNKNOWN;
 
 void parse(char* fileName)
@@ -34,7 +35,8 @@ void parse(char* fileName)
 
 	root.loadDocument(fileName);
 	version = loader.getCOLLADAVersion();
-	hasHandledError = errorHandler.hasHandledError();
+	hasHandledSaxParserError = errorHandler.hasHandledSaxParserError();
+	hasHandledSaxFWLError = errorHandler.hasHandledSaxFWLError();
 }
 
 
@@ -47,7 +49,7 @@ int main(int argc, char* argv[])
 	{
 		parse( argv[1]);
 
-		if ( hasHandledError )
+		if ( hasHandledSaxParserError )
 		{
 			return -1;
 		}

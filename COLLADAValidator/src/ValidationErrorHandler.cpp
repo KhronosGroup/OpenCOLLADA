@@ -3,12 +3,14 @@
 
 #include "COLLADASaxFWLIError.h"
 #include "COLLADASaxFWLSaxParserError.h"
+#include "COLLADASaxFWLSaxFWLError.h"
 
 #include "GeneratedSaxParserParserError.h"
 
 //--------------------------------------------------------------------
 ValidationErrorHandler::ValidationErrorHandler()
-	: mHasHandledError(false)
+	: mHasHandledSaxParserError(false)
+	, mHasHandledSaxFWLError(false)
 {
 }
 
@@ -30,7 +32,7 @@ bool ValidationErrorHandler::handleError( const COLLADASaxFWL::IError* error )
 		{
 			if ( strcmp(parserError.getElement(), "effect") == 0 )
 			{
-				return true;
+				return false;
 			}
 		}
 		if ( parserError.getErrorType() == GeneratedSaxParser::ParserError::ERROR_VALIDATION_SEQUENCE_PREVIOUS_SIBLING_NOT_PRESENT)
@@ -39,12 +41,18 @@ bool ValidationErrorHandler::handleError( const COLLADASaxFWL::IError* error )
 				&& (strcmp(parserError.getAdditionalText().c_str(), "sibling: fx_profile_abstract") == 0)) 
 			{
 
-				return true;
+				return false;
 			}
 		}
 
-		std::cout << parserError.getErrorMessage() << std::endl;
+		std::cout << "Schema Error: " << parserError.getErrorMessage() << std::endl;
+		mHasHandledSaxParserError = true;
 	}
-	mHasHandledError = true;
-	return true;
+	else if ( error->getErrorClass() == COLLADASaxFWL::IError::ERROR_SAXFWL )
+	{
+		COLLADASaxFWL::SaxFWLError* saxFWLError = (COLLADASaxFWL::SaxFWLError*) error;
+		std::cout << "Sax FWL Error: " << saxFWLError->getErrorMessage() << std::endl;
+		mHasHandledSaxFWLError = true;
+	}
+	return false;
 }

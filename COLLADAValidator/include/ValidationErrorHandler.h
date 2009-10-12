@@ -6,7 +6,8 @@
 class ValidationErrorHandler : public	COLLADASaxFWL::IErrorHandler
 {
 private:
-	bool mHasHandledError;
+	bool mHasHandledSaxParserError;
+	bool mHasHandledSaxFWLError;
 
 public:
 	ValidationErrorHandler();
@@ -14,7 +15,9 @@ public:
 
 	bool virtual handleError(const COLLADASaxFWL::IError* error);
 
-	bool hasHandledError()const {return mHasHandledError; }
+	bool hasHandledSaxParserError()const {return mHasHandledSaxParserError; }
+
+	bool hasHandledSaxFWLError()const {return mHasHandledSaxFWLError; }
 
 
 private:
