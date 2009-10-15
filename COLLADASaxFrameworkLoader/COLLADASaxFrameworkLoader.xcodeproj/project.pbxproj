@@ -2116,12 +2116,22 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/PrivateFrameworks/;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = GENERATEDSAXPARSER_XMLPARSER_LIBXML;
-				HEADER_SEARCH_PATHS = ../COLLADABaseUtils/include;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					_DEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADAFramework/include,
+					"../COLLADASaxFrameworkLoader/include/**",
+				);
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2136,9 +2146,19 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/PrivateFrameworks;
 				GCC_MODEL_TUNING = G5;
-				GCC_PREPROCESSOR_DEFINITIONS = GENERATEDSAXPARSER_XMLPARSER_LIBXML;
-				HEADER_SEARCH_PATHS = ../COLLADABaseUtils/include;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADAFramework/include,
+					"../COLLADASaxFrameworkLoader/include/**",
+				);
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2184,7 +2204,9 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = GENERATEDSAXPARSER_XMLPARSER_LIBXML;
+				HEADER_SEARCH_PATHS = "$(HOME)/include/libxml2";
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = "$(HOME)/lib";
 				PREBINDING = NO;
 				PRODUCT_NAME = GeneratedSaxParser;
 			};
@@ -2199,10 +2221,13 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PREPROCESSOR_DEFINITIONS = GENERATEDSAXPARSER_XMLPARSER_LIBXML;
+				HEADER_SEARCH_PATHS = "$(HOME)/include/libxml2";
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = "-lxml";
+				LIBRARY_SEARCH_PATHS = "$(HOME)/lib";
+				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
 				PRODUCT_NAME = GeneratedSaxParser;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				ZERO_LINK = NO;
 			};
 			name = Release;
