@@ -25,6 +25,7 @@
 #include <vector>
 #include <limits>
 #include <algorithm>
+#include <string.h>
 
 #define WHITESPACESTRINGLENGTH 1000
 

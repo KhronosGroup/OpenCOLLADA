@@ -3,6 +3,8 @@
 #include "MathMLASTConstantExpression.h"
 #include "MathMLError.h"
 
+#include <string.h>
+
 namespace MathML
 {
     //---------------------------------------------------------------------------------

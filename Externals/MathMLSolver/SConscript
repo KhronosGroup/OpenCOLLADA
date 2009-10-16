@@ -1,0 +1,27 @@
+            
+Import('env')
+
+libName = 'MathMLSolver'
+
+
+srcDirs = [ 'src/',
+            'src/AST/']
+
+variantDir = env['objDir']  + env['configurationBaseName'] + '/'
+outputDir =  env['libDir']  + env['configurationBaseName'] + '/'
+targetPath = outputDir + libName
+
+
+incDirs = [ 'include',
+            'include/AST']
+
+src = []
+for srcDir in srcDirs:
+    src += [ variantDir + str(p) for p in  Glob(srcDir + '*.cpp')]   
+    VariantDir(variant_dir=variantDir + srcDir, src_dir=srcDir, duplicate=False)
+
+
+if env['SHAREDLIB']:
+    SharedLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])
+else:
+    StaticLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])

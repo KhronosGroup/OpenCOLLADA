@@ -15,6 +15,7 @@
 
 #include "COLLADASWIBufferFlusher.h"
 
+#include <string.h>
 
 namespace COLLADASW
 {

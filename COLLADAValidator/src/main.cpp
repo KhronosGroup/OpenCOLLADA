@@ -12,13 +12,18 @@
 #include "COLLADAFWRoot.h"
 
  
-#if defined(XMLPARSER_LIBXML)
-const char* programName = "COLLADAValidator_LibXML.exe";
-#elif defined(XMLPARSER_EXPAT)
-const char* programName = "COLLADAValidator_Expat.exe";
+#ifdef WIN32
+#   if defined(XMLPARSER_LIBXML)
+        const char* programName = "COLLADAValidator_LibXML.exe";
+#   elif defined(XMLPARSER_EXPAT)
+        const char* programName = "COLLADAValidator_Expat.exe";
+#   else
+#	    error "No prepocesser flag set to chose the xml parser to use"
+#   endif
 #else
-#	error "No prepocesser flag set to chose the xml parser to use"
+    const char* programName = "COLLADAValidator.exe";
 #endif
+
 
 bool hasHandledSaxParserError = false;
 bool hasHandledSaxFWLError = false;

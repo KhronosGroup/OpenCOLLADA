@@ -7,6 +7,8 @@
 
 #include "GeneratedSaxParserParserError.h"
 
+#include <string.h>
+
 //--------------------------------------------------------------------
 ValidationErrorHandler::ValidationErrorHandler()
 	: mHasHandledSaxParserError(false)

@@ -43,11 +43,13 @@ pattern matching using an NFA algorithm, trying to mimic Perl as closely as
 possible. There are also some static supporting functions. */
 
 #if (defined(WIN64) || defined(WIN32))
-#	include "config_win.h"
+#   include "config_win.h"
 #elif (defined(__APPLE__) || defined(OSMac_))
 #   include "config_mac.h"
+#elif defined(__linux__) || defined(__linux)
+#   include "config_linux.h"
 #elif defined(HAVE_CONFIG_H)
-#	include "config.h"
+#   include "config.h"
 #endif
 
 

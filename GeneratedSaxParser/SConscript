@@ -1,0 +1,42 @@
+
+Import('env')
+
+libName = 'GeneratedSaxParser'
+
+
+srcDir = 'src/'
+
+variantDir = env['objDir']  + env['configurationBaseName']  + env['xmlParserConfName']+ '/'
+outputDir =  env['libDir']  + env['configurationBaseName']  + env['xmlParserConfName']+ '/'
+targetPath = outputDir + libName
+
+
+incDirs = ['include/', 
+           '../COLLADABaseUtils/include/']
+
+src = [ variantDir + str(p) for p in  Glob(srcDir + '*.cpp')]   
+VariantDir(variant_dir=variantDir + srcDir, src_dir=srcDir, duplicate=False)
+
+# set xml parser specitic settings
+if (env['XMLPARSER'] == 'expat') or (env['XMLPARSER'] == 'expatnative'):
+    for f in src:
+        if f.endswith('GeneratedSaxParserLibxmlSaxParser.cpp'):
+          src.remove(f)
+else:
+    for f in src:
+        if f.endswith('GeneratedSaxParserExpatSaxParser.cpp'):
+          src.remove(f)
+
+if env['XMLPARSER'] == 'expat':
+    incDirs += ['../Externals/expat/lib/']
+elif env['XMLPARSER'] == 'libxml':
+    incDirs += ['../Externals/LibXML/include/']
+elif env['XMLPARSER'] == 'libxmlnative':
+    incDirs += ['/usr/include/libxml2']
+
+
+if env['SHAREDLIB']:
+    SharedLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])
+else:
+    StaticLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])
+

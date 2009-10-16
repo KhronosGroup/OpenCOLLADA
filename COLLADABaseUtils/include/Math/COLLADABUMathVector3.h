@@ -516,7 +516,7 @@ namespace COLLADABU
                 Real dot = dotProduct( rhs );
                 Real angle_radian = acos( dot );
 
-                return abs( angle_radian ) <= tolerance_radian;
+                return fabs( angle_radian ) <= tolerance_radian;
 
             }
 

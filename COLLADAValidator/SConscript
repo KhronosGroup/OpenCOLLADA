@@ -1,0 +1,59 @@
+
+Import('env')
+
+progName = 'OpenCOLLADAValidator'
+
+
+srcDir = 'src/'
+
+variantDir = env['objDir']  + env['configurationBaseName'] + env['xmlParserConfName'] + env['validationConfName'] + '/'
+outputDir =  env['binDir']  + env['configurationBaseName'] + env['xmlParserConfName'] + env['validationConfName'] + '/'
+targetPath = outputDir + progName
+
+incDirs = [ 'include',
+            '../COLLADABaseUtils/include',
+            '../COLLADAFramework/include',
+            '../COLLADASaxFrameworkLoader/include',
+            '../GeneratedSaxParser/include']
+
+src = [ variantDir + str(p) for p in  Glob(srcDir + '*.cpp')]   
+VariantDir(variant_dir=variantDir + srcDir, src_dir=srcDir, duplicate=False)
+
+libs = [ 'OpenCOLLADASaxFrameworkLoader',
+         'MathMLSolver',
+         'OpenCOLLADAFramework',
+         'OpenCOLLADABaseUtils',
+         'GeneratedSaxParser',
+         'pcre',
+         'UTF' ]
+
+libPath = [ '../COLLADABaseUtils/' + env['libDir']  + env['configurationBaseName'],
+            '../COLLADAFramework/' + env['libDir']  + env['configurationBaseName'],
+            '../Externals/MathMLSolver/' + env['libDir']  + env['configurationBaseName'],
+            '../Externals/UTF/' + env['libDir']  + env['configurationBaseName'],
+            '../COLLADASaxFrameworkLoader/' + env['libDir']  + env['configurationBaseName'] + env['xmlParserConfName'] + env['validationConfName'],
+            '../GeneratedSaxParser/' + env['libDir']  + env['configurationBaseName'] + env['xmlParserConfName'] ]
+
+if not env['PCRENATIVE']:
+    libPath += '../Externals/pcre/' + env['libDir']  + env['configurationBaseName'],
+
+if (env['XMLPARSER'] == 'expat') or (env['XMLPARSER'] == 'expatnative'):
+    env['CPPFLAGS'] += ' -DXMLPARSER_EXPAT'
+    libs += ['expat']
+    if env['XMLPARSER'] == 'expat':
+        libPath += ['../Externals/expat/' + env['libDir']  + env['configurationBaseName']]
+else:
+    env['CPPFLAGS'] += ' -DXMLPARSER_LIBXML'
+    if env['XMLPARSER'] == 'libxml':
+        libPath += ['../Externals/libxml/' + env['libDir']  + env['configurationBaseName']]
+        libs += ['xml']
+    else:
+        libs += ['xml2']
+
+if env['PG']:
+  linkFlags = ['-pg']
+else:
+  linkFlags = []
+
+Program(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'], LIBS=libs, LIBPATH=libPath, LINKFLAGS=linkFlags)
+

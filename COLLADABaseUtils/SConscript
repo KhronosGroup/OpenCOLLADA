@@ -1,0 +1,28 @@
+
+Import('env')
+
+libName = 'OpenCOLLADABaseUtils'
+
+
+srcDirs = [ 'src/', 'src/Math/']
+
+variantDir = env['objDir']  + env['configurationBaseName'] + '/'
+outputDir =  env['libDir']  + env['configurationBaseName'] + '/'
+targetPath = outputDir + libName
+
+
+incDirs = ['include/', 'include/Math/', '../Externals/UTF/include/']
+
+if not env['PCRENATIVE']:
+    incDirs += ['../Externals/pcre/include']
+
+
+src = []
+for srcDir in srcDirs:
+    src += [ variantDir + str(p) for p in  Glob(srcDir + '*.cpp')]   
+    VariantDir(variant_dir=variantDir + srcDir, src_dir=srcDir, duplicate=False)
+
+if env['SHAREDLIB']:
+    SharedLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])
+else:
+    StaticLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])

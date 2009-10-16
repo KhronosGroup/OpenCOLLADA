@@ -45,11 +45,13 @@ clashes with the library. */
 
 
 #if (defined(WIN64) || defined(WIN32))
-#	include "config_win.h"
+#   include "config_win.h"
 #elif (defined(__APPLE__) || defined(OSMac_))
 #   include "config_mac.h"
+#elif defined(__linux__) || defined(__linux)
+#   include "config_linux.h"
 #elif defined(HAVE_CONFIG_H)
-#	include "config.h"
+#   include "config.h"
 #endif
 
 
