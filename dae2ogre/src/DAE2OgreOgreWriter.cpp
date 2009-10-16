@@ -34,13 +34,14 @@ namespace DAE2Ogre
 		: mInputFile(inputFile)
 		, mOutputFile(outputFile)
 		, mCurrentRun(SCENEGRAPH_RUN)
-	, mVisualScene(COLLADAFW::UniqueId())
+	, mVisualScene(0)
 	{
 	}
 
 	//--------------------------------------------------------------------
 	OgreWriter::~OgreWriter()
 	{
+		delete mVisualScene;
 	}
 
 	//--------------------------------------------------------------------
@@ -74,8 +75,12 @@ namespace DAE2Ogre
 		if ( !root.loadDocument(mInputFile.toNativePath()) )
 			return false;
 
-		SceneGraphWriter sceneGraphWriter(this, mVisualScene, mLibrayNodesList);
-		sceneGraphWriter.write();
+		// if there is no visual scene in the COLLADA file, nothing to export here
+		if ( mVisualScene )
+		{
+			SceneGraphWriter sceneGraphWriter(this, *mVisualScene, mLibrayNodesList);
+			sceneGraphWriter.write();
+		}
 
 		// load and write geometries
 		mCurrentRun = GEOMETRY_RUN;
@@ -113,7 +118,12 @@ namespace DAE2Ogre
 	{
 		if ( mCurrentRun != SCENEGRAPH_RUN )
 			return true;
-		mVisualScene = *visualScene;
+		// todo. handle multiple occurences of visual scene properly. This is just a quick fix
+		if ( mVisualScene )
+		{
+			delete mVisualScene;
+		}
+		mVisualScene = new COLLADAFW::VisualScene(*visualScene);
 		return true;
 	}
 

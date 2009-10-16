@@ -76,7 +76,7 @@ namespace DAE2Ogre
 		COLLADABU::URI mOutputFile;
 		Runs mCurrentRun;
 
-		COLLADAFW::VisualScene mVisualScene;
+		const COLLADAFW::VisualScene* mVisualScene;
 		LibraryNodesList mLibrayNodesList;
 
 		GeometryUniqueIdInstanceGeometryInfoMap mGeometryUniqueIdInstanceGeometryInfoMap;
