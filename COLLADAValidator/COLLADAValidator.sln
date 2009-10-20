@@ -35,7 +35,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcre", "..\Externals\pcre\s
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expat_static", "..\Externals\expat\lib\expat_static.vcproj", "{6E55CA53-AAAB-493D-A2BF-9D40737803FC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathMLSolver", "..\..\OpenCOLLADA\Externals\MathMLSolver\scripts\MathMLSolver.vcproj", "{F1DEFC38-6AA9-4799-983B-96610117CAF7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathMLSolver", "..\Externals\MathMLSolver\scripts\MathMLSolver.vcproj", "{F1DEFC38-6AA9-4799-983B-96610117CAF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
