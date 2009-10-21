@@ -157,7 +157,7 @@ namespace COLLADASaxFWL
         if ( sourceBase == 0 ) return false;
         
         // Check if the source element is already loaded.
-        if ( sourceBase->getIsLoaded () ) return false;
+        if ( sourceBase->isLoadedInputElement ( semantic ) ) return false;
 
         // Get the source input array
         const SourceBase::DataType& dataType = sourceBase->getDataType ();
@@ -192,7 +192,7 @@ namespace COLLADASaxFWL
 				}
 
                 // Set the source base as loaded element.
-                sourceBase->setIsLoaded ( true );
+                sourceBase->addLoadedInputElement ( semantic );
 
                 break;
             }
@@ -222,7 +222,7 @@ namespace COLLADASaxFWL
 				}
                 
                 // Set the source base as loaded element.
-                sourceBase->setIsLoaded ( true );
+                sourceBase->addLoadedInputElement ( semantic );
 
                 break;
             }
@@ -252,7 +252,7 @@ namespace COLLADASaxFWL
         if ( sourceBase == 0 ) return false;
 
         // Check if the source element is already loaded.
-        if ( sourceBase->getIsLoaded () ) return false;
+        if ( sourceBase->isLoadedInputElement ( semantic ) ) return false;
 
         // Get the source input array
         const SourceBase::DataType& dataType = sourceBase->getDataType ();
@@ -284,7 +284,7 @@ namespace COLLADASaxFWL
 				}
 
                 // Set the source base as loaded element.
-                sourceBase->setIsLoaded ( true );
+                sourceBase->addLoadedInputElement ( semantic );
 
                 break;
             }
@@ -314,7 +314,7 @@ namespace COLLADASaxFWL
 				}
 
                 // Set the source base as loaded element.
-                sourceBase->setIsLoaded ( true );
+                sourceBase->addLoadedInputElement ( semantic );
 
                 break;
             }
@@ -345,7 +345,7 @@ namespace COLLADASaxFWL
         if ( sourceBase == 0 ) return false;
 
         // Check if the source element is already loaded.
-        if ( sourceBase->getIsLoaded () ) return false;
+        if ( sourceBase->isLoadedInputElement ( semantic ) ) return false;
 
         // Get the stride of the uv coordinates. 
         // This is the dimension of the uv coordinates.
@@ -365,7 +365,7 @@ namespace COLLADASaxFWL
         }
 
         // Set the source base as loaded element.
-        sourceBase->setIsLoaded ( true );
+        sourceBase->addLoadedInputElement ( semantic );
 
         return retValue;
     }
@@ -438,7 +438,7 @@ namespace COLLADASaxFWL
         if ( sourceBase == 0 ) return false;
 
         // Check if the source element is already loaded.
-        if ( sourceBase->getIsLoaded () ) return false;
+        if ( sourceBase->isLoadedInputElement ( semantic ) ) return false;
 
         // Get the stride of the uv coordinates. 
         // This is the dimension of the uv coordinates.
@@ -458,7 +458,7 @@ namespace COLLADASaxFWL
         }
 
         // Set the source base as loaded element.
-        sourceBase->setIsLoaded ( true );
+        sourceBase->addLoadedInputElement ( semantic );
 
         return retValue;
     }

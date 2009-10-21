@@ -14,6 +14,7 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLTechniqueCommon.h"
 #include "COLLADASaxFWLArrayElement.h"
+#include "COLLADASaxFWLInputUnshared.h"
 
 #include "COLLADAFWObject.h"
 #include "COLLADAFWArray.h"
@@ -83,9 +84,12 @@ namespace COLLADASaxFWL
         unsigned long long mStride; 
 
         /**
-         * Flag, if the source element is already loaded into the framework.
+         * Flags, if the source element is already loaded into the framework. A source element 
+         * can be referenced from the same input element in multiple primitive elements or from
+         * different input elements (NORMALS, COLOR, TEXCOORD, ...). It should be loaded only once
+         * from every input element.
          */
-        bool mIsLoaded;
+        COLLADAFW::ArrayPrimitiveType<InputSemantic::Semantic> mLoadedInputElements;
 
         /**
          * This member will be used, if multiple source elements with the same input semantic are
@@ -100,8 +104,7 @@ namespace COLLADASaxFWL
 
         /** Constructor. */
         SourceBase (  )
-            :  mIsLoaded ( false )
-            , mInitialIndex (0)
+            :  mInitialIndex (0)
         {}
 
         /** Destructor. */
@@ -112,16 +115,41 @@ namespace COLLADASaxFWL
 		*/
 		virtual DataType getDataType ()const =0;
 
+        /**
+        * Adds the current input element in the list of already loaded input elements.
+        * Returns true, if the input element was not already in the list and was successfully added.
+        * A source element can be referenced from the same input element in multiple primitive 
+        * elements or from different input elements (NORMALS, COLOR, TEXCOORD, ...). It should be 
+        * loaded only once from every input element.
+        */
+        bool addLoadedInputElement ( InputSemantic::Semantic& semantic )
+        {
+            if ( !isLoadedInputElement ( semantic ) )
+            {
+                mLoadedInputElements.append ( semantic );
+                return true;
+            }
+            return false;
+        }
 
         /**
-        * Flag, if the source element is already loaded into the framework.
+        * Checks if the current input element is already in the list of loaded input elements.
+        * Returns true, if the input element was not already in the list and was successfully added.
+        * A source element can be referenced from the same input element in multiple primitive 
+        * elements or from different input elements (NORMALS, COLOR, TEXCOORD, ...). It should be 
+        * loaded only once from every input element.
         */
-        bool getIsLoaded () const { return mIsLoaded; }
+        bool isLoadedInputElement ( InputSemantic::Semantic& semantic )
+        {
+            const size_t numLoadedInputElements = mLoadedInputElements.getCount ();
+            for ( size_t i=0; i<numLoadedInputElements; ++i )
+            {
+                InputSemantic::Semantic& currentSemantic = mLoadedInputElements [i];
+                if ( currentSemantic == semantic ) return true;
+            }
 
-        /**
-        * Flag, if the source element is already loaded into the framework.
-        */
-        void setIsLoaded ( bool isLoaded ) { mIsLoaded = isLoaded; }
+            return false;
+        }
 
         /** 
         * A text string containing the unique identifier of the element. 
