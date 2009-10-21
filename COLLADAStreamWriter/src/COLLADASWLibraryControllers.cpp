@@ -60,7 +60,7 @@ namespace COLLADASW
     {
         openController ( controllerId, controllerName );
 
-        mSkinCloser = mSW->openElement ( CSWC::CSW_ELEMENT_MORPH );
+        mMorphCloser = mSW->openElement ( CSWC::CSW_ELEMENT_MORPH );
 
         mSW->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_SOURCE, morphSource );
 
