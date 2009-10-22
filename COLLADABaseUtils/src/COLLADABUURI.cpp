@@ -486,8 +486,9 @@ namespace COLLADABU
 
 	namespace {
 		void normalize(String& path) {
-			URI::normalizeURIPath(const_cast<char*>(path.c_str()));
-			path = path.substr(0, path.length());
+            String tmp (path);
+			URI::normalizeURIPath(const_cast<char*>(tmp.c_str()));
+            path.assign ( tmp.c_str () );
 		}
 	}
 
