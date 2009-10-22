@@ -124,6 +124,9 @@ namespace COLLADASW
         /** Adds @a input to list of inputs that should be added*/
         void push_back ( const InstanceMaterial& input ) { mList.push_back ( input ); }
 
+		/** Returns a reference to the last InstanceMaterial in the list. The material list must not be empty.*/
+		InstanceMaterial& back() { return mList.back(); }
+
         /** Return true, if the list of material bindings is empty, false otherwise*/
         bool empty() const { return mList.empty(); }
 

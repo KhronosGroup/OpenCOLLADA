@@ -145,13 +145,14 @@ namespace COLLADASW
             mList.push_back ( input );
         }
 
-    private:
+		/** Returns a string containing the semantic name*/
+		static const String& getSemanticString ( Semantics semantic );
+
+	private:
 
         /** Add all the inputs, added using push_back(), to the stream*/
         void add();
 
-        /** Returns a string containing the semantic name*/
-        const String& getSemanticString ( Semantics semantic );
 
     };
 
