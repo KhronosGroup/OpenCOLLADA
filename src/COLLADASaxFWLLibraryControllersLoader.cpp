@@ -330,7 +330,8 @@ namespace COLLADASaxFWL
 							}
 							else
 							{
-								handleFWLError ( SaxFWLError::ERROR_SOURCE_NOT_FOUND, "Source with id \"" + sourceId + "\" in skin controller with  id \"" + mOriginalId + "\" used in input with semantic SEMANTIC_JOINT could not be found!" );
+								if ( !handleFWLError ( SaxFWLError::ERROR_SOURCE_NOT_FOUND, "Source with id \"" + sourceId + "\" in skin controller with  id \"" + mOriginalId + "\" used in input with semantic SEMANTIC_JOINT could not be found!" ))
+									return false;
 								break;
 							}
 						}
@@ -430,11 +431,15 @@ namespace COLLADASaxFWL
 						}
 
 						String sourceId = getIdFromURIFragmentType(attributeData.source);
-						StringListMap::const_iterator it = mJointSidsMap.find(sourceId);
+						StringListMap::const_iterator it = mJointIdsMap.find(sourceId);
 
 						// check if the node sid array could be found
-						if ( it == mJointSidsMap.end() )
+						if ( it == mJointIdsMap.end() )
+						{
+							if ( !handleFWLError ( SaxFWLError::ERROR_SOURCE_NOT_FOUND, "Source with id \"" + sourceId + "\" in morph controller with  id \"" + mOriginalId + "\" used in input with semantic SEMANTIC_MORPH_TARGET could not be found!" ))
+								return false;
 							break;
+						}
 
 						const StringList& meshIds = it->second;
 						size_t meshIdCount = meshIds.size();
