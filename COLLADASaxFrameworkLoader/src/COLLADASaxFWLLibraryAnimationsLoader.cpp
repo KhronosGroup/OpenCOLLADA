@@ -390,7 +390,7 @@ namespace COLLADASaxFWL
 			}
 			else
 			{
-				// todo handle error
+                handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Animation curve \"" + mCurrentAnimationCurve->getName () + "\" not valid!" );
 			}
 		}
 		mCurrentAnimationCurve = 0;
