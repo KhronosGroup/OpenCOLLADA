@@ -222,6 +222,43 @@ namespace COLLADASaxFWL
 	}
 
 	//---------------------------------
+	bool Loader::loadDocument( const char* buffer, int length, COLLADAFW::IWriter* writer )
+	{
+		if ( !writer )
+			return false;
+		mWriter = writer;
+        
+		SaxParserErrorHandler saxParserErrorHandler(mErrorHandler);
+        
+//		COLLADABU::URI rootFileUri(COLLADABU::URI::nativePathToUri(fileName));
+		
+		// the root file has always file id 0
+//		addFileIdUriPair( mNextFileId++, rootFileUri );
+        
+//		while ( mCurrentFileId < mNextFileId )
+//		{
+			FileLoader fileLoader(this, 
+								  "no_URI",
+								  &saxParserErrorHandler, 
+								  mObjectFlags,
+								  mParsedObjectFlags);
+			fileLoader.load( buffer, length );
+            
+//			mCurrentFileId++;
+//		}
+        
+		PostProcessor postProcessor(this, 
+				                    &saxParserErrorHandler, 
+				                    mObjectFlags,
+				                    mParsedObjectFlags);
+		postProcessor.postProcess();
+        
+		mParsedObjectFlags |= mObjectFlags;
+        
+		return true;
+	}
+    
+	//---------------------------------
 	GeometryMaterialIdInfo& Loader::getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId )
 	{
 		return mGeometryMeshMaterialIdInfoMapMap[uniqueId];

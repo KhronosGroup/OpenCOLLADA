@@ -340,6 +340,30 @@ namespace COLLADASaxFWL
     }
 
     //------------------------------
+    bool VersionParser::createAndLaunchParser( const char* buffer, int length )
+    {
+//        const COLLADABU::URI& fileURI = mFileLoader->getFileUri();
+//        String nativePath = fileURI.toNativePath();
+//        const char* fileName = nativePath.c_str();
+#if defined(GENERATEDSAXPARSER_XMLPARSER_LIBXML)
+        GeneratedSaxParser::LibxmlSaxParser versionSaxParser( this );
+#elif defined(GENERATEDSAXPARSER_XMLPARSER_EXPAT)
+        GeneratedSaxParser::ExpatSaxParser versionSaxParser( this, XMLPARSER_BUFFERSIZE );
+#endif
+        bool success = versionSaxParser.parseBuffer( buffer, length );
+        
+        //       mFileLoader->postProcess();
+        
+        delete mPrivateParser14;
+        delete mPrivateParser15;
+        
+        mFileLoader->setPrivateParser( (COLLADASaxFWL14::ColladaParserAutoGen14Private*)0 );
+        mFileLoader->setPrivateParser( (COLLADASaxFWL15::ColladaParserAutoGen15Private*)0 );
+        
+        return success;
+    }
+    
+    //------------------------------
     bool VersionParser::elementBegin( const ParserChar* elementName, const ParserAttributes& attributes )
     {
         StringHashPair hashPair = GeneratedSaxParser::Utils::calculateStringHashWithNamespace( elementName );

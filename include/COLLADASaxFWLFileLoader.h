@@ -87,6 +87,7 @@ namespace COLLADASaxFWL
 
 	        /** Loads the data into the frame work data model.*/
 		bool load();
+		bool load( const char* buffer, int length );
 
 		/** Returns the parsing status of the file loader.*/
 		ParsingStatus getParsingStatus() const { return mParsingStatus; }
