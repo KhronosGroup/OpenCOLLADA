@@ -73,6 +73,7 @@ namespace COLLADASaxFWL
         * Will determine COLLADA version of input file and use appropriate parser.
         */
         bool createAndLaunchParser();
+        bool createAndLaunchParser(const char* buffer, int length);
 
     protected:
         void createFunctionMap14();

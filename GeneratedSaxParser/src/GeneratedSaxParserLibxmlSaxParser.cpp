@@ -110,6 +110,52 @@ namespace GeneratedSaxParser
 			return true;
 	}
 
+	bool LibxmlSaxParser::parseBuffer( const char* buffer, int length )
+	{
+        mParserContext = xmlCreateMemoryParserCtxt( buffer, length );
+        
+        if ( !mParserContext )
+        {
+            ParserError error(ParserError::SEVERITY_CRITICAL,
+                              ParserError::ERROR_COULD_NOT_OPEN_FILE,
+                              0,
+                              0,
+                              0,
+                              0,
+                              "LibxmlSaxParser::parseBuffer()");
+            IErrorHandler* errorHandler = getParser()->getErrorHandler();
+            if ( errorHandler )
+            {
+                errorHandler->handleError(error);
+            }
+            return false;
+        }
+        
+        if (mParserContext->sax != (xmlSAXHandlerPtr) &xmlDefaultSAXHandler)
+        {
+            xmlFree(mParserContext->sax);
+        }
+        
+        mParserContext->sax = &SAXHANDLER;
+        mParserContext->userData = (void*)this;
+        
+        initializeParserContext();
+        xmlParseDocument(mParserContext);
+        
+        mParserContext->sax = 0;
+        
+        if ( mParserContext->myDoc )
+        {
+            xmlFreeDoc(mParserContext->myDoc);
+            mParserContext->myDoc = 0;
+        }
+        
+        xmlFreeParserCtxt(mParserContext);
+        mParserContext = 0;
+        
+        return true;
+	}
+
 	void LibxmlSaxParser::initializeParserContext()
 	{
 		mParserContext->linenumbers = true;

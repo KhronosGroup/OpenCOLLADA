@@ -304,10 +304,16 @@ namespace COLLADASaxFWL
         /** Starts loading the model and feeds the writer with data.
 		@param fileName The name of the fills that should be loaded.
 		@param writer The writer that should be fed with data.
-		@param objectFlags The flags indicating which objects should be loaded
 		@return True, if loading succeeded, false otherwise.*/
 		virtual bool loadDocument(const String& fileName, COLLADAFW::IWriter* writer );
 
+		/** Starts loading the model and feeds the writer with data.
+         @param buffer A pointer to a document buffer that should be loaded.
+         @param length The length of the buffer in bytes.
+         @param writer The writer that should be fed with data.
+         @return True, if loading succeeded, false otherwise.*/
+		virtual bool loadDocument( const char* buffer, int length, COLLADAFW::IWriter* writer );
+        
 		/** Sets the flags indicating which objects should be loaded.
 		@param objectFlags The flags indicating which objects should be loaded.*/
 		void setObjectFlags( int objectFlags ) { mObjectFlags = objectFlags; }

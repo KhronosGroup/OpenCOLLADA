@@ -40,7 +40,10 @@ namespace COLLADAFW
 		@returns True, if loading succeeded, false otherwise.*/
 		bool loadDocument(const String& fileName);
 
-
+		/** Loads @a buffer in to the model.
+         @returns True, if loading succeeded, false otherwise.*/
+		bool loadDocument(const char* buffer, int length);
+        
 		/** Returns the object with unique id @a uniqueId.
 		Only available if we have a pool.*/
 		Object* getObject(const UniqueId& uniqueId);

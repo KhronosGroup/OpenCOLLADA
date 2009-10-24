@@ -78,7 +78,15 @@ namespace COLLADASaxFWL
         return success;
 	}
 
-
+	//-----------------------------
+	bool FileLoader::load( const char* buffer, int length )
+	{
+        VersionParser parser( mSaxParserErrorHandler, this, mObjectFlags, mParsedObjectFlags );
+        mParsingStatus = PARSING_PARSING;
+        bool success = parser.createAndLaunchParser( buffer, length );
+        mParsingStatus = PARSING_FINISHED;
+        return success;
+	}    
 
 	//-----------------------------
 	const COLLADABU::URI& FileLoader::getFileUri()

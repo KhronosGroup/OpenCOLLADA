@@ -32,6 +32,13 @@ namespace COLLADAFW
 		@return True, if loading succeeded, false otherwise.*/
 		virtual bool loadDocument(const String& fileName, IWriter* writer)=0;
 
+		/** Starts loading the model and feeds the writer with data.
+         @param buffer A pointer to a document buffer that should be loaded.
+         @param length The length of the buffer in bytes.
+         @param writer The writer that should be fed with data.
+         @return True, if loading succeeded, false otherwise.*/
+		virtual bool loadDocument(const char* buffer, int length, IWriter* writer)=0;
+        
 	private:
 
         /** Disable default copy ctor. */
