@@ -162,7 +162,7 @@ namespace COLLADASaxFWL
 		virtual const char* getSecondKey() { return COLLADAFW::ExtraKeys::MESH; }
 
 		/** Returns the mesh that has just been loaded.*/
-		COLLADAFW::Mesh* getMesh();
+		COLLADAFW::Mesh* getMesh() { return mMesh; }
 
 		/** Sax callback function for the beginning of a source element.*/
 		virtual bool begin__source(const source__AttributeData& attributes);
