@@ -229,7 +229,8 @@ namespace GeneratedSaxParser
         }
 
         IErrorHandler* errHandler = thisObject->getParser()->getErrorHandler();
-        errHandler->handleError(error);
+        if ( errHandler ) 
+            errHandler->handleError(error);
 	}
 
 } // namespace GeneratedSaxParser
