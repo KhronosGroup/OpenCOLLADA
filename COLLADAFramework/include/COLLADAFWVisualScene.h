@@ -14,11 +14,13 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWNode.h"
 #include "COLLADAFWObject.h"
+#include "COLLADAFWExtraData.h"
+
 
 namespace COLLADAFW
 {
 
-	class VisualScene : public ObjectTemplate<COLLADA_TYPE::VISUAL_SCENE>
+	class VisualScene : public ObjectTemplate<COLLADA_TYPE::VISUAL_SCENE>, public ExtraData
 	{
 	private:
 		/**

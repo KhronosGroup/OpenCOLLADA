@@ -54,7 +54,11 @@ namespace COLLADASaxFWL
 		void handleRootNode( COLLADAFW::Node* rootNode );
 
     public:
-		/** Sax callback function for the beginning of nodes, as child of a visual scene.*/
+
+        /** Returns the ExtraData object, that should be used to store the extra data. */
+        virtual COLLADAFW::ExtraData* getExtraData() { return mVisualScene; }
+
+        /** Sax callback function for the beginning of nodes, as child of a visual scene.*/
 		virtual bool begin__visual_scene__node( const node__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of nodes, as child of a visual scene.*/

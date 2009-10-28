@@ -14,6 +14,8 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLInputUnshared.h"
 
+#include "COLLADAFWExtraData.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -24,7 +26,7 @@ namespace COLLADASaxFWL
      * position (identity) of the vertices comprising the mesh and other vertex attributes that 
      * are invariant to tessellation.
      */
-    class Vertices
+    class Vertices : public COLLADAFW::ExtraData
     {
 
     private:

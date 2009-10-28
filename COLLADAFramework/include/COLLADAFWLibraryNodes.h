@@ -13,13 +13,14 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWNode.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
 {
 
     /** Provides a library in which to place \<node\> elements. */
-	class LibraryNodes 	
+    class LibraryNodes : public ExtraData
 	{
 	private:
 		/** The nodes contained in the library.*/

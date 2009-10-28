@@ -112,6 +112,9 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~LibraryControllersLoader();
 
+        /** Returns the ExtraData object, that should be used to store the extra data. */
+        virtual COLLADAFW::ExtraData* getExtraData();
+
 		/** Write the indices of the v element into the framework.*/
 		bool writeVIndices ( const sint64* data, size_t length );
 

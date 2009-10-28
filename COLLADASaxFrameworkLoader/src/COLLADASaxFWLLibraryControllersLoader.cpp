@@ -33,6 +33,21 @@ namespace COLLADASaxFWL
 	};
 
 	//------------------------------
+	COLLADAFW::ExtraData* LibraryControllersLoader::getExtraData()
+	{
+		switch ( mCurrentControllerType )
+		{
+		case SKIN_CONTROLLER:
+			return mCurrentSkinControllerData; 
+		case MORPH_CONTROLLER:
+			return mCurrentMorphController; 
+		case UNKNOWN_CONTROLLER:
+			return 0;
+		}
+	}
+
+
+	//------------------------------
 	ControllerInputSemantics getControllerInputSemanticsBySemanticStr( const char * semanticString)
 	{
 		if ( strcmp(semanticString, "JOINT" ) == 0 )

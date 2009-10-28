@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWPointerArray.h"
+#include "COLLADAFWExtraData.h"
 
 #include "COLLADABUURI.h"
 
@@ -27,7 +28,7 @@ namespace COLLADAFW
     often hierarchical, where the parts of a large asset are divided into smaller pieces that are managed as
     distinct assets themselves.
     */
-	class FileInfo
+    class FileInfo : public ExtraData
     {
     public:
 

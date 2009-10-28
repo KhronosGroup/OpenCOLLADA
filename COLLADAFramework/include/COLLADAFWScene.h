@@ -14,6 +14,7 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
 #include "COLLADAFWInstanceVisualScene.h"
+#include "COLLADAFWExtraData.h"
 
 #include "COLLADABUURI.h"
 
@@ -27,7 +28,7 @@ namespace COLLADAFW
      *  <instance_visual_scene> 0 or 1
      *  <instance_kinematics_scene> 0 or 1
      */
-	class Scene
+    class Scene : public ExtraData
     {
 	private:
 

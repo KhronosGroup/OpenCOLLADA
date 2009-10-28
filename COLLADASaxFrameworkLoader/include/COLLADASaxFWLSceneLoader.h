@@ -41,6 +41,9 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~SceneLoader ();
 
+        /** Returns the ExtraData object, that should be used to store the extra data. */
+        virtual COLLADAFW::ExtraData* getExtraData() { return mCurrentScene; }
+
         /** Sax callback function for beginning reading the instance visual scene. */
         virtual bool begin__instance_visual_scene( const instance_visual_scene__AttributeData& attributeData );
 

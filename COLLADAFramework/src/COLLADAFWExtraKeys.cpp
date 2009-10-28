@@ -24,6 +24,9 @@ namespace COLLADAFW
 	const char* ExtraKeys::CAMERA = "camera";
 	const char* ExtraKeys::OPTICS = "optics";
 	
+    const char* ExtraKeys::GEOMETRY = "geometry";
+    const char* ExtraKeys::MESH = "mesh";
+
 
 	/************ kinematics ****************/
 	const char* ExtraKeys::INSTANCEJOINT = "instancejoint";

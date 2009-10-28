@@ -30,6 +30,10 @@ namespace COLLADAFW
 		static const char* CAMERA;
 		static const char* OPTICS;
 
+        static const char* GEOMETRY;
+        static const char* MESH;
+
+
 		/************ kinematics ****************/
 		static const char* INSTANCEJOINT;
 		static const char* KINEMATICS;

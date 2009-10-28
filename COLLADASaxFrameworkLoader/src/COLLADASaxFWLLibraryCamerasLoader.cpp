@@ -59,12 +59,6 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	COLLADAFW::ExtraData* LibraryCamerasLoader::getExtraData()
-	{
-		return mCurrentCamera;
-	}
-
-	//------------------------------
 	bool LibraryCamerasLoader::end__library_cameras()
 	{
 		getFileLoader()->moveUpInSidTree();
