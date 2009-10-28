@@ -64,6 +64,9 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~LibraryAnimationsLoader();
 
+        /** Returns the ExtraData object, that should be used to store the extra data. */
+        virtual COLLADAFW::ExtraData* getExtraData() { return mCurrentAnimationCurve; }
+
 		/** Searches for the animation info of animation created for the COLLADA sampler with id @a samplerId.
 		If it could not be found, an invalid Unique id is returned.*/
 		AnimationInfo* getAnimationInfoBySamplerId( const String& samplerId);

@@ -16,6 +16,7 @@
 // TODO
 #include "COLLADAFWConstants.h"
 #include "COLLADAFWArray.h"
+#include "COLLADAFWExtraData.h"
 
 #include "COLLADABUURI.h"
 
@@ -71,7 +72,7 @@ namespace COLLADASaxFWL
      * index values. These inputs are described in this section as unshared inputs but otherwise 
      * operate in the same manner as shared inputs.
      */
-    class InputUnshared
+    class InputUnshared : public COLLADAFW::ExtraData
     {
 
     private:

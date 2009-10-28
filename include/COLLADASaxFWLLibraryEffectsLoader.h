@@ -172,6 +172,8 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~LibraryEffectsLoader();
 
+        /** Returns the ExtraData object, that should be used to store the extra data. */
+        virtual COLLADAFW::ExtraData* getExtraData() { return mCurrentEffect; }
 
 		/** Creates a new current effect.*/
 		virtual bool begin__effect( const effect__AttributeData& attributeData );

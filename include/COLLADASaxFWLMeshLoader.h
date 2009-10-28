@@ -67,7 +67,7 @@ namespace COLLADASaxFWL
 		COLLADAFW::UniqueId mMeshUniqueId;
 
         /**
-         * The framework mesh element, to load the data.
+         * The framework mesh element, to load the data. 
          */
         COLLADAFW::Mesh* mMesh;
 
@@ -153,7 +153,16 @@ namespace COLLADASaxFWL
 		MeshLoader ( IFilePartLoader* callingFilePartLoader, const String& geometryId, const String& geometryName );
 
         /** Destructor. */
-        virtual ~MeshLoader () {}
+        virtual ~MeshLoader () { delete mMesh; }
+
+        /** Returns the ExtraData object, that should be used to store the extra data. */
+        virtual COLLADAFW::ExtraData* getExtraData() { return mMesh; }
+
+		/** Returns the second part of the key, either camera or optics. */
+		virtual const char* getSecondKey() { return COLLADAFW::ExtraKeys::MESH; }
+
+		/** Returns the mesh that has just been loaded.*/
+		COLLADAFW::Mesh* getMesh();
 
 		/** Sax callback function for the beginning of a source element.*/
 		virtual bool begin__source(const source__AttributeData& attributes);

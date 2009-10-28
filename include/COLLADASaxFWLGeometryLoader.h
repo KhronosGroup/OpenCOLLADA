@@ -14,7 +14,7 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLSource.h"
 #include "COLLADASaxFWLXmlTypes.h"
-
+#include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLFilePartLoader.h"
 
 
@@ -28,7 +28,7 @@ namespace COLLADASaxFWL
      • <spline> 
     More about, read the class Geometry documentation.
     */
-	class GeometryLoader : public FilePartLoader
+    class GeometryLoader : public FilePartLoader
     {
 	private:
 		/** The id of the geometry.*/
@@ -36,6 +36,9 @@ namespace COLLADASaxFWL
 
 		/** The name of the geometry.*/
 		String mGeometryName;
+
+		/** The mesh loader used to load the mesh inside the geometry.*/
+        MeshLoader* mMeshLoader;
 
 	public:
 
@@ -45,7 +48,13 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~GeometryLoader();
 
-		/** Sets the id of the geometry.*/
+        /** Returns the ExtraData object, that should be used to store the extra data. */
+        virtual COLLADAFW::ExtraData* getExtraData() { return mMeshLoader->getMesh(); }
+
+        /** Returns the second part of the key, either camera or optics. */
+        virtual const char* getSecondKey() { return COLLADAFW::ExtraKeys::GEOMETRY; }
+
+        /** Sets the id of the geometry.*/
 		void setGeometryId( const String& geometryId ) { mGeometryId = geometryId; }
 
 		/** Returns the geometry id.*/
@@ -57,10 +66,10 @@ namespace COLLADASaxFWL
 		/** Returns the geometry name.*/
 		const String& getGeometryName() const { return mGeometryName; }
 
-		/** Sax callback function for the beginning of a mesh.*/
+        /** Sax callback function for the beginning of a mesh.*/
 		bool begin__mesh();
 
-		/** Sax callback function for the ending of a geometry.*/
+        /** Sax callback function for the ending of a geometry.*/
 		bool end__geometry();
 
 	private:

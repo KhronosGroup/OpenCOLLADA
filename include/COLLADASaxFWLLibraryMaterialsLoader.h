@@ -40,6 +40,9 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~LibraryMaterialsLoader();
 
+        /** Returns the ExtraData object, that should be used to store the extra data. */
+        virtual COLLADAFW::ExtraData* getExtraData() { return mCurrentMaterial; }
+
 		/** Create new current material.*/
 		virtual bool begin__material( const material__AttributeData& attributeData );
 

@@ -760,12 +760,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__mesh() 
 	{
-		bool success = true;
-		if ( (getObjectFlags() & Loader::GEOMETRY_FLAG) != 0 )
-		{
-			success = writer()->writeGeometry(mMesh);
-		}
-		delete mMesh;
+		// The mesh will be written by the GeometyLoader. Therefore nothing to with the mesh here
 		finish();
 		return true;
 	}
