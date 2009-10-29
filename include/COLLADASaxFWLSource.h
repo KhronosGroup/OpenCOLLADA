@@ -104,11 +104,15 @@ namespace COLLADASaxFWL
 
         /** Constructor. */
         SourceBase (  )
-            :  mInitialIndex (0)
+            : mInitialIndex (0)
+            , mLoadedInputElements ( COLLADAFW::MeshPrimitiveArray::OWNER )
         {}
 
         /** Destructor. */
-        virtual ~SourceBase () {}
+        virtual ~SourceBase () 
+        {
+            mLoadedInputElements.clear();
+        }
 
 		/**
 		* The value type of the current values. 
