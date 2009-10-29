@@ -44,6 +44,7 @@ namespace COLLADASaxFWL
 		case UNKNOWN_CONTROLLER:
 			return 0;
 		}
+        return 0;
 	}
 
 
