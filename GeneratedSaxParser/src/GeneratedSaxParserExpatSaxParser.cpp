@@ -38,6 +38,24 @@ namespace GeneratedSaxParser
 	}
 
 	//--------------------------------------------------------------------
+	bool ExpatSaxParser::parseBuffer(const char* buffer, int length)
+	{
+		
+		mParser = XML_ParserCreate(0);
+
+		XML_SetUserData(mParser, this);
+		XML_SetElementHandler(mParser, startElement, endElement);
+		XML_SetCharacterDataHandler(mParser, characters);
+
+
+		XML_Status status = XML_STATUS_OK;
+		bool isFinal = true;
+		XML_Parse(mParser, buffer, (int)length, isFinal);
+
+		XML_ParserFree(mParser);
+
+		return status != XML_STATUS_ERROR;
+	}
 	bool ExpatSaxParser::parseFile( const char* fileName )
 	{
 
