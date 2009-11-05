@@ -31,7 +31,7 @@ namespace COLLADASW
 		static const String OUTTANGENT_SOURCE_ID_SUFFIX;
 		static const String INTERPOLATION_SOURCE_ID_SUFFIX;
         static const String NORMALS_SOURCE_ID_SUFFIX;
-		static const String TEXTURE_CHANNEL_SOURCE_ID_SUFFIX;
+		static const String TEXCOORDS_SOURCE_ID_SUFFIX;
 		static const String TEXTANGENT_SOURCE_ID_SUFFIX;
 		static const String TEXBINORMAL_SOURCE_ID_SUFFIX;
         static const String ARRAY_ID_SUFFIX;

@@ -22,7 +22,7 @@ namespace COLLADASW
 	const String LibraryGeometries::OUTTANGENT_SOURCE_ID_SUFFIX = "-outtangents";
 	const String LibraryGeometries::INTERPOLATION_SOURCE_ID_SUFFIX = "-interpolations";
     const String LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX = "-normals";
-	const String LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX = "-map-channel";
+	const String LibraryGeometries::TEXCOORDS_SOURCE_ID_SUFFIX = "-map-channel";
 	const String LibraryGeometries::TEXTANGENT_SOURCE_ID_SUFFIX = "-textangents";
 	const String LibraryGeometries::TEXBINORMAL_SOURCE_ID_SUFFIX = "-texbinormals";
     const String LibraryGeometries::ARRAY_ID_SUFFIX = "-array";
@@ -57,7 +57,7 @@ namespace COLLADASW
             break;
 
         case COLLADASW::TEXCOORD:
-            suffix = LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX;
+            suffix = LibraryGeometries::TEXCOORDS_SOURCE_ID_SUFFIX;
             break;
 
         case COLLADASW::TANGENT:
