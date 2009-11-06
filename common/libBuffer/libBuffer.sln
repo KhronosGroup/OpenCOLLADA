@@ -1,0 +1,99 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libBuffer", "scripts\libBuffer.vcproj", "{F36A0F1F-D046-4DD9-B231-F3A478443A68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB} = {12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libftoa", "..\libftoa\scripts\libftoa.vcproj", "{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug lib|Win32 = Debug lib|Win32
+		Debug lib|x64 = Debug lib|x64
+		Debug performance test|Win32 = Debug performance test|Win32
+		Debug performance test|x64 = Debug performance test|x64
+		Debug unit test|Win32 = Debug unit test|Win32
+		Debug unit test|x64 = Debug unit test|x64
+		Debug_lib_no_wchar_t|Win32 = Debug_lib_no_wchar_t|Win32
+		Debug_lib_no_wchar_t|x64 = Debug_lib_no_wchar_t|x64
+		Release lib|Win32 = Release lib|Win32
+		Release lib|x64 = Release lib|x64
+		Release performance test|Win32 = Release performance test|Win32
+		Release performance test|x64 = Release performance test|x64
+		Release unit test|Win32 = Release unit test|Win32
+		Release unit test|x64 = Release unit test|x64
+		Release_lib_no_wchar_t|Win32 = Release_lib_no_wchar_t|Win32
+		Release_lib_no_wchar_t|x64 = Release_lib_no_wchar_t|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug lib|Win32.ActiveCfg = Debug lib|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug lib|Win32.Build.0 = Debug lib|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug lib|x64.ActiveCfg = Debug lib|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug lib|x64.Build.0 = Debug lib|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug performance test|Win32.ActiveCfg = Debug performance test|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug performance test|Win32.Build.0 = Debug performance test|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug performance test|x64.ActiveCfg = Debug performance test|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug performance test|x64.Build.0 = Debug performance test|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug unit test|Win32.ActiveCfg = Debug unit test|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug unit test|Win32.Build.0 = Debug unit test|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug unit test|x64.ActiveCfg = Debug unit test|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug unit test|x64.Build.0 = Debug unit test|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug_lib_no_wchar_t|Win32.ActiveCfg = Debug_lib_no_wchar_t|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug_lib_no_wchar_t|Win32.Build.0 = Debug_lib_no_wchar_t|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug_lib_no_wchar_t|x64.ActiveCfg = Debug_lib_no_wchar_t|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Debug_lib_no_wchar_t|x64.Build.0 = Debug_lib_no_wchar_t|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release lib|Win32.ActiveCfg = Release lib|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release lib|Win32.Build.0 = Release lib|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release lib|x64.ActiveCfg = Release lib|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release lib|x64.Build.0 = Release lib|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release performance test|Win32.ActiveCfg = Release performance test|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release performance test|Win32.Build.0 = Release performance test|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release performance test|x64.ActiveCfg = Release performance test|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release performance test|x64.Build.0 = Release performance test|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release unit test|Win32.ActiveCfg = Release unit test|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release unit test|Win32.Build.0 = Release unit test|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release unit test|x64.ActiveCfg = Release unit test|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release unit test|x64.Build.0 = Release unit test|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release_lib_no_wchar_t|Win32.ActiveCfg = Release_lib_no_wchar_t|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release_lib_no_wchar_t|Win32.Build.0 = Release_lib_no_wchar_t|Win32
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release_lib_no_wchar_t|x64.ActiveCfg = Release_lib_no_wchar_t|x64
+		{F36A0F1F-D046-4DD9-B231-F3A478443A68}.Release_lib_no_wchar_t|x64.Build.0 = Release_lib_no_wchar_t|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug lib|Win32.ActiveCfg = Debug lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug lib|Win32.Build.0 = Debug lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug lib|x64.ActiveCfg = Debug lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug lib|x64.Build.0 = Debug lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug performance test|Win32.ActiveCfg = Debug lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug performance test|Win32.Build.0 = Debug lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug performance test|x64.ActiveCfg = Debug lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug performance test|x64.Build.0 = Debug lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug unit test|Win32.ActiveCfg = Debug lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug unit test|Win32.Build.0 = Debug lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug unit test|x64.ActiveCfg = Debug lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug unit test|x64.Build.0 = Debug lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug_lib_no_wchar_t|Win32.ActiveCfg = Debug_lib_no_wchar_t|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug_lib_no_wchar_t|Win32.Build.0 = Debug_lib_no_wchar_t|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug_lib_no_wchar_t|x64.ActiveCfg = Debug_lib_no_wchar_t|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Debug_lib_no_wchar_t|x64.Build.0 = Debug_lib_no_wchar_t|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release lib|Win32.ActiveCfg = Release lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release lib|Win32.Build.0 = Release lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release lib|x64.ActiveCfg = Release lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release lib|x64.Build.0 = Release lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release performance test|Win32.ActiveCfg = Release lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release performance test|Win32.Build.0 = Release lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release performance test|x64.ActiveCfg = Release lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release performance test|x64.Build.0 = Release lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release unit test|Win32.ActiveCfg = Release lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release unit test|Win32.Build.0 = Release lib|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release unit test|x64.ActiveCfg = Release lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release unit test|x64.Build.0 = Release lib|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release_lib_no_wchar_t|Win32.ActiveCfg = Release_lib_no_wchar_t|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release_lib_no_wchar_t|Win32.Build.0 = Release_lib_no_wchar_t|Win32
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release_lib_no_wchar_t|x64.ActiveCfg = Release_lib_no_wchar_t|x64
+		{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}.Release_lib_no_wchar_t|x64.Build.0 = Release_lib_no_wchar_t|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
