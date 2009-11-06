@@ -45,6 +45,13 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	Control* AnimationCreator::createMaxTransformationController( COLLADAFW::AnimationCurve* animationCurve )
+	{
+		Class_ID controllerClassID(PRS_CONTROL_CLASS_ID, 0);
+		return createMaxController( CTRL_MATRIX3_CLASS_ID, controllerClassID );
+	}
+
+	//------------------------------
 	Control* AnimationCreator::createMaxConstantFloatController( float constantValue )
 	{
 		Class_ID controllerClassID(LININTERP_FLOAT_CLASS_ID, 0);
@@ -116,8 +123,8 @@ namespace COLLADAMax
 					IBezFloatKey key;
 					clonedKeyController->GetKey(i, &key);
 					key.val = (*conversionFunctor)(key.val);
-					key.inLength = (*conversionFunctor)(key.inLength);
-					key.outLength = (*conversionFunctor)(key.outLength);
+					key.intan = (*conversionFunctor)(key.intan);
+					key.outtan = (*conversionFunctor)(key.outtan);
 					clonedKeyController->SetKey(i, &key);
 				}
 			}

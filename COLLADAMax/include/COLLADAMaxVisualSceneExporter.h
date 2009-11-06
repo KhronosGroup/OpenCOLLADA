@@ -119,6 +119,13 @@ namespace COLLADAMax
 
 		void calculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm);
 
+		/** Determines the world transformation of  @a node at the animation start time.*/
+		Matrix3 getWorldTransform(INode* node);
+
+		/** If @a node references a skinned object...
+		@returns True, if the nodes transformation should be exported, false otherwise*/
+		bool applyFirstInstanceTransform( Matrix3& transformationMatrix, INode* node );
+
     };
 
 }

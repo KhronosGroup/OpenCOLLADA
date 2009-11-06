@@ -125,7 +125,13 @@ namespace COLLADAMax
 				{
 					Class_ID controllerClassId = control->ClassID();
 
-					if ( controllerClassId == BIPSLAVE_CONTROL_CLASS_ID || controllerClassId == BIPBODY_CONTROL_CLASS_ID || controllerClassId == FOOTPRINT_CLASS_ID || controllerClassId == BIPED_CLASS_ID )
+					if (   controllerClassId == BIPSLAVE_CONTROL_CLASS_ID 
+						|| controllerClassId == BIPBODY_CONTROL_CLASS_ID 
+						|| controllerClassId == FOOTPRINT_CLASS_ID 
+#ifdef MAX_2008_OR_NEWER
+						|| controllerClassId == BIPED_CLASS_ID 
+#endif 
+						)
 						return ExportNode::BONE;
 				}
 				return ExportNode::MESH;
@@ -135,13 +141,13 @@ namespace COLLADAMax
 
 		case LIGHT_CLASS_ID: 
 			return LIGHT;
-#if 1
 			//for surfaces
 		case SHAPE_CLASS_ID:
 			// Modifiers can act on a spline to produce a mesh
-			return MESH;
 			if (animatable != base)
 			{
+				// We use a mesh here
+				return MESH;
 				// BUG368: For some reason the CanConvertToType function stopped working.
 				// This is the best option anyway, evaluate the object actually created by
 				// the modifier stack.
@@ -150,13 +156,14 @@ namespace COLLADAMax
 			}
 			if (classId == EDITABLE_SURF_CLASS_ID || classId == EDITABLE_CVCURVE_CLASS_ID || classId == EDITABLE_FPCURVE_CLASS_ID)
 			{
-				return NURBS_CURVE;
+				return MESH;
+				// We do not support NURBS here and use mesh instead
+				//return NURBS_CURVE;
 			}
 			else
 			{
 				return SPLINE;
 			}
-#endif
 		case HELPER_CLASS_ID: 
 			return (classId.PartA() == BONE_CLASS_ID) ? BONE : HELPER;
 		

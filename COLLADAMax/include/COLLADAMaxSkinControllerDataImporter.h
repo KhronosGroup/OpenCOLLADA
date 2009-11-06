@@ -41,9 +41,6 @@ namespace COLLADAMax
 		/** The controller data to import.*/
 		const COLLADAFW::SkinControllerData* mSkinControllerData;
 
-		/** The max skin modifier.*/
-		Modifier* mSkinModifier;
-
 		/** The derived object. References the base object and has a skin controller assigned.*/
 		IDerivedObject* mDerivedObject;
 	

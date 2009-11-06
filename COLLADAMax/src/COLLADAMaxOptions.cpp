@@ -41,6 +41,8 @@ namespace COLLADAMax
 	const String Options::OPTION_CHECKIFANIMATIONISANIMATED_NAME =  "checkIfAnimationIsAnimated";
 	const String Options::OPTION_ANIMATIONSTART_NAME =  "animStart";
 	const String Options::OPTION_ANIMATIONEND_NAME =  "animEnd";
+	const String Options::OPTION_COPY_IMAGES_NAME =  "copyImages";
+	const String Options::OPTION_EXPORT_USERDEFINED_PROPERTIES_NAME =  "exportUserdefinedProperties";
 
 
 
@@ -77,8 +79,8 @@ namespace COLLADAMax
 	}
 
 
-	const String Options::CONFIGURATION_FILE_NAME = "NewCOLLADAMax.ini";
-	const String Options::CONFIGURATION_HEADER_NAME = "NewCOLLADAMax";
+	const String Options::CONFIGURATION_FILE_NAME = "OpenCOLLADA.ini";
+	const String Options::CONFIGURATION_HEADER_NAME = "OpenCOLLADA";
 
 	Options::Options(Interface* maxInterface)
 		:
@@ -102,7 +104,8 @@ namespace COLLADAMax
 
 		mAnimationStart(TIME_INITIAL_POSE),
 		mAnimationEnd(TIME_PosInfinity),
-		mXRefOutputDir("C:\\Temp\\xref\\")
+		mXRefOutputDir("C:\\Temp\\xref\\"),
+		mExportUserDefinedProperties(false)
 	{
 
 		// Load the export options from the configuration file
@@ -113,6 +116,7 @@ namespace COLLADAMax
 	bool Options::ShowDialog()
 	{
 
+		LoadOptions();
 		// Prompt the user with our dialogbox, and get all the options.
 		bool doExport = DialogBoxParam(hInstance, MAKEINTRESOURCE(IDD_EXPORT_OPTIONS), mMaxInterface->GetMAXHWnd(), ExportOptionsDlgProcS, (LPARAM)this) != FALSE;
 		
@@ -163,6 +167,8 @@ namespace COLLADAMax
 			CheckDlgButton(hWnd, IDC_ANIM_CLIP, mCreateClip);
 			CheckDlgButton(hWnd, IDC_BAKE_MATRICES, mBakeMatrices);
 			CheckDlgButton(hWnd, IDC_RELATIVE_PATHS, mRelativePaths);
+			CheckDlgButton(hWnd, IDC_COPY_IMAGES, mCopyImages);
+			CheckDlgButton(hWnd, IDC_EXPORT_USER_PROPERTIES, mExportUserDefinedProperties);
 
 			// Animation checkboxes depend on the enable button.
 			EnableDlgControl(hWnd, IDC_ANIM_SAMPLE, mAnimations);
@@ -235,6 +241,8 @@ namespace COLLADAMax
 			mTriangulate = IsDlgButtonChecked(hWnd, IDC_GEOM_TRIANGLES) == BST_CHECKED;
 			mIncludeXrefs = IsDlgButtonChecked(hWnd, IDC_GEOM_XREFS) == BST_CHECKED;
 			mTangents = IsDlgButtonChecked(hWnd, IDC_GEOM_TANGENTS) == BST_CHECKED;
+			mCopyImages = IsDlgButtonChecked(hWnd, IDC_COPY_IMAGES) == BST_CHECKED;
+			mExportUserDefinedProperties = IsDlgButtonChecked(hWnd, IDC_EXPORT_USER_PROPERTIES) == BST_CHECKED;
 
 			spin = GetISpinner(GetDlgItem(hWnd, IDC_ANIM_START_SPIN)); 
 			mAnimationStart = mSampleAnimation ? spin->GetIVal() : sceneStart;
@@ -309,6 +317,8 @@ namespace COLLADAMax
 		writeOption(file, OPTION_CHECKIFANIMATIONISANIMATED_NAME, mCheckIfAnimationIsAnimated );
 		writeOption(file, OPTION_ANIMATIONSTART_NAME, mAnimationStart );
 		writeOption(file, OPTION_ANIMATIONEND_NAME, mAnimationEnd );
+		writeOption(file, OPTION_COPY_IMAGES_NAME, mCopyImages );
+		writeOption(file, OPTION_EXPORT_USERDEFINED_PROPERTIES_NAME, mExportUserDefinedProperties );
 
 		fclose(file);
 	}
@@ -335,8 +345,9 @@ namespace COLLADAMax
 		fclose(file);
 		wholeFile[fileLength] = 0;
 
+		char *context;
 		// Read in the options, one by one, in the form: 'option=X\n'
-		char* token = strtok_s(wholeFile, "\n",0);
+		char* token = strtok_s(wholeFile, "\n", &context);
 		while (token )
 		{
 			// Skip whitespaces
@@ -357,7 +368,7 @@ namespace COLLADAMax
 						readOption<bool>(token, OPTION_NORMALS_NAME, value, mNormals) ||
 						readOption<bool>(token, OPTION_TRIANGULAT_NAME, value, mTriangulate) ||
 						readOption<bool>(token, OPTION_XREFS_NAME, value, mIncludeXrefs) ||
-						readOption<bool>(token, OPTION_TRIANGULAT_NAME, value, mTangents) ||
+						readOption<bool>(token, OPTION_TANGENTS_NAME, value, mTangents) ||
 						readOption<bool>(token, OPTION_SAMPLEANIMATIONS_NAME, value, mSampleAnimation) ||
 						readOption<bool>(token, OPTION_ANIMATIONS_NAME, value, mAnimations) ||
 						readOption<bool>(token, OPTION_CREATECLIP_NAME, value, mCreateClip) ||
@@ -365,7 +376,9 @@ namespace COLLADAMax
 						readOption<bool>(token, OPTION_RELATIVEPATHS_NAME, value, mRelativePaths) ||
 						readOption<bool>(token, OPTION_CHECKIFANIMATIONISANIMATED_NAME, value, mCheckIfAnimationIsAnimated) ||
 						readOption<int>(token, OPTION_ANIMATIONSTART_NAME, value, mAnimationStart) ||
-						readOption<int>(token, OPTION_ANIMATIONEND_NAME, value, mAnimationEnd);
+						readOption<int>(token, OPTION_ANIMATIONEND_NAME, value, mAnimationEnd)||
+						readOption<bool>(token, OPTION_COPY_IMAGES_NAME, value, mCopyImages)||
+						readOption<bool>(token, OPTION_EXPORT_USERDEFINED_PROPERTIES_NAME, value, mExportUserDefinedProperties);
 
 						{
 							// Handle unknown option here.
@@ -374,7 +387,7 @@ namespace COLLADAMax
 				}
 			}
 
-			token = strtok_s(0, "\n", 0);
+			token = strtok_s(0, "\n", &context);
 		}
 		delete[] wholeFile;
 	}

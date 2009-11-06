@@ -26,31 +26,34 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // Dialog
 //
 
-IDD_EXPORT_OPTIONS DIALOGEX 0, 0, 271, 143
+IDD_EXPORT_OPTIONS DIALOGEX 0, 0, 271, 153
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "COLLADAMax NextGen Export"
+CAPTION "OpenCOLLADA Export"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "Normals",IDC_GEOM_NORMALS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,49,43,10
-    RTEXT           "Start:",IDC_START_LABEL,111,106,23,8
-    RTEXT           "End:",IDC_END_LABEL,194,106,18,8
-    DEFPUSHBUTTON   "OK",IDOK,172,124,44,15
-    PUSHBUTTON      "Cancel",IDCANCEL,222,124,44,15
-    GROUPBOX        "Geometry",IDC_STATIC,7,37,259,41
-    CONTROL         "",IDC_ANIM_START,"CustEdit",WS_TABSTOP,139,105,37,10
-    CONTROL         "",IDC_ANIM_START_SPIN,"SpinnerControl",0x0,177,105,7,10
-    CONTROL         "",IDC_ANIM_END,"CustEdit",WS_TABSTOP,215,105,37,10
-    CONTROL         "",IDC_ANIM_END_SPIN,"SpinnerControl",0x0,253,105,7,10
-    GROUPBOX        "Animation",IDC_STATIC,7,80,259,40
-    CONTROL         "Triangulate",IDC_GEOM_TRIANGLES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,49,69,10
-    CONTROL         "Sample animation",IDC_ANIM_SAMPLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,105,71,10
-    CONTROL         "Create clip",IDC_ANIM_CLIP,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,84,92,49,10
-    GROUPBOX        "Standard Options",IDC_STATIC,7,6,259,28
-    CONTROL         "Bake Matrices",IDC_BAKE_MATRICES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,19,61,10
-    CONTROL         "Relative Paths",IDC_RELATIVE_PATHS,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_DISABLED | WS_TABSTOP,84,19,62,10
-    CONTROL         "Tangents/Binormals",IDC_GEOM_TANGENTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,61,79,10
-    CONTROL         "Include XRefs",IDC_GEOM_XREFS,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_DISABLED | WS_TABSTOP,163,49,69,10
-    CONTROL         "Enable export",IDC_ANIM_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,92,59,10
+    CONTROL         "Normals",IDC_GEOM_NORMALS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,58,43,10
+    RTEXT           "Start:",IDC_START_LABEL,111,115,23,8
+    RTEXT           "End:",IDC_END_LABEL,195,115,18,8
+    DEFPUSHBUTTON   "OK",IDOK,172,134,44,15
+    PUSHBUTTON      "Cancel",IDCANCEL,222,134,44,15
+    GROUPBOX        "Geometry",IDC_STATIC,7,46,259,41
+    CONTROL         "",IDC_ANIM_START,"CustEdit",WS_TABSTOP,139,112,37,10
+    CONTROL         "",IDC_ANIM_START_SPIN,"SpinnerControl",0x0,177,112,7,10
+    CONTROL         "",IDC_ANIM_END,"CustEdit",WS_TABSTOP,215,112,37,10
+    CONTROL         "",IDC_ANIM_END_SPIN,"SpinnerControl",0x0,253,112,7,10
+    GROUPBOX        "Animation",IDC_STATIC,7,89,259,40
+    CONTROL         "Triangulate",IDC_GEOM_TRIANGLES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,85,58,69,10
+    CONTROL         "Sample animation",IDC_ANIM_SAMPLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,112,71,10
+    CONTROL         "Create clip",IDC_ANIM_CLIP,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,85,101,49,10
+    GROUPBOX        "Standard Options",IDC_STATIC,7,5,259,38
+    CONTROL         "Bake Matrices",IDC_BAKE_MATRICES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,18,61,10
+    CONTROL         "Relative Paths",IDC_RELATIVE_PATHS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,18,62,10
+    CONTROL         "Tangents/Binormals",IDC_GEOM_TANGENTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,70,79,10
+    CONTROL         "Include XRefs",IDC_GEOM_XREFS,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_DISABLED | WS_TABSTOP,163,58,69,10
+    CONTROL         "Enable export",IDC_ANIM_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,101,59,10
+    CONTROL         "Copy Images",IDC_COPY_IMAGES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,152,18,57,10
+    CONTROL         "Export user defined properties",IDC_EXPORT_USER_PROPERTIES,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,30,109,10
 END
 
 IDD_XREF_REUSE DIALOGEX 0, 0, 485, 84
@@ -168,8 +171,14 @@ GUIDELINES DESIGNINFO
 BEGIN
     IDD_EXPORT_OPTIONS, DIALOG
     BEGIN
+        VERTGUIDE, 16
         VERTGUIDE, 84
-        BOTTOMMARGIN, 139
+        BOTTOMMARGIN, 149
+        HORZGUIDE, 18
+        HORZGUIDE, 30
+        HORZGUIDE, 91
+        HORZGUIDE, 103
+        HORZGUIDE, 145
     END
 
     IDD_XREF_REUSE, DIALOG
@@ -266,12 +275,12 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "CompanyName", "NetAllied Systems GmbH"
-            VALUE "FileDescription", "COLLADASW NextGen Export"
+            VALUE "FileDescription", "OpenCOLLADA Max"
             VALUE "FileVersion", "0, 0, 0, 0"
-            VALUE "InternalName", "COLLADAMax"
+            VALUE "InternalName", "OpenCOLLADA Max"
             VALUE "LegalCopyright", "© 2008 NetAllied Systems GmbH. © 2006 Feeling Software. All rights reserved."
             VALUE "OriginalFilename", "COLLADAMax.dle"
-            VALUE "ProductName", "COLLADAMax NextGen"
+            VALUE "ProductName", "OpenCOLLADA Max"
             VALUE "ProductVersion", "0, 0, 0, 0"
         END
     END

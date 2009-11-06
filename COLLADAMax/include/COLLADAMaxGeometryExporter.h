@@ -107,37 +107,37 @@ namespace COLLADAMax
         @param geometriesExporter The geometries exporter
         @param documentExporter The document exporter this exporter belongs to
         */
-        GeometryExporter ( ExportNode * exportNode, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter );
+        GeometryExporter( ExportNode * exportNode, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter );
 
 		/** Constructor
 		@param helperGeometry The helper geometry that should be exported
 		@param geometriesExporter The geometries exporter
 		@param documentExporter The document exporter this exporter belongs to
 		*/
-		GeometryExporter ( const MorphControllerHelperGeometry * helperGeometry, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter );
+		GeometryExporter( const MorphControllerHelperGeometry * helperGeometry, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter );
 
 
         /** Exports the geometry.*/
         void doExport();
 
         /** Returns the suffix of a texture that corresponds to channel @a channel.*/
-        static String getTextureSourceIdSuffix ( int channel );
+        static String getTextureSourceIdSuffix( int channel );
 
 		/** Returns the suffix of a Textangent that corresponds to channel @a channel.*/
-		String getTextangentSourceIdSuffix ( int channel );
+		String getTextangentSourceIdSuffix( int channel );
 
 		/** Returns the suffix of a Texbinormal that corresponds to channel @a channel.*/
-		String getTexbinormalSourceIdSuffix ( int channel );
+		String getTexbinormalSourceIdSuffix( int channel );
 
     private:
-        GeometryExporter ( const GeometryExporter & geometryExporter );
-        GeometryExporter & operator= ( const GeometryExporter & geometryExporter );
+        GeometryExporter( const GeometryExporter & geometryExporter );
+        GeometryExporter & operator=( const GeometryExporter & geometryExporter );
 
         /** Retrieves the base object and its super class id.*/
-        void GeometryExporter::getBaseObjectAndID ( Object*& object, SClass_ID& sid );
+        void GeometryExporter::getBaseObjectAndID( Object*& object, SClass_ID& sid );
 
         /** Classifies the object, i.e. check if it is a triObject or a polyObject.*/
-        void GeometryExporter::classifyObject ( Object* object /*, bool affectsControllers*/ );
+        void GeometryExporter::classifyObject( Object* object /*, bool affectsControllers*/ );
 
         /** Returns true if the current geometry is an editable polygon, false if it is a triangle mesh.*/
         bool isEditablePoly()
@@ -145,8 +145,14 @@ namespace COLLADAMax
             return mTriObject == 0;
         }
 
-        /** Exports all the geometries in @a node and all its child nodes.*/
-        void doExport ( const ExportNode* exportNode );
+		/** Exports all the geometries in @a node and all its child nodes.*/
+		void doExport( const ExportNode* exportNode );
+
+		/** Exports the mesh if the geometry is a mesh.*/
+		void doExportMesh();
+
+		/** Exports the spline if the geometry is a spline.*/
+		void doExportSpline();
 
 		/** Sets the material symbols used geometry, represented by @a exportNode as used, if they
 		are really used.*/
@@ -168,26 +174,28 @@ namespace COLLADAMax
         void exportEditablePolyNormals();
 
         /** Exports the textures of @a mesh.*/
-        void exportTextures ( const ChannelList & channelList, Mtl* material );
+        void exportTextures( const ChannelList & channelList, Mtl* material );
 
 		/** Exports TEXTANGENTS and TEXBINORMALS  of a triangle mesh.*/
 		void exportTriangleMeshTextangentsAndTexbinormals(const ChannelList & channelList);
 
         /** Exports the texture channel of @a mesh.*/
-        void exportTextureChannel ( int channelIndex, Mtl* material );
+        void exportTextureChannel( int channelIndex, Mtl* material );
 
         /** Exports the vertices element.*/
-        void exportVertices ( const String & meshId );
+        void exportVertices( const String & meshId );
 
         /** Exports the mesh as triangles.*/
-        void exportTriangles ( const String & symbol, unsigned long numberOfFaces, int matId, size_t numMaterials, const ChannelList & channelList );
+        void exportTriangles( const String & symbol, unsigned long numberOfFaces, int matId, size_t numMaterials, const ChannelList & channelList );
 
         /** Exports the mesh as a polylist.*/
-        void exportPolylist ( const String & symbol, COLLADASW::Polylist & polylist, int matId, size_t numMaterials, const ChannelList & channelList );
+        void exportPolylist( const String & symbol, COLLADASW::Polylist & polylist, int matId, size_t numMaterials, const ChannelList & channelList );
 
         /** Create list of materials used by this geometry.*/
-        void flattenMaterials ( Mtl* material, MaterialList& mtlMap, int materialIndex = -1 );
+        void flattenMaterials( Mtl* material, MaterialList& mtlMap, int materialIndex = -1 );
 
+		/** Returns true if the object is a NURBS, false otherwise.*/
+		bool isNURBS(Object* object);
     };
 
 }

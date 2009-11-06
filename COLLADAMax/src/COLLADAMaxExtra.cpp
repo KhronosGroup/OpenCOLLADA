@@ -27,7 +27,11 @@ namespace COLLADAMax
 {
 
 
-    const String Extra::TECHNIQUE_PROFILE_3DSMAX = "3dsMAX";
+	const String Extra::TECHNIQUE_PROFILE_3DSMAX = "OpenCOLLADA3dsMax";
+
+	const String Extra::TECHNIQUE_PROFILE_OPENCOLLADA = "OpenCOLLADA";
+
+	const String Extra::USERDEFINED_PROPERTIES = "user_properties";
 
 
     //---------------------------------------------------------------

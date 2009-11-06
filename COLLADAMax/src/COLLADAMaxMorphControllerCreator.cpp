@@ -20,6 +20,7 @@
 
 #include "COLLADAFWMorphController.h"
 #include "COLLADAFWMesh.h"
+#include "COLLADAFWAnimationList.h"
 
 #include "MorphR3.h"
 
@@ -28,7 +29,7 @@ namespace COLLADAMax
 
     //------------------------------
 	MorphControllerCreator::MorphControllerCreator( DocumentImporter* documentImporter )
-		: ImporterBase(documentImporter)
+		: AnimationCreator(documentImporter)
 	{}
 
     //------------------------------
@@ -119,7 +120,8 @@ namespace COLLADAMax
 		size_t colladaTargetCount = morphTargets.getCount();
 		int channelCount = (int) min(colladaTargetCount, mMorphModifier->chanBank.size());
 
-		bool weigtsAreAnimated = false;
+		const COLLADAFW::UniqueId& morphWeightsAnimationListId = morphWeights.getAnimationList();
+		const COLLADAFW::AnimationList* morphWeightsAnimationList = getAnimationListByUniqueId( morphWeightsAnimationListId );
 
 		for (int i = 0; i < channelCount; ++i)
 		{
@@ -152,11 +154,7 @@ namespace COLLADAMax
 				initializeChannelGeometry(channel, targetObject);
 			}
 
-			if ( weigtsAreAnimated )
-			{
-
-			}
-			else
+			if ( !morphWeightsAnimationList )
 			{
 				float weight = 0;
 				if ( morphWeights.getType() == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT )
@@ -170,6 +168,47 @@ namespace COLLADAMax
 				channel->cblock->SetValue(0, 0, weight * 100);
 			}
 		}
+
+
+		if ( morphWeightsAnimationList )
+		{
+			const COLLADAFW::AnimationList::AnimationBindings& animationBindings = morphWeightsAnimationList->getAnimationBindings();
+			for ( size_t i = 0, count = animationBindings.getCount(); i < count; ++i)
+			{
+				const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[i];
+				if ( animationBinding.animationClass != COLLADAFW::AnimationList::ARRAY_ELEMENT_1D)
+				{
+					// this animation does not animate one element of a one dimensional array
+					continue;
+				}
+				const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
+				assert(maxControllerList.size()==1);
+				if ( maxControllerList.size() < 1 )
+				{
+					// this animation does not animate one element of a one dimensional array
+					continue;
+				}
+				Control* weightController = maxControllerList[0];
+
+				size_t channelNumber = animationBinding.firstIndex;
+				if ( (int)channelNumber >= channelCount )
+				{
+					// invalid channel
+					continue;
+				}
+				morphChannel* channel = &mMorphModifier->chanBank[channelNumber];
+
+				if ( !channel )
+				{
+					continue;
+				}
+				Control* scaledWeightController = cloneController( weightController, &ConversionFunctors::toPercent);
+				//Control* scaledWeightController = cloneController( weightController);
+				//channel->cblock->SetController(0, weightController);
+				channel->cblock->SetController(0, scaledWeightController);
+			}
+		}
+
 
 		//assign the morph controller to all INodes referencing it
 		INodeList referencingINodes;
@@ -222,9 +261,9 @@ namespace COLLADAMax
 
 		// Set the channel's name and the necessary flags
 		channel->mName = getObjectNameByObject(geometryObject).c_str();
-		channel->mInvalid = true;
-		channel->mActive = false;
-		channel->mModded = false;
+		channel->mInvalid = false;
+		channel->mActive = true;
+		channel->mModded = true;
 
 
 		// Allocate the channel's buffers and fill them with the relative vertex positions

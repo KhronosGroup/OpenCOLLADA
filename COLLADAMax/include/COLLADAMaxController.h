@@ -109,6 +109,9 @@ namespace COLLADAMax
 		/** Returns true, if the modifier is as skin controller.*/
 		static bool isSkinController(Modifier * modifier);
 
+		/** Returns true, if @a obj is a derived object and the first modifier is as skin controller.*/
+		static bool isSkinned(Object* object);
+
 		/** Returns the skin controller.*/
 		ISkinInterface* getSkinInterface( INode *node );
 

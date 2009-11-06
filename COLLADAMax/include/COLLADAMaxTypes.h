@@ -36,8 +36,20 @@ namespace COLLADAMax
 
 	typedef std::vector<String> StringList;
 
+	struct EffectIdAndName
+	{
+		EffectIdAndName( const String& _effectId, const String& _effectName ) 
+			: effectId(_effectId)
+			, effectName(_effectName)
+		{}
+
+		String effectId;
+		String effectName;
+	};
+
+
     /** A list of ids of effects that are exported*/
-    typedef StringList ExportedEffectIdList;
+    typedef std::vector<EffectIdAndName> ExportedEffectIdAndNameList;
 
     /** A list of wire frame colors that are exported*/
     typedef std::vector<DWORD> WireFrameColorEffectList;

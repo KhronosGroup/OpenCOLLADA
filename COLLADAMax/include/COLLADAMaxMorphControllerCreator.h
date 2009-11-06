@@ -19,7 +19,7 @@
 #define __COLLADAMAX_MORPHCONTROLLERCREATOR_H__
 
 #include "COLLADAMaxPrerequisites.h"
-#include "COLLADAMaxImporterBase.h"
+#include "COLLADAMaxAnimationCreator.h"
 
 class MorphR3;
 
@@ -27,7 +27,7 @@ namespace COLLADAMax
 {
 
     /** Creates all the morph controllers that have been imported by the ControllerImporter */
-	class MorphControllerCreator : public ImporterBase 
+	class MorphControllerCreator : public AnimationCreator 
 	{
 	private:
 		/** The derived object. References the base object and has a morp controller assigned.*/

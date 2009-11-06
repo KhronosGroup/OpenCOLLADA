@@ -30,7 +30,7 @@
 
 #else
 
-#error "This header ahs not been tested with max version prior to Max 8"
+//#error "This header has not been tested with max version prior to Max 8"
 
 #include <ixref.h>
 

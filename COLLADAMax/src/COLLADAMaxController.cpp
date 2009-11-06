@@ -120,6 +120,27 @@ namespace COLLADAMax
 	}
 
 	//---------------------------------------------------------------
+	bool SkinController::isSkinned( Object* object )
+	{
+		if ( !object )
+			return false;
+
+		IDerivedObject* derivedObject;
+		Object *currentObject = object;
+
+		SClass_ID superClassId = object->SuperClassID();
+		if ( superClassId == GEN_DERIVOB_CLASS_ID || superClassId == DERIVOB_CLASS_ID || superClassId == WSM_DERIVOB_CLASS_ID)
+		{
+			derivedObject = (IDerivedObject*)object;
+			if ( derivedObject->NumModifiers() < 1 )
+				return false;
+			Modifier* modifier = derivedObject->GetModifier(0);
+			return  SkinController::isSkinController(modifier);
+		}
+		return false;
+
+	}
+	//---------------------------------------------------------------
 	bool MorphController::isMorphController( Modifier * modifier )
 	{
 		return ( modifier->ClassID() == MORPHER_CLASS_ID ) != 0;

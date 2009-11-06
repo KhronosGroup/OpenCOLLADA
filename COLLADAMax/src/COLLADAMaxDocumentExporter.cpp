@@ -42,7 +42,7 @@ namespace COLLADAMax
 
     const String DocumentExporter::SCENE_ID = "MaxScene";
 
-	const String DocumentExporter::AUTHORING_TOOL = String("COLLADAMax NextGen") + 
+	const String DocumentExporter::AUTHORING_TOOL = String("OpenCOLLADA for 3ds Max") + 
 		(COLLADAPlugin::PLUGIN_VERSION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::PLUGIN_VERSION_STRING) +
 		(COLLADAPlugin::REVISION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::REVISION_STRING) +
 		String(";  ") + COLLADAPlugin::PLATFORM_STRING + 
@@ -50,11 +50,12 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-	DocumentExporter::DocumentExporter ( Interface * i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames  )
+	DocumentExporter::DocumentExporter ( Interface * i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames, bool exportOnlySelected  )
             : 
 			mOptions(i),
+			mExportOnlySelected(exportOnlySelected ),
 			mMaxInterface ( i ),
-            mStreamWriter ( filepath ),
+			mStreamWriter ( filepath, false ),
 			mOutputFileUri ( COLLADASW::URI::nativePathToUri(filepath) ),
 			mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode(), COLLADASW::URI::nativePathToUri(NativeString(i->GetCurFilePath().data()).toUtf8String()), xRefExportFileNames ) ),
 			mDeleteExportSceneGraph(true)
@@ -64,9 +65,10 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	DocumentExporter::DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const NativeString &filepath, const Options& options )
+	DocumentExporter::DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const NativeString &filepath, const Options& options, bool exportOnlySelected )
 		: 
 		mOptions( options ),
+		mExportOnlySelected(exportOnlySelected ),
 		mMaxInterface ( i ),
 		mStreamWriter ( filepath ),
 		mOutputFileUri ( COLLADASW::URI::nativePathToUri(filepath) ),
@@ -120,7 +122,7 @@ namespace COLLADAMax
 		for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = sceneGraphList.begin(); it!=sceneGraphList.end(); ++it )
 		{
 			NativeString outputFileName(NativeString(getXRefOutputPath(*it)));
-			DocumentExporter document(mMaxInterface, it->exportSceneGraph, outputFileName, mOptions);
+			DocumentExporter document(mMaxInterface, it->exportSceneGraph, outputFileName, mOptions, mExportOnlySelected);
 			document.exportMaxScene();
 		}
     }
@@ -128,7 +130,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     bool DocumentExporter::createExportSceneGraph()
     {
-        return mExportSceneGraph->create ( mOptions.getExportSelected() );
+        return mExportSceneGraph->create ( mExportOnlySelected );
     }
 
     //---------------------------------------------------------------

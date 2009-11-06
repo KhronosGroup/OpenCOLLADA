@@ -16,7 +16,12 @@ http://www.opensource.org/licenses/mit-license.php
 */
 
 #include "COLLADAMaxStableHeaders.h"
+
 #include "COLLADAMaxFWLErrorHandler.h"
+#include "COLLADASaxFWLSaxParserError.h"
+#include "COLLADASaxFWLSaxFWLError.h"
+
+#include "GeneratedSaxParserParserError.h"
 
 
 namespace COLLADAMax
@@ -34,7 +39,17 @@ namespace COLLADAMax
 
 	bool FWLErrorHandler::handleError( const COLLADASaxFWL::IError* error )
 	{
-		int i = 0;
+		std::string msg;
+		switch ( error->getErrorClass())
+		{
+		case COLLADASaxFWL::IError::ERROR_SAXPARSER:
+			msg = ((COLLADASaxFWL::SaxParserError*)error)->getError().getErrorMessage();
+			break;
+		case COLLADASaxFWL::IError::ERROR_SAXFWL:
+			msg = ((COLLADASaxFWL::SaxFWLError*)error)->getFullErrorMessage();
+			break;
+		}
+		msg;
 		return false;
 	}
 } // namespace COLLADAMax

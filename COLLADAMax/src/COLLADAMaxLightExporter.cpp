@@ -37,7 +37,7 @@ namespace COLLADAMax
 	const String LightExporter::LIGHT_ID_SUFFIX = "-light";
 
 
-	const String LightExporter::LIGHT_ELEMENT = "max_light";
+	const String LightExporter::LIGHT_ELEMENT = "light";
 	const String LightExporter::LIGHT_MAP_ELEMENT = "light_map";
 	const int LightExporter::LIGHT_PARAMETER_COUNT = 18;
 	const Extra::ExtraParameter LightExporter::LIGHT_PARAMETERS[] =
@@ -105,7 +105,7 @@ namespace COLLADAMax
 	const String LightExporter::SHADOW_PROJ_COLOR_MULT = "shadow_color_mult";
 	const String LightExporter::LIGHT_AFFECTS_SHADOW = "light_affects_shadow";
 
-	const String LightExporter::ENVIRONMENT_AMBIENT_LIGHT_NAME = "Environment Ambient Light";
+	const String LightExporter::ENVIRONMENT_AMBIENT_LIGHT_NAME = "EnvironmentAmbientLight";
 	const String LightExporter::ENVIRONMENT_AMBIENT_LIGHT_ID = "EnvironmentAmbientLight";
 
 
@@ -142,7 +142,7 @@ namespace COLLADAMax
 
 		COLLADASW::Color ambientLightColor = EffectExporter::maxColor2Color( ambientColor );
 
-		COLLADASW::AmbientLight ambientLight(COLLADASW::LibraryLights::mSW, ENVIRONMENT_AMBIENT_LIGHT_ID, 1.0, ENVIRONMENT_AMBIENT_LIGHT_NAME);
+		COLLADASW::AmbientLight ambientLight(COLLADASW::LibraryLights::mSW, ENVIRONMENT_AMBIENT_LIGHT_ID, ENVIRONMENT_AMBIENT_LIGHT_NAME);
 
 		ambientLight.setColor( ambientLightColor );
 		addLight( ambientLight );
@@ -237,13 +237,13 @@ namespace COLLADAMax
 		switch ( lightType )
 		{
 		case COLLADASW::Light::DIRECTIONAL:
-			colladaLight = new COLLADASW::DirectionalLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(NativeString(exportNode->getINode()->GetName())));
+			colladaLight = new COLLADASW::DirectionalLight(COLLADASW::LibraryLights::mSW, lightId, COLLADASW::Utils::checkNCName(NativeString(exportNode->getINode()->GetName())));
 			break;
 		case COLLADASW::Light::POINT:
-			colladaLight = new COLLADASW::PointLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(NativeString(exportNode->getINode()->GetName())));
+			colladaLight = new COLLADASW::PointLight(COLLADASW::LibraryLights::mSW, lightId, COLLADASW::Utils::checkNCName(NativeString(exportNode->getINode()->GetName())));
 			break;
 		case COLLADASW::Light::SPOT:
-			colladaLight = new COLLADASW::SpotLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(NativeString(exportNode->getINode()->GetName())));
+			colladaLight = new COLLADASW::SpotLight(COLLADASW::LibraryLights::mSW, lightId, COLLADASW::Utils::checkNCName(NativeString(exportNode->getINode()->GetName())));
 			break;
 		}
 

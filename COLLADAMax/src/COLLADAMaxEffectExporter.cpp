@@ -75,7 +75,7 @@ namespace COLLADAMax
 	const int EffectExporter::SHADER_PARAMETER_COUNT = 7;
 	const Extra::ExtraParameter EffectExporter::SHADER_PARAMETERS[] =
 	{
-		{TYPE_BOOL, 3, "ambient_diffuse_lexture_lock"},
+		{TYPE_BOOL, 3, "ambient_diffuse_texture_lock"},
 		{TYPE_BOOL, 4, "ambient_diffuse_lock"},
 		{TYPE_BOOL, 5, "diffuse_specular_lock"},
 		{TYPE_BOOL, 6, "use_self_illum_color"},
@@ -103,6 +103,12 @@ namespace COLLADAMax
 	};
 
 
+
+	//---------------------------------------------------------------
+	String EffectExporter::createTexcoordSementicFromMapchannel( int mapChannel )
+	{
+		return TEXCOORD_BASE + COLLADASW::Utils::toString ( mapChannel );
+	}
 
     //---------------------------------------------------------------
     EffectExporter::EffectExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
@@ -140,7 +146,11 @@ namespace COLLADAMax
 
         else 
         {
-            exportColorEffect ( exportNode, iNode->GetWireColor() );
+			// export wire frame material only for meshes
+			if ( exportNode->getType() == ExportNode::MESH )
+			{
+				exportColorEffect ( exportNode, iNode->GetWireColor() );
+			}
         }
 
         //export the child nodes materials
@@ -221,14 +231,15 @@ namespace COLLADAMax
         }
 
 
+		String materialName = NativeString(baseMaterial->GetName().data());
         // Add it to the exported materials list
-        String effectId = mEffectIdList.addId ( NativeString(baseMaterial->GetName().data()) );
+        String effectId = mEffectIdList.addId ( materialName );
 
         exportNode->addSymbol ( baseMaterial, effectId );
 
         mEffectMap[ baseMaterial ] = effectId;
 
-        mExportedEffectIdList->push_back ( effectId );
+        mExportedEffectIdList->push_back ( EffectIdAndName(effectId, materialName) );
 
         openEffect ( effectId );
 
@@ -535,20 +546,13 @@ namespace COLLADAMax
         {
             COLLADASW::Texture texture ( imageId );
 
-            // Create the surface
-            String surfaceSid = imageId + COLLADASW::Surface::SURFACE_SID_SUFFIX;
-            COLLADASW::Surface surface ( COLLADASW::Surface::SURFACE_TYPE_2D, surfaceSid );
-            //surface.setFormat ( FORMAT );
-            COLLADASW::SurfaceInitOption initOption ( COLLADASW::SurfaceInitOption::INIT_FROM );
-            initOption.setImageReference ( imageId );
-            surface.setInitOption ( initOption );
-            texture.setSurface ( surface );
-
             // Create the sampler
             String samplerSid = imageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
-            COLLADASW::Sampler sampler ( COLLADASW::Sampler::SAMPLER_TYPE_2D, samplerSid );
-            sampler.setSource ( surfaceSid );
-            texture.setSampler ( sampler );
+            String surfaceSid = imageId + COLLADASW::Sampler::SURFACE_SID_SUFFIX;
+            COLLADASW::Sampler sampler( COLLADASW::Sampler::SAMPLER_TYPE_2D, samplerSid, surfaceSid );
+			sampler.setImageId( imageId );
+			//sampler.setFormat( FORMAT );
+            texture.setSampler( sampler );
 
             int mapChannel = 1;
 
@@ -589,7 +593,7 @@ namespace COLLADAMax
                 // TODO: add extra tag
             }
 
-            String semantic = TEXCOORD_BASE + COLLADASW::Utils::toString ( mapChannel );
+			String semantic = createTexcoordSementicFromMapchannel( mapChannel );
 
             texture.setTexcoord ( semantic );
 
@@ -601,7 +605,11 @@ namespace COLLADAMax
             case AMBIENT:
                 profile.setAmbient ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-                // case BUMP: bumpTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
+            case BUMP: 
+				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
+				texture.setChildElementName("bump");
+				profile.setExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
+				break;
 
             case DIFFUSE:
                 profile.setDiffuse ( COLLADASW::ColorOrTexture ( texture ) );
@@ -1131,13 +1139,27 @@ namespace COLLADAMax
 						}
 					}
 
-					bool success = true;
-					imageInfo.fileLocation = imageTargetPath.getRelativeTo(mDocumentExporter->getOutputFileUri(),success, true);
-
+					if ( mDocumentExporter->getOptions().getExportRelativePaths() )
+					{
+						bool success = true;
+						imageInfo.fileLocation = imageTargetPath.getRelativeTo(mDocumentExporter->getOutputFileUri(),success, true);
+					}
+					else
+					{
+						imageInfo.fileLocation = imageTargetPath;
+					}
 				}
 				else
 				{
-					imageInfo.fileLocation = fullFileNameURI;
+					if ( mDocumentExporter->getOptions().getExportRelativePaths() )
+					{
+						bool success = true;
+						imageInfo.fileLocation = fullFileNameURI.getRelativeTo(mDocumentExporter->getOutputFileUri(),success, true);
+					}
+					else
+					{
+						imageInfo.fileLocation = fullFileNameURI;
+					}
 				}
 
                 // image not exported
@@ -1190,8 +1212,6 @@ namespace COLLADAMax
                       );
         }
     }
-
-
 
 
 

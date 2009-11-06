@@ -46,6 +46,9 @@ namespace COLLADAMax
 		@a maxController a linear float controller is created, otherwise a hybrid float controller.*/
 		Control* createMaxFloatController( COLLADAFW::AnimationCurve* animationCurve, bool isLinear);
 
+		/** Creates an empty linear max transformation controller for of @a animationCurve. */
+		Control* createMaxTransformationController( COLLADAFW::AnimationCurve* animationCurve);
+
 		/** Creates an empty constant linear max float controller. 
 		@param constantValue The value the float controller should have for all time.*/
 		Control* createMaxConstantFloatController( float constantValue );

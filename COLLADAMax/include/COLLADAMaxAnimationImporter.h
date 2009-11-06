@@ -55,10 +55,16 @@ namespace COLLADAMax
 		/** Creates a max float controller for dimension @a dimension of @a animationCurve and fills in the keys and values.*/
 		Control* createAndFillMaxFloatController( COLLADAFW::AnimationCurve* animationCurve, size_t dimension);
 
+		/** Creates a max transformation controller of @a animationCurve and fills in the keys and values. 
+		@a animationCurve has to have dimension 16 and must be linearly interpolated.*/
+		Control* createAndFillMaxTransformationController( COLLADAFW::AnimationCurve* animationCurve);
 
 		/** Fills @a maxController with the values of @a dimension'th dimension of @a animationCurve. If @a isLinear is true
 		@a maxController must be a linear float controller, otherwise a hybrid float controller.*/
 		bool fillMaxFloatController( IKeyControl* maxKeyController, COLLADAFW::AnimationCurve* animationCurve, size_t dimension, bool isLinear);
+
+		/** Fills @a maxController with the values of 16 dimension linear @a animationCurve. */
+		bool fillMaxTransformationController( Control* maxController, COLLADAFW::AnimationCurve* animationCurve);
 
 		/** Fills the keys and values from @a inputValues and @a outputValues into @a maxKeyController.
 		@param maxKeyController The max key controller to fill
@@ -92,6 +98,16 @@ namespace COLLADAMax
 			ConversionFunctorType outputConversionFunctor);
 
 	
+		//------------------------------
+		template<class InputArrayType, class OutputArrayType> 
+		bool fillLinearMaxTransformationController( Control* maxController, 
+			size_t keyCount, 
+			const InputArrayType& inputValues, 
+			const OutputArrayType& outputValues,
+			ConversionFunctorType inputConversionFunctor,
+			ConversionFunctor* outputConversionFunctors[]);
+
+
 	private:
 
         /** Disable default copy ctor. */

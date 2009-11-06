@@ -171,7 +171,7 @@ namespace COLLADAMax
 		AnimationExporter * mAnimationExporter;
 
         /** List of ids of the already exported materials that are used in the COLLADASW file.*/
-        ExportedEffectIdList * mExportedEffectIdList;
+        ExportedEffectIdAndNameList * mExportedEffectIdList;
 
         /** Maps already exported effect (material in max) to the corresponding COLLADASW effect id.*/
         EffectMap mEffectMap;
@@ -228,6 +228,9 @@ namespace COLLADAMax
 
 		/** Converts a max color to a COLLADASW ColorOrTexture.*/
 		static COLLADASW::ColorOrTexture maxColor2ColorOrTexture ( const Color & color, double scale = 1.0 );
+
+		/** Creates the texcoord semantic used in an effect from @a mapChannel.*/
+		static String createTexcoordSementicFromMapchannel(int mapChannel);
 
 		/** Exports the image represented by @a map.
 		@param fullFileName Is set to the full file name of the image.

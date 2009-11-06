@@ -53,8 +53,14 @@ namespace COLLADAMax
 
 
     public:
-        /** The technique profile name.*/
-        static const String TECHNIQUE_PROFILE_3DSMAX;
+		/** The technique profile name use for max specific extra data.*/
+		static const String TECHNIQUE_PROFILE_3DSMAX;
+
+		/** The technique profile name used for general extra data.*/
+		static const String TECHNIQUE_PROFILE_OPENCOLLADA;
+
+		/** The element name of the element to store user defined properties.*/
+		static const String USERDEFINED_PROPERTIES;
 
     private:
 		COLLADASW::StreamWriter* mSW;

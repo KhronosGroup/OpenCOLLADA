@@ -31,6 +31,17 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAMax
 {
 
+
+	bool isSupportedMeshPrimitive(const COLLADAFW::MeshPrimitive* meshPrimitive)
+	{
+		COLLADAFW::MeshPrimitive::PrimitiveType type = meshPrimitive->getPrimitiveType();
+		return    (type == COLLADAFW::MeshPrimitive::TRIANGLES) 
+			|| (type == COLLADAFW::MeshPrimitive::TRIANGLE_FANS) 
+			|| (type == COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS) 
+			|| (type == COLLADAFW::MeshPrimitive::POLYGONS) 
+			|| (type == COLLADAFW::MeshPrimitive::POLYLIST); 
+	}
+
 	GeometryImporter::GeometryImporter( DocumentImporter* documentImporter, const COLLADAFW::Geometry* geometry )
 		:	ImporterBase(documentImporter)
 		, mGeometry(geometry)
@@ -294,8 +305,14 @@ namespace COLLADAMax
 			size_t trianglesCount = meshPrimitive->getFaceCount();
 
 			const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
-
-			if ( skipMeshData( meshPrimitive, normalIndices, faceIndex ) )
+			if (isSupportedMeshPrimitive(meshPrimitive))
+			{
+				if ( skipMeshData( meshPrimitive, normalIndices, faceIndex ) )
+				{
+					continue;
+				}
+			}
+			else
 			{
 				continue;
 			}
@@ -548,7 +565,47 @@ namespace COLLADAMax
 		default:
 			return;
 		}
+	}
 
+
+	//------------------------------
+	size_t getTriangleMeshPrimitiveTriangleCount( const COLLADAFW::MeshPrimitive* meshPrimitive)
+	{
+		const COLLADAFW::UIntValuesArray& faceVertexCountArray = meshPrimitive->getPositionIndices();
+
+		switch (meshPrimitive->getPrimitiveType())
+		{
+		case COLLADAFW::MeshPrimitive::TRIANGLES:
+			{
+				return meshPrimitive->getPositionIndices().getCount()/3;
+			}
+		case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+			{
+				const COLLADAFW::Tristrips* tristrips = (const COLLADAFW::Tristrips*) meshPrimitive;
+				const COLLADAFW::UIntValuesArray& faceVertexCountArray = tristrips->getGroupedVerticesVertexCountArray();
+				size_t triangleCount = 0;
+				for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
+				{
+					unsigned int faceVertexCount = faceVertexCountArray[k];
+					triangleCount += (faceVertexCount > 2) ? (faceVertexCount - 2) : 0;
+				}
+				return triangleCount;
+			}
+		case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+			{
+				const COLLADAFW::Trifans* trifans = (const COLLADAFW::Trifans*) meshPrimitive;
+				const COLLADAFW::UIntValuesArray& faceVertexCountArray = trifans->getGroupedVerticesVertexCountArray();
+				size_t triangleCount = 0;
+				for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
+				{
+					unsigned int faceVertexCount = faceVertexCountArray[k];
+					triangleCount += (faceVertexCount > 2) ? (faceVertexCount - 2) : 0;
+				}
+				return triangleCount;
+			}
+		default:
+			return 0;
+		}
 	}
 
 	//------------------------------
@@ -608,58 +665,68 @@ namespace COLLADAMax
 			if ( ! meshPrimitive )
 				continue;
 
-			size_t currentFaceIndex = faceIndex;
-
-			//uv
-			const COLLADAFW::IndexListArray& uvIndexArray = meshPrimitive->getUVCoordIndicesArray();
-			for ( size_t j = 0, count = uvIndexArray.getCount(); j < count; ++j)
+			if (isSupportedMeshPrimitive(meshPrimitive))
 			{
-				const COLLADAFW::IndexList& uvIndexList = *uvIndexArray[j];
-				size_t sourceIndex = mUVInitialIndexSourceIndexMap[uvIndexList.getInitialIndex()];
-				size_t setIndex = uvIndexList.getSetIndex();
-				SetSourcePair setSourcePair( (long)setIndex, sourceIndex);
-				int mapChannel = mSetSourcePairMapChannelMap[ setSourcePair ];
+				size_t currentFaceIndex = faceIndex;
 
-				unsigned int initialIndex = (unsigned int)uvIndexList.getInitialIndex();
+				//uv
+				const COLLADAFW::IndexListArray& uvIndexArray = meshPrimitive->getUVCoordIndicesArray();
+				for ( size_t j = 0, count = uvIndexArray.getCount(); j < count; ++j)
+				{
+					const COLLADAFW::IndexList& uvIndexList = *uvIndexArray[j];
+					size_t sourceIndex = mUVInitialIndexSourceIndexMap[uvIndexList.getInitialIndex()];
+					size_t setIndex = uvIndexList.getSetIndex();
+					SetSourcePair setSourcePair( (long)setIndex, sourceIndex);
+					int mapChannel = mSetSourcePairMapChannelMap[ setSourcePair ];
 
-				const COLLADAFW::UIntValuesArray& uvIndices =  uvIndexList.getIndices();
+					unsigned int initialIndex = (unsigned int)uvIndexList.getInitialIndex();
 
-				MeshMap& meshMap = triangleMesh.Map(mapChannel);
+					const COLLADAFW::UIntValuesArray& uvIndices =  uvIndexList.getIndices();
 
-				currentFaceIndex = faceIndex;
+					MeshMap& meshMap = triangleMesh.Map(mapChannel);
 
-				setTriangleMeshUVVerticesPerPrimitiveAndChannel( meshPrimitive, meshMap, uvIndices, initialIndex, currentFaceIndex);
+					currentFaceIndex = faceIndex;
+
+					setTriangleMeshUVVerticesPerPrimitiveAndChannel( meshPrimitive, meshMap, uvIndices, initialIndex, currentFaceIndex);
+				}
+
+				// vertex color color
+				const COLLADAFW::IndexListArray& colorIndexArray = meshPrimitive->getColorIndicesArray();
+				for ( size_t j = 0, count = colorIndexArray.getCount(); j < count; ++j)
+				{
+					const COLLADAFW::IndexList& colorIndexList = *colorIndexArray[j];
+					size_t sourceIndex = mColorInitialIndexSourceIndexMap[colorIndexList.getInitialIndex()];
+					size_t setIndex = colorIndexList.getSetIndex();
+					SetSourcePair setSourcePair( -(long)(setIndex + 1), sourceIndex);
+					int mapChannel = mSetSourcePairMapChannelMap[ setSourcePair ];
+					if ( mapChannel != 0)
+						continue;
+
+					unsigned int initialIndex = (unsigned int)colorIndexList.getInitialIndex();
+
+					const COLLADAFW::UIntValuesArray& colorIndices =  colorIndexList.getIndices();
+
+					MeshMap& meshMap = triangleMesh.Map(mapChannel);
+
+					currentFaceIndex = faceIndex;
+
+					setTriangleMeshUVVerticesPerPrimitiveAndChannel( meshPrimitive, meshMap, colorIndices, initialIndex, currentFaceIndex);
+					mHasVertexColor = true;
+				}
+
+				if ( faceIndex == currentFaceIndex )
+				{
+					// setTriangleMeshUVVerticesPerPrimitiveAndChannel was never called. we need to count triangle here
+					faceIndex += getTriangleMeshPrimitiveTriangleCount(meshPrimitive);
+				}
+				else
+				{ 
+					// currentFaceIndex was properly set by the last setTriangleMeshUVVerticesPerPrimitiveAndChannel call
+					faceIndex = currentFaceIndex;
+				}
 			}
-
-			// vertex color color
-			const COLLADAFW::IndexListArray& colorIndexArray = meshPrimitive->getColorIndicesArray();
-			for ( size_t j = 0, count = colorIndexArray.getCount(); j < count; ++j)
-			{
-				const COLLADAFW::IndexList& colorIndexList = *colorIndexArray[j];
-				size_t sourceIndex = mColorInitialIndexSourceIndexMap[colorIndexList.getInitialIndex()];
-				size_t setIndex = colorIndexList.getSetIndex();
-				SetSourcePair setSourcePair( -(long)(setIndex + 1), sourceIndex);
-				int mapChannel = mSetSourcePairMapChannelMap[ setSourcePair ];
-				if ( mapChannel != 0)
-					continue;
-
-				unsigned int initialIndex = (unsigned int)colorIndexList.getInitialIndex();
-
-				const COLLADAFW::UIntValuesArray& colorIndices =  colorIndexList.getIndices();
-
-				MeshMap& meshMap = triangleMesh.Map(mapChannel);
-
-				currentFaceIndex = faceIndex;
-
-				setTriangleMeshUVVerticesPerPrimitiveAndChannel( meshPrimitive, meshMap, colorIndices, initialIndex, currentFaceIndex);
-				mHasVertexColor = true;
-			}
-
-			faceIndex = currentFaceIndex;
 
 		}
-
-
 		return true;
 	}
 
@@ -896,10 +963,17 @@ namespace COLLADAMax
 		for ( size_t i = 0, count = meshPrimitives.getCount(); i < count; ++i )
 		{
 			const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives[i];
-
 			const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
 
-			if ( skipMeshData( meshPrimitive, normalIndices, faceIndex ) )
+
+			if (isSupportedMeshPrimitive(meshPrimitive))
+			{
+				if ( skipMeshData( meshPrimitive, normalIndices, faceIndex ) )
+				{
+					continue;
+				}
+			}
+			else
 			{
 				continue;
 			}
@@ -1188,8 +1262,39 @@ namespace COLLADAMax
 		default:
 			return;
 		}
-
 	}
+
+	//------------------------------
+	size_t getPolygonMeshPrimitiveFaceCount( const COLLADAFW::MeshPrimitive* meshPrimitive)
+	{
+
+		switch (meshPrimitive->getPrimitiveType())
+		{
+		case COLLADAFW::MeshPrimitive::TRIANGLES:
+		case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+		case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+				return getTriangleMeshPrimitiveTriangleCount( meshPrimitive );
+		case COLLADAFW::MeshPrimitive::POLYGONS:
+			{
+				const COLLADAFW::Polygons* polygons = (const COLLADAFW::Polygons*) meshPrimitive;
+				const COLLADAFW::IntValuesArray& faceVertexCountArray = polygons->getGroupedVerticesVertexCountArray();
+				size_t faceCount = 0;
+				for ( size_t j = 0, count = faceVertexCountArray.getCount() ; j < count; ++j )
+				{
+					int faceVertexCount = faceVertexCountArray[j];
+					// TODO for now, we ignore holes in polygons
+					if ( faceVertexCount > 0 )
+					{
+						faceCount++;
+					}
+				}
+				return faceCount;
+			}
+		default:
+			return 0;
+		}
+	}
+
 
 	//------------------------------
 	void GeometryImporter::fillPolygonMeshMapPerSet( const COLLADAFW::MeshVertexData& uvCoordinates,
@@ -1289,58 +1394,68 @@ namespace COLLADAMax
 			if ( ! meshPrimitive )
 				continue;
 
-			size_t currentFaceIndex = faceIndex;
-
-			const COLLADAFW::IndexListArray& uvIndexArray = meshPrimitive->getUVCoordIndicesArray();
-			for ( size_t j = 0, count = uvIndexArray.getCount(); j < count; ++j)
+			if (isSupportedMeshPrimitive(meshPrimitive))
 			{
-				const COLLADAFW::IndexList& uvIndexList = *uvIndexArray[j];
-				size_t sourceIndex = mUVInitialIndexSourceIndexMap[uvIndexList.getInitialIndex()];
-				size_t setIndex = uvIndexList.getSetIndex();
-				SetSourcePair setSourcePair( (long)setIndex, sourceIndex);
-				int mapChannel = mSetSourcePairMapChannelMap[ setSourcePair ];
+				size_t currentFaceIndex = faceIndex;
 
-				unsigned int initialIndex = (unsigned int)uvIndexList.getInitialIndex();
+				const COLLADAFW::IndexListArray& uvIndexArray = meshPrimitive->getUVCoordIndicesArray();
+				for ( size_t j = 0, count = uvIndexArray.getCount(); j < count; ++j)
+				{
+					const COLLADAFW::IndexList& uvIndexList = *uvIndexArray[j];
+					size_t sourceIndex = mUVInitialIndexSourceIndexMap[uvIndexList.getInitialIndex()];
+					size_t setIndex = uvIndexList.getSetIndex();
+					SetSourcePair setSourcePair( (long)setIndex, sourceIndex);
+					int mapChannel = mSetSourcePairMapChannelMap[ setSourcePair ];
 
-				const COLLADAFW::UIntValuesArray& uvIndices =  uvIndexList.getIndices();
+					unsigned int initialIndex = (unsigned int)uvIndexList.getInitialIndex();
 
-				MNMap* meshMap = polygonMesh.M(mapChannel);
+					const COLLADAFW::UIntValuesArray& uvIndices =  uvIndexList.getIndices();
 
-				currentFaceIndex = faceIndex;
+					MNMap* meshMap = polygonMesh.M(mapChannel);
 
-				setPolygonMeshUVVerticesPerPrimitiveAndChannel( meshPrimitive, meshMap, uvIndices, initialIndex, currentFaceIndex);
+					currentFaceIndex = faceIndex;
+
+					setPolygonMeshUVVerticesPerPrimitiveAndChannel( meshPrimitive, meshMap, uvIndices, initialIndex, currentFaceIndex);
 
 
+				}
+
+				// vertex color color
+				const COLLADAFW::IndexListArray& colorIndexArray = meshPrimitive->getColorIndicesArray();
+				for ( size_t j = 0, count = colorIndexArray.getCount(); j < count; ++j)
+				{
+					const COLLADAFW::IndexList& colorIndexList = *colorIndexArray[j];
+					size_t sourceIndex = mColorInitialIndexSourceIndexMap[colorIndexList.getInitialIndex()];
+					size_t setIndex = colorIndexList.getSetIndex();
+					SetSourcePair setSourcePair( -(long)(setIndex + 1), sourceIndex);
+					int mapChannel = mSetSourcePairMapChannelMap[ setSourcePair ];
+					if ( mapChannel != 0)
+						continue;
+
+					unsigned int initialIndex = (unsigned int)colorIndexList.getInitialIndex();
+
+					const COLLADAFW::UIntValuesArray& colorIndices =  colorIndexList.getIndices();
+
+					MNMap* meshMap = polygonMesh.M(mapChannel);
+
+					currentFaceIndex = faceIndex;
+
+					setPolygonMeshUVVerticesPerPrimitiveAndChannel( meshPrimitive, meshMap, colorIndices, initialIndex, currentFaceIndex);
+					polygonMesh.SetDisplayVertexColors(0);
+					mHasVertexColor = true;
+				}
+
+				if ( faceIndex == currentFaceIndex )
+				{
+					// setTriangleMeshUVVerticesPerPrimitiveAndChannel was never called. we need to count triangle here
+					faceIndex += getPolygonMeshPrimitiveFaceCount(meshPrimitive);
+				}
+				else
+				{ 
+					// currentFaceIndex was properly set by the last setTriangleMeshUVVerticesPerPrimitiveAndChannel call
+					faceIndex = currentFaceIndex;
+				}
 			}
-
-			// vertex color color
-			const COLLADAFW::IndexListArray& colorIndexArray = meshPrimitive->getColorIndicesArray();
-			for ( size_t j = 0, count = colorIndexArray.getCount(); j < count; ++j)
-			{
-				const COLLADAFW::IndexList& colorIndexList = *colorIndexArray[j];
-				size_t sourceIndex = mColorInitialIndexSourceIndexMap[colorIndexList.getInitialIndex()];
-				size_t setIndex = colorIndexList.getSetIndex();
-				SetSourcePair setSourcePair( -(long)(setIndex + 1), sourceIndex);
-				int mapChannel = mSetSourcePairMapChannelMap[ setSourcePair ];
-				if ( mapChannel != 0)
-					continue;
-
-				unsigned int initialIndex = (unsigned int)colorIndexList.getInitialIndex();
-
-				const COLLADAFW::UIntValuesArray& colorIndices =  colorIndexList.getIndices();
-
-				MNMap* meshMap = polygonMesh.M(mapChannel);
-
-				currentFaceIndex = faceIndex;
-
-				setPolygonMeshUVVerticesPerPrimitiveAndChannel( meshPrimitive, meshMap, colorIndices, initialIndex, currentFaceIndex);
-				polygonMesh.SetDisplayVertexColors(0);
-				mHasVertexColor = true;
-			}
-
-
-			faceIndex = currentFaceIndex;
-
 		}
 		return true;
 	}
@@ -1353,10 +1468,14 @@ namespace COLLADAMax
 		for ( size_t i = 0, count = primitiveArray.getCount(); i < count; ++i )
 		{
 			const COLLADAFW::MeshPrimitive* primitive = primitiveArray[i];
-			COLLADAFW::MaterialId fWMaterialId = primitive->getMaterialId();
-			if ( materialMap.count(fWMaterialId) == 0 )
+
+			if (isSupportedMeshPrimitive(primitive))
 			{
-				materialMap[fWMaterialId] = nextMaxMaterialId++;
+				COLLADAFW::MaterialId fWMaterialId = primitive->getMaterialId();
+				if ( materialMap.count(fWMaterialId) == 0 )
+				{
+					materialMap[fWMaterialId] = nextMaxMaterialId++;
+				}
 			}
 		}
 	}
@@ -1403,24 +1522,35 @@ namespace COLLADAMax
 		for ( size_t i = 0, count = meshPrimitives.getCount(); i < count; ++i )
 		{
 			const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives[i];
-			const COLLADAFW::IndexListArray& uvIndices = meshPrimitive->getUVCoordIndicesArray();
-			const COLLADAFW::IndexListArray& colorIndices = meshPrimitive->getColorIndicesArray();
 
-			assignMapChannels<true, true>( colorIndices, mColorInitialIndexSourceIndexMap, usedMapChannels);
-			assignMapChannels<false, true>( uvIndices, mUVInitialIndexSourceIndexMap, usedMapChannels);
+			if (isSupportedMeshPrimitive(meshPrimitive))
+			{
+				const COLLADAFW::IndexListArray& uvIndices = meshPrimitive->getUVCoordIndicesArray();
+				const COLLADAFW::IndexListArray& colorIndices = meshPrimitive->getColorIndicesArray();
+
+				assignMapChannels<true, true>( colorIndices, mColorInitialIndexSourceIndexMap, usedMapChannels);
+				assignMapChannels<false, true>( uvIndices, mUVInitialIndexSourceIndexMap, usedMapChannels);
+			}
 		}
 
 		// second try
 		for ( size_t i = 0, count = meshPrimitives.getCount(); i < count; ++i )
 		{
 			const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives[i];
-			const COLLADAFW::IndexListArray& uvIndices = meshPrimitive->getUVCoordIndicesArray();
-			const COLLADAFW::IndexListArray& colorIndices = meshPrimitive->getColorIndicesArray();
+			if (isSupportedMeshPrimitive(meshPrimitive))
+			{
+				const COLLADAFW::IndexListArray& uvIndices = meshPrimitive->getUVCoordIndicesArray();
+				const COLLADAFW::IndexListArray& colorIndices = meshPrimitive->getColorIndicesArray();
 
-			if ( !assignMapChannels<true, false>( colorIndices, mColorInitialIndexSourceIndexMap, usedMapChannels) )
-				break;
-			if ( !assignMapChannels<false, false>( uvIndices, mUVInitialIndexSourceIndexMap, usedMapChannels) )
-				break;
+				if ( !assignMapChannels<true, false>( colorIndices, mColorInitialIndexSourceIndexMap, usedMapChannels) )
+				{
+					break;
+				}
+				if ( !assignMapChannels<false, false>( uvIndices, mUVInitialIndexSourceIndexMap, usedMapChannels) )
+				{
+					break;
+				}
+			}
 		}
 
 		// fill the setMapChannelMap for this geometry

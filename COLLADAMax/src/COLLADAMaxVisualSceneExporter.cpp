@@ -24,6 +24,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADASWInstanceCamera.h"
 #include "COLLADASWInstanceLight.h"
 #include "COLLADASWInstanceNode.h"
+#include "COLLADASWInputList.h"
 
 #include "Math/COLLADABUMathUtils.h"
 
@@ -38,6 +39,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxDocumentExporter.h"
 
 #include <decomp.h>
+#include <iInstanceMgr.h>
 
 namespace COLLADAMax
 {
@@ -110,82 +112,99 @@ namespace COLLADAMax
 		if ( !exportNode->getIsInVisualScene() )
 			return;
 
-		COLLADASW::Node colladaNode( mSW );
-
 		INode *node = exportNode->getINode();
 
-		colladaNode.setNodeId( getNodeId(*exportNode) );
+		// if true, we do not write a COLALDA node for this max node
+		bool exportOnlyChilds = node->IsRootNode() != 0;
 
-		if ( exportNode->hasSid() )
-			colladaNode.setNodeSid(exportNode->getSid());
+		COLLADASW::Node colladaNode( mSW );
 
-		colladaNode.setNodeName( COLLADASW::Utils::checkNCName( NativeString(node->GetName()) ) );
-
-		if ( exportNode->getIsJoint() )
+		if ( !exportOnlyChilds )
 		{
-			colladaNode.setType( COLLADASW::Node::JOINT );
-		}
+			colladaNode.setNodeId( getNodeId(*exportNode) );
 
-		colladaNode.start();
+			if ( exportNode->hasSid() )
+				colladaNode.setNodeSid(exportNode->getSid());
 
-		exportTransformations ( exportNode, colladaNode);
+			colladaNode.setNodeName( COLLADASW::Utils::checkNCName( NativeString(node->GetName()) ) );
 
-		ExportNode::Type nodeType = exportNode->getType();
+			if ( exportNode->getIsJoint() )
+			{
+				colladaNode.setType( COLLADASW::Node::JOINT );
+			}
+
+			colladaNode.start();
+
+			exportTransformations ( exportNode, colladaNode);
+
+			ExportNode::Type nodeType = exportNode->getType();
 
 
-		COLLADASW::Node colladaPivotNode ( mSW );
+			COLLADASW::Node colladaPivotNode ( mSW );
 
-		bool hasPivotNode = !node->IsRootNode();
-
-		if ( hasPivotNode )
-		{
-			hasPivotNode = !( (nodeType == ExportNode::BONE) || (nodeType == ExportNode::HELPER) );
-		}
-
-		if ( hasPivotNode )
-		{
-			hasPivotNode = !node->IsGroupHead();
-		}
-
-		if ( hasPivotNode )
-		{
-			Matrix3 objectOffsetTransformationMatrix(true); 
-			
-			// Calculate the pivot transform. It should already be in local space.
-			calculateObjectOffsetTransformation(node, objectOffsetTransformationMatrix);
-
-			hasPivotNode = !objectOffsetTransformationMatrix.IsIdentity();
+			bool hasPivotNode = !node->IsRootNode();
 
 			if ( hasPivotNode )
 			{
-				//open the pivot node and pivot transformation matrix
-				colladaPivotNode.start();
-				double matrix[ 4 ][ 4 ] ;
-				matrix3ToDouble4x4 ( matrix, objectOffsetTransformationMatrix );
-				colladaNode.addMatrix ( matrix );
+				hasPivotNode = !( (nodeType == ExportNode::BONE) || (nodeType == ExportNode::HELPER) );
 			}
-		}
 
-
-		if ( exportNode->getType() == ExportNode::MESH )
-		{
-			if ( exportNode->hasControllers() )
+			if ( hasPivotNode )
 			{
-				COLLADASW::InstanceController instanceController ( mSW );
-				ExportNodeSet referencedJoints = exportNode->getControllerList()->getReferencedJoints();
-
-				for ( ExportNodeSet::const_iterator it = referencedJoints.begin(); it!=referencedJoints.end(); ++it)
-					instanceController.addSkeleton('#' + getNodeId(**it));
-
-				String controllerId = mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getLastController()->getDerivedObject(), 0))->getLastControllerId();
-				assert( !controllerId.empty() );
-
-				instanceController.setUrl ( "#" + controllerId );
-				//				instanceController.setUrl ( "#" + exportNode->getLastControllerId() );
-				fillInstanceMaterialList(instanceController.getBindMaterial().getInstanceMaterialList(), exportNode);
-				instanceController.add();
+				hasPivotNode = !node->IsGroupHead();
 			}
-			else
+
+			if ( hasPivotNode )
+			{
+				Matrix3 objectOffsetTransformationMatrix(true); 
+
+				// Calculate the pivot transform. It should already be in local space.
+				calculateObjectOffsetTransformation(node, objectOffsetTransformationMatrix);
+
+				hasPivotNode = !objectOffsetTransformationMatrix.IsIdentity();
+
+				if ( hasPivotNode )
+				{
+					//open the pivot node and pivot transformation matrix
+					colladaPivotNode.start();
+					double matrix[ 4 ][ 4 ] ;
+					matrix3ToDouble4x4 ( matrix, objectOffsetTransformationMatrix );
+					colladaNode.addMatrix ( matrix );
+				}
+			}
+
+
+			if ( exportNode->getType() == ExportNode::MESH )
+			{
+				if ( exportNode->hasControllers() )
+				{
+					COLLADASW::InstanceController instanceController ( mSW );
+					ExportNodeSet referencedJoints = exportNode->getControllerList()->getReferencedJoints();
+
+					for ( ExportNodeSet::const_iterator it = referencedJoints.begin(); it!=referencedJoints.end(); ++it)
+						instanceController.addSkeleton('#' + getNodeId(**it));
+
+					String controllerId = mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getLastController()->getDerivedObject(), 0))->getLastControllerId();
+					assert( !controllerId.empty() );
+
+					instanceController.setUrl ( "#" + controllerId );
+					//				instanceController.setUrl ( "#" + exportNode->getLastControllerId() );
+					fillInstanceMaterialList(instanceController.getBindMaterial().getInstanceMaterialList(), exportNode);
+					instanceController.add();
+				}
+				else
+				{
+					COLLADASW::InstanceGeometry instanceGeometry ( mSW );
+
+					String geometryId = GeometriesExporter::getGeometryId(*mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getInitialPose())));
+					assert( !geometryId.empty() );
+
+					instanceGeometry.setUrl ( "#" + geometryId );
+					fillInstanceMaterialList(instanceGeometry.getBindMaterial().getInstanceMaterialList(), exportNode);
+					instanceGeometry.add();
+				}
+			} 
+			if ( exportNode->getType() == ExportNode::SPLINE )
 			{
 				COLLADASW::InstanceGeometry instanceGeometry ( mSW );
 
@@ -193,45 +212,44 @@ namespace COLLADAMax
 				assert( !geometryId.empty() );
 
 				instanceGeometry.setUrl ( "#" + geometryId );
-				fillInstanceMaterialList(instanceGeometry.getBindMaterial().getInstanceMaterialList(), exportNode);
 				instanceGeometry.add();
-			}
-		} 
-		else if ( exportNode->getType() == ExportNode::CAMERA )
-		{
-			String cameraId = CameraExporter::getCameraId(*mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getCamera())));
-			assert( !cameraId.empty() );
-
-			COLLADASW::InstanceCamera instanceCamera(mSW, "#" + cameraId);
-			//			COLLADASW::InstanceCamera instanceCamera(mSW, "#" + CameraExporter::getCameraId(*exportNode));
-			instanceCamera.add();
-		}
-		else if ( exportNode->getType() == ExportNode::LIGHT )
-		{
-			String lightId = LightExporter::getLightId(*mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getLight())));
-			assert( !lightId.empty() );
-
-			COLLADASW::InstanceLight instanceLight(mSW, "#" + lightId);
-			instanceLight.add();
-		}
-
-		if ( hasPivotNode )
-		{
-			//close the pivot node 
-			colladaPivotNode.end();
-		}
-
-
-		//export instance nodes for XRef scenes
-		if ( mExportSceneGraph->isRootExportNode(exportNode) )
-		{
-			const ExportSceneGraph::XRefSceneGraphList& xRefScenes = mExportSceneGraph->getXRefSceneGraphList();
-			for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = xRefScenes.begin(); it != xRefScenes.end(); ++it)
+			} 
+			else if ( exportNode->getType() == ExportNode::CAMERA )
 			{
-				COLLADASW::URI target = mDocumentExporter->getXRefOutputURI(*it);
-				target.setFragment(getNodeId( *(it->exportSceneGraph->getRootExportNode()) ) );
-				COLLADASW::InstanceNode instanceNode(mSW, target);
-				instanceNode.add();
+				String cameraId = CameraExporter::getCameraId(*mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getCamera())));
+				assert( !cameraId.empty() );
+
+				COLLADASW::InstanceCamera instanceCamera(mSW, "#" + cameraId);
+				//			COLLADASW::InstanceCamera instanceCamera(mSW, "#" + CameraExporter::getCameraId(*exportNode));
+				instanceCamera.add();
+			}
+			else if ( exportNode->getType() == ExportNode::LIGHT )
+			{
+				String lightId = LightExporter::getLightId(*mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getLight())));
+				assert( !lightId.empty() );
+
+				COLLADASW::InstanceLight instanceLight(mSW, "#" + lightId);
+				instanceLight.add();
+			}
+
+			if ( hasPivotNode )
+			{
+				//close the pivot node 
+				colladaPivotNode.end();
+			}
+
+
+			//export instance nodes for XRef scenes
+			if ( mExportSceneGraph->isRootExportNode(exportNode) )
+			{
+				const ExportSceneGraph::XRefSceneGraphList& xRefScenes = mExportSceneGraph->getXRefSceneGraphList();
+				for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = xRefScenes.begin(); it != xRefScenes.end(); ++it)
+				{
+					COLLADASW::URI target = mDocumentExporter->getXRefOutputURI(*it);
+					target.setFragment(getNodeId( *(it->exportSceneGraph->getRootExportNode()) ) );
+					COLLADASW::InstanceNode instanceNode(mSW, target);
+					instanceNode.add();
+				}
 			}
 		}
 
@@ -241,7 +259,25 @@ namespace COLLADAMax
 		for ( size_t i = 0; i < numberOfChildren; ++i )
 			doExport ( exportNode->getChild ( i ) );
 
-		colladaNode.end();
+		if ( !exportOnlyChilds )
+		{
+			if ( mDocumentExporter->getOptions().getExportUserDefinedProperties() )
+			{
+				// export user defined data stored for the max node
+#ifdef MAX_9_OR_NEWER
+				MSTR userPropertiesBuffer;
+#else
+				TSTR userPropertiesBuffer;
+#endif
+				node->GetUserPropBuffer(userPropertiesBuffer);
+				if ( !userPropertiesBuffer.isNull() )
+				{
+					String xmlEncodedUserData = Utils::translateToXML(NativeString(userPropertiesBuffer.data()).toUtf8String());
+					colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, Extra::USERDEFINED_PROPERTIES, xmlEncodedUserData);
+				}
+			}
+			colladaNode.end();
+		}
 	}
 
 	//---------------------------------------------------------------
@@ -272,15 +308,25 @@ namespace COLLADAMax
 #endif
 
 		//Matrix3 transformationMatrix = iNode->GetObjectTM ( 0 );
-		Matrix3 transformationMatrix = iNode->GetNodeTM ( mDocumentExporter->getOptions().getAnimationStart() );
+		Matrix3 transformationMatrix = getWorldTransform( iNode );
 
 		if ( parent && !parent->IsRootNode() )
 		{
 			//transformationMatrix *= Inverse(parent->GetNodeTM(0));
-			transformationMatrix *= Inverse ( parent->GetNodeTM ( mDocumentExporter->getOptions().getAnimationStart() ) );
+			transformationMatrix *= Inverse ( getWorldTransform(parent) );
 		}
 
+		if ( !applyFirstInstanceTransform(transformationMatrix, iNode) )
+			return;
+
 		Control* transformationController = iNode->GetTMController();
+
+		if ( transformationController )
+		{
+			SClass_ID sc = transformationController->SuperClassID();
+			Class_ID c = transformationController->ClassID();
+			int g = 5;
+		}
 
 		AnimationExporter * animationExporter = mDocumentExporter->getAnimationExporter();
 
@@ -506,18 +552,64 @@ namespace COLLADAMax
 	}
 
 	//---------------------------------------------------------------
-	void COLLADAMax::VisualSceneExporter::fillInstanceMaterialList( COLLADASW::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode )
+	Matrix3 VisualSceneExporter::getWorldTransform( INode* node )
+	{
+		return getWorldTransform( node, mDocumentExporter->getOptions().getAnimationStart() );
+	}
+
+	//---------------------------------------------------------------
+	bool VisualSceneExporter::applyFirstInstanceTransform( Matrix3& transformationMatrix, INode* node )
+	{
+		bool hasSkinnedObject = SkinController::isSkinned(node->GetObjectRef());
+		if (hasSkinnedObject)
+		{
+			// Figure out whether this is the instance or the original
+			INodeTab instanceNodes;
+			IInstanceMgr::GetInstanceMgr()->GetInstances(*node, instanceNodes);
+
+			if ( instanceNodes.Count() == 0) 
+				return false;
+
+			INode* firstInstanceNode = instanceNodes[0];
+			if (node == firstInstanceNode) 
+				return false;
+
+			// For all instances, export the difference between the first
+			// instance's local transformation and the current local transformation.
+			// Note that you cannot export animations for this.
+
+			// Max is strange in this. It always moves back the skin to its original position,
+			// when animating, whatever the new transform it might contain. So, we need to take out
+			// both the initial TM and the first Instance's TM to figure out where to place this instance.
+
+			// The first instance TM include its pivot TM
+			Matrix3 firstInstanceTM = firstInstanceNode->GetObjTMBeforeWSM(0);
+			INode *parentNode = firstInstanceNode->GetParentNode();
+			if ( parentNode && !parentNode->IsRootNode() )
+			{
+				Matrix3 parentTM = getWorldTransform(parentNode);
+				parentTM.Invert();
+				firstInstanceTM *= parentTM;
+			}
+
+			firstInstanceTM.Invert();
+			transformationMatrix *= firstInstanceTM;
+		}
+		return true;
+	}
+
+	//---------------------------------------------------------------
+	void VisualSceneExporter::fillInstanceMaterialList( COLLADASW::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode )
 	{
 		const ExportNode::MeshSymbolMap & symbolMap = exportNode->getMeshSymbolMap();
 
 		if ( symbolMap.empty() )
 		{
-			String materialId = MaterialExporter::getMaterialIdFromEffectId ( EffectExporter::getEffectId ( exportNode->getWireFrameColor() ) );
+			String materialId = MaterialExporter::getMaterialIdFromEffectId( EffectExporter::getEffectId( exportNode->getWireFrameColor() ) );
 			//String materialSymbol = symbolIt->first;
 			const String & materialSymbol = GeometryExporter::COLOR_MATERIAL_SYMBOL;
-			instanceMaterialList.push_back ( COLLADASW::InstanceMaterial ( materialSymbol, "#" + materialId ) );
+			instanceMaterialList.push_back( COLLADASW::InstanceMaterial ( materialSymbol, "#" + materialId ) );
 		}
-
 		else
 		{
 			ExportNode::MeshSymbolMap::const_iterator symbolIt = symbolMap.begin();
@@ -529,11 +621,35 @@ namespace COLLADAMax
 				if ( symbol.used )
 				{
 					Mtl * material = symbolIt->first;
-					EffectMap::const_iterator it = mEffectMap.find ( material );
-					assert ( it != mEffectMap.end() );
-					String materialId = MaterialExporter::getMaterialIdFromEffectId ( it->second );
-					//String materialSymbol = symbolIt->first;
-					instanceMaterialList.push_back ( COLLADASW::InstanceMaterial ( symbol.name, "#" + materialId ) );
+					EffectMap::const_iterator it = mEffectMap.find( material );
+					assert( it != mEffectMap.end() );
+					String materialId = MaterialExporter::getMaterialIdFromEffectId( it->second );
+					instanceMaterialList.push_back( COLLADASW::InstanceMaterial( symbol.name, "#" + materialId ) );
+
+					// if it is as stdmat2, we need to export the bind vertex input
+					Class_ID materialClassId = material->ClassID();
+
+					if ( materialClassId.PartA() == DMTL2_CLASS_ID || materialClassId.PartA() == DMTL_CLASS_ID )
+					{
+						StdMat2* standartMaterial = (StdMat2*)material;
+
+						COLLADASW::InstanceMaterial& instanceMaterial = instanceMaterialList.back();
+
+						int numSubTexMaps = standartMaterial->NumSubTexmaps();
+						for ( int i = 0; i < numSubTexMaps; i++ )
+						{
+							bool exportThisMap = standartMaterial->GetMapState ( i ) == 2;
+							if ( exportThisMap )
+							{
+								Texmap* texMap = standartMaterial->GetSubTexmap ( i );
+								int mapChannel = texMap->GetMapChannel();
+								String semantic = EffectExporter::createTexcoordSementicFromMapchannel( mapChannel );
+								const String & inputSemantic = COLLADASW::InputList::getSemanticString(COLLADASW::TEXCOORD);
+								instanceMaterial.push_back( COLLADASW::BindVertexInput( semantic, inputSemantic, mapChannel) );
+							}
+						}
+					}
+
 				}
 			}
 		}

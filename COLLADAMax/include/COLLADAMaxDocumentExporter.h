@@ -68,8 +68,11 @@ namespace COLLADAMax
         /** The Animation exporter used by the document exporter.*/
         AnimationExporter * mAnimationExporter;
 
-        /** The options used by the exporter.*/
-        Options mOptions;
+		/** The options used by the exporter.*/
+		Options mOptions;
+
+		/** The options used by the exporter.*/
+		bool mExportOnlySelected;
 
         Interface* mMaxInterface;
 
@@ -97,7 +100,7 @@ namespace COLLADAMax
         /** Constructor
         @param i the max interface
         @param filepath The file path the COLLADASW document should be written to*/
-        DocumentExporter ( Interface* i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames  );
+        DocumentExporter ( Interface* i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames, bool exportOnlySelected  );
 
 
 		/** Constructor. 
@@ -105,7 +108,7 @@ namespace COLLADAMax
 		@param exportSceneGraph The scene graph to export.
 		@param filepath The file path the COLLADASW document should be written to
 		@param options The options to use during export.*/
-		DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const NativeString &filepath, const Options& options );
+		DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const NativeString &filepath, const Options& options, bool exportOnlySelected );
 
 		~DocumentExporter();
 

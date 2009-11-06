@@ -49,6 +49,8 @@ namespace COLLADAMax
 		static const String OPTION_CHECKIFANIMATIONISANIMATED_NAME;
 		static const String OPTION_ANIMATIONSTART_NAME;
 		static const String OPTION_ANIMATIONEND_NAME;
+		static const String OPTION_COPY_IMAGES_NAME;
+		static const String OPTION_EXPORT_USERDEFINED_PROPERTIES_NAME;
 
 
 	private:
@@ -73,6 +75,7 @@ namespace COLLADAMax
 		bool mSelectionOnly;				//!< export only selected nodes/objects
 		String mXRefOutputDir;              //!< The directory where all the xref scenes should be exported to
 
+		bool mExportUserDefinedProperties;	//!< export user defined properties
 
 	
 	public:
@@ -142,6 +145,8 @@ namespace COLLADAMax
 		/** Change the animation start/end for sampling*/
 		void setAnimBounds(int start, int end) { mAnimationStart = start; mAnimationEnd = end; }
 
+		/** Returns if user defined properties are exported.*/
+		bool getExportUserDefinedProperties() const { return mExportUserDefinedProperties; }
 
 		bool ShowDialog();
 

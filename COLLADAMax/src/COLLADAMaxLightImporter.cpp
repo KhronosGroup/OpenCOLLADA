@@ -48,6 +48,8 @@ namespace COLLADAMax
 	//------------------------------
 	bool LightImporter::import()
 	{
+
+		addLight( *mLight );
 		GenLight* maxLight = createLight(mLight);
 
 		handleObjectReferences(mLight, maxLight);

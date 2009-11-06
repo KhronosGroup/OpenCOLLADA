@@ -77,12 +77,14 @@ namespace COLLADAMax
 
         // export all ordinary materials
 
-        for ( ExportedEffectIdList::const_iterator it = mExportedEffectIdList.begin(); it != mExportedEffectIdList.end(); ++it )
+        for ( ExportedEffectIdAndNameList::const_iterator it = mExportedEffectIdAndNameList.begin(); it != mExportedEffectIdAndNameList.end(); ++it )
         {
-            const String & effectURL = *it;
+			const EffectIdAndName & effectIdAndName= *it;
+			const String & effectURL = effectIdAndName.effectId;
             String materialId = getMaterialIdFromEffectId ( effectURL );
 
-            openMaterial ( materialId, materialId );
+			const String & effectName = effectIdAndName.effectName;
+			openMaterial ( materialId, COLLADABU::Utils::checkNCName(effectName) );
             addInstanceEffect ( "#" + effectURL );
             closeMaterial ();
         }

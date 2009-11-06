@@ -21,6 +21,7 @@
 #include "COLLADAMaxStableHeaders.h"
 #include "COLLADAMaxColladaExporter.h"
 #include "COLLADAMaxColladaImporter.h"
+#include "COLLADAMaxGoogleWarehouse.h"
 
 #include "COLLADAMaxColladaPlugin.h"
 
@@ -29,7 +30,7 @@
 HINSTANCE hInstance;
 int controlsInit = FALSE;
 
-static const COLLADAMax::String LIBDESCRIPTION = "COLLADAMax NextGen" + 
+static const COLLADAMax::String LIBDESCRIPTION = "OpenCOLLADA" + 
 		(COLLADAMax::COLLADAPlugin::PLUGIN_VERSION_STRING.empty() ? "" : (COLLADAMax::String(" ") + COLLADAMax::COLLADAPlugin::PLUGIN_VERSION_STRING))+
 		(COLLADAMax::COLLADAPlugin::REVISION_STRING.empty() ? "" : (COLLADAMax::String(" ") + COLLADAMax::COLLADAPlugin::REVISION_STRING));
 
@@ -61,8 +62,8 @@ extern "C" __declspec ( dllexport ) const TCHAR* LibDescription()
 
 extern "C" __declspec ( dllexport ) int LibNumberClasses()
 {
-	//return 1;
-	return 2;
+	//return 2;
+	return 3;
 }
 
 extern "C" __declspec ( dllexport ) ClassDesc* LibClassDesc ( int i )
@@ -74,6 +75,8 @@ extern "C" __declspec ( dllexport ) ClassDesc* LibClassDesc ( int i )
 		return COLLADAMax::getCOLLADAExporterDesc();
 	case 1:
 		return COLLADAMax::getCOLLADAImporterDesc();
+	case 2:
+		return COLLADAMax::getGoogleWarehouseDesc();
 
     default:
         return 0;
@@ -90,7 +93,7 @@ extern "C" __declspec ( dllexport ) ULONG LibVersion()
 // Let the plug-in register itself for deferred loading
 extern "C" __declspec ( dllexport ) ULONG CanAutoDefer()
 {
-    return 1;
+    return 0;
 }
 
 TCHAR* GetString ( int id )

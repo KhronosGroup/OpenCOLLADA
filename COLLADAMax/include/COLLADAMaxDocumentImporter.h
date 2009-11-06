@@ -150,6 +150,9 @@ namespace COLLADAMax
 		/** Maps Unique ids of skin controllers to the skin controller.*/
 		typedef std::map< COLLADAFW::UniqueId /* Controller data*/, const COLLADAFW::SkinController* > UniqueIdSkinControllerMap;
 
+		/** List of light pairs.*/
+		typedef std::vector< COLLADAFW::Light > LightList;
+
 		struct FileInfo
 		{
 			COLLADABU::URI absoluteFileUri;
@@ -272,6 +275,9 @@ namespace COLLADAMax
 		/** Maps Unique ids of all skin controllers found during the first pass to the skin controller.*/
 		UniqueIdSkinControllerMap mUniqueIdSkinControllersMap;
 
+		/** List of light pairs. USed to assign animations to light parameters.*/
+		LightList mLightList;
+
 		// TODO check if we need this map
 		/** Maps unique ids of  skin controller to the INode that references the controller.*/
 		UniqueIdINodeMap mSkinControllerINodeMap;
@@ -284,6 +290,10 @@ namespace COLLADAMax
 
 		/** The current pass we are performing.*/
 		ParsingPasses mCurrentParsingPass;
+
+		/** If set to true, 1-transparency is used as transparency. This used to circumvent wrong transparency 
+		handling Google SketchUp COLLADA exporter*/
+		bool mInvertTransparency;
 
 	public:
 		/** Constructor .
@@ -324,6 +334,11 @@ namespace COLLADAMax
 
 		/** Converts @a originalValue in units provided by file info to units currently set in max.*/
 		float convertSpaceUnit( float originalValue );
+
+		/** If set to true, 1-transparency is used as transparency. This used to circumvent wrong transparency 
+		handling Google SketchUp COLLADA exporter*/
+		bool getInvertTransparency() const { return mInvertTransparency; }
+
 
 		/** Deletes the entire scene.
 		@param errorMessage A message containing informations about the error that occurred.
@@ -394,6 +409,15 @@ namespace COLLADAMax
 		/** When this method is called, the writer must write the controller.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writeController( const COLLADAFW::Controller* Controller );
+
+		/** When this method is called, the writer must write the formulas. All the formulas of the entire
+		COLLADA file are contained in @a formulas.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeFormulas( const COLLADAFW::Formulas* formulas ) { return true; }
+
+		/** When this method is called, the writer must write the kinematics scene. 
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeKinematicsScene( const COLLADAFW::KinematicsScene* kinematicsScene ) { return true; }
 
 
 	private:
@@ -482,6 +506,9 @@ namespace COLLADAMax
 
 		/** Maps Unique ids of all skin controllers found during the first pass to the skin controller.*/
 		UniqueIdSkinControllerMap& getUniqueIdSkinControllerMap() { return mUniqueIdSkinControllersMap; }
+
+		/** List of light pairs. Used to assign animations to light parameters.*/
+		LightList& getLightList() { return  mLightList; }
 
 		/** Maps unique ids of  skin controller to the INode that references the controller.*/
 		UniqueIdINodeMap& getSkinControllerINodeMap() { return mSkinControllerINodeMap; }

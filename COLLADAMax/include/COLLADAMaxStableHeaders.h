@@ -22,7 +22,9 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#ifdef MAX_8
+#ifdef MAX_7
+#	pragma message ("Compling for Max7")
+#elif defined MAX_8
 #	pragma message ("Compling for Max8")
 #elif defined MAX_9
 #	pragma message ("Compling for Max9")

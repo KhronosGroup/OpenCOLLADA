@@ -100,7 +100,7 @@ namespace COLLADAMax
 
 		const TCHAR * ClassName()
 		{
-			return "ColladaNextGenImporter";
+			return "OpenCOLLADAImporter";
 		}
 
 		SClass_ID SuperClassID()
@@ -120,7 +120,7 @@ namespace COLLADAMax
 
 		const TCHAR* InternalName()
 		{
-			return "COLLADAImporter";
+			return "OpenCOLLADAImporter";
 		} // returns fixed parsable name (scripter-visible name)
 
 		HINSTANCE HInstance()

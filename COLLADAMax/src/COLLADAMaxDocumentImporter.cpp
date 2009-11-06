@@ -51,6 +51,11 @@ http://www.opensource.org/licenses/mit-license.php
 
 namespace COLLADAMax
 {
+
+	const char AUTORING_TOOL[] = "authoring_tool";
+	const char GOOGLE_SKETCHUP[] = "Google SketchUp";
+	const char MICROSTATION[] = "MicroStation";
+
 	//--------------------------------------------------------------------
 	DocumentImporter::DocumentImporter(Interface * maxInterface, ImpInterface* maxImportInterface, const NativeString &filepath)
 		: mMaxInterface(maxInterface)
@@ -59,6 +64,7 @@ namespace COLLADAMax
 		, mNumberOfAmbientColors(0)
 		, mDummyObject((DummyObject*) getMaxImportInterface()->Create(HELPER_CLASS_ID, Class_ID(DUMMY_CLASS_ID, 0)))
 		, mCurrentParsingPass(GENERAL_PASS)
+		, mInvertTransparency(false)
 	{
 		mUnitConversionFunctors.lengthConversion = 0;
 		mUnitConversionFunctors.inverseLengthConversion = 0;
@@ -122,13 +128,6 @@ namespace COLLADAMax
 		if ( !createMorphController() )
 			return false;
 
-		MaterialCreator materialCreator(this);
-		if ( !materialCreator.create() )
-			return false;
-
-		if ( !assignControllers(materialCreator) )
-			return false;
-
 		mCurrentParsingPass = CONTROLLER_DATA_PASS;
 
 		COLLADASaxFWL::Loader loader2(&errorHandler);
@@ -136,6 +135,14 @@ namespace COLLADAMax
 		// We need the second pass to create skin controllers
 		COLLADAFW::Root root2(&loader2, this);
 		if ( !root.loadDocument(mImportFilePath) )
+			return false;
+
+
+		MaterialCreator materialCreator(this);
+		if ( !materialCreator.create() )
+			return false;
+
+		if ( !assignControllers(materialCreator) )
 			return false;
 
 		return true;
@@ -234,6 +241,24 @@ namespace COLLADAMax
 	bool DocumentImporter::writeGlobalAsset( const COLLADAFW::FileInfo* asset )
 	{
 		mFileInfo.absoluteFileUri = asset->getAbsoluteFileUri();
+
+		const COLLADAFW::FileInfo::ValuePairPointerArray& valuePairs = asset->getValuePairArray();
+
+		for ( size_t i = 0, count = valuePairs.getCount(); i < count; ++i)
+		{
+			const COLLADAFW::FileInfo::ValuePair* valuePair = valuePairs[i];
+			const String& key = valuePair->first;
+			const String& value = valuePair->second;
+			if ( key == AUTORING_TOOL )
+			{
+				int googleSketchUpResult = value.compare(0, sizeof(GOOGLE_SKETCHUP)-1, GOOGLE_SKETCHUP);
+				int microstationResult = value.compare(0, sizeof(MICROSTATION)-1, MICROSTATION);
+				if ( (googleSketchUpResult == 0) || (microstationResult == 0) )
+				{
+					mInvertTransparency = true;
+				}
+			}
+		}
 
 		float systemUnitScale = 1.0f;
 

@@ -22,6 +22,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxTypes.h"
 
 #include "COLLADAMaxDocumentImporter.h"
+#include "COLLADAFWLight.h"
 
 class Interface;
 class ImpInterface;
@@ -273,6 +274,12 @@ namespace COLLADAMax
 
 		/** Adds the pair @a controllerData, @a controller to the UniqueIdControllerMultiMap.*/
 		void addSkinControllerINodePair( const COLLADAFW::UniqueId& skinController, INode* inode) { mDocumentImporter->getSkinControllerINodeMap()[skinController] = inode;}
+
+		/** Adds  @a fwLight to the LightList.*/
+		void addLight( const COLLADAFW::Light& fwLight) { mDocumentImporter->getLightList().push_back(fwLight);}
+
+		/** Returns the list of framework lights and max lights.*/
+		const DocumentImporter::LightList& getLightList() const { return mDocumentImporter->getLightList(); }
 
 		/** Maps the unique ids of  morph controllers that are NOT instantiated in the scene graph but 
 		used as source by a skin controller to the INode that references this skin controller.*/

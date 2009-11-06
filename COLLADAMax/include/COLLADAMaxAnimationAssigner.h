@@ -83,6 +83,10 @@ namespace COLLADAMax
 		/** Assigns the animations referenced by the transformations in @a node to the transformations in @a iNode.*/
 		bool assignTransformationController( const COLLADAFW::Node* node, INode* iNode );
 
+		/** Assigns the matrix animations referenced by the transformations in @a node to the transformations in @a iNode.
+		@a node hast to have exactly one transformation of type matrix.*/
+		bool assignMatrixTransformationController( const COLLADAFW::Node* node, INode* iNode);
+
 		/** Assigns all controllers of animated effect parameters.*/
 		bool assignEffectParameterControllers();
 
@@ -118,6 +122,13 @@ namespace COLLADAMax
 		bool assignColorRGBAController(IParamBlock2* entity, int pid, const COLLADAFW::ColorOrTexture& colorOrTexture);
 
 		bool assignColorRGBAController( Animatable* entity, int pid, const COLLADAFW::AnimationList* animationList);
+
+		bool assignColorRGBController( Animatable* entity, int pid, const COLLADAFW::AnimationList* animationList);
+
+		bool assignLightParameterControllers();
+
+		bool assignLightParameterController( const COLLADAFW::Light& fwLight);
+
 	};
 
 } // namespace COLLADAMAX

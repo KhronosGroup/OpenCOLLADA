@@ -43,6 +43,42 @@ namespace COLLADAMax
 	{
 	}
 
+
+	// Search for a sub-animatable object, given by name, on a given Animatable entity
+	Animatable* findAnimatableByName(Animatable* entity, const char* animName, int& subAnimIndex)
+	{
+		std::vector<Animatable*> queue; 
+		queue.reserve(6);
+		queue.push_back(entity);
+		while (!queue.empty())
+		{
+			Animatable* a = queue.back();
+			queue.pop_back();
+
+			// Look for the animatable object in the sub-anims
+			int subAnimatableCount = a->NumSubs();
+			for (subAnimIndex = 0; subAnimIndex < subAnimatableCount; ++subAnimIndex)
+			{
+				Animatable* b = a->SubAnim(subAnimIndex);
+				if ( !b )
+				{
+					continue;
+				}
+
+				TSTR name = a->SubAnimName(subAnimIndex);
+				if ( _stricmp(animName, name.data()) == 0 )
+				{
+					return a;
+				}
+
+				// Queue up the sub-animatable objects
+				queue.push_back(b);
+			}
+		}
+		return 0;
+	}
+
+
 	//------------------------------
 	bool AnimationAssigner::assign()
 	{
@@ -50,6 +86,9 @@ namespace COLLADAMax
 			return false;
 
 		if ( !assignEffectParameterControllers() )
+			return false;
+
+		if ( !assignLightParameterControllers() )
 			return false;
 
 		return true;
@@ -95,128 +134,88 @@ namespace COLLADAMax
 
 		if ( !buckedTransforms( transformations, controllers) )
 		{
-			// the transformation do not fit into the max transformation stack
+			// the transformations do not fit into the max transformation stack
+			// try a matrix transformation 
+			assignMatrixTransformationController( node, iNode );
 			return true;
 		}
-
-		Control* transformationController = iNode->GetTMController();
-
-		Control* positionController = transformationController->GetPositionController();
-
-
-		if ( controllers[ TRANSLATE_X ] )
+		else
 		{
-			positionController->AssignController( controllers[ TRANSLATE_X ], 0 );
-		}
+			Control* transformationController = iNode->GetTMController();
 
-		if ( controllers[ TRANSLATE_Y ] )
-		{
-			positionController->AssignController( controllers[ TRANSLATE_Y ], 1 );
-		}
-
-		if ( controllers[ TRANSLATE_Z ] )
-		{
-			positionController->AssignController( controllers[ TRANSLATE_Z ], 2 );
-		}
-		Control* rotationController = transformationController->GetRotationController();
-
-		if ( controllers[ ROTATE_X ] )
-		{
-			rotationController->AssignController( controllers[ ROTATE_X ], 0 );
-		}
-
-		if ( controllers[ ROTATE_Y ] )
-		{
-			rotationController->AssignController( controllers[ ROTATE_Y ], 1 );
-		}
-
-		if ( controllers[ ROTATE_Z ] )
-		{
-			rotationController->AssignController( controllers[ ROTATE_Z ], 2 );
-		}
+			Control* positionController = transformationController->GetPositionController();
 
 
-		if ( controllers[ SCALE_X ] || controllers[ SCALE_Y ] || controllers[ SCALE_Z ] )
-		{
-			const DocumentImporter::UnitConversionFunctors& unitConversionFunctors = getUnitConversionFunctors();
-			ConversionFunctorType reScaleFunctor = unitConversionFunctors.inverseLengthConversion;
-
-			Control* scaleController = createMaxScaleController();
-
-			if ( controllers[ SCALE_X ] )
+			if ( controllers[ TRANSLATE_X ] )
 			{
-//				scaleController->AssignController( controllers[ SCALE_X ], 0 );
-				scaleController->AssignController( cloneController(controllers[ SCALE_X ], reScaleFunctor), 0 );
-			}
-			else
-			{
-				scaleController->AssignController( createMaxConstantFloatController(1), 0 );
+				positionController->AssignController( controllers[ TRANSLATE_X ], 0 );
 			}
 
-			if ( controllers[ SCALE_Y ] )
+			if ( controllers[ TRANSLATE_Y ] )
 			{
-//				scaleController->AssignController( controllers[ SCALE_Y ], 1 );
-				scaleController->AssignController( cloneController(controllers[ SCALE_Y ], reScaleFunctor), 1 );
-			}
-			else
-			{
-				scaleController->AssignController( createMaxConstantFloatController(1), 1 );
+				positionController->AssignController( controllers[ TRANSLATE_Y ], 1 );
 			}
 
-			if ( controllers[ SCALE_Z ] )
+			if ( controllers[ TRANSLATE_Z ] )
 			{
-//				scaleController->AssignController( controllers[ SCALE_Z ], 2 );
-				scaleController->AssignController( cloneController(controllers[ SCALE_Z ], reScaleFunctor), 2 );
+				positionController->AssignController( controllers[ TRANSLATE_Z ], 2 );
 			}
-			else
+			Control* rotationController = transformationController->GetRotationController();
+
+			if ( controllers[ ROTATE_X ] )
 			{
-				scaleController->AssignController( createMaxConstantFloatController(1), 2 );
+				rotationController->AssignController( controllers[ ROTATE_X ], 0 );
 			}
 
-			transformationController->SetScaleController( scaleController );
+			if ( controllers[ ROTATE_Y ] )
+			{
+				rotationController->AssignController( controllers[ ROTATE_Y ], 1 );
+			}
+
+			if ( controllers[ ROTATE_Z ] )
+			{
+				rotationController->AssignController( controllers[ ROTATE_Z ], 2 );
+			}
+
+
+			if ( controllers[ SCALE_X ] || controllers[ SCALE_Y ] || controllers[ SCALE_Z ] )
+			{
+				const DocumentImporter::UnitConversionFunctors& unitConversionFunctors = getUnitConversionFunctors();
+				ConversionFunctorType reScaleFunctor = unitConversionFunctors.inverseLengthConversion;
+
+				Control* scaleController = createMaxScaleController();
+
+				if ( controllers[ SCALE_X ] )
+				{
+					scaleController->AssignController( cloneController(controllers[ SCALE_X ], reScaleFunctor), 0 );
+				}
+				else
+				{
+					scaleController->AssignController( createMaxConstantFloatController(1), 0 );
+				}
+
+				if ( controllers[ SCALE_Y ] )
+				{
+					scaleController->AssignController( cloneController(controllers[ SCALE_Y ], reScaleFunctor), 1 );
+				}
+				else
+				{
+					scaleController->AssignController( createMaxConstantFloatController(1), 1 );
+				}
+
+				if ( controllers[ SCALE_Z ] )
+				{
+					scaleController->AssignController( cloneController(controllers[ SCALE_Z ], reScaleFunctor), 2 );
+				}
+				else
+				{
+					scaleController->AssignController( createMaxConstantFloatController(1), 2 );
+				}
+
+				transformationController->SetScaleController( scaleController );
+			}
 		}
 
-#if 0
-		Control* scaleController = transformationController->GetScaleController();
-		Class_ID ci = scaleController->ClassID();
-		SClass_ID sci = scaleController->SuperClassID();
-
-
-		Class_ID controllerClassID;//(isLinear ? LININTERP_FLOAT_CLASS_ID : HYBRIDINTERP_FLOAT_CLASS_ID, 0);
-		//Control* maxController = (Control*)createMaxObject( CTRL_POINT3_CLASS_ID, controllerClassID);
-		Control* maxController = NewDefaultScaleController();
-		maxController->AssignController( controllers[ TRANSLATE_X ], 0 );
-		maxController->AssignController( controllers[ TRANSLATE_X ], 1 );
-		maxController->AssignController( controllers[ TRANSLATE_X ], 2 );
-
-		transformationController->SetScaleController( maxController );
-
-
-
-		Class_ID ci2 = maxController->ClassID();
-		SClass_ID sci2 = maxController->SuperClassID();
-		int gg=0;
-#endif
-
-
-
-#if 0
-		Control* scaleController = transformationController->GetScaleController();
-
-		scaleController->AssignController( controllers[ TRANSLATE_X ], 0 );
-		scaleController->AssignController( controllers[ TRANSLATE_X ], 1 );
-		scaleController->AssignController( controllers[ TRANSLATE_X ], 2 );
-		scaleController->AssignController( controllers[ TRANSLATE_X ], 3 );
-		scaleController->AssignController( controllers[ TRANSLATE_X ], 4 );
-		scaleController->AssignController( controllers[ TRANSLATE_X ], 5 );
-		scaleController->AssignController( controllers[ TRANSLATE_X ], 6 );
-
-		Control* c[7];
-		c[0] = scaleController->GetXController();
-		c[1] = scaleController->GetYController();
-		c[2] = scaleController->GetZController();
-		c[3] = scaleController->GetWController();
-#endif
 		return true;
 	}
 
@@ -668,6 +667,76 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	bool AnimationAssigner::assignMatrixTransformationController( const COLLADAFW::Node* node, INode* iNode)
+	{
+		const COLLADAFW::TransformationPointerArray& transformations = node->getTransformations();
+		size_t transformationCount = transformations.getCount();
+
+		// We can handle this nodes transformation animation only, if it has one transformation of type matrix
+		if ( transformationCount != 1 )
+		{
+			return false;
+		}
+
+		const COLLADAFW::Transformation* transformation = transformations[0];
+
+		if ( transformation->getTransformationType() != COLLADAFW::Transformation::MATRIX )
+		{
+			return false;
+		}
+
+		const COLLADAFW::AnimationList* animationList = getAnimationList( transformation );
+
+		if ( !animationList )
+		{
+			// the animation list could not be found
+			return false;
+		}
+
+		const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings();
+
+		if ( animationBindings.getCount() != 1 )
+		{
+			// we can handle only one binding
+			return false;
+		}
+
+		// this binding has to be of type MATRIX4X4
+		const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings[0];
+
+		if ( animationBinding.animationClass != COLLADAFW::AnimationList::MATRIX4X4 )
+		{
+			return false;
+		}
+
+		const DocumentImporter::MaxControllerList& maxControllerList = getMaxControllerListByAnimationUniqueId( animationBinding.animation );
+		assert(maxControllerList.size() == 1);
+		if ( maxControllerList.size() != 1 )
+		{
+			// we expect exactly one controller
+			return false;
+		}
+
+		Control* transformationController = maxControllerList[0];
+
+		//remove
+		if ( transformationController )
+		{
+			SClass_ID sc = transformationController->SuperClassID();
+			Class_ID c = transformationController->ClassID();
+			int g = 5;
+		}
+
+		SuspendAnimate();
+
+		AnimateOn();
+		iNode->SetTMController(transformationController);
+		ResumeAnimate(); 
+
+		return true;
+	}
+
+	//------------------------------
 	bool AnimationAssigner::assignEffectParameterControllers()
 	{
 		const MaterialCreator::MaterialIdentifierMaxMaterialMap& materialIdentifierMaxMaterialMap = mMaterialCreator.getMaterialIdentifierMaxMaterialMap();
@@ -791,5 +860,104 @@ namespace COLLADAMax
 		return true;	
 	}
 
+	//------------------------------
+	bool AnimationAssigner::assignLightParameterControllers()
+	{
+		const DocumentImporter::LightList& lightsPairs = getLightList();
+		DocumentImporter::LightList::const_iterator it = lightsPairs.begin();
+		for ( ; it != lightsPairs.end(); ++it)
+		{
+			const COLLADAFW::Light& fwLight = *it;
+			if ( !assignLightParameterController( fwLight) )
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 
+
+	//------------------------------
+	bool AnimationAssigner::assignColorRGBController( Animatable* entity, int pid, const COLLADAFW::AnimationList* animationList )
+	{
+		Control* maxController = createMaxColorRGBAController();
+
+		Control* maxControllers[3];
+
+		for ( size_t i = 0; i < 3; ++i)
+		{
+			maxControllers[i] = 0;
+		}
+
+		assign3DController< COLLADAFW::AnimationList::COLOR_RGB,
+			COLLADAFW::AnimationList::COLOR_R,
+			COLLADAFW::AnimationList::COLOR_G,
+			COLLADAFW::AnimationList::COLOR_B>( 0, 1, 2, animationList->getAnimationBindings(), maxControllers );
+
+		for ( int i = 0; i < 3; ++i)
+		{
+			Control*& controller = maxControllers[i];
+			if ( controller )
+			{
+				maxController->AssignController( controller, i );
+			}
+		}
+
+		// Assign the controller to the animatable entity.
+		if ( !entity->AssignController(maxController, pid) )
+		{
+			// TODO handle error
+			int gg = 0;
+		}
+		return true;	
+	}
+
+	//------------------------------
+	bool AnimationAssigner::assignLightParameterController( const COLLADAFW::Light& fwLight )
+	{
+		Object* lightObject = getObjectByUniqueId( fwLight.getUniqueId() );
+		if ( !lightObject )
+		{
+			return true;
+		}
+
+		assert( lightObject->SuperClassID() == LIGHT_CLASS_ID);
+		if ( lightObject->SuperClassID() != LIGHT_CLASS_ID )
+		{
+			return true;
+		}
+
+		GenLight* maxLight = (GenLight*)lightObject;
+
+		const COLLADAFW::Color& color = fwLight.getColor();
+		const COLLADAFW::UniqueId& colorUniqueId = color.getAnimationList();
+		const COLLADAFW::AnimationList* colorAnimationList = getAnimationListByUniqueId( colorUniqueId );
+
+		if ( colorAnimationList )
+		{
+			int pid = 0;
+			Animatable* colorController = findAnimatableByName( maxLight, "Color", pid);
+			if ( colorController )
+			{
+				assignColorRGBController( colorController, pid, colorAnimationList);
+			}
+		}
+
+
+		//Find a better way to access parameter controller
+#if 0
+		const COLLADAFW::AnimatableFloat& fallOffAngle = fwLight.getFallOffAngle();
+		const COLLADAFW::UniqueId& fallOffAngleUniqueId = fallOffAngle.getAnimationList();
+		const COLLADAFW::AnimationList* fallOffAngleAnimationList = getAnimationListByUniqueId( fallOffAngleUniqueId );
+
+		Animatable* fallOffAngleController = findAnimatableByName( maxLight, "Falloff", pid);
+		if ( fallOffAngleController )
+		{
+			assignFloatController( fallOffAngleController, pid, fallOffAngleAnimationList);
+		}
+		fallOffAngleController->
+#endif
+		return true;
+
+	}
 } // namespace COLLADAMax

@@ -78,10 +78,24 @@ namespace COLLADAMax
 		
 		size_t dimensions = animationCurve->getOutDimension();
 
-		for ( size_t i = 0; i < dimensions; ++i)
+		if ( dimensions == 16 )
 		{
-			Control* maxController = createAndFillMaxFloatController( animationCurve, i);
+			//Special case of a matrix
+			if ( animationCurve->getInterpolationType() != COLLADAFW::AnimationCurve::INTERPOLATION_LINEAR )
+			{
+				// we only support linearly interpolated matrices
+				return true;
+			}
+			Control* maxController = createAndFillMaxTransformationController( animationCurve );
 			addMaxControllerToAnimationUniqueId( animationUniqueId, maxController);
+		}
+		else
+		{
+			for ( size_t i = 0; i < dimensions; ++i)
+			{
+				Control* maxController = createAndFillMaxFloatController( animationCurve, i);
+				addMaxControllerToAnimationUniqueId( animationUniqueId, maxController);
+			}
 		}
 		return true;
 	}
@@ -405,6 +419,140 @@ namespace COLLADAMax
 
 		return true;
 	}
+
+
+	//------------------------------
+	Control* AnimationImporter::createAndFillMaxTransformationController( COLLADAFW::AnimationCurve* animationCurve )
+	{
+		if ( animationCurve->getInterpolationType() !=  COLLADAFW::AnimationCurve::INTERPOLATION_LINEAR )
+		{
+			// we support only linear transformations
+			return 0;
+		}
+
+		if ( animationCurve->getOutDimension() !=  16 )
+		{
+			// we can only handle animations with 16 dimension as matrix controller
+			return 0;
+		}
+
+		Control* maxController = createMaxTransformationController( animationCurve );
+		if ( !maxController )
+		{
+			return 0;
+		}
+
+		IKeyControl* maxKeyController = GetKeyControlInterface( maxController );
+
+		fillMaxTransformationController( maxController, animationCurve);
+
+		return maxController;
+	}
+
+	//------------------------------
+	bool AnimationImporter::fillMaxTransformationController( Control* maxController, COLLADAFW::AnimationCurve* animationCurve )
+	{
+		// Fill in the controller with the animation data from the curve
+		size_t keyCount = animationCurve->getKeyCount();
+
+		assert( animationCurve->getOutDimension() == 16);
+
+		//maxController->SetNumKeys((int) keyCount);
+
+		const COLLADAFW::FloatOrDoubleArray& inputValues = animationCurve->getInputValues();
+		COLLADAFW::FloatOrDoubleArray::DataType inputValuesDataType = inputValues.getType();
+
+		const COLLADAFW::FloatOrDoubleArray& outputValues = animationCurve->getOutputValues();
+		COLLADAFW::FloatOrDoubleArray::DataType outputValuesDataType = outputValues.getType();
+
+		ConversionFunctor* inputConversionFunctor = getConversionFunctorByPhysicalDimension( animationCurve->getInPhysicalDimension() );
+		ConversionFunctor* outputConversionFunctors[16];
+		for ( size_t i = 0; i < 16; ++i)
+		{
+			outputConversionFunctors[i] = getConversionFunctorByPhysicalDimension( animationCurve->getOutPhysicalDimensions()[i]);
+		}
+
+		if ( inputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+		{
+			if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+			{
+				fillLinearMaxTransformationController( maxController, keyCount, *inputValues.getDoubleValues(), *outputValues.getDoubleValues(), inputConversionFunctor, outputConversionFunctors);
+			}
+			else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+			{
+				fillLinearMaxTransformationController( maxController, keyCount, *inputValues.getDoubleValues(), *outputValues.getFloatValues(), inputConversionFunctor, outputConversionFunctors);
+			}
+		}
+		else if ( inputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT )
+		{
+			if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+			{
+				fillLinearMaxTransformationController( maxController, keyCount, *inputValues.getFloatValues(), *outputValues.getDoubleValues(), inputConversionFunctor, outputConversionFunctors);
+			}
+			else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+			{
+				fillLinearMaxTransformationController( maxController, keyCount, *inputValues.getFloatValues(), *outputValues.getFloatValues(), inputConversionFunctor, outputConversionFunctors);
+			}
+		}
+		return true;
+	}
+
+
+	//------------------------------
+	template<class InputArrayType, class OutputArrayType> 
+	bool AnimationImporter::fillLinearMaxTransformationController( Control* maxController, 
+														  size_t keyCount, 
+													      const InputArrayType& inputValues, 
+		                                                  const OutputArrayType& outputValues,
+														  ConversionFunctorType inputConversionFunctor,
+														  ConversionFunctor* outputConversionFunctors[])
+	{
+		SuspendAnimate();
+
+		AnimateOn();
+
+		for ( size_t i = 0; i < keyCount; ++i)
+		{
+			TimeValue keyTime;
+			if ( inputConversionFunctor )
+			{
+				keyTime = (TimeValue)((*inputConversionFunctor)((float)(inputValues[i])));
+			}
+			else
+			{
+				keyTime = (TimeValue)(inputValues[i]);
+			}
+			
+			Matrix3 matrixValue;
+			
+			size_t firstMatrixElement = 16*i;
+
+			Point4 column;
+			column[ 0 ] = convert(outputConversionFunctors[0], (float)outputValues[firstMatrixElement +  0]);
+			column[ 1 ] = convert(outputConversionFunctors[1], (float)outputValues[firstMatrixElement +  1]);
+			column[ 2 ] = convert(outputConversionFunctors[2], (float)outputValues[firstMatrixElement +  2]);
+			column[ 3 ] = convert(outputConversionFunctors[3], (float)outputValues[firstMatrixElement + 3]);
+			matrixValue.SetColumn(0, column);
+
+			column[ 0 ] = convert(outputConversionFunctors[4], (float)outputValues[firstMatrixElement +  4]);
+			column[ 1 ] = convert(outputConversionFunctors[5], (float)outputValues[firstMatrixElement +  5]);
+			column[ 2 ] = convert(outputConversionFunctors[6], (float)outputValues[firstMatrixElement +  6]);
+			column[ 3 ] = convert(outputConversionFunctors[7], (float)outputValues[firstMatrixElement + 7]);
+			matrixValue.SetColumn(1, column);
+
+			column[ 0 ] = convert(outputConversionFunctors[8], (float)outputValues[firstMatrixElement +  8]);
+			column[ 1 ] = convert(outputConversionFunctors[9], (float)outputValues[firstMatrixElement +  9]);
+			column[ 2 ] = convert(outputConversionFunctors[10], (float)outputValues[firstMatrixElement + 10]);
+			column[ 3 ] = convert(outputConversionFunctors[11], (float)outputValues[firstMatrixElement + 11]);
+			matrixValue.SetColumn(2, column);
+
+			SetXFormPacket matrixValuePacket(matrixValue);
+			maxController->SetValue( keyTime, &matrixValuePacket, 1, CTRL_ABSOLUTE);
+		}
+		ResumeAnimate(); 
+		return true;
+	}
+
 
 
 } // namespace COLLADAMax

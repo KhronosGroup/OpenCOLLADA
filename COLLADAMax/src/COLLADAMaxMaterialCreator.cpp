@@ -445,7 +445,21 @@ namespace COLLADAMax
 			float averageTransparent = (float)(opacityColor.getRed() + opacityColor.getGreen() + opacityColor.getBlue())/3; 
 			maxOpacity = averageTransparent;
 		}
-		material->SetOpacity( maxOpacity, 0);
+
+		if ( getDocumentImporter()->getInvertTransparency() )
+		{
+			maxOpacity = 1 - maxOpacity;
+		}
+
+		// Max seems to like to have opacity 0 for opacity textures
+		if ( opacity.isTexture() )
+		{
+			material->SetOpacity( 0, 0);
+		}
+		else
+		{
+			material->SetOpacity( maxOpacity, 0);
+		}
 
 		if (shaderType != COLLADAFW::EffectCommon::SHADER_CONSTANT && shaderType != COLLADAFW::EffectCommon::SHADER_UNKNOWN)
 		{

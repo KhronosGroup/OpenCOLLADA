@@ -48,7 +48,7 @@ namespace COLLADAMax
         DocumentExporter * mDocumentExporter;
 
         /** List of the the ids used by all of the effects*/
-        ExportedEffectIdList mExportedEffectIdList;
+        ExportedEffectIdAndNameList mExportedEffectIdAndNameList;
 
     public:
         /**
@@ -71,9 +71,9 @@ namespace COLLADAMax
         static Mtl* GetSubMaterialById ( Mtl* mtl, int materialId );
 
         /** Returns a reference to the Effect ID list.*/
-        ExportedEffectIdList & getEffectIdList()
+        ExportedEffectIdAndNameList & getEffectIdList()
         {
-            return mExportedEffectIdList;
+            return mExportedEffectIdAndNameList;
         }
 
     private:

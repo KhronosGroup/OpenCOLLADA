@@ -56,7 +56,7 @@ namespace COLLADAMax
 
 		/** Recursively resolves the XRef object, i.e. it returns the object that is referenced.
 		@return The resolved object. It is garanteed to be not an Xref object.*/
-		static IDerivedObject* getXRefItemSource(Object* xRefObject);
+		static Object* getXRefItemSource(Object* xRefObject);
 
 		/** Recursively resolves the XRef material, i.e. it returns the object that is referenced.
 		@return The resolved material. It is garanteed to be not an Xref material.*/

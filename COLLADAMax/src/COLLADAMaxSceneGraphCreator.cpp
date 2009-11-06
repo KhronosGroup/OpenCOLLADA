@@ -80,6 +80,10 @@ namespace COLLADAMax
 			getMaxImportInterface()->AddNodeToScene(newImportNode);
 
 			RefResult res = newImportNode->Reference(getDummyObject());
+			if ( node->getType() == COLLADAFW::Node::JOINT )
+			{
+				newImportNode->GetINode()->ShowBone(1);
+			}
 
 			importInstanceGeometries(node->getInstanceGeometries(), newImportNode);
 			importInstanceControllers(node->getInstanceControllers(), newImportNode);

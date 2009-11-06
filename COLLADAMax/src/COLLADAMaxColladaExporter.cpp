@@ -124,7 +124,8 @@ namespace COLLADAMax
 
         try
         {
-			DocumentExporter document ( maxInterface, NativeString(name), mXRefExportFileNames );
+			bool exportOnlySelected = (options & SCENE_EXPORT_SELECTED) == SCENE_EXPORT_SELECTED;
+			DocumentExporter document ( maxInterface, NativeString(name), mXRefExportFileNames, exportOnlySelected );
 			if (document.showExportOptions(suppressPrompts != false) )
 			{
 				/// @todo handle errors here

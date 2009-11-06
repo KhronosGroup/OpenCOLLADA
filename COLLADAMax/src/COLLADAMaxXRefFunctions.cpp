@@ -43,7 +43,8 @@ namespace COLLADAMax
 #ifdef MAX_8_OR_NEWER
 		return IXRefItem::IsIXRefItem(* object);
 #else
-
+		// no xref items in max7
+		return false;
 #endif
 	}
 
@@ -143,7 +144,7 @@ namespace COLLADAMax
 
 #else
 		XRefObject_REDEFINITION* xobj = (XRefObject_REDEFINITION*)xRefObject;
-		Object* source = xobj->object;
+		Object* source = xobj->obj;
 
 #endif
 		return source;
@@ -151,26 +152,13 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	IDerivedObject* XRefFunctions::getXRefItemSource(Object* xRefObject)
+	Object* XRefFunctions::getXRefItemSource(Object* xRefObject)
 	{
 		if ( !isXRefItem(xRefObject) ) 
 			return (IDerivedObject*) xRefObject; // this is the source
 #ifdef MAX_8_OR_NEWER
 
 		IXRefItem * xRefObjectInterface = IXRefItem::GetInterface(* xRefObject);
-		//remove
-		INodeTab nodes;
-		xRefObjectInterface->GetNodes(nodes);
-		int gg = nodes.Count();
-		INode* n;
-		if ( gg > 0)
-			n = nodes[0];
-
-
-		INode* m = n->GetActualINode();
-
-		INode* bb = xRefObject->GetWorldSpaceObjectNode();
-
 		if ( !xRefObjectInterface ) 
 			return 0;
 
@@ -183,7 +171,8 @@ namespace COLLADAMax
 		int h1h = 5;
 
 #else
-
+		// no xref items in max7
+		Object* source = xRefObject;
 #endif
 		return source;
 	}
