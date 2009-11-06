@@ -1,0 +1,4 @@
+
+- write local mesh matrix for splitted objects
+
+remove calculateMeshNameWithBlockIndex
