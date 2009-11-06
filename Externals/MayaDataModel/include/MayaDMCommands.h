@@ -51,10 +51,35 @@ namespace MayaDM
 		parent(file, childName, parentName, absolute, addObject, noConnections, relative, removeObject, true, world);
 	}
 
+    /**
+     * Class to help handling the flags of an Attribute.
+     */
+    class AttributeFlag
+    {
+    private:
+        std::string mFlagName;
+        std::string mFlagValue;
+        bool mQuotations;
+
+    public:
+        AttributeFlag ( 
+            const std::string& flagName, 
+            const std::string& flagValue, 
+            const bool quotations = true )
+            : mFlagName ( flagName )
+            , mFlagValue ( flagValue )
+            , mQuotations ( quotations )
+        {}
+        virtual ~AttributeFlag () {}
+
+        const std::string& getFlagName () const { return mFlagName; }
+        const std::string& getFlagValue () const { return mFlagValue; }
+        const bool& getQuotations () const { return mQuotations; }
+    };
 
     /**
-     * Method to add an attribute to a maya node.
-     */
+    * Method to add an attribute to a maya node.
+    */
     static void addAttr ( 
         FILE* file, 
         const std::string& nodeName, 
@@ -69,6 +94,33 @@ namespace MayaDM
     }
 
     /**
+     * Method to add an attribute to a maya node.
+     */
+    static bool addAttr ( 
+        FILE* file, 
+        const std::string& nodeName, 
+        const std::string& attributeName, 
+        const AttributeFlag& attributeFlag )
+    {
+        if ( !file ) 
+        {
+            std::cerr << "addAttr: file not valid! Can't add Attribute!" << std::endl;
+            return false;
+        }
+        fprintf ( file, "addAttr -ln \"%s\"", attributeName.c_str() );
+
+        if ( attributeFlag.getQuotations () )
+            fprintf ( file, " -%s \"%s\"", attributeFlag.getFlagName ().c_str (), attributeFlag.getFlagValue ().c_str () );
+        else
+            fprintf ( file, " -%s %s", attributeFlag.getFlagName ().c_str (), attributeFlag.getFlagValue ().c_str () );
+
+        fprintf ( file, " %s", nodeName.c_str() );
+        fprintf ( file, ";\n" );
+
+        return true;
+    }
+
+    /**
     * Method to add an attribute with one flag to the currently selected maya node.
     */
     static bool addAttr ( 
@@ -79,11 +131,36 @@ namespace MayaDM
     {
         if ( !file ) 
         {
-            std::cerr << "addAttr: file not valid! Can't add Attribute!" << endl;
+            std::cerr << "addAttr: file not valid! Can't add Attribute!" << std::endl;
             return false;
         }
         fprintf ( file, "\taddAttr -ln \"%s\"", attributeName.c_str() );
         fprintf ( file, " -%s \"%s\"", flagName.c_str (), flagValue.c_str () );
+        fprintf ( file, ";\n" );
+
+        return true;
+    }
+
+    /**
+    * Method to add an attribute to the currently selected maya node.
+    */
+    static bool addAttr ( 
+        FILE* file, 
+        const std::string& attributeName, 
+        const AttributeFlag& attributeFlag )
+    {
+        if ( !file ) 
+        {
+            std::cerr << "addAttr: file not valid! Can't add Attribute!" << std::endl;
+            return false;
+        }
+        fprintf ( file, "\taddAttr -ln \"%s\"", attributeName.c_str() );
+
+        if ( attributeFlag.getQuotations () )
+            fprintf ( file, " -%s \"%s\"", attributeFlag.getFlagName ().c_str (), attributeFlag.getFlagValue ().c_str () );
+        else
+            fprintf ( file, " -%s %s", attributeFlag.getFlagName ().c_str (), attributeFlag.getFlagValue ().c_str () );
+
         fprintf ( file, ";\n" );
 
         return true;
@@ -95,73 +172,24 @@ namespace MayaDM
     static bool addAttr ( 
         FILE* file, 
         const std::string& attributeName, 
-        const std::vector<std::string>& flagNames,
-        const std::vector<std::string>& flagValues )
+        const std::vector<AttributeFlag>& attributeFlags )
     {
         if ( !file ) 
         {
-            std::cerr << "addAttr: file not valid! Can't add Attribute!" << endl;
-            return false;
-        }
-        if ( flagNames.size () != flagValues.size () )
-        {
-            std::cerr << "addAttr: Number of flag names and values is not the same! Can't add Attribute." << endl;
+            std::cerr << "addAttr: file not valid! Can't add Attribute!" << std::endl;
             return false;
         }
         fprintf ( file, "\taddAttr -ln \"%s\"", attributeName.c_str() );
-        for ( size_t i=0; i<flagNames.size (); ++i )
-            fprintf ( file, " -%s \"%s\"", flagNames[i].c_str (), flagValues[i].c_str () );
+        for ( size_t i=0; i<attributeFlags.size (); ++i )
+        {
+            if ( attributeFlags[i].getQuotations () == false )
+                fprintf ( file, " -%s %s", attributeFlags[i].getFlagName ().c_str (), attributeFlags[i].getFlagValue ().c_str () );
+            else
+                fprintf ( file, " -%s \"%s\"", attributeFlags[i].getFlagName ().c_str (), attributeFlags[i].getFlagValue ().c_str () );
+        }
         fprintf ( file, ";\n" );
 
         return true;
-    }
-
-    static void startAddAttr ( FILE* file, const bool insertTab )
-    {
-        if ( insertTab )
-            fprintf ( file, "\taddAttr" );
-        else
-            fprintf ( file, "addAttr" );
-    }
-    static void endAddAttr ( FILE* file )
-    {
-        fprintf ( file, ";\n" );
-    }
-    static void appendSetAttrStartValues ( FILE* file )
-    {
-        fprintf ( file, "{" );
-    }
-    static void appendSetAttrAppendValue ( FILE* file, const std::string& aliasName, const std::string& aliasValue )
-    {
-        fprintf ( file, "{" );
-    }
-    static void appendSetAttrEndValues ( FILE* file )
-    {
-        fprintf ( file, "};\n" );
-    }
-    static void appendAttrFlag ( FILE* file, const std::string& flagName, const std::string& flagValue )
-    {
-        fprintf ( file, " -%s \"%s\"", flagName.c_str(), flagValue.c_str () );
-    }
-    static void appendAttrFlag ( FILE* file, const std::string& flagName, const bool flagValue )
-    {
-        fprintf ( file, " -%s %i", flagName.c_str(), ( int ) flagValue );
-    }
-    static void appendAttrFlag ( FILE* file, const std::string& flagName, const double flagValue )
-    {
-        fprintf ( file, " -%s %g ", flagName.c_str(), flagValue );
-    }
-    static void appendAttrFlag ( FILE* file, const std::string& flagName, const float flagValue )
-    {
-        fprintf ( file, " -%s %g ", flagName.c_str(), flagValue );
-    }
-    static void appendAttrFlag ( FILE* file, const std::string& flagName, const unsigned int flagValue )
-    {
-        fprintf ( file, " -%s %u ", flagName.c_str(), flagValue );
-    }
-    static void appendAttrFlag ( FILE* file )
-    {
-        fprintf ( file, ";\n" );
     }
 
     /**
@@ -198,6 +226,29 @@ namespace MayaDM
             fprintf ( file, " \"%s\"", attributeValue.c_str() );
         fprintf ( file, ";\n" );
     }
+
+    /**
+    * Method to set an attribute's value of the currently selected maya node.
+    */
+    static void setAttr ( 
+        FILE* file, 
+        const std::string& attributeName, 
+        const std::vector<AttributeFlag>& attributeFlags, 
+        const std::string& attributeValue )
+    {
+        fprintf ( file, "\tsetAttr .%s", attributeName.c_str() );
+        for ( size_t i=0; i<attributeFlags.size (); ++i )
+        {
+            if ( attributeFlags[i].getQuotations () == false )
+                fprintf ( file, " -%s %s", attributeFlags[i].getFlagName ().c_str (), attributeFlags[i].getFlagValue ().c_str () );
+            else
+                fprintf ( file, " -%s \"%s\"", attributeFlags[i].getFlagName ().c_str (), attributeFlags[i].getFlagValue ().c_str () );
+        }
+        if ( strcmp ( attributeValue.c_str(), "" ) != 0 )
+            fprintf ( file, " \"%s\"", attributeValue.c_str() );
+        fprintf ( file, ";\n" );
+    }
+
     static void setAttr ( 
         FILE* file, 
         const std::string& attributeName, 

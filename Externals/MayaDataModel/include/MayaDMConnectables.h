@@ -379,7 +379,7 @@ enum ConnectableType
     src;                                		\
     fprintf(file, " ");                 		\
     dst;                                		\
-    fprintf(file, " -nextAvailable"); 		\
+    fprintf(file, " -na"); 		\
     fprintf(file, ";\n"); }
 
 }//namespace MayaDM
