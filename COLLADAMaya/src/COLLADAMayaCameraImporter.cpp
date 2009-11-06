@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -21,7 +21,7 @@
 namespace COLLADAMaya
 {
 
-    const String CameraImporter::CAMERA_NAME = "Camera";
+    const String CameraImporter::CAMERA_NAME = "camera";
 
 
     //------------------------------
@@ -65,10 +65,9 @@ namespace COLLADAMaya
         {
             // Get the maya node of the current transform node.
             const COLLADAFW::UniqueId& transformNodeId = *nodesIter;
-            MayaNodesList* mayaTransformNodes = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+            MayaNodesList* mayaTransformNodes = visualSceneImporter->findMayaTransformNodes ( transformNodeId );
             if ( mayaTransformNodes->size () == 0 )
             {
-                MGlobal::displayError ( "The referenced transform node doesn't exist!" );
                 std::cerr << "The referenced transform node doesn't exist!" << endl;
                 return;
             }
@@ -104,12 +103,13 @@ namespace COLLADAMaya
         const COLLADAFW::Camera* camera,  
         MayaNode* mayaTransformNode )
     {
-        // Create a unique name.
+        // Make the maya name unique and manage it in all necessary lists.
         String cameraName = camera->getName ();
-        if ( COLLADABU::Utils::equals ( cameraName, "" ) ) 
-            cameraName = CAMERA_NAME;
+        if ( COLLADABU::Utils::equals ( cameraName, EMPTY_STRING ) ) cameraName = CAMERA_NAME;
         cameraName = DocumentImporter::frameworkNameToMayaName ( cameraName );
-        cameraName = mCameraIdList.addId ( cameraName );
+        String originalMayaId = getOriginalMayaId ( camera->getExtraDataArray () );
+        if ( !COLLADABU::Utils::equals ( originalMayaId, EMPTY_STRING ) ) cameraName = originalMayaId;
+        cameraName = generateUniqueDagNodeName ( cameraName, mayaTransformNode );
 
         // Create a maya node object of the current node and push it into the map.
         const COLLADAFW::UniqueId& cameraId = camera->getUniqueId ();
@@ -132,10 +132,10 @@ namespace COLLADAMaya
 
         // Add the original id attribute.
         String colladaId = camera->getOriginalId ();
-        if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+        if ( !COLLADABU::Utils::equals ( colladaId, EMPTY_STRING ) )
         {
-            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
+            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
         }
 
         // Have a look, if there is a center of interest set by the transform's lookat matrix.
@@ -159,7 +159,6 @@ namespace COLLADAMaya
             break;
         default:
             std::cerr << "Unknown camera type!" << endl;
-            MGlobal::displayError ( "Unknown camera type!" );
             break;
         }
 
@@ -206,12 +205,18 @@ namespace COLLADAMaya
             break;
         case COLLADAFW::Camera::SINGLE_X:
             {
+                double aspectRatio = 1.0;
+                MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
+                
                 double horizontalFieldOfView = camera->getXFov ();
                 MayaDM::editCameraHorizontalFieldOfView ( file, mayaCameraNode->getNodePath (), horizontalFieldOfView );
             }
             break;
         case COLLADAFW::Camera::SINGLE_Y:
             {
+                double aspectRatio = 1.0;
+                MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
+
                 double verticalFieldOfView = camera->getYFov ();
                 MayaDM::editCameraVerticalFieldOfView ( file, mayaCameraNode->getNodePath (), verticalFieldOfView );
             }
@@ -229,7 +234,6 @@ namespace COLLADAMaya
             }
             break;
         default:
-            MGlobal::displayError ( "Unknown description type!" );
             std::cerr << "Unknown description type!" << endl;
             break;
         }
@@ -262,7 +266,7 @@ namespace COLLADAMaya
                 double aspectRatio = camera->getAspectRatio ();
                 MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
 
-                double orthographicWidth = camera->getXMag () / 2;
+                double orthographicWidth = camera->getXMag () * 2;
                 MayaDM::editCameraOrthographicWidth ( file, mayaCameraNode->getNodePath (), orthographicWidth );
             }
             break;
@@ -271,30 +275,32 @@ namespace COLLADAMaya
                 double aspectRatio = camera->getAspectRatio ();
                 MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
 
-                double orthographicHeight = camera->getYMag () / 2;
-                MayaDM::editCameraOrthographicHeight ( file, mayaCameraNode->getNodePath (), orthographicHeight );
+                double orthographicHeight = camera->getYMag () * 2;
+                MayaDM::editCameraOrthographicWidth ( file, mayaCameraNode->getNodePath (), orthographicHeight );
             }
             break;
         case COLLADAFW::Camera::SINGLE_X:
             {
-                double orthographicWidth = camera->getXMag () / 2;
+                double orthographicWidth = camera->getXMag () * 2;
                 MayaDM::editCameraOrthographicWidth ( file, mayaCameraNode->getNodePath (), orthographicWidth );
             }
             break;
         case COLLADAFW::Camera::SINGLE_Y:
             {
-                double orthographicHeight = camera->getYMag () / 2;
-                MayaDM::editCameraOrthographicHeight ( file, mayaCameraNode->getNodePath (), orthographicHeight );
+                double orthographicHeight = camera->getYMag () * 2;
+                MayaDM::editCameraOrthographicWidth ( file, mayaCameraNode->getNodePath (), orthographicHeight );
             }
             break;
         case COLLADAFW::Camera::X_AND_Y:
             {
-                double aspectRatio = camera->getXMag () / camera->getYMag ();
-                MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
+                double orthographicWidth = camera->getXMag () * 2;
+                MayaDM::editCameraOrthographicWidth ( file, mayaCameraNode->getNodePath (), orthographicWidth );
+
+//                 double aspectRatio = camera->getXMag () / camera->getYMag ();
+//                 MayaDM::editCameraAspectRatio ( file, mayaCameraNode->getNodePath (), aspectRatio );
             }
             break;
         default:
-            MGlobal::displayError ( "Unknown description type!" );
             std::cerr << "Unknown description type!" << endl;
             break;
         }

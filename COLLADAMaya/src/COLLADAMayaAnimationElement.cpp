@@ -101,7 +101,7 @@ namespace COLLADAMaya
             ( ( mSampleType & kQualifiedAngle ) == kQualifiedAngle ) )
             return 1;
 
-        MGlobal::displayError ( MString ( "Unknown sampleType: " ) + mSampleType );
+        std::cerr << "Unknown sampleType: " << mSampleType << endl;
 
         return 0;
     }

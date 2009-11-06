@@ -65,10 +65,16 @@ namespace COLLADAMaya
         const COLLADASW::Shader::Scope& getShaderScope () const { return mShaderScope; }
         void setShaderScope ( const COLLADASW::Shader::Scope& val ) { mShaderScope = val; }
 
-    private:
+        /** Export the current sampler. */
+        void exportSampler ( 
+            MObject shaderNode, 
+            const CGparameter& cgParameter,
+            const bool writeNewParam );
 
         /** Set the filename of the current shader to export. */
         void setShaderFxFileUri ( const COLLADASW::URI& shaderFxFileName );
+
+    private:
 
         /** Returns the filename of the current shader fx file. */
         const COLLADASW::URI& getShaderFxFileUri () const;
@@ -77,20 +83,24 @@ namespace COLLADAMaya
         void exportCgfxShader ( cgfxShaderNode* shaderNodeCgfx );
 
         /** Export the effects parameter. */
-        void exportEffectParameters ( const CGeffect &cgEffect );
+        void exportEffectParameters ( 
+            MObject shaderNode, 
+            const CGeffect &cgEffect );
 
-        /** Export the current sampler. */
-        void exportSampler( const CGparameter& cgParameter );
+        /** Create the annotation data of the given parameter and push it in the list. */
+        void getAnnotations ( 
+            std::vector<COLLADASW::Annotation>& annotations, 
+            const CGparameter &cgParameter );
 
         /** Export the current texture element. */
-        void exportTexture(
-            const CGparameter& cgTextureParam,
-            const COLLADASW::Surface::SurfaceType& surfaceType );
+        void setTexture (
+            MObject shaderNode, 
+            COLLADASW::Sampler& sampler, 
+            const CGparameter& cgTextureParam );
 
         /** Returns the type data of the current resource. */
         void getResourceType(
             const CGparameter& cgTextureParam,
-            COLLADASW::Surface::SurfaceType &surfaceType,
             COLLADASW::Sampler::SamplerType &samplerType,
             COLLADASW::ValueType::ColladaType &samplerValueType );
 
@@ -101,6 +111,11 @@ namespace COLLADAMaya
             COLLADASW::ParamBase *param,
             const Type* paramValues,
             const int numOfValues );
+
+        void exportParam (
+            const CGparameter& cgParameter,
+            COLLADASW::ParamBase* param,
+            const String& paramValue );
 
         /** Exports the annotation data of the given parameter. */
         void exportAnnotations ( const CGparameter &cgParameter, COLLADASW::ParamBase *param );

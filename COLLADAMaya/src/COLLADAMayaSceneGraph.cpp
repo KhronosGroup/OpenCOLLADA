@@ -105,7 +105,7 @@ namespace COLLADAMaya
             // Grab the selected DAG components
             if ( MStatus::kFailure == MGlobal::getActiveSelectionList ( mTargets ) )
             {
-                MGlobal::displayError ( "MGlobal::getActiveSelectionList" );
+                std::cerr << "MGlobal::getActiveSelectionList" << endl;
                 return false;
             }
 
@@ -390,7 +390,8 @@ namespace COLLADAMaya
             if ( dagPath.hasFn ( MFn::kManipulator ) || dagPath.hasFn ( MFn::kViewManip ) ) return false;
 
             // Check for constraints which are not exported
-            if ( !ExportOptions::exportConstraints() && dagPath.hasFn ( MFn::kConstraint ) ) return false;
+            //if ( !ExportOptions::exportConstraints() && dagPath.hasFn ( MFn::kConstraint ) ) return false;
+            if ( dagPath.hasFn ( MFn::kConstraint ) ) return false;
 
             // Check set membership exclusion/inclusion
             if ( SetHelper::isExcluded ( dagPath ) ) return false;
@@ -501,11 +502,8 @@ namespace COLLADAMaya
     SceneElement* SceneGraph::findElement ( const MDagPath& dagPath )
     {
         static bool output = false;
-        if ( output ) MGlobal::displayInfo ( MString ( "Comparing against: " ) + dagPath.fullPathName() );
         for ( SceneElementsList::iterator it = mExportNodesTree.begin(); it != mExportNodesTree.end(); ++it )
         {
-            if ( output ) MGlobal::displayInfo ( MString ( "Local value: " ) + MFnDependencyNode ( ( *it )->getNode() ).name() );
-
             SceneElement* sceneElement = *it;
             if ( sceneElement->getPath() == dagPath ) return ( sceneElement );
 
@@ -541,10 +539,8 @@ namespace COLLADAMaya
     SceneElement* SceneGraph::findExportedElement ( const MDagPath& dagPath )
     {
         static bool output = false;
-        if ( output ) MGlobal::displayInfo ( MString ( "Comparing against: " ) + dagPath.fullPathName() );
         for ( SceneElementsList::iterator it = mExportedNodes.begin(); it != mExportedNodes.end(); ++it )
         {
-            if ( output ) MGlobal::displayInfo ( MString ( "Local value: " ) + MFnDependencyNode ( ( *it )->getNode() ).name() );
             if ( ( *it )->getNode() == dagPath.node() ) return ( *it );
         }
 

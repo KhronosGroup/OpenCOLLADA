@@ -21,6 +21,10 @@
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWNode.h"
 
+#include "COLLADABUIDList.h"
+
+#include <vector>
+
 
 namespace COLLADAMaya
 {
@@ -43,20 +47,25 @@ namespace COLLADAMaya
         /**
          * The parent node.
          */
-        MayaNode* mParent;
+        MayaNode* mParentNode;
 
         /**
-         * The flag, if the node is positioned at the right place. Default is true.
-         * But if a node from <library_nodes> is created, we have to move it later 
-         * (the right position in the scene graph depends on the first implementation from there).
+         * The list of unique ids of all child nodes (every node types) under the current node.
          */
-        bool mIsCorrectPositioned;
+        COLLADABU::IDList mChildNodeIds;
 
         /** 
         * The type of the <node> element. Valid values are JOINT or NODE. The default is 
         * NODE. Optional. 
         */
         COLLADAFW::Node::NodeType mType;
+
+        /**
+         * If the current maya node is a transform node, you can set the transform matrix.
+         * Will be used if we import a skin controller element to calculate the transform matrix
+         * with the initial transformation and the skin controller's bind shape matrix.
+         */
+        COLLADABU::Math::Matrix4 mTransformationMatrix;
 
 	public:
 
@@ -70,8 +79,7 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& uniqueId, 
             const String name, 
             MayaNode* parent = NULL, 
-            const COLLADAFW::Node::NodeType nodeType = COLLADAFW::Node::NODE,
-            const bool isCorrectPositioned=true );
+            const COLLADAFW::Node::NodeType nodeType = COLLADAFW::Node::NODE );
 
         virtual ~MayaNode() {}
 
@@ -88,9 +96,22 @@ namespace COLLADAMaya
         /**
         * The parent node.
         */
-        MayaNode* getParent () { return mParent; }
-        const MayaNode* getParent () const { return mParent; }
+        MayaNode* getParent () { return mParentNode; }
+        const MayaNode* getParent () const { return mParentNode; }
         void setParent ( MayaNode* val );
+
+        /**
+        * The list of unique ids of all child nodes (every node types) under the current node.
+        */
+        String addChildNodeId ( 
+            const String& newId, 
+            bool returnConverted = true, 
+            bool alwaysAddNumberSuffix = false );
+
+        /**
+         * Returns true, if the given id is already in the list of child node ids.
+         */
+        bool containsChildNodeId ( const String& id );
 
         /**
         * The name attribute is the text string name of this element. 
@@ -105,10 +126,12 @@ namespace COLLADAMaya
         const String getNodePath ();
 
         /**
-        * The flag, if the node is already created. Default is true;
+        * If the current maya node is a transform node, you can set the transform matrix.
+        * Will be used if we import a skin controller element to calculate the transform matrix
+        * with the initial transformation and the skin controller's bind shape matrix.
         */
-        const bool getIsCorrectPositioned () const { return mIsCorrectPositioned; }
-        void setIsCorrectPositioned ( const bool val ) { mIsCorrectPositioned = val; }
+        const COLLADABU::Math::Matrix4& getTransformationMatrix () const { return mTransformationMatrix; }
+        void setTransformationMatrix ( const COLLADABU::Math::Matrix4& val ) { mTransformationMatrix = val; }
 
 	};
 } // namespace COLLADAMAYA

@@ -535,8 +535,9 @@ namespace COLLADAMaya
          * @param outTangents The list for the output tangent values.
          * @param outputList The list with the output values.
          */
-        void createMultiCurveTangents ( AnimationMKey* key,
-                                        uint dimension,
+        void createMultiCurveTangents ( const AnimationMKey* key,
+                                        const uint dimension,
+                                        const bool convertUnits, 
                                         std::vector<float> &inTangents,
                                         std::vector<float> &outTangents,
                                         float* outputList );

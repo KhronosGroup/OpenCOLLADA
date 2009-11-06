@@ -61,8 +61,8 @@ namespace COLLADAMaya
     void GeometryPolygonExporter::exportPolygonSources (
         MFnMesh& fnMesh,
         const String& meshId,
-        MStringArray uvSetNames,
-        ColourSetList& colorSets,
+        MStringArray& uvSetNames,
+        MStringArray& colorSetNames,
         Sources* polygonSources,
         Sources* vertexSources,
         const bool hasFaceVertexNorms )
@@ -73,7 +73,7 @@ namespace COLLADAMaya
         mPolygonSources = polygonSources;
         mVertexSources = vertexSources;
         mHasFaceVertexNormals = hasFaceVertexNorms;
-        mColorSets = colorSets;
+        mColorSetNames = colorSetNames;
 
         // If triangulation is requested, verify that it is
         // feasible by checking with all the mesh polygons
@@ -121,7 +121,7 @@ namespace COLLADAMaya
         MFnMesh &fnMesh )
     {
         // Get the polygons count.
-        uint numPolygons = getShaderPolygonsCount(  fnMesh );
+        uint numPolygons = getShaderPolygonsCount ( fnMesh );
 
         // Just create a polylist, if there are polygons to export
         // If we have holes in the polygon, we have to use <polygons> instead of <polylist>.
@@ -204,8 +204,6 @@ namespace COLLADAMaya
         Sources polygonSetInputs;
         getVerticesInputAttributes( polygonSetInputs );
 
-        int texTangentIndex = 0;
-
         // Iterate through all polygons of the current mesh and create them to export
         MItMeshPolygon meshPolygonsIter ( fnMesh.object() );
         for ( meshPolygonsIter.reset(); !meshPolygonsIter.isDone(); meshPolygonsIter.next() )
@@ -230,9 +228,7 @@ namespace COLLADAMaya
              // If we have polygons to export, push it into the polygon list
             if ( numPolygons > 0 )
             {
-                writeElementVertexIndices ( 
-                    primitivesBasePoly, &polygon, fnMesh, meshPolygonsIter, exportType,
-                    vertexIndices, numPolygons, numVertices, texTangentIndex );
+                writeElementVertexIndices ( primitivesBasePoly, &polygon, fnMesh, meshPolygonsIter, exportType, vertexIndices, numPolygons, numVertices );
             }
         }
 
@@ -296,8 +292,7 @@ namespace COLLADAMaya
         const uint exportType,
         const MIntArray &vertexIndices,
         const uint numPolygons,
-        const uint numVertices,
-        int& texTangentIndex )
+        const uint numVertices )
     {
         // Add the open tags for the polygons
         if ( exportType == PolygonSource::POLYGONS )
@@ -369,10 +364,7 @@ namespace COLLADAMaya
                 }
 
                 // Write the vertex indices
-                writeVertexIndices(
-                    primitivesBasePoly, polygon, vertexIndex, normalIndices,
-                    iteratorVertexIndex, meshPolygonsIter, fnMesh, polyIndex, texTangentIndex );
-                ++texTangentIndex;
+                writeVertexIndices ( primitivesBasePoly, polygon, vertexIndex, normalIndices, iteratorVertexIndex, meshPolygonsIter, fnMesh, polyIndex );
             }
         }
 
@@ -527,29 +519,13 @@ namespace COLLADAMaya
             // Get the polygon count
             uint numMeshPolygons = 0, numVertices = 0;
 
-            // TODO
-            // Establish the number of polygons
-            // (in case of triangulation more than one is possible)
-
             // Get the number of vertices in the current mesh's polygon
             int polygonVertexCount = meshPolygonsIter.polygonVertexCount();
             if ( triangulated && polygonVertexCount > 3 )
             {
                 int numTriangles;
                 meshPolygonsIter.numTriangles ( numTriangles );
-                if ( numTriangles > 0 )
-                {
-                    numMeshPolygons = (uint) numTriangles;
-//                     uint numVertices = 3;
-//                     MPointArray vertexPositions;
-//                     MIntArray meshVertexIndices;
-//                     meshPolygonsIter.getTriangles ( vertexPositions, meshVertexIndices );
-//                     numMeshPolygons = meshVertexIndices.length() / numVertices;
-                }
-                else
-                {
-                    numMeshPolygons = 0;
-                }
+                if ( numTriangles > 0 ) numMeshPolygons = (uint) numTriangles;
             }
             else if ( polygonVertexCount >= 3 )
             {
@@ -850,17 +826,26 @@ namespace COLLADAMaya
                 if ( type == COLLADASW::TEXCOORD )
                 {
                     // For texture coordinate-related inputs: set the 'set' attribute.
-                    inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId ), offset++, param.getIdx() ) );
+                    if ( param.getIdx () >= 0 )
+                        inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( EMPTY_STRING, sourceId ), offset++, param.getIdx() ) );
+                    else
+                        inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( EMPTY_STRING, sourceId ), offset++ ) );
                 }
                 else if ( type == COLLADASW::TANGENT || type == COLLADASW::BINORMAL || type == COLLADASW::TEXBINORMAL )
                 {
                     // Tangents and binormals can use the same index than the normals.
                     // Texture binormals can use the index list of texture tangents.
-                    inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId ), offset-1 ) );
+                    if ( param.getIdx () >= 0 )
+                        inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( EMPTY_STRING, sourceId ), offset-1, param.getIdx() ) );
+                    else
+                        inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( EMPTY_STRING, sourceId ), offset-1 ) );
                 }
                 else
                 {
-                    inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId ), offset++ ) );
+                    if ( param.getIdx () >= 0 )
+                        inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( EMPTY_STRING, sourceId ), offset++, param.getIdx () ) );
+                    else
+                        inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( EMPTY_STRING, sourceId ), offset++ ) );
                 }
             }
         }
@@ -893,8 +878,7 @@ namespace COLLADAMaya
         const int iteratorVertexIndex,
         MItMeshPolygon &meshPolygonsIter,
         MFnMesh &fnMesh,
-        const int polyIndex, 
-        const int texTangentIndex )
+        const int polyIndex )
     {
         // Dump the indices
         size_t numAttributes = polygon->getVertexAttributes().size();
@@ -917,7 +901,7 @@ namespace COLLADAMaya
                     if (mHasFaceVertexNormals)
                     {
                         // The tangent and the binormal can use the index of the normal
-                        int currentVertexIndex = normalIndices[iteratorVertexIndex];
+                        int currentVertexIndex = normalIndices [iteratorVertexIndex];
                         primitivesBasePoly->appendValues ( currentVertexIndex );
                     }
                     else
@@ -934,7 +918,8 @@ namespace COLLADAMaya
             case COLLADASW::TEXBINORMAL:
                 {
                     // The texture binormal can use the index of the texture tangent.
-                    primitivesBasePoly->appendValues ( texTangentIndex );
+                    unsigned int texTangentIndex2 = meshPolygonsIter.tangentIndex ( iteratorVertexIndex );
+                    primitivesBasePoly->appendValues ( texTangentIndex2 );
                 }
                 break;
             case COLLADASW::TEXCOORD:
@@ -947,25 +932,15 @@ namespace COLLADAMaya
                 break;
             case COLLADASW::COLOR:
                 {
-                    ColourSet& set = *mColorSets[vertexAttributes.getIdx()];
+                    MString& colorSetName = mColorSetNames[vertexAttributes.getIdx()];
                     int colorIndex = 0;
-                    if ( set.indices.length() > 0 )
-                    {
-                        fnMesh.getFaceVertexColorIndex ( polyIndex, iteratorVertexIndex, colorIndex );
-                        if ( colorIndex >= 0 && colorIndex < ( int ) set.indices.length() )
-                            colorIndex = set.indices[colorIndex];
-                    }
-                    else
                     {
 #if MAYA_API_VERSION >= 700
-                        fnMesh.getColorIndex ( polyIndex, iteratorVertexIndex, colorIndex, &set.name );
+                        fnMesh.getColorIndex ( polyIndex, iteratorVertexIndex, colorIndex, &colorSetName );
 #else
                         fnMesh.getFaceVertexColorIndex ( polyIndex, iteratorVertexIndex, colorIndex );
 #endif
                     }
-                    // Its possible for colorIndex to be -1, however COLLADA doesn't support
-                    // non-colored vertexes, so simply use the white color index
-                    if ( colorIndex < 0 ) colorIndex = set.whiteColorIndex;
                     primitivesBasePoly->appendValues ( colorIndex );
                 }
                 break;

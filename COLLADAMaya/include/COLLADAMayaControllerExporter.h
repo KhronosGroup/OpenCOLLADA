@@ -23,6 +23,8 @@
 #include "COLLADAMayaSkinController.h"
 #include "COLLADAMayaMorphController.h"
 
+#include "COLLADABUIDList.h"
+
 #include <vector>
 #include <map>
 
@@ -51,8 +53,7 @@ namespace COLLADAMaya
     {
         bool isSkin;
         MObject skinControllerNode;
-        /** Used to disable the blend shape. */
-        float envelope;
+        float envelope; // Used to disable the blend shape.
         MObjectArray morphControllerNodes;
         std::vector<int> nodeStates;
     };
@@ -69,12 +70,12 @@ namespace COLLADAMaya
     };
     typedef std::vector<ControllerMeshItem> ControllerMeshStack;
 
+
     /**
      * Class to control the skins and morphs
      */
     class ControllerExporter : public COLLADASW::LibraryControllers
     {
-
     private:
 
         /** Parameter, used for the bind poses transform. */
@@ -94,13 +95,29 @@ namespace COLLADAMaya
 
     private:
 
-        /** Pointer to the document exporter. */
+        /** 
+         * Pointer to the document exporter. 
+         */
         DocumentExporter* mDocumentExporter;
 
-        /** List of controllerIds from the already exported controllers. */
+        /**
+        * The list of the unique collada ids.
+        */
+        COLLADABU::IDList mControllerIdList;
+
+        /**
+        * A collada id for every maya id.
+        */
+        StringToStringMap mMayaIdColladaIdMap;
+
+        /** 
+         * List of controllerIds from the already exported controllers. 
+         */
         std::vector<String> mExportedControllers;
 
-        /** A list of the exported controller scene elements. */
+        /** 
+         * A list of the exported controller scene elements. 
+         */
         std::vector<SceneElement*> mExportedControllerSceneElements;
 
     public:
@@ -173,6 +190,11 @@ namespace COLLADAMaya
          * @param stack The stack with the controller nodes.
          */
         static void deleteControllerStackItems ( ControllerStack &stack );
+
+        /**
+        * A collada id for every maya id.
+        */
+        const String findColladaControllerId ( const String& mayaControllerId );
 
     private:
 
@@ -337,7 +359,8 @@ namespace COLLADAMaya
             SkinController* skinController,
             const MFnGeometryFilter& clusterFn,
             const bool isJointCluster,
-            const uint clusterIndex );
+            const uint clusterIndex, 
+            SceneElement* sceneElement );
 
         /**
          * Gather the joints of the current controller node and writes them as
@@ -414,7 +437,6 @@ namespace COLLADAMaya
              uint numInfluences );
 
          /**
-          * @todo documentation
           * @param colladaInfluences List for the vertex influences.
           * @param weightFilters The list with the weight filters.
           * @param outputShape The current output shape.
@@ -425,10 +447,6 @@ namespace COLLADAMaya
              const MObjectArray &weightFilters,
              const MDagPath &outputShape,
              const uint clusterIndex );
-
-
-        // Support for Joint clusters pipeline
-//  void getJointClusterInfluences(const MObject& controllerNode, MDagPathArray& influences, MObjectArray& weightFilters, uint clusterIndex);
     };
 
 }

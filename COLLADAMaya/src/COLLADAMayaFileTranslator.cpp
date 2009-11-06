@@ -21,6 +21,7 @@
 #include "COLLADAMayaFileTranslator.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaExportOptions.h"
+#include "COLLADAMayaSyntax.h"
 
 #include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaImportOptions.h"
@@ -64,7 +65,7 @@
     //
     MStatus MLL_EXPORT initializePlugin ( MObject obj )
     {
-        MStatus   status;
+        MStatus status;
 
 #ifdef _DEBUG
         // Activate the error logging
@@ -97,7 +98,7 @@
         if ( !status )
         {
             status.perror ( "registerFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to register COLLADA exporter: " ) + status );
+            MGlobal::displayError ( MString ( "Unable to register OpenCOLLADA exporter: " ) + status );
             return status;
         }
 
@@ -111,7 +112,7 @@
         if ( !status )
         {
             status.perror ( "registerFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
+            MGlobal::displayError ( MString ( "Unable to register OpenCOLLADA importer: " ) + status );
         }
 
         // TODO
@@ -150,7 +151,7 @@
         if ( !status )
         {
             status.perror ( "deregisterFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya exporter: " ) + status );
+            MGlobal::displayError ( MString ( "Unable to unregister OpenCOLLADA exporter: " ) + status );
             return status;
         }
 
@@ -159,7 +160,7 @@
         if ( !status )
         {
             status.perror ( "deregisterFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya importer: " ) + status );
+            MGlobal::displayError ( MString ( "Unable to unregister OpenCOLLADA importer: " ) + status );
             return status;
         }
 
@@ -181,6 +182,10 @@
 
 namespace COLLADAMaya
 {
+
+    const String FileTranslator::ASCII_PATH_EXTENSION = ".ma";
+    const String FileTranslator::ASCII_PATH_EXTENSION_DEBUG = ".opencollada.ma";
+
 
     /************************************************************************/
     /* Constructor and Destructor of the DaeFileTranslator class                                                                     */
@@ -266,8 +271,6 @@ namespace COLLADAMaya
 
             // Do the actual export now
             status = exportIntoFile ( fileName, exportSelection );
-
-            MGlobal::displayInfo ( "Export successful!" );
         }
         catch ( COLLADASW::StreamWriterException* swException  )
         {
@@ -303,7 +306,7 @@ namespace COLLADAMaya
         std::ostringstream stream; 
         stream << "Time to export into file \"" << filename << "\": " << endClock - startClock << endl;
         MString message( stream.str().c_str() );
-        MGlobal::displayInfo ( message );
+        std::cerr << message << endl;
 
         return status;
     }
@@ -369,7 +372,7 @@ namespace COLLADAMaya
     }
 
     // ------------------------------
-    MStatus FileTranslator::importFromFile ( const String& filename )
+    MStatus FileTranslator::importFromFile ( const String& importFileName )
     {
         MStatus status = MS::kSuccess;
 
@@ -377,32 +380,44 @@ namespace COLLADAMaya
         clock_t startClock, endClock;
         startClock = clock();
 
+        // TODO Ask the user where to save the maya file.
+//         MString command = "fileBrowserDialog -m 0 -fc \"importFromFile\" -ft \"mayaAscii\" -fl \"*.ma\" -an \"Save_import_as\" -om \"SaveAs\"";
+//         MString mayaAsciiFileNameM = MGlobal::executeCommandStringResult ( command );
+//         String mayaAsciiFileName ( mayaAsciiFileNameM.asChar () );
+//         MGlobal::displayInfo ( mayaAsciiFileName.c_str() );
+
+        // Set the imported file name and path.
+//        COLLADABU::URI mayaAsciiFileURI ( mayaAsciiFileName );
+        COLLADABU::URI mayaAsciiFileURI ( importFileName );
+#ifdef NDEBUG
+        mayaAsciiFileURI.setPathExtension ( ASCII_PATH_EXTENSION );
+#else
+        mayaAsciiFileURI.setPathExtension ( ASCII_PATH_EXTENSION_DEBUG );
+#endif
+        String mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
+
         // Actually import the document
-        DocumentImporter documentImporter ( filename );
+        DocumentImporter documentImporter ( importFileName, mayaAsciiFileURI.getURIString () );
         documentImporter.importCurrentScene ();
 
         // Display some closing information.
         endClock = clock();
 
-        COLLADABU::URI mayaAsciiFileURI = documentImporter.getMayaAsciiFileURI ();
-        String mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
-
         std::ostringstream stream; 
         stream << "Time to import into file \"" << mayaAsciiFileName << "\": " << endClock - startClock << endl;
         String message( stream.str() );
-        MGlobal::displayInfo ( message.c_str() );
+        std::cerr << message << endl;
 
         // TODO Open the maya ascii file in the maya instance
         MFileIO::importFile ( mayaAsciiFileName.c_str () );
         //MFileIO::open ( mayaAsciiFileName.c_str (), "mayaAscii", true ); 
-        MGlobal::displayInfo ( "Maya ascii file opened.");
 
-//         mayaAsciiFileURI.setPathExtension ( ".nextgen.mb" );
+//         mayaAsciiFileURI.setPathExtension ( ".opencollada.mb" );
 //         mayaFileName = mayaAsciiFileURI.getURIString ();
 //         MFileIO::saveAs ( mayaFileName.c_str () );
 //         MGlobal::displayInfo ( "File saved as maya binary: " );
 //         MGlobal::displayInfo ( mayaFileName.c_str () 
-
+        
         return status;
     }
 

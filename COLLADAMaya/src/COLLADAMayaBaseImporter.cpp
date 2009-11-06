@@ -20,16 +20,19 @@
 
 namespace COLLADAMaya
 {
-
     /** The maya block size value for writing maya ascii files. */
     const size_t BaseImporter::MAYA_BLOCK_SIZE = 4000;
 
-    /** The standard name for the collada id attribute. */
-    const String BaseImporter::COLLADA_ID_ATTRIBUTE_NAME = "colladaId";
+    /** Attribute values. */
+    const String BaseImporter::ATTRIBUTE_DATA_TYPE = "dt";
+    const String BaseImporter::ATTRIBUTE_TYPE = "type";
+    const String BaseImporter::ATTRIBUTE_TYPE_STRING = "string";
 
     /** The standard name for a group without name. */
-    const String BaseImporter::GROUP_ID_NAME = "GroupId";
-    const String BaseImporter::GROUP_PARTS_NAME = "GroupParts";
+    const String BaseImporter::GROUP_ID_NAME = "groupId";
+    const String BaseImporter::GROUP_ID_NAME_APPEND = "GroupId";
+    const String BaseImporter::GROUP_PARTS_NAME = "groupParts";
+    const String BaseImporter::GROUP_PARTS_NAME_APPEND = "GroupParts";
 
 
     //-----------------------------
@@ -100,6 +103,18 @@ namespace COLLADAMaya
         }
     }
 
+    //-----------------------------
+    double BaseImporter::toMayaBindShapeBugLinearUnit ( const double val )
+    {
+        return ( val * mDocumentImporter->getLinearUnitMayaBindShapeBugConvertFactor () );
+    }
+
+    //-----------------------------
+    float BaseImporter::toMayaBindShapeBugLinearUnit ( const float val )
+    {
+        return ( val * (float) mDocumentImporter->getLinearUnitMayaBindShapeBugConvertFactor () );
+    }
+
 //     //-----------------------------
 //     MayaDM::double3 BaseImporter::toUpAxisTypeAxis ( const MayaDM::double3& val )
 //     {
@@ -121,7 +136,6 @@ namespace COLLADAMaya
 //     }
 
     // -----------------------------------
-    //------------------------------
     double BaseImporter::getDoubleValue ( 
         const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
         const size_t position )
@@ -130,7 +144,7 @@ namespace COLLADAMaya
 
         size_t numInputValues = inputValuesArray.getValuesCount ();
         if ( position > numInputValues - 1 )
-            MGlobal::displayError ("Out of range error!");
+            std::cerr << "Out of range error!" << endl;
 
         const COLLADAFW::FloatOrDoubleArray::DataType& inputDataType = inputValuesArray.getType ();
         switch ( inputDataType )
@@ -148,11 +162,138 @@ namespace COLLADAMaya
             }
             break;
         default:
-            MGlobal::displayError ( "AnimationImporter::setInTangents(): inputDataType unknown data type!" );
+            std::cerr << "AnimationImporter::setInTangents(): inputDataType unknown data type!" << endl;
         }
 
         return inputValue;
     }
 
+    // -----------------------------------
+    float BaseImporter::getFloatValue ( 
+        const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
+        const size_t position )
+    {
+        float inputValue = 0;
+
+        size_t numInputValues = inputValuesArray.getValuesCount ();
+        if ( position > numInputValues - 1 )
+            std::cerr << "Out of range error!" << endl;
+
+        const COLLADAFW::FloatOrDoubleArray::DataType& inputDataType = inputValuesArray.getType ();
+        switch ( inputDataType )
+        {
+        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE:
+            {
+                const COLLADAFW::DoubleArray* inputValues = inputValuesArray.getDoubleValues ();
+                inputValue = (float)(*inputValues) [position];
+            }
+            break;
+        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT:
+            {
+                const COLLADAFW::FloatArray* inputValues = inputValuesArray.getFloatValues ();
+                inputValue = (*inputValues) [position];
+            }
+            break;
+        default:
+            std::cerr << "AnimationImporter::setInTangents(): inputDataType unknown data type!" << endl;
+        }
+
+        return inputValue;
+    }
+
+    // -----------------------------------
+    String BaseImporter::generateUniqueDependNodeName ( 
+        String nodeName, 
+        bool returnConverted /*= true*/, 
+        bool alwaysAddNumberSuffix /*= false */ )
+    {
+        // Add the name into the global node name list. If there already exist another node with
+        // the name, the node will be renamed.
+        nodeName = mDocumentImporter->addGlobalNodeId ( nodeName, returnConverted, alwaysAddNumberSuffix );
+
+        // Add the name into depend node list.
+        mDocumentImporter->addDependNodeId ( nodeName );
+
+        return nodeName;
+    }
+
+    // -----------------------------------
+    String BaseImporter::generateUniqueDagNodeName ( 
+        String nodeName, 
+        MayaNode* parentMayaNode,
+        bool returnConverted /*= true*/, 
+        bool alwaysAddNumberSuffix /*= false */ )
+    {
+        // Check, if there is already a depend node, which use the node name.
+        if ( mDocumentImporter->containsDependNodeId ( nodeName ) )
+        {
+            // Rename it and add the new name into the global node list.
+            nodeName = mDocumentImporter->addGlobalNodeId ( nodeName, returnConverted, alwaysAddNumberSuffix );
+
+            // Add the name into the scene graph dag node list.
+            mDocumentImporter->addDagNodeId ( nodeName );
+
+            // The name has to be unique under the current transform node. No renaming!
+            String dummyNodeName = parentMayaNode->addChildNodeId ( nodeName );
+            if ( !COLLADABU::Utils::equals ( dummyNodeName, nodeName ) )
+                std::cerr << "Something went wrong on unique id handling!" << endl;	
+        }
+        else
+        {
+            // Add the dag node name to the list of node names under the current transform node.
+            // If there is already a node with the current name, the node will be renamed.
+            nodeName = parentMayaNode->addChildNodeId ( nodeName, returnConverted, alwaysAddNumberSuffix );
+
+            // If there isn't already another scene graph dag node, which use the node name, we have
+            // to add the node name in the list of scene graph dag nodes and in the global node list.
+            if ( !mDocumentImporter->containsDagNodeId ( nodeName ) )
+            {
+                // Add the name into the global node list. No renaming!
+                String dummyNodeName = mDocumentImporter->addGlobalNodeId ( nodeName );
+                if ( !COLLADABU::Utils::equals ( dummyNodeName, nodeName ) )
+                    std::cerr << "Something went wrong on unique id handling!" << endl;	
+
+                // Add the name into the scene graph dag node list.
+                mDocumentImporter->addDagNodeId ( nodeName );
+            }
+        }
+        
+        return nodeName;
+    }
+
+    // -----------------------------------
+    String BaseImporter::getOriginalMayaId ( const COLLADAFW::ExtraDataArray &extraDataArray )
+    {
+        // Iterate over the extra data tags.
+        const size_t numExtraData = extraDataArray.getCount ();
+        for ( size_t i=0; i<numExtraData; ++i )
+        {
+            const COLLADAFW::ExtraDataPair* extraDataPair = extraDataArray [i];
+            const String& key = extraDataPair->getKey ();
+            const String& source = extraDataPair->getValue ();
+            if ( COLLADABU::Utils::equals ( source, EMPTY_STRING ) ) continue;
+
+            // Find the original maya id.
+            if ( COLLADABU::Utils::equals ( key, PROFILE_MAYA ) )
+            {
+                String beginTagString = "<" + PARAMETER_MAYA_ID + ">";
+                size_t beginTagStringLength = beginTagString.length ();
+
+                size_t startPos = source.find ( beginTagString );
+                if ( startPos == String::npos ) continue;
+
+                String endTagString = "</" + PARAMETER_MAYA_ID + ">";
+                size_t endTagStringLength = endTagString.length ();
+
+                size_t endPos = source.find ( endTagString );
+                if ( endPos == String::npos ) continue;
+
+                startPos += beginTagStringLength;
+                return source.substr ( startPos, endPos-1 );
+            }
+        }
+
+        return EMPTY_STRING;
+    }
 
 } // namespace COLLADAMaya

@@ -29,6 +29,8 @@ class MGLFunctionTable;
 #include <maya/OpenMayaMac.h>
 #endif
 
+#include "COLLADAMayaSyntax.h"
+
 //STL
 #include <vector>
 #include <sstream>

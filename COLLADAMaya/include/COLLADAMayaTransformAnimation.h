@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -12,22 +12,26 @@
 #define __COLLADAMAYA_TRANSFORMANIMATION_H__
 
 #include "COLLADAMayaPrerequisites.h"
+#include "COLLADAMayaBaseAnimation.h"
+#include "COLLADAMayaMayaTransform.h"
 
 #include "COLLADAFWTransformation.h"
-#include "COLLADAFWUniqueId.h"
 
 
 namespace COLLADAMaya
 {
 
     /** Stores the transform node id, the mayaTransform node and the transformation type. */
-	class TransformAnimation 	
+    class TransformAnimation : public BaseAnimation
     {
 	private:
-	
-        COLLADAFW::UniqueId mAnimationListId;
-        COLLADAFW::UniqueId mTransformNodeId;
-        COLLADAFW::Transformation* mTransformation;
+        
+        const COLLADAFW::Transformation* mTransformation;
+
+        /** Need to know, which rotation is animted. */
+        MayaTransform::TransformPhase mTransformPhase;
+
+        bool mIsJointTransform;
 
     public:
 
@@ -37,15 +41,15 @@ namespace COLLADAMaya
         /** Destructor. */
 		virtual ~TransformAnimation();
 
-        const COLLADAFW::UniqueId& getAnimationListId () const { return mAnimationListId; }
-        void setAnimationListId ( const COLLADAFW::UniqueId& val ) { mAnimationListId = val; }
-
-        const COLLADAFW::UniqueId& getTransformNodeId () const { return mTransformNodeId; }
-        void setTransformNodeId ( const COLLADAFW::UniqueId& val ) { mTransformNodeId = val; }
-
         const COLLADAFW::Transformation* getTransformation () const { return mTransformation; }
         void setTransformation ( const COLLADAFW::Transformation* val );
         const COLLADAFW::Transformation::TransformationType getTransformType () const { return mTransformation->getTransformationType (); }
+
+        const MayaTransform::TransformPhase& getTransformPhase () const { return mTransformPhase; }
+        void setTransformPhase ( const MayaTransform::TransformPhase& val ) { mTransformPhase = val; }
+
+        const bool& getIsJointTransform () const { return mIsJointTransform; }
+        void setIsJointTransform ( const bool& val ) { mIsJointTransform = val; }
 
 	};
 

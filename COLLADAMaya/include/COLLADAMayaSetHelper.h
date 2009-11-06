@@ -44,7 +44,6 @@ namespace COLLADAMaya
             kIncludeOnly
         };
 
-        static bool setSets ( const MStringArray& sets, SetModes desiredMode );
         static bool isExcluded ( const MDagPath& dagPath );
 
     private:

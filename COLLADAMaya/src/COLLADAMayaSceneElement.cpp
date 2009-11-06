@@ -36,6 +36,7 @@ namespace COLLADAMaya
             , mIsVisible ( false )
             , mHasJoint ( false )
             , mInstantiatedSceneElement ( NULL )
+            , mBindShapeMatrix ( MMatrix::identity )
     {}
 
     //---------------------------------------------------------------

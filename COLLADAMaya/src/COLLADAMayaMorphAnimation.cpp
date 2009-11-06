@@ -8,21 +8,21 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "[!output NAMESPACE]StableHeaders.h"
-#include "[!output NAMESPACE][!output CLASS_NAME].h"
+#include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaMorphAnimation.h"
 
 
-namespace [!output NAMESPACE]
+namespace COLLADAMaya
 {
 
     //------------------------------
-	[!output CLASS_NAME]::[!output CLASS_NAME]()
+	MorphAnimation::MorphAnimation() : BaseAnimation ()
 	{
 	}
 	
     //------------------------------
-	[!output CLASS_NAME]::~[!output CLASS_NAME]()
+	MorphAnimation::~MorphAnimation()
 	{
 	}
 
-} // namespace [!output NAMESPACE]
+} // namespace COLLADAMaya

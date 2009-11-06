@@ -19,7 +19,6 @@
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneElement.h"
 #include "COLLADAMayaSourceInput.h"
-#include "COLLADAMayaMeshHelper.h"
 
 #include <vector>
 #include <time.h>
@@ -42,8 +41,6 @@ namespace COLLADAMaya
     class DocumentExporter;
     class ElementWriter;
 
-    typedef std::map<String, String> StringToStringMap;
-    
 
     /************************************************************************/
     /* This class writes the <library_geometries>.                                                                     */
@@ -94,15 +91,21 @@ namespace COLLADAMaya
         /** closes the geometry tags in the collada document */
         void endExport();
 
-        /**
-        * A collada id for every maya id.
-        */
-        const String findColladaGeometryId ( const String& mayaGeometryId );
+        /** Generate the collada id, if not done before and stores it in the scene element. */
+        const String generateColladaMeshId ( const MDagPath dagPath );
 
         /** Handle the geometry in depend on it is a controller or not. */
         void exportControllerOrGeometry ( SceneElement* sceneElement );
 
+        /** Returns the collada geometry id of the current mesh node. */
+        const String& getColladaGeometryId ( MDagPath dagPath );
+
     private:
+
+        /**
+        * A collada id for every maya id.
+        */
+        const String& findColladaGeometryId ( const String& mayaGeometryId );
 
         /** Returns the tolerance value for double value comparison. */
         const double getTolerance () const 
@@ -130,7 +133,7 @@ namespace COLLADAMaya
         void getUVSetNames( const MFnMesh &fnMesh, MStringArray &uvSetNames );
 
         /** Exports an extra tag. */
-        void exportExtra ( const MFnMesh& fnMesh );
+        void exportExtraTechniqueParameters ( const MFnMesh& fnMesh, const String& mayaMeshName );
 
         /** Exports the double sided extra tag. */
         bool isDoubleSided ( const MFnMesh& fnMesh );
@@ -183,29 +186,15 @@ namespace COLLADAMaya
          */
         void exportTextureCoords ( const MFnMesh& fnMesh,
                                    const String& meshId,
-                                   const MStringArray& uvSetNames,
-                                   const std::vector<String>& texcoordIds );
-
-        /**
-         * Comment from Feeling-Software:
-         *
-         * Per-Vertex Blind Data
-         * The plug-in now supports the import/export of per-vertex blind data. Unfortunately, we are ahead
-         * of the COLLADA specifications once again. A new semantic was the<refore added, unofficially, to
-         * the mesh <vertices><input> node: "EXTRA", which points towards the source of per-vertex blind data.
-         */
-        void exportVertexBlindData ( const MFnMesh& fnMesh );
+                                   const MStringArray& uvSetNames );
 
         /**
         * Export the color sets. Returns true if we should proceed to export the given color set Ids.
          */
-        void exportColorSets ( const MFnMesh& fnMesh, const String& meshId, ColourSetList& colorSets );
+        void exportColorSets ( const MFnMesh& fnMesh, const String& meshId, MStringArray& colorSetNames );
 
         /** Export the vertices tag with a link to the positions. */
         void exportVertices ( const String& meshId );
-
-        /** Gets the mesh color sets */
-        void getMeshColorSet ( const MObject& mesh, std::vector<float> &meshColorSet, ColourSet& colorSet );
 
         /**
          * Export the texture tangents and binormals.

@@ -23,10 +23,10 @@ namespace COLLADAMaya
 
     // -----------------------------
     MayaNode::MayaNode () 
-        : mName ("")
+        : mName (EMPTY_STRING)
         , mType ( COLLADAFW::Node::NODE )
-        , mParent (0)
-        , mIsCorrectPositioned (true)
+        , mParentNode (0)
+        , mTransformationMatrix ( COLLADABU::Math::Matrix4::IDENTITY )
     {
 
     }
@@ -36,13 +36,12 @@ namespace COLLADAMaya
         const COLLADAFW::UniqueId& uniqueId, 
         const String name, 
         MayaNode* parent /*= NULL*/, 
-        const COLLADAFW::Node::NodeType nodeType /*= COLLADAFW::Node::NODE*/,
-        const bool isCorrectPositioned/*=true */ ) 
+        const COLLADAFW::Node::NodeType nodeType /*= COLLADAFW::Node::NODE*/ ) 
         : mUniqueId ( uniqueId )
         , mName ( name )
         , mType ( nodeType )
-        , mParent ( parent ) 
-        , mIsCorrectPositioned (isCorrectPositioned)
+        , mParentNode ( parent ) 
+        , mTransformationMatrix ( COLLADABU::Math::Matrix4::IDENTITY )
     {
 
     }
@@ -50,7 +49,7 @@ namespace COLLADAMaya
     // -----------------------------
     void MayaNode::setParent ( MayaNode* val )
     {
-        mParent = val; 
+        mParentNode = val; 
     }
 
     // -----------------------------
@@ -62,16 +61,32 @@ namespace COLLADAMaya
     // -----------------------------
     const COLLADAMaya::String MayaNode::getNodePath () 
     {
-        String path;
+        String path = EMPTY_STRING;
 
         // Recursive call
-        if ( mParent != NULL )
+        if ( mParentNode != NULL )
         {
-            path = mParent->getNodePath () + path;
+            path = mParentNode->getNodePath () + path;
         }
-        path += "|" + mName;
+        if ( !COLLADABU::Utils::equals ( mName, EMPTY_STRING ) )
+            path += "|" + mName;
 
         return path;
+    }
+
+    // -----------------------------
+    String MayaNode::addChildNodeId ( 
+        const String& newId, 
+        bool returnConverted /*= true*/, 
+        bool alwaysAddNumberSuffix /*= false */ )
+    {
+        return mChildNodeIds.addId ( newId, returnConverted, alwaysAddNumberSuffix );
+    }
+
+    // -----------------------------
+    bool MayaNode::containsChildNodeId ( const String& id )
+    {
+        return mChildNodeIds.containsId ( id );
     }
 
 } // namespace COLLADAMaya

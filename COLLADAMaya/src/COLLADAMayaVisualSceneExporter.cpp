@@ -29,9 +29,10 @@
 #include "COLLADAMayaMaterialExporter.h"
 #include "COLLADAMayaLightExporter.h"
 #include "COLLADAMayaCameraExporter.h"
+#include "COLLADAMayaEffectExporter.h"
+#include "COLLADAMayaShaderHelper.h"
 
 #include <maya/MFnIkHandle.h>
-#include <maya/MFnMesh.h>
 #include <maya/MFnSkinCluster.h>
 #include <maya/MItDag.h>
 #include <maya/MFnIkJoint.h>
@@ -87,7 +88,7 @@ namespace COLLADAMaya
         size_t length = exportNodesTree->size();
         for ( size_t i = 0; i < length; ++i )
         {
-            // TODO No instance node under the visual scene!
+            // No instance node under the visual scene!
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
 
             // Exports all the nodes in a node and all its child nodes recursive
@@ -252,7 +253,7 @@ namespace COLLADAMaya
             break;
 
         case MFn::kRigid:
-            if ( ExportOptions::exportPhysics() )
+            //if ( ExportOptions::exportPhysics() )
             {
                 MGlobal::displayError ( "Export of physics not supported: "
                     + MString ( sceneElement->getNodeName ().c_str () ) );
@@ -311,9 +312,6 @@ namespace COLLADAMaya
         {
             if ( nodeExported )
             {
-                // Write the extra technique tags in the collada document
-                colladaSceneNode->addExtraTechniques ( mSW );
-
                 // Close the current scene node
                 colladaSceneNode->end();
             }
@@ -348,7 +346,7 @@ namespace COLLADAMaya
 //                                   segmentScaleCompensate );
 // 
 //         // Not animateable
-//         sceneNode->addExtraTechniqueParameter ( COLLADASW::CSWC::CSW_PROFILE_MAYA,
+//         sceneNode->addExtraTechniqueParameter ( PROFILE_MAYA,
 //                                                 MAYA_SEGMENTSCALECOMP_PARAMETER,
 //                                                 segmentScaleCompensate );
 
@@ -389,12 +387,11 @@ namespace COLLADAMaya
         if ( !isInstanceNode && isLocal )
         {
             // Initialize the member variables
-            if ( !initializeTransform ( dagPath ) )
+            if ( !initializeTransform ( sceneElement ) )
             {
                 MString pathName = dagPath.fullPathName();
                 MString message = "Could not initialize the transform object of the path " + pathName;
                 MGlobal::displayError( message );
-                assert ( initializeTransform ( dagPath ) );
                 return false;
             }
         }
@@ -406,7 +403,7 @@ namespace COLLADAMaya
         if ( !isLocal )
         {
             // Export the node external reference
-            exportNodeInstance ( sceneElement );
+            exportInstanceNode ( sceneElement );
         }
         else if ( !isInstanceNode )
         {
@@ -431,19 +428,23 @@ namespace COLLADAMaya
 
             // Write the instance urls of the geometries, controllers
             // and lights into the collada document.
-            exportChildNodeInstances(sceneElement);
+            exportInstanceChildNodes ( sceneElement );
         }
 
         return true;
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportMaterialList(
+    void VisualSceneExporter::exportInstanceMaterial (
         COLLADASW::InstanceMaterialList &instanceMaterialList,
         const MDagPath &dagPath )
     {
+        MaterialExporter* materialExporter = mDocumentExporter->getMaterialExporter ();
+        EffectExporter* effectExporter = mDocumentExporter->getEffectExporter ();
+
         // Find how many shaders are used by this instance of the mesh
-        MFnMesh fnMesh ( dagPath.node() );
+        const MObject& meshNode = dagPath.node();
+        MFnMesh fnMesh ( meshNode );
 
         // Get the connected shaders of the main mesh instance (we will take always the zero).
         // This is a COLLADA workaround to get the symbolic material name.
@@ -464,10 +465,13 @@ namespace COLLADAMaya
                 MFnDependencyNode shadingEngineFn ( shadingEngine );
                 String shadingEngineName = DocumentExporter::mayaNameToColladaName ( shadingEngineFn.name() );
 
-                MStatus status;
-                uint instanceNumber = dagPath.instanceNumber( &status ); CHECK_STAT( status );
+                // Check if the current mesh has some polygons for the connected shader.
+                // If not, we don't need to write the current material instance.
+                if ( !meshContainsShaderPolygons ( fnMesh, shaders, shaderIndices, shaderPosition ) ) continue;
 
                 // To get the right shader name, we have to take the correct mesh instance.
+                MStatus status;
+                uint instanceNumber = dagPath.instanceNumber( &status ); CHECK_STAT( status );
                 if ( instanceNumber > 0 )
                 {
                     MObjectArray instanceShaders;
@@ -481,14 +485,79 @@ namespace COLLADAMaya
                 MObject shader = DagHelper::getSourceNodeConnectedTo ( shadingEngine, ATTR_SURFACE_SHADER );
                 MFnDependencyNode shaderNode ( shader );
                 String mayaMaterialId = DocumentExporter::mayaNameToColladaName ( shaderNode.name(), true );
+                const String& colladaMaterialId = materialExporter->findColladaMaterialId ( mayaMaterialId );
                 
-                MaterialExporter* materialExporter = mDocumentExporter->getMaterialExporter ();
-                String colladaMaterialId = materialExporter->findColladaMaterialId ( mayaMaterialId );
-                
-                COLLADASW::InstanceMaterial materialInstance ( shadingEngineName, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, colladaMaterialId ) );
+                // Create the material instance object.
+                COLLADASW::InstanceMaterial materialInstance ( shadingEngineName, COLLADASW::URI ( EMPTY_STRING, colladaMaterialId ) );
+
+                // Retrieve all the file textures with the blend modes, if exist.
+                MObjectArray fileTextures;
+                MIntArray blendModes;
+                effectExporter->getShaderTextures ( shader, ATTR_OUT_COLOR, fileTextures, blendModes );
+                effectExporter->getShaderTextures ( shader, ATTR_INCANDESCENCE, fileTextures, blendModes );
+                effectExporter->getShaderTextures ( shader, ATTR_AMBIENT_COLOR, fileTextures, blendModes );
+                effectExporter->getShaderTextures ( shader, ATTR_COLOR, fileTextures, blendModes );
+                effectExporter->getShaderTextures ( shader, ATTR_NORMAL_CAMERA, fileTextures, blendModes );
+                effectExporter->getShaderTextures ( shader, ATTR_SPECULAR_COLOR, fileTextures, blendModes );
+                effectExporter->getShaderTextures ( shader, ATTR_REFLECTED_COLOR, fileTextures, blendModes );
+                effectExporter->getShaderTextures ( shader, ATTR_OUT_TRANSPARENCY, fileTextures, blendModes );
+                effectExporter->getShaderTextures ( shader, ATTR_TRANSPARENCY, fileTextures, blendModes );
+                uint fileTextureCount = fileTextures.length();
+
+                // Check if the current material instance uses a texcoord binding.
+                MPlug uvSetMainPlug = MFnDependencyNode ( meshNode ).findPlug ( ATTR_UV_SET );
+                for (uint i = 0; i < fileTextureCount; ++i)
+                {
+                    // Get the current file texture.
+                    const MObject& fileTexture = fileTextures[i];
+
+                    // Retrieve the UV set index for this texture
+                    uint uvSetIndex = ShaderHelper::getAssociatedUVSet ( meshNode, fileTexture );
+
+                    // Retrieve the name for this UV set and match it with a DAE source.
+                    MPlug uvSetPlug = uvSetMainPlug.elementByPhysicalIndex ( uvSetIndex, &status );
+                    if (status != MStatus::kSuccess) continue;
+                    MPlug uvSetNamePlug = DagHelper::getChildPlug ( uvSetPlug, ATTR_UV_SET_NAME ); // "uvSetName"
+                    MString uvSetName; uvSetNamePlug.getValue(uvSetName);
+                    if (uvSetName.length() == 0) continue;
+
+                    // Generate the name of the texture coordinates.
+                    String texCoordName = EffectExporter::TEXCOORD_BASE + COLLADASW::Utils::toString ( i );
+                    COLLADASW::BindVertexInput bindVertexInput ( texCoordName, COLLADASW::CSWC::CSW_SEMANTIC_TEXCOORD, uvSetIndex );
+                    materialInstance.push_back ( bindVertexInput );
+                }
+
                 instanceMaterialList.push_back ( materialInstance );
             }
         }
+    }
+
+    //---------------------------------------------------------------
+    const bool VisualSceneExporter::meshContainsShaderPolygons ( 
+        const MFnMesh& fnMesh, 
+        const MObjectArray& shaders, 
+        const MIntArray& shaderIndices, 
+        const uint shaderPosition )
+    {
+        // Iterate through all polygons of the current mesh.
+        MItMeshPolygon meshPolygonsIter ( fnMesh.object() );
+        for ( meshPolygonsIter.reset(); !meshPolygonsIter.isDone(); meshPolygonsIter.next() )
+        {
+            // Is this polygon shaded by this shader?
+            int polyIndex = meshPolygonsIter.index();
+            uint realShaderCount = ( uint ) shaders.length();
+            if ( shaderPosition < realShaderCount &&
+                ( uint ) shaderIndices[polyIndex] != shaderPosition ) continue;
+            if ( shaderPosition >= realShaderCount &&
+                ( shaderIndices[polyIndex] >= 0 &&
+                shaderIndices[polyIndex] < ( int ) realShaderCount ) ) continue;
+
+            // Polygons for the current shader found.
+            return true;
+        }
+
+        // No polygons for the current shader.
+        return false;
     }
 
     //---------------------------------------------------------------
@@ -509,7 +578,7 @@ namespace COLLADAMaya
             openVisualScene ( VISUAL_SCENE_NODE_ID, visualSceneName );
             mVisualSceneAdded = true;
         }
-
+        
         bool isInstanceNode = mVisualSceneNode->getIsInstanceNode();
         if ( isInstanceNode )
         {
@@ -529,12 +598,12 @@ namespace COLLADAMaya
             }
 
             String colladaNodeId = findColladaNodeId ( mayaNodeId );
-            if ( COLLADABU::Utils::equals ( colladaNodeId, COLLADABU::Utils::EMPTY_STRING ) )
+            if ( COLLADABU::Utils::equals ( colladaNodeId, EMPTY_STRING ) )
             {
                 colladaNodeId = getColladaNodeId ( dagPath );
             }
 
-            mVisualSceneNode->setNodeURL ( COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, colladaNodeId ) );
+            mVisualSceneNode->setNodeURL ( COLLADASW::URI ( EMPTY_STRING, colladaNodeId ) );
         }
         else
         {
@@ -543,10 +612,6 @@ namespace COLLADAMaya
 
             // The maya node id.
             String mayaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
-
-            // Set the node name.
-            //String nodeName = mDocumentExporter->mayaNameToColladaName ( node.name ().asChar () );
-            String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
 
             // Generate a COLLADA id for the new object.
             String colladaNodeId = getColladaNodeId ( dagPath );
@@ -557,7 +622,11 @@ namespace COLLADAMaya
 
             // Set the node id and the name.
             mVisualSceneNode->setNodeId ( colladaNodeId );
+            String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
             mVisualSceneNode->setNodeName ( nodeName );
+
+            // Export the original maya name.
+            mVisualSceneNode->addExtraTechniqueParameter ( PROFILE_MAYA, PARAMETER_MAYA_ID, nodeName );
         }
 
         // open the scene node
@@ -565,8 +634,10 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    bool VisualSceneExporter::initializeTransform ( const MDagPath &dagPath )
+    bool VisualSceneExporter::initializeTransform ( SceneElement* sceneElement )
     {
+        // Get the dagPath from the scene element
+        MDagPath dagPath = sceneElement->getPath();
         mDagPath = dagPath;
 
         MStatus status;
@@ -581,7 +652,7 @@ namespace COLLADAMaya
             return false;
         }
 
-        // get the transforms local translation
+        // Get the transforms local translation
         MFnTransform fn ( transformNode );
         mTransformMatrix = fn.transformation();
         if ( fn.parentCount() > 0 )
@@ -590,6 +661,42 @@ namespace COLLADAMaya
             if ( t.hasObj ( MFn::kClusterFilter ) || t.hasObj ( MFn::kSkinClusterFilter ) )
             {
                 mTransformMatrix = MTransformationMatrix ( mTransformMatrix.asMatrix() * t.transformationMatrix() );
+            }
+        }
+
+        // Skins being exported from maya need to have the bindpose matrix 
+        // subtracted from the instance matrix.
+        bool oneSkinAlready = false;
+
+        // Check the child instances, which use this visual scene node.
+        size_t childCount = sceneElement->getChildCount();
+        for ( size_t i=0; i<childCount && !oneSkinAlready; ++i )
+        {
+            // Check if the child element is a mesh object and an export node
+            SceneElement* childElement = sceneElement->getChild ( i );
+            if ( childElement->getType() == SceneElement::MESH &&
+                childElement->getIsExportNode() )
+            {
+                // Get the controller library
+                ControllerExporter* controller = mDocumentExporter->getControllerExporter();
+                MObject childNode = childElement->getPath().node();
+                bool hasSkinController = controller->hasSkinController ( childNode );
+                if ( hasSkinController )
+                {
+                    // Skins being exported from maya need to have the bindpose matrix 
+                    // subtracted from the instance matrix.
+                    MMatrix bindShapeMatrix = childElement->getBindShapeMatrix ();
+                    MMatrix transformMatrix = mTransformMatrix.asMatrix ();
+
+                    // Calculate the world transform of the node.
+                    MMatrix transformMx = bindShapeMatrix.inverse () * transformMatrix;
+
+                    // Set the new calculated transform matrix 
+                    mTransformMatrix = transformMx;
+
+                    // Do it just once.
+                    oneSkinAlready = true;
+                }
             }
         }
 
@@ -715,11 +822,9 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void VisualSceneExporter::exportScale()
     {
-        // attach the function set to the object
-        MFnTransform transformFunctionSet ( mTransformObject );
-
+        // Get the scale.
         double scale[3] = {1, 1, 1};
-        transformFunctionSet.getScale ( scale );
+        mTransformMatrix.getScale ( scale, MSpace::kTransform );
 
         // Check if all fields in the std::vector are ones
         bool isOneVector = true;
@@ -951,7 +1056,7 @@ namespace COLLADAMaya
                 if ( !isVisible || animationResult != kISANIM_None )
                 {
                     // Add an <extra> node with a visibility parameters that the animation can target
-                    sceneNode->addExtraTechniqueParameter ( COLLADASW::CSWC::CSW_PROFILE_COLLADA, ATTR_VISIBILITY, isVisible );
+                    sceneNode->addExtraTechniqueParameter ( PROFILE_MAYA, ATTR_VISIBILITY, isVisible );
 
                     AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
                     animationExporter->addNodeAnimation ( mTransformObject, ATTR_VISIBILITY, kBoolean );
@@ -961,42 +1066,49 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportControllerInstance(
+    void VisualSceneExporter::exportInstanceController(
         SceneElement* sceneElement,
         const bool hasSkinController,
         const bool hasMorphController )
     {
+        MObject childNode = sceneElement->getPath().node();
+
         // Get the streamWriter from the export document
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        ControllerExporter* controllerExporter = mDocumentExporter->getControllerExporter ();
 
-        // Get the path and the id of the child element
-        MDagPath dagPath = sceneElement->getPath();
+        // Get the collada id.
+//         MDagPath dagPath = sceneElement->getPath();
+//         String mayaControllerId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        String mayaControllerId = sceneElement->getNodeName();
+        if ( hasMorphController )
+            mayaControllerId += COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+        if ( hasSkinController )
+            mayaControllerId += COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+
+        String colladaId = controllerExporter->findColladaControllerId ( mayaControllerId );
 
         // TODO id preservation
         // Create the unique controller ID
-        String colladaControllerId;
-        if ( !sceneElement->getNodeId().empty() )
-            colladaControllerId = sceneElement->getNodeId();
-        else
-          colladaControllerId = sceneElement->getNodeName();
-
-        if ( hasMorphController )
-            colladaControllerId += COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
-        if ( hasSkinController )
-            colladaControllerId += COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+//         String colladaId;
+//         if ( !sceneElement->getNodeId().empty() )
+//             colladaId = sceneElement->getNodeId();
+//         else
+//           colladaId = sceneElement->getNodeName();
+//         if ( hasMorphController )
+//             colladaId += COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+//         if ( hasSkinController )
+//             colladaId += COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
         // Get the uri of the current scene
-        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaControllerId  ) );
+        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaId  ) );
 
         // Create the collada controller instance
         COLLADASW::InstanceController instanceController ( streamWriter );
         instanceController.setUrl ( uri );
 
-        // Set the skeletonId. It indicates where a skin
-        // controller is to start to search for the joint nodes
-        // it needs. This element is meaningless for morph controllers.
-
-        // Get the skeleton id from the element
+        // Set the skeletonId. It indicates where a skin controller is to start to search for the 
+        // joint nodes it needs. This element is meaningless for morph controllers.
         const std::set<URI>& skeletonURIs = sceneElement->getSkeletonURIs ();
         if ( skeletonURIs.size () > 0 )
         {
@@ -1013,49 +1125,24 @@ namespace COLLADAMaya
             instanceController.getBindMaterial().getInstanceMaterialList();
 
         // Export the materials
-        exportMaterialList ( instanceMaterialList, dagPath );
+        exportInstanceMaterial ( instanceMaterialList, sceneElement->getPath() );
 
         instanceController.add();
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportGeometryInstance ( SceneElement* sceneElement )
+    void VisualSceneExporter::exportInstanceGeometry ( SceneElement* sceneElement )
     {
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
 
-        //  Get the node of the current mesh
-        MObject meshNode = dagPath.node();
-
-        // Attach a function set to the mesh node.
-        // We access all of the meshes data through the function set
-        MStatus status;
-        MFnMesh fnMesh ( meshNode, &status );
-        if ( status != MStatus::kSuccess ) 
-        {
-            MGlobal::displayError ( "No mesh object!" );
-            return;
-        }
-
-        // Get the maya mesh id.
-        String mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPath );
-
-        // Check for instances.
-        bool isInstanced = fnMesh.isInstanced ( true );
-        if ( isInstanced )
-        {
-            // Take the first instance.
-            MDagPathArray dagPathes;
-            fnMesh.getAllPaths ( dagPathes );
-            mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPathes[0] );
-        }
-
-        // Get the geometry collada id.
+        // Get the collada mesh id.
         GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
-        String colladaMeshId = geometryExporter->findColladaGeometryId ( mayaMeshId );
+        const String& colladaMeshId = geometryExporter->getColladaGeometryId ( dagPath );
+        if ( COLLADABU::Utils::equals ( colladaMeshId, EMPTY_STRING ) ) return;
 
         // Get the uri of the current scene
-        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaMeshId  ) );
+        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaMeshId ) );
 
         // Get the streamWriter from the export document
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -1069,17 +1156,17 @@ namespace COLLADAMaya
             instanceGeometry.getBindMaterial().getInstanceMaterialList();
 
         // Export the materials
-        exportMaterialList ( instanceMaterialList, sceneElement->getPath() );
+        exportInstanceMaterial ( instanceMaterialList, sceneElement->getPath() );
 
         instanceGeometry.add();
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportLightInstance( const SceneElement* sceneElement )
+    void VisualSceneExporter::exportInstanceLight( const SceneElement* sceneElement )
     {
         // Get the collada light id.
         MDagPath dagPath = sceneElement->getPath();
-        String mayaLightId = mDocumentExporter->dagPathToColladaName ( dagPath );
+        String mayaLightId = mDocumentExporter->dagPathToColladaId ( dagPath );
         LightExporter* lightExporter = mDocumentExporter->getLightExporter ();
         String colladaLightId = lightExporter->findColladaLightId ( mayaLightId );
 
@@ -1093,11 +1180,11 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportCameraInstance( const SceneElement* sceneElement )
+    void VisualSceneExporter::exportInstanceCamera( const SceneElement* sceneElement )
     {
         // Get the collada id.
         MDagPath dagPath = sceneElement->getPath();
-        String mayaId = mDocumentExporter->dagPathToColladaName ( dagPath );
+        String mayaId = mDocumentExporter->dagPathToColladaId ( dagPath );
         CameraExporter* cameraExporter = mDocumentExporter->getCameraExporter ();
         String colladaId = cameraExporter->findColladaCameraId ( mayaId );
 
@@ -1111,7 +1198,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportNodeInstance ( SceneElement* sceneElement )
+    void VisualSceneExporter::exportInstanceNode ( SceneElement* sceneElement )
     {
         // Get the collada id.
         String mayaNodeId = sceneElement->getNodeId();
@@ -1131,7 +1218,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     COLLADASW::URI VisualSceneExporter::getSceneElementURI (
         const SceneElement* sceneElement,
-        const String& elementId /** = "" */ )
+        const String& elementId /** = EMPTY_STRING */ )
     {
         // Get the path of the element
         MDagPath dagPath = sceneElement->getPath();
@@ -1156,13 +1243,13 @@ namespace COLLADAMaya
         {
             // Get the id of the element
             if ( !elementId.empty() )
-                return COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, elementId );
-            else return COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, mDocumentExporter->dagPathToColladaId ( dagPath ) );
+                return COLLADASW::URI ( EMPTY_STRING, elementId );
+            else return COLLADASW::URI ( EMPTY_STRING, mDocumentExporter->dagPathToColladaId ( dagPath ) );
         }
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportChildNodeInstances( const SceneElement* sceneElement )
+    void VisualSceneExporter::exportInstanceChildNodes( const SceneElement* sceneElement )
     {
         // Check the geometry instances, which use this visual scene
         size_t childCount = sceneElement->getChildCount();
@@ -1170,9 +1257,12 @@ namespace COLLADAMaya
         {
             SceneElement* childElement = sceneElement->getChild ( i );
 
+            // Just export visible export nodes.
+            if ( !childElement->getIsExportNode() ) continue;
+            if ( !ExportOptions::exportInvisibleNodes () && !childElement->getIsVisible () ) continue;
+
             // Check if the child element is a mesh object and an export node
-            if ( childElement->getType() == SceneElement::MESH &&
-                childElement->getIsExportNode() )
+            if ( childElement->getType() == SceneElement::MESH )
             {
                 // Get the controller library
                 ControllerExporter* controller = mDocumentExporter->getControllerExporter();
@@ -1185,22 +1275,22 @@ namespace COLLADAMaya
                 // Add the controller and/or geometry to our libraries
                 if ( ( ExportOptions::exportJointsAndSkin() && hasSkinController ) || hasMorphController )
                 {
-                    exportControllerInstance ( childElement, hasSkinController, hasMorphController );
+                    exportInstanceController ( childElement, hasSkinController, hasMorphController );
                 }
                 else
                 {
-                    exportGeometryInstance ( childElement );
+                    exportInstanceGeometry ( childElement );
                 }
             }
             else if ( childElement->getType() == SceneElement::LIGHT &&
                 childElement->getIsExportNode() )
             {
-                exportLightInstance ( childElement );
+                exportInstanceLight ( childElement );
             }
             else if ( childElement->getType() == SceneElement::CAMERA &&
                 childElement->getIsExportNode() )
             {
-                exportCameraInstance ( childElement );
+                exportInstanceCamera ( childElement );
             }
         }
     }
@@ -1213,7 +1303,7 @@ namespace COLLADAMaya
         {
             return it->second;
         }
-        return COLLADABU::Utils::EMPTY_STRING;
+        return EMPTY_STRING;
     }
 
     // ------------------------------------
@@ -1222,13 +1312,10 @@ namespace COLLADAMaya
     {
         String colladaNodeId;
 
-        // Get the dag node.
-        MFnDagNode node ( dagPath.node () );
-
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue;
-        DagHelper::getPlugValue ( dagPath.node (), BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-        if ( attributeValue != "" )
+        DagHelper::getPlugValue ( dagPath.node (), COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != EMPTY_CSTRING )
         {
             // Generate a valid collada name, if necessary.
             colladaNodeId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
@@ -1242,4 +1329,5 @@ namespace COLLADAMaya
         
         return colladaNodeId;
     }
+
 }

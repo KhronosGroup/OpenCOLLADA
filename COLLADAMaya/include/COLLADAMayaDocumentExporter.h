@@ -39,6 +39,10 @@ namespace COLLADAMaya
     class LightExporter;
     class CameraExporter;
 
+
+    typedef std::map<String, String> StringToStringMap;
+
+
     /**
      * The main exporter class. This class exports all data of the scene.
      */

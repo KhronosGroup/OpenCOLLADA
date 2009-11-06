@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -13,12 +13,14 @@
 
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaBaseImporter.h"
+#include "COLLADAMayaMorphAnimation.h"
 
 #include "MayaDMSkinCluster.h"
 #include "MayaDMTweak.h"
 #include "MayaDMObjectSet.h"
 #include "MayaDMGroupId.h"
 #include "MayaDMGroupParts.h"
+#include "MayaDMBlendShape.h"
 
 #include "COLLADAFWSkinController.h"
 
@@ -47,36 +49,54 @@ namespace COLLADAMaya
 
         /** The standard name for controller without name. */
         static const String SKIN_CLUSTER_NAME;
+        static const String BLEND_SHAPE_NAME;
         static const String TWEAK_NAME;
         static const String SET_NAME;
 
     public:
 
         /**
-         * Create a data store object to hold all the MayaDM objects of the current controller.
-         * The objects will be needed, to make all the connections.
-         */
-        class MayaSkinClusterData
+        * Create a data store object to hold all the MayaDM objects of the current controller.
+        * The objects will be needed, to make all the connections.
+        */
+        class GeometryFilterData
         {
+        public:
+            enum GeometryFilterType
+            {
+                GEOMETRY_FILTER_TYPE_SKIN_CLUSTER,
+                GEOMETRY_FILTER_TYPE_BLEND_SHAPE, 
+                GEOMETRY_FILTER_TYPE_UNKNOWN
+            };
         private:
-            MayaDM::SkinCluster mSkinCluster;
-            MayaDM::ObjectSet mSkinClusterSet;
+            GeometryFilterType mGeometryFilterType;
+            MayaDM::GeometryFilter* mGeometryFilter;
+            MayaDM::ObjectSet mGeometryFilterSet;
             MayaDM::Tweak mTweak;
             MayaDM::ObjectSet mTweakSet;
-            MayaDM::GroupId mGroupId1;
-            MayaDM::GroupId mGroupId2;
-            MayaDM::GroupParts mGroupParts1;
-            MayaDM::GroupParts mGroupParts2;
+            MayaDM::GroupId mGeometryFilterGroupId;
+            MayaDM::GroupId mTweakGroupId;
+            MayaDM::GroupParts mGeometryFilterGroupParts;
+            MayaDM::GroupParts mTweakGroupParts;
 
         public:
-            MayaSkinClusterData () {}
-            virtual ~MayaSkinClusterData () {}
+            GeometryFilterData ( GeometryFilterType geometryFilterType ) 
+                : mGeometryFilterType ( geometryFilterType ) 
+            {}
 
-            const MayaDM::SkinCluster& getSkinCluster () const { return mSkinCluster; }
-            void setSkinCluster ( const MayaDM::SkinCluster& val ) { mSkinCluster = val; }
+            virtual ~GeometryFilterData () 
+            {
+                delete mGeometryFilter;
+            }
 
-            const MayaDM::ObjectSet& getSkinClusterSet () const { return mSkinClusterSet; }
-            void setSkinClusterSet ( const MayaDM::ObjectSet& val ) { mSkinClusterSet = val; }
+            const GeometryFilterData::GeometryFilterType& getGeometryFilterType () const { return mGeometryFilterType; }
+
+            MayaDM::GeometryFilter* getGeometryFilter () { return mGeometryFilter; }
+            const MayaDM::GeometryFilter* getGeometryFilter () const { return mGeometryFilter; }
+            void setGeometryFilter ( MayaDM::GeometryFilter* val ) { mGeometryFilter = val; }
+
+            const MayaDM::ObjectSet& getGeometryFilterSet () const { return mGeometryFilterSet; }
+            void setGeometryFilterSet ( const MayaDM::ObjectSet& val ) { mGeometryFilterSet = val; }
 
             const MayaDM::Tweak& getTweak () const { return mTweak; }
             void setTweak ( const MayaDM::Tweak& val ) { mTweak = val; }
@@ -84,26 +104,56 @@ namespace COLLADAMaya
             const MayaDM::ObjectSet& getTweakSet () const { return mTweakSet; }
             void setTweakSet ( const MayaDM::ObjectSet& val ) { mTweakSet = val; }
 
-            const MayaDM::GroupId& getGroupId1 () const { return mGroupId1; }
-            void setGroupId1 ( const MayaDM::GroupId& val ) { mGroupId1 = val; }
+            const MayaDM::GroupId& getGeometryFilterGroupId () const { return mGeometryFilterGroupId; }
+            void setGeometryFilterGroupId ( const MayaDM::GroupId& val ) { mGeometryFilterGroupId = val; }
 
-            const MayaDM::GroupId& getGroupId2 () const { return mGroupId2; }
-            void setGroupId2 ( const MayaDM::GroupId& val ) { mGroupId2 = val; }
+            const MayaDM::GroupId& getTweakGroupId () const { return mTweakGroupId; }
+            void setTweakGroupId ( const MayaDM::GroupId& val ) { mTweakGroupId = val; }
 
-            const MayaDM::GroupParts& getGroupParts1 () const { return mGroupParts1; }
-            void setGroupParts1 ( const MayaDM::GroupParts& val ) { mGroupParts1 = val; }
+            const MayaDM::GroupParts& getGeometryFilterGroupParts () const { return mGeometryFilterGroupParts; }
+            void setGeometryFilterGroupParts ( const MayaDM::GroupParts& val ) { mGeometryFilterGroupParts = val; }
 
-            const MayaDM::GroupParts& getGroupParts2 () const { return mGroupParts2; }
-            void setGroupParts2 ( const MayaDM::GroupParts& val ) { mGroupParts2 = val; }
+            const MayaDM::GroupParts& getTweakGroupParts () const { return mTweakGroupParts; }
+            void setTweakGroupParts ( const MayaDM::GroupParts& val ) { mTweakGroupParts = val; }
+        };
+
+        /**
+        * The MayaSkinClusterData class is a MayaGeometryFilterData class with a skinCluster object.
+        */
+        class SkinClusterData : public GeometryFilterData
+        {
+        public:
+            SkinClusterData () 
+                : GeometryFilterData ( GeometryFilterData::GEOMETRY_FILTER_TYPE_SKIN_CLUSTER ) 
+            {}
+            virtual ~SkinClusterData () {}
+
+            MayaDM::SkinCluster* getSkinCluster () { return (MayaDM::SkinCluster*)getGeometryFilter (); }
+            void setSkinCluster ( MayaDM::SkinCluster* val ) { setGeometryFilter ( val ); }
+
+            const MayaDM::ObjectSet& getSkinClusterSet () const { return getGeometryFilterSet (); }
+            void setSkinClusterSet ( const MayaDM::ObjectSet& val ) { setGeometryFilterSet ( val ); }
+        };
+
+        /**
+        * The MayaBlendShapeData class is a MayaGeometryFilterData class with a blendShape object.
+        */
+        class BlendShapeData : public GeometryFilterData
+        {
+        public:
+            BlendShapeData () 
+                : GeometryFilterData ( GeometryFilterData::GEOMETRY_FILTER_TYPE_BLEND_SHAPE ) 
+            {}
+            virtual ~BlendShapeData () {}
+
+            MayaDM::BlendShape* getBlendShape () { return (MayaDM::BlendShape*)getGeometryFilter (); }
+            void setBlendShape ( MayaDM::BlendShape* val ) { setGeometryFilter ( val ); }
+
+            const MayaDM::ObjectSet& getBlendShapeSet () const { return getGeometryFilterSet (); }
+            void setBlendShapeSet ( const MayaDM::ObjectSet& val ) { setGeometryFilterSet ( val ); }
         };
 
     private:
-
-        /**
-        * The list of the unique maya controller names.
-        */
-        COLLADABU::IDList mSkinClusterIdList;
-        COLLADABU::IDList mTweakIdList;
 
         /** 
         * The map holds the unique ids of the controller nodes to the maya specific nodes. 
@@ -111,19 +161,34 @@ namespace COLLADAMaya
         UniqueIdMayaNodeMap mMayaControllerNodesMap;
 
         /** 
-        * The map holds the unique ids of the skin controller nodes to the maya specific nodes. 
+        * The map holds the unique ids of the skin controller data ids. 
         */
         std::vector<COLLADAFW::UniqueId> mSkinControllerDataIds;
 	
+        /** 
+        * The map holds the unique ids of the morph controller ids. 
+        */
+        std::vector<COLLADAFW::UniqueId> mMorphControllerIds;
+
         /**
-         * The map holds the skin controller objects for every source (mesh or morph controller).
+         * The map holds the skin controller objects for every source (mesh or skin controller).
          */
         std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::SkinController*> > mSkinControllersMap;
 
         /**
+        * The map holds the morph controller objects for every source (mesh).
+        */
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::MorphController*> > mMorphControllersMap;
+
+        /**
+        * The map holds the morph controller objects for every morph target object (mesh).
+        */
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::MorphController*> > mMorphTargetsMap;
+
+        /**
          * The map holds a list of controller objects.
          */
-        std::map<COLLADAFW::UniqueId, MayaSkinClusterData> mMayaSkinClustersDataMap;
+        std::map<COLLADAFW::UniqueId, GeometryFilterData*> mGeometryFilterDataMap;
 
         /**
         * The initial index position in depend on the number of controllers.
@@ -131,6 +196,16 @@ namespace COLLADAMaya
         * connect to the geometry object groups on a later index position.
         */
         std::map<COLLADAFW::UniqueId, size_t> mObjectGroupsInitialIndexMap;
+
+        /**
+         * The map contains for every morph controller the morph targets (mesh or controller objects).
+         */
+        std::map<COLLADAFW::UniqueId, std::vector<COLLADAFW::UniqueId> > mMorphTargetIds;
+
+        /**
+        * The map holds for every animationListId the unique id of corresponding node.
+        */
+        std::map <COLLADAFW::UniqueId, MorphAnimation> mMorphAnimationMap;
 
 	public:
 
@@ -149,36 +224,14 @@ namespace COLLADAMaya
 
         /**
         * Imports the data of the current controller.
+        * Returns true, if the import was successful.
         */
-        void importSkinControllerData ( const COLLADAFW::SkinControllerData* skinControllerData );
+        bool importSkinControllerData ( const COLLADAFW::SkinControllerData* skinControllerData );
 
         /**
-         * Create a maya skin cluster object and the skin cluster object set with all needed maya
-         * objects to create the connections of the skinCluster.
-         * SkinCluster nodes are created during a smooth bindSkin. The purpose of the skinCluster 
-         * is to store a weight per influence object for each component of each geometry that is 
-         * deformed. Influence objects can be joints or any transform.
-         * Note that unlike most deformers, a skinCluster node can deform only a single geometry. 
-         * Therefore, if additional geometries are added to the skinCluster set, they will be ignored.
+         * Imports the copied morph controllers.
          */
-        void createSkinCluster ( 
-            const COLLADAFW::SkinControllerData* skinControllerData, 
-            MayaSkinClusterData& controllerData );
-
-        /**
-        * Create all maya objects, which are needed to connect a maya skinCluster to a geometry.
-        */
-        void createSkinClusterBindingObjects ( MayaSkinClusterData &controllerData );
-
-        /**
-         * Write the weights into the maya ascii file.
-         */
-        void writeWeights ( 
-            MayaDM::SkinCluster &skinCluster, 
-            std::vector<double> &currentWeightList, 
-            const size_t influenceIndex, 
-            const unsigned int jointStartIndex, 
-            const unsigned int jointEndIndex );
+        void importMorphControllers ();
 
         /**
          * Make the connections for the controller.
@@ -186,10 +239,16 @@ namespace COLLADAMaya
         void writeConnections ();
 
         /**
-         * Returns the skin controller element, with the given skinControllerDataId. 
-         * If no skin controller  uses the source, the method returns null.
-         */
-        const std::vector<COLLADAFW::SkinController*> findSkinControllersByDataId ( const COLLADAFW::UniqueId& skinControllerDataId );
+        * Returns the controller element, which uses the given source. If no controller 
+        * uses the source, the method returns null. Can be a skin or morph controller.
+        */
+        const COLLADAFW::Controller* findController ( const COLLADAFW::UniqueId& controllerId );
+
+        /**
+        * Returns the morph controller element, which uses the given source. If no morph controller 
+        * uses the source, the method returns null.
+        */
+        const COLLADAFW::MorphController* findMorphController ( const COLLADAFW::UniqueId& controllerId );
 
         /**
         * Returns the skin controller element, which uses the given source. If no skin controller 
@@ -198,15 +257,55 @@ namespace COLLADAMaya
         const COLLADAFW::SkinController* findSkinController ( const COLLADAFW::UniqueId& controllerId );
 
         /**
+         * Returns true, if there exist a controller element, which use this geometry.
+         */
+        bool isSourceControlled ( const COLLADAFW::UniqueId& sourceId );
+
+        /**
+        * Returns the skin controller element, which uses the given source. 
+        */
+        std::vector<COLLADAFW::Controller*> findControllersBySourceId ( const COLLADAFW::UniqueId& sourceId );
+
+        /**
+        * Returns the morph controller element, which uses the given source. If no morph controller 
+        * uses the source, the method returns null.
+        */
+        std::vector<COLLADAFW::MorphController*>* findMorphControllersBySourceId ( const COLLADAFW::UniqueId& sourceId );
+
+        /**
+        * Returns the morph controller element, which uses the given source. If no morph controller 
+        * uses the source, the method returns null.
+        */
+        const std::vector<COLLADAFW::MorphController*>* findMorphControllersBySourceId ( const COLLADAFW::UniqueId& sourceId ) const;
+
+        /**
+        * Returns the morph controller element, which uses the given geometry as a morph target. 
+        * If no morph controller uses the source, the method returns null.
+        */
+        std::vector<COLLADAFW::MorphController*>* findMorphControllersByMorphTargetId ( const COLLADAFW::UniqueId& geometryId );
+
+        /**
+        * Returns the morph controller element, which uses the given geometry as a morph target. 
+        * If no morph controller uses the source, the method returns null.
+        */
+        const std::vector<COLLADAFW::MorphController*>* findMorphControllersByMorphTargetId ( const COLLADAFW::UniqueId& geometryId ) const;
+
+        /**
         * Returns the skin controller element, which uses the given source. If no skin controller 
         * uses the source, the method returns null.
         */
-        const std::vector<COLLADAFW::SkinController*>* findSkinControllersBySourceId ( const COLLADAFW::UniqueId& sourceId );
+        std::vector<COLLADAFW::SkinController*>* findSkinControllersBySourceId ( const COLLADAFW::UniqueId& sourceId );
+
+        /**
+        * Returns the skin controller element, which uses the given source. If no skin controller 
+        * uses the source, the method returns null.
+        */
+        const std::vector<COLLADAFW::SkinController*>* findSkinControllersBySourceId ( const COLLADAFW::UniqueId& sourceId ) const;
 
         /**
          * Returns the geometryId of the skinController's id.
          */
-        const COLLADAFW::UniqueId* getControllersGeometryId ( const COLLADAFW::UniqueId& controllerId );
+        const COLLADAFW::UniqueId* getControllerSourceId ( const COLLADAFW::UniqueId& controllerId ) const;
 
         /**
          * If we have one or more controllers, the material groupIds have to 
@@ -216,11 +315,64 @@ namespace COLLADAMaya
         const size_t findObjectGroupsInitialIndex ( const COLLADAFW::UniqueId& controllerId ) const;
 
         /**
-        * The map holds a list of controller objects.
+        * The map holds a list of maya geometry filter objects.
         */
-        const MayaSkinClusterData* findMayaSkinClusterData ( const COLLADAFW::UniqueId& controllerId );
+        const GeometryFilterData* findGeometryFilterData ( const COLLADAFW::UniqueId& controllerId );
+
+        /**
+        * The map holds for every animationListId the unique id of corresponding node.
+        */
+        const MorphAnimation* findMorphAnimation ( const COLLADAFW::UniqueId& animationListId );
 
     private:
+
+        /**
+         * Imports the current morph controller.
+         * Returns true, if the import was successful.
+         */
+        const bool importMorphController ( 
+            COLLADAFW::MorphController* morphController );
+
+        /**
+        * Create a maya skin cluster object and the skin cluster object set with all needed maya
+        * objects to create the connections of the skinCluster.
+        * SkinCluster nodes are created during a smooth bindSkin. The purpose of the skinCluster 
+        * is to store a weight per influence object for each component of each geometry that is 
+        * deformed. Influence objects can be joints or any transform.
+        * Note that unlike most deformers, a skinCluster node can deform only a single geometry. 
+        * Therefore, if additional geometries are added to the skinCluster set, they will be ignored.
+        */
+        const String createSkinCluster ( 
+            const COLLADAFW::SkinControllerData* skinControllerData, 
+            SkinClusterData& skinClusterData );
+
+        /**
+        * Create a maya blend shape object and the skin cluster object set with all needed maya
+        * objects to create the connections of the skinCluster.
+        * BlendShape nodes takes geometry as input and deforms it based on pairs of target shapes 
+        * and weight values, to produce a new shape that is the specified blending of the input shapes. 
+        */
+        const String createBlendShape ( 
+            COLLADAFW::MorphController* morphController, 
+            BlendShapeData& blendShapeData );
+
+        /**
+        * Create all maya objects, which are needed to connect a maya skinCluster or a blendShape 
+        * to a geometry.
+        */
+        void createGeometryFilterBindingObjects ( 
+            GeometryFilterData &controllerData, 
+            const String& geometryFilterName );
+
+        /**
+        * Write the weights into the maya ascii file.
+        */
+        void writeWeights ( 
+            MayaDM::SkinCluster* skinCluster, 
+            std::vector<double>& currentWeightList, 
+            const size_t influenceIndex, 
+            const unsigned int jointStartIndex, 
+            const unsigned int jointEndIndex );
 
         /**
         * The initial index position in depend on the number of controllers. 
@@ -231,29 +383,54 @@ namespace COLLADAMaya
         void addControllerToObjectGroupsInitialIndex ( const COLLADAFW::UniqueId& controllerId );
 
         /**
+        * Returns true, if the skin controller data with the given unique id is already exported.
+        */
+        const bool skinControllerDataExported ( const COLLADAFW::UniqueId& skinControllerDataId ) const;
+
+        /**
+        * Returns true, if the morph controller with the given unique id is already exported.
+        */
+        bool morphControllerExported ( const COLLADAFW::UniqueId& morphControllerId );
+
+        /**
+        * Returns the skin controller element, with the given skinControllerDataId. 
+        * If no skin controller  uses the source, the method returns null.
+        */
+        const std::vector<COLLADAFW::SkinController*> findSkinControllersByDataId ( const COLLADAFW::UniqueId& skinControllerDataId );
+
+        /**
+        * Get the maya controller node with the given unique id.
+        */
+        MayaNode* findMayaControllerNode ( const COLLADAFW::UniqueId& controllerId );
+
+        /**
+         * Returns a vector with all morph targets of the current morph controller.
+         * If no targets exist, 0 will be returned.
+         */
+        const std::vector<COLLADAFW::UniqueId>* findMorphTargets ( const COLLADAFW::UniqueId& controllerId );
+
+        /**
          * Make the controller connections to the joints.
          */
-        void writeJointConnections ();
+        void connectSkinControllerJoints ();
+
+        /**
+         * Make the connections to the morph controller targets.
+         */
+        void connectMorphControllerTargets ();
 
         /**
          * Make the controller connections to the geometry.
          */
-        void writeGeometryConnections ();
+        void connectGeometries ();
+
+        const UniqueIdVec* getSkinControllerTransforms ( 
+            const COLLADAFW::UniqueId& controllerId );
 
         /**
          * Make all the other controller data connections.
          */
-        void writeControllerConnections ();
-
-        /**
-         * Get the maya controller node with the given unique id.
-         */
-        MayaNode* findMayaControllerNode ( const COLLADAFW::UniqueId& controllerId );
-
-        /**
-        * Get the maya skin controller node with the given unique id.
-        */
-        bool skinControllerDataIdExported ( const COLLADAFW::UniqueId& skinControllerId );
+        void connectControllers ();
 
     };
 

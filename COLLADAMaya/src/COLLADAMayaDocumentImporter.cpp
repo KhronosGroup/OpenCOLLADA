@@ -26,6 +26,7 @@
 #include "COLLADAMayaAnimationImporter.h"
 #include "COLLADAMayaControllerImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
+#include "COLLADAMayaNodeImporter.h"
 
 #include "COLLADAFWRoot.h"
 #include "COLLADAFWAnimationList.h"
@@ -44,21 +45,73 @@
 namespace COLLADAMaya
 {
 
-    const String DocumentImporter::ASCII_PATH_EXTENSION = ".ma";
-    const String DocumentImporter::ASCII_PATH_EXTENSION_DEBUG = ".nextgen.ma";
+    /** This names are reserved. Maya nodes can't have this names! */
+    const size_t DocumentImporter::NUM_RESERVED_NAMES = 43;
+    const String DocumentImporter::RESERVED_NAMES[] = 
+    { 
+        "default", 
+        "defaultShaderList1", 
+        "renderPartition", 
+        "initialShadingGroup", 
+        "initialMaterialInfo", 
+        "lightList1", 
+        "defaultLightSet", 
+        "lightLinker1", 
+        "defaultTextureList1", 
+        "lambert1", 
+        "particleCloud1",
+        "shaderGlow1",
+        "initialParticleSE",
+        "layerManager",
+        "defaultLayer",
+        "defaultObjectSet",
+        "dof1",
+        "dynController1",
+        "globalCacheControl",
+        "hardwareRenderGlobals",
+        "defaultHardwareRenderGlobals",
+        "ikSystem",
+        "ikSCsolver",
+        "ikRPsolver",
+        "ikSplineSolver",
+        "hikSolver",
+        "characterPartition",
+        "renderPartition",
+        "defaultRenderLayer",
+        "renderLayerManager",
+        "strokeGlobals",
+        "time1",
+        "persp",     
+        "top",       
+        "side",      
+        "front",     
+        "perspShape",
+        "topShape",  
+        "sideShape", 
+        "frontShape",
+        "int",
+        "float",
+        "string"
+    };
+
+    /** The Buffersize for the document to write. */
     const int DocumentImporter::BUFFERSIZE = 2097152;
 
 
     //---------------------------------
-    DocumentImporter::DocumentImporter ( const String& fileName )
+    DocumentImporter::DocumentImporter ( 
+        const String& fileName, 
+        const String& mayaAsciiFileName )
         : mColladaFileName ( fileName )
+        , mMayaAsciiFileURI ( mayaAsciiFileName )
         , mSaxLoader ( &mSaxParserErrorHandler )
         , mParseStep ( NO_PARSING )
         , mVisualScenesList (0)
         , mLibraryNodesList (0)
         , mMaterialsList (0)
-        , mSceneId ( "MayaScene" )
+        , mEffectsList (0)
         , mFile ( 0 )
+        , mNodeImporter (0)
         , mVisualSceneImporter (0)
         , mGeometryImporter (0)
         , mMaterialImporter (0)
@@ -71,8 +124,16 @@ namespace COLLADAMaya
         , mNumDocumentParses (0)
         , mUpAxisType ( COLLADAFW::FileInfo::Y_UP )
         , mLinearUnitConvertFactor ( 1.0 )
+        , mLinearUnitMayaBindShapeBugConvertFactor ( 1.0 )
         , mDigitTolerance (FLOAT_TOLERANCE)
+        , mBuffer (0)
     {
+        // Maya already use some names for the default maya objects.
+        for ( size_t i=0; i<NUM_RESERVED_NAMES; ++i )
+        {
+            mGlobalNodeIdList.addId ( RESERVED_NAMES[i] );
+            mDependNodeIdList.addId ( RESERVED_NAMES[i] );
+        }
     }
 
     //---------------------------------
@@ -81,6 +142,7 @@ namespace COLLADAMaya
         // Close the maya ascii file
         closeMayaAsciiFile ();
 
+        // Don't delete the objects earlier, other parts use the elements!
         // A copy of the framework's library visual scenes elements. 
         for ( size_t i=0; i< mVisualScenesList.size (); ++i )
         {
@@ -105,8 +167,20 @@ namespace COLLADAMaya
         }
         mMaterialsList.clear ();
 
+        // A copy of the framework's library effect elements. 
+        for ( size_t i=0; i< mEffectsList.size (); ++i )
+        {
+            COLLADAFW::Effect* effect = mEffectsList [i];
+            delete effect;
+        }
+        mEffectsList.clear ();
+
         // Delete the library elements.
         releaseLibraries(); 
+
+        // Release the buffer memory
+        delete[] mBuffer;
+        mBuffer = 0;
     }
 
     //---------------------------------
@@ -115,13 +189,8 @@ namespace COLLADAMaya
         // First release the existing libraries.
         releaseLibraries();
 
-        // Get the sceneID (assign a name to the scene)
-        MString sceneName = MFileIO::currentFile ();
-        if ( sceneName.length() != 0 ) mSceneId = sceneName.asChar();
-
-        // Create the maya file.
-
         // Create the libraries.
+        mNodeImporter = new NodeImporter ( this );
         mVisualSceneImporter = new VisualSceneImporter ( this );
         mGeometryImporter = new GeometryImporter ( this );
         mMaterialImporter = new MaterialImporter ( this );
@@ -132,13 +201,14 @@ namespace COLLADAMaya
         mAnimationImporter = new AnimationImporter (this);
         mControllerImporter = new ControllerImporter (this);
 
-        // Initialize the reference manager
-        ReferenceManager::getInstance()->initialize ();
+//         // TODO Initialize the reference manager
+//         ReferenceManager::getInstance()->initialize ();
     }
 
     //---------------------------------
     void DocumentImporter::releaseLibraries()
     {
+        delete mNodeImporter;
         delete mVisualSceneImporter;
         delete mGeometryImporter;
         delete mMaterialImporter;
@@ -178,15 +248,6 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::createMayaAsciiFile ()
     {
-        // TODO
-        mMayaAsciiFileURI.set ( mColladaFileName );
-
-#ifdef NDEBUG
-        mMayaAsciiFileURI.setPathExtension ( ASCII_PATH_EXTENSION );
-#else
-        mMayaAsciiFileURI.setPathExtension ( ASCII_PATH_EXTENSION_DEBUG );
-#endif
-
         String mayaAsciiFileName = mMayaAsciiFileURI.getURIString ();
 
         // Check if the file already exist.
@@ -204,7 +265,7 @@ namespace COLLADAMaya
         mFile = fopen ( mayaAsciiFileName.c_str (), "w" );
         if ( mFile == 0 ) 
         {
-            MGlobal::displayError ( "Can't open maya ascii file!\n" );
+            std::cerr << "Can't open maya ascii file!\n" << endl;
             return false;
         }
 
@@ -214,7 +275,8 @@ namespace COLLADAMaya
         if ( failed )
         {
             delete[] mBuffer;
-            MGlobal::displayError ( "Could not set buffer for writing." );
+            mBuffer = 0;
+            std::cerr << "Could not set buffer for writing." << endl;
             return false;
         }
 
@@ -240,12 +302,6 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
-    void DocumentImporter::cancel ( const String& errorMessage )
-    {
-
-    }
-
-    //-----------------------------
     void DocumentImporter::start ()
     {
         // Create the maya file.
@@ -260,31 +316,47 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
+    void DocumentImporter::cancel ( const String& errorMessage )
+    {
+        std::cerr << "Error: " << errorMessage << endl;
+    }
+
+    //-----------------------------
     void DocumentImporter::finish ()
     {
         // First parse is done.
-        if ( mParseStep < AFTER_FIRST_PARSING )
+        if ( mParseStep <= COPY_ELEMENTS )
         {
             // The order of the steps here is very important!
-            mParseStep = AFTER_FIRST_PARSING;
+            mParseStep = ELEMENTS_COPIED;
+
+            // Create the scene graph and map the unique node ids to the framwork node objects.
+            importNodes ();
 
             // Import referenced visual scene
             importVisualScene ();
 
-            // Import referenced library nodes
-            importLibraryNodes ();
+            // Import morph controllers 
+            importMorphControllers ();
 
-            // Import the node instances, when all nodes of the visual scene 
-            // and the library nodes are already imported.
-            mVisualSceneImporter->writeNodeInstances ();
-
-            // Import materials
+            // First import materials, then effects and after this images.
+            // The order of the import is relevant, about we have to know which effects are used 
+            // by this material. After the import of the effects, we know which images we need.
+            // We have to import this before we write the animations in the second parsing, about
+            // to know the animated effects.
             importMaterials ();
+            importEffects ();
+            importImages ();
+
+            // Get the minimum and the maximum time values of the animations to get the start 
+            // time and the end time of the animation. This times we have to set as the 
+            // "playbackOptions" in the "sceneConfigurationScriptNode".
+            importPlaybackOptions ();
 
             // Start the next parsing.
             mParseStep = SECOND_PARSING;
 
-            // TODO
+            // TODO Not active in the current implementation!
             int objectFlags = 
                 COLLADASaxFWL::Loader::GEOMETRY_FLAG |
                 COLLADASaxFWL::Loader::EFFECT_FLAG |
@@ -303,14 +375,17 @@ namespace COLLADAMaya
         --mNumDocumentParses;
         if ( mNumDocumentParses == 0 ) 
         {
-            mParseStep = AFTER_SECOND_PARSING;
+            mParseStep = GEOMETRY_IMPORTED;
+
+            // After we have imported the geometries, we can create the necessary uv-choosers.
+            // We can't create them earlier, about we need to know, if the geometry has more than 
+            // one uv-set (texture coordinates).
+            createUvChoosers ();
 
             // After the complete read of the collada document, 
             // the connections can be written into the maya file.
-            if ( mFile != 0 )
-            {
-                writeConnections ();
-            }
+            mParseStep = MAKE_CONNECTIONS;
+            writeConnections ();
 
             // Close the file
             closeMayaAsciiFile ();
@@ -318,21 +393,52 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
+    void DocumentImporter::createUvChoosers ()
+    {
+        // After we have imported the geometries, we can create the necessary uv-choosers.
+        if ( mParseStep < GEOMETRY_IMPORTED )
+        {
+            std::cerr << "Geometries not imported! Can't create the uv-choosers!" << endl;
+            return;
+        }
+
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::createUvChoosers(): Cant't import, no maya file exist!" << endl;
+            return;
+        }
+
+        // Create the uv-choosers.
+        mMaterialImporter->createUVChoosers ();
+    }
+
+    //-----------------------------
     void DocumentImporter::writeConnections ()
     {
-        // If we have one or more controllers, the material groupIds have to 
-        // connect to the geometry object groups on a later index position.
-        mControllerImporter->writeConnections ();
-        mMaterialImporter->writeConnections ();
-        mLightImporter->writeConnections ();
-        mEffectImporter->writeConnections ();
-        mGeometryImporter->writeConnections ();
+        if ( mParseStep == MAKE_CONNECTIONS )
+        {
+            // The file must already exist.
+            if ( mFile == 0 )
+            {
+                cerr << "DocumentImporter::writeConnections(): Cant't import, no maya file exist!" << endl;
+                return;
+            }
+
+            // If we have one or more controllers, the material groupIds have to 
+            // connect to the geometry object groups on a later index position.
+            mControllerImporter->writeConnections ();
+            mMaterialImporter->writeConnections ();
+            mLightImporter->writeConnections ();
+            mEffectImporter->writeConnections ();
+            mGeometryImporter->writeConnections ();
+        }
     }
 
     //-----------------------------
     void DocumentImporter::readColladaDocument ()
     {
-        COLLADASaxFWL::Loader saxLoader;
+        COLLADASaxFWL::Loader saxLoader ( &mSaxParserErrorHandler );
         COLLADAFW::Root root ( &saxLoader, this );
 
         // TODO
@@ -342,12 +448,6 @@ namespace COLLADAMaya
 
         ++mNumDocumentParses;
         root.loadDocument ( fileUriString );
-    }
-
-    //-----------------------------
-    const COLLADABU::URI& DocumentImporter::getMayaAsciiFileURI () const
-    {
-        return mMayaAsciiFileURI;
     }
 
     //-----------------------------
@@ -405,6 +505,7 @@ namespace COLLADAMaya
         // Get the unit informations.
         const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
         mLinearUnitConvertFactor = 1.0;
+        mLinearUnitMayaBindShapeBugConvertFactor = 1.0;
 
         // Set the default value to centimeters.
         String linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
@@ -424,7 +525,8 @@ namespace COLLADAMaya
                 {
                     // Convert to meters
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                    mLinearUnitConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER; // 1 km = 1000m ==> cf = 1000
+                    mLinearUnitConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER; // 1km = 1000m ==> cf = 1000
+                    mLinearUnitMayaBindShapeBugConvertFactor  = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; // 1km = 100.000m ==> cf = 100.000
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::METER:
@@ -432,13 +534,15 @@ namespace COLLADAMaya
                     // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
                     mLinearUnitConvertFactor =  1.0;
+                    mLinearUnitMayaBindShapeBugConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; // 1m = 100cm ==> cf = 100
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::DECIMETER:
                 {
-                    // Convert to meters
-                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
-                    mLinearUnitConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER; // 1 dm = 0.1 m ==> cf = 0.1
+                    // Convert to centimeters
+                    linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
+                    mLinearUnitConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; // 1dm = 10cm ==> cf = 10
+                    mLinearUnitMayaBindShapeBugConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; // 1dm = 10cm ==> cf = 10
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::CENTIMETER:
@@ -446,13 +550,15 @@ namespace COLLADAMaya
                     // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME; 
                     mLinearUnitConvertFactor =  1.0;
+                    mLinearUnitMayaBindShapeBugConvertFactor = 1.0;
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::MILLIMETER:
                 {
                     // Convert to centimeters
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
-                    mLinearUnitConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_MILLIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; // 1 mm = 0.01 m ==> cf = 0.1
+                    mLinearUnitConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_MILLIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; // 1mm = 0.01m ==> cf = 0.1
+                    mLinearUnitMayaBindShapeBugConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_MILLIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; // 1mm = 0.01m ==> cf = 0.1
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::FOOT:
@@ -460,6 +566,7 @@ namespace COLLADAMaya
                     // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT_NAME;
                     mLinearUnitConvertFactor =  1.0;
+                    mLinearUnitMayaBindShapeBugConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; 
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::INCH:
@@ -467,6 +574,7 @@ namespace COLLADAMaya
                     // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH_NAME;
                     mLinearUnitConvertFactor =  1.0;
+                    mLinearUnitMayaBindShapeBugConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; 
                     break;
                 }
             case COLLADAFW::FileInfo::Unit::YARD:
@@ -474,6 +582,7 @@ namespace COLLADAMaya
                     // Don't convert 
                     linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD_NAME;
                     mLinearUnitConvertFactor =  1.0;
+                    mLinearUnitMayaBindShapeBugConvertFactor = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; 
                     break;
                 }
             default:
@@ -483,12 +592,14 @@ namespace COLLADAMaya
                         // Set to meter
                         linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
                         mLinearUnitConvertFactor = linearUnitMeter / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;  // 1 ? = 1 m
+                        mLinearUnitMayaBindShapeBugConvertFactor = linearUnitMeter / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER; 
                     }
                     else 
                     {
                         // Set to centimeters
                         linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
                         mLinearUnitConvertFactor = linearUnitMeter / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;  // 1 ? = 0.01 m
+                        mLinearUnitMayaBindShapeBugConvertFactor = linearUnitMeter / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;  // 1 ? = 0.01 m
                     }
                     break;
                 }
@@ -514,7 +625,7 @@ namespace COLLADAMaya
             // createNode script -name "upAxisScriptNode";
             //      setAttr ".before" -type "string" "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \"z\") { upAxis -ax \"z\"; viewSet -home persp; }";
             //      setAttr ".scriptType" 2;
-            MayaDM::Script scriptNode ( mFile, "upAxisScriptNode" );
+            MayaDM::Script scriptNode ( mFile, SCRIPT_NODE_UP_AXIS );
             String scriptValue = "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \\\"" + upAxis + "\\\") { upAxis -ax \\\"" + upAxis + "\\\"; viewSet -home persp; }"; // -rv
             
             scriptNode.setBefore ( scriptValue );
@@ -566,14 +677,44 @@ namespace COLLADAMaya
             return false;
         }
 
-        if ( mParseStep <= COPY_FIRST_ELEMENTS ) 
+        if ( mParseStep <= COPY_ELEMENTS ) 
         {
             // Make a copy of the instantiated visual scene element.
-            mParseStep = COPY_FIRST_ELEMENTS;
+            mParseStep = COPY_ELEMENTS;
             mInstanceVisualScene = *scene->getInstanceVisualScene ();
         }
 
         return true;
+    }
+
+    //-----------------------------
+    void DocumentImporter::importNodes ()
+    {
+        if ( mParseStep >= ELEMENTS_COPIED )
+        {
+            // Get the visual scene element to import.
+            for ( size_t i=0; i<mVisualScenesList.size (); ++i )
+            {
+                const COLLADAFW::VisualScene* visualScene = mVisualScenesList [i];
+                if ( mInstanceVisualScene.getInstanciatedObjectId () == visualScene->getUniqueId () )
+                {
+                    const COLLADAFW::NodePointerArray& nodePointerArray = visualScene->getRootNodes ();
+
+                    // Store the unique node ids in a map to the framework nodes.
+                    mNodeImporter->importNodes ( nodePointerArray );
+                }
+            }
+
+            // Import the library notes data.
+            for ( size_t i=0; i<mLibraryNodesList.size (); ++i )
+            {
+                const COLLADAFW::LibraryNodes* libraryNodes = mLibraryNodesList [i];
+                const COLLADAFW::NodePointerArray& nodePointerArray = libraryNodes->getNodes ();
+
+                // Store the unique node ids in a map to the framework nodes.
+                mNodeImporter->importNodes ( nodePointerArray );
+            }
+        }
     }
 
     //-----------------------------
@@ -586,10 +727,10 @@ namespace COLLADAMaya
             return false;
         }
 
-        if ( mParseStep <= COPY_FIRST_ELEMENTS )
+        if ( mParseStep <= COPY_ELEMENTS )
         {
             // Make a copy of the visual scene element and push it into the list of visual scenes.
-            mParseStep = COPY_FIRST_ELEMENTS;
+            mParseStep = COPY_ELEMENTS;
             mVisualScenesList.push_back ( new COLLADAFW::VisualScene ( *visualScene ) );
         }
 
@@ -599,21 +740,24 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::importVisualScene ()
     {
-        // The file must already exist.
-        if ( mFile == 0 )
+        if ( mParseStep >= ELEMENTS_COPIED )
         {
-            cerr << "DocumentImporter::importVisualScene(..): Cant't import, no maya file exist!" << endl;
-            return;
-        }
-
-        // Get the visual scene element to import.
-        for ( size_t i=0; i<mVisualScenesList.size (); ++i )
-        {
-            const COLLADAFW::VisualScene* visualScene = mVisualScenesList [i];
-            if ( mInstanceVisualScene.getInstanciatedObjectId () == visualScene->getUniqueId () )
+            // The file must already exist.
+            if ( mFile == 0 )
             {
-                // Import the data.
-                mVisualSceneImporter->importVisualScene ( visualScene );
+                cerr << "DocumentImporter::importVisualScene(..): Cant't import, no maya file exist!" << endl;
+                return;
+            }
+
+            // Get the visual scene element to import.
+            for ( size_t i=0; i<mVisualScenesList.size (); ++i )
+            {
+                const COLLADAFW::VisualScene* visualScene = mVisualScenesList [i];
+                if ( mInstanceVisualScene.getInstanciatedObjectId () == visualScene->getUniqueId () )
+                {
+                    // Import the data.
+                    mVisualSceneImporter->importVisualScene ( visualScene );
+                }
             }
         }
     }
@@ -628,33 +772,33 @@ namespace COLLADAMaya
             return false;
         }
 
-        if ( mParseStep <= COPY_FIRST_ELEMENTS )
+        if ( mParseStep <= COPY_ELEMENTS )
         {
             // Make a copy of the visual scene element and push it into the list of visual scenes.
-            mParseStep = COPY_FIRST_ELEMENTS;
+            mParseStep = COPY_ELEMENTS;
             mLibraryNodesList.push_back ( new COLLADAFW::LibraryNodes ( *libraryNodes ) );
         }
 
         return true;
     }
 
-    //-----------------------------
-    void DocumentImporter::importLibraryNodes ()
-    {
-        // The file must already exist.
-        if ( mFile == 0 )
-        {
-            cerr << "DocumentImporter::importLibraryNodes(..): Cant't import, no maya file exist!" << endl;
-            return;
-        }
-
-        // Import the library notes data.
-        for ( size_t i=0; i<mLibraryNodesList.size (); ++i )
-        {
-            const COLLADAFW::LibraryNodes* libraryNodes = mLibraryNodesList [i];
-            mVisualSceneImporter->importLibraryNodes ( libraryNodes );
-        }
-    }
+//     //-----------------------------
+//     void DocumentImporter::importLibraryNodes ()
+//     {
+//         // The file must already exist.
+//         if ( mFile == 0 )
+//         {
+//             cerr << "DocumentImporter::importLibraryNodes(..): Cant't import, no maya file exist!" << endl;
+//             return;
+//         }
+// 
+//         // Import the library notes data.
+//         for ( size_t i=0; i<mLibraryNodesList.size (); ++i )
+//         {
+//             const COLLADAFW::LibraryNodes* libraryNodes = mLibraryNodesList [i];
+//             mVisualSceneImporter->importLibraryNodes ( libraryNodes );
+//         }
+//     }
 
     //-----------------------------
     bool DocumentImporter::writeMaterial ( const COLLADAFW::Material* material )
@@ -666,10 +810,10 @@ namespace COLLADAMaya
             return false;
         }
 
-        if ( mParseStep <= COPY_FIRST_ELEMENTS )
+        if ( mParseStep <= COPY_ELEMENTS )
         {
             // Make a copy of the material element and push it into the list.
-            mParseStep = COPY_FIRST_ELEMENTS;
+            mParseStep = COPY_ELEMENTS;
             mMaterialsList.push_back ( new COLLADAFW::Material ( *material ) );
         }
 
@@ -687,10 +831,100 @@ namespace COLLADAMaya
         }
 
         // Import the materials data.
-        for ( size_t i=0; i<mMaterialsList.size (); ++i )
+        if ( mParseStep >= ELEMENTS_COPIED )
         {
-            const COLLADAFW::Material* material = mMaterialsList [i];
-            mMaterialImporter->importMaterial ( material );
+            for ( size_t i=0; i<mMaterialsList.size (); ++i )
+            {
+                const COLLADAFW::Material* material = mMaterialsList [i];
+                mMaterialImporter->importMaterial ( material );
+            }
+            mParseStep = MATERIAL_IMPORTED;
+        }
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeEffect ( const COLLADAFW::Effect* effect )
+    {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeEffect(..): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
+        if ( mParseStep <= COPY_ELEMENTS )
+        {
+            // Make a copy of the effect element and push it into the list.
+            mParseStep = COPY_ELEMENTS;
+            mEffectsList.push_back ( new COLLADAFW::Effect ( *effect ) );
+        }
+
+        return true;
+    }
+
+    //-----------------------------
+    void DocumentImporter::importEffects ()
+    {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::importEffects(): Cant't import, no maya file exist!" << endl;
+            return;
+        }
+
+        // Import the effects data.
+        if ( mParseStep >= ELEMENTS_COPIED )
+        {
+            for ( size_t i=0; i<mEffectsList.size (); ++i )
+            {
+                const COLLADAFW::Effect* effect = mEffectsList [i];
+                mEffectImporter->importEffect ( effect );
+            }
+            mParseStep = EFFECT_IMPORTED;
+        }
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeImage ( const COLLADAFW::Image* image )
+    {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::writeImage(): Cant't import, no maya file exist!" << endl;
+            return false;
+        }
+
+        // We first should copy the images, about it's possible, that we have to create an 
+        // image for more than one time. This happens if:
+        // a) one image is referenced from multiple effects 
+        // b) one image is referenced in multiple samplers in one effect 
+        // c) one effect uses the same sampler multiple times.
+        // We have to dublicate the image, about the possibility to create multiple uv-sets on it.
+        if ( mParseStep <= COPY_ELEMENTS )
+        {
+            // Make a copy of the material element and push it into the list.
+            mParseStep = COPY_ELEMENTS;
+            mImageImporter->storeImage ( image );
+        }
+
+        return true;
+    }
+
+    //-----------------------------
+    void DocumentImporter::importImages ()
+    {
+        // The file must already exist.
+        if ( mFile == 0 )
+        {
+            cerr << "DocumentImporter::importImages(): Cant't import, no maya file exist!" << endl;
+            return;
+        }
+
+        // Import the images data.
+        if ( mParseStep >= ELEMENTS_COPIED )
+        {
+            mImageImporter->importImages ();
+            mParseStep = IMAGES_IMPORTED;
         }
     }
 
@@ -700,7 +934,7 @@ namespace COLLADAMaya
         // The file must already exist.
         if ( mFile == 0 )
         {
-            cerr << "DocumentImporter::writeGeometry(..): Cant't import, no maya file exist!" << endl;
+            cerr << "DocumentImporter::writeGeometry(): Cant't import, no maya file exist!" << endl;
             return false;
         }
 
@@ -714,31 +948,12 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
-    bool DocumentImporter::writeEffect ( const COLLADAFW::Effect* effect )
-    {
-        // The file must already exist.
-        if ( mFile == 0 )
-        {
-            cerr << "DocumentImporter::writeEffect(..): Cant't import, no maya file exist!" << endl;
-            return false;
-        }
-
-        if ( mParseStep == SECOND_PARSING )
-        {
-            // Import the data.
-            mEffectImporter->importEffect ( effect );
-        }
-
-        return true;
-    }
-
-    //-----------------------------
     bool DocumentImporter::writeCamera ( const COLLADAFW::Camera* camera )
     {
         // The file must already exist.
         if ( mFile == 0 )
         {
-            cerr << "DocumentImporter::writeCamera(..): Cant't import, no maya file exist!" << endl;
+            cerr << "DocumentImporter::writeCamera(): Cant't import, no maya file exist!" << endl;
             return false;
         }
 
@@ -757,7 +972,7 @@ namespace COLLADAMaya
         // The file must already exist.
         if ( mFile == 0 )
         {
-            cerr << "DocumentImporter::writeLight(..): Cant't import, no maya file exist!" << endl;
+            cerr << "DocumentImporter::writeLight(): Cant't import, no maya file exist!" << endl;
             return false;
         }
 
@@ -771,40 +986,39 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
-    bool DocumentImporter::writeImage ( const COLLADAFW::Image* image )
+    bool DocumentImporter::writeAnimation ( const COLLADAFW::Animation* animation )
     {
         // The file must already exist.
         if ( mFile == 0 )
         {
-            cerr << "DocumentImporter::writeImage(..): Cant't import, no maya file exist!" << endl;
+            cerr << "DocumentImporter::writeAnimation(): Cant't import, no maya file exist!" << endl;
             return false;
         }
 
-        if ( mParseStep == SECOND_PARSING )
+        if ( mParseStep < SECOND_PARSING )
         {
-            // Import the data.
-            mImageImporter->importImage ( image );
+            mAnimationImporter->importAnimation ( animation );
+            mParseStep = ANIMATIONS_IMPORTED;
         }
 
         return true;
     }
 
     //-----------------------------
-    bool DocumentImporter::writeAnimation ( const COLLADAFW::Animation* animation )
+    void DocumentImporter::importPlaybackOptions ()
     {
         // The file must already exist.
         if ( mFile == 0 )
         {
-            cerr << "DocumentImporter::writeAnimation(..): Cant't import, no maya file exist!" << endl;
-            return false;
+            cerr << "DocumentImporter::writePlaybackOptions(): Cant't import, no maya file exist!" << endl;
+            return;
         }
 
-        if ( mParseStep == SECOND_PARSING )
+        if ( mParseStep >= ANIMATIONS_IMPORTED )
         {
-            mAnimationImporter->importAnimation ( animation );
+            mAnimationImporter->importPlaybackOptions ();
         }
 
-        return true;
     }
 
     //-----------------------------
@@ -813,7 +1027,7 @@ namespace COLLADAMaya
         // The file must already exist.
         if ( mFile == 0 )
         {
-            cerr << "DocumentImporter::writeAnimationList(..): Cant't import, no maya file exist!" << endl;
+            cerr << "DocumentImporter::writeAnimationList(): Cant't import, no maya file exist!" << endl;
             return false;
         }
 
@@ -832,7 +1046,7 @@ namespace COLLADAMaya
         // The file must already exist.
         if ( mFile == 0 )
         {
-            cerr << "DocumentImporter::writeSkinControllerData(..): Cant't import, no maya file exist!" << endl;
+            cerr << "DocumentImporter::writeSkinControllerData(): Cant't import, no maya file exist!" << endl;
             return false;
         }
         
@@ -851,18 +1065,112 @@ namespace COLLADAMaya
         // The file must already exist.
         if ( mFile == 0 )
         {
-            cerr << "DocumentImporter::writeController(..): Cant't import, no maya file exist!" << endl;
+            cerr << "DocumentImporter::writeController(): Cant't import, no maya file exist!" << endl;
             return false;
         }
 
-        if ( mParseStep <= COPY_FIRST_ELEMENTS )
+        if ( mParseStep <= COPY_ELEMENTS )
         {
-            // Make a copy of the material element and push it into the list.
-            mParseStep = COPY_FIRST_ELEMENTS;
+            // Make a copy of the controller element and push it into the list.
+            mParseStep = COPY_ELEMENTS;
             mControllerImporter->storeController ( controller );
         }
 
         return true;
+    }
+
+    //-----------------------------
+    void DocumentImporter::importMorphControllers ()
+    {
+        if ( mParseStep >= ELEMENTS_COPIED )
+        {
+            // The file must already exist.
+            if ( mFile == 0 )
+            {
+                cerr << "DocumentImporter::importMorphControllers(): Cant't import, no maya file exist!" << endl;
+                return;
+            }
+
+            // Import the morph controllers.
+            mControllerImporter->importMorphControllers ();
+        }
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeFormulas ( const COLLADAFW::Formulas* formulas )
+    {
+        return true;
+    }
+
+    //-----------------------------
+	bool DocumentImporter::writeKinematicsScene( const COLLADAFW::KinematicsScene* kinematicsScene )
+	{
+        return true;
+	}
+
+    //-----------------------------
+    const COLLADAFW::Node* DocumentImporter::findNode ( 
+        const COLLADAFW::UniqueId& nodeId, 
+        const COLLADAFW::NodePointerArray& nodes )
+    {
+        size_t numNodes = nodes.getCount ();
+        for ( size_t i=0; i<numNodes; ++i )
+        {
+            const COLLADAFW::Node* node = nodes [i];
+            if ( nodeId != node->getUniqueId () ) 
+            {
+                // Recursive call
+                const COLLADAFW::NodePointerArray& childNodes = node->getChildNodes ();
+                const COLLADAFW::Node* searchedNode = findNode ( nodeId, childNodes );
+                if ( searchedNode ) return searchedNode;
+            }
+            else return node;
+        }
+        return 0;
+    }
+
+    //-----------------------------
+    COLLADAMaya::String DocumentImporter::addGlobalNodeId ( 
+        const String& newId, 
+        bool returnConverted /*= true*/, 
+        bool alwaysAddNumberSuffix /*= false */ )
+    {
+        return mGlobalNodeIdList.addId ( newId, returnConverted, alwaysAddNumberSuffix );
+    }
+
+    //-----------------------------
+    bool DocumentImporter::containsGlobalNodeId ( const String& id )
+    {
+        return mGlobalNodeIdList.containsId ( id );
+    }
+
+    //-----------------------------
+    COLLADAMaya::String DocumentImporter::addDependNodeId ( 
+        const String& newId, 
+        bool returnConverted /*= true*/, 
+        bool alwaysAddNumberSuffix /*= false */ )
+    {
+        return mDependNodeIdList.addId ( newId, returnConverted, alwaysAddNumberSuffix );
+    }
+
+    //-----------------------------
+    bool DocumentImporter::containsDependNodeId ( const String& id )
+    {
+        return mDependNodeIdList.containsId ( id );
+    }
+
+    //-----------------------------
+    void DocumentImporter::addDagNodeId ( const String& newId )
+    {
+        mDagNodeIdSet.insert ( newId );
+    }
+
+    //-----------------------------
+    bool DocumentImporter::containsDagNodeId ( const String& id )
+    {
+        std::set<String>::const_iterator it = mDagNodeIdSet.find ( id );
+        if ( it != mDagNodeIdSet.end () ) return true;
+        return false;
     }
 
 }

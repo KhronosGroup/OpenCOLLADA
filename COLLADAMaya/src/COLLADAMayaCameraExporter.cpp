@@ -203,15 +203,15 @@ namespace COLLADAMaya
         optics->setZFar ( (float) zFar, animated ); 
 
         // Get the camera name.
-        String mayaCameraId = mDocumentExporter->dagPathToColladaName ( dagPath );
+        String mayaCameraId = mDocumentExporter->dagPathToColladaId ( dagPath );
 
         // Generate a COLLADA id for the new object
         String colladaCameraId;
 
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue;
-        DagHelper::getPlugValue ( cameraNode, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-        if ( attributeValue != "" )
+        DagHelper::getPlugValue ( cameraNode, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != EMPTY_CSTRING )
         {
             // Generate a valid collada name, if necessary.
             colladaCameraId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
@@ -226,44 +226,49 @@ namespace COLLADAMaya
         mMayaIdColladaCameraIdMap [mayaCameraId] = colladaCameraId;
 
         // Create the camera
-        COLLADASW::Camera camera ( streamWriter, optics, colladaCameraId, mayaCameraId );
-        String paramSid = "";
+        String cameraName = mDocumentExporter->dagPathToColladaName ( dagPath );
+        COLLADASW::Camera camera ( streamWriter, optics, colladaCameraId, cameraName );
+        String paramSid = EMPTY_STRING;
+
+        // Export the original maya name.
+        String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
+        camera.addExtraTechniqueParameter ( PROFILE_MAYA, PARAMETER_MAYA_ID, nodeName );
 
         // Add the Maya-specific parameters
         double vAperture = cameraFn.verticalFilmAperture ( &status ) * 2.54f; CHECK_STAT(status);
         animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_APERTURE_SID, ATTR_VERTICAL_FILM_APERTURE, 
             ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, false, -1, false, new ConversionScaleFunctor(2.54f) );
-        paramSid = ""; if ( animated ) paramSid = VERTICAL_APERTURE_SID;
-        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_VAPERTURE_PARAMETER, vAperture, paramSid );
+        paramSid = EMPTY_STRING; if ( animated ) paramSid = VERTICAL_APERTURE_SID;
+        camera.addExtraTechniqueParameter( PROFILE_MAYA, MAYA_VAPERTURE_PARAMETER, vAperture, paramSid );
 
         double hAperture = cameraFn.horizontalFilmAperture ( &status ) * 2.54f; CHECK_STAT(status);
         animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_APERTURE_SID, ATTR_HORIZONTAL_FILM_APERTURE, 
             ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, false, -1, false, new ConversionScaleFunctor(2.54f) );
-        paramSid = ""; if ( animated ) paramSid = HORIZONTAL_APERTURE_SID;
-        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_HAPERTURE_PARAMETER, hAperture, paramSid );
+        paramSid = EMPTY_STRING; if ( animated ) paramSid = HORIZONTAL_APERTURE_SID;
+        camera.addExtraTechniqueParameter( PROFILE_MAYA, MAYA_HAPERTURE_PARAMETER, hAperture, paramSid );
  
         double lensSqueeze = cameraFn.lensSqueezeRatio ( &status ); CHECK_STAT(status);
         animated = anim->addNodeAnimation( cameraFn.object(), LENS_SQUEEZE_SID, ATTR_LENS_SQUEEZE_RATIO, kSingle );
-        paramSid = ""; if ( animated ) paramSid = LENS_SQUEEZE_SID;
-        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze, paramSid );
+        paramSid = EMPTY_STRING; if ( animated ) paramSid = LENS_SQUEEZE_SID;
+        camera.addExtraTechniqueParameter( PROFILE_MAYA, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze, paramSid );
 
         int filmFit = cameraFn.filmFit ( &status ); CHECK_STAT(status);
-        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_FILM_FIT_PARAMETER, filmFit ); 
+        camera.addExtraTechniqueParameter( PROFILE_MAYA, MAYA_FILM_FIT_PARAMETER, filmFit ); 
 
         double filmFitOffset = cameraFn.filmFitOffset ();
         animated = anim->addNodeAnimation( cameraFn.object(), FILM_FIT_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle );
-        paramSid = ""; if ( animated ) paramSid = FILM_FIT_OFFSET_SID;
-        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_FILM_FIT_OFFSET_PARAMETER, filmFitOffset, paramSid ); 
+        paramSid = EMPTY_STRING; if ( animated ) paramSid = FILM_FIT_OFFSET_SID;
+        camera.addExtraTechniqueParameter( PROFILE_MAYA, MAYA_FILM_FIT_OFFSET_PARAMETER, filmFitOffset, paramSid ); 
 
         double filmOffsetX = cameraFn.horizontalFilmOffset ();
         animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_FILM_OFFSET_SID, ATTR_HORIZONTAL_FILM_OFFSET, kSingle, XYZ_PARAMETERS );
-        paramSid = ""; if ( animated ) paramSid = HORIZONTAL_FILM_OFFSET_SID;
-        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_FILM_OFFSET_X_PARAMETER, filmOffsetX, paramSid ); 
+        paramSid = EMPTY_STRING; if ( animated ) paramSid = HORIZONTAL_FILM_OFFSET_SID;
+        camera.addExtraTechniqueParameter( PROFILE_MAYA, MAYA_FILM_OFFSET_X_PARAMETER, filmOffsetX, paramSid ); 
 
         double filmOffsetY = cameraFn.verticalFilmOffset ();
         animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_FILM_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle, XYZ_PARAMETERS );
-        paramSid = ""; if ( animated ) paramSid = VERTICAL_FILM_OFFSET_SID;
-        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_FILM_OFFSET_Y_PARAMETER, filmOffsetY, paramSid ); 
+        paramSid = EMPTY_STRING; if ( animated ) paramSid = VERTICAL_FILM_OFFSET_SID;
+        camera.addExtraTechniqueParameter( PROFILE_MAYA, MAYA_FILM_OFFSET_Y_PARAMETER, filmOffsetY, paramSid ); 
 
         // Write the camera data in the collada document.
         addCamera ( camera );
@@ -279,7 +284,7 @@ namespace COLLADAMaya
         {
             return it->second;
         }
-        return COLLADABU::Utils::EMPTY_STRING;
+        return EMPTY_STRING;
     }
 
 }

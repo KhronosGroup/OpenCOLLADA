@@ -51,80 +51,10 @@ namespace COLLADAMaya
 
     private:
 
-        /*
-        *	Helper class, to handle the transformations.
-        */
-        class MayaTransformation
-        {
-        public:
-            MayaTransformation () 
-                : phase (0)
-                , translate1 ( 0,0,0 ) 
-                , translate1Vec (0)
-                , numTranslate1 (0)
-                , rotation ( 0,0,0 )
-                , axisPhaseRotate1 ( 0,0,0 )
-                , axisPhaseRotate2 ( 0,0,0 )
-                , axisPhaseRotate3 ( 0,0,0 )
-                , translate2 ( 0,0,0 ) 
-                , translate2Vec (0)
-                , numTranslate2 (0)
-                , skew ( 0,0,0 )
-                , scale ( 1,1,1 ) 
-                , translate3 ( 0,0,0 ) 
-                , translate3Vec (0)
-                , numTranslate3 (0)
-            {}
-            virtual ~MayaTransformation () {}
-
-            static const size_t PHASE_TRANS1            = 1;
-            static const size_t PHASE_JOINT_ORIENT1     = 2;
-            static const size_t PHASE_JOINT_ORIENT2     = 3;
-            static const size_t PHASE_JOINT_ORIENT3     = 4;
-            static const size_t PHASE_ROTATE1           = 5;
-            static const size_t PHASE_ROTATE2           = 6;
-            static const size_t PHASE_ROTATE3           = 7;
-            static const size_t PHASE_ROTATE_ORIENT1    = 8;
-            static const size_t PHASE_ROTATE_ORIENT2    = 9;
-            static const size_t PHASE_ROTATE_ORIENT3    = 10;
-            static const size_t PHASE_TRANS2            = 11;
-            static const size_t PHASE_SCALE             = 12;
-            static const size_t PHASE_TRANS3            = 13;
-                                                        
-            MVector translate1; // = 0,0,0
-            std::vector<MVector> translate1Vec;
-            size_t numTranslate1;
-
-            MEulerRotation jointOrient; // = 0,0,0
-            COLLADABU::Math::Vector3 axisPhaseJointOrient1, axisPhaseJointOrient2, axisPhaseJointOrient3;
-
-            MEulerRotation rotation; // = 0,0,0
-            COLLADABU::Math::Vector3 axisPhaseRotate1, axisPhaseRotate2, axisPhaseRotate3;
-
-            MEulerRotation rotateOrient; // = 0,0,0
-            COLLADABU::Math::Vector3 axisPhaseRotateOrient1, axisPhaseRotateOrient2, axisPhaseRotateOrient3;
-
-            MVector translate2; // = 0,0,0
-            std::vector<MVector> translate2Vec;
-            size_t numTranslate2;
-
-            MVector skew; // = 0,0,0
-            MVector scale; // = 1,1,1
-
-            MVector translate3; // = 0,0,0
-            std::vector<MVector> translate3Vec;
-            size_t numTranslate3;
-
-            // 5 phases
-            size_t phase;
-        };
-
-    private:
-
         /**
-         * The list of the unique maya transform node names.
+         * The dummy maya root node.
          */
-        COLLADABU::IDList mTransformNodeIdList;
+        MayaNode mDummyRootMayaNode;
 
         /** 
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
@@ -190,10 +120,10 @@ namespace COLLADAMaya
          */
         void importVisualScene ( const COLLADAFW::VisualScene* visualScene );
 
-        /** 
-        * Import the library nodes with all nodes. 
-        */
-        void importLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes );
+//         /** 
+//         * Import the library nodes with all nodes. 
+//         */
+//         void importLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes );
 
         /**
         * Write the parenting informations about node instances into the maya ascii file.
@@ -208,12 +138,12 @@ namespace COLLADAMaya
         /** 
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
-        MayaNodesList* findMayaTransformNode ( const COLLADAFW::UniqueId& transformId );
+        MayaNodesList* findMayaTransformNodes ( const COLLADAFW::UniqueId& transformId );
 
         /** 
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
-        const MayaNodesList* findMayaTransformNode ( const COLLADAFW::UniqueId& transformId ) const;
+        const MayaNodesList* findMayaTransformNodes ( const COLLADAFW::UniqueId& transformId ) const;
 
         /**
          * The map holds for every transform node a list of all existing parent transform nodes
@@ -262,7 +192,7 @@ namespace COLLADAMaya
         void getTransformPathes ( 
             std::vector<String>& transformPathes, 
             const COLLADAFW::UniqueId& transformId, 
-            const String childSubPath = "" );
+            const String childSubPath = EMPTY_STRING );
 
         /*
         * The center of interest distance value in a map to the current transform node.
@@ -285,18 +215,41 @@ namespace COLLADAMaya
         * The map holds for every unique transform node id the maya data model transform object
         * of the transform node.
         */
-        const MayaDM::Transform* findMayaDMTransform ( const COLLADAFW::UniqueId& transformId );
+        MayaDM::Transform* findMayaDMTransform ( const COLLADAFW::UniqueId& transformId );
+
+        /**
+        * The map holds for every unique transform node id the maya data model transform object
+        * of the transform node.
+        */
+        const MayaDM::Transform* findMayaDMTransform ( const COLLADAFW::UniqueId& transformId ) const;
 
     private:
 
+//         /*
+//          * The node name has to be unique in the maya transform node and material names.
+//          */
+//         const String makeUniqueTransformMaterialName ( String transformName );
+
         /*
         * Imports the data of the current node.
+        * Returns the generated maya node.
         */
-        void importNode ( 
-            COLLADAFW::Node* rootNode, 
-            COLLADAFW::Node* parentNode = NULL, 
-            MayaNode* parentMayaNode = NULL, 
-            const bool createNode = true );
+        MayaNode* importNode ( 
+            const COLLADAFW::Node* node, 
+            const COLLADAFW::Node* parentNode = NULL, 
+            MayaNode* parentMayaNode = NULL );
+
+        /**
+        * Handle the node instances. 
+        */
+        bool importNodeInstances ( 
+            const COLLADAFW::Node* node, 
+            MayaNode* parentMayaNode );
+        
+        /**
+        * Handle the node instances. 
+        */
+        bool readNodeInstances ( const COLLADAFW::Node* node );
 
         /**
          *	Save the transformation ids to the geometry ids.
@@ -326,18 +279,13 @@ namespace COLLADAMaya
             const COLLADAFW::InstanceGeometry* instanceGeometry,
             const COLLADAFW::UniqueId* controllerId = 0 );
 
-        /**
-         * Handle the node instances. 
-         */
-        bool readNodeInstances ( const COLLADAFW::Node* node );
-
         /** 
          * Imports the current transformations. 
          */
         bool importTransformations ( 
             const COLLADAFW::Node* node, 
             MayaDM::Transform* transformNode, 
-            COLLADAFW::Node* parentNode = NULL );
+            const COLLADAFW::Node* parentNode = NULL );
 
         /**
          * Imports a camera lookat transformation.
@@ -354,35 +302,42 @@ namespace COLLADAMaya
          */
         bool readMayaTransformations ( 
             const COLLADAFW::Node* node, 
-            MayaTransformation& mayaTransform, 
+            MayaTransform& mayaTransform, 
             MayaDM::Transform* transformNode, 
             std::vector<TransformAnimation>& transformAnimations,
             bool& hasRotatePivot,
             bool& hasScalePivot,
             bool& isLookatTransform );
 
+        void createTransformAnimation ( 
+            const COLLADAFW::UniqueId& transformId, 
+            const COLLADAFW::Transformation* transformation, 
+            const MayaTransform::TransformPhase& transformPhase,
+            const bool isJointTransform,
+            std::vector<TransformAnimation>& transformAnimations );
+
         void handleTranslateValues ( 
-            MayaTransformation &mayaTransform, 
+            MayaTransform &mayaTransform, 
             const COLLADAFW::Transformation* transformation );
 
         bool checkPivotValues ( 
-            MayaTransformation &mayaTransform,
+            MayaTransform &mayaTransform,
             bool &hasScalePivot, 
             bool &hasRotatePivot );
 
         bool handleTransformRotateValues ( 
-            MayaTransformation &mayaTransform, 
+            MayaTransform &mayaTransform, 
             const COLLADAFW::Transformation* transformation );
 
         bool handleJointRotateValues ( 
-            MayaTransformation &mayaTransform, 
+            MayaTransform &mayaTransform, 
             const COLLADAFW::Transformation* transformation );
 
         /**
          * Set the transform values.
          */
         void importDecomposedNodeTransform ( 
-            const MayaTransformation &mayaTransform, 
+            const MayaTransform &mayaTransform, 
             MayaDM::Transform* transformNode, 
             const bool hasRotatePivot,
             const bool hasScalePivot );
@@ -391,7 +346,7 @@ namespace COLLADAMaya
         * Set the transform values.
         */
         void importDecomposedJointTransform ( 
-            const MayaTransformation &mayaTransform, 
+            const MayaTransform &mayaTransform, 
             MayaDM::Joint* jointNode );
 
         /** 
@@ -409,7 +364,7 @@ namespace COLLADAMaya
         void importMatrixJointTransform ( 
             const COLLADAFW::Node* node, 
             MayaDM::Transform* transformNode,
-            COLLADAFW::Node* parentNode = NULL );
+            const COLLADAFW::Node* parentNode = NULL );
 
         /**
         * Imports the transform values from a transform matrix.

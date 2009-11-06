@@ -17,7 +17,6 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
-#include "COLLADAMayaMeshHelper.h"
 #include "COLLADAMayaSceneElement.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaPolygonSource.h"
@@ -71,7 +70,7 @@ namespace COLLADAMaya
         uint mShaderPosition;
 
         /** The list with the color sets */
-        ColourSetList mColorSets;
+        MStringArray mColorSetNames;
 
         /** true, if triangles should be exported. */
         bool triangulated;
@@ -124,8 +123,8 @@ namespace COLLADAMaya
         void exportPolygonSources ( 
             MFnMesh& fnMesh,
             const String& meshId,
-            MStringArray uvSetNames,
-            ColourSetList &colorSets,
+            MStringArray& uvSetNames,
+            MStringArray& colorSetNames,
             Sources* geometrySourcesList,
             Sources* vertexes,
             const bool hasFaceVertexNorms );
@@ -204,8 +203,7 @@ namespace COLLADAMaya
             const uint baseExportType,
             const MIntArray &vertexIndices, 
             const uint numPolygons, 
-            const uint numVertices, 
-            int& texTangentIndex );
+            const uint numVertices );
 
         /**
          * Determines the export type of the current primitives base.
@@ -268,8 +266,7 @@ namespace COLLADAMaya
             const int iteratorVertexIndex, 
             MItMeshPolygon &meshPolygonsIter, 
             MFnMesh &fnMesh, 
-            const int polyIndex, 
-            const int texTangentIndex );
+            const int polyIndex );
 
         /**
          * Handles the data of a holed polygon element.

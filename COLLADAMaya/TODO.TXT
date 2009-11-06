@@ -15,10 +15,6 @@
       (possible solution could be the animation formula from collada 1.5)
     - clip animation import
 
-- Controller 
-    - skin controller import
-    - morph controller import
-
 - Physical scene import/export
 
 - Subdivision surfaces import/export

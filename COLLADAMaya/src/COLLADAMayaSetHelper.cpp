@@ -29,34 +29,6 @@ namespace COLLADAMaya
     SetHelper::SetModes SetHelper::setMode;
 
     // ------------------------------------------------------
-    bool SetHelper::setSets ( const MStringArray& sets, SetModes desiredMode )
-    {
-        setObjects.clear();
-
-        MItDependencyNodes setIter ( MFn::kSet );
-
-        while ( !setIter.isDone() )
-        {
-            MFnSet currentSet ( setIter.item() );
-
-            for ( unsigned int i = 0; i < sets.length(); ++i )
-            {
-                if ( strstr ( currentSet.name().asChar(), sets[i].asChar() ) != NULL )
-                {
-                    setObjects.push_back ( setIter.item() );
-                    break;
-                }
-            }
-
-            setIter.next();
-        }
-
-        setMode = desiredMode;
-
-        return true;
-    }
-
-    // ------------------------------------------------------
     // Unlike Maya's default behavior, we want to consider set membership to be inheritable
     bool SetHelper::isMemberOfSet ( const MDagPath& dagPath, MFnSet& Set )
     {

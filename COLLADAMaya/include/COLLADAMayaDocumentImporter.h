@@ -19,11 +19,13 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaNode.h"
-#include "COLLADAMayaSaxParserErrorHandler.h"
+#include "COLLADAMayaSaxErrorHandler.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWFileInfo.h"
 #include "COLLADAFWInstanceVisualScene.h"
+#include "COLLADAFWFormula.h"
+#include "COLLADAFWEffect.h"
 
 #include "COLLADASaxFWLLoader.h"
 
@@ -36,6 +38,7 @@
 
 namespace COLLADAMaya
 {
+    class NodeImporter;
     class VisualSceneImporter;
     class GeometryImporter;
     class MaterialImporter;
@@ -60,29 +63,34 @@ namespace COLLADAMaya
      *      Following elements should be copied, the order doesn't matter:
      *      - Copy visual scene
      *      - Copy library nodes
-     *      - Copy materials
      *      - Copy controllers
+     *      - Copy materials
+     *      - Copy images
      * 1.3) Read scene (is always at the end of a collada document)
      * 
      * 2.) Between first and second parsing:
      * 2.1) Import referenced visual scene
      * 2.3) Import referenced library nodes
      * 2.4) Import node instances
-     * 2.5) Import (referenced?) materials (TODO Why not directly import? Depends on import all or just referenced materials)
+     * 2.5) Import morph controllers
+     * 2.6) Import (not just the referenced) materials
+     * 2.7) Import (not just the referenced) effects (now we know the image list...)
+     * 2.8) Import referenced images
      *
      * 3.) Second parsing:
      * 3.1) Import all data directly, the order doesn't matter:
-     *      - Import geometries
-     *      - Import effects
-     *      - Import cameras 
-     *      - Import images 
-     *      - Import lights
-     *      - Import animations
-     *      - Import skinControllerDatas
+     *      - Import referenced geometries
+     *      - Import (not just the referenced) cameras 
+     *      - Import (not just the referenced) lights
+     *      - Import (not just the referenced) animations
+     *      - Import referenced skinControllerDatas
      * 4.) After second parsing:
      * 4.1) Make all connections, the order doesn't matter:
+     *      - controller
      *      - materials / effects
      *      - lights
+     *      - effects
+     *      - geometries
      *      - animations
      */
     class DocumentImporter : public COLLADAFW::IWriter 
@@ -90,9 +98,11 @@ namespace COLLADAMaya
 
     private:
 
-        static const String ASCII_PATH_EXTENSION;
-        static const String ASCII_PATH_EXTENSION_DEBUG;
+        /** This names are reserved. Maya nodes can't have this names! */
+        static const String RESERVED_NAMES[];
+        static const size_t NUM_RESERVED_NAMES;
 
+        /** The Buffersize for the document to write. */
         static const int BUFFERSIZE;
 
         /**
@@ -103,18 +113,15 @@ namespace COLLADAMaya
             NO_PARSING = 0,
             FIRST_PARSING,
             IMPORT_ASSET,
-            COPY_FIRST_ELEMENTS,          // no order: scene, visual scene, library nodes, materials, writeController
-//            READ_SCENE,
-//             COPY_VISUAL_SCENE,
-//             COPY_LIBRARY_NODES,
-//             COPY_MATERIALS,
-            AFTER_FIRST_PARSING,
-//             IMPORT_VISUAL_SCENE,
-//             IMPORT_LIBRARY_NODES,
-//             IMPORT_NODE_INSTANCES,
-//             IMPORT_MATERIALS,
+            ANIMATIONS_IMPORTED,
+            COPY_ELEMENTS, // no order: scene, visual scene, library nodes, materials, writeController
+            ELEMENTS_COPIED,
+            MATERIAL_IMPORTED,
+            EFFECT_IMPORTED,
+            IMAGES_IMPORTED,
             SECOND_PARSING, 
-            AFTER_SECOND_PARSING
+            GEOMETRY_IMPORTED,
+            MAKE_CONNECTIONS
         };
 
     private:
@@ -137,6 +144,9 @@ namespace COLLADAMaya
         /** A copy of the framework's library materials elements. */
         std::vector<COLLADAFW::Material*> mMaterialsList;
 
+        /** A copy of the framework's library effects elements. */
+        std::vector<COLLADAFW::Effect*> mEffectsList;
+
         /** The buffer for fprintf. */
         char *mBuffer; // 2MB Puffer!!
 
@@ -145,9 +155,6 @@ namespace COLLADAMaya
 
         /** The name of the current maya ascii file. */
         COLLADABU::URI mMayaAsciiFileURI;
-
-        /** The id of the current scene. */
-        String mSceneId;
 
         /** The current maya ascii file to import the data. */
         FILE* mFile;
@@ -159,16 +166,6 @@ namespace COLLADAMaya
         double mDigitTolerance;
 
         /**
-        * The list of the unique maya groupId names.
-        */
-        COLLADABU::IDList mGroupIdIdList;
-
-        /**
-        * The list of the unique maya groupParts names.
-        */
-        COLLADABU::IDList mGroupPartsIdList;
-
-        /**
         * How many real-world meters in one distance unit as a floating-point number.
         * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
         * 0.3048 for the name "foot".
@@ -176,8 +173,21 @@ namespace COLLADAMaya
         double mLinearUnitConvertFactor;
         COLLADAFW::FileInfo::UpAxisType mUpAxisType;
 
+        /**
+         * This unit convert factor calculates always the centimeter unit, because this is 
+         * the maya internal unit.
+         * This is need for conversion of the skin controller bind shape and geometry (?) matrix
+         * translate values conversion, because maya doesn't calculate the right values on linear
+         * unit switching.
+         */
+        double mLinearUnitMayaBindShapeBugConvertFactor;
+
         /** Pointer to the visual scene importer. */
         VisualSceneImporter* mVisualSceneImporter;
+
+        /** Pointer to the node importer. 
+        Used to store the mapping between unique node ids and the framework nodes. */
+        NodeImporter* mNodeImporter;
 
         /** Pointer to the geometry importer. */
         GeometryImporter* mGeometryImporter;
@@ -207,41 +217,42 @@ namespace COLLADAMaya
         size_t mNumDocumentParses;
 
         /** The error handler for the sax parser. */
-        SaxParserErrorHandler mSaxParserErrorHandler;
+        SaxErrorHandler mSaxParserErrorHandler;
+
+        /**
+        * The list of all unique ids of maya nodes (dag nodes and depend nodes). 
+        * A list of names which are either used up to multiple times for dag nodes in the scene 
+        * graph or just once for any other maya depend object (materials, shading groups, material 
+        * infos, animations, blend shapes, skin clusters, textures ). Used to avoid dublicate names. 
+        */
+        COLLADABU::IDList mGlobalNodeIdList;
+
+        /**
+        * The list of unique ids of maya depend nodes. Depend nodes are: materials, shading groups, 
+        * material infos, animations, blend shapes, skin clusters, textures. Used to avoid dublicate 
+        * names. 
+        */
+        COLLADABU::IDList mDependNodeIdList;
+
+        /**
+         * A list of names which are used up to multiple times for dag nodes in the scene graph.
+         * Used to avoid dublicate names. 
+         */
+        std::set<String> mDagNodeIdSet;
 
     public:
 
         /** Constructor. */
-        DocumentImporter ( const String& fileName );
+        DocumentImporter ( const String& importFileName, const String& mayaAsciiFileName );
 
         /** Destructor. */
         virtual ~DocumentImporter ();
 
-        /** The current maya ascii file to import the data. */
-        FILE* getFile () const { return mFile; }
-        void setFile ( FILE* val ) { mFile = val; }
-
         /** Imports the current scene. */
         void importCurrentScene ();
 
-        /** Reads the collada document. */
-        void readColladaDocument ();
-
-        /** Create the maya ascii file (where with which name???) */
-        bool createMayaAsciiFile ();
-        void closeMayaAsciiFile ();
-
-        /**
-        * Returns the name of the current collada file to export.
-        * @return const String& Name of the current collada file
-        */
-        const String& getColladaFilename () const;
-
-        /**
-        * Returns the name of the current maya ascii file to export.
-        * @return const String& The current maya ascii file
-        */
-        const COLLADABU::URI& getMayaAsciiFileURI () const;
+        /** The current maya ascii file to import the data. */
+        FILE* getFile () const { return mFile; }
 
         /** Returns the tolerance value for double value comparison. */
         const double getTolerance () const { return mDigitTolerance; }
@@ -249,6 +260,11 @@ namespace COLLADAMaya
         /** Pointer to the visual scene importer. */
         VisualSceneImporter* getVisualSceneImporter () { return mVisualSceneImporter; }
         const VisualSceneImporter* getVisualSceneImporter () const { return mVisualSceneImporter; }
+
+        /** Pointer to the node importer. 
+        Used to store the mapping between unique node ids and the framework nodes. */
+        NodeImporter* getNodeImporter () { return mNodeImporter; }
+        const NodeImporter* getNodeImporter () const { return mNodeImporter; }
 
         /** Pointer to the geometry importer. */
         GeometryImporter* getGeometryImporter () { return mGeometryImporter; }
@@ -302,19 +318,9 @@ namespace COLLADAMaya
          */
         void writeConnections ();
 
-        /** Start the import of the model.
-        @return True on success, false otherwise. */
-        bool import();
-
         /** When this method is called, the writer must write the global document asset.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset );
-
-        /** Convert the value to a valid maya unit value in depend on the current precision. */
-        double toMayaUnitValue ( double unitValue );
-
-        /** Returns the type of the current up axis. */
-        const COLLADAFW::FileInfo::UpAxisType& getUpAxisType () const { return mUpAxisType; }
 
         /**
         * How many real-world meters in one distance unit as a floating-point number.
@@ -322,6 +328,15 @@ namespace COLLADAMaya
         * 0.3048 for the name "foot".
         */
         const double getLinearUnitConvertFactor () const { return mLinearUnitConvertFactor; }
+
+        /**
+        * This unit convert factor calculates always the centimeter unit, because this is 
+        * the maya internal unit.
+        * This is need for conversion of the skin controller bind shape and geometry (?) matrix
+        * translate values conversion, because maya doesn't calculate the right values on linear
+        * unit switching.
+        */
+        const double getLinearUnitMayaBindShapeBugConvertFactor () const { return mLinearUnitMayaBindShapeBugConvertFactor; }
 
         /** When this method is called, the writer must write the scene.
         @return The writer should return true, if writing succeeded, false otherwise.
@@ -334,7 +349,6 @@ namespace COLLADAMaya
         /** When this method is called, the writer must write the entire visual scene.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
-        void importVisualScene ();
 
         /** When this method is called, the writer must write the geometry.
         @return The writer should return true, if writing succeeded, false otherwise.*/
@@ -344,13 +358,11 @@ namespace COLLADAMaya
         library nodes.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes );
-        void importLibraryNodes ();
 
         /** When this method is called, the writer must write the material.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeMaterial ( const COLLADAFW::Material* material );
-        void importMaterials ();
-
+ 
         /** When this method is called, the writer must write the effect.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeEffect ( const COLLADAFW::Effect* effect );
@@ -383,22 +395,144 @@ namespace COLLADAMaya
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeController( const COLLADAFW::Controller* Controller );
 
+		/** When this method is called, the writer must write the formulas. All the formulas of the entire
+		COLLADA file are contained in @a formulas.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeFormulas( const COLLADAFW::Formulas* formulas );
+
+		virtual bool writeKinematicsScene( const COLLADAFW::KinematicsScene* kinematicsScene );
+
         /**
          * Replace offending characters by some that are supported within maya.
          */
         static String frameworkNameToMayaName ( const String& name );
 
         /**
-        * The list of the unique maya groupId names.
+        * The list of all unique ids of maya nodes (dag nodes and depend nodes). 
+        * A list of names which are either used up to multiple times for dag nodes in the scene 
+        * graph or just once for any other maya depend object (materials, shading groups, material 
+        * infos, animations, blend shapes, skin clusters, textures ). Used to avoid dublicate names. 
         */
-        COLLADABU::IDList& getGroupIdIdList () { return mGroupIdIdList; }
+        COLLADAMaya::String addGlobalNodeId ( 
+            const String& newId, 
+            bool returnConverted = true, 
+            bool alwaysAddNumberSuffix = false );
 
         /**
-        * The list of the unique maya groupId names.
+        * The list of unique ids of maya depend nodes. Depend nodes are: materials, shading groups, 
+        * material infos, animations, blend shapes, skin clusters, textures. Used to avoid dublicate 
+        * names. 
         */
-        COLLADABU::IDList& getGroupPartsIdList () { return mGroupPartsIdList; }
+        COLLADAMaya::String addDependNodeId ( 
+            const String& newId, 
+            bool returnConverted = true, 
+            bool alwaysAddNumberSuffix = false );
+
+        /**
+        * The list of unique ids of maya depend nodes. Depend nodes are: materials, shading groups, 
+        * material infos, animations, blend shapes, skin clusters, textures. Used to avoid dublicate 
+        * names. 
+        */
+        bool containsDependNodeId ( const String& id );
+
+        /**
+        * A list of names which are used up to multiple times for dag nodes in the scene graph.
+        * Used to avoid dublicate names. 
+        */
+        void addDagNodeId ( const String& newId );
+
+        /**
+        * A list of names which are used up to multiple times for dag nodes in the scene graph.
+        * Used to avoid dublicate names. 
+        */
+        bool containsDagNodeId ( const String& id );
 
     private:
+
+        /** Reads the collada document. */
+        void readColladaDocument ();
+
+        /** Create the maya ascii file (where with which name???) */
+        bool createMayaAsciiFile ();
+        void closeMayaAsciiFile ();
+
+        /**
+        * Returns the name of the current collada file to export.
+        * @return const String& Name of the current collada file
+        */
+        const String& getColladaFilename () const;
+
+        /**
+        * After we have imported the geometries, we can create the necessary uv-choosers.
+        * We can't create them earlier, about we need to know, if the geometry has more than 
+        * one uv-set (texture coordinates).
+        */
+        void createUvChoosers ();
+
+        /** Convert the value to a valid maya unit value in depend on the current precision. */
+        double toMayaUnitValue ( double unitValue );
+
+        /** Maps unique ids of nodes to the frame word node itself. */
+        void importNodes ();
+
+        /**
+        * Import the data of the visual scene.
+        */
+        void importVisualScene ();
+
+        /**
+        * First import materials, then effects and after this images.
+        * The order of the import is relevant, about we have to know which effects are used 
+        * by this material. After the import of the effects, we know which images we need.
+        * We have to import this before we write the animations in the second parsing, about
+        * to know the animated effects.
+        */
+        void importMaterials ();
+
+        /**
+        * First import materials, then effects and after this images.
+        * The order of the import is relevant, about we have to know which effects are used 
+        * by this material. After the import of the effects, we know which images we need.
+        * We have to import this before we write the animations in the second parsing, about
+        * to know the animated effects.
+        */
+        void importEffects ();
+
+        /**
+        * First import materials, then effects and after this images.
+        * The order of the import is relevant, about we have to know which effects are used 
+        * by this material. After the import of the effects, we know which images we need.
+        * We have to import this before we write the animations in the second parsing, about
+        * to know the animated effects.
+        */
+        void importImages ();
+
+        /**
+        * Imports the morph controllers.
+        */
+        void importMorphControllers ();
+
+        /**
+        * Get the minimum and the maximum time values of the animations to get the start 
+        * time and the end time of the animation. This times we have to set as the 
+        * "playbackOptions" in the "sceneConfigurationScriptNode".
+        */
+        void importPlaybackOptions ();
+
+        /**
+        * The list of all unique ids of maya nodes (dag nodes and depend nodes). 
+        * A list of names which are either used up to multiple times for dag nodes in the scene 
+        * graph or just once for any other maya depend object (materials, shading groups, material 
+        * infos, animations, blend shapes, skin clusters, textures ). Used to avoid dublicate names. 
+        */
+        bool containsGlobalNodeId ( const String& id );
+
+        /** 
+         * Recursive call to find the node with the given id in the given node list. 
+         */
+        const COLLADAFW::Node* findNode ( 
+            const COLLADAFW::UniqueId& nodeId,
+            const COLLADAFW::NodePointerArray &nodes );
 
         /** Imports the current scene. */
         void exportScene();

@@ -32,8 +32,10 @@ namespace COLLADAMaya
     {
 
     private:
+        /** True, if we should a write transform matrix. */
         static bool mBakeTransforms;
-        static bool mBakeLighting;
+
+        /** True, if we should write relative pathes to external file references. */
         static bool mRelativePaths;
 
         /** True, if the texture files should be copied to the destination folder. */
@@ -42,6 +44,8 @@ namespace COLLADAMaya
         static bool mExportPolygonMeshes;
         static bool mExportLights;
         static bool mExportCameras;
+        static bool mExportMaterialsOnly;
+        static bool mExportReferencedMaterials;
         static bool mExportJointsAndSkin;
         static bool mExportAnimations;
         static bool mExportCameraAsLookat;
@@ -53,25 +57,20 @@ namespace COLLADAMaya
         static bool mExportTexCoords;
         static bool mExportVertexColors;
         static bool mExportVertexColorsPerVertex;
-        static bool mExportVertexColorAnimations;
         static bool mExportTangents;
         static bool mExportTexTangents;
-        static bool mExportMaterialsOnly;
-        static bool mExportConstraints;
         static bool mRemoveStaticCurves;
-        static bool mExportPhysics;
         static bool mExportXRefs;
         static bool mDereferenceXRefs;
         static bool mCameraXFov;
         static bool mCameraYFov;
         static bool mDoublePrecision;
-
-        static int mExclusionSetMode;
-        static MStringArray mExclusionSets;
-
         static bool mIsSampling;
         static bool mCurveConstrainSampling;
-        static MFloatArray mSamplingFunction;
+
+        /** True, if file references to cgfx files should be exported 
+        (instead of directly writing the contant of the file). */
+        static bool mExportCgfxFileReferences;
 
     public:
 
@@ -85,8 +84,6 @@ namespace COLLADAMaya
         static bool bakeTransforms();
 
         static bool exportPolygonMeshes();
-
-        static bool bakeLighting();
 
         static bool isSampling();
 
@@ -104,6 +101,10 @@ namespace COLLADAMaya
         static bool exportCameras();
 
         static bool exportJointsAndSkin();
+
+        static bool exportMaterialsOnly ();
+
+        static bool exportReferencedMaterials ();
 
         static bool exportAnimations();
 
@@ -123,18 +124,9 @@ namespace COLLADAMaya
 
         static bool exportVertexColorsPerVertex();
 
-        static bool exportVertexColorAnimations();
-
         static bool exportTangents();
 
         static bool exportTexTangents();
-
-        // DF Export Filters
-        static bool exportConstraints();
-
-        static bool exportPhysics();
-
-        static MStringArray getExclusionSets();
 
         // XRef options
         static bool exportXRefs();
@@ -151,6 +143,12 @@ namespace COLLADAMaya
 
         /** True, if the texture files should be copied to the destination folder. */
         static bool copyTextures();
+
+        /**
+         * If true, a reference to the used cgfx files will be included in the exported dae file.
+         * Otherwise, the code of the used cgfx file will be implemented.
+         */
+        static bool exportCgfxFileReferences ();
 
     };
 

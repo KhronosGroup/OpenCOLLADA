@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -14,6 +14,8 @@
 #include "COLLADAMayaVisualSceneImporter.h"
 #include "COLLADAMayaTransformAnimation.h"
 #include "COLLADAMayaEffectImporter.h"
+#include "COLLADAMayaMorphAnimation.h"
+#include "COLLADAMayaControllerImporter.h"
 
 #include "COLLADAFWFloatOrDoubleArray.h"
 #include "COLLADAFWScale.h"
@@ -22,12 +24,17 @@
 #include <MayaDMAnimCurveTA.h>
 #include <MayaDMAnimCurveTU.h>
 #include <MayaDMCommands.h>
+#include <MayaDMScript.h>
 
 
 namespace COLLADAMaya
 {
 
-    const String AnimationImporter::ANIMATION_NAME = "Animation";
+    /** The standard name for an animation. */
+    const String AnimationImporter::ANIMATION_NAME = "anim";
+
+    /** The framerate of the animation. */
+    const double AnimationImporter::ANIM_FRAMERATE = 24;
 
 
     //------------------------------
@@ -88,12 +95,9 @@ namespace COLLADAMaya
         const COLLADAFW::PhysicalDimension& physicalDimension = animationCurve->getInPhysicalDimension ();
         if ( physicalDimension != COLLADAFW::PHYSICAL_DIMENSION_TIME )
         {
-            MGlobal::displayWarning ( "Import of other physical dimension then TIME not supported: " + physicalDimension );
+            std::cerr << "Import of other physical dimension then TIME not supported: " << physicalDimension << endl;
             return;
         }
-
-        TangentType tangentType = TANGENT_TYPE_DEFAULT;
-        TangentType keyTangentOutType = TANGENT_TYPE_DEFAULT;
 
         // Write the key time values
         const COLLADAFW::AnimationCurve::InterpolationType& interpolationType = animationCurve->getInterpolationType ();
@@ -101,29 +105,29 @@ namespace COLLADAMaya
         {
         case COLLADAFW::AnimationCurve::INTERPOLATION_BEZIER:
             {
-                tangentType = TANGENT_TYPE_FIXED;
-                writeAnimationCurve ( animationCurve, tangentType, keyTangentOutType );
+                TangentType tangentType = TANGENT_TYPE_FIXED;
+                writeAnimationCurve ( animationCurve, tangentType );
             }
             break;
         case COLLADAFW::AnimationCurve::INTERPOLATION_BSPLINE:
             {
-                MGlobal::displayError ( "Unknown animation interpolation type: INTERPOLATION_BSPLINE");
+                std::cerr << "Unknown animation interpolation type: INTERPOLATION_BSPLINE" << endl;
             }
             break;
         case COLLADAFW::AnimationCurve::INTERPOLATION_CARDINAL:
             {
-                MGlobal::displayError ( "Unknown animation interpolation type: INTERPOLATION_CARDINAL");
+                std::cerr << "Unknown animation interpolation type: INTERPOLATION_CARDINAL" << endl;
             }
             break;
         case COLLADAFW::AnimationCurve::INTERPOLATION_HERMITE:
             {
-                MGlobal::displayError ( "Unknown animation interpolation type: INTERPOLATION_HERMITE");
+                std::cerr << "Unknown animation interpolation type: INTERPOLATION_HERMITE" << endl;
             }
             break;
         case COLLADAFW::AnimationCurve::INTERPOLATION_LINEAR:
             {
-                tangentType = TANGENT_TYPE_LINEAR;
-                writeAnimationCurve ( animationCurve, tangentType, keyTangentOutType );
+                TangentType tangentType = TANGENT_TYPE_LINEAR;
+                writeAnimationCurve ( animationCurve, tangentType );
             }
             break;
         case COLLADAFW::AnimationCurve::INTERPOLATION_MIXED:
@@ -133,13 +137,15 @@ namespace COLLADAMaya
             break;
         case COLLADAFW::AnimationCurve::INTERPOLATION_STEP:
             {
-                tangentType = TANGENT_TYPE_STEP;
+                TangentType tangentType = TANGENT_TYPE_STEP;
                 writeAnimationCurve ( animationCurve, tangentType );
             }
             break;
         case COLLADAFW::AnimationCurve::INTERPOLATION_UNKNOWN:
             {
-                MGlobal::displayError ( "Unknown animation interpolation type!");
+                TangentType tangentType = TANGENT_TYPE_CLAMPED;
+                writeAnimationCurve ( animationCurve, tangentType );
+                //std::cerr << "Unknown animation interpolation type!" << endl;
                 break;
             }
         default:
@@ -150,8 +156,7 @@ namespace COLLADAMaya
     //------------------------------
     void AnimationImporter::writeAnimationCurve ( 
         const COLLADAFW::AnimationCurve* animationCurve, 
-        const TangentType& tangentType /*= TANGENT_TYPE_DEFAULT*/, 
-        const TangentType& keyTangentOutType /*= TANGENT_TYPE_DEFAULT*/ )
+        const TangentType& tangentType /*= TANGENT_TYPE_DEFAULT*/ )
     {
         // The input is always the time with a stride of 2
         const COLLADAFW::FloatOrDoubleArray& inputValuesArray = animationCurve->getInputValues ();
@@ -167,23 +172,20 @@ namespace COLLADAMaya
 
         if ( numInputValues != numOutputValues || outDimension != outDimension2 )
         {
-            MGlobal::displayError ( "Invalid animation!" );
+            std::cerr << "Invalid animation!" << endl;
             return;
         }
 
         // Create a curve for every animated element.
         for ( size_t outputIndex=0; outputIndex<outDimension; ++outputIndex )
         {
-            // Create a unique name.
+            // Make the maya name unique and manage it in all necessary lists.
             String animationName = animationCurve->getName ();
-            if ( COLLADABU::Utils::equals ( animationName, "" ) ) 
-                animationName = ANIMATION_NAME;
+            if ( COLLADABU::Utils::equals ( animationName, EMPTY_STRING ) ) animationName = ANIMATION_NAME;
             animationName = DocumentImporter::frameworkNameToMayaName ( animationName );
-
-            // TODO
-//             if ( outDimension > 1 )
-//                 animationName += "_" + XYZW_PARAMETERS[outputIndex];
-            animationName = mAnimationIdList.addId ( animationName );
+            String originalMayaId = getOriginalMayaId ( animationCurve->getExtraDataArray () );
+            if ( !COLLADABU::Utils::equals ( originalMayaId, EMPTY_STRING ) ) animationName = originalMayaId;
+            animationName = generateUniqueDependNodeName ( animationName, true, true );
 
             // Get the maya file
             FILE* file = getDocumentImporter ()->getFile ();
@@ -217,19 +219,19 @@ namespace COLLADAMaya
                 }
                 break;
             case COLLADAFW::PHYSICAL_DIMENSION_TIME:
-                MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_TIME" );
+                std::cerr << "Physical dimension not supported: PHYSICAL_DIMENSION_TIME" << endl;
                 return; break;
             default:
-                MGlobal::displayError ( "Unknown physical dimension!" );
+                std::cerr << "Unknown physical dimension!" << endl;
                 return; break;
             }
 
             // Add the original id attribute.
             String colladaId = animationCurve->getOriginalId ();
-            if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+            if ( !COLLADABU::Utils::equals ( colladaId, EMPTY_STRING ) )
             {
-                MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-                MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+                MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
+                MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
             }
 
             // Push the maya animation curve element in a list.
@@ -275,22 +277,20 @@ namespace COLLADAMaya
         size_t keyCount = animationCurve->getKeyCount ();
         if ( numOutputValues != keyCount  || outDimension != outDimension2 )
         {
-            MGlobal::displayError ( "Invalid animation!" );
+            std::cerr << "Animation not valid!" << endl;
             return;
         }
 
         // Create a curve for every animated element.
         for ( size_t outputIndex=0; outputIndex<outDimension; ++outputIndex )
         {
-            // Create a unique name.
+            // Make the maya name unique and manage it in all necessary lists.
             String animationName = animationCurve->getName ();
-            if ( COLLADABU::Utils::equals ( animationName, "" ) ) 
-                animationName = ANIMATION_NAME;
+            if ( COLLADABU::Utils::equals ( animationName, EMPTY_STRING ) ) animationName = ANIMATION_NAME;
             animationName = DocumentImporter::frameworkNameToMayaName ( animationName );
-
-            // TODO
-//            animationName += "_" + XYZW_PARAMETERS[outputIndex];
-            animationName = mAnimationIdList.addId ( animationName );
+            String originalMayaId = getOriginalMayaId ( animationCurve->getExtraDataArray () );
+            if ( !COLLADABU::Utils::equals ( originalMayaId, EMPTY_STRING ) ) animationName = originalMayaId;
+            animationName = generateUniqueDependNodeName ( animationName );
 
             // Create the animation curve.
             FILE* file = getDocumentImporter ()->getFile ();
@@ -320,25 +320,30 @@ namespace COLLADAMaya
                 }
                 break;
             case COLLADAFW::PHYSICAL_DIMENSION_TIME:
-                MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_TIME" );
+                std::cerr << "Physical dimension not supported: PHYSICAL_DIMENSION_TIME" << endl;
                 return; break;
             case COLLADAFW::PHYSICAL_DIMENSION_COLOR:
-                MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_COLOR" );
+                std::cerr << "Physical dimension not supported: PHYSICAL_DIMENSION_COLOR" << endl;
                 return; break;
             case COLLADAFW::PHYSICAL_DIMENSION_NUMBER:
-                MGlobal::displayError ( "Physical dimension not supported: PHYSICAL_DIMENSION_NUMBER" );
+                {
+//                     animCurve = new MayaDM::AnimCurveTL ( file, animationName );
+//                     animCurve->setTangentType ( TANGENT_TYPE_FIXED );
+//                     setKeyTimeValues ( animationCurve, (MayaDM::AnimCurveTL*)animCurve, outputIndex );
+                    std::cerr << "Physical dimension not supported: PHYSICAL_DIMENSION_NUMBER" << endl;
+                }
                 return; break;
             default:
-                MGlobal::displayError ( "Unknown physical dimension!" );
+                std::cerr << "Unknown physical dimension!" << endl;
                 return; break;
             }
 
             // Add the original id attribute.
             String colladaId = animationCurve->getOriginalId ();
-            if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+            if ( !COLLADABU::Utils::equals ( colladaId, EMPTY_STRING ) )
             {
-                MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-                MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+                MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
+                MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
             }
 
             // Push the maya animation curve element in a list.
@@ -376,7 +381,7 @@ namespace COLLADAMaya
         size_t keyCount = animationCurve->getKeyCount ();
         if ( numInputValues != numOutputValues || numInputValues != keyCount )
         {
-            MGlobal::displayError ( "AnimationImporter::setKeyTimeValues(): Invalid animation!" );
+            std::cerr << "AnimationImporter::setKeyTimeValues(): Invalid animation!" << endl;
             return;
         }
 
@@ -393,10 +398,13 @@ namespace COLLADAMaya
             size_t currentOutputIndex = inputIndex*outDimension + outputIndex;
             outputValue = getDoubleValue ( outputValuesArray, currentOutputIndex );
 
-            // TODO Framerate: 24 frames per second...
-            keyTimeValue.keyTime = inputValue * 24;
+            // Framerate: 24 frames per second...
+            keyTimeValue.keyTime = inputValue * ANIM_FRAMERATE;
             keyTimeValue.keyValue = outputValue;
             animCurveTL->appendKeyTimeValue ( keyTimeValue );
+
+            // Set the maya playback options (start and end time).
+            mPlaybackOptions.setTimeValue ( inputValue * ANIM_FRAMERATE );
         }
 
         animCurveTL->endKeyTimeValue ();
@@ -420,7 +428,7 @@ namespace COLLADAMaya
         size_t keyCount = animationCurve->getKeyCount ();
         if ( numInputValues != numOutputValues || numInputValues != keyCount )
         {
-            MGlobal::displayError ( "AnimationImporter::setKeyTimeValues(): Invalid animation!" );
+            std::cerr << "AnimationImporter::setKeyTimeValues(): Invalid animation!" << endl;
             return;
         }
 
@@ -437,10 +445,13 @@ namespace COLLADAMaya
             size_t currentOutputIndex = inputIndex*outDimension + outputIndex;
             outputValue = getDoubleValue ( outputValuesArray, currentOutputIndex );
 
-            // TODO Framerate: 24 frames per second...
-            keyTimeValue.keyTime = inputValue * 24;
+            // Framerate: 24 frames per second...
+            keyTimeValue.keyTime = inputValue * ANIM_FRAMERATE;
             keyTimeValue.keyValue = outputValue;
             animCurveTU->appendKeyTimeValue ( keyTimeValue );
+
+            // Set the maya playback options (start and end time).
+            mPlaybackOptions.setTimeValue ( inputValue * ANIM_FRAMERATE );
         }
 
         animCurveTU->endKeyTimeValue ();
@@ -464,7 +475,7 @@ namespace COLLADAMaya
         size_t keyCount = animationCurve->getKeyCount ();
         if ( numInputValues != numOutputValues || numInputValues != keyCount )
         {
-            MGlobal::displayError ( "AnimationImporter::setKeyTimeValues(): Invalid animation!" );
+            std::cerr << "AnimationImporter::setKeyTimeValues(): Invalid animation!" << endl;
             return;
         }
 
@@ -481,10 +492,13 @@ namespace COLLADAMaya
             size_t currentOutputIndex = inputIndex*outDimension + outputIndex;
             outputValue = getDoubleValue ( outputValuesArray, currentOutputIndex );
 
-            // TODO Framerate: 24 frames per second...
-            keyTimeValue.keyTime = inputValue * 24;
+            // Framerate: 24 frames per second...
+            keyTimeValue.keyTime = inputValue * ANIM_FRAMERATE;
             keyTimeValue.keyValue = outputValue;
             animCurveTA->appendKeyTimeValue ( keyTimeValue );
+
+            // Set the maya playback options (start and end time).
+            mPlaybackOptions.setTimeValue ( inputValue * ANIM_FRAMERATE );
         }
 
         animCurveTA->endKeyTimeValue ();
@@ -538,7 +552,7 @@ namespace COLLADAMaya
             case COLLADAFW::AnimationCurve::INTERPOLATION_BEZIER:
                 {
                     double inputValue = getDoubleValue ( inputValuesArray, keyPosition );
-                    size_t indexX = keyPosition*outDimension*2 + outputIndex;
+                    size_t indexX = keyPosition*(outDimension*2) + (outputIndex*2);
                     double inTangentValueX = getDoubleValue ( inTangentValuesArray, indexX );
                     double resultX = 3 * ( inputValue - inTangentValueX );
                     animCurve->appendKeyTanInX ( resultX );
@@ -561,7 +575,7 @@ namespace COLLADAMaya
                 break;
             default:
                 {
-                    MGlobal::displayError ( "Interpolation type not supported!" );
+                    std::cerr << "Interpolation type not supported!" << endl;
                     animCurve->appendKeyTanInX ( 0 );
                 }
                 break;
@@ -608,7 +622,7 @@ namespace COLLADAMaya
                 {
                     size_t outputValueIndex = keyPosition*outDimension + outputIndex;
                     double outputValue = getDoubleValue ( outputValuesArray, outputValueIndex );
-                    size_t indexY = keyPosition*outDimension*2 + outputIndex + 1;
+                    size_t indexY = keyPosition*(outDimension*2) + (outputIndex*2) + 1;
                     double inTangentValueY = getDoubleValue ( inTangentValuesArray, indexY );
                     double resultY = 3 * ( outputValue - inTangentValueY );
                     if ( outPhysicalDimension == COLLADAFW::PHYSICAL_DIMENSION_ANGLE )
@@ -636,7 +650,7 @@ namespace COLLADAMaya
                 break;
             default:
                 {
-                    MGlobal::displayError ( "Interpolation type not supported!" );
+                    std::cerr << "Interpolation type not supported!" << endl;
                     animCurve->appendKeyTanInX ( 0 );
                 }
                 break;
@@ -694,7 +708,7 @@ namespace COLLADAMaya
             case COLLADAFW::AnimationCurve::INTERPOLATION_BEZIER:
                 {
                     double inputValue = getDoubleValue ( inputValuesArray, keyPosition );
-                    size_t indexX = keyPosition*outDimension*2 + outputIndex;
+                    size_t indexX = keyPosition*(outDimension*2) + (outputIndex*2);
                     double outTangentValueX = getDoubleValue ( outTangentValuesArray, indexX );
                     double resultX = -3 * ( inputValue - outTangentValueX );
                     animCurve->appendKeyTanOutX ( resultX );
@@ -720,7 +734,7 @@ namespace COLLADAMaya
                 break;
             default:
                 {
-                    MGlobal::displayError ( "Interpolation type not supported!" );
+                    std::cerr << "Interpolation type not supported!" << endl;
                     animCurve->appendKeyTanInX ( 0 );
                 }
                 break;
@@ -768,7 +782,7 @@ namespace COLLADAMaya
                 {
                     size_t outputValueIndex = keyPosition*outDimension + outputIndex;
                     double outputValue = getDoubleValue ( outputValuesArray, outputValueIndex );
-                    size_t indexY = keyPosition*outDimension*2 + outputIndex + 1;
+                    size_t indexY = keyPosition*(outDimension*2) + (outputIndex*2) + 1;
                     double outTangentValueY = getDoubleValue ( outTangentValuesArray, indexY );
                     double resultY = -3 * ( outputValue - outTangentValueY );
                     if ( outPhysicalDimension == COLLADAFW::PHYSICAL_DIMENSION_ANGLE )
@@ -799,7 +813,7 @@ namespace COLLADAMaya
                 break;
             default:
                 {
-                    MGlobal::displayError ( "Interpolation type not supported!" );
+                    std::cerr << "Interpolation type not supported!" << endl;
                     animCurve->appendKeyTanInX ( 0 );
                 }
                 break;
@@ -980,7 +994,7 @@ namespace COLLADAMaya
         size_t keyCount = animationCurve->getKeyCount ();
         if ( numInterpolationTypes != keyCount )
         {
-            MGlobal::displayError ( "AnimationImporter::setKeyTangentInType(): Invalid animation!" );
+            std::cerr << "AnimationImporter::setKeyTangentInType(): Invalid animation!" << endl;
             return;
         }
 
@@ -1009,7 +1023,7 @@ namespace COLLADAMaya
                 keyTangentInType = TANGENT_TYPE_STEP;
                 break;
             default:
-                MGlobal::displayError ( "Unknown interpolation type in mixed interpolations!");
+                std::cerr << "Unknown interpolation type in mixed interpolations!" << endl;
                 keyTangentInType = TANGENT_TYPE_DEFAULT;
             }
             animCurve->appendKeyTanInType ( keyTangentInType );
@@ -1031,7 +1045,7 @@ namespace COLLADAMaya
         size_t keyCount = animationCurve->getKeyCount ();
         if ( numInterpolationTypes != keyCount )
         {
-            MGlobal::displayError ( "AnimationImporter::setKeyTangentOutType(): Invalid animation!" );
+            std::cerr << "AnimationImporter::setKeyTangentOutType(): Invalid animation!" << endl;
             return;
         }
 
@@ -1060,7 +1074,7 @@ namespace COLLADAMaya
                 keyTangentOutType = TANGENT_TYPE_STEP;
                 break;
             default:
-                MGlobal::displayError ( "Unknown interpolation type in mixed interpolations!");
+                std::cerr << "Unknown interpolation type in mixed interpolations!" << endl;
                 keyTangentOutType = TANGENT_TYPE_DEFAULT;
             }
             animCurve->appendKeyTanOutType ( keyTangentOutType );
@@ -1083,6 +1097,32 @@ namespace COLLADAMaya
                 animCurve->appendKeyTanLocked ( keyTanLocked );
             }
             animCurve->endKeyTanLocked ();
+        }
+    }
+
+    //------------------------------
+    void AnimationImporter::importPlaybackOptions ()
+    {
+        // Get the minimum and the maximum time values of the animations to get the start 
+        // time and the end time of the animation. This times we have to set as the 
+        // "playbackOptions" in the "sceneConfigurationScriptNode".
+
+        // Get the maya file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // createNode script -n "sceneConfigurationScriptNode";
+        // setAttr ".b" -type "string" "playbackOptions -min 1 -max 50 -ast 1 -aet 50 ";
+        // setAttr ".st" 6;
+        if ( mPlaybackOptions.getMaxEndTime () > 0 )
+        {
+            MayaDM::Script scriptNode ( file, SCRIPT_NODE_SCENE_CONFIG );
+            std::ostringstream scriptValue;
+            scriptValue << "playbackOptions -min " << mPlaybackOptions.getMinStartTime () 
+                << " -max " << mPlaybackOptions.getMaxEndTime () << " -ast " 
+                << mPlaybackOptions.getMinStartTime () << " -aet " << mPlaybackOptions.getMaxEndTime ();
+
+            scriptNode.setBefore ( scriptValue.str () );
+            scriptNode.setScriptType ( 2 );
         }
     }
 
@@ -1126,14 +1166,17 @@ namespace COLLADAMaya
         const COLLADAFW::AnimationList::AnimationBindings& animationBindings = animationList->getAnimationBindings ();
 
         // Write the transformation animation connections.
-        writeTransformConnections ( animationListId, animationBindings );
+        connectTransforms ( animationListId, animationBindings );
 
         // Write the effect animation connections.
-        writeEffectConnections ( animationListId, animationBindings );
+        connectEffects ( animationListId, animationBindings );
+
+        // Write the morph controller source connections.
+        connectMorphControllers ( animationListId, animationBindings );
     }
 
     //------------------------------
-    void AnimationImporter::writeEffectConnections ( 
+    void AnimationImporter::connectEffects ( 
         const COLLADAFW::UniqueId& animationListId, 
         const COLLADAFW::AnimationList::AnimationBindings& animationBindings )
     {
@@ -1146,7 +1189,7 @@ namespace COLLADAMaya
         if ( !effectAnimation ) return;
 
         // Get the maya node object for the id.
-        const COLLADAFW::UniqueId& effectId = effectAnimation->getEffectId ();
+        const COLLADAFW::UniqueId& effectId = effectAnimation->getAnimationSourceId ();
         const MayaEffectList* mayaEffectList = effectImporter->findMayaEffects ( effectId );
         if ( mayaEffectList != 0 )
         {
@@ -1197,8 +1240,61 @@ namespace COLLADAMaya
                                 case COLLADAFW::AnimationList::COLOR_B:
                                     connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorB () );
                                     break;
+                                case COLLADAFW::AnimationList::COLOR_A:
+                                    std::cerr << "Animation of for animation class \"COLOR_A\" not implemented!" << endl;
+                                    //connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorA () );
+                                    break;
+                                case COLLADAFW::AnimationList::COLOR_RGB:
+                                    if ( animationCurveCount == 1 )
+                                    {
+                                        connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColor () );
+                                    }
+                                    else
+                                    {
+                                        switch ( curveIndex )
+                                        {
+                                        case 0:
+                                            connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorR () );
+                                            break;
+                                        case 1:
+                                            connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorG () );
+                                            break;
+                                        case 2:
+                                            connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorB () );
+                                            break;
+                                        default:
+                                            std::cerr << "Too much animation curves for animation class \"COLOR_RGB\"!" << endl;
+                                        }
+                                    }
+                                    break;
+                                case COLLADAFW::AnimationList::COLOR_RGBA:
+                                    if ( animationCurveCount == 1 )
+                                    {
+                                        connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColor () );
+                                    }
+                                    else
+                                    {
+                                        switch ( curveIndex )
+                                        {
+                                        case 0:
+                                            connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorR () );
+                                            break;
+                                        case 1:
+                                            connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorG () );
+                                            break;
+                                        case 2:
+                                            connectAttr ( file, animCurveTL->getOutput (),lambertNode->getColorB () );
+                                            break;
+                                        case 3:
+                                            std::cerr << "Can't connect the animation of alpha values!" << endl;
+                                            break;
+                                        default:
+                                            std::cerr << "Too much animation curves for animation class \"COLOR_RGBA\"!" << endl;
+                                        }
+                                    }
+                                    break;
                                 default:
-                                    MGlobal::displayInfo ( "Animation class for effect type \"COLOR_OR_TEXTURE_STANDARD_COLOR\" not implemented!" );
+                                    std::cerr << "Animation class for effect type \"COLOR_OR_TEXTURE_STANDARD_COLOR\" not implemented!" << endl;
                                     break;
                                 }
                             }
@@ -1248,12 +1344,12 @@ namespace COLLADAMaya
                                         connectAttr ( file, animCurveTU->getOutput (),lambertNode->getRefractiveIndex () );
                                         break;
                                     default:
-                                        MGlobal::displayInfo ( "Animation class for effect type \"FLOAT\" not implemented!" );
+                                        std::cerr << "Animation class for effect type \"FLOAT\" not implemented!" << endl;
                                         break;
                                     }
                                     break;
                                 default:
-                                    MGlobal::displayInfo ( "Animation class for effect type \"FLOAT_OR_PARAM_...\" not implemented!" );
+                                    std::cerr << "Animation class for effect type \"FLOAT_OR_PARAM_...\" not implemented!" << endl;
                                     break;
                                 }
                             }
@@ -1262,7 +1358,6 @@ namespace COLLADAMaya
                     break;
                 default:
                     std::cerr << "Animation on effect not supported!" << endl;
-                    MGlobal::displayError ( "Animation on effect not supported!" );
                     break;
                 }
             }
@@ -1270,7 +1365,69 @@ namespace COLLADAMaya
     }
 
     //------------------------------
-    void AnimationImporter::writeTransformConnections ( 
+    void AnimationImporter::connectMorphControllers ( 
+        const COLLADAFW::UniqueId& animationListId, 
+        const COLLADAFW::AnimationList::AnimationBindings& animationBindings )
+    {
+        // Get the maya file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // Get the node, which use this animation list.
+        ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+        const MorphAnimation* morphAnimation = controllerImporter->findMorphAnimation ( animationListId );
+        if ( !morphAnimation ) return;
+
+        // connectAttr "animCurveTU1.output" "geom_QuadPatch01_morph1.weight[0]";
+        MayaDM::BlendShape blendShapeTarget = morphAnimation->getBlendShapeTarget ();
+
+        // Get the animation curves of the current animated element.
+        size_t numAnimationBindings = animationBindings.getCount ();
+        for ( size_t i=0; i<numAnimationBindings; ++i )
+        {
+            // Get the animation curve element of the current animation id.
+            const COLLADAFW::AnimationList::AnimationBinding& animationBinding = animationBindings [i]; 
+            const COLLADAFW::UniqueId& animationId = animationBinding.animation;
+            const std::vector<MayaDM::AnimCurve*>* animationCurves = findMayaDMAnimCurves ( animationId );
+            if ( animationCurves == 0 ) continue;
+
+            // Get the array binding.
+            size_t firstIndex = animationBinding.firstIndex;
+            size_t secondIndex = animationBinding.secondIndex;
+
+            // Connect all animation curves of the current animation.
+            size_t animationCurveCount = animationCurves->size ();
+            if ( animationCurveCount > 1 )
+            {
+                std::cerr << "Multiple curves on morph animation not implemented!" << endl;
+                return;
+            }
+            for ( size_t curveIndex=0; curveIndex<animationCurveCount; ++curveIndex )
+            {
+                const MayaDM::AnimCurve* animCurve = (*animationCurves) [curveIndex];
+                MayaDM::AnimCurveTA* animCurveTA = (MayaDM::AnimCurveTA*) animCurve;
+
+                // Connect the animation curve and the current transform node.
+                // connectAttr "pCube1_translateX.output" "pCube1.translateX";
+                const COLLADAFW::AnimationList::AnimationClass& animationClass = animationBinding.animationClass;
+                switch ( animationClass )
+                {
+                case COLLADAFW::AnimationList::ARRAY_ELEMENT_1D:
+                    {
+                        connectAttr ( file, animCurveTA->getOutput (), blendShapeTarget.getWeight ( firstIndex ) );
+                    }
+                    break;
+                default:
+                    {
+                        std::cerr << "Animation class for morph controller animation not implemented!" << endl;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    //------------------------------
+    void AnimationImporter::connectTransforms ( 
         const COLLADAFW::UniqueId& animationListId, 
         const COLLADAFW::AnimationList::AnimationBindings& animationBindings )
     {
@@ -1283,8 +1440,10 @@ namespace COLLADAMaya
         if ( !transformAnimation ) return;
 
         // Get the maya node object for the id.
-        const COLLADAFW::UniqueId& transformNodeId = transformAnimation->getTransformNodeId ();
+        const COLLADAFW::UniqueId& transformNodeId = transformAnimation->getAnimationSourceId ();
         const MayaDM::Transform* transform = visualSceneImporter->findMayaDMTransform ( transformNodeId );
+        const MayaTransform::TransformPhase& transformPhase = transformAnimation->getTransformPhase ();
+        const bool isJointTransform = transformAnimation->getIsJointTransform ();
 
         const COLLADAFW::Transformation* transformation = transformAnimation->getTransformation ();
         COLLADAFW::Transformation::TransformationType transformType = transformation->getTransformationType ();
@@ -1293,13 +1452,13 @@ namespace COLLADAMaya
         switch ( transformType )
         {
         case COLLADAFW::Transformation::ROTATE:
-            writeRotateConnections ( transformation, animationBindings, transform );
+            writeRotateConnections ( transformation, transformPhase, isJointTransform, animationBindings, transform );
             break;
         case COLLADAFW::Transformation::SCALE:
             writeScaleConnections ( transformation, animationBindings, transform );
             break;
         case COLLADAFW::Transformation::SKEW:
-            MGlobal::displayError ( "Import of animated skew not implemented!" );
+            std::cerr << "Import of animated skew not implemented!" << endl;
 //            writeSkewConnections ( transformation, animationList, transform );
             break;
         case COLLADAFW::Transformation::TRANSLATE:
@@ -1307,7 +1466,6 @@ namespace COLLADAMaya
             break;
         default:
             std::cerr << "Animation on transformation not supported!" << endl;
-            MGlobal::displayError ( "Animation on transformation not supported!" );
             break;
         }
     }
@@ -1315,6 +1473,8 @@ namespace COLLADAMaya
     //------------------------------
     void AnimationImporter::writeRotateConnections ( 
         const COLLADAFW::Transformation* transformation, 
+        const MayaTransform::TransformPhase& transformPhase, 
+        const bool isJointTransform,
         const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
         const MayaDM::Transform* transform )
     {
@@ -1354,28 +1514,106 @@ namespace COLLADAMaya
                 {
                 case COLLADAFW::AnimationList::ANGLE:
                     {
-                        if ( COLLADABU::Math::Vector3::UNIT_X == axis )
+                        switch ( transformPhase )
                         {
-                            connectAttr ( file, animCurveTA->getOutput (), transform->getRotateX () );
+                        case MayaTransform::PHASE_JOINT_ORIENT1:
+                        case MayaTransform::PHASE_JOINT_ORIENT2:
+                        case MayaTransform::PHASE_JOINT_ORIENT3:
+                            {
+                                if ( !isJointTransform )
+                                {
+                                    std::cerr << " Can't connect rotate animation, about the transform is not a joint node!" << endl;
+                                    return;
+                                }
+                                if ( COLLADABU::Math::Vector3::UNIT_X == axis )
+                                { 
+                                    connectAttr ( file, animCurveTA->getOutput (), ((MayaDM::Joint*)transform)->getJointOrientX () ); 
+                                }
+                                else if ( COLLADABU::Math::Vector3::UNIT_Y == axis )
+                                {
+                                    connectAttr ( file, animCurveTA->getOutput (), ((MayaDM::Joint*)transform)->getJointOrientY () );
+                                }
+                                else if ( COLLADABU::Math::Vector3::UNIT_Z == axis )
+                                {
+                                    connectAttr ( file, animCurveTA->getOutput (), ((MayaDM::Joint*)transform)->getJointOrientZ () );
+                                }
+                            }
+                            break;
+                        case MayaTransform::PHASE_ROTATE1:
+                        case MayaTransform::PHASE_ROTATE2:
+                        case MayaTransform::PHASE_ROTATE3:
+                            {
+                                if ( COLLADABU::Math::Vector3::UNIT_X == axis )
+                                {
+                                    connectAttr ( file, animCurveTA->getOutput (), transform->getRotateX () );
+                                }
+                                else if ( COLLADABU::Math::Vector3::UNIT_Y == axis )
+                                {
+                                    connectAttr ( file, animCurveTA->getOutput (), transform->getRotateY () );
+                                }
+                                else if ( COLLADABU::Math::Vector3::UNIT_Z == axis )
+                                {
+                                    connectAttr ( file, animCurveTA->getOutput (), transform->getRotateZ () );
+                                }
+                            }
+                            break;
+                        case MayaTransform::PHASE_ROTATE_ORIENT1:
+                        case MayaTransform::PHASE_ROTATE_ORIENT2:
+                        case MayaTransform::PHASE_ROTATE_ORIENT3:
+                            {
+                                if ( COLLADABU::Math::Vector3::UNIT_X == axis )
+                                {
+                                    connectAttr ( file, animCurveTA->getOutput (), transform->getRotateAxisX () );
+                                }
+                                else if ( COLLADABU::Math::Vector3::UNIT_Y == axis )
+                                {
+                                    connectAttr ( file, animCurveTA->getOutput (), transform->getRotateAxisY () );
+                                }
+                                else if ( COLLADABU::Math::Vector3::UNIT_Z == axis )
+                                {
+                                    connectAttr ( file, animCurveTA->getOutput (), transform->getRotateAxisZ () );
+                                }
+                            }
+                            break;
                         }
-                        else if ( COLLADABU::Math::Vector3::UNIT_Y == axis )
-                        {
-                            connectAttr ( file, animCurveTA->getOutput (), transform->getRotateY () );
-                        }
-                        else if ( COLLADABU::Math::Vector3::UNIT_Z == axis )
-                        {
-                            connectAttr ( file, animCurveTA->getOutput (), transform->getRotateZ () );
-                        }
-                        break;
                     }
+                    break;
                 case COLLADAFW::AnimationList::AXISANGLE:
                     {
-                        connectAttr ( file, animCurveTA->getOutput (), transform->getRotate () );
-                        break;
+                        switch ( transformPhase )
+                        {
+                        case MayaTransform::PHASE_JOINT_ORIENT1:
+                        case MayaTransform::PHASE_JOINT_ORIENT2:
+                        case MayaTransform::PHASE_JOINT_ORIENT3:
+                            {
+                                if ( !isJointTransform )
+                                {
+                                    std::cerr << " Can't connect rotate animation, about the transform is not a joint node!" << endl;
+                                    return;
+                                }
+                                connectAttr ( file, animCurveTA->getOutput (), ((MayaDM::Joint*)transform)->getJointOrient () );
+                            }
+                            break;
+                        case MayaTransform::PHASE_ROTATE1:
+                        case MayaTransform::PHASE_ROTATE2:
+                        case MayaTransform::PHASE_ROTATE3:
+                            {
+                                connectAttr ( file, animCurveTA->getOutput (), transform->getRotate () );
+                            }
+                            break;
+                        case MayaTransform::PHASE_ROTATE_ORIENT1:
+                        case MayaTransform::PHASE_ROTATE_ORIENT2:
+                        case MayaTransform::PHASE_ROTATE_ORIENT3:
+                            {
+                                connectAttr ( file, animCurveTA->getOutput (), transform->getRotateAxis () );
+                            }
+                            break;
+                        }
                     }
+                    break;
                 default:
                     {
-                        MGlobal::displayInfo ( "Animation class for transformation type \"ROTATE\" not implemented!" );
+                        std::cerr << "Animation class for transformation type \"ROTATE\" not implemented!" << endl;
                         break;
                     }
                 }
@@ -1428,10 +1666,31 @@ namespace COLLADAMaya
                     connectAttr ( file, animCurveTU->getOutput (), transform->getScaleZ() );
                     break;
                 case COLLADAFW::AnimationList::POSITION_XYZ:
-                    connectAttr ( file, animCurveTU->getOutput (), transform->getScale() );
+                    if ( animationCurveCount == 1 )
+                    {
+                        connectAttr ( file, animCurveTU->getOutput (), transform->getScale() );
+                    }
+                    else
+                    {
+                        switch ( curveIndex )
+                        {
+                        case 0:
+                            connectAttr ( file, animCurveTU->getOutput (), transform->getScaleX() );
+                            break;
+                        case 1:
+                            connectAttr ( file, animCurveTU->getOutput (), transform->getScaleY() );
+                            break;
+                        case 2:
+                            connectAttr ( file, animCurveTU->getOutput (), transform->getScaleZ() );
+                            break;
+                        default:
+                            std::cerr << "Too much animation curves for animation class \"POSITION_XYZ\" in transformation type \"SCALE\"!" << endl;
+                            break;
+                        }
+                    }
                     break;
                 default:
-                    MGlobal::displayInfo ( "Animation class for transformation type \"SCALE\" not implemented!" );
+                    std::cerr << "Animation class for transformation type \"SCALE\" not implemented!" << endl;
                     break;
                 }
             }
@@ -1498,7 +1757,7 @@ namespace COLLADAMaya
                     connectAttr ( file, animCurveTL->getOutput (), transform->getShear() );
                     break;
                 default:
-                    MGlobal::displayInfo ( "Animation class for transformation type \"SHEAR\" not implemented!" );
+                    std::cerr << "Animation class for transformation type \"SHEAR\" not implemented!" << endl;
                     break;
                 }
             }
@@ -1568,12 +1827,14 @@ namespace COLLADAMaya
                             case 2:
                                 connectAttr ( file, animCurveTL->getOutput (), transform->getTranslateZ () );
                                 break;
+                            default:
+                                std::cerr << "Too much animation curves for animation class \"POSITION_XYZ\" in transformation type \"TRANSLATE\"!" << endl;
                             }
                         }
                     }
                     break;
                 default:
-                    MGlobal::displayInfo ( "Animation class for transformation type \"TRANSLATE\" not implemented!" );
+                    std::cerr << "Animation class for transformation type \"TRANSLATE\" not implemented!" << endl;
                     break;
                 }
             }

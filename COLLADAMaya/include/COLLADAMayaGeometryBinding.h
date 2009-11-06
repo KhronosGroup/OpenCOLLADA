@@ -1,11 +1,11 @@
 /*
-    Copyright (c) 2008-2009 NetAllied Systems GmbH
+Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+This file is part of COLLADAMaya.
 
-    Licensed under the MIT Open Source License, 
-    for details please see LICENSE file or the website
-    http://www.opensource.org/licenses/mit-license.php
+Licensed under the MIT Open Source License, 
+for details please see LICENSE file or the website
+http://www.opensource.org/licenses/mit-license.php
 */
 
 #ifndef __COLLADAMAYA_GEOMETRYBINDING_H__
@@ -15,6 +15,7 @@
 
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWMaterial.h"
+#include "COLLADAFWInstanceGeometry.h"
 
 
 namespace COLLADAMaya
@@ -48,8 +49,8 @@ namespace COLLADAMaya
         virtual ~GeometryBinding () {}
 
         /**
-         * Can be either a geometry or a controller.
-         */
+        * Can be either a geometry or a controller.
+        */
         const COLLADAFW::UniqueId& getSourceId () const { return mSourceId; }
         /**
         * Can be either a geometry or a controller.
@@ -69,32 +70,11 @@ namespace COLLADAMaya
     };
 
 
-
-    class MaterialInformation
-    {
-    private:
-        COLLADAFW::UniqueId mMaterialId;
-        COLLADAFW::MaterialId mShadingEngineId;
-
-    public:
-        MaterialInformation () {}
-        MaterialInformation ( 
-            const COLLADAFW::UniqueId& materialId, 
-            const COLLADAFW::MaterialId& shadingEngineId ) 
-            : mMaterialId (materialId)
-            , mShadingEngineId (shadingEngineId)
-        {}
-        virtual ~MaterialInformation () {}
-
-        const COLLADAFW::UniqueId& getMaterialId () const { return mMaterialId; }
-        void setMaterialId ( const COLLADAFW::UniqueId& val ) { mMaterialId = val; }
-
-        const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
-        void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }
-    };
-    typedef std::map< GeometryBinding, std::vector<MaterialInformation> > GeometryBindingMaterialInfosMap;
-
-
+    /** 
+    * Used to store for a geometry under a transform node all shadingEngineIds with the 
+    * corresponding materialId. 
+    */
+    typedef std::map<GeometryBinding, const COLLADAFW::InstanceGeometry::MaterialBindingArray*> GeometryMaterialBindingsMap;
 
 } // namespace COLLADAMAYA
 

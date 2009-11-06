@@ -138,78 +138,60 @@ namespace COLLADAMaya
         // Build the scene graph
         if ( mSceneGraph->create ( selectionOnly ) )
         {
-            // Start by caching the expressions that will be sampled
-            mSceneGraph->sampleAnimationExpressions();
-
             // Export the asset of the document.
             exportAsset();
 
-            // Export the lights.
-            mLightExporter->exportLights();
-
-            // Export the cameras.
-            mCameraExporter->exportCameras();
-
-            // Export the material URLs and get the material list
-            MaterialMap* materialMap = mMaterialExporter->exportMaterials();
-
-            // Export the effects (materials)
-            const ImageMap* imageMap = mEffectExporter->exportEffects ( materialMap );
-
-            // Export the images
-            mImageExporter->exportImages ( imageMap );
-
-            // Export the controllers. Must be done before the geometries, to decide, which
-            // geometries have to be exported (for example, if the controller need an invisible 
-            // geometry, we also have to export it).
-            mControllerExporter->exportControllers();
-
-            // Export the geometries
-            mGeometryExporter->exportGeometries();
-
-            // Export the visual scene
-            bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
-
-            // Export the animations
-            const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
-
-            // Export the animation clips
-            mAnimationClipExporter->exportAnimationClips ( animationClips );
-
-            // Export the scene
-            if ( visualSceneExported ) exportScene();
-
-            // TODO
-            /*
-            // Export rigid constraints if required.
-            if (CExportOptions::ExportPhysics())
+            if ( !ExportOptions::exportMaterialsOnly () )
             {
-             // save non physics animation library in case want to use again
-             DaeAnimationLibrary* nonPhysAnimationLibrary = animationLibrary;
-             animationLibrary = new DaeAnimationLibrary(this, false);
+                // Start by caching the expressions that will be sampled
+                mSceneGraph->sampleAnimationExpressions();
 
-             nativePhysicsScene->finish();
-             ageiaPhysicsScene->finish();
+                // Export the lights.
+                mLightExporter->exportLights();
 
-             //  animationLibrary->ExportAnimations();
-             SAFE_DELETE(animationLibrary);
-             animationLibrary = nonPhysAnimationLibrary;
+                // Export the cameras.
+                mCameraExporter->exportCameras();
+
+                // Export the material URLs and get the material list
+                MaterialMap* materialMap = mMaterialExporter->exportMaterials();
+
+                // Export the effects (materials)
+                const ImageMap* imageMap = mEffectExporter->exportEffects ( materialMap );
+
+                // Export the images
+                mImageExporter->exportImages ( imageMap );
+
+                // Export the controllers. Must be done before the geometries, to decide, which
+                // geometries have to be exported (for example, if the controller need an invisible 
+                // geometry, we also have to export it).
+                mControllerExporter->exportControllers();
+
+                // Export the geometries
+                mGeometryExporter->exportGeometries();
+
+                // Export the visual scene
+                bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
+
+                // Export the animations
+                const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
+
+                // Export the animation clips
+                mAnimationClipExporter->exportAnimationClips ( animationClips );
+
+                // Export the scene
+                if ( visualSceneExported ) exportScene();
             }
+            else
+            {
+                // Export the material URLs and get the material list
+                MaterialMap* materialMap = mMaterialExporter->exportMaterials();
 
-            // Retrieve the unit name and set the asset's unit information
-            MString unitName;
-            MGlobal::executeCommand("currentUnit -q -linear -fullName;", unitName);
-            colladaDocument->GetAsset()->SetUnitName(MConvert::ToFChar(unitName));
-            FCDocumentTools::StandardizeUpAxisAndLength(colladaDocument, FMVector3::Origin, conversionFactor);
+                // Export the effects (materials)
+                const ImageMap* imageMap = mEffectExporter->exportEffects ( materialMap );
 
-            // Write out the FCollada document.
-            colladaDocument->GetFileManager()->SetForceAbsoluteFlag(!CExportOptions::RelativePaths());
-            FCollada::SaveDocument(colladaDocument, MConvert::ToFChar(filename));
-
-            // Release the import/export library helpers
-            ReleaseLibraries();
-            colladaNode->ReleaseAllEntityNodes();
-            */
+                // Export the images
+                mImageExporter->exportImages ( imageMap );
+            }
         }
 
         mStreamWriter.endDocument();
@@ -232,26 +214,38 @@ namespace COLLADAMaya
         if ( currentScene.size() > 0 )
         {
             COLLADASW::URI sourceFileUri ( COLLADASW::URI::nativePathToUri ( currentScene ) );
-            sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+            if ( sourceFileUri.getScheme ().empty () )
+                sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
             asset.getContributor().mSourceData = sourceFileUri.getURIString();
         }
 
         asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();
 
         // comments
-        MString optstr = MString ( "ColladaMaya export options: \nbakeTransforms=" ) + ExportOptions::bakeTransforms()
-                         + ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes() + ";bakeLighting=" + ExportOptions::bakeLighting()
-                         + ";\nisSampling=" + ExportOptions::isSampling() + ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
-                         + ";removeStaticCurves=" + ExportOptions::removeStaticCurves() + ";\nexportCameras=" + ExportOptions::exportCameras() 
-                         + ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat() + ";exportLights=" + ExportOptions::exportLights() 
-                         + ";exportJointsAndSkin=" + ExportOptions::exportJointsAndSkin() + ";\nexportAnimations=" + ExportOptions::exportAnimations()
-                         + ";exportTriangles=" + ExportOptions::exportTriangles() + ";exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
-                         + ";\nexportNormals=" + ExportOptions::exportNormals() + ";exportTexCoords=" + ExportOptions::exportTexCoords()
-                         + ";\nexportVertexColors=" + ExportOptions::exportVertexColors() + ";exportVertexColorsAnimation=" + ExportOptions::exportVertexColorAnimations()
-                         + ";exportTangents=" + ExportOptions::exportTangents() + ";exportTexTangents=" + ExportOptions::exportTexTangents() 
-                         + ";\nexportXRefs=" + ExportOptions::exportXRefs() + ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs() 
-                         + ";\ncameraXFov=" + ExportOptions::cameraXFov() + ";cameraYFov=" + ExportOptions::cameraYFov() 
-                         + "doublePrecision=" + ExportOptions::doublePrecision ();
+        MString optstr = MString ( "\n\t\t\tColladaMaya export options: " )
+            + "\n\t\t\tbakeTransforms=" + ExportOptions::bakeTransforms() 
+            + ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes() 
+            + ";isSampling=" + ExportOptions::isSampling() 
+            + ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
+            + ";removeStaticCurves=" + ExportOptions::removeStaticCurves() 
+            + ";\n\t\t\texportCameras=" + ExportOptions::exportCameras() 
+            + ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat() 
+            + ";exportLights=" + ExportOptions::exportLights() 
+            + ";exportJointsAndSkin=" + ExportOptions::exportJointsAndSkin() 
+            + ";\n\t\t\texportAnimations=" + ExportOptions::exportAnimations()
+            + ";exportTriangles=" + ExportOptions::exportTriangles() 
+            + ";exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
+            + ";exportNormals=" + ExportOptions::exportNormals() 
+            + ";exportTexCoords=" + ExportOptions::exportTexCoords()
+            + ";\n\t\t\texportVertexColors=" + ExportOptions::exportVertexColors()
+            + ";cgfxFileReferences=" + ExportOptions::exportCgfxFileReferences()
+            + ";exportTangents=" + ExportOptions::exportTangents() 
+            + ";exportTexTangents=" + ExportOptions::exportTexTangents() 
+            + ";\n\t\t\texportXRefs=" + ExportOptions::exportXRefs() 
+            + ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs() 
+            + ";cameraXFov=" + ExportOptions::cameraXFov() 
+            + ";cameraYFov=" + ExportOptions::cameraYFov() 
+            + ";doublePrecision=" + ExportOptions::doublePrecision () + "\n\t\t";
         asset.getContributor().mComments = optstr.asChar();
 
         // Up axis
@@ -285,21 +279,13 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void DocumentExporter::exportScene()
     {
-        COLLADASW::Scene scene ( &mStreamWriter, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, VISUAL_SCENE_NODE_ID ) );
+        COLLADASW::Scene scene ( &mStreamWriter, COLLADASW::URI ( EMPTY_STRING, VISUAL_SCENE_NODE_ID ) );
         scene.add();
     }
 
     //---------------------------------------------------------------
     void DocumentExporter::endExport()
     {
-        // TODO
-
-        // Complete the export of controllers and animations
-        // doc->GetControllerLibrary()->CompleteControllerExport();
-        //  doc->GetAnimationCache()->SamplePlugs();
-        //  doc->GetAnimationLibrary()->PostSampling();
-
-
         // Write out the scene parameters
         //  CDOC->SetStartTime((float) AnimationHelper::AnimationStartTime().as(MTime::kSeconds));
         //  CDOC->SetEndTime((float) AnimationHelper::AnimationEndTime().as(MTime::kSeconds));
@@ -310,6 +296,7 @@ namespace COLLADAMaya
     {
         // Replace characters that are supported in Maya,
         // but not supported in collada names
+        if ( str == 0 ) return EMPTY_STRING;
 
         // NathanM: Strip off namespace prefixes
         // TODO: Should really be exposed as an option in the Exporter

@@ -21,13 +21,11 @@ namespace COLLADAMaya
     
     bool ImportOptions::mIsOpenCall = false;
     bool ImportOptions::mIsReferenceCall = false;
-    bool ImportOptions::mFileLoadDeferRefOptionVar = false;
     bool ImportOptions::mHasError = false;
 
     bool ImportOptions::mImportUpAxis = true;
     bool ImportOptions::mImportUnits = true;
     bool ImportOptions::mImportNormals = true;
-    bool ImportOptions::mImportSoftEdges = true;
     
     
     /** Parse the options String */
@@ -37,7 +35,6 @@ namespace COLLADAMaya
         mImportUpAxis = true;
         mImportUnits = true;
         mImportNormals = true;
-        mImportSoftEdges = true;
 
         mHasError = false;
 
@@ -103,14 +100,8 @@ namespace COLLADAMaya
                 if ( optionName == "importUpAxis" ) mImportUpAxis = value;
                 else if ( optionName == "importUnits" ) mImportUnits = value;
                 else if ( optionName == "importNormals" ) mImportNormals = value;
-                else if ( optionName == "importSoftEdges" ) mImportSoftEdges = value;
             }
         }
-
-        int optionValue;
-
-        MGlobal::executeCommand ( "optionVar -q \"fileLoadDeferRef\";", optionValue );
-        mFileLoadDeferRefOptionVar = optionValue != 0;
     }
 
     bool ImportOptions::isOpenMode()
@@ -121,11 +112,6 @@ namespace COLLADAMaya
     bool ImportOptions::isReferenceMode()
     {
         return mIsReferenceCall;
-    }
-
-    bool ImportOptions::fileLoadDeferReferencesOption()
-    {
-        return mFileLoadDeferRefOptionVar;
     }
 
     bool ImportOptions::hasError()
@@ -148,11 +134,6 @@ namespace COLLADAMaya
         return mImportNormals;
     }
 
-    bool ImportOptions::importSoftEdges()
-    {
-        return mImportSoftEdges;
-    }
-    
     void ImportOptions::setErrorFlag()
     {
         mHasError = true;

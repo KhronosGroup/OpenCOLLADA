@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -62,11 +62,6 @@ namespace COLLADAMaya
          * The default light set object.
          */
         MayaDM::ObjectSet mDefaultLightSet;
-
-        /**
-        * The list of the unique maya light names.
-        */
-        COLLADABU::IDList mLightIdList;
 
         /** 
         * The map holds the unique ids of the light nodes to the maya specific nodes. 

@@ -21,6 +21,8 @@
 #include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaBaseImporter.h"
+#include "COLLADAMayaGeometryExporter.h"
+#include "COLLADAMayaVisualSceneExporter.h"
 
 #include <maya/MFnDependencyNode.h>
 #include <maya/MFnDagNode.h>
@@ -180,7 +182,7 @@ namespace COLLADAMaya
             // TODO id preservation
             // Open an animation node and add the channel of the current animation
             const String& originalColladaId = animatedElement->getOriginalColladaId ();
-            if ( !COLLADABU::Utils::equals ( originalColladaId, COLLADABU::Utils::EMPTY_STRING ) )
+            if ( !COLLADABU::Utils::equals ( originalColladaId, EMPTY_STRING ) )
             {
                 openAnimation ( originalColladaId );
             }
@@ -328,8 +330,11 @@ namespace COLLADAMaya
             AnimationCurve* curve = curves[c];
             uint index = curve->getCurveIndex();
             size_t multiCurvesSize = multiCurves.size();
-            if ( index>=multiCurvesSize ) {
-                MGlobal::displayError("Wrong curve index!"); return NULL; }
+            if ( index >= multiCurvesSize ) 
+            {
+                std::cerr << "Wrong curve index!" << endl; 
+                return NULL; 
+            }
             else multiCurves[index] = curve;
         }
 
@@ -850,13 +855,16 @@ namespace COLLADAMaya
                 if ( sampleType == kMatrix )
                 {
                     if ( convertUnits && (j+1)%4==0 && (j+1)<16 ) 
-                        output.push_back ( ( float ) MDistance::internalToUI ( *outputList ) );
+                        output.push_back ( (float) MDistance::internalToUI ( *outputList ) );
                     else
                         output.push_back ( *outputList );
                 }
                 else
                 {
-                    output.push_back ( *outputList );
+                    if ( convertUnits )
+                        output.push_back ( (float) MDistance::internalToUI ( *outputList ) );
+                    else
+                        output.push_back ( *outputList );
                 }
 
                 ++outputList;
@@ -867,7 +875,7 @@ namespace COLLADAMaya
 
             // Handle Tangents
             if ( hasTangents )
-                createMultiCurveTangents ( key, dimension, inTangents, outTangents, outputList );
+                createMultiCurveTangents ( key, dimension, convertUnits, inTangents, outTangents, outputList );
 
             // Handle TCB
             if ( hasTCB )
@@ -929,8 +937,9 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     void AnimationExporter::createMultiCurveTangents (
-        AnimationMKey* key,
-        uint dimension,
+        const AnimationMKey* key,
+        const uint dimension,
+        const bool convertUnits,
         std::vector<float> &inTangents,
         std::vector<float> &outTangents,
         float* outputList )
@@ -945,12 +954,23 @@ namespace COLLADAMaya
 
             for ( uint j=0; j<dimension; ++j )
             {
-                inTangents.push_back ( ( *inTangentPoints ).x );
-                inTangents.push_back ( ( *inTangentPoints ).y );
-                ++inTangentPoints;
+                if ( convertUnits )
+                {
+                    inTangents.push_back ( ( *inTangentPoints ).x );
+                    inTangents.push_back ( (float) MDistance::internalToUI ( ( *inTangentPoints ).y ) );
 
-                outTangents.push_back ( ( *outTangentPoints ).x );
-                outTangents.push_back ( ( *outTangentPoints ).y );
+                    outTangents.push_back ( ( *outTangentPoints ).x );
+                    outTangents.push_back ( (float) MDistance::internalToUI ( ( *outTangentPoints ).y ) );
+                }
+                else
+                {
+                    inTangents.push_back ( ( *inTangentPoints ).x );
+                    inTangents.push_back ( ( *inTangentPoints ).y );
+
+                    outTangents.push_back ( ( *outTangentPoints ).x );
+                    outTangents.push_back ( ( *outTangentPoints ).y );
+                }
+                ++inTangentPoints;
                 ++outTangentPoints;
             }
         }
@@ -962,11 +982,22 @@ namespace COLLADAMaya
 
             for ( uint j=0; j<dimension; ++j )
             {
-                inTangents.push_back ( key->input - 0.0001f );
-                inTangents.push_back ( *outputList );
+                if ( convertUnits )
+                {
+                    inTangents.push_back ( key->input - 0.0001f );
+                    inTangents.push_back ( (float) MDistance::internalToUI ( *outputList ) );
 
-                outTangents.push_back ( key->input + 0.0001f );
-                outTangents.push_back ( *outputList );
+                    outTangents.push_back ( key->input + 0.0001f );
+                    outTangents.push_back ( (float) MDistance::internalToUI ( *outputList ) );
+                }
+                else
+                {
+                    inTangents.push_back ( key->input - 0.0001f );
+                    inTangents.push_back ( *outputList );
+
+                    outTangents.push_back ( key->input + 0.0001f );
+                    outTangents.push_back ( *outputList );
+                }
 
                 ++outputList;
             }
@@ -997,7 +1028,7 @@ namespace COLLADAMaya
             // Export the infinity parameters
             COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
             COLLADASW::Technique techniqueSource ( streamWriter );
-            techniqueSource.openTechnique ( COLLADASW::CSWC::CSW_PROFILE_MAYA );
+            techniqueSource.openTechnique ( PROFILE_MAYA );
             techniqueSource.addParameter ( MAYA_PREINFINITY_PARAMETER, preInfinityType );
             techniqueSource.addParameter ( MAYA_POSTINFINITY_PARAMETER, postInfinityType );
             techniqueSource.closeTechnique();
@@ -1165,14 +1196,14 @@ namespace COLLADAMaya
 
         LibraryAnimations::Sampler sampler ( sourceId + SAMPLER_ID_SUFFIX );
 
-        sampler.addInput ( LibraryAnimations::Sampler::INPUT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + INPUT_SOURCE_ID_SUFFIX ) );
-        sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + OUTPUT_SOURCE_ID_SUFFIX ) );
-        sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + INTERPOLATION_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::INPUT, COLLADASW::URI ( EMPTY_STRING, sourceId + INPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, COLLADASW::URI ( EMPTY_STRING, sourceId + OUTPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, COLLADASW::URI ( EMPTY_STRING, sourceId + INTERPOLATION_SOURCE_ID_SUFFIX ) );
 
         if ( animationCurve.hasTangents() )
         {
-            sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + INTANGENT_SOURCE_ID_SUFFIX ) );
-            sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + OUTTANGENT_SOURCE_ID_SUFFIX ) );
+            sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, COLLADASW::URI ( EMPTY_STRING, sourceId + INTANGENT_SOURCE_ID_SUFFIX ) );
+            sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, COLLADASW::URI ( EMPTY_STRING, sourceId + OUTTANGENT_SOURCE_ID_SUFFIX ) );
         }
 
         addSampler ( sampler );
@@ -1185,7 +1216,7 @@ namespace COLLADAMaya
         String sourceId = animationCurve.getSourceId();
         String target = getTarget ( animationCurve );
 
-        addChannel ( COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId + SAMPLER_ID_SUFFIX ), target );
+        addChannel ( COLLADASW::URI ( EMPTY_STRING, sourceId + SAMPLER_ID_SUFFIX ), target );
     }
 
     //---------------------------------------------------------------
@@ -1249,12 +1280,45 @@ namespace COLLADAMaya
     {
         MObject node = plug.node();
         MFnDagNode fnDagNode ( node );
-        String partialPathName = fnDagNode.partialPathName().asChar();
-        if ( partialPathName.empty() )
+
+        // Get the collada id.
+        if ( node.hasFn ( MFn::kTransform ) )
         {
-            return partialPathName;
+            // Check if there is an extra attribute "colladaId" and use this as export id.
+            String nodeId;
+            MString attributeValue;
+            DagHelper::getPlugValue ( node, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+            if ( attributeValue != EMPTY_CSTRING )
+                nodeId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+            else nodeId = mDocumentExporter->mayaNameToColladaName ( fnDagNode.name ().asChar () );
+            return nodeId;
         }
-        return DocumentExporter::mayaNameToColladaName ( fnDagNode.partialPathName(), false );
+        // TODO Do we need it?
+        else if ( node.hasFn ( MFn::kMesh ) )
+        {
+            MStatus status;
+            MFnMesh meshNode ( node, &status );
+            if ( status != MStatus::kSuccess ) 
+            {
+                MGlobal::displayError ( "No mesh object!" );
+                return EMPTY_STRING;
+            }
+            MDagPath dagPath = meshNode.dagPath ();
+            GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
+            const String& colladaId = geometryExporter->getColladaGeometryId ( dagPath );
+            return colladaId;
+        }
+        else
+        {
+            String partialPathName = fnDagNode.partialPathName().asChar();
+            if ( partialPathName.empty() )
+            {
+                return partialPathName;
+            }
+            return DocumentExporter::mayaNameToColladaName ( fnDagNode.partialPathName(), false );
+        }
+
+        return EMPTY_STRING;
     }
 
     //---------------------------------------------------------------
@@ -1373,13 +1437,12 @@ namespace COLLADAMaya
         animatedElement->setIsSampling ( isSampling );
 
         // Get the animation object
-        MObject animationObject = DagHelper::getSourceNodeConnectedTo ( plug );
+        MObject animationObject = plug.node();
 
-        // TODO id preservation
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue;
-        DagHelper::getPlugValue ( animationObject, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-        if ( attributeValue != "" )
+        DagHelper::getPlugValue ( animationObject, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != EMPTY_CSTRING )
         {
             // Generate a valid collada name, if necessary.
             String colladaAnimationId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
@@ -1468,11 +1531,10 @@ namespace COLLADAMaya
                 // Get the animation id.
                 String mayaAnimationId = getBaseId ( plug );
 
-                // TODO id preservation
                 // Check if there is an extra attribute "colladaId" and use this as export id.
                 MString attributeValue;
-                DagHelper::getPlugValue ( curveObject, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-                if ( attributeValue != "" )
+                DagHelper::getPlugValue ( curveObject, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+                if ( attributeValue != EMPTY_CSTRING )
                 {
                     // Generate a valid collada name, if necessary.
                     String colladaAnimationId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
@@ -1501,8 +1563,8 @@ namespace COLLADAMaya
                 // TODO id preservation doesn't work in this case...
                 // Check if there is an extra attribute "colladaId" and use this as export id.
                 MString attributeValue;
-                DagHelper::getPlugValue ( curveObject, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-                if ( attributeValue != "" )
+                DagHelper::getPlugValue ( curveObject, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+                if ( attributeValue != EMPTY_CSTRING )
                 {
                     // Generate a valid collada name, if necessary.
                     String colladaAnimationId = colladaAnimationId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
@@ -1538,11 +1600,10 @@ namespace COLLADAMaya
             // Get the curve object
             MObject curveObject = DagHelper::getSourceNodeConnectedTo ( plug );
 
-            // TODO id preservation
             // Check if there is an extra attribute "colladaId" and use this as export id.
             MString attributeValue;
-            DagHelper::getPlugValue ( curveObject, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-            if ( attributeValue != "" )
+            DagHelper::getPlugValue ( curveObject, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+            if ( attributeValue != EMPTY_CSTRING )
             {
                 // Generate a valid collada name, if necessary.
                 String colladaAnimationId = colladaAnimationId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
@@ -1683,7 +1744,7 @@ namespace COLLADAMaya
             // Assign the new curve to the animation clip.
             // Open an animation node and add the channel of the current animation
             const String& originalColladaId = animatedElement->getOriginalColladaId ();
-            if ( !COLLADABU::Utils::equals ( originalColladaId, COLLADABU::Utils::EMPTY_STRING ) )
+            if ( !COLLADABU::Utils::equals ( originalColladaId, EMPTY_STRING ) )
             {
                 clip->colladaClip->setInstancedAnimation ( originalColladaId );
             }
@@ -1767,7 +1828,7 @@ namespace COLLADAMaya
                 curveType == MFnAnimCurve::kAnimCurveUnknown )
         {
             // Unsupported curve types.
-            MGlobal::displayError ( "Animation curve type not supported! " + curveType );
+            std::cerr << "Animation curve type not supported! " << curveType << endl;
             return NULL;
         }
 
@@ -2119,7 +2180,7 @@ namespace COLLADAMaya
         {
             return it->second;
         }
-        return COLLADABU::Utils::EMPTY_STRING;
+        return EMPTY_STRING;
     }
 
 } // namespace COLLADAMaya

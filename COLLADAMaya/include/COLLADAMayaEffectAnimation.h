@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -12,8 +12,8 @@
 #define __COLLADAMAYA_EFFECTANIMATION_H__
 
 #include "COLLADAMayaPrerequisites.h"
+#include "COLLADAMayaBaseAnimation.h"
 
-#include "COLLADAFWUniqueId.h"
 #include "COLLADAFWEffectCommon.h"
 
 
@@ -21,7 +21,7 @@ namespace COLLADAMaya
 {
 
     /** Stores the material id, the animation id and the animated value with it's type. */
-	class EffectAnimation 	
+	class EffectAnimation : public BaseAnimation
     {
 	public:
 
@@ -42,8 +42,6 @@ namespace COLLADAMaya
 
     private:
 
-        COLLADAFW::UniqueId mAnimationListId;
-        COLLADAFW::UniqueId mEffectId;
         AnimatedValueType mAnimatedValueType;
 
 	public:
@@ -53,12 +51,6 @@ namespace COLLADAMaya
 
         /** Destructor. */
 		virtual ~EffectAnimation();
-
-        const COLLADAFW::UniqueId& getAnimationListId () const { return mAnimationListId; }
-        void setAnimationListId ( const COLLADAFW::UniqueId& val ) { mAnimationListId = val; }
-
-        const COLLADAFW::UniqueId& getEffectId () const { return mEffectId; }
-        void setEffectId ( const COLLADAFW::UniqueId& val ) { mEffectId = val; }
 
         const COLLADAMaya::EffectAnimation::AnimatedValueType& getAnimatedValueType () const { return mAnimatedValueType; }
         void setAnimatedValueType ( const COLLADAMaya::EffectAnimation::AnimatedValueType& val ) { mAnimatedValueType = val; }

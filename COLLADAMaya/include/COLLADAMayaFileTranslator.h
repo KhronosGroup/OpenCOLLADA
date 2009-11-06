@@ -16,8 +16,8 @@
 #ifndef __COLLADA_MAYA_FILE_TRANSLATOR_H__
 #define __COLLADA_MAYA_FILE_TRANSLATOR_H__
 
-// #include "vld.h"
-// #include "vldapi.h"
+//#include "vld.h"
+//#include "vldapi.h"
 
 #ifndef _MPxFileTranslator
 #include <maya/MPxFileTranslator.h>
@@ -31,6 +31,11 @@ namespace COLLADAMaya
      */
     class FileTranslator : public MPxFileTranslator
     {
+
+    public:
+
+        static const String ASCII_PATH_EXTENSION;
+        static const String ASCII_PATH_EXTENSION_DEBUG;
 
     private:
 

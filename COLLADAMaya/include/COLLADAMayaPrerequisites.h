@@ -51,7 +51,7 @@ namespace COLLADAMaya
 //
 #define CHECK_STAT(X) \
     if ( (X) != MS::kSuccess) { \
-    MGlobal::displayError ( status.errorString() ); \
+    std::cerr << status.errorString() << endl; \
     }\
 
 //
@@ -59,7 +59,7 @@ namespace COLLADAMaya
 //
 #define CHECK_STAT_AND_RETURN(rc) \
     if ( (rc) != MS::kSuccess) { \
-    MGlobal::displayError ( rc.errorString() ); \
+    std::cerr << rc.errorString() << endl; \
     return (rc); \
     }\
 
@@ -69,7 +69,7 @@ namespace COLLADAMaya
 #define CHECK_STATUS(rc, errorString) \
     if ((rc) != MStatus::kSuccess)\
     {\
-    MGlobal::displayError(MString(errorString));\
+    std::cerr << errorString << endl;\
     return MObject::kNullObj;\
     }\
 
@@ -79,7 +79,7 @@ namespace COLLADAMaya
 #define CHECK_STATUS_AND_RETURN(rc, retVal) \
     if ((rc) != MStatus::kSuccess)\
     {\
-    MGlobal::displayError ( rc.errorString() );\
+    std::cerr << rc.errorString() << endl;\
     return (retVal);\
     }\
 

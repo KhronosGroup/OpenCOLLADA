@@ -25,6 +25,7 @@
 #include "MayaDMShadingEngine.h"
 #include "MayaDMMaterialInfo.h"
 #include "MayaDMTransform.h"
+#include "MayaDMUvChooser.h"
 
 #include "COLLADAFWInstanceGeometry.h"
 
@@ -61,6 +62,9 @@ namespace COLLADAMaya
 
         static const String DEFAULT_RENDER_PARTITION;
 
+        /** The name for an uv chooser. */
+        static const String UV_CHOOSER_NAME;
+
     public:
 
         typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdMayaMaterialMap;
@@ -92,22 +96,67 @@ namespace COLLADAMaya
          */
         typedef std::map<COLLADAFW::UniqueId, ShadingData*> ShadingDataMap;
 
+        /**
+        * Used to store informations about multiple input sets of an primitive element in an
+        * TEXCOORD or COLOR input element. 
+        */
+        class BindingInputSet
+        {
+        private:
+            COLLADAFW::UniqueId mGeometryId;
+            COLLADAFW::UniqueId mInstanciatedObjectId;
+            COLLADAFW::UniqueId mTransformNodeId;
+            const COLLADAFW::UniqueId* mControllerId;
+            size_t mInputSetIndex;
+            COLLADAFW::TextureMapId mTextureMapId;
+            COLLADAFW::UniqueId mMaterialId;
+            COLLADAFW::MaterialId mShadingEngineId;
+            MayaDM::UvChooser mUvChooser;
+            size_t mPhysicalIndex;
+            bool mHasChooser;
+
+        public:
+            BindingInputSet () : mHasChooser ( false ) {}
+            virtual ~BindingInputSet() {}
+
+            const COLLADAFW::UniqueId& getGeometryId () const { return mGeometryId; }
+            void setGeometryId ( const COLLADAFW::UniqueId& val ) { mGeometryId = val; }
+
+            const COLLADAFW::UniqueId& getInstanciatedObjectId () const { return mInstanciatedObjectId; }
+            void setInstanciatedObjectId ( const COLLADAFW::UniqueId& val ) { mInstanciatedObjectId = val; }
+
+            const COLLADAFW::UniqueId& getTransformNodeId () const { return mTransformNodeId; }
+            void setTransformNodeId ( const COLLADAFW::UniqueId& val ) { mTransformNodeId = val; }
+
+            const COLLADAFW::UniqueId* getControllerId () const { return mControllerId; }
+            void setControllerId ( const COLLADAFW::UniqueId* val ) { mControllerId = val; }
+
+            const size_t& getInputSetIndex () const { return mInputSetIndex; }
+            void setInputSetIndex ( const size_t& val ) { mInputSetIndex = val; }
+
+            const COLLADAFW::UniqueId& getMaterialId () const { return mMaterialId; }
+            void setMaterialId ( const COLLADAFW::UniqueId& val ) { mMaterialId = val; }
+
+            const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
+            void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }
+
+            const MayaDM::UvChooser* getUvChooser () const { if ( mHasChooser ) return &mUvChooser; else return 0; }
+            void setUvChooser ( const MayaDM::UvChooser& val ) { mUvChooser = val; mHasChooser = true; }
+
+            const size_t getPhysicalIndex () const { return mPhysicalIndex; }
+            void setPhysicalIndex ( const size_t val ) { mPhysicalIndex = val; }
+
+            const COLLADAFW::TextureMapId& getTextureMapId () const { return mTextureMapId; }
+            void setTextureMapId ( const COLLADAFW::TextureMapId& val ) { mTextureMapId = val; }
+        };
+
     private:
 
         /**
-        * The list of the unique maya material names.
+        * The map holds for every material a list of multiple texcoord input elements 
+        * with the input set indices for every primitive element in the source.
         */
-        COLLADABU::IDList mMaterialIdList;
-
-        /**
-        * The list of the unique maya shading engine names.
-        */
-        COLLADABU::IDList mShadingEngineIdList;
-
-        /**
-        * The list of the unique maya material info names.
-        */
-        COLLADABU::IDList mMaterialInfoIdList;
+        std::map<COLLADAFW::UniqueId, std::vector<BindingInputSet> > mBindingTexCoordInputSetsMap;
 
         /** 
         * The map holds the unique ids of the material nodes to the maya specific nodes. 
@@ -132,7 +181,17 @@ namespace COLLADAMaya
         /**
          * The map holds for every shader engine a list of geometry ids, which use this shader engine.
          */
-        GeometryBindingMaterialInfosMap mGeometryBindingMaterialInfosMap;
+        GeometryMaterialBindingsMap mGeometryMaterialBindingsMap;
+
+        /**
+        * The map holds for every material all already bound chooser names.
+        */
+        std::map<COLLADAFW::UniqueId, std::vector<String> > mChooserMaterialConnections; 
+
+        /**
+        * The map holds for every geometry all already bound chooser names.
+        */
+        std::map<COLLADAFW::UniqueId, std::vector<String> > mChooserGeometryConnections; 
 
     public:
 
@@ -156,7 +215,31 @@ namespace COLLADAMaya
          */
         ShadingData* createShaderData ( 
             const COLLADAFW::UniqueId& materialId, 
-            String shadingEngineName = "" );
+            String shadingEngineName = EMPTY_STRING );
+
+        /**
+        * Create the necessary uv chooser objects for texture uv set binding.
+        */
+        void createBindingInputSets ( 
+            const COLLADAFW::UniqueId& transformNodeId, 
+            const COLLADAFW::InstanceGeometry* instanceGeometry,
+            const COLLADAFW::UniqueId* controllerId );
+
+        /**
+         * An uv-chooser will be generated, if
+         * 1.) a material uses a texture and
+         * 2.) the material is used by one or more primitive element of one or more geometries and
+         * 3.) the primitive element of the geometry has more than one uv-set and
+         * 4.) the scenegraph uses this texture with an uv-set-index, which is not the first one.
+         * 
+         * We need one uv-chooser for every texture in a material, if the points above are right. 
+         * If there exist multiple instances of the geometry, we can't change the uv-mapping in maya!
+         * If the material is referenced for multiple times (multiple geometries use the material),
+         * we use for every reference just the next index of the material's texture's uv-chooser's uv-set.
+         * 
+         * The uv-chooser has to be generated, AFTER the import of the geometries!
+        */
+        void createUVChoosers ();
 
         /** 
         * Writes the connection attributes into the maya ascii file. 
@@ -201,19 +284,63 @@ namespace COLLADAMaya
         void connectGeometries ();
 
         /**
+        * Connects the uv chooser with the texture placements and the uv sets of the meshes.
+        */
+        void connectUVChooser ();
+
+        /**
+         * Returns true, if the uvChooser is already bound to the given material.
+         */
+        const bool chooserIsMaterialConnected ( 
+            const COLLADAFW::UniqueId& materialId, 
+            const String& uvChooserName ) const;
+
+        /**
+        * Returns true, if the uvChooser is already bound to the given geometry.
+        */
+        const bool chooserIsGeometryConnected ( 
+            const COLLADAFW::UniqueId& geometryId, 
+            const String& uvChooserName ) const;
+
+        /**
+         * Returns the number of already connected geometries to the current uv-chooser.
+         */
+        const size_t getNumGeometryConnections ( 
+            const String& uvChooserName ) const;
+
+        /**
          * Connects the default shader list with the materials.
          */
         void connectDefaultShaderList ();
 
         /**
-        * The list of the unique maya shading engine names.
-        */
-        const COLLADABU::IDList& getShadingEngineIdList () const { return mShadingEngineIdList; }
-
-        /**
          * Returns the effect id of the material.
          */
         const COLLADAFW::UniqueId* findEffectId ( const COLLADAFW::UniqueId& materialId );
+
+        /**
+        * The map holds for every geometry a list of multiple texcoord input elements 
+        * with the input set indices.
+        */
+        const std::vector<BindingInputSet>* findBindingTexCoordInputSets ( 
+            const COLLADAFW::UniqueId& materialId );
+
+        /**
+        * The map holds for every geometry a list of multiple texcoord input elements 
+        * with the input set indices.
+        */
+        const BindingInputSet* findBindingTexCoordInputSet ( 
+            const COLLADAFW::UniqueId& sourceId, 
+            const COLLADAFW::UniqueId& materialId, 
+            const size_t inputSetIndex );
+
+        /**
+        * Get the uv chooser of the current instanciated obect and material.
+        */
+        const MayaDM::UvChooser* findUvChooser ( 
+            const COLLADAFW::UniqueId& materialId, 
+            const COLLADAFW::TextureMapId& textureMapId );
+
 
     };
 }

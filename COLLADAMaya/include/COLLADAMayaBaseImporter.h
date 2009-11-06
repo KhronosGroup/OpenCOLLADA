@@ -26,6 +26,7 @@
 #include "MayaDMLambert.h"
 
 #include "COLLADAFWFloatOrDoubleArray.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAMaya
@@ -36,9 +37,6 @@ namespace COLLADAMaya
     class BaseImporter
     {
     public:
-
-        typedef std::set<const COLLADAFW::UniqueId> UniqueIdSet;
-        typedef std::pair<COLLADAFW::UniqueId, COLLADAFW::UniqueId> UniqueIdsPair;
 
         typedef std::map<COLLADAFW::UniqueId, COLLADAFW::UniqueId> UniqueIdUniqueIdMap;
         typedef std::map<COLLADAFW::UniqueId, String> UniqueIdStringMap;
@@ -54,28 +52,30 @@ namespace COLLADAMaya
 
         typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdDependNodeMap;
 
-        typedef std::pair<COLLADAFW::UniqueId,COLLADAFW::MaterialId> UniqueIdMaterialIdPair;
-        typedef std::vector<size_t> IndicesVector;
-        typedef std::map<UniqueIdMaterialIdPair, IndicesVector> CombinedIdIndicesMap;
-
         typedef std::map<COLLADAFW::UniqueId, size_t> UniqueIdElementCountMap;
 
         typedef std::vector<MayaDM::Lambert*> MayaEffectList;
         typedef std::map< COLLADAFW::UniqueId, MayaEffectList > UniqueIdMayaEffectsMap;
+
+        /** Maps Unique id to framework nodes.*/
+        typedef std::map<COLLADAFW::UniqueId, const COLLADAFW::Node*> UniqueIdFWNodeMap;
 
     public:
 
         /** The maya block size value for writing maya ascii files. */
         static const size_t MAYA_BLOCK_SIZE;
 
-        /** The standard name for the collada id attribute. */
-        static const String COLLADA_ID_ATTRIBUTE_NAME;
+        static const String ATTRIBUTE_DATA_TYPE;
+        static const String ATTRIBUTE_TYPE;
+        static const String ATTRIBUTE_TYPE_STRING;
 
     protected:
 
         /** The standard name for a group without name. */
         static const String GROUP_ID_NAME;
+        static const String GROUP_ID_NAME_APPEND;
         static const String GROUP_PARTS_NAME;
+        static const String GROUP_PARTS_NAME_APPEND;
 
     private:
 
@@ -148,6 +148,24 @@ namespace COLLADAMaya
         */
         float toLinearUnit ( const float val );
 
+        /**
+        * This unit convert factor calculates always the centimeter unit, because this is 
+        * the maya internal unit.
+        * This is need for conversion of the skin controller bind shape and geometry (?) matrix
+        * translate values conversion, because maya doesn't calculate the right values on linear
+        * unit switching.
+        */
+        double toMayaBindShapeBugLinearUnit ( const double val );
+
+        /**
+        * This unit convert factor calculates always the centimeter unit, because this is 
+        * the maya internal unit.
+        * This is need for conversion of the skin controller bind shape and geometry (?) matrix
+        * translate values conversion, because maya doesn't calculate the right values on linear
+        * unit switching.
+        */
+        float toMayaBindShapeBugLinearUnit ( const float val );
+
     protected:
 
         /** Returns a pointer to the current document importer. */
@@ -168,6 +186,35 @@ namespace COLLADAMaya
         double getDoubleValue ( 
             const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
             const size_t position );
+
+        /**
+        * Returns the value at the given position of the given array as float value.
+        */
+        float getFloatValue ( 
+            const COLLADAFW::FloatOrDoubleArray &inputValuesArray, 
+            const size_t position );
+
+        /**
+        * Generates a unique depend node id and add the node in all necessary lists. 
+        */
+        String generateUniqueDependNodeName ( 
+            String nodeName,
+            bool returnConverted = true, 
+            bool alwaysAddNumberSuffix = false );
+
+        /**
+         * Generates a unique scene graph dag node id and add the node in all necessary lists. 
+         */
+        String generateUniqueDagNodeName ( 
+            String nodeName, 
+            MayaNode* parentMayaNode,
+            bool returnConverted = true, 
+            bool alwaysAddNumberSuffix = false );
+
+        /**
+         * Reads the original maya id from the extra tags, if it exist in the framework data.
+         */
+        String getOriginalMayaId ( const COLLADAFW::ExtraDataArray &extraDataArray );
 
     };
 }

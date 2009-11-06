@@ -24,27 +24,45 @@ namespace COLLADAMaya
     
     // COLLADA NetAllied Systems
     static const char* TRANSLATOR_VENDOR                            = "NetAllied Systems GmbH";
-    static const char* TRANSLATOR_VERSION                           = "0.9.5";
+    static const char* TRANSLATOR_VERSION                           = "1.2.1";
     static const char* USERNAME                                     = "USERNAME";
     static const char* USER                                         = "USER";
 
     // Names for the creation of the plug-in
-    static const char* COLLADA_EXPORTER                             = "COLLADA nextgen exporter";
-    static const char* COLLADA_IMPORTER                             = "COLLADA nextgen importer";
+    static const char* COLLADA_EXPORTER                             = "OpenCOLLADA exporter";
+    static const char* COLLADA_IMPORTER                             = "OpenCOLLADA importer";
     static const char* COLLADA_DOCUMENT                             = "colladaDocument";
-    static const String AUTHORING_TOOL_NAME                         = "COLLADA Maya";
+    static const String AUTHORING_TOOL_NAME                         = "OpenCOLLADA";
 
     /** The unique name for the visual scene node on export. */
     static const String VISUAL_SCENE_NODE_ID                        = "VisualSceneNode";
 
+    /** Profile specific extra attribute parameters. */
+    static const char* PROFILE_MAYA                                 = "OpenCOLLADAMaya";
+    static const char* PROFILE_MAX                                  = "OpenCOLLADA3dsMax";
+
+    /** Extra technique parameters. */
+    static const String PARAMETER_MAYA_ID                           = "originalMayaNodeId";
+    static const String PARAMETER_DOUBLE_SIDED                      = "double_sided";
+
+    static const String EMPTY_STRING                                = "";
+    static const char* EMPTY_CSTRING                                = "";
+
+    /** The standard name for the collada id attribute. */
+    static const String COLLADA_ID_ATTRIBUTE_NAME                   = "colladaId";
+    static const String COLLADA_EFFECT_ID_ATTRIBUTE_NAME            = "colladaEffectId";
+    static const String COLLADA_MATERIAL_ID_ATTRIBUTE_NAME          = "colladaMaterialId";
+    static const String COLLADA_EFFECT_COMMON_ID_ATTRIBUTE_NAME     = "colladaEffectCommonId";
+
+    /** Node types. */
     static const char* NODE_TYPE_NODE                               = "NODE";
     static const char* NODE_TYPE_JOINT                              = "JOINT";
 
     // Mel-Scripts
     // Name of a MEL script that will be used to display the contents of the
     // options dialog during file open and save
-    static char*  MEL_EXPORT_OPTS                                   = "colladaNextGenExporterOpts";
-    static char*  MEL_IMPORT_OPTS                                   = "colladaNextGenImporterOpts";
+    static char*  MEL_EXPORT_OPTS                                   = "openColladaExporterOpts";
+    static char*  MEL_IMPORT_OPTS                                   = "openColladaImporterOpts";
 
     // COLLADA 1.4 Maya-specific definitions
     static const char* MAYA_TEXTURE_NODETYPE                        = "dgnode_type";
@@ -90,9 +108,7 @@ namespace COLLADAMaya
     static const char* MAYA_PROJECTION_TYPE_PARAMETER               = "type";
     static const char* MAYA_PROJECTION_MATRIX_PARAMETER             = "matrix";
 
-
     // ColladaMaya enumerated types
-
     static const char* MAYA_CONSTANT_INFINITY                       = "CONSTANT";
     static const char* MAYA_LINEAR_INFINITY                         = "LINEAR";
     static const char* MAYA_CYCLE_INFINITY                          = "CYCLE";
@@ -121,8 +137,6 @@ namespace COLLADAMaya
 
 
     // COLLADA 1.4 Max-specific profile
-    static const char* MAX_PROFILE                                  = "MAX3D";
-
     static const char* MAX_TARGET_CAMERA_PARAMETER                  = "target";
     static const char* MAX_ASPECTRATIO_LIGHT_PARAMETER              = "aspect_ratio";
     static const char* MAX_TARGET_LIGHT_PARAMETER                   = "target";
@@ -149,20 +163,18 @@ namespace COLLADAMaya
     static const String X_PARAMETER[1]                              = { "X" };
     static const String Y_PARAMETER[1]                              = { "Y" };
     static const String Z_PARAMETER[1]                              = { "Z" };
-    static const String XY_PARAMETER[1]                            = { "XY" };
-    static const String XZ_PARAMETER[1]                            = { "XZ" };
-    static const String YZ_PARAMETER[1]                            = { "YZ" };
+    static const String XY_PARAMETER[1]                             = { "XY" };
+    static const String XZ_PARAMETER[1]                             = { "XZ" };
+    static const String YZ_PARAMETER[1]                             = { "YZ" };
     static const String XY_PARAMETERS[2]                            = { "X", "Y" };
     static const String XYZ_PARAMETERS[3]                           = { "X", "Y", "Z" };
     static const String ZYX_PARAMETERS[3]                           = { "Z", "Y", "X" };
     static const String XYZW_PARAMETERS[4]                          = { "X", "Y", "Z", "W" };
     static const String STPQ_PARAMETERS[4]                          = { "S", "T", "P", "Q" };
-    static const String RGBA_PARAMETERS[4]                           = { "R", "G", "B", "A" };
+    static const String RGBA_PARAMETERS[4]                          = { "R", "G", "B", "A" };
     static const String ANGLE_PARAMETER[1]                          = { "ANGLE" };
     static const String MATRIX_PARAMETER[1]                         = { "MATRIX" };
     static const String TRANSFORM_PARAMETER[1]                      = { "TRANSFORM" };
-
-    static const String DOUBLE_SIDED_PARAMETER                      = "double_sided";
 
     static const String VERTEX_SID                                  = "VERTEX";
     static const String SKEW_XY_SID                                 = "skewXY";
@@ -288,6 +300,7 @@ namespace COLLADAMaya
     static const char* ATTR_TRANSPARENCY                            = "transparency";
     static const char* ATTR_UV_COORD                                = "uvCoord";
     static const char* ATTR_UV_SET                                  = "uvSet";
+    static const char* ATTR_UV_SET_NAME                             = "uvsn";
     static const char* ATTR_VISIBILITY                              = "visibility";
     static const char* ATTR_VERTEX_POSITION_TWEAKS                  = "pt";
     static const char* ATTR_VERTEX_ALPHA                            = "vxal";
@@ -319,6 +332,10 @@ namespace COLLADAMaya
     static const char* COLLADA_FX_SHADER                            = "colladafxShader";
     static const char* COLLADA_FX_PASSES                            = "colladafxPasses";
     
+    /** Script parameters */
+    static const char* SCRIPT_NODE_UP_AXIS                          = "upAxisScriptNode";
+    static const char* SCRIPT_NODE_SCENE_CONFIG                     = "sceneConfigurationScriptNode";
+
 }
 
 

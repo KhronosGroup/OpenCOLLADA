@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -26,7 +26,7 @@
 namespace COLLADAMaya
 {
 
-    const String LightImporter::LIGHT_NAME = "Light";
+    const String LightImporter::LIGHT_NAME = "light";
     const String LightImporter::DEFAULT_LIGHT_LIST_NAME = "lightList1";
     const String LightImporter::DEFAULT_LIGHT_SET_NAME = "defaultLightSet";
     const String LightImporter::DEFAULT_LIGHT_LINKER_NAME = "lightLinker1";
@@ -35,16 +35,16 @@ namespace COLLADAMaya
     //------------------------------
 	LightImporter::LightImporter ( DocumentImporter* documentImporter ) 
         : BaseImporter ( documentImporter )
-        , mDefaultLightLinker ( NULL, DEFAULT_LIGHT_LINKER_NAME, "", false, false )
-        , mDefaultLightList ( NULL, ":" + DEFAULT_LIGHT_LIST_NAME, "", false, false )
-        , mDefaultLightSet ( NULL, ":" + DEFAULT_LIGHT_SET_NAME, "", false, false )
+        , mDefaultLightLinker ( NULL, DEFAULT_LIGHT_LINKER_NAME, EMPTY_STRING, false, false )
+        , mDefaultLightList ( NULL, ":" + DEFAULT_LIGHT_LIST_NAME, EMPTY_STRING, false, false )
+        , mDefaultLightSet ( NULL, ":" + DEFAULT_LIGHT_SET_NAME, EMPTY_STRING, false, false )
 	{}
 	
     //------------------------------
 	LightImporter::~LightImporter()
 	{
-        UniqueIdLightNodeMap::const_iterator it = mMayaLightMap.begin ();
-        if ( it != mMayaLightMap.end () )
+        UniqueIdLightNodeMap::iterator it = mMayaLightMap.begin ();
+        while ( it != mMayaLightMap.end () )
         {
             MayaDM::Light* light = it->second;
             delete light;
@@ -105,10 +105,9 @@ namespace COLLADAMaya
         {
             // Get the maya node of the current transform node.
             const COLLADAFW::UniqueId& transformNodeId = *nodesIter;
-            MayaNodesList* mayaNodesList = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+            MayaNodesList* mayaNodesList = visualSceneImporter->findMayaTransformNodes ( transformNodeId );
             if ( mayaNodesList == 0 ) 
             {
-                MGlobal::displayError ( "Cant find transform node!");
                 std::cerr << "Cant find transform node!" << endl;
                 return;
             }
@@ -147,12 +146,13 @@ namespace COLLADAMaya
         // Check if the camera is already imported.
         const COLLADAFW::UniqueId& lightId = light->getUniqueId ();
 
-        // Create a unique name.
+        // Make the maya name unique and manage it in all necessary lists.
         String lightName = light->getName ();
-        if ( COLLADABU::Utils::equals ( lightName, "" ) ) 
-            lightName = LIGHT_NAME;
+        if ( COLLADABU::Utils::equals ( lightName, EMPTY_STRING ) ) lightName = LIGHT_NAME;
         lightName = DocumentImporter::frameworkNameToMayaName ( lightName );
-        lightName = mLightIdList.addId ( lightName );
+        String originalMayaId = getOriginalMayaId ( light->getExtraDataArray () );
+        if ( !COLLADABU::Utils::equals ( originalMayaId, EMPTY_STRING ) ) lightName = originalMayaId;
+        lightName = generateUniqueDagNodeName ( lightName, mayaTransformNode );
 
         // Create a maya node object of the current node and push it into the map.
         MayaNode* mayaLightNode = new MayaNode ( lightId, lightName, mayaTransformNode );
@@ -187,18 +187,16 @@ namespace COLLADAMaya
             }
             break;
         default:
-            MGlobal::displayError ( "Unknown light type!" );
             std::cerr << "Unknown light type!" << endl;
             return;
-            break;
         }
 
         // Add the original id attribute.
         String colladaId = light->getOriginalId ();
-        if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+        if ( !COLLADABU::Utils::equals ( colladaId, EMPTY_STRING ) )
         {
-            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
+            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
         }
 
         // Set the standard light color.
@@ -306,7 +304,7 @@ namespace COLLADAMaya
         size_t lightLinkerLinkIndex = 0;
 
         // Get the default light set.
-        MayaDM::ObjectSet defaultLightSet ( file, DEFAULT_LIGHT_SET_NAME, "", false, false );
+        MayaDM::ObjectSet defaultLightSet ( file, DEFAULT_LIGHT_SET_NAME, EMPTY_STRING, false, false );
 
         // Connect the existing shader engines with the first light linker link's object.
         MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
@@ -340,7 +338,7 @@ namespace COLLADAMaya
         }
 
         // Create the dummy object of the initial shading group.
-        MayaDM::ShadingEngine initialShadingEngine ( file, ":" + MaterialImporter::INITIAL_SHADING_ENGINE_NAME, "", false, false );
+        MayaDM::ShadingEngine initialShadingEngine ( file, ":" + MaterialImporter::INITIAL_SHADING_ENGINE_NAME, EMPTY_STRING, false, false );
 
         // Connect the default light set message with the next light linker link's light
         // connectAttr ":defaultLightSet.message" "lightLinker1.link[1].light";
@@ -391,7 +389,6 @@ namespace COLLADAMaya
             const UniqueIdVec* transformNodes = visualSceneImporter->findLightTransformIds ( lightId );
             if ( transformNodes == 0 )
             {
-                MGlobal::displayError ( "No transform node which implements this light!" );
                 std::cerr << "No transform node which implements this light!" << endl;
                 return;
             }
@@ -402,17 +399,16 @@ namespace COLLADAMaya
             {
                 // Get the maya transform nodes and read the path.
                 const COLLADAFW::UniqueId& transformNodeId = *nodesIter;
-                MayaNodesList* transformNodes = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+                MayaNodesList* transformNodes = visualSceneImporter->findMayaTransformNodes ( transformNodeId );
                 if ( transformNodes->size () == 0 )
                 {
-                    MGlobal::displayError ( "The referenced transform node doesn't exist!" );
                     std::cerr << "The referenced transform node doesn't exist!" << endl;
                     return;
                 }
                 MayaNode* mayaTransformNode = (*transformNodes) [0];
                 String transformNodeName = mayaTransformNode->getName ();
                 String transformNodePath = mayaTransformNode->getNodePath ();
-                MayaDM::Transform transformNode ( file, transformNodePath, "", false, false );
+                MayaDM::Transform transformNode ( file, transformNodePath, EMPTY_STRING, false, false );
 
                 // Connect the light transforms instance object groups with the default light set.
                 //connectAttr "spotLight1.instObjGroups" ":defaultLightSet.dagSetMembers" -nextAvailable;

@@ -102,6 +102,9 @@ namespace COLLADAMaya
             it needs. This element is meaningless for morph controllers. */
         std::set<URI> mSkeletonURIs;
 
+        /** Holds for every skin controller dag path the bind shape matrix. */
+        MMatrix mBindShapeMatrix;
+
     public:
 
         /** Constructor. */
@@ -264,6 +267,10 @@ namespace COLLADAMaya
         controller is to start to search for the joint nodes
         it needs. This element is meaningless for morph controllers. */
         void addSkeletonURI ( const URI& val ) { mSkeletonURIs.insert ( val ); }
+
+        /** Holds for every skin controller dag path the bind shape matrix. */
+        const MMatrix& getBindShapeMatrix () const { return mBindShapeMatrix; }
+        void setBindShapeMatrix ( const MMatrix& val ) { mBindShapeMatrix = val; }
 
     private:
 

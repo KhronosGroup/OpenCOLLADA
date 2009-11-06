@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -22,51 +22,6 @@
 
 namespace COLLADAMaya
 {
-
-    /**
-    * The binding for a geometry, transform node and shading engine. 
-    */
-    class ShadingBinding
-    {
-    private:
-
-        COLLADAFW::UniqueId mGeometryId;
-        COLLADAFW::UniqueId mTransformId;
-        COLLADAFW::MaterialId mShadingEngineId;
-        const COLLADAFW::UniqueId* mControllerId;
-
-    public:
-
-        ShadingBinding ();
-
-        ShadingBinding ( 
-            const COLLADAFW::UniqueId& geometryId, 
-            const COLLADAFW::UniqueId& transformId, 
-            const COLLADAFW::MaterialId& shadingEngineId,
-            const COLLADAFW::UniqueId* controllerId = 0 );
-
-        virtual ~ShadingBinding ();
-
-        const COLLADAFW::UniqueId& getGeometryId () const { return mGeometryId; }
-        void setGeometryId ( const COLLADAFW::UniqueId& val ) { mGeometryId = val; }
-
-        const COLLADAFW::UniqueId& getTransformId () const { return mTransformId; }
-        void setTransformId ( const COLLADAFW::UniqueId& val ) { mTransformId = val; }
-
-        const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
-        void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }
-
-        const COLLADAFW::UniqueId* getControllerId () const { return mControllerId; }
-        void setControllerId ( COLLADAFW::UniqueId* val ) { mControllerId = val; }
-
-        bool operator<(const ShadingBinding& rhs) const;
-        bool operator==(const ShadingBinding& uid) const;
-    };
-    /** 
-    * The material binding per primitive element for a geometry, transform node and shading engine. 
-    */
-    typedef std::map< ShadingBinding, std::vector<COLLADAFW::UniqueId> > ShadingBindingMaterialMap;
-
 
     class GroupInfo
     {
@@ -115,6 +70,56 @@ namespace COLLADAMaya
         const size_t getPrimitiveIndex () const { return mPrimitiveIndex; }
         void setPrimitiveIndex ( const size_t val ) { mPrimitiveIndex = val; }
     };
+
+    /**
+    * The binding for a geometry, transform node and shading engine. 
+    */
+    class ShadingBinding
+    {
+    private:
+
+        COLLADAFW::UniqueId mGeometryId;
+        COLLADAFW::UniqueId mTransformId;
+        COLLADAFW::MaterialId mShadingEngineId;
+        COLLADAFW::UniqueId mControllerId;
+
+        size_t mNumInstances;
+        size_t mInstanceIndex;
+
+    public:
+
+        ShadingBinding ();
+
+        ShadingBinding ( 
+            const COLLADAFW::UniqueId& geometryId, 
+            const COLLADAFW::UniqueId& transformId, 
+            const COLLADAFW::MaterialId& shadingEngineId,
+            const COLLADAFW::UniqueId& controllerId = COLLADAFW::UniqueId () );
+
+        virtual ~ShadingBinding ();
+
+        const COLLADAFW::UniqueId& getGeometryId () const { return mGeometryId; }
+        void setGeometryId ( const COLLADAFW::UniqueId& val ) { mGeometryId = val; }
+
+        const COLLADAFW::UniqueId& getTransformId () const { return mTransformId; }
+        void setTransformId ( const COLLADAFW::UniqueId& val ) { mTransformId = val; }
+
+        const COLLADAFW::MaterialId& getShadingEngineId () const { return mShadingEngineId; }
+        void setShadingEngineId ( const COLLADAFW::MaterialId& val ) { mShadingEngineId = val; }
+
+        const COLLADAFW::UniqueId& getControllerId () const { return mControllerId; }
+        void setControllerId ( const COLLADAFW::UniqueId& val ) { mControllerId = val; }
+
+        const size_t& getNumInstances () const { return mNumInstances; }
+        void setNumInstances ( const size_t& val ) { mNumInstances = val; }
+
+        const size_t& getInstanceIndex () const { return mInstanceIndex; }
+        void setInstanceIndex ( const size_t& val ) { mInstanceIndex = val; }
+
+        bool operator<(const ShadingBinding& rhs) const;
+        bool operator==(const ShadingBinding& uid) const;
+    };
+
 
     /**
     * The group binding per primitive element for a geometry, transform node and shading engine. 

@@ -23,6 +23,7 @@
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaEffectImporter.h"
+#include "COLLADAMayaHwShaderExporter.h"
 
 #include "COLLADASWNode.h"
 #include "COLLADASWParamTemplate.h"
@@ -56,7 +57,11 @@ namespace COLLADAMaya
 
         // Should we only export the selected elements?
         bool exportSelectedOnly = mDocumentExporter->getExportSelectedOnly ();
-        if ( !exportSelectedOnly ) 
+
+        // Should we only export the referenced (used) materials?
+        bool exportReferencedOnly = ExportOptions::exportReferencedMaterials ();
+
+        if ( !exportSelectedOnly && !exportReferencedOnly ) 
         {
             // Get all shaders, which are in the default shader list.
             // Unfortunately, you will not get the default initialShadingGroup elements, which are
@@ -94,15 +99,15 @@ namespace COLLADAMaya
             // Get the name of the current material (this is the maya material id)
             String mayaMaterialId = DocumentExporter::mayaNameToColladaName ( shadingEngineFn.name(), true );
 
-            bool isFromReferencedFile = shadingEngineFn.isFromReferencedFile();
-            bool isDefaulNode = shadingEngineFn.isDefaultNode();
-
             bool doExportMaterial = true;
-            if ( isDefaulNode ) 
-            {
-                doExportMaterial = false;
-            }
-            else if ( isFromReferencedFile )
+            bool isFromReferencedFile = shadingEngineFn.isFromReferencedFile();
+//            bool isDefaulNode = shadingEngineFn.isDefaultNode();
+//             if ( isDefaulNode ) 
+//             {
+//                 doExportMaterial = false;
+//             }
+//             else if ( isFromReferencedFile )
+            if ( isFromReferencedFile )
             {
                 if ( ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs() ) doExportMaterial = true;
                 else doExportMaterial = false;
@@ -218,8 +223,8 @@ namespace COLLADAMaya
 
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue;
-        DagHelper::getPlugValue ( shader, EffectImporter::COLLADA_MATERIAL_ID_ATTRIBUTE_NAME, attributeValue );
-        if ( attributeValue != "" )
+        DagHelper::getPlugValue ( shader, COLLADA_MATERIAL_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != EMPTY_CSTRING )
         {
             // Generate a valid collada name, if necessary.
             colladaMaterialId = DocumentExporter::mayaNameToColladaName ( attributeValue, false );
@@ -303,7 +308,7 @@ namespace COLLADAMaya
             {
                 COLLADASW::SetParamFloat setParam ( streamWriter );
                 setParam.openParam ( attributeName );
-                if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[0]!=NULL )  
+                if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[0]!=0 )  
                     setParam.appendValues ( attribute->fNumericDef[0] );
                 setParam.closeParam();
                 break;
@@ -314,7 +319,7 @@ namespace COLLADAMaya
                 setParam.openParam ( attributeName );
                 for ( int i=0; i<attribute->fSize; ++i )
                 {
-                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=NULL )  
+                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=0 )  
                     {
                         double val = attribute->fNumericDef[i];
                         setParam.appendValues( val );
@@ -330,7 +335,7 @@ namespace COLLADAMaya
                 setParam.openParam ( attributeName );
                 for ( int i=0; i<attribute->fSize; ++i )
                 {
-                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=NULL )  
+                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=0 )  
                     {
                         double val = attribute->fNumericDef[i];
                         setParam.appendValues( val );
@@ -346,7 +351,7 @@ namespace COLLADAMaya
                 setParam.openParam ( attributeName );
                 for ( int i=0; i<attribute->fSize; ++i )
                 {
-                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=NULL )  
+                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=0 )  
                     {
                         double val = attribute->fNumericDef[i];
                         setParam.appendValues( val );
@@ -509,64 +514,71 @@ namespace COLLADAMaya
         case cgfxAttrDef::kAttrTypeEnvTexture:
         case cgfxAttrDef::kAttrTypeNormalizationTexture:
             {
-                String imageName = attribute->fStringDef.asChar();
+                CGparameter cgParameter = attribute->fParameterHandle;
+                HwShaderExporter hwShaderExporter ( mDocumentExporter );
+                hwShaderExporter.setShaderFxFileUri ( getShaderFxFileUri () );
+
+                MObject shaderNode = shaderNodeCgfx->thisMObject();
+                hwShaderExporter.exportSampler ( shaderNode, cgParameter, false );
+
 
                 // -------------------------------
-                MObject oNode = shaderNodeCgfx->thisMObject();
-                MFnDependencyNode oNodeFn ( oNode );
-                String oNodeName = oNodeFn.name().asChar(); // cgfxShader1
-
-                MPlug plug;
-                if ( DagHelper::getPlugConnectedTo( oNode, attributeName, plug ) )
-                {
-                    String plugName = plug.name().asChar(); // file1.outColor
-                    MObject textureNode = plug.node();
-
-                    COLLADASW::Surface::SurfaceType surfaceType;
-                    COLLADASW::Sampler::SamplerType samplerType;
-                    COLLADASW::ValueType::ColladaType samplerValueType;
-
-                    switch ( attributeType )
-                    {
-                    case cgfxAttrDef::kAttrTypeColor1DTexture:
-                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_1D;
-                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_1D;
-                        samplerValueType = COLLADASW::ValueType::SAMPLER_1D;
-                        break;
-                    case cgfxAttrDef::kAttrTypeColor2DTexture:
-                    case cgfxAttrDef::kAttrTypeNormalTexture:
-                    case cgfxAttrDef::kAttrTypeBumpTexture:
-                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_2D;
-                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_2D;
-                        samplerValueType = COLLADASW::ValueType::SAMPLER_2D;
-                        break;
-                    case cgfxAttrDef::kAttrTypeColor3DTexture:
-                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_3D;
-                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_3D;
-                        samplerValueType = COLLADASW::ValueType::SAMPLER_3D;
-                        break;
-                    case cgfxAttrDef::kAttrTypeColor2DRectTexture:
-                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_RECT;
-                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_RECT;
-                        samplerValueType = COLLADASW::ValueType::SAMPLER_RECT;
-                        break;
-                    case cgfxAttrDef::kAttrTypeCubeTexture:
-                    case cgfxAttrDef::kAttrTypeEnvTexture:
-                    case cgfxAttrDef::kAttrTypeNormalizationTexture:
-                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_CUBE;
-                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_CUBE;
-                        samplerValueType = COLLADASW::ValueType::SAMPLER_CUBE;
-                        break;
-                    default:
-                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_UNTYPED;
-                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED;
-                        samplerValueType = COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED;
-                    }
-
-                    // Write the params elements
-                    setSetParamTexture( attribute, textureNode, surfaceType, samplerType, samplerValueType );
-
-                }
+//                 String imageName = attribute->fStringDef.asChar();
+// 
+//                 MObject oNode = shaderNodeCgfx->thisMObject();
+//                 MFnDependencyNode oNodeFn ( oNode );
+//                 String oNodeName = oNodeFn.name().asChar(); // cgfxShader1
+// 
+//                 MPlug plug;
+//                 if ( DagHelper::getPlugConnectedTo( oNode, attributeName, plug ) )
+//                 {
+//                     String plugName = plug.name().asChar(); // file1.outColor
+//                     MObject textureNode = plug.node();
+// 
+//                     //COLLADASW::Surface::SurfaceType surfaceType;
+//                     COLLADASW::Sampler::SamplerType samplerType;
+//                     COLLADASW::ValueType::ColladaType samplerValueType;
+// 
+//                     switch ( attributeType )
+//                     {
+//                     case cgfxAttrDef::kAttrTypeColor1DTexture:
+//                         //surfaceType = COLLADASW::Surface::SURFACE_TYPE_1D;
+//                         samplerType = COLLADASW::Sampler::SAMPLER_TYPE_1D;
+//                         samplerValueType = COLLADASW::ValueType::SAMPLER_1D;
+//                         break;
+//                     case cgfxAttrDef::kAttrTypeColor2DTexture:
+//                     case cgfxAttrDef::kAttrTypeNormalTexture:
+//                     case cgfxAttrDef::kAttrTypeBumpTexture:
+//                         //surfaceType = COLLADASW::Surface::SURFACE_TYPE_2D;
+//                         samplerType = COLLADASW::Sampler::SAMPLER_TYPE_2D;
+//                         samplerValueType = COLLADASW::ValueType::SAMPLER_2D;
+//                         break;
+//                     case cgfxAttrDef::kAttrTypeColor3DTexture:
+//                         //surfaceType = COLLADASW::Surface::SURFACE_TYPE_3D;
+//                         samplerType = COLLADASW::Sampler::SAMPLER_TYPE_3D;
+//                         samplerValueType = COLLADASW::ValueType::SAMPLER_3D;
+//                         break;
+//                     case cgfxAttrDef::kAttrTypeColor2DRectTexture:
+//                         //surfaceType = COLLADASW::Surface::SURFACE_TYPE_RECT;
+//                         samplerType = COLLADASW::Sampler::SAMPLER_TYPE_RECT;
+//                         samplerValueType = COLLADASW::ValueType::SAMPLER_RECT;
+//                         break;
+//                     case cgfxAttrDef::kAttrTypeCubeTexture:
+//                     case cgfxAttrDef::kAttrTypeEnvTexture:
+//                     case cgfxAttrDef::kAttrTypeNormalizationTexture:
+//                         //surfaceType = COLLADASW::Surface::SURFACE_TYPE_CUBE;
+//                         samplerType = COLLADASW::Sampler::SAMPLER_TYPE_CUBE;
+//                         samplerValueType = COLLADASW::ValueType::SAMPLER_CUBE;
+//                         break;
+//                     default:
+//                         //surfaceType = COLLADASW::Surface::SURFACE_TYPE_UNTYPED;
+//                         samplerType = COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED;
+//                         samplerValueType = COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED;
+//                     }
+// 
+//                     // Write the params elements
+//                     setSetParamTexture ( attribute, textureNode, samplerType, samplerValueType );
+//                }
             }
         }
     }
@@ -575,7 +587,6 @@ namespace COLLADAMaya
     void MaterialExporter::setSetParamTexture (
         const cgfxAttrDef* attribute, 
         MObject texture, 
-        COLLADASW::Surface::SurfaceType surfaceType, 
         COLLADASW::Sampler::SamplerType samplerType, 
         COLLADASW::ValueType::ColladaType samplerValueType )
     {
@@ -598,18 +609,19 @@ namespace COLLADAMaya
 
         // Take the filename for the unique image name 
         COLLADASW::URI sourceFileUri ( shaderFxFileUri, fileName );
-        sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+        if ( sourceFileUri.getScheme ().empty () )
+            sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
         String mayaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );
 
         // Get the image id of the maya image 
         EffectExporter* effectExporter = mDocumentExporter->getEffectExporter ();
         String colladaImageId = effectExporter->findColladaImageId ( mayaImageId );
-        if ( COLLADABU::Utils::equals ( colladaImageId, COLLADABU::Utils::EMPTY_STRING ) )
+        if ( COLLADABU::Utils::equals ( colladaImageId, EMPTY_STRING ) )
         {
             // Check if there is an extra attribute "colladaId" and use this as export id.
             MString attributeValue;
-            DagHelper::getPlugValue ( texture, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-            if ( attributeValue != "" )
+            DagHelper::getPlugValue ( texture, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+            if ( attributeValue != EMPTY_CSTRING )
             {
                 // Generate a valid collada name, if necessary.
                 colladaImageId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
@@ -626,37 +638,23 @@ namespace COLLADAMaya
         }
 
         // Export the image
-        EffectTextureExporter* textureExporter = 
-            mDocumentExporter->getEffectExporter()->getTextureExporter();
+        EffectTextureExporter* textureExporter = mDocumentExporter->getEffectExporter()->getTextureExporter();
         COLLADASW::Image* colladaImage = textureExporter->exportImage ( mayaImageId, colladaImageId, sourceFileUri );
         mayaImageId = colladaImage->getImageId();
 
-        // Create the surface
-        String surfaceSid = mayaImageId + COLLADASW::Surface::SURFACE_SID_SUFFIX;
-        COLLADASW::Surface surface ( surfaceType, surfaceSid );
-        surface.setFormat ( "A8R8G8B8" );
-
-        // Create the sampler and add the sampler <newparam>
-        COLLADASW::Sampler sampler ( samplerType, surfaceSid );
-        String suffix = COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
+        // Create the sampler and surface sid
         String samplerSid = mayaImageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
-        COLLADASW::SetParamSampler paramSampler ( streamWriter );
-        paramSampler.setParamType( samplerValueType );
-        paramSampler.openParam ( samplerSid );
-        sampler.add ( streamWriter );
-        paramSampler.closeParam ();
+        String surfaceSid = mayaImageId + COLLADASW::Sampler::SURFACE_SID_SUFFIX;
 
-        // Create the surface init option
-        COLLADASW::SurfaceInitOption initOption ( COLLADASW::SurfaceInitOption::INIT_FROM );
-        initOption.setImageReference ( colladaImage->getImageId() );
-        surface.setInitOption ( initOption );
+        // Avoid export of dublicate sampler params
+        if ( mSamplers.find ( samplerSid ) != mSamplers.end () ) return;
+        mSamplers.insert ( samplerSid );
 
-        // Add the surface <newparam>
-        COLLADASW::SetParamSurface paramSurface ( streamWriter );
-        paramSurface.openParam ( surfaceSid );
-        surface.add ( streamWriter );
-        paramSurface.closeParam ();
-
+        // Create the sampler and add the sampler <setparam>
+        COLLADASW::Sampler sampler ( samplerType, samplerSid, surfaceSid );
+        sampler.setFormat ( EffectTextureExporter::FORMAT );
+        sampler.setImageId ( colladaImage->getImageId() );
+        sampler.addInSetParam ( streamWriter );
     }
 
     //---------------------------------------
@@ -688,6 +686,9 @@ namespace COLLADAMaya
 
         // Add the technique hint to the collada document.
         effectInstance.addTechniqueHint ( techniqueName, COLLADASW::CSWC::CSW_PLATFORM_PC_OGL );
+
+        // Clear the samplers setParam list.
+        mSamplers.clear ();
 
         // Get the setParams attributes
         CGeffect cgEffect = shaderNodeCgfx->effect();
@@ -725,8 +726,8 @@ namespace COLLADAMaya
 
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue;
-        DagHelper::getPlugValue ( shader, EffectImporter::COLLADA_EFFECT_ID_ATTRIBUTE_NAME, attributeValue );
-        if ( attributeValue != "" )
+        DagHelper::getPlugValue ( shader, COLLADA_EFFECT_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != EMPTY_CSTRING )
         {
             // Generate a valid collada name, if necessary.
             colladaEffectId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
@@ -742,7 +743,7 @@ namespace COLLADAMaya
 
         // Create the effect instance
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-        COLLADASW::InstanceEffect effectInstance ( streamWriter, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, colladaEffectId ) );
+        COLLADASW::InstanceEffect effectInstance ( streamWriter, COLLADASW::URI ( EMPTY_STRING, colladaEffectId ) );
 
         // Opens the current effect instance. 
         effectInstance.open();
@@ -766,7 +767,7 @@ namespace COLLADAMaya
         {
             return it->second;
         }
-        return COLLADABU::Utils::EMPTY_STRING;
+        return EMPTY_STRING;
     }
 
     // --------------------------------------
@@ -777,7 +778,7 @@ namespace COLLADAMaya
         {
             return it->second;
         }
-        return COLLADABU::Utils::EMPTY_STRING;
+        return EMPTY_STRING;
     }
 
 }

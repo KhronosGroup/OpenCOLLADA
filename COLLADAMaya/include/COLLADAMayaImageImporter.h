@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -36,12 +36,12 @@ namespace COLLADAMaya
         typedef std::map<COLLADAFW::UniqueId, MayaDM::File> UniqueIdMayaImagesMap;
 
 	private:
-	
-        /**
-        * The list of the unique maya image names.
-        */
-        COLLADABU::IDList mImageIdList;
 
+        /** 
+         * A copy of the framework's library image elements. 
+         */
+        std::map<COLLADAFW::UniqueId, COLLADAFW::Image*> mImagesMap;
+	
         /**
          * The map holds the Maya image file objects for the unique image file ids.
          */
@@ -56,17 +56,35 @@ namespace COLLADAMaya
 		virtual ~ImageImporter();
 
         /**
-        * Imports the data of the current light.
+        * Store's the data of the current image.
         */
-        void importImage ( const COLLADAFW::Image* image );
-
-    public:
+        void storeImage ( const COLLADAFW::Image* image );
 
         /**
-         * Returns a pointer to the maya image file with the given image id, 
-         * or NULL, if it is not in the list.
-         */
+        * Imports the data of the used images.
+        */
+        void importImages ();
+
+        /**
+        * Returns a pointer to the maya image file with the given image id, 
+        * or NULL, if it is not in the list.
+        */
         const MayaDM::File* findMayaImageFile ( const COLLADAFW::UniqueId& imageId );
+
+    private:
+
+        /**
+        * Imports the data of the current image and stores the generated maya node into 
+        * the texture info object.
+        */
+        void importImage ( 
+            const COLLADAFW::Image* image, 
+            EffectImporter::TextureInfo& textureInfo );
+
+        /**
+        * Get the framework image element of the given id.
+        */
+        const COLLADAFW::Image* findImage ( const COLLADAFW::UniqueId& imageId );
 
     };
 

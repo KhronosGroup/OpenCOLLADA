@@ -86,13 +86,14 @@ namespace COLLADAMaya
 
         bool exportSceneElement = false;
         SceneElement::Type sceneElementType = sceneElement->getType();
-        if ( sceneElementType == SceneElement::MESH && 
-             sceneElement->getIsExportNode () ) 
+        if ( sceneElementType == SceneElement::MESH ) 
         {
-            // Just export, if the parent element is visible 
-            // or the export of the scene element is forced.
-            if ( isVisible || sceneElement->getIsForced () )
-                exportSceneElement = true;
+            if ( sceneElement->getIsExportNode () ) exportSceneElement = true;
+            else 
+            {
+                if ( sceneElement->getIsForced () ) exportSceneElement = true;
+                else if ( !isVisible && ExportOptions::exportInvisibleNodes () ) exportSceneElement = true;
+            }
         }
 
         if ( exportSceneElement )
@@ -178,6 +179,17 @@ namespace COLLADAMaya
 
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
+        String pathName = dagPath.fullPathName ().asChar ();
+
+        // Generate the unique collada mesh id.
+        const String& colladaMeshId = generateColladaMeshId ( dagPath );
+        if ( COLLADABU::Utils::equals ( colladaMeshId, EMPTY_STRING ) ) return false;
+
+        // Set the node id.
+        sceneElement->setNodeId ( colladaMeshId );
+
+        bool isInstanced = dagPath.isInstanced();
+        uint instanceNumber = dagPath.instanceNumber();
 
         //  Get the node of the current mesh
         MObject meshNode = dagPath.node();
@@ -188,17 +200,36 @@ namespace COLLADAMaya
         MFnMesh fnMesh ( meshNode, &status );
         if ( status != MStatus::kSuccess ) return false;
 
+        // Write the mesh data
+        String meshName = mDocumentExporter->dagPathToColladaName ( dagPath );
+        return exportMesh ( fnMesh, colladaMeshId, meshName );
+    }
+
+    // --------------------------------------------------------
+    const String GeometryExporter::generateColladaMeshId ( const MDagPath dagPath )
+    {
         // Get the maya mesh id.
         String mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPath );
-        String mayaMeshName = mDocumentExporter->dagPathToColladaName ( dagPath );
 
         // Generate a COLLADA id for the new object.
-        String colladaMeshId;
-        
+        String colladaMeshId = findColladaGeometryId ( mayaMeshId );
+
+        // Check, if the unique id for the current geometry is already generated.
+        if ( !COLLADABU::Utils::equals ( colladaMeshId, EMPTY_STRING ) ) return colladaMeshId;
+
+        // Get the node of the current mesh
+        MObject meshNode = dagPath.node();
+
+        // Attach a function set to the mesh node.
+        // We access all of the meshes data through the function set
+        MStatus status;
+        MFnMesh fnMesh ( meshNode, &status );
+        if ( status != MStatus::kSuccess ) return colladaMeshId;
+
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue;
-        DagHelper::getPlugValue ( meshNode, BaseImporter::COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-        if ( attributeValue != "" )
+        DagHelper::getPlugValue ( meshNode, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
+        if ( attributeValue != EMPTY_CSTRING )
         {
             // Generate a valid collada name, if necessary.
             colladaMeshId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
@@ -208,18 +239,12 @@ namespace COLLADAMaya
             // Generate a COLLADA id for the new object
             colladaMeshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
         }
+
         // Make the id unique and store it in a map.
         colladaMeshId = mGeometryIdList.addId ( colladaMeshId );
         mMayaIdColladaIdMap [ mayaMeshId ] = colladaMeshId;
 
-        // Set the node id.
-        sceneElement->setNodeId ( colladaMeshId );
-
-        bool isInstanced = dagPath.isInstanced();
-        uint instanceNumber = dagPath.instanceNumber();
-
-        // Write the mesh data
-        return exportMesh ( fnMesh, colladaMeshId, mayaMeshName );
+        return colladaMeshId;
     }
 
     // --------------------------------------------------------
@@ -236,9 +261,6 @@ namespace COLLADAMaya
         MStringArray uvSetNames;
         getUVSetNames ( fnMesh, uvSetNames );
 
-        // Generate corresponding textureCoordinateIds.
-        std::vector<String> texcoordIds = generateTexCoordIds ( uvSetNames, colladaMeshId );
-
         // Opens the mesh tag in the collada document
         openMesh ( colladaMeshId, mayaMeshName );
 
@@ -249,15 +271,13 @@ namespace COLLADAMaya
         bool hasFaceVertexNormals = exportVertexNormals ( fnMesh, colladaMeshId );
         
         // Export the texture coordinates
-        exportTextureCoords ( fnMesh, colladaMeshId, uvSetNames, texcoordIds );
-        
-        // exportVertexBlindData(fnMesh);
+        exportTextureCoords ( fnMesh, colladaMeshId, uvSetNames );
         
         // The list for the color sets. We have to clean!
-        ColourSetList colorSets;
+        MStringArray colorSetNames;
 
         // Export the color sets
-        exportColorSets ( fnMesh, colladaMeshId, colorSets );
+        exportColorSets ( fnMesh, colladaMeshId, colorSetNames );
         
         // Export the texture tangents and binormals.
         // For texturing std::map channels, export the texture tangents and bi-normals, on request
@@ -271,26 +291,12 @@ namespace COLLADAMaya
 
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
         GeometryPolygonExporter polygonExporter ( streamWriter, mDocumentExporter );
-        polygonExporter.exportPolygonSources ( 
-            fnMesh, colladaMeshId,
-            uvSetNames,
-            colorSets,
-            &mPolygonSources,
-            &mVertexSources,
-            hasFaceVertexNormals );
-
-        // Delete the created color sets
-        ColourSetList::iterator it = colorSets.begin();
-        for ( ; it!=colorSets.end(); ++it )
-        {
-            ColourSet* colourSet = *it;
-            delete colourSet;
-        }
-        colorSets.clear();
+        polygonExporter.exportPolygonSources ( fnMesh, colladaMeshId, uvSetNames, colorSetNames, &mPolygonSources, &mVertexSources, hasFaceVertexNormals );
 
         closeMesh();
 
-        exportExtra ( fnMesh );
+        // Export the original maya name and the double sided value in an extra tag.
+        exportExtraTechniqueParameters ( fnMesh, mayaMeshName );
 
         closeGeometry();
 
@@ -315,7 +321,9 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    void GeometryExporter::exportExtra ( const MFnMesh &fnMesh )
+    void GeometryExporter::exportExtraTechniqueParameters ( 
+        const MFnMesh& fnMesh, 
+        const String& mayaMeshName )
     {
         bool doubleSided = isDoubleSided ( fnMesh );
 
@@ -323,16 +331,15 @@ namespace COLLADAMaya
         extraSource.openExtra();
 
         COLLADASW::Technique techniqueSource ( mSW );
-        techniqueSource.openTechnique ( COLLADASW::CSWC::CSW_PROFILE_MAYA );
-        techniqueSource.addParameter ( DOUBLE_SIDED_PARAMETER, doubleSided );
+        techniqueSource.openTechnique ( PROFILE_MAYA );
+        techniqueSource.addParameter ( PARAMETER_MAYA_ID, mayaMeshName );
+        techniqueSource.addParameter ( PARAMETER_DOUBLE_SIDED, doubleSided );
         techniqueSource.closeTechnique();
 
         extraSource.closeExtra();
     }
 
     // --------------------------------------------------------
-    // Are the faces double-sided?
-    //
     bool GeometryExporter::isDoubleSided ( const MFnMesh &fnMesh )
     {
         MPlug doubleSidedPlug = fnMesh.findPlug ( ATTR_DOUBLE_SIDED );
@@ -453,142 +460,63 @@ namespace COLLADAMaya
         return !perVertexNormals;
     }
 
-    // ----------------------------------------------------
-    std::vector<String> GeometryExporter::generateTexCoordIds ( 
-        const MStringArray& uvSetNames,
-        const String& meshId )
-    {
-        std::vector<String> texcoordIds;
-
-        int texCoordsCount = uvSetNames.length();
-        texcoordIds.resize ( texCoordsCount );
-
-        for ( int i = 0; i < texCoordsCount; i++ )
-        {
-            texcoordIds[i] = meshId + "-" + uvSetNames[i].asChar();
-        }
-
-        return texcoordIds;
-    }
-
-    // ----------------------------------------------------
-    // Export per-vertex blind data
-
-    /*
-    Comment from Feeling-Software:
-
-    Per-Vertex Blind Data
-    The plug-in now supports the import/export of per-vertex blind data. Unfortunately, we are ahead
-    of the COLLADA specifications once again. A new semantic was therefore added, unofficially, to
-    the mesh <vertices><input> node: "EXTRA", which points towards the source of per-vertex blind data.
-    */
-    void GeometryExporter::exportVertexBlindData ( const MFnMesh& fnMesh )
-    {
-        /*
-        uint meshVertexCount = fnMesh.numVertices();
-        MIntArray blindDataTemplateIndices;
-        fnMesh.getBlindDataTypes(MFn::kMeshVertComponent, blindDataTemplateIndices);
-
-        uint blindDataTemplateCount = blindDataTemplateIndices.length();
-        for (uint i = 0; i < blindDataTemplateCount; ++i)
-        {
-         uint blindDataTemplateIndex = blindDataTemplateIndices[i];
-
-         MStringArray longNames, shortNames, typeNames;
-         fnMesh.getBlindDataAttrNames(blindDataTemplateIndex, longNames, shortNames, typeNames);
-
-         uint valueCount = typeNames.length();
-         for (uint j = 0; j < valueCount; ++j)
-         {
-          MString typeName = typeNames[j];
-
-        #define EXPORT_TYPE(typeStr, meshFunction, dataArrayType) \
-        if (typeName == typeStr) \
-          { \
-          FCDGeometrySource* source = colladaMesh->AddSource(FUDaeGeometryInput::EXTRA); \
-          source->SetName(MConvert::ToFChar(longNames[j])); \
-          source->SetStride(1); \
-          FUSStringBuilder sourceId(colladaMesh->GetDaeId()); sourceId.append("-blind"); sourceId.append(blindDataTemplateIndex); sourceId.append("-"); sourceId.append(shortNames[j].asChar()); \
-          source->SetDaeId(colladaMesh->GetDaeId() + "-blind"); \
-          \
-          MIntArray indices; dataArrayType indexedData; \
-          source->SetDataCount(meshVertexCount); \
-          float* data = source->GetData(); \
-          memset(data, 0, meshVertexCount * sizeof(float)); \
-          meshFn.meshFunction(MFn::kMeshVertComponent, blindDataTemplateIndex, longNames[j], indices, indexedData); \
-          uint indexCount = indices.length(); \
-          for (uint k = 0; k < indexCount; ++k) data[indices[k]] = (float) indexedData[k]; \
-          FCDExtra* extra = source->GetExtra(); \
-          FCDETechnique* technique = extra->GetDefaultType()->AddTechnique(DAEMAYA_MAYA_PROFILE); \
-          technique->AddParameter(DAEMAYA_BLINDTYPEID_PARAMETER, blindDataTemplateIndex); \
-          technique->AddParameter(DAEMAYA_LONGNAME_PARAMETER, MConvert::ToFChar(longNames[j])); \
-          technique->AddParameter(DAEMAYA_SHORTNAME_PARAMETER, MConvert::ToFChar(shortNames[j])); \
-          }
-
-          EXPORT_TYPE("int", getIntBlindData, MIntArray)
-        else EXPORT_TYPE("float", getFloatBlindData, MFloatArray)
-          else EXPORT_TYPE("double", getDoubleBlindData, MDoubleArray)
-          else EXPORT_TYPE("boolean", getBoolBlindData, MIntArray)
-
-        #undef EXPORT_TYPE
-         }
-        }
-        */
-    }
-
     // -------------------------------------------------------
     void GeometryExporter::exportColorSets ( 
         const MFnMesh& fnMesh,
         const String& meshId,
-        ColourSetList& colorSets )
+        MStringArray& colorSetNames )
     {
         if ( !ExportOptions::exportVertexColors() ) return;
 
-        // Retrieve all the color set header information
-        MeshHelper::getMeshValidColorSets ( fnMesh.object(), colorSets );
+        //MStringArray colorSetNames;
+        fnMesh.getColorSetNames ( colorSetNames );
+        size_t numColorSets = colorSetNames.length ();
 
         // Process the color sets
-        size_t colorSetCount = colorSets.size();
-        for ( size_t i=0; i<colorSetCount; ++i )
+        for ( unsigned int i=0; i<numColorSets; ++i )
         {
-            ColourSet& colorSet = *colorSets[i];
-            String colorSetName = colorSet.name.asChar();
-
-            if ( colorSet.name.length() == 0 ) continue;
+            const MString mColorSetName = colorSetNames [i];
+            String colorSetName = mColorSetName.asChar ();
+            if ( colorSetName.length() == 0 ) continue;
 
             // Retrieve the color set data
-            std::vector<float> meshColorSet;
-            getMeshColorSet ( fnMesh.object(), meshColorSet, colorSet );
-
-            // If we don't have a mesh color set, we don't need to implement a color source.
-            size_t numMeshColorSets = meshColorSet.size();
-            if ( numMeshColorSets == 0 ) continue;
-
-            // Create the id of the color source
-            String colorSourceId = meshId + "-" + colorSetName;
+            MColorArray colorArray;
+            fnMesh.getColors ( colorArray, &mColorSetName );
+            size_t numColorValues = colorArray.length ();
+            if ( numColorValues == 0 ) continue;
 
             size_t stride = 4;
 
             // Create the source
             COLLADASW::FloatSourceF colorSource ( mSW );
-            colorSource.setId ( colorSourceId );
-            colorSource.setNodeName ( colorSourceId );
-            colorSource.setArrayId ( colorSourceId + ARRAY_ID_SUFFIX );
+            colorSource.setId ( colorSetName );
+            colorSource.setNodeName ( colorSetName );
+            colorSource.setArrayId ( colorSetName + ARRAY_ID_SUFFIX );
             colorSource.setAccessorStride ( ( unsigned long ) stride );
-            colorSource.setAccessorCount ( ( unsigned long ) ( numMeshColorSets / stride ) );
+            colorSource.setAccessorCount ( ( unsigned long ) numColorValues );
             for ( size_t p=0; p<stride; ++p )
                 colorSource.getParameterNameList().push_back ( RGBA_PARAMETERS[p] );
             colorSource.prepareToAppendValues();
 
-            // Push the data from the meshColorSet into the color source of the collada document.
-            colorSource.appendValues ( meshColorSet );
+            // Push the data from the colorSet into the color source of the collada document.
+            for ( unsigned int j=0; j<numColorValues; ++j )
+            {
+                MColor color = colorArray[j];
+                colorSource.appendValues ( color.r, color.g, color.b, color.a );
+            }
+
             colorSource.finish();
             
-            // Don't put the source into the vertex sources, 
-            // put it into the polygon sources.
+            // Don't put the source into the vertex sources, put it into the polygon sources.
             // That's about the other plug-ins, they don't support this.
-            bool exportPerVertex = ExportOptions::exportVertexColorsPerVertex();
-            if ( exportPerVertex && colorSet.isVertexColor )
+            bool perVertexColor = false;
+            if ( ExportOptions::exportVertexColorsPerVertex() )
+            {
+                uint verticesCount = ( uint ) fnMesh.numVertices();
+                perVertexColor = ( numColorValues == verticesCount ); 
+            }
+
+            if ( perVertexColor )
             {
                 // Insert a per-vertex color set input
                 mVertexSources.push_back ( SourceInput ( colorSource, COLLADASW::COLOR ) );
@@ -596,7 +524,7 @@ namespace COLLADAMaya
             else
             {
                 // Insert a per-face-vertex color set input
-                mPolygonSources.push_back ( SourceInput ( colorSource, COLLADASW::COLOR, ( int ) i ) );
+                mPolygonSources.push_back ( SourceInput ( colorSource, COLLADASW::COLOR ) );
             }
         }
     }
@@ -613,7 +541,7 @@ namespace COLLADAMaya
 
         // Always push the vertex positions in the vertices element
         // (we have to create a vertices element with a reference)
-        inputList->push_back ( COLLADASW::Input ( COLLADASW::POSITION, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, meshId + POSITIONS_SOURCE_ID_SUFFIX ) ) );
+        inputList->push_back ( COLLADASW::Input ( COLLADASW::POSITION, COLLADASW::URI ( EMPTY_STRING, meshId + POSITIONS_SOURCE_ID_SUFFIX ) ) );
 
         // Push all other vertex sources into the vertices element
         Sources::iterator it = mVertexSources.begin();
@@ -628,7 +556,7 @@ namespace COLLADAMaya
             const COLLADASW::Semantics& type = sourceInput.getType();
 
             // Push the vertex source to the collada vertices
-            inputList->push_back ( COLLADASW::Input ( type, COLLADASW::URI ( COLLADABU::Utils::EMPTY_STRING, sourceId ) ) );
+            inputList->push_back ( COLLADASW::Input ( type, COLLADASW::URI ( EMPTY_STRING, sourceId ) ) );
         }
 
         vertices.add();
@@ -638,8 +566,7 @@ namespace COLLADAMaya
     void GeometryExporter::exportTextureCoords ( 
         const MFnMesh& fnMesh,
         const String& meshId,
-        const MStringArray& uvSetNames,
-        const std::vector<String>& texcoordIds )
+        const MStringArray& uvSetNames )
     {
         if ( !ExportOptions::exportTexCoords() ) return;
 
@@ -654,16 +581,13 @@ namespace COLLADAMaya
 
             if ( uvCount == 0 || vArray.length() != uvCount ) continue;
 
-            // Get the current id
-            String texCoordinateId = texcoordIds[i];
-
             // Get the stride
             uint stride = 2;
 
             COLLADASW::FloatSource texCoordSource ( mSW );
-            texCoordSource.setId ( texCoordinateId );
-            texCoordSource.setNodeName ( texCoordinateId );
-            texCoordSource.setArrayId ( texCoordinateId + ARRAY_ID_SUFFIX );
+            texCoordSource.setId ( uvSetNameStr );
+            texCoordSource.setNodeName ( uvSetNameStr );
+            texCoordSource.setArrayId ( uvSetNameStr + ARRAY_ID_SUFFIX );
             texCoordSource.setAccessorStride ( stride );
             texCoordSource.setAccessorCount ( uvCount );
 
@@ -704,414 +628,6 @@ namespace COLLADAMaya
         }
     }
 
-    // --------------------------------------------------------
-    void GeometryExporter::getMeshColorSet ( 
-        const MObject &mesh,
-        std::vector<float> &meshColorSet,
-        ColourSet &colorSet )
-    {
-        // Is this a mesh?
-        if ( !mesh.hasFn ( MFn::kMesh ) ) return;
-
-        MFnMesh meshFn ( mesh );
-
-        // r g b a
-        int colorElements = 4;
-
-        colorSet.isVertexColor = false;
-
-#if MAYA_API_VERSION >= 700
-        // Fill out the color set information list
-        uint setPlugElementCount = colorSet.arrayPlug.numElements();
-
-        if ( setPlugElementCount > 0 )
-        {
-            bool opaqueWhiteFound = false;
-
-            //  source->SetValueCount(setPlugElementCount + 1); // +1 to account for the potential white color.
-            //  float* data = source->GetData();
-            meshColorSet.resize ( ( setPlugElementCount + 1 ) *colorElements ); // +1 to account for the potential white color.
-
-            int pos = 0;
-
-            for ( uint j = 0; j < setPlugElementCount; ++j )
-            {
-                MPlug colorPlug = colorSet.arrayPlug.elementByPhysicalIndex ( j );
-
-                MColor c;
-                DagHelper::getPlugValue ( colorPlug, c );
-                //   (*data++) = c.r; (*data++) = c.g; (*data++) = c.b; (*data++) = c.a;
-                meshColorSet[pos] = c.r;
-                ++pos;
-                meshColorSet[pos] = c.g;
-                ++pos;
-                meshColorSet[pos] = c.b;
-                ++pos;
-                meshColorSet[pos] = c.a;
-                ++pos;
-
-                if ( c == MColor ( 1.0f, 1.0f, 1.0f, 1.0f ) )
-                {
-                    colorSet.whiteColorIndex = j;
-                    opaqueWhiteFound = true;
-                }
-
-                // TODO ???!
-                // Add the animation curve, if there's any (not supported according to the API docs)
-                if ( ExportOptions::exportVertexColorAnimations() )
-                {
-                    //     ANIM->AddPlugAnimation(colorPlug.child(0), source->GetSourceData().GetAnimated(4*j+0), kSingle);
-                    //     ANIM->AddPlugAnimation(colorPlug.child(1), source->GetSourceData().GetAnimated(4*j+1), kSingle);
-                    //     ANIM->AddPlugAnimation(colorPlug.child(2), source->GetSourceData().GetAnimated(4*j+2), kSingle);
-                    //     ANIM->AddPlugAnimation(colorPlug.child(3), source->GetSourceData().GetAnimated(4*j+3), kSingle);
-
-                    // TODO
-                    AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-                    //    animationExporter->addPlugAnimation(colorPlug.child(0), kSingle);
-                }
-            }
-
-            if ( !opaqueWhiteFound )
-            {
-                // Push white at the end of the color set.
-                //   (*data++) = 1.0f; (*data++) = 1.0f; (*data++) = 1.0f; (*data++) = 1.0f;
-                meshColorSet[pos] = 1.0f;
-                ++pos;
-                meshColorSet[pos] = 1.0f;
-                ++pos;
-                meshColorSet[pos] = 1.0f;
-                ++pos;
-                meshColorSet[pos] = 1.0f;
-                ++pos;
-                colorSet.whiteColorIndex = setPlugElementCount;
-            }
-
-            //  else source->SetValueCount(setPlugElementCount);
-
-            else meshColorSet.resize ( setPlugElementCount * colorElements );
-        }
-        else
-#endif
-        {
-            // If requested, bake lighting information into per-vertex colors.
-            MFnDependencyNode bakeLightingFn;
-            if ( colorSet.isBlankSet && ExportOptions::bakeLighting() )
-            {
-                MGlobal::executeCommand ( "undoInfo -state on -infinity on", false, true );
-
-                bakeLightingFn.create ( "vertexBakeSet" );
-
-                MObjectArray shaderGroups;
-                MObjectArray compositions;
-                meshFn.getConnectedSetsAndMembers ( 0, shaderGroups, compositions, true );
-
-                MString melCommand ( "convertLightmap -vm -sh -co 1 -bo " );
-                melCommand += bakeLightingFn.name();
-                melCommand += " ";
-
-                uint shaderCount = shaderGroups.length();
-                for ( uint i = 0; i < shaderCount; ++i )
-                {
-                    MFnDependencyNode fn ( shaderGroups[i] );
-                    melCommand += fn.name();
-                    melCommand += " ";
-                    melCommand += meshFn.fullPathName();
-                    melCommand += " ";
-                }
-
-                String commando ( melCommand.asChar () );
-                MGlobal::executeCommand ( melCommand, false, true );
-
-                meshFn.syncObject();
-            }
-
-            if ( ExportOptions::exportVertexColorAnimations() )
-            {
-                // Prepare an array for the vertex colours, in that we use those instead
-                MColorArray vertexColours;
-                uint vertexCount = meshFn.numVertices();
-                vertexColours.setLength ( vertexCount );
-
-                for ( uint i = 0; i < vertexCount; ++i )
-                {
-                    MColor& c = vertexColours[i];
-                    c.r = 1.0f;
-                    c.g = 1.0f;
-                    c.b = 1.0f;
-                    c.a = -1.0f;
-                }
-
-                const int invalidColorIndex = -1;
-
-                // Gather the per-face-vertex information
-                uint polygonCount = meshFn.numPolygons();
-
-                std::vector<MIntArray> polygonVertexIndices;
-                polygonVertexIndices.resize ( polygonCount );
-
-                MIntArray polygonOffsets ( polygonCount );
-                uint faceVertexCount = 0;
-                for ( uint i = 0; i < polygonCount; ++i )
-                {
-                    polygonOffsets[i] = faceVertexCount;
-                    MIntArray& faceVertices = polygonVertexIndices[i];
-                    meshFn.getPolygonVertices ( i, faceVertices );
-                    faceVertexCount += faceVertices.length();
-                }
-
-                // Initialize the output index array
-                colorSet.indices.setLength ( faceVertexCount );
-                for ( uint i = 0; i < faceVertexCount; ++i )
-                {
-                    colorSet.indices[i] = invalidColorIndex;
-                }
-
-                // Grab all the color information from the vertex color node
-                MFnDependencyNode nodeFn ( colorSet.polyColorPerVertexNode );
-                MPlug globalPlug = nodeFn.findPlug ( ATTR_COLOR_PER_VERTEX );
-                globalPlug = DagHelper::getChildPlug ( globalPlug, ATTR_VERTEX_COLOR ); // "vertexColor"
-
-                uint elementCount = globalPlug.numElements();
-                if ( elementCount == 0 )
-                {
-                    colorSet.indices.clear();
-                    return;
-                }
-
-                colorSet.isVertexColor = true; // assume true then get proved wrong..
-
-                size_t maxValueCount = std::max ( ( size_t ) elementCount, ( size_t ) vertexCount ) * 16; // * 16 to give enough space and avoid a resize that would break the export of animations..
-                //   source->SetDataCount(maxValueCount);
-                meshColorSet.resize ( maxValueCount*colorElements );
-
-                size_t valueCount = 0;
-                for ( uint i = 0; i < elementCount; ++i )
-                {
-                    // The logical index may be out-of-order.
-                    MPlug vertexPlug = globalPlug.elementByPhysicalIndex ( i );
-                    int vertexId = vertexPlug.logicalIndex();
-                    if ( vertexId < 0 || vertexId >= ( int ) vertexCount ) continue;
-
-                    MColor& vertexColor = vertexColours[vertexId];
-
-                    // Read the face's per-vertex color values
-                    MPlug perFaceVertexPlug = DagHelper::getChildPlug ( vertexPlug, ATTR_VERTEX_FACE_COLOR ); // "vertexFaceColor"
-
-                    uint childElementCount = perFaceVertexPlug.numElements();
-                    for ( uint j = 0; j < childElementCount; ++j )
-                    {
-                        // Get the information about this polygon
-                        MPlug faceVertexColorPlug = perFaceVertexPlug.elementByPhysicalIndex ( j );
-                        uint polyIndex = faceVertexColorPlug.logicalIndex();
-                        if ( polyIndex >= polygonCount ) continue;
-
-                        MIntArray& faceVertices = polygonVertexIndices[polyIndex];
-                        uint offset = polygonOffsets[polyIndex];
-
-                        // Look for the vertex index in the known mesh face-vertex array
-                        uint vertexOffset = 0;
-                        for ( ; vertexOffset < polygonCount; ++vertexOffset )
-                        {
-                            if ( vertexId == faceVertices[vertexOffset] ) break;
-                        }
-                        if ( vertexOffset == polygonCount ) continue;
-
-                        offset += vertexOffset;
-
-                        // Now that the vertex-face std::pair is identified, get its color
-                        MColor faceVertexColor;
-                        MPlug actualColorPlug = DagHelper::getChildPlug ( faceVertexColorPlug, ATTR_VERTEX_FACE_COLOR_RGB ); // "vertexFaceColorRGB"
-                        MPlug actualAlphaPlug = DagHelper::getChildPlug ( faceVertexColorPlug, ATTR_VERTEX_FACE_ALPHA ); // "vertexFaceAlpha"
-
-                        DagHelper::getPlugValue ( actualColorPlug, faceVertexColor );
-                        DagHelper::getPlugValue ( actualAlphaPlug, faceVertexColor.a );
-
-                        if ( valueCount >= maxValueCount ) break;
-
-                        //     source->SetValue(valueCount, MConvert::ToFMVector4(faceVertexColor));
-                        meshColorSet[valueCount*colorElements] = faceVertexColor.r;
-                        meshColorSet[valueCount*colorElements+1] = faceVertexColor.g;
-                        meshColorSet[valueCount*colorElements+2] = faceVertexColor.b;
-                        meshColorSet[valueCount*colorElements+3] = faceVertexColor.a;
-
-//                         AnimationExporter* animExpo = mDocumentExporter->getAnimationExporter();
-//                         animExpo->addPlugAnimation( actualColorPlug.child(0), ATTR_VERTEX_COLOR, )
-                        // TODO
-                        /*
-                        ANIM->AddPlugAnimation(actualColorPlug.child(0), source->GetSourceData().GetAnimated(4 * valueCount + 0), kSingle);
-                        ANIM->AddPlugAnimation(actualColorPlug.child(1), source->GetSourceData().GetAnimated(4 * valueCount + 1), kSingle);
-                        ANIM->AddPlugAnimation(actualColorPlug.child(2), source->GetSourceData().GetAnimated(4 * valueCount + 2), kSingle);
-                        ANIM->AddPlugAnimation(actualAlphaPlug, source->GetSourceData().GetAnimated(4 * valueCount + 3), kSingle);
-                        */
-                        colorSet.indices[offset] = ( int ) valueCount++;
-
-                        // Check if per-face, per-vertex color is necessary
-                        if ( vertexColor.a == -1.0f ) vertexColor = faceVertexColor;
-                        else colorSet.isVertexColor &= vertexColor == faceVertexColor;
-
-                        colorSet.isVertexColor &= !DagHelper::hasConnection ( actualColorPlug, false, true ) && !DagHelper::hasConnection ( actualAlphaPlug, false, true );
-                    }
-                }
-
-                if ( colorSet.isVertexColor )
-                {
-                    colorSet.indices.clear();
-
-                    // Use per-vertex color instead
-                    const MColor invalid ( MColor::kRGB, 0.0f, 0.0f, 0.0f, 1.0f );
-                    for ( uint i = 0; i < elementCount; ++i )
-                    {
-                        MPlug vertexPlug = globalPlug.elementByPhysicalIndex ( i );
-
-                        if ( vertexPlug.numChildren() > 0 )
-                        {
-                            int vertexId = vertexPlug.logicalIndex();
-                            if ( vertexId >= ( int ) vertexCount ) continue;
-
-                            // Get the color plug, don't use its color (SourceForge #1283335) if it is (0,0,0,1).
-                            // but always check for an animation.
-                            MColor c;
-                            MPlug colorPlug = DagHelper::getChildPlug ( vertexPlug, ATTR_VERTEX_COLOR_RGB ); // "vertexColorRGB"
-                            MPlug alphaPlug = DagHelper::getChildPlug ( vertexPlug, ATTR_VERTEX_ALPHA ); // "vertexAlpha"
-                            DagHelper::getPlugValue ( colorPlug, c );
-                            DagHelper::getPlugValue ( alphaPlug, c.a );
-
-                            if ( c != invalid || vertexColours[vertexId].a == -1.0f )
-                            {
-                                vertexColours[vertexId] = c;
-
-                                // TODO
-                                /*
-                                ANIM->AddPlugAnimation(colorPlug.child(0), source->GetSourceData().GetAnimated(4 * vertexId + 0), kColour);
-                                ANIM->AddPlugAnimation(colorPlug.child(1), source->GetSourceData().GetAnimated(4 * vertexId + 1), kColour);
-                                ANIM->AddPlugAnimation(colorPlug.child(2), source->GetSourceData().GetAnimated(4 * vertexId + 2), kColour);
-                                ANIM->AddPlugAnimation(alphaPlug, source->GetSourceData().GetAnimated(4 * vertexId + 3), kSingle);
-                                */
-                            }
-                        }
-                    }
-
-                    valueCount = vertexCount;
-                    colorSet.whiteColorIndex = 0;
-                    for ( uint cc = 0; cc < valueCount; ++cc )
-                    {
-                        MColor& color = vertexColours[cc];
-                        if ( color.a < 0.0f )
-                        {
-                            color.a = 1.0f; // This is triggered only for missing vertex colors. Use white.
-                            colorSet.whiteColorIndex = cc;
-                        }
-
-                        meshColorSet[cc*colorElements] = color.r;
-                        meshColorSet[cc*colorElements+1] = color.g;
-                        meshColorSet[cc*colorElements+2] = color.b;
-                        meshColorSet[cc*colorElements+3] = color.a;
-                    }
-                }
-
-                else
-                {
-                    // Check all the per-vertex colors for valid ones.
-                    // If we have invalid per-vertex-face colors, we'll assign them a valid per-vertex colors.
-
-                    // Re-index any invalid colors into white
-                    if ( valueCount < maxValueCount )
-                    {
-                        uint indexCount = colorSet.indices.length();
-                        uint whiteColorIndex = ( uint ) valueCount;
-                        bool needsWhiteColor = false;
-
-                        for ( uint i = 0; i < indexCount; ++i )
-                        {
-                            if ( colorSet.indices[i] == invalidColorIndex )
-                            {
-                                colorSet.indices[i] = whiteColorIndex;
-                                needsWhiteColor = true;
-                            }
-                        }
-
-                        if ( needsWhiteColor )
-                        {
-                            //      source->SetValue(whiteColorIndex, FMVector4::One);
-                            meshColorSet[whiteColorIndex*colorElements] = 1;
-                            meshColorSet[whiteColorIndex*colorElements+1] = 1;
-                            meshColorSet[whiteColorIndex*colorElements+2] = 1;
-                            meshColorSet[whiteColorIndex*colorElements+3] = 1;
-
-                            colorSet.whiteColorIndex = whiteColorIndex;
-                            ++valueCount;
-                        }
-                    }
-                }
-
-                //   source->SetValueCount(valueCount);
-                meshColorSet.resize ( valueCount*colorElements );
-            }
-
-            else
-            {
-                MColorArray colours;
-#if MAYA_API_VERSION >= 700
-
-                if ( !colorSet.isBlankSet )
-                {
-                    meshFn.getColors ( colours, &colorSet.name );
-                }
-                else
-#endif
-                {
-                    meshFn.getFaceVertexColors ( colours );
-                }
-
-                if ( colours.length() > 0 )
-                {
-                    //    colorSource->setAccessorStride(4);
-                    //    colorSource->SetValueCount(colours.length() + 1);
-                    meshColorSet.resize ( ( colours.length() +1 ) *colorElements );
-
-                    bool opaqueWhiteFound = false;
-
-                    for ( uint j = 0; j < colours.length(); ++j )
-                    {
-                        //FMVector4 v = MConvert::ToFMVector4(colours[j]);
-                        //if (IsEquivalent(v, FMVector4::One))
-                        if ( colours[j].r == 1 && colours[j].g == 1 && colours[j].b == 1 && colours[j].a == 1 )
-                        {
-                            opaqueWhiteFound = true;
-                            colorSet.whiteColorIndex = j;
-                        }
-
-                        //colorSource->SetValue(j, v);
-                        meshColorSet[j*colorElements] = colours[j].r;
-                        meshColorSet[j*colorElements+1] = colours[j].g;
-                        meshColorSet[j*colorElements+2] = colours[j].b;
-                        meshColorSet[j*colorElements+3] = colours[j].a;
-                    }
-
-                    if ( !opaqueWhiteFound )
-                    {
-                        //colorSource->SetValue(colours.length(), FMVector4::One); // put white at the end.
-                        meshColorSet[colours.length() *colorElements] = 1;
-                        meshColorSet[colours.length() *colorElements+1] = 1;
-                        meshColorSet[colours.length() *colorElements+2] = 1;
-                        meshColorSet[colours.length() *colorElements+3] = 1;
-                        colorSet.whiteColorIndex = colours.length();
-                    }
-
-                    //    else colorSource->SetValueCount(colours.length());
-
-                    else meshColorSet.resize ( colours.length() *colorElements );
-                }
-            }
-
-            if ( colorSet.isBlankSet && ExportOptions::bakeLighting() )
-            {
-                // Delete the bake Lighting temporary per-vertex color node
-                MGlobal::executeCommand ( MString ( "delete " ) + bakeLightingFn.name() );
-            }
-        }
-    }
-
     // --------------------------------------------------
     void GeometryExporter::endExport()
     {
@@ -1140,10 +656,8 @@ namespace COLLADAMaya
 
         uint verticesCount = ( uint ) fnMesh.numVertices();
 
-        // TODO Don't put the source into the vertex sources, 
-        // put it into the polygon sources.
+        // Don't put the source into the vertex sources, put it into the polygon sources.
         // That's about the other plugins, they don't support this.
-
         bool perVertexNormals = false;
         if ( ExportOptions::exportNormalsPerVertex() )
         {
@@ -1177,9 +691,8 @@ namespace COLLADAMaya
             // Retrieve the per-face, per-vertex normals
             fnMesh.getNormals ( normals, MSpace::kObject );
 
-            mPolygonSources.push_back ( SourceInput ( normalSource, COLLADASW::NORMAL ) );
-
             // Erase the normal source from the list of vertex sources, if it is inside
+            mPolygonSources.push_back ( SourceInput ( normalSource, COLLADASW::NORMAL ) );
             SourceInput::eraseSourceBase ( &mVertexSources, &normalSource );
         }
 
@@ -1202,72 +715,85 @@ namespace COLLADAMaya
         const MFnMesh &fnMesh,
         const String& meshId ) 
     {
-        // Texture Tangents
-        MFloatVectorArray texTangents;
-        fnMesh.getTangents ( texTangents );
-
-        // Just export, if the tangents exist.
-        unsigned int texTangentsCount = texTangents.length ();
-        if ( texTangentsCount != 0 )
+        // Get the names of the used uv sets.
+        MStringArray uvSetNames;
+        fnMesh.getUVSetNames ( uvSetNames );
+        unsigned int numUvSets = uvSetNames.length ();
+        
+        // Write the texture tangents
+        for ( unsigned int i=0; i<numUvSets; ++i )
         {
-            COLLADASW::FloatSource texTangentSource ( mSW );
-            String texTangentSourceId = meshId + TEXTANGENT_SOURCE_ID_SUFFIX;
-            texTangentSource.setId ( texTangentSourceId );
-            texTangentSource.setArrayId ( texTangentSourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
-            texTangentSource.setAccessorStride ( 3 );
-            texTangentSource.setAccessorCount( (unsigned long)texTangentsCount );
+            MString uvSetName = uvSetNames [i];
 
-            texTangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
-            texTangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
-            texTangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+            // Texture Tangents
+            MFloatVectorArray texTangents;
+            fnMesh.getTangents ( texTangents, MSpace::kObject, &uvSetName );
 
-            texTangentSource.prepareToAppendValues();
-            for ( unsigned int j=0; j<texTangentsCount; ++j )
+            // Just export, if the tangents exist.
+            unsigned int texTangentsCount = texTangents.length ();
+            if ( texTangentsCount != 0 )
             {
-                MFloatVector& texTangent = texTangents [j];
-                texTangentSource.appendValues ( 
-                    COLLADABU::Math::Utils::equalsZero ( texTangent.x, getTolerance () ) ? 0.0 : texTangent.x, 
-                    COLLADABU::Math::Utils::equalsZero ( texTangent.y, getTolerance () ) ? 0.0 : texTangent.y, 
-                    COLLADABU::Math::Utils::equalsZero ( texTangent.z, getTolerance () ) ? 0.0 : texTangent.z ); 
+                COLLADASW::FloatSource texTangentSource ( mSW );
+                String texTangentSourceId = meshId + TEXTANGENT_SOURCE_ID_SUFFIX;
+                if ( numUvSets > 1 ) texTangentSourceId += COLLADABU::Utils::toString (i+1);
+                texTangentSource.setId ( texTangentSourceId );
+                texTangentSource.setArrayId ( texTangentSourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+                texTangentSource.setAccessorStride ( 3 );
+                texTangentSource.setAccessorCount( (unsigned long)texTangentsCount );
+
+                texTangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
+                texTangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
+                texTangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+
+                texTangentSource.prepareToAppendValues();
+                for ( unsigned int j=0; j<texTangentsCount; ++j )
+                {
+                    MFloatVector& texTangent = texTangents [j];
+                    texTangentSource.appendValues ( 
+                        COLLADABU::Math::Utils::equalsZero ( texTangent.x, getTolerance () ) ? 0.0 : texTangent.x, 
+                        COLLADABU::Math::Utils::equalsZero ( texTangent.y, getTolerance () ) ? 0.0 : texTangent.y, 
+                        COLLADABU::Math::Utils::equalsZero ( texTangent.z, getTolerance () ) ? 0.0 : texTangent.z ); 
+                }
+                texTangentSource.finish();
+
+                // Add input to the mesh polygon's node.
+                mPolygonSources.push_back ( SourceInput ( texTangentSource, COLLADASW::TEXTANGENT, (int) i ) );
             }
-            texTangentSource.finish();
 
-            // Add input to the mesh polygon's node.
-            mPolygonSources.push_back ( SourceInput ( texTangentSource, COLLADASW::TEXTANGENT ) );
-        }
+            // Texture Binormals
+            MFloatVectorArray texBinormals;
+            fnMesh.getBinormals ( texBinormals, MSpace::kObject, &uvSetName );
 
-        // Texture Binormals
-        MFloatVectorArray texBinormals;
-        fnMesh.getBinormals ( texBinormals );
-
-        // Just export, if the tangents exist.
-        unsigned int texBinormalsCount = texTangentsCount;
-        if ( texBinormalsCount != 0 )
-        {
-            COLLADASW::FloatSource texBinormalSource ( mSW );
-            String texBinormalSourceId = meshId + TEXBINORMAL_SOURCE_ID_SUFFIX;
-            texBinormalSource.setId ( texBinormalSourceId );
-            texBinormalSource.setArrayId ( texBinormalSourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
-            texBinormalSource.setAccessorStride ( 3 );
-            texBinormalSource.setAccessorCount( (unsigned long)texBinormalsCount );
-
-            texBinormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
-            texBinormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
-            texBinormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
-
-            texBinormalSource.prepareToAppendValues();
-            for ( unsigned int j=0; j<texBinormalsCount; ++j )
+            // Just export, if the tangents exist.
+            unsigned int texBinormalsCount = texBinormals.length ();
+            if ( texBinormalsCount != 0 )
             {
-                MFloatVector& texBinormal = texBinormals [j];
-                texBinormalSource.appendValues ( 
-                    COLLADABU::Math::Utils::equalsZero ( texBinormal.x, getTolerance () ) ? 0 : texBinormal.x, 
-                    COLLADABU::Math::Utils::equalsZero ( texBinormal.y, getTolerance () ) ? 0 : texBinormal.y, 
-                    COLLADABU::Math::Utils::equalsZero ( texBinormal.z, getTolerance () ) ? 0 : texBinormal.z ); 
-            }
-            texBinormalSource.finish();
+                COLLADASW::FloatSource texBinormalSource ( mSW );
+                String texBinormalSourceId = meshId + TEXBINORMAL_SOURCE_ID_SUFFIX;
+                if ( numUvSets > 1 ) texBinormalSourceId += COLLADABU::Utils::toString (i+1);
+                texBinormalSource.setId ( texBinormalSourceId );
+                texBinormalSource.setArrayId ( texBinormalSourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+                texBinormalSource.setAccessorStride ( 3 );
+                texBinormalSource.setAccessorCount( (unsigned long)texBinormalsCount );
 
-            // Add input to the mesh polygon's node.
-            mPolygonSources.push_back ( SourceInput ( texBinormalSource, COLLADASW::TEXBINORMAL ) );
+                texBinormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
+                texBinormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
+                texBinormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+
+                texBinormalSource.prepareToAppendValues();
+                for ( unsigned int j=0; j<texBinormalsCount; ++j )
+                {
+                    MFloatVector& texBinormal = texBinormals [j];
+                    texBinormalSource.appendValues ( 
+                        COLLADABU::Math::Utils::equalsZero ( texBinormal.x, getTolerance () ) ? 0 : texBinormal.x, 
+                        COLLADABU::Math::Utils::equalsZero ( texBinormal.y, getTolerance () ) ? 0 : texBinormal.y, 
+                        COLLADABU::Math::Utils::equalsZero ( texBinormal.z, getTolerance () ) ? 0 : texBinormal.z ); 
+                }
+                texBinormalSource.finish();
+
+                // Add input to the mesh polygon's node.
+                mPolygonSources.push_back ( SourceInput ( texBinormalSource, COLLADASW::TEXBINORMAL, (int) i ) );
+            }
         }
     }
 
@@ -1444,14 +970,14 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------
-    const String GeometryExporter::findColladaGeometryId ( const String& mayaMeshId )
+    const String& GeometryExporter::findColladaGeometryId ( const String& mayaMeshId )
     {
         const StringToStringMap::const_iterator it = mMayaIdColladaIdMap.find ( mayaMeshId );
         if ( it != mMayaIdColladaIdMap.end () )
         {
             return it->second;
         }
-        return COLLADABU::Utils::EMPTY_STRING;
+        return EMPTY_STRING;
     }
 
     // ------------------------------------
@@ -1516,6 +1042,47 @@ namespace COLLADAMaya
         ControllerExporter::resetMeshParameters ( meshStack );
         // Delete the controller stack items and clear the stack.
         ControllerExporter::deleteControllerStackItems ( stack );
+    }
+
+
+    // ------------------------------------
+    const String& GeometryExporter::getColladaGeometryId ( MDagPath dagPath )
+    {
+        // Get the node of the current mesh
+        MObject meshNode = dagPath.node();
+        if ( !meshNode.hasFn ( MFn::kMesh ) ) 
+        {
+            MGlobal::displayError ( "No mesh object!" );
+            return EMPTY_STRING;
+        }
+
+        // Attach a function set to the mesh node.
+        // We access all of the meshes data through the function set
+        MStatus status;
+        MFnMesh fnMesh ( meshNode, &status );
+        if ( status != MStatus::kSuccess ) 
+        {
+            MGlobal::displayError ( "No mesh object!" );
+            return EMPTY_STRING;
+        }
+
+        // Get the maya mesh id.
+        String mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPath );
+
+        // Check for instances.
+        bool isInstanced = fnMesh.isInstanced ( true );
+        if ( isInstanced )
+        {
+            // Take the first instance.
+            MDagPathArray dagPathes;
+            fnMesh.getAllPaths ( dagPathes );
+            mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPathes[0] );
+        }
+
+        // Get the geometry collada id.
+        const String& colladaMeshId = findColladaGeometryId ( mayaMeshId );
+
+        return colladaMeshId;
     }
 
 }

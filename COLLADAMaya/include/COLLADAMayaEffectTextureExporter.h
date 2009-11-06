@@ -37,7 +37,6 @@ namespace COLLADAMaya
 {
 
     typedef std::map<String, COLLADASW::Image*> ImageMap;
-    typedef std::map<String, String> StringToStringMap;
 
 
     /**
@@ -46,10 +45,12 @@ namespace COLLADAMaya
     class EffectTextureExporter
     {
 
-    private:
+    public:
 
         /** The standard format for materials. */
         static const String FORMAT;
+
+    private:
 
         /** A multi-texture blend mode. */
         enum Mode
@@ -79,10 +80,14 @@ namespace COLLADAMaya
         */
         COLLADABU::IDList mImageIdList;
 
-        /** Pointer to the document exporter */
+        /** 
+         * Pointer to the document exporter 
+         */
         DocumentExporter* mDocumentExporter;
 
-        /** maps already exported image file names to the corresponding image id */
+        /** 
+         * Maps already exported image file names to the corresponding image id 
+         */
         ImageMap mExportedImageMap;
 
         /**
@@ -158,7 +163,7 @@ namespace COLLADAMaya
         /** Checks if the source file exist and is valid. If not, the method 
         returns false. Fills the full file URI of the texture in dependency
         of the current export options. */
-        bool getTextureFileInfos( 
+        bool getTextureFileInfos ( 
             const COLLADASW::URI &sourceUri, 
             COLLADASW::URI &fullFileNameURI );
 

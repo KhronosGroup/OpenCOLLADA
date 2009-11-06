@@ -15,9 +15,9 @@ version. Following environment variables to your Maya location are supported:
 You have to copy following files:
 - The COLLADAMaya.so file to your personal Maya plug-in directory. 
 	($YOUR_MAYA_PATH)/plug-ins 
-- The colladaNextGenExporterOpts.mel file to your Maya scripts directory. 
+- The openColladaExporterOpts.mel file to your Maya scripts directory. 
 	($YOUR_MAYA_PATH)/scripts 
-- the colladaNextGenImporterOpts.mel file to your Maya scripts directory. 
+- the openColladaImporterOpts.mel file to your Maya scripts directory. 
 	($YOUR_MAYA_PATH)/scripts 
 
 You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 

@@ -21,6 +21,7 @@
 #include "COLLADAMayaMaterialImporter.h"
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaControllerImporter.h"
+#include "COLLADAMayaNodeImporter.h"
 
 #include "MayaDMJoint.h"
 #include "MayaDMDependNode.h"
@@ -73,82 +74,92 @@ namespace COLLADAMaya
     void VisualSceneImporter::importVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
         // Iterate over the root nodes of the current visual scene.
-        const COLLADAFW::NodeArray& rootNodes = visualScene->getRootNodes ();
+        const COLLADAFW::NodePointerArray& rootNodes = visualScene->getRootNodes ();
+
+        // Iterate over the root nodes.
         size_t count = rootNodes.getCount ();
         for ( size_t i=0; i<count; ++i )
         {
+            // Get the root node.
             COLLADAFW::Node* rootNode = rootNodes [i];
-            importNode ( rootNode );
+
+            // Import the root node and all child nodes.
+            importNode ( rootNode, 0, &mDummyRootMayaNode );
         }
+
+        // Import the node instances, when all nodes of the visual scene 
+        // and the library nodes are already imported.
+        writeNodeInstances ();
     }
 
-    // -----------------------------------
-    void VisualSceneImporter::importLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
-    {
-        // A library node is always instanciated from the visual scene.
-        // So we can't create the nodes on root.
-        const COLLADAFW::NodePointerArray& nodes = libraryNodes->getNodes ();
-        size_t numNodes = nodes.getCount ();
-        for ( size_t i=0; i<numNodes; ++i )
-        {
-            COLLADAFW::Node* node = nodes [i];
-            importNode ( node, 0, 0, false );
-        }
-    }
+//     // -----------------------------------
+//     void VisualSceneImporter::importLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
+//     {
+//         // A library node is always instanciated from the visual scene.
+//         // So we can't create the nodes on root.
+//         const COLLADAFW::NodePointerArray& nodes = libraryNodes->getNodes ();
+//         size_t numNodes = nodes.getCount ();
+//         for ( size_t i=0; i<numNodes; ++i )
+//         {
+//             COLLADAFW::Node* node = nodes [i];
+//             importNode ( node, 0, 0, false );
+//         }
+//     }
 
     // -----------------------------------
-    void VisualSceneImporter::importNode ( 
-        COLLADAFW::Node* node, 
-        COLLADAFW::Node* parentNode /*= NULL*/, 
-        MayaNode* parentMayaNode /*= NULL*/, 
-        const bool createNode /*= true*/ )
+    MayaNode* VisualSceneImporter::importNode ( 
+        const COLLADAFW::Node* node, 
+        const COLLADAFW::Node* parentNode /*= NULL*/, 
+        MayaNode* parentMayaNode /*= NULL*/ )
     {
         // Check if the current node is already imported.
-        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
-        if ( findMayaTransformNode ( transformNodeId ) != 0 ) return;
+        const COLLADAFW::UniqueId& nodeId = node->getUniqueId ();
+        if ( findMayaTransformNodes ( nodeId ) != 0 ) return 0;
 
-        // Get the unique node name
+        // Make the maya name unique and manage it in all necessary lists.
         String nodeName = node->getName ();
-        if ( COLLADABU::Utils::equals ( nodeName, "" ) )
-            nodeName = TRANSFORM_NODE_NAME;
+        if ( COLLADABU::Utils::equals ( nodeName, EMPTY_STRING ) ) nodeName = TRANSFORM_NODE_NAME;
         nodeName = DocumentImporter::frameworkNameToMayaName ( nodeName );
-        nodeName = mTransformNodeIdList.addId ( nodeName );
+        String originalMayaId = getOriginalMayaId ( node->getExtraDataArray () );
+        if ( !COLLADABU::Utils::equals ( originalMayaId, EMPTY_STRING ) ) nodeName = originalMayaId;
+        nodeName = generateUniqueDagNodeName ( nodeName, parentMayaNode );
 
         // Check for a parent node name
-        String parentNodeName = ""; 
-        if ( parentMayaNode != 0 )
-            parentNodeName = parentMayaNode->getName ();
+        String parentNodePath = EMPTY_STRING; 
+        if ( parentMayaNode != 0 ) parentNodePath = parentMayaNode->getNodePath ();
 
         // Create a maya node object of the current node and push it into the map.
         COLLADAFW::Node::NodeType nodeType = node->getType ();
-        MayaNode* mayaNode = new MayaNode ( transformNodeId, nodeName, parentMayaNode, nodeType, createNode );
-        mMayaTransformNodesMap [ transformNodeId ].push_back ( mayaNode );
+        MayaNode* mayaNode = new MayaNode ( nodeId, nodeName, parentMayaNode, nodeType );
+        mMayaTransformNodesMap [ nodeId ].push_back ( mayaNode );
 
         // Create the node object (joint or node)
-        MayaDM::Transform* transformNode = createMayaDMNode ( node, nodeName, parentNodeName );
+        MayaDM::Transform* transformNode = createMayaDMNode ( node, nodeName, parentNodePath );
 
         // Get the current maya ascii file to write the data.
         FILE* file = getDocumentImporter ()->getFile ();
 
         // Add the original id attribute.
         String colladaId = node->getOriginalId ();
-        if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+        if ( !COLLADABU::Utils::equals ( colladaId, EMPTY_STRING ) )
         {
-            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
+            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
         }
 
         // Import the transformations.
         importTransformations ( node, transformNode, parentNode );
 
         // We need the maya transform node for connect it with the animations.
-        mMayaDMTransformMap [ transformNodeId ] = *transformNode;
+        mMayaDMTransformMap [ nodeId ] = *transformNode;
 
         // Destroy the node object.
         delete transformNode;
         
+        // Import node instances
+        importNodeInstances ( node, mayaNode );
+
         // Import the instances.
-        readNodeInstances ( node );
         readGeometryInstances ( node );
         readCameraInstances ( node );
         readLightInstances ( node );
@@ -160,15 +171,39 @@ namespace COLLADAMaya
         for ( size_t i=0; i<numChildNodes; ++i )
         {
             COLLADAFW::Node* childNode = childNodes [i];
-            importNode ( childNode, node, mayaNode, createNode );
+            importNode ( childNode, node, mayaNode );
         }
+
+        return mayaNode;
     }
+
+//     // -----------------------------------
+//     const String VisualSceneImporter::makeUniqueTransformMaterialName ( String transformName )
+//     {
+//         String dummyMaterialName = getDocumentImporter ()->getMaterialImporter ()->addMaterialId ( transformName );
+//         if ( !COLLADABU::Utils::equalsIgnoreCase ( dummyMaterialName, transformName ) )
+//         {
+//             transformName = dummyMaterialName;
+// 
+//             String dummyTransformName = mTransformIdList.addId ( transformName );
+//             if ( !COLLADABU::Utils::equalsIgnoreCase ( dummyTransformName, transformName ) )
+//             {
+//                 transformName = dummyTransformName;
+// 
+//                 // Recursive call
+//                 makeUniqueTransformMaterialName ( transformName );
+//             }
+//             else return transformName;
+//         }
+//         
+//         return transformName;
+//     }
 
     // -----------------------------------
     bool VisualSceneImporter::importTransformations ( 
         const COLLADAFW::Node* node, 
         MayaDM::Transform* transformNode, 
-        COLLADAFW::Node* parentNode /*= NULL*/ )
+        const COLLADAFW::Node* parentNode /*= NULL*/ )
     {
         // This is the order of the transforms:
         //
@@ -196,7 +231,7 @@ namespace COLLADAMaya
         // T* R* T* S* T*, if the order differs from, we have to transform with a matrix (but 
         // with matrix transformation is no animation possible).
 
-        MayaTransformation mayaTransform;
+        MayaTransform mayaTransform;
         std::vector<TransformAnimation> transformAnimations;
 
         bool hasRotatePivot = false;
@@ -204,15 +239,9 @@ namespace COLLADAMaya
         bool isLookatTransform = false;
         bool validMayaTransform = false;
 
-        // Check if we handle a joint node.
-        bool isJoint = ( node->getType () == COLLADAFW::Node::JOINT );
-        //if ( !isJoint )
-        {
-            validMayaTransform = 
-                readMayaTransformations ( node, mayaTransform, transformNode, transformAnimations, 
-                                            hasRotatePivot, hasScalePivot, isLookatTransform );
-        }
-
+        validMayaTransform = 
+            readMayaTransformations ( node, mayaTransform, transformNode, transformAnimations, 
+                                        hasRotatePivot, hasScalePivot, isLookatTransform );
         if ( !isLookatTransform )
         {
             if ( validMayaTransform )
@@ -248,17 +277,9 @@ namespace COLLADAMaya
     void VisualSceneImporter::importMatrixJointTransform ( 
         const COLLADAFW::Node* node, 
         MayaDM::Transform* transformNode,
-        COLLADAFW::Node* parentNode /*= NULL*/ )
+        const COLLADAFW::Node* parentNode /*= NULL*/ )
     {
         importMatrixNodeTransform ( node, transformNode );
-
-        // Set the parent scale inverse.
-        if ( parentNode != NULL )
-        {
-            COLLADABU::Math::Vector3 parentScale = parentNode->getTransformationMatrix ().getScale ();
-            MayaDM::double3 values ( -1 * parentScale.x, -1 * parentScale.y, -1 * parentScale.z );
-            ((MayaDM::Joint*)transformNode)->setInverseScale ( values );
-        }
     }
 
     // -----------------------------------
@@ -334,9 +355,10 @@ namespace COLLADAMaya
             }
         default:
             std::cerr << "Not a valid node type!" << std::endl;
-            MGlobal::displayError ("Not a valid node type!" );
-            assert ( "Not a valid node type!" );
         }
+
+        // Now set the node path in front of the name.
+        transformNode->setName ( parentNodeName + "|" + nodeName );
 
         return transformNode;
     }
@@ -344,7 +366,7 @@ namespace COLLADAMaya
     // -----------------------------------
     bool VisualSceneImporter::readMayaTransformations ( 
         const COLLADAFW::Node* node, 
-        MayaTransformation& mayaTransform, 
+        MayaTransform& mayaTransform, 
         MayaDM::Transform* transformNode, 
         std::vector<TransformAnimation>& transformAnimations,
         bool& hasRotatePivot,
@@ -352,6 +374,13 @@ namespace COLLADAMaya
         bool& isLookatTransform )
     {
         bool validMayaTransform = true;
+
+        const COLLADAFW::UniqueId& transformId = node->getUniqueId ();
+
+        // Not every animation can be imported. So if we have more then one translation in the 
+        // current node, we can't import the animation. 
+        size_t numTranslations = 0;
+        TransformAnimation translateAnim;
 
         const COLLADAFW::TransformationArray& transforms = node->getTransformations ();
         size_t numTransforms = transforms.getCount ();
@@ -362,22 +391,12 @@ namespace COLLADAMaya
             COLLADAFW::Transformation::TransformationType transformType; 
             transformType = transformation->getTransformationType ();
 
-            // Get the id of animation list of the current transformation and store 
-            // the transform node id, the mayaTransform node and the transformation type.
-            const COLLADAFW::UniqueId& animationListId = transformation->getAnimationList ();
-            if ( animationListId.isValid () )
-            {
-                // Create a TransformAnimation objekt and push it in the list.
-                TransformAnimation transformAnim;
-                transformAnim.setAnimationListId ( animationListId );
-                const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
-                transformAnim.setTransformNodeId ( transformNodeId );
-                transformAnim.setTransformation ( transformation );
-                transformAnimations.push_back ( transformAnim );
-            }
-
             // Check if we handle a joint node.
             bool isJoint = ( node->getType () == COLLADAFW::Node::JOINT );
+
+            // Not every animation can be imported. So if we have more then one translation in the 
+            // current node, we can't import the animation. 
+            bool storeAnimationDirectly = true;
 
             // Set the transformation information in depend of the transform type.
             switch ( transformType )
@@ -410,10 +429,10 @@ namespace COLLADAMaya
                 }
                 break;
             case COLLADAFW::Transformation::SCALE:
-                if ( mayaTransform.phase <= MayaTransformation::PHASE_SCALE )
+                if ( mayaTransform.phase <= MayaTransform::PHASE_SCALE )
                 {
                     // Set the actual phase to a scale phase.
-                    mayaTransform.phase = MayaTransformation::PHASE_SCALE;
+                    mayaTransform.phase = MayaTransform::PHASE_SCALE;
 
                     COLLADAFW::Scale* scale = ( COLLADAFW::Scale* )transformation;
                     COLLADABU::Math::Vector3& scaleVec = scale->getScale ();
@@ -439,33 +458,59 @@ namespace COLLADAMaya
 
                     for ( unsigned int k=0; k<3; ++k )
                         mayaTransform.skew [k] = shear [k];
-                    break;
                 }
+                break;
             case COLLADAFW::Transformation::TRANSLATE:
                 {
+                    storeAnimationDirectly = false;
+                    ++numTranslations;
+
+                    // Create the animation of the translation.
+                    const COLLADAFW::UniqueId& animationListId = transformation->getAnimationList ();
+                    if ( animationListId.isValid () )
+                    {
+                        translateAnim.setAnimationListId ( animationListId );
+                        translateAnim.setAnimationSourceId ( transformId );
+                        translateAnim.setTransformation ( transformation );
+                        translateAnim.setTransformPhase ( mayaTransform.phase );
+                        translateAnim.setIsJointTransform ( isJoint );
+                    }
+
                     handleTranslateValues ( mayaTransform, transformation );
                 }
                 break;
             default:
                 std::cerr << "Unknown transformation type!" << endl;
-                MGlobal::displayError ( "Unknown transformation type!" );
-                assert ( "Unknown transformation type!" );
+                continue;
                 break;
             }
+
+            // Store the animation of the current transformation.
+            if ( storeAnimationDirectly )
+                createTransformAnimation ( transformId, transformation, mayaTransform.phase, isJoint, transformAnimations );
+        }
+
+        // Just if we have only one translation, we can import the animation of it.
+        if ( translateAnim.getAnimationListId ().isValid () )
+        {
+            if ( numTranslations > 1 )
+            {
+                std::cerr << "Can't import animation of translation, about multiple translates under node " << node->getName () << endl;
+            }
+            else 
+                transformAnimations.push_back ( translateAnim );
         }
 
         // Check the pivot values.
         if ( validMayaTransform )
-        {
             validMayaTransform = checkPivotValues ( mayaTransform, hasScalePivot, hasRotatePivot );
-        }
 
         return validMayaTransform;
     }
 
     // -----------------------------------
     bool VisualSceneImporter::handleJointRotateValues ( 
-        MayaTransformation &mayaTransform, 
+        MayaTransform &mayaTransform, 
         const COLLADAFW::Transformation* transformation )
     {
         bool validMayaTransform = true; 
@@ -480,16 +525,26 @@ namespace COLLADAMaya
             return validMayaTransform;
         }
 
+        // If the rotation is not aroung one axis, 
+        // we have to iterpret the data with the transformation matrix.
+        if ( axis != COLLADABU::Math::Vector3::UNIT_X && 
+             axis != COLLADABU::Math::Vector3::UNIT_Y && 
+             axis != COLLADABU::Math::Vector3::UNIT_Z )
+        {
+            validMayaTransform = false;
+            return validMayaTransform;
+        }
+
         // Rotation is maya conform, if there is not more than one rotation per axis
         // (except the axis rotations are direct successive).
 
         // On the first rotation set the actual phase to the joint orient phase 1.
-        if ( mayaTransform.phase < MayaTransformation::PHASE_JOINT_ORIENT1 )
+        if ( mayaTransform.phase < MayaTransform::PHASE_JOINT_ORIENT1 )
         {
-            mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT1;
+            mayaTransform.phase = MayaTransform::PHASE_JOINT_ORIENT1;
             mayaTransform.axisPhaseJointOrient1 = axis;
         }
-        else if ( mayaTransform.phase > MayaTransformation::PHASE_ROTATE_ORIENT3 )
+        else if ( mayaTransform.phase > MayaTransform::PHASE_ROTATE_ORIENT3 )
         {
             validMayaTransform = false;
             return validMayaTransform;
@@ -499,102 +554,92 @@ namespace COLLADAMaya
         // Check if the axis has changed.
         switch ( mayaTransform.phase )
         {
-        case MayaTransformation::PHASE_JOINT_ORIENT1:
+        case MayaTransform::PHASE_JOINT_ORIENT1:
             {
                 // Change the phase set the axis if necessary.
                 if ( mayaTransform.axisPhaseJointOrient1 != axis )
                 {
-                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT2;
+                    mayaTransform.phase = MayaTransform::PHASE_JOINT_ORIENT2;
                     mayaTransform.axisPhaseJointOrient2 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_JOINT_ORIENT2:
+        case MayaTransform::PHASE_JOINT_ORIENT2:
             {
                 // Check, if the axis is not already used.
                 if ( axis == mayaTransform.axisPhaseJointOrient1 )
                 {
                     // Set the phase to the next orientation.
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
+                    mayaTransform.phase = MayaTransform::PHASE_ROTATE1;
                     mayaTransform.axisPhaseRotate1 = axis;
                 }
                 else if ( mayaTransform.axisPhaseJointOrient2 != axis )
                 {
                     // Change the phase and set the axis if necessary.
-                    mayaTransform.phase = MayaTransformation::PHASE_JOINT_ORIENT3;
+                    mayaTransform.phase = MayaTransform::PHASE_JOINT_ORIENT3;
                     mayaTransform.axisPhaseJointOrient3 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_JOINT_ORIENT3:
+        case MayaTransform::PHASE_JOINT_ORIENT3:
             {
-                // Check, if the axis is not already used.
-                if ( axis == mayaTransform.axisPhaseJointOrient1 || 
-                    axis == mayaTransform.axisPhaseJointOrient2 )
-                {
-                    // Set the phase to the next orientation.
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
-                    mayaTransform.axisPhaseRotate1 = axis;
-                }
+                // Set the phase to the next orientation.
+                mayaTransform.phase = MayaTransform::PHASE_ROTATE1;
+                mayaTransform.axisPhaseRotate1 = axis;
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE1:
+        case MayaTransform::PHASE_ROTATE1:
             {
                 // Change the phase set the axis if necessary.
                 if ( mayaTransform.axisPhaseRotate1 != axis )
                 {
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE2;
+                    mayaTransform.phase = MayaTransform::PHASE_ROTATE2;
                     mayaTransform.axisPhaseRotate2 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE2:
+        case MayaTransform::PHASE_ROTATE2:
             {
                 // Check, if the axis is not already used.
                 if ( axis == mayaTransform.axisPhaseRotate1 )
                 {
                     // Set the phase to the next orientation.
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT1;
+                    mayaTransform.phase = MayaTransform::PHASE_ROTATE_ORIENT1;
                     mayaTransform.axisPhaseRotateOrient1 = axis;
                 }
                 else if ( mayaTransform.axisPhaseRotate2 != axis )
                 {
                     // Change the phase and set the axis if necessary.
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE3;
+                    mayaTransform.phase = MayaTransform::PHASE_ROTATE3;
                     mayaTransform.axisPhaseRotate3 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE3:
+        case MayaTransform::PHASE_ROTATE3:
             {
-                // Check, if the axis is not already used.
-                if ( axis == mayaTransform.axisPhaseRotate1 || 
-                    axis == mayaTransform.axisPhaseRotate2 )
-                {
-                    // Set the phase to the next orientation.
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT1;
-                    mayaTransform.axisPhaseRotateOrient1 = axis;
-                }
+                // Set the phase to the next orientation.
+                mayaTransform.phase = MayaTransform::PHASE_ROTATE_ORIENT1;
+                mayaTransform.axisPhaseRotateOrient1 = axis;
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE_ORIENT1:
+        case MayaTransform::PHASE_ROTATE_ORIENT1:
             {
                 // Change the phase set the axis if necessary.
                 if ( mayaTransform.axisPhaseRotateOrient1 != axis )
                 {
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT2;
+                    mayaTransform.phase = MayaTransform::PHASE_ROTATE_ORIENT2;
                     mayaTransform.axisPhaseRotateOrient2 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE_ORIENT2:
+        case MayaTransform::PHASE_ROTATE_ORIENT2:
             {
                 // Check, if the axis is not already used.
                 if ( axis == mayaTransform.axisPhaseRotate1 )
@@ -605,31 +650,26 @@ namespace COLLADAMaya
                 else if ( mayaTransform.axisPhaseRotate2 != axis )
                 {
                     // Change the phase and set the axis if necessary.
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE_ORIENT3;
+                    mayaTransform.phase = MayaTransform::PHASE_ROTATE_ORIENT3;
                     mayaTransform.axisPhaseRotateOrient3 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE_ORIENT3:
+        case MayaTransform::PHASE_ROTATE_ORIENT3:
             {
-                // Check, if the axis is not already used.
-                if ( axis == mayaTransform.axisPhaseRotate1 || 
-                    axis == mayaTransform.axisPhaseRotate2 )
-                {
-                    validMayaTransform = false;
-                    return validMayaTransform;
-                }
+                validMayaTransform = false;
+                return validMayaTransform;
             }
             break;
 
         default:
-            MGlobal::displayError ( "No valid transformation phase!" );
+            std::cerr << "No valid transformation phase!" << endl;
             break;
         }
 
         // Add the rotation angle.
-        if ( mayaTransform.phase <= MayaTransformation::PHASE_JOINT_ORIENT3 )
+        if ( mayaTransform.phase <= MayaTransform::PHASE_JOINT_ORIENT3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {
@@ -650,7 +690,7 @@ namespace COLLADAMaya
                 mayaTransform.jointOrient.setValue ( rotationVec );
             }
         }
-        else if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE3 )
+        else if ( mayaTransform.phase <= MayaTransform::PHASE_ROTATE3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {
@@ -671,7 +711,7 @@ namespace COLLADAMaya
                 mayaTransform.rotation.setValue ( rotationVec );
             }
         }
-        else if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE_ORIENT3 )
+        else if ( mayaTransform.phase <= MayaTransform::PHASE_ROTATE_ORIENT3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {
@@ -698,7 +738,7 @@ namespace COLLADAMaya
 
     // -----------------------------------
     bool VisualSceneImporter::handleTransformRotateValues ( 
-        MayaTransformation &mayaTransform, 
+        MayaTransform &mayaTransform, 
         const COLLADAFW::Transformation* transformation )
     {
         bool validMayaTransform = true; 
@@ -713,16 +753,26 @@ namespace COLLADAMaya
             return validMayaTransform;
         }
 
+        // If the rotation is not aroung one axis, 
+        // we have to iterpret the data with the transformation matrix.
+        if ( axis != COLLADABU::Math::Vector3::UNIT_X && 
+             axis != COLLADABU::Math::Vector3::UNIT_Y && 
+             axis != COLLADABU::Math::Vector3::UNIT_Z )
+        {
+            validMayaTransform = false;
+            return validMayaTransform;
+        }
+
         // Rotation is maya conform, if there is not more than one rotation per axis
         // (except the axis rotations are direct successive).
 
         // On the first rotation set the actual phase to the rotate phase 1.
-        if ( mayaTransform.phase < MayaTransformation::PHASE_ROTATE1 )
+        if ( mayaTransform.phase < MayaTransform::PHASE_ROTATE1 )
         {
-            mayaTransform.phase = MayaTransformation::PHASE_ROTATE1;
+            mayaTransform.phase = MayaTransform::PHASE_ROTATE1;
             mayaTransform.axisPhaseRotate1 = axis;
         }
-        else if ( mayaTransform.phase > MayaTransformation::PHASE_ROTATE3 )
+        else if ( mayaTransform.phase > MayaTransform::PHASE_ROTATE3 )
         {
             validMayaTransform = false;
             return validMayaTransform;
@@ -731,18 +781,18 @@ namespace COLLADAMaya
         // Check if the axis has changed.
         switch ( mayaTransform.phase )
         {
-        case MayaTransformation::PHASE_ROTATE1:
+        case MayaTransform::PHASE_ROTATE1:
             {
                 // Change the phase set the axis if necessary.
                 if ( mayaTransform.axisPhaseRotate1 != axis )
                 {
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE2;
+                    mayaTransform.phase = MayaTransform::PHASE_ROTATE2;
                     mayaTransform.axisPhaseRotate2 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE2:
+        case MayaTransform::PHASE_ROTATE2:
             {
                 // Check, if the axis is not already used.
                 if ( axis == mayaTransform.axisPhaseRotate1 )
@@ -754,13 +804,13 @@ namespace COLLADAMaya
                 // Change the phase and set the axis if necessary.
                 if ( mayaTransform.axisPhaseRotate2 != axis )
                 {
-                    mayaTransform.phase = MayaTransformation::PHASE_ROTATE3;
+                    mayaTransform.phase = MayaTransform::PHASE_ROTATE3;
                     mayaTransform.axisPhaseRotate3 = axis;
                 }
             }
             break;
 
-        case MayaTransformation::PHASE_ROTATE3:
+        case MayaTransform::PHASE_ROTATE3:
             {
                 // Check, if the axis is not already used.
                 if ( axis == mayaTransform.axisPhaseRotate1 || 
@@ -773,11 +823,11 @@ namespace COLLADAMaya
             break;
 
         default:
-            MGlobal::displayError ( "No valid transformation phase!" );
+            std::cerr << "No valid transformation phase!" << endl;
             break;
         }
 
-        if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE3 )
+        if ( mayaTransform.phase <= MayaTransform::PHASE_ROTATE3 )
         {
             if ( axis == COLLADABU::Math::Vector3::UNIT_X )
             {
@@ -809,7 +859,7 @@ namespace COLLADAMaya
 
     // -----------------------------------
     void VisualSceneImporter::handleTranslateValues ( 
-        MayaTransformation &mayaTransform, 
+        MayaTransform &mayaTransform, 
         const COLLADAFW::Transformation* transformation )
     {
         // Get the translation.
@@ -820,28 +870,28 @@ namespace COLLADAMaya
         if ( COLLADABU::Math::Vector3::ZERO == translation ) return;
 
         // Set the actual phase to a transform phase.
-        if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS1 ) 
-            mayaTransform.phase = MayaTransformation::PHASE_TRANS1;
-        else if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS2 )
-            mayaTransform.phase = MayaTransformation::PHASE_TRANS2;
-        else if ( mayaTransform.phase < MayaTransformation::PHASE_TRANS3 )
-            mayaTransform.phase = MayaTransformation::PHASE_TRANS3;
+        if ( mayaTransform.phase <= MayaTransform::PHASE_TRANS1 ) 
+            mayaTransform.phase = MayaTransform::PHASE_TRANS1;
+        else if ( mayaTransform.phase <= MayaTransform::PHASE_TRANS2 )
+            mayaTransform.phase = MayaTransform::PHASE_TRANS2;
+        else if ( mayaTransform.phase <= MayaTransform::PHASE_TRANS3 )
+            mayaTransform.phase = MayaTransform::PHASE_TRANS3;
 
-        if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS1 )
+        if ( mayaTransform.phase == MayaTransform::PHASE_TRANS1 )
         {
             mayaTransform.translate1Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
             ++mayaTransform.numTranslate1;
             for ( unsigned int j=0; j<3; ++j )
                 mayaTransform.translate1[j] += translation [j];
         }
-        else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS2 )
+        else if ( mayaTransform.phase == MayaTransform::PHASE_TRANS2 )
         {
             mayaTransform.translate2Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
             ++mayaTransform.numTranslate2;
             for ( unsigned int j=0; j<3; ++j )
                 mayaTransform.translate2[j] += translation [j];
         }
-        else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS3 )
+        else if ( mayaTransform.phase == MayaTransform::PHASE_TRANS3 )
         {
             mayaTransform.translate3Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
             ++mayaTransform.numTranslate3;
@@ -852,7 +902,7 @@ namespace COLLADAMaya
 
     // -----------------------------------
     bool VisualSceneImporter::checkPivotValues ( 
-        MayaTransformation &mayaTransform, 
+        MayaTransform &mayaTransform, 
         bool &hasScalePivot, 
         bool &hasRotatePivot )
     {
@@ -889,8 +939,13 @@ namespace COLLADAMaya
             {
                 // Except we don't have a rotation... 
                 // Then the scalePivot is the last translate1 vector.
-                // The last translate2 vector has to be the scalePivot. 
-                scalePivot = mayaTransform.translate1Vec[numTranslate1Vec-1];
+                if ( numTranslate1Vec > 0 )
+                    scalePivot = mayaTransform.translate1Vec[numTranslate1Vec-1];
+                else 
+                {
+                    validMayaTransform = false;
+                    return validMayaTransform;
+                }
             }
 
             // Check, if the vectors are inverse.
@@ -935,7 +990,7 @@ namespace COLLADAMaya
 
     // -----------------------------------
     void VisualSceneImporter::importDecomposedJointTransform ( 
-        const MayaTransformation &mayaTransform, 
+        const MayaTransform &mayaTransform, 
         MayaDM::Joint* jointNode )
     {
         // This is the order of the transforms:
@@ -1008,7 +1063,7 @@ namespace COLLADAMaya
 
     // -----------------------------------
     void VisualSceneImporter::importDecomposedNodeTransform ( 
-        const MayaTransformation &mayaTransform, 
+        const MayaTransform &mayaTransform, 
         MayaDM::Transform* transformNode,
         const bool hasRotatePivot,
         const bool hasScalePivot )
@@ -1127,18 +1182,14 @@ namespace COLLADAMaya
             //transformNode->setShear ( toUpAxisTypeAxis ( MayaDM::double3 ( skew.x, skew.y, skew.z ) ) );
 
         if ( rotatePivot != MVector (0, 0, 0) )
-            transformNode->setRotatePivot ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) );
-            //transformNode->setRotatePivot ( toLinearUnit ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) ) );
+            transformNode->setRotatePivot ( toLinearUnit ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) ) );
         if ( rotatePivotTranslate != MVector (0, 0, 0) )
-            transformNode->setRotatePivotTranslate ( MayaDM::double3 ( rotatePivotTranslate.x, rotatePivotTranslate.y, rotatePivotTranslate.z ) );
-            //transformNode->setRotatePivotTranslate ( toLinearUnit ( MayaDM::double3 ( rotatePivotTranslate.x, rotatePivotTranslate.y, rotatePivotTranslate.z ) ) );
+            transformNode->setRotatePivotTranslate ( toLinearUnit ( MayaDM::double3 ( rotatePivotTranslate.x, rotatePivotTranslate.y, rotatePivotTranslate.z ) ) );
 
         if ( scalePivot != MVector (0, 0, 0) )
-            transformNode->setScalePivot ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) );
-            //transformNode->setScalePivot ( toLinearUnit ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) ) );
+            transformNode->setScalePivot ( toLinearUnit ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) ) );
         if ( scalePivotTranslate != MVector (0, 0, 0) )
-            transformNode->setScalePivotTranslate ( MayaDM::double3 ( scalePivotTranslate.x, scalePivotTranslate.y, scalePivotTranslate.z ) );
-            //transformNode->setScalePivotTranslate ( toLinearUnit ( MayaDM::double3 ( scalePivotTranslate.x, scalePivotTranslate.y, scalePivotTranslate.z ) ) );
+            transformNode->setScalePivotTranslate ( toLinearUnit ( MayaDM::double3 ( scalePivotTranslate.x, scalePivotTranslate.y, scalePivotTranslate.z ) ) );
         
         if ( order != MEulerRotation::kXYZ )
             transformNode->setRotateOrder ( order );
@@ -1148,6 +1199,7 @@ namespace COLLADAMaya
     void VisualSceneImporter::skewValuesToMayaMatrix ( 
         const COLLADAFW::Skew* skew, MMatrix& matrix ) 
     {
+        // Shearing in xy, xz, yx [Sh] 
         float s = tanf ( COLLADABU::Math::Utils::degToRadF ( skew->getAngle () ) );
 
         // Unit conversion.
@@ -1157,12 +1209,17 @@ namespace COLLADAMaya
         const COLLADABU::Math::Vector3& translateAxis = skew->getTranslateAxis();
         //MayaDM::double3 translate ( toUpAxisTypeAxis ( MayaDM::double3 ( translateAxis.x, translateAxis.y, translateAxis.z ) ) );
 
+        /*
+        Sh =    |  1    0    0    0 |
+                | shxy  1    0    0 |
+                | shxz shyz  1    0 | 
+                |  0    0    0    1 |
+        */
         for ( int row = 0; row < 3; ++row )
         {
             for ( int col = 0; col < 3; ++col )
             {
                 matrix[col][row] = ((row == col) ? 1.0f : 0.0f) + s * (float)rotateAxis [col] * (float)translateAxis [row];
-                //matrix[col][row] = ((row == col) ? 1.0f : 0.0f) + s * (float)rotate [col] * (float)translate [row];
             }
         }
 
@@ -1172,7 +1229,31 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    const BaseImporter::MayaNodesList* VisualSceneImporter::findMayaTransformNode ( 
+    void VisualSceneImporter::createTransformAnimation ( 
+        const COLLADAFW::UniqueId& transformId, 
+        const COLLADAFW::Transformation* transformation, 
+        const MayaTransform::TransformPhase& transformPhase,
+        const bool isJointTransform, 
+        std::vector<TransformAnimation>& transformAnimations )
+    {
+        // Get the id of animation list of the current transformation and store 
+        // the transform node id, the mayaTransform node and the transformation type.
+        const COLLADAFW::UniqueId& animationListId = transformation->getAnimationList ();
+        if ( animationListId.isValid () )
+        {
+            // Create a TransformAnimation objekt and push it in the list.
+            TransformAnimation transformAnim;
+            transformAnim.setAnimationListId ( animationListId );
+            transformAnim.setAnimationSourceId ( transformId );
+            transformAnim.setTransformation ( transformation );
+            transformAnim.setTransformPhase ( transformPhase );
+            transformAnim.setIsJointTransform ( isJointTransform );
+            transformAnimations.push_back ( transformAnim );
+        }
+    }
+
+    // -----------------------------------
+    const BaseImporter::MayaNodesList* VisualSceneImporter::findMayaTransformNodes ( 
         const COLLADAFW::UniqueId& transformId ) const
     {
         UniqueIdMayaNodesMap::const_iterator it = mMayaTransformNodesMap.find ( transformId );
@@ -1183,7 +1264,7 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    BaseImporter::MayaNodesList* VisualSceneImporter::findMayaTransformNode ( 
+    BaseImporter::MayaNodesList* VisualSceneImporter::findMayaTransformNodes ( 
         const COLLADAFW::UniqueId& transformId )
     {
         UniqueIdMayaNodesMap::iterator it = mMayaTransformNodesMap.find ( transformId );
@@ -1253,6 +1334,46 @@ namespace COLLADAMaya
         return 0;
     }
 
+    // -----------------------------------
+    bool VisualSceneImporter::importNodeInstances ( 
+        const COLLADAFW::Node* parentNode, 
+        MayaNode* parentMayaNode )
+    {
+        const COLLADAFW::InstanceNodeArray& nodeInstances = parentNode->getInstanceNodes ();
+        size_t numInstances = nodeInstances.getCount ();
+        for ( size_t i=0; i<numInstances; ++i )
+        {
+            // Get the unique node id and the framework node.
+            const COLLADAFW::InstanceNode* instanceNode = nodeInstances [i];
+            const COLLADAFW::UniqueId& instanceNodeId = instanceNode->getInstanciatedObjectId ();
+
+            const NodeImporter* nodeImporter = getDocumentImporter ()->getNodeImporter ();
+            const COLLADAFW::Node* node = nodeImporter->findNode ( instanceNodeId );
+            if ( node == 0 )
+            {
+                std::cerr << "No node object for the current node id! Can't import!" << endl;
+                continue;
+            }
+            
+            // TODO Check if the node is already imported. If not, import the node, 
+            // otherwise push it in the list of node instances.
+            if ( !findMayaTransformNodes ( instanceNodeId ) ) 
+            {
+                // Import the instance node.
+                importNode ( node, parentNode, parentMayaNode );
+            }
+            else
+            {
+                // Push the parent node of the instanciated node in the list of instance node parents.
+                // The map holds for every transform node a list of all existing parent transform nodes
+                // (this are the nodes, which hold an instance of the current transform node).
+                const COLLADAFW::UniqueId& parentNodeId = parentNode->getUniqueId ();
+                mTransformInstancesMap [ instanceNodeId ].push_back ( parentNodeId );
+            }
+        }
+
+        return true;
+    }
 
     // -----------------------------------
     bool VisualSceneImporter::readNodeInstances ( const COLLADAFW::Node* parentNode )
@@ -1304,7 +1425,20 @@ namespace COLLADAMaya
     bool VisualSceneImporter::readControllerInstances ( const COLLADAFW::Node* node )
     {
         // Get the unique id of the current node.
-        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
+        const COLLADAFW::UniqueId& transformId = node->getUniqueId ();
+
+        // Get the maya transform node and set the transform matrix. 
+        // We will need it again, if we import a skin controller.
+        MayaNodesList* mayaNodesList = findMayaTransformNodes ( transformId );
+        if ( mayaNodesList != 0 ) 
+        {
+            COLLADABU::Math::Matrix4 transformMatrix = node->getTransformationMatrix ();
+            for ( size_t j=0; j<mayaNodesList->size (); ++j )
+            {
+                MayaNode* mayaNode = (*mayaNodesList) [j];
+                mayaNode->setTransformationMatrix ( transformMatrix );
+            }
+        }
 
         // Go through the instances and save the ids to the current node.
         const COLLADAFW::InstanceControllerArray& controllerInstances = node->getInstanceControllers ();
@@ -1315,12 +1449,12 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& controllerId = instanceController->getInstanciatedObjectId ();
 
             // Save for every controller a list of transform nodes, which refer to it.
-            mControllerTransformIdsMap[controllerId].push_back ( transformNodeId );
+            mControllerTransformIdsMap[controllerId].push_back ( transformId );
 
             // Get the geometryId of the geometry, which is controlled from the current controller object.
             ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
-            const COLLADAFW::UniqueId* geometryId = controllerImporter->getControllersGeometryId ( controllerId );
-            if ( geometryId == NULL )
+            const COLLADAFW::UniqueId* sourceId = controllerImporter->getControllerSourceId ( controllerId );
+            if ( sourceId == NULL )
             {
                 cerr << "No geometry for the current controller!" << endl;
                 return false;
@@ -1329,7 +1463,7 @@ namespace COLLADAMaya
             // Read the shading engines. Store the information, that the material instance is  
             // referenced from a controller object. We need this information if we do the 
             // connections between the geometries and the shadingEngines.
-            readMaterialInstances ( transformNodeId, instanceController, &controllerId );
+            readMaterialInstances ( transformId, instanceController, &controllerId );
         }
 
         return true;
@@ -1341,9 +1475,12 @@ namespace COLLADAMaya
         const COLLADAFW::InstanceGeometry* instanceGeometry, 
         const COLLADAFW::UniqueId* controllerId /*= 0*/ )
     {
-        // Write the shader data.
+        // Store the shader data.
         MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
         materialImporter->writeShaderData ( transformId, instanceGeometry, controllerId );
+
+        // Create the necessary uv chooser objects for texture uv set binding.
+        materialImporter->createBindingInputSets ( transformId, instanceGeometry, controllerId );
     }
 
     // -----------------------------------
@@ -1400,12 +1537,16 @@ namespace COLLADAMaya
         {
             const COLLADAFW::UniqueId& instanceNodeId = it->first;
             BaseImporter::UniqueIdVec& parentNodes = it->second;
+            if ( parentNodes.size () == 0 )
+            {
+                std::cerr << "There has to be a parent node for the current transform node! Can't import!" << endl;
+                continue;
+            }
 
             // Get the maya child node and read the path.
-            MayaNodesList* childTransformNodes = findMayaTransformNode ( instanceNodeId );
+            MayaNodesList* childTransformNodes = findMayaTransformNodes ( instanceNodeId );
             if ( childTransformNodes == 0 || childTransformNodes->size () == 0 )
             {
-                MGlobal::displayError ( "The referenced transform node doesn't exist!" );
                 std::cerr << "The referenced transform node doesn't exist!" << endl;
                 return;
             }
@@ -1422,10 +1563,9 @@ namespace COLLADAMaya
                 const COLLADAFW::UniqueId& parentTransformId = parentNodes [i];
                 
                 // Get the maya parent nodes and read the path.
-                MayaNodesList* parentTransformNodes = findMayaTransformNode ( parentTransformId );
+                MayaNodesList* parentTransformNodes = findMayaTransformNodes ( parentTransformId );
                 if ( parentTransformNodes == 0 )
                 {
-                    MGlobal::displayError ( "The referenced transform node doesn't exist!" );
                     std::cerr << "The referenced transform node doesn't exist!" << endl;
                     return;
                 }
@@ -1437,16 +1577,16 @@ namespace COLLADAMaya
                 // This flag is set, if the node is not from the visual scene, 
                 // but from the library nodes. We don't have to create a new instance, 
                 // instead of this we have to move the node!
-                bool isCorrectPositioned = mayaChildNode->getIsCorrectPositioned ();
-                if ( !isCorrectPositioned )
-                {
-                    // parent -shape -noConnections -relative "|node1|node2" "|rootNode";
-                    MayaDM::parent ( file, childNodePath, parentNodePath, false, false, true, true  );
-                    mayaChildNode->setIsCorrectPositioned ( true );
-                    mayaChildNode->setParent ( mayaParentNode );
-                    childNodePath = mayaChildNode->getNodePath ();
-                }
-                else
+//                 bool isCorrectPositioned = mayaChildNode->getIsCorrectPositioned ();
+//                 if ( !isCorrectPositioned )
+//                 {
+//                     // parent -shape -noConnections -relative "|node1|node2" "|rootNode";
+//                     MayaDM::parent ( file, childNodePath, parentNodePath, false, false, true, true  );
+//                     mayaChildNode->setIsCorrectPositioned ( true );
+//                     mayaChildNode->setParent ( mayaParentNode );
+//                     childNodePath = mayaChildNode->getNodePath ();
+//                 }
+//                 else
                 {
                     // parent -shape -noConnections -relative -addObject "|node1|node2" "|rootNode";
                     MayaDM::parent ( file, childNodePath, parentNodePath, false, true, true, true  );
@@ -1471,7 +1611,7 @@ namespace COLLADAMaya
         size_t numNodeInstances = 0;
         if ( !recursive ) ++numNodeInstances;
 
-        MayaNodesList* nodeInstances = findMayaTransformNode ( transformId );
+        MayaNodesList* nodeInstances = findMayaTransformNodes ( transformId );
         if ( nodeInstances != 0 )
         {
             size_t nodeCounter = nodeInstances->size ();
@@ -1498,9 +1638,9 @@ namespace COLLADAMaya
     void VisualSceneImporter::getTransformPathes ( 
         std::vector<String>& transformPathes, 
         const COLLADAFW::UniqueId& transformId, 
-        const String childSubPath /*= ""*/ )
+        const String childSubPath /*= EMPTY_STRING*/ )
     {
-        MayaNodesList* transformInstances = findMayaTransformNode ( transformId );
+        MayaNodesList* transformInstances = findMayaTransformNodes ( transformId );
         if ( transformInstances != 0 )
         {
             size_t nodeCounter = transformInstances->size ();
@@ -1511,7 +1651,7 @@ namespace COLLADAMaya
 
                 // The first instance in the list is always the original. 
                 // The path of the first instance has to be stored only once!
-                if ( i > 0 || COLLADABU::Utils::equals (childSubPath,"") )
+                if ( i > 0 || COLLADABU::Utils::equals (childSubPath,EMPTY_STRING) )
                 {
                     // Push the path of the instance in the list of node pathes.
                     String transformPath = transformInstancePath + childSubPath;
@@ -1629,7 +1769,18 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    const MayaDM::Transform* VisualSceneImporter::findMayaDMTransform ( const COLLADAFW::UniqueId& transformId )
+    MayaDM::Transform* VisualSceneImporter::findMayaDMTransform ( const COLLADAFW::UniqueId& transformId )
+    {
+        std::map<COLLADAFW::UniqueId, MayaDM::Transform>::iterator it = mMayaDMTransformMap.find ( transformId );
+        if ( it != mMayaDMTransformMap.end () )
+        {
+            return &(it->second);
+        }
+        return 0;
+    }
+
+    // --------------------------------------------
+    const MayaDM::Transform* VisualSceneImporter::findMayaDMTransform ( const COLLADAFW::UniqueId& transformId ) const
     {
         std::map<COLLADAFW::UniqueId, MayaDM::Transform>::const_iterator it = mMayaDMTransformMap.find ( transformId );
         if ( it != mMayaDMTransformMap.end () )
@@ -1661,7 +1812,7 @@ namespace COLLADAMaya
                 {
                     order = MEulerRotation::kZYX; // xy
                 }
-                else MGlobal::displayError ( "No valid euler rotation order!" );
+                else std::cerr << "No valid euler rotation order!" << endl;
             }
             else if ( axis2 == COLLADABU::Math::Vector3::UNIT_Z ) 
             {
@@ -1673,13 +1824,13 @@ namespace COLLADAMaya
                 {
                     order = MEulerRotation::kZYX; // xz
                 }
-                else MGlobal::displayError ( "No valid euler rotation order!" );
+                else std::cerr << "No valid euler rotation order!" << endl;
             }
             else if ( axis2 == COLLADABU::Math::Vector3 (0,0,0) )
             {
                 order = MEulerRotation::kXYZ; // x
             }
-            else MGlobal::displayError ( "No valid euler rotation order!" );
+            else std::cerr << "No valid euler rotation order!" << endl;
         }
 
         // Y..
@@ -1695,7 +1846,7 @@ namespace COLLADAMaya
                 {
                     order = MEulerRotation::kXYZ; // yx
                 }
-                else MGlobal::displayError ( "No valid euler rotation order!" );
+                else std::cerr << "No valid euler rotation order!" << endl;
             }
             else if ( axis2 == COLLADABU::Math::Vector3::UNIT_Z ) 
             {
@@ -1707,13 +1858,13 @@ namespace COLLADAMaya
                 {
                     order = MEulerRotation::kZYX; // yz
                 }
-                else MGlobal::displayError ( "No valid euler rotation order!" );
+                else std::cerr << "No valid euler rotation order!" << endl;
             }
             else if ( axis2 == COLLADABU::Math::Vector3 (0,0,0) )
             {
                 order = MEulerRotation::kXYZ; // y
             }
-            else MGlobal::displayError ( "No valid euler rotation order!" );
+            else std::cerr << "No valid euler rotation order!" << endl;
         }
 
         // Z..
@@ -1729,7 +1880,7 @@ namespace COLLADAMaya
                 {
                     order = MEulerRotation::kXYZ; // zx
                 }
-                else MGlobal::displayError ( "No valid euler rotation order!" );
+                else std::cerr << "No valid euler rotation order!" << endl;
             }
             else if ( axis2 == COLLADABU::Math::Vector3::UNIT_Y ) 
             {
@@ -1741,13 +1892,13 @@ namespace COLLADAMaya
                 {
                     order = MEulerRotation::kXYZ; // zy
                 }
-                else MGlobal::displayError ( "No valid euler rotation order!" );
+                else std::cerr << "No valid euler rotation order!" << endl;
             }
             else if ( axis2 == COLLADABU::Math::Vector3 (0,0,0) )
             {
                 order = MEulerRotation::kXYZ; // z
             }
-            else MGlobal::displayError ( "No valid euler rotation order!" );
+            else std::cerr << "No valid euler rotation order!" << endl;
         }	
     
         return order;

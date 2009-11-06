@@ -67,7 +67,7 @@ namespace COLLADAMaya
         }
         else
         {
-            MGlobal::displayError ( MString ( "Unsupported sampling type: " ) + node.apiTypeStr() );
+            std::cerr << "Unsupported sampling type: " << node.apiTypeStr() << endl;
         }
     }
 
@@ -85,6 +85,7 @@ namespace COLLADAMaya
             return true;
         }
 
+        mNodeSearch = NULL;
         return false;
     }
 

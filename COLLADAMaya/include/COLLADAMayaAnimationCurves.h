@@ -355,7 +355,7 @@ namespace COLLADAMaya
     T* BaseAnimationCurve<T>::getKey ( size_t index ) const
     {
         if ( mKeys.size() < index )
-            MGlobal::displayError ( MString ( "Key index not valid! "  + index ) );
+            std::cerr << "Key index not valid! "  + index << endl;
 
         return mKeys[index];
     }
@@ -400,7 +400,7 @@ namespace COLLADAMaya
     {
         if ( currentKey == NULL )
         {
-            MGlobal::displayError ( MString ( "Current key is null!" ) );
+            std::cerr << "Current key is null!" << endl;
             return;
         }
 

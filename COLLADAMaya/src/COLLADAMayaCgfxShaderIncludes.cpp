@@ -27,6 +27,13 @@
 #include "cgfxAttrDef.cpp"
 #if MAYA_API_VERSION > 800
 #include "cgfxEffectDef.cpp"
+/* We undef the macros defined "cgfxEffectDef.cpp" to avoid compiler warning in "cgfxShaderNode.cpp"*/
+#ifdef _WIN32
+#else
+#   undef stricmp
+#   undef strnicmp 
+#endif
+
 #endif // MAYA_API_VERSION > 800
 #include "cgfxFindImage.cpp"
 #include "cgfxShaderCmd.cpp"

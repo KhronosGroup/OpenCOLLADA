@@ -110,7 +110,7 @@ namespace COLLADAMaya
         * Returns the list of the vertex attributes of the polygon.
         * @return Sources The list of the vertex attributes of the polygon.
         */
-        const Sources getVertexAttributes() const { return mVertexAttributes; }
+        const Sources& getVertexAttributes() const { return mVertexAttributes; }
 
         /**
         * Returns a reference to the list of the vertex attributes of the polygon.

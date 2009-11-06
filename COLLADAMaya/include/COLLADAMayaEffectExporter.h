@@ -76,16 +76,15 @@ namespace COLLADAMaya
         /** Suffix for the effect. */
         static const String EFFECT_ID_SUFFIX;
 
+        /** Suffix for to build the tex-coordinate id. */
+        static const String TEXCOORD_BASE;
+
     private:
 
         /** Prefix for the color effect. */
         static const String COLOR_EFFECT_ID_PREFIX;
 
-        /** Suffix for to build the tex-coordinate id. */
-        static const String TEXCOORD_BASE;
-
         /** Holds information about an already exported effect*/
-
         struct ExportedEffect
         {
             MObject* shader; // The shader object, that was use to export the effect
@@ -111,22 +110,24 @@ namespace COLLADAMaya
          */
         StringToStringMap mMayaIdColladaImageIdMap;
 
+    public:
+
         /** A texture channel.
         Used by standard effects to assign textures to channels.
         Multi-texturing is done by assigning more than one texture per slot.
         Defaults to diffuse texture slot. */
         enum Channel
         {
-            AMBIENT = 0, /**< The texels will be modulated with the ambient light colors. */
-            BUMP, /**< The texels will re-orient the geometric normals. */
-            DIFFUSE, /**< The texels will be modulated with the non-ambient light colors. */
+            AMBIENT = 0, // ATTR_AMBIENT_COLOR /**< The texels will be modulated with the ambient light colors. */
+            BUMP, // ATTR_NORMAL_CAMERA /**< The texels will re-orient the geometric normals. */
+            DIFFUSE, // ATTR_COLOR /**< The texels will be modulated with the non-ambient light colors. */
             DISPLACEMENT, /**< The texels will displace the pixel positions. */
-            EMISSION, /**< The texels will be added to the final color directly. */
+            EMISSION, // ATTR_OUT_COLOR || ATTR_INCANDESCENCE /**< The texels will be added to the final color directly. */
             FILTER, /**< Max-specific. */
-            REFLECTION, /**< The texels will modify the pixel reflection factor. */
+            REFLECTION, // ATTR_REFLECTED_COLOR /**< The texels will modify the pixel reflection factor. */
             REFRACTION, /**< The texels will modify the pixel refraction factor. */
             SHININESS, /**< The texels will modify the specular shininess of the pixel. */
-            SPECULAR, /**< The texels will be modulated with the specular light colors. */
+            SPECULAR, // ATTR_SPECULAR_COLOR /**< The texels will be modulated with the specular light colors. */
             SPECULAR_LEVEL, /**< The texels will be modulated with the specular light colors. */
             TRANSPARENt, /**< The texels will be modify the final color alpha. */
             COUNT, /**< The number of texture channels. */
@@ -173,6 +174,11 @@ namespace COLLADAMaya
         /** Exports the effects of a shader */
         void exportEffect ( MObject& shadingEngine );
 
+        /** Generated the collada effect id. */
+        const String generateColladaEffectId ( 
+            const MObject& shader, 
+            const String& mayaMaterialId );
+
         /** Export a shader, by type */
         void exportConstantShader ( 
             const String& effectId, 
@@ -191,6 +197,8 @@ namespace COLLADAMaya
             const String &effectId, 
             COLLADASW::EffectProfile *effectProfile,
             MObject shadingNetwork );
+
+    public:
 
         /**
          * Find any textures connected to a material attribute and create the
@@ -222,6 +230,8 @@ namespace COLLADAMaya
                                  const char* attributeName,
                                  MObjectArray& textures,
                                  MIntArray& blendModes );
+
+    private:
 
         /**
          * Exports the transparency.

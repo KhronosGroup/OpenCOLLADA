@@ -31,13 +31,11 @@ namespace COLLADAMaya
     private:
         static bool mIsOpenCall;
         static bool mIsReferenceCall;
-        static bool mFileLoadDeferRefOptionVar;
         static bool mHasError;
 
         static bool mImportUpAxis;
         static bool mImportUnits;
         static bool mImportNormals;
-        static bool mImportSoftEdges;
 
     public:
 
@@ -46,8 +44,6 @@ namespace COLLADAMaya
         static bool isOpenMode();
 
         static bool isReferenceMode();
-
-        static bool fileLoadDeferReferencesOption();
 
         static bool hasError();
 

@@ -58,13 +58,13 @@ namespace COLLADAMaya
         static MPlug findPlug ( const MFnDependencyNode& node, const MString& plugName, MStatus* rc=NULL );
         static uint findArrayPlugEmptyIndex ( const MPlug& plug );
 
-        // Find/Create a display layer node
-        static MObject findDisplayLayer ( const char* name );
-
         // Handles projection type
         static int toProjectionType ( const char* type );
         static int defaultProjectionType();
         static const char* projectionTypeToString ( int type );
+
+        // Get the UV set for a procedural/file texture
+        static unsigned int	getAssociatedUVSet(const MObject& shape, const MObject& textureNode);
 
     private:
 

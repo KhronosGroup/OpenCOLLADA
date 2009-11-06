@@ -3,8 +3,9 @@ Requirements:
 To run the COLLADAMaya plug-in, you need a version of Autodesk Maya installed.
 
 Supported versions are:
-Autodesk Maya 2008
+Autodesk Maya 2010
 Autodesk Maya 2009
+Autodesk Maya 2008
 
 To run the binary you have to install the Microsoft Visual C++ 2005 
 Redistributable Package (x86). You can download
@@ -22,6 +23,8 @@ your Autodesk Maya directories.
 NOTE:
 The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
 version. Following environment variables to your Maya location are supported:
+- MAYA_PATH2010
+- MAYA_PATH2010_X64
 - MAYA_PATH2009
 - MAYA_PATH2009_X64
 - MAYA_PATH2008
@@ -29,18 +32,16 @@ version. Following environment variables to your Maya location are supported:
 
 If you install the binary, you have to copy following files:
 - "COLLADAMaya.mll" to $(YOUR_MAYA_PATH)/bin/plug-ins 
-- "colladaNextGenExporterOpts.mel" to $(YOUR_MAYA_PATH)/scripts/others 
-- "colladaNextGenImporterOpts.mel" to $(YOUR_MAYA_PATH)/scripts/others 
+- "openColladaExporterOpts.mel" to $(YOUR_MAYA_PATH)/scripts/others 
+- "openColladaImporterOpts.mel" to $(YOUR_MAYA_PATH)/scripts/others 
 
-You can also define a environment variable
-"MAYA_PLUG_IN_PATH" and put the 
+You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
 mll-file into the refered directory. Autodesk Maya will load the plug-ins 
 from this directory too.
 
 Execute:
 --------
-When
-you start Autodesk Maya, go to the menu 
+When you start Autodesk Maya, go to the menu 
 	Window > Settings/Preferences > Plug-in Manager
 and load the plug-in "COLLADAMaya.mll" from the extended list.
 

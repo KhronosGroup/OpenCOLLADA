@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -13,6 +13,7 @@
 
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaBaseImporter.h"
+#include "COLLADAMayaMayaTransform.h"
 
 #include "COLLADAFWAnimationCurve.h"
 #include "COLLADAFWAnimationList.h"
@@ -39,6 +40,9 @@ namespace COLLADAMaya
         /** The standard name for an animation. */
         static const String ANIMATION_NAME;
 
+        /** The framerate of the animation. */
+        static const double ANIM_FRAMERATE;
+
         /**
          * Most common tangent type of keyframes in this curve. Used as a performance optimization 
          * during file store/retrieve. The following are legal values: 
@@ -58,12 +62,31 @@ namespace COLLADAMaya
             TANGENT_TYPE_STEP_NEXT = 17 // Collada: BEZIER
         };
 
-    private:
-
         /**
-        * The list of the unique maya animation names.
+        * Store the minimum and the maximum animation time.
         */
-        COLLADABU::IDList mAnimationIdList;
+        class PlaybackOptions
+        {
+        private:
+            double mMinStartTime;
+            double mMaxEndTime;
+        public:
+            PlaybackOptions () : mMinStartTime (0), mMaxEndTime (0) {}
+            virtual ~PlaybackOptions () {}
+
+            void setTimeValue ( double timeValue )
+            {
+                if ( timeValue > mMaxEndTime )
+                    mMaxEndTime = timeValue;
+                else if ( timeValue < mMinStartTime )
+                    mMinStartTime = timeValue;
+            }
+
+            const double getMinStartTime () const { return mMinStartTime; }
+            const double getMaxEndTime () const { return mMaxEndTime; }
+        };
+
+    private:
 
         /**
          * The list of the unique animation ids.
@@ -81,8 +104,9 @@ namespace COLLADAMaya
         std::map<COLLADAFW::UniqueId, std::vector<MayaDM::AnimCurve*> > mMayaDMAnimationCurves;
 
         /**
-         * The map holds for every animation curve a list of node ids, which use this connections.
+         * Store the minimum and the maximum animation time.
          */
+        PlaybackOptions mPlaybackOptions;
 
     public:
 
@@ -98,21 +122,28 @@ namespace COLLADAMaya
         void importAnimation ( const COLLADAFW::Animation* animation );
 
         /**
-        * The map holds for every unique animation id the maya animatio curve.
-        */
-        const std::vector<MayaDM::AnimCurve*>* findMayaDMAnimCurves ( 
-            const COLLADAFW::UniqueId& animationId );
+         * Get the minimum and the maximum time values of the animations to get the start 
+         * time and the end time of the animation. This times we have to set as the 
+         * "playbackOptions" in the "sceneConfigurationScriptNode".
+         */
+        void importPlaybackOptions ();
 
         /**
         * Makes the connections between the animations and the animated objects.
         */
         void writeConnections ( const COLLADAFW::AnimationList* animationList );
 
-        void writeEffectConnections ( 
+    private:
+
+        void connectMorphControllers ( 
             const COLLADAFW::UniqueId& animationListId, 
             const COLLADAFW::AnimationList::AnimationBindings& animationBindings );
 
-        void writeTransformConnections ( 
+        void connectEffects ( 
+            const COLLADAFW::UniqueId& animationListId, 
+            const COLLADAFW::AnimationList::AnimationBindings& animationBindings );
+
+        void connectTransforms ( 
             const COLLADAFW::UniqueId& animationListId, 
             const COLLADAFW::AnimationList::AnimationBindings& animationBindings );
 
@@ -136,10 +167,10 @@ namespace COLLADAMaya
          */
         void writeRotateConnections ( 
             const COLLADAFW::Transformation* transformation, 
+            const MayaTransform::TransformPhase& transformPhase, 
+            const bool isJointTransform, 
             const COLLADAFW::AnimationList::AnimationBindings& animationBindings, 
             const MayaDM::Transform* transform );
-
-    private:
 
         /**
          * Imports the data of an animtion curve (no formula).
@@ -151,8 +182,7 @@ namespace COLLADAMaya
          */
         void writeAnimationCurve ( 
             const COLLADAFW::AnimationCurve* animationCurve, 
-            const TangentType& tangentType = TANGENT_TYPE_DEFAULT, 
-            const TangentType& keyTangentOutType = TANGENT_TYPE_DEFAULT );
+            const TangentType& tangentType = TANGENT_TYPE_DEFAULT );
 
         /**
          * Multiple interpolation types. Curve by keys.
@@ -281,6 +311,13 @@ namespace COLLADAMaya
          * Returns true, if the given id is in the list.
          */
         const bool findAnimationList ( const COLLADAFW::UniqueId& animationListId );
+
+        /**
+        * The map holds for every unique animation id the maya animatio curve.
+        */
+        const std::vector<MayaDM::AnimCurve*>* findMayaDMAnimCurves ( 
+            const COLLADAFW::UniqueId& animationId );
+
 
     private:
 

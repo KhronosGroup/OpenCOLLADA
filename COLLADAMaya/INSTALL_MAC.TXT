@@ -3,8 +3,9 @@ Requirements:
 To run the COLLADAMaya plug-in, you need a version of Autodesk Maya installed.
 
 Supported versions are:
-Autodesk Maya 2008
+Autodesk Maya 2010
 Autodesk Maya 2009
+Autodesk Maya 2008
 
 For help on build, please read the BUILD file.
 
@@ -15,21 +16,25 @@ your Autodesk Maya directories.
 
 NOTE: The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
 version. Following environment variables to your Maya location are supported:
-- MAYA_PATH2008
+- MAYA_PATH2010
 - MAYA_PATH2009
+- MAYA_PATH2008
 
 You have to copy following files:
 - ~project_dir/COLLADAMaya/build/Debug/COLLADAMaya.bundle to your personal
 	Maya plug-in directory. The default directory on OSMac is 
-	/Users/Shared/Autodesk/maya/2008/plug-ins respectively
-	/Users/Shared/Autodesk/maya/2009/plug-ins
-- ~project_dir/COLLADAMaya/scripts/colladaNextGenExporterOpts.mel to your 
+	/Users/Shared/Autodesk/maya/2010/plug-ins respectively
+	/Users/Shared/Autodesk/maya/2009/plug-ins respectively
+	/Users/Shared/Autodesk/maya/2008/plug-ins
+- ~project_dir/COLLADAMaya/scripts/openColladaExporterOpts.mel to your 
 	personal Maya scripts directory. The default directory on OSMac is 
-	/Users/Shared/Autodesk/maya/2008/scripts respectively
+	/Users/Shared/Autodesk/maya/2010/scripts respectively
+	/Users/Shared/Autodesk/maya/2009/scripts respectively
 	/Users/Shared/Autodesk/maya/2008/scripts 
-- ~project_dir/COLLADAMaya/scripts/colladaNextGenImporterOpts.mel to your 
+- ~project_dir/COLLADAMaya/scripts/openColladaImporterOpts.mel to your 
 	personal Maya scripts directory. The default directory on OSMac is 
-	/Users/Shared/Autodesk/maya/2008/scripts respectively
+	/Users/Shared/Autodesk/maya/2010/scripts respectively
+	/Users/Shared/Autodesk/maya/2009/scripts respectively
 	/Users/Shared/Autodesk/maya/2008/scripts 
 
 You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 

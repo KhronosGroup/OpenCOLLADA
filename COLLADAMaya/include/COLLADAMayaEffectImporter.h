@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -22,6 +22,7 @@
 #include "MayaDMBlinn.h"
 #include "MayaDMPhong.h"
 #include "MayaDMFile.h"
+#include "MayaDMPlace2dTexture.h"
 
 
 namespace COLLADAMaya
@@ -30,24 +31,10 @@ namespace COLLADAMaya
     /** TODO Documentation */
 	class EffectImporter : public BaseImporter
     {
-    public:
-	
-        /** The standard name for the collada id attribute. */
-        static const String COLLADA_EFFECT_ID_ATTRIBUTE_NAME;
-
-        /** The standard name for the collada id attribute. */
-        static const String COLLADA_MATERIAL_ID_ATTRIBUTE_NAME;
-
-        /** The standard name for the collada id attribute. */
-        static const String COLLADA_EFFECT_COMMON_ID_ATTRIBUTE_NAME;
-
     private:
 
         /** The standard name for a effect without name. */
         static const String EFFECT_NAME;
-
-        /** The default initial effect name. */
-        static const String INITIAL_DEFAULT_EFFECT_NAME;
 
         /** The standard name for a place2dTexture. */
         static const String PLACE_2D_TEXTURE_NAME;
@@ -87,62 +74,66 @@ namespace COLLADAMaya
         };
 
         /**
-         * This struct holds the attribute of an effect. 
-         * The type of the effect depends on the attribute. 
-         * It's either an lambert, blinn or phong shader.
-         */
-        struct ShaderNodeAttribute
+        * This struct holds the sampler informations, the texture placement informations and 
+        * the attribute of an effect. The type of the effect depends on the attribute. 
+        * It's either an lambert, blinn or phong shader.
+        */
+        struct TextureInfo
         {
-            size_t mSamplerId;
-            MayaDM::Lambert* mShaderNode;
+        private:
+            COLLADAFW::UniqueId mEffectId;
+            COLLADAFW::SamplerID mSamplerId;
+            COLLADAFW::Sampler::SamplerType mSamplerType;
+            COLLADAFW::UniqueId mImageId;
+            MayaDM::File mImageNode;
+            MayaDM::Lambert mShaderNode;
             ShaderType mShaderType;
             ShaderAttribute mShaderAttribute;
-        };
+            COLLADAFW::TextureMapId mTextureMapId;
+            MayaDM::Place2dTexture mTexturePlacementNode;
 
-        /**
-         * Texture placement infos.
-         */
-        struct TexturePlacement
-        {
-            COLLADAFW::UniqueId mImageId;
-            size_t mSamplerId;
-            COLLADAFW::Sampler::SamplerType mSamplerType;
-            MayaDM::DependNode* mTexturePlacementNode;
-        };
+        public:
+            TextureInfo () {}
+            virtual ~TextureInfo () {}
 
-        /**
-         * Sampler infos.
-         */
-        struct SamplerInfo
-        {
-            COLLADAFW::SamplerID mSamplerId;
-            COLLADAFW::UniqueId mImageId;
+            const COLLADAFW::UniqueId& getEffectId () const { return mEffectId; }
+            void setEffectId ( const COLLADAFW::UniqueId& val ) { mEffectId = val; }
+
+            const COLLADAFW::SamplerID& getSamplerId () const { return mSamplerId; }
+            void setSamplerId ( const COLLADAFW::SamplerID& val ) { mSamplerId = val; }
+
+            const COLLADAFW::Sampler::SamplerType& getSamplerType () const { return mSamplerType; }
+            void setSamplerType ( const COLLADAFW::Sampler::SamplerType& val ) { mSamplerType = val; }
+
+            const COLLADAFW::UniqueId& getImageId () const { return mImageId; }
+            void setImageId ( const COLLADAFW::UniqueId& val ) { mImageId = val; }
+
+            const MayaDM::File& getImageNode () const { return mImageNode; }
+            void setImageNode ( const MayaDM::File val ) { mImageNode = val; }
+
+            const MayaDM::Lambert& getShaderNode () const { return mShaderNode; }
+            void setShaderNode ( const MayaDM::Lambert val ) { mShaderNode = val; }
+
+            const COLLADAMaya::EffectImporter::ShaderType& getShaderType () const { return mShaderType; }
+            void setShaderType ( const COLLADAMaya::EffectImporter::ShaderType& val ) { mShaderType = val; }
+
+            const COLLADAMaya::EffectImporter::ShaderAttribute& getShaderAttribute () const { return mShaderAttribute; }
+            void setShaderAttribute ( const COLLADAMaya::EffectImporter::ShaderAttribute& val ) { mShaderAttribute = val; }
+
+            const COLLADAFW::TextureMapId& getTextureMapId () const { return mTextureMapId; }
+            void setTextureMapId ( const COLLADAFW::TextureMapId& val ) { mTextureMapId = val; }
+
+            const MayaDM::Place2dTexture& getTexturePlacementNode () const { return mTexturePlacementNode; }
+            void setTexturePlacementNode ( const MayaDM::Place2dTexture val ) { mTexturePlacementNode = val; }
         };
 
     public:
 
-        typedef std::map< COLLADAFW::UniqueId, std::vector<ShaderNodeAttribute> > UniqueIdShaderNodesMap;
-
-        typedef std::vector<SamplerInfo> SamplerInfos;
-        typedef std::map< COLLADAFW::UniqueId, SamplerInfos > UniqueIdSamplerInfosMap;
-
-        typedef std::pair<COLLADAFW::UniqueId,size_t> UniqueIdSamplerIdPair;
-        typedef std::vector<TexturePlacement> TexturePlacements;
-        typedef std::map< UniqueIdSamplerIdPair, TexturePlacements > TexturePlacementsMap;
+        typedef std::map< COLLADAFW::UniqueId, std::vector<TextureInfo> > UniqueIdTextureInfosMap;
 
         typedef std::map<COLLADAFW::UniqueId, EffectAnimation> EffectAnimationMap;
 
     private:
-
-        /**
-        * The list of the unique maya effect names.
-        */
-        COLLADABU::IDList mEffectIdList;
-
-        /**
-        * The list with the unique maya place2dtexture names.
-        */
-        COLLADABU::IDList mPlace2dTextureIdList;
 
         /**
         * The map holds the maya effect objects for everx effect id. Used to make the connections.
@@ -158,19 +149,9 @@ namespace COLLADAMaya
         UniqueIdUniqueIdsMap mEffectIdMaterialIdsMap;
 
         /**
-         * The map holds for every unique image id the list of placed2dTextures, which use this image.
-         */
-        TexturePlacementsMap mTexturePlacementsMap;
-
-        /**
          * The map holds for every effect the shader node attributes with the sampler image file.
          */
-        UniqueIdShaderNodesMap mEffectShaderNodesMap;
-
-        /**
-         * Holds for every effect a list with sampler infos.
-         */
-        UniqueIdSamplerInfosMap mEffectSamplerInfosMap;
+        UniqueIdTextureInfosMap mEffectTextureInfosMap;
 
         /**
          * The map holds for every animation id the information about the animated effect element.
@@ -180,7 +161,13 @@ namespace COLLADAMaya
         /**
          * The list contains all image ids, which are already connected to the default texture list.
          */
-        std::vector<COLLADAFW::UniqueId> mConnectedImageList;
+        std::vector<String> mDefaultTextureImageList;
+
+        /** 
+         * Store the materialId of the materialInfo with the imageId of the file 
+         * in a list of connected elements, to avoid dublicate connections between them.
+         */
+        std::map<COLLADAFW::UniqueId, std::vector<String> > mMaterialImagesMap;
 
     public:
 
@@ -218,6 +205,24 @@ namespace COLLADAMaya
         */
         const EffectAnimation* findEffectAnimation ( const COLLADAFW::UniqueId& animationListId );
 
+        /**
+        * The map holds for every effect the shader node attributes with the sampler image file.
+        */
+        UniqueIdTextureInfosMap& getTextureInfosMap () { return mEffectTextureInfosMap; }
+
+        /**
+        * The map holds for every effect the shader node attributes with the sampler image file.
+        */
+        std::vector<TextureInfo>* findTextureInfos ( const COLLADAFW::UniqueId& effectId );
+
+        /**
+        * The map holds for every effect the shader node attributes with the sampler image file.
+        */
+        const TextureInfo* findTextureInfo ( 
+            const COLLADAFW::UniqueId& effectId, 
+            const COLLADAFW::TextureMapId& textureMapId );
+
+
 	private:
 
         /**
@@ -239,7 +244,7 @@ namespace COLLADAMaya
         /**
         * Create the texture placement and push it to the image in a map.
         */
-        void importTexturePlacement ( 
+        void createTexturePlacements ( 
             const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect );
 
@@ -319,7 +324,7 @@ namespace COLLADAMaya
          * Create a shader node attribute and append it on the list of shader node attributes 
          * to the current sampler file id.
          */
-        void appendTextureAttribute ( 
+        void appendTextureInfo ( 
             const COLLADAFW::Effect* effect, 
             const COLLADAFW::Texture& texture, 
             const ShaderType& shaderType, 
@@ -330,21 +335,6 @@ namespace COLLADAMaya
         * The map holds the unique material id to a effect id.
         */
         const UniqueIdVec* findMaterialId ( const COLLADAFW::UniqueId& effectId );
-
-        /**
-        * The map holds for every effect the shader node attributes with the sampler image file.
-        */
-        const UniqueIdShaderNodesMap& getEffectShaderNodesMap () const { return mEffectShaderNodesMap; }
-
-        /**
-        * Returns the effect's sampler infos list.
-        */
-        const SamplerInfos* findEffectSamplerInfos ( const COLLADAFW::UniqueId& effectId );
-
-        /**
-        * The map holds for every unique image id the list of placed2dTextures, which use this image.
-        */
-        TexturePlacements* findTexturePlacements ( const UniqueIdSamplerIdPair& key );
 
         /**
         * Writes the connections of the effect texture placements to the image files.  
@@ -360,13 +350,21 @@ namespace COLLADAMaya
         * Connects the image file with the shader node attribute.
         */
         void connectTextureAttribute ( 
-            const EffectImporter::ShaderNodeAttribute& shaderNodeAttribute, 
+            const EffectImporter::TextureInfo& shaderNodeAttribute, 
             const MayaDM::File* imageFile );
 
         /**
          * Check if the image is already in the list of the connected images.
          */
-        const bool isConnectedImage ( const COLLADAFW::UniqueId& imageId ) const;
+        const bool isDefaultTextureConnected ( const String& imageName ) const;
+
+        /** 
+        * Store the imageId of the file with the materialId of the materialInfo 
+        * in a list of connected elements, to avoid dublicate connections between them.
+        */
+        const bool isMaterialConnected (
+            const COLLADAFW::UniqueId& materialId, 
+            const String& imageName );
 
 	};
 

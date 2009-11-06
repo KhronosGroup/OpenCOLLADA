@@ -19,7 +19,7 @@
 #include "COLLADAMayaVisualSceneImporter.h"
 #include "COLLADAMayaImportOptions.h"
 #include "COLLADAMayaControllerImporter.h"
-
+#include "COLLADAMayaMaterialImporter.h"
 
 #include <maya/MFnMesh.h>
 #include <maya/MFnTransform.h>
@@ -34,12 +34,13 @@
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWTristrips.h"
 #include "COLLADAFWEdge.h"
+#include "COLLADAFWMorphController.h"
 
 
 namespace COLLADAMaya
 {
     
-    const String GeometryImporter::GEOMETRY_NAME = "Geometry";
+    const String GeometryImporter::GEOMETRY_NAME = "geom";
 
 
     // --------------------------------------------
@@ -74,27 +75,21 @@ namespace COLLADAMaya
         {
         case COLLADAFW::Geometry::GEO_TYPE_CONVEX_MESH:
             std::cerr << "Import of convex_mesh not supported!" << std::endl;
-            MGlobal::displayError ( "Import of convex_mesh not supported!" );
             return;
         case COLLADAFW::Geometry::GEO_TYPE_SPLINE:
             std::cerr << "Import of spline not supported!" << std::endl;
-            MGlobal::displayError ( "Import of spline not supported!" );
             return;
         case COLLADAFW::Geometry::GEO_TYPE_MESH:
             {
                 COLLADAFW::Mesh* mesh = ( COLLADAFW::Mesh* ) geometry;
-
-                // Import the mesh data, if it is referenced from a transform node.
-                importMesh ( mesh );
-
+                
                 // Import the mesh data, if the geometry is referenced from a transform node.
-                bool meshImported = importMesh ( mesh );
-
-                // If a skinControllerData object is referenced from multiple controllers,
-                // just the first one has to create the original mesh object.
+                bool meshAlreadyImported = importMesh ( mesh );
 
                 // Import the controller mesh data, if the mesh is referenced from a controller.
-                importController ( mesh, meshImported );
+                // If a skinControllerData object is referenced from multiple controllers,
+                // just the first one has to create the original mesh object.
+                importController ( mesh, meshAlreadyImported );
 
                 break;
             }
@@ -107,41 +102,236 @@ namespace COLLADAMaya
 
     // --------------------------------------------
     void GeometryImporter::importController ( 
-        const COLLADAFW::Mesh* mesh, 
+        COLLADAFW::Mesh* mesh, 
         bool meshAlreadyImported )
+    {
+        // Import the geometries, which are referenced with a skin or morph controller.
+        importControllerGeometry ( mesh, meshAlreadyImported );
+        if ( meshAlreadyImported ) return;
+        
+        // Import the geometries, which are referenced with a target of a morph controller.
+        importMorphTargetGeometry ( mesh, meshAlreadyImported );
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::importMorphTargetGeometry ( 
+        COLLADAFW::Mesh* mesh, 
+        bool &meshIsImported )
     {
         // Get the unique id.
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
 
-        // Check, if the mesh is referenced from a controller object.
         ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
-        const std::vector<COLLADAFW::SkinController*>* skinControllers = controllerImporter->findSkinControllersBySourceId ( geometryId );
-        if ( skinControllers == 0 ) return;
+        VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
 
-        for ( size_t i=0; i<skinControllers->size (); ++i )
+        // Check if we need to import the geometry, about it is referenced from a morph target.
+        const std::vector<COLLADAFW::MorphController*>* morphControllers = controllerImporter->findMorphControllersByMorphTargetId ( geometryId );
+        if ( morphControllers == 0 ) return;
+
+        for ( size_t i=0; i<morphControllers->size (); ++i )
         {
             // Every skin controller needs his own controller mesh object. All connections of 
             // skinController elements, materials and groups will be done directly to this mesh.
             // The original mesh geometry object has to be created just once, either as an intermediate
             // object or, if it is referenced from an instance geometry, directly as normal mesh.
-            const COLLADAFW::SkinController* skinController = (*skinControllers) [i];
+            const COLLADAFW::MorphController* morphController = (*morphControllers) [i];
 
             // Create an original mesh object under the transform node of the skin controller.
-            const COLLADAFW::UniqueId& controllerId = skinController->getUniqueId ();
+            const COLLADAFW::UniqueId& morphControllerId = morphController->getUniqueId ();
 
-            // Get the node instances.
-            VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
-            const UniqueIdVec* controllerTransformIds = visualSceneImporter->findControllerTransformIds ( controllerId );
-            if ( controllerTransformIds == 0 ) continue;
+            // Get the node instances, if the morph controller is directly referenced from the scene graph.
+            const UniqueIdVec* morphControllerTransformIds = visualSceneImporter->findControllerTransformIds ( morphControllerId );
+            if ( morphControllerTransformIds == 0 ) 
+            {
+                // A morph controller can also be referenced from a skin controller. 
+                // In this case, we have to check, if the skin controller is referenced from 
+                // the scene graph. If so, we can start to import the geometry.
+                const std::vector<COLLADAFW::SkinController*>* skinControllers = controllerImporter->findSkinControllersBySourceId ( morphControllerId );
+                if ( skinControllers == 0 || skinControllers->size () == 0 ) continue;
 
-            // Make the mesh instances and import the mesh data.
-            importMesh ( mesh, controllerTransformIds, &controllerId, meshAlreadyImported );
-            meshAlreadyImported = true;
+                for ( size_t j=0; j<skinControllers->size (); ++j )
+                {
+                    const COLLADAFW::SkinController* skinController = (*skinControllers) [j];
+                    const COLLADAFW::UniqueId& skinControllerId = skinController->getUniqueId ();
+
+                    // Get the node instances.
+                    const UniqueIdVec* skinControllerTransformIds = visualSceneImporter->findControllerTransformIds ( skinControllerId );
+                    if ( skinControllerTransformIds != 0 ) 
+                    {
+                        // Import the mesh data (just once!).
+                        const COLLADAFW::UniqueId& transformId = (*skinControllerTransformIds) [0];
+                        UniqueIdVec controllerTransformIds;
+                        controllerTransformIds.push_back ( transformId );
+                        meshIsImported = importMesh ( mesh, &controllerTransformIds, 0, meshIsImported, false, false );
+                    }
+                }
+            }
+            else
+            {
+                // Import the mesh data (just once!).
+                const COLLADAFW::UniqueId& transformId = (*morphControllerTransformIds) [0];
+                UniqueIdVec controllerTransformIds;
+                controllerTransformIds.push_back ( transformId );
+                meshIsImported = importMesh ( mesh, &controllerTransformIds, 0, false, false, false );
+            }
         }
     }
 
     // --------------------------------------------
-    bool GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )
+    void GeometryImporter::importControllerGeometry (
+        COLLADAFW::Mesh* mesh,
+        bool &isImported )
+    {
+        ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+        VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
+
+        // The flag is used to know, if the current mesh is a valid, visible geometry (this means,
+        // that the geometry is directly instantiated in an <instance_geometry> tag). If the 
+        // geometry is at this point of import already imported, we must have a geometry instance.
+        // Then we have to change the bind material objects (@see MaterialImporter::connectGeometries ()).
+        bool hasGeometryInstance = isImported;
+
+        // Check, if the mesh is directly referenced from a controller object.
+        const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+        std::vector<COLLADAFW::Controller*> controllers = controllerImporter->findControllersBySourceId ( geometryId );
+        if ( controllers.size () == 0 ) return;
+        for ( size_t i=0; i<controllers.size (); ++i )
+        {
+            // Every skin controller needs his own controller mesh object. All connections of 
+            // skinController elements, materials and groups will be done directly to this mesh.
+            // The original mesh geometry object has to be created just once, either as an intermediate
+            // object or, if it is referenced from an instance geometry, directly as normal mesh.
+            const COLLADAFW::Controller* controller = (controllers) [i];
+
+            // Import the geometry for any controller, which use the geometry directly.
+            if ( importSkinOrMorphControlledGeometry ( mesh, controller, isImported, hasGeometryInstance ) ) 
+                isImported = true;
+
+            // Check if the current controller is a morph controller.
+            if ( controller->getControllerType () == COLLADAFW::Controller::CONTROLLER_TYPE_MORPH )
+            {
+                // Import the geometry for skin controllers, which use a morph controller, which use the geometry.
+                const COLLADAFW::MorphController* morphController = (COLLADAFW::MorphController*)controller;
+                if ( importSkinAndMorphControlledGeometry ( mesh, morphController, isImported, hasGeometryInstance ) )
+                    isImported = true;
+            }
+        }
+    }
+
+    // --------------------------------------------
+    bool GeometryImporter::importSkinOrMorphControlledGeometry ( 
+        COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::Controller* controller, 
+        const bool isImported, 
+        const bool hasGeometryInstance )
+    {
+        ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+        VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
+
+        bool retValue = isImported;
+
+        // Create an original mesh object under the transform node of the skin controller.
+        const COLLADAFW::UniqueId& controllerId = controller->getUniqueId ();
+
+        // Get the node instances.
+        const UniqueIdVec* controllerTransformIds = visualSceneImporter->findControllerTransformIds ( controllerId );
+        if ( controllerTransformIds != 0 )              
+        {
+            // Make the mesh instances and import the mesh data.
+            const COLLADAFW::Controller::ControllerType& controllerType = controller->getControllerType ();
+            MeshControllerData meshControllerData ( controllerType, controllerId );
+
+            // If the current controller, who reference the geometry, is a morph controller, we 
+            // must check if the morph controller is referenced from one or more skin controllers. 
+            // In this case, we have to create a mesh controller node for every skin controller.
+            if ( importMesh ( mesh, controllerTransformIds, &meshControllerData, retValue ) ) retValue = true;
+            mMeshControllerDataList.push_back ( meshControllerData );
+        }
+
+        return retValue;
+    }
+
+    // --------------------------------------------
+    bool GeometryImporter::importSkinAndMorphControlledGeometry ( 
+        COLLADAFW::Mesh* mesh,
+        const COLLADAFW::MorphController* morphController, 
+        const bool meshImported, 
+        const bool hasGeometryInstance )
+    {
+        ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+        VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
+
+        // Flag, if the geometry is imported.
+        bool retValue = meshImported;
+
+        // Get the controller id.
+        const COLLADAFW::UniqueId& morphControllerId = morphController->getUniqueId ();
+
+        // Get all skin controllers, who reference the current morph controller.
+        const std::vector<COLLADAFW::SkinController*>* skinControllers = controllerImporter->findSkinControllersBySourceId ( morphControllerId );
+        if ( skinControllers == 0 || skinControllers->size () == 0 ) return retValue;
+        const size_t numSkinControllers = skinControllers->size ();
+
+        // Check if the morph meshControllerData is already imported.
+        bool deleteMorphMeshControllerData = false;
+        bool morphAlreadyImported = true;
+
+        // The current morph meshController.
+        MeshControllerData* morphMeshControllerData = 0;
+
+        // Create the skin controllers.
+        for ( size_t scInstance=0; scInstance<numSkinControllers; ++scInstance )
+        {
+            // Do it in the loop, about the list will be changed.
+            morphMeshControllerData = findMeshControllerDataByControllerId ( morphControllerId );
+            if ( morphMeshControllerData == 0 )
+            {
+                // Create a MeshControllerData object for the current morph controller.
+                morphMeshControllerData = new MeshControllerData ( COLLADAFW::Controller::CONTROLLER_TYPE_MORPH, morphControllerId );
+                deleteMorphMeshControllerData = true;
+                morphAlreadyImported = false;
+            }
+
+            // Get the current skin controller.
+            const COLLADAFW::SkinController* skinController = (*skinControllers) [scInstance];
+            const COLLADAFW::UniqueId& skinControllerId = skinController->getUniqueId ();
+
+            // Get the node instances. If there are no instances, the skin controller is 
+            // not referenced from the scene graph and we don't need to create it.
+            const UniqueIdVec* controllerTransformIds = visualSceneImporter->findControllerTransformIds ( skinControllerId );
+            if ( controllerTransformIds == 0 ) continue;
+
+            // Create a MeshControllerData object for the current skin controller.
+            MeshControllerData skinMeshControllerData ( COLLADAFW::Controller::CONTROLLER_TYPE_SKIN, skinControllerId );
+            if ( importMesh ( mesh, controllerTransformIds, &skinMeshControllerData, retValue ) ) retValue = true;
+
+            // Just create the morph mesh controller data once.
+            if ( !morphAlreadyImported )
+            {
+                bool intermediateObject = true;
+                if ( importMesh ( mesh, controllerTransformIds, morphMeshControllerData, retValue, intermediateObject ) ) retValue = true;
+                mMeshControllerDataList.push_back ( *morphMeshControllerData );
+                morphAlreadyImported = true;
+
+                // Delete the generated object again.
+                if ( deleteMorphMeshControllerData ) delete morphMeshControllerData;
+            }
+
+            // Get the object again, because the list could have changed or the object deletet.
+            morphMeshControllerData = findMeshControllerDataByControllerId ( morphControllerId );
+
+            // We have to change the original mesh nodes of the skin controller to the
+            // controller mesh node of the morph controller.
+            const MayaDM::Mesh& morphControllerMeshNode = morphMeshControllerData->getControllerMeshNode ();
+            skinMeshControllerData.setOriginalMeshNode ( morphControllerMeshNode );
+            mMeshControllerDataList.push_back ( skinMeshControllerData );
+        }
+
+        return retValue;
+    }
+
+    // --------------------------------------------
+    bool GeometryImporter::importMesh ( COLLADAFW::Mesh* mesh )
     {
         // Get the unique framework mesh id 
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
@@ -152,38 +342,45 @@ namespace COLLADAMaya
         if ( transformNodeIds == 0 ) return false;
 
         // Make the mesh instances and import the mesh data.
-        importMesh ( mesh, transformNodeIds );
+        bool meshImported = importMesh ( mesh, transformNodeIds );
 
-        return true;
+        return meshImported;
     }
 
     // --------------------------------------------
-    void GeometryImporter::importMesh ( 
-        const COLLADAFW::Mesh* mesh, 
+    bool GeometryImporter::importMesh ( 
+        COLLADAFW::Mesh* mesh, 
         const UniqueIdVec* transformNodeIds, 
-        const COLLADAFW::UniqueId* controllerId /*= 0*/,
-        const bool meshAlreadyImported /*= false*/ )
+        MeshControllerData* meshControllerData /*= 0*/,
+        const bool isImported /*= false*/, 
+        const bool intermediateObject /*= false*/,
+        const bool visible /*= true*/ )
     {
-        // Get the node instances.
-        UniqueIdVec::const_iterator nodesIter = transformNodeIds->begin ();
-        size_t numNodeInstances = transformNodeIds->size ();
+        // The return flag.
+        bool retValue = isImported;
 
         // The index value of the current geometry instance.
         size_t geometryInstanceIndex = 0;
 
-        // Go through the node instances and create / instance the mesh. 
+        // The transform node path of the original instance.
+        String instanceTransformNodePath;
+
+        // Go through the node instances and create / instanciate the mesh. 
+        size_t numNodeInstances = transformNodeIds->size ();
+        UniqueIdVec::const_iterator nodesIter = transformNodeIds->begin ();
         while ( nodesIter != transformNodeIds->end () )
         {
             // Get the maya node of the current transform node.
-            const COLLADAFW::UniqueId& transformNodeId = *nodesIter;
+            const COLLADAFW::UniqueId& transformId = *nodesIter;
             VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
-            MayaNodesList* transformNodes = visualSceneImporter->findMayaTransformNode ( transformNodeId );
+            MayaNodesList* transformNodes = visualSceneImporter->findMayaTransformNodes ( transformId );
             if ( transformNodes->size () == 0 )
             {
-                MGlobal::displayError ( "The referenced transform node doesn't exist!" );
                 std::cerr << "The referenced transform node doesn't exist!" << endl;
-                return;
+                return false;
             }
+            // We always take the first transform node to create the instance. 
+            // All other transform nodes will instanciate the main instance mesh node.
             MayaNode* mayaTransformNode = (*transformNodes) [0];
             String transformNodeName = mayaTransformNode->getName ();
 
@@ -194,45 +391,82 @@ namespace COLLADAMaya
             if ( nodesIter == transformNodeIds->begin() )
             {
                 // Create the current mesh node.
-                createMesh ( mesh, mayaTransformNode, controllerId, meshAlreadyImported );
+                if ( createMesh ( mesh, mayaTransformNode, meshControllerData, retValue, intermediateObject, visible ) ) 
+                    retValue = true;
+                instanceTransformNodePath = transformNodePath;
             }
             else
             {
-                // Make the parent connections.
-                const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
-                MayaNode* mayaMeshNode = findMayaMeshNode ( geometryId );
-                String meshNodePath = mayaMeshNode->getNodePath ();
+                // If the mesh is skin controlled, we have to copy the meshControllerData object.
+                if ( !meshControllerData )
+                {
+                    // Make the parent connections.
+                    const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+                    MayaNode* mayaMeshNode = findMayaMeshNode ( geometryId );
+                    String meshNodePath = mayaMeshNode->getNodePath ();
 
-                // parent -shape -noConnections -relative -addObject "|pCube1|pCubeShape1" "pCube2";
-                FILE* file = getDocumentImporter ()->getFile ();
-                MayaDM::parentShape ( file, meshNodePath, transformNodePath, false, true, true, true );
+                    // parent -shape -noConnections -relative -addObject "|pCube1|pCubeShape1" "pCube2";
+                    FILE* file = getDocumentImporter ()->getFile ();
+                    MayaDM::parentShape ( file, meshNodePath, transformNodePath, false, true, true, true );
+                }
+                else
+                {
+                    MeshControllerData meshControllerDataInstance ( *meshControllerData );
+                    meshControllerDataInstance.setTransformId ( transformId );
+                    meshControllerDataInstance.setIsInitialInstance ( false );
+                    mMeshControllerDataList.push_back ( meshControllerDataInstance );
+
+                    // parent -shape -noConnections -relative -addObject "|pCube1|pCubeShape1" "pCube2";
+                    String meshName = meshControllerDataInstance.getControllerMeshNode ().getName ();
+                    size_t pos = meshName.find_last_of ( "|" );
+                    String name = meshName.substr ( pos+1 );
+                    String meshNodePath = instanceTransformNodePath + "|" + name;
+                    FILE* file = getDocumentImporter ()->getFile ();
+
+                    MayaDM::parentShape ( file, meshNodePath, transformNodePath, false, true, true, true );
+                }
             }
 
-            // Create maya groupId objects for every mesh primitive (if there is more than one).
-            // This method is called for every geometry instance.
-            createGroupNodes ( mesh, transformNodeId, geometryInstanceIndex, controllerId );
+            // Create maya groupId objects for every mesh primitive (if there is more than one) to
+            // connect the materials. This method is called for every geometry instance.
+            // If the current mesh is an intermediate object or it is invisible, then we don't need 
+            // the object groups for the material connections for it.
+            //if ( !intermediateObject && visible )
+            if ( !intermediateObject )
+            {
+                if ( meshControllerData )
+                {
+                    const COLLADAFW::UniqueId& controllerId = meshControllerData->getControllerId ();
+                    createGroupNodes ( mesh, geometryInstanceIndex, transformId, numNodeInstances, controllerId );
+                }
+                else
+                {
+                    createGroupNodes ( mesh, geometryInstanceIndex, transformId, numNodeInstances );
+                }
+            }
 
             ++nodesIter;
         }
+
+        return retValue;
     }
 
     // --------------------------------------------
-    void GeometryImporter::createMesh ( 
-        const COLLADAFW::Mesh* mesh, 
+    bool GeometryImporter::createMesh ( 
+        COLLADAFW::Mesh* mesh, 
         MayaNode* mayaTransformNode, 
-        const COLLADAFW::UniqueId* controllerId /*= 0*/, 
-        const bool meshAlreadyImported /*= false*/ )
+        MeshControllerData* meshControllerData /*= 0*/, 
+        const bool meshIsImported /*= false*/,
+        const bool intermediateObject /*= false*/,
+        const bool visible /*= true*/ )
     {
-        // Create a unique name.
+        // Make the maya name unique and manage it in all necessary lists.
         String meshName = mesh->getName ();
-        if ( COLLADABU::Utils::equals ( meshName, "" ) ) 
-            meshName = GEOMETRY_NAME;
+        if ( meshName.empty () ) meshName = GEOMETRY_NAME;
         meshName = DocumentImporter::frameworkNameToMayaName ( meshName );
-        meshName = mMeshNodeIdList.addId ( meshName );
-
-        // TODO
-        // Add the name also to the id list of the materials, about the name of a material 
-        // can't be the same as the name of a geometry or a node.
+        String originalMayaId = getOriginalMayaId ( mesh->getExtraDataArray () );
+        if ( !originalMayaId.empty () ) meshName = originalMayaId;
+        meshName = generateUniqueDagNodeName ( meshName, mayaTransformNode );
 
         // Get the maya ascii file.
         FILE* file = getDocumentImporter ()->getFile ();
@@ -245,73 +479,90 @@ namespace COLLADAMaya
         const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
 
         // Create a maya node object of the current node and push it into the map.
-        MayaNode* mayaMeshNode = new MayaNode ( geometryId, meshName, mayaTransformNode );
-        mMayaMeshNodesMap [ geometryId ] = mayaMeshNode;
+        if ( findMayaMeshNode ( geometryId ) == 0 )
+        {
+            MayaNode* mayaMeshNode = new MayaNode ( geometryId, meshName, mayaTransformNode );
+            mMayaMeshNodesMap [ geometryId ] = mayaMeshNode;
+        }
 
         // We just need a MeshControllerData element, if we have a mesh controller object
         // to store the information of the controllerId, geometryId and transformId with the 
         // combination of the original mesh node object and the controller mesh object.
-        MeshControllerData meshControllerData;
-
-        // Create the controller mesh object first.
-        if ( controllerId )
+        if ( meshControllerData )
         {
-            meshControllerData.setControllerId ( *controllerId );
-            meshControllerData.setGeometryId ( geometryId );
-            meshControllerData.setTransformId ( transformNodeId );
+            meshControllerData->setGeometryId ( geometryId );
+            meshControllerData->setTransformId ( transformNodeId );
 
+            // Create the controller mesh object first.
             // Create the mesh node - no special settings...
             MayaDM::Mesh controllerMeshNode ( file, meshName, transformNodePath );
-            meshControllerData.setControllerMeshNode ( controllerMeshNode );
+
+            // Now set the node path in front of the name.
+            controllerMeshNode.setName ( transformNodePath + "|" + meshName );
+
+            // Add the original id attribute.
+            String colladaId = mesh->getOriginalId ();
+            if ( !colladaId.empty () )
+            {
+                MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
+                MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
+            }
+
+            if ( intermediateObject ) controllerMeshNode.setIntermediateObject ( intermediateObject );
+
+            // We have to set the texture coordinates and the colors to the current mesh.
+            writeUVSets ( mesh, controllerMeshNode, false );
+            writeColorSets ( mesh, controllerMeshNode, false );
+
+            // Set the mesh as the controller mesh.
+            meshControllerData->setControllerMeshNode ( controllerMeshNode );
 
             // Check if the original mesh is already created. If not, we have to create it 
             // here as a intermediate object, otherwise we can return here.
-            if ( meshAlreadyImported ) 
+            if ( meshIsImported ) 
             {
                 // Get the original mesh node from the list of maya mesh nodes.
                 MayaDM::Mesh* originalMeshNode = findMayaDMMeshNode ( geometryId );
-                meshControllerData.setOriginalMeshNode ( *originalMeshNode );
-
-                // Store the meshControllerData object.
-                mMeshControllerDataList.push_back ( meshControllerData );
+                meshControllerData->setOriginalMeshNode ( *originalMeshNode );
 
                 // The original mesh is already created, we can leave the creation.
-                return;
+                return true;
             }
-
-//             // Push the controller mesh node in the list of mayaDMMeshNodes.
-//             mMayaDMMeshNodesMap [geometryId] = controllerMeshNode;
 
             // Create the original mesh as an intermediate object.
             meshName += "Orig";
-            meshName = mMeshNodeIdList.addId ( meshName );
+            meshName = generateUniqueDagNodeName ( meshName, mayaTransformNode );
         }
 
         // Create the current maya data model mesh node.
         MayaDM::Mesh meshNode ( file, meshName, transformNodePath );
+
+        // Now set the node path in front of the name.
+        meshNode.setName ( transformNodePath + "|" + meshName );
+
+        if ( !visible ) meshNode.setVisibility ( visible );
         mMayaDMMeshNodesMap [geometryId] = meshNode;
 
-        if ( controllerId )
+        if ( meshControllerData )
         {
             // Handle a mesh which is instanced from a controller object.
-            // Boolean attribute that specifies whether the dagNode is an intermediate object resulting 
-            // from a construction history operation. dagNodes with this attribute set to true are not 
-            // visible and/or rendered.
+            // Boolean attribute that specifies whether the dagNode is an intermediate object 
+            // resulting  from a construction history operation. dagNodes with this attribute set 
+            // to true are not visible and/or rendered.
             meshNode.setIntermediateObject ( true );
 
             // Set the original mesh data.
-            meshControllerData.setOriginalMeshNode ( meshNode );
-
-            // Store the meshControllerData object.
-            mMeshControllerDataList.push_back ( meshControllerData );
+            meshControllerData->setOriginalMeshNode ( meshNode );
         }
-
-        // Add the original id attribute.
-        String colladaId = mesh->getOriginalId ();
-        if ( !COLLADABU::Utils::equals ( colladaId, "" ) )
+        else
         {
-            MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string" );
-            MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, "", "string", colladaId );
+            // Add the original id attribute.
+            String colladaId = mesh->getOriginalId ();
+            if ( !colladaId.empty () )
+            {
+                MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
+                MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
+            }
         }
 
         // Writes the object groups for every mesh primitive and
@@ -340,6 +591,11 @@ namespace COLLADAMaya
         // values in a map is much faster than in a vector!
         std::map<COLLADAFW::Edge,size_t> edgeIndicesMap;
 
+        // We need also a list where we store the information about the vertices of an edge 
+        // and the index position of the vertex in the mesh's primitive lists. Because the indices
+        // in the primitive's vertex indices list are always the same like the indices in the 
+        // primitive's uv or color indices lists. 
+
         // Iterates over the mesh primitives and reads the edge indices.
         getEdgeIndices ( mesh, edgeIndices, edgeIndicesMap );
 
@@ -349,17 +605,446 @@ namespace COLLADAMaya
         // Write the face informations of all primitive elements into the maya file.
         writeFaces ( mesh, edgeIndicesMap, meshNode );
 
+        // Write the face vertex normals. 
+//         if ( ImportOptions::importNormals () )
+//             writeFaceVertexNormals ( mesh, meshNode );
+            
         // Fills the PrimitivesMap and the ShadingEnginePrimitivesMap. 
         // Used to create the connections between the shading engines and the geometries.
         setMeshPrimitiveShadingEngines ( mesh );
+        
+        // Return the flag, that the mesh is imported.
+        return true;
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
+    {
+        // Count the number of normals to write into the maya file.
+        size_t numNormals = mesh->getNormalsCount ();
+
+        // Write the normals into the maya file.
+        if ( numNormals <= 0 ) return;
+
+        // Write blocks with 4000KB for maya
+        size_t blockSize = MAYA_BLOCK_SIZE / ( 3* sizeof ( double ) );
+        size_t endPosition = 0, index = 0; 
+
+        // Get the mesh normals values.
+        const COLLADAFW::MeshVertexData& normals = mesh->getNormals ();
+        size_t stride = 3; // x, y, z
+
+        // We have to go through every mesh primitive and append every element. 
+        const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
+        size_t count = meshPrimitives.getCount ();
+        for ( size_t i=0; i<count; ++i )
+        {
+            // Get the current primitive element.
+            const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
+            COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = meshPrimitive->getPrimitiveType();
+            // Get the normal indices of the current primitive.
+            const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices ();
+
+            switch ( primitiveType )
+            {
+            case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+                {
+                    size_t initialGroupedPosition = 0;
+
+                    COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) meshPrimitive;
+                    COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getGroupedVerticesVertexCountArray ();
+                    size_t groupedVtxCount = vertexCountArray.getCount ();
+                    for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
+                    {
+                        // Iterate over the indices and write their normal values into the maya file.
+                        size_t indexCount   = vertexCountArray[groupedVtxIndex]; 
+                        size_t numTriangles = indexCount - 2;
+
+                        unsigned int triIndices[3];
+
+                        // Increment the initial position for every vertex group.
+                        size_t initialPosition = initialGroupedPosition;
+                        initialGroupedPosition += indexCount;
+
+                        // The first vertex is always the same (per group).
+                        triIndices[0] = normalIndices [ initialPosition ];
+
+                        for ( size_t j=2; j<indexCount; ++j )
+                        {
+                            triIndices[1] = normalIndices [ initialPosition+j-1 ];
+                            triIndices[2] = normalIndices [ initialPosition+j ];
+
+                            // Iterate over the three normals of the current tristrip.
+                            for ( size_t n=0; n<3; ++n, ++index )
+                            {
+                                // Start the block if necessary.
+                                if ( index % blockSize == 0 )
+                                {
+                                    endPosition = index+blockSize-1;
+                                    if ( endPosition > numNormals-1 ) endPosition = numNormals-1;
+                                    meshNode.startNormals ( index, endPosition ); 
+                                }
+
+                                // Get the position in the values list to read.
+                                unsigned int pos = triIndices[n] * (unsigned int)stride;                            
+
+                                // Write the normal values on the index values.
+                                const COLLADAFW::MeshVertexData::DataType type = normals.getType ();
+                                switch ( type )
+                                {
+                                case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
+                                    {
+                                        const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
+                                        meshNode.appendNormals ( (*values)[pos] );
+                                        meshNode.appendNormals ( (*values)[pos+1] );
+                                        meshNode.appendNormals ( (*values)[pos+2] );
+                                    }
+                                    break;
+                                case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
+                                    {
+                                        const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
+                                        meshNode.appendNormals ( (float)(*values)[pos] );
+                                        meshNode.appendNormals ( (float)(*values)[pos+1] );
+                                        meshNode.appendNormals ( (float)(*values)[pos+2] );
+                                    }
+                                    break;
+                                default:
+                                    std::cerr << "No valid data type for normals: " << type << std::endl;
+                                    break;
+                                }
+
+                                // End the block if necessary.
+                                if ( index == endPosition ) 
+                                    meshNode.endNormals (); 
+                            }                        
+                        }
+
+                        // Increment the initial position for every vertex group.
+                        initialPosition += indexCount;
+                    }
+                }
+                break;
+            case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+                {
+                    size_t initialGroupedPosition = 0;
+
+                    COLLADAFW::Tristrips* tristrips = (COLLADAFW::Tristrips*) meshPrimitive;
+                    COLLADAFW::Tristrips::VertexCountArray& vertexCountArray = tristrips->getGroupedVerticesVertexCountArray ();
+                    size_t groupedVtxCount = vertexCountArray.getCount ();
+                    for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
+                    {
+                        // Iterate over the indices and write their normal values into the maya file.
+                        size_t indexCount   = vertexCountArray[groupedVtxIndex]; 
+                        size_t numTriangles = indexCount - 2;
+
+                        unsigned int triIndices[3];
+
+                        // Increment the initial position for every vertex group.
+                        size_t initialPosition = initialGroupedPosition;
+                        initialGroupedPosition += indexCount;
+
+                        for ( size_t j=0; j<numTriangles; ++j )
+                        {
+                            // Every second tristrip has to go into the other direction.
+                            if ( j%2 == 0 )
+                            {
+                                triIndices[0] = normalIndices [ initialPosition+j ];
+                                triIndices[1] = normalIndices [ initialPosition+j+1 ];
+                                triIndices[2] = normalIndices [ initialPosition+j+2 ];
+                            }
+                            else
+                            {
+                                triIndices[0] = normalIndices [ initialPosition+j+1 ];
+                                triIndices[1] = normalIndices [ initialPosition+j ];
+                                triIndices[2] = normalIndices [ initialPosition+j+2 ];
+                            }
+
+                            // Iterate over the three normals of the current tristrip.
+                            for ( size_t n=0; n<3; ++n, ++index)
+                            {
+                                // Start the block if necessary.
+                                if ( index % blockSize == 0 )
+                                {
+                                    endPosition = index+blockSize-1;
+                                    if ( endPosition > numNormals-1 ) endPosition = numNormals-1;
+                                    meshNode.startNormals ( index, endPosition ); 
+                                }
+
+                                // Get the position in the values list to read.
+                                unsigned int pos = triIndices[n] * (unsigned int)stride;                            
+
+                                // Write the normal values on the index values.
+                                const COLLADAFW::MeshVertexData::DataType type = normals.getType ();
+                                switch ( type )
+                                {
+                                case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
+                                    {
+                                        const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
+                                        meshNode.appendNormals ( (*values)[pos] );
+                                        meshNode.appendNormals ( (*values)[pos+1] );
+                                        meshNode.appendNormals ( (*values)[pos+2] );
+                                    }
+                                    break;
+                                case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
+                                    {
+                                        const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
+                                        meshNode.appendNormals ( (float)(*values)[pos] );
+                                        meshNode.appendNormals ( (float)(*values)[pos+1] );
+                                        meshNode.appendNormals ( (float)(*values)[pos+2] );
+                                    }
+                                    break;
+                                default:
+                                    std::cerr << "No valid data type for normals: " << type << std::endl;
+                                }
+
+                                // End the block if necessary.
+                                if ( index == endPosition ) 
+                                    meshNode.endNormals (); 
+                            }                        
+                        }
+
+                        // Increment the initial position for every vertex group.
+                        initialPosition += indexCount;
+                    }
+                }
+                break;
+            case COLLADAFW::MeshPrimitive::POLYGONS:
+            case COLLADAFW::MeshPrimitive::POLYLIST:
+            case COLLADAFW::MeshPrimitive::TRIANGLES:
+                {
+                    // Iterate over the indices and write their normal values into the maya file.
+                    size_t indexCount = normalIndices.getCount ();
+                    for ( size_t j=0; j<indexCount; ++j, ++index )
+                    {
+                        // Get the index of the current normal.
+                        unsigned int normalIndex = normalIndices [ j ];
+
+                        // Get the position in the values list to read.
+                        unsigned int pos = normalIndex * (unsigned int)stride;
+
+                        // Start the block if necessary.
+                        if ( index % blockSize == 0 )
+                        {
+                            endPosition = index+blockSize-1;
+                            if ( endPosition > numNormals-1 ) endPosition = numNormals-1;
+                            meshNode.startNormals ( index, endPosition ); 
+                        }
+
+                        // Write the normal values on the index values.
+                        const COLLADAFW::MeshVertexData::DataType type = normals.getType ();
+                        switch ( type )
+                        {
+                        case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
+                            {
+                                const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
+                                meshNode.appendNormals ( (*values)[pos] );
+                                meshNode.appendNormals ( (*values)[pos+1] );
+                                meshNode.appendNormals ( (*values)[pos+2] );
+                            }
+                            break;
+                        case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
+                            {
+                                const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
+                                meshNode.appendNormals ( (float)(*values)[pos] );
+                                meshNode.appendNormals ( (float)(*values)[pos+1] );
+                                meshNode.appendNormals ( (float)(*values)[pos+2] );
+                            }
+                            break;
+                        default:
+                            std::cerr << "No valid data type for normals: " << type << std::endl;
+                            break;
+                        }
+
+                        // End the block if necessary.
+                        if ( index == endPosition ) 
+                            meshNode.endNormals (); 
+                    }
+                }
+                break;
+            default:
+                std::cerr << "Primitive type not implemented!" << std::endl;
+                continue;
+            }            
+        }
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::writeFaceVertexNormals ( 
+        const COLLADAFW::Mesh* mesh, 
+        MayaDM::Mesh &meshNode )
+    {
+        // Get the mesh normals values.
+        const COLLADAFW::MeshVertexData& normals = mesh->getNormals ();
+        if ( normals.getValuesCount () == 0 ) return;
+
+        size_t globalFaceIndex = 0;
+
+        // We have to go through every mesh primitive and append every element. 
+        const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
+        size_t count = meshPrimitives.getCount ();
+        for ( size_t primitiveIndex=0; primitiveIndex<count; ++primitiveIndex )
+        {
+            // Get the current primitive element.
+            const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ primitiveIndex ];
+            const COLLADAFW::MeshPrimitive::PrimitiveType& primitiveType = meshPrimitive->getPrimitiveType ();
+
+            // Get the normal indices of the current primitive.
+            const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices ();
+            const COLLADAFW::UIntValuesArray& vertexIndices = meshPrimitive->getPositionIndices ();
+
+            // Get the number of faces of the current primitive element.
+            const size_t primitiveFaceCount = meshPrimitive->getFaceCount ();
+            const size_t groupedVertexElementsCount = meshPrimitive->getGroupedVertexElementsCount ();
+
+            size_t primitiveVertexIndex = 0;
+
+            // Iterate over the faces/groupedVertexElements and write the normals for every vertex in the current face.
+            for ( size_t faceIndex=0; faceIndex<groupedVertexElementsCount; ++faceIndex )
+            {
+                // Get the number of vertices in the current face/groupedVertexElement.
+                int numFaceVerticesH = meshPrimitive->getGroupedVerticesVertexCount ( faceIndex );
+                const size_t numFaceVertices = numFaceVerticesH < 0 ? (size_t)numFaceVerticesH*-1 : (size_t)numFaceVerticesH;
+
+                // Handle holes: if we write the normals of a hole, 
+                // we don't have to increment the maya face count.
+                if ( numFaceVerticesH < 0 ) --globalFaceIndex;
+
+                size_t firstGroupedVertexElementPrimitiveVertexIndex = 0;
+
+                // Iterate over the face vertices and get the normals for every vertex in the current face.
+                for ( size_t faceVertexIndex=0; faceVertexIndex<numFaceVertices; ++faceVertexIndex )
+                {
+                    switch ( primitiveType )
+                    {
+                    case COLLADAFW::MeshPrimitive::POLYGONS:
+                    case COLLADAFW::MeshPrimitive::POLYLIST:
+                    case COLLADAFW::MeshPrimitive::TRIANGLES:
+                        {
+                            // Set the normal and increment the vertex index of the current primitive element.
+                            setFaceVertexNormal ( meshNode, meshPrimitive, normals, primitiveVertexIndex, globalFaceIndex );
+                            ++primitiveVertexIndex;
+                        }
+                        break;
+                    case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+                        {
+                            if ( faceVertexIndex == 0 )
+                                firstGroupedVertexElementPrimitiveVertexIndex = primitiveVertexIndex;
+
+                            // After the third vertex in a grouped vertex element, every next vertex 
+                            // defines a triangle with the first, the last and the new vertex.
+                            if ( faceVertexIndex >= 3 )
+                            {
+                                // We have the next face.
+                                ++globalFaceIndex;
+
+                                // Set the normal of the first vertex.
+                                setFaceVertexNormal ( meshNode, meshPrimitive, normals, firstGroupedVertexElementPrimitiveVertexIndex, globalFaceIndex );
+
+                                // Set the normal of the last vertex.
+                                --primitiveVertexIndex;
+                                setFaceVertexNormal ( meshNode, meshPrimitive, normals, primitiveVertexIndex, globalFaceIndex );
+                                ++primitiveVertexIndex;
+
+                                // Set the normal of the new vertex.
+                                setFaceVertexNormal ( meshNode, meshPrimitive, normals, primitiveVertexIndex, globalFaceIndex );
+                                ++primitiveVertexIndex;
+                            }
+                            else
+                            {
+                                // Set the normal of the new vertex.
+                                setFaceVertexNormal ( meshNode, meshPrimitive, normals, primitiveVertexIndex, globalFaceIndex );
+                                ++primitiveVertexIndex;
+                            }
+                        }
+                        break;
+                    case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+                        {
+                            // After the third vertex in a grouped vertex element, every next vertex 
+                            // defines a triangle with the next to last, the last and the new vertex.
+                            if ( faceVertexIndex >= 3 )
+                            {
+                                // We have the next face.
+                                ++globalFaceIndex;
+
+                                // Write the normals for the last two vertices in the current face.
+                                primitiveVertexIndex -= 2;
+
+                                // Set the normal of the next to last vertex.
+                                setFaceVertexNormal ( meshNode, meshPrimitive, normals, primitiveVertexIndex, globalFaceIndex );
+                                ++primitiveVertexIndex;
+
+                                // Set the normal of the last vertex.
+                                setFaceVertexNormal ( meshNode, meshPrimitive, normals, primitiveVertexIndex, globalFaceIndex );
+                                ++primitiveVertexIndex;
+                            }
+
+                            // Set the normal of the new vertex.
+                            setFaceVertexNormal ( meshNode, meshPrimitive, normals, primitiveVertexIndex, globalFaceIndex );
+                            ++primitiveVertexIndex;
+                        }
+                        break;
+                    default:
+                        std::cerr << "Import of normals of primitive element from type " << primitiveType << " not implemented." << endl;
+                        break;
+                    }
+                }
+
+                // Increment the global face index by the number of faces of the current primitive element.
+                ++globalFaceIndex;
+            }
+        }
+    }    
+
+    // --------------------------------------------
+    void GeometryImporter::setFaceVertexNormal ( 
+        MayaDM::Mesh &meshNode, 
+        const COLLADAFW::MeshPrimitive* meshPrimitive, 
+        const COLLADAFW::MeshVertexData &normals, 
+        const size_t primitiveVertexIndex, 
+        const size_t globalFaceIndex )
+    {
+        // Get the normal indices of the current primitive.
+        const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices ();
+        const COLLADAFW::UIntValuesArray& vertexIndices = meshPrimitive->getPositionIndices ();
+
+        // Get the vertex index.
+        unsigned int vertexIndex = vertexIndices [ primitiveVertexIndex ];
+
+        // Get the index of the current normal.
+        unsigned int normalIndex = normalIndices [ primitiveVertexIndex ];
+
+        // Get the position in the values list to read.
+        const size_t stride = 3; // Always a x,y and z component of a normal vector.
+        unsigned int pos = normalIndex * (unsigned int)stride;
+
+        // Write the normal values on the index values.
+        const COLLADAFW::MeshVertexData::DataType type = normals.getType ();
+        switch ( type )
+        {
+        case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
+            {
+                const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
+                meshNode.setVertexFaceNormalXYZ ( vertexIndex, globalFaceIndex, MayaDM::float3 ((*values)[pos],(*values)[pos+1],(*values)[pos+2]) );
+            }
+            break;
+        case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
+            {
+                const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
+                meshNode.setVertexFaceNormalXYZ ( vertexIndex, globalFaceIndex, MayaDM::float3 ((float)(*values)[pos],(float)(*values)[pos+1],(float)(*values)[pos+2]) );
+            }
+            break;
+        default:
+            std::cerr << "No valid data type for normals: " << type << std::endl;
+        }
     }
 
     // --------------------------------------------
     void GeometryImporter::createGroupNodes ( 
-        const COLLADAFW::Mesh* mesh, 
-        const COLLADAFW::UniqueId& transformNodeId, 
-        size_t& geometryInstanceIndex,
-        const COLLADAFW::UniqueId* controllerId /*= 0*/ )
+        const COLLADAFW::Mesh* mesh,
+        size_t& geometryInstanceIndex, 
+        const COLLADAFW::UniqueId& transformId, 
+        const size_t numNodeInstances,
+        const COLLADAFW::UniqueId& controllerId /*= COLLADAFW::UniqueId ()*/ )
     {
         // This method is called for every geometry instance.
 
@@ -379,7 +1064,7 @@ namespace COLLADAMaya
         VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
 
         // Get the number of transform node instances.
-        size_t numTransformInstances = visualSceneImporter->getNumTransformInstances ( transformNodeId );
+        size_t numTransformInstances = visualSceneImporter->getNumTransformInstances ( transformId );
 
         // Iterate over the instances and create the group nodes.
         for ( size_t transformInstanceIndex=0; transformInstanceIndex<numTransformInstances; ++transformInstanceIndex )
@@ -405,10 +1090,12 @@ namespace COLLADAMaya
 
                 // Assign the group to the unique geometry id, the transform node 
                 // to the mesh instance and the index of the geometry's primitives.
-                ShadingBinding shadingBinding ( geometryId, transformNodeId, shadingEngineId, controllerId );
+                ShadingBinding shadingBinding ( geometryId, transformId, shadingEngineId, controllerId );
+                shadingBinding.setNumInstances ( numNodeInstances );
+                shadingBinding.setInstanceIndex ( geometryInstanceIndex );
 
                 // Create the maya groupId object 
-                String groupName = getDocumentImporter ()->getGroupIdIdList ().addId ( GROUP_ID_NAME, true, true );
+                String groupName =  generateUniqueDependNodeName ( GROUP_ID_NAME, true, true );
                 MayaDM::GroupId groupId ( file, groupName );
                 groupId.setIsHistoricallyInteresting (0);
 
@@ -416,11 +1103,9 @@ namespace COLLADAMaya
                 GroupInfo groupInfo ( groupId, shadingEngineId, transformInstanceIndex, primitiveIndex );
 
                 // If we have a controller element, we need also groupParts to manage the group objects.
-                ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
-                bool hasController = ( controllerImporter->findSkinControllersBySourceId ( geometryId ) != 0 );
-                if ( hasController )
+                if ( controllerId.isValid () )
                 {
-                    String groupPartsName = getDocumentImporter ()->getGroupPartsIdList ().addId ( GROUP_PARTS_NAME, true, true );
+                    String groupPartsName =  generateUniqueDependNodeName ( GROUP_PARTS_NAME, true, true );
                     MayaDM::GroupParts groupParts ( file, groupPartsName );
 
                     // Get the component list of the geometry's primitive element, which contains 
@@ -491,15 +1176,7 @@ namespace COLLADAMaya
         {
             // Get the number of faces of the current primitive element.
             const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
-
-            // TODO Is this also with trifans, etc. the right number???
-//            size_t numFaces = meshPrimitive->getGroupedVertexElementsCount ();
             size_t numFaces = meshPrimitive->getFaceCount ();
-
-//             COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) primitiveElement;
-//             COLLADAFW::Trifans::VertexCountArray& vertexCountArray = 
-//                trifans->getGroupedVerticesVertexCountArray ();
-//             size_t faceCount2 = meshPrimitive->getGroupedVerticesVertexCount (i);
 
             // Create the string with the face informations for the component list.
             String val = "f[" + COLLADABU::Utils::toString ( initialFaceIndex ) 
@@ -539,7 +1216,8 @@ namespace COLLADAMaya
         // Push the number of primitive elements to the geometry in the map.
         mGeometryIdPrimitivesCountMap [geometryId] = meshPrimitivesCount;
 
-        // Iterate over the mesh primitive elements and set the shading engines.
+        // Iterate over the mesh primitive elements and store for the geometry for every 
+        // primitive element the shadingEngineId.
         for ( size_t primitiveIndex=0; primitiveIndex<meshPrimitivesCount; ++primitiveIndex )
         {
             // Get the current primitive element.
@@ -549,11 +1227,15 @@ namespace COLLADAMaya
             String shadingEngineName = meshPrimitive->getMaterial ();
             COLLADAFW::MaterialId shadingEngineId = meshPrimitive->getMaterialId ();
 
-            // Fills the ShadingEnginePrimitivesMap. Used to create the connections between the 
-            // shading engines and the geometries.
-            // The map holds for every geometry's shading engine a list of the index values of the 
-            // geometry's primitives. 
-            setShadingEnginePrimitiveIndex ( geometryId, shadingEngineId, primitiveIndex );
+            // Store for the geometry for every primitive element the shading engine id.
+            GeometryShadingEngine geometryShadingEngine;
+            geometryShadingEngine.mPrimitiveIndex = primitiveIndex;
+            geometryShadingEngine.mShadingEngineId = shadingEngineId;
+
+            // Fills the GeometryShadingEngineMap. Used to create the connections between the 
+            // shading engines and the geometries. The map holds for every geometry's primitive
+            // element the used shading engine. 
+            mGeometryShadingEnginesMap [geometryId].push_back ( geometryShadingEngine );
         }
     }
 
@@ -604,8 +1286,7 @@ namespace COLLADAMaya
                 break;
             default:
                 std::cerr << "No valid data type for positions: " << type << std::endl;
-                MGlobal::displayError ( "No valid data type for positions: " + type );
-                assert ( "No valid data type for positions: " + type );
+                continue;
             }
 
             meshNode.appendVrts ( (float)converted[0] );
@@ -619,86 +1300,10 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    void GeometryImporter::writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
-    {
-        // Count the number of normals to write into the maya file.
-        size_t numNormals = mesh->getNormalsCount ();
-
-        // Write the normals into the maya file.
-        if ( numNormals <= 0 ) return;
-
-        // Write blocks with 4000KB for maya
-        size_t blockSize = MAYA_BLOCK_SIZE / ( 3* sizeof ( double ) );
-        size_t endPosition = 0, index = 0; 
-
-        // Get the mesh normals values.
-        const COLLADAFW::MeshVertexData& normals = mesh->getNormals ();
-        size_t stride = 3; // x, y, z
-
-        // We have to go through every mesh primitive and append every element. 
-        const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
-        size_t count = meshPrimitives.getCount ();
-        for ( size_t i=0; i<count; ++i )
-        {
-            // Get the current primitive element.
-            const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
-
-            // Get the normal indices of the current primitive.
-            const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices ();
-
-            // Iterate over the indices and write their normal values into the maya file.
-            size_t indexCount = normalIndices.getCount ();
-            for ( size_t j=0; j<indexCount; ++j, ++index )
-            {
-                // Get the index of the current normal.
-                unsigned int normalIndex = normalIndices [ j ];
-
-                // Get the position in the values list to read.
-                unsigned int pos = normalIndex * (unsigned int)stride;
-
-                // Start the block if necessary.
-                if ( index % blockSize == 0 )
-                {
-                    endPosition = index+blockSize-1;
-                    if ( endPosition > numNormals-1 ) endPosition = numNormals-1;
-                    meshNode.startNormals ( index, endPosition ); 
-                }
-                
-                // Write the normal values on the index values.
-                const COLLADAFW::MeshVertexData::DataType type = normals.getType ();
-                switch ( type )
-                {
-                case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
-                    {
-                        const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
-                        meshNode.appendNormals ( (*values)[pos] );
-                        meshNode.appendNormals ( (*values)[pos+1] );
-                        meshNode.appendNormals ( (*values)[pos+2] );
-                    }
-                    break;
-                case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
-                    {
-                        const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
-                        meshNode.appendNormals ( (float)(*values)[pos] );
-                        meshNode.appendNormals ( (float)(*values)[pos+1] );
-                        meshNode.appendNormals ( (float)(*values)[pos+2] );
-                    }
-                    break;
-                default:
-                    std::cerr << "No valid data type for normals: " << type << std::endl;
-                    MGlobal::displayError ( "No valid data type for normals: " + type );
-                    assert ( "No valid data type for normals: " + type );
-                }
-
-                // End the block if necessary.
-                if ( index == endPosition ) 
-                    meshNode.endNormals (); 
-            }
-        }
-    }
-
-    // --------------------------------------------
-    void GeometryImporter::writeUVSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
+    void GeometryImporter::writeUVSets ( 
+        const COLLADAFW::Mesh* mesh, 
+        MayaDM::Mesh &meshNode,
+        const bool originalMesh )
     {
         // Set the number of uv sets.
         const COLLADAFW::MeshVertexData& uvCoords = mesh->getUVCoords ();
@@ -706,9 +1311,15 @@ namespace COLLADAMaya
         if ( numUVSets == 0 ) return;
         meshNode.setUvSize ( (double)numUVSets );
 
+        // Get the unique id.
+        const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+
         // Write blocks with 4000KB for maya
         size_t blockSize = MAYA_BLOCK_SIZE / ( 2* sizeof ( double ) );
         
+        // Initialise the initial index.
+        size_t initialIndex = 0;
+
         // Go through the uv sets.
         for ( size_t i=0; i<numUVSets; ++i )
         {
@@ -717,68 +1328,79 @@ namespace COLLADAMaya
             meshNode.setUvSetName ( i, uvSetName );
             if ( i == 0 ) meshNode.setCurrentUVSet ( uvSetName );
 
-            size_t stride = uvCoords.getStride ( i );
-            assert ( stride > 1 && stride <= 4 );
-            if ( stride != 2 ) 
-                MGlobal::displayWarning ( "Just 2d uv set data will be imported! ");
-
-            size_t indicesCount = uvCoords.getLength ( i );
-            size_t numUvSetPoints = (indicesCount/stride)-1;
-            size_t endPosition = 0, index=0; 
-            size_t initialIndex = 0;
-
-            for ( size_t j=0; j<indicesCount; j+=stride, ++index )
+            if ( originalMesh )
             {
-                // Start the block if necessary
-                if ( index % blockSize == 0 )
+                // Store the uv-sets in a list to know the indices for the uv-choosers 
+                // (to organize multiple texture coordinate binding)
+                mGeometryUvSetNamesMap [geometryId].push_back ( uvSetName );
+
+                size_t stride = uvCoords.getStride ( i );
+                assert ( stride > 1 && stride <= 4 );
+                if ( stride != 2 ) 
+                    MGlobal::displayWarning ( "Just 2d uv set data will be imported! ");
+
+                size_t indicesCount = uvCoords.getLength ( i );
+                size_t numUvSetPoints = (indicesCount/stride)-1;
+                size_t endPosition = 0, index=0; 
+
+                for ( size_t j=0; j<indicesCount; j+=stride, ++index )
                 {
-                    endPosition = index+blockSize-1;
-                    if ( endPosition > numUvSetPoints ) endPosition = numUvSetPoints;
-                    meshNode.startUvSetPoints ( i, index, endPosition ); 
+                    // Start the block if necessary
+                    if ( index % blockSize == 0 )
+                    {
+                        endPosition = index+blockSize-1;
+                        if ( endPosition > numUvSetPoints ) endPosition = numUvSetPoints;
+                        meshNode.startUvSetPoints ( i, index, endPosition ); 
+                    }
+
+                    // Write the values 
+                    const COLLADAFW::MeshVertexData::DataType type = uvCoords.getType ();
+                    switch ( type )
+                    {
+                    case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
+                        {
+                            const COLLADAFW::ArrayPrimitiveType<float>* values = uvCoords.getFloatValues ();
+                            meshNode.appendUvSetPoints ( (*values)[initialIndex+j] );
+                            meshNode.appendUvSetPoints ( (*values)[initialIndex+j+1] );
+                        }
+                        break;
+                    case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
+                        {
+                            const COLLADAFW::ArrayPrimitiveType<double>* values = uvCoords.getDoubleValues ();
+                            meshNode.appendUvSetPoints ( (float) (*values)[initialIndex+j] );
+                            meshNode.appendUvSetPoints ( (float) (*values)[initialIndex+j+1] );
+                        }
+                        break;
+                    default:
+                        std::cerr << "No valid data type for uv coordinates: " << type << std::endl;
+                        continue;
+                    }
+
+                    // End the block if necessary.
+                    if ( index == endPosition ) 
+                        meshNode.endUvSetPoints (); 
                 }
 
-                // Write the values 
-                const COLLADAFW::MeshVertexData::DataType type = uvCoords.getType ();
-                switch ( type )
-                {
-                case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
-                    {
-                        const COLLADAFW::ArrayPrimitiveType<float>* values = uvCoords.getFloatValues ();
-                        meshNode.appendUvSetPoints ( (*values)[initialIndex+j] );
-                        meshNode.appendUvSetPoints ( (*values)[initialIndex+j+1] );
-                    }
-                    break;
-                case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
-                    {
-                        const COLLADAFW::ArrayPrimitiveType<double>* values = uvCoords.getDoubleValues ();
-                        meshNode.appendUvSetPoints ( (float) (*values)[initialIndex+j] );
-                        meshNode.appendUvSetPoints ( (float) (*values)[initialIndex+j+1] );
-                    }
-                    break;
-                default:
-                    std::cerr << "No valid data type for uv coordinates: " << type << std::endl;
-                    MGlobal::displayError ( "No valid data type for uv coordinates: " + type );
-                    assert ( "No valid data type for uv coordinates: " + type );
-                }
-
-                // End the block if necessary.
-                if ( index == endPosition ) 
-                    meshNode.endUvSetPoints (); 
+                initialIndex += indicesCount;
             }
-
-            initialIndex += indicesCount;
         }
     }
 
     // --------------------------------------------
-    void GeometryImporter::writeColorSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
+    void GeometryImporter::writeColorSets ( 
+        const COLLADAFW::Mesh* mesh, 
+        MayaDM::Mesh& meshNode,
+        const bool originalMesh )
     {
         // Set the number of uv sets.
         const COLLADAFW::MeshVertexData& colors = mesh->getColors ();
         size_t numColorSets = colors.getNumInputInfos ();
         if ( numColorSets == 0 ) return;
-//        meshNode.setColorSetSize ( sumUVSetPoints );
 
+//        meshNode.setColorSetSize ( sumUVSetPoints );
+        meshNode.setDisplayColors ( true );
+
+        // Initialise the initial index.
         size_t initialIndex = 0;
 
         // Write blocks with 4000KB for maya
@@ -792,59 +1414,61 @@ namespace COLLADAMaya
             meshNode.setColorName ( c, colorName );
             if ( c == 0 ) meshNode.setCurrentColorSet ( colorName );
 
-            size_t stride = colors.getStride ( c );
-            assert ( stride == 1 || stride == 3 || stride <= 4 );
-
-            unsigned int representation = 2; // RGBA = 2 DEFAULT
-            if ( stride == 1 ) representation = 1; // A = 1
-            else if ( stride == 3 ) representation = 3; // RGB = 3
-            meshNode.setRepresentation ( c, representation );
-
-            size_t indicesCount = colors.getLength ( c );
-            size_t numColorSetPoints = (indicesCount/stride)-1;
-            size_t endPosition = 0, index=0; 
-            
-            for ( size_t i=0; i<indicesCount; i+=stride, ++index )
+            if ( originalMesh )
             {
-                // Start the block if necessary
-                if ( index % blockSize == 0 )
-                {
-                    endPosition = index+blockSize-1;
-                    if ( endPosition > numColorSetPoints ) endPosition = numColorSetPoints;
-                    meshNode.startColorSetPoints ( c, index, endPosition ); 
-                }
+                size_t stride = colors.getStride ( c );
+                assert ( stride == 1 || stride == 3 || stride == 4 );
 
-                for ( size_t j=0; j<stride; ++j ) 
+                unsigned int representation = 2; // RGBA = 2 DEFAULT
+                if ( stride == 1 ) representation = 1; // A = 1
+                else if ( stride == 3 ) representation = 3; // RGB = 3
+                meshNode.setRepresentation ( c, representation );
+
+                size_t indicesCount = colors.getLength ( c );
+                size_t numColorSetPoints = (indicesCount/stride)-1;
+                size_t endPosition = 0, index=0; 
+                
+                for ( size_t i=0; i<indicesCount; i+=stride, ++index )
                 {
-                    // Write the values 
-                    const COLLADAFW::MeshVertexData::DataType type = colors.getType ();
-                    switch ( type )
+                    // Start the block if necessary
+                    if ( index % blockSize == 0 )
                     {
-                    case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
-                        {
-                            const COLLADAFW::ArrayPrimitiveType<float>* values = colors.getFloatValues ();
-                            meshNode.appendColorSetPoints ( (*values)[initialIndex+i+j] );
-                        }
-                        break;
-                    case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
-                        {
-                            const COLLADAFW::ArrayPrimitiveType<double>* values = colors.getDoubleValues ();
-                            meshNode.appendColorSetPoints ( ( float ) (*values)[initialIndex+i+j] );
-                        }
-                        break;
-                    default:
-                        std::cerr << "No valid data type for colors: " << type << std::endl;
-                        MGlobal::displayError ( "No valid data type for colors: " + type );
-                        assert ( "No valid data type for colors: " + type );
+                        endPosition = index+blockSize-1;
+                        if ( endPosition > numColorSetPoints ) endPosition = numColorSetPoints;
+                        meshNode.startColorSetPoints ( c, index, endPosition ); 
                     }
+
+                    for ( size_t j=0; j<stride; ++j ) 
+                    {
+                        // Write the values 
+                        const COLLADAFW::MeshVertexData::DataType type = colors.getType ();
+                        switch ( type )
+                        {
+                        case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
+                            {
+                                const COLLADAFW::ArrayPrimitiveType<float>* values = colors.getFloatValues ();
+                                meshNode.appendColorSetPoints ( (*values)[initialIndex+i+j] );
+                            }
+                            break;
+                        case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
+                            {
+                                const COLLADAFW::ArrayPrimitiveType<double>* values = colors.getDoubleValues ();
+                                meshNode.appendColorSetPoints ( ( float ) (*values)[initialIndex+i+j] );
+                            }
+                            break;
+                        default:
+                            std::cerr << "No valid data type for colors: " << type << std::endl;
+                            continue;
+                        }
+                    }
+
+                    // End the block if necessary.
+                    if ( index == endPosition ) 
+                        meshNode.endColorSetPoints (); 
                 }
 
-                // End the block if necessary.
-                if ( index == endPosition ) 
-                    meshNode.endColorSetPoints (); 
+                initialIndex += indicesCount;
             }
-
-            initialIndex += indicesCount;
         }
     }
 
@@ -857,21 +1481,14 @@ namespace COLLADAMaya
         size_t numEdges = edgeIndices.size ();
         if ( numEdges > 0 )
         {
-            // We always have per vertex normals.
-            // With normals, it doesn't matter if we have hard or soft edges, 
-            // because the normals make the edge smoothing.
+            // Without normals, we need to use soft edges (1).
             int edgh = 1;
-            if ( !ImportOptions::importSoftEdges () )
-            {
-                edgh = 0;
-            }
-            
-            // Without normals, we need to use soft edges (1) (per vertex normals),
-            // with normals, we have to use hard edges (0) (per face normals).
-//             if ( mesh->getNormalsCount () > 0 )
-//                 edgh = 0;
 
-            
+            // With normals, it normally doesn't matter if we have hard or soft edges, because the 
+            // normals make the edge smoothing. But if we have holes, we need hard edges.
+            if ( ImportOptions::importNormals () ) 
+                edgh = 0;
+
             // Write blocks with 4000KB for maya
             size_t blockSize = MAYA_BLOCK_SIZE / ( 3* sizeof ( double ) );
             size_t endPosition = 0, index=0; 
@@ -919,10 +1536,10 @@ namespace COLLADAMaya
         size_t globalFaceIndex = 0;
 
         // Determine the face values.
-        for ( size_t index=0; index<count; ++index )
+        for ( size_t primitiveIndex=0; primitiveIndex<count; ++primitiveIndex )
         {
             // Get the primitive element.
-            COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ index ];
+            COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ primitiveIndex ];
 
             // Write the face informations into the maya file.
             COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = primitiveElement->getPrimitiveType ();
@@ -941,8 +1558,7 @@ namespace COLLADAMaya
                 break;
             default:
                 std::cerr << "Primitive type not implemented!" << std::endl;
-                MGlobal::displayError ( "Primitive type not implemented!" );
-                assert ( "Primitive type not implemented!");
+                continue;
             }
         }
     }
@@ -963,8 +1579,7 @@ namespace COLLADAMaya
         size_t colorIndicesIndex = 0;
 
         // The number of grouped vertex elements (faces, holes, tristrips or trifans).
-        int groupedVtxCount = primitiveElement->getGroupedVertexElementsCount ();
-        if ( groupedVtxCount < 0 ) groupedVtxCount *= (-1);
+        const size_t groupedVtxCount = primitiveElement->getGroupedVertexElementsCount ();
 
         // To handle polygons with holes:
         // Flag, if the actual face is clockwise orientated. We need this information to handle
@@ -977,11 +1592,11 @@ namespace COLLADAMaya
 
         // Iterate over all grouped vertex elements (faces, holes, tristrips or trifans)
         // and determine the values for the maya polyFace object.
-        for ( int groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
+        for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
         {
             // The number of edges is always the same than the number of vertices in the current 
             // grouped vertices object. If the number is negative, the grouped object is a hole.
-            int numEdges = primitiveElement->getGroupedVerticesVertexCount ( (size_t)groupedVtxIndex );
+            int numEdges = primitiveElement->getGroupedVerticesVertexCount ( groupedVtxIndex );
 
             // Create the poly face
             MayaDM::polyFaces polyFace;
@@ -994,10 +1609,10 @@ namespace COLLADAMaya
                 setPolygonHoleInfos ( mesh, primitiveElement, edgeIndicesMap, polyFace, numEdges, positionIndex, polygonPoints );
 
             // Handle the uv set infos.
-            setUVSetInfos ( mesh, primitiveElement, polyFace, uvSetIndicesIndex, numEdges );
+            setPolygonUVSetInfos ( mesh, primitiveElement, polyFace, uvSetIndicesIndex, numEdges );
 
             // Handle the color infos.
-            setColorInfos ( mesh, primitiveElement, polyFace, colorIndicesIndex, numEdges );
+            setPolygonColorInfos ( mesh, primitiveElement, polyFace, colorIndicesIndex, numEdges );
 
             // Start the block if necessary (Maya doesn't count hole elements, about this,
             // if the current element is a hole, don't start, except it is the very first element!)
@@ -1050,11 +1665,11 @@ namespace COLLADAMaya
         size_t& globalFaceIndex, 
         size_t& endPosition )
     {
-        // Get the position indices.
+        // Get the position and the normal indices.
         const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
 
         // The points of an edge
-        int edgeStartVtxIndex=0, edgeEndVtxIndex=0;
+        int edgeStartVertexIdx=0, edgeEndVertexIdx=0;
 
         // The current index in the positions list.
         size_t initialPositionIndex=0;
@@ -1069,8 +1684,8 @@ namespace COLLADAMaya
         size_t groupedVtxCount = vertexCountArray.getCount ();
         for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
         {
-            // Create the poly face
-            MayaDM::polyFaces polyFace;
+            size_t initialUVSetIndicesIndex = uvSetIndicesIndex;
+            size_t initialColorIndicesIndex = colorIndicesIndex;
 
             // A trifan has always triangles, which have 3 edges
             size_t triangleEdgeCounter = 0;
@@ -1078,15 +1693,21 @@ namespace COLLADAMaya
             // The number of vertices in the current vertex group.
             unsigned int vertexCount = vertexCountArray [groupedVtxIndex];
 
+            // The poly face element pointer.
+            MayaDM::polyFaces* polyFace;
+
             // Determine the number of edges and iterate over it.
             unsigned int numEdges = ( vertexCount - 3 ) * 3 + 3;
             for ( unsigned int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
             {
                 if ( triangleEdgeCounter == 0 )
                 {
+                    // Create the poly face
+                    polyFace = new MayaDM::polyFaces ();
+
                     // Handle the edge informations.
-                    polyFace.f.faceEdgeCount = 3;
-                    polyFace.f.edgeIdValue = new int[3];
+                    polyFace->f.faceEdgeCount = 3;
+                    polyFace->f.edgeIdValue = new int[3];
                 }
 
                 // Increment the current triangle edge counter, so we know if we have the full triangle.
@@ -1094,25 +1715,25 @@ namespace COLLADAMaya
 
                 // Get the start edge index
                 if ( triangleEdgeCounter > 1 )
-                    edgeStartVtxIndex = positionIndices[positionIndex];
-                else edgeStartVtxIndex = positionIndices[initialPositionIndex];
+                    edgeStartVertexIdx = positionIndices[positionIndex];
+                else edgeStartVertexIdx = positionIndices[initialPositionIndex];
 
                 // With the third edge of a triangle, we have to go back to the trifans root.
                 if ( triangleEdgeCounter < 3 )
-                    edgeEndVtxIndex = positionIndices[++positionIndex];
-                else edgeEndVtxIndex = positionIndices[initialPositionIndex];
+                    edgeEndVertexIdx = positionIndices[++positionIndex];
+                else edgeEndVertexIdx = positionIndices[initialPositionIndex];
 
                 // Set the edge vertex index values into an edge object.
-                COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
+                COLLADAFW::Edge edge ( edgeStartVertexIdx, edgeEndVertexIdx );
 
                 // Variable for the current edge index.
-                int edgeIndexValue;
+                int edgeIndexValue = 0;
 
                 // Get the edge index value from the edge list.
                 getEdgeIndex ( edge, edgeIndicesMap, edgeIndexValue );
 
                 // Set the edge list index into the poly face
-                polyFace.f.edgeIdValue[triangleEdgeCounter-1] = edgeIndexValue;
+                polyFace->f.edgeIdValue [triangleEdgeCounter-1] = edgeIndexValue;
 
                 // Reset the edge counter, if we have all three edges of a triangle.
                 if ( triangleEdgeCounter == 3 ) 
@@ -1121,12 +1742,12 @@ namespace COLLADAMaya
                     --positionIndex;
 
                     // Handle the uv set infos.
-                    setUVSetInfos ( mesh, primitiveElement, polyFace, uvSetIndicesIndex, 3 );
-                    uvSetIndicesIndex -= 2;
+                    setTrifansUVSetInfos ( mesh, primitiveElement, *polyFace, initialUVSetIndicesIndex, uvSetIndicesIndex );
+                    ++uvSetIndicesIndex;
 
                     // Handle the uv set infos.
-                    setColorInfos ( mesh, primitiveElement, polyFace, colorIndicesIndex, 3 );
-                    colorIndicesIndex -= 2;
+                    setTrifansColorInfos ( mesh, primitiveElement, *polyFace, initialColorIndicesIndex, colorIndicesIndex );
+                    ++colorIndicesIndex;
 
                     // Start the block if necessary
                     if ( globalFaceIndex % blockSize == 0 )
@@ -1138,7 +1759,7 @@ namespace COLLADAMaya
                     }
 
                     // Write the polyFace data in the maya file.
-                    meshNode.appendFace ( polyFace );
+                    meshNode.appendFace ( *polyFace );
 
                     // End the block if necessary.
                     if ( globalFaceIndex == endPosition ) 
@@ -1146,6 +1767,9 @@ namespace COLLADAMaya
 
                     // Increment the face index.
                     ++globalFaceIndex;
+
+                    // We don't need the poly face object anymore.
+                    delete polyFace;
                 }
             }
 
@@ -1153,6 +1777,7 @@ namespace COLLADAMaya
             positionIndex += 2;
             initialPositionIndex += vertexCount;
 
+            // Get the next tristrips <p> element.
             uvSetIndicesIndex += 2;
             colorIndicesIndex += 2;
         }
@@ -1173,7 +1798,7 @@ namespace COLLADAMaya
         const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
 
         // The points of an edge
-        int edgeStartVtxIndex=0, edgeEndVtxIndex=0;
+        int edgeStartVertexIdx=0, edgeEndVertexIdx=0;
 
         // The current index in the positions list.
         size_t initialPositionIndex=0;
@@ -1188,8 +1813,8 @@ namespace COLLADAMaya
         size_t groupedVtxCount = vertexCountArray.getCount ();
         for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
         {
-            // Create the poly face
-            MayaDM::polyFaces polyFace;
+            // The poly face pointer.
+            MayaDM::polyFaces* polyFace;
 
             // A trifan has always triangles, which have 3 edges
             size_t triangleEdgeCounter = 0;
@@ -1206,27 +1831,30 @@ namespace COLLADAMaya
             {
                 if ( triangleEdgeCounter == 0 )
                 {
+                    // Create the poly face
+                    polyFace = new MayaDM::polyFaces ();
+
                     // Change the direction for every second triangle.
                     changeDirection = !changeDirection;
 
                     // Handle the edge informations.
-                    polyFace.f.faceEdgeCount = 3;
-                    polyFace.f.edgeIdValue = new int[3];
+                    polyFace->f.faceEdgeCount = 3;
+                    polyFace->f.edgeIdValue = new int[3];
                 }
 
                 // Increment the current triangle edge counter, so we know if we have the full triangle.
                 ++triangleEdgeCounter;
 
                 // Get the start edge index
-                edgeStartVtxIndex = positionIndices[positionIndex];
+                edgeStartVertexIdx = positionIndices[positionIndex];
 
                 // With the third edge of a triangle, we have to go back to the trifans root.
                 if ( triangleEdgeCounter < 3 )
-                    edgeEndVtxIndex = positionIndices[++positionIndex];
-                else edgeEndVtxIndex = positionIndices[initialPositionIndex];
+                    edgeEndVertexIdx = positionIndices[++positionIndex];
+                else edgeEndVertexIdx = positionIndices[initialPositionIndex];
 
                 // Set the edge vertex index values into an edge object.
-                COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
+                COLLADAFW::Edge edge ( edgeStartVertexIdx, edgeEndVertexIdx );
 
                 // Variable for the current edge index.
                 int edgeIndexValue;
@@ -1240,15 +1868,15 @@ namespace COLLADAMaya
                     edgeIndexValue = -( edgeIndexValue + 1 );
 
                     if ( triangleEdgeCounter == 1 ) 
-                        polyFace.f.edgeIdValue[0] = edgeIndexValue;
+                        polyFace->f.edgeIdValue[0] = edgeIndexValue;
                     if ( triangleEdgeCounter == 2 ) 
-                        polyFace.f.edgeIdValue[2] = edgeIndexValue;
+                        polyFace->f.edgeIdValue[2] = edgeIndexValue;
                     if ( triangleEdgeCounter == 3 ) 
-                        polyFace.f.edgeIdValue[1] = edgeIndexValue;
+                        polyFace->f.edgeIdValue[1] = edgeIndexValue;
                 }
                 else
                 {
-                    polyFace.f.edgeIdValue[triangleEdgeCounter-1] = edgeIndexValue;
+                    polyFace->f.edgeIdValue[triangleEdgeCounter-1] = edgeIndexValue;
                 }
 
                 // Reset the edge counter, if we have all three edges of a triangle.
@@ -1259,12 +1887,12 @@ namespace COLLADAMaya
                     initialPositionIndex = positionIndex;
 
                     // Handle the uv set infos.
-                    setUVSetInfos ( mesh, primitiveElement, polyFace, uvSetIndicesIndex, 3 );
-                    uvSetIndicesIndex -= 2;
+                    setTristripsUVSetInfos ( mesh, primitiveElement, *polyFace, uvSetIndicesIndex, changeDirection );
+                    ++uvSetIndicesIndex;
 
                     // Handle the uv set infos.
-                    setColorInfos ( mesh, primitiveElement, polyFace, colorIndicesIndex, 3 );
-                    colorIndicesIndex -= 2;
+                    setTristripsColorInfos ( mesh, primitiveElement, *polyFace, colorIndicesIndex, changeDirection );
+                    ++colorIndicesIndex;
 
                     // Start the block if necessary
                     if ( globalFaceIndex % blockSize == 0 )
@@ -1276,7 +1904,7 @@ namespace COLLADAMaya
                     }
 
                     // Write the polyFace data in the maya file.
-                    meshNode.appendFace ( polyFace );
+                    meshNode.appendFace ( *polyFace );
 
                     // End the block if necessary.
                     if ( globalFaceIndex == endPosition ) 
@@ -1284,6 +1912,9 @@ namespace COLLADAMaya
 
                     // Increment the face index.
                     ++globalFaceIndex;
+
+                    // We don't need the poly face object anymore.
+                    delete polyFace;
                 }
             }
 
@@ -1291,8 +1922,9 @@ namespace COLLADAMaya
             positionIndex += 2;
             initialPositionIndex = positionIndex;
 
-            uvSetIndicesIndex -= 2;
-            colorIndicesIndex -= 2;
+            // Get the next tristrips <p> element.
+            uvSetIndicesIndex += 2;
+            colorIndicesIndex += 2;
         }
     }
 
@@ -1313,16 +1945,21 @@ namespace COLLADAMaya
         // Get the position indices
         const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
 
+        int edgeStartVertexIdx=0, edgeEndVertexIdx=0;
+
         // Go through the edges and determine the face values.
         for ( int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
         {
             // Set the edge vertex index values into an edge object.
-            int edgeStartVtxIndex = positionIndices[positionIndex];
-            int edgeEndVtxIndex = 0;
+            edgeStartVertexIdx = positionIndices[positionIndex];
+            edgeEndVertexIdx = 0;
+
             if ( edgeIndex<(numEdges-1) )
-                edgeEndVtxIndex = positionIndices[++positionIndex];
-            else edgeEndVtxIndex = positionIndices[positionIndex-numEdges+1];
-            COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
+                edgeEndVertexIdx = positionIndices[++positionIndex];
+            else edgeEndVertexIdx = positionIndices[positionIndex-numEdges+1];
+
+            // Create the edge.
+            COLLADAFW::Edge edge ( edgeStartVertexIdx, edgeEndVertexIdx );
 
             // Polygons with holes: Get the first three polygon vertices to determine 
             // the polygon's orientation.
@@ -1339,7 +1976,7 @@ namespace COLLADAMaya
                     polygonPoints.clear ();
                 }
                 // Store the vertex positions of the current start point.
-                polygonPoints.push_back ( getVertexPosition ( mesh, edgeStartVtxIndex ) );
+                polygonPoints.push_back ( getVertexPosition ( mesh, edgeStartVertexIdx ) );
             }
 
             // Variable for the current edge index.
@@ -1368,6 +2005,7 @@ namespace COLLADAMaya
     {
         // Get the position indices
         const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
+        int edgeStartVertexIdx=0, edgeEndVertexIdx=0;
 
         // Handle a hole element.
         numEdges *= -1;
@@ -1384,19 +2022,21 @@ namespace COLLADAMaya
         for ( int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
         {
             // Set the edge vertex index values into an edge object.
-            int edgeStartVtxIndex = positionIndices[positionIndex];
-            int edgeEndVtxIndex = 0;
+            edgeStartVertexIdx = positionIndices[positionIndex];
+            edgeEndVertexIdx = 0;
             if ( edgeIndex<(numEdges-1) )
-                edgeEndVtxIndex = positionIndices[++positionIndex];
-            else edgeEndVtxIndex = positionIndices[positionIndex-numEdges+1];
-            COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
+                edgeEndVertexIdx = positionIndices[++positionIndex];
+            else edgeEndVertexIdx = positionIndices[positionIndex-numEdges+1];
+
+            // Create the edge.
+            COLLADAFW::Edge edge ( edgeStartVertexIdx, edgeEndVertexIdx );
 
             // Polygons with holes: Get the first three polygon vertices to determine 
             // the polygon's orientation.
             if ( edgeIndex < 3 )
             {
                 // Store the vertex positions of the current start point.
-                holePoints.push_back ( getVertexPosition ( mesh, edgeStartVtxIndex ) );
+                holePoints.push_back ( getVertexPosition ( mesh, edgeStartVertexIdx ) );
             }
 
             // The current edge index.
@@ -1426,7 +2066,153 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    void GeometryImporter::setUVSetInfos ( 
+    void GeometryImporter::setTristripsUVSetInfos ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        MayaDM::polyFaces &polyFace, 
+        const size_t uvSetIndicesIndex, 
+        const bool changeDirection )
+    {
+        const int numEdges = 3;
+
+        const COLLADAFW::IndexListArray& uvSetIndicesArray = primitiveElement->getUVCoordIndicesArray ();
+        size_t numUVSets = uvSetIndicesArray.getCount ();
+        if ( numUVSets == 0 ) return;
+
+        polyFace.mu = new MayaDM::polyFaces::MU [ numUVSets ];
+        polyFace.muCount = numUVSets;
+        for ( size_t i=0; i<numUVSets; ++i )
+        {
+            // Get the index of the uv set
+            const COLLADAFW::IndexList* uvCoordIndices = primitiveElement->getUVCoordIndices ( i );
+            String uvSetName = uvCoordIndices->getName ();
+            size_t uvSetPhysicalIndex = mesh->getUVSetIndexByName ( uvSetName );
+
+            // Store the information about the used set of the input element.
+            size_t uvSetIndex = uvCoordIndices->getSetIndex ();
+            const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+            PrimitiveInputSet primitiveInputSet;
+            primitiveInputSet.setGeometryId ( geometryId );
+            primitiveInputSet.setShadingEngineId ( primitiveElement->getMaterialId () );
+            primitiveInputSet.setInputSetName ( uvSetName );
+            primitiveInputSet.setPhysicalIndex ( uvSetPhysicalIndex ); 
+            primitiveInputSet.setInputSetIndex ( uvSetIndex );
+            mTexCoordInputSetsMap [geometryId].push_back ( primitiveInputSet );
+
+            const COLLADAFW::MeshVertexData& meshUVCoords = mesh->getUVCoords ();
+            polyFace.mu[i].uvSet = (int) uvSetPhysicalIndex;
+            polyFace.mu[i].faceUVCount = numEdges;
+            polyFace.mu[i].uvIdValue = new int [numEdges];
+
+            if ( !changeDirection )
+            {
+                for ( size_t j=0; j<numEdges; ++j )
+                {
+                    size_t currentIndexPosition = j + (size_t)uvSetIndicesIndex;
+                    unsigned int currentIndex = uvCoordIndices->getIndex ( currentIndexPosition );
+
+                    // Decrement the index values
+                    size_t initialIndex = uvCoordIndices->getInitialIndex ();
+                    polyFace.mu[i].uvIdValue [j] = currentIndex - (unsigned int)initialIndex;
+                }
+            }
+            else
+            {
+                // We want the order 1 - 0 - 2 instead of 0 - 1 - 2
+                for ( size_t j=0; j<numEdges; ++j )
+                {
+                    size_t index = 0; 
+                    switch ( j )
+                    {
+                    case 0: index = 1; break;
+                    case 1: index = 0; break;
+                    case 2: index = 2; break;
+                    }
+                    size_t currentIndexPosition = index + (size_t)uvSetIndicesIndex;
+                    unsigned int currentIndex = uvCoordIndices->getIndex ( currentIndexPosition );
+
+                    // Decrement the index values
+                    size_t initialIndex = uvCoordIndices->getInitialIndex ();
+                    polyFace.mu[i].uvIdValue [j] = currentIndex - (unsigned int)initialIndex;
+                }
+            }
+        }
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::setTristripsColorInfos ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        MayaDM::polyFaces &polyFace, 
+        const size_t colorIndicesIndex, 
+        const bool changeDirection )
+    {
+        const int numEdges = 3; 
+
+        const COLLADAFW::IndexListArray& colorIndicesArray = primitiveElement->getColorIndicesArray ();
+        size_t numColorInputs = colorIndicesArray.getCount ();
+        if ( numColorInputs == 0 ) return;
+
+        polyFace.mc = new MayaDM::polyFaces::MC [ numColorInputs ];
+        polyFace.mcCount = numColorInputs;
+        for ( size_t i=0; i<numColorInputs; ++i )
+        {
+            // Get the index of the uv set
+            const COLLADAFW::IndexList* colorIndices = primitiveElement->getColorIndices ( i );
+            String colorInputName = colorIndices->getName ();
+            size_t colorPhysicalIndex = mesh->getColorIndexByName ( colorInputName );
+
+            // Store the information about the used set of the input element.
+            size_t colorSetIndex = colorIndices->getSetIndex ();
+            const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+            PrimitiveInputSet primitiveInputSet;
+            primitiveInputSet.setGeometryId ( geometryId );
+            primitiveInputSet.setShadingEngineId ( primitiveElement->getMaterialId () );
+            primitiveInputSet.setPhysicalIndex ( colorPhysicalIndex ); 
+            primitiveInputSet.setInputSetIndex ( colorSetIndex );
+            mColorInputSetsMap [geometryId].push_back ( primitiveInputSet );
+
+            const COLLADAFW::MeshVertexData& meshColors = mesh->getColors ();
+            polyFace.mc[i].colorSet = (int) colorPhysicalIndex;
+            polyFace.mc[i].faceColorCount = numEdges;
+            polyFace.mc[i].colorIdValue = new int [numEdges];
+
+            if ( !changeDirection )
+            {
+                for ( int j=0; j<numEdges; ++j )
+                {
+                    size_t currentIndexPosition = j + colorIndicesIndex;
+                    unsigned int currentIndex = colorIndices->getIndex ( currentIndexPosition );
+
+                    // Decrement the index values
+                    size_t initialIndex = colorIndices->getInitialIndex ();
+                    polyFace.mc[i].colorIdValue [j] = currentIndex - (unsigned int)initialIndex;
+                }
+            }
+            else
+            {
+                for ( int j=0; j<numEdges; ++j )
+                {
+                    size_t index = 0; 
+                    switch ( j )
+                    {
+                    case 0: index = 1; break;
+                    case 1: index = 0; break;
+                    case 2: index = 2; break;
+                    }
+                    size_t currentIndexPosition = index + colorIndicesIndex;
+                    unsigned int currentIndex = colorIndices->getIndex ( currentIndexPosition );
+
+                    // Decrement the index values
+                    size_t initialIndex = colorIndices->getInitialIndex ();
+                    polyFace.mc[i].colorIdValue [j] = currentIndex - (unsigned int)initialIndex;
+                }
+            }
+        }
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::setPolygonUVSetInfos ( 
         const COLLADAFW::Mesh* mesh, 
         const COLLADAFW::MeshPrimitive* primitiveElement, 
         MayaDM::polyFaces &polyFace, 
@@ -1435,26 +2221,40 @@ namespace COLLADAMaya
     {
         const COLLADAFW::IndexListArray& uvSetIndicesArray = primitiveElement->getUVCoordIndicesArray ();
         size_t numUVSets = uvSetIndicesArray.getCount ();
+        if ( numUVSets == 0 ) return;
+
         polyFace.mu = new MayaDM::polyFaces::MU [ numUVSets ];
         polyFace.muCount = numUVSets;
         for ( size_t i=0; i<numUVSets; ++i )
         {
             // Get the index of the uv set
-            const COLLADAFW::IndexList* indexList = primitiveElement->getUVCoordIndices ( i );
-            String uvSetName = indexList->getName ();
-            size_t index = mesh->getUVSetIndexByName ( uvSetName );
+            const COLLADAFW::IndexList* uvCoordIndices = primitiveElement->getUVCoordIndices ( i );
+            String uvSetName = uvCoordIndices->getName ();
+            size_t uvSetPhysicalIndex = mesh->getUVSetIndexByName ( uvSetName );
+
+            // Store the information about the used set of the input element.
+            size_t uvSetSetIndex = uvCoordIndices->getSetIndex ();
+            const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+            PrimitiveInputSet primitiveInputSet;
+            primitiveInputSet.setGeometryId ( geometryId );
+            primitiveInputSet.setShadingEngineId ( primitiveElement->getMaterialId () );
+            primitiveInputSet.setInputSetName ( uvSetName );
+            primitiveInputSet.setPhysicalIndex ( uvSetPhysicalIndex ); 
+            primitiveInputSet.setInputSetIndex ( uvSetSetIndex );
+            mTexCoordInputSetsMap [geometryId].push_back ( primitiveInputSet );
 
             const COLLADAFW::MeshVertexData& meshUVCoords = mesh->getUVCoords ();
-            polyFace.mu[i].uvSet = (int) index;
+            polyFace.mu[i].uvSet = (int) uvSetPhysicalIndex;
             polyFace.mu[i].faceUVCount = numEdges;
             polyFace.mu[i].uvIdValue = new int [numEdges];
 
             for ( int j=0; j<numEdges; ++j )
             {
                 size_t currentIndexPosition = j + uvSetIndicesIndex;
-                unsigned int currentIndex = indexList->getIndex ( currentIndexPosition );
+                unsigned int currentIndex = uvCoordIndices->getIndex ( currentIndexPosition );
+
                 // Decrement the index values
-                size_t initialIndex = indexList->getInitialIndex ();
+                size_t initialIndex = uvCoordIndices->getInitialIndex ();
                 polyFace.mu[i].uvIdValue [j] = currentIndex - (unsigned int)initialIndex;
             }
         }
@@ -1463,7 +2263,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    void GeometryImporter::setColorInfos ( 
+    void GeometryImporter::setPolygonColorInfos ( 
         const COLLADAFW::Mesh* mesh, 
         const COLLADAFW::MeshPrimitive* primitiveElement, 
         MayaDM::polyFaces &polyFace, 
@@ -1472,31 +2272,149 @@ namespace COLLADAMaya
     {
         const COLLADAFW::IndexListArray& colorIndicesArray = primitiveElement->getColorIndicesArray ();
         size_t numColorInputs = colorIndicesArray.getCount ();
+        if ( numColorInputs == 0 ) return;
+
         polyFace.mc = new MayaDM::polyFaces::MC [ numColorInputs ];
         polyFace.mcCount = numColorInputs;
         for ( size_t i=0; i<numColorInputs; ++i )
         {
             // Get the index of the uv set
-            const COLLADAFW::IndexList* indexList = primitiveElement->getColorIndices ( i );
-            String colorInputName = indexList->getName ();
-            size_t index = mesh->getColorIndexByName ( colorInputName );
+            const COLLADAFW::IndexList* colorIndices = primitiveElement->getColorIndices ( i );
+            String colorInputName = colorIndices->getName ();
+            size_t colorPhysicalIndex = mesh->getColorIndexByName ( colorInputName );
+
+            // Store the information about the used set of the input element.
+            size_t colorSetIndex = colorIndices->getSetIndex ();
+            const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+            PrimitiveInputSet primitiveInputSet;
+            primitiveInputSet.setGeometryId ( geometryId );
+            primitiveInputSet.setShadingEngineId ( primitiveElement->getMaterialId () );
+            primitiveInputSet.setPhysicalIndex ( colorPhysicalIndex ); 
+            primitiveInputSet.setInputSetIndex ( colorSetIndex );
+            mColorInputSetsMap [geometryId].push_back ( primitiveInputSet );
 
             const COLLADAFW::MeshVertexData& meshColors = mesh->getColors ();
-            polyFace.mc[i].colorSet = (int) index;
+            polyFace.mc[i].colorSet = (int) colorPhysicalIndex;
             polyFace.mc[i].faceColorCount = numEdges;
             polyFace.mc[i].colorIdValue = new int [numEdges];
 
             for ( int j=0; j<numEdges; ++j )
             {
                 size_t currentIndexPosition = j + colorIndicesIndex;
-                unsigned int currentIndex = indexList->getIndex ( currentIndexPosition );
+                unsigned int currentIndex = colorIndices->getIndex ( currentIndexPosition );
+
                 // Decrement the index values
-                size_t initialIndex = indexList->getInitialIndex ();
+                size_t initialIndex = colorIndices->getInitialIndex ();
                 polyFace.mc[i].colorIdValue [j] = currentIndex - (unsigned int)initialIndex;
             }
         }
         // Increment the current uv set index for the number of edges.
         colorIndicesIndex += numEdges;
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::setTrifansUVSetInfos ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        MayaDM::polyFaces &polyFace, 
+        const size_t initialUVSetIndicesIndex, 
+        const size_t uvSetIndicesIndex )
+    {
+        const int numEdges = 3;
+
+        const COLLADAFW::IndexListArray& uvSetIndicesArray = primitiveElement->getUVCoordIndicesArray ();
+        size_t numUVSets = uvSetIndicesArray.getCount ();
+        if ( numUVSets == 0 ) return;
+
+        polyFace.mu = new MayaDM::polyFaces::MU [ numUVSets ];
+        polyFace.muCount = numUVSets;
+        for ( size_t i=0; i<numUVSets; ++i )
+        {
+            // Get the index of the uv set
+            const COLLADAFW::IndexList* uvCoordIndices = primitiveElement->getUVCoordIndices ( i );
+            String uvSetName = uvCoordIndices->getName ();
+            size_t uvSetPhysicalIndex = mesh->getUVSetIndexByName ( uvSetName );
+
+            // Store the information about the used set of the input element.
+            size_t uvSetIndex = uvCoordIndices->getSetIndex ();
+            const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+            PrimitiveInputSet primitiveInputSet;
+            primitiveInputSet.setGeometryId ( geometryId );
+            primitiveInputSet.setShadingEngineId ( primitiveElement->getMaterialId () );
+            primitiveInputSet.setInputSetName ( uvSetName );
+            primitiveInputSet.setPhysicalIndex ( uvSetPhysicalIndex ); 
+            primitiveInputSet.setInputSetIndex ( uvSetIndex );
+            mTexCoordInputSetsMap [geometryId].push_back ( primitiveInputSet );
+
+            const COLLADAFW::MeshVertexData& meshUVCoords = mesh->getUVCoords ();
+            polyFace.mu[i].uvSet = (int) uvSetPhysicalIndex;
+            polyFace.mu[i].faceUVCount = numEdges;
+            polyFace.mu[i].uvIdValue = new int [numEdges];
+
+            for ( int j=0; j<numEdges; ++j )
+            {
+                size_t currentIndexPosition = 0;
+                if ( j== 0 ) currentIndexPosition = initialUVSetIndicesIndex;
+                else currentIndexPosition = j + uvSetIndicesIndex;
+                unsigned int currentIndex = uvCoordIndices->getIndex ( currentIndexPosition );
+
+                // Decrement the index values
+                size_t initialIndex = uvCoordIndices->getInitialIndex ();
+                polyFace.mu[i].uvIdValue [j] = currentIndex - (unsigned int)initialIndex;
+            }
+        }
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::setTrifansColorInfos ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        MayaDM::polyFaces &polyFace, 
+        const size_t initialColorIndicesIndex,
+        const size_t colorIndicesIndex )
+    {
+        const int numEdges = 3;
+
+        const COLLADAFW::IndexListArray& colorIndicesArray = primitiveElement->getColorIndicesArray ();
+        size_t numColorInputs = colorIndicesArray.getCount ();
+        if ( numColorInputs == 0 ) return;
+
+        polyFace.mc = new MayaDM::polyFaces::MC [ numColorInputs ];
+        polyFace.mcCount = numColorInputs;
+        for ( size_t i=0; i<numColorInputs; ++i )
+        {
+            // Get the index of the uv set
+            const COLLADAFW::IndexList* colorIndices = primitiveElement->getColorIndices ( i );
+            String colorInputName = colorIndices->getName ();
+            size_t colorPhysicalIndex = mesh->getColorIndexByName ( colorInputName );
+
+            // Store the information about the used set of the input element.
+            size_t colorSetIndex = colorIndices->getSetIndex ();
+            const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+            PrimitiveInputSet primitiveInputSet;
+            primitiveInputSet.setGeometryId ( geometryId );
+            primitiveInputSet.setShadingEngineId ( primitiveElement->getMaterialId () );
+            primitiveInputSet.setPhysicalIndex ( colorPhysicalIndex ); 
+            primitiveInputSet.setInputSetIndex ( colorSetIndex );
+            mColorInputSetsMap [geometryId].push_back ( primitiveInputSet );
+
+            const COLLADAFW::MeshVertexData& meshColors = mesh->getColors ();
+            polyFace.mc[i].colorSet = (int) colorPhysicalIndex;
+            polyFace.mc[i].faceColorCount = numEdges;
+            polyFace.mc[i].colorIdValue = new int [numEdges];
+
+            for ( int j=0; j<numEdges; ++j )
+            {
+                size_t currentIndexPosition = 0;
+                if ( j== 0 ) currentIndexPosition = initialColorIndicesIndex;
+                else currentIndexPosition = j + colorIndicesIndex;
+                unsigned int currentIndex = colorIndices->getIndex ( currentIndexPosition );
+
+                // Decrement the index values
+                size_t initialIndex = colorIndices->getInitialIndex ();
+                polyFace.mc[i].colorIdValue [j] = currentIndex - (unsigned int)initialIndex;
+            }
+        }
     }
 
     // --------------------------------------------
@@ -1524,8 +2442,6 @@ namespace COLLADAMaya
         else
         {
             std::cerr << "GeometryImporter::appendPolyFaces:: Unknown data type!" << std::endl;
-            MGlobal::displayError ( "GeometryImporter::appendPolyFaces:: Unknown data type!" );
-            assert ( "GeometryImporter::appendPolyFaces:: Unknown data type!" );
             return 0;
         }
 
@@ -1567,7 +2483,7 @@ namespace COLLADAMaya
         // Get the edge indices in the different order and change the orientation.
         std::vector<int> valueVec;
 
-        // Edge count
+        // COLLADAFW::Edge count
         int numEdges = polyFace.h.holeEdgeCount;
 
         // Change the orientation and write it into the valueVec.
@@ -1582,6 +2498,325 @@ namespace COLLADAMaya
         {
             polyFace.h.edgeIdValue[edgeIndex] = valueVec[edgeIndex];
         }
+    }
+
+    // --------------------------------------------
+    bool GeometryImporter::getEdgeIndex ( 
+        const COLLADAFW::Edge& edge, 
+        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+        int& edgeIndex )
+    {
+        // True, if the edge has the other direction.
+        bool isReverse = false;
+
+        // Find the index of the edge in the map of edges to get the index in the list.
+        std::map<COLLADAFW::Edge,size_t>::const_iterator it = edgeIndicesMap.find ( edge );
+        if ( it == edgeIndicesMap.end() ) 
+        {
+            COLLADAFW::Edge edge2 ( edge[1], edge[0] );
+            it = edgeIndicesMap.find ( edge2 );
+            if ( it == edgeIndicesMap.end() ) 
+            {
+                // The edge has to be in the map!
+                std::cerr << "Edge not found: " << edge[0] << ", " << edge[1] << std::endl;
+                return false;
+            }
+            isReverse = true;
+        }
+        edgeIndex = (int)it->second; 
+
+        // Revert it, if the order is different.
+        if ( isReverse ) 
+            edgeIndex = -( edgeIndex + 1 );
+
+        return true;
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::getEdgeIndices ( 
+        const COLLADAFW::Mesh* mesh, 
+        std::vector<COLLADAFW::Edge>& edgeIndices, 
+        std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap )
+    {
+        // Implementation for multiple primitive elements.
+        const COLLADAFW::MeshPrimitiveArray& primitiveElementsArray = mesh->getMeshPrimitives ();
+        size_t count = primitiveElementsArray.getCount ();
+        for ( size_t i=0; i<count; ++i )
+        {
+            const COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
+
+            // Determine the edge indices (unique edges, also for multiple primitive elements).
+            appendEdgeIndices ( primitiveElement, edgeIndices, edgeIndicesMap );
+        }
+    }
+
+    //-----------------------------
+    void GeometryImporter::appendEdgeIndices (
+        const COLLADAFW::MeshPrimitive* primitiveElement,
+        std::vector<COLLADAFW::Edge>& edgeIndices,
+        std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap )
+    {
+        COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = primitiveElement->getPrimitiveType ();
+        switch ( primitiveType )
+        {
+        case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+            appendTrifansEdgeIndices ( primitiveElement, edgeIndices, edgeIndicesMap );
+            break;
+        case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+            appendTristripsEdgeIndices ( primitiveElement, edgeIndices, edgeIndicesMap );
+            break;
+        case COLLADAFW::MeshPrimitive::POLYGONS:
+        case COLLADAFW::MeshPrimitive::POLYLIST:
+        case COLLADAFW::MeshPrimitive::TRIANGLES:
+            appendPolygonEdgeIndices ( primitiveElement, edgeIndices, edgeIndicesMap );
+            break;
+        default:
+            std::cerr << "Primitive type not implemented!" << std::endl;
+            assert ( "Primitive type not implemented!");
+        }
+    }
+
+    //-----------------------------
+    void GeometryImporter::appendPolygonEdgeIndices (
+        const COLLADAFW::MeshPrimitive* primitiveElement,
+        std::vector<COLLADAFW::Edge>& edgeIndices,
+        std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap )
+    {
+        // Get the number of grouped vertex elements (faces, holes, tristrips or trifans).
+        const size_t groupedVertexElementsCount = primitiveElement->getGroupedVertexElementsCount ();
+
+        // Get the position indices.
+        const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
+
+        // The points of an edge
+        int edgeStartVertexIdx=0, edgeEndVertexIdx=0;
+
+        // The current index in the positions list.
+        size_t positionIndex=0;
+
+        // TODO Possibility to be faster, if we preallocate the memory of the vector...
+//         // Iterate over the faces and count the edges of the current primitive element.
+//         int numPrimitiveEdges = 0;
+//         for ( size_t i=0; i<groupedVertexElementsCount; ++i )
+//         {
+//             // The number of edges is always the same
+//             // than the number of vertices in the current face.
+//             numPrimitiveEdges += primitiveElement->getGroupedVerticesVertexCount ( i );
+//         }
+// 
+//         // Get the current number of already written edges.
+//         size_t edgeIndicesIndex = 0;
+//         if ( edgeIndices.size () > 0 ) 
+//             edgeIndicesIndex = edgeIndices.size () - 1;
+// 
+//         // Preallocate the memory in the vector
+//         edgeIndices.reserve ( edgeIndices.size () + numPrimitiveEdges );
+
+        // The new generated edge.
+        COLLADAFW::Edge edge;
+
+        // Iterate over the faces and get the edges.
+        for ( size_t faceIndex=0; faceIndex<groupedVertexElementsCount; ++faceIndex )
+        {
+            // The number of edges is always the same
+            // than the number of vertices in the current face.
+            int numEdges = primitiveElement->getGroupedVerticesVertexCount ( faceIndex );
+
+            // Reverse for holes.
+            if ( numEdges < 0 ) numEdges *= -1;
+
+            // Go through the edges of the current face and determine the edge values.
+            for ( int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
+            {
+                // Set the edge vertex index values into an edge object.
+                edgeStartVertexIdx = positionIndices[positionIndex];
+
+                if ( edgeIndex<(numEdges-1) )
+                    edgeEndVertexIdx = positionIndices[++positionIndex];
+                else edgeEndVertexIdx = positionIndices[positionIndex-numEdges+1];
+
+                // The order in an edge will be changed, if the endIndex is greater then the start index.
+                edge.setVertexIndices ( edgeStartVertexIdx, edgeEndVertexIdx );
+
+                // Appends the data of an edge to the edgeIndices list,
+                // if it is not already in the list.
+                appendEdge ( edge, edgeIndices, edgeIndicesMap );
+            }
+
+            // Increment the positions index for the next face, if it is a triangle or polygon.
+            // A trifan has the first edge of the next face always at the position of the last edge.
+            ++positionIndex;
+        }
+
+//         // Just reserve the really used memory.
+//         edgeIndices.reserve ( edgeIndices.size () );
+    }
+
+    //-----------------------------
+    void GeometryImporter::appendEdge (
+        const COLLADAFW::Edge& edge,
+        std::vector<COLLADAFW::Edge>& edgeIndices,
+        std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap )
+    {
+        // Check if the current edge already exists in the map of edges.
+        std::map<COLLADAFW::Edge,size_t>::iterator it = edgeIndicesMap.find ( edge );
+        if ( it != edgeIndicesMap.end () ) return;
+
+        // Check if the reverse edge of the current edge already exists in the map of edges.
+        COLLADAFW::Edge edge2 ( edge[1], edge[0] );
+        it = edgeIndicesMap.find ( edge2 );
+        if ( it != edgeIndicesMap.end () ) return;
+
+        // Push the new edge into the map with it's index value.
+        edgeIndicesMap[edge] = edgeIndices.size ();
+
+        // Push the new edge into the vector of edge indices.
+        // We use it to write the list of edges into
+        // the maya file. The vector is already sorted.
+        edgeIndices.push_back ( edge );
+    }
+
+    //-----------------------------
+    void GeometryImporter::appendTrifansEdgeIndices (
+        const COLLADAFW::MeshPrimitive* primitiveElement,
+        std::vector<COLLADAFW::Edge>& edgeIndices,
+        std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap )
+    {
+        // Get the position indices.
+        const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
+
+        // The points of an edge
+        int edgeStartVertexIdx=0, edgeEndVertexIdx=0;
+
+        // The current index in the positions list.
+        size_t initialPositionIndex=0;
+        size_t positionIndex=0;
+
+        // Iterate over the grouped vertices and get the edges for every group.
+        COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) primitiveElement;
+        COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getGroupedVerticesVertexCountArray ();
+        size_t groupedVertexElementsCount = vertexCountArray.getCount ();
+        for ( size_t groupedVerticesIndex=0; groupedVerticesIndex<groupedVertexElementsCount; ++groupedVerticesIndex )
+        {
+            // A trifan has always triangles, which have 3 edges
+            size_t triangleEdgeCounter = 0;
+
+            // The number of vertices in the current vertex group.
+            unsigned int vertexCount = vertexCountArray [groupedVerticesIndex];
+
+            // Determine the number of edges and iterate over it.
+            unsigned int numEdges = ( vertexCount - 3 ) * 3 + 3;
+            for ( unsigned int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
+            {
+                // Increment the current triangle edge counter, so we know if we have the full triangle.
+                ++triangleEdgeCounter;
+
+                // Get the start edge index
+                if ( triangleEdgeCounter > 1 )
+                    edgeStartVertexIdx = positionIndices[positionIndex];
+                else edgeStartVertexIdx = positionIndices[initialPositionIndex];
+
+                // With the third edge of a triangle, we have to go back to the trifans root.
+                if ( triangleEdgeCounter < 3 )
+                    edgeEndVertexIdx = positionIndices[++positionIndex];
+                else edgeEndVertexIdx = positionIndices[initialPositionIndex];
+
+                COLLADAFW::Edge edge ( edgeStartVertexIdx, edgeEndVertexIdx );
+
+                // Appends the data of an edge to the edgeIndices list,
+                // if it is not already in the list.
+                appendEdge ( edge, edgeIndices, edgeIndicesMap );
+
+                // Reset the edge counter, if we have all three edges of a triangle.
+                if ( triangleEdgeCounter == 3 )
+                {
+                    triangleEdgeCounter = 0;
+                    --positionIndex;
+                }
+            }
+
+            // Increment the initial trifan position index for the next trifan object.
+            initialPositionIndex += vertexCount;
+            positionIndex += 2;
+        }
+    }
+
+    //-----------------------------
+    void GeometryImporter::appendTristripsEdgeIndices (
+        const COLLADAFW::MeshPrimitive* primitiveElement,
+        std::vector<COLLADAFW::Edge>& edgeIndices,
+        std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap )
+    {
+        // Get the position indices.
+        const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
+
+        // The points of an edge
+        int edgeStartVertexIdx=0, edgeEndVertexIdx=0;
+
+        // The current index in the positions list.
+        size_t initialPositionIndex=0;
+        size_t positionIndex=0;
+
+        // Iterate over the grouped vertices and get the edges for every group.
+        COLLADAFW::Tristrips* trifans = (COLLADAFW::Tristrips*) primitiveElement;
+        COLLADAFW::Tristrips::VertexCountArray& vertexCountArray =
+            trifans->getGroupedVerticesVertexCountArray ();
+        size_t groupedVertexElementsCount = vertexCountArray.getCount ();
+        for ( size_t groupedVerticesIndex=0; groupedVerticesIndex<groupedVertexElementsCount; ++groupedVerticesIndex )
+        {
+            // A trifan has always triangles, which have 3 edges
+            size_t triangleEdgeCounter = 0;
+
+            // The number of vertices in the current vertex group.
+            unsigned int vertexCount = vertexCountArray [groupedVerticesIndex];
+
+            // Determine the number of edges and iterate over it.
+            unsigned int numEdges = ( vertexCount - 3 ) * 3 + 3;
+            for ( unsigned int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
+            {
+                // Increment the current triangle edge counter, so we know if we have the full triangle.
+                ++triangleEdgeCounter;
+
+                // Get the start edge index
+                edgeStartVertexIdx = positionIndices[positionIndex];
+
+                // With the third edge of a triangle, we have to go back to the trifans root.
+                if ( triangleEdgeCounter < 3 )
+                    edgeEndVertexIdx = positionIndices[++positionIndex];
+                else edgeEndVertexIdx = positionIndices[initialPositionIndex];
+
+                COLLADAFW::Edge edge ( edgeStartVertexIdx, edgeEndVertexIdx );
+
+                // Appends the data of an edge to the edgeIndices list,
+                // if it is not already in the list.
+                appendEdge ( edge, edgeIndices, edgeIndicesMap );
+
+                // Reset the edge counter, if we have all three edges of a triangle.
+                if ( triangleEdgeCounter == 3 )
+                {
+                    triangleEdgeCounter = 0;
+                    --positionIndex;
+                    initialPositionIndex = positionIndex;
+                }
+            }
+
+            // Increment the initial tristrip position index for the next tristrip object.
+            positionIndex += 2;
+            initialPositionIndex = positionIndex;
+        }
+    }
+
+    // --------------------------------------------
+    const std::vector<GeometryImporter::GeometryShadingEngine>* GeometryImporter::findGeomtryShadingEngines ( 
+        const COLLADAFW::UniqueId& geometryId )
+    {
+        std::map<COLLADAFW::UniqueId, std::vector<GeometryShadingEngine> >::const_iterator it;
+        it = mGeometryShadingEnginesMap.find ( geometryId );
+        if ( it == mGeometryShadingEnginesMap.end () )
+        {
+            return 0;
+        }
+        return &it->second;
     }
 
     // --------------------------------------------
@@ -1623,7 +2858,7 @@ namespace COLLADAMaya
 
         return NULL;
     }
-    
+
     // --------------------------------------------
     MayaDM::Mesh* GeometryImporter::findMayaDMControllerMeshNode ( const COLLADAFW::UniqueId& uniqueId ) 
     {
@@ -1645,88 +2880,12 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    bool GeometryImporter::getEdgeIndex ( 
-        const COLLADAFW::Edge& edge, 
-        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
-        int& edgeIndex )
-    {
-        // Find the index of the edge in the map of edges to get the index in the list.
-        std::map<COLLADAFW::Edge,size_t>::const_iterator it = edgeIndicesMap.find ( edge );
-        if ( it == edgeIndicesMap.end() ) 
-        {
-            // The edge has to be in the map!!!
-            MString message ( "Edge not found: " ); message += edge[0] + ", " + edge[1];
-            MGlobal::displayError ( message );
-            std::cerr << message.asChar () << std::endl;
-            assert ( it != edgeIndicesMap.end() );
-        }
-        edgeIndex = (int)it->second; 
-        if ( edge.isReverse() ) edgeIndex = -( edgeIndex + 1 );
-
-        return true;
-    }
-
-    // --------------------------------------------
-    void GeometryImporter::getEdgeIndices ( 
-        const COLLADAFW::Mesh* mesh, 
-        std::vector<COLLADAFW::Edge>& edgeIndices, 
-        std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap )
-    {
-        // Implementation for multiple primitive elements.
-        const COLLADAFW::MeshPrimitiveArray& primitiveElementsArray = mesh->getMeshPrimitives ();
-        size_t count = primitiveElementsArray.getCount ();
-        for ( size_t i=0; i<count; ++i )
-        {
-            COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
-
-            // Determine the edge indices (unique edges, also for multiple primitive elements).
-            primitiveElement->appendEdgeIndices ( edgeIndices, edgeIndicesMap );
-        }
-    }
-
-    // --------------------------------------------
-    std::vector<size_t>* GeometryImporter::getShadingEnginePrimitiveIndices ( 
-        const COLLADAFW::UniqueId& geometryId, 
-        const COLLADAFW::MaterialId shadingEngineId )
-    {
-        UniqueIdMaterialIdPair combinedId ( geometryId, shadingEngineId );
-        CombinedIdIndicesMap::iterator it = mShadingEnginePrimitivesMap.find ( combinedId );
-        if ( it == mShadingEnginePrimitivesMap.end () )
-        {
-            return 0;
-        }
-        return &it->second;
-    }
-
-    // --------------------------------------------
-    void GeometryImporter::setShadingEnginePrimitiveIndex ( 
-        const COLLADAFW::UniqueId& geometryId, 
-        const COLLADAFW::MaterialId shadingEngineId, 
-        const size_t primitiveIndex )
-    {
-        UniqueIdMaterialIdPair combinedId ( geometryId, shadingEngineId );
-        mShadingEnginePrimitivesMap [combinedId].push_back ( primitiveIndex );
-    }
-
-    // --------------------------------------------
     std::vector<GroupInfo>* GeometryImporter::findShadingBindingGroups ( 
         const COLLADAFW::UniqueId& geometryId, 
         const COLLADAFW::UniqueId& transformId,
         const COLLADAFW::MaterialId& shadingEngineId )
     {
         ShadingBinding shadingBinding ( geometryId, transformId, shadingEngineId );
-        ShadingBindingGroupInfoMap::iterator it = mShadingBindingGroupMap.find ( shadingBinding );
-        if ( it == mShadingBindingGroupMap.end () )
-        {
-            return 0;
-        }
-        return &(it->second);
-    }
-
-    // --------------------------------------------
-    std::vector<GroupInfo>* GeometryImporter::findShadingBindingGroups ( 
-        const ShadingBinding& shadingBinding )
-    {
         ShadingBindingGroupInfoMap::iterator it = mShadingBindingGroupMap.find ( shadingBinding );
         if ( it == mShadingBindingGroupMap.end () )
         {
@@ -1775,7 +2934,100 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
+    GeometryImporter::MeshControllerData* GeometryImporter::findMeshControllerDataByControllerId ( 
+        const COLLADAFW::UniqueId& controllerId )
+    {
+        for ( size_t i=0; i<mMeshControllerDataList.size (); ++i )
+        {
+            MeshControllerData& meshControllerData = mMeshControllerDataList [i];
+            if ( meshControllerData.getControllerId () == controllerId )
+            {
+                return &meshControllerData;
+            }
+        }
+        return 0;
+    }
+
+    // --------------------------------------------
+    const std::vector<GeometryImporter::PrimitiveInputSet>* GeometryImporter::findTexCoordInputSets ( 
+        const COLLADAFW::UniqueId& geometryId )
+    {
+        std::map<COLLADAFW::UniqueId, std::vector<PrimitiveInputSet> >::const_iterator it;
+        it = mTexCoordInputSetsMap.find ( geometryId );
+        if ( it != mTexCoordInputSetsMap.end () )
+        {
+            return &it->second;
+        }
+        return 0;
+    }
+
+    // --------------------------------------------
+    const std::vector<GeometryImporter::PrimitiveInputSet>* GeometryImporter::findColorInputSets ( 
+        const COLLADAFW::UniqueId& geometryId )
+    {
+        std::map<COLLADAFW::UniqueId, std::vector<PrimitiveInputSet> >::const_iterator it = mColorInputSetsMap.find ( geometryId );
+        if ( it != mColorInputSetsMap.end () )
+        {
+            return &it->second;
+        }
+        return 0;
+    }
+
+    // --------------------------------------------
+    const COLLADAFW::UniqueId* GeometryImporter::findGeometryId ( 
+        const COLLADAFW::UniqueId& sourceId, 
+        const COLLADAFW::UniqueId& transformId, 
+        const COLLADAFW::UniqueId* controllerId )
+    {
+        // Handle controller
+        const COLLADAFW::UniqueId* geometryId = 0;
+        if ( controllerId && controllerId->isValid () )
+        {
+            // Get the geometryId of the current controller element.
+            ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
+            GeometryImporter::MeshControllerData* meshControllerData = findMeshControllerDataByControllerAndTransformId ( sourceId, transformId );
+            if ( meshControllerData == 0 )
+            {
+                std::cerr << "No meshControllerData exist for the current geometry and transform!" << endl;
+                return 0;
+            }
+            geometryId = &meshControllerData->getGeometryId ();
+        }
+        else 
+        {
+            geometryId = &sourceId;
+        }
+
+        return geometryId;
+    }
+
+    // --------------------------------------------
+    const size_t GeometryImporter::findGeometryUvSetIndex ( 
+        const COLLADAFW::UniqueId& geometryId, 
+        const String& uvSetName )
+    {
+        std::map<COLLADAFW::UniqueId, std::vector<String> >::const_iterator it = mGeometryUvSetNamesMap.find ( geometryId );
+        if ( it != mGeometryUvSetNamesMap.end () )
+        {
+            const std::vector<String>& uvSetNames = it->second;
+            for ( size_t i=0; i<uvSetNames.size (); ++i )
+            {
+                if ( COLLADABU::Utils::equals ( uvSetName, uvSetNames[i] ) )
+                    return i;
+            }
+        }
+        return 0;
+    }
+
+    // --------------------------------------------
     void GeometryImporter::writeConnections ()
+    {
+        connectControllerGroups();
+
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::connectControllerGroups ()
     {
         // If there exist a controller for the current mesh, we also need to organize the 
         // groupIds of the mesh's primitive elements in groupParts. 
@@ -1795,33 +3047,34 @@ namespace COLLADAMaya
         const MayaDM::GroupParts* previousGroupParts = 0;
         const MayaDM::GroupId* previousGroupId = 0;
 
+        // Store the geometry and the controller ids.
+        COLLADAFW::UniqueId previousGeometryId;
+        COLLADAFW::UniqueId previousControllerId;
+
+        // Get the shadingBindings of the same geometries and group their groups.
         ShadingBindingGroupInfoMap::const_iterator it = mShadingBindingGroupMap.begin ();
         while ( it != mShadingBindingGroupMap.end () )
         {
             const ShadingBinding& shadingBinding = it->first;
             const COLLADAFW::UniqueId& geometryId = shadingBinding.getGeometryId ();
             const COLLADAFW::UniqueId& transformId = shadingBinding.getTransformId();
-            const COLLADAFW::UniqueId* controllerId = shadingBinding.getControllerId ();
+            const COLLADAFW::UniqueId& controllerId = shadingBinding.getControllerId ();
 
-            // Get the count of primitive elements in the current geometry.
-            const size_t numPrimitiveElements = findPrimitivesCount ( geometryId );
-
-            if ( controllerId )
+            // Just connect the groups of controllers.
+            if ( controllerId.isValid () )
             {
                 // Get the current controller object.
                 ControllerImporter* controllerImporter = getDocumentImporter ()->getControllerImporter ();
-                const COLLADAFW::SkinController* skinController = controllerImporter->findSkinController ( *controllerId );
+                const COLLADAFW::Controller* controller = controllerImporter->findController ( controllerId );
 
-                // Get the skinCluster object.
-                const COLLADAFW::UniqueId& skinControllerDataId = skinController->getSkinControllerData ();
-                const ControllerImporter::MayaSkinClusterData* mayaSkinClusterData = controllerImporter->findMayaSkinClusterData ( *controllerId );
-                if ( mayaSkinClusterData == 0 )
+                // Get the geometryFileter object (skinCluster or blendShape).
+                const ControllerImporter::GeometryFilterData* geometryFilterData = controllerImporter->findGeometryFilterData ( controllerId );
+                if ( geometryFilterData == 0 )
                 {
-                    std::cerr << "No skin cluster data for the current controller!" << endl;
-                    ++it;
-                    continue;
+                    std::cerr << "No geometry filter for the current controller!" << endl;
+                    ++it; continue;
                 }
-                const MayaDM::SkinCluster& skinCluster = mayaSkinClusterData->getSkinCluster ();
+                const MayaDM::GeometryFilter* geometryFilter = geometryFilterData->getGeometryFilter ();
 
                 // Iterate over the groupInfos.
                 const std::vector<GroupInfo>& groupInfos = it->second;
@@ -1843,12 +3096,16 @@ namespace COLLADAMaya
                     // Get the groupId object for the current mesh primitive.
                     const MayaDM::GroupId& groupId = groupInfo.getGroupId ();                            
 
-                    // Handle the primitive element in depend on the primitive index.
+                    // Get the number of controller instances and the current instance index.
+                    size_t numInstances = shadingBinding.getNumInstances ();
+                    size_t instanceIndex = shadingBinding.getInstanceIndex ();
+
+                    // Handle the primitive element of the first controller instance.
                     size_t primitiveIndex = groupInfo.getPrimitiveIndex ();
-                    if ( primitiveIndex == 0 )
+                    if ( instanceIndex == 0 && primitiveIndex == 0 )
                     {
                         // connectAttr "skinCluster1.outputGeometry[0]" "groupParts3.inputGeometry";
-                        connectAttr ( file, skinCluster.getOutputGeometry (0), groupParts.getInputGeometry () );
+                        connectAttr ( file, geometryFilter->getOutputGeometry (0), groupParts.getInputGeometry () );
                     }
                     else
                     {
@@ -1861,17 +3118,20 @@ namespace COLLADAMaya
                         // connectAttr "groupParts3.outputGeometry" "groupParts4.inputGeometry";
                         connectAttr ( file, previousGroupParts->getOutputGeometry (), groupParts.getInputGeometry () );
                     }
-
+                    
                     // connectAttr "groupId3.groupId" "groupParts3.groupId";
                     connectAttr ( file, groupId.getGroupId (), groupParts.getGroupId () );
 
-                    // Handle the last primitive element connections.
-                    if ( primitiveIndex == numPrimitiveElements-1 )
+                    // If we handle the last primitive element of the last controller instance, 
+                    // we have to connect the groupId to the current mesh's input mesh.
+                    const size_t numPrimitiveElements = findPrimitivesCount ( geometryId );
+                    if ( instanceIndex == numInstances-1 && 
+                         primitiveIndex == numPrimitiveElements-1 )
                     {
                         // Get the current mesh (either the original object, or if we have a mesh
                         // controller, we need the mesh controller object.
                         MayaDM::Mesh* mesh = 0;
-                        if ( controllerId == 0 )
+                        if ( !controllerId.isValid () )
                         {
                             mesh = findMayaDMMeshNode ( geometryId );
                         }
@@ -1879,8 +3139,13 @@ namespace COLLADAMaya
                         {
                             // If the current mesh has a mesh controller object, 
                             // we need the controller mesh element instead of the original.
-                            MeshControllerData* meshControllerData = findMeshControllerDataByControllerAndTransformId ( *controllerId, transformId );
-                            mesh = meshControllerData->getControllerMeshNode ();
+                            MeshControllerData* meshControllerData = findMeshControllerDataByControllerAndTransformId ( controllerId, transformId );
+                            if ( meshControllerData == 0 )
+                            {
+                                std::cerr << "No meshControllerData object for the current controller!" << endl;
+                                continue;
+                            }
+                            mesh = &meshControllerData->getControllerMeshNode ();
                         }
                         if ( mesh == 0 )
                         {
@@ -1897,7 +3162,12 @@ namespace COLLADAMaya
                 }
             }
 
+            // Store the ids.
+            previousGeometryId = geometryId;
+            previousControllerId = controllerId;
+
             ++it;
         }
     }
+
 }

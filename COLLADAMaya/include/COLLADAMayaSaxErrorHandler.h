@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -21,17 +21,17 @@ namespace COLLADAMaya
 {
 
     /** TODO Documentation */
-    class SaxParserErrorHandler : public COLLADASaxFWL::IErrorHandler
+    class SaxErrorHandler : public COLLADASaxFWL::IErrorHandler
     {
 	private:
 	
 	public:
 
         /** Constructor. */
-        SaxParserErrorHandler();
+        SaxErrorHandler();
 
         /** Destructor. */
-		virtual ~SaxParserErrorHandler();
+		virtual ~SaxErrorHandler();
 
         /** 
          * If this method returns true, the loader stops parsing immediately. 
@@ -42,10 +42,10 @@ namespace COLLADAMaya
 	private:
 
         /** Disable default copy ctor. */
-		SaxParserErrorHandler( const SaxParserErrorHandler& pre );
+		SaxErrorHandler( const SaxErrorHandler& pre );
 
         /** Disable default assignment operator. */
-		const SaxParserErrorHandler& operator= ( const SaxParserErrorHandler& pre );
+		const SaxErrorHandler& operator= ( const SaxErrorHandler& pre );
 
 	};
 

@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -16,7 +16,7 @@ namespace COLLADAMaya
 {
 
     //------------------------------
-	EffectAnimation::EffectAnimation()
+	EffectAnimation::EffectAnimation() : BaseAnimation ()
 	{
 	}
 	

@@ -28,9 +28,6 @@ namespace COLLADAMaya
 
     typedef std::vector<String> MorphControllerTargets;
 
-    typedef std::pair<String, MMatrix> MorphControllerJoint;
-    typedef std::vector<MorphControllerJoint> MorphControllerJoints;
-
     /**
     * Holds the data for the morph controller to export.
     */

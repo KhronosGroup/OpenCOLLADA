@@ -22,7 +22,6 @@
 
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWLibraryMaterials.h"
-#include "COLLADASWSurface.h"
 #include "COLLADASWSampler.h"
 #include "COLLADASWValueType.h"
 
@@ -40,7 +39,6 @@ namespace COLLADAMaya
 {
     /** Map for the materials. */
     typedef std::map<String, MObject> MaterialMap;
-    typedef std::map<String, String> StringToStringMap;
 
 
     /** This class writes the <library_materials>. It uses informations created by the effect exporter*/
@@ -100,6 +98,11 @@ namespace COLLADAMaya
 
         /** The filename of the current shader to export. */
         COLLADASW::URI mShaderFxFileUri;
+
+        /** 
+         * Avoid export of dublicate sampler params. 
+         */
+        std::set<String> mSamplers;
 
     public:
 
@@ -180,7 +183,6 @@ namespace COLLADAMaya
         void setSetParamTexture (
             const cgfxAttrDef* attribute, 
             MObject textureNode, 
-            COLLADASW::Surface::SurfaceType surfaceType, 
             COLLADASW::Sampler::SamplerType samplerType, 
             COLLADASW::ValueType::ColladaType samplerValueType );
 

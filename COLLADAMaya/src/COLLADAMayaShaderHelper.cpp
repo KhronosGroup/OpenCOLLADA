@@ -33,9 +33,11 @@ class MFnNurbsSurface;
 namespace COLLADAMaya
 {
 
-    MObject ShaderHelper::getLayeredTextures ( const MObject& layeredTexture,
-            MObjectArray& fileTextures,
-            MIntArray& blendModes )
+    //----------------------------------
+    MObject ShaderHelper::getLayeredTextures ( 
+        const MObject& layeredTexture,
+        MObjectArray& fileTextures,
+        MIntArray& blendModes )
     {
         MFnDependencyNode layeredTextureFn ( layeredTexture );
         MStatus rc;
@@ -44,7 +46,6 @@ namespace COLLADAMaya
         CHECK_STATUS ( rc, MString ( "Unable to locate inputs array plug on layeredTexture: " ) + layeredTextureFn.name() );
 
         uint elementCount = inputs.numElements();
-
         for ( int i = ( int ) ( elementCount - 1 ); i >= 0; --i )
         {
             MPlug input = inputs.elementByPhysicalIndex ( i, &rc );
@@ -54,7 +55,6 @@ namespace COLLADAMaya
             CHECK_STATUS ( rc, MString ( "Unable to locate input#" ) + i + MString ( "'s color child plug on layeredTexture: " ) + layeredTextureFn.name() );
 
             MObject connection = DagHelper::getNodeConnectedTo ( colorInput );
-
             if ( connection != MObject::kNullObj )
             {
                 fileTextures.append ( connection );
@@ -71,9 +71,7 @@ namespace COLLADAMaya
         return layeredTexture;
     }
 
-    //
-    // Get the shadingEngine used by a specific shader (the inverse of the above)
-    //
+    //----------------------------------
     MObject ShaderHelper::getShadingEngine ( MObject shadingNetwork )
     {
         MStatus rc = MStatus::kSuccess;
@@ -85,7 +83,10 @@ namespace COLLADAMaya
         return ( rc == MStatus::kSuccess ? it.thisNode() : MObject::kNullObj );
     }
 
-    MStatus ShaderHelper::getConnectedShaders ( const MFnDependencyNode& node, MObjectArray& shaders )
+    //----------------------------------
+    MStatus ShaderHelper::getConnectedShaders ( 
+        const MFnDependencyNode& node, 
+        MObjectArray& shaders )
     {
         MPlugArray nodePlugs;
         node.getConnections ( nodePlugs );
@@ -95,7 +96,6 @@ namespace COLLADAMaya
             const MPlug& nodePlug = nodePlugs[i];
             MPlugArray nodeDestinations;
             nodePlug.connectedTo ( nodeDestinations, false, true );
-
             for ( uint j = 0; j < nodeDestinations.length(); j++ )
             {
                 if ( nodeDestinations[j].node().apiType() == MFn::kShadingEngine )
@@ -108,11 +108,14 @@ namespace COLLADAMaya
         return ( shaders.length() > 0 ? MStatus::kSuccess : MStatus::kFailure );
     }
 
-    MPlug ShaderHelper::findPlug ( const MFnDependencyNode& node, const MString& plugName, MStatus* rc )
+    //----------------------------------
+    MPlug ShaderHelper::findPlug ( 
+        const MFnDependencyNode& node, 
+        const MString& plugName, 
+        MStatus* rc )
     {
         MStatus st;
         MPlug p = node.findPlug ( plugName, &st );
-
         if ( st == MStatus::kSuccess )
         {
             if ( rc != NULL ) *rc = MStatus::kSuccess;
@@ -121,9 +124,7 @@ namespace COLLADAMaya
         }
 
         MPlugArray plugs;
-
         st = node.getConnections ( plugs );
-
         if ( st != MStatus::kSuccess )
         {
             if ( rc != NULL ) *rc = st;
@@ -135,11 +136,9 @@ namespace COLLADAMaya
         {
             p = plugs[i];
             MFnAttribute attribute ( p.attribute() );
-
             if ( attribute.name() ==  plugName )
             {
                 if ( rc != NULL ) *rc = MStatus::kSuccess;
-
                 return p;
             }
         }
@@ -149,97 +148,7 @@ namespace COLLADAMaya
         return p;
     }
 
-    uint ShaderHelper::findArrayPlugEmptyIndex ( const MPlug& plug )
-    {
-        MStatus rc;
-        uint index;
-
-        uint count = plug.numElements();
-
-        for ( index = 0; index < count; ++index )
-        {
-            MPlug connection = plug.elementByLogicalIndex ( index, &rc );
-
-            if ( rc == MStatus::kSuccess && !connection.isConnected() ) break;
-        }
-
-        return index;
-    }
-
-    MObject ShaderHelper::findDisplayLayer ( const char* name )
-    {
-        MStatus rc;
-        MDGModifier dgModifier;
-        MFnDependencyNode layerNode;
-
-        // Find the layer manager
-        MFnDependencyNode layerManager;
-
-        for ( MItDependencyNodes dependencyIt; !dependencyIt.isDone(); dependencyIt.next() )
-        {
-            MFnDependencyNode node ( dependencyIt.item() );
-
-            if ( node.name() == "layerManager" )
-            {
-                layerManager.setObject ( node.object() );
-                break;
-            }
-        }
-
-        if ( layerManager.object() == MObject::kNullObj )
-        {
-            MGlobal::displayError ( "Unable to find default layer manager." );
-            return MObject::kNullObj;
-        }
-
-        // Look for a display layer with this name
-        MPlug layerListPlug = findPlug ( layerManager, "displayLayerId", &rc );
-
-        CHECK_STATUS ( rc, "Unable to find default layer manager's id plug array." );
-
-        uint layerListPlugCount = layerListPlug.numElements();
-
-        for ( uint i = 0; i < layerListPlugCount; ++i )
-        {
-            MPlug layerPlug = layerListPlug.elementByPhysicalIndex ( i, &rc );
-            CHECK_STATUS ( rc, "Unable to find default layer manager's physical id plug." );
-
-            MObject connection = DagHelper::getNodeConnectedTo ( layerPlug );
-            MFnDependencyNode connectedNode ( connection );
-
-            if ( connectedNode.name() ==  name )
-            {
-                return connection;
-            }
-        }
-
-        // Create a new layer node and get its "identification" plug
-        layerNode.create ( "displayLayer", name, &rc );
-
-        CHECK_STATUS ( rc, MString ( "Unable to create new display layer: " ) + name );
-
-        MPlug dst = findPlug ( layerNode, "identification", &rc );
-
-        CHECK_STATUS ( rc, MString ( "Unable to get new display layer's identification plug: " ) + name );
-
-        // Connect the layer node to the layer manager's list of layers
-        uint logicalIndex = findArrayPlugEmptyIndex ( layerListPlug );
-
-        MPlug src = layerListPlug.elementByLogicalIndex ( logicalIndex, &rc );
-
-        CHECK_STATUS ( rc, "Unable to find default layer manager's correct id plug." );
-
-        dgModifier.connect ( src, dst );
-
-        dgModifier.doIt();
-
-        // Set the ID value unto the display manager child plug.
-        // Fixes SourceForge 1425745: Layer information is missing from the UI on import.
-        DagHelper::setPlugValue ( src, ( int ) logicalIndex ); // Arbitary size
-
-        return layerNode.object();
-    }
-
+    //----------------------------------
     static const int g_projectionTypeValueCount = 9;
     static const char* g_projectionTypeValues[g_projectionTypeValueCount] = { ( "NONE" ), ( "PLANAR" ), ( "SPHERICAL" ), ( "CYLINDRICAL" ), ( "BALL" ), ( "CUBIC" ), ( "TRIPLANAR" ), ( "CONCENTRIC" ), ( "PERSPECTIVE" ) };
     int ShaderHelper::toProjectionType ( const char* type )
@@ -253,6 +162,7 @@ namespace COLLADAMaya
         return defaultProjectionType();
     }
 
+    //----------------------------------
     const char* ShaderHelper::projectionTypeToString ( int type )
     {
         if ( type >= 0 && type < g_projectionTypeValueCount )
@@ -266,9 +176,129 @@ namespace COLLADAMaya
         }
     }
 
+    //----------------------------------
     int ShaderHelper::defaultProjectionType()
     {
         // According to the documentation, "PLANAR" is the default value
         return 1;
+    }
+
+    //----------------------------------
+    uint ShaderHelper::getAssociatedUVSet(const MObject& shape, const MObject& textureNode)
+    {
+        // Rather than trying to find all the node types which may be derived
+        // off texture2d, then handling optionally handling placement nodes,
+        // we can simply walk backwards along the uvCoord attributes until
+        // we find a uvChooser.
+        MStatus status;
+        MObject node = textureNode;
+        while(node.apiType() != MFn::kUvChooser)
+        {
+            MFnDependencyNode dgFn(node);
+            MPlug plug = dgFn.findPlug(MString("uvCoord"), &status);
+            if (status == MS::kSuccess && plug.isConnected())
+            {
+                // Get the connection - there can be at most one input to a plug
+                //
+                MPlugArray connections;
+                plug.connectedTo(connections, true, false);
+                if (connections.length() > 0)
+                {
+                    node = connections[ 0].node();
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        // Did we find a uvChooser?
+        //
+        if (node.apiType() == MFn::kUvChooser)
+        {
+            // Find the uvSet connection to this shape
+            //
+            MFnDependencyNode dgFn(node);
+            MPlug plug = dgFn.findPlug(MString("uvSets"), &status);
+            if (status == MS::kSuccess && plug.isArray())
+            {
+                // Iterate over all the elements in this array looking for
+                // one which connects to our shape
+                //
+                uint numUVSets = plug.evaluateNumElements();
+                for (uint i = 0; i < numUVSets; i++)
+                {
+                    MPlug uvSetPlug = plug.elementByPhysicalIndex(i, &status);
+                    if (status && uvSetPlug.isConnected())
+                    {
+                        // Get the connection - there can be at most one input to a plug
+                        //
+                        MPlugArray connections;
+                        uvSetPlug.connectedTo(connections, true, false);
+                        if (connections.length() > 0 && connections[0].node() == shape)
+                        {
+                            // connected through name element
+                            MPlug uvSetElement= connections[0].parent();
+                            MPlug uvSetArray = uvSetElement.array();
+                            if (uvSetArray.isArray())
+                            {
+                                uint logicalIndex = uvSetElement.logicalIndex();
+                                for (uint child = 0; child < uvSetArray.numElements(); ++child)
+                                {
+                                    MPlug childPlug = uvSetArray.elementByPhysicalIndex(child);
+                                    if (childPlug.logicalIndex() == logicalIndex)
+                                    {
+                                        return child;
+                                    }
+                                }
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // [KThacker] Another weird thing. MFnMesh keeps an internal list of uvSet names.
+        // This is not necessarily in the physical order of the plugs under uvSet (elementByPhysicalIndex),
+        // or the logical order (through MEL uvSet[<logical index>]).
+        // When no uvChooser is present it uses the first uvSet name from the list
+        // to define which uvSet to use as default, if the name is different it uses a uvChooser.
+        // Got this problem after importing a file from FBX.
+        //
+        // So we get the list of names and search through the plugs in physical order
+        // to get the correct physical index to return.
+
+        MFnMesh mesh(shape);
+        MStringArray setNames;
+        mesh.getUVSetNames(setNames);
+
+        MPlug uvSetPlug = mesh.findPlug("uvSet");
+
+        for (uint i = 0; i < uvSetPlug.numElements(); ++i)
+        {
+            // get uvSet[<index>]
+            MPlug uvSetElememtPlug = uvSetPlug.elementByPhysicalIndex(i);
+
+            // get uvSet[<index>].uvSetName
+            MPlug uvSetNamePlug = uvSetElememtPlug.child(0);
+
+            // get value of plug (uvSet's name)
+            MString uvSetName;
+
+            uvSetNamePlug.getValue(uvSetName);
+
+            if (uvSetName==setNames[0])
+                return i;
+
+        }
+
+        // we don't want to get here, because it'll end up with wrong results.
+        return 0;
     }
 }

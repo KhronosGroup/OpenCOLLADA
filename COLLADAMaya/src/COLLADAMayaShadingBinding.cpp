@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADAMaya.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -16,7 +16,7 @@ namespace COLLADAMaya
 {
 
     //------------------------------
-    ShadingBinding::ShadingBinding() : mControllerId (0)
+    ShadingBinding::ShadingBinding()
 	{
 	}
 
@@ -25,7 +25,7 @@ namespace COLLADAMaya
         const COLLADAFW::UniqueId& geometryId, 
         const COLLADAFW::UniqueId& transformId, 
         const COLLADAFW::MaterialId& shadingEngineId,
-        const COLLADAFW::UniqueId* controllerId /*= 0*/ ) 
+        const COLLADAFW::UniqueId& controllerId /*= COLLADAFW::UniqueId ()*/ ) 
         : mGeometryId (geometryId)
         , mTransformId (transformId)
         , mShadingEngineId (shadingEngineId)

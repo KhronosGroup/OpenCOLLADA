@@ -29,14 +29,13 @@
 
 #include <maya/MDagPath.h>
 #include <maya/MFnTransform.h>
+#include <maya/MFnMesh.h>
 
 
 class DocumentExporter;
 
 namespace COLLADAMaya
 {
-
-    typedef std::map<String, String> StringToStringMap;
 
     /**
      * Exports the transform data of the visual scene.
@@ -102,7 +101,7 @@ namespace COLLADAMaya
          */
         VisualSceneExporter ( COLLADASW::StreamWriter* streamWriter,
                               DocumentExporter* documentExporter,
-                              const String& sceneId = "" );
+                              const String& sceneId = EMPTY_STRING );
         /**
          * Destructor.
          */
@@ -122,9 +121,12 @@ namespace COLLADAMaya
         * Creates the uri for the scene element. Checks for instances 
         * and creates the right element.
         */
-        COLLADASW::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = "" );
+        COLLADASW::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = EMPTY_STRING );
 
-        String getColladaNodeId ( const MDagPath &dagPath );
+        /**
+         * Returns the collada id of the current node, if it is a transform node
+         */
+        String getColladaNodeId ( const MDagPath& dagPath );
 
     private:
 
@@ -164,18 +166,25 @@ namespace COLLADAMaya
         */
         bool exportVisualSceneNode ( COLLADASW::Node* sceneNode, SceneElement* sceneElement );
 
-        void exportChildNodeInstances( const SceneElement* sceneElement );
+        /**
+        * Exports a node instance of the current scene element.
+        * @param sceneElement The scene element to instantiate.
+        */
+        void exportInstanceNode ( SceneElement* sceneElement );
+
+        void exportInstanceChildNodes ( const SceneElement* sceneElement );
+
         /**
          * Exports the geometry instances of the given transform scene element.
          * @param childElement The transform scene element.
          */
-        void exportGeometryInstance( SceneElement* sceneElement );
+        void exportInstanceGeometry ( SceneElement* sceneElement );
 
         /**
         * Exports the skin controller instances of the given transform scene element.
         * @param childElement The transform scene element.
          */
-        void exportControllerInstance( 
+        void exportInstanceController( 
             SceneElement* childElement, 
             const bool hasSkinController, 
             const bool hasMorphController );
@@ -184,13 +193,13 @@ namespace COLLADAMaya
         * Exports the light instances of the given transform scene element.
         * @param childElement The transform scene element.
          */
-        void exportLightInstance ( const SceneElement* childElement );
+        void exportInstanceLight ( const SceneElement* childElement );
 
         /**
         * Exports the camera instances of the given transform scene element.
         * @param childElement The transform scene element.
         */
-        void exportCameraInstance ( const SceneElement* childElement );
+        void exportInstanceCamera ( const SceneElement* childElement );
 
         /**
          * Exports the material instances.
@@ -198,16 +207,26 @@ namespace COLLADAMaya
          * @param childDagPath The path of the current node to export the material instances.
          * @param instanceNumber The current instance number of the shape.
          */
-        void exportMaterialList( 
+        void exportInstanceMaterial ( 
             COLLADASW::InstanceMaterialList &instanceMaterialList, 
             const MDagPath &dagPath );
-        
+
+        /** 
+         * Check if the current mesh has some polygons for the connected shader.
+         * If not, we don't need to write the current material instance.
+         */
+        const bool meshContainsShaderPolygons ( 
+            const MFnMesh& fnMesh, 
+            const MObjectArray& shaders, 
+            const MIntArray& shaderIndices, 
+            const uint shaderPosition );
+
         /**
          * Initializes the transform objects.
          * @param dagPath The path to the transform object.
          * @return bool True, if the initialisation was successfull.
          */
-        bool initializeTransform ( const MDagPath &dagPath );
+        bool initializeTransform ( SceneElement* sceneElement );
 
         /**
          * Prepares a new the visual scene node.
@@ -258,12 +277,6 @@ namespace COLLADAMaya
          * @return bool
          */
         bool enterDagNode( const SceneElement* sceneElement, bool instantiate );
-
-        /**
-         * Exports a node instance of the current scene element.
-         * @param sceneElement The scene element to instantiate.
-         */
-        void exportNodeInstance ( SceneElement* sceneElement );
 
     };
 

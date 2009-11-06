@@ -35,11 +35,6 @@ namespace COLLADAMaya
 
     private:
 
-        /**
-        * The list of the unique maya camera names.
-        */
-        COLLADABU::IDList mCameraIdList;
-        
         /** 
         * The map holds the unique ids of the camera nodes to the maya specific nodes. 
         */
