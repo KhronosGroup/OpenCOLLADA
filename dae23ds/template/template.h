@@ -1,3 +1,13 @@
+/*
+    Copyright (c) 2009 NetAllied Systems GmbH
+
+    This file is part of dae23ds.
+	
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+
 #ifndef __[!output NAMESPACE_UPPER]_[!output CLASS_NAME_UPPER]_H__
 #define __[!output NAMESPACE_UPPER]_[!output CLASS_NAME_UPPER]_H__
 
