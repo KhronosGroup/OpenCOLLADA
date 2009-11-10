@@ -16,9 +16,6 @@
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWColor.h"
 
-#include "COLLADASWCharacterBuffer.h"
-#include "COLLADASWFWriteBufferFlusher.h"
-
 #include <fstream>
 #include <stack>
 #include <list>
@@ -34,18 +31,11 @@ namespace COLLADABU
     class NativeString;
 }
 
-// namespace COLLADABU
-// {
-//     namespace Math
-//     {
-//         class Utils;
-//     }
-// }
-// 
-// namespace COLLADABU
-// {
-//     class URI;
-// }
+namespace Common
+{
+	class FWriteBufferFlusher;
+	class CharacterBuffer;
+}
 
 namespace COLLADASW
 {
@@ -56,7 +46,6 @@ namespace COLLADASW
 
 
     /** Class that simplifies closes open elements*/
-
     class TagCloser
     {
 
@@ -64,7 +53,6 @@ namespace COLLADASW
         TagCloser();
 
 		/** We use the default copy ctor.*/
-//		TagCloser ( const TagCloser & other );
         ~TagCloser();
 
         /** Closes all elements that have been open and not closed, since this object has been instantiated*/
@@ -82,7 +70,6 @@ namespace COLLADASW
 
 
     /** A class to write a COLLADASW document directly to a file, without storing the data in an internal data model*/
-
     class StreamWriter
     {
 	public:
@@ -112,9 +99,9 @@ namespace COLLADASW
 		typedef std::deque<OpenTag> OpenTagStack;
 
     private:
-		FWriteBufferFlusher mBufferFlusher;
+		Common::FWriteBufferFlusher* mBufferFlusher;
 
-		CharacterBuffer mCharacterBuffer;
+		Common::CharacterBuffer* mCharacterBuffer;
 
         /** If true, the double values will be exported with a maximum precision of 20 digits. */
         bool mDoublePrecision;
@@ -345,99 +332,46 @@ namespace COLLADASW
 		}
 
 		/** Adds the string @a str to the stream.*/
-		inline void appendString ( const char* text, size_t length )
-		{
-			mCharacterBuffer.copyToBuffer( text, length );
-		}
+		void appendString ( const char* text, size_t length );
 
         /** Adds the string @a str to the stream.
             The string have to be a valid ncname. */
-        inline void appendNCNameString ( const String & str )
-        {
-			appendNCNameString(str, str.length());
-        }
+        void appendNCNameString ( const String & str );
 
         /** Adds the first @n characters of string @a str to the stream.
         @a n must not be larger than the length of @a str.*/
-        inline void appendNCNameString ( const String & str, size_t n )
-        {
-			mCharacterBuffer.copyToBuffer( str.c_str(), n);
-        }
+        void appendNCNameString ( const String & str, size_t n );
 
 
         /** Adds the char @a c to the stream*/
-        inline void appendChar ( char c )
-        {
-			mCharacterBuffer.copyToBuffer( c );
-        }
+        void appendChar ( char c );
 
         /** Adds the double @a number to the stream*/
-        inline void appendNumber ( double number )
-        {
-			if ( COLLADABU::Math::Utils::equals<double>(number, 0, std::numeric_limits<double>::epsilon()) )
-			{
-				appendChar('0');
-			}
-			else
-			{
-				mCharacterBuffer.copyToBufferAsChar( number, mDoublePrecision );
-			}
-        }
+        void appendNumber ( double number );
 
         /** Adds the float @a number to the stream*/
-        inline void appendNumber ( float number )
-        {
-			if ( COLLADABU::Math::Utils::equals<float>(number, 0, std::numeric_limits<float>::epsilon()) )
-			{
-				appendChar('0');
-			}
-			else
-			{
-				mCharacterBuffer.copyToBufferAsChar( number );
-			}
-        }
+        void appendNumber ( float number );
 
         /** Adds the long @a number to the stream*/
-        inline void appendNumber ( int number )
-        {
-			mCharacterBuffer.copyToBufferAsChar( number );
-        }
+        void appendNumber ( int number );
 
         /** Adds the long @a number to the stream*/
-        inline void appendNumber ( unsigned int number )
-        {
-			mCharacterBuffer.copyToBufferAsChar( number );
-        }
+        void appendNumber ( unsigned int number );
 
 		/** Adds the long @a number to the stream*/
-		inline void appendNumber ( long number )
-		{
-			mCharacterBuffer.copyToBufferAsChar( number );
-		}
+		void appendNumber ( long number );
 
 		/** Adds the long @a number to the stream*/
-		inline void appendNumber ( unsigned long number )
-		{
-			mCharacterBuffer.copyToBufferAsChar( number );
-		}
+		void appendNumber ( unsigned long number );
 
 		/** Adds the long long @a number to the stream*/
-		inline void appendNumber ( long long number )
-		{
-			mCharacterBuffer.copyToBufferAsChar( number );
-		}
+		void appendNumber ( long long number );
 
 		/** Adds the long long @a number to the stream*/
-		inline void appendNumber ( unsigned long long number )
-		{
-			mCharacterBuffer.copyToBufferAsChar( number );
-		}
+		void appendNumber ( unsigned long long number );
 
         /** Adds the bool @a value to the stream*/
-        void appendBoolean ( bool value )
-        {
-			mCharacterBuffer.copyToBufferAsChar( value );
-        }
+        void appendBoolean ( bool value );
 
         /** Adds a new line to the stream*/
         inline void appendNewLine()
@@ -452,7 +386,7 @@ namespace COLLADASW
 
         /** This function prepares the last opened tag to add contents to it.
         This function must be called before any contents is added to an element. After this function
-        has been calles, conttents should be added, but if not, the xml file will still be valid*/
+        has been calls, contents should be added, but if not, the xml file will still be valid*/
         void prepareToAddContents();
 
     };

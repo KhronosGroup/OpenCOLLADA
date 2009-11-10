@@ -10,15 +10,17 @@
 
 #include "COLLADASWStreamWriter.h"
 
-#include <string>
-#include <fstream>
-#include <cassert>
-
 #include "COLLADASWConstants.h"
 #include "COLLADASWException.h"
 
 #include "COLLADABUStringUtils.h"
 
+#include "CommonCharacterBuffer.h"
+#include "CommonFWriteBufferFlusher.h"
+
+#include <string>
+#include <fstream>
+#include <cassert>
 
 namespace COLLADASW
 {
@@ -65,15 +67,15 @@ namespace COLLADASW
 
     //---------------------------------------------------------------
     StreamWriter::StreamWriter ( const NativeString & fileName, bool doublePrecision /*= false*/, COLLADAVersion cOLLADAVersion /*= COLLADA_1_4_1*/ )
-            : mBufferFlusher(fileName.c_str(), FWRITEBUFFERSIZE)
-			, mCharacterBuffer( CHARACTERBUFFERSIZE, &mBufferFlusher )
+            : mBufferFlusher( new Common::FWriteBufferFlusher(fileName.c_str(), FWRITEBUFFERSIZE))
+			, mCharacterBuffer( new Common::CharacterBuffer(CHARACTERBUFFERSIZE, mBufferFlusher) )
 			, mLevel ( 0 )
             , mIndent ( 2 )
             , mDoublePrecision (doublePrecision)
 			, mCOLLADAVersion(cOLLADAVersion)
 			, mNextElementIndex(0)
     {
-		int error = mBufferFlusher.getError();
+		int error = mBufferFlusher->getError();
 		if ( error != 0 )
 		{
 			throw StreamWriterException(StreamWriterException::ERROR_FILE_OPEN, "Could not open file \"" + fileName + "\" for writing. errno_t = " + Utils::toString(error) );
@@ -84,6 +86,8 @@ namespace COLLADASW
     StreamWriter::~StreamWriter()
     {
         endDocument();
+		delete mBufferFlusher;
+		delete mCharacterBuffer;
     }
 
     //---------------------------------------------------------------
@@ -1023,4 +1027,95 @@ namespace COLLADASW
         appendNCNameString ( mWhiteSpaceString, remainder );
     }
 
+	//---------------------------------------------------------------
+	void StreamWriter::appendString( const char* text, size_t length )
+	{
+		mCharacterBuffer->copyToBuffer( text, length );
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNCNameString( const String & str )
+	{
+		appendNCNameString(str, str.length());
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNCNameString( const String & str, size_t n )
+	{
+		mCharacterBuffer->copyToBuffer( str.c_str(), n);
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendChar( char c )
+	{
+		mCharacterBuffer->copyToBuffer( c );
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNumber( double number )
+	{
+		if ( COLLADABU::Math::Utils::equals<double>(number, 0, std::numeric_limits<double>::epsilon()) )
+		{
+			appendChar('0');
+		}
+		else
+		{
+			mCharacterBuffer->copyToBufferAsChar( number, mDoublePrecision );
+		}
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNumber( float number )
+	{
+		if ( COLLADABU::Math::Utils::equals<float>(number, 0, std::numeric_limits<float>::epsilon()) )
+		{
+			appendChar('0');
+		}
+		else
+		{
+			mCharacterBuffer->copyToBufferAsChar( number );
+		}
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNumber( int number )
+	{
+		mCharacterBuffer->copyToBufferAsChar( number );
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNumber( unsigned int number )
+	{
+		mCharacterBuffer->copyToBufferAsChar( number );
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNumber( long number )
+	{
+		mCharacterBuffer->copyToBufferAsChar( number );
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNumber( unsigned long number )
+	{
+		mCharacterBuffer->copyToBufferAsChar( number );
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNumber( long long number )
+	{
+		mCharacterBuffer->copyToBufferAsChar( number );
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendNumber( unsigned long long number )
+	{
+		mCharacterBuffer->copyToBufferAsChar( number );
+	}
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendBoolean( bool value )
+	{
+		mCharacterBuffer->copyToBufferAsChar( value );
+	}
 } //namespace COLLADASW
