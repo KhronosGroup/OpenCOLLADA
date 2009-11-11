@@ -1311,7 +1311,7 @@ namespace COLLADAMax
 		size_t startPosition = 0;
 		for ( size_t i = 0; i < sourceIndex; ++i)
 		{
-			const COLLADAFW::MeshVertexData::InputInfos* inputInfo = inputInfos[ sourceIndex ];
+			const COLLADAFW::MeshVertexData::InputInfos* inputInfo = inputInfos[ i ];
 			startPosition += inputInfo->mLength;
 		}
 
