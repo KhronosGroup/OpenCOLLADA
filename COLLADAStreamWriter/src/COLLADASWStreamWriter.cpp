@@ -86,8 +86,8 @@ namespace COLLADASW
     StreamWriter::~StreamWriter()
     {
         endDocument();
-		delete mBufferFlusher;
 		delete mCharacterBuffer;
+		delete mBufferFlusher;
     }
 
     //---------------------------------------------------------------
