@@ -1,0 +1,156 @@
+/*
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
+
+	This file is part of COLLADAMaya.
+
+    Portions of the code are:
+    Copyright (c) 2005-2007 Feeling Software Inc.
+    Copyright (c) 2005-2007 Sony Computer Entertainment America
+    Copyright (c) 2004-2005 Alias Systems Corp.
+	
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+
+global proc int openColladaImporterOpts ( string $parent,
+									      string $action,
+									      string $initialSettings,
+									      string $resultCallback )
+//
+//	Description:
+//		This script posts the ColladaMaya import options.
+//		The optionsString is of the form:
+//			varName1=value1;varName2=value2;...
+//
+//	Parameters:
+//		$parent	- the elf parent layout for this options layout. It is
+//					always a scrollLayout.
+//		$action	- the action that is to be performed with this invokation
+//					of this proc. Valid options are:
+//						"query" - construct the options string and pass it
+//									to the resultCallback.
+//						"post"	- post all the elf controls.
+//		$initialSettings - the current options string in effect at the
+//						   time this script is invoked.
+//		$resultCallback	-
+//				This is the proc to be called with the result string. 
+//				resultCallback ( string $optionsString )
+//
+//	Returns:
+//		1 if successfull.
+//		0 otherwise.
+//
+{
+	int		$intVal;
+	int		$bResult;
+	string	$currentOptions;
+	string	$optionList[];
+	string	$optionBreakDown[];
+	int		$index;
+
+	if ($action == "post") 
+	{
+		setUITemplate -pushTemplate DefaultTemplate;		
+		setParent $parent;
+
+		formLayout -e -visible false optionsBoxForm;
+
+		columnLayout -adj true;
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "General Import Options" colladaImporterFrame;
+				columnLayout -adj true colladaGeneralImportOptions;
+
+// 					checkBoxGrp
+// 							-l " "
+// 							-ncb 2
+// 							-va2 true true
+// 							-la2 "Up axis" "Units"
+// 							colladaImportUpAxis;
+							
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 true
+							-l1 "Units"
+							colladaImportUpAxis;
+
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 true
+							-l1 "Normals"
+							colladaImportNormals;
+
+				setParent ..; // columnLayout
+			setParent ..; // frameLayout
+
+		setParent ..; // columnLayout
+		setParent ..; // formLayout (optionsBoxForm)
+		
+		// Now set to current settings.
+
+		$currentOptions = $initialSettings;
+		if (size($currentOptions) > 0) 
+		{
+			tokenize($currentOptions, ";", $optionList);
+			for ($index = 0; $index < size($optionList); $index++) 
+			{
+				tokenize($optionList[$index], "=", $optionBreakDown);
+
+// General Import Options
+//
+// 				if ($optionBreakDown[0] == "importUpAxis")
+// 				{
+// 					$intVal = $optionBreakDown[1];
+// 					checkBoxGrp -e -v1 $intVal colladaImportUpAxis;
+// 				}
+//				else if ($optionBreakDown[0] == "importUnits")
+// 				{
+// 					$intVal = $optionBreakDown[1];
+// 					checkBoxGrp -e -v2 $intVal colladaImportUpAxis;
+// 				}
+				if ($optionBreakDown[0] == "importUnits")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaImportUpAxis;
+				}
+				else if ($optionBreakDown[0] == "importNormals")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaImportNormals;
+				}
+			}
+		}
+		$bResult = 1;
+		
+		formLayout -e -visible true optionsBoxForm;
+
+		setUITemplate -popTemplate;
+
+	} else if ($action == "query") {
+
+// Query import options
+
+// 		$currentOptions = $currentOptions + "importUpAxis=" + `checkBoxGrp -q -v1 colladaImportUpAxis` + ";";
+// 		$currentOptions = $currentOptions + "importUnits=" + `checkBoxGrp -q -v2 colladaImportUpAxis` + ";";
+		$currentOptions = $currentOptions + "importUnits=" + `checkBoxGrp -q -v1 colladaImportUpAxis` + ";";
+		$currentOptions = $currentOptions + "importNormals=" + `checkBoxGrp -q -v1 colladaImportNormals` + ";";
+
+		print( "Options: " + $currentOptions + "\n" );
+
+		eval($resultCallback+" \""+$currentOptions+"\"");
+
+		$bResult = 1;
+	} else {
+		$bResult = 0;
+	}
+	
+	return $bResult;
+}
+
+global proc
+colladaBrowseForScript()
+{
+	string $file = `fileDialog`;
+	textField -e -text $file colladaScript;
+}

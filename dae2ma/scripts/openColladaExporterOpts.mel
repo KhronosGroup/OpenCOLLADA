@@ -1,0 +1,508 @@
+/*
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
+
+	This file is part of COLLADAMaya.
+
+    Portions of the code are:
+    Copyright (c) 2005-2007 Feeling Software Inc.
+    Copyright (c) 2005-2007 Sony Computer Entertainment America
+    Copyright (c) 2004-2005 Alias Systems Corp.
+	
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+
+global proc int openColladaExporterOpts ( string $parent,
+							  			  string $action,
+										  string $initialSettings,
+										  string $resultCallback )
+//
+//	Description:
+//		This script posts the ColladaMaya export options.
+//		The optionsString is of the form:
+//			varName1=value1;varName2=value2;...
+//
+//	Parameters:
+//		$parent	- the elf parent layout for this options layout. It is
+//					always a scrollLayout.
+//		$action	- the action that is to be performed with this invokation
+//					of this proc. Valid options are:
+//						"query" - construct the options string and pass it
+//									to the resultCallback.
+//						"post"	- post all the elf controls.
+//		$initialSettings - the current options string in effect at the
+//						   time this script is invoked.
+//		$resultCallback	-
+//				This is the proc to be called with the result string. 
+//				resultCallback ( string $optionsString )
+//
+//	Returns:
+//		1 if successfull.
+//		0 otherwise.
+//
+{
+	int		$intVal;
+	int		$bResult;
+	string	$currentOptions;
+	string	$optionList[];
+	string	$optionBreakDown[];
+	int		$index;
+
+	if ($action == "post") 
+	{
+		setUITemplate -pushTemplate DefaultTemplate;		
+		setParent $parent;
+
+		formLayout -e -visible false optionsBoxForm;
+
+		columnLayout -adj true;
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "General export options" colladaGeneralFrame;
+				columnLayout -adj true colladaGeneralExportOptions;
+
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 false
+							-l1 "Bake transforms" 
+							colladaBakeTransforms;
+							
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 false false
+							-la2 "Relative paths" "Copy textures"
+							colladaRelativePaths;
+							
+					checkBoxGrp
+							-l " "
+							-l1 "Triangulate"
+							-v1 false
+							colladaExportTriangles;
+							
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 true
+							-l1 "Cgfx file references" 
+							colladaCgfxFileReferences;
+					
+					text
+							-l " "
+							colladaSamplingSeparator;
+							
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 false 
+							-l1 "Sampling"
+							-on1 "checkBoxGrp -e -en1 true colladaAnimOpts2;"
+							-of1 "checkBoxGrp -e -en1 false colladaAnimOpts2;"
+							colladaIsSampling;
+					
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 false true
+							-la2 "Curve constrain" "Static curve removal"
+							-en1 false
+							colladaAnimOpts2;
+
+				setParent ..; // columnLayout
+			setParent ..; // frameLayout
+				
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "Filter export" colladaFilterFrame;
+				columnLayout -adj true colladaFilterOptions;
+
+					checkBoxGrp
+							-l "Export:"
+							-ncb 2
+							-va2 true true
+							-la2 "Polygon meshes" "Lights"
+							colladaExportFilter1;
+
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 true true
+							-la2 "Cameras" "Joints and skin"
+							colladaExportFilter2;
+							
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 true
+							-l1 "Animations"
+							colladaExportFilter3;
+					
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 false false
+							-la2 "Invisible nodes" "Default cameras"
+							-en2 false
+							-on1 "checkBoxGrp -e -en2 true colladaExportFilter4"
+							-of1 "checkBoxGrp -e -en2 false colladaExportFilter4"
+							colladaExportFilter4;
+					
+					text
+							-l " "
+							colladaExportFilterSeparator1;
+
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 true 
+							-l1 "Texture coordinates"
+							colladaExportFilter5a;
+					
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 true true
+							-la2 "Normals" "Normals per vertex"
+							colladaExportFilter5;
+					
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 true true
+							-la2 "Vertex colors" "Vertex colors per vertex" 
+							colladaExportFilter6;
+					
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 false false
+							-la2 "Texture tangents" "Geometric tangents"
+							colladaExportFilter7;
+
+					text
+							-l " "
+							colladaExportFilterSeparator2;
+
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 false false
+							-la2 "Referenced materials only" "Materials only"
+                            -on2 "checkBoxGrp -e -en1 false colladaExportFilter1; checkBoxGrp -e -en2 false colladaExportFilter1; checkBoxGrp -e -en1 false colladaExportFilter2; checkBoxGrp -e -en2 false colladaExportFilter2; checkBoxGrp -e -en1 false colladaExportFilter3; checkBoxGrp -e -en1 false colladaExportFilter4; checkBoxGrp -e -en2 false colladaExportFilter4; checkBoxGrp -e -en1 false colladaExportFilter5a; checkBoxGrp -e -en1 false colladaExportFilter5; checkBoxGrp -e -en2 false colladaExportFilter5; checkBoxGrp -e -en1 false colladaExportFilter6; checkBoxGrp -e -en2 false colladaExportFilter6; checkBoxGrp -e -en1 false colladaExportFilter7; checkBoxGrp -e -en2 false colladaExportFilter7;"
+                            -of2 "checkBoxGrp -e -en1 true colladaExportFilter1; checkBoxGrp -e -en2 true colladaExportFilter1; checkBoxGrp -e -en1 true colladaExportFilter2; checkBoxGrp -e -en2 true colladaExportFilter2; checkBoxGrp -e -en1 true colladaExportFilter3; checkBoxGrp -e -en1 true colladaExportFilter4; if ( `checkBoxGrp -q -v1 colladaExportFilter4` ) checkBoxGrp -e -en2 true colladaExportFilter4; checkBoxGrp -e -en1 true colladaExportFilter5a; checkBoxGrp -e -en1 true colladaExportFilter5; checkBoxGrp -e -en2 true colladaExportFilter5;checkBoxGrp -e -en1 true colladaExportFilter6; checkBoxGrp -e -en2 true colladaExportFilter6; checkBoxGrp -e -en1 true colladaExportFilter7; checkBoxGrp -e -en2 true colladaExportFilter7;"
+                            colladaExportFilter8;
+							
+				setParent ..; // columnLayout
+			setParent ..; // frameLayout
+
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "XRef options" colladaXRefFrame;
+				columnLayout -adj true colladaXRefOptions;
+				
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 true true
+							-la2 "Export references" "Dereference"
+							-on1 "checkBoxGrp -e -en2 true -v2 true colladaXRef;"
+							-of1 "checkBoxGrp -e -en2 false colladaXRef;"
+							-of2 "checkBoxGrp -e -v1 false colladaXRef;"
+							-on2 "checkBoxGrp -e -v1 true colladaXRef;"
+							colladaXRef;
+
+				setParent ..;
+			setParent ..;
+
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "Camera options" colladaCameraFrame;
+				columnLayout -adj true colladaCameraOptions;
+
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 false
+							-l1 "Export camera as lookat"
+							colladaExportCameraAsLookat;
+							
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 false true
+							-la2 "XFov" "YFov"
+							colladaCameraFov;
+
+					text
+							-l "If neither XFov and YFov are selected, YFov is exported."
+							colladaCameraText;
+
+				setParent ..; // columnLayout
+			setParent ..; // frameLayout
+
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "Precision options" colladaPrecisionFrame;
+				columnLayout -adj true colladaPrecisionOptions;
+
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 false
+							-l1 "Export double precision"
+							colladaExportDoublePrecision;
+							
+					text
+							-l "If double precision is selected, the maximum number of significant \n digits to be printed is increased from 7 to 17 significant digits."
+							colladaPrecisionText;
+
+				setParent ..; // columnLayout
+			setParent ..; // frameLayout
+
+		setParent ..; // columnLayout
+		setParent ..; // formLayout (optionsBoxForm)
+		
+		// Now set to current settings.
+
+		$currentOptions = $initialSettings;
+		if (size($currentOptions) > 0) 
+		{
+			tokenize($currentOptions, ";", $optionList);
+			for ($index = 0; $index < size($optionList); $index++) 
+			{
+				tokenize($optionList[$index], "=", $optionBreakDown);
+
+// General export options
+//
+				if ( $optionBreakDown[0] == "bakeTransforms" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaBakeTransforms;
+				}
+				else if ( $optionBreakDown[0] == "relativePaths" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaRelativePaths;
+				}
+				else if ( $optionBreakDown[0] == "copyTextures" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaRelativePaths;
+				}
+				else if ( $optionBreakDown[0] == "exportTriangles" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportTriangles;
+				}
+				else if ( $optionBreakDown[0] == "cgfxFileReferences" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaCgfxFileReferences;
+				}
+				else if ( $optionBreakDown[0] == "isSampling" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaIsSampling;
+					checkBoxGrp -e -en1 $intVal colladaAnimOpts2;
+				}
+				else if ( $optionBreakDown[0] == "curveConstrainSampling" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaAnimOpts2;
+				}
+				else if ( $optionBreakDown[0] == "removeStaticCurves" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaAnimOpts2;
+				}
+
+// Export filter
+//
+				else if ($optionBreakDown[0] == "exportPolygonMeshes")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter1;
+				}
+				else if ($optionBreakDown[0] == "exportLights")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaExportFilter1;
+				}
+				else if ($optionBreakDown[0] == "exportCameras")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter2;
+				}
+				else if ($optionBreakDown[0] == "exportJointsAndSkin")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaExportFilter2;
+				}
+				else if ($optionBreakDown[0] == "exportAnimations")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter3;
+				}
+				else if ($optionBreakDown[0] == "exportInvisibleNodes")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter4;
+					checkBoxGrp -e -en2 $intVal colladaExportFilter4;
+				}
+				else if ($optionBreakDown[0] == "exportDefaultCameras")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaExportFilter4;
+				}
+				else if ($optionBreakDown[0] == "exportTexCoords")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter5a;
+				}
+				else if ($optionBreakDown[0] == "exportNormals")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter5;
+				}
+				else if ($optionBreakDown[0] == "exportNormalsPerVertex")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaExportFilter5;
+				}
+				else if ($optionBreakDown[0] == "exportVertexColors")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter6;
+				}
+				else if ($optionBreakDown[0] == "exportVertexColorsPerVertex")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaExportFilter6;
+				}
+				else if ($optionBreakDown[0] == "exportTexTangents")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter7;
+				}
+				else if ($optionBreakDown[0] == "exportTangents")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaExportFilter7;
+				}
+				else if ($optionBreakDown[0] == "exportReferencedMaterials")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter8;
+				}
+				else if ($optionBreakDown[0] == "exportMaterialsOnly")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaExportFilter8;
+				}
+
+// XRef options
+//				
+				else if ( $optionBreakDown[0] == "exportXRefs" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaXRef;
+					checkBoxGrp -e -en2 $intVal colladaXRef;
+				}
+				else if ( $optionBreakDown[0] == "dereferenceXRefs" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaXRef;
+				}
+				
+// Camera options
+//				
+				else if ( $optionBreakDown[0] == "exportCameraAsLookat" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportCameraAsLookat;
+				}
+				else if ($optionBreakDown[0] == "cameraXFov")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaCameraFov;
+				}
+				else if ($optionBreakDown[0] == "cameraYFov")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaCameraFov;
+				}
+				
+// Precision options
+//				
+				else if ( $optionBreakDown[0] == "doublePrecision" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportDoublePrecision;
+				}
+				
+			}
+		}
+		$bResult = 1;
+		
+		formLayout -e -visible true optionsBoxForm;
+
+		setUITemplate -popTemplate;
+
+	} else if ($action == "query") {
+
+// Query general options
+//
+		$currentOptions = $currentOptions + "bakeTransforms=" + `checkBoxGrp -q -v1 colladaBakeTransforms` + ";";
+		$currentOptions = $currentOptions + "relativePaths=" + `checkBoxGrp -q -v1 colladaRelativePaths` + ";";
+		$currentOptions = $currentOptions + "copyTextures=" + `checkBoxGrp -q -v2 colladaRelativePaths` + ";";
+		$currentOptions = $currentOptions + "exportTriangles=" + `checkBoxGrp -q -v1 colladaExportTriangles` + ";";
+		$currentOptions = $currentOptions + "cgfxFileReferences=" + `checkBoxGrp -q -v1 colladaCgfxFileReferences` + ";";
+ 		$currentOptions = $currentOptions + "isSampling=" + `checkBoxGrp -q -v1 colladaIsSampling` + ";";
+ 		$currentOptions = $currentOptions + "curveConstrainSampling=" + `checkBoxGrp -q -v1 colladaAnimOpts2` + ";";
+ 		$currentOptions = $currentOptions + "removeStaticCurves=" + `checkBoxGrp -q -v2 colladaAnimOpts2` + ";";
+
+// Query filter options
+//
+ 		$currentOptions = $currentOptions + "exportPolygonMeshes=" + `checkBoxGrp -q -v1 colladaExportFilter1` + ";";
+ 		$currentOptions = $currentOptions + "exportLights=" + `checkBoxGrp -q -v2 colladaExportFilter1` + ";";
+ 		$currentOptions = $currentOptions + "exportCameras=" + `checkBoxGrp -q -v1 colladaExportFilter2` + ";";
+ 		$currentOptions = $currentOptions + "exportJointsAndSkin=" + `checkBoxGrp -q -v2 colladaExportFilter2` + ";";
+		$currentOptions = $currentOptions + "exportAnimations=" + `checkBoxGrp -q -v1 colladaExportFilter3` + ";";
+ 		$currentOptions = $currentOptions + "exportInvisibleNodes=" + `checkBoxGrp -q -v1 colladaExportFilter4` + ";";
+ 		$currentOptions = $currentOptions + "exportDefaultCameras=" + `checkBoxGrp -q -v2 colladaExportFilter4` + ";";
+		$currentOptions = $currentOptions + "exportTexCoords=" + `checkBoxGrp -q -v1 colladaExportFilter5a` + ";";
+		$currentOptions = $currentOptions + "exportNormals=" + `checkBoxGrp -q -v1 colladaExportFilter5` + ";";
+		$currentOptions = $currentOptions + "exportNormalsPerVertex=" + `checkBoxGrp -q -v2 colladaExportFilter5` + ";";
+ 		$currentOptions = $currentOptions + "exportVertexColors=" + `checkBoxGrp -q -v1 colladaExportFilter6` + ";";
+ 		$currentOptions = $currentOptions + "exportVertexColorsPerVertex=" + `checkBoxGrp -q -v2 colladaExportFilter6` + ";";
+		$currentOptions = $currentOptions + "exportTexTangents=" + `checkBoxGrp -q -v1 colladaExportFilter7` + ";";
+		$currentOptions = $currentOptions + "exportTangents=" + `checkBoxGrp -q -v2 colladaExportFilter7` + ";";
+		$currentOptions = $currentOptions + "exportReferencedMaterials=" + `checkBoxGrp -q -v1 colladaExportFilter8` + ";";
+		$currentOptions = $currentOptions + "exportMaterialsOnly=" + `checkBoxGrp -q -v2 colladaExportFilter8` + ";";
+
+// External references options
+//
+		$currentOptions = $currentOptions + "exportXRefs=" + `checkBoxGrp -q -v1 colladaXRef` + ";";
+		$currentOptions = $currentOptions + "dereferenceXRefs=" + `checkBoxGrp -q -v2 colladaXRef` + ";";
+
+// Camera options
+//
+		$currentOptions = $currentOptions + "exportCameraAsLookat=" + `checkBoxGrp -q -v1 colladaExportCameraAsLookat` + ";";
+		$currentOptions = $currentOptions + "cameraXFov=" + `checkBoxGrp -q -v1 colladaCameraFov` + ";";
+		$currentOptions = $currentOptions + "cameraYFov=" + `checkBoxGrp -q -v2 colladaCameraFov` + ";";
+
+// Precision options
+//
+		$currentOptions = $currentOptions + "doublePrecision=" + `checkBoxGrp -q -v1 colladaExportDoublePrecision` + ";";
+
+
+		//print( "Options: " + $currentOptions + "\n" );
+
+		eval($resultCallback+" \""+$currentOptions+"\"");
+
+		$bResult = 1;
+	} else {
+		$bResult = 0;
+	}
+	
+	return $bResult;
+}
+
+global proc
+colladaBrowseForScript()
+{
+	string $file = `fileDialog`;
+	textField -e -text $file colladaScript;
+}
