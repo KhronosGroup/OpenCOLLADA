@@ -285,8 +285,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleaseProgDB|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -352,8 +352,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleaseProgDB|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -808,8 +808,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleaseConsoleProgDB|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
