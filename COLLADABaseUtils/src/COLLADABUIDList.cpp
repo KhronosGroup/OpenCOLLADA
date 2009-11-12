@@ -27,10 +27,17 @@ namespace COLLADABU
         String newIdChecked = mConversionFunction( newId );
 
         IDSet::iterator it = mIdSet.find ( newIdChecked );
-        if ( !alwaysAddNumberSuffix && it == mIdSet.end() )
+        if ( !alwaysAddNumberSuffix )
         {
-            mIdSet.insert ( newIdChecked );
-            return returnConverted ? newIdChecked : newId;
+            if ( it == mIdSet.end() )
+            {
+                mIdSet.insert ( newIdChecked );
+                return returnConverted ? newIdChecked : newId;
+            }
+            else if ( !returnConverted )
+            {
+                return newId;
+            }
         }
 
         String idCandidate;
