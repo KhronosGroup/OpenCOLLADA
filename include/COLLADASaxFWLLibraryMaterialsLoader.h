@@ -27,10 +27,13 @@ namespace COLLADASaxFWL
 
     /** TODO Documentation */
 	class LibraryMaterialsLoader : public FilePartLoader
-		{
+	{
 	private:
 		/** The material currently being parsed.*/
 		COLLADAFW::Material* mCurrentMaterial;
+
+        /** True, if the parser is in the instance_effect element. */
+        bool mInInstanceEffect;
 
 	public:
 
@@ -41,7 +44,10 @@ namespace COLLADASaxFWL
 		virtual ~LibraryMaterialsLoader();
 
         /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData() { return mCurrentMaterial; }
+        virtual COLLADAFW::ExtraData* getExtraData();
+
+        /** Returns the second part of the key, either camera or optics. */
+        virtual const char* getSecondKey();
 
 		/** Create new current material.*/
 		virtual bool begin__material( const material__AttributeData& attributeData );
@@ -53,7 +59,7 @@ namespace COLLADASaxFWL
 		virtual bool begin__instance_effect( const instance_effect__AttributeData& attributeData );
 
 		/** We don't need to do anything here.*/
-		virtual bool end__instance_effect(){return true;}
+		virtual bool end__instance_effect();
 
 		/** Finishes the material loader.*/
 		virtual bool end__library_materials();

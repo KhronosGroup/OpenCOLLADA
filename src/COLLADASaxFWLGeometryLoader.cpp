@@ -13,6 +13,9 @@
 #include "COLLADASaxFWLMeshLoader15.h"
 #include "COLLADASaxFWLGeometryLoader.h"
 
+#include "COLLADAFWIWriter.h"
+
+
 namespace COLLADASaxFWL
 {
 
@@ -26,6 +29,12 @@ namespace COLLADASaxFWL
 	GeometryLoader::~GeometryLoader()
 	{
 	}
+
+    //------------------------------
+    COLLADAFW::ExtraData* GeometryLoader::getExtraData ()
+    {
+        return mMeshLoader->getMesh();
+    }
 
 	//------------------------------
 	bool GeometryLoader::begin__mesh()

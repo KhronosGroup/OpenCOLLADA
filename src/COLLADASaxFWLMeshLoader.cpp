@@ -18,8 +18,8 @@
 #include "COLLADAFWTristrips.h"
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWPolygons.h"
-
 #include "COLLADAFWIWriter.h"
+#include "COLLADAFWExtraKeys.h"
 
 #include <fstream>
 
@@ -34,6 +34,7 @@ namespace COLLADASaxFWL
 		, mMaterialIdInfo(getMeshMaterialIdInfo(mMeshUniqueId))
 		, mCurrentMeshPrimitive(0)
 		, mCurrentVertexInput(0)
+        , mInVertices ( false )
 		, mMeshPrimitiveInputs(mVerticesInputs)
 		, mCurrentMeshPrimitiveInput(0)
 		, mCurrentMaxOffset(0)
@@ -64,6 +65,55 @@ namespace COLLADASaxFWL
             mMesh->setOriginalId ( geometryId );
 	}
 
+    //------------------------------
+    COLLADAFW::ExtraData* MeshLoader::getExtraData ()
+    {
+        switch ( mCurrentPrimitiveType )
+        {
+        case NONE:
+            return mMesh; break;
+        case TRIANGLES:
+        case TRISTRIPS:
+        case TRIFANS:
+        case POLYGONS:
+        case POLYGONS_HOLE:
+        case POLYLIST:
+            return mCurrentMeshPrimitive; break;
+        }
+        return 0;
+    }
+
+    //------------------------------
+    const char* MeshLoader::getSecondKey ()
+    {
+        switch ( mCurrentPrimitiveType )
+        {
+        case NONE:
+            {
+                if ( mInVertices )
+                    return COLLADAFW::ExtraKeys::VERTICES; 
+                else return COLLADAFW::ExtraKeys::MESH; 
+            }
+            break;
+        case TRIANGLES:
+        case TRISTRIPS:
+        case TRIFANS:
+        case POLYGONS:
+        case POLYGONS_HOLE:
+        case POLYLIST:
+            {
+                // Build a path like "../primitive_element/0" where the last element is the
+                // physical index of the current primitive element (starting at zero).
+                size_t primitiveIndex = mMesh->getMeshPrimitives ().getCount ();
+                mSecondKey = COLLADAFW::ExtraKeys::PRIMITIVE_ELEMENT;
+                mSecondKey.append ( COLLADAFW::ExtraKeys::KEYSEPARATOR );
+                mSecondKey.append ( COLLADABU::Utils::toString ( primitiveIndex ) );
+                return mSecondKey.c_str (); 
+            }
+            break;
+        }
+        return 0;
+    }
 
     //------------------------------
     const InputUnshared* MeshLoader::getVertexInputBySemantic ( const InputSemantic::Semantic& semantic ) const 
@@ -780,6 +830,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__vertices( const vertices__AttributeData& attributeData )
 	{
+        mInVertices = true;
+
 		if ( attributeData.id )
 			mVerticesInputs.setId( attributeData.id );
 		if ( attributeData.name )
@@ -790,7 +842,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__vertices()
 	{
-		//we don't need to do anything here
+        mInVertices = false;
+
 		return true;
 	}
 
@@ -1283,5 +1336,6 @@ namespace COLLADASaxFWL
 	{
 		return writePrimitiveIndices(data, length);
 	}
+
 
 } // namespace COLLADASaxFWL

@@ -14,6 +14,11 @@
 #include "COLLADASaxFWLFormulasLinker.h"
 #include "COLLADASaxFWLKinematicsSceneCreator.h"
 
+#include "COLLADAFWIWriter.h"
+#include "COLLADAFWMorphController.h"
+#include "COLLADAFWFormulas.h"
+#include "COLLADAFWKinematicsScene.h"
+
 
 namespace COLLADASaxFWL
 {

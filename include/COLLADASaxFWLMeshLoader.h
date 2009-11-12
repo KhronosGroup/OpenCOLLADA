@@ -87,6 +87,9 @@ namespace COLLADASaxFWL
          */
         Vertices mVerticesInputs;
 
+        /** Flag is true, if we are currently in the vertices part. */
+        bool mInVertices;
+
 		/** The vertex input being parse.*/
 		InputUnshared* mCurrentVertexInput;
 
@@ -127,7 +130,7 @@ namespace COLLADASaxFWL
 		/** The value of the count attribute in the COLLADA primitive. Might be used to pre-alloc memory.*/
 		size_t mCurrentCOLLADAPrimitiveCount;
 
-        // Variables for the offsets of the index input elements.
+        /** Variables for the offsets of the index input elements. */
         unsigned long long mPositionsOffset; 
 		unsigned int mPositionsIndexOffset; 
         bool mUsePositions;
@@ -136,16 +139,20 @@ namespace COLLADASaxFWL
 		unsigned int mNormalsIndexOffset; 
         bool mUseNormals;
 
-        // Multiple colors.
+        /** Multiple colors. */
         std::vector<PrimitiveInput> mColorList;
 
-        // Multiple texcoordinates.
+        /** Multiple texcoordinates. */
         std::vector<PrimitiveInput> mTexCoordList;
 
+        /** The type of the current primitive element. */
 		PrimitiveType mCurrentPrimitiveType;
 
 		/** Number of already closed p elements in current primitive.*/
 		unsigned int mPOrPhElementCountOfCurrentPrimitive;
+
+        /** We need a variable for the second key name. */
+        String mSecondKey;
 
     public:
 
@@ -156,10 +163,10 @@ namespace COLLADASaxFWL
         virtual ~MeshLoader () { delete mMesh; }
 
         /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData() { return mMesh; }
+        virtual COLLADAFW::ExtraData* getExtraData();
 
 		/** Returns the second part of the key, either camera or optics. */
-		virtual const char* getSecondKey() { return COLLADAFW::ExtraKeys::MESH; }
+		virtual const char* getSecondKey();
 
 		/** Returns the mesh that has just been loaded.*/
 		COLLADAFW::Mesh* getMesh() { return mMesh; }

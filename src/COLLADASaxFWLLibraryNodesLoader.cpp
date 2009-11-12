@@ -59,4 +59,10 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryNodesLoader::getExtraData ()
+    {
+        return mLibraryNodes;
+    }
+
 } // namespace COLLADASaxFWL

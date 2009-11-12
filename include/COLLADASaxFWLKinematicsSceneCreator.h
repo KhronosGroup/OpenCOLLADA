@@ -13,6 +13,7 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADAFWKinematicsModel.h"
+#include "COLLADAFWKinematicsController.h"
 
 #include <map>
 #include <stack>

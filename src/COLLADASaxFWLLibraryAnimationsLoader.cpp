@@ -16,6 +16,7 @@
 #include "COLLADASaxFWLLoader.h"
 
 #include "COLLADAFWValidate.h"
+#include "COLLADAFWAnimationCurve.h"
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWTypes.h"
@@ -710,5 +711,11 @@ namespace COLLADASaxFWL
 		}
 		return true;
 	}
+
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryAnimationsLoader::getExtraData ()
+    {
+        return mCurrentAnimationCurve;
+    }
 
 } // namespace COLLADASaxFWL

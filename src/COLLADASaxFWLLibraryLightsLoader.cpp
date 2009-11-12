@@ -243,4 +243,10 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryLightsLoader::getExtraData ()
+    {
+        return mCurrentLight;
+    }
+
 } // namespace COLLADASaxFWL

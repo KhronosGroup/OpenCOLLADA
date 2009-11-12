@@ -15,6 +15,7 @@
 #include "COLLADAFWTranslate.h"
 #include "COLLADAFWRotate.h"
 #include "COLLADAFWJoint.h"
+#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL

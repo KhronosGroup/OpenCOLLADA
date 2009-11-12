@@ -11,6 +11,9 @@
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLDocumentProcessor.h"
 
+#include "COLLADAFWNode.h"
+#include "COLLADAFWIWriter.h"
+
 
 namespace COLLADASaxFWL
 {

@@ -60,5 +60,10 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+    //------------------------------
+    COLLADAFW::ExtraData* VisualSceneLoader::getExtraData ()
+    {
+        return mVisualScene;
+    }
 
 } // namespace COLLADASaxFWL

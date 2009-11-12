@@ -14,8 +14,11 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLSourceArrayLoader.h"
 
-#include "COLLADAFWAnimationCurve.h"
-#include "COLLADAFWAnimationList.h"
+namespace COLLADAFW
+{
+    class AnimationCurve;
+    class AnimationList;
+}
 
 
 namespace COLLADASaxFWL
@@ -65,7 +68,7 @@ namespace COLLADASaxFWL
 		virtual ~LibraryAnimationsLoader();
 
         /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData() { return mCurrentAnimationCurve; }
+        virtual COLLADAFW::ExtraData* getExtraData();
 
 		/** Searches for the animation info of animation created for the COLLADA sampler with id @a samplerId.
 		If it could not be found, an invalid Unique id is returned.*/
