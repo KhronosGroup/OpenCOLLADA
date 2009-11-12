@@ -27,54 +27,87 @@ namespace COLLADAFW
     private:
 
         /** The vertex indices of the points, which descripe the edge. */
-        int mVertexIndices[2];
+        unsigned int mVertexIndices[2];
+
+        /** Flag, if the edge is stored in reverse direction. */
+        bool mReverse;
 
     public:
 
         /** Constructor. */
-        Edge () 
+        Edge () : mReverse (false)
         {
-            mVertexIndices[0] = -1;
-            mVertexIndices[1] = -1;
+            mVertexIndices[0] = UINT_MAX;
+            mVertexIndices[1] = UINT_MAX;
         }
 
         /** Constructor. */
-        Edge ( int index1, int index2 ) 
+        Edge ( int index1, int index2 ) : mReverse (false)
         {
-            mVertexIndices[0] = index1;
-            mVertexIndices[1] = index2;
+            if ( index1 < index2 )
+            {
+                mVertexIndices[0] = index1;
+                mVertexIndices[1] = index2;
+            }
+            else
+            {
+                mVertexIndices[0] = index2;
+                mVertexIndices[1] = index1;
+                mReverse = true;
+            }
         }
 
         /** Destructor. */
-        virtual ~Edge () {}
+        ~Edge () {}
 
         /** Set the edge vertex indices sorted. */
         void setVertexIndices ( int index1, int index2 ) 
         {
-            mVertexIndices[0] = index1;
-            mVertexIndices[1] = index2;
+            if ( index1 < index2 )
+            {
+                mVertexIndices[0] = index1;
+                mVertexIndices[1] = index2;
+                mReverse = false;
+            }
+            else
+            {
+                mVertexIndices[0] = index2;
+                mVertexIndices[1] = index1;
+                mReverse = true;
+            }
         }
 
-        int operator[](size_t i) const
+        /** Flag, if the edge is stored in reverse direction. */
+        const bool& isReverse () const { return mReverse; }
+
+        unsigned int operator[](size_t i) const
         {
             assert( i < 2 );
             return mVertexIndices [i];
         }
 
+        operator size_t () const
+        {
+            size_t retVal = 2166136261U;
+            retVal = 16777619U * retVal ^ (size_t)mVertexIndices[0];
+            retVal = 16777619U * retVal ^ (size_t)mVertexIndices[1]; 
+            return retVal;
+        }
+
         bool operator==(const Edge& e2) const
         {
-            if ( (*this)[0] != e2[0] ) return false;
-            if ( (*this)[1] != e2[1] ) return false;
+            if ( mVertexIndices[0] != e2.mVertexIndices[0] ) return false;
+            if ( mVertexIndices[1] != e2.mVertexIndices[1] ) return false;
 
             return true;
         }
 
         bool operator<(const Edge& e2) const
         {
-            if ( (*this)[0] > e2[0] ) return false;
-            if ( (*this)[0] == e2[0] ) 
+            if ( mVertexIndices[0] > e2.mVertexIndices[0] ) return false;
+            if ( mVertexIndices[0] == e2.mVertexIndices[0] ) 
             {
-                if ( (*this)[1] >= e2[1] ) return false;
+                if ( mVertexIndices[1] >= e2.mVertexIndices[1] ) return false;
             }
             return true;
         }

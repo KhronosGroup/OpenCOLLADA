@@ -16,6 +16,7 @@
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWEdge.h"
 #include "COLLADAFWIndexList.h"
+#include "COLLADAFWExtraData.h"
 
 #include <map>
 #include <vector>
@@ -38,7 +39,7 @@ namespace COLLADAFW
     texture coordinate of [0,0] maps to the lower-left texel of a texture image, when loaded in a 
     professional 2-D texture viewer/editor.
     */
-    class MeshPrimitive
+    class MeshPrimitive : public ExtraData
     {
 
     public:
@@ -271,82 +272,9 @@ namespace COLLADAFW
 		void setMaterialId(MaterialId val) { mMaterialId = val; }
 		
         /*
-        * Determine the edge indices (unique edges, also for multiple primitive elements)
-        * and write it into the lists (the indices referes on the position indices).
-        * Does it for triangle elements, polygons or polylist. Trifans and tristrips are a little 
-        * bit special.
-        * @param edgeIndices 
-        *           A vector of edge indices. We use it to write the list of edges into the maya 
-        *           file. The vector is already sorted.
-        * @param edgeIndicesMap 
-        *           We store the edge indices also in a sorted map. The dublicate data holding 
-        *           is reasonable, because we need the index of a given edge. The search of  
-        *           values in a map is much faster than in a vector!
-        */
-        void appendEdgeIndices ( 
-            std::vector<Edge>& edgeIndices, 
-            std::map<Edge,size_t>& edgeIndicesMap );
-
-        /*
-        * Determine the edge indices (unique edges, also for multiple primitive elements)
-        * and write it into the lists (the indices referes on the position indices).
-        * Does it for triangle elements, polygons or polylist. 
-        * @param edgeIndices 
-        *           A vector of edge indices. We use it to write the list of edges into the maya 
-        *           file. The vector is already sorted.
-        * @param edgeIndicesMap 
-        *           We store the edge indices also in a sorted map. The dublicate data holding 
-        *           is reasonable, because we need the index of a given edge. The search of  
-        *           values in a map is much faster than in a vector!
-        */
-        void appendPolygonEdgeIndices ( 
-            std::vector<Edge>& edgeIndices, 
-            std::map<Edge,size_t>& edgeIndicesMap );
-
-        /*
-        * Determine the edge indices (unique edges, also for multiple primitive elements)
-        * and write it into the lists (the indices referes on the position indices).
-        * Does it for trifans.
-        * @param edgeIndices 
-        *           A vector of edge indices. We use it to write the list of edges into the maya 
-        *           file. The vector is already sorted.
-        * @param edgeIndicesMap 
-        *           We store the edge indices also in a sorted map. The dublicate data holding 
-        *           is reasonable, because we need the index of a given edge. The search of  
-        *           values in a map is much faster than in a vector!
-        */
-        void appendTrifansEdgeIndices (
-            std::vector<Edge>& edgeIndices, 
-            std::map<Edge,size_t>& edgeIndicesMap );
-
-        /*
-        * Determine the edge indices (unique edges, also for multiple primitive elements)
-        * and write it into the lists (the indices referes on the position indices).
-        * Does it for tristrips.
-        * @param edgeIndices 
-        *           A vector of edge indices. We use it to write the list of edges into the maya 
-        *           file. The vector is already sorted.
-        * @param edgeIndicesMap 
-        *           We store the edge indices also in a sorted map. The dublicate data holding 
-        *           is reasonable, because we need the index of a given edge. The search of  
-        *           values in a map is much faster than in a vector!
-        */
-        void appendTristripsEdgeIndices (
-            std::vector<Edge>& edgeIndices, 
-            std::map<Edge,size_t>& edgeIndicesMap );
-
-        /*
         * Determine the number of grouped vertex elements in the current mesh primitive.
         */
         const size_t getGroupedVertexElementsCount () const;
-
-        /*
-        * Appends the data of an edge, if it is not already in the list.
-        */
-        void appendEdge( 
-            const Edge& edge, 
-            std::vector<Edge>& edgeIndices, 
-            std::map<Edge,size_t>& edgeIndicesMap );
 
         /*
          *	Returns the vertex count of the face with the specified index.
