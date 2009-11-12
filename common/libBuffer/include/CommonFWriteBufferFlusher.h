@@ -33,7 +33,7 @@ namespace Common
 
 	public:
 		FWriteBufferFlusher( const char* fileName, size_t bufferSize, const char* mode="wb" );
-		FWriteBufferFlusher( const wchar_t* fileName, size_t bufferSize, const wchar_t* mode=L"wb" );
+		//FWriteBufferFlusher( const wchar_t* fileName, size_t bufferSize, const wchar_t* mode=L"wb" );
 		virtual ~FWriteBufferFlusher();
 
 		/** The error code of fopen_s.*/

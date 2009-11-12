@@ -546,7 +546,6 @@ namespace DAE2MA
 
         // The time input and the output.
         const COLLADAFW::FloatOrDoubleArray& inputValuesArray = animationCurve->getInputValues ();
-        const COLLADAFW::FloatOrDoubleArray& outputValuesArray = animationCurve->getOutputValues ();
 
         // The in-tangent positions
         const size_t keyCount = animationCurve->getKeyCount ();
@@ -614,7 +613,6 @@ namespace DAE2MA
         if ( interpolationType == COLLADAFW::AnimationCurve::INTERPOLATION_MIXED ) mixedInterpolation = true;
 
         // The time input values and the output values.
-        const COLLADAFW::FloatOrDoubleArray& inputValuesArray = animationCurve->getInputValues ();
         const COLLADAFW::FloatOrDoubleArray& outputValuesArray = animationCurve->getOutputValues ();
 
         // The in-tangent positions
@@ -695,8 +693,7 @@ namespace DAE2MA
     {
         // The time input values and the output values.
         const COLLADAFW::FloatOrDoubleArray& inputValuesArray = animationCurve->getInputValues ();
-        const COLLADAFW::FloatOrDoubleArray& outputValuesArray = animationCurve->getOutputValues ();
-
+ 
         // The out-tangent positions
         const size_t keyCount = animationCurve->getKeyCount ();
         const COLLADAFW::FloatOrDoubleArray& outTangentValuesArray = animationCurve->getOutTangentValues ();
@@ -767,7 +764,6 @@ namespace DAE2MA
         MayaDM::AnimCurve* animCurve )
     {
         // The time input values and the output values.
-        const COLLADAFW::FloatOrDoubleArray& inputValuesArray = animationCurve->getInputValues ();
         const COLLADAFW::FloatOrDoubleArray& outputValuesArray = animationCurve->getOutputValues ();
 
         // The out-tangent positions
@@ -1460,7 +1456,6 @@ namespace DAE2MA
 
             // Get the array binding.
             size_t firstIndex = animationBinding.firstIndex;
-            size_t secondIndex = animationBinding.secondIndex;
 
             // Connect all animation curves of the current animation.
             size_t animationCurveCount = animationCurves->size ();
@@ -1499,9 +1494,6 @@ namespace DAE2MA
         const COLLADAFW::UniqueId& animationListId, 
         const COLLADAFW::AnimationList::AnimationBindings& animationBindings )
     {
-        // Get the maya file.
-        FILE* file = getDocumentImporter ()->getFile ();
-
         // Get the node, which use this animation list.
         VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
         const TransformAnimation* transformAnimation = visualSceneImporter->findTransformAnimation ( animationListId );
@@ -1552,7 +1544,6 @@ namespace DAE2MA
         // Write the current rotation in a quaternion and 
         // multiplicate with the existing rotation.
         COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transformation;
-        double angle = rotation->getRotationAngle ();
         COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
 
         // Get the animation curves of the current animated element.
@@ -1697,7 +1688,6 @@ namespace DAE2MA
     {
         // Get the scale.
         COLLADAFW::Scale* scale = ( COLLADAFW::Scale* )transformation;
-        COLLADABU::Math::Vector3& scaleVec = scale->getScale ();
 
         // Get the maya file.
         FILE* file = getDocumentImporter ()->getFile ();

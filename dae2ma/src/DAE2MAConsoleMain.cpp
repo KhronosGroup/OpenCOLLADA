@@ -75,7 +75,7 @@ bool checkFileName ( std::string &mayaAsciiFileName )
  * Usage on import:
  * COLLADAMaya -i [infile.dae] [outfile.ma]
  */
-#ifdef WIN32
+#ifdef COLLADABU_OS_WIN
 int main(int argc,char** argv)
 {
 #else 

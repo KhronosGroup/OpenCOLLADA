@@ -86,7 +86,7 @@ bool checkFileName ( std::string &mayaAsciiFileName )
  * Usage on import:
  * COLLADAMaya -i [infile.dae] [outfile.ma]
  */
-#ifdef WIN32
+#ifdef COLLADABU_OS_WIN
 int main(int argc,char** argv)
 {
 #else 
@@ -207,15 +207,13 @@ int main(int argc,char** argv)
             std::cin >> mayaAsciiFileName;
 
             // Check if the filename is not empty and the file already exist.
-            write = checkFileName ( mayaAsciiFileName );
+            bool write = checkFileName ( mayaAsciiFileName );
             if ( !write ) return 0;
 #else
             COLLADABU::URI mayaAsciiFileURI ( inFileName );
             mayaAsciiFileURI.setPathExtension ( ".opencollada.ma" );
-
-#endif
-            // Get the filename.
             mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
+#endif
         }
         else
         {

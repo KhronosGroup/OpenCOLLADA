@@ -112,6 +112,7 @@ namespace DAE2MA
         , mLibraryNodesList (0)
         , mMaterialsList (0)
         , mEffectsList (0)
+        , mAnimationListsList (0)
         , mFile ( 0 )
         , mNodeImporter (0)
         , mVisualSceneImporter (0)
@@ -177,6 +178,14 @@ namespace DAE2MA
         }
         mEffectsList.clear ();
 
+        // A copy of the framework's library animationList elements. 
+        for ( size_t i=0; i< mAnimationListsList.size (); ++i )
+        {
+            COLLADAFW::AnimationList* animationList = mAnimationListsList [i];
+            delete animationList;
+        }
+        mAnimationListsList.clear ();
+        
         // Delete the library elements.
         releaseLibraries(); 
 
@@ -1009,8 +1018,7 @@ namespace DAE2MA
             return false;
         }
 
-        //if ( mParseStep < SECOND_PARSING )
-        if ( mParseStep == SECOND_PARSING )
+        if ( mParseStep >= SECOND_PARSING )
         {
             getAnimationImporter ()->importAnimation ( animation );
             mParseStep = ANIMATIONS_IMPORTED;
@@ -1054,12 +1062,6 @@ namespace DAE2MA
             mParseStep = COPY_ELEMENTS;
             mAnimationListsList.push_back ( new COLLADAFW::AnimationList ( *animationList ) );
         }
-
-//         if ( mParseStep == SECOND_PARSING )
-//         {
-//             // We have to copy the animation connections, 
-//             getAnimationImporter ()->writeConnections ( animationList );
-//         }
 
         return true;
     }

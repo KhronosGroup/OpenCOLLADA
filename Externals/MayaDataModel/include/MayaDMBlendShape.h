@@ -262,10 +262,10 @@ public:
 	{
 		fprintf(mFile,";\n");
 	}
-	void setOrigin(unsigned int or)
+	void setOrigin(unsigned int ori)
 	{
-		if(or == 1) return;
-		fprintf(mFile,"\tsetAttr \".or\" %i;\n", or);
+		if(ori == 1) return;
+		fprintf(mFile,"\tsetAttr \".or\" %i;\n", ori);
 	}
 	void setBaseOrigin(const double3& bo)
 	{

@@ -157,7 +157,7 @@ namespace COLLADAFW
 		bool empty() const { return mCount == 0; }
 
 		/** Return s the index'th element in the array. No check is performed, if the index is out of bounds.*/
-        Type& operator[] ( size_t index ) { assert(index < mCount); return mData[index]; }
+        Type& operator[] ( size_t index ) { assert(index < mCapacity); return mData[index]; }
 
         /** Return s the index'th element in the array. No check is performed, if the index is out of bounds.*/
         const Type& operator[] ( size_t index ) const { return mData[index]; }

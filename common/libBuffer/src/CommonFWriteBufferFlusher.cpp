@@ -30,8 +30,9 @@ namespace Common
 			( setvbuf( mStream , mBuffer, _IOFBF, mBufferSize ) != 0 );
 		}
 	}
+    /* Not possible on mac os!
 	//-----------------------------------------------------------------------
-	FWriteBufferFlusher::FWriteBufferFlusher( const wchar_t* fileName, size_t bufferSize, const wchar_t* mode/*=L"wb"*/ )
+	FWriteBufferFlusher::FWriteBufferFlusher( const wchar_t* fileName, size_t bufferSize, const wchar_t* mode/*=L"wb"* )
 		: mBufferSize(bufferSize)
 		, mBuffer( new char[bufferSize] )
 #ifdef WIN32
@@ -46,6 +47,7 @@ namespace Common
 			( setvbuf( mStream , mBuffer, _IOFBF, mBufferSize ) != 0 );
 		}
 	}
+    */
 	//--------------------------------------------------------------------
 	FWriteBufferFlusher::~FWriteBufferFlusher()
 	{

@@ -166,7 +166,7 @@ namespace COLLADABU
          * @param String & separators
          * @param std::vector<String> & words
          */
-        static void split ( String& text, String& separators, std::vector<String>& words );
+        static void split ( const String& text, const String& separators, std::vector<String>& words );
 
 
     };

@@ -187,7 +187,7 @@ namespace COLLADABU
 	}
 
     //--------------------------------
-    void Utils::split ( String& text, String& separators, std::vector<String>& words )
+    void Utils::split ( const String& text, const String& separators, std::vector<String>& words )
     {
         size_t n = text.length();
         size_t start, stop;
