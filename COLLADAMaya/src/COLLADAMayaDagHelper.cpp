@@ -810,7 +810,6 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    //static
     bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, MVector& value )
     {
         MStatus status;
@@ -821,7 +820,6 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    //static
     bool DagHelper::getPlugValue ( const MPlug& plug, MVector& value )
     {
         MObject obj;

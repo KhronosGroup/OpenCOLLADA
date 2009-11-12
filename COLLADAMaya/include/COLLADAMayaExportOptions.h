@@ -32,6 +32,11 @@ namespace COLLADAMaya
     {
 
     private:
+
+        /****************************/
+        /** General export options  */
+        /****************************/
+
         /** True, if we should a write transform matrix. */
         static bool mBakeTransforms;
 
@@ -40,115 +45,124 @@ namespace COLLADAMaya
 
         /** True, if the texture files should be copied to the destination folder. */
         static bool mCopyTextures;
-
-        static bool mExportPolygonMeshes;
-        static bool mExportLights;
-        static bool mExportCameras;
-        static bool mExportMaterialsOnly;
-        static bool mExportReferencedMaterials;
-        static bool mExportJointsAndSkin;
-        static bool mExportAnimations;
-        static bool mExportCameraAsLookat;
         static bool mExportTriangles;
-        static bool mExportInvisibleNodes;
-        static bool mExportDefaultCameras;
-        static bool mExportNormals;
-        static bool mExportNormalsPerVertex;
-        static bool mExportTexCoords;
-        static bool mExportVertexColors;
-        static bool mExportVertexColorsPerVertex;
-        static bool mExportTangents;
-        static bool mExportTexTangents;
-        static bool mRemoveStaticCurves;
-        static bool mExportXRefs;
-        static bool mDereferenceXRefs;
-        static bool mCameraXFov;
-        static bool mCameraYFov;
-        static bool mDoublePrecision;
-        static bool mIsSampling;
-        static bool mCurveConstrainSampling;
 
         /** True, if file references to cgfx files should be exported 
         (instead of directly writing the contant of the file). */
         static bool mExportCgfxFileReferences;
+
+        static bool mIsSampling;
+        static bool mCurveConstrainSampling;
+        static bool mRemoveStaticCurves;
+
+        /****************************/
+        /**     Filter export       */
+        /****************************/
+
+        static bool mExportPolygonMeshes;
+        static bool mExportLights;
+        static bool mExportCameras;
+        static bool mExportJointsAndSkin;
+        static bool mExportAnimations;
+        static bool mExportInvisibleNodes;
+        static bool mExportDefaultCameras;
+        static bool mExportTexCoords;
+        static bool mExportNormals;
+        static bool mExportNormalsPerVertex;
+        static bool mExportVertexColors;
+        static bool mExportVertexColorsPerVertex;
+        static bool mExportTexTangents;
+        static bool mExportTangents;
+        static bool mExportReferencedMaterials;
+        static bool mExportMaterialsOnly;
+
+        /****************************/
+        /**     XRef options        */
+        /****************************/
+
+        static bool mExportXRefs;
+        static bool mDereferenceXRefs;
+
+        /****************************/
+        /**     Camera options      */
+        /****************************/
+
+        static bool mExportCameraAsLookat;
+        static bool mCameraXFov;
+        static bool mCameraYFov;
+
+        /****************************/
+        /**     Precision options   */
+        /****************************/
+
+        static bool mDoublePrecision;
 
     public:
 
         /** Parse the options String and reset all options to their default values. */
         static void set ( const MString &optionsString );
 
-        /** Should the transforms be baked into a single matrix,
-        as opposed to decomposed into primitive collada
-        transforms (e.g. translate, rotate, scale)?
-        Default: FALSE */
+        /****************************/
+        /** General export options  */
+        /****************************/
+
+        /** Should the transforms be baked into a single matrix, as opposed to decomposed into 
+        primitive collada transforms (e.g. translate, rotate, scale)? Default: FALSE */
         static bool bakeTransforms();
-
-        static bool exportPolygonMeshes();
-
-        static bool isSampling();
-
-        static bool curveConstrainSampling();
-
-        static bool removeStaticCurves();
-
-        static bool exportCameraAsLookat();
-
         static bool relativePaths();
-
-        // Export filters
-        static bool exportLights();
-
-        static bool exportCameras();
-
-        static bool exportJointsAndSkin();
-
-        static bool exportMaterialsOnly ();
-
-        static bool exportReferencedMaterials ();
-
-        static bool exportAnimations();
-
-        static bool exportTriangles();
-
-        static bool exportInvisibleNodes();
-
-        static bool exportDefaultCameras();
-
-        static bool exportNormals();
-
-        static bool exportNormalsPerVertex();
-
-        static bool exportTexCoords();
-
-        static bool exportVertexColors();
-
-        static bool exportVertexColorsPerVertex();
-
-        static bool exportTangents();
-
-        static bool exportTexTangents();
-
-        // XRef options
-        static bool exportXRefs();
-
-        static bool dereferenceXRefs();
-
-        // Camera options
-        static bool cameraXFov();
-
-        static bool cameraYFov();
-
-        // Precision option
-        static bool doublePrecision();
 
         /** True, if the texture files should be copied to the destination folder. */
         static bool copyTextures();
+        static bool exportTriangles();
 
-        /**
-         * If true, a reference to the used cgfx files will be included in the exported dae file.
-         * Otherwise, the code of the used cgfx file will be implemented.
-         */
+        /** If true, a reference to the used cgfx files will be included in the exported dae file. 
+        Otherwise, the code of the used cgfx file will be implemented.*/
         static bool exportCgfxFileReferences ();
+        static bool isSampling();
+        static bool curveConstrainSampling();
+        static bool removeStaticCurves();
+
+        /****************************/
+        /**     Filter export       */
+        /****************************/
+
+        static bool exportPolygonMeshes();
+        static bool exportLights();
+        static bool exportCameras();
+        static bool exportJointsAndSkin();
+        static bool exportAnimations();
+        static bool exportInvisibleNodes();
+        static bool exportDefaultCameras();
+        static bool exportTexCoords();
+        static bool exportNormals();
+        static bool exportNormalsPerVertex();
+        static bool exportVertexColors();
+        static bool exportVertexColorsPerVertex();
+        static bool exportTexTangents();
+        static bool exportTangents();
+        static bool exportReferencedMaterials ();
+        static bool exportMaterialsOnly ();
+
+        /****************************/
+        /**     XRef options        */
+        /****************************/
+
+        static bool exportXRefs();
+        static bool dereferenceXRefs();
+
+        /****************************/
+        /**     Camera options      */
+        /****************************/
+
+        static bool exportCameraAsLookat();
+        static bool cameraXFov();
+        static bool cameraYFov();
+
+        /****************************/
+        /**     Precision options   */
+        /****************************/
+
+        static bool doublePrecision();
 
     };
 

@@ -21,7 +21,6 @@
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaSyntax.h"
-#include "COLLADAMayaBaseImporter.h"
 
 #include <maya/MFnCamera.h>
 

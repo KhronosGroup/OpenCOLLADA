@@ -19,7 +19,6 @@
 #include "COLLADAMayaLightExporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaAnimationExporter.h"
-#include "COLLADAMayaBaseImporter.h"
 
 #include <maya/MFnLight.h>
 #include <maya/MFnNonAmbientLight.h>

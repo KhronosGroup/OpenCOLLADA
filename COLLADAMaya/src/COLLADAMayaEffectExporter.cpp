@@ -20,8 +20,6 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaSyntax.h"
-#include "COLLADAMayaBaseImporter.h"
-#include "COLLADAMayaEffectImporter.h"
 #if MAYA_API_VERSION > 700 
 #include "COLLADAMayaHwShaderExporter.h"
 #endif
@@ -179,7 +177,7 @@ namespace COLLADAMaya
         if ( effectMapIter != mExportedEffectMap.end() ) return;
 
         const String& colladaEffectId = generateColladaEffectId ( shader, mayaMaterialId );
-        if ( COLLADABU::Utils::equals ( colladaEffectId, EMPTY_STRING ) ) return;
+        if ( colladaEffectId.empty () ) return;
 
         // Push the effect id into the mExportedEffectMap
         mExportedEffectMap [mayaMaterialId] = colladaEffectId;
@@ -189,6 +187,12 @@ namespace COLLADAMaya
 
         // Add the correct effect for the material
         COLLADASW::EffectProfile effectProfile ( mSW );
+
+        // Export the user defined extra data under the profile's technique element.
+        String shaderNodeName = shaderNode.name ().asChar ();
+        exportExtraData ( &effectProfile, shader );
+
+        // Export the shader attributes.
         if ( shader.hasFn ( MFn::kLambert ) )
         {
             exportStandardShader ( colladaEffectId, &effectProfile, shader );
@@ -226,17 +230,14 @@ namespace COLLADAMaya
             exportConstantShader ( colladaEffectId, &effectProfile, shader );
         }
 
-        // Export the original maya name.
-        COLLADASW::Extra extraSource ( mSW );
-        extraSource.openExtra();
-        COLLADASW::Technique techniqueSource ( mSW );
-        techniqueSource.openTechnique ( PROFILE_MAYA );
-        techniqueSource.addParameter ( PARAMETER_MAYA_ID, mayaMaterialId );
-        techniqueSource.closeTechnique();
-        extraSource.closeExtra();
+        // Export the original maya name into extra data.
+        effectProfile.addExtraTechniqueParameter ( PROFILE_MAYA, PARAMETER_MAYA_ID, mayaMaterialId );
+
+        // Export the user defined effect extra data from import (extra preservation).
+        mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::EFFECT, 0, &effectProfile );
 
         // Closes the current effect tag
-        closeEffect();
+        closeEffect ();
     }
 
     // ---------------------------------
@@ -457,7 +458,16 @@ namespace COLLADAMaya
             // Get the animation target path
             String targetPath = effectId + "/" + effectProfile->getTechniqueSid() + "/";
 
+            // Create the texture element.
             COLLADASW::Texture colladaTexture;
+
+            // Extra tag preservation
+            String secondKey = COLLADAFW::ExtraKeys::TEXTURE; secondKey.append ( "_" );
+            size_t index = getShaderParameterTypeByChannel ( channel );
+            secondKey.append ( COLLADABU::Utils::toString ( index ) );
+            mDocumentExporter->exportExtraData ( node, COLLADAFW::ExtraKeys::TEXTURE, secondKey.c_str (), &colladaTexture );
+
+            // Export the data of the texture.
             mTextureExporter.exportTexture ( &colladaTexture,
                                              channelSemantic,
                                              fileTextures[i],
@@ -508,20 +518,15 @@ namespace COLLADAMaya
             case DIFFUSE:
                 effectProfile->setDiffuse ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
-            //  case DISPLACEMENT: displacementTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
             case EMISSION:
                 effectProfile->setEmission ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
-                //  case FILTER: filterTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
             case REFLECTION:
                 effectProfile->setReflective ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
-                //  case REFRACTION: refractionTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
-                //  case SHININESS: shininessTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
             case SPECULAR:
                 effectProfile->setSpecular ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
-                //  case SPECULAR_LEVEL: specularFactorTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
             case TRANSPARENt:
                 effectProfile->setTransparent ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
@@ -685,7 +690,7 @@ namespace COLLADAMaya
         // Generate a COLLADA id for the new object
         MaterialExporter* materialExporter = mDocumentExporter->getMaterialExporter ();
         String colladaEffectId = materialExporter->findColladaEffectId ( mayaMaterialId );
-        if ( COLLADABU::Utils::equals ( colladaEffectId, EMPTY_STRING ) ) return EMPTY_STRING;
+        if ( colladaEffectId.empty () ) return EMPTY_STRING;
 
         // Check if there is an extra attribute "colladaId" and use this as export id.
         MString attributeValue2;
@@ -697,5 +702,62 @@ namespace COLLADAMaya
         }
 
         return colladaEffectId;
+    }
+
+    // ------------------------------------
+    void EffectExporter::exportExtraData ( 
+        COLLADASW::EffectProfile* effectProfile, 
+        const MObject& shader )
+    {
+        // Get the extra key in depend on the current effect profile type.
+        const char* extraKey;
+        const COLLADASW::EffectProfile::ProfileType& profileType = effectProfile->getProfileType ();
+        switch ( profileType )
+        {
+        case COLLADASW::EffectProfile::CG:
+            extraKey = COLLADAFW::ExtraKeys::PROFILE_CG; break;
+        case COLLADASW::EffectProfile::COMMON:
+            extraKey = COLLADAFW::ExtraKeys::PROFILE_COMMON; break;
+        case COLLADASW::EffectProfile::GLES:
+            extraKey = COLLADAFW::ExtraKeys::PROFILE_GLES; break;
+        case COLLADASW::EffectProfile::GLSL:
+            extraKey = COLLADAFW::ExtraKeys::PROFILE_GLSL; break;
+        }
+//         // Export the user defined effect extra data from import (extra preservation).
+//         mDocumentExporter->exportExtraData ( shader, extraKey, false );
+
+        // Export the user defined extra data under the profile element.
+        COLLADASW::BaseExtraTechnique& profileExtra = effectProfile->getProfileExtra ();
+        mDocumentExporter->exportExtraData ( shader, extraKey, 0, &profileExtra );
+
+        // Export the user defined extra data under the profile's technique element.
+        COLLADASW::BaseExtraTechnique& profileTechniqueExtra = effectProfile->getProfileTechniqueExtra ();
+        mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::TECHNIQUE, 0, &profileTechniqueExtra );
+    }
+
+    // ------------------------------------
+    size_t EffectExporter::getShaderParameterTypeByChannel ( const Channel& channel )
+    {
+        switch ( channel )
+        {
+        case AMBIENT:
+            return COLLADASaxFWL::LibraryEffectsLoader::SHADER_PARAMETER_AMBIENT; break;
+        case DIFFUSE:
+            return COLLADASaxFWL::LibraryEffectsLoader::SHADER_PARAMETER_DIFFUSE; break;
+        case EMISSION:
+            return COLLADASaxFWL::LibraryEffectsLoader::SHADER_PARAMETER_EMISSION; break;
+        case REFLECTION:
+            return COLLADASaxFWL::LibraryEffectsLoader::SHADER_PARAMETER_REFLECTIVE; break;
+        case SHININESS:
+            return COLLADASaxFWL::LibraryEffectsLoader::SHADER_PARAMETER_SHININESS; break;
+        case SPECULAR:
+            return COLLADASaxFWL::LibraryEffectsLoader::SHADER_PARAMETER_SPECULAR; break;
+        case TRANSPARENt:
+            return COLLADASaxFWL::LibraryEffectsLoader::SHADER_PARAMETER_TRANSPARENT; break;
+        default:
+            return COLLADASaxFWL::LibraryEffectsLoader::UNKNOWN_SHADER_TYPE; break;
+        }
+
+        return COLLADASaxFWL::LibraryEffectsLoader::UNKNOWN_SHADER_TYPE;
     }
 }

@@ -17,7 +17,7 @@
 #define __COLLADA_MAYA_FILE_TRANSLATOR_H__
 
 //#include "vld.h"
-//#include "vldapi.h"
+#include <crtdbg.h> 
 
 #ifndef _MPxFileTranslator
 #include <maya/MPxFileTranslator.h>

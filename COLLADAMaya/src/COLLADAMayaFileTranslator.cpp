@@ -23,7 +23,9 @@
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSyntax.h"
 
-#include "COLLADAMayaDocumentImporter.h"
+#include "DAE2MADocumentImporter.h"
+
+// TODO
 #include "COLLADAMayaImportOptions.h"
 
 #include "COLLADASWException.h"
@@ -65,6 +67,8 @@
     //
     MStatus MLL_EXPORT initializePlugin ( MObject obj )
     {
+        _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); 
+
         MStatus status;
 
 #ifdef _DEBUG
@@ -397,7 +401,7 @@ namespace COLLADAMaya
         String mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
 
         // Actually import the document
-        DocumentImporter documentImporter ( importFileName, mayaAsciiFileURI.getURIString () );
+        DAE2MA::DocumentImporter documentImporter ( importFileName, mayaAsciiFileURI.getURIString () );
         documentImporter.importCurrentScene ();
 
         // Display some closing information.

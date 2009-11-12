@@ -25,7 +25,6 @@
 #include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaRotateHelper.h"
 #include "COLLADAMayaReferenceManager.h"
-#include "COLLADAMayaBaseImporter.h"
 #include "COLLADAMayaMaterialExporter.h"
 #include "COLLADAMayaLightExporter.h"
 #include "COLLADAMayaCameraExporter.h"
@@ -598,7 +597,7 @@ namespace COLLADAMaya
             }
 
             String colladaNodeId = findColladaNodeId ( mayaNodeId );
-            if ( COLLADABU::Utils::equals ( colladaNodeId, EMPTY_STRING ) )
+            if ( colladaNodeId.empty () )
             {
                 colladaNodeId = getColladaNodeId ( dagPath );
             }
@@ -628,6 +627,9 @@ namespace COLLADAMaya
             // Export the original maya name.
             mVisualSceneNode->addExtraTechniqueParameter ( PROFILE_MAYA, PARAMETER_MAYA_ID, nodeName );
         }
+
+        // TODO Export the imported extra tags, if there exist some.
+        
 
         // open the scene node
         mVisualSceneNode->start();
@@ -693,6 +695,7 @@ namespace COLLADAMaya
 
                     // Set the new calculated transform matrix 
                     mTransformMatrix = transformMx;
+                    mTransformObject = MObject::kNullObj;
 
                     // Do it just once.
                     oneSkinAlready = true;
@@ -837,7 +840,7 @@ namespace COLLADAMaya
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
         bool isAnimated = animationExporter->addNodeAnimation ( mTransformObject, ATTR_SCALE, kVector, XYZ_PARAMETERS );
 
-        if ( mTransformObject != MObject::kNullObj && ( !isOneVector || isAnimated ) )
+        if ( mTransformObject != MObject::kNullObj || ( !isOneVector || isAnimated ) )
         {
             mVisualSceneNode->addScale (
                 ATTR_SCALE,
@@ -848,9 +851,10 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportTranslation ( const String name,
-            const MPoint& translation,
-            bool animation )
+    void VisualSceneExporter::exportTranslation ( 
+        const String name,
+        const MPoint& translation,
+        bool animation )
     {
         exportTranslation ( name, MVector ( translation ), animation );
     }
@@ -886,14 +890,13 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    // If you wish to get the rotation data in euler angles (why?) then change the
-    // JointOrient and Rotation variables to be MEulerRotation types. The writing
-    // code can then ignore the 'w' parameter, and just output x,y,z rotation values.
-    void VisualSceneExporter::exportRotation ( const String name, const MEulerRotation& rotation )
+    void VisualSceneExporter::exportRotation ( 
+        const String name, 
+        const MEulerRotation& rotation )
     {
         RotateHelper rotateHelper ( rotation );
-        std::vector < std::vector < double > >& matrixRotate = rotateHelper.getRotationMatrix ();
-        std::vector < String >& rotateParams = rotateHelper.getRotationParameters ();
+        std::vector<std::vector<double> >& matrixRotate = rotateHelper.getRotationMatrix ();
+        std::vector<String>& rotateParams = rotateHelper.getRotationParameters ();
 
         // Set zero flags, where the rotation is zero. The order of rotation is ZYX.
         bool isZero[3] = {  COLLADABU::Math::Utils::equalsZero ( matrixRotate[0][3], getTolerance () ),
@@ -1139,7 +1142,7 @@ namespace COLLADAMaya
         // Get the collada mesh id.
         GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
         const String& colladaMeshId = geometryExporter->getColladaGeometryId ( dagPath );
-        if ( COLLADABU::Utils::equals ( colladaMeshId, EMPTY_STRING ) ) return;
+        if ( colladaMeshId.empty () ) return;
 
         // Get the uri of the current scene
         COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaMeshId ) );

@@ -20,7 +20,6 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaExportOptions.h"
-#include "COLLADAMayaBaseImporter.h"
 
 #include "Math/COLLADABUMathUtils.h"
 

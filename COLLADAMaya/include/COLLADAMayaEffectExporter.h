@@ -30,6 +30,8 @@
 
 #include "COLLADABUIDList.h"
 
+#include "COLLADASaxFWLLibraryEffectsLoader.h"
+
 #include <maya/MObject.h>
 
 namespace COLLADAMaya
@@ -121,19 +123,16 @@ namespace COLLADAMaya
             AMBIENT = 0, // ATTR_AMBIENT_COLOR /**< The texels will be modulated with the ambient light colors. */
             BUMP, // ATTR_NORMAL_CAMERA /**< The texels will re-orient the geometric normals. */
             DIFFUSE, // ATTR_COLOR /**< The texels will be modulated with the non-ambient light colors. */
-            DISPLACEMENT, /**< The texels will displace the pixel positions. */
             EMISSION, // ATTR_OUT_COLOR || ATTR_INCANDESCENCE /**< The texels will be added to the final color directly. */
-            FILTER, /**< Max-specific. */
             REFLECTION, // ATTR_REFLECTED_COLOR /**< The texels will modify the pixel reflection factor. */
             REFRACTION, /**< The texels will modify the pixel refraction factor. */
             SHININESS, /**< The texels will modify the specular shininess of the pixel. */
             SPECULAR, // ATTR_SPECULAR_COLOR /**< The texels will be modulated with the specular light colors. */
-            SPECULAR_LEVEL, /**< The texels will be modulated with the specular light colors. */
             TRANSPARENt, /**< The texels will be modify the final color alpha. */
-            COUNT, /**< The number of texture channels. */
             UNKNOWN, /**< An unknown texture channel. */
             DEFAULT = DIFFUSE
         };
+
 
     public:
 
@@ -168,6 +167,42 @@ namespace COLLADAMaya
         */
         const String findColladaImageId ( const String& mayaImageId );
 
+        /**
+        * Find any textures connected to a material attribute and create the
+        * associated texture elements.
+        * @param node The maya node object.
+        * @param attributeName The name of the attribute
+        * @param effectProfile The collada effect profile.
+        * @param channel The channel to export.
+        * @param nextTextureIndex The texture index
+        * @return MObject If exported, the texture element, otherwise NULL.
+        */
+        MObject exportTexturedParameter ( 
+            const String& effectId, 
+            COLLADASW::EffectProfile* effectProfile, 
+            const MObject& node, 
+            const char* attributeName, 
+            EffectExporter::Channel channel, 
+            int& nextTextureIndex, 
+            bool animated = false );
+
+        /**
+        * Retrieve any texture (file or layered) associated with a material attribute.
+        * @param shader The maya shader object.
+        * @param attributeName The name of the attribute.
+        * @param textures Array of textures.
+        * @param blendModes Array of blend modes.
+        */
+        void getShaderTextures ( const MObject& shader,
+            const char* attributeName,
+            MObjectArray& textures,
+            MIntArray& blendModes );
+
+        /** Get the extra key in depend on the current effect profile type and export the user 
+        defined effect extra data from import (extra preservation) */
+        void exportExtraData ( 
+            COLLADASW::EffectProfile* effectProfile, 
+            const MObject& shader );
 
     private:
 
@@ -198,41 +233,6 @@ namespace COLLADAMaya
             COLLADASW::EffectProfile *effectProfile,
             MObject shadingNetwork );
 
-    public:
-
-        /**
-         * Find any textures connected to a material attribute and create the
-         * associated texture elements.
-         * @param node The maya node object.
-         * @param attributeName The name of the attribute
-         * @param effectProfile The collada effect profile.
-         * @param channel The channel to export.
-         * @param nextTextureIndex The texture index
-         * @return MObject If exported, the texture element, otherwise NULL.
-         */
-        MObject exportTexturedParameter ( 
-            const String& effectId, 
-            COLLADASW::EffectProfile* effectProfile, 
-            const MObject& node, 
-            const char* attributeName, 
-            EffectExporter::Channel channel, 
-            int& nextTextureIndex, 
-            bool animated = false );
-
-        /**
-         * Retrieve any texture (file or layered) associated with a material attribute.
-         * @param shader The maya shader object.
-         * @param attributeName The name of the attribute.
-         * @param textures Array of textures.
-         * @param blendModes Array of blend modes.
-         */
-        void getShaderTextures ( const MObject& shader,
-                                 const char* attributeName,
-                                 MObjectArray& textures,
-                                 MIntArray& blendModes );
-
-    private:
-
         /**
          * Exports the transparency.
          * @param shadingNetwork Maya object to export.
@@ -258,6 +258,13 @@ namespace COLLADAMaya
 
         /** Exports all materials from the current mesh */
         void exportMeshEffects ( SceneElement* sceneElement );
+
+        /**
+        * Returns the index of the channel in the sax framework loader.
+        * @param const Channel & channel
+        * @return COLLADASaxFWL::LibraryEffectsLoader::ShaderParameterTypes&
+        */
+        size_t getShaderParameterTypeByChannel ( const Channel& channel );
 
     };
 

@@ -44,7 +44,6 @@ namespace COLLADAMaya
     /** This class writes the <library_materials>. It uses informations created by the effect exporter*/
     class MaterialExporter : public COLLADASW::LibraryMaterials
     {
-
     private:
 
         /** Holds information about an already exported effect*/

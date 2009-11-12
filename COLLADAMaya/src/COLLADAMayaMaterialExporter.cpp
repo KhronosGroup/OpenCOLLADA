@@ -22,12 +22,13 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaExportOptions.h"
-#include "COLLADAMayaEffectImporter.h"
 #include "COLLADAMayaHwShaderExporter.h"
 
 #include "COLLADASWNode.h"
 #include "COLLADASWParamTemplate.h"
 #include "COLLADASWConstants.h"
+
+#include "COLLADAFWExtraKeys.h"
 
 #include "cgfxShaderNode.h"
 
@@ -147,7 +148,7 @@ namespace COLLADAMaya
         }
     }
 
-    //---------------------------------------------------------------
+    //------------------------------
     void MaterialExporter::exportConnectedMaterials ( SceneElement* sceneElement )
     {
         // If we have a external reference, we don't need to export the data here.
@@ -193,10 +194,7 @@ namespace COLLADAMaya
         }
     }
 
-    //---------------------------------------------------------------
-    // Writes the material of the shading engine into the collada document
-    // and adds the material into the materials list.
-    //
+    //--------------------------------
     void MaterialExporter::exportMaterial ( MObject shadingEngine )
     {
         // Get the shader object.
@@ -238,6 +236,11 @@ namespace COLLADAMaya
         colladaMaterialId = mMaterialIdList.addId ( colladaMaterialId );
         mMayaIdColladaMaterialIdMap [mayaMaterialId] = colladaMaterialId;
 
+//         MFnDependencyNode shadingEngineNode ( shadingEngine, &status );
+//         if ( status != MStatus::kSuccess ) return;
+//         String shadingEngineNodeName = shadingEngineNode.name ().asChar (); // initialParticleSE
+//         String shaderNodeName = shaderNode.name ().asChar (); // lambert1
+       
         // Check if the material should be written
         if ( mWriteMaterials )
         {
@@ -252,6 +255,9 @@ namespace COLLADAMaya
 
                 // Export the reference to the effect and the hardware shader components.
                 exportEffectInstance ( mayaMaterialId, colladaMaterialId, shader );
+
+                // Export the user defined material extra data from import (extra preservation).
+                mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::MATERIAL );
 
                 // Closes the current effect tag
                 closeMaterial();
@@ -616,7 +622,7 @@ namespace COLLADAMaya
         // Get the image id of the maya image 
         EffectExporter* effectExporter = mDocumentExporter->getEffectExporter ();
         String colladaImageId = effectExporter->findColladaImageId ( mayaImageId );
-        if ( COLLADABU::Utils::equals ( colladaImageId, EMPTY_STRING ) )
+        if ( colladaImageId.empty () )
         {
             // Check if there is an extra attribute "colladaId" and use this as export id.
             MString attributeValue;
@@ -755,6 +761,9 @@ namespace COLLADAMaya
             exportCustomHwShaderNode ( effectInstance, shader );
         }
 
+        // Export the user defined instance_effect extra data from import (extra preservation).
+        mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::INSTANCE_EFFECT );
+
         // Close the current effect element.
         effectInstance.close();
     }
@@ -780,5 +789,6 @@ namespace COLLADAMaya
         }
         return EMPTY_STRING;
     }
+
 
 }

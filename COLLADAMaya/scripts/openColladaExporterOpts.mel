@@ -193,7 +193,7 @@ global proc int openColladaExporterOpts ( string $parent,
 				setParent ..; // columnLayout
 			setParent ..; // frameLayout
 
-			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "XRef Options" colladaXRefFrame;
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "XRef options" colladaXRefFrame;
 				columnLayout -adj true colladaXRefOptions;
 				
 					checkBoxGrp
@@ -234,7 +234,7 @@ global proc int openColladaExporterOpts ( string $parent,
 				setParent ..; // columnLayout
 			setParent ..; // frameLayout
 
-			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "Precision Options" colladaPrecisionFrame;
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "Precision options" colladaPrecisionFrame;
 				columnLayout -adj true colladaPrecisionOptions;
 
 					checkBoxGrp

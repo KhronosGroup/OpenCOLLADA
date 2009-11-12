@@ -17,7 +17,12 @@
 #define __COLLADA_MAYA_DOCUMENT_EXPORTER_H__
 
 #include "COLLADAMayaPrerequisites.h"
+
 #include "COLLADASWStreamWriter.h"
+#include "COLLADASWExtraTechnique.h"
+#include "COLLADASWExtra.h"
+
+#include "COLLADAFWExtraKeys.h"
 
 #include "maya/MDistance.h"
 
@@ -188,7 +193,7 @@ namespace COLLADAMaya
 
         /**
         * Returns a pointer to the geometry exporter.
-        * @return GeometryImporter* Pointer to the geometry exporter
+        * @return GeometryExporter* Pointer to the geometry exporter
         */
         GeometryExporter* getGeometryExporter();
 
@@ -267,6 +272,34 @@ namespace COLLADAMaya
          * Do all stuff to end the export.
          */
         void endExport();
+
+        /**
+         * Exports the user defined extra data of the node.
+         * @param MObject& node The dependency node which holds the extra data
+         * @param const char* key The extra key for the extra data to export.
+         * @param const char* secondKey
+         * @param BaseExtraTechnique* baseExtraTechnique The extra technique element.
+         */
+        void exportExtraData ( 
+            const MObject& node, 
+            const char* key, 
+            const char* secondKey = 0, 
+            COLLADASW::BaseExtraTechnique* baseExtraTechnique = 0 );
+
+        /**
+         * TODO Documentation
+         * @param const MPlug& childPlug
+         * @param const String& pathAttributeName
+         * @param COLLADASW::BaseExtraTechnique* baseExtraTechnique
+         * @param COLLADASW::Extra& extraSource
+         * @param const char* secondKey
+         */
+        bool exportExtraData ( 
+            const MPlug& childPlug, 
+            const String& pathAttributeName, 
+            COLLADASW::BaseExtraTechnique* baseExtraTechnique, 
+            COLLADASW::Extra& extraSource, 
+            const char* secondKey /*= 0*/ );
 
     private:
 

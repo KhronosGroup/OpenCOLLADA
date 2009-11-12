@@ -20,7 +20,6 @@
 #include "COLLADAMayaAnimationHelper.h"
 #include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaSceneGraph.h"
-#include "COLLADAMayaBaseImporter.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaVisualSceneExporter.h"
 
@@ -182,7 +181,7 @@ namespace COLLADAMaya
             // TODO id preservation
             // Open an animation node and add the channel of the current animation
             const String& originalColladaId = animatedElement->getOriginalColladaId ();
-            if ( !COLLADABU::Utils::equals ( originalColladaId, EMPTY_STRING ) )
+            if ( !originalColladaId.empty () )
             {
                 openAnimation ( originalColladaId );
             }
@@ -1744,7 +1743,7 @@ namespace COLLADAMaya
             // Assign the new curve to the animation clip.
             // Open an animation node and add the channel of the current animation
             const String& originalColladaId = animatedElement->getOriginalColladaId ();
-            if ( !COLLADABU::Utils::equals ( originalColladaId, EMPTY_STRING ) )
+            if ( !originalColladaId.empty () )
             {
                 clip->colladaClip->setInstancedAnimation ( originalColladaId );
             }

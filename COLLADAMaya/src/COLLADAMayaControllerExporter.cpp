@@ -242,7 +242,7 @@ namespace COLLADAMaya
 //         String mayaControllerId = MFnDependencyNode( blendShapeNode ).name().asChar();
 
         // Check if the controller isn't already exported
-        if ( !COLLADABU::Utils::equals ( findColladaControllerId ( mayaControllerId ), EMPTY_STRING ) ) return;
+        if ( !findColladaControllerId ( mayaControllerId ).empty () ) return;
 
         // Generate a COLLADA id for the new object
         String colladaControllerId;

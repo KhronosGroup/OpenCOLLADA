@@ -32,7 +32,7 @@ namespace COLLADAMaya
     bool ExportOptions::mExportCameras = true;
     bool ExportOptions::mExportJointsAndSkin = true;
     bool ExportOptions::mExportMaterialsOnly = false;
-    bool ExportOptions::mExportReferencedMaterials = false;
+    bool ExportOptions::mExportReferencedMaterials = true;
     bool ExportOptions::mExportAnimations = true;
     bool ExportOptions::mRemoveStaticCurves = true;
     bool ExportOptions::mExportInvisibleNodes = false;
@@ -74,7 +74,7 @@ namespace COLLADAMaya
         mExportLights = true;
         mExportCameras = true;
         mExportMaterialsOnly = false;
-        mExportReferencedMaterials = false;
+        mExportReferencedMaterials = true;
         mExportJointsAndSkin = true;
         mExportAnimations = true;
         mExportInvisibleNodes = false;

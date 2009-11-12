@@ -13,15 +13,19 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
+//#include "vld.h"
+//#include <crtdbg.h> 
+
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaExportOptions.h"
-#include "COLLADAMayaException.h"
 #include "COLLADAMayaFileTranslator.h"
 #include "COLLADAMayaSyntax.h"
 
-#include "COLLADAMayaDocumentImporter.h"
+// TODO
 #include "COLLADAMayaImportOptions.h"
+
+#include "DAE2MADocumentImporter.h"
 
 #include <maya/MItDependencyNodes.h>
 #include <maya/MFnDependencyNode.h>
@@ -35,11 +39,52 @@
 #define MAX_FILENAME_LEN 512
 
 /**
+* Method to check the filename and to proof, if the file should be overwritten, if it already exist.
+*/
+bool checkFileName ( std::string &mayaAsciiFileName )
+{
+    bool write = true;
+    if ( mayaAsciiFileName.size () == 0 )
+    {
+        std::cout << "Filename not valid!" << std::endl;
+#ifdef _DEBUG
+        getchar();
+#endif
+        return false;
+    }
+
+    COLLADABU::URI mayaAsciiFileURI ( mayaAsciiFileName );
+    if ( !COLLADABU::Utils::equalsIgnoreCase ( mayaAsciiFileURI.getPathExtension (), "ma" ) )
+    {
+        std::cout << "Just write \"ma\" files!" << std::endl;
+        std::cout << "Please enter another output file name: ";
+        std::cin >> mayaAsciiFileName;
+        write = checkFileName ( mayaAsciiFileName );
+    }
+
+    if ( std::ifstream ( mayaAsciiFileName.c_str () ) )
+    {
+        write = false;
+        std::cout << "File already exists. Do you want to overwrite? [j/n] ";
+        char sign;
+        std::cin >> sign;
+        if ( sign != 'j' ) 
+        {
+            std::cout << "Please enter another output file name: ";
+            std::cin >> mayaAsciiFileName;
+            write = checkFileName ( mayaAsciiFileName );
+        }
+    }
+    return write;
+}
+
+
+/**
  * Usage on export:
  * COLLADAMaya [infile.mb|infile.ma] [outfile.dae]
  * 
  * Usage on import:
- * COLLADAMaya -i [infile.dae]
+ * COLLADAMaya -i [infile.dae] [outfile.ma]
  */
 #ifdef WIN32
 int main(int argc,char** argv)
@@ -55,6 +100,9 @@ int main(int argc,char** argv)
     g_argc=argc;
     g_argv=argv;
 #endif
+
+    //_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); 
+    //_CrtSetBreakAlloc ( 16787 ); 
 
 //     // The default name of this file is OpenMayaErrorLog located in the 
 //     // current directory. This can be changed, however, by calling:
@@ -82,6 +130,7 @@ int main(int argc,char** argv)
 
             // Check for an input and an output filename
             if ( argc > 2 ) inFileArgPos = 2;
+            if ( argc > 3 ) outFileArgPos = 3;
         }
         else
         {
@@ -93,11 +142,15 @@ int main(int argc,char** argv)
         }
     }
 
+    // If no output filename is set, the input filename will be used.
+    bool hasOutFileName = false;
+
     // both an inputfile and outputfile specified as command line args
     if ( inFileArgPos > 0 && outFileArgPos > 0 )
     {
 	    strcpy ( inFileName, argv[inFileArgPos] );
 	    strcpy ( outFileName, argv[outFileArgPos] );
+        hasOutFileName = true;
     }
 
     // Just a input file
@@ -110,49 +163,71 @@ int main(int argc,char** argv)
     else 
     {
         std::cerr << "[ERROR] Usage on export:\n\tCOLLADAMaya [infile.mb|infile.ma] [outfile.dae]\n";
-        std::cerr << "[ERROR] Usage on import:\n\tCOLLADAMaya -i [infile.dae]\n";
+        std::cerr << "[ERROR] Usage on import:\n\tCOLLADAMaya -i [infile.dae] [outfile.ma]\n";
+#ifdef _DEBUG
+        getchar();
+#endif
 	    return EXIT_FAILURE;
     }
 
     // Convert backward to forward slashes
-    for ( size_t i=0; i<MAX_FILENAME_LEN; ++i)
+    char c;
+    bool fileEnd = false;
+    for ( size_t i=0; i<MAX_FILENAME_LEN && !fileEnd; ++i )
     {   
-        if ( inFileName[i] == '\\' ) inFileName[i] = '/';
-        if ( outFileName[i] == '\\' ) outFileName[i] = '/';
+        c = inFileName[i];
+        if ( c == '0' ) fileEnd = true;
+        if ( c == '\\' ) inFileName[i] = '/';
     }
+    fileEnd = false;
+    for ( size_t i=0; i<MAX_FILENAME_LEN && !fileEnd; ++i )
+    {   
+        c = outFileName[i];
+        if ( c == '0' ) fileEnd = true;
+        if ( c == '\\' ) outFileName[i] = '/';
+    }
+
 
     if ( isImport )
     {
         // Set the import options
-        MString importOptions = COLLADAMaya::EMPTY_STRING.c_str ();
+        MString importOptions = DAE2MA::EMPTY_STRING.c_str ();
         COLLADAMaya::ImportOptions::set ( importOptions, MPxFileTranslator::kImportAccessMode );
 
         // Get the start time 
         clock_t startClock, endClock;
         startClock = clock();
 
-        COLLADABU::URI mayaAsciiFileURI ( inFileName );
+        // Get the output filename.
+        std::string mayaAsciiFileName;
+        if ( !hasOutFileName )
+        {
 #ifdef NDEBUG
-        mayaAsciiFileURI.setPathExtension ( COLLADAMaya::FileTranslator::ASCII_PATH_EXTENSION );
-#else
-        mayaAsciiFileURI.setPathExtension ( COLLADAMaya::FileTranslator::ASCII_PATH_EXTENSION_DEBUG );
-#endif
-        std::string mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
+            std::cout << "Please enter an output file name: " << std::endl;
+            std::cin >> mayaAsciiFileName;
 
-        // Actually export the document
-        COLLADAMaya::DocumentImporter documentImporter ( inFileName, mayaAsciiFileName );
-        try
-        {
-            documentImporter.importCurrentScene ();
+            // Check if the filename is not empty and the file already exist.
+            write = checkFileName ( mayaAsciiFileName );
+            if ( !write ) return 0;
+#else
+            COLLADABU::URI mayaAsciiFileURI ( inFileName );
+            mayaAsciiFileURI.setPathExtension ( ".opencollada.ma" );
+
+#endif
+            // Get the filename.
+            mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
         }
-        catch ( COLLADAMaya::ColladaMayaException* ex )
+        else
         {
-            std::cerr << "[COLLADAMayaException] " << ex->getMessage() << std::endl;
+            // Check if the filename is not empty and the file already exist.
+            mayaAsciiFileName = outFileName;
+            bool write = checkFileName ( mayaAsciiFileName );
+            if ( !write ) return 0;
         }
-        catch ( ... )
-        {
-            std::cerr << "Import not successful! " << std::endl;
-        }
+
+        // Actually import the document
+        DAE2MA::DocumentImporter documentImporter ( inFileName, mayaAsciiFileName );
+        documentImporter.importCurrentScene ();
 
         // Display some closing information.
         endClock = clock();
@@ -196,19 +271,9 @@ int main(int argc,char** argv)
             // Actually export the document
 			COLLADASW::NativeString nativeOutFileName(outFileName);
 			COLLADAMaya::DocumentExporter documentExporter ( nativeOutFileName );
-            try
-            {
-                bool selectionOnly = false;
-                documentExporter.exportCurrentScene ( selectionOnly );
-            }
-            catch ( COLLADAMaya::ColladaMayaException* ex )
-            {
-                std::cerr << "[COLLADAMayaException] " << ex->getMessage() << std::endl;
-            }
-            catch ( ... )
-            {
-                std::cerr << "Export not successful! " << std::endl;
-            }
+
+            bool selectionOnly = false;
+            documentExporter.exportCurrentScene ( selectionOnly );
 
             // Display some closing information.
             endClock = clock();

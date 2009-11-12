@@ -23,7 +23,6 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaControllerExporter.h"
-#include "COLLADAMayaBaseImporter.h"
 
 #include <algorithm>
 
@@ -183,7 +182,7 @@ namespace COLLADAMaya
 
         // Generate the unique collada mesh id.
         const String& colladaMeshId = generateColladaMeshId ( dagPath );
-        if ( COLLADABU::Utils::equals ( colladaMeshId, EMPTY_STRING ) ) return false;
+        if ( colladaMeshId.empty () ) return false;
 
         // Set the node id.
         sceneElement->setNodeId ( colladaMeshId );
@@ -215,7 +214,7 @@ namespace COLLADAMaya
         String colladaMeshId = findColladaGeometryId ( mayaMeshId );
 
         // Check, if the unique id for the current geometry is already generated.
-        if ( !COLLADABU::Utils::equals ( colladaMeshId, EMPTY_STRING ) ) return colladaMeshId;
+        if ( !colladaMeshId.empty () ) return colladaMeshId;
 
         // Get the node of the current mesh
         MObject meshNode = dagPath.node();
@@ -289,6 +288,7 @@ namespace COLLADAMaya
         // Export the vertexes
         exportVertices ( colladaMeshId );
 
+        // Create a polygon exporter and export the polygon sources.
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
         GeometryPolygonExporter polygonExporter ( streamWriter, mDocumentExporter );
         polygonExporter.exportPolygonSources ( fnMesh, colladaMeshId, uvSetNames, colorSetNames, &mPolygonSources, &mVertexSources, hasFaceVertexNormals );
@@ -486,12 +486,13 @@ namespace COLLADAMaya
             if ( numColorValues == 0 ) continue;
 
             size_t stride = 4;
+            String colorId = meshId + "-" + colorSetName;
 
             // Create the source
             COLLADASW::FloatSourceF colorSource ( mSW );
-            colorSource.setId ( colorSetName );
-            colorSource.setNodeName ( colorSetName );
-            colorSource.setArrayId ( colorSetName + ARRAY_ID_SUFFIX );
+            colorSource.setId ( colorId );
+            colorSource.setNodeName ( colorId );
+            colorSource.setArrayId ( colorId + ARRAY_ID_SUFFIX );
             colorSource.setAccessorStride ( ( unsigned long ) stride );
             colorSource.setAccessorCount ( ( unsigned long ) numColorValues );
             for ( size_t p=0; p<stride; ++p )
@@ -583,11 +584,12 @@ namespace COLLADAMaya
 
             // Get the stride
             uint stride = 2;
+            String texCoordId = meshId + "-" + uvSetNameStr;
 
             COLLADASW::FloatSource texCoordSource ( mSW );
-            texCoordSource.setId ( uvSetNameStr );
-            texCoordSource.setNodeName ( uvSetNameStr );
-            texCoordSource.setArrayId ( uvSetNameStr + ARRAY_ID_SUFFIX );
+            texCoordSource.setId ( texCoordId );
+            texCoordSource.setNodeName ( texCoordId );
+            texCoordSource.setArrayId ( texCoordId + ARRAY_ID_SUFFIX );
             texCoordSource.setAccessorStride ( stride );
             texCoordSource.setAccessorCount ( uvCount );
 

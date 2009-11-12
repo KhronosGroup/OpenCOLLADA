@@ -34,10 +34,8 @@ namespace COLLADAMaya
     static const char* COLLADA_DOCUMENT                             = "colladaDocument";
     static const String AUTHORING_TOOL_NAME                         = "OpenCOLLADA";
 
-    /** The unique name for the visual scene node on export. */
-    static const String VISUAL_SCENE_NODE_ID                        = "VisualSceneNode";
-
     /** Profile specific extra attribute parameters. */
+    static const char* PROFILE_COLLADA                              = "COLLADA";
     static const char* PROFILE_MAYA                                 = "OpenCOLLADAMaya";
     static const char* PROFILE_MAX                                  = "OpenCOLLADA3dsMax";
 
@@ -45,8 +43,12 @@ namespace COLLADAMaya
     static const String PARAMETER_MAYA_ID                           = "originalMayaNodeId";
     static const String PARAMETER_DOUBLE_SIDED                      = "double_sided";
 
+    /** Empty strings. */
     static const String EMPTY_STRING                                = "";
     static const char* EMPTY_CSTRING                                = "";
+
+    /** The unique name for the visual scene node on export. */
+    static const String VISUAL_SCENE_NODE_ID                        = "VisualSceneNode";
 
     /** The standard name for the collada id attribute. */
     static const String COLLADA_ID_ATTRIBUTE_NAME                   = "colladaId";
@@ -134,29 +136,6 @@ namespace COLLADAMaya
     static const char* MAYA_STARTTIME_PARAMETER                     = "start_time";
     static const char* MAYA_SEGMENTSCALECOMP_PARAMETER              = "segment_scale_compensate";
     static const char* MAYA_BUMP_PARAMETER                          = "bump";
-
-
-    // COLLADA 1.4 Max-specific profile
-    static const char* MAX_TARGET_CAMERA_PARAMETER                  = "target";
-    static const char* MAX_ASPECTRATIO_LIGHT_PARAMETER              = "aspect_ratio";
-    static const char* MAX_TARGET_LIGHT_PARAMETER                   = "target";
-    static const char* MAX_DEFAULT_TARGET_DIST_LIGHT_PARAMETER      = "target_default_dist";
-    static const char* MAX_OUTERCONE_LIGHT_PARAMETER                = "outer_cone";
-    static const char* MAX_OVERSHOOT_LIGHT_PARAMETER                = "overshoot";
-    static const char* MAX_SPECLEVEL_MATERIAL_PARAMETER             = "spec_level";
-    static const char* MAX_DISPLACEMENT_MATERIAL_PARAMETER          = "displacement";
-    static const char* MAX_EMISSIONLEVEL_MATERIAL_PARAMETER         = "emission_level";
-    static const char* MAX_FACETED_MATERIAL_PARAMETER               = "faceted";
-    static const char* MAX_FILTERCOLOR_MATERIAL_PARAMETER           = "filter_color";
-    static const char* MAX_INDEXOFREFRACTION_MATERIAL_PARAMETER     = "index_of_refraction";
-    static const char* MAX_USERPROPERTIES_NODE_PARAMETER            = "user_properties";
-    static const char* MAX_WIREFRAME_MATERIAL_PARAMETER             = "wireframe";
-    static const char* MAX_FACEMAP_MATERIAL_PARAMETER               = "face_map";
-    static const char* MAX_AMOUNT_TEXTURE_PARAMETER                 = "amount";
-    static const char* MAX_BUMP_INTERP_TEXTURE_PARAMETER            = "bumpInterp";
-    static const char* MAX_CAMERA_TARGETDISTANCE_PARAMETER          = "target_distance";
-    static const char* MAX_FRAMERATE_PARAMETER                      = "frame_rate";
-
 
     /** Parameters for the animation exports. */
     static const String EMPTY_PARAMETER[1]                          = { "" };
@@ -261,16 +240,14 @@ namespace COLLADAMaya
     static const char* ATTR_NODE_STATE                              = "nodeState";
     static const char* ATTR_NORMAL_CAMERA                           = "normalCamera";
     static const char* ATTR_OUT_ALPHA                               = "oa"; 
-    static const char* ATTR_OUT_COLOR                               = "oc"; 
-//    static const char* ATTR_OUT_COLOR                               = "outColor";
+    static const char* ATTR_OUT_COLOR                               = "oc"; // "outColor"
     /** The standard output attribute of the polyShape node. This attribute receives input
     mesh data from either the inMesh or cachedInMesh (depending on the node
     state) and stores it as its own internal copy of the mesh. The outMesh geometry
     represents the final geometry of the shape and is always valid. */
     static const char* ATTR_OUT_MESH                                = "outMesh";
     static const char* ATTR_OUTPUT                                  = "output";
-    static const char* ATTR_OUT_TRANSPARENCY                        = "ot"; 
-//    static const char* ATTR_OUT_TRANSPARENCY                        = "outTransparency";
+    static const char* ATTR_OUT_TRANSPARENCY                        = "ot"; // "outTransparency" 
     static const char* ATTR_PENUMBRA_ANGLE                          = "penumbraAngle";
     static const char* ATTR_PLACEMENT_MATRIX                        = "placementMatrix";
     static const char* ATTR_PROJECTION_TYPE                         = "projType";
@@ -280,6 +257,7 @@ namespace COLLADAMaya
     static const char* ATTR_REFRACTIVE_INDEX                        = "refractiveIndex";
     static const char* ATTR_ROTATE                                  = "rotate";
     static const char* ATTR_ROTATE_AXIS                             = "rotateAxis";
+    static const char* ATTR_ROTATE_ORDER                            = "rotateOrder";
     static const char* ATTR_ROTATE_PIVOT                            = "rotatePivot";
     static const char* ATTR_ROTATE_PIVOT_TRANSLATION                = "rotatePivotTranslation";
     static const char* ATTR_ROTATE_PIVOT_INVERSE                    = "rotatePivotInverse";
@@ -325,16 +303,30 @@ namespace COLLADAMaya
     static const char* NIMA_INTERNAL_PHYSIKS                        = "nimaInternalPhysics";
     static const char* AGEIA_PHYSIKS_MODEL                          = "AgeiaPhysicsModel";
 
-    /** Constant for the mesh helper. For to get the valid mesh color sets. */
-    static const char* BLANK_COLORSET_NAME                          = "_blank-color-set";
-
     /** Shader constants */
     static const char* COLLADA_FX_SHADER                            = "colladafxShader";
     static const char* COLLADA_FX_PASSES                            = "colladafxPasses";
     
-    /** Script parameters */
-    static const char* SCRIPT_NODE_UP_AXIS                          = "upAxisScriptNode";
-    static const char* SCRIPT_NODE_SCENE_CONFIG                     = "sceneConfigurationScriptNode";
+    // COLLADA 1.4 Max-specific profile
+    static const char* MAX_TARGET_CAMERA_PARAMETER                  = "target";
+    static const char* MAX_ASPECTRATIO_LIGHT_PARAMETER              = "aspect_ratio";
+    static const char* MAX_TARGET_LIGHT_PARAMETER                   = "target";
+    static const char* MAX_DEFAULT_TARGET_DIST_LIGHT_PARAMETER      = "target_default_dist";
+    static const char* MAX_OUTERCONE_LIGHT_PARAMETER                = "outer_cone";
+    static const char* MAX_OVERSHOOT_LIGHT_PARAMETER                = "overshoot";
+    static const char* MAX_SPECLEVEL_MATERIAL_PARAMETER             = "spec_level";
+    static const char* MAX_DISPLACEMENT_MATERIAL_PARAMETER          = "displacement";
+    static const char* MAX_EMISSIONLEVEL_MATERIAL_PARAMETER         = "emission_level";
+    static const char* MAX_FACETED_MATERIAL_PARAMETER               = "faceted";
+    static const char* MAX_FILTERCOLOR_MATERIAL_PARAMETER           = "filter_color";
+    static const char* MAX_INDEXOFREFRACTION_MATERIAL_PARAMETER     = "index_of_refraction";
+    static const char* MAX_USERPROPERTIES_NODE_PARAMETER            = "user_properties";
+    static const char* MAX_WIREFRAME_MATERIAL_PARAMETER             = "wireframe";
+    static const char* MAX_FACEMAP_MATERIAL_PARAMETER               = "face_map";
+    static const char* MAX_AMOUNT_TEXTURE_PARAMETER                 = "amount";
+    static const char* MAX_BUMP_INTERP_TEXTURE_PARAMETER            = "bumpInterp";
+    static const char* MAX_CAMERA_TARGETDISTANCE_PARAMETER          = "target_distance";
+    static const char* MAX_FRAMERATE_PARAMETER                      = "frame_rate";
 
 }
 

@@ -124,8 +124,6 @@ namespace COLLADAMaya
             exportTechnique ( cgTechnique );
             cgTechnique = cgGetNextTechnique ( cgTechnique );
         }
-
-        // Close the current profile
         mEffectProfile->closeProfile ();
     }
 
@@ -1122,7 +1120,7 @@ namespace COLLADAMaya
         }
 
         // Export, if we have a file name.
-        if ( !COLLADABU::Utils::equals ( fileName, EMPTY_STRING ) )
+        if ( !fileName.empty () )
         {
             // Get the image path
             COLLADASW::URI shaderFxFileUri = getShaderFxFileUri();
@@ -1135,7 +1133,7 @@ namespace COLLADAMaya
 
             // Get the image id of the maya image 
             String colladaImageId = effectExporter->findColladaImageId ( mayaImageId );
-            if ( COLLADABU::Utils::equals ( colladaImageId, EMPTY_STRING ) )
+            if ( colladaImageId.empty () )
             {
                 // Generate a COLLADA id for the new light object
                 colladaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );
