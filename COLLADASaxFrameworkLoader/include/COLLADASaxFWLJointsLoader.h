@@ -16,6 +16,7 @@
 #include "COLLADASaxFWLXmlTypes.h"
 
 #include "COLLADAFWJointPrimitive.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW

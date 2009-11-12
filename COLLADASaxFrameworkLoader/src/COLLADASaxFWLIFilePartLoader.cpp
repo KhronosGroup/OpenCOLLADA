@@ -22,9 +22,6 @@
 namespace COLLADASaxFWL
 {
 
-
-
-
     //------------------------------
 	IFilePartLoader::IFilePartLoader()
 		: mPartLoader(0)
@@ -298,9 +295,6 @@ namespace COLLADASaxFWL
 				key.append( COLLADAFW::ExtraKeys::KEYSEPARATOR );
 				key.append( secondKey );
 			}
-			key.append( COLLADAFW::ExtraKeys::KEYSEPARATOR );
-			key.append( COLLADAFW::ExtraKeys::EXTRAKEY );
-
 			key.append( COLLADAFW::ExtraKeys::KEYSEPARATOR );
 			key.append( mTechniqueProfileName );
 

@@ -44,7 +44,7 @@ namespace COLLADASaxFWL
 		virtual ~LibraryLightsLoader();
 
         /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData() { return mCurrentLight; }
+        virtual COLLADAFW::ExtraData* getExtraData();
 
 		/** Finishes loading a library effects.*/
 		virtual bool end__library_lights();

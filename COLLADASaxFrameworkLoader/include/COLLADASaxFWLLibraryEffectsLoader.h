@@ -33,18 +33,7 @@ namespace COLLADASaxFWL
     /** TODO Documentation */
 	class LibraryEffectsLoader : public FilePartLoader
 	{
-	private:
-		enum Profile
-		{
-			PROFILE_BRIDGE,
-			PROFILE_CG,
-			PROFILE_GLES,
-			PROFILE_GLES2,
-			PROFILE_GLSL,
-			PROFILE_COMMON,
-			PROFILE_UNKNOWN
-		};
-
+    public:
 		enum ShaderParameterTypes
 		{
 			SHADER_PARAMETER_EMISSION,
@@ -59,6 +48,18 @@ namespace COLLADASaxFWL
 			SHADER_PARAMETER_INDEX_OF_REFRACTION,
 			UNKNOWN_SHADER_TYPE
 		};
+
+    private:
+        enum Profile
+        {
+            PROFILE_BRIDGE,
+            PROFILE_CG,
+            PROFILE_GLES,
+            PROFILE_GLES2,
+            PROFILE_GLSL,
+            PROFILE_COMMON,
+            PROFILE_NONE
+        };
 
 		struct Surface
 		{
@@ -164,6 +165,22 @@ namespace COLLADASaxFWL
 		/** The index of the next sampler to add to mEffectProfileSamplersMap.*/
 		size_t mNextSamplerIndex;
 
+        /** True, if the parser is in the technique element under profile_COMMON. */
+        bool mInProfileCommonTechnique;
+
+        /** True, if the parser is a texture element. */
+        bool mInTexture;
+
+        /** True, if the parser is a surface element. */
+        bool mInSurface;
+        unsigned int mSurfaceIndex;
+
+        /** True, if the parser is a sampler 2d element. */
+        bool mInSampler2D;
+
+        /** The variable to store the name of the second extra key. */
+        String mSecondKey;
+
 	public:
 
         /** Constructor. */
@@ -173,7 +190,10 @@ namespace COLLADASaxFWL
 		virtual ~LibraryEffectsLoader();
 
         /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData() { return mCurrentEffect; }
+        virtual COLLADAFW::ExtraData* getExtraData();
+
+        /** Returns the second part of the key, either camera or optics. */
+        virtual const char* getSecondKey();
 
 		/** Creates a new current effect.*/
 		virtual bool begin__effect( const effect__AttributeData& attributeData );
@@ -318,7 +338,7 @@ namespace COLLADASaxFWL
 		/** Stores texture data into the correct texture object.*/
 		virtual bool begin__texture( const texture__AttributeData& attributeData );
 		/** We don't need to do anything here.*/
-		virtual bool end__texture(){return true;}
+		virtual bool end__texture();
 
         /** Handles COLLADA 1.5 specific textures. */
         virtual bool begin__instance_image( const instance_image__AttributeData& attributeData );
@@ -349,16 +369,14 @@ namespace COLLADASaxFWL
         /** Calculates the framework opacity value from the collada transparent and transparency values. */
         void calculateOpacity ();
 
-	private:
-
         /** Disable default copy ctor. */
 		LibraryEffectsLoader( const LibraryEffectsLoader& pre );
 
         /** Disable default assignment operator. */
 		const LibraryEffectsLoader& operator= ( const LibraryEffectsLoader& pre );
 
-		/** Returns the current color or texture.*/
-		COLLADAFW::ColorOrTexture* getCurrentColorOrTexture();
+        /** Returns the current color or texture element. */
+		COLLADAFW::ColorOrTexture* getCurrentColorOrTexture ( const bool forTexture = false );
 	};
 
 } // namespace COLLADASAXFWL

@@ -58,7 +58,7 @@ namespace COLLADASaxFWL
 		virtual const char* getSecondKey();
 
 		/** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData () { return mCurrentCamera; }
+        virtual COLLADAFW::ExtraData* getExtraData ();
 
 		/** Finishes loading a library cameras.*/
 		virtual bool end__library_cameras();

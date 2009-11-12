@@ -113,5 +113,10 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryImagesLoader::getExtraData ()
+    {
+        return mCurrentImage;
+    }
 
 } // namespace COLLADASaxFWL

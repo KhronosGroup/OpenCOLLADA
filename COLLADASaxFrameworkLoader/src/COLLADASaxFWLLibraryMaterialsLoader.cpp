@@ -15,6 +15,8 @@
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWMaterial.h"
 #include "COLLADAFWEffect.h"
+#include "COLLADAFWExtraKeys.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -23,6 +25,7 @@ namespace COLLADASaxFWL
 	LibraryMaterialsLoader::LibraryMaterialsLoader( IFilePartLoader* callingFilePartLoader )
 		: FilePartLoader(callingFilePartLoader)
 		, mCurrentMaterial(0)
+        , mInInstanceEffect (false)
 	{
 
 	}
@@ -65,9 +68,17 @@ namespace COLLADASaxFWL
     //------------------------------
 	bool LibraryMaterialsLoader::begin__instance_effect( const instance_effect__AttributeData& attributeData )
 	{
+        mInInstanceEffect = true;
 		mCurrentMaterial->setInstantiatedEffect(getUniqueIdFromUrl(attributeData.url, COLLADAFW::Effect::ID()));
 		return true;
 	}
+
+    //------------------------------
+    bool LibraryMaterialsLoader::end__instance_effect ()
+    {
+        mInInstanceEffect = false;
+        return true;
+    }
 
 	//------------------------------
 	bool LibraryMaterialsLoader::end__library_materials()
@@ -77,5 +88,20 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+    //------------------------------
+    const char* LibraryMaterialsLoader::getSecondKey ()
+    {
+        if ( mInInstanceEffect )
+            return COLLADAFW::ExtraKeys::INSTANCE_EFFECT;
+        else 
+            return COLLADAFW::ExtraKeys::MATERIAL;
+        return 0;
+    }
+
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryMaterialsLoader::getExtraData ()
+    {
+        return mCurrentMaterial;
+    }
 
 } // namespace COLLADASaxFWL

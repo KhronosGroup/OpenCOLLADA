@@ -45,7 +45,7 @@
 #include "GeneratedSaxParser.h"
 
 // The frame work
-#include "COLLADAFW.h"
+//#include "COLLADAFW.h"
 
 // base utils headers
 #include "COLLADABU.h"

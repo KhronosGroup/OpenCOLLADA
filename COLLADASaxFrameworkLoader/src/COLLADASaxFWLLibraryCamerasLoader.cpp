@@ -287,4 +287,11 @@ namespace COLLADASaxFWL
 		moveUpInSidTree();
 		return true;
 	}
+
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryCamerasLoader::getExtraData ()
+    {
+        return mCurrentCamera;
+    }
+
 } // namespace COLLADASaxFWL

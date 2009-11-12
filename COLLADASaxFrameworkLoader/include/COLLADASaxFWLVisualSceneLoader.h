@@ -16,6 +16,7 @@
 #include "COLLADASaxFWLFilePartLoader.h"
 
 #include "COLLADAFWNode.h"
+#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
@@ -56,7 +57,7 @@ namespace COLLADASaxFWL
     public:
 
         /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData() { return mVisualScene; }
+        virtual COLLADAFW::ExtraData* getExtraData();
 
         /** Sax callback function for the beginning of nodes, as child of a visual scene.*/
 		virtual bool begin__visual_scene__node( const node__AttributeData& attributeData );

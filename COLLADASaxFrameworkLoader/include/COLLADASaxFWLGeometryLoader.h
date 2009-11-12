@@ -17,6 +17,8 @@
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLFilePartLoader.h"
 
+#include "COLLADAFWExtraKeys.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -49,7 +51,7 @@ namespace COLLADASaxFWL
 		virtual ~GeometryLoader();
 
         /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData() { return mMeshLoader->getMesh(); }
+        virtual COLLADAFW::ExtraData* getExtraData();
 
         /** Returns the second part of the key, either camera or optics. */
         virtual const char* getSecondKey() { return COLLADAFW::ExtraKeys::GEOMETRY; }

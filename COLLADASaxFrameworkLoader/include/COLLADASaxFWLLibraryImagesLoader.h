@@ -41,7 +41,7 @@ namespace COLLADASaxFWL
 		virtual ~LibraryImagesLoader();
 
         /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData() { return mCurrentImage; }
+        virtual COLLADAFW::ExtraData* getExtraData();
 
 		/** Finishes loading a library images.*/
 		virtual bool end__library_images();

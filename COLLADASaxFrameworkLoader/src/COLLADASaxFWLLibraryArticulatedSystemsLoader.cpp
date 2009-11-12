@@ -13,6 +13,9 @@
 #include "COLLADASaxFWLKinematicsIntermediateData.h"
 #include "COLLADASaxFWLFileLoader.h"
 
+#include "COLLADAFWExtraKeys.h"
+
+
 namespace COLLADASaxFWL
 {
 

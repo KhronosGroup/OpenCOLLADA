@@ -15,6 +15,8 @@
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWEffect.h"
 #include "COLLADAFWImage.h"
+#include "COLLADAFWExtraKeys.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -23,12 +25,17 @@ namespace COLLADASaxFWL
 	LibraryEffectsLoader::LibraryEffectsLoader( IFilePartLoader* callingFilePartLoader )
 		: FilePartLoader(callingFilePartLoader)
 		, mCurrentEffect(0)
-		, mCurrentProfile(PROFILE_UNKNOWN)
+		, mCurrentProfile(PROFILE_NONE)
 		, mCurrentShaderParameterType(UNKNOWN_SHADER_TYPE)
 		, mCurrentColorValueIndex(0)
 		, mCurrentSampler(0)
         , mTransparency(1)
 		, mNextSamplerIndex(0)
+        , mInProfileCommonTechnique (false)
+        , mInTexture (false)
+        , mInSurface (false)
+        , mInSampler2D (false)
+        , mSurfaceIndex (0)
 	{
 	}
 	
@@ -50,7 +57,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	COLLADAFW::ColorOrTexture* LibraryEffectsLoader::getCurrentColorOrTexture()
+	COLLADAFW::ColorOrTexture* LibraryEffectsLoader::getCurrentColorOrTexture ( const bool forTexture /*= false*/)
 	{
 		switch ( mCurrentShaderParameterType )
 		{
@@ -76,7 +83,10 @@ namespace COLLADASaxFWL
 			}
 		case SHADER_PARAMETER_TRANSPARENT:
 			{
-				return &mTransparent;
+                if ( forTexture )
+                    return &mCurrentEffect->getCommonEffects().back()->getOpacity();
+                else
+    				return &mTransparent;
 			}
 		default:
 			return 0;
@@ -134,40 +144,8 @@ namespace COLLADASaxFWL
 		{
 		case PROFILE_COMMON:
 			{
-				COLLADAFW::ColorOrTexture* colorOrTexture = 0;
-				switch ( mCurrentShaderParameterType )
-				{
-				case SHADER_PARAMETER_EMISSION:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getEmission();
-						break;
-					}
-				case SHADER_PARAMETER_AMBIENT:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getAmbient();
-						break;
-					}
-				case SHADER_PARAMETER_DIFFUSE:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getDiffuse();
-						break;
-					}
-				case SHADER_PARAMETER_SPECULAR:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getSpecular();
-						break;
-					}
-				case SHADER_PARAMETER_REFLECTIVE:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getReflective();
-						break;
-					}
-				case SHADER_PARAMETER_TRANSPARENT:
-					{
-						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getOpacity();
-						break;
-					}
-				}
+                // Get the current color or texture element.
+				COLLADAFW::ColorOrTexture* colorOrTexture = getCurrentColorOrTexture ( true );
 
                 // Check if the texture is referenced.
                 String textureSid = (const char *)attributeData.texture;
@@ -182,8 +160,7 @@ namespace COLLADASaxFWL
                     }
                 }
 
-
-				// TODO Push the texture sid of the current sampler in the list of used samplers
+				// Push the texture sid of the current sampler in the list of used samplers
 				// of the current effect profile. 
 				size_t samplerIndex = 0;
 				StringIndexMap::const_iterator samplerIt = mEffectProfileSamplersMap.find(textureSid);
@@ -205,7 +182,6 @@ namespace COLLADASaxFWL
 				COLLADAFW::Texture& texture = colorOrTexture->getTexture();
 				texture.setSamplerId( samplerIndex );
 				texture.setTextureMapId( getTextureMapIdBySematic( attributeData.texcoord) );
-
 
 				break;
 			}
@@ -391,7 +367,7 @@ namespace COLLADASaxFWL
 		mNextSamplerIndex = 0;
 
 		mTransparent.getColor ().set ( -1, -1, -1, -1 );
-		mCurrentProfile = PROFILE_UNKNOWN;
+		mCurrentProfile = PROFILE_NONE;
 
 		moveUpInSidTree();
 
@@ -401,6 +377,9 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__surface____fx_surface_common( const surface____fx_surface_common__AttributeData& attributeData )
 	{
+        mInSurface = true;
+        ++mSurfaceIndex;
+
 		mCurrentSurface.surfaceType = attributeData.type;
 		return true;
 	}
@@ -409,13 +388,16 @@ namespace COLLADASaxFWL
 	bool LibraryEffectsLoader::end__surface____fx_surface_common()
 	{
         // Check if we have a surface defined directly under an effect or under an effect profile.
-        if ( mCurrentProfile == PROFILE_UNKNOWN )
+        if ( mCurrentProfile == PROFILE_NONE )
             mEffectSidSurfaceMap.insert(std::make_pair(mCurrentNewParamSid, mCurrentSurface));
         else
             mEffectProfileSidSurfaceMap.insert(std::make_pair(mCurrentNewParamSid, mCurrentSurface));
 
 		mCurrentSurfaceInitFrom.clear();
-		return true;
+
+        mInSurface = false;
+
+        return true;
 	}
 
 	//------------------------------
@@ -475,6 +457,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__sampler2D____fx_sampler2D_common()
 	{
+        mInSampler2D = true;
 		mCurrentSampler = new COLLADAFW::Sampler();
 		mCurrentSampler->setSamplerType( COLLADAFW::Sampler::SAMPLER_TYPE_2D );
 		return true;
@@ -489,13 +472,16 @@ namespace COLLADASaxFWL
 		samplerInfo.surfaceSid = mCurrentSamplerSource;
         
         // Check if we have a sampler defined directly under an effect or under an effect profile.
-        if ( mCurrentProfile == PROFILE_UNKNOWN )
+        if ( mCurrentProfile == PROFILE_NONE )
             mEffectSidSamplerInfoMap.insert(std::make_pair(mCurrentNewParamSid, samplerInfo));
         else
     		mEffectProfileSidSamplerInfoMap.insert(std::make_pair(mCurrentNewParamSid, samplerInfo));
 
 		mCurrentSampler = 0;
 		mCurrentSamplerSource.clear();
+
+        mInSampler2D = false;
+
 		return true;
 	}
 
@@ -510,6 +496,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData )
 	{
+        mInProfileCommonTechnique = true;
+
 		addToSidTree( attributeData.id, attributeData.sid );
 
 		return true;
@@ -520,6 +508,8 @@ namespace COLLADASaxFWL
 	{
 		moveUpInSidTree();
 		
+        mInProfileCommonTechnique = false;
+
         return true;
 	}
 
@@ -581,8 +571,18 @@ namespace COLLADASaxFWL
     //------------------------------
 	bool LibraryEffectsLoader::begin__texture( const texture__AttributeData& attributeData )
 	{
+        mInTexture = true;
+
 		return handleTexture( attributeData);
 	}
+
+    //------------------------------
+    bool LibraryEffectsLoader::end__texture ()
+    {
+        mInTexture = false;
+
+        return true;
+    }
 
     //------------------------------
     bool LibraryEffectsLoader::begin__common_float_or_param_type____float ( const common_float_or_param_type____float__AttributeData& attributeData )
@@ -860,6 +860,67 @@ namespace COLLADASaxFWL
         }
 
 		return true;
+    }
+
+    //------------------------------
+    const char* LibraryEffectsLoader::getSecondKey ()
+    {
+        switch ( mCurrentProfile )
+        {
+        case PROFILE_COMMON:
+            {
+                if ( mInSurface )
+                {
+                    // Build a path like "COLLADA/surface/0" where the last element is the
+                    // physical index of the current surface (starting at zero).
+                    mSecondKey = COLLADAFW::ExtraKeys::SURFACE;
+                    mSecondKey.append ( COLLADAFW::ExtraKeys::KEYSEPARATOR );
+                    mSecondKey.append ( COLLADABU::Utils::toString ( mSurfaceIndex ) );
+                    return mSecondKey.c_str (); 
+                }
+                if ( mInSampler2D )
+                {
+                    // Build a path like "COLLADA/sampler2d/0" where the last element is the
+                    // physical index of the current sampler (starting at zero).
+                    mSecondKey = COLLADAFW::ExtraKeys::SAMPLER2D;
+                    mSecondKey.append ( COLLADAFW::ExtraKeys::KEYSEPARATOR );
+                    mSecondKey.append ( COLLADABU::Utils::toString ( mSurfaceIndex ) );
+                    return mSecondKey.c_str (); 
+                }
+                if ( mInTexture )
+                {
+                    // Build a path like "COLLADA/texture/0" where the last element is the
+                    // ShaderParameterType index of the current texture (starting at zero).
+                    mSecondKey = COLLADAFW::ExtraKeys::TEXTURE;
+                    mSecondKey.append ( COLLADAFW::ExtraKeys::KEYSEPARATOR );
+                    mSecondKey.append ( COLLADABU::Utils::toString ( mCurrentShaderParameterType ) );
+                    return mSecondKey.c_str (); 
+                }
+                else if ( mInProfileCommonTechnique )
+                    return COLLADAFW::ExtraKeys::TECHNIQUE;
+                else
+                    return COLLADAFW::ExtraKeys::PROFILE_COMMON;
+            }
+            break;
+        case PROFILE_CG:
+            return COLLADAFW::ExtraKeys::PROFILE_CG; break;
+        case PROFILE_GLSL:
+            return COLLADAFW::ExtraKeys::PROFILE_GLSL; break;
+        case PROFILE_GLES:
+            return COLLADAFW::ExtraKeys::PROFILE_GLES; break;
+        case PROFILE_NONE:
+            return COLLADAFW::ExtraKeys::EFFECT; break;
+        default:
+            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_SUPPORTED, "Profile not defined!" );
+            break;
+        }
+        return 0;
+    }
+
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryEffectsLoader::getExtraData ()
+    {
+        return mCurrentEffect;
     }
 
 } // namespace COLLADASaxFWL

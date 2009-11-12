@@ -18,6 +18,7 @@
 
 #include "COLLADAFWObject.h"
 #include "COLLADAFWArray.h"
+#include "COLLADAFWMeshPrimitive.h"
 
 
 namespace COLLADASaxFWL
