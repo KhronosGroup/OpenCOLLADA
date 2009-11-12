@@ -43,6 +43,13 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
+    void Technique::addValue ( const String& value )
+    {
+        if ( !value.empty() )
+            mSW->appendTextBlock ( value );
+    }
+
+    //---------------------------------------------------------------
     void Technique::addParameter ( const String &paramName, const String &value, const String &sid )
     {
         mSW->openElement ( paramName );

@@ -24,7 +24,6 @@ namespace COLLADASW
     //---------------------------------------------------------------
     EffectProfile::EffectProfile ( StreamWriter* streamWriter, const String& effectProfileId )
     : ElementWriter ( streamWriter )
-    , BaseExtraTechnique()
     , mEffectProfileId ( effectProfileId )
     , mTechniqueSid ( DEFAULT_TECHNIQUE_SID )
     , mProfileType ( EffectProfile::COMMON )
@@ -78,6 +77,10 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void EffectProfile::closeProfile ()
     {
+        // Export the user defined profile extra data elements.
+        mProfileExtra.addExtraTechniques ( mSW );
+
+        // Close the current profile.
         mProfileCloser.close();
     }
 
@@ -154,12 +157,18 @@ namespace COLLADASW
                 addFloat ( CSWC::CSW_ELEMENT_TRANSPARENCY, mTransparency, mTransparencySid );
                 addFloat ( CSWC::CSW_ELEMENT_INDEX_OF_REFRACTION, mIndexOfRefraction, mIndexOfRefractionSid );
 
-                addExtraTechniques( mSW );
-
-                shaderTypeCloser.close();
+                shaderTypeCloser.close ();
             }
 
-            addExtraTechniqueColorOrTexture( mExtraTechniqueColorOrTexture, mExtraTechniqueColorOrTextureSid );
+            // Adds extra technique tags to the current effect and writes the child element with the
+            // given colorOrTexture element in the tags. You just can add one extra technique texture.
+            addExtraTechniqueColorOrTexture ( mExtraTechniqueColorOrTexture, mExtraTechniqueColorOrTextureSid );
+
+            // Export the user defined technique extra data elements.
+            mProfileTechniqueExtra.addExtraTechniques ( mSW );
+
+            // CSWC::CSW_ELEMENT_TECHNIQUE
+            mSW->closeElement ();
         }
     }
 

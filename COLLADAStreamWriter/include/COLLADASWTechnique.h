@@ -38,6 +38,9 @@ namespace COLLADASW
         /** Opens the technique tag */
         void openTechnique ( const String &profile, const String &xmlns="" );
 
+        /** Writes the given string to the collada document. */
+        void addValue ( const String& value );
+
         /** Adds a parameter to the technique */
         void addParameter ( const String &paramName, const String &value="", const String &sid="" );
 

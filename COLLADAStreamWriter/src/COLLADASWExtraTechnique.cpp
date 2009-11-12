@@ -50,6 +50,18 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueTextblock ( 
+        const String& profileName, 
+        const String& text )
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile ( profileName );
+
+        // Set the textblock.
+        profile.mText = text;
+    }
+
+    //---------------------------------------------------------------
     void BaseExtraTechnique::addExtraTechniqueParameter ( 
         const String& profileName,
         const String& paramName,
@@ -318,6 +330,9 @@ namespace COLLADASW
                 // Write the current profile
                 const Profile& profile = ( *extraTechniquesIt ).second;
 
+                // Write the textblock.
+                streamWriter->appendTextBlock ( profile.mText );
+
                 // Write the parameters for the current profile
                 addTechniqueParameters ( colladaTechnique, profile.mParameters );
 
@@ -352,7 +367,6 @@ namespace COLLADASW
         const Parameters &parameters ) const
     {
         Parameters::const_iterator paramsIt = parameters.begin();
-
         while ( paramsIt != parameters.end() )
         {
             // Add this parameter

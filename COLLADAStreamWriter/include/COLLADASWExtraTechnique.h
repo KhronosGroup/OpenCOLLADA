@@ -70,6 +70,9 @@ namespace COLLADASW
         /** Destructor */
         virtual ~Profile() {};
 
+        /** A textblock, which contains the full extra technique text. */
+        String mText;
+
         /** The parameters of the current profile */
         Parameters mParameters;
 
@@ -79,8 +82,9 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    /** The base class, if you want to add extra and technique tags into the derived COLLADASW element. */
-
+    /** 
+     * The base class, if you want to add extra and technique tags into the derived COLLADASW element. 
+     */
     class BaseExtraTechnique
     {
 
@@ -103,6 +107,11 @@ namespace COLLADASW
         virtual ~BaseExtraTechnique() {};
 
         /**
+         * Adds a textblock to the extra profile, which contains the full extra technique text.
+         */
+        void addExtraTechniqueTextblock ( const String& profileName, const String& text );
+
+        /**
         * Creates an extra and a technique tag with the profile name (if not already exist)
         * and writes the given parameter in the tags.
         */
@@ -119,12 +128,6 @@ namespace COLLADASW
         void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const float &value, const String &paramSid="" );
         void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const bool &value, const String &paramSid="" );
         void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String &paramSid="" );
-
-        /** Returns the map with the extra techniques. */
-        const ExtraTechniquesMap& getExtraTechniques()const
-        {
-            return mExtraTechniques;
-        }
 
         /** Writes the extra techniques of the texture in the COLLADASW file. */
         void addExtraTechniques ( StreamWriter* streamWriter ) const;

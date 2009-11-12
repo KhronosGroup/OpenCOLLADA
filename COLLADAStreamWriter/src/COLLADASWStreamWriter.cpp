@@ -210,6 +210,16 @@ namespace COLLADASW
         mOpenTags.back().mHasText = true;
     }
 
+    //---------------------------------------------------------------
+    void StreamWriter::appendTextBlock ( const String &text )
+    {
+        if ( text.empty () ) return;
+
+        prepareToAddContents();
+        appendNewLine();
+        addWhiteSpace ( mLevel * mIndent );
+        appendString ( text );
+    }
 
     //---------------------------------------------------------------
     void StreamWriter::appendValues ( const double number )

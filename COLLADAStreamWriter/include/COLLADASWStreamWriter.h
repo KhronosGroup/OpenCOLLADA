@@ -168,6 +168,10 @@ namespace COLLADASW
         No checks are performed, if @a text contains forbidden characters. */
         void appendText ( const String& text );
 
+        /** Adds @a text to the COLLADASW file in a new line.
+        No checks are performed, if @a text contains forbidden characters. */
+        void appendTextBlock ( const String& text );
+
         /** Adds @a number to the COLLADASW file.*/
         void appendValues ( const double number );
 

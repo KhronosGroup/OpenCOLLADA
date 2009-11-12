@@ -19,7 +19,7 @@ namespace COLLADASW
 {
 
     /** Class to simply the creation of @a \<library_materials\> and @a \<material\>'s*/
-    class LibraryMaterials : public Library
+    class LibraryMaterials : public Library, public BaseExtraTechnique
     {
 
     private:

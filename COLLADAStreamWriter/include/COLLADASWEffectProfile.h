@@ -159,6 +159,15 @@ namespace COLLADASW
         double mIndexOfRefraction;
         String mIndexOfRefractionSid;
 
+        /** The extra tag elements under the effect profile. */
+        BaseExtraTechnique mProfileExtra;
+
+        /** The extra tag elements under the effect profile's technique element. */
+        BaseExtraTechnique mProfileTechniqueExtra;
+
+        /** The extra tag elements under the effect profile's technique element. */
+        BaseExtraTechnique mProfileTechniqueTextureExtra;
+
     public:
 
         /** Constructor
@@ -166,6 +175,12 @@ namespace COLLADASW
         */
         EffectProfile ( StreamWriter* streamWriter, const String& effectProfileId = "" );
         virtual ~EffectProfile(){};
+
+        /** The extra tag elements under the effect profile. */
+        BaseExtraTechnique& getProfileExtra () { return mProfileExtra; }
+
+        /** The extra tag elements under the effect profile's technique element. */
+        BaseExtraTechnique& getProfileTechniqueExtra () { return mProfileTechniqueExtra; }
 
         /**
         * A text string containing the unique identifier of the element. 
