@@ -47,7 +47,7 @@ bool ValidationErrorHandler::handleError( const COLLADASaxFWL::IError* error )
 			}
 		}
 
-		std::cout << "Schema Error: " << parserError.getErrorMessage() << std::endl;
+		std::cout << "Schema validation error: " << parserError.getErrorMessage() << std::endl;
 		mHasHandledSaxParserError = true;
 	}
 	else if ( error->getErrorClass() == COLLADASaxFWL::IError::ERROR_SAXFWL )

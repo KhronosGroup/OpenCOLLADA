@@ -50,7 +50,7 @@ void parse(char* fileName)
 int main(int argc, char* argv[]) 
 {
 
-	if ( argc > 1 ) 
+	if ( argc > 1 && argv[1][0] != '-' ) 
 	{
 		parse( argv[1]);
 
