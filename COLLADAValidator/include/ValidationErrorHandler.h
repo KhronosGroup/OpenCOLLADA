@@ -8,6 +8,7 @@ class ValidationErrorHandler : public	COLLADASaxFWL::IErrorHandler
 private:
 	bool mHasHandledSaxParserError;
 	bool mHasHandledSaxFWLError;
+	bool mFileNotFound;
 
 public:
 	ValidationErrorHandler();
@@ -19,6 +20,7 @@ public:
 
 	bool hasHandledSaxFWLError()const {return mHasHandledSaxFWLError; }
 
+	bool getFileNotFound()const {return mFileNotFound; }
 
 private:
 	/** Disable default copy ctor. */

@@ -25,13 +25,10 @@
 #endif
 
 
-bool hasHandledSaxParserError = false;
-bool hasHandledSaxFWLError = false;
 COLLADASaxFWL::COLLADAVersion version = COLLADASaxFWL::COLLADA_UNKNOWN;
 
-void parse(char* fileName)
+void parse(char* fileName, ValidationErrorHandler& errorHandler)
 {
-	ValidationErrorHandler errorHandler;
 	COLLADASaxFWL::Loader loader(&errorHandler);
 
 	Writer writer;
@@ -40,21 +37,30 @@ void parse(char* fileName)
 
 	root.loadDocument(fileName);
 	version = loader.getCOLLADAVersion();
-	hasHandledSaxParserError = errorHandler.hasHandledSaxParserError();
-	hasHandledSaxFWLError = errorHandler.hasHandledSaxFWLError();
 }
 
-
+void printHelpText()
+{
+	std::cout << "Usage: " << programName << " <filename>." << std::endl;
+}
 
 
 int main(int argc, char* argv[]) 
 {
 
-	if ( argc > 1 && argv[1][0] != '-' ) 
+	if ( argc > 1 ) 
 	{
-		parse( argv[1]);
+		ValidationErrorHandler errorHandler;
 
-		if ( hasHandledSaxParserError )
+		parse( argv[1], errorHandler);
+
+		if ( errorHandler.getFileNotFound() )
+		{
+			printHelpText();
+			return -2;
+		} 
+		
+		if ( errorHandler.hasHandledSaxParserError() )
 		{
 			return -1;
 		}
@@ -76,7 +82,7 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		std::cout << "Usage: " << programName << " <filename>." << std::endl;
+		printHelpText();
 		return 0;
 	}
 

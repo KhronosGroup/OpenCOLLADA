@@ -13,6 +13,7 @@
 ValidationErrorHandler::ValidationErrorHandler()
 	: mHasHandledSaxParserError(false)
 	, mHasHandledSaxFWLError(false)
+	, mFileNotFound(false)
 {
 }
 
@@ -45,6 +46,11 @@ bool ValidationErrorHandler::handleError( const COLLADASaxFWL::IError* error )
 
 				return false;
 			}
+		}
+
+		if ( parserError.getErrorType() == GeneratedSaxParser::ParserError::ERROR_COULD_NOT_OPEN_FILE)
+		{
+			mFileNotFound = true;
 		}
 
 		std::cout << "Schema validation error: " << parserError.getErrorMessage() << std::endl;
