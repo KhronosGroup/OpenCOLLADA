@@ -55,7 +55,7 @@ namespace COLLADASaxFWL
          : DocumentProcessor( colladaLoader, saxParserErrorHandler, objectFlags, parsedObjectFlags)
 		 , mFileURI( fileURI )
          , mParsingStatus( PARSING_NOT_STARTED )
-		 , mSaxParserErrorHandler(0)
+		 , mSaxParserErrorHandler(saxParserErrorHandler)
          , mPrivateParser14( 0 )
          , mPrivateParser15( 0 )
          , mXmlSaxParser( 0 )
