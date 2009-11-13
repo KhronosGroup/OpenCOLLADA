@@ -48,6 +48,9 @@ namespace GeneratedSaxParser
 
 		switch ( mErrorType )
 		{
+		case ERROR_COULD_NOT_OPEN_FILE:
+			errorMessage << "ERROR_COULD_NOT_OPEN_FILE ";
+			break;
 		case ERROR_UNKNOWN_ELEMENT:
 			errorMessage << "ERROR_UNKNOWN_ELEMENT ";
 			break;
@@ -123,8 +126,14 @@ namespace GeneratedSaxParser
 		if ( mAttributeName )
 			errorMessage << "Attribute: " << mAttributeName << ", ";
 
-		errorMessage << "Line: " <<  mLineNumber << ", ";
-		errorMessage << "Column: " <<  mColumnNumber << ", ";
+		if ( mLineNumber > 0)
+		{
+			errorMessage << "Line: " <<  mLineNumber << ", ";
+		}
+		if ( mColumnNumber > 0)
+		{
+			errorMessage << "Column: " <<  mColumnNumber << ", ";
+		}
 		errorMessage << "Additional: " << mAdditionalText;
 		
 		return errorMessage.str();

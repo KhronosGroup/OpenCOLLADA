@@ -140,6 +140,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::handleTexture( const texture__AttributeData& attributeData )
 	{
+		bool success = true;
 		switch ( mCurrentProfile )
 		{
 		case PROFILE_COMMON:
@@ -155,7 +156,13 @@ namespace COLLADASaxFWL
                     it = mEffectSidSamplerInfoMap.find((const char*)attributeData.texture);
                     if ( it == mEffectSidSamplerInfoMap.end() )
                     {
-                        handleFWLError ( SaxFWLError::ERROR_UNRESOLVED_REFERENCE, "Texture not defined!" );
+						String msg("Texture with sid \"" + textureSid + "\" not found");
+						if ( mCurrentEffect )
+						{
+							msg += " in effect with id \"" + mCurrentEffect->getOriginalId() + "\"";
+						}
+						msg += ".";
+                        success = handleFWLError ( SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg );
                         break;
                     }
                 }
@@ -186,7 +193,7 @@ namespace COLLADASaxFWL
 				break;
 			}
 		}
-		return true;
+		return success;
 
 	}
 
