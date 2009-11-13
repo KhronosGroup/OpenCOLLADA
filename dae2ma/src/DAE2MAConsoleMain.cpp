@@ -147,7 +147,7 @@ int main(int argc,char** argv)
         hasOutFileName = true;
         if ( mayaVersionArgPos > 0 )
             strcpy ( mayaVersion, argv[mayaVersionArgPos] );
-        else strcpy ( mayaVersion, MAYA_VERSION_DEFAULT);
+		else strcpy ( mayaVersion, DAE2MA::MAYA_VERSION_DEFAULT);
     }
     // Just a input file
     else if ( inFileArgPos > 0 )
@@ -156,7 +156,7 @@ int main(int argc,char** argv)
 	    strcpy ( inFileName, argv[inFileArgPos] );
         if ( mayaVersionArgPos > 0 )
             strcpy ( mayaVersion, argv[mayaVersionArgPos] );
-        else strcpy ( mayaVersion, MAYA_VERSION_DEFAULT);
+		else strcpy ( mayaVersion, DAE2MA::MAYA_VERSION_DEFAULT);
     }
     else 
     {
