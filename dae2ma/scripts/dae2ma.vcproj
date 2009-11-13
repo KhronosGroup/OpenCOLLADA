@@ -467,6 +467,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib"
+				Version="1.2.2"
 				AdditionalLibraryDirectories="&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\MathMLSolver\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 			/>
@@ -546,6 +547,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib"
+				Version="1.2.2"
 				AdditionalLibraryDirectories="&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\MathMLSolver\lib\win\$(PlatformName)&quot;"
 			/>
 			<Tool
@@ -621,7 +623,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib"
-				Version="1.2.0"
+				Version="1.2.2"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\MathMLSolver\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
@@ -701,6 +703,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib"
+				Version="1.2.2"
 				AdditionalLibraryDirectories="&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\MathMLSolver\lib\win\$(PlatformName)&quot;"
 			/>
 			<Tool
@@ -778,6 +781,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib"
+				Version="1.2.2"
 				AdditionalLibraryDirectories="&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\MathMLSolver\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 			/>
@@ -856,6 +860,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib"
+				Version="1.2.2"
 				AdditionalLibraryDirectories="&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\MathMLSolver\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
