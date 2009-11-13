@@ -41,6 +41,7 @@ void parse(char* fileName, ValidationErrorHandler& errorHandler)
 
 void printHelpText()
 {
+	std::cout << "Version 1.1.3" << std::endl;
 	std::cout << "Usage: " << programName << " <filename>." << std::endl;
 }
 
