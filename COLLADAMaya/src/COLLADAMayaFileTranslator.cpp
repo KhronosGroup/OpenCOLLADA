@@ -400,8 +400,21 @@ namespace COLLADAMaya
 #endif
         String mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
 
+        // Get the current maya version
+        String mayaVersion ( MGlobal::mayaVersion ().asChar () );
+
+        // We have to change the name on 64 bit machines. 
+        // For example from "2008 x64" to "2008" or from "2008 Extension 2" to "2008".
+        std::vector<String> words;
+        String separator (" ");
+        COLLADABU::Utils::split ( mayaVersion, separator, words );
+        if ( words.size () > 1 ) 
+        {
+            mayaVersion = words[0];
+        }
+
         // Actually import the document
-        DAE2MA::DocumentImporter documentImporter ( importFileName, mayaAsciiFileURI.getURIString () );
+        DAE2MA::DocumentImporter documentImporter ( importFileName, mayaAsciiFileURI.getURIString (), mayaVersion.c_str () );
         documentImporter.importCurrentScene ();
 
         // Display some closing information.

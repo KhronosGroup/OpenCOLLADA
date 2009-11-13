@@ -42,9 +42,6 @@
 namespace DAE2MA
 {
 
-    /** The default maya version. */ 
-    const char* DocumentImporter::MAYA_VERSION_2009 = "2009";
-
     /** This names are reserved. Maya nodes can't have this names! */
     const size_t DocumentImporter::NUM_RESERVED_NAMES = 43;
     const String DocumentImporter::RESERVED_NAMES[] = 
@@ -508,21 +505,6 @@ namespace DAE2MA
         //String mayaVersion ( MGlobal::mayaVersion ().asChar () );
         fprintf ( mFile, "//Maya ASCII %s scene\n", mMayaVersion );
         fprintf ( mFile, "requires maya \"%s\";\n", mMayaVersion );
-
-        // TODO Test
-//         // We have to change the name on 64 bit machines. 
-//         // For example from "2008 x64" to "2008" or from "2008 Extension 2" to "2008".
-//         std::vector<String> words;
-//         String separator (" ");
-//         COLLADABU::Utils::split ( mayaVersion, separator, words );
-//         if ( words.size () > 1 ) 
-//         {
-//             fprintf ( mFile, "requires maya \"%s\";\n", words[0].c_str () );
-//         }
-//         else
-//         {
-//             fprintf ( mFile, "requires maya \"%s\";\n", mayaVersion.c_str () );
-//         }
 
         // Get the unit informations.
         const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();

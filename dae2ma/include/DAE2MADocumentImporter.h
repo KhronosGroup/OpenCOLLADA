@@ -100,9 +100,6 @@ namespace DAE2MA
 
     private:
 
-        /** The default maya version. */ 
-        static const char* MAYA_VERSION_2009;
-
         /** This names are reserved. Maya nodes can't have this names! */
         static const String RESERVED_NAMES[];
         static const size_t NUM_RESERVED_NAMES;
@@ -258,7 +255,7 @@ namespace DAE2MA
         DocumentImporter ( 
             const String& importFileName, 
             const String& mayaAsciiFileName, 
-            const char* mayaVersion = MAYA_VERSION_2009 );
+            const char* mayaVersion = MAYA_VERSION_DEFAULT );
 
         /** Destructor. */
         virtual ~DocumentImporter ();
