@@ -10,6 +10,7 @@
 
 #include "CommonBuffer.h"
 #include <memory>
+#include <string.h>
 
 
 namespace Common
