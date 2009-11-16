@@ -14,6 +14,7 @@
 #include "COLLADAFWPrerequisites.h"
 
 #include <assert.h>
+#include <climits>
 
 namespace COLLADAFW
 {

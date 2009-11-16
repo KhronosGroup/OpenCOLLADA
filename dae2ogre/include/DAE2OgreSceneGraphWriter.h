@@ -16,7 +16,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "DAE2OgreOgreWriter.h"
 
-#include "math/COLLADABUMathMatrix4.h"
+#include "Math/COLLADABUMathMatrix4.h"
 
 
 namespace COLLADAFW

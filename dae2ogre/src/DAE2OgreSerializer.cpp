@@ -30,6 +30,9 @@ Torus Knot Software Ltd.
 
 #include "DAE2OgreSerializer.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 namespace DAE2Ogre
 {
 

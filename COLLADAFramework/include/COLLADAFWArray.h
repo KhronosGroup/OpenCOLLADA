@@ -12,6 +12,7 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADAFW_ARRAY_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include <cassert>
 
 
 namespace COLLADAFW

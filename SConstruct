@@ -56,6 +56,8 @@ env['libDir'] = 'lib/'
 env['binDir'] = 'bin/'
 
 
+SConscript(['common/libftoa/SConscript'], exports = 'env')
+SConscript(['common/libBuffer/SConscript'], exports = 'env')
 SConscript(['COLLADABaseUtils/SConscript'], exports = 'env')
 SConscript(['Externals/MathMLSolver/SConscript'], exports = 'env')
 SConscript(['Externals/UTF/SConscript'], exports = 'env')
@@ -75,6 +77,14 @@ SConscript(['COLLADASaxFrameworkLoader/SConscript'], exports = 'env')
 SConscript(['COLLADAStreamWriter/SConscript'], exports = 'env')
 
 SConscript(['COLLADAValidator/SConscript'], exports = 'env')
+SConscript(['dae2ogre/SConscript'], exports = 'env')
+
+
+Help("""
+The build process using scons allows you to set several options. All of the are
+explained above. However, not all combinations have been tested and some of them
+might not work. A list of teste combinations will be listed here in near future.
+""")
 
 
 

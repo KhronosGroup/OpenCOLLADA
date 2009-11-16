@@ -11,7 +11,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "DAE2OgreOgreWriter.h"
 #include "DAE2OgreMeshWriter.h"
-#include "DAE2Ogrescenegraphwriter.h"
+#include "DAE2OgreSceneGraphWriter.h"
 
 #include "COLLADASaxFWLLoader.h"
 

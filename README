@@ -8,6 +8,8 @@ reduction of memory consumption and to much a better performance.
 For more information about the plug-ins and how to build them, please read the README files in 
 COLLADAMax and COLLADAMaya directories.
 
+For information about how to build OpenCOLLADA under linux and mac OSX usings SCons, please read the BUILD file.
+
 NOTE: The COLLADA.sln solution, contained in this directory, exists only for development purposes.
       To build the NextGen plug-ins, please use the solutions in the COLLADAMax anf COLLADAMaya
       directories.

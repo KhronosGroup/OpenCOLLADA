@@ -12,6 +12,8 @@ targetPath = outputDir + libName
 
 
 incDirs = ['include/', 
+           '../common/libftoa/include/',
+           '../common/libBuffer/include/',
            '../COLLADABaseUtils/include/']
 
 src = [ variantDir + str(p) for p in  Glob(srcDir + '*.cpp')]   
