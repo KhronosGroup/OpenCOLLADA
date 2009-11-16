@@ -1175,6 +1175,10 @@
 				RelativePath="..\src\Commonftoa.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\src\Commonitoa.cpp"
+				>
+			</File>
 			<Filter
 				Name="performanceTest"
 				>
