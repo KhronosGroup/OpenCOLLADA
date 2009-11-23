@@ -155,7 +155,7 @@ namespace GeneratedSaxParser
 	}
 
 	//--------------------------------------------------------------------
-	StringHash ParserTemplateBase::getElementHash( size_t level /*= 0 */ )
+	StringHash ParserTemplateBase::getElementHash( size_t level /*= 0 */ )const
 	{
 		size_t elementDataStackSize = mElementDataStack.size();
 		if ( level < elementDataStackSize )
