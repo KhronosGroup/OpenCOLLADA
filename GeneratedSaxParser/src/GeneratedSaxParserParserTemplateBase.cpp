@@ -154,4 +154,17 @@ namespace GeneratedSaxParser
 			return it->second;
 	}
 
+	//--------------------------------------------------------------------
+	StringHash ParserTemplateBase::getElementHash( size_t level /*= 0 */ )
+	{
+		size_t elementDataStackSize = mElementDataStack.size();
+		if ( level < elementDataStackSize )
+		{
+			return mElementDataStack[elementDataStackSize - 1 - level].elementHash;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 } // namespace GeneratedSaxParser

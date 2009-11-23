@@ -59,6 +59,7 @@ namespace COLLADASaxFWL
          , mPrivateParser14( 0 )
          , mPrivateParser15( 0 )
          , mXmlSaxParser( 0 )
+		 , mVersionParser(0)
 	{
 
 	}
@@ -72,9 +73,11 @@ namespace COLLADASaxFWL
 	bool FileLoader::load()
 	{
         VersionParser parser( mSaxParserErrorHandler, this, mObjectFlags, mParsedObjectFlags );
+		mVersionParser = &parser;
         mParsingStatus = PARSING_PARSING;
         bool success = parser.createAndLaunchParser();
         mParsingStatus = PARSING_FINISHED;
+		mVersionParser = 0;
         return success;
 	}
 
@@ -82,9 +85,11 @@ namespace COLLADASaxFWL
 	bool FileLoader::load( const char* buffer, int length )
 	{
         VersionParser parser( mSaxParserErrorHandler, this, mObjectFlags, mParsedObjectFlags );
+		mVersionParser = &parser;
         mParsingStatus = PARSING_PARSING;
         bool success = parser.createAndLaunchParser( buffer, length );
         mParsingStatus = PARSING_FINISHED;
+		mVersionParser = 0;
         return success;
 	}    
 
@@ -108,4 +113,13 @@ namespace COLLADASaxFWL
         mPrivateParser15->setCallbackObject(parserToBeSet);
     }
 
+	//-----------------------------
+	COLLADASaxFWL14::StringHash FileLoader::getElementHash( size_t level /*= 0 */ )
+	{
+		if ( mVersionParser )
+		{
+			return mVersionParser->getElementHash(level);
+		}
+		return 0;
+	}
 } // namespace COLLADASaxFWL

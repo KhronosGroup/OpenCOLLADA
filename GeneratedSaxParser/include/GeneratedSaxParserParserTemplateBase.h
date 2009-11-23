@@ -91,6 +91,10 @@ namespace GeneratedSaxParser
 		if no corresponding name could be found.*/
 		const char* getNameByStringHash(const StringHash& hash)const;
 
+		/** Returns the element of the element in level @a level, where the previous element is level 0. 
+		If level is invalid, 0 is returned.*/
+		StringHash getElementHash( size_t level = 0 );
+
 
 	protected:
 		/** Converts the first string representing a float within a ParserChar buffer with prefixedBuffer

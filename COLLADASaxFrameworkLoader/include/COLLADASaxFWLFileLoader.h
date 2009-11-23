@@ -59,6 +59,9 @@ namespace COLLADASaxFWL
         /** Parser object which knows line and column numbers in parsed file. */
         GeneratedSaxParser::SaxParser* mXmlSaxParser;
 
+		/** The currently active version parser or 0 if none is activ.*/
+		VersionParser* mVersionParser;
+
     public:
 
         /** Constructor.
@@ -104,6 +107,9 @@ namespace COLLADASaxFWL
 		/** Returns a pointer to the file loader. */
 		virtual const FileLoader* getFileLoader() const { return this; }
 
+		/** Returns the element of the element in level @a level, where the previous element is level 0. 
+		If level is invalid or it is called, while no version parser is aktive, 0 is returned.*/
+		StringHash getElementHash( size_t level = 0 );
 
 	protected:
         void setSaxParser( GeneratedSaxParser::SaxParser* parserToBeSet ) { mXmlSaxParser = parserToBeSet; }
