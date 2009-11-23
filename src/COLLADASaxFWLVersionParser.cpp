@@ -468,4 +468,18 @@ namespace COLLADASaxFWL
 
         return mPrivateParser15->elementBegin( elementName, attributes );
     }
+
+	//------------------------------
+	COLLADASaxFWL14::StringHash VersionParser::getElementHash( size_t level /*= 0 */ )
+	{
+		if ( mPrivateParser14 )
+		{
+			return mPrivateParser14->getElementHash( level );
+		}
+		if ( mPrivateParser15 )
+		{
+			return mPrivateParser15->getElementHash( level );
+		}
+		return 0;
+	}
 }

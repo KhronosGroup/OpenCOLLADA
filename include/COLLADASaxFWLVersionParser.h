@@ -68,6 +68,10 @@ namespace COLLADASaxFWL
 
         virtual bool textData(const ParserChar* text, size_t textLength);
 
+		/** Returns the element of the element in level @a level, where the previous element is level 0. 
+		If level is invalid, 0 is returned.*/
+		StringHash getElementHash( size_t level = 0 );
+
         /**
         * Creates generated parser objects and starts parsing the input file. 
         * Will determine COLLADA version of input file and use appropriate parser.
