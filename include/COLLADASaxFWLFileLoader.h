@@ -109,7 +109,7 @@ namespace COLLADASaxFWL
 
 		/** Returns the element of the element in level @a level, where the previous element is level 0. 
 		If level is invalid or it is called, while no version parser is aktive, 0 is returned.*/
-		StringHash getElementHash( size_t level = 0 );
+		StringHash getElementHash( size_t level = 0 ) const ;
 
 	protected:
         void setSaxParser( GeneratedSaxParser::SaxParser* parserToBeSet ) { mXmlSaxParser = parserToBeSet; }

@@ -114,7 +114,7 @@ namespace COLLADASaxFWL
     }
 
 	//-----------------------------
-	COLLADASaxFWL14::StringHash FileLoader::getElementHash( size_t level /*= 0 */ )
+	COLLADASaxFWL14::StringHash FileLoader::getElementHash( size_t level /*= 0 */ ) const 
 	{
 		if ( mVersionParser )
 		{

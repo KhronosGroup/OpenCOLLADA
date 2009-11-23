@@ -470,7 +470,7 @@ namespace COLLADASaxFWL
     }
 
 	//------------------------------
-	COLLADASaxFWL14::StringHash VersionParser::getElementHash( size_t level /*= 0 */ )
+	COLLADASaxFWL14::StringHash VersionParser::getElementHash( size_t level /*= 0 */ ) const
 	{
 		if ( mPrivateParser14 )
 		{
