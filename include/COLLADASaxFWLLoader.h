@@ -25,9 +25,9 @@
 
 #include "COLLADABUHashFunctions.h"
 #include "COLLADABUURI.h"
+#include "COLLADABUhash_map.h"
 
 #include <set>
-#include <hash_map>
 
 namespace COLLADAFW
 {

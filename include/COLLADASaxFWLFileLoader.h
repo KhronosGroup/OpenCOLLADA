@@ -29,6 +29,7 @@ namespace COLLADASaxFWL
 	class SidTreeNode;
 	class SidAddress;
 	class FilePartLoader;
+    class VersionParser;
 
 	/** Loader to a COLLADA document. Referenced documents are not loaded.*/
 	class FileLoader : public DocumentProcessor
