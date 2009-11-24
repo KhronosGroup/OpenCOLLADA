@@ -95,9 +95,9 @@ namespace COLLADASaxFWL
 		};
 
 	public:
-		typedef stdext::hash_map<COLLADABU::URI, COLLADAFW::UniqueId> URIUniqueIdMap;
+		typedef COLLADABU::hash_map<COLLADABU::URI, COLLADAFW::UniqueId> URIUniqueIdMap;
 
-		typedef stdext::hash_map<COLLADABU::URI, COLLADAFW::FileId> URIFileIdMap;
+		typedef COLLADABU::hash_map<COLLADABU::URI, COLLADAFW::FileId> URIFileIdMap;
 
 		/** Maps file id to uri.*/
 		typedef std::map<COLLADAFW::FileId, COLLADABU::URI> FileIdURIMap;
