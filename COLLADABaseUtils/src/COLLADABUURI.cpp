@@ -12,6 +12,7 @@
 #include "COLLADABUURI.h"
 #include "COLLADABUStringUtils.h"
 #include "COLLADABUPcreCompiledPattern.h"
+#include "COLLADABUHashFunctions.h"
 
 #include <algorithm>
 #include "pcre.h"
@@ -1048,5 +1049,9 @@ namespace COLLADABU
 		return false;
 	}
 
+	URI::operator size_t()const
+	{
+		return 	calculateHash( *this );
+	}
 }
 

@@ -14,12 +14,12 @@
 
 namespace COLLADABU
 {
-	unsigned long calculateHash( const String& str )
+	size_t calculateHash( const String& str )
 	{
 		return calculateHash(str.c_str());
 	}
 
-	unsigned long calculateHash( const char* str )
+	size_t calculateHash( const char* str )
 	{
 		unsigned long h = 0;
 		unsigned long g;
@@ -34,7 +34,7 @@ namespace COLLADABU
 		return h;
 	}
 
-	unsigned long calculateHash( const URI& uri )
+	size_t calculateHash( const URI& uri )
 	{
 		return calculateHash(uri.getURIString());
 	}

@@ -23,12 +23,11 @@
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWSkinController.h"
 
-#include "COLLADABUHashMap.h"
 #include "COLLADABUHashFunctions.h"
 #include "COLLADABUURI.h"
 
 #include <set>
-
+#include <hash_map>
 
 namespace COLLADAFW
 {
@@ -96,9 +95,9 @@ namespace COLLADASaxFWL
 		};
 
 	public:
-		typedef COLLADABU::HashMap<COLLADABU::URI, COLLADAFW::UniqueId, unsigned long, COLLADABU::calculateHash> URIUniqueIdMap;
+		typedef stdext::hash_map<COLLADABU::URI, COLLADAFW::UniqueId> URIUniqueIdMap;
 
-		typedef COLLADABU::HashMap<COLLADABU::URI, COLLADAFW::FileId, unsigned long, COLLADABU::calculateHash> URIFileIdMap;
+		typedef stdext::hash_map<COLLADABU::URI, COLLADAFW::FileId> URIFileIdMap;
 
 		/** Maps file id to uri.*/
 		typedef std::map<COLLADAFW::FileId, COLLADABU::URI> FileIdURIMap;

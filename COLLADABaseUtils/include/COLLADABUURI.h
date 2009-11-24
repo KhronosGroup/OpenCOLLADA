@@ -348,6 +348,9 @@ namespace COLLADABU
 		/* Comparison operator for use in maps.*/
 		bool operator<(const URI& rhs)const;
 
+		/** Conversion to size_t for usage in a hash map.*/
+		operator size_t() const;
+
     private:
 
 		/**

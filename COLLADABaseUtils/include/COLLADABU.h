@@ -17,7 +17,6 @@
 #include "COLLADABU.h"
 #include "COLLADABUException.h"
 #include "COLLADABUHashFunctions.h"
-#include "COLLADABUHashMap.h"
 #include "COLLADABUIDList.h"
 #include "COLLADABUNativeString.h"
 #include "COLLADABUPcreCompiledPattern.h"

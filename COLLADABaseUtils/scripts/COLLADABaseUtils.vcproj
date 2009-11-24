@@ -555,10 +555,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADABUHashMap.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADABUIDList.h"
 				>
 			</File>

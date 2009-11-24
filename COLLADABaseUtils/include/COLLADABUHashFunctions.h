@@ -20,11 +20,11 @@ namespace COLLADABU
 	class URI;
 
 
-	unsigned long calculateHash(const String& str);
+	size_t calculateHash(const String& str);
 
-	unsigned long calculateHash(const char* str);
+	size_t calculateHash(const char* str);
 
-	unsigned long calculateHash(const URI& uri);
+	size_t calculateHash(const URI& uri);
 
 
 
