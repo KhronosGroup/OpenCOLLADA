@@ -13,6 +13,11 @@
 
 #include "COLLADABUPrerequisites.h"
 
+#if defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
+#   include <backward/hash_fun.h>
+#   include "COLLADABUURI.h"
+#endif
+
 
 
 namespace COLLADABU
@@ -26,9 +31,23 @@ namespace COLLADABU
 
 	size_t calculateHash(const URI& uri);
 
-
-
-
 } // namespace COLLADABU
+
+#if defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
+
+_GLIBCXX_BEGIN_NAMESPACE(__gnu_cxx)
+
+ template<>
+    struct hash<COLLADABU::URI>
+    {
+      size_t
+      operator()(const COLLADABU::URI& uri) const
+      { return COLLADABU::calculateHash(uri); }
+    };
+
+_GLIBCXX_END_NAMESPACE
+
+#endif
+
 
 #endif // __COLLADABU_HASHFUNCTIONS_H__
