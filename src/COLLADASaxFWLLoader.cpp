@@ -93,7 +93,7 @@ namespace COLLADASaxFWL
 		}
 		else
 		{
-			return it.second();
+			return it->second;
 		}
 	}
 
@@ -107,7 +107,7 @@ namespace COLLADASaxFWL
 		}
 		else
 		{
-			return it.second();
+			return it->second;
 		}
 	}
 
@@ -158,7 +158,7 @@ namespace COLLADASaxFWL
 		}
 		else
 		{
-			return it.second();
+			return it->second;
 		}
 	}
 
