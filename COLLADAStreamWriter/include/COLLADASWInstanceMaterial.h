@@ -16,7 +16,6 @@
 #include "COLLADASWConstants.h"
 
 #include "COLLADABUURI.h"
-using namespace COLLADABU;
 
 
 namespace COLLADASW

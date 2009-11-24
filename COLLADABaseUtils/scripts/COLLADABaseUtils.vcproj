@@ -551,6 +551,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADABUhash_map.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADABUHashFunctions.h"
 				>
 			</File>
