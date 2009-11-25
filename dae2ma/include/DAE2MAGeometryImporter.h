@@ -38,10 +38,6 @@
 #include <hash_map>
 #endif
 
-namespace stdext
-{
-    using namespace __gnu_cxx;
-}
 
 namespace DAE2MA
 {
@@ -59,7 +55,11 @@ namespace DAE2MA
         typedef std::vector<COLLADAFW::Edge> EdgeList;
 
         /** The map for searching edge indices. */
+#ifndef __GNUC__
         typedef stdext::hash_map<COLLADAFW::Edge,size_t> EdgeMap;
+#else        
+        typedef __gnu_cxx::hash_map<COLLADAFW::Edge,size_t> EdgeMap;
+#endif
         
     public:
 
