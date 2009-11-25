@@ -13,6 +13,8 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLIParserImpl14.h"
+#include "COLLADASaxFWLExtraDataLoader.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -21,14 +23,20 @@ namespace COLLADASaxFWL
     /**
     * Inherits all generated public parsers and delegates calls to actual implementations.
     */
-    class RootParser14 : public IParserImpl14
+    class RootParser14 : public IParserImpl14, public ExtraDataLoader
     {
     private:
+
         /** FileLoader which does actual work. */
         FileLoader* mFileLoader;
 
     public:
+
         RootParser14( FileLoader* fileLoader );
+
+        /** FileLoader which does actual work. */
+        FileLoader* getFileLoader () { return mFileLoader; }
+        const FileLoader* getFileLoader () const { return mFileLoader; }
 
         /** Informs about the end of reading the COLLADA file. */
         virtual bool end__COLLADA();
@@ -68,6 +76,9 @@ namespace COLLADASaxFWL
 
         /** Starts loading a library animations.*/
         virtual bool begin__library_controllers( const COLLADASaxFWL14::library_controllers__AttributeData& attributeData );
+
+        /** Starts loading an extra tag. */
+        virtual bool begin__technique( const COLLADASaxFWL14::technique__AttributeData& attributeData );
 
     private:
         /** Disable default c-ctor and assignment op. */

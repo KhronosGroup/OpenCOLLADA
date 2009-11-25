@@ -34,7 +34,7 @@ namespace COLLADASaxFWL
     //------------------------------
     bool SceneLoader::begin__instance_visual_scene ( const instance_visual_scene__AttributeData& attributeData )
     {
-        COLLADAFW::UniqueId visualSceneUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::VisualScene::ID() );
+        COLLADAFW::UniqueId visualSceneUniqueId = createUniqueIdFromUrl( attributeData.url, COLLADAFW::VisualScene::ID() );
         mCurrentScene->setInstanceVisualScene ( FW_NEW COLLADAFW::InstanceVisualScene(visualSceneUniqueId) );
 
         return true;

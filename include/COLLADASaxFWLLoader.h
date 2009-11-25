@@ -62,7 +62,7 @@ namespace COLLADASaxFWL
 
 
 	/** Loader to a COLLADA document and all the documents that are referenced it.*/
-	class Loader : public COLLADAFW::ILoader 
+	class Loader : public COLLADAFW::ILoader
 	{
 	public:
 		/** Maps the unique id of each geometry to the corresponding ColladaSymbolMaterialIdMap.*/
@@ -194,6 +194,9 @@ namespace COLLADASaxFWL
 		/** The writer that will be fed by this loader.*/
 		COLLADAFW::IWriter* mWriter;
 
+        /** List of registered extra data callback handlers. */
+        ExtraDataCallbackHandlerList mExtraDataCallbackHandlerList;
+
 		/** Maps each already processed dae element to its COLLADAFW::UniqueId. */
 		URIUniqueIdMap mURIUniqueIdMap;
 
@@ -316,6 +319,11 @@ namespace COLLADASaxFWL
 		/** Sets the flags indicating which objects should be loaded.
 		@param objectFlags The flags indicating which objects should be loaded.*/
 		void setObjectFlags( int objectFlags ) { mObjectFlags = objectFlags; }
+
+        /** Register an extra data callback handler.
+        * @param ExtraDataCallbackHandler* extraDataCallbackHandler The callback handler to register.
+        * @return bool True, if the handler could be registered successfull. */
+        virtual bool registerExtraDataCallbackHandler ( IExtraDataCallbackHandler* extraDataCallbackHandler );
 
 	private:
 		friend class IFilePartLoader;

@@ -163,7 +163,7 @@ namespace COLLADASaxFWL
 				COLLADAFW::UniqueId animationListUniqueId = animatable->getAnimationList();
 				if ( !animationListUniqueId.isValid() )
 				{
-					animationListUniqueId = getUniqueId( COLLADAFW::AnimationList::ID() );
+					animationListUniqueId = createUniqueId( COLLADAFW::AnimationList::ID() );
 					animatable->setAnimationList( animationListUniqueId );
 				}
 				COLLADAFW::AnimationList*& animationList = getAnimationListByUniqueId(animationListUniqueId);

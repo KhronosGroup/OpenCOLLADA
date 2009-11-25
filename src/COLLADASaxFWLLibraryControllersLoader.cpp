@@ -18,6 +18,7 @@
 #include "COLLADAFWGeometry.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWValidate.h"
+#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -41,15 +42,46 @@ namespace COLLADASaxFWL
 			return mCurrentSkinControllerData; 
 		case MORPH_CONTROLLER:
 			return mCurrentMorphController; 
-		case UNKNOWN_CONTROLLER:
+		default:
 			return 0;
 		}
         return 0;
 	}
 
+    //------------------------------
+    const char* LibraryControllersLoader::getSecondKey()
+    {
+        switch ( mCurrentControllerType )
+        {
+        case SKIN_CONTROLLER:
+            // extra data in: controller, skin, joints, vertex_weights
+            return COLLADAFW::ExtraKeys::SKIN_CONTROLLER;
+        case MORPH_CONTROLLER:
+            // extra data in: controller, morph, targets
+            return COLLADAFW::ExtraKeys::MORPH_CONTROLLER;
+        default:
+            return 0;
+        }
+        return 0;
+    }
+
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryControllersLoader::getUniqueId ()
+    {
+        switch ( mCurrentControllerType )
+        {
+        case SKIN_CONTROLLER:
+            return mCurrentSkinControllerData->getUniqueId ();
+        case MORPH_CONTROLLER:
+            return mCurrentMorphController->getUniqueId ();
+        default:
+            return COLLADAFW::UniqueId::INVALID;
+        }
+        return COLLADAFW::UniqueId::INVALID;
+    }
 
 	//------------------------------
-	ControllerInputSemantics getControllerInputSemanticsBySemanticStr( const char * semanticString)
+	ControllerInputSemantics getControllerInputSemanticsBySemanticStr( const char* semanticString)
 	{
 		if ( strcmp(semanticString, "JOINT" ) == 0 )
 		{
@@ -213,11 +245,11 @@ namespace COLLADASaxFWL
 	bool LibraryControllersLoader::begin__skin( const skin__AttributeData& attributeData )
 	{
 		mCurrentControllerType = SKIN_CONTROLLER;
-		mCurrentSkinControllerData = FW_NEW COLLADAFW::SkinControllerData(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::SkinControllerData::ID()));
+		mCurrentSkinControllerData = FW_NEW COLLADAFW::SkinControllerData(createUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::SkinControllerData::ID()));
 
         mCurrentSkinControllerData->setOriginalId ( mOriginalId );
         mCurrentSkinControllerData->setName ( mCurrentControllerName );
-		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source);
+		mCurrentControllerSourceUniqueId = createUniqueIdFromUrl(attributeData.source);
 		COLLADABU::URI absoluteUri(getFileUri(), attributeData.source.getURIString());
 		addSkinDataSkinSourcePair( mCurrentSkinControllerData->getUniqueId(), absoluteUri);
 		return true;
@@ -245,8 +277,8 @@ namespace COLLADASaxFWL
 	bool LibraryControllersLoader::begin__morph( const morph__AttributeData& attributeData )
 	{
 		mCurrentControllerType = MORPH_CONTROLLER;
-		mCurrentMorphController = FW_NEW COLLADAFW::MorphController(getUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::MorphController::ID()));
-		mCurrentControllerSourceUniqueId = getUniqueIdFromUrl(attributeData.source, COLLADAFW::Geometry::ID());
+		mCurrentMorphController = FW_NEW COLLADAFW::MorphController(createUniqueIdFromId(mCurrentControllerId.c_str(), COLLADAFW::MorphController::ID()));
+		mCurrentControllerSourceUniqueId = createUniqueIdFromUrl(attributeData.source, COLLADAFW::Geometry::ID());
 		mCurrentMorphController->setSource( mCurrentControllerSourceUniqueId);
         mCurrentMorphController->setOriginalId ( mOriginalId );
         mCurrentMorphController->setName ( mCurrentControllerName );
@@ -466,7 +498,7 @@ namespace COLLADASaxFWL
 						StringList::const_iterator itTarget = meshIds.begin();
 						for ( size_t i = 0 ; itTarget != meshIds.end(); ++itTarget, ++i)
 						{
-							morphTargets[i] = getUniqueIdFromId( itTarget->c_str(), COLLADAFW::Geometry::ID());
+							morphTargets[i] = createUniqueIdFromId( itTarget->c_str(), COLLADAFW::Geometry::ID());
 						}
 
 					}

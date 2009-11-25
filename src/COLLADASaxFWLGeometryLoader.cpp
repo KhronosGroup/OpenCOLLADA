@@ -36,6 +36,22 @@ namespace COLLADASaxFWL
         return mMeshLoader->getMesh();
     }
 
+    //------------------------------
+    const char* GeometryLoader::getSecondKey ()
+    {
+        if ( mMeshLoader->isInMesh () )
+        {
+            return mMeshLoader->getSecondKey ();
+        }
+        else return COLLADAFW::ExtraKeys::GEOMETRY;
+    }
+
+    //------------------------------
+    const COLLADAFW::UniqueId& GeometryLoader::getUniqueId ()
+    {
+        return mMeshLoader->getUniqueId ();
+    }
+
 	//------------------------------
 	bool GeometryLoader::begin__mesh()
 	{

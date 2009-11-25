@@ -16,6 +16,7 @@
 #include "COLLADASaxFWLSaxFWLError.h"
 #include "COLLADASaxFWLXmlTypes.h"
 #include "COLLADASaxFWLLoader.h"
+#include "COLLADASaxFWLExtraDataLoader.h"
 
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWExtraData.h"
@@ -62,38 +63,34 @@ namespace COLLADASaxFWL
 	class IntermediateTargetable;
 
     /** Base class for all loaders that load parts of files or entire files */
-    class IFilePartLoader
+    class IFilePartLoader : public ExtraDataLoader
 	{
 	public:
+
         friend class RootParser14;
         friend class RootParser15;
-
-			
 
 	private:
 
 		/** The currently working file part loader.*/
 		IFilePartLoader* mPartLoader;
 
-		/** The name of the profile of the last parsed technique element.*/
-		String mTechniqueProfileName;
-
         /** Object derived from a generated parser. */
         IParserImpl* mParserImpl;
 
     public:
+
+        /** Constructor. */
+        IFilePartLoader();
+
+        /** Destructor. */
+        virtual ~IFilePartLoader();
 
 		/** Returns a pointer to the collada loader. */
 		virtual Loader* getColladaLoader() =0;
 
 		/** Returns a const pointer to the collada document. */
 		virtual const Loader* getColladaLoader()const =0;
-
-		/** Returns a pointer to the file loader. */
-		virtual FileLoader* getFileLoader() =0;
-
-		/** Returns a pointer to the file loader. */
-		virtual const FileLoader* getFileLoader() const =0;
 
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer();
@@ -120,14 +117,14 @@ namespace COLLADASaxFWL
 		@param uriString The uriString of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
-		const COLLADAFW::UniqueId& getUniqueId(const String& uriString, COLLADAFW::ClassId classId);
+		const COLLADAFW::UniqueId& createUniqueId(const String& uriString, COLLADAFW::ClassId classId);
 
 		/** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been
 		passed to this method before, the same 	COLLADAFW::UniqueId will be returned,  if not, an 
 		invalid unique id will be returned.
 		@param uriString The uriString of the element to get the COLLADAFW::UniqueId for
 		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
-		const COLLADAFW::UniqueId& getUniqueId(const String& uriString);
+		const COLLADAFW::UniqueId& createUniqueId(const String& uriString);
 
 		/** Returns the COLLADAFW::UniqueId of the element with id  @a colladaId in the current file.
 		If the id within this file has been passed to this method before, the same 	COLLADAFW::UniqueId
@@ -135,7 +132,7 @@ namespace COLLADASaxFWL
 		@param id The collada id of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
-		COLLADAFW::UniqueId getUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId );
+		COLLADAFW::UniqueId createUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId );
 
 		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has
 		been passed to this method before, the same COLLADAFW::UniqueId will be returned, if not,
@@ -143,7 +140,7 @@ namespace COLLADASaxFWL
 		@param url The url of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
-		const COLLADAFW::UniqueId& getUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId );
+		const COLLADAFW::UniqueId& createUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId );
 
 		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has
 		been passed to this method before, the same COLLADAFW::UniqueId will be returned, if not,
@@ -151,7 +148,7 @@ namespace COLLADASaxFWL
 		@param url The url of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
-		const COLLADAFW::UniqueId& getUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId );
+		const COLLADAFW::UniqueId& createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId );
 
 		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has
 		been passed to this method before, the same COLLADAFW::UniqueId will be returned,   if not, an 
@@ -160,14 +157,14 @@ namespace COLLADASaxFWL
 		@param isAbsolute If true, the url is assumed to be absolute, otherwise it will be made absolute 
 		using the current file urie.
 		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
-		const COLLADAFW::UniqueId& getUniqueIdFromUrl( const COLLADABU::URI& url, bool isAbsolute = false  );
+		const COLLADAFW::UniqueId& createUniqueIdFromUrl( const COLLADABU::URI& url, bool isAbsolute = false  );
 
 		/** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new
 		COLLADAFW::UniqueId will be created and returned. Use this member for collada elements that
 		do not have an id.
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
-		COLLADAFW::UniqueId getUniqueId(COLLADAFW::ClassId classId);
+		COLLADAFW::UniqueId createUniqueId(COLLADAFW::ClassId classId);
 
 		/** Returns the GeometryMaterialIdInfo object of the geometry with @a uniqueId. If this method has
 		not been called before with the same uniqueId, an empty GeometryMaterialIdInfo is created, added to
@@ -296,7 +293,8 @@ namespace COLLADASaxFWL
 		}
 
 
-		virtual bool begin__technique( const technique__AttributeData& attributeData );
+        /** Starts loading a extra tag. */
+        virtual bool begin__technique( const technique__AttributeData& attributeData );
 
 		virtual bool end__technique();
 
@@ -305,15 +303,6 @@ namespace COLLADASaxFWL
 		/** Deletes the part loader mPartLoader, if it is not needed anymore. Always call this method,
 		when creating a new FilePartLoader and switching to it.*/
 		void deleteFilePartLoader();
-
-
-	public:
-
-        /** Constructor. */
-		IFilePartLoader();
-
-        /** Destructor. */
-		virtual ~IFilePartLoader();
 
 	private:
 

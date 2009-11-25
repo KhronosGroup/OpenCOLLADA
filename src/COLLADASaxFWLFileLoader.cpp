@@ -51,8 +51,9 @@ namespace COLLADASaxFWL
 							 const COLLADABU::URI& fileURI, 
 							 SaxParserErrorHandler* saxParserErrorHandler, 
 							 int objectFlags,
-							 int& parsedObjectFlags)
-         : DocumentProcessor( colladaLoader, saxParserErrorHandler, objectFlags, parsedObjectFlags)
+							 int& parsedObjectFlags, 
+                             const ExtraDataCallbackHandlerList& extraDataCallbackHandlerList )
+         : DocumentProcessor( colladaLoader, saxParserErrorHandler, objectFlags, parsedObjectFlags )
 		 , mFileURI( fileURI )
          , mParsingStatus( PARSING_NOT_STARTED )
 		 , mSaxParserErrorHandler(saxParserErrorHandler)
@@ -61,7 +62,7 @@ namespace COLLADASaxFWL
          , mXmlSaxParser( 0 )
 		 , mVersionParser(0)
 	{
-
+        getExtraDataElementHandler ().setExtraDataCallbackHandlerList ( extraDataCallbackHandlerList );
 	}
 
 	//-----------------------------

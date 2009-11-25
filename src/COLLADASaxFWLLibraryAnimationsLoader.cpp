@@ -20,6 +20,7 @@
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWTypes.h"
+#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -290,6 +291,23 @@ namespace COLLADASaxFWL
 	{
 	}
 
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryAnimationsLoader::getExtraData ()
+    {
+        return mCurrentAnimationCurve;
+    }
+
+    //------------------------------
+    const char* LibraryAnimationsLoader::getSecondKey ()
+    {
+        return COLLADAFW::ExtraKeys::ANIMATION;
+    }
+
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryAnimationsLoader::getUniqueId ()
+    {
+        return mCurrentAnimationCurve->getUniqueId ();
+    }
 
 	//------------------------------
 	AnimationInfo* LibraryAnimationsLoader::getAnimationInfoBySamplerId( const String& samplerId )
@@ -304,7 +322,6 @@ namespace COLLADASaxFWL
 			return &(it->second);
 		}
 	}
-
 
 	//------------------------------
 	bool LibraryAnimationsLoader::end__library_animations()
@@ -325,7 +342,6 @@ namespace COLLADASaxFWL
 	{
 		return endSource();
 	}
-
 
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__animation( const animation__AttributeData& attributeData )
@@ -352,7 +368,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__sampler( const sampler__AttributeData& attributeData )
 	{
-		mCurrentAnimationCurve = FW_NEW COLLADAFW::AnimationCurve(getUniqueIdFromId(attributeData.id, COLLADAFW::Animation::ID()));
+		mCurrentAnimationCurve = FW_NEW COLLADAFW::AnimationCurve(createUniqueIdFromId(attributeData.id, COLLADAFW::Animation::ID()));
 
 		mCurrentAnimationCurve->setName ( mName );
         mCurrentAnimationCurve->setOriginalId ( mOriginalId );
@@ -711,11 +727,5 @@ namespace COLLADASaxFWL
 		}
 		return true;
 	}
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryAnimationsLoader::getExtraData ()
-    {
-        return mCurrentAnimationCurve;
-    }
 
 } // namespace COLLADASaxFWL

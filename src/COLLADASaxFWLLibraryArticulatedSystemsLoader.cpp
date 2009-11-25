@@ -50,6 +50,13 @@ namespace COLLADASaxFWL
 		}
 	}
 
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryArticulatedSystemsLoader::getUniqueId ()
+    {
+        // TODO No uniqueId!
+        return COLLADAFW::UniqueId::INVALID;
+    }
+
 	//------------------------------
 	COLLADAFW::ExtraData* LibraryArticulatedSystemsLoader::getExtraData()
 	{

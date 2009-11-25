@@ -115,6 +115,12 @@ namespace COLLADASaxFWL
         /** Returns the ExtraData object, that should be used to store the extra data. */
         virtual COLLADAFW::ExtraData* getExtraData();
 
+        /** Returns the second part of the key.*/
+        virtual const char* getSecondKey();
+
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
+
 		/** Write the indices of the v element into the framework.*/
 		bool writeVIndices ( const sint64* data, size_t length );
 

@@ -13,6 +13,8 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLIParserImpl15.h"
+#include "COLLADASaxFWLExtraDataLoader.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -21,14 +23,20 @@ namespace COLLADASaxFWL
     /**
     * Inherits all generated public parsers and delegates calls to actual implementations.
     */
-    class RootParser15 : public IParserImpl15
+    class RootParser15 : public IParserImpl15, public ExtraDataLoader
     {
     private:
+
         /** FileLoader which does actual work. */
         FileLoader* mFileLoader;
 
     public:
+
         RootParser15( FileLoader* fileLoader );
+
+        /** FileLoader which does actual work. */
+        FileLoader* getFileLoader () { return mFileLoader; }
+        const FileLoader* getFileLoader () const { return mFileLoader; }
 
         /** Informs about the end of reading the COLLADA file. */
         virtual bool end__COLLADA();
@@ -80,6 +88,9 @@ namespace COLLADASaxFWL
 
 		/** Starts loading a library articulated systems.*/
 		virtual bool begin__library_articulated_systems( const COLLADASaxFWL15::library_articulated_systems__AttributeData& attributeData );
+
+        /** Starts loading an extra tag. */
+        virtual bool begin__technique____technique_type( const COLLADASaxFWL15::technique____technique_type__AttributeData& attributeData );
 
     private:
         /** Disable default c-ctor and assignment op. */

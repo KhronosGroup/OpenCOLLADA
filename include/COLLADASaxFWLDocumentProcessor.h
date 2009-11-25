@@ -18,6 +18,8 @@
 #include "COLLADASaxFWLSidAddress.h"
 #include "COLLADASaxFWLSidTreeNode.h"
 #include "COLLADASaxFWLLoader.h"
+#include "COLLADASaxFWLExtraDataElementHandler.h"
+
 
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWSkinController.h"
@@ -94,8 +96,8 @@ namespace COLLADASaxFWL
 		will be deleted by the FileLoader.*/
 		Loader::UniqueIdAnimationListMap& mUniqueIdAnimationListMap;
 
-		/** An unknown element handler that stores the unknown elements as raw xml data.*/
-		GeneratedSaxParser::RawUnknownElementHandler mRawUnknownElementHandler;
+        /** The handler to handle the extra data elements. */
+        ExtraDataElementHandler mExtraDataElementHandler;
 
 		/** A combination of ObjectFlags, indicating which objects should be parsed during the 
 		parse process.*/
@@ -133,7 +135,7 @@ namespace COLLADASaxFWL
 		DocumentProcessor ( Loader* colladaLoader, 
 			                SaxParserErrorHandler* saxParserErrorHandler, 
 			                int objectFlags,
-			                int& /*[in,out]*/ parsedObjectFlags);
+			                int& /*[in,out]*/ parsedObjectFlags );
 
         /** Destructor. */
 		virtual ~DocumentProcessor();
@@ -144,8 +146,8 @@ namespace COLLADASaxFWL
 		/** Returns error handler for xml parser. */
 		SaxParserErrorHandler* getErrorHandler() {return mSaxParserErrorHandler;}
 
-		/** Returns the unknown element handler that stores the unknown elements as raw xml data.*/
-		GeneratedSaxParser::RawUnknownElementHandler& getRawUnknownElementHandler() { return  mRawUnknownElementHandler; }
+        /** The handler to handle the extra data elements. */
+        ExtraDataElementHandler& getExtraDataElementHandler () { return mExtraDataElementHandler; }
 
 		/** A combination of ObjectFlags, indicating which objects should be parsed during the 
 		parse process.*/

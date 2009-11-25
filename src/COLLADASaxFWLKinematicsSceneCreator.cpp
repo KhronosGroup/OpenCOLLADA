@@ -114,7 +114,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::KinematicsModel* KinematicsSceneCreator::createFWKinematicsModel(KinematicsModel* kinematicsModel)
 	{
-		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->getUniqueIdFromId( kinematicsModel->getId().c_str(), COLLADAFW::KinematicsModel::ID());
+		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueIdFromId( kinematicsModel->getId().c_str(), COLLADAFW::KinematicsModel::ID());
 		COLLADAFW::KinematicsModel* fwKinematicsModel = FW_NEW COLLADAFW::KinematicsModel(uniqueId);
 
 		fwKinematicsModel-> appendExtraData(*kinematicsModel);
@@ -257,7 +257,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::KinematicsController* KinematicsSceneCreator::createFWKinematicsController(KinematicsController* kinematicsController)
 	{
-		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->getUniqueIdFromId( kinematicsController->getId().c_str(), COLLADAFW::KinematicsModel::ID());
+		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueIdFromId( kinematicsController->getId().c_str(), COLLADAFW::KinematicsModel::ID());
 		COLLADAFW::KinematicsController* fwKinematicsController = FW_NEW COLLADAFW::KinematicsController(uniqueId);
 
 		fwKinematicsController->appendExtraData(*kinematicsController);
@@ -368,7 +368,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::UniqueId KinematicsSceneCreator::processInstanceKinematicsModel(const KinematicsInstanceKinematicsModel& instanceKinematicsModel)
 	{
-		COLLADAFW::UniqueId kinematicsModelUniqueId =  mDocumentProcessor->getUniqueIdFromUrl( instanceKinematicsModel.getUrl() );
+		COLLADAFW::UniqueId kinematicsModelUniqueId =  mDocumentProcessor->createUniqueIdFromUrl( instanceKinematicsModel.getUrl() );
 		if ( !kinematicsModelUniqueId.isValid() )
 		{
 			return COLLADAFW::UniqueId::INVALID;

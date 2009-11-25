@@ -14,6 +14,7 @@
 
 #include "COLLADAFWImage.h"
 #include "COLLADAFWIWriter.h"
+#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -32,6 +33,24 @@ namespace COLLADASaxFWL
 	{
 	}
 
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryImagesLoader::getExtraData ()
+    {
+        return mCurrentImage;
+    }
+
+    //------------------------------
+    const char* LibraryImagesLoader::getSecondKey()
+    {
+        return COLLADAFW::ExtraKeys::IMAGE;
+    }
+
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryImagesLoader::getUniqueId ()
+    {
+        return mCurrentImage->getUniqueId ();
+    }
+
 	//------------------------------
 	bool LibraryImagesLoader::end__library_images()
 	{
@@ -43,7 +62,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::begin__image( const image__AttributeData& attributeData )
 	{
-		mCurrentImage = FW_NEW COLLADAFW::Image( getUniqueIdFromId( attributeData.id, COLLADAFW::Image::ID()) );
+		mCurrentImage = FW_NEW COLLADAFW::Image( createUniqueIdFromId( attributeData.id, COLLADAFW::Image::ID()) );
 
 		if ( attributeData.name )
 			mCurrentImage->setName( (const char*) attributeData.name );
@@ -112,11 +131,5 @@ namespace COLLADASaxFWL
 		//dataArray.appendValues( (char *)data, length );
 		return true;
 	}
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryImagesLoader::getExtraData ()
-    {
-        return mCurrentImage;
-    }
 
 } // namespace COLLADASaxFWL

@@ -38,7 +38,7 @@ namespace COLLADASaxFWL
     //------------------------------
 	bool LibraryMaterialsLoader::begin__material( const material__AttributeData& attributeData )
 	{
-		mCurrentMaterial = FW_NEW COLLADAFW::Material(getUniqueIdFromId(attributeData.id, COLLADAFW::Material::ID()));
+		mCurrentMaterial = FW_NEW COLLADAFW::Material(createUniqueIdFromId(attributeData.id, COLLADAFW::Material::ID()));
 		
         if ( attributeData.name )
 			mCurrentMaterial->setName ( (const char*)attributeData.name );
@@ -69,7 +69,7 @@ namespace COLLADASaxFWL
 	bool LibraryMaterialsLoader::begin__instance_effect( const instance_effect__AttributeData& attributeData )
 	{
         mInInstanceEffect = true;
-		mCurrentMaterial->setInstantiatedEffect(getUniqueIdFromUrl(attributeData.url, COLLADAFW::Effect::ID()));
+		mCurrentMaterial->setInstantiatedEffect(createUniqueIdFromUrl(attributeData.url, COLLADAFW::Effect::ID()));
 		return true;
 	}
 
@@ -102,6 +102,12 @@ namespace COLLADASaxFWL
     COLLADAFW::ExtraData* LibraryMaterialsLoader::getExtraData ()
     {
         return mCurrentMaterial;
+    }
+
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryMaterialsLoader::getUniqueId ()
+    {
+        return mCurrentMaterial->getUniqueId ();
     }
 
 } // namespace COLLADASaxFWL
