@@ -30,8 +30,6 @@
 #include "COLLADAFWEffect.h"
 #include "COLLADAFWEffectCommon.h"
 #include "COLLADAFWException.h"
-#include "COLLADAFWExtraData.h"
-#include "COLLADAFWExtraKeys.h"
 #include "COLLADAFWFileInfo.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
 #include "COLLADAFWFloatOrParam.h"

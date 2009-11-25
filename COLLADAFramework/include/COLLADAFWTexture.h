@@ -45,7 +45,7 @@ namespace COLLADAFW
         /** Sets the unique id of the object.*/
         void setUniqueId ( const UniqueId& uniqueId )
         { 
-            ObjectTemplate::setUniqueId ( uniqueId );
+            ObjectTemplate<COLLADA_TYPE::TEXTURE>::setUniqueId ( uniqueId );
         }
 
 		/** 

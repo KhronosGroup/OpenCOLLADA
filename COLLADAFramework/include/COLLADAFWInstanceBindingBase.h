@@ -35,7 +35,7 @@ namespace COLLADAFW
         UniqueId @a instanciatedGeometryId.
         @param instanceGeometry The UniqueId of the geometry instantiated.*/ 
         InstanceBindingBase ( const UniqueId& uniqueId, UniqueId instanciatedObjectId ) 
-            : InstanceBase ( uniqueId, instanciatedObjectId )
+            : InstanceBase<classId> ( uniqueId, instanciatedObjectId )
         {}
 
         /** Destructor. */
@@ -54,7 +54,7 @@ namespace COLLADAFW
 
         /** Default copy constructor. */
 		InstanceBindingBase( const InstanceBindingBase& pre )
-            : InstanceBase ( pre )
+            : InstanceBase<classId> ( pre )
             , mMaterialBindings ()
         {
             pre.mMaterialBindings.cloneArray ( mMaterialBindings );

@@ -31,9 +31,17 @@
 #include "MayaDMGroupId.h"
 
 #include <vector>
-#ifndef __GNUC__
+
+#ifdef __GNUC__
+#include <ext/hash_map>
+#else
 #include <hash_map>
 #endif
+
+namespace stdext
+{
+    using namespace __gnu_cxx;
+}
 
 namespace DAE2MA
 {
@@ -51,12 +59,7 @@ namespace DAE2MA
         typedef std::vector<COLLADAFW::Edge> EdgeList;
 
         /** The map for searching edge indices. */
-        //typedef std::map<COLLADAFW::Edge,size_t> EdgeMap;
-#ifdef COLLADABU_OS_WIN
         typedef stdext::hash_map<COLLADAFW::Edge,size_t> EdgeMap;
-#else
-        typedef std::map<COLLADAFW::Edge,size_t> EdgeMap;
-#endif
         
     public:
 
