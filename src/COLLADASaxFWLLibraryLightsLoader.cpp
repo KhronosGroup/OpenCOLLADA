@@ -16,7 +16,6 @@
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWLight.h"
 #include "COLLADAFWColor.h"
-#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -33,18 +32,6 @@ namespace COLLADASaxFWL
 	LibraryLightsLoader::~LibraryLightsLoader()
 	{
 	}
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryLightsLoader::getExtraData ()
-    {
-        return mCurrentLight;
-    }
-
-    //------------------------------
-    const char* LibraryLightsLoader::getSecondKey ()
-    {
-        return COLLADAFW::ExtraKeys::LIGHT;
-    }
 
     //------------------------------
     const COLLADAFW::UniqueId& LibraryLightsLoader::getUniqueId ()

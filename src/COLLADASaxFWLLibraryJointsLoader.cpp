@@ -26,14 +26,18 @@ namespace COLLADASaxFWL
 	{
 	}
 
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryJointsLoader::getUniqueId ()
+    {
+        return mJointsLoader.getUniqueId ();
+    }
 
-	//------------------------------
+    //------------------------------
 	bool LibraryJointsLoader::end__library_joints()
 	{
 		moveUpInSidTree();
 		finish();
 		return true;
 	}
-
 
 } // namespace COLLADASaxFWL

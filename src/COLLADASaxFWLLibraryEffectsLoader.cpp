@@ -15,7 +15,6 @@
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWEffect.h"
 #include "COLLADAFWImage.h"
-#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -868,67 +867,6 @@ namespace COLLADASaxFWL
         }
 
 		return true;
-    }
-
-    //------------------------------
-    const char* LibraryEffectsLoader::getSecondKey ()
-    {
-        switch ( mCurrentProfile )
-        {
-        case PROFILE_COMMON:
-            {
-                if ( mInSurface )
-                {
-                    // Build a path like "COLLADA/surface/0" where the last element is the
-                    // physical index of the current surface (starting at zero).
-                    mSecondKey = COLLADAFW::ExtraKeys::SURFACE;
-                    mSecondKey.append ( COLLADAFW::ExtraKeys::KEYSEPARATOR );
-                    mSecondKey.append ( COLLADABU::Utils::toString ( mSurfaceIndex ) );
-                    return mSecondKey.c_str (); 
-                }
-                if ( mInSampler2D )
-                {
-                    // Build a path like "COLLADA/sampler2d/0" where the last element is the
-                    // physical index of the current sampler (starting at zero).
-                    mSecondKey = COLLADAFW::ExtraKeys::SAMPLER2D;
-                    mSecondKey.append ( COLLADAFW::ExtraKeys::KEYSEPARATOR );
-                    mSecondKey.append ( COLLADABU::Utils::toString ( mSurfaceIndex ) );
-                    return mSecondKey.c_str (); 
-                }
-                if ( mInTexture )
-                {
-                    // Build a path like "COLLADA/texture/0" where the last element is the
-                    // ShaderParameterType index of the current texture (starting at zero).
-                    mSecondKey = COLLADAFW::ExtraKeys::TEXTURE;
-                    mSecondKey.append ( COLLADAFW::ExtraKeys::KEYSEPARATOR );
-                    mSecondKey.append ( COLLADABU::Utils::toString ( mCurrentShaderParameterType ) );
-                    return mSecondKey.c_str (); 
-                }
-                else if ( mInProfileCommonTechnique )
-                    return COLLADAFW::ExtraKeys::TECHNIQUE;
-                else
-                    return COLLADAFW::ExtraKeys::PROFILE_COMMON;
-            }
-            break;
-        case PROFILE_CG:
-            return COLLADAFW::ExtraKeys::PROFILE_CG; break;
-        case PROFILE_GLSL:
-            return COLLADAFW::ExtraKeys::PROFILE_GLSL; break;
-        case PROFILE_GLES:
-            return COLLADAFW::ExtraKeys::PROFILE_GLES; break;
-        case PROFILE_NONE:
-            return COLLADAFW::ExtraKeys::EFFECT; break;
-        default:
-            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_SUPPORTED, "Profile not defined!" );
-            break;
-        }
-        return 0;
-    }
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryEffectsLoader::getExtraData ()
-    {
-        return mCurrentEffect;
     }
 
     //------------------------------

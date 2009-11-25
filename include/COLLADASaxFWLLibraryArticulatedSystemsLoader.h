@@ -44,9 +44,6 @@ namespace COLLADASaxFWL
 		/** The name of the current articulated system.*/
 		String mCurrentArticulatedName;
 
-		/** The extra data of the current articulated system.*/
-		COLLADAFW::ExtraData* mCurrentArticulatedSystemExtra;
-
 		/** The kinematics  currently being filled.*/
 		KinematicsController* mCurrentKinematicsController;
 
@@ -75,12 +72,6 @@ namespace COLLADASaxFWL
 
         /** Destructor. */
 		virtual ~LibraryArticulatedSystemsLoader();
-
-		/** Returns the second part of the key, either kinematics or articulated.*/
-		virtual const char* getSecondKey();
-
-		/** Returns the ExtraData object, that should be used to store the extra data. The current kinematics or articulated extra object.*/
-		virtual COLLADAFW::ExtraData* getExtraData();
 
         /** Returns the unique id of the current parsed object. */
         virtual const COLLADAFW::UniqueId& getUniqueId();

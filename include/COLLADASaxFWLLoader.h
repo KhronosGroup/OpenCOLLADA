@@ -22,6 +22,7 @@
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWSkinController.h"
+#include "COLLADAFWInstanceController.h"
 
 #include "COLLADABUHashFunctions.h"
 #include "COLLADABUURI.h"
@@ -40,8 +41,6 @@ namespace COLLADAFW
 	class Formula;
 	class AnimationList;
 	class MorphController;
-    class InstanceGeometry;
-    typedef InstanceGeometry InstanceController;
 }
 
 

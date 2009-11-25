@@ -22,7 +22,7 @@ namespace COLLADASaxFWL
     //------------------------------
 	SceneLoader::SceneLoader ( IFilePartLoader* callingFilePartLoader )
         : FilePartLoader(callingFilePartLoader)
-        , mCurrentScene ( new COLLADAFW::Scene () )
+        , mCurrentScene ( new COLLADAFW::Scene (createUniqueId(COLLADAFW::Scene::ID())) )
 	{
 	}
 	
@@ -32,10 +32,17 @@ namespace COLLADASaxFWL
 	}
 
     //------------------------------
+    const COLLADAFW::UniqueId& SceneLoader::getUniqueId ()
+    {
+        return mCurrentScene->getUniqueId ();
+    }
+
+    //------------------------------
     bool SceneLoader::begin__instance_visual_scene ( const instance_visual_scene__AttributeData& attributeData )
     {
-        COLLADAFW::UniqueId visualSceneUniqueId = createUniqueIdFromUrl( attributeData.url, COLLADAFW::VisualScene::ID() );
-        mCurrentScene->setInstanceVisualScene ( FW_NEW COLLADAFW::InstanceVisualScene(visualSceneUniqueId) );
+        COLLADAFW::UniqueId visualSceneUniqueId = createUniqueIdFromUrl ( attributeData.url, COLLADAFW::VisualScene::ID() );
+        COLLADAFW::UniqueId instanceVisualSceneUniqueId = createUniqueId ( COLLADAFW::InstanceVisualScene::ID() );
+        mCurrentScene->setInstanceVisualScene ( FW_NEW COLLADAFW::InstanceVisualScene(instanceVisualSceneUniqueId, visualSceneUniqueId) );
 
         return true;
     }
@@ -58,7 +65,5 @@ namespace COLLADASaxFWL
         finish();
         return success;
     }
-
-
 
 } // namespace COLLADASaxFWL

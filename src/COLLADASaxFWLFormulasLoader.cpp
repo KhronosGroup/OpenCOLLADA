@@ -49,15 +49,11 @@ namespace COLLADASaxFWL
 	{
 	}
 
-	//-----------------------------------------------------------------
-	COLLADAFW::ExtraData* FormulasLoader::getExtraData()
-	{
-		if ( mCurrentFormula )
-		{
-			return mCurrentFormula;
-		}
-		return 0;
-	}
+    //-----------------------------------------------------------------
+    const COLLADAFW::UniqueId& FormulasLoader::getUniqueId ()
+    {
+        return mCurrentFormula->getUniqueId ();
+    }
 
 	//-----------------------------------------------------------------
 	bool FormulasLoader::begin__formula( const formula__AttributeData& attributeData )
@@ -1318,6 +1314,5 @@ namespace COLLADASaxFWL
 		mOperatorStack.push( ARCTANH );
 		return true;
 	}
-
 
 } // namespace COLLADASaxFWL

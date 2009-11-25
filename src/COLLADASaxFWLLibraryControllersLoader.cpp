@@ -18,7 +18,6 @@
 #include "COLLADAFWGeometry.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWValidate.h"
-#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -32,38 +31,6 @@ namespace COLLADASaxFWL
 		SEMANTIC_MORPH_TARGET,
 		SEMANTIC_MORPH_WEIGHT
 	};
-
-	//------------------------------
-	COLLADAFW::ExtraData* LibraryControllersLoader::getExtraData()
-	{
-		switch ( mCurrentControllerType )
-		{
-		case SKIN_CONTROLLER:
-			return mCurrentSkinControllerData; 
-		case MORPH_CONTROLLER:
-			return mCurrentMorphController; 
-		default:
-			return 0;
-		}
-        return 0;
-	}
-
-    //------------------------------
-    const char* LibraryControllersLoader::getSecondKey()
-    {
-        switch ( mCurrentControllerType )
-        {
-        case SKIN_CONTROLLER:
-            // extra data in: controller, skin, joints, vertex_weights
-            return COLLADAFW::ExtraKeys::SKIN_CONTROLLER;
-        case MORPH_CONTROLLER:
-            // extra data in: controller, morph, targets
-            return COLLADAFW::ExtraKeys::MORPH_CONTROLLER;
-        default:
-            return 0;
-        }
-        return 0;
-    }
 
     //------------------------------
     const COLLADAFW::UniqueId& LibraryControllersLoader::getUniqueId ()

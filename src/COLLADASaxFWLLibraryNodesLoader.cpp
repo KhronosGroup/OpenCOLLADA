@@ -32,7 +32,13 @@ namespace COLLADASaxFWL
 	{
 	}
 
-	//------------------------------
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryNodesLoader::getUniqueId ()
+    {
+        return mNodeStack.top ()->getUniqueId ();
+    }
+
+    //------------------------------
 	void LibraryNodesLoader::handleRootNode( COLLADAFW::Node* rootNode )
 	{
 		mLibraryNodes->getNodes().append(rootNode);
@@ -58,11 +64,5 @@ namespace COLLADASaxFWL
 		finish();
 		return true;
 	}
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryNodesLoader::getExtraData ()
-    {
-        return mLibraryNodes;
-    }
 
 } // namespace COLLADASaxFWL

@@ -16,7 +16,6 @@
 #include "COLLADASaxFWLXmlTypes.h"
 
 #include "COLLADAFWJointPrimitive.h"
-#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
@@ -53,8 +52,9 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~JointsLoader();
 
-		/** Returns the ExtraData object, that should be used to store the extra data. The current joint object.*/
-		virtual COLLADAFW::ExtraData* getExtraData();
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
+
 
 		bool beginJointPrimitive( COLLADAFW::JointPrimitive::Type jointPrimitiveType, const char * sid);
 

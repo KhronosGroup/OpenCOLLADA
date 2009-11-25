@@ -19,7 +19,6 @@
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWPolygons.h"
 #include "COLLADAFWIWriter.h"
-#include "COLLADAFWExtraKeys.h"
 
 #include <fstream>
 
@@ -67,59 +66,23 @@ namespace COLLADASaxFWL
 	}
 
     //------------------------------
-    COLLADAFW::ExtraData* MeshLoader::getExtraData ()
-    {
-        switch ( mCurrentPrimitiveType )
-        {
-        case NONE:
-            return mMesh; break;
-        case TRIANGLES:
-        case TRISTRIPS:
-        case TRIFANS:
-        case POLYGONS:
-        case POLYGONS_HOLE:
-        case POLYLIST:
-            return mCurrentMeshPrimitive; break;
-        }
-        return 0;
-    }
-
-    //------------------------------
-    const char* MeshLoader::getSecondKey ()
-    {
-        switch ( mCurrentPrimitiveType )
-        {
-        case NONE:
-            {
-                if ( mInVertices )
-                    return COLLADAFW::ExtraKeys::VERTICES; 
-                else return COLLADAFW::ExtraKeys::MESH; 
-            }
-            break;
-        case TRIANGLES:
-        case TRISTRIPS:
-        case TRIFANS:
-        case POLYGONS:
-        case POLYGONS_HOLE:
-        case POLYLIST:
-            {
-                // Build a path like "../primitive_element/0" where the last element is the
-                // physical index of the current primitive element (starting at zero).
-                size_t primitiveIndex = mMesh->getMeshPrimitives ().getCount ();
-                mSecondKey = COLLADAFW::ExtraKeys::PRIMITIVE_ELEMENT;
-                mSecondKey.append ( COLLADAFW::ExtraKeys::KEYSEPARATOR );
-                mSecondKey.append ( COLLADABU::Utils::toString ( primitiveIndex ) );
-                return mSecondKey.c_str (); 
-            }
-            break;
-        }
-        return 0;
-    }
-
-    //------------------------------
     const COLLADAFW::UniqueId& MeshLoader::getUniqueId ()
     {
-        return mMesh->getUniqueId ();
+        switch ( mCurrentPrimitiveType )
+        {
+        case TRIANGLES:
+        case TRISTRIPS:
+        case TRIFANS:
+        case POLYGONS:
+        case POLYGONS_HOLE:
+        case POLYLIST: 
+            return mCurrentMeshPrimitive->getUniqueId (); break;
+        default:
+            return mMesh->getUniqueId (); break;
+        }
+
+        // Should never be here
+        return COLLADAFW::UniqueId::INVALID;
     }
 
     //------------------------------

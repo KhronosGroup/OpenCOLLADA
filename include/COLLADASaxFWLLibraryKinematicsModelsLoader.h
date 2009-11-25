@@ -59,12 +59,6 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~LibraryKinematicsModelsLoader();
 
-		/** Returns the second part of the key, either instance joint or null.*/
-		virtual const char* getSecondKey();
-
-		/** Returns the ExtraData object, that should be used to store the extra data. The current kinematics model object.*/
-		virtual COLLADAFW::ExtraData* getExtraData();
-
         /** Returns the unique id of the current parsed object. */
         virtual const COLLADAFW::UniqueId& getUniqueId();
 

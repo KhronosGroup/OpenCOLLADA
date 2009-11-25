@@ -51,8 +51,9 @@ namespace COLLADASaxFWL
 
     public:
 
-        /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData();
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
+
 
 		/** Sax callback function for the beginning of nodes, as child of a library nodes.*/
 		virtual bool begin__node( const node__AttributeData& attributeData );

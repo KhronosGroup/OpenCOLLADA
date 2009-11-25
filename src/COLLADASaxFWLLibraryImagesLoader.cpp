@@ -14,7 +14,6 @@
 
 #include "COLLADAFWImage.h"
 #include "COLLADAFWIWriter.h"
-#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -32,18 +31,6 @@ namespace COLLADASaxFWL
 	LibraryImagesLoader::~LibraryImagesLoader()
 	{
 	}
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryImagesLoader::getExtraData ()
-    {
-        return mCurrentImage;
-    }
-
-    //------------------------------
-    const char* LibraryImagesLoader::getSecondKey()
-    {
-        return COLLADAFW::ExtraKeys::IMAGE;
-    }
 
     //------------------------------
     const COLLADAFW::UniqueId& LibraryImagesLoader::getUniqueId ()

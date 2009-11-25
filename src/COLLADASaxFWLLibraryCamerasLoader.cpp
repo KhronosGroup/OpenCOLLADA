@@ -15,7 +15,7 @@
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWCamera.h"
-#include "COLLADAFWExtraKeys.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -43,25 +43,6 @@ namespace COLLADASaxFWL
 		mCurrentCameraHasX = false;
 		mCurrentCameraHasY = false;
 		mCurrentCameraHasAspectRatio = false;
-	}
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryCamerasLoader::getExtraData ()
-    {
-        return mCurrentCamera;
-    }
-
-	//------------------------------
-	const char* LibraryCamerasLoader::getSecondKey()
-	{
-		if ( mInOptics )
-		{
-			return COLLADAFW::ExtraKeys::OPTICS;
-		}
-		else
-		{
-			return COLLADAFW::ExtraKeys::CAMERA;
-		}
 	}
 
     //------------------------------

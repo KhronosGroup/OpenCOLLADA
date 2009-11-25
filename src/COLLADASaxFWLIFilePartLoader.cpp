@@ -18,8 +18,6 @@
 #include "COLLADASaxFWLIParserImpl15.h"
 #include "COLLADASaxFWLIExtraDataCallbackHandler.h"
 
-#include "COLLADAFWExtraKeys.h"
-
 
 namespace COLLADASaxFWL
 {

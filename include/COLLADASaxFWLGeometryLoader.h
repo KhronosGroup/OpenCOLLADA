@@ -17,8 +17,6 @@
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLFilePartLoader.h"
 
-#include "COLLADAFWExtraKeys.h"
-
 
 namespace COLLADASaxFWL
 {
@@ -49,12 +47,6 @@ namespace COLLADASaxFWL
 
         /** Destructor. */
 		virtual ~GeometryLoader();
-
-        /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData();
-
-        /** Returns the second part of the key. */
-        virtual const char* getSecondKey();
 
         /** Returns the unique id of the current parsed object. */
         virtual const COLLADAFW::UniqueId& getUniqueId();

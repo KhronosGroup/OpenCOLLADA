@@ -16,7 +16,6 @@
 #include "COLLADASaxFWLFilePartLoader.h"
 
 #include "COLLADAFWNode.h"
-#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
@@ -45,12 +44,6 @@ namespace COLLADASaxFWL
 
         /** Destructor. */
 		virtual ~VisualSceneLoader();
-
-        /** Returns the ExtraData object, that should be used to store the extra data. */
-        virtual COLLADAFW::ExtraData* getExtraData();
-
-        /** Returns the second part of the key.*/
-        virtual const char* getSecondKey();
 
         /** Returns the unique id of the current parsed object. */
         virtual const COLLADAFW::UniqueId& getUniqueId();
