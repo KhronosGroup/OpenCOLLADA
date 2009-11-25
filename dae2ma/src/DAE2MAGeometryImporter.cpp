@@ -459,8 +459,9 @@ namespace DAE2MA
         String meshName = mesh->getName ();
         if ( meshName.empty () ) meshName = GEOMETRY_NAME;
         meshName = DocumentImporter::frameworkNameToMayaName ( meshName );
-        String originalMayaId = getOriginalMayaId ( mesh->getExtraDataArray () );
-        if ( !originalMayaId.empty () ) meshName = originalMayaId;
+        // TODO
+//         String originalMayaId = getOriginalMayaId ( mesh->getExtraDataArray () );
+//         if ( !originalMayaId.empty () ) meshName = originalMayaId;
         meshName = generateUniqueDagNodeName ( meshName, mayaTransformNode );
 
         // Get the maya ascii file.
@@ -503,9 +504,9 @@ namespace DAE2MA
                 MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
             }
 
-            // Write all the extra datas of the mesh and the primitive elements into the maya file.
-            COLLADAFW::ExtraDataArray& meshExtraDataArray = getAllExtraData ( mesh );
-            setExtraData ( meshExtraDataArray );
+//             // TODO Write all the extra datas of the mesh and the primitive elements into the maya file.
+//             COLLADAFW::ExtraDataArray& meshExtraDataArray = getAllExtraData ( mesh );
+//             setExtraData ( meshExtraDataArray );
 
             if ( intermediateObject ) controllerMeshNode.setIntermediateObject ( intermediateObject );
 
@@ -563,9 +564,9 @@ namespace DAE2MA
                 MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
             }
 
-            // Write all the extra datas of the mesh and the primitive elements into the maya file.
-            COLLADAFW::ExtraDataArray& meshExtraDataArray = getAllExtraData ( mesh );
-            setExtraData ( meshExtraDataArray );
+//             // TODO Write all the extra datas of the mesh and the primitive elements into the maya file.
+//             COLLADAFW::ExtraDataArray& meshExtraDataArray = getAllExtraData ( mesh );
+//             setExtraData ( meshExtraDataArray );
         }
 
         // Writes the object groups for every mesh primitive and
@@ -620,25 +621,25 @@ namespace DAE2MA
         return true;
     }
 
-    // --------------------------------------------
-    COLLADAFW::ExtraDataArray& GeometryImporter::getAllExtraData ( COLLADAFW::Mesh* mesh )
-    {
-        // Add the attributes for all the extra tags (from the mesh the extra data of the 
-        // geometry, the mesh, and the vertices).
-        COLLADAFW::ExtraDataArray& meshExtraDataArray = mesh->getExtraDataArray ();
-
-        // Handle the mesh primitive elements.
-        const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
-        for ( size_t i=0; i<meshPrimitives.getCount (); ++i )
-        {
-            const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [i];
-            const COLLADAFW::ExtraDataArray& primitiveExtraDataArray = meshPrimitive->getExtraDataArray ();
-
-            meshExtraDataArray.appendValues ( primitiveExtraDataArray );
-        }
-
-        return meshExtraDataArray;
-    }
+//     // --------------------------------------------
+//     COLLADAFW::ExtraDataArray& GeometryImporter::getAllExtraData ( COLLADAFW::Mesh* mesh )
+//     {
+//         // Add the attributes for all the extra tags (from the mesh the extra data of the 
+//         // geometry, the mesh, and the vertices).
+//         COLLADAFW::ExtraDataArray& meshExtraDataArray = mesh->getExtraDataArray ();
+// 
+//         // Handle the mesh primitive elements.
+//         const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
+//         for ( size_t i=0; i<meshPrimitives.getCount (); ++i )
+//         {
+//             const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [i];
+//             const COLLADAFW::ExtraDataArray& primitiveExtraDataArray = meshPrimitive->getExtraDataArray ();
+// 
+//             meshExtraDataArray.appendValues ( primitiveExtraDataArray );
+//         }
+// 
+//         return meshExtraDataArray;
+//     }
 
     // --------------------------------------------
     void GeometryImporter::writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )

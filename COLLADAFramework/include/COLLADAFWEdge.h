@@ -12,6 +12,11 @@
 #define __COLLADAFW_EDGE_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include "COLLADABUPlatform.h"
+
+#if defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
+#	include <backward/hash_fun.h>
+#endif
 
 #include <assert.h>
 #include <climits>
@@ -116,5 +121,19 @@ namespace COLLADAFW
     };
 
 } // namespace COLLADAFW
+
+#if defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
+
+_GLIBCXX_BEGIN_NAMESPACE(__gnu_cxx)
+
+template<>
+struct hash<COLLADAFW::Edge>
+{
+    size_t operator()(const COLLADAFW::Edge& edge) const { return edge; }
+};
+
+_GLIBCXX_END_NAMESPACE
+
+#endif
 
 #endif // __COLLADAFW_EDGE_H__

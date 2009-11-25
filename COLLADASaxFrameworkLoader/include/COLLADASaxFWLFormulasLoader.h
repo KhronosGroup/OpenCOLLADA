@@ -156,8 +156,8 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~FormulasLoader();
 
-		/** Returns the ExtraData object, that should be used to store the extra data. The current formula object.*/
-		virtual COLLADAFW::ExtraData* getExtraData();
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
 
 		/** Creates a new formula.*/
 		virtual bool begin__formula( const formula__AttributeData& attributeData );

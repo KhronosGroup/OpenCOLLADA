@@ -15,7 +15,6 @@
 #include "COLLADAFWObject.h"
 #include "COLLADAFWPointerArray.h"
 #include "COLLADAFWFormulaNewParam.h"
-#include "COLLADAFWExtraData.h"
 
 #include <map>
 
@@ -36,7 +35,7 @@ namespace COLLADAFW
     /**
      * A mathematical formula description which uses MathML.
      */
-    class Formula : public ObjectTemplate < COLLADA_TYPE::FORMULA >, public ExtraData
+    class Formula : public ObjectTemplate < COLLADA_TYPE::FORMULA >
     {
 	public:
 		typedef std::map<MathML::AST::INode*, MathML::AST::INode*> ASTNodeASTNodeMap;

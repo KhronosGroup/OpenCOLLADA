@@ -15,7 +15,6 @@
 
 #include "COLLADAFWObject.h"
 #include "COLLADAFWColor.h"
-#include "COLLADAFWExtraData.h"
 
 #include "COLLADAFWEffectCommon.h"
 
@@ -42,7 +41,7 @@ namespace COLLADAFW
     <effect> scope provides a handy way to parameterize many profiles and techniques with a single
     parameter.
     */
-	class Effect : public ObjectTemplate<COLLADA_TYPE::EFFECT>, public ExtraData
+	class Effect : public ObjectTemplate<COLLADA_TYPE::EFFECT>
     {
 	private:
 	

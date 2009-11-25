@@ -15,7 +15,6 @@
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWMaterial.h"
 #include "COLLADAFWEffect.h"
-#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -87,22 +86,6 @@ namespace COLLADASaxFWL
 		finish();
 		return true;
 	}
-
-    //------------------------------
-    const char* LibraryMaterialsLoader::getSecondKey ()
-    {
-        if ( mInInstanceEffect )
-            return COLLADAFW::ExtraKeys::INSTANCE_EFFECT;
-        else 
-            return COLLADAFW::ExtraKeys::MATERIAL;
-        return 0;
-    }
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryMaterialsLoader::getExtraData ()
-    {
-        return mCurrentMaterial;
-    }
 
     //------------------------------
     const COLLADAFW::UniqueId& LibraryMaterialsLoader::getUniqueId ()

@@ -768,10 +768,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\GeneratedSaxParserRawUnknownElementHandler.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\GeneratedSaxParserSaxParser.cpp"
 				>
 			</File>
@@ -843,10 +839,6 @@
 			</File>
 			<File
 				RelativePath="..\include\GeneratedSaxParserPrerequisites.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\GeneratedSaxParserRawUnknownElementHandler.h"
 				>
 			</File>
 			<File

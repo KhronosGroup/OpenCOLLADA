@@ -31,21 +31,14 @@
 
 namespace COLLADASaxFWL
 {
-    const unsigned int NodeLoader::INSTANCE_CAMERA_BIT         = 1; //0x0000001
-    const unsigned int NodeLoader::INSTANCE_CONTROLLER_BIT     = 2; //0x0000010
-    const unsigned int NodeLoader::INSTANCE_GEOMETRY_BIT       = 4; //0x0000100
-    const unsigned int NodeLoader::INSTANCE_LIGHT_BIT          = 8; //0x0001000
-    const unsigned int NodeLoader::INSTANCE_NODE_BIT           = 16; //0x0010000
-    const unsigned int NodeLoader::BIND_MATERIAL_BIT           = 32; //0x0100000
-    const unsigned int NodeLoader::INSTANCE_MATERIAL_BIT       = 64; //0x1000000
 
-
+    //------------------------------
 	NodeLoader::NodeLoader(  )
-		: mCurrentInstanceWithMaterial(0)
+        : mCurrentInstanceGeometry (0)
+        , mCurrentInstanceController (0)
         , mCurrentMaterialInfo(0)
         , mCurrentMaterialBinding(0)
         , mCurrentInstanceControllerData(0)
-        , mParsingStatus (0)
 	{
 	}
 
@@ -119,9 +112,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::endInstanceWithMaterial()
 	{
-		FilePartLoader::copyStlContainerToArray( mCurrentMaterialBindings, mCurrentInstanceWithMaterial->getMaterialBindings());
-
-		mCurrentInstanceWithMaterial = 0;
 		mCurrentMaterialInfo = 0;
 		mCurrentMaterialBindings.clear();
 		return true;
@@ -251,15 +241,14 @@ namespace COLLADASaxFWL
     //------------------------------
 	bool NodeLoader::begin__instance_geometry( const instance_geometry__AttributeData& attributeData )
 	{
-        mParsingStatus |= INSTANCE_GEOMETRY_BIT;
-
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 
 		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getHandlingFilePartLoader()->createUniqueIdFromUrl( attributeData.url, COLLADAFW::Geometry::ID());
 		mCurrentMaterialInfo = &getHandlingFilePartLoader()->getMeshMaterialIdInfo(instantiatedGeometryUniqueId);
 
-		COLLADAFW::InstanceGeometry* instanceGeometry = new COLLADAFW::InstanceGeometry(instantiatedGeometryUniqueId);
-		mCurrentInstanceWithMaterial = instanceGeometry;
+        COLLADAFW::UniqueId& uniqueId = getHandlingFilePartLoader()->createUniqueId ( COLLADAFW::InstanceGeometry::ID() );
+		COLLADAFW::InstanceGeometry* instanceGeometry = FW_NEW COLLADAFW::InstanceGeometry ( uniqueId, instantiatedGeometryUniqueId );
+		mCurrentInstanceGeometry = instanceGeometry;
 		currentNode->getInstanceGeometries().append(instanceGeometry);
 
 		return true;
@@ -269,39 +258,36 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::end__instance_geometry()
 	{
-        mParsingStatus ^= INSTANCE_GEOMETRY_BIT;
+        FilePartLoader::copyStlContainerToArray( mCurrentMaterialBindings, mCurrentInstanceGeometry->getMaterialBindings());
+        mCurrentInstanceGeometry = 0;
+        endInstanceWithMaterial();
 
-		endInstanceWithMaterial();
-		return true;
+        return true;
 	}
 
     //------------------------------
     bool NodeLoader::begin__bind_material ()
     {
-        mParsingStatus |= BIND_MATERIAL_BIT;
         return true;
     }
 
     //------------------------------
     bool NodeLoader::end__bind_material ()
     {
-        mParsingStatus ^= BIND_MATERIAL_BIT;
         return true;
     }
 
 	//------------------------------
 	bool NodeLoader::begin__instance_material( const instance_material__AttributeData& attributeData )
 	{
-        mParsingStatus |= INSTANCE_MATERIAL_BIT;
+        if ( mCurrentInstanceGeometry || mCurrentInstanceController )
+        {
+            COLLADAFW::MaterialId materialId = attributeData.symbol ? mCurrentMaterialInfo->getMaterialId((const char*)attributeData.symbol) : 0;
+            mCurrentMaterialBinding = new COLLADAFW::MaterialBinding(materialId, getHandlingFilePartLoader()->createUniqueIdFromUrl(attributeData.target, COLLADAFW::Material::ID()));
 
-		if ( !mCurrentInstanceWithMaterial )
-			return true;
-
-		COLLADAFW::MaterialId materialId = attributeData.symbol ? mCurrentMaterialInfo->getMaterialId((const char*)attributeData.symbol) : 0;
-		mCurrentMaterialBinding = new COLLADAFW::InstanceGeometry::MaterialBinding(materialId, getHandlingFilePartLoader()->createUniqueIdFromUrl(attributeData.target, COLLADAFW::Material::ID()));
-
-        if ( attributeData.symbol )
-            mCurrentMaterialBinding->setName((const char*)attributeData.symbol);
+            if ( attributeData.symbol )
+                mCurrentMaterialBinding->setName((const char*)attributeData.symbol);
+        }
 
 		return true;
 	}
@@ -309,41 +295,39 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::end__instance_material()
 	{
-        mParsingStatus ^= INSTANCE_MATERIAL_BIT;
+        if ( mCurrentInstanceGeometry || mCurrentInstanceController )
+        {
+            FilePartLoader::copyStlContainerToArray( mCurrentTextureCoordinateBindings, mCurrentMaterialBinding->getTextureCoordinateBindingArray());
+            mCurrentMaterialBindings.insert(*mCurrentMaterialBinding);
+            delete mCurrentMaterialBinding;
+            mCurrentMaterialBinding = 0;
+            mCurrentTextureCoordinateBindings.clear();
+        }
 
-        if ( !mCurrentInstanceWithMaterial )
-			return true;
-
-		FilePartLoader::copyStlContainerToArray( mCurrentTextureCoordinateBindings, mCurrentMaterialBinding->getTextureCoordinateBindingArray());
-		mCurrentMaterialBindings.insert(*mCurrentMaterialBinding);
-		delete mCurrentMaterialBinding;
-		mCurrentMaterialBinding = 0;
-		mCurrentTextureCoordinateBindings.clear();
-		return true;
+        return true;
 	}
 
 	//------------------------------
 	bool NodeLoader::begin__bind_vertex_input( const bind_vertex_input__AttributeData& attributeData )
 	{
-		if ( !mCurrentInstanceWithMaterial )
-			return true;
-
-		COLLADAFW::InstanceGeometry::TextureCoordinateBinding texCoordinateBinding;
-		texCoordinateBinding.setIndex = (size_t)attributeData.input_set;
-		texCoordinateBinding.textureMapId = getHandlingFilePartLoader()->getTextureMapIdBySematic( attributeData.semantic );
-		mCurrentTextureCoordinateBindings.insert(texCoordinateBinding);
+        if ( mCurrentInstanceGeometry || mCurrentInstanceController )
+        {
+            COLLADAFW::TextureCoordinateBinding texCoordinateBinding;
+            texCoordinateBinding.setSetIndex ( (size_t)attributeData.input_set );
+            texCoordinateBinding.setTextureMapId ( getHandlingFilePartLoader()->getTextureMapIdBySematic( attributeData.semantic ) );
+            mCurrentTextureCoordinateBindings.insert(texCoordinateBinding);
+        }
 		return true;
 	}
 
 	//------------------------------
 	bool NodeLoader::begin__instance_node( const instance_node__AttributeData& attributeData )
 	{
-        mParsingStatus |= INSTANCE_NODE_BIT;
-
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 		COLLADAFW::UniqueId instantiatedNodeUniqueId = getHandlingFilePartLoader()->createUniqueIdFromUrl( attributeData.url, COLLADAFW::Node::ID() );
 
-		COLLADAFW::InstanceNode* instanceNode = FW_NEW COLLADAFW::InstanceNode(instantiatedNodeUniqueId);
+        COLLADAFW::UniqueId instanceNodeUniqueId = getHandlingFilePartLoader()->createUniqueId( COLLADAFW::InstanceNode::ID() );
+		COLLADAFW::InstanceNode* instanceNode = FW_NEW COLLADAFW::InstanceNode(instanceNodeUniqueId,instantiatedNodeUniqueId);
 		currentNode->getInstanceNodes().append(instanceNode);
 
 		return true;
@@ -352,20 +336,17 @@ namespace COLLADASaxFWL
     //------------------------------
     bool NodeLoader::end__instance_node ()
     {
-        mParsingStatus ^= INSTANCE_NODE_BIT;
-
         return true;
     }
     
     //------------------------------
 	bool NodeLoader::begin__instance_camera( const instance_camera__AttributeData& attributeData )
 	{
-        mParsingStatus |= INSTANCE_CAMERA_BIT;
-
         COLLADAFW::Node* currentNode = mNodeStack.top();
 		COLLADAFW::UniqueId instantiatedCameraUniqueId = getHandlingFilePartLoader()->createUniqueIdFromUrl( attributeData.url, COLLADAFW::Camera::ID() );
 
-		COLLADAFW::InstanceCamera* instanceCamera = FW_NEW COLLADAFW::InstanceCamera(instantiatedCameraUniqueId);
+        COLLADAFW::UniqueId instanceCameraUniqueId = getHandlingFilePartLoader()->createUniqueId( COLLADAFW::InstanceCamera::ID() );
+		COLLADAFW::InstanceCamera* instanceCamera = FW_NEW COLLADAFW::InstanceCamera(instanceCameraUniqueId, instantiatedCameraUniqueId);
 		currentNode->getInstanceCameras().append(instanceCamera);
 
 		return true;
@@ -374,20 +355,17 @@ namespace COLLADASaxFWL
     //------------------------------
     bool NodeLoader::end__instance_camera ()
     {
-        mParsingStatus ^= INSTANCE_CAMERA_BIT;
-
         return true;
     }
     
     //------------------------------
 	bool NodeLoader::begin__instance_light( const instance_light__AttributeData& attributeData )
 	{
-        mParsingStatus |= INSTANCE_LIGHT_BIT;
-
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 		COLLADAFW::UniqueId instantiatedLightUniqueId = getHandlingFilePartLoader()->createUniqueIdFromUrl( attributeData.url, COLLADAFW::Light::ID() );
 
-		COLLADAFW::InstanceLight* instanceLight = FW_NEW COLLADAFW::InstanceLight(instantiatedLightUniqueId);
+        COLLADAFW::UniqueId instanceLightUniqueId = getHandlingFilePartLoader()->createUniqueId( COLLADAFW::InstanceLight::ID() );
+		COLLADAFW::InstanceLight* instanceLight = FW_NEW COLLADAFW::InstanceLight(instanceLightUniqueId, instantiatedLightUniqueId);
 		currentNode->getInstanceLights().append(instanceLight);
 
 		return true;
@@ -396,22 +374,19 @@ namespace COLLADASaxFWL
     //------------------------------
     bool NodeLoader::end__instance_light ()
     {
-        mParsingStatus ^= INSTANCE_LIGHT_BIT;
-
         return true;
     }
 
 	//------------------------------
 	bool NodeLoader::begin__instance_controller( const instance_controller__AttributeData& attributeData )
 	{
-        mParsingStatus |= INSTANCE_CONTROLLER_BIT;
-
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 		COLLADAFW::UniqueId instantiatedControllerUniqueId = getHandlingFilePartLoader()->createUniqueIdFromUrl( attributeData.url, COLLADAFW::SkinControllerData::ID() );
 		mCurrentMaterialInfo = &getHandlingFilePartLoader()->getMeshMaterialIdInfo(instantiatedControllerUniqueId);
 
-		COLLADAFW::InstanceController* instanceController = FW_NEW COLLADAFW::InstanceController(instantiatedControllerUniqueId);
-		mCurrentInstanceWithMaterial = instanceController;
+        COLLADAFW::UniqueId& uniqueId = getHandlingFilePartLoader()->createUniqueId ( COLLADAFW::InstanceController::ID() );
+		COLLADAFW::InstanceController* instanceController = FW_NEW COLLADAFW::InstanceController( uniqueId, instantiatedControllerUniqueId);
+		mCurrentInstanceController = instanceController;
 		currentNode->getInstanceControllers().append(instanceController);
 
 		Loader::InstanceControllerData instanceControllerData;
@@ -426,10 +401,11 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::end__instance_controller()
 	{
-        mParsingStatus ^= INSTANCE_CONTROLLER_BIT;
-
-		endInstanceWithMaterial();
+        FilePartLoader::copyStlContainerToArray( mCurrentMaterialBindings, mCurrentInstanceController->getMaterialBindings());
+        mCurrentInstanceController = 0;
 		mCurrentInstanceControllerData = 0;
+        endInstanceWithMaterial();
+
 		return true;
 	}
 

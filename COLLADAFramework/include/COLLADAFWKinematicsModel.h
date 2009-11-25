@@ -16,7 +16,6 @@
 #include "COLLADAFWJoint.h"
 #include "COLLADAFWPointerArray.h"
 #include "COLLADAFWObject.h"
-#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
@@ -25,7 +24,7 @@ namespace COLLADAFW
     /** A kinematics model. It describes a kinematics model, using the joints contained in mJoints. The hierarchy 
 	of the model is defines by a list of LinkJointConnection that connect the joints to a link. Since links do 
 	not have any properties, they are simply described by numbers, starting from 0.  */
-	class KinematicsModel : public ObjectTemplate<COLLADA_TYPE::KINEMATICS_MODEL>, public ExtraData
+	class KinematicsModel : public ObjectTemplate<COLLADA_TYPE::KINEMATICS_MODEL>
 	{
 	public:
 		/** Defines the connection of a joint to a link.*/

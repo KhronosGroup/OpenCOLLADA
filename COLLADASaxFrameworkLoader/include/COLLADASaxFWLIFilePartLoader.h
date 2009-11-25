@@ -19,7 +19,6 @@
 #include "COLLADASaxFWLExtraDataLoader.h"
 
 #include "COLLADAFWUniqueId.h"
-#include "COLLADAFWExtraData.h"
 #include "COLLADAFWInstanceController.h"
 
 #include <list>
@@ -266,12 +265,6 @@ namespace COLLADASaxFWL
 
 		/** Returns the absolute uri of the currently parsed file*/
 		virtual const COLLADABU::URI& getFileUri()=0;
-
-		/** Returns the ExtraData object, that should be used to store the extra data.*/
-		virtual COLLADAFW::ExtraData* getExtraData() { return 0; }
-
-		/** Returns the second part of the key, usually the current parent element name.*/
-		virtual const char* getSecondKey() { return 0; }
 
 		/** Copies the contents of the STL container @a stlContainer into the framework array
 		@a clonedArray.*/

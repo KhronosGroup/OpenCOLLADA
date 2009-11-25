@@ -12,15 +12,14 @@
 #define __COLLADAFW_INSTANCEVISUALSCENE_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWInstanceSceneGraph.h"
-#include "COLLADAFWPointerArray.h"
+#include "COLLADAFWInstanceBase.h"
 
 
 namespace COLLADAFW
 {
 
     /** Instantiates a node within a scene graph.*/
-    typedef InstanceSceneGraph InstanceVisualScene;
+    typedef InstanceBase<COLLADA_TYPE::INSTANCE_VISUAL_SCENE> InstanceVisualScene;
 
 
 } // namespace COLLADAFW

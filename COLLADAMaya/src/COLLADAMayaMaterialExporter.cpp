@@ -28,8 +28,6 @@
 #include "COLLADASWParamTemplate.h"
 #include "COLLADASWConstants.h"
 
-#include "COLLADAFWExtraKeys.h"
-
 #include "cgfxShaderNode.h"
 
 #include <maya/MItMeshPolygon.h>
@@ -256,8 +254,8 @@ namespace COLLADAMaya
                 // Export the reference to the effect and the hardware shader components.
                 exportEffectInstance ( mayaMaterialId, colladaMaterialId, shader );
 
-                // Export the user defined material extra data from import (extra preservation).
-                mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::MATERIAL );
+//                 // TODO Export the user defined material extra data from import (extra preservation).
+//                 mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::MATERIAL );
 
                 // Closes the current effect tag
                 closeMaterial();
@@ -761,8 +759,9 @@ namespace COLLADAMaya
             exportCustomHwShaderNode ( effectInstance, shader );
         }
 
-        // Export the user defined instance_effect extra data from import (extra preservation).
-        mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::INSTANCE_EFFECT );
+        // TODO
+//         // Export the user defined instance_effect extra data from import (extra preservation).
+//         mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::INSTANCE_EFFECT );
 
         // Close the current effect element.
         effectInstance.close();

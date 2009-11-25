@@ -15,8 +15,6 @@
 #include "DAE2MAStableHeaders.h"
 #include "DAE2MABaseImporter.h"
 
-#include "COLLADAFWExtraKeys.h"
-
 #include "Math/COLLADABUMathUtils.h"
 
 #include <MayaDMCommands.h>
@@ -260,181 +258,181 @@ namespace DAE2MA
         return nodeName;
     }
 
-    // -----------------------------------
-    String BaseImporter::getOriginalMayaId ( const COLLADAFW::ExtraDataArray &extraDataArray )
-    {
-        // Iterate over the extra data tags.
-        const size_t numExtraData = extraDataArray.getCount ();
-        for ( size_t i=0; i<numExtraData; ++i )
-        {
-            const COLLADAFW::ExtraDataPair* extraDataPair = extraDataArray [i];
-            const String& key = extraDataPair->getKey ();
-            const String& source = extraDataPair->getValue ();
-            if ( source.empty () ) continue;
+//     // -----------------------------------
+//     String BaseImporter::getOriginalMayaId ( const COLLADAFW::ExtraDataArray &extraDataArray )
+//     {
+//         // Iterate over the extra data tags.
+//         const size_t numExtraData = extraDataArray.getCount ();
+//         for ( size_t i=0; i<numExtraData; ++i )
+//         {
+//             const COLLADAFW::ExtraDataPair* extraDataPair = extraDataArray [i];
+//             const String& key = extraDataPair->getKey ();
+//             const String& source = extraDataPair->getValue ();
+//             if ( source.empty () ) continue;
+// 
+//             // Find the original maya id.
+//             if ( COLLADABU::Utils::equals ( key, PROFILE_MAYA ) )
+//             {
+//                 String beginTagString = "<" + PARAMETER_MAYA_ID + ">";
+//                 size_t beginTagStringLength = beginTagString.length ();
+// 
+//                 size_t startPos = source.find ( beginTagString );
+//                 if ( startPos == String::npos ) continue;
+// 
+//                 String endTagString = "</" + PARAMETER_MAYA_ID + ">";
+//                 size_t endTagStringLength = endTagString.length ();
+// 
+//                 size_t endPos = source.find ( endTagString );
+//                 if ( endPos == String::npos ) continue;
+// 
+//                 startPos += beginTagStringLength;
+//                 return source.substr ( startPos, endPos-1 );
+//             }
+//         }
+// 
+//         return EMPTY_STRING;
+//     }
+// 
+//     // -----------------------------------
+//     void BaseImporter::setExtraData ( const COLLADAFW::ExtraDataArray &extraDataArray )
+//     {
+//         // Iterate over the extra data tags.
+//         const size_t numExtraData = extraDataArray.getCount ();
+//         if ( numExtraData == 0 ) return;        
+// 
+//         /** The list of root tree extra elements. */
+//         std::map<String, ExtraTreeElement*> rootExtraTreeElements;
+// 
+//         // First we have to build a tree. With this tree, we know the number of children of every 
+//         // knot in the tree. We have to create a compound attribute for every knot. After we have
+//         // created the compound attributes, we can set the extra data values.
+//         createExtraDataTree ( extraDataArray, rootExtraTreeElements );
+// 
+//         // After we filled the tree, we have to create the attributes.
+//         addExtraDataAttributes ( rootExtraTreeElements );
+// 
+//         // After all the attributes are created, we can set the attribute values.
+//         setExtraDataAttributes ( rootExtraTreeElements );
+// 
+//         // Delete the tree elements.
+//         std::map<String, ExtraTreeElement*>::iterator it = rootExtraTreeElements.begin ();
+//         while ( it != rootExtraTreeElements.end () )
+//         {
+//             ExtraTreeElement* extraTreeElement = it->second;
+//             delete extraTreeElement;
+//             extraTreeElement = 0;
+//             ++it;
+//         }
+//         rootExtraTreeElements.clear ();
+//     }
 
-            // Find the original maya id.
-            if ( COLLADABU::Utils::equals ( key, PROFILE_MAYA ) )
-            {
-                String beginTagString = "<" + PARAMETER_MAYA_ID + ">";
-                size_t beginTagStringLength = beginTagString.length ();
-
-                size_t startPos = source.find ( beginTagString );
-                if ( startPos == String::npos ) continue;
-
-                String endTagString = "</" + PARAMETER_MAYA_ID + ">";
-                size_t endTagStringLength = endTagString.length ();
-
-                size_t endPos = source.find ( endTagString );
-                if ( endPos == String::npos ) continue;
-
-                startPos += beginTagStringLength;
-                return source.substr ( startPos, endPos-1 );
-            }
-        }
-
-        return EMPTY_STRING;
-    }
-
-    // -----------------------------------
-    void BaseImporter::setExtraData ( const COLLADAFW::ExtraDataArray &extraDataArray )
-    {
-        // Iterate over the extra data tags.
-        const size_t numExtraData = extraDataArray.getCount ();
-        if ( numExtraData == 0 ) return;        
-
-        /** The list of root tree extra elements. */
-        std::map<String, ExtraTreeElement*> rootExtraTreeElements;
-
-        // First we have to build a tree. With this tree, we know the number of children of every 
-        // knot in the tree. We have to create a compound attribute for every knot. After we have
-        // created the compound attributes, we can set the extra data values.
-        createExtraDataTree ( extraDataArray, rootExtraTreeElements );
-
-        // After we filled the tree, we have to create the attributes.
-        addExtraDataAttributes ( rootExtraTreeElements );
-
-        // After all the attributes are created, we can set the attribute values.
-        setExtraDataAttributes ( rootExtraTreeElements );
-
-        // Delete the tree elements.
-        std::map<String, ExtraTreeElement*>::iterator it = rootExtraTreeElements.begin ();
-        while ( it != rootExtraTreeElements.end () )
-        {
-            ExtraTreeElement* extraTreeElement = it->second;
-            delete extraTreeElement;
-            extraTreeElement = 0;
-            ++it;
-        }
-        rootExtraTreeElements.clear ();
-    }
-
-    // -----------------------------------
-    void BaseImporter::createExtraDataTree ( 
-        const COLLADAFW::ExtraDataArray& extraDataArray, 
-        std::map<String, ExtraTreeElement*>& rootExtraTreeElements )
-    {
-        // Build a tree of the extra data elements.
-        const size_t numExtraData = extraDataArray.getCount ();
-        if ( numExtraData == 0 ) return;        
-
-        // Iterate over the extra data tags.
-        for ( size_t i=0; i<numExtraData; ++i )
-        {
-            // Get the current extra data pair.
-            const COLLADAFW::ExtraDataPair* extraDataPair = extraDataArray [i];
-
-            // Get the key of the current extra data element.
-            const String& key = extraDataPair->getKey ();
-            if ( key.empty () ) continue;
-
-            // Convert the source into maya style.
-            const String& source = extraDataPair->getValue ();
-            if ( source.empty () ) continue;
-            String encodedSource = COLLADABU::URI::uriEncode ( source );
-            COLLADABU::Utils::stringFindAndReplace ( encodedSource, "\"", "\\\"" );
-
-            // Make a not const copy of the key.
-            String attributeName ( key );
-
-            // Check, if we have some path underpath parts. For example "COLLADA/mesh/profile_name" 
-            // or "COLLADA/primitive_element[2]/profile_tristrip".
-            // Without a underpath part, a path looks just like "COLLADA/profile_name".
-            std::vector<String> pathParts;
-            COLLADABU::Utils::split ( attributeName, String ("/"), pathParts );
-            size_t numParts = pathParts.size ();
-            if ( numParts < 2 ) 
-            {
-                std::cerr << "No valid extra tag: " << attributeName << std::endl;
-                continue;
-            }
-            // Get the name of the current profile.
-            String profileName = pathParts [numParts-1];
-
-            // Check if we have an "OpenCOLLADAMaya" tag. Don't preserve them.
-            if ( COLLADABU::Utils::equals ( profileName, PROFILE_MAYA ) ) continue;
-
-            // Get / create the root element.
-            String parentElementName = pathParts [0];
-            ExtraTreeElement* parentElement = getRootExtraElement ( parentElementName, rootExtraTreeElements );
-            if ( !parentElement )
-            {
-                parentElement = new ExtraTreeElement ( parentElementName );
-                rootExtraTreeElements [parentElementName] = parentElement;
-            }
-
-            // Flag, if we handle a primitive extra element.
-            bool physicalIndexElement = false;
-
-            // Go over the underpathes and put the elements in the tree.
-            ExtraTreeElement* childElement = 0;
-            for ( size_t p=1; p<numParts; ++p )
-            {
-                // Get the name of the current element.
-                String childElementName;
-
-                // If we handle the index of an primitive extra element, we have to append the
-                // parent element name in front of the current index (su).
-                // If we handle the profile name (always the last element), we have to make the 
-                // profile name unique for the current object. To do this, we also append the 
-                // parent element name in front of the current profile name.
-                if ( physicalIndexElement || p == numParts-1 )
-                {
-                    childElementName = parentElement->getName () + "_";
-                }
-                childElementName.append ( pathParts [p] );
-
-                // Check if we have an extra tag of an physical index element (primitive element, 
-                // surface, sampler2d or texture). In this case, the next path element is just the 
-                // physical index of the element. For maya attributes, the attribute name must not
-                // start with a number! About this, we set the name of the parent element in front
-                // of the current index.
-                if ( COLLADABU::Utils::equals ( childElementName, COLLADAFW::ExtraKeys::PRIMITIVE_ELEMENT )
-                    || COLLADABU::Utils::equals ( childElementName, COLLADAFW::ExtraKeys::SURFACE )
-                    || COLLADABU::Utils::equals ( childElementName, COLLADAFW::ExtraKeys::SAMPLER2D )
-                    || COLLADABU::Utils::equals ( childElementName, COLLADAFW::ExtraKeys::TEXTURE ) )
-                {
-                    // The next path element is a physical index.
-                    physicalIndexElement = true;
-                }
-                else physicalIndexElement = false;
-
-                // Check if there already exist an element with the current name under the parent element.
-                childElement = parentElement->getChild ( childElementName );
-                if ( !childElement )
-                {
-                    // If not, create one.
-                    childElement = new ExtraTreeElement ( childElementName, parentElement );
-                    parentElement->addChild ( childElement );
-                }
-
-                // Set the current child element for the next parent element.
-                parentElement = childElement;
-            }
-
-            // Add the current value to the values of the child.
-            childElement->appendValue ( encodedSource );
-        }
-    }
+//     // -----------------------------------
+//     void BaseImporter::createExtraDataTree ( 
+//         const COLLADAFW::ExtraDataArray& extraDataArray, 
+//         std::map<String, ExtraTreeElement*>& rootExtraTreeElements )
+//     {
+//         // Build a tree of the extra data elements.
+//         const size_t numExtraData = extraDataArray.getCount ();
+//         if ( numExtraData == 0 ) return;        
+// 
+//         // Iterate over the extra data tags.
+//         for ( size_t i=0; i<numExtraData; ++i )
+//         {
+//             // Get the current extra data pair.
+//             const COLLADAFW::ExtraDataPair* extraDataPair = extraDataArray [i];
+// 
+//             // Get the key of the current extra data element.
+//             const String& key = extraDataPair->getKey ();
+//             if ( key.empty () ) continue;
+// 
+//             // Convert the source into maya style.
+//             const String& source = extraDataPair->getValue ();
+//             if ( source.empty () ) continue;
+//             String encodedSource = COLLADABU::URI::uriEncode ( source );
+//             COLLADABU::Utils::stringFindAndReplace ( encodedSource, "\"", "\\\"" );
+// 
+//             // Make a not const copy of the key.
+//             String attributeName ( key );
+// 
+//             // Check, if we have some path underpath parts. For example "COLLADA/mesh/profile_name" 
+//             // or "COLLADA/primitive_element[2]/profile_tristrip".
+//             // Without a underpath part, a path looks just like "COLLADA/profile_name".
+//             std::vector<String> pathParts;
+//             COLLADABU::Utils::split ( attributeName, String ("/"), pathParts );
+//             size_t numParts = pathParts.size ();
+//             if ( numParts < 2 ) 
+//             {
+//                 std::cerr << "No valid extra tag: " << attributeName << std::endl;
+//                 continue;
+//             }
+//             // Get the name of the current profile.
+//             String profileName = pathParts [numParts-1];
+// 
+//             // Check if we have an "OpenCOLLADAMaya" tag. Don't preserve them.
+//             if ( COLLADABU::Utils::equals ( profileName, PROFILE_MAYA ) ) continue;
+// 
+//             // Get / create the root element.
+//             String parentElementName = pathParts [0];
+//             ExtraTreeElement* parentElement = getRootExtraElement ( parentElementName, rootExtraTreeElements );
+//             if ( !parentElement )
+//             {
+//                 parentElement = new ExtraTreeElement ( parentElementName );
+//                 rootExtraTreeElements [parentElementName] = parentElement;
+//             }
+// 
+//             // Flag, if we handle a primitive extra element.
+//             bool physicalIndexElement = false;
+// 
+//             // Go over the underpathes and put the elements in the tree.
+//             ExtraTreeElement* childElement = 0;
+//             for ( size_t p=1; p<numParts; ++p )
+//             {
+//                 // Get the name of the current element.
+//                 String childElementName;
+// 
+//                 // If we handle the index of an primitive extra element, we have to append the
+//                 // parent element name in front of the current index (su).
+//                 // If we handle the profile name (always the last element), we have to make the 
+//                 // profile name unique for the current object. To do this, we also append the 
+//                 // parent element name in front of the current profile name.
+//                 if ( physicalIndexElement || p == numParts-1 )
+//                 {
+//                     childElementName = parentElement->getName () + "_";
+//                 }
+//                 childElementName.append ( pathParts [p] );
+// 
+//                 // Check if we have an extra tag of an physical index element (primitive element, 
+//                 // surface, sampler2d or texture). In this case, the next path element is just the 
+//                 // physical index of the element. For maya attributes, the attribute name must not
+//                 // start with a number! About this, we set the name of the parent element in front
+//                 // of the current index.
+//                 if ( COLLADABU::Utils::equals ( childElementName, COLLADAFW::ExtraKeys::PRIMITIVE_ELEMENT )
+//                     || COLLADABU::Utils::equals ( childElementName, COLLADAFW::ExtraKeys::SURFACE )
+//                     || COLLADABU::Utils::equals ( childElementName, COLLADAFW::ExtraKeys::SAMPLER2D )
+//                     || COLLADABU::Utils::equals ( childElementName, COLLADAFW::ExtraKeys::TEXTURE ) )
+//                 {
+//                     // The next path element is a physical index.
+//                     physicalIndexElement = true;
+//                 }
+//                 else physicalIndexElement = false;
+// 
+//                 // Check if there already exist an element with the current name under the parent element.
+//                 childElement = parentElement->getChild ( childElementName );
+//                 if ( !childElement )
+//                 {
+//                     // If not, create one.
+//                     childElement = new ExtraTreeElement ( childElementName, parentElement );
+//                     parentElement->addChild ( childElement );
+//                 }
+// 
+//                 // Set the current child element for the next parent element.
+//                 parentElement = childElement;
+//             }
+// 
+//             // Add the current value to the values of the child.
+//             childElement->appendValue ( encodedSource );
+//         }
+//     }
 
     // -----------------------------------
     void BaseImporter::addExtraDataAttributes ( 

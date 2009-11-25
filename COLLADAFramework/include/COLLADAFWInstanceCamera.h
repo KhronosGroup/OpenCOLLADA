@@ -12,7 +12,7 @@
 #define __COLLADAFW_INSTANCECAMERA_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWInstanceSceneGraph.h"
+#include "COLLADAFWInstanceBase.h"
 #include "COLLADAFWPointerArray.h"
 
 
@@ -20,7 +20,7 @@ namespace COLLADAFW
 {
 
 	/** Instantiates a node within a scene graph.*/
-	typedef InstanceSceneGraph InstanceCamera;
+	typedef InstanceBase<COLLADA_TYPE::INSTANCE_CAMERA> InstanceCamera;
 
 	typedef ArrayPrimitiveType<InstanceCamera*> InstanceCameraArray;
 	typedef PointerArray<InstanceCamera> InstanceCameraPointerArray;

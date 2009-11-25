@@ -127,6 +127,7 @@ namespace DAE2MA
         , mLinearUnitMayaBindShapeBugConvertFactor ( 1.0 )
         , mDigitTolerance (FLOAT_TOLERANCE)
         , mBuffer (0)
+        , mInstanceVisualScene (0)
     {
         // Maya already use some names for the default maya objects.
         for ( size_t i=0; i<NUM_RESERVED_NAMES; ++i )
@@ -143,6 +144,8 @@ namespace DAE2MA
         closeMayaAsciiFile ();
 
         // Don't delete the objects earlier, other parts use the elements!
+        delete mInstanceVisualScene;
+
         // A copy of the framework's library visual scenes elements. 
         for ( size_t i=0; i< mVisualScenesList.size (); ++i )
         {
@@ -686,7 +689,7 @@ namespace DAE2MA
         {
             // Make a copy of the instantiated visual scene element.
             mParseStep = COPY_ELEMENTS;
-            mInstanceVisualScene = *scene->getInstanceVisualScene ();
+            mInstanceVisualScene = scene->getInstanceVisualScene ()->clone ();
         }
 
         return true;
@@ -701,7 +704,7 @@ namespace DAE2MA
             for ( size_t i=0; i<mVisualScenesList.size (); ++i )
             {
                 const COLLADAFW::VisualScene* visualScene = mVisualScenesList [i];
-                if ( mInstanceVisualScene.getInstanciatedObjectId () == visualScene->getUniqueId () )
+                if ( mInstanceVisualScene->getInstanciatedObjectId () == visualScene->getUniqueId () )
                 {
                     const COLLADAFW::NodePointerArray& nodePointerArray = visualScene->getRootNodes ();
 
@@ -758,7 +761,7 @@ namespace DAE2MA
             for ( size_t i=0; i<mVisualScenesList.size (); ++i )
             {
                 const COLLADAFW::VisualScene* visualScene = mVisualScenesList [i];
-                if ( mInstanceVisualScene.getInstanciatedObjectId () == visualScene->getUniqueId () )
+                if ( mInstanceVisualScene->getInstanciatedObjectId () == visualScene->getUniqueId () )
                 {
                     // Import the data.
                     mVisualSceneImporter->importVisualScene ( visualScene );

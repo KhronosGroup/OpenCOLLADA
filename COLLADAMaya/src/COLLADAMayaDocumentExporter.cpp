@@ -464,125 +464,125 @@ namespace COLLADAMaya
         return getSceneGraph ()->getExportSelectedOnly ();
     }
 
-    // --------------------------------------
-    void DocumentExporter::exportExtraData ( 
-        const MObject& node, 
-        const char* key, 
-        const char* secondKey /*= 0*/, 
-        COLLADASW::BaseExtraTechnique* baseExtraTechnique /*= 0*/ )
-    {
-        MStatus status;
-        MFnDependencyNode dependencyNode ( node, &status );
-        if ( status != MStatus::kSuccess ) return;
-
-        MPlug colladaPlug = dependencyNode.findPlug ( COLLADAFW::ExtraKeys::BASEKEY, &status );
-        if ( status == MStatus::kSuccess ) 
-        {
-            if ( !colladaPlug.isCompound () ) 
-            {
-                std::cerr << "There exist another attribute with the name \"COLLADA\". No extra tag preservation possible!" << endl;
-                return;
-            }
-
-            // Flag, if the extra source was opened.
-            bool closeExtraSource = false;
-            COLLADASW::Extra extraSource ( &mStreamWriter );
-
-            size_t numChildren = colladaPlug.numChildren ();
-            for ( uint i=0; i<numChildren; ++i )
-            {
-                MPlug childPlug = colladaPlug.child ( i, &status );
-                if ( status != MStatus::kSuccess ) continue;
-
-                // Get the collada attribute.
-                MFnAttribute pathAttribute ( childPlug.attribute() );
-                String pathAttributeName = pathAttribute.name().asChar ();
-                if ( !COLLADABU::Utils::equals ( pathAttributeName, key ) ) continue;
-
-                if ( exportExtraData ( childPlug, pathAttributeName, baseExtraTechnique, extraSource, secondKey ) )
-                    closeExtraSource = true;
-            }
-
-            // Close the extra source tag, if it is open.
-            if ( closeExtraSource ) 
-                extraSource.closeExtra();
-        }
-    }
-
-    // --------------------------------------
-    bool DocumentExporter::exportExtraData ( 
-        const MPlug& childPlug, 
-        const String& parentAttributeName, 
-        COLLADASW::BaseExtraTechnique* baseExtraTechnique, 
-        COLLADASW::Extra& extraSource, 
-        const char* secondKey /*= 0*/ )
-    {
-        MStatus status;
-        bool closeExtraSource = false; 
-
-        // Get the profile name of the child attribute.
-        size_t numExtraChildren = childPlug.numChildren ();
-        for ( uint i=0; i<numExtraChildren; ++i )
-        {
-            // Get the extra plug.
-            MPlug extraPlug = childPlug.child ( i, &status );
-            if ( status != MStatus::kSuccess ) continue;
-            MFnAttribute extraAttribute ( extraPlug.attribute() );
-
-            // Check if we have an extra tag of an physical index element (primitive element, 
-            // surface, sampler2d or texture). In this case, the current attribute is a compound
-            // attribute and holds for every index a child element.
-            if ( extraPlug.isCompound () )
-            {
-                // TODO Recursive call for the child plugs.
-                String attributeName = extraAttribute.name ().asChar ();
-                if ( !COLLADABU::Utils::equals ( attributeName, secondKey ) ) continue;
-                if ( exportExtraData ( extraPlug, attributeName, baseExtraTechnique, extraSource, secondKey ) )
-                    closeExtraSource = true;
-                continue;
-            }
-
-            if ( secondKey )
-            {
-                // Get the physical index of the element.
-                String physicalIndexStr = parentAttributeName.substr ( parentAttributeName.length ()-1 );
-                unsigned int physicalIndex = atoi ( physicalIndexStr.c_str () );
-            }
-
-            // The attribute with the collada profile name.
-            // The profile name has always the path attribute name in front.
-            String profileName = extraAttribute.name ().asChar ();
-            profileName = profileName.substr ( parentAttributeName.length () + 1 );
-
-            // The attribute value.
-            MString mAttributeValue;
-            status = extraPlug.getValue ( mAttributeValue );
-            if ( status != MStatus::kSuccess || mAttributeValue == 0 ) continue;
-
-            // Convert the attributeValue back to collada.
-            String source = mAttributeValue.asChar ();
-            COLLADABU::Utils::stringFindAndReplace ( source, "\\\"", "\"" );
-            String encodedSource = COLLADABU::URI::uriDecode ( source );
-
-            // If a baseExtraTechnique element is given, use this to write the extra data.
-            if ( baseExtraTechnique )
-                baseExtraTechnique->addExtraTechniqueTextblock ( profileName, encodedSource );
-            else
-            {
-                // Open the extra source tag, if neccessary.
-                if ( !closeExtraSource ) 
-                {
-                    extraSource.openExtra();
-                    closeExtraSource = true;
-                }
-                // Create the extra attribute.
-                COLLADASW::Technique techniqueSource ( &mStreamWriter );
-                techniqueSource.openTechnique ( profileName );
-                techniqueSource.addValue ( encodedSource );
-                techniqueSource.closeTechnique();
-            }
-        }
-
-        return closeExtraSource;
-    }
+//     // --------------------------------------
+//     void DocumentExporter::exportExtraData ( 
+//         const MObject& node, 
+//         const char* key, 
+//         const char* secondKey /*= 0*/, 
+//         COLLADASW::BaseExtraTechnique* baseExtraTechnique /*= 0*/ )
+//     {
+//         MStatus status;
+//         MFnDependencyNode dependencyNode ( node, &status );
+//         if ( status != MStatus::kSuccess ) return;
+// 
+//         MPlug colladaPlug = dependencyNode.findPlug ( COLLADAFW::ExtraKeys::BASEKEY, &status );
+//         if ( status == MStatus::kSuccess ) 
+//         {
+//             if ( !colladaPlug.isCompound () ) 
+//             {
+//                 std::cerr << "There exist another attribute with the name \"COLLADA\". No extra tag preservation possible!" << endl;
+//                 return;
+//             }
+// 
+//             // Flag, if the extra source was opened.
+//             bool closeExtraSource = false;
+//             COLLADASW::Extra extraSource ( &mStreamWriter );
+// 
+//             size_t numChildren = colladaPlug.numChildren ();
+//             for ( uint i=0; i<numChildren; ++i )
+//             {
+//                 MPlug childPlug = colladaPlug.child ( i, &status );
+//                 if ( status != MStatus::kSuccess ) continue;
+// 
+//                 // Get the collada attribute.
+//                 MFnAttribute pathAttribute ( childPlug.attribute() );
+//                 String pathAttributeName = pathAttribute.name().asChar ();
+//                 if ( !COLLADABU::Utils::equals ( pathAttributeName, key ) ) continue;
+// 
+//                 if ( exportExtraData ( childPlug, pathAttributeName, baseExtraTechnique, extraSource, secondKey ) )
+//                     closeExtraSource = true;
+//             }
+// 
+//             // Close the extra source tag, if it is open.
+//             if ( closeExtraSource ) 
+//                 extraSource.closeExtra();
+//         }
+//     }
+// 
+//     // --------------------------------------
+//     bool DocumentExporter::exportExtraData ( 
+//         const MPlug& childPlug, 
+//         const String& parentAttributeName, 
+//         COLLADASW::BaseExtraTechnique* baseExtraTechnique, 
+//         COLLADASW::Extra& extraSource, 
+//         const char* secondKey /*= 0*/ )
+//     {
+//         MStatus status;
+//         bool closeExtraSource = false; 
+// 
+//         // Get the profile name of the child attribute.
+//         size_t numExtraChildren = childPlug.numChildren ();
+//         for ( uint i=0; i<numExtraChildren; ++i )
+//         {
+//             // Get the extra plug.
+//             MPlug extraPlug = childPlug.child ( i, &status );
+//             if ( status != MStatus::kSuccess ) continue;
+//             MFnAttribute extraAttribute ( extraPlug.attribute() );
+// 
+//             // Check if we have an extra tag of an physical index element (primitive element, 
+//             // surface, sampler2d or texture). In this case, the current attribute is a compound
+//             // attribute and holds for every index a child element.
+//             if ( extraPlug.isCompound () )
+//             {
+//                 // TODO Recursive call for the child plugs.
+//                 String attributeName = extraAttribute.name ().asChar ();
+//                 if ( !COLLADABU::Utils::equals ( attributeName, secondKey ) ) continue;
+//                 if ( exportExtraData ( extraPlug, attributeName, baseExtraTechnique, extraSource, secondKey ) )
+//                     closeExtraSource = true;
+//                 continue;
+//             }
+// 
+//             if ( secondKey )
+//             {
+//                 // Get the physical index of the element.
+//                 String physicalIndexStr = parentAttributeName.substr ( parentAttributeName.length ()-1 );
+//                 unsigned int physicalIndex = atoi ( physicalIndexStr.c_str () );
+//             }
+// 
+//             // The attribute with the collada profile name.
+//             // The profile name has always the path attribute name in front.
+//             String profileName = extraAttribute.name ().asChar ();
+//             profileName = profileName.substr ( parentAttributeName.length () + 1 );
+// 
+//             // The attribute value.
+//             MString mAttributeValue;
+//             status = extraPlug.getValue ( mAttributeValue );
+//             if ( status != MStatus::kSuccess || mAttributeValue == 0 ) continue;
+// 
+//             // Convert the attributeValue back to collada.
+//             String source = mAttributeValue.asChar ();
+//             COLLADABU::Utils::stringFindAndReplace ( source, "\\\"", "\"" );
+//             String encodedSource = COLLADABU::URI::uriDecode ( source );
+// 
+//             // If a baseExtraTechnique element is given, use this to write the extra data.
+//             if ( baseExtraTechnique )
+//                 baseExtraTechnique->addExtraTechniqueTextblock ( profileName, encodedSource );
+//             else
+//             {
+//                 // Open the extra source tag, if neccessary.
+//                 if ( !closeExtraSource ) 
+//                 {
+//                     extraSource.openExtra();
+//                     closeExtraSource = true;
+//                 }
+//                 // Create the extra attribute.
+//                 COLLADASW::Technique techniqueSource ( &mStreamWriter );
+//                 techniqueSource.openTechnique ( profileName );
+//                 techniqueSource.addValue ( encodedSource );
+//                 techniqueSource.closeTechnique();
+//             }
+//         }
+// 
+//         return closeExtraSource;
+//     }
 }

@@ -348,20 +348,6 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	void SceneGraphCreator::storeMaterialBindings( INode* node, COLLADAFW::InstanceGeometry* instanceGeometry )
-	{
-		COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
-		if ( !materialBindings.empty() )
-		{
-			DocumentImporter::NodeMaterialBindingsPair& materialBindingsPair = createAndAddNodeMaterialBindingsPair(node);
-			size_t bindingsCount = materialBindings.getCount();
-			materialBindingsPair.materialBindings.reserve(bindingsCount);
-			for ( size_t i = 0; i < bindingsCount; ++i)
-				materialBindingsPair.materialBindings.push_back(materialBindings[i]);
-		}
-	}
-
-	//------------------------------
 	void SceneGraphCreator::postProcessInstanceController( INode* node, COLLADAFW::InstanceController* instanceController )
 	{
 		storeMaterialBindings( node, instanceController );

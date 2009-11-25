@@ -117,8 +117,6 @@ namespace COLLADASaxFWL
 		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueIdFromId( kinematicsModel->getId().c_str(), COLLADAFW::KinematicsModel::ID());
 		COLLADAFW::KinematicsModel* fwKinematicsModel = FW_NEW COLLADAFW::KinematicsModel(uniqueId);
 
-		fwKinematicsModel-> appendExtraData(*kinematicsModel);
-
 		COLLADAFW::SizeTValuesArray& fwBaseLinks = fwKinematicsModel->getBaseLinks();
 
 		const KinematicLinkList& baseLinks = kinematicsModel->getBaseLinks();
@@ -160,15 +158,12 @@ namespace COLLADASaxFWL
 			COLLADAFW::Joint* joint = 0;
 			// Used if the joint is an instance joint in collada
 			const COLLADAFW::UniqueId* jointUniqueId = 0;
-			// the extra data of an instance joint that must be added to the joint extra data
-			const COLLADAFW::ExtraData* instanceJointExtraData = 0;
 
 			if ( jointTreeNode->getTargetType() == SidTreeNode::TARGETTYPECLASS_INTERMEDIATETARGETABLE )
 			{
 				//this must be a KinematicInstance
 				const KinematicInstance* instanceJoint = intermediateTargetableSafeCast<KinematicInstance>(jointTreeNode->getIntermediateTargetableTarget());
 				assert(instanceJoint);
-				instanceJointExtraData = instanceJoint;
 				SidAddress referencedJointAddress( instanceJoint->getUrl() );
 				const SidTreeNode* referencedJointTreeNode = mDocumentProcessor->resolveSid( referencedJointAddress );
 				
@@ -199,12 +194,6 @@ namespace COLLADASaxFWL
 				// If the joint is in the kinematics model in COLLADA we clone it completely, if it 
 				// is instantiated we need to take the unique id from the instance
 				COLLADAFW::Joint* clonedJoint = jointUniqueId ? joint->clone(*jointUniqueId) : joint->clone();
-				// if the is extra from the instance, we need to append it to the joint
-				if ( instanceJointExtraData )
-				{
-					clonedJoint->appendExtraData(*instanceJointExtraData);
-				}
-
 				fwJoints.append( clonedJoint );
 
 				const COLLADAFW::JointPrimitivePointerArray& jointPrimitives = joint->getJointPrimitives();
@@ -259,8 +248,6 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueIdFromId( kinematicsController->getId().c_str(), COLLADAFW::KinematicsModel::ID());
 		COLLADAFW::KinematicsController* fwKinematicsController = FW_NEW COLLADAFW::KinematicsController(uniqueId);
-
-		fwKinematicsController->appendExtraData(*kinematicsController);
 
 		// get instance kinematics models
 		const KinematicsInstanceKinematicsModels& instanceKinematicsModels =  kinematicsController->getKinematicsInstanceKinematicsModels();

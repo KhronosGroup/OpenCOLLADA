@@ -464,11 +464,11 @@ namespace DAE2MA
             const bool intermediateObject = false,
             const bool visible = true );
 
-        /**
-         * Combine the extra data of the mesh (contains extra data of the mesh and the vertices)
-         * and the extra data of the mesh's primitive elements.
-         */
-        COLLADAFW::ExtraDataArray& getAllExtraData ( COLLADAFW::Mesh* mesh );
+//         /**
+//          * Combine the extra data of the mesh (contains extra data of the mesh and the vertices)
+//          * and the extra data of the mesh's primitive elements.
+//          */
+//         COLLADAFW::ExtraDataArray& getAllExtraData ( COLLADAFW::Mesh* mesh );
 
         /**
          * Create maya group ids for every mesh primitive (if there is more than one).

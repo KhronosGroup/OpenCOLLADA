@@ -589,6 +589,9 @@ namespace COLLADAFW
 
             PRIMITIVE_ELEMENT = 520,
 
+            INSTANCE_VISUAL_SCENE = 521,
+            INSTANCE_SCENE_GRAPH = 522,
+
 			ANIMATIONLIST = 1000,
 			SKIN_DATA = 1001,
 

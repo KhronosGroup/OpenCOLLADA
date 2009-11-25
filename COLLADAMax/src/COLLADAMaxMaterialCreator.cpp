@@ -44,7 +44,7 @@ namespace COLLADAMax
 
 
 	void setMaterialIdentifierMapChannel( const COLLADAFW::ColorOrTexture& colorOrTexture,
-										  const COLLADAFW::InstanceGeometry::TextureCoordinateBindingArray& texCoordBindings,
+										  const COLLADAFW::TextureCoordinateBindingArray& texCoordBindings,
 										  const DocumentImporter::SetMapChannelMap& setMapChannelMap,
 										  MaterialCreator::MaterialIdentifier::SlotFlags slot,
 										  unsigned char& slotFlags,
@@ -68,10 +68,10 @@ namespace COLLADAMax
 		bool found = false;
 		for ( size_t i = 0; i < texCoordBindingsCount; ++i)
 		{
-			const COLLADAFW::InstanceGeometry::TextureCoordinateBinding& texCoordBinding = texCoordBindings[i];
-			if ( texCoordBinding.textureMapId == mapId )
+			const COLLADAFW::TextureCoordinateBinding& texCoordBinding = texCoordBindings[i];
+			if ( texCoordBinding.getTextureMapId () == mapId )
 			{
-				setIndex = texCoordBinding.setIndex;
+				setIndex = texCoordBinding.getSetIndex ();
 				found = true;
 				break;
 			}
@@ -100,7 +100,7 @@ namespace COLLADAMax
 	/** Creates an material identifier for the first EffectCommon in @a effect. It is assumed, that there is at least
 	one EffectCommon.*/
 	MaterialCreator::MaterialIdentifier getMaterialIdentifier( const COLLADAFW::Effect& effect,
-															   const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding,
+															   const COLLADAFW::MaterialBinding& materialBinding,
 															   const DocumentImporter::SetMapChannelMap& setMapChannelMap)
 	{
 //		assert( !effect.getCommonEffects().empty() );
@@ -117,7 +117,7 @@ namespace COLLADAMax
 		{
 			const COLLADAFW::EffectCommon* commonEffect = effect.getCommonEffects()[0];
 
-			const COLLADAFW::InstanceGeometry::TextureCoordinateBindingArray& texCoordBindings =  materialBinding.getTextureCoordinateBindingArray();
+			const COLLADAFW::TextureCoordinateBindingArray& texCoordBindings =  materialBinding.getTextureCoordinateBindingArray();
 
 			setMaterialIdentifierMapChannel( commonEffect->getAmbient(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::AMBIENT, materialIdentifier.slotFlags, materialIdentifier.ambientMapChannel);
 			setMaterialIdentifierMapChannel( commonEffect->getDiffuse(), texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::DIFFUSE, materialIdentifier.slotFlags, materialIdentifier.diffuseMapChannel);
@@ -310,7 +310,7 @@ namespace COLLADAMax
 
 		if ( largestMaterialId == 1 && false )
 		{
-			const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindings[0];
+			const COLLADAFW::MaterialBinding& materialBinding = materialBindings[0];
 			const COLLADAFW::Effect* effect = getEffect(materialBinding);
 			if ( !effect )
 				return true;
@@ -327,7 +327,7 @@ namespace COLLADAMax
 		it = materialBindings.begin();
 		for ( ; it != materialBindings.end(); ++it)
 		{
-			const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = *it;
+			const COLLADAFW::MaterialBinding& materialBinding = *it;
 			const COLLADAFW::Effect* effect = getEffect(materialBinding);
 			if ( !effect )
 				continue;
@@ -352,7 +352,7 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	Mtl* MaterialCreator::getMaxMaterial( const COLLADAFW::Effect& effect, const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding, const COLLADAFW::UniqueId& geometryUniqueId )
+	Mtl* MaterialCreator::getMaxMaterial( const COLLADAFW::Effect& effect, const COLLADAFW::MaterialBinding& materialBinding, const COLLADAFW::UniqueId& geometryUniqueId )
 	{
 		const DocumentImporter::SetMapChannelMap& setMapChannelMap = getSetMapChannelByGeometryUniqueId( geometryUniqueId );
 
@@ -509,7 +509,7 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	const COLLADAFW::Effect* MaterialCreator::getEffect( const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding )
+	const COLLADAFW::Effect* MaterialCreator::getEffect( const COLLADAFW::MaterialBinding& materialBinding )
 	{
 		const COLLADAFW::UniqueId& materialUniqueId = materialBinding.getReferencedMaterial();
 		if ( !materialUniqueId.isValid() )

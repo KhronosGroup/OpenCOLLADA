@@ -115,8 +115,9 @@ namespace DAE2MA
         String nodeName = node->getName ();
         if ( nodeName.empty () ) nodeName = TRANSFORM_NODE_NAME;
         nodeName = DocumentImporter::frameworkNameToMayaName ( nodeName );
-        String originalMayaId = getOriginalMayaId ( node->getExtraDataArray () );
-        if ( !originalMayaId.empty () ) nodeName = originalMayaId;
+//        // TODO
+//         String originalMayaId = getOriginalMayaId ( node->getExtraDataArray () );
+//         if ( !originalMayaId.empty () ) nodeName = originalMayaId;
         nodeName = generateUniqueDagNodeName ( nodeName, parentMayaNode );
 
         // Check for a parent node name
@@ -141,8 +142,8 @@ namespace DAE2MA
             MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
             MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
         }
-        // TODO Add the attributes for all the extra tags.
-        setExtraData ( node->getExtraDataArray () );
+//         // TODO Add the attributes for all the extra tags.
+//         setExtraData ( node->getExtraDataArray () );
 
         // Import the transformations.
         importTransformations ( node, transformNode, parentNode );
@@ -1454,17 +1455,18 @@ namespace DAE2MA
     }
 
     // -----------------------------------
+    template<COLLADAFW::ClassId classId>
     void VisualSceneImporter::readMaterialInstances ( 
         const COLLADAFW::UniqueId& transformId, 
-        const COLLADAFW::InstanceGeometry* instanceGeometry, 
+        const COLLADAFW::InstanceBindingBase<classId>* instanceBinding,
         const COLLADAFW::UniqueId* controllerId /*= 0*/ )
     {
         // Store the shader data.
         MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
-        materialImporter->writeShaderData ( transformId, instanceGeometry, controllerId );
+        materialImporter->writeShaderData ( transformId, instanceBinding, controllerId );
 
         // Create the necessary uv chooser objects for texture uv set binding.
-        materialImporter->createBindingInputSets ( transformId, instanceGeometry, controllerId );
+        materialImporter->createBindingInputSets ( transformId, instanceBinding, controllerId );
     }
 
     // -----------------------------------

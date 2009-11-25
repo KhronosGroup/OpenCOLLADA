@@ -20,7 +20,7 @@ namespace COLLADAFW
 {
 
 	/** Instantiates a node within a scene graph.*/
-	typedef InstanceSceneGraph InstanceNode;
+	typedef InstanceBase<COLLADA_TYPE::INSTANCE_NODE> InstanceNode;
 
 	typedef ArrayPrimitiveType<InstanceNode*> InstanceNodeArray;
 	typedef PointerArray<InstanceNode> InstanceNodePointerArray;

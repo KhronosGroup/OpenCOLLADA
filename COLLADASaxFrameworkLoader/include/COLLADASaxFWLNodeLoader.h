@@ -17,7 +17,9 @@
 #include "COLLADASaxFWLXmlTypes.h"
 #include "COLLADASaxFWLTransformationLoader.h"
 
+#include "COLLADAFWInstanceBindingBase.h"
 #include "COLLADAFWInstanceGeometry.h"
+#include "COLLADAFWInstanceController.h"
 
 #include <stack>
 #include <set>
@@ -36,15 +38,6 @@ namespace COLLADASaxFWL
 	/** Imports the entire visual scene and sends it to the writer. */
 	class NodeLoader : public HelperLoaderBase
 	{
-    protected:
-
-        static const unsigned int INSTANCE_CAMERA_BIT;         //0x0000001
-        static const unsigned int INSTANCE_CONTROLLER_BIT;     //0x0000010
-        static const unsigned int INSTANCE_GEOMETRY_BIT;       //0x0000100
-        static const unsigned int INSTANCE_LIGHT_BIT;          //0x0001000
-        static const unsigned int INSTANCE_NODE_BIT;           //0x0010000
-        static const unsigned int BIND_MATERIAL_BIT;           //0x0100000
-        static const unsigned int INSTANCE_MATERIAL_BIT;       //0x1000000
 
 	private:
 		
@@ -52,24 +45,29 @@ namespace COLLADASaxFWL
 		typedef std::stack<COLLADAFW::Node*> NodeStack;
 
 		/** Set of MaterialBindings*/
-		typedef std::set<COLLADAFW::InstanceGeometry::MaterialBinding> MaterialBindingsSet;
+        typedef std::set<COLLADAFW::MaterialBinding> MaterialBindingsSet;
 
 		/** Set of TextureCoordinateBinding*/
-		typedef std::set<COLLADAFW::InstanceGeometry::TextureCoordinateBinding> TextureCoordinateBindingSet;
+		typedef std::set<COLLADAFW::TextureCoordinateBinding> TextureCoordinateBindingSet;
 
-    private:
+    protected:
 
 		/** Stack of nodes to traverse back in node hierarchy. Array and contents will be delete in destructor.*/
 		NodeStack mNodeStack;
 
-		/** Transformation loader that helps to load transformations.*/
+        /** Instance with material (geometry) currently being filled.*/
+        COLLADAFW::InstanceGeometry* mCurrentInstanceGeometry;
+
+        /** Instance with material (controller) currently being filled.*/
+        COLLADAFW::InstanceController* mCurrentInstanceController;
+
+    private:
+
+        /** Transformation loader that helps to load transformations.*/
 		TransformationLoader mTransformationLoader;
 
-		/** Instance with material (geometry or controller) currently being filled.*/
-		COLLADAFW::InstanceGeometry* mCurrentInstanceWithMaterial;
-
 		/** Material binding currently being filled.*/
-		COLLADAFW::InstanceGeometry::MaterialBinding* mCurrentMaterialBinding;
+		COLLADAFW::MaterialBinding* mCurrentMaterialBinding;
 
 		/** Set of all material bindings of the current instance geometry.*/
 		MaterialBindingsSet mCurrentMaterialBindings;
@@ -81,9 +79,6 @@ namespace COLLADASaxFWL
 		GeometryMaterialIdInfo* mCurrentMaterialInfo;
 
     protected:
-
-        /** The status of the current parsing element. */
-        unsigned int mParsingStatus;
 
 		/** The InstanceControllerData of the current instance controller.*/
 		Loader::InstanceControllerData *mCurrentInstanceControllerData;

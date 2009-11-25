@@ -92,11 +92,11 @@ namespace COLLADAMax
 
 		/** Returns the material created for @a effect. If for the same effect a max material has already been 
 		created for, the formally created one is returned, otherwise a new one is created.*/
-		Mtl* getMaxMaterial( const COLLADAFW::Effect& effect, const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding, const COLLADAFW::UniqueId& geometryUniqueId );
+		Mtl* getMaxMaterial( const COLLADAFW::Effect& effect, const COLLADAFW::MaterialBinding& materialBinding, const COLLADAFW::UniqueId& geometryUniqueId );
 
 		/** Returns the effect used by @a materialBinding. It resolves first the material and than the effect.
 		If the effect could not be resolved, null is returned.*/
-		const COLLADAFW::Effect* getEffect( const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding );
+		const COLLADAFW::Effect* getEffect( const COLLADAFW::MaterialBinding& materialBinding );
 
 		/** Returns the MaterialIdentifierMaxMaterialMap.*/
 		const MaterialIdentifierMaxMaterialMap& getMaterialIdentifierMaxMaterialMap() const { return mMaterialIdentifierMaxMaterialMap; }

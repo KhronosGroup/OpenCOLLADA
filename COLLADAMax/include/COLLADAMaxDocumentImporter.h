@@ -102,7 +102,7 @@ namespace COLLADAMax
 		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::Effect> UniqueIdFWEffectMap;
 
 		/** Vector of material bindings.*/
-		typedef std::vector<COLLADAFW::InstanceGeometry::MaterialBinding> MaterialBindingVector;
+		typedef std::vector<COLLADAFW::MaterialBinding> MaterialBindingVector;
 
 		/** Pair of nodes an the instantiated materials.*/
 		struct NodeMaterialBindingsPair

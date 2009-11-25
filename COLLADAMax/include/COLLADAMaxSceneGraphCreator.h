@@ -113,7 +113,19 @@ namespace COLLADAMax
 		bool recursivelyCloneINode( ImpNode* parentImportNode, INode* nodeToClone );
 
 		/** Store the information about material bindings of @a instanceGeometry attached to max node @a node.*/
-		void storeMaterialBindings( INode* node, COLLADAFW::InstanceGeometry* instanceGeometry);
+        template<COLLADAFW::ClassId classId>
+		void storeMaterialBindings( INode* node, COLLADAFW::InstanceBindingBase<classId>* instanceGeometry)
+        {
+            COLLADAFW::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
+            if ( !materialBindings.empty() )
+            {
+                DocumentImporter::NodeMaterialBindingsPair& materialBindingsPair = createAndAddNodeMaterialBindingsPair(node);
+                size_t bindingsCount = materialBindings.getCount();
+                materialBindingsPair.materialBindings.reserve(bindingsCount);
+                for ( size_t i = 0; i < bindingsCount; ++i)
+                    materialBindingsPair.materialBindings.push_back(materialBindings[i]);
+            }
+        }
 
 		/** Store the information about material bindings of @a instanceController attached to max node @a node. */
 		void postProcessInstanceController( INode* node, COLLADAFW::InstanceController* instanceController );

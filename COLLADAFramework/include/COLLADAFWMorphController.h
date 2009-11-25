@@ -14,14 +14,13 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWController.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
-#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
 {
 
 	/** A morph controller.  */
-	class MorphController : public Controller, public ExtraData
+	class MorphController : public Controller
 	{
 	private:
 

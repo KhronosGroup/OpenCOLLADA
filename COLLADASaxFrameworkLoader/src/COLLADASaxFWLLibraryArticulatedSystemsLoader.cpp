@@ -13,8 +13,6 @@
 #include "COLLADASaxFWLKinematicsIntermediateData.h"
 #include "COLLADASaxFWLFileLoader.h"
 
-#include "COLLADAFWExtraKeys.h"
-
 
 namespace COLLADASaxFWL
 {
@@ -22,7 +20,6 @@ namespace COLLADASaxFWL
     //------------------------------
 	LibraryArticulatedSystemsLoader::LibraryArticulatedSystemsLoader( IFilePartLoader* callingFilePartLoader )
 		: FilePartLoader(callingFilePartLoader)
-		, mCurrentArticulatedSystemExtra(0)
 		, mCurrentKinematicsController(0)
 		, mCurrentKinematicsInstanceKinematicsModel(0)
 		, mValueElementParentType(VALUE_ELEMENT_NONE)
@@ -36,44 +33,12 @@ namespace COLLADASaxFWL
 	{
 	}
 
-	//------------------------------
-	const char* LibraryArticulatedSystemsLoader::getSecondKey()
-	{
-		// we are inside a kinematics element
-		if ( mCurrentKinematicsController )
-		{
-			return COLLADAFW::ExtraKeys::KINEMATICS;
-		}
-		else
-		{
-			return COLLADAFW::ExtraKeys::ARTICULATEDSYSTEM;
-		}
-	}
-
     //------------------------------
     const COLLADAFW::UniqueId& LibraryArticulatedSystemsLoader::getUniqueId ()
     {
         // TODO No uniqueId!
         return COLLADAFW::UniqueId::INVALID;
     }
-
-	//------------------------------
-	COLLADAFW::ExtraData* LibraryArticulatedSystemsLoader::getExtraData()
-	{
-		// we are inside a kinematics element
-		if ( mCurrentKinematicsController )
-		{
-			return mCurrentKinematicsController;
-		}
-		
-		if ( mCurrentArticulatedSystemExtra )
-		{
-			return mCurrentArticulatedSystemExtra;
-		}
-		// we should never get here
-		assert(false);
-		return 0;
-	}
 
 	//------------------------------
 	bool LibraryArticulatedSystemsLoader::end__library_articulated_systems()
@@ -108,7 +73,6 @@ namespace COLLADASaxFWL
 	{
 		mCurrentArticulatedId.clear();
 		mCurrentArticulatedName.clear();
-		mCurrentArticulatedSystemExtra = 0;
 		moveUpInSidTree();
 		return true;
 	}
@@ -117,7 +81,6 @@ namespace COLLADASaxFWL
 	bool LibraryArticulatedSystemsLoader::begin__kinematics()
 	{
 		mCurrentKinematicsController = new KinematicsController( mCurrentArticulatedId, mCurrentArticulatedName );
-		mCurrentArticulatedSystemExtra = mCurrentKinematicsController;
 		return true;
 	}
 

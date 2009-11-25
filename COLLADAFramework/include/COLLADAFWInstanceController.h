@@ -12,14 +12,14 @@
 #define __COLLADAFW_INSTANCECONTROLLER_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWInstanceGeometry.h"
+#include "COLLADAFWInstanceBindingBase.h"
 
 
 namespace COLLADAFW
 {
 
     /** Instantiates a controller within a scene graph.*/
-    typedef InstanceGeometry InstanceController;
+    typedef InstanceBindingBase<COLLADA_TYPE::INSTANCE_CONTROLLER> InstanceController;
 
     typedef ArrayPrimitiveType<InstanceController*> InstanceControllerArray;
     typedef PointerArray<InstanceController> InstanceControllerPointerArray;

@@ -188,9 +188,10 @@ namespace COLLADAMaya
         // Add the correct effect for the material
         COLLADASW::EffectProfile effectProfile ( mSW );
 
+        // TODO
         // Export the user defined extra data under the profile's technique element.
         String shaderNodeName = shaderNode.name ().asChar ();
-        exportExtraData ( &effectProfile, shader );
+//        exportExtraData ( &effectProfile, shader );
 
         // Export the shader attributes.
         if ( shader.hasFn ( MFn::kLambert ) )
@@ -233,8 +234,9 @@ namespace COLLADAMaya
         // Export the original maya name into extra data.
         effectProfile.addExtraTechniqueParameter ( PROFILE_MAYA, PARAMETER_MAYA_ID, mayaMaterialId );
 
-        // Export the user defined effect extra data from import (extra preservation).
-        mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::EFFECT, 0, &effectProfile );
+        // TODO
+//         // Export the user defined effect extra data from import (extra preservation).
+//         mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::EFFECT, 0, &effectProfile );
 
         // Closes the current effect tag
         closeEffect ();
@@ -461,11 +463,12 @@ namespace COLLADAMaya
             // Create the texture element.
             COLLADASW::Texture colladaTexture;
 
-            // Extra tag preservation
-            String secondKey = COLLADAFW::ExtraKeys::TEXTURE; secondKey.append ( "_" );
-            size_t index = getShaderParameterTypeByChannel ( channel );
-            secondKey.append ( COLLADABU::Utils::toString ( index ) );
-            mDocumentExporter->exportExtraData ( node, COLLADAFW::ExtraKeys::TEXTURE, secondKey.c_str (), &colladaTexture );
+            // TODO
+//             // Extra tag preservation
+//             String secondKey = COLLADAFW::ExtraKeys::TEXTURE; secondKey.append ( "_" );
+//             size_t index = getShaderParameterTypeByChannel ( channel );
+//             secondKey.append ( COLLADABU::Utils::toString ( index ) );
+//             mDocumentExporter->exportExtraData ( node, COLLADAFW::ExtraKeys::TEXTURE, secondKey.c_str (), &colladaTexture );
 
             // Export the data of the texture.
             mTextureExporter.exportTexture ( &colladaTexture,
@@ -704,36 +707,36 @@ namespace COLLADAMaya
         return colladaEffectId;
     }
 
-    // ------------------------------------
-    void EffectExporter::exportExtraData ( 
-        COLLADASW::EffectProfile* effectProfile, 
-        const MObject& shader )
-    {
-        // Get the extra key in depend on the current effect profile type.
-        const char* extraKey;
-        const COLLADASW::EffectProfile::ProfileType& profileType = effectProfile->getProfileType ();
-        switch ( profileType )
-        {
-        case COLLADASW::EffectProfile::CG:
-            extraKey = COLLADAFW::ExtraKeys::PROFILE_CG; break;
-        case COLLADASW::EffectProfile::COMMON:
-            extraKey = COLLADAFW::ExtraKeys::PROFILE_COMMON; break;
-        case COLLADASW::EffectProfile::GLES:
-            extraKey = COLLADAFW::ExtraKeys::PROFILE_GLES; break;
-        case COLLADASW::EffectProfile::GLSL:
-            extraKey = COLLADAFW::ExtraKeys::PROFILE_GLSL; break;
-        }
-//         // Export the user defined effect extra data from import (extra preservation).
-//         mDocumentExporter->exportExtraData ( shader, extraKey, false );
-
-        // Export the user defined extra data under the profile element.
-        COLLADASW::BaseExtraTechnique& profileExtra = effectProfile->getProfileExtra ();
-        mDocumentExporter->exportExtraData ( shader, extraKey, 0, &profileExtra );
-
-        // Export the user defined extra data under the profile's technique element.
-        COLLADASW::BaseExtraTechnique& profileTechniqueExtra = effectProfile->getProfileTechniqueExtra ();
-        mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::TECHNIQUE, 0, &profileTechniqueExtra );
-    }
+//     // ------------------------------------
+//     void EffectExporter::exportExtraData ( 
+//         COLLADASW::EffectProfile* effectProfile, 
+//         const MObject& shader )
+//     {
+//         // Get the extra key in depend on the current effect profile type.
+//         const char* extraKey;
+//         const COLLADASW::EffectProfile::ProfileType& profileType = effectProfile->getProfileType ();
+//         switch ( profileType )
+//         {
+//         case COLLADASW::EffectProfile::CG:
+//             extraKey = COLLADAFW::ExtraKeys::PROFILE_CG; break;
+//         case COLLADASW::EffectProfile::COMMON:
+//             extraKey = COLLADAFW::ExtraKeys::PROFILE_COMMON; break;
+//         case COLLADASW::EffectProfile::GLES:
+//             extraKey = COLLADAFW::ExtraKeys::PROFILE_GLES; break;
+//         case COLLADASW::EffectProfile::GLSL:
+//             extraKey = COLLADAFW::ExtraKeys::PROFILE_GLSL; break;
+//         }
+// //         // Export the user defined effect extra data from import (extra preservation).
+// //         mDocumentExporter->exportExtraData ( shader, extraKey, false );
+// 
+//         // Export the user defined extra data under the profile element.
+//         COLLADASW::BaseExtraTechnique& profileExtra = effectProfile->getProfileExtra ();
+//         mDocumentExporter->exportExtraData ( shader, extraKey, 0, &profileExtra );
+// 
+//         // Export the user defined extra data under the profile's technique element.
+//         COLLADASW::BaseExtraTechnique& profileTechniqueExtra = effectProfile->getProfileTechniqueExtra ();
+//         mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::TECHNIQUE, 0, &profileTechniqueExtra );
+//     }
 
     // ------------------------------------
     size_t EffectExporter::getShaderParameterTypeByChannel ( const Channel& channel )

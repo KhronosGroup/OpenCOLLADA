@@ -101,8 +101,9 @@ namespace DAE2MA
         String imageName = image->getName ();
         if ( imageName.empty () ) imageName = IMAGE_NAME;
         imageName = DocumentImporter::frameworkNameToMayaName ( imageName );
-        String originalMayaId = getOriginalMayaId ( image->getExtraDataArray () );
-        if ( !originalMayaId.empty () ) imageName = originalMayaId;
+        // TODO
+//         String originalMayaId = getOriginalMayaId ( image->getExtraDataArray () );
+//         if ( !originalMayaId.empty () ) imageName = originalMayaId;
         imageName = generateUniqueDependNodeName ( imageName );
 
         // Get the maya ascii file.
@@ -127,8 +128,8 @@ namespace DAE2MA
             MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
             MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
         }
-        // TODO Add the attributes for all the extra tags.
-        setExtraData ( image->getExtraDataArray () );
+//         // TODO Add the attributes for all the extra tags.
+//         setExtraData ( image->getExtraDataArray () );
 
         // Push the maya image file in the map to the unique image id.
         mImageIdMayaImageFileMap [ imageId ] = mayaImage;

@@ -14,7 +14,6 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
 #include "COLLADAFWInstanceVisualScene.h"
-#include "COLLADAFWExtraData.h"
 
 #include "COLLADABUURI.h"
 
@@ -28,7 +27,7 @@ namespace COLLADAFW
      *  <instance_visual_scene> 0 or 1
      *  <instance_kinematics_scene> 0 or 1
      */
-    class Scene : public ExtraData
+    class Scene : public ObjectTemplate<COLLADA_TYPE::SCENE>
     {
 	private:
 
@@ -38,10 +37,16 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-        Scene () : mInstanceVisualScene (0) {}
+        Scene ( const UniqueId& uniqueId ) 
+            : ObjectTemplate<COLLADA_TYPE::SCENE>(uniqueId)
+            , mInstanceVisualScene (0) 
+        {}
 
         /** Destructor. */
-        virtual ~Scene() { delete mInstanceVisualScene; }
+        virtual ~Scene() 
+        { 
+            delete mInstanceVisualScene; 
+        }
 
         /** The instance visual scene.*/
         const InstanceVisualScene* getInstanceVisualScene () const { return mInstanceVisualScene; }

@@ -27,7 +27,6 @@
 #include "MayaDMLambert.h"
 
 #include "COLLADAFWFloatOrDoubleArray.h"
-#include "COLLADAFWExtraData.h"
 
 
 namespace DAE2MA
@@ -262,17 +261,17 @@ namespace DAE2MA
             bool returnConverted = true, 
             bool alwaysAddNumberSuffix = false );
 
-        /**
-         * Reads the original maya id from the extra tags, if it exist in the framework data.
-         */
-        String getOriginalMayaId ( const COLLADAFW::ExtraDataArray &extraDataArray );
-
-        /**
-         * First we have to build a tree. With this tree, we know the number of children of every 
-         * knot in the tree. We have to create a compound attribute for every knot. After we have
-         * created the compound attributes, we can set the extra data values.
-         */
-        void setExtraData ( const COLLADAFW::ExtraDataArray &extraDataArray );
+//         /**
+//          * Reads the original maya id from the extra tags, if it exist in the framework data.
+//          */
+//         String getOriginalMayaId ( const COLLADAFW::ExtraDataArray &extraDataArray );
+// 
+//         /**
+//          * First we have to build a tree. With this tree, we know the number of children of every 
+//          * knot in the tree. We have to create a compound attribute for every knot. After we have
+//          * created the compound attributes, we can set the extra data values.
+//          */
+//         void setExtraData ( const COLLADAFW::ExtraDataArray &extraDataArray );
 
         /**
         * Extract the 3x3 matrix from the transform matrix and normalize the columns of it.
@@ -289,12 +288,12 @@ namespace DAE2MA
             const String& name, 
             const std::map<String, ExtraTreeElement*>& rootExtraTreeElements );
 
-        /**
-        * Build a tree of the extra data elements.
-        */
-        void createExtraDataTree ( 
-            const COLLADAFW::ExtraDataArray& extraDataArray, 
-            std::map<String, ExtraTreeElement*>& rootExtraTreeElements );
+//         /**
+//         * Build a tree of the extra data elements.
+//         */
+//         void createExtraDataTree ( 
+//             const COLLADAFW::ExtraDataArray& extraDataArray, 
+//             std::map<String, ExtraTreeElement*>& rootExtraTreeElements );
 
         /**
         * After we filled the tree, we have to create the attributes.

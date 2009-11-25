@@ -16,9 +16,6 @@
 #include "COLLADASaxFWLColladaParserAutoGen14Private.h"
 #include "COLLADASaxFWLColladaParserAutoGen15Private.h"
 
-#include "GeneratedSaxParserRawUnknownElementHandler.h"
-
-
 
 namespace COLLADASaxFWL
 {

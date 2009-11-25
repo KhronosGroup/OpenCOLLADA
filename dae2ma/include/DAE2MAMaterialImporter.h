@@ -208,25 +208,135 @@ namespace DAE2MA
         bool importMaterial ( const COLLADAFW::Material* material );
 
         /** Write the shader data into the maya file. */
+        template<COLLADAFW::ClassId classId>
         void writeShaderData ( 
-            const COLLADAFW::UniqueId& transformNodeId, 
-            const COLLADAFW::InstanceGeometry* instanceGeometry,
-            const COLLADAFW::UniqueId* controllerId );
+            const COLLADAFW::UniqueId& transformId, 
+            const COLLADAFW::InstanceBindingBase<classId>* instanceBinding,
+            const COLLADAFW::UniqueId* controllerId )
+        {
+            // Get the sourceId, which bind the material.
+            const COLLADAFW::UniqueId& sourceId = instanceBinding->getInstanciatedObjectId ();
+
+            // Create a shading binding object for the current geometry.
+            GeometryBinding geometryBinding;
+            geometryBinding.setSourceId ( sourceId );
+            geometryBinding.setTransformId ( transformId );
+            geometryBinding.setControllerId ( controllerId );
+
+            // Store the bound materials. One material binding for every primitive element.
+            const COLLADAFW::MaterialBindingArray& materialBindingsArray = instanceBinding->getMaterialBindings ();
+            mGeometryMaterialBindingsMap [geometryBinding] = &materialBindingsArray;
+        }
 
         /**
          * Create the shader engine and the material info objects and returns them.
          */
         ShadingData* createShaderData ( 
             const COLLADAFW::UniqueId& materialId, 
-            String shadingEngineName = EMPTY_STRING );
+            String shadingEngineName = EMPTY_STRING )
+        {
+            // Check if already a shading engine with the materialId exist.
+            ShadingData* shadingData = findShaderData ( materialId );
+            if ( shadingData != 0 ) return shadingData;
+
+            // The initial shading engine and material info can be used instead of created.
+            if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, INITIAL_SHADING_ENGINE_NAME ) )
+            {
+                // Get the initial shading engine.
+                FILE* file = getDocumentImporter ()->getFile ();
+                MayaDM::ShadingEngine shadingEngine ( file, INITIAL_SHADING_ENGINE_NAME.c_str (), EMPTY_STRING, false, false );
+
+                // Get the initial material info.
+                MayaDM::MaterialInfo materialInfo ( file, INITIAL_MATERIAL_INFO_NAME.c_str () );
+
+                // Create a shader data object with the shading engine and the material info 
+                // and push it into the map of shading engines
+                shadingData = new ShadingData ( shadingEngine, materialInfo );
+                mShaderDataMap [materialId] = shadingData;
+            }
+            else
+            {
+                // Get the shading engine name.
+                if ( shadingEngineName.empty () ) shadingEngineName = SHADING_ENGINE_NAME;
+                shadingEngineName = DocumentImporter::frameworkNameToMayaName ( shadingEngineName );
+                shadingEngineName = generateUniqueDependNodeName ( shadingEngineName );
+
+                // Create a shading engine, if we not already have one.
+                FILE* file = getDocumentImporter ()->getFile ();
+                MayaDM::ShadingEngine shadingEngine ( file, shadingEngineName.c_str () );
+
+                // Create the material info node for the shading engine.
+                // createNode materialInfo -name "materialInfo2";
+                String materialInfoName = MATERIAL_INFO_NAME;
+                materialInfoName = DocumentImporter::frameworkNameToMayaName ( materialInfoName );
+                materialInfoName = generateUniqueDependNodeName ( materialInfoName, true, true );
+                MayaDM::MaterialInfo materialInfo ( file, materialInfoName.c_str () );
+
+                // Push it in the map of shading engines
+                shadingData = new ShadingData ( shadingEngine, materialInfo );
+                mShaderDataMap [materialId] = shadingData;
+            }
+
+            return shadingData;
+        }
 
         /**
         * Create the necessary uv chooser objects for texture uv set binding.
         */
+        template<COLLADAFW::ClassId classId>
         void createBindingInputSets ( 
             const COLLADAFW::UniqueId& transformNodeId, 
-            const COLLADAFW::InstanceGeometry* instanceGeometry,
-            const COLLADAFW::UniqueId* controllerId );
+            const COLLADAFW::InstanceBindingBase<classId>* instanceBinding,
+            const COLLADAFW::UniqueId* controllerId )
+        {
+            // An uv-chooser will be generated, if
+            // 1.) one geometry has more than one uv-set and
+            // 2.) this geometry has a material with one or more textures und
+            // 3.) the scenegraph uses this texture with an uv-set-index, which is not the first one.
+
+            // We need one uv-chooser for every texture in a material, if the points 1 to 3 are right. 
+            // It doesn't matter if the material is referenced for multiple times! Then we use for  
+            // every reference just the next index of the material's uv-chooser's uv-set.
+            GeometryImporter* geometryImporter = getDocumentImporter ()->getGeometryImporter ();
+            EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
+
+            // Get the source id of the instanciated object.
+            const COLLADAFW::UniqueId& sourceId = instanceBinding->getInstanciatedObjectId ();
+
+            // 2.) We just have to create an uv-chooser, if the geometry has a material with one or more textures.
+            const COLLADAFW::MaterialBindingArray& materialBindingsArray = instanceBinding->getMaterialBindings ();
+            size_t numMaterialBindings = materialBindingsArray.getCount ();
+            for ( size_t i=0; i<numMaterialBindings; ++i )
+            {
+                // Get the current material binding.
+                const COLLADAFW::MaterialBinding& materialBinding = materialBindingsArray [i];
+                const COLLADAFW::UniqueId& materialId = materialBinding.getReferencedMaterial ();
+                const COLLADAFW::MaterialId& shadingEngineId = materialBinding.getMaterialId ();
+
+                // Get the bind_vertex_input element.
+                const COLLADAFW::TextureCoordinateBindingArray& texCoordBindingArray = materialBinding.getTextureCoordinateBindingArray ();
+                size_t numTexCoordBindings = texCoordBindingArray.getCount ();
+                for ( size_t j=0; j<numTexCoordBindings; ++j )
+                {
+                    const COLLADAFW::TextureCoordinateBinding& texCoordBinding = texCoordBindingArray [j];
+                    const COLLADAFW::TextureMapId textureMapId = texCoordBinding.getTextureMapId ();
+                    const size_t inputSetIndex = texCoordBinding.getSetIndex ();
+
+                    // Store the information about the used set.
+                    BindingInputSet bindVertexInputSet;
+                    bindVertexInputSet.setInstanciatedObjectId ( sourceId );
+                    bindVertexInputSet.setTransformNodeId ( transformNodeId );
+                    bindVertexInputSet.setControllerId ( controllerId );
+                    bindVertexInputSet.setTextureMapId ( textureMapId );
+                    bindVertexInputSet.setInputSetIndex ( inputSetIndex );
+                    bindVertexInputSet.setMaterialId ( materialId );
+                    bindVertexInputSet.setShadingEngineId ( shadingEngineId );
+
+                    // Push it in a list.
+                    mBindingTexCoordInputSetsMap [materialId].push_back ( bindVertexInputSet );
+                }
+            }
+        }
 
         /**
          * An uv-chooser will be generated, if

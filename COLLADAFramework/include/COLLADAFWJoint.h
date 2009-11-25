@@ -15,13 +15,13 @@
 #include "COLLADAFWJointPrimitive.h"
 #include "COLLADAFWPointerArray.h"
 #include "COLLADAFWObject.h"
-#include "COLLADAFWExtraData.h"
+
 
 namespace COLLADAFW
 {
 
     /** Represents a joint in the the kinematics model, consisting of one ore more joint primitives. */
-	class Joint : public ObjectTemplate < COLLADA_TYPE::JOINT >, public ExtraData
+	class Joint : public ObjectTemplate < COLLADA_TYPE::JOINT >
 	{
 	private:
 

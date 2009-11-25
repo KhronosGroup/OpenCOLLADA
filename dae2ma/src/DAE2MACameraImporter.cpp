@@ -106,8 +106,9 @@ namespace DAE2MA
         String cameraName = camera->getName ();
         if ( cameraName.empty () ) cameraName = CAMERA_NAME;
         cameraName = DocumentImporter::frameworkNameToMayaName ( cameraName );
-        String originalMayaId = getOriginalMayaId ( camera->getExtraDataArray () );
-        if ( !originalMayaId.empty () ) cameraName = originalMayaId;
+        // TODO
+//         String originalMayaId = getOriginalMayaId ( camera->getExtraDataArray () );
+//         if ( !originalMayaId.empty () ) cameraName = originalMayaId;
         cameraName = generateUniqueDagNodeName ( cameraName, mayaTransformNode );
 
         // Create a maya node object of the current node and push it into the map.
@@ -136,8 +137,8 @@ namespace DAE2MA
             MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
             MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
         }
-        // TODO Add the attributes for all the extra tags.
-        setExtraData ( camera->getExtraDataArray () );
+//         // TODO Add the attributes for all the extra tags.
+//         setExtraData ( camera->getExtraDataArray () );
 
         // Have a look, if there is a center of interest set by the transform's lookat matrix.
         VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();

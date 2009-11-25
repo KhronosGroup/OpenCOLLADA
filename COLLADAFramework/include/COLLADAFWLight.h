@@ -15,7 +15,6 @@
 #include "COLLADAFWObject.h"
 #include "COLLADAFWColor.h"
 #include "COLLADAFWAnimatableFloat.h"
-#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
@@ -24,7 +23,7 @@ namespace COLLADAFW
 	/** A light of one of the types: ambient, directional, point, spot.
 	Formula for attenuation:
 	A = constant_attenuation + ( D * linear_attenuation ) + ( D^2 * quadratic_attenuation )*/
-	class Light : public ObjectTemplate < COLLADA_TYPE::LIGHT >, public ExtraData
+	class Light : public ObjectTemplate < COLLADA_TYPE::LIGHT >
 	{
 	public:
 

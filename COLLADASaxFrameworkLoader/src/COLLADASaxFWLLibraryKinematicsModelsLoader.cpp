@@ -15,7 +15,6 @@
 #include "COLLADAFWTranslate.h"
 #include "COLLADAFWRotate.h"
 #include "COLLADAFWJoint.h"
-#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -37,44 +36,12 @@ namespace COLLADASaxFWL
 	{
 	}
 
-	//------------------------------
-	const char* LibraryKinematicsModelsLoader::getSecondKey()
-	{
-		// we are inside a joint instance
-		if ( mCurrentJointInstance )
-		{
-			return COLLADAFW::ExtraKeys::INSTANCE_JOINT;
-		}
-
-		return 0;
-	}
-
     //------------------------------
     const COLLADAFW::UniqueId& LibraryKinematicsModelsLoader::getUniqueId ()
     {
         // TODO No uniqueId!
         return COLLADAFW::UniqueId::INVALID;
     }
-
-	//------------------------------
-	COLLADAFW::ExtraData* LibraryKinematicsModelsLoader::getExtraData()
-	{
-		// we are inside a joint instance
-		if ( mCurrentJointInstance )
-		{
-			return mCurrentJointInstance;
-		}
-
-		// check if we are inside a formula
-		COLLADAFW::ExtraData* formula = FormulasLoader::getExtraData();
-		if ( formula )
-		{
-			return formula;
-		}
-
-		// we are not inside a child of the kinematics model, therefore the extra must be one of the kin model
-		return mCurrentKinematicsModel;
-	}
 
 	//------------------------------
 	template<class Transformationtype> 

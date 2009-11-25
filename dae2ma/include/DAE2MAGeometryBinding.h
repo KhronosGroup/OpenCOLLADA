@@ -74,7 +74,7 @@ namespace DAE2MA
     * Used to store for a geometry under a transform node all shadingEngineIds with the 
     * corresponding materialId. 
     */
-    typedef std::map<GeometryBinding, const COLLADAFW::InstanceGeometry::MaterialBindingArray*> GeometryMaterialBindingsMap;
+    typedef std::map<GeometryBinding, const COLLADAFW::MaterialBindingArray*> GeometryMaterialBindingsMap;
 
 } // namespace DAE2MA
 

@@ -149,8 +149,9 @@ namespace DAE2MA
         String lightName = light->getName ();
         if ( lightName.empty () ) lightName = LIGHT_NAME;
         lightName = DocumentImporter::frameworkNameToMayaName ( lightName );
-        String originalMayaId = getOriginalMayaId ( light->getExtraDataArray () );
-        if ( !originalMayaId.empty () ) lightName = originalMayaId;
+        // TODO
+//         String originalMayaId = getOriginalMayaId ( light->getExtraDataArray () );
+//         if ( !originalMayaId.empty () ) lightName = originalMayaId;
         lightName = generateUniqueDagNodeName ( lightName, mayaTransformNode );
 
         // Create a maya node object of the current node and push it into the map.
@@ -197,8 +198,8 @@ namespace DAE2MA
             MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
             MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
         }
-        // TODO Add the attributes for all the extra tags.
-        setExtraData ( light->getExtraDataArray () );
+//         // TODO Add the attributes for all the extra tags.
+//         setExtraData ( light->getExtraDataArray () );
 
         // Set the standard light color.
         COLLADAFW::Color color = light->getColor ();

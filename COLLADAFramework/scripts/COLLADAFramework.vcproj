@@ -447,14 +447,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAFWExtraData.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADAFWExtraKeys.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADAFWFileInfo.cpp"
 				>
 			</File>
@@ -476,10 +468,6 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAFWImage.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADAFWInstanceGeometry.cpp"
 				>
 			</File>
 			<File
@@ -721,14 +709,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWExtraData.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWExtraKeys.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAFWFileInfo.h"
 				>
 			</File>
@@ -777,6 +757,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWIndexList.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWInstanceBase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWInstanceBindingBase.h"
 				>
 			</File>
 			<File
@@ -837,6 +825,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWMaterial.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWMaterialBinding.h"
 				>
 			</File>
 			<File
@@ -1001,6 +993,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWTexture.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWTextureCoordinateBinding.h"
 				>
 			</File>
 			<File

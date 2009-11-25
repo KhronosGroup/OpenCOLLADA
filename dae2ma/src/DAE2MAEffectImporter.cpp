@@ -135,19 +135,20 @@ namespace DAE2MA
             // Adds the attributes with the original collada ids.
             addOriginalColladaIds ( effect, materialId, commonEffect );
 
-            // Add the effect attributes for all the extra tags to the maya effect.
-            const COLLADAFW::ExtraDataArray& effectExtraDataArray = effect->getExtraDataArray ();
+            // TODO
+//             // Add the effect attributes for all the extra tags to the maya effect.
+//             const COLLADAFW::ExtraDataArray& effectExtraDataArray = effect->getExtraDataArray ();
 
             // Add the material attributes for all the extra tags to the maya effect.
             const COLLADAFW::Material* material = getDocumentImporter ()->getMaterialById ( materialId );
-            const COLLADAFW::ExtraDataArray& materialExtraDataArray = material->getExtraDataArray ();
-
-            // Generate an array with all the extra data elements.
-            COLLADAFW::ExtraDataArray extraDataArray ( effectExtraDataArray );
-            extraDataArray.appendValues ( materialExtraDataArray );
-
-            // Set the extra data elements.
-            setExtraData ( extraDataArray );
+//             const COLLADAFW::ExtraDataArray& materialExtraDataArray = material->getExtraDataArray ();
+// 
+//             // Generate an array with all the extra data elements.
+//             COLLADAFW::ExtraDataArray extraDataArray ( effectExtraDataArray );
+//             extraDataArray.appendValues ( materialExtraDataArray );
+// 
+//             // Set the extra data elements.
+//             setExtraData ( extraDataArray );
 
             // Create the shader data with the shading engine and the material info of the material.
             MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();

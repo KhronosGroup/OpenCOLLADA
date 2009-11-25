@@ -13,7 +13,6 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
-#include "COLLADAFWExtraData.h"
 #include "COLLADAFWAnimatableFloat.h"
 
 
@@ -24,7 +23,7 @@ namespace COLLADAFW
 	The CameraType indicates of which type the camera is which. 
 	For perspective cameras mXFovOrXMag and mYFovOrYMag store the horizontal or vertical field of view,
 	for orthographic cameras mXFovOrXMag and mYFovOrYMag store the horizontal or vertical magnification of the view.*/
-	class Camera : public ObjectTemplate < COLLADA_TYPE::CAMERA >, public ExtraData
+	class Camera : public ObjectTemplate < COLLADA_TYPE::CAMERA >
 	{
 	public:
 		/** The type of the camera.*/

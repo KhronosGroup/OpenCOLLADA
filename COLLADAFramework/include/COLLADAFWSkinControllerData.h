@@ -16,15 +16,15 @@
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
-#include "COLLADAFWExtraData.h"
 
 #include "Math/COLLADABUMathMatrix4.h"
+
 
 namespace COLLADAFW
 {
 
     /** Holds the data of a skin controller, i.e. the weights per vertex per joint */
-	class SkinControllerData : public ObjectTemplate<COLLADA_TYPE::SKIN_DATA>, public ExtraData
+	class SkinControllerData : public ObjectTemplate<COLLADA_TYPE::SKIN_DATA>
 	{
 	private:
 

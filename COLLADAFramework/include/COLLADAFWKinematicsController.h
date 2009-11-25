@@ -18,14 +18,13 @@
 #include "COLLADAFWAxisInfo.h"
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWObject.h"
-#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
 {
 
     /** TODO Documentation */
-	class KinematicsController 	: ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>, public ExtraData
+	class KinematicsController 	: ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>
 	{
 	private:
 

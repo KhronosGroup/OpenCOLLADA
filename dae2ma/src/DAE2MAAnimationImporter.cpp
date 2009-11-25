@@ -183,8 +183,9 @@ namespace DAE2MA
             String animationName = animationCurve->getName ();
             if ( animationName.empty () ) animationName = ANIMATION_NAME;
             animationName = DocumentImporter::frameworkNameToMayaName ( animationName );
-            String originalMayaId = getOriginalMayaId ( animationCurve->getExtraDataArray () );
-            if ( !originalMayaId.empty () ) animationName = originalMayaId;
+            // TODO
+//             String originalMayaId = getOriginalMayaId ( animationCurve->getExtraDataArray () );
+//             if ( !originalMayaId.empty () ) animationName = originalMayaId;
             animationName = generateUniqueDependNodeName ( animationName, true, true );
 
             // Get the maya file
@@ -245,8 +246,8 @@ namespace DAE2MA
                 MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
                 MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
             }
-            // TODO Add the attributes for all the extra tags.
-            setExtraData ( animationCurve->getExtraDataArray () );
+//             // TODO Add the attributes for all the extra tags.
+//             setExtraData ( animationCurve->getExtraDataArray () );
 
             // Push the maya animation curve element in a list.
             const COLLADAFW::UniqueId& animationId = animationCurve->getUniqueId ();
@@ -302,8 +303,9 @@ namespace DAE2MA
             String animationName = animationCurve->getName ();
             if ( animationName.empty () ) animationName = ANIMATION_NAME;
             animationName = DocumentImporter::frameworkNameToMayaName ( animationName );
-            String originalMayaId = getOriginalMayaId ( animationCurve->getExtraDataArray () );
-            if ( !originalMayaId.empty () ) animationName = originalMayaId;
+            // TODO
+//             String originalMayaId = getOriginalMayaId ( animationCurve->getExtraDataArray () );
+//             if ( !originalMayaId.empty () ) animationName = originalMayaId;
             animationName = generateUniqueDependNodeName ( animationName );
 
             // Create the animation curve.
@@ -359,8 +361,8 @@ namespace DAE2MA
                 MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
                 MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
             }
-            // TODO Add the attributes for all the extra tags.
-            setExtraData ( animationCurve->getExtraDataArray () );
+//             // TODO Add the attributes for all the extra tags.
+//             setExtraData ( animationCurve->getExtraDataArray () );
 
             // Push the maya animation curve element in a list.
             const COLLADAFW::UniqueId& animationId = animationCurve->getUniqueId ();

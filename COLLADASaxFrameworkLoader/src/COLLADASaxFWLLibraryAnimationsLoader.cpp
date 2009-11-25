@@ -20,7 +20,6 @@
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWTypes.h"
-#include "COLLADAFWExtraKeys.h"
 
 
 namespace COLLADASaxFWL
@@ -290,18 +289,6 @@ namespace COLLADASaxFWL
 	LibraryAnimationsLoader::~LibraryAnimationsLoader()
 	{
 	}
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryAnimationsLoader::getExtraData ()
-    {
-        return mCurrentAnimationCurve;
-    }
-
-    //------------------------------
-    const char* LibraryAnimationsLoader::getSecondKey ()
-    {
-        return COLLADAFW::ExtraKeys::ANIMATION;
-    }
 
     //------------------------------
     const COLLADAFW::UniqueId& LibraryAnimationsLoader::getUniqueId ()

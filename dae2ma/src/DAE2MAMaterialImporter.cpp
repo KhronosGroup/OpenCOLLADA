@@ -84,8 +84,9 @@ namespace DAE2MA
         String materialName ( material->getName () );
         if ( materialName.empty () ) materialName = MATERIAL_NAME;
         materialName = DocumentImporter::frameworkNameToMayaName ( materialName );
-        String originalMayaId = getOriginalMayaId ( material->getExtraDataArray () );
-        if ( !originalMayaId.empty () ) materialName = originalMayaId;
+        // TODO
+//         String originalMayaId = getOriginalMayaId ( material->getExtraDataArray () );
+//         if ( !originalMayaId.empty () ) materialName = originalMayaId;
         materialName = generateUniqueDependNodeName ( materialName );
 
 //         // TODO Doesn't work on file import, just on file open!
@@ -112,131 +113,6 @@ namespace DAE2MA
         effectImporter->assignMaterial ( effectId, materialId );
 
         return true;
-     }
-
-     // --------------------------
-     MaterialImporter::ShadingData* MaterialImporter::createShaderData ( 
-         const COLLADAFW::UniqueId& materialId, 
-         String shadingEngineName /*= EMPTY_STRING*/ )
-     {
-         // Check if already a shading engine with the materialId exist.
-         ShadingData* shadingData = findShaderData ( materialId );
-         if ( shadingData != 0 ) return shadingData;
-
-         // The initial shading engine and material info can be used instead of created.
-         if ( COLLADABU::Utils::equalsIgnoreCase ( shadingEngineName, INITIAL_SHADING_ENGINE_NAME ) )
-         {
-             // Get the initial shading engine.
-             FILE* file = getDocumentImporter ()->getFile ();
-             MayaDM::ShadingEngine shadingEngine ( file, INITIAL_SHADING_ENGINE_NAME.c_str (), EMPTY_STRING, false, false );
-
-             // Get the initial material info.
-             MayaDM::MaterialInfo materialInfo ( file, INITIAL_MATERIAL_INFO_NAME.c_str () );
-
-             // Create a shader data object with the shading engine and the material info 
-             // and push it into the map of shading engines
-             shadingData = new ShadingData ( shadingEngine, materialInfo );
-             mShaderDataMap [materialId] = shadingData;
-         }
-         else
-         {
-             // Get the shading engine name.
-             if ( shadingEngineName.empty () ) shadingEngineName = SHADING_ENGINE_NAME;
-             shadingEngineName = DocumentImporter::frameworkNameToMayaName ( shadingEngineName );
-             shadingEngineName = generateUniqueDependNodeName ( shadingEngineName );
-
-             // Create a shading engine, if we not already have one.
-             FILE* file = getDocumentImporter ()->getFile ();
-             MayaDM::ShadingEngine shadingEngine ( file, shadingEngineName.c_str () );
-
-             // Create the material info node for the shading engine.
-             // createNode materialInfo -name "materialInfo2";
-             String materialInfoName = MATERIAL_INFO_NAME;
-             materialInfoName = DocumentImporter::frameworkNameToMayaName ( materialInfoName );
-             materialInfoName = generateUniqueDependNodeName ( materialInfoName, true, true );
-             MayaDM::MaterialInfo materialInfo ( file, materialInfoName.c_str () );
-
-             // Push it in the map of shading engines
-             shadingData = new ShadingData ( shadingEngine, materialInfo );
-             mShaderDataMap [materialId] = shadingData;
-         }
-
-         return shadingData;
-     }
-
-    // -----------------------------------
-    void MaterialImporter::writeShaderData ( 
-        const COLLADAFW::UniqueId& transformId, 
-        const COLLADAFW::InstanceGeometry* instanceGeometry, 
-        const COLLADAFW::UniqueId* controllerId )
-    {
-        // Get the sourceId, which bind the material.
-        const COLLADAFW::UniqueId& sourceId = instanceGeometry->getInstanciatedObjectId ();
-
-        // Create a shading binding object for the current geometry.
-        GeometryBinding geometryBinding;
-        geometryBinding.setSourceId ( sourceId );
-        geometryBinding.setTransformId ( transformId );
-        geometryBinding.setControllerId ( controllerId );
-
-        // Store the bound materials. One material binding for every primitive element.
-        const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindingsArray = instanceGeometry->getMaterialBindings ();
-        mGeometryMaterialBindingsMap [geometryBinding] = &materialBindingsArray;
-    }
-
-    // --------------------------
-    void MaterialImporter::createBindingInputSets ( 
-        const COLLADAFW::UniqueId& transformNodeId, 
-        const COLLADAFW::InstanceGeometry* instanceGeometry,
-        const COLLADAFW::UniqueId* controllerId )
-    {
-        // An uv-chooser will be generated, if
-        // 1.) one geometry has more than one uv-set and
-        // 2.) this geometry has a material with one or more textures und
-        // 3.) the scenegraph uses this texture with an uv-set-index, which is not the first one.
-        
-        // We need one uv-chooser for every texture in a material, if the points 1 to 3 are right. 
-        // It doesn't matter if the material is referenced for multiple times! Then we use for  
-        // every reference just the next index of the material's uv-chooser's uv-set.
-        GeometryImporter* geometryImporter = getDocumentImporter ()->getGeometryImporter ();
-        EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
-
-        // Get the source id of the instanciated object.
-        const COLLADAFW::UniqueId& sourceId = instanceGeometry->getInstanciatedObjectId ();
-
-        // 2.) We just have to create an uv-chooser, if the geometry has a material with one or more textures.
-        const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindingsArray = instanceGeometry->getMaterialBindings ();
-        size_t numMaterialBindings = materialBindingsArray.getCount ();
-        for ( size_t i=0; i<numMaterialBindings; ++i )
-        {
-            // Get the current material binding.
-            const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindingsArray [i];
-            const COLLADAFW::UniqueId& materialId = materialBinding.getReferencedMaterial ();
-            const COLLADAFW::MaterialId& shadingEngineId = materialBinding.getMaterialId ();
-
-            // Get the bind_vertex_input element.
-            const COLLADAFW::InstanceGeometry::TextureCoordinateBindingArray& texCoordBindingArray = materialBinding.getTextureCoordinateBindingArray ();
-            size_t numTexCoordBindings = texCoordBindingArray.getCount ();
-            for ( size_t j=0; j<numTexCoordBindings; ++j )
-            {
-                const COLLADAFW::InstanceGeometry::TextureCoordinateBinding& texCoordBinding = texCoordBindingArray [j];
-                const COLLADAFW::TextureMapId textureMapId = texCoordBinding.textureMapId;
-                const size_t inputSetIndex = texCoordBinding.setIndex;
-
-                // Store the information about the used set.
-                BindingInputSet bindVertexInputSet;
-                bindVertexInputSet.setInstanciatedObjectId ( sourceId );
-                bindVertexInputSet.setTransformNodeId ( transformNodeId );
-                bindVertexInputSet.setControllerId ( controllerId );
-                bindVertexInputSet.setTextureMapId ( textureMapId );
-                bindVertexInputSet.setInputSetIndex ( inputSetIndex );
-                bindVertexInputSet.setMaterialId ( materialId );
-                bindVertexInputSet.setShadingEngineId ( shadingEngineId );
-
-                // Push it in a list.
-                mBindingTexCoordInputSetsMap [materialId].push_back ( bindVertexInputSet );
-            }
-        }
     }
 
     // --------------------------------------------
@@ -550,21 +426,21 @@ namespace DAE2MA
             }
 
             // Go through the bound materials. One material binding for every primitive element.
-            const COLLADAFW::InstanceGeometry::MaterialBindingArray* materialBindingsArray = geometryBindingIter->second;
+            const COLLADAFW::MaterialBindingArray* materialBindingsArray = geometryBindingIter->second;
             size_t numMaterialBindings = materialBindingsArray->getCount ();
             for ( size_t primitiveIndex=0; primitiveIndex<numMaterialBindings; ++primitiveIndex )
             {
                 // Get the current material binding.
-                const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = (*materialBindingsArray) [primitiveIndex];
+                const COLLADAFW::MaterialBinding& materialBinding = (*materialBindingsArray) [primitiveIndex];
 
                 // Get the bind_vertex_input element.
-                const COLLADAFW::InstanceGeometry::TextureCoordinateBindingArray& texCoordBindingArray = materialBinding.getTextureCoordinateBindingArray ();
+                const COLLADAFW::TextureCoordinateBindingArray& texCoordBindingArray = materialBinding.getTextureCoordinateBindingArray ();
                 size_t numTexCoordBindings = texCoordBindingArray.getCount ();
                 for ( size_t j=0; j<numTexCoordBindings; ++j )
                 {
-                    const COLLADAFW::InstanceGeometry::TextureCoordinateBinding& texCoordBinding = texCoordBindingArray [j];
-                    const COLLADAFW::TextureMapId textureMapId = texCoordBinding.textureMapId;
-                    const size_t textureMapIndex = texCoordBinding.setIndex;
+                    const COLLADAFW::TextureCoordinateBinding& texCoordBinding = texCoordBindingArray [j];
+                    const COLLADAFW::TextureMapId textureMapId = texCoordBinding.getTextureMapId ();
+                    const size_t textureMapIndex = texCoordBinding.getSetIndex ();
                 }
 
                 // Get the material id.
@@ -676,7 +552,7 @@ namespace DAE2MA
             }
 
             // Go through the bound materials. One material binding for every primitive element.
-            const COLLADAFW::InstanceGeometry::MaterialBindingArray* materialBindingsArray = geometryBindingIter->second;
+            const COLLADAFW::MaterialBindingArray* materialBindingsArray = geometryBindingIter->second;
             size_t numMaterialBindings = materialBindingsArray->getCount ();
 
             // Get all pathes of the current transformation.
@@ -702,7 +578,7 @@ namespace DAE2MA
                     const COLLADAFW::MaterialId& shadingEngineId = geometryShadingEngine.mShadingEngineId;
 
                     // Get the material info with the current shading engine.
-                    const COLLADAFW::InstanceGeometry::MaterialBinding* materialBinding = 0;
+                    const COLLADAFW::MaterialBinding* materialBinding = 0;
                     for ( size_t m=0; m<numMaterialBindings; ++m )
                     {
                         if ( shadingEngineId == (*materialBindingsArray) [m].getMaterialId () )

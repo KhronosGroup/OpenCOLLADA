@@ -269,9 +269,10 @@ namespace DAE2MA
         /**
          * Read the shading engines.
          */
+        template<COLLADAFW::ClassId classId>
         void readMaterialInstances ( 
             const COLLADAFW::UniqueId& transformId, 
-            const COLLADAFW::InstanceGeometry* instanceGeometry,
+            const COLLADAFW::InstanceBindingBase<classId>* instanceBinding,
             const COLLADAFW::UniqueId* controllerId = 0 );
 
         /** 

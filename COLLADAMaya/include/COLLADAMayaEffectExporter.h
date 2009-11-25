@@ -198,11 +198,11 @@ namespace COLLADAMaya
             MObjectArray& textures,
             MIntArray& blendModes );
 
-        /** Get the extra key in depend on the current effect profile type and export the user 
-        defined effect extra data from import (extra preservation) */
-        void exportExtraData ( 
-            COLLADASW::EffectProfile* effectProfile, 
-            const MObject& shader );
+//         /** Get the extra key in depend on the current effect profile type and export the user 
+//         defined effect extra data from import (extra preservation) */
+//         void exportExtraData ( 
+//             COLLADASW::EffectProfile* effectProfile, 
+//             const MObject& shader );
 
     private:
 

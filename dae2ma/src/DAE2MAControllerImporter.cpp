@@ -260,8 +260,9 @@ namespace DAE2MA
         String blendShapeName = morphController->getName ();
         if ( blendShapeName.empty () ) blendShapeName = BLEND_SHAPE_NAME;
         blendShapeName = DocumentImporter::frameworkNameToMayaName ( blendShapeName );
-        String originalMayaId = getOriginalMayaId ( morphController->getExtraDataArray () );
-        if ( !originalMayaId.empty () ) blendShapeName = originalMayaId;
+        // TODO
+//         String originalMayaId = getOriginalMayaId ( morphController->getExtraDataArray () );
+//         if ( !originalMayaId.empty () ) blendShapeName = originalMayaId;
         blendShapeName = generateUniqueDependNodeName ( blendShapeName, true, true );
 
         // Create the skin cluster
@@ -276,8 +277,8 @@ namespace DAE2MA
             MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
             MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
         }
-        // TODO Add the attributes for all the extra tags.
-        setExtraData ( morphController->getExtraDataArray () );
+//         // TODO Add the attributes for all the extra tags.
+//         setExtraData ( morphController->getExtraDataArray () );
 
         // Write the weights
         const COLLADAFW::UniqueIdArray& morphTargets = morphController->getMorphTargets ();
@@ -578,8 +579,9 @@ namespace DAE2MA
         String skinClusterName = skinControllerData->getName ();
         if ( skinClusterName.empty () ) skinClusterName = SKIN_CLUSTER_NAME;
         skinClusterName = DocumentImporter::frameworkNameToMayaName ( skinClusterName );
-        String originalMayaId = getOriginalMayaId ( skinControllerData->getExtraDataArray () );
-        if ( !originalMayaId.empty () ) skinClusterName = originalMayaId;
+        // TODO
+//         String originalMayaId = getOriginalMayaId ( skinControllerData->getExtraDataArray () );
+//         if ( !originalMayaId.empty () ) skinClusterName = originalMayaId;
         skinClusterName = generateUniqueDependNodeName ( skinClusterName, true, true );
 
         // Create the skin cluster
@@ -594,8 +596,8 @@ namespace DAE2MA
             MayaDM::addAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_DATA_TYPE, ATTRIBUTE_TYPE_STRING );
             MayaDM::setAttr ( file, COLLADA_ID_ATTRIBUTE_NAME, ATTRIBUTE_TYPE, ATTRIBUTE_TYPE_STRING, colladaId );
         }
-        // TODO Add the attributes for all the extra tags.
-        setExtraData ( skinControllerData->getExtraDataArray () );
+//         // TODO Add the attributes for all the extra tags.
+//         setExtraData ( skinControllerData->getExtraDataArray () );
 
         // Weights for each target.
         {

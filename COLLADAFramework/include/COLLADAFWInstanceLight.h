@@ -12,14 +12,15 @@
 #define __COLLADAFW_INSTANCELIGHT_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWInstanceSceneGraph.h"
+#include "COLLADAFWInstanceBase.h"
 #include "COLLADAFWPointerArray.h"
+
 
 namespace COLLADAFW
 {
 
 	/** Instantiates a node within a scene graph.*/
-	typedef InstanceSceneGraph InstanceLight;
+	typedef InstanceBase<COLLADA_TYPE::INSTANCE_LIGHT> InstanceLight;
 
 	typedef ArrayPrimitiveType<InstanceLight*> InstanceLightArray;
 	typedef PointerArray<InstanceLight> InstanceLightPointerArray;

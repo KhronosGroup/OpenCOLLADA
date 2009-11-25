@@ -1,11 +1,11 @@
 /*
-Copyright (c) 2008-2009 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
-This file is part of COLLADAFramework.
+    This file is part of COLLADAFramework.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
 #ifndef __COLLADAFW_VISUALSCENE_H__
@@ -14,13 +14,12 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWNode.h"
 #include "COLLADAFWObject.h"
-#include "COLLADAFWExtraData.h"
 
 
 namespace COLLADAFW
 {
 
-	class VisualScene : public ObjectTemplate<COLLADA_TYPE::VISUAL_SCENE>, public ExtraData
+	class VisualScene : public ObjectTemplate<COLLADA_TYPE::VISUAL_SCENE>
 	{
 	private:
 		/**

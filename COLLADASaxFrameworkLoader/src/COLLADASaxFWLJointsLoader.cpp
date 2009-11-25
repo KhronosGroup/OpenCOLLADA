@@ -32,11 +32,11 @@ namespace COLLADASaxFWL
 	{
 	}
 
-	//------------------------------
-	COLLADAFW::ExtraData* JointsLoader::getExtraData()
-	{
-		return mCurrentJoint;
-	}
+    //------------------------------
+    const COLLADAFW::UniqueId& JointsLoader::getUniqueId ()
+    {
+        return mCurrentJoint->getUniqueId ();
+    }
 
 	//------------------------------
 	bool JointsLoader::beginJointPrimitive( COLLADAFW::JointPrimitive::Type jointPrimitiveType, const char * sid)

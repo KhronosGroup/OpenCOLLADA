@@ -139,7 +139,7 @@ namespace DAE2MA
 //        COLLADASaxFWL::Loader mSaxLoader;
 
         /** The URI of the visual scene to use. */
-        COLLADAFW::InstanceVisualScene mInstanceVisualScene;
+        COLLADAFW::InstanceVisualScene* mInstanceVisualScene;
 
         /** A copy of the framework's visual scene elements. */
         std::vector<COLLADAFW::VisualScene*> mVisualScenesList;
