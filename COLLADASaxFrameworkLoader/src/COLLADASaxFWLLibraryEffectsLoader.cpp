@@ -187,6 +187,7 @@ namespace COLLADASaxFWL
 				const SamplerInfo& samplerInfo = it->second;
 				colorOrTexture->setType(COLLADAFW::ColorOrTexture::TEXTURE);
 				COLLADAFW::Texture& texture = colorOrTexture->getTexture();
+                texture.setUniqueId ( createUniqueId(COLLADAFW::Texture::ID()) );
 				texture.setSamplerId( samplerIndex );
 				texture.setTextureMapId( getTextureMapIdBySematic( attributeData.texcoord) );
 
@@ -304,7 +305,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__effect( const effect__AttributeData& attributeData )
 	{
-		mCurrentEffect = FW_NEW COLLADAFW::Effect(getUniqueIdFromId(attributeData.id, COLLADAFW::Effect::ID()));
+		mCurrentEffect = FW_NEW COLLADAFW::Effect(createUniqueIdFromId(attributeData.id, COLLADAFW::Effect::ID()));
 		
         if ( attributeData.name )
             mCurrentEffect->setName ( (const char*)attributeData.name );
@@ -410,7 +411,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__init_from____fx_surface_init_from_common()
 	{
-		mCurrentSurface.imageUniqueId = getUniqueIdFromId((const ParserChar*)mCurrentSurfaceInitFrom.c_str(), COLLADAFW::Image::ID());
+		mCurrentSurface.imageUniqueId = createUniqueIdFromId((const ParserChar*)mCurrentSurfaceInitFrom.c_str(), COLLADAFW::Image::ID());
 		return true;
 	}
 
@@ -426,7 +427,7 @@ namespace COLLADASaxFWL
     {
         if ( (attributeData.present_attributes & instance_image__AttributeData::ATTRIBUTE_URL_PRESENT) == instance_image__AttributeData::ATTRIBUTE_URL_PRESENT )
         {
-            mCurrentSampler->setSource(getUniqueIdFromUrl(attributeData.url, COLLADAFW::Image::ID()));
+            mCurrentSampler->setSource(createUniqueIdFromUrl(attributeData.url, COLLADAFW::Image::ID()));
         }
         return true;
     }
@@ -465,7 +466,7 @@ namespace COLLADASaxFWL
 	bool LibraryEffectsLoader::begin__sampler2D____fx_sampler2D_common()
 	{
         mInSampler2D = true;
-		mCurrentSampler = new COLLADAFW::Sampler();
+		mCurrentSampler = new COLLADAFW::Sampler( createUniqueId (COLLADAFW::Sampler::ID()));
 		mCurrentSampler->setSamplerType( COLLADAFW::Sampler::SAMPLER_TYPE_2D );
 		return true;
 	}
@@ -928,6 +929,13 @@ namespace COLLADASaxFWL
     COLLADAFW::ExtraData* LibraryEffectsLoader::getExtraData ()
     {
         return mCurrentEffect;
+    }
+
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryEffectsLoader::getUniqueId ()
+    {
+        if ( mCurrentSampler ) return mCurrentSampler->getUniqueId ();
+        return mCurrentEffect->getUniqueId ();
     }
 
 } // namespace COLLADASaxFWL

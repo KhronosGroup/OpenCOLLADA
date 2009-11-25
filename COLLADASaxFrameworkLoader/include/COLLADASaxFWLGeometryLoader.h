@@ -53,8 +53,11 @@ namespace COLLADASaxFWL
         /** Returns the ExtraData object, that should be used to store the extra data. */
         virtual COLLADAFW::ExtraData* getExtraData();
 
-        /** Returns the second part of the key, either camera or optics. */
-        virtual const char* getSecondKey() { return COLLADAFW::ExtraKeys::GEOMETRY; }
+        /** Returns the second part of the key. */
+        virtual const char* getSecondKey();
+
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
 
         /** Sets the id of the geometry.*/
 		void setGeometryId( const String& geometryId ) { mGeometryId = geometryId; }
@@ -69,10 +72,10 @@ namespace COLLADASaxFWL
 		const String& getGeometryName() const { return mGeometryName; }
 
         /** Sax callback function for the beginning of a mesh.*/
-		bool begin__mesh();
+		virtual bool begin__mesh();
 
         /** Sax callback function for the ending of a geometry.*/
-		bool end__geometry();
+		virtual bool end__geometry();
 
 	private:
 

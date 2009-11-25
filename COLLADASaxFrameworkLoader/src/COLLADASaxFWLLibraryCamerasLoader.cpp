@@ -45,6 +45,12 @@ namespace COLLADASaxFWL
 		mCurrentCameraHasAspectRatio = false;
 	}
 
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryCamerasLoader::getExtraData ()
+    {
+        return mCurrentCamera;
+    }
+
 	//------------------------------
 	const char* LibraryCamerasLoader::getSecondKey()
 	{
@@ -58,6 +64,12 @@ namespace COLLADASaxFWL
 		}
 	}
 
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryCamerasLoader::getUniqueId ()
+    {
+        return mCurrentCamera->getUniqueId ();
+    }
+
 	//------------------------------
 	bool LibraryCamerasLoader::end__library_cameras()
 	{
@@ -69,7 +81,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::begin__camera( const camera__AttributeData& attributeData )
 	{
-		mCurrentCamera = FW_NEW COLLADAFW::Camera( getUniqueIdFromId( attributeData.id, COLLADAFW::Camera::ID()) );
+		mCurrentCamera = FW_NEW COLLADAFW::Camera( createUniqueIdFromId( attributeData.id, COLLADAFW::Camera::ID()) );
 
 		if ( attributeData.name )
 			mCurrentCamera->setName( (const char*) attributeData.name );
@@ -287,11 +299,5 @@ namespace COLLADASaxFWL
 		moveUpInSidTree();
 		return true;
 	}
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryCamerasLoader::getExtraData ()
-    {
-        return mCurrentCamera;
-    }
 
 } // namespace COLLADASaxFWL

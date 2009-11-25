@@ -391,7 +391,7 @@ namespace COLLADASaxFWL
 			}
 		}
 
-		COLLADAFW::SkinController skinController( getUniqueId(COLLADAFW::SkinController::ID()));
+		COLLADAFW::SkinController skinController( createUniqueId(COLLADAFW::SkinController::ID()));
 
 		COLLADAFW::UniqueIdArray &jointsUniqueIds = skinController.getJoints();
 		jointsUniqueIds.allocMemory( joints.size() );
@@ -454,7 +454,7 @@ namespace COLLADASaxFWL
 					continue;
 				}
 
-				const COLLADAFW::UniqueId& sourceUniqueId = getUniqueIdFromUrl(*sourceUrl, true);
+				const COLLADAFW::UniqueId& sourceUniqueId = createUniqueIdFromUrl(*sourceUrl, true);
 				if ( !sourceUniqueId.isValid() )
 				{
 					// TODO handle error

@@ -16,8 +16,9 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	Sampler::Sampler()
-		: mSamplerType(SAMPLER_TYPE_UNSPECIFIED)
+	Sampler::Sampler ( const UniqueId& uniqueId )
+        : ObjectTemplate<COLLADA_TYPE::SAMPLER>(uniqueId)
+        , mSamplerType(SAMPLER_TYPE_UNSPECIFIED)
 		, mSourceImageUniqueId()
 		, mMinFilter( SAMPLER_FILTER_LINEAR )
 		, mMagFilter( SAMPLER_FILTER_LINEAR )

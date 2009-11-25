@@ -70,6 +70,12 @@ namespace COLLADASaxFWL
         /** Returns the ExtraData object, that should be used to store the extra data. */
         virtual COLLADAFW::ExtraData* getExtraData();
 
+        /** Returns the second part of the key.*/
+        virtual const char* getSecondKey();
+
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
+
 		/** Searches for the animation info of animation created for the COLLADA sampler with id @a samplerId.
 		If it could not be found, an invalid Unique id is returned.*/
 		AnimationInfo* getAnimationInfoBySamplerId( const String& samplerId);

@@ -154,6 +154,9 @@ namespace COLLADASaxFWL
         /** We need a variable for the second key name. */
         String mSecondKey;
 
+        /** Flag for the extra tag preservation, to know if we are parsing in the mesh. */
+        bool mInMesh;
+
     public:
 
         /** Constructor. */
@@ -165,10 +168,13 @@ namespace COLLADASaxFWL
         /** Returns the ExtraData object, that should be used to store the extra data. */
         virtual COLLADAFW::ExtraData* getExtraData();
 
-		/** Returns the second part of the key, either camera or optics. */
+		/** Returns the second part of the key. */
 		virtual const char* getSecondKey();
 
-		/** Returns the mesh that has just been loaded.*/
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
+
+        /** Returns the mesh that has just been loaded.*/
 		COLLADAFW::Mesh* getMesh() { return mMesh; }
 
 		/** Sax callback function for the beginning of a source element.*/
@@ -180,6 +186,9 @@ namespace COLLADASaxFWL
 		/** Cleans up everything and gives control to calling file part loader.*/
 		virtual bool end__mesh();
 
+        /** Flag for the extra tag preservation, to know if we are parsing in the mesh. */
+        const bool& isInMesh () const { return mInMesh; }
+        void setInMesh ( const bool& val ) { mInMesh = val; }
 
 		/** Sax callback function for the beginning of a vertices element.*/
 		virtual bool begin__vertices( const vertices__AttributeData& attributeData );

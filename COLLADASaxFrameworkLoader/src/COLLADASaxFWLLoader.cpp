@@ -204,7 +204,8 @@ namespace COLLADASaxFWL
 								  getFileUri( mCurrentFileId ),
 								  &saxParserErrorHandler, 
 								  mObjectFlags,
-								  mParsedObjectFlags);
+								  mParsedObjectFlags, 
+                                  mExtraDataCallbackHandlerList );
 			fileLoader.load();
 
 			mCurrentFileId++;
@@ -241,7 +242,8 @@ namespace COLLADASaxFWL
 								  "no_URI",
 								  &saxParserErrorHandler, 
 								  mObjectFlags,
-								  mParsedObjectFlags);
+								  mParsedObjectFlags, 
+                                  mExtraDataCallbackHandlerList );
 			fileLoader.load( buffer, length );
             
 //			mCurrentFileId++;
@@ -257,7 +259,16 @@ namespace COLLADASaxFWL
         
 		return true;
 	}
-    
+
+    //---------------------------------
+    bool Loader::registerExtraDataCallbackHandler ( IExtraDataCallbackHandler* extraDataCallbackHandler )
+    {
+        // Push the callback handler in the list of callback handlers.
+        mExtraDataCallbackHandlerList.push_back ( extraDataCallbackHandler );
+
+        return true;
+    }
+
 	//---------------------------------
 	GeometryMaterialIdInfo& Loader::getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId )
 	{
@@ -313,6 +324,5 @@ namespace COLLADASaxFWL
 
 		return false;
 	}
-
 
 } // namespace COLLADA

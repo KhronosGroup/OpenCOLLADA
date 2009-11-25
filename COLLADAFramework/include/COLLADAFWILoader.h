@@ -13,6 +13,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWPrerequisites.h"
 
+
 namespace COLLADAFW
 {
 	class IWriter;

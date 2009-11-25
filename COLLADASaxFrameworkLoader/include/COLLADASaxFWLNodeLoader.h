@@ -36,6 +36,16 @@ namespace COLLADASaxFWL
 	/** Imports the entire visual scene and sends it to the writer. */
 	class NodeLoader : public HelperLoaderBase
 	{
+    protected:
+
+        static const unsigned int INSTANCE_CAMERA_BIT;         //0x0000001
+        static const unsigned int INSTANCE_CONTROLLER_BIT;     //0x0000010
+        static const unsigned int INSTANCE_GEOMETRY_BIT;       //0x0000100
+        static const unsigned int INSTANCE_LIGHT_BIT;          //0x0001000
+        static const unsigned int INSTANCE_NODE_BIT;           //0x0010000
+        static const unsigned int BIND_MATERIAL_BIT;           //0x0100000
+        static const unsigned int INSTANCE_MATERIAL_BIT;       //0x1000000
+
 	private:
 		
         /** Stack of nodes.*/
@@ -70,6 +80,11 @@ namespace COLLADASaxFWL
 		/** The material info of the geometry instantiated in the current instance geometry.*/
 		GeometryMaterialIdInfo* mCurrentMaterialInfo;
 
+    protected:
+
+        /** The status of the current parsing element. */
+        unsigned int mParsingStatus;
+
 		/** The InstanceControllerData of the current instance controller.*/
 		Loader::InstanceControllerData *mCurrentInstanceControllerData;
 
@@ -81,7 +96,124 @@ namespace COLLADASaxFWL
 		/** Destructor. */
 		virtual ~NodeLoader();
 
-	protected:
+        /** Sax callback function for the beginning of nodes, as child of a node.*/
+        virtual bool begin__node( const node__AttributeData& attributeData );
+
+        /** Sax callback function for the ending of nodes, as child of a node.*/
+        virtual bool end__node();
+
+
+        /** Sax callback function for the beginning of a translate element.*/
+        virtual bool begin__translate( const translate__AttributeData& attributeData );
+
+        /** Sax callback function for the ending of a translate element.*/
+        virtual bool end__translate();
+
+        /** Sax callback function for the float data of a translate element.*/
+        virtual bool data__translate( const float* data, size_t length );
+
+
+        /** Sax callback function for the beginning of a rotate element.*/
+        virtual bool begin__rotate( const rotate__AttributeData& attributeData );
+
+        /** Sax callback function for the ending of a rotate element.*/
+        virtual bool end__rotate();
+
+        /** Sax callback function for the float data of a rotate element.*/
+        virtual bool data__rotate( const float* data, size_t length );
+
+
+        /** Sax callback function for the beginning of a matrix element.*/
+        virtual bool begin__matrix( const matrix__AttributeData& attributeData );
+
+        /** Sax callback function for the ending of a matrix element.*/
+        virtual bool end__matrix();
+
+        /** Sax callback function for the float data of a rotate element.*/
+        virtual bool data__matrix( const float* data, size_t length );
+
+
+        /** Sax callback function for the beginning of a scale element.*/
+        virtual bool begin__scale( const scale__AttributeData& attributeData );
+
+        /** Sax callback function for the ending of a scale element.*/
+        virtual bool end__scale();
+
+        /** Sax callback function for the float data of a scale element.*/
+        virtual bool data__scale( const float* data, size_t length );
+
+        virtual bool begin__skew( const skew__AttributeData& attributeData );
+        virtual bool end__skew();
+        virtual bool data__skew( const float* data, size_t length );
+
+        virtual bool begin__lookat( const lookat__AttributeData& attributeData );
+        virtual bool end__lookat();
+        virtual bool data__lookat( const float* data, size_t length );
+
+        /** Sax callback function for the beginning of an instance geometry element.*/
+        virtual bool begin__instance_geometry( const instance_geometry__AttributeData& attributeData );
+
+        /** Sax callback function for the ending of an instance geometry element.*/
+        virtual bool end__instance_geometry();
+
+
+        /** We do not need to do anything here.*/
+        virtual bool begin__bind_material();
+
+        /** We do not need to do anything here.*/
+        virtual bool end__bind_material();
+
+        /** We do not need to do anything here.*/
+        virtual bool begin__bind_material__technique_common(){return true;}
+
+        /** We do not need to do anything here.*/
+        virtual bool end__bind_material__technique_common(){return true;}
+
+        /** Create new current bind material and set basic attributes.*/
+        virtual bool begin__instance_material( const instance_material__AttributeData& attributeData );
+
+        /** We store all instance_material informations in a set.*/
+        virtual bool end__instance_material();
+
+
+        /** We store all bind vertex informations in a set.*/
+        virtual bool begin__bind_vertex_input( const bind_vertex_input__AttributeData& attributeData );
+
+        /** We do not need to do anything here.*/
+        virtual bool end__bind_vertex_input(){return true; }
+
+
+        /** Sax callback function for the beginning of an instance node element.*/
+        virtual bool begin__instance_node( const instance_node__AttributeData& attributeData );
+
+        /** We don't need to do anything here.*/
+        virtual bool end__instance_node();
+
+
+        /** Appends the instance camera to the current node.*/
+        virtual bool begin__instance_camera( const instance_camera__AttributeData& attributeData );
+
+        /** We don't need to do anything here.*/
+        virtual bool end__instance_camera();
+
+
+        /** Appends the instance light to the current node.*/
+        virtual bool begin__instance_light( const instance_light__AttributeData& attributeData );
+
+        /** Set the current parsing position. */
+        virtual bool end__instance_light();
+
+
+        virtual bool begin__instance_controller( const instance_controller__AttributeData& attributeData );
+        virtual bool end__instance_controller();
+
+
+        virtual bool begin__skeleton(){return true;}
+        virtual bool end__skeleton(){return true;}
+
+        virtual bool data__skeleton( COLLADABU::URI value );
+
+    protected:
 
 		/** This method handles the beginning of a node element, independent of its parent.*/
 		bool beginNode( const node__AttributeData& attributeData );
@@ -109,124 +241,6 @@ namespace COLLADASaxFWL
 
 		/** Assigns the bound materials to the current instance with material (geometry or controller).*/
 		bool endInstanceWithMaterial();
-
-
-    public:
-        /** Sax callback function for the beginning of nodes, as child of a node.*/
-		virtual bool begin__node( const node__AttributeData& attributeData );
-
-		/** Sax callback function for the ending of nodes, as child of a node.*/
-		virtual bool end__node();
-
-
-		/** Sax callback function for the beginning of a translate element.*/
-		virtual bool begin__translate( const translate__AttributeData& attributeData );
-
-		/** Sax callback function for the ending of a translate element.*/
-		virtual bool end__translate();
-
-		/** Sax callback function for the float data of a translate element.*/
-		virtual bool data__translate( const float* data, size_t length );
-
-
-		/** Sax callback function for the beginning of a rotate element.*/
-		virtual bool begin__rotate( const rotate__AttributeData& attributeData );
-
-		/** Sax callback function for the ending of a rotate element.*/
-		virtual bool end__rotate();
-
-		/** Sax callback function for the float data of a rotate element.*/
-		virtual bool data__rotate( const float* data, size_t length );
-
-
-		/** Sax callback function for the beginning of a matrix element.*/
-		virtual bool begin__matrix( const matrix__AttributeData& attributeData );
-
-		/** Sax callback function for the ending of a matrix element.*/
-		virtual bool end__matrix();
-
-		/** Sax callback function for the float data of a rotate element.*/
-		virtual bool data__matrix( const float* data, size_t length );
-
-
-		/** Sax callback function for the beginning of a scale element.*/
-		virtual bool begin__scale( const scale__AttributeData& attributeData );
-
-		/** Sax callback function for the ending of a scale element.*/
-		virtual bool end__scale();
-
-		/** Sax callback function for the float data of a scale element.*/
-		virtual bool data__scale( const float* data, size_t length );
-
-        virtual bool begin__skew( const skew__AttributeData& attributeData );
-        virtual bool end__skew();
-		virtual bool data__skew( const float* data, size_t length );
-
-		virtual bool begin__lookat( const lookat__AttributeData& attributeData );
-		virtual bool end__lookat();
-		virtual bool data__lookat( const float* data, size_t length );
-
-		/** Sax callback function for the beginning of an instance geometry element.*/
-		virtual bool begin__instance_geometry( const instance_geometry__AttributeData& attributeData );
-
-		/** Sax callback function for the ending of an instance geometry element.*/
-		virtual bool end__instance_geometry();
-
-
-		/** We do not need to do anything here.*/
-		virtual bool begin__bind_material(){return true;}
-
-		/** We do not need to do anything here.*/
-		virtual bool end__bind_material(){return true;}
-
-		/** We do not need to do anything here.*/
-		virtual bool begin__bind_material__technique_common(){return true;}
-
-		/** We do not need to do anything here.*/
-		virtual bool end__bind_material__technique_common(){return true;}
-
-		/** Create new current bind material and set basic attributes.*/
-		virtual bool begin__instance_material( const instance_material__AttributeData& attributeData );
-		
-		/** We store all instance_material informations in a set.*/
-		virtual bool end__instance_material();
-
-
-		/** We store all bind vertex informations in a set.*/
-		virtual bool begin__bind_vertex_input( const bind_vertex_input__AttributeData& attributeData );
-
-		/** We do not need to do anything here.*/
-		virtual bool end__bind_vertex_input(){return true; }
-
-
-		/** Sax callback function for the beginning of an instance node element.*/
-		virtual bool begin__instance_node( const instance_node__AttributeData& attributeData );
-
-		/** We don't need to do anything here.*/
-		virtual bool end__instance_node(){return true;}
-
-
-		/** Appends the instance camera to the current node.*/
-		virtual bool begin__instance_camera( const instance_camera__AttributeData& attributeData );
-
-		/** We don't need to do anything here.*/
-		virtual bool end__instance_camera(){return true;}
-
-
-		/** Appends the instance light to the current node.*/
-		virtual bool begin__instance_light( const instance_light__AttributeData& attributeData );
-
-		/** We don't need to do anything here.*/
-		virtual bool end__instance_light(){return true;}
-
-		virtual bool begin__instance_controller( const instance_controller__AttributeData& attributeData );
-		virtual bool end__instance_controller();
-
-
-		virtual bool begin__skeleton(){return true;}
-		virtual bool end__skeleton(){return true;}
-
-		virtual bool data__skeleton( COLLADABU::URI value );
 
 
 	};

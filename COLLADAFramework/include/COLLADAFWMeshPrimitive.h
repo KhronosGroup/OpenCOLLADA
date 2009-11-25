@@ -12,6 +12,7 @@
 #define __COLLADAFW_MESHPRIMITIVE_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include "COLLADAFWObject.h"
 #include "COLLADAFWConstants.h"
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWEdge.h"
@@ -39,7 +40,7 @@ namespace COLLADAFW
     texture coordinate of [0,0] maps to the lower-left texel of a texture image, when loaded in a 
     professional 2-D texture viewer/editor.
     */
-    class MeshPrimitive : public ExtraData
+    class MeshPrimitive : public ObjectTemplate<COLLADA_TYPE::PRIMITIVE_ELEMENT>, public ExtraData
     {
 
     public:
@@ -123,12 +124,12 @@ namespace COLLADAFW
         /**
         * Constructor.
         */
-        MeshPrimitive ();
+        MeshPrimitive ( const UniqueId& uniqueId );
 
         /**
         * Constructor.
         */
-        MeshPrimitive ( PrimitiveType primitiveType );
+        MeshPrimitive ( const UniqueId& uniqueId, PrimitiveType primitiveType );
 
         /**
         * Destructor.

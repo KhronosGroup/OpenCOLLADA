@@ -136,7 +136,7 @@ namespace DAE2MA
         ParseSteps mParseStep;
 
         /** The sax loader. */
-        COLLADASaxFWL::Loader mSaxLoader;
+//        COLLADASaxFWL::Loader mSaxLoader;
 
         /** The URI of the visual scene to use. */
         COLLADAFW::InstanceVisualScene mInstanceVisualScene;

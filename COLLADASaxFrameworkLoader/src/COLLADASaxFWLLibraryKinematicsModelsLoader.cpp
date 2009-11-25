@@ -43,11 +43,18 @@ namespace COLLADASaxFWL
 		// we are inside a joint instance
 		if ( mCurrentJointInstance )
 		{
-			return COLLADAFW::ExtraKeys::INSTANCEJOINT;
+			return COLLADAFW::ExtraKeys::INSTANCE_JOINT;
 		}
 
 		return 0;
 	}
+
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryKinematicsModelsLoader::getUniqueId ()
+    {
+        // TODO No uniqueId!
+        return COLLADAFW::UniqueId::INVALID;
+    }
 
 	//------------------------------
 	COLLADAFW::ExtraData* LibraryKinematicsModelsLoader::getExtraData()
@@ -145,7 +152,7 @@ namespace COLLADASaxFWL
 	bool LibraryKinematicsModelsLoader::begin__instance_joint( const instance_joint__AttributeData& attributeData )
 	{
 		// Get the unique id of the joint, that will replace this instance in the kinematics model
-		COLLADAFW::UniqueId jointId = getUniqueId( COLLADAFW::Joint::ID() );
+		COLLADAFW::UniqueId jointId = createUniqueId( COLLADAFW::Joint::ID() );
 		mCurrentJointInstance = new KinematicInstance( attributeData.url, jointId );
 		getFileLoader()->addInstanceJoint( mCurrentJointInstance );
 		addToSidTree( 0, attributeData.sid, mCurrentJointInstance );
@@ -261,6 +268,5 @@ namespace COLLADASaxFWL
 	{
 		return mTransformationLoader.dataRotate( data, length);
 	}
-
 
 } // namespace COLLADASaxFWL

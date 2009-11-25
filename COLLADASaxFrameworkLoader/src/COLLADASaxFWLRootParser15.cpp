@@ -11,6 +11,7 @@
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLRootParser15.h"
 #include "COLLADASaxFWLFileLoader.h"
+#include "COLLADASaxFWLIExtraDataCallbackHandler.h"
 
 #include "COLLADASaxFWLAssetLoader15.h"
 #include "COLLADASaxFWLSceneLoader15.h"
@@ -74,7 +75,7 @@ namespace COLLADASaxFWL
 
     //-----------------------------
     RootParser15::RootParser15( FileLoader* fileLoader )
-        : mFileLoader( fileLoader )
+        : mFileLoader ( fileLoader )
     {
 
     }
@@ -216,6 +217,15 @@ namespace COLLADASaxFWL
     {
         SaxVirtualFunctionTest15(end__COLLADA());
         return true;
+    }
+
+    //-----------------------------
+    bool RootParser15::begin__technique____technique_type ( const COLLADASaxFWL15::technique____technique_type__AttributeData& attributeData )
+    {
+        SaxVirtualFunctionTest15(begin__technique____technique_type(attributeData));
+        technique__AttributeData attr;
+        attr.profile = attributeData.profile;
+        return root__begin__technique ( attr );
     }
 
 }

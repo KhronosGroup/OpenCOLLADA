@@ -35,6 +35,9 @@ namespace COLLADASaxFWL
 		/** Pointer to the visual scene this loader creates.*/
 		COLLADAFW::VisualScene* mVisualScene;
 
+        /** Flag for the extra data, to know the parsing position. */
+        bool mInNode;
+
 	public:
 
         /** Constructor. */
@@ -43,21 +46,15 @@ namespace COLLADASaxFWL
         /** Destructor. */
 		virtual ~VisualSceneLoader();
 
-	private:
-
-        /** Disable default copy ctor. */
-		VisualSceneLoader( const VisualSceneLoader& pre );
-
-        /** Disable default assignment operator. */
-		const VisualSceneLoader& operator= ( const VisualSceneLoader& pre );
-
-		/** Appends the root node to the array of root nodes of the visual scene,*/
-		void handleRootNode( COLLADAFW::Node* rootNode );
-
-    public:
-
         /** Returns the ExtraData object, that should be used to store the extra data. */
         virtual COLLADAFW::ExtraData* getExtraData();
+
+        /** Returns the second part of the key.*/
+        virtual const char* getSecondKey();
+
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
+
 
         /** Sax callback function for the beginning of nodes, as child of a visual scene.*/
 		virtual bool begin__visual_scene__node( const node__AttributeData& attributeData );
@@ -67,6 +64,17 @@ namespace COLLADASaxFWL
 
 		/** Sax callback function for the ending of a visual scene.*/
 		virtual bool end__visual_scene();
+
+    private:
+
+        /** Disable default copy ctor. */
+        VisualSceneLoader( const VisualSceneLoader& pre );
+
+        /** Disable default assignment operator. */
+        const VisualSceneLoader& operator= ( const VisualSceneLoader& pre );
+
+        /** Appends the root node to the array of root nodes of the visual scene,*/
+        void handleRootNode( COLLADAFW::Node* rootNode );
 
 	};
 

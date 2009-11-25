@@ -26,6 +26,8 @@ namespace COLLADAFW
 
 namespace COLLADASaxFWL
 {
+    class IExtraDataCallbackHandler;
+
     struct AnimationInfo
 	{
 		static const AnimationInfo INVALID;
@@ -46,7 +48,7 @@ namespace COLLADASaxFWL
 
 	typedef std::vector<COLLADAFW::Node*> NodeList;
 
-
+    typedef std::vector<IExtraDataCallbackHandler*> ExtraDataCallbackHandlerList;
 
 } // namespace COLLADASAXFWL
 

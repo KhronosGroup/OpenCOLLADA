@@ -43,11 +43,11 @@ namespace COLLADAFW
 		UniqueId mUniqueId;
 
 	public:
-		ObjectTemplate(ObjectId objectId, FileId fileId) : mUniqueId(classId, objectId, fileId){};
+		ObjectTemplate(ObjectId objectId, FileId fileId) : mUniqueId(classId, objectId, fileId) {}
 
-		ObjectTemplate(const UniqueId& uniqueId) : mUniqueId(uniqueId){ assert(uniqueId.getClassId() == classId); };
+		ObjectTemplate(const UniqueId& uniqueId) : mUniqueId(uniqueId) {}
 
-		virtual ~ObjectTemplate(){};
+		virtual ~ObjectTemplate() {}
 
 		/** Returns the unique id of the object.*/
 		const UniqueId& getUniqueId() const { return mUniqueId; }
@@ -65,8 +65,9 @@ namespace COLLADAFW
 		FileId getFileId() const { return mUniqueId.getFileId(); }
 
 	protected:
-		/** Sets the unique id of the object.*/
-		void setUniqueId(const UniqueId& uniqueId)
+
+        /** Sets the unique id of the object.*/
+		void setUniqueId ( const UniqueId& uniqueId )
 		{ 
 			assert( uniqueId.getClassId() == classId ); 
 			mUniqueId = uniqueId; 

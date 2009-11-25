@@ -21,12 +21,12 @@ namespace COLLADAFW
     /** TODO Documentation */
 	class Triangles : public MeshPrimitive
 	{
-	private:
-	
 	public:
 
         /** Constructor. */
-		Triangles() : MeshPrimitive(TRIANGLES){}
+		Triangles ( const UniqueId& uniqueId ) 
+            : MeshPrimitive( uniqueId, TRIANGLES )
+        {}
 
         /** Destructor. */
 		virtual ~Triangles(){}

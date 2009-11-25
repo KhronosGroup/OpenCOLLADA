@@ -62,7 +62,7 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool FormulasLoader::begin__formula( const formula__AttributeData& attributeData )
 	{
-		mCurrentFormula = FW_NEW COLLADAFW::Formula( getHandlingFilePartLoader()->getUniqueIdFromId( attributeData.id, COLLADAFW::Formula::ID()) );
+		mCurrentFormula = FW_NEW COLLADAFW::Formula( getHandlingFilePartLoader()->createUniqueIdFromId( attributeData.id, COLLADAFW::Formula::ID()) );
 		if ( attributeData.name )
 			mCurrentFormula->setName( attributeData.name );
 		else if ( attributeData.id )

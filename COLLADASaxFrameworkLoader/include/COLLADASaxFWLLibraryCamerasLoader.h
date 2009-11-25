@@ -60,6 +60,9 @@ namespace COLLADASaxFWL
 		/** Returns the ExtraData object, that should be used to store the extra data. */
         virtual COLLADAFW::ExtraData* getExtraData ();
 
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
+
 		/** Finishes loading a library cameras.*/
 		virtual bool end__library_cameras();
 

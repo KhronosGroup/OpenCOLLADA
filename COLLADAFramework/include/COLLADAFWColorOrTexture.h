@@ -46,7 +46,8 @@ namespace COLLADAFW
         ColorOrTexture ( Color color)
         : mColor ( color )
         , mType ( COLOR )
-        {};
+        , mTexture ( COLLADAFW::UniqueId::INVALID )
+        {}
 
         /** Constructor to create a ColorOrTexture object that represents a color.
         @param texture The color that should be represented.
@@ -54,10 +55,13 @@ namespace COLLADAFW
         ColorOrTexture ( Texture texture )
         : mTexture ( texture )
         , mType ( TEXTURE )
-        {};
+        {}
 
 		/** Creates an invalid CommonColorOrTextureType*/
-        ColorOrTexture() : mType ( UNSPECIFIED ) {};
+        ColorOrTexture() 
+            : mType ( UNSPECIFIED ) 
+            , mTexture ( COLLADAFW::UniqueId::INVALID )
+        {}
 
   		/** Returns the type of the color or texture.*/
 		Type getType() const { return mType; }

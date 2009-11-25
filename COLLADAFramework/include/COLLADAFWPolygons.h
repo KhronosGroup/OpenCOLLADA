@@ -33,7 +33,9 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Polygons() : MeshPrimitiveWithFaceVertexCount<int>(POLYGONS){}
+		Polygons ( const UniqueId& uniqueId ) 
+            : MeshPrimitiveWithFaceVertexCount<int>( uniqueId, POLYGONS )
+        {}
 
         /** Destructor. */
 		virtual ~Polygons(){}

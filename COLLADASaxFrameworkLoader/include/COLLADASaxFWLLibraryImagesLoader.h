@@ -27,7 +27,7 @@ namespace COLLADASaxFWL
 
 	/** Loads all the images in a library images.  */
 	class LibraryImagesLoader : public FilePartLoader
-		{
+	{
 	private:
 		/** The current image.*/
 		COLLADAFW::Image* mCurrentImage;
@@ -43,7 +43,14 @@ namespace COLLADASaxFWL
         /** Returns the ExtraData object, that should be used to store the extra data. */
         virtual COLLADAFW::ExtraData* getExtraData();
 
-		/** Finishes loading a library images.*/
+        /** Returns the second part of the key.*/
+        virtual const char* getSecondKey();
+
+        /** Returns the unique id of the current parsed object. */
+        virtual const COLLADAFW::UniqueId& getUniqueId();
+
+        
+        /** Finishes loading a library images.*/
 		virtual bool end__library_images();
 
 		

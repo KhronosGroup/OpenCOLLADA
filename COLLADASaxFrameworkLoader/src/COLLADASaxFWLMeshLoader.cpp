@@ -29,7 +29,7 @@ namespace COLLADASaxFWL
 
 	MeshLoader::MeshLoader( IFilePartLoader* callingFilePartLoader, const String& geometryId, const String& geometryName )
 		: SourceArrayLoader (callingFilePartLoader )
-		, mMeshUniqueId(getUniqueIdFromId((ParserChar*)geometryId.c_str(), COLLADAFW::Geometry::ID()))
+		, mMeshUniqueId(createUniqueIdFromId((ParserChar*)geometryId.c_str(), COLLADAFW::Geometry::ID()))
 		, mMesh ( new COLLADAFW::Mesh(mMeshUniqueId) )
 		, mMaterialIdInfo(getMeshMaterialIdInfo(mMeshUniqueId))
 		, mCurrentMeshPrimitive(0)
@@ -55,6 +55,7 @@ namespace COLLADASaxFWL
         , mColorList (0)
 		, mCurrentPrimitiveType(NONE)
 		, mPOrPhElementCountOfCurrentPrimitive(0)
+        , mInMesh (true)
 	{
         if ( !geometryName.empty() )
             mMesh->setName ( geometryName );
@@ -113,6 +114,12 @@ namespace COLLADASaxFWL
             break;
         }
         return 0;
+    }
+
+    //------------------------------
+    const COLLADAFW::UniqueId& MeshLoader::getUniqueId ()
+    {
+        return mMesh->getUniqueId ();
     }
 
     //------------------------------
@@ -810,6 +817,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__mesh() 
 	{
+        mInMesh = false;
+
 		// The mesh will be written by the GeometyLoader. Therefore nothing to with the mesh here
 		finish();
 		return true;
@@ -908,7 +917,7 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__polylist( const polylist__AttributeData& attributeData )
 	{
 		mCurrentPrimitiveType = POLYLIST;
-		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
+        COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons(createUniqueId(COLLADAFW::Polygons::ID()));
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
 		if ( attributeData.material )
@@ -998,7 +1007,7 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__polygons( const polygons__AttributeData& attributeData )
 	{
 		mCurrentPrimitiveType = POLYGONS;
-		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
+		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons(createUniqueId(COLLADAFW::Polygons::ID()));
 		// The actual size might be bigger, but its a lower bound
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
@@ -1074,7 +1083,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__tristrips( const tristrips__AttributeData& attributeData )
 	{
-		COLLADAFW::Tristrips* tristrips = new COLLADAFW::Tristrips();
+		COLLADAFW::Tristrips* tristrips = new COLLADAFW::Tristrips(createUniqueId(COLLADAFW::Tristrips::ID()));
 		// The actual size might be bigger, but its a lower bound
 		tristrips->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = tristrips;
@@ -1108,7 +1117,7 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__trifans( const trifans__AttributeData& attributeData )
 	{
 		mCurrentPrimitiveType = TRIFANS;
-		COLLADAFW::Trifans* trifans = new COLLADAFW::Trifans();
+		COLLADAFW::Trifans* trifans = new COLLADAFW::Trifans(createUniqueId(COLLADAFW::Trifans::ID()));
 		// The actual size might be bigger, but its a lower bound
 		trifans->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = trifans;
@@ -1145,7 +1154,7 @@ namespace COLLADASaxFWL
 			{
 				loadSourceElements(mMeshPrimitiveInputs);
 				initializeOffsets();
-				mCurrentMeshPrimitive = new COLLADAFW::Triangles();
+				mCurrentMeshPrimitive = new COLLADAFW::Triangles(createUniqueId(COLLADAFW::Triangles::ID()));
 				if ( mCurrentCOLLADAPrimitiveCount > 0)
 				{
 					mCurrentMeshPrimitive->getPositionIndices().reallocMemory(mCurrentCOLLADAPrimitiveCount);

@@ -23,15 +23,18 @@ namespace COLLADAFW
 	The UIntValuesArray returned by getFaceVertexCountArray() contains the number of vertices of each tristrip.
 	*/
 	class Tristrips : public MeshPrimitiveWithFaceVertexCount<unsigned int>
-		{
+	{
 	private:
+
 		/** The number of tristrips.*/
 		size_t mTristripCount;
 
 	public:
 
         /** Constructor. */
-		Tristrips() : MeshPrimitiveWithFaceVertexCount<unsigned int>(TRIANGLE_STRIPS), mTristripCount(0){}
+		Tristrips ( const UniqueId& uniqueId ) 
+            : MeshPrimitiveWithFaceVertexCount<unsigned int>( uniqueId, TRIANGLE_STRIPS )
+            , mTristripCount(0){}
 
         /** Destructor. */
 		virtual ~Tristrips(){}

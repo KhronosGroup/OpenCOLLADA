@@ -29,7 +29,10 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Trifans() : MeshPrimitiveWithFaceVertexCount<unsigned int>(TRIANGLE_FANS), mTrifanCount(0){}
+		Trifans ( const UniqueId& uniqueId ) 
+            : MeshPrimitiveWithFaceVertexCount<unsigned int>( uniqueId, TRIANGLE_FANS )
+            , mTrifanCount(0)
+        {}
 
         /** Destructor. */
 		virtual ~Trifans(){}

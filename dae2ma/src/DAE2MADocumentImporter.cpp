@@ -103,7 +103,7 @@ namespace DAE2MA
         : mColladaFileName ( fileName )
         , mMayaAsciiFileURI ( mayaAsciiFileName )
         , mMayaVersion ( mayaVersion )
-        , mSaxLoader ( &mSaxParserErrorHandler )
+//        , mSaxLoader ( &mSaxParserErrorHandler )
         , mParseStep ( NO_PARSING )
         , mVisualScenesList (0)
         , mLibraryNodesList (0)
@@ -454,10 +454,11 @@ namespace DAE2MA
     //-----------------------------
     void DocumentImporter::readColladaDocument ()
     {
+        // See revision 511 (generate new loader object without setting object flags).
         COLLADASaxFWL::Loader saxLoader ( &mSaxParserErrorHandler );
-        COLLADAFW::Root root ( &saxLoader, this );
 
         // TODO
+        COLLADAFW::Root root ( &saxLoader, this );
 //        COLLADAFW::Root root ( &mSaxLoader, this );
         String filename = getColladaFilename ();
         String fileUriString = URI::nativePathToUri ( filename );

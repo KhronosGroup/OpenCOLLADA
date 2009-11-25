@@ -434,7 +434,7 @@ namespace COLLADASaxFWL
         mFileLoader->setPrivateParser( mPrivateParser14 );
 
         //privateParser.setCallbackObject( &rootParser );
-		mPrivateParser14->registerUnknownElementHandler( &mFileLoader->mRawUnknownElementHandler );
+		mPrivateParser14->registerUnknownElementHandler( &mFileLoader->mExtraDataElementHandler );
 
         if ( !mFunctionMap14.empty() )
         {
@@ -457,7 +457,7 @@ namespace COLLADASaxFWL
         mFileLoader->setPrivateParser( mPrivateParser15 );
 
         //privateParser.setCallbackObject( &rootParser );
-		mPrivateParser15->registerUnknownElementHandler( &mFileLoader->mRawUnknownElementHandler );
+		mPrivateParser15->registerUnknownElementHandler( &mFileLoader->mExtraDataElementHandler );
 
         if ( !mFunctionMap15.empty() )
         {

@@ -16,6 +16,8 @@
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWLight.h"
 #include "COLLADAFWColor.h"
+#include "COLLADAFWExtraKeys.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -32,7 +34,25 @@ namespace COLLADASaxFWL
 	{
 	}
 
-	//------------------------------
+    //------------------------------
+    COLLADAFW::ExtraData* LibraryLightsLoader::getExtraData ()
+    {
+        return mCurrentLight;
+    }
+
+    //------------------------------
+    const char* LibraryLightsLoader::getSecondKey ()
+    {
+        return COLLADAFW::ExtraKeys::LIGHT;
+    }
+
+    //------------------------------
+    const COLLADAFW::UniqueId& LibraryLightsLoader::getUniqueId ()
+    {
+        return mCurrentLight->getUniqueId ();
+    }
+
+    //------------------------------
 	bool LibraryLightsLoader::end__library_lights()
 	{
 		moveUpInSidTree();
@@ -43,7 +63,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryLightsLoader::begin__light( const light__AttributeData& attributeData )
 	{
-		mCurrentLight = FW_NEW COLLADAFW::Light( getUniqueIdFromId( attributeData.id, COLLADAFW::Light::ID()));
+		mCurrentLight = FW_NEW COLLADAFW::Light( createUniqueIdFromId( attributeData.id, COLLADAFW::Light::ID()));
 
 		if ( attributeData.name )
 			mCurrentLight->setName( (const char*) attributeData.name );
@@ -242,11 +262,5 @@ namespace COLLADASaxFWL
 		moveUpInSidTree();
 		return true;
 	}
-
-    //------------------------------
-    COLLADAFW::ExtraData* LibraryLightsLoader::getExtraData ()
-    {
-        return mCurrentLight;
-    }
 
 } // namespace COLLADASaxFWL

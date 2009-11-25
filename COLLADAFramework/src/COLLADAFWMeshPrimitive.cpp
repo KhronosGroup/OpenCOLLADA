@@ -22,8 +22,9 @@ namespace COLLADAFW
 
 
     //-----------------------------
-	MeshPrimitive::MeshPrimitive()
-		: mPrimitiveType ( UNDEFINED_PRIMITIVE_TYPE )
+	MeshPrimitive::MeshPrimitive ( const UniqueId& uniqueId )
+        : ObjectTemplate<COLLADA_TYPE::PRIMITIVE_ELEMENT>(uniqueId)
+        , mPrimitiveType ( UNDEFINED_PRIMITIVE_TYPE )
 	    , mFaceCount ( 0 )
 		, mMaterialId(0)
 		, mPositionIndices(UIntValuesArray::OWNER)
@@ -34,8 +35,9 @@ namespace COLLADAFW
 	}
 
     //-----------------------------
-	MeshPrimitive::MeshPrimitive( PrimitiveType primitiveType )
-		: mPrimitiveType ( primitiveType )
+	MeshPrimitive::MeshPrimitive( const UniqueId& uniqueId, PrimitiveType primitiveType )
+        : ObjectTemplate<COLLADA_TYPE::PRIMITIVE_ELEMENT>(uniqueId)
+		, mPrimitiveType ( primitiveType )
 		, mFaceCount ( 0 )
 		, mMaterialId(0)
 		, mPositionIndices(UIntValuesArray::OWNER)

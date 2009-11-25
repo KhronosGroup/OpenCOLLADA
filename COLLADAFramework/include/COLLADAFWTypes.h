@@ -587,6 +587,8 @@ namespace COLLADAFW
             ANGULAR = 518,
             PHYSICS_MODEL = 519,
 
+            PRIMITIVE_ELEMENT = 520,
+
 			ANIMATIONLIST = 1000,
 			SKIN_DATA = 1001,
 

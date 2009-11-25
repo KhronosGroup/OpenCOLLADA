@@ -16,6 +16,8 @@
 #include "COLLADASaxFWLIParserImpl.h"
 #include "COLLADASaxFWLIParserImpl14.h"
 #include "COLLADASaxFWLIParserImpl15.h"
+#include "COLLADASaxFWLIExtraDataCallbackHandler.h"
+
 #include "COLLADAFWExtraKeys.h"
 
 
@@ -23,7 +25,7 @@ namespace COLLADASaxFWL
 {
 
     //------------------------------
-	IFilePartLoader::IFilePartLoader()
+	IFilePartLoader::IFilePartLoader ()
 		: mPartLoader(0)
         , mParserImpl(0)
 	{
@@ -47,7 +49,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueId( const String& uriString, COLLADAFW::ClassId classId )
+	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueId( const String& uriString, COLLADAFW::ClassId classId )
 	{
 		assert( getColladaLoader() );
 
@@ -57,7 +59,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueId( const String& uriString)
+	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueId( const String& uriString)
 	{
 		assert( getColladaLoader() );
 
@@ -67,12 +69,12 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	COLLADAFW::UniqueId IFilePartLoader::getUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId )
+	COLLADAFW::UniqueId IFilePartLoader::createUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId )
 	{
 		assert( getColladaLoader() );
 
 		if ( !colladaId || !(*colladaId) )
-			return getUniqueId(classId);
+			return createUniqueId(classId);
 
 		COLLADABU::URI uri(getFileUri(), String("#") + String((const char *)colladaId));
 
@@ -81,7 +83,7 @@ namespace COLLADASaxFWL
 
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId )
+	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId )
 	{
 		assert( getColladaLoader() );
 		if ( !url || !(*url) )
@@ -93,7 +95,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId )
+	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId )
 	{
 		assert( getColladaLoader() );
 
@@ -103,7 +105,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdFromUrl( const COLLADABU::URI& url, bool isAbsolute )
+	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const COLLADABU::URI& url, bool isAbsolute )
 	{
 		assert( getColladaLoader() );
 		
@@ -121,7 +123,7 @@ namespace COLLADASaxFWL
 
 
 	//-----------------------------
-	COLLADAFW::UniqueId IFilePartLoader::getUniqueId( COLLADAFW::ClassId classId )
+	COLLADAFW::UniqueId IFilePartLoader::createUniqueId( COLLADAFW::ClassId classId )
 	{
 		assert( getColladaLoader() );
 		return getColladaLoader()->getUniqueId(classId);
@@ -266,46 +268,18 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool IFilePartLoader::begin__technique( const technique__AttributeData& attributeData )
 	{
-		//SaxVirtualFunctionTest(begin__technique(attributeData))
-		if ( attributeData.profile )
-		{
-			mTechniqueProfileName.assign( attributeData.profile );
-		}
-		else
-		{
-			mTechniqueProfileName.clear();
-		}
-		return true;
-	}
+        //SaxVirtualFunctionTest(begin__technique(attributeData))
+
+        return getFileLoader ()->root__begin__technique ( attributeData );
+    }
 
 	//------------------------------
 	bool IFilePartLoader::end__technique()
 	{
-		//SaxVirtualFunctionTest(end__technique())
-		GeneratedSaxParser::RawUnknownElementHandler& rawUnknownElementHandler = getFileLoader()->getRawUnknownElementHandler();
-
-		COLLADAFW::ExtraData* extraData = getExtraData();
-		if ( extraData )
-		{
-			COLLADAFW::ExtraDataArray& extraDataArray = extraData->getExtraDataArray();
-			String key = COLLADAFW::ExtraKeys::BASEKEY;
-			const char* secondKey = getSecondKey();
-			if ( secondKey )
-			{
-				key.append( COLLADAFW::ExtraKeys::KEYSEPARATOR );
-				key.append( secondKey );
-			}
-			key.append( COLLADAFW::ExtraKeys::KEYSEPARATOR );
-			key.append( mTechniqueProfileName );
-
-			extraDataArray.append( FW_NEW COLLADAFW::ExtraDataPair( key, rawUnknownElementHandler.getRawData()) );
-		}
-
-		rawUnknownElementHandler.clearRawData();
-		return true;
+        return true;
 	}
 
-	//------------------------------
+    //------------------------------
 	bool IFilePartLoader::handleFWLError( const SaxFWLError& saxFWLError )
 	{
 		IErrorHandler* errorHandler = getColladaLoader()->getErrorHandler();

@@ -16,10 +16,11 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	Texture::Texture()
-	{
-	}
-	
+    Texture::Texture ( const UniqueId& uniqueId )
+        : ObjectTemplate<COLLADA_TYPE::TEXTURE>(uniqueId)
+    {
+    }
+
     //------------------------------
 	Texture::~Texture()
 	{

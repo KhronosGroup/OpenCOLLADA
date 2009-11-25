@@ -28,9 +28,28 @@ namespace COLLADAFW
         /** COLLADA base key */
 		static const char* BASEKEY;
 
+        /** Visual scene keys */
+        static const char* VISUAL_SCENE;
+        static const char* NODE;
+        static const char* INSTANCE_CAMERA;
+        static const char* INSTANCE_CONTROLLER;
+        static const char* INSTANCE_GEOMETRY;
+        static const char* INSTANCE_LIGHT;
+        static const char* INSTANCE_NODE;
+        static const char* BIND_MATERIAL_CONTROLLER;
+        static const char* BIND_MATERIAL_GEOMETRY;
+        static const char* INSTANCE_MATERIAL_CONTROLLER;
+        static const char* INSTANCE_MATERIAL_GEOMETRY;
+
         /** Camera keys */
 		static const char* CAMERA;
 		static const char* OPTICS;
+
+        /** Light key */
+        static const char* LIGHT;
+
+        /** Image key */
+        static const char* IMAGE;
 
         /** Geometry keys */
         static const char* GEOMETRY;
@@ -53,9 +72,19 @@ namespace COLLADAFW
         static const char* MATERIAL;
         static const char* INSTANCE_EFFECT;
 
+        /** Controller keys */
+        static const char* CONTROLLER;
+        static const char* SKIN_CONTROLLER;
+        static const char* SKIN_CONTROLLER_JOINTS;
+        static const char* SKIN_CONTROLLER_VERTEX_WEIGHTS;
+        static const char* MORPH_CONTROLLER;
+        static const char* MORPH_CONTROLLER_TARGETS;
 
-		/************ kinematics ****************/
-		static const char* INSTANCEJOINT;
+        /** Animation key */
+        static const char* ANIMATION;
+
+		/** Kinematic keys */
+		static const char* INSTANCE_JOINT;
 		static const char* KINEMATICS;
 		static const char* ARTICULATEDSYSTEM;
 

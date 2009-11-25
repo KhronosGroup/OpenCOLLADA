@@ -12,15 +12,11 @@
 #define __COLLADASAXFWL_FILELOADER_H__
 
 #include "COLLADASaxFWLPrerequisites.h"
-
 #include "COLLADASaxFWLDocumentProcessor.h"
-
 #include "COLLADASaxFWLColladaParserAutoGen14Private.h"
 #include "COLLADASaxFWLColladaParserAutoGen15Private.h"
 
 #include "GeneratedSaxParserRawUnknownElementHandler.h"
-
-
 
 
 
@@ -79,7 +75,8 @@ namespace COLLADASaxFWL
 			         const COLLADABU::URI& fileURI, 
 					 SaxParserErrorHandler* saxParserErrorHandler, 
 					 int objectFlags,
-					 int& /*[in,out]*/ parsedObjectFlags);
+					 int& /*[in,out]*/ parsedObjectFlags, 
+                     const ExtraDataCallbackHandlerList& extraDataCallbackHandlerList );
  
         /** Destructor. */
         virtual ~FileLoader();

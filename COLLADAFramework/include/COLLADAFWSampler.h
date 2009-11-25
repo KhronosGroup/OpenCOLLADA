@@ -12,8 +12,7 @@
 #define __COLLADAFW_SAMPLER_H__
 
 #include "COLLADAFWPrerequisites.h"
-
-#include "COLLADAFWUniqueId.h"
+#include "COLLADAFWObject.h"
 #include "COLLADAFWColor.h"
 #include "COLLADAFWPointerArray.h"
 
@@ -24,7 +23,7 @@ namespace COLLADAFW
      * Declares the storage for the graphical representation of an object. 
      * The samplerId is the array index position in the samplers array.
      */
-	class Sampler 	
+	class Sampler : public ObjectTemplate<COLLADA_TYPE::SAMPLER>
 	{
 	public:
 		/** The different sampler types. */
@@ -133,7 +132,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Sampler();
+		Sampler ( const UniqueId& uniqueId );
 
         /** Destructor. */
 		virtual ~Sampler();

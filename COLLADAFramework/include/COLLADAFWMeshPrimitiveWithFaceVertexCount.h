@@ -48,15 +48,18 @@ namespace COLLADAFW
          */
         VertexCountArray mGroupedVerticesVertexCountArray;
 
-    protected:	
+    protected:
+
         /**
         * Constructor.
         */
-		MeshPrimitiveWithFaceVertexCount ( PrimitiveType primitiveType ) : 
-			 MeshPrimitive(primitiveType)
-     		, mGroupedVerticesVertexCountArray(VertexCountArray::OWNER) {}
+		MeshPrimitiveWithFaceVertexCount ( const UniqueId& uniqueId, PrimitiveType primitiveType ) 
+            : MeshPrimitive ( uniqueId, primitiveType )
+     		, mGroupedVerticesVertexCountArray(VertexCountArray::OWNER) 
+        {}
 
 	public:	
+
         /**
         * Destructor.
         */

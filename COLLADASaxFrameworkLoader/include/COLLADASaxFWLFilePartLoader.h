@@ -23,7 +23,8 @@ namespace COLLADASaxFWL
 	class FilePartLoader : public IFilePartLoader
 	{
 	private:
-		IFilePartLoader* mCallingFilePartLoader;
+
+        IFilePartLoader* mCallingFilePartLoader;
 	
 	public:
 

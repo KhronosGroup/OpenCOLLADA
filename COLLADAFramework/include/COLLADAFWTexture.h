@@ -12,17 +12,19 @@
 #define __COLLADAFW_TEXTURE_H__
 
 #include "COLLADAFWPrerequisites.h"
-
+#include "COLLADAFWObject.h"
 #include "COLLADAFWTypes.h"
+
 
 namespace COLLADAFW
 {
 
     /** A Texture. It only specifies the sampler that should be used for the texture and the texture map.
 	The samplers are contained in an array of the parent EffectCommon.*/
-	class Texture 	
+    class Texture : public ObjectTemplate<COLLADA_TYPE::TEXTURE>
 	{
 	private:
+
 		/** The index of the sampler used by the texture, i.e. the index of the sampler in the array of 
 		samplers in the parent EffectCommon. */
 		SamplerID mSamplerId;
@@ -35,10 +37,16 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Texture();
+        Texture ( const UniqueId& uniqueId );
 
         /** Destructor. */
 		virtual ~Texture();
+
+        /** Sets the unique id of the object.*/
+        void setUniqueId ( const UniqueId& uniqueId )
+        { 
+            ObjectTemplate::setUniqueId ( uniqueId );
+        }
 
 		/** 
          * Returns the id of the sampler. 

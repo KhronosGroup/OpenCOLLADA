@@ -1243,6 +1243,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLExtraDataElementHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLExtraDataLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLFileLoader.cpp"
 				>
 			</File>
@@ -1272,6 +1280,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADASaxFWLIErrorHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLIExtraDataCallbackHandler.cpp"
 				>
 			</File>
 			<File
@@ -1933,6 +1945,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLExtraDataElementHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLExtraDataLoader.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLFileLoader.h"
 				>
 			</File>
@@ -1966,6 +1986,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLIErrorHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLIExtraDataCallbackHandler.h"
 				>
 			</File>
 			<File
