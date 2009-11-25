@@ -16,7 +16,7 @@
 #ifdef COLLADABU_OS_LINUX
 #	include <backward/hash_fun.h>
 #   include "COLLADABUURI.h"
-#else ifdef COLLADABU_OS_MAC
+#elif (defined COLLADABU_OS_MAC)
 #	include <ext/hash_fun.h>
 #   include "COLLADABUURI.h"
 #endif
