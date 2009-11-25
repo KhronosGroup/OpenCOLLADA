@@ -246,7 +246,7 @@ namespace COLLADASaxFWL
 		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getHandlingFilePartLoader()->createUniqueIdFromUrl( attributeData.url, COLLADAFW::Geometry::ID());
 		mCurrentMaterialInfo = &getHandlingFilePartLoader()->getMeshMaterialIdInfo(instantiatedGeometryUniqueId);
 
-        COLLADAFW::UniqueId& uniqueId = getHandlingFilePartLoader()->createUniqueId ( COLLADAFW::InstanceGeometry::ID() );
+        COLLADAFW::UniqueId uniqueId = getHandlingFilePartLoader()->createUniqueId ( COLLADAFW::InstanceGeometry::ID() );
 		COLLADAFW::InstanceGeometry* instanceGeometry = FW_NEW COLLADAFW::InstanceGeometry ( uniqueId, instantiatedGeometryUniqueId );
 		mCurrentInstanceGeometry = instanceGeometry;
 		currentNode->getInstanceGeometries().append(instanceGeometry);
@@ -384,7 +384,7 @@ namespace COLLADASaxFWL
 		COLLADAFW::UniqueId instantiatedControllerUniqueId = getHandlingFilePartLoader()->createUniqueIdFromUrl( attributeData.url, COLLADAFW::SkinControllerData::ID() );
 		mCurrentMaterialInfo = &getHandlingFilePartLoader()->getMeshMaterialIdInfo(instantiatedControllerUniqueId);
 
-        COLLADAFW::UniqueId& uniqueId = getHandlingFilePartLoader()->createUniqueId ( COLLADAFW::InstanceController::ID() );
+        COLLADAFW::UniqueId uniqueId = getHandlingFilePartLoader()->createUniqueId ( COLLADAFW::InstanceController::ID() );
 		COLLADAFW::InstanceController* instanceController = FW_NEW COLLADAFW::InstanceController( uniqueId, instantiatedControllerUniqueId);
 		mCurrentInstanceController = instanceController;
 		currentNode->getInstanceControllers().append(instanceController);
