@@ -90,7 +90,9 @@ namespace COLLADASaxFWL
     //------------------------------
     const COLLADAFW::UniqueId& LibraryMaterialsLoader::getUniqueId ()
     {
-        return mCurrentMaterial->getUniqueId ();
+        if ( mCurrentMaterial )
+            return mCurrentMaterial->getUniqueId ();
+        return COLLADAFW::UniqueId::INVALID;
     }
 
 } // namespace COLLADASaxFWL

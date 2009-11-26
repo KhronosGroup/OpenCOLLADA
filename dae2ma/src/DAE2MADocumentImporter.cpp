@@ -460,6 +460,9 @@ namespace DAE2MA
         // See revision 511 (generate new loader object without setting object flags).
         COLLADASaxFWL::Loader saxLoader ( &mSaxParserErrorHandler );
 
+        if ( mParseStep == FIRST_PARSING )
+            saxLoader.registerExtraDataCallbackHandler ( &mMayaIdCallbackHandler );
+
         // TODO
         COLLADAFW::Root root ( &saxLoader, this );
 //        COLLADAFW::Root root ( &mSaxLoader, this );

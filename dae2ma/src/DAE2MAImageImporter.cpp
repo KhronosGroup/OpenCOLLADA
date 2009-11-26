@@ -95,15 +95,14 @@ namespace DAE2MA
     {
         // Check if the image is already imported.
         const COLLADAFW::UniqueId& imageId = image->getUniqueId ();
-        //if ( findMayaImageFile ( imageId ) != 0 ) return;
 
         // Create a unique name.
         String imageName = image->getName ();
         if ( imageName.empty () ) imageName = IMAGE_NAME;
         imageName = DocumentImporter::frameworkNameToMayaName ( imageName );
-        // TODO
-//         String originalMayaId = getOriginalMayaId ( image->getExtraDataArray () );
-//         if ( !originalMayaId.empty () ) imageName = originalMayaId;
+        const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+        String originalMayaId = getOriginalMayaId ( callbackHandler, imageId, COLLADASaxFWL15::HASH_ELEMENT_IMAGE );
+        if ( !originalMayaId.empty () ) imageName = originalMayaId;
         imageName = generateUniqueDependNodeName ( imageName );
 
         // Get the maya ascii file.

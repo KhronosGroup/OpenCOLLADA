@@ -22,11 +22,16 @@
 #include "COLLADABUURI.h"
 #include "COLLADABUNativeString.h"
 
+#include "GeneratedSaxParser.h"
+
+
 namespace DAE2MA
 {
     typedef std::string String;
     typedef COLLADABU::URI URI;
 	typedef COLLADABU::NativeString NativeString;
+
+    typedef GeneratedSaxParser::StringHash StringHash;
 
     /** The default tolerance for double-sized floating-point comparison functions. */
 #define DOUBLE_TOLERANCE 0.0e-12

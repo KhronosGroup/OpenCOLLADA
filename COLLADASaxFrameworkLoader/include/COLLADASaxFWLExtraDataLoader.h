@@ -37,7 +37,9 @@ namespace COLLADASaxFWL
         virtual const FileLoader* getFileLoader() const = 0;
 
         /** Starts loading an extra tag. */
-        virtual bool root__begin__technique( const technique__AttributeData& attributeData );
+        virtual bool base__begin__technique ( 
+            const technique__AttributeData& attributeData, 
+            const COLLADAFW::UniqueId& uniqueId );
 
         /** Returns the unique id of the current parsed object. */
         virtual const COLLADAFW::UniqueId& getUniqueId() { return COLLADAFW::UniqueId::INVALID; }

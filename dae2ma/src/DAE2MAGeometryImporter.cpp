@@ -455,13 +455,16 @@ namespace DAE2MA
         const bool intermediateObject /*= false*/,
         const bool visible /*= true*/ )
     {
+        // Get the unique object id.
+        const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+
         // Make the maya name unique and manage it in all necessary lists.
         String meshName = mesh->getName ();
         if ( meshName.empty () ) meshName = GEOMETRY_NAME;
         meshName = DocumentImporter::frameworkNameToMayaName ( meshName );
-        // TODO
-//         String originalMayaId = getOriginalMayaId ( mesh->getExtraDataArray () );
-//         if ( !originalMayaId.empty () ) meshName = originalMayaId;
+        const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+        String originalMayaId = getOriginalMayaId ( callbackHandler, geometryId, COLLADASaxFWL15::HASH_ELEMENT_GEOMETRY );
+        if ( !originalMayaId.empty () ) meshName = originalMayaId;
         meshName = generateUniqueDagNodeName ( meshName, mayaTransformNode );
 
         // Get the maya ascii file.
@@ -470,9 +473,6 @@ namespace DAE2MA
         // Get the parent transform node name.
         const COLLADAFW::UniqueId& transformNodeId = mayaTransformNode->getUniqueId ();
         String transformNodePath = mayaTransformNode->getNodePath ();
-
-        // Get the unique object id.
-        const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
 
         // Create a maya node object of the current node and push it into the map.
         if ( findMayaMeshNode ( geometryId ) == 0 )

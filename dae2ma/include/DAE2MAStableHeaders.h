@@ -33,6 +33,8 @@
 #include <string>
 #include <iostream>
 
+#include "COLLADASaxFWLColladaParserAutoGen15Attributes.h"
+
 
 #ifdef WIN32
 #elif WIN64

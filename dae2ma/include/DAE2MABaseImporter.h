@@ -261,11 +261,14 @@ namespace DAE2MA
             bool returnConverted = true, 
             bool alwaysAddNumberSuffix = false );
 
-//         /**
-//          * Reads the original maya id from the extra tags, if it exist in the framework data.
-//          */
-//         String getOriginalMayaId ( const COLLADAFW::ExtraDataArray &extraDataArray );
-// 
+        /**
+         * Get the original maya id from the ExtraDataCallbackHandler, if it exist in the framework data.
+         */
+        String getOriginalMayaId ( 
+            const ExtraDataCallbackHandler& mayaIdCallbackHandler, 
+            const COLLADAFW::UniqueId& uniqueId, 
+            const StringHash& hashElement );
+
 //         /**
 //          * First we have to build a tree. With this tree, we know the number of children of every 
 //          * knot in the tree. We have to create a compound attribute for every knot. After we have

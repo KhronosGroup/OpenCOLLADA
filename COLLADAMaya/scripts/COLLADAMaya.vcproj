@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -132,7 +132,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -217,7 +217,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -304,7 +304,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -388,7 +388,7 @@
 				Name="VCCLCompilerTool"
 				UseUnicodeResponseFiles="true"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -475,7 +475,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -561,7 +561,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -650,7 +650,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -738,7 +738,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -825,7 +825,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -912,7 +912,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -1003,7 +1003,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1087,7 +1087,7 @@
 				Name="VCCLCompilerTool"
 				UseUnicodeResponseFiles="true"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1174,7 +1174,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1260,7 +1260,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1349,7 +1349,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1437,7 +1437,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1524,7 +1524,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1611,7 +1611,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -1702,7 +1702,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1786,7 +1786,7 @@
 				Name="VCCLCompilerTool"
 				UseUnicodeResponseFiles="true"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1873,7 +1873,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1959,7 +1959,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -2048,7 +2048,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -2135,7 +2135,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -2226,7 +2226,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -2313,7 +2313,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -2404,7 +2404,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"

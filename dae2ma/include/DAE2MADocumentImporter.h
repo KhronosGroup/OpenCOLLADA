@@ -20,6 +20,7 @@
 #include "DAE2MAPrerequisites.h"
 #include "DAE2MANode.h"
 #include "DAE2MASaxErrorHandler.h"
+#include "DAE2MAExtraDataCallbackHandler.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWFileInfo.h"
@@ -137,6 +138,9 @@ namespace DAE2MA
 
         /** The sax loader. */
 //        COLLADASaxFWL::Loader mSaxLoader;
+
+        /** The callback handler to parse the extra data elements. */
+        ExtraDataCallbackHandler mMayaIdCallbackHandler;
 
         /** The URI of the visual scene to use. */
         COLLADAFW::InstanceVisualScene* mInstanceVisualScene;
@@ -262,6 +266,9 @@ namespace DAE2MA
 
         /** Imports the current scene. */
         void importCurrentScene ();
+
+        /** The callback handler to parse the extra data elements. */
+        const ExtraDataCallbackHandler& getMayaIdCallbackHandler () const { return mMayaIdCallbackHandler; }
 
         /** The current maya ascii file to import the data. */
         FILE* getFile () const { return mFile; }

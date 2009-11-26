@@ -293,7 +293,11 @@ namespace COLLADASaxFWL
     //------------------------------
     const COLLADAFW::UniqueId& LibraryAnimationsLoader::getUniqueId ()
     {
-        return mCurrentAnimationCurve->getUniqueId ();
+        if ( mCurrentAnimationCurve )
+            return mCurrentAnimationCurve->getUniqueId ();
+
+        // TODO One curve for every sampler in an collada animation. Returns always an invalid id!
+        return COLLADAFW::UniqueId::INVALID;
     }
 
 	//------------------------------

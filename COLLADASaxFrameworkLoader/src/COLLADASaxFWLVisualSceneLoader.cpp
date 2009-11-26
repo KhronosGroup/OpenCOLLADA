@@ -40,7 +40,10 @@ namespace COLLADASaxFWL
         else if ( mCurrentInstanceGeometry )
             return mCurrentInstanceGeometry->getUniqueId ();
 
-        return mVisualScene->getUniqueId ();
+        if ( mVisualScene )
+            return mVisualScene->getUniqueId ();
+
+        return COLLADAFW::UniqueId::INVALID;
     }
 
 	//------------------------------

@@ -102,17 +102,19 @@ namespace DAE2MA
         const COLLADAFW::Camera* camera,  
         MayaNode* mayaTransformNode )
     {
+        // Get the unique id.
+        const COLLADAFW::UniqueId& cameraId = camera->getUniqueId ();
+
         // Make the maya name unique and manage it in all necessary lists.
         String cameraName = camera->getName ();
         if ( cameraName.empty () ) cameraName = CAMERA_NAME;
         cameraName = DocumentImporter::frameworkNameToMayaName ( cameraName );
-        // TODO
-//         String originalMayaId = getOriginalMayaId ( camera->getExtraDataArray () );
-//         if ( !originalMayaId.empty () ) cameraName = originalMayaId;
+        const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+        String originalMayaId = getOriginalMayaId ( callbackHandler, cameraId, COLLADASaxFWL15::HASH_ELEMENT_CAMERA );
+        if ( !originalMayaId.empty () ) cameraName = originalMayaId;
         cameraName = generateUniqueDagNodeName ( cameraName, mayaTransformNode );
 
         // Create a maya node object of the current node and push it into the map.
-        const COLLADAFW::UniqueId& cameraId = camera->getUniqueId ();
         MayaNode* mayaCameraNode = new MayaNode ( cameraId, cameraName, mayaTransformNode );
         mMayaCameraNodesMap [ cameraId ] = mayaCameraNode;
 

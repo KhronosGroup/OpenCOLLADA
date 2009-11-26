@@ -84,9 +84,9 @@ namespace DAE2MA
         String materialName ( material->getName () );
         if ( materialName.empty () ) materialName = MATERIAL_NAME;
         materialName = DocumentImporter::frameworkNameToMayaName ( materialName );
-        // TODO
-//         String originalMayaId = getOriginalMayaId ( material->getExtraDataArray () );
-//         if ( !originalMayaId.empty () ) materialName = originalMayaId;
+        const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+        String originalMayaId = getOriginalMayaId ( callbackHandler, materialId, COLLADASaxFWL15::HASH_ELEMENT_MATERIAL );
+        if ( !originalMayaId.empty () ) materialName = originalMayaId;
         materialName = generateUniqueDependNodeName ( materialName );
 
 //         // TODO Doesn't work on file import, just on file open!

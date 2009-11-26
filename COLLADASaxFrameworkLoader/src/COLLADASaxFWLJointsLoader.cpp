@@ -35,7 +35,9 @@ namespace COLLADASaxFWL
     //------------------------------
     const COLLADAFW::UniqueId& JointsLoader::getUniqueId ()
     {
-        return mCurrentJoint->getUniqueId ();
+        if ( mCurrentJoint )
+            return mCurrentJoint->getUniqueId ();
+        return COLLADAFW::UniqueId::INVALID;
     }
 
 	//------------------------------

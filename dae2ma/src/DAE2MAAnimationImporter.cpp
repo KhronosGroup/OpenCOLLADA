@@ -176,6 +176,9 @@ namespace DAE2MA
             return;
         }
 
+        // The uniqueId of the animation.
+        const COLLADAFW::UniqueId& animationId = animationCurve->getUniqueId ();
+
         // Create a curve for every animated element.
         for ( size_t outputIndex=0; outputIndex<outDimension; ++outputIndex )
         {
@@ -183,9 +186,9 @@ namespace DAE2MA
             String animationName = animationCurve->getName ();
             if ( animationName.empty () ) animationName = ANIMATION_NAME;
             animationName = DocumentImporter::frameworkNameToMayaName ( animationName );
-            // TODO
-//             String originalMayaId = getOriginalMayaId ( animationCurve->getExtraDataArray () );
-//             if ( !originalMayaId.empty () ) animationName = originalMayaId;
+            const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+            String originalMayaId = getOriginalMayaId ( callbackHandler, animationId, COLLADASaxFWL15::HASH_ELEMENT_ANIMATION );
+            if ( !originalMayaId.empty () ) animationName = originalMayaId;
             animationName = generateUniqueDependNodeName ( animationName, true, true );
 
             // Get the maya file
@@ -201,7 +204,6 @@ namespace DAE2MA
                 {
                     // We have to check for scale animations. They have to use an AnimCurveTU 
                     // (like dimension number) instead of an AnimCurveTL (like dimension length).
-                    const COLLADAFW::UniqueId& animationId = animationCurve->getUniqueId ();
                     if ( !isScaleAnimation ( animationId ) )
                     {
                         animCurve = new MayaDM::AnimCurveTL ( file, animationName );
@@ -296,6 +298,9 @@ namespace DAE2MA
             return;
         }
 
+        // The uniqueId of the element.
+        const COLLADAFW::UniqueId& animationId = animationCurve->getUniqueId ();
+
         // Create a curve for every animated element.
         for ( size_t outputIndex=0; outputIndex<outDimension; ++outputIndex )
         {
@@ -303,9 +308,9 @@ namespace DAE2MA
             String animationName = animationCurve->getName ();
             if ( animationName.empty () ) animationName = ANIMATION_NAME;
             animationName = DocumentImporter::frameworkNameToMayaName ( animationName );
-            // TODO
-//             String originalMayaId = getOriginalMayaId ( animationCurve->getExtraDataArray () );
-//             if ( !originalMayaId.empty () ) animationName = originalMayaId;
+            const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+            String originalMayaId = getOriginalMayaId ( callbackHandler, animationId, COLLADASaxFWL15::HASH_ELEMENT_ANIMATION );
+            if ( !originalMayaId.empty () ) animationName = originalMayaId;
             animationName = generateUniqueDependNodeName ( animationName );
 
             // Create the animation curve.

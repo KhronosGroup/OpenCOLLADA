@@ -872,8 +872,11 @@ namespace COLLADASaxFWL
     //------------------------------
     const COLLADAFW::UniqueId& LibraryEffectsLoader::getUniqueId ()
     {
-        if ( mCurrentSampler ) return mCurrentSampler->getUniqueId ();
-        return mCurrentEffect->getUniqueId ();
+        if ( mCurrentSampler ) 
+            return mCurrentSampler->getUniqueId ();
+        else if ( mCurrentEffect ) 
+            return mCurrentEffect->getUniqueId ();
+        return COLLADAFW::UniqueId::INVALID;
     }
 
 } // namespace COLLADASaxFWL

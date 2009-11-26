@@ -258,41 +258,20 @@ namespace DAE2MA
         return nodeName;
     }
 
-//     // -----------------------------------
-//     String BaseImporter::getOriginalMayaId ( const COLLADAFW::ExtraDataArray &extraDataArray )
-//     {
-//         // Iterate over the extra data tags.
-//         const size_t numExtraData = extraDataArray.getCount ();
-//         for ( size_t i=0; i<numExtraData; ++i )
-//         {
-//             const COLLADAFW::ExtraDataPair* extraDataPair = extraDataArray [i];
-//             const String& key = extraDataPair->getKey ();
-//             const String& source = extraDataPair->getValue ();
-//             if ( source.empty () ) continue;
-// 
-//             // Find the original maya id.
-//             if ( COLLADABU::Utils::equals ( key, PROFILE_MAYA ) )
-//             {
-//                 String beginTagString = "<" + PARAMETER_MAYA_ID + ">";
-//                 size_t beginTagStringLength = beginTagString.length ();
-// 
-//                 size_t startPos = source.find ( beginTagString );
-//                 if ( startPos == String::npos ) continue;
-// 
-//                 String endTagString = "</" + PARAMETER_MAYA_ID + ">";
-//                 size_t endTagStringLength = endTagString.length ();
-// 
-//                 size_t endPos = source.find ( endTagString );
-//                 if ( endPos == String::npos ) continue;
-// 
-//                 startPos += beginTagStringLength;
-//                 return source.substr ( startPos, endPos-1 );
-//             }
-//         }
-// 
-//         return EMPTY_STRING;
-//     }
-// 
+    // -----------------------------------
+    String BaseImporter::getOriginalMayaId ( 
+        const ExtraDataCallbackHandler &mayaIdCallbackHandler, 
+        const COLLADAFW::UniqueId& uniqueId, 
+        const StringHash& hashElement )
+    {
+        // Check if we are really in the camera element (nothing else should be...).
+        const ExtraInfo* extraInfo = mayaIdCallbackHandler.findExtraInfo ( uniqueId, hashElement );
+        if ( !extraInfo ) return EMPTY_STRING;
+
+        // Return the original maya node id.
+        return extraInfo->getOriginalMayaId ();
+    }
+
 //     // -----------------------------------
 //     void BaseImporter::setExtraData ( const COLLADAFW::ExtraDataArray &extraDataArray )
 //     {

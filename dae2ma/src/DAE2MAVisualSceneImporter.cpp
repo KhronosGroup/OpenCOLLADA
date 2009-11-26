@@ -115,9 +115,9 @@ namespace DAE2MA
         String nodeName = node->getName ();
         if ( nodeName.empty () ) nodeName = TRANSFORM_NODE_NAME;
         nodeName = DocumentImporter::frameworkNameToMayaName ( nodeName );
-//        // TODO
-//         String originalMayaId = getOriginalMayaId ( node->getExtraDataArray () );
-//         if ( !originalMayaId.empty () ) nodeName = originalMayaId;
+        const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+        String originalMayaId = getOriginalMayaId ( callbackHandler, nodeId, COLLADASaxFWL15::HASH_ELEMENT_NODE );
+        if ( !originalMayaId.empty () ) nodeName = originalMayaId;
         nodeName = generateUniqueDagNodeName ( nodeName, parentMayaNode );
 
         // Check for a parent node name

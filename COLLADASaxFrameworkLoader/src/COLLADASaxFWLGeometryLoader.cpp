@@ -33,7 +33,9 @@ namespace COLLADASaxFWL
     //------------------------------
     const COLLADAFW::UniqueId& GeometryLoader::getUniqueId ()
     {
-        return mMeshLoader->getUniqueId ();
+        if ( mMeshLoader )
+            return mMeshLoader->getUniqueId ();
+        return COLLADAFW::UniqueId::INVALID;
     }
 
 	//------------------------------

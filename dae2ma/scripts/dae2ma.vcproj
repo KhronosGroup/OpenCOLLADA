@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -111,7 +111,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -179,7 +179,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -245,7 +245,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -311,7 +311,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="false"
@@ -378,7 +378,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
@@ -444,7 +444,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -524,7 +524,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -602,7 +602,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -682,7 +682,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -759,7 +759,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -838,7 +838,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\MayaDataModel\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated14;..\..\COLLADASaxFrameworkLoader\include\generated15"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1008,6 +1008,10 @@
 				</File>
 				<File
 					RelativePath="..\src\DAE2MAEffectImporter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\DAE2MAExtraDataCallbackHandler.cpp"
 					>
 				</File>
 				<File
@@ -1429,6 +1433,10 @@
 				</File>
 				<File
 					RelativePath="..\include\DAE2MAEffectImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\DAE2MAExtraDataCallbackHandler.h"
 					>
 				</File>
 				<File

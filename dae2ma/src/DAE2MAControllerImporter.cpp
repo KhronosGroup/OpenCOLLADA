@@ -256,13 +256,16 @@ namespace DAE2MA
         COLLADAFW::MorphController* morphController, 
         BlendShapeData& blendShapeData )
     {
+        // The uniqueId.
+        const COLLADAFW::UniqueId& controllerId = morphController->getUniqueId ();
+
         // Create a unique blend shape name.
         String blendShapeName = morphController->getName ();
         if ( blendShapeName.empty () ) blendShapeName = BLEND_SHAPE_NAME;
         blendShapeName = DocumentImporter::frameworkNameToMayaName ( blendShapeName );
-        // TODO
-//         String originalMayaId = getOriginalMayaId ( morphController->getExtraDataArray () );
-//         if ( !originalMayaId.empty () ) blendShapeName = originalMayaId;
+        const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+        String originalMayaId = getOriginalMayaId ( callbackHandler, controllerId, COLLADASaxFWL15::HASH_ELEMENT_CONTROLLER );
+        if ( !originalMayaId.empty () ) blendShapeName = originalMayaId;
         blendShapeName = generateUniqueDependNodeName ( blendShapeName, true, true );
 
         // Create the skin cluster
@@ -292,7 +295,6 @@ namespace DAE2MA
         }
 
         // Add the morph targets in the list of targets.
-        const COLLADAFW::UniqueId& controllerId = morphController->getUniqueId ();
         for ( size_t targetIndex=0; targetIndex<numMorphTargets; ++targetIndex )
         {
             const COLLADAFW::UniqueId& morphTargetId = morphTargets [targetIndex];
@@ -575,13 +577,16 @@ namespace DAE2MA
         const COLLADAFW::SkinControllerData* skinControllerData, 
         SkinClusterData& skinClusterData )
     {
+        // The uniqueId of the element.
+        const COLLADAFW::UniqueId& skinControllerDataId = skinControllerData->getUniqueId ();
+
         // Create a unique skin cluster name.
         String skinClusterName = skinControllerData->getName ();
         if ( skinClusterName.empty () ) skinClusterName = SKIN_CLUSTER_NAME;
         skinClusterName = DocumentImporter::frameworkNameToMayaName ( skinClusterName );
-        // TODO
-//         String originalMayaId = getOriginalMayaId ( skinControllerData->getExtraDataArray () );
-//         if ( !originalMayaId.empty () ) skinClusterName = originalMayaId;
+        const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+        String originalMayaId = getOriginalMayaId ( callbackHandler, skinControllerDataId, COLLADASaxFWL15::HASH_ELEMENT_CONTROLLER );
+        if ( !originalMayaId.empty () ) skinClusterName = originalMayaId;
         skinClusterName = generateUniqueDependNodeName ( skinClusterName, true, true );
 
         // Create the skin cluster

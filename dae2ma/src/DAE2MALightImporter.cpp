@@ -149,9 +149,9 @@ namespace DAE2MA
         String lightName = light->getName ();
         if ( lightName.empty () ) lightName = LIGHT_NAME;
         lightName = DocumentImporter::frameworkNameToMayaName ( lightName );
-        // TODO
-//         String originalMayaId = getOriginalMayaId ( light->getExtraDataArray () );
-//         if ( !originalMayaId.empty () ) lightName = originalMayaId;
+        const ExtraDataCallbackHandler& callbackHandler = getDocumentImporter ()->getMayaIdCallbackHandler ();
+        String originalMayaId = getOriginalMayaId ( callbackHandler, lightId, COLLADASaxFWL15::HASH_ELEMENT_LIGHT );
+        if ( !originalMayaId.empty () ) lightName = originalMayaId;
         lightName = generateUniqueDagNodeName ( lightName, mayaTransformNode );
 
         // Create a maya node object of the current node and push it into the map.
