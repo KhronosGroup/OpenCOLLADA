@@ -29,7 +29,9 @@ namespace COLLADASaxFWL
 	}
 
     //------------------------------
-    bool ExtraDataLoader::root__begin__technique ( const technique__AttributeData& attributeData )
+    bool ExtraDataLoader::base__begin__technique ( 
+        const technique__AttributeData& attributeData, 
+        const COLLADAFW::UniqueId& uniqueId )
     {
         // Get the extra data element handler.
         ExtraDataElementHandler& extraDataElementHandler = getFileLoader ()->getExtraDataElementHandler ();
@@ -49,11 +51,8 @@ namespace COLLADASaxFWL
             // Get the profile name.
             const ParserChar* profileName = attributeData.profile;
 
-            // Get the unique id of the current parsed element.
-            const COLLADAFW::UniqueId& frameworkId = getUniqueId ();
-
             // Ask, if the current handler should parse the extra tags of the current element.
-            bool parseElement = extraDataCallbackHandler->parseElement ( profileName, elementHash, frameworkId );
+            bool parseElement = extraDataCallbackHandler->parseElement ( profileName, elementHash, uniqueId );
 
             // Store the flag in the list.
             extraDataElementHandler.setExtraDataCallbackHandlerCalling ( i, parseElement );

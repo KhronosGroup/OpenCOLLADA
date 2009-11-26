@@ -35,7 +35,9 @@ namespace COLLADASaxFWL
     //------------------------------
     const COLLADAFW::UniqueId& LibraryImagesLoader::getUniqueId ()
     {
-        return mCurrentImage->getUniqueId ();
+        if ( mCurrentImage )
+            return mCurrentImage->getUniqueId ();
+        return COLLADAFW::UniqueId::INVALID;
     }
 
 	//------------------------------

@@ -268,7 +268,7 @@ namespace COLLADASaxFWL
 	{
         //SaxVirtualFunctionTest(begin__technique(attributeData))
 
-        return getFileLoader ()->root__begin__technique ( attributeData );
+        return getFileLoader ()->base__begin__technique ( attributeData, getUniqueId () );
     }
 
 	//------------------------------

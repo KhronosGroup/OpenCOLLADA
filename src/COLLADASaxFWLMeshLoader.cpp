@@ -78,10 +78,9 @@ namespace COLLADASaxFWL
         case POLYLIST: 
             return mCurrentMeshPrimitive->getUniqueId (); break;
         default:
-            return mMesh->getUniqueId (); break;
+            if ( mMesh ) return mMesh->getUniqueId (); break;
         }
 
-        // Should never be here
         return COLLADAFW::UniqueId::INVALID;
     }
 

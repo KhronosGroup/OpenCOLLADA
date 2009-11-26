@@ -48,7 +48,9 @@ namespace COLLADASaxFWL
     //------------------------------
     const COLLADAFW::UniqueId& LibraryCamerasLoader::getUniqueId ()
     {
-        return mCurrentCamera->getUniqueId ();
+        if ( mCurrentCamera )
+            return mCurrentCamera->getUniqueId ();
+        return COLLADAFW::UniqueId::INVALID;
     }
 
 	//------------------------------

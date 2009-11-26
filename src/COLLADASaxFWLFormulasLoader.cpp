@@ -52,7 +52,9 @@ namespace COLLADASaxFWL
     //-----------------------------------------------------------------
     const COLLADAFW::UniqueId& FormulasLoader::getUniqueId ()
     {
-        return mCurrentFormula->getUniqueId ();
+        if ( mCurrentFormula )
+            return mCurrentFormula->getUniqueId ();
+        return COLLADAFW::UniqueId::INVALID;
     }
 
 	//-----------------------------------------------------------------

@@ -34,7 +34,9 @@ namespace COLLADASaxFWL
     //------------------------------
     const COLLADAFW::UniqueId& SceneLoader::getUniqueId ()
     {
-        return mCurrentScene->getUniqueId ();
+        if ( mCurrentScene )
+            return mCurrentScene->getUniqueId ();
+        return COLLADAFW::UniqueId::INVALID;
     }
 
     //------------------------------
