@@ -147,4 +147,16 @@ namespace COLLADAFW
 		return (mClassId != uid.mClassId) || (mObjectId != uid.mObjectId) || (mFileId != uid.mFileId);
     }
 
+	//------------------------------
+	UniqueId::operator size_t() const
+	{
+		size_t retVal = 2166136261U;
+		const char* p = (const char*)this;
+		for ( size_t i = 0; i < sizeof(UniqueId); ++i)
+		{
+			retVal = 16777619U * retVal ^ (size_t)(*p++);
+		}
+		return retVal;
+	}
+
 } // namespace COLLADAFW

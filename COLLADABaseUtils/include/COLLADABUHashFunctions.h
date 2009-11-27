@@ -38,13 +38,21 @@ namespace COLLADABU
 #if defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
 namespace __gnu_cxx
 {
-    template<>
-    struct hash<COLLADABU::URI>
-    {
-      size_t
-      operator()(const COLLADABU::URI& uri) const
-      { return COLLADABU::calculateHash(uri); }
-    };
+	template<>
+	struct hash<COLLADABU::URI>
+	{
+		size_t
+			operator()(const COLLADABU::URI& uri) const
+		{ return COLLADABU::calculateHash(uri); }
+	};
+
+	template<>
+	struct hash<COLLADAFW::UniqueId>
+	{
+		size_t
+			operator()(const COLLADAFW::UniqueId& uniqueId) const { return uniqueId; }
+	};
+
 } // namespace __gnu_cxx
 #endif
 

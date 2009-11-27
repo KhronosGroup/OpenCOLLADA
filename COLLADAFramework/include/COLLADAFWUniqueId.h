@@ -49,7 +49,7 @@ namespace COLLADAFW
 		to reference parameters.*/
 		UniqueId(const String& ascii);
 
-		virtual ~UniqueId();
+		~UniqueId();
 
 		/** Returns the class id of the class the object is instantiated from.*/
 		ClassId getClassId() const { return mClassId; }
@@ -75,6 +75,8 @@ namespace COLLADAFW
         bool operator>(const UniqueId& rhs) const;
         bool operator==(const UniqueId& uid) const;
         bool operator!=(const UniqueId& uid) const;
+
+		operator size_t()const;
 
 	private:
 		/** Parses the ascii representation and sets this values according to @a ascii.
