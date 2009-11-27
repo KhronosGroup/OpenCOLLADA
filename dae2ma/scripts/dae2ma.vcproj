@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8,00"
 	Name="dae2ma"
-	ProjectGUID="{EA905683-0746-48E8-B636-22989AEF0BE7}"
+	ProjectGUID="{305C4DD6-E327-49b2-A14A-DBF7E06401D3}"
 	RootNamespace="dae2ma"
 	>
 	<Platforms>
