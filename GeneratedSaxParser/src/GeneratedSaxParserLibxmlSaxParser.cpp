@@ -67,6 +67,9 @@ namespace GeneratedSaxParser
 	bool LibxmlSaxParser::parseFile( const char* fileName )
 	{
 			mParserContext = xmlCreateFileParserCtxt(fileName);
+			
+			// We let libxml replace the entities
+			mParserContext->replaceEntities = 1;
 
 			if ( !mParserContext )
 			{
