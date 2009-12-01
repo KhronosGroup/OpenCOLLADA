@@ -322,7 +322,7 @@ namespace COLLADASaxFWL
         /** Register an extra data callback handler.
         * @param ExtraDataCallbackHandler* extraDataCallbackHandler The callback handler to register.
         * @return bool True, if the handler could be registered successfull. */
-        virtual bool registerExtraDataCallbackHandler ( IExtraDataCallbackHandler* extraDataCallbackHandler );
+        bool registerExtraDataCallbackHandler ( IExtraDataCallbackHandler* extraDataCallbackHandler );
 
 	private:
 		friend class IFilePartLoader;
