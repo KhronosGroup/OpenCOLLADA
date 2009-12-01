@@ -16,8 +16,10 @@
 
 #if defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
 #	include <ext/hash_map>
+#	include <ext/hash_set>
 #else
 #	include <hash_map>
+#	include <hash_set>
 #endif
 
 // file to include the hah map platform independent

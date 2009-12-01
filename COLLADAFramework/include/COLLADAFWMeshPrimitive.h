@@ -197,6 +197,9 @@ namespace COLLADAFW
         */
         void setNormalIndices ( const UIntValuesArray& NormalIndices ) { mNormalIndices = NormalIndices; }
 
+		/**Returns true if the mesh primitive has normals.*/
+		bool hasNormalIndices() const { return !mNormalIndices.empty(); }
+
         /** 
         * The index list of the colors array. 
         */
@@ -224,6 +227,9 @@ namespace COLLADAFW
         * The index list of the colors array. 
         */
         const IndexListArray& getColorIndicesArray () const { return mColorIndicesArray; }
+
+		/**Returns true if the mesh primitive has at least one set of colors.*/
+		bool hasColorIndices() const { return !mColorIndicesArray.empty(); }
 
         /** 
         * The index list of the colors array. 
@@ -262,6 +268,9 @@ namespace COLLADAFW
         * The index list of the uv coordinates array. 
         */
         void appendUVCoordIndices ( IndexList* uvCoordIndices ) { mUVCoordIndicesArray.append ( uvCoordIndices ); }
+
+		/**Returns true if the mesh primitive has at least one set of uv coordinates.*/
+		bool hasUVCoordIndices() const { return !mUVCoordIndicesArray.empty(); }
 
 		/** @return The material id of the sub mesh. This material id is used to assign material 
 		to submeshes when the mesh gets instantiated.*/
