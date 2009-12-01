@@ -68,9 +68,6 @@ namespace GeneratedSaxParser
 	{
 			mParserContext = xmlCreateFileParserCtxt(fileName);
 			
-			// We let libxml replace the entities
-			mParserContext->replaceEntities = 1;
-
 			if ( !mParserContext )
 			{
 				ParserError error(ParserError::SEVERITY_CRITICAL,
@@ -87,6 +84,9 @@ namespace GeneratedSaxParser
 				}
 				return false;
 			}
+
+			// We let libxml replace the entities
+			mParserContext->replaceEntities = 1;
 
 			if (mParserContext->sax != (xmlSAXHandlerPtr) &xmlDefaultSAXHandler)
 			{
