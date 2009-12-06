@@ -7,7 +7,7 @@ fi
 if test -z $NUM_PROCS; then
    export NUM_PROCS=-j2
 fi
-echo installing static libraries to ${DIR}/lib/ with $NUM_PROCS proessors
+echo installing static libraries to ${DIR}/lib/ with $NUM_PROCS processors
 
 mkdir -p ${DIR}/lib
 
