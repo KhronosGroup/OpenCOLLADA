@@ -46,7 +46,7 @@ if test -z "$*"; then
         echo "to pass any to it, please specify them on the $0 command line."
 fi
 
-sh libtoolize --copy --force
+libtoolize --copy --force
 aclocal $ACLOCAL_FLAGS
 automake --add-missing
 autoconf

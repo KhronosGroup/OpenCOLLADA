@@ -14,7 +14,8 @@
 #define XML_STATIC  // to link against static version of expat
 #include "expat.h"
 #undef XML_STATIC  
-
+#include <stdlib.h>
+#include <stdio.h>
 #include <iostream>
 #include "GeneratedSaxParserParser.h"
 
