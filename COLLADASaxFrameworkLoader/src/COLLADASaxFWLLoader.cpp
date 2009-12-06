@@ -223,7 +223,7 @@ namespace COLLADASaxFWL
 	}
 
 	//---------------------------------
-	bool Loader::loadDocument( const char* buffer, int length, COLLADAFW::IWriter* writer )
+	bool Loader::loadDocument( const String& uri, const char* buffer, int length, COLLADAFW::IWriter* writer )
 	{
 		if ( !writer )
 			return false;
@@ -231,23 +231,23 @@ namespace COLLADASaxFWL
         
 		SaxParserErrorHandler saxParserErrorHandler(mErrorHandler);
         
-//		COLLADABU::URI rootFileUri(COLLADABU::URI::nativePathToUri(fileName));
+		COLLADABU::URI rootUri(uri);
 		
 		// the root file has always file id 0
-//		addFileIdUriPair( mNextFileId++, rootFileUri );
+		addFileIdUriPair( mNextFileId++, rootUri );
         
-//		while ( mCurrentFileId < mNextFileId )
-//		{
+		while ( mCurrentFileId < mNextFileId )
+		{
 			FileLoader fileLoader(this, 
-								  "no_URI",
+								  getFileUri( mCurrentFileId ),
 								  &saxParserErrorHandler, 
 								  mObjectFlags,
 								  mParsedObjectFlags, 
                                   mExtraDataCallbackHandlerList );
 			fileLoader.load( buffer, length );
             
-//			mCurrentFileId++;
-//		}
+			mCurrentFileId++;
+		}
         
 		PostProcessor postProcessor(this, 
 				                    &saxParserErrorHandler, 

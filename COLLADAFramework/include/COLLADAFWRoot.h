@@ -42,7 +42,7 @@ namespace COLLADAFW
 
 		/** Loads @a buffer in to the model.
          @returns True, if loading succeeded, false otherwise.*/
-		bool loadDocument(const char* buffer, int length);
+		bool loadDocument(const String& uri, const char* buffer, int length);
         
 		/** Returns the object with unique id @a uniqueId.
 		Only available if we have a pool.*/

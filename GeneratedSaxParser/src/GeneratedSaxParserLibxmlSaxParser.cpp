@@ -113,7 +113,7 @@ namespace GeneratedSaxParser
 			return true;
 	}
 
-	bool LibxmlSaxParser::parseBuffer( const char* buffer, int length )
+	bool LibxmlSaxParser::parseBuffer( const char* uri, const char* buffer, int length )
 	{
         mParserContext = xmlCreateMemoryParserCtxt( buffer, length );
         
@@ -125,7 +125,7 @@ namespace GeneratedSaxParser
                               0,
                               0,
                               0,
-                              "LibxmlSaxParser::parseBuffer()");
+                              uri);
             IErrorHandler* errorHandler = getParser()->getErrorHandler();
             if ( errorHandler )
             {
@@ -134,6 +134,9 @@ namespace GeneratedSaxParser
             return false;
         }
         
+        // We let libxml replace the entities
+        mParserContext->replaceEntities = 1;
+
         if (mParserContext->sax != (xmlSAXHandlerPtr) &xmlDefaultSAXHandler)
         {
             xmlFree(mParserContext->sax);

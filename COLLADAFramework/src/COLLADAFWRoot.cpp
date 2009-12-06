@@ -27,11 +27,11 @@ namespace COLLADAFW
 		return mLoader->loadDocument(fileName, mWriter); 
 	}
 
-	bool Root::loadDocument( const char* buffer, int length )
+	bool Root::loadDocument( const String& uri, const char* buffer, int length )
 	{
 		if ( !mLoader || !mWriter )
 			return false;
-		return mLoader->loadDocument(buffer, length, mWriter); 
+		return mLoader->loadDocument(uri, buffer, length, mWriter); 
 	}
     
 } // namespace COLLADAFW

@@ -39,7 +39,7 @@ namespace GeneratedSaxParser
 	}
 
 	//--------------------------------------------------------------------
-	bool ExpatSaxParser::parseBuffer(const char* buffer, int length)
+	bool ExpatSaxParser::parseBuffer(const char* uri, const char* buffer, int length)
 	{
 		
 		mParser = XML_ParserCreate(0);

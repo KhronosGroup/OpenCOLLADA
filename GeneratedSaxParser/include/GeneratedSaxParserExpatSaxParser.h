@@ -37,7 +37,7 @@ namespace GeneratedSaxParser
 		virtual ~ExpatSaxParser();
 
 		bool parseFile(const char* fileName);
-		virtual bool parseBuffer(const char* buffer, int length);
+		virtual bool parseBuffer(const char* uri, const char* buffer, int length);
 
 		size_t getLineNumer()const;
 		size_t getColumnNumer()const;

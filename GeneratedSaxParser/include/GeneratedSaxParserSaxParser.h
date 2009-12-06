@@ -28,7 +28,7 @@ namespace GeneratedSaxParser
 		virtual ~SaxParser();
 		
 		virtual bool parseFile(const char* fileName)=0;
-		virtual bool parseBuffer(const char* buffer, int length)=0;
+		virtual bool parseBuffer(const char* uri, const char* buffer, int length)=0;
 
 		virtual size_t getLineNumer()const=0;
 		virtual size_t getColumnNumer()const=0;

@@ -28,17 +28,18 @@ namespace COLLADAFW
         virtual ~ILoader() {};
 
 		/** Starts loading the model and feeds the writer with data.
-		@param fileName The name of the fills that should be loaded.
+		@param fileName The name of the file that should be loaded.
 		@param writer The writer that should be fed with data.
 		@return True, if loading succeeded, false otherwise.*/
 		virtual bool loadDocument(const String& fileName, IWriter* writer)=0;
 
 		/** Starts loading the model and feeds the writer with data.
+         @param uri The URI associated with the buffer.
          @param buffer A pointer to a document buffer that should be loaded.
          @param length The length of the buffer in bytes.
          @param writer The writer that should be fed with data.
          @return True, if loading succeeded, false otherwise.*/
-		virtual bool loadDocument(const char* buffer, int length, IWriter* writer)=0;
+		virtual bool loadDocument(const String& uri, const char* buffer, int length, IWriter* writer)=0;
         
 	private:
 
