@@ -342,15 +342,15 @@ namespace COLLADASaxFWL
     //------------------------------
     bool VersionParser::createAndLaunchParser( const char* buffer, int length )
     {
-//        const COLLADABU::URI& fileURI = mFileLoader->getFileUri();
-//        String nativePath = fileURI.toNativePath();
-//        const char* fileName = nativePath.c_str();
+        const COLLADABU::URI& uri = mFileLoader->getFileUri();
+        const char* uriString = uri.originalStr().c_str();
+//        const char* uriString = uri.getURIString().c_str();
 #if defined(GENERATEDSAXPARSER_XMLPARSER_LIBXML)
         GeneratedSaxParser::LibxmlSaxParser versionSaxParser( this );
 #elif defined(GENERATEDSAXPARSER_XMLPARSER_EXPAT)
         GeneratedSaxParser::ExpatSaxParser versionSaxParser( this, XMLPARSER_BUFFERSIZE );
 #endif
-        bool success = versionSaxParser.parseBuffer( buffer, length );
+        bool success = versionSaxParser.parseBuffer( uriString, buffer, length );
         
         //       mFileLoader->postProcess();
         

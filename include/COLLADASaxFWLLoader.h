@@ -303,17 +303,18 @@ namespace COLLADASaxFWL
 		COLLADAVersion getCOLLADAVersion() const { return mCOLLADAVersion; }
 
         /** Starts loading the model and feeds the writer with data.
-		@param fileName The name of the fills that should be loaded.
+		@param fileName The name of the file that should be loaded.
 		@param writer The writer that should be fed with data.
 		@return True, if loading succeeded, false otherwise.*/
 		virtual bool loadDocument(const String& fileName, COLLADAFW::IWriter* writer );
 
 		/** Starts loading the model and feeds the writer with data.
          @param buffer A pointer to a document buffer that should be loaded.
+         @param uri The URI associated with the buffer.
          @param length The length of the buffer in bytes.
          @param writer The writer that should be fed with data.
          @return True, if loading succeeded, false otherwise.*/
-		virtual bool loadDocument( const char* buffer, int length, COLLADAFW::IWriter* writer );
+		virtual bool loadDocument( const String& uri, const char* buffer, int length, COLLADAFW::IWriter* writer );
         
 		/** Sets the flags indicating which objects should be loaded.
 		@param objectFlags The flags indicating which objects should be loaded.*/
