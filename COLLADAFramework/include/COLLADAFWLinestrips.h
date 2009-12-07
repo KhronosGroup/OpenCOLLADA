@@ -28,10 +28,10 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Linestrips() : MeshPrimitiveWithFaceVertexCount<unsigned int>(LINE_STRIPS), mLinestripCount(0){}
+		Linestrips(const UniqueId& uniqueId) : MeshPrimitiveWithFaceVertexCount<unsigned int>( uniqueId, LINE_STRIPS), mLinestripCount(0){}
 
         /** Destructor. */
-		virtual ~Linestrips();
+		virtual ~Linestrips(){}
 
 		/** Gets the number of line strips.*/
 		size_t getLinestripCount () const { return mLinestripCount; }

@@ -18,6 +18,7 @@
 #include "COLLADAFWTristrips.h"
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWPolygons.h"
+#include "COLLADAFWLinestrips.h"
 #include "COLLADAFWIWriter.h"
 
 #include <fstream>
@@ -41,7 +42,7 @@ namespace COLLADASaxFWL
 		, mCurrentLastPrimitiveVertexCount(0)
 		, mCurrentPhHasEmptyP(true)
 		, mCurrentExpectedVertexCount(0)
-		, mCurrentFaceCount(0)
+		, mCurrentFaceOrLineCount(0)
 		, mCurrentCOLLADAPrimitiveCount(0)
         , mCurrentOffset (0)
 		, mPositionsOffset (0)
@@ -770,7 +771,7 @@ namespace COLLADASaxFWL
 		mCurrentLastPrimitiveVertexCount = 0;
 		mCurrentExpectedVertexCount = 0;
 		mCurrentMeshPrimitive = 0;
-		mCurrentFaceCount = 0;
+		mCurrentFaceOrLineCount = 0;
 		mCurrentPhHasEmptyP = true;
 		mCurrentMeshMaterial.clear();
 		mPOrPhElementCountOfCurrentPrimitive = 0;
@@ -926,13 +927,33 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__linestrips( const linestrips__AttributeData& attributeData )
 	{
+		COLLADAFW::Linestrips* lineStrips = new COLLADAFW::Linestrips(createUniqueId(COLLADAFW::Linestrips::ID()));
+		// The actual size might be bigger, but its a lower bound
+		lineStrips->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
+		mCurrentMeshPrimitive = lineStrips;
+		mCurrentPrimitiveType = TRISTRIPS;
+		if ( attributeData.material )
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__linestrips()
 	{
+		mCurrentPrimitiveType = LINESTRIPS;
+		// check if there is at least one linestrip. If not, we will discard it.
+		if ( mCurrentFaceOrLineCount > 0 )
+		{
+			mCurrentMeshPrimitive->setFaceCount(mCurrentFaceOrLineCount);
+			mMesh->appendPrimitive(mCurrentMeshPrimitive);
+		}
+		else
+		{
+			delete mCurrentMeshPrimitive;
+		}
 		initCurrentValues();
+		mMeshPrimitiveInputs.clearInputs();
+		mCurrentPrimitiveType = NONE;
 		return true;
 	}
 
@@ -982,9 +1003,9 @@ namespace COLLADASaxFWL
 	bool MeshLoader::end__polygons()
 	{
 		// check if there is at least one polygon. If not, we will discard it.
-		if ( mCurrentFaceCount > 0 )
+		if ( mCurrentFaceOrLineCount > 0 )
 		{
-			mCurrentMeshPrimitive->setFaceCount(mCurrentFaceCount);
+			mCurrentMeshPrimitive->setFaceCount(mCurrentFaceOrLineCount);
 			mMesh->appendPrimitive(mCurrentMeshPrimitive);
 		}
 		else
@@ -1060,9 +1081,9 @@ namespace COLLADASaxFWL
 	{
 		mCurrentPrimitiveType = TRISTRIPS;
 		// check if there is at least one tristrip. If not, we will discard it.
-		if ( mCurrentFaceCount > 0 )
+		if ( mCurrentFaceOrLineCount > 0 )
 		{
-			mCurrentMeshPrimitive->setFaceCount(mCurrentFaceCount);
+			mCurrentMeshPrimitive->setFaceCount(mCurrentFaceOrLineCount);
 			mMesh->appendPrimitive(mCurrentMeshPrimitive);
 		}
 		else
@@ -1092,9 +1113,9 @@ namespace COLLADASaxFWL
 	bool MeshLoader::end__trifans()
 	{
 		// check if there is at least one trifan. If not, we will discard it.
-		if ( mCurrentFaceCount > 0 )
+		if ( mCurrentFaceOrLineCount > 0 )
 		{
-			mCurrentMeshPrimitive->setFaceCount(mCurrentFaceCount);
+			mCurrentMeshPrimitive->setFaceCount(mCurrentFaceOrLineCount);
 			mMesh->appendPrimitive(mCurrentMeshPrimitive);
 		}
 		else
@@ -1145,7 +1166,7 @@ namespace COLLADASaxFWL
 						COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getGroupedVerticesVertexCountArray();
 						vertexCountArray.append(currentTrifanVertexCount);
 						trifans->setTrifanCount(trifans->getTrifanCount() + 1);
-						mCurrentFaceCount += (currentTrifanVertexCount - 2);
+						mCurrentFaceOrLineCount += (currentTrifanVertexCount - 2);
 					}
 					else
 					{
@@ -1168,6 +1189,7 @@ namespace COLLADASaxFWL
 		case POLYLIST:
 		case POLYGONS:
         case POLYGONS_HOLE:
+		case LINESTRIPS:
 			{
 				if ( mPOrPhElementCountOfCurrentPrimitive == 0)
 				{
@@ -1213,7 +1235,7 @@ namespace COLLADASaxFWL
 						COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getGroupedVerticesVertexCountArray();
 						vertexCountArray.append(currentTrifanVertexCount);
 						trifans->setTrifanCount(trifans->getTrifanCount() + 1);
-						mCurrentFaceCount += (currentTrifanVertexCount - 2);
+						mCurrentFaceOrLineCount += (currentTrifanVertexCount - 2);
 					}
 					else
 					{
@@ -1243,7 +1265,7 @@ namespace COLLADASaxFWL
 						COLLADAFW::Tristrips::VertexCountArray& vertexCountArray = tristrips->getGroupedVerticesVertexCountArray();
 						vertexCountArray.append(currentTristripVertexCount);
 						tristrips->setTristripCount(tristrips->getTristripCount() + 1);
-						mCurrentFaceCount += (currentTristripVertexCount - 2);
+						mCurrentFaceOrLineCount += (currentTristripVertexCount - 2);
 					}
 					else
 					{
@@ -1257,6 +1279,36 @@ namespace COLLADASaxFWL
 						const COLLADAFW::IndexListArray& uvCoordIndicesArray = tristrips->getUVCoordIndicesArray ();
 						for ( size_t i=0; i<uvCoordIndicesArray.getCount (); ++i )
 							tristrips->getUVCoordIndices(i)->getIndices ().erase(currentTristripVertexCount);
+					}
+					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
+				}
+			}
+			break;
+		case LINESTRIPS:
+			{
+				int currentLinestripVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
+				if ( currentLinestripVertexCount > 0 )
+				{
+					COLLADAFW::Linestrips* linestrips = (COLLADAFW::Linestrips*) mCurrentMeshPrimitive;
+					if ( currentLinestripVertexCount >= 2 )
+					{
+						COLLADAFW::Tristrips::VertexCountArray& vertexCountArray = linestrips->getGroupedVerticesVertexCountArray();
+						vertexCountArray.append(currentLinestripVertexCount);
+						linestrips->setLinestripCount(linestrips->getLinestripCount() + 1);
+						mCurrentFaceOrLineCount += (currentLinestripVertexCount - 1);
+					}
+					else
+					{
+						linestrips->getPositionIndices().erase(currentLinestripVertexCount);
+						linestrips->getNormalIndices().erase(currentLinestripVertexCount);
+
+						const COLLADAFW::IndexListArray& colorIndicesArray = linestrips->getColorIndicesArray ();
+						for ( size_t i=0; i<colorIndicesArray.getCount (); ++i )
+							linestrips->getColorIndices(i)->getIndices().erase(currentLinestripVertexCount);
+
+						const COLLADAFW::IndexListArray& uvCoordIndicesArray = linestrips->getUVCoordIndicesArray ();
+						for ( size_t i=0; i<uvCoordIndicesArray.getCount (); ++i )
+							linestrips->getUVCoordIndices(i)->getIndices ().erase(currentLinestripVertexCount);
 					}
 					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
 				}
@@ -1276,7 +1328,7 @@ namespace COLLADASaxFWL
 					COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 					vertexCountArray.append(currentFaceVertexCount);
 					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
-					mCurrentFaceCount++;
+					mCurrentFaceOrLineCount++;
 				}
 			}
 			break;
@@ -1289,7 +1341,7 @@ namespace COLLADASaxFWL
 					COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 					vertexCountArray.append(currentPolygonVertexCount);
 					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
-					mCurrentFaceCount++;
+					mCurrentFaceOrLineCount++;
 					mCurrentPhHasEmptyP = false;
 				}
 				else
