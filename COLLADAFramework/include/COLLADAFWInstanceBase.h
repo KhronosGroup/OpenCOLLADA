@@ -37,7 +37,7 @@ namespace COLLADAFW
 
         /** Constructor. Creates an instance of an object with UniqueId @a instanciatedObjectId.
         @param instanciatedObjectId The UniqueId of the object instantiated.*/ 
-        InstanceBase ( const UniqueId& uniqueId, UniqueId& instanciatedObjectId )
+        InstanceBase ( const UniqueId& uniqueId, const UniqueId& instanciatedObjectId )
             : ObjectTemplate<classId>(uniqueId)
             , mInstanciatedObjectId (instanciatedObjectId ) 
         {}

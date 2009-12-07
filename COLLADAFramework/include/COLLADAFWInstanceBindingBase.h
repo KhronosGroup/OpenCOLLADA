@@ -34,7 +34,7 @@ namespace COLLADAFW
         /** Constructor. Creates an instance geometry, that instantiates the geometry with 
         UniqueId @a instanciatedGeometryId.
         @param instanceGeometry The UniqueId of the geometry instantiated.*/ 
-        InstanceBindingBase ( const UniqueId& uniqueId, UniqueId instanciatedObjectId ) 
+        InstanceBindingBase ( const UniqueId& uniqueId, const UniqueId& instanciatedObjectId ) 
             : InstanceBase<classId> ( uniqueId, instanciatedObjectId )
         {}
 

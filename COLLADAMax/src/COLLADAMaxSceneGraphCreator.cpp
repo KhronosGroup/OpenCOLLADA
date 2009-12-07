@@ -185,7 +185,7 @@ namespace COLLADAMax
 	//------------------------------
 	bool SceneGraphCreator::importInstanceGeometries( const COLLADAFW::InstanceGeometryPointerArray& instanceGeometryArray, ImpNode* parentImportNode )
 	{
-		return importInstances<COLLADAFW::InstanceGeometry, &SceneGraphCreator::storeMaterialBindings>(instanceGeometryArray, parentImportNode);
+		return importInstances<COLLADAFW::InstanceGeometry, &SceneGraphCreator::storeMaterialBindings<COLLADAFW::COLLADA_TYPE::INSTANCE_GEOMETRY> >(instanceGeometryArray, parentImportNode);
 	}
 
 	//------------------------------
@@ -255,7 +255,7 @@ namespace COLLADAMax
 	//------------------------------
 	ImpNode* SceneGraphCreator::importInstanceGeometry( const COLLADAFW::Node* node, INode* parentINode )
 	{
-		return importInstance<COLLADAFW::InstanceGeometry, &COLLADAFW::Node::getInstanceGeometries, &SceneGraphCreator::storeMaterialBindings>(node, parentINode);
+		return importInstance<COLLADAFW::InstanceGeometry, &COLLADAFW::Node::getInstanceGeometries, &SceneGraphCreator::storeMaterialBindings<COLLADAFW::COLLADA_TYPE::INSTANCE_GEOMETRY> >(node, parentINode);
 	}
 
 	//------------------------------
@@ -350,7 +350,7 @@ namespace COLLADAMax
 	//------------------------------
 	void SceneGraphCreator::postProcessInstanceController( INode* node, COLLADAFW::InstanceController* instanceController )
 	{
-		storeMaterialBindings( node, instanceController );
+		storeMaterialBindings<COLLADAFW::COLLADA_TYPE::INSTANCE_CONTROLLER>( node, instanceController );
 
 		const COLLADAFW::UniqueId& controllerUniqueId = instanceController->getInstanciatedObjectId();
 
