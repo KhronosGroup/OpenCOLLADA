@@ -60,6 +60,8 @@ namespace COLLADASaxFWL
 			POLYGONS,
 			POLYGONS_HOLE,
 			POLYLIST,
+			LINESTRIPS,
+			LINES
 		};
     private:
 
@@ -125,7 +127,7 @@ namespace COLLADASaxFWL
 
 		/** The number of faces of the current MeshPrimitive. Uses this, if the face count cannot be calculated
 		using the values above. (for collada polygons).*/
-		size_t mCurrentFaceCount;
+		size_t mCurrentFaceOrLineCount;
 
 		/** The value of the count attribute in the COLLADA primitive. Might be used to pre-alloc memory.*/
 		size_t mCurrentCOLLADAPrimitiveCount;
