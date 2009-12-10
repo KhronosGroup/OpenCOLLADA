@@ -80,7 +80,9 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryArticulatedSystemsLoader::begin__kinematics()
 	{
-		mCurrentKinematicsController = new KinematicsController( mCurrentArticulatedId, mCurrentArticulatedName );
+		COLLADABU::URI uri(getFileUri());
+		uri.setFragment( mCurrentArticulatedId );
+		mCurrentKinematicsController = new KinematicsController( uri, mCurrentArticulatedName );
 		return true;
 	}
 
@@ -96,7 +98,8 @@ namespace COLLADASaxFWL
 	bool LibraryArticulatedSystemsLoader::begin__instance_kinematics_model( const instance_kinematics_model__AttributeData& attributeData )
 	{
 		KinematicsInstanceKinematicsModels& instanceKinematicsModels = mCurrentKinematicsController->getKinematicsInstanceKinematicsModels();
-		instanceKinematicsModels.push_back(KinematicsInstanceKinematicsModel(attributeData.url)); 
+		COLLADABU::URI absoluteUrl(getFileUri(), attributeData.url.getURIString());
+		instanceKinematicsModels.push_back(KinematicsInstanceKinematicsModel(absoluteUrl)); 
 		mCurrentKinematicsInstanceKinematicsModel = &instanceKinematicsModels.back();
 		addToSidTree( 0, attributeData.sid, mCurrentKinematicsInstanceKinematicsModel);
 		return true;

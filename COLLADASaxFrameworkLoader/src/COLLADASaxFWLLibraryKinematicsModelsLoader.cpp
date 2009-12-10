@@ -101,7 +101,23 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryKinematicsModelsLoader::begin__kinematics_model( const kinematics_model__AttributeData& attributeData )
 	{
-		mCurrentKinematicsModel = new KinematicsModel(attributeData.id, attributeData.name);
+		COLLADABU::URI uri(getFileUri());
+		if ( attributeData.id )
+		{
+			uri.setFragment( attributeData.id );
+		}
+
+		const char* name = 0;
+		if ( attributeData.name )
+		{
+			name = attributeData.name;
+		}
+		else if ( attributeData.id )
+		{
+			name = attributeData.id;
+		}
+
+		mCurrentKinematicsModel = new KinematicsModel(uri, name);
 		addToSidTree( attributeData.id, 0);
 		return true;
 	}

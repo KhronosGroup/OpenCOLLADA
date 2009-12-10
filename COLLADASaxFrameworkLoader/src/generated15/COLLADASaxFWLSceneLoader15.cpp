@@ -39,6 +39,44 @@ return mLoader->end__instance_visual_scene();
 }
 
 
+bool SceneLoader15::begin__instance_kinematics_scene( const COLLADASaxFWL15::instance_kinematics_scene__AttributeData& attributeData )
+{
+SaxVirtualFunctionTest15(begin__instance_kinematics_scene(attributeData));
+COLLADASaxFWL::instance_kinematics_scene__AttributeData attrData;
+attrData.present_attributes = 0;
+attrData.sid = attributeData.sid;
+attrData.name = attributeData.name;
+if ( (attributeData.present_attributes & COLLADASaxFWL15::instance_kinematics_scene__AttributeData::ATTRIBUTE_URL_PRESENT) == COLLADASaxFWL15::instance_kinematics_scene__AttributeData::ATTRIBUTE_URL_PRESENT ) {
+    attrData.url = attributeData.url;
+    attrData.present_attributes |= COLLADASaxFWL::instance_kinematics_scene__AttributeData::ATTRIBUTE_URL_PRESENT;
+}
+return mLoader->begin__instance_kinematics_scene(attrData);
+}
+
+
+bool SceneLoader15::end__instance_kinematics_scene()
+{
+SaxVirtualFunctionTest15(end__instance_kinematics_scene());
+return mLoader->end__instance_kinematics_scene();
+}
+
+
+bool SceneLoader15::begin__bind_joint_axis( const COLLADASaxFWL15::bind_joint_axis__AttributeData& attributeData )
+{
+SaxVirtualFunctionTest15(begin__bind_joint_axis(attributeData));
+COLLADASaxFWL::bind_joint_axis__AttributeData attrData;
+attrData.target = attributeData.target;
+return mLoader->begin__bind_joint_axis(attrData);
+}
+
+
+bool SceneLoader15::end__bind_joint_axis()
+{
+SaxVirtualFunctionTest15(end__bind_joint_axis());
+return mLoader->end__bind_joint_axis();
+}
+
+
 bool SceneLoader15::end__scene()
 {
 SaxVirtualFunctionTest15(end__scene());

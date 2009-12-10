@@ -780,6 +780,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWInstanceKinematicsScene.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWInstanceLight.h"
 				>
 			</File>

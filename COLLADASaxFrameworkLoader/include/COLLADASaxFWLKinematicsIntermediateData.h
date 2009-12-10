@@ -124,12 +124,12 @@ namespace COLLADASaxFWL
 		KinematicLinkList mBaseLinks;
 
 		/** The id of the kinematics model.*/
-		String mId;
+		COLLADABU::URI mUri;
 
 		/** The name of the kinematics model.*/
 		String mName;
 	public:
-		KinematicsModel(const char* id, const char* name );
+		KinematicsModel(const COLLADABU::URI& uri, const char* name );
 
 		~KinematicsModel();
 
@@ -141,7 +141,7 @@ namespace COLLADASaxFWL
 		const String& getName() const { return mName; }
 
 		/** The id of the kinematics model.*/
-		const String& getId() const { return mId; }
+		const COLLADABU::URI& getUri() const { return mUri; }
 	};
 
 
@@ -327,7 +327,7 @@ namespace COLLADASaxFWL
 	{
 	private:
 		/** The id of the kinematics controller.*/
-		String mId;
+		COLLADABU::URI mUri;
 
 		/** The name of the kinematics controller.*/
 		String mName;
@@ -336,8 +336,8 @@ namespace COLLADASaxFWL
 		KinematicsInstanceKinematicsModels mKinematicsInstanceKinematicsModels;
 
 	public:
-		KinematicsController(const String& id, const String& name )
-			: mId( id ), mName(name) {}
+		KinematicsController(const COLLADABU::URI& uri, const String& name )
+			: mUri( uri ), mName(name) {}
 
 		~KinematicsController(){}
 
@@ -345,7 +345,7 @@ namespace COLLADASaxFWL
 		const String& getName() const { return mName; }
 
 		/** The id of the kinematics controller.*/
-		const String& getId() const { return mId; }
+		const COLLADABU::URI& getUri() const { return mUri; }
 
 		const AxisInfoList& getAxisInfos() const { return mAxisInfos; }
 		AxisInfoList& getAxisInfos(){ return mAxisInfos; }

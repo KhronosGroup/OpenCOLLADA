@@ -19,21 +19,10 @@ namespace COLLADASaxFWL
 {
 
 	//------------------------------
-	KinematicsModel::KinematicsModel( const char* id, const char* name )
+	KinematicsModel::KinematicsModel( const COLLADABU::URI& uri, const char* name )
+		: mUri(uri)
+		, mName(name)
 	{
-		if ( id )
-		{
-			mId = id;
-		}
-
-		if ( name )
-		{
-			mName = name;
-		}
-		else if ( id )
-		{
-			mName = id;
-		}
 	}
 
 	//------------------------------

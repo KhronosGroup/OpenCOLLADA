@@ -79,6 +79,19 @@ namespace COLLADASaxFWL
 		return getColladaLoader()->getUniqueId(uri, classId);
 	}
 
+	//------------------------------
+	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromId( const ParserChar* colladaId )
+	{
+		assert( getColladaLoader() );
+
+		if ( !colladaId || !(*colladaId) )
+			return COLLADAFW::UniqueId::INVALID;
+
+		COLLADABU::URI uri(getFileUri(), String("#") + String((const char *)colladaId));
+
+		return getColladaLoader()->getUniqueId(uri);
+	}
+
 
 	//-----------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId )
@@ -93,13 +106,20 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId )
+	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId, bool isAbsolute  )
 	{
 		assert( getColladaLoader() );
 
-		COLLADABU::URI absoluteUri(getFileUri(), url.getURIString());
+		if ( isAbsolute )
+		{
+			return getColladaLoader()->getUniqueId(url, classId);
+		}
+		else
+		{
+			COLLADABU::URI absoluteUri(getFileUri(), url.getURIString());
 
-		return getColladaLoader()->getUniqueId(absoluteUri, classId);
+			return getColladaLoader()->getUniqueId(absoluteUri, classId);
+		}
 	}
 
 	//-----------------------------

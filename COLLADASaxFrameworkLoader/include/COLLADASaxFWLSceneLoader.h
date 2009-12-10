@@ -18,6 +18,8 @@
 #include "COLLADAFWInstanceVisualScene.h"
 #include "COLLADAFWScene.h"
 
+#include "COLLADABUhash_map.h"
+
 
 namespace COLLADASaxFWL
 {
@@ -26,12 +28,18 @@ namespace COLLADASaxFWL
 	class SceneLoader : public FilePartLoader
     {
 	private:
+		typedef COLLADABU::hash_set<COLLADAFW::UniqueId> UniqueIdSet;
+
+	private:
 	
         /** The current scene.*/
         COLLADAFW::Scene* mCurrentScene;
 
         /** The instantiated visual scene. Just one is allowed. */
         COLLADAFW::InstanceVisualScene* mInstanceVisualScene;
+
+		/** List of all nodes of the visual scene that are bound to the kinematics model.*/
+		UniqueIdSet mBoundNodes;
 
 	public:
 
@@ -50,6 +58,16 @@ namespace COLLADASaxFWL
 
         /** Sax callback function for ending reading the instance visual scene. */
         virtual bool end__instance_visual_scene();
+
+		/** Sax callback function for beginning reading the instance kinematics scene. */
+		virtual bool begin__instance_kinematics_scene( const instance_kinematics_scene__AttributeData& attributeData );
+
+		/** Sax callback function for ending reading the instance kinematics scene. */
+		virtual bool end__instance_kinematics_scene();
+
+		virtual bool begin__bind_joint_axis( const bind_joint_axis__AttributeData& attributeData );
+
+		virtual bool end__bind_joint_axis(){return true;}
 
         /** Sax callback function for ending reading the scene. */
         virtual bool end__scene ();

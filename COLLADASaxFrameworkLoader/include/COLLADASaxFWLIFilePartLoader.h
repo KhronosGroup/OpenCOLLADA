@@ -133,6 +133,13 @@ namespace COLLADASaxFWL
 		@return The elements COLLADAFW::UniqueId */
 		COLLADAFW::UniqueId createUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId );
 
+		/** Returns the COLLADAFW::UniqueId of the element with id @a colladaId  in the current document. If the 
+		colladaId has been	passed to this method before while in the same file, the same COLLADAFW::UniqueId will 
+		be returned, if not, an invalid unique id will be returned.
+		@param id The id of the element to get the COLLADAFW::UniqueId for
+		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
+		const COLLADAFW::UniqueId& createUniqueIdFromId(const ParserChar* colladaId);
+
 		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has
 		been passed to this method before, the same COLLADAFW::UniqueId will be returned, if not,
 		a new one is created.
@@ -146,8 +153,10 @@ namespace COLLADASaxFWL
 		a new one is created.
 		@param url The url of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
+		@param isAbsolute If true, the url is assumed to be absolute, otherwise it will be made absolute 
+		using the current file urie.
 		@return The elements COLLADAFW::UniqueId */
-		const COLLADAFW::UniqueId& createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId );
+		const COLLADAFW::UniqueId& createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId, bool isAbsolute = false );
 
 		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has
 		been passed to this method before, the same COLLADAFW::UniqueId will be returned,   if not, an 

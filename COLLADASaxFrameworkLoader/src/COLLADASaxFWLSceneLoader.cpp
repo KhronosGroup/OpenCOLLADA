@@ -68,4 +68,52 @@ namespace COLLADASaxFWL
         return success;
     }
 
+	//------------------------------
+	bool SceneLoader::begin__instance_kinematics_scene( const instance_kinematics_scene__AttributeData& attributeData )
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool SceneLoader::end__instance_kinematics_scene()
+	{
+		if ( !mBoundNodes.empty() )
+		{
+			size_t boundNodesCount = mBoundNodes.size();
+			COLLADAFW::InstanceKinematicsScene* instanceKinematicsScene = FW_NEW COLLADAFW::InstanceKinematicsScene(createUniqueId(COLLADAFW::InstanceKinematicsScene::ID()), COLLADAFW::UniqueId::INVALID);
+			mCurrentScene->setInstanceKinematicsScene( instanceKinematicsScene );
+			COLLADAFW::UniqueIdArray& boundNodes = instanceKinematicsScene->getBoundNodes();
+			boundNodes.allocMemory(boundNodesCount);
+			boundNodes.setCount(boundNodesCount);
+			UniqueIdSet::const_iterator it = mBoundNodes.begin();
+			for ( size_t i = 0; it != mBoundNodes.end(); ++it, ++i )
+			{
+				boundNodes[i] = *it;
+			}
+		}
+
+		return true;
+	}
+
+	//------------------------------
+	bool SceneLoader::begin__bind_joint_axis( const bind_joint_axis__AttributeData& attributeData )
+	{
+		const ParserChar* target = attributeData.target;
+		if ( target )
+		{
+			//find first occurrence of a "/" in target
+			const ParserChar* p = target;
+			while ( (*p!=0) && (*p!='/') )
+			{
+				++p;
+			}
+			const COLLADAFW::UniqueId nodeUniqueId = createUniqueIdFromId(String(target, p-target).c_str());
+			if ( nodeUniqueId.isValid() )
+			{
+				mBoundNodes.insert(nodeUniqueId);
+			}
+		}
+		return true;
+	}
+
 } // namespace COLLADASaxFWL
