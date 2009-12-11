@@ -13,13 +13,15 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADABUPlatform.h"
+#include "COLLADABUhash_map.h"
 
+#ifndef COLLADABU_HAVE_TR1_UNORDERED_MAP
 #ifdef COLLADABU_OS_LINUX
-#	include <backward/hash_fun.h>
+#	include <ext/hash_fun.h>
 #elif (defined COLLADABU_OS_MAC)
 #	include <ext/hash_fun.h>
 #endif
-
+#endif
 #include <assert.h>
 #include <climits>
 
@@ -124,14 +126,21 @@ namespace COLLADAFW
 
 } // namespace COLLADAFW
 
-#if defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
+#if defined (COLLADABU_HAVE_TR1_UNORDERED_MAP)|| defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
+#if defined (COLLADABU_HAVE_TR1_UNORDERED_MAP)
+namespace std { namespace tr1
+#else
 namespace __gnu_cxx
+#endif
 {
     template<>
     struct hash<COLLADAFW::Edge>
     {
         size_t operator()(const COLLADAFW::Edge& edge) const { return edge; }
     };
+#if defined (COLLADABU_HAVE_TR1_UNORDERED_MAP)
+   }
+#endif
 } // namespace __gnu_cxx
 #endif
 
