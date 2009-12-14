@@ -43,7 +43,6 @@ namespace COLLADASaxFWL
 		, mCurrentPhHasEmptyP(true)
 		, mCurrentExpectedVertexCount(0)
 		, mCurrentFaceOrLineCount(0)
-		, mCurrentCOLLADAPrimitiveCount(0)
         , mCurrentOffset (0)
 		, mPositionsOffset (0)
 		, mPositionsIndexOffset(0)
@@ -76,7 +75,8 @@ namespace COLLADASaxFWL
         case TRIFANS:
         case POLYGONS:
         case POLYGONS_HOLE:
-        case POLYLIST: 
+		case POLYLIST: 
+		case LINESTRIPS: 
             return mCurrentMeshPrimitive->getUniqueId (); break;
         default:
             if ( mMesh ) return mMesh->getUniqueId (); break;
@@ -773,7 +773,6 @@ namespace COLLADASaxFWL
 		mCurrentMeshPrimitive = 0;
 		mCurrentFaceOrLineCount = 0;
 		mCurrentPhHasEmptyP = true;
-		mCurrentMeshMaterial.clear();
 		mPOrPhElementCountOfCurrentPrimitive = 0;
 	}
 
@@ -838,15 +837,35 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__triangles( const triangles__AttributeData& attributeData )
 	{
 		mCurrentPrimitiveType = TRIANGLES;
-		if ( attributeData.material )
-			mCurrentMeshMaterial = attributeData.material;
-		mCurrentCOLLADAPrimitiveCount = (size_t)attributeData.count;
+		mCurrentMeshPrimitive = new COLLADAFW::Triangles(createUniqueId(COLLADAFW::Triangles::ID()));
+		if ( (size_t)attributeData.count > 0)
+		{
+			mCurrentMeshPrimitive->getPositionIndices().reallocMemory((size_t)attributeData.count);
+			if ( mUseNormals )
+			{
+				mCurrentMeshPrimitive->getNormalIndices().reallocMemory((size_t)attributeData.count);
+			}
+			// TODO pre-alloc memory for uv indices
+		}
+		mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(attributeData.material));
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__triangles()
 	{
+		size_t trianglesCount = mCurrentVertexCount/3;
+		// check if the triangles really contains triangles. If not, we will discard it
+		if ( trianglesCount > 0 )
+		{
+			mCurrentMeshPrimitive->setFaceCount(trianglesCount);
+			mMesh->appendPrimitive(mCurrentMeshPrimitive);
+		}
+		else
+		{
+			delete mCurrentMeshPrimitive;
+		}
+		initCurrentValues();
 		mMeshPrimitiveInputs.clearInputs();
 		mCurrentPrimitiveType = NONE;
 		return true;
@@ -1137,17 +1156,6 @@ namespace COLLADASaxFWL
 			{
 				loadSourceElements(mMeshPrimitiveInputs);
 				initializeOffsets();
-				mCurrentMeshPrimitive = new COLLADAFW::Triangles(createUniqueId(COLLADAFW::Triangles::ID()));
-				if ( mCurrentCOLLADAPrimitiveCount > 0)
-				{
-					mCurrentMeshPrimitive->getPositionIndices().reallocMemory(mCurrentCOLLADAPrimitiveCount);
-					if ( mUseNormals )
-					{
-						mCurrentMeshPrimitive->getNormalIndices().reallocMemory(mCurrentCOLLADAPrimitiveCount);
-					}
-					// TODO pre-alloc memory for uv indices
-				}
-				mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(mCurrentMeshMaterial));
 			}
 			break;
 		case TRIFANS:
@@ -1210,18 +1218,7 @@ namespace COLLADASaxFWL
 		{
 		case TRIANGLES:
 			{
-				size_t trianglesCount = mCurrentVertexCount/3;
-				// check if the triangles really contains triangles. If not, we will discard it
-				if ( trianglesCount > 0 )
-				{
-					mCurrentMeshPrimitive->setFaceCount(trianglesCount);
-					mMesh->appendPrimitive(mCurrentMeshPrimitive);
-				}
-				else
-				{
-					delete mCurrentMeshPrimitive;
-				}
-				initCurrentValues();
+				
 			}
 			break;
 		case TRIFANS:
