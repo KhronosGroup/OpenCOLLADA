@@ -47,6 +47,7 @@ namespace COLLADASaxFWL
 		, mParsedObjectFlags( Loader::NO_FLAG )
 		, mSidTreeRoot( new SidTreeNode("", 0) )
 		, mSkinControllerSet( compare )
+		, mExternalReferenceDeciderCallbackFunction()
 
 	{
 	}
@@ -163,7 +164,7 @@ namespace COLLADASaxFWL
 	}
 
 	//---------------------------------
-	const COLLADABU::URI& Loader::getFileUri( COLLADAFW::FileId fileId )
+	const COLLADABU::URI& Loader::getFileUri( COLLADAFW::FileId fileId )const
 	{
 		FileIdURIMap::const_iterator it = mFileIdURIMap.find( fileId );
 
@@ -200,13 +201,20 @@ namespace COLLADASaxFWL
 
 		while ( mCurrentFileId < mNextFileId )
 		{
-			FileLoader fileLoader(this, 
-								  getFileUri( mCurrentFileId ),
-								  &saxParserErrorHandler, 
-								  mObjectFlags,
-								  mParsedObjectFlags, 
-                                  mExtraDataCallbackHandlerList );
-			fileLoader.load();
+			const COLLADABU::URI& fileUri = getFileUri( mCurrentFileId );
+
+			if ( (mCurrentFileId == 0) 
+				|| !mExternalReferenceDeciderCallbackFunction 
+				|| mExternalReferenceDeciderCallbackFunction(fileUri, mCurrentFileId) )
+			{
+				FileLoader fileLoader(this, 
+					fileUri,
+					&saxParserErrorHandler, 
+					mObjectFlags,
+					mParsedObjectFlags, 
+					mExtraDataCallbackHandlerList );
+				fileLoader.load();
+			}
 
 			mCurrentFileId++;
 		}
@@ -238,13 +246,20 @@ namespace COLLADASaxFWL
         
 		while ( mCurrentFileId < mNextFileId )
 		{
-			FileLoader fileLoader(this, 
-								  getFileUri( mCurrentFileId ),
-								  &saxParserErrorHandler, 
-								  mObjectFlags,
-								  mParsedObjectFlags, 
-                                  mExtraDataCallbackHandlerList );
-			fileLoader.load( buffer, length );
+			const COLLADABU::URI& fileUri = getFileUri( mCurrentFileId );
+
+			if ( (mCurrentFileId == 0) 
+				|| !mExternalReferenceDeciderCallbackFunction 
+				|| mExternalReferenceDeciderCallbackFunction(fileUri, mCurrentFileId) )
+			{
+				FileLoader fileLoader(this, 
+					getFileUri( mCurrentFileId ),
+					&saxParserErrorHandler, 
+					mObjectFlags,
+					mParsedObjectFlags, 
+					mExtraDataCallbackHandlerList );
+				fileLoader.load( buffer, length );
+			}
             
 			mCurrentFileId++;
 		}
@@ -323,6 +338,12 @@ namespace COLLADASaxFWL
 		}
 
 		return false;
+	}
+
+	//------------------------------
+	void Loader::registerExternalReferenceDeciderCallbackFunction( ExternalReferenceDeciderCallbackFunction externalReferenceDeciderCallbackFunction )
+	{
+		mExternalReferenceDeciderCallbackFunction = externalReferenceDeciderCallbackFunction;
 	}
 
 } // namespace COLLADA

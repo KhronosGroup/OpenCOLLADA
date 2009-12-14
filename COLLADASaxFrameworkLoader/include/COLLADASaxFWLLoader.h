@@ -179,6 +179,9 @@ namespace COLLADASaxFWL
 		/** List of UniqueIdSidAddressPairs.*/
 		typedef std::vector< AnimationSidAddressBinding > AnimationSidAddressBindingList;
 
+		/** Function pointer to functions provided to registerExternalReferenceDeciderCallbackFunction.*/
+		typedef bool (*ExternalReferenceDeciderCallbackFunction)( const COLLADABU::URI&, COLLADAFW::FileId );
+
 	public:
 		const static InstanceControllerDataList EMPTY_INSTANCE_CONTROLLER_DATALIST;
 		static const JointSidsOrIds EMPTY_JOINTSIDSORIDS;
@@ -291,6 +294,9 @@ namespace COLLADASaxFWL
 		found.*/
 		AnimationSidAddressBindingList mAnimationSidAddressBindings;
 
+		/** The call back function used to decide which filed should be leaded.*/
+		ExternalReferenceDeciderCallbackFunction mExternalReferenceDeciderCallbackFunction;
+
 	public:
 
         /** Constructor. */
@@ -323,7 +329,23 @@ namespace COLLADASaxFWL
         /** Register an extra data callback handler.
         * @param ExtraDataCallbackHandler* extraDataCallbackHandler The callback handler to register.
         * @return bool True, if the handler could be registered successfull. */
-        bool registerExtraDataCallbackHandler ( IExtraDataCallbackHandler* extraDataCallbackHandler );
+        bool registerExtraDataCallbackHandler( IExtraDataCallbackHandler* extraDataCallbackHandler );
+
+		/** Register a decider function, used to decide if external references should be loaded. This
+		function is called, before an external file should be loaded. If the function returns true, the 
+		external is loaded, otherwise the file is omitted. If no function is registered, all external files
+		will be loaded.
+		To unregister call with externalReferenceDeciderCallbackFunction = 0
+		The parameters of the callback function are the uri of the external file and its FileId used in 
+		corresponding UniqueIds.
+		* @param externalReferenceDeciderCallbackFunction The callback function to register.
+		*/
+		void registerExternalReferenceDeciderCallbackFunction( ExternalReferenceDeciderCallbackFunction externalReferenceDeciderCallbackFunction );
+
+
+		/** Returns the Uri the file id @a fileId was assigned to by getFileId(). If @a fileId has not been 
+		assigned to any Uri, an invalid uri is returned.*/
+		const COLLADABU::URI& getFileUri( COLLADAFW::FileId fileId )const;
 
 	private:
 		friend class IFilePartLoader;
@@ -363,10 +385,6 @@ namespace COLLADASaxFWL
 		the file id of the current file is returned. If the an uri with the same path has been passed to 
 		this method before, the same file id is returned, if not a new one is created.*/
 		COLLADAFW::FileId getFileId(const COLLADABU::URI& uri);
-
-		/** Returns the Uri the file id @a fileId was assigned to by getFileId(). If @a fileId has not been 
-		assigned to any Uri, an invalid uri is returned.*/
-		const COLLADABU::URI& getFileUri( COLLADAFW::FileId fileId );
 
 		/** Add the pair of @a fileId and @a uri to mURIFileIdMap and mFileIdURIMap. It is assumed, neither 
 		@a fileId nor @a uri have been passed to that method before.*/
