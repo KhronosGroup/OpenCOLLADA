@@ -50,6 +50,7 @@ namespace COLLADAFW
         /** Destructor. */
         virtual ~Scene() 
         { 
+			delete mInstanceKinematicsScene;
             delete mInstanceVisualScene; 
         }
 

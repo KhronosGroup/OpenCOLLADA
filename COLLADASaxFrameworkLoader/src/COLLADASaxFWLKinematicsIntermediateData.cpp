@@ -48,6 +48,9 @@ namespace COLLADASaxFWL
 
 		// delete kinematic models
 		deleteVector(mKinematicsModels);
+
+		// delete kinematic models
+		deleteVector(mKinematicsControllers);
 	}
 
 
