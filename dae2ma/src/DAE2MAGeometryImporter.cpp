@@ -1384,15 +1384,15 @@ namespace DAE2MA
                     case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
                         {
                             const COLLADAFW::ArrayPrimitiveType<float>* values = uvCoords.getFloatValues ();
-                            meshNode.appendUvSetPoints ( (*values)[initialIndex+j] );
-                            meshNode.appendUvSetPoints ( (*values)[initialIndex+j+1] );
+                            meshNode.appendUvSetPoints ( toLinearUnit ((*values)[initialIndex+j]) );
+                            meshNode.appendUvSetPoints ( toLinearUnit ((*values)[initialIndex+j+1]) );
                         }
                         break;
                     case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
                         {
                             const COLLADAFW::ArrayPrimitiveType<double>* values = uvCoords.getDoubleValues ();
-                            meshNode.appendUvSetPoints ( (float) (*values)[initialIndex+j] );
-                            meshNode.appendUvSetPoints ( (float) (*values)[initialIndex+j+1] );
+                            meshNode.appendUvSetPoints ( (float) toLinearUnit ((*values)[initialIndex+j]) );
+                            meshNode.appendUvSetPoints ( (float) toLinearUnit ((*values)[initialIndex+j+1]) );
                         }
                         break;
                     default:

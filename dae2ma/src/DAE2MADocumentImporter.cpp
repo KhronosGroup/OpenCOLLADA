@@ -786,7 +786,7 @@ namespace DAE2MA
 
         if ( mParseStep <= COPY_ELEMENTS )
         {
-            // Make a copy of the visual scene element and push it into the list of visual scenes.
+            // Make a copy of the library nodes element and push it into the list of library nodes.
             mParseStep = COPY_ELEMENTS;
             mLibraryNodesList.push_back ( new COLLADAFW::LibraryNodes ( *libraryNodes ) );
         }
@@ -850,7 +850,6 @@ namespace DAE2MA
                 const COLLADAFW::Material* material = mMaterialsList [i];
                 mMaterialImporter->importMaterial ( material );
             }
-            mParseStep = MATERIAL_IMPORTED;
         }
     }
 
@@ -892,7 +891,6 @@ namespace DAE2MA
                 const COLLADAFW::Effect* effect = mEffectsList [i];
                 mEffectImporter->importEffect ( effect );
             }
-            mParseStep = EFFECT_IMPORTED;
         }
     }
 
@@ -936,7 +934,6 @@ namespace DAE2MA
         if ( mParseStep >= ELEMENTS_COPIED )
         {
             mImageImporter->importImages ();
-            mParseStep = IMAGES_IMPORTED;
         }
     }
 

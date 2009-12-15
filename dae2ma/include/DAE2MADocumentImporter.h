@@ -119,9 +119,6 @@ namespace DAE2MA
             COPY_ELEMENTS, // no order: scene, visual scene, library nodes, materials, animationLists, writeController
             ELEMENTS_COPIED,
             VISUAL_SCENE_IMPORTED,
-            MATERIAL_IMPORTED,
-            EFFECT_IMPORTED,
-            IMAGES_IMPORTED,
             SECOND_PARSING, 
             ANIMATIONS_IMPORTED,
             GEOMETRY_IMPORTED,
