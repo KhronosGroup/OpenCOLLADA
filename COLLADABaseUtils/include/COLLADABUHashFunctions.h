@@ -12,6 +12,7 @@
 #define __COLLADABU_HASHFUNCTIONS_H__
 
 #include "COLLADABUPrerequisites.h"
+#include "COLLADABUPlatform.h"
 
 #ifdef COLLADABU_OS_LINUX
 #	include <backward/hash_fun.h>
@@ -44,13 +45,6 @@ namespace __gnu_cxx
 		size_t
 			operator()(const COLLADABU::URI& uri) const
 		{ return COLLADABU::calculateHash(uri); }
-	};
-
-	template<>
-	struct hash<COLLADAFW::UniqueId>
-	{
-		size_t
-			operator()(const COLLADAFW::UniqueId& uniqueId) const { return uniqueId; }
 	};
 
 } // namespace __gnu_cxx

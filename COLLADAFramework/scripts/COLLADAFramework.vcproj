@@ -740,6 +740,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWHashFunctions.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWILoader.h"
 				>
 			</File>
