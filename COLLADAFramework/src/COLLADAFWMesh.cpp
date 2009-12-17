@@ -11,6 +11,7 @@
 #include "COLLADAFWStableHeaders.h"
 #include "COLLADAFWMesh.h"
 #include "COLLADAFWTristrips.h"
+#include "COLLADAFWLinestrips.h"
 
 namespace COLLADAFW
 {
@@ -68,6 +69,7 @@ namespace COLLADAFW
 				switch ( primitiveType )
 				{
 				case MeshPrimitive::TRIANGLES:
+                case MeshPrimitive::LINES:
 				case MeshPrimitive::POLYGONS:
 					primitiveCount += primitive->getFaceCount();
 					break;
@@ -76,6 +78,7 @@ namespace COLLADAFW
 						Tristrips* tristrips = (Tristrips*)primitive;
 						primitiveCount += tristrips->getTristripCount();
 					}
+                    break;
 				case MeshPrimitive::TRIANGLE_FANS:
 					{
 
@@ -83,6 +86,13 @@ namespace COLLADAFW
 						//Tristrips* tristrips = (Tristrips*)primitive;
 						//primitiveCount += tristrips->getTristripCount();
 					}
+                    break;
+                case MeshPrimitive::LINE_STRIPS:
+                    {
+                        Linestrips* linestrips = (Linestrips*)primitive;
+                        primitiveCount += linestrips->getLinestripCount ();
+                    }
+                    break;
 				case MeshPrimitive::UNDEFINED_PRIMITIVE_TYPE:
 				default:
 					break;

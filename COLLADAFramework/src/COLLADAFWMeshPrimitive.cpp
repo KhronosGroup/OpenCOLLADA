@@ -14,6 +14,7 @@
 #include "COLLADAFWMeshPrimitiveWithFaceVertexCount.h"
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWTristrips.h"
+#include "COLLADAFWLinestrips.h"
 
 
 namespace COLLADAFW
@@ -79,8 +80,10 @@ namespace COLLADAFW
             return 1;
             break;
         case LINES:
-        case LINE_STRIPS:
             return 2;
+            break;
+        case LINE_STRIPS:
+            return ((Linestrips*)this)->getGroupedVerticesVertexCount ( faceIndex );
             break;
         case POLYGONS:
         case POLYLIST:
@@ -125,6 +128,19 @@ namespace COLLADAFW
                 Polygons::VertexCountArray& vertexCountArray =
                     polygons->getGroupedVerticesVertexCountArray ();
                 groupedVertexElementsCount = vertexCountArray.getCount ();
+            }
+            break;
+        case MeshPrimitive::LINES:
+            {
+                groupedVertexElementsCount = this->getFaceCount ();
+                break;
+            }
+            break;
+        case MeshPrimitive::LINE_STRIPS:
+            {
+                Linestrips* linestrips = (Linestrips*)this;
+                groupedVertexElementsCount = linestrips->getLinestripCount ();
+                break;
             }
             break;
         default:

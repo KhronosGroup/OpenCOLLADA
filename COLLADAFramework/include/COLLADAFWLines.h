@@ -26,10 +26,12 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Lines() : MeshPrimitive(LINES){}
+		Lines( const UniqueId& uniqueId ) 
+            : MeshPrimitive( uniqueId, LINES )
+        {}
 
         /** Destructor. */
-		virtual ~Lines();
+        virtual ~Lines() {}
 
 	private:
 
