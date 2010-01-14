@@ -461,7 +461,8 @@ namespace COLLADAMax
 						polylistListPerMaterialIdMap[ 0 ].getVCountList().push_back( face->deg );
 					}
 
-					materialIDs.push_back( 0 );
+					if( find( materialIDs.begin(), materialIDs.end(), 0 ) == materialIDs.end() )
+						materialIDs.push_back( 0 );
 				}
 			}
 			else
@@ -490,7 +491,8 @@ namespace COLLADAMax
 				else
 				{
 					facesPerMaterialIdMap[ 0 ] = mTriObject->GetMesh().getNumFaces();
-					materialIDs.push_back( 0 );
+					if( find( materialIDs.begin(), materialIDs.end(), 0 ) == materialIDs.end() )
+						materialIDs.push_back( 0 );
 				}
 
 			}
