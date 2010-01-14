@@ -333,6 +333,16 @@ namespace COLLADABU
 		return returnString;
 	}
 
+	//------------------------------
+	char StringUtils::toUpperASCIIChar( char c )
+	{
+		if ( isLowerAsciiChar(c) )
+		{
+			return c + 'A' - 'a';
+		}
+		return c;
+	}
+
 
 
 

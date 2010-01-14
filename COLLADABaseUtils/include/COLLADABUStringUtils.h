@@ -104,6 +104,9 @@ namespace COLLADABU
             return isAsciiAlphaChar ( c ) || isDigit ( c ) || isIDExtraChar ( c ) ;
         }
 
+		/** If @a c is a lower case ascii character, the corresponding upper character is returned.*/
+		static char toUpperASCIIChar( char c );
+
         static String uriEncode ( const String & sSrc );
 
 		/** Escapes all the characters not allowed in xml text elements.
