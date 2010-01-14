@@ -68,52 +68,56 @@ namespace COLLADASaxFWL
     // ----------------------------
     const InputSemantic::Semantic InputUnshared::getSemanticFromString ( const String& semanticStr )
     {
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_BINORMAL ) )
-            return InputSemantic::BINORMAL;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_COLOR ) )
-            return InputSemantic::COLOR;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_CONTINUITY ) )
-            return InputSemantic::CONTINUITY;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_IMAGE ) )
-            return InputSemantic::IMAGE;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_INPUT ) )
-            return InputSemantic::INPUT;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_IN_TANGENT ) )
-            return InputSemantic::IN_TANGENT;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_INTERPOLATION ) )
-            return InputSemantic::INTERPOLATION;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_INV_BIND_MATRIX ) )
-            return InputSemantic::INV_BIND_MATRIX;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_JOINT ) )
-            return InputSemantic::JOINT;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_LINEAR_STEPS ) )
-            return InputSemantic::LINEAR_STEPS;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_MORPH_TARGET ) )
-            return InputSemantic::MORPH_TARGET;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_MORPH_WEIGHT ) )
-            return InputSemantic::MORPH_WEIGHT;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_NORMAL ) )
-            return InputSemantic::NORMAL;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_OUTPUT ) )
-            return InputSemantic::OUTPUT;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_OUT_TANGENT ) )
-            return InputSemantic::OUT_TANGENT;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_POSITION ) )
-            return InputSemantic::POSITION;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TANGENT ) )
-            return InputSemantic::TANGENT;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TEXBINORMAL ) )
-            return InputSemantic::TEXBINORMAL;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TEXCOORD ) )
-            return InputSemantic::TEXCOORD;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TEXTANGENT ) )
-            return InputSemantic::TEXTANGENT;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_UV ) )
-            return InputSemantic::UV;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_VERTEX ) )
-            return InputSemantic::VERTEX;
-        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_WEIGHT ) )
-            return InputSemantic::WEIGHT;
+		size_t hash = COLLADABU::calculateHashUpper( semanticStr );
+		switch ( hash )
+		{
+		case InputSemantic::BINORMAL_HASH: 
+			return InputSemantic::BINORMAL;
+		case InputSemantic::COLOR_HASH: 
+			return InputSemantic::COLOR;
+		case InputSemantic::CONTINUITY_HASH: 
+			return InputSemantic::CONTINUITY;
+		case InputSemantic::IMAGE_HASH: 
+			return InputSemantic::IMAGE;
+		case InputSemantic::INPUT_HASH: 
+			return InputSemantic::INPUT;
+		case InputSemantic::IN_TANGENT_HASH: 
+			return InputSemantic::IN_TANGENT;
+		case InputSemantic::INTERPOLATION_HASH: 
+			return InputSemantic::INTERPOLATION;
+		case InputSemantic::INV_BIND_MATRIX_HASH: 
+			return InputSemantic::INV_BIND_MATRIX;
+		case InputSemantic::JOINT_HASH: 
+			return InputSemantic::JOINT;
+		case InputSemantic::LINEAR_STEPS_HASH: 
+			return InputSemantic::LINEAR_STEPS;
+		case InputSemantic::MORPH_TARGET_HASH: 
+			return InputSemantic::MORPH_TARGET;
+		case InputSemantic::MORPH_WEIGHT_HASH: 
+			return InputSemantic::MORPH_WEIGHT;
+		case InputSemantic::NORMAL_HASH: 
+			return InputSemantic::NORMAL;
+		case InputSemantic::OUTPUT_HASH: 
+			return InputSemantic::OUTPUT;
+		case InputSemantic::OUT_TANGENT_HASH: 
+			return InputSemantic::OUT_TANGENT;
+		case InputSemantic::POSITION_HASH: 
+			return InputSemantic::POSITION;
+		case InputSemantic::TANGENT_HASH: 
+			return InputSemantic::TANGENT;
+		case InputSemantic::TEXBINORMAL_HASH: 
+			return InputSemantic::TEXBINORMAL;
+		case InputSemantic::TEXCOORD_HASH: 
+			return InputSemantic::TEXCOORD;
+		case InputSemantic::TEXTANGENT_HASH: 
+			return InputSemantic::TEXTANGENT;
+		case InputSemantic::UV_HASH: 
+			return InputSemantic::UV;
+		case InputSemantic::VERTEX_HASH: 
+			return InputSemantic::VERTEX;
+		case InputSemantic::WEIGHT_HASH: 
+			return InputSemantic::WEIGHT;
+		}
 
         return InputSemantic::UNKNOWN;
     }
