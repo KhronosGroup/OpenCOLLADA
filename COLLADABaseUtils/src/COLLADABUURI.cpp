@@ -944,16 +944,53 @@ namespace COLLADABU
 		const String& fragment,
 		bool forceLibxmlCompatible) {
 			String p = safeSubstr(path, 0, 3);
-			bool libxmlHack = forceLibxmlCompatible && scheme == "file";
+			bool libxmlHack = forceLibxmlCompatible && ( strcmp(scheme.c_str(), "file") == 0 );
 			bool uncPath = false;
+
+			// we calculate the length of the uri string to preallocate memory
+			size_t uriLength = 0;
+
+			if (!scheme.empty())
+				uriLength += scheme.length() + 3 /*"://"*/;
+
+			if (!authority.empty())
+			{
+				if (libxmlHack) {
+					// We have a UNC path URI of the form file://otherMachine/file.dae.
+					// Convert it to file://///otherMachine/file.dae, which is how libxml
+					// does UNC paths.
+					uriLength += 3 /*"///"*/ + authority.length();
+					uncPath = true;
+				}
+				else {
+					uriLength += authority.length();
+				}
+			}
+
+			if (!uncPath && libxmlHack && Utils::getSystemType() == Utils::WINDOWS) {
+				// We have to be delicate in how we pass absolute path URIs to libxml on Windows.
+				// If the path is an absolute path with no drive letter, add an extra slash to
+				// appease libxml.
+				if (p[0] == '/' && p[1] != '/' && p[2] != ':') {
+					uriLength += 1 /*"/"*/;
+				}
+			}
+			uriLength += path.length();
+
+			if (!query.empty())
+				uriLength += 1 /*"?"*/ + query.length();
+			if (!fragment.empty())
+				uriLength += 1 /*"#"*/ + fragment.length();
+
+			// done with pre calculating size 
+			// start to assemble the string
+
 			String uri;
+			uri.reserve(uriLength);
 
 			if (!scheme.empty())
 				uri += scheme + "://";
 
-/*			if (!authority.empty() || libxmlHack || (p[0] == '/' && p[1] == '/'))
-				uri += "//";
-*/
 			if (!authority.empty())
 			{
 				if (libxmlHack) {
