@@ -251,7 +251,7 @@ namespace COLLADAFW
         */
         IndexList* getUVCoordIndices ( size_t index )
         {
-            if ( index >= mColorIndicesArray.getCount () ) return 0;
+            if ( index >= mUVCoordIndicesArray.getCount () ) return 0;
             return mUVCoordIndicesArray [ index ]; 
         }
 
@@ -260,7 +260,7 @@ namespace COLLADAFW
         */
         const IndexList* getUVCoordIndices ( size_t index ) const 
         {
-            if ( index >= mColorIndicesArray.getCount () ) return 0;
+            if ( index >= mUVCoordIndicesArray.getCount () ) return 0;
             return mUVCoordIndicesArray [ index ]; 
         }
 
