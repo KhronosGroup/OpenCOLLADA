@@ -19,7 +19,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug lib|Win32"
+			Name="Debug_lib|Win32"
 			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
@@ -83,7 +83,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug lib|x64"
+			Name="Debug_lib|x64"
 			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
@@ -148,7 +148,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release lib|Win32"
+			Name="Release_lib|Win32"
 			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
@@ -210,7 +210,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release lib|x64"
+			Name="Release_lib|x64"
 			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
@@ -273,7 +273,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug unit test|Win32"
+			Name="Debug_unitTest|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -352,7 +352,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug unit test|x64"
+			Name="Debug_unitTest|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -432,7 +432,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release unit test|Win32"
+			Name="Release_unitTest|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -510,7 +510,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release unit test|x64"
+			Name="Release_unitTest|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -589,7 +589,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug performance test|Win32"
+			Name="Debug_performanceTest|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -668,7 +668,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug performance test|x64"
+			Name="Debug_performanceTest|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -748,7 +748,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release performance test|Win32"
+			Name="Release_performanceTest|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -826,7 +826,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release performance test|x64"
+			Name="Release_performanceTest|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -1160,6 +1160,260 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
+		<Configuration
+			Name="Debug_lib_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_lib_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_lib_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_lib_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -1192,7 +1446,7 @@
 					RelativePath="..\src\performanceTest\main.cpp"
 					>
 					<FileConfiguration
-						Name="Debug lib|Win32"
+						Name="Debug_lib|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1202,7 +1456,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug lib|x64"
+						Name="Debug_lib|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1212,7 +1466,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release lib|Win32"
+						Name="Release_lib|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1222,7 +1476,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release lib|x64"
+						Name="Release_lib|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1232,7 +1486,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug unit test|Win32"
+						Name="Debug_unitTest|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1242,7 +1496,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug unit test|x64"
+						Name="Debug_unitTest|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1252,7 +1506,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release unit test|Win32"
+						Name="Release_unitTest|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1262,7 +1516,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release unit test|x64"
+						Name="Release_unitTest|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1272,7 +1526,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug performance test|Win32"
+						Name="Debug_performanceTest|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1281,7 +1535,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug performance test|x64"
+						Name="Debug_performanceTest|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1290,7 +1544,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release performance test|Win32"
+						Name="Release_performanceTest|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1299,7 +1553,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release performance test|x64"
+						Name="Release_performanceTest|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1339,6 +1593,46 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release_lib_no_wchar_t|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_lib_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_lib_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_lib_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_lib_static|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1352,7 +1646,7 @@
 					RelativePath="..\src\performanceTest\performanceTest.cpp"
 					>
 					<FileConfiguration
-						Name="Debug lib|Win32"
+						Name="Debug_lib|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1360,7 +1654,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug lib|x64"
+						Name="Debug_lib|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1368,7 +1662,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release lib|Win32"
+						Name="Release_lib|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1376,7 +1670,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release lib|x64"
+						Name="Release_lib|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1384,7 +1678,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug unit test|Win32"
+						Name="Debug_unitTest|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1392,7 +1686,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug unit test|x64"
+						Name="Debug_unitTest|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1400,7 +1694,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release unit test|Win32"
+						Name="Release_unitTest|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1408,7 +1702,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release unit test|x64"
+						Name="Release_unitTest|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1441,6 +1735,38 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release_lib_no_wchar_t|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_lib_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_lib_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_lib_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_lib_static|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1456,7 +1782,7 @@
 					RelativePath="..\src\unitTest\main.cpp"
 					>
 					<FileConfiguration
-						Name="Debug lib|Win32"
+						Name="Debug_lib|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1464,7 +1790,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug lib|x64"
+						Name="Debug_lib|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1472,7 +1798,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release lib|Win32"
+						Name="Release_lib|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1480,7 +1806,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release lib|x64"
+						Name="Release_lib|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1488,7 +1814,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug performance test|Win32"
+						Name="Debug_performanceTest|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1496,7 +1822,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug performance test|x64"
+						Name="Debug_performanceTest|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1504,7 +1830,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release performance test|Win32"
+						Name="Release_performanceTest|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1512,7 +1838,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release performance test|x64"
+						Name="Release_performanceTest|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1545,6 +1871,38 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release_lib_no_wchar_t|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_lib_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_lib_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_lib_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_lib_static|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool

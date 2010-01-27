@@ -19,9 +19,9 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug LibXML|Win32"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)"
+			Name="Debug_LibXML|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -68,7 +68,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -87,9 +87,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug LibXML|x64"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)"
+			Name="Debug_LibXML|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -156,9 +156,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release LibXML|Win32"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)"
+			Name="Release_LibXML|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -221,9 +221,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release LibXML|x64"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)"
+			Name="Release_LibXML|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -287,9 +287,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Expat|Win32"
-			OutputDirectory="..\lib\win\$(PlatformName)\Expat"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\Expat\$(ConfigurationName)"
+			Name="Debug_Expat|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -336,7 +336,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -355,9 +355,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Expat|x64"
-			OutputDirectory="..\lib\win\$(PlatformName)\Expat"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\Expat\$(ConfigurationName)"
+			Name="Debug_Expat|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -405,7 +405,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -424,9 +424,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Expat|Win32"
-			OutputDirectory="..\lib\win\$(PlatformName)\Expat"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\Expat\$(ConfigurationName)"
+			Name="Release_Expat|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -489,9 +489,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Expat|x64"
-			OutputDirectory="..\lib\win\$(PlatformName)\Expat"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\Expat\$(ConfigurationName)"
+			Name="Release_Expat|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -555,9 +555,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug LibXML NoValidation|Win32"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML\NoValidation"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)\NoValidation"
+			Name="Debug_LibXML_NoValidation|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -604,7 +604,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -623,9 +623,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug LibXML NoValidation|x64"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML\NoValidation"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)\NoValidation"
+			Name="Debug_LibXML_NoValidation|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -673,7 +673,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -692,9 +692,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Expat NoValidation|Win32"
-			OutputDirectory="..\lib\win\$(PlatformName)\Expat\NoValidation"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\Expat\$(ConfigurationName)\NoValidation"
+			Name="Debug_Expat_NoValidation|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -741,7 +741,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -760,9 +760,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Expat NoValidation|x64"
-			OutputDirectory="..\lib\win\$(PlatformName)\Expat\NoValidation"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\Expat\$(ConfigurationName)\NoValidation"
+			Name="Debug_Expat_NoValidation|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -810,7 +810,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -829,9 +829,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Expat NoValidation|Win32"
-			OutputDirectory="..\lib\win\$(PlatformName)\Expat\NoValidation"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\Expat\$(ConfigurationName)\NoValidation"
+			Name="Release_Expat_NoValidation|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -894,9 +894,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Expat NoValidation|x64"
-			OutputDirectory="..\lib\win\$(PlatformName)\Expat\NoValidation"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\Expat\$(ConfigurationName)\NoValidation"
+			Name="Release_Expat_NoValidation|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -960,9 +960,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release LibXML NoValidation|Win32"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML\NoValidation"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)\NoValidation"
+			Name="Release_LibXML_NoValidation|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -1025,9 +1025,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release LibXML NoValidation|x64"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML\NoValidation"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)\NoValidation"
+			Name="Release_LibXML_NoValidation|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -1091,9 +1091,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release LibXML ProgDB|Win32"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)"
+			Name="Release_LibXML_ProgDB|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -1137,7 +1137,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-ProgDB.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1156,9 +1156,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release LibXML ProgDB|x64"
-			OutputDirectory="..\lib\win\$(PlatformName)\LibXML"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\LibXML\$(ConfigurationName)"
+			Name="Release_LibXML_ProgDB|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
@@ -1203,7 +1203,1210 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)-ProgDB.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Expat_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\expat\lib;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_EXPAT;GENERATEDSAXPARSER_VALIDATION;PCRE_STATIC"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Expat_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\expat\lib;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_EXPAT;PCRE_STATIC"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Expat_NoValidation_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\expat\lib;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_EXPAT;PCRE_STATIC"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Expat_NoValidation_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\expat\lib;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_EXPAT;PCRE_STATIC"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_LibXML_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;GENERATEDSAXPARSER_VALIDATION;PCRE_STATIC"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_LibXML_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_LibXML_NoValidation_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_LibXML_NoValidation_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Expat_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\expat\lib;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_EXPAT;GENERATEDSAXPARSER_VALIDATION;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Expat_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\expat\lib;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_EXPAT;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Expat_NoValidation_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\expat\lib;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_EXPAT;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Expat_NoValidation_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\expat\lib;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_EXPAT;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_LibXML_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;GENERATEDSAXPARSER_VALIDATION;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_LibXML_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_LibXML_NoValidation_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_LibXML_NoValidation_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_LibXML_ProgDB_static|Win32"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;GENERATEDSAXPARSER_VALIDATION;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_LibXML_ProgDB_static|x64"
+			OutputDirectory="..\lib\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADASaxFWLStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1386,7 +2589,7 @@
 				RelativePath="..\src\COLLADASaxFWLPrecompiledHeaders.cpp"
 				>
 				<FileConfiguration
-					Name="Debug LibXML|Win32"
+					Name="Debug_LibXML|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1394,7 +2597,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug LibXML|x64"
+					Name="Debug_LibXML|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1402,7 +2605,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release LibXML|Win32"
+					Name="Release_LibXML|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1410,7 +2613,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release LibXML|x64"
+					Name="Release_LibXML|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1418,7 +2621,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Expat|Win32"
+					Name="Debug_Expat|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1426,7 +2629,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Expat|x64"
+					Name="Debug_Expat|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1434,7 +2637,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Expat|Win32"
+					Name="Release_Expat|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1442,7 +2645,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Expat|x64"
+					Name="Release_Expat|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1450,7 +2653,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug LibXML NoValidation|Win32"
+					Name="Debug_LibXML_NoValidation|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1458,7 +2661,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug LibXML NoValidation|x64"
+					Name="Debug_LibXML_NoValidation|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1466,7 +2669,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Expat NoValidation|Win32"
+					Name="Debug_Expat_NoValidation|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1474,7 +2677,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Expat NoValidation|x64"
+					Name="Debug_Expat_NoValidation|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1482,7 +2685,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Expat NoValidation|Win32"
+					Name="Release_Expat_NoValidation|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1490,7 +2693,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Expat NoValidation|x64"
+					Name="Release_Expat_NoValidation|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1498,7 +2701,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release LibXML NoValidation|Win32"
+					Name="Release_LibXML_NoValidation|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1506,7 +2709,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release LibXML NoValidation|x64"
+					Name="Release_LibXML_NoValidation|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1514,7 +2717,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release LibXML ProgDB|Win32"
+					Name="Release_LibXML_ProgDB|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1522,7 +2725,151 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release LibXML ProgDB|x64"
+					Name="Release_LibXML_ProgDB|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Expat_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Expat_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Expat_NoValidation_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Expat_NoValidation_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_LibXML_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_LibXML_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_LibXML_NoValidation_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_LibXML_NoValidation_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Expat_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Expat_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Expat_NoValidation_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Expat_NoValidation_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_LibXML_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_LibXML_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_LibXML_NoValidation_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_LibXML_NoValidation_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_LibXML_ProgDB_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_LibXML_ProgDB_static|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1617,7 +2964,7 @@
 					RelativePath="..\src\generated14\COLLADASaxFWLColladaParserAutoGen14PrivateValidation.cpp"
 					>
 					<FileConfiguration
-						Name="Debug LibXML NoValidation|Win32"
+						Name="Debug_LibXML_NoValidation|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1625,7 +2972,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug LibXML NoValidation|x64"
+						Name="Debug_LibXML_NoValidation|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1633,7 +2980,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Expat NoValidation|Win32"
+						Name="Debug_Expat_NoValidation|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1641,7 +2988,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Expat NoValidation|x64"
+						Name="Debug_Expat_NoValidation|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1649,7 +2996,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Expat NoValidation|Win32"
+						Name="Release_Expat_NoValidation|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1657,7 +3004,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Expat NoValidation|x64"
+						Name="Release_Expat_NoValidation|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1665,7 +3012,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML NoValidation|Win32"
+						Name="Release_LibXML_NoValidation|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1673,7 +3020,71 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML NoValidation|x64"
+						Name="Release_LibXML_NoValidation|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Expat_NoValidation_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Expat_NoValidation_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_LibXML_NoValidation_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_LibXML_NoValidation_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Expat_NoValidation_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Expat_NoValidation_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_NoValidation_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_NoValidation_static|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1773,7 +3184,7 @@
 					RelativePath="..\src\generated15\COLLADASaxFWLColladaParserAutoGen15PrivateValidation.cpp"
 					>
 					<FileConfiguration
-						Name="Debug LibXML NoValidation|Win32"
+						Name="Debug_LibXML_NoValidation|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1781,7 +3192,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug LibXML NoValidation|x64"
+						Name="Debug_LibXML_NoValidation|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1789,7 +3200,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Expat NoValidation|Win32"
+						Name="Debug_Expat_NoValidation|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1797,7 +3208,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Expat NoValidation|x64"
+						Name="Debug_Expat_NoValidation|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1805,7 +3216,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Expat NoValidation|Win32"
+						Name="Release_Expat_NoValidation|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1813,7 +3224,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Expat NoValidation|x64"
+						Name="Release_Expat_NoValidation|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1821,7 +3232,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML NoValidation|Win32"
+						Name="Release_LibXML_NoValidation|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1829,7 +3240,71 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML NoValidation|x64"
+						Name="Release_LibXML_NoValidation|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Expat_NoValidation_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Expat_NoValidation_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_LibXML_NoValidation_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_LibXML_NoValidation_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Expat_NoValidation_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Expat_NoValidation_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_NoValidation_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_NoValidation_static|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2227,63 +3702,126 @@
 					RelativePath="..\include\generated14\COLLADASaxFWLColladaParserAutoGen14ValidationData.h"
 					>
 					<FileConfiguration
-						Name="Debug LibXML|Win32"
+						Name="Debug_LibXML|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML|Win32"
+						Name="Release_LibXML|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Expat|Win32"
+						Name="Debug_Expat|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Expat|Win32"
+						Name="Release_Expat|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug LibXML NoValidation|Win32"
+						Name="Debug_LibXML_NoValidation|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Expat NoValidation|Win32"
+						Name="Debug_Expat_NoValidation|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Expat NoValidation|Win32"
+						Name="Release_Expat_NoValidation|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML NoValidation|Win32"
+						Name="Release_LibXML_NoValidation|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML ProgDB|Win32"
+						Name="Release_LibXML_ProgDB|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Expat_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Expat_NoValidation_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_LibXML_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_LibXML_NoValidation_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Expat_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Expat_NoValidation_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_NoValidation_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_ProgDB_static|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -2378,63 +3916,126 @@
 					RelativePath="..\include\generated15\COLLADASaxFWLColladaParserAutoGen15ValidationData.h"
 					>
 					<FileConfiguration
-						Name="Debug LibXML|Win32"
+						Name="Debug_LibXML|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML|Win32"
+						Name="Release_LibXML|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Expat|Win32"
+						Name="Debug_Expat|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Expat|Win32"
+						Name="Release_Expat|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug LibXML NoValidation|Win32"
+						Name="Debug_LibXML_NoValidation|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Expat NoValidation|Win32"
+						Name="Debug_Expat_NoValidation|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Expat NoValidation|Win32"
+						Name="Release_Expat_NoValidation|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML NoValidation|Win32"
+						Name="Release_LibXML_NoValidation|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release LibXML ProgDB|Win32"
+						Name="Release_LibXML_ProgDB|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Expat_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Expat_NoValidation_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_LibXML_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_LibXML_NoValidation_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Expat_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Expat_NoValidation_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_NoValidation_static|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_LibXML_ProgDB_static|Win32"
 						>
 						<Tool
 							Name="VCCustomBuildTool"

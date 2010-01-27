@@ -19,7 +19,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug Max9|Win32"
+			Name="Debug_Max9|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -68,11 +68,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -105,7 +105,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max9|x64"
+			Name="Debug_Max9|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -155,11 +155,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -192,7 +192,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max9|Win32"
+			Name="Release_Max9|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -242,11 +242,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -281,7 +281,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max9|x64"
+			Name="Release_Max9|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -332,11 +332,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -371,7 +371,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max2009|Win32"
+			Name="Debug_Max2009|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -420,11 +420,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -457,7 +457,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max2009|x64"
+			Name="Debug_Max2009|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -507,11 +507,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -544,7 +544,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max2009|Win32"
+			Name="Release_Max2009|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -594,11 +594,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib MathMLSolver.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib;&quot;..\..\Externals\MathMLSolver\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib;"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -633,7 +633,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max2009|x64"
+			Name="Release_Max2009|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -684,11 +684,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -723,7 +723,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max2008|Win32"
+			Name="Release_Max2008|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -773,11 +773,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -812,7 +812,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max2008|x64"
+			Name="Release_Max2008|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -863,11 +863,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib;$(NOINHERIT)"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib;$(NOINHERIT)"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -902,7 +902,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max2008|Win32"
+			Name="Debug_Max2008|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -951,11 +951,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -988,7 +988,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max2008|x64"
+			Name="Debug_Max2008|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1038,11 +1038,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib;$(NOINHERIT)"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib;$(NOINHERIT)"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1075,7 +1075,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max8|Win32"
+			Name="Debug_Max8|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1124,11 +1124,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1161,7 +1161,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max8|x64"
+			Name="Debug_Max8|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1187,7 +1187,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH8)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -1211,11 +1211,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1248,7 +1248,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max8|Win32"
+			Name="Release_Max8|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1298,11 +1298,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -1337,7 +1337,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max8|x64"
+			Name="Release_Max8|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1388,11 +1388,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -1427,7 +1427,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max2010|Win32"
+			Name="Debug_Max2010|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1476,11 +1476,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1513,7 +1513,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max2010|x64"
+			Name="Debug_Max2010|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1563,11 +1563,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1600,7 +1600,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max2010|Win32"
+			Name="Release_Max2010|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1650,11 +1650,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -1689,7 +1689,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max2010|x64"
+			Name="Release_Max2010|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1740,11 +1740,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -1779,7 +1779,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max7|Win32"
+			Name="Debug_Max7|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1828,11 +1828,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH7)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH7)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1865,7 +1865,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Max7|x64"
+			Name="Debug_Max7|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -1915,11 +1915,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -1952,7 +1952,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max7|Win32"
+			Name="Release_Max7|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -2002,11 +2002,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH7)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH7)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -2041,7 +2041,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max7|x64"
+			Name="Release_Max7|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -2092,11 +2092,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -2131,7 +2131,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max2009 ProgDB|Win32"
+			Name="Release_Max2009_ProgDB|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -2182,11 +2182,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/FIXED:NO"
-				AdditionalDependencies="COLLADABaseUtils-ProgDB.lib COLLADAFramework-ProgDB.lib COLLADAStreamWriter-ProgDB.lib COLLADASaxFrameworkLoader-ProgDB.lib GeneratedSaxParser-ProgDB.lib MathMLSolver-ProgDB.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib;&quot;..\..\Externals\MathMLSolver\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib;"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -2221,7 +2221,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Max2009 ProgDB|x64"
+			Name="Release_Max2009_ProgDB|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -2273,11 +2273,2304 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/FIXED:NO"
-				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.2.5"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2009_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2008_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2008%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2008_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib;$(NOINHERIT)"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2008_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2009_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2009%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2009_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2009_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2010_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2010)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2010%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2010_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2010)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2010_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max7_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH7)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH7)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH7%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max7_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH9_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max8_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH8)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH8%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max8_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH9_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max9_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH9%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max9_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH9_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2008_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2008%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2008_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib;$(NOINHERIT)"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2008_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2009_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib;"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2009%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2009_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2009_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2010_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2010)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2010%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2010_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2010)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2010_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max7_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH7)/include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADAFramework\include\Math&quot;;&quot;..\..\COLLADADomHelper\include&quot;;&quot;..\..\COLLADAStreamWriter\include&quot;;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH7)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH7%\plugins\ColladaMaxNew.dle&quot;&#x0D;&#x0A;echo copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH7%\plugins\ColladaMaxNew.dle&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max7_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH9_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max8_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH8)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH8%\plugins\ColladaMaxNew.dle&quot;&#x0D;&#x0A;echo copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH8%\plugins\ColladaMaxNew.dle&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max8_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH8)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH9_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max9_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH9%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max9_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH9_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2009_ProgDB_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/FIXED:NO"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib;"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2009%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2009_ProgDB_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/FIXED:NO"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -2324,7 +4617,7 @@
 				RelativePath="..\src\COLLADAMaxColladaPlugin.cpp"
 				>
 				<FileConfiguration
-					Name="Debug Max9|Win32"
+					Name="Debug_Max9|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2333,7 +4626,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max9|x64"
+					Name="Debug_Max9|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2342,7 +4635,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max9|Win32"
+					Name="Release_Max9|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2351,7 +4644,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max9|x64"
+					Name="Release_Max9|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2360,7 +4653,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2009|Win32"
+					Name="Debug_Max2009|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2369,7 +4662,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2009|x64"
+					Name="Debug_Max2009|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2378,7 +4671,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2009|Win32"
+					Name="Release_Max2009|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2387,7 +4680,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2009|x64"
+					Name="Release_Max2009|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2396,7 +4689,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2008|Win32"
+					Name="Release_Max2008|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2405,7 +4698,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2008|x64"
+					Name="Release_Max2008|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2414,7 +4707,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2008|Win32"
+					Name="Debug_Max2008|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2423,7 +4716,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2008|x64"
+					Name="Debug_Max2008|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2432,7 +4725,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max8|Win32"
+					Name="Debug_Max8|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2441,7 +4734,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max8|x64"
+					Name="Debug_Max8|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2450,7 +4743,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max8|Win32"
+					Name="Release_Max8|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2459,7 +4752,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max8|x64"
+					Name="Release_Max8|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2468,7 +4761,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2010|Win32"
+					Name="Debug_Max2010|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2477,7 +4770,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2010|x64"
+					Name="Debug_Max2010|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2486,7 +4779,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2010|Win32"
+					Name="Release_Max2010|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2495,7 +4788,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2010|x64"
+					Name="Release_Max2010|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2504,7 +4797,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max7|Win32"
+					Name="Debug_Max7|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2513,7 +4806,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max7|x64"
+					Name="Debug_Max7|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2522,7 +4815,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max7|Win32"
+					Name="Release_Max7|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2531,7 +4824,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max7|x64"
+					Name="Release_Max7|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2540,7 +4833,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2009 ProgDB|Win32"
+					Name="Release_Max2009_ProgDB|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2549,7 +4842,241 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2009 ProgDB|x64"
+					Name="Release_Max2009_ProgDB|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2008_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2008_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2009_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2009_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2010_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2010_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max7_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max7_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max8_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max8_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max9_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max9_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2008_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2008_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2009_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2009_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2010_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2010_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max7_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max7_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max8_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max8_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max9_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max9_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2009_ProgDB_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2009_ProgDB_static|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2566,7 +5093,7 @@
 				RelativePath="..\src\COLLADAMaxPrecompiledHeaders.cpp"
 				>
 				<FileConfiguration
-					Name="Debug Max9|Win32"
+					Name="Debug_Max9|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2574,7 +5101,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max9|x64"
+					Name="Debug_Max9|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2582,7 +5109,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max9|Win32"
+					Name="Release_Max9|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2590,7 +5117,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max9|x64"
+					Name="Release_Max9|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2598,7 +5125,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2009|Win32"
+					Name="Debug_Max2009|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2606,7 +5133,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2009|x64"
+					Name="Debug_Max2009|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2614,7 +5141,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2009|Win32"
+					Name="Release_Max2009|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2622,7 +5149,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2009|x64"
+					Name="Release_Max2009|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2630,7 +5157,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2008|Win32"
+					Name="Release_Max2008|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2638,7 +5165,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2008|x64"
+					Name="Release_Max2008|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2646,7 +5173,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2008|Win32"
+					Name="Debug_Max2008|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2654,7 +5181,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2008|x64"
+					Name="Debug_Max2008|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2662,7 +5189,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max8|Win32"
+					Name="Debug_Max8|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2670,7 +5197,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max8|x64"
+					Name="Debug_Max8|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2678,7 +5205,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max8|Win32"
+					Name="Release_Max8|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2686,7 +5213,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max8|x64"
+					Name="Release_Max8|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2694,7 +5221,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2010|Win32"
+					Name="Debug_Max2010|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2702,7 +5229,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max2010|x64"
+					Name="Debug_Max2010|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2710,7 +5237,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2010|Win32"
+					Name="Release_Max2010|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2718,7 +5245,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2010|x64"
+					Name="Release_Max2010|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2726,7 +5253,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max7|Win32"
+					Name="Debug_Max7|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2734,7 +5261,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug Max7|x64"
+					Name="Debug_Max7|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2742,7 +5269,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max7|Win32"
+					Name="Release_Max7|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2750,7 +5277,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max7|x64"
+					Name="Release_Max7|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2758,7 +5285,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2009 ProgDB|Win32"
+					Name="Release_Max2009_ProgDB|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2766,7 +5293,215 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release Max2009 ProgDB|x64"
+					Name="Release_Max2009_ProgDB|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2008_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2008_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2009_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2009_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2010_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2010_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max7_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max7_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max8_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max8_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max9_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max9_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2008_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2008_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2009_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2009_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2010_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2010_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max7_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max7_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max8_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max8_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max9_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max9_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2009_ProgDB_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2009_ProgDB_static|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2873,7 +5608,7 @@
 					RelativePath="..\src\COLLADAMaxXRefExporter.cpp"
 					>
 					<FileConfiguration
-						Name="Debug Max9|Win32"
+						Name="Debug_Max9|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2881,7 +5616,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max9|x64"
+						Name="Debug_Max9|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2889,7 +5624,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max9|Win32"
+						Name="Release_Max9|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2897,7 +5632,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max9|x64"
+						Name="Release_Max9|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2905,7 +5640,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2009|Win32"
+						Name="Debug_Max2009|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2913,7 +5648,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2009|x64"
+						Name="Debug_Max2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2921,7 +5656,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2009|Win32"
+						Name="Release_Max2009|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2929,7 +5664,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2009|x64"
+						Name="Release_Max2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2937,7 +5672,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2008|Win32"
+						Name="Release_Max2008|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2945,7 +5680,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2008|x64"
+						Name="Release_Max2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2953,7 +5688,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2008|Win32"
+						Name="Debug_Max2008|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2961,7 +5696,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2008|x64"
+						Name="Debug_Max2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2969,7 +5704,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max8|Win32"
+						Name="Debug_Max8|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2977,7 +5712,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max8|x64"
+						Name="Debug_Max8|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2985,7 +5720,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max8|Win32"
+						Name="Release_Max8|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2993,7 +5728,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max8|x64"
+						Name="Release_Max8|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3001,7 +5736,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2010|Win32"
+						Name="Debug_Max2010|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3009,7 +5744,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2010|x64"
+						Name="Debug_Max2010|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3017,7 +5752,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2010|Win32"
+						Name="Release_Max2010|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3025,7 +5760,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2010|x64"
+						Name="Release_Max2010|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3033,7 +5768,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max7|Win32"
+						Name="Debug_Max7|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3041,7 +5776,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max7|x64"
+						Name="Debug_Max7|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3049,7 +5784,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max7|Win32"
+						Name="Release_Max7|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3057,7 +5792,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max7|x64"
+						Name="Release_Max7|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3065,7 +5800,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2009 ProgDB|Win32"
+						Name="Release_Max2009_ProgDB|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3073,7 +5808,215 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2009 ProgDB|x64"
+						Name="Release_Max2009_ProgDB|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2008_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2008_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2009_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2009_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2010_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2010_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max7_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max7_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max8_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max8_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max9_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max9_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2008_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2008_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2009_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2009_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2010_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2010_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max7_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max7_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max8_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max8_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max9_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max9_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2009_ProgDB_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2009_ProgDB_static|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3085,7 +6028,7 @@
 					RelativePath="..\src\COLLADAMaxXRefFile.cpp"
 					>
 					<FileConfiguration
-						Name="Debug Max9|Win32"
+						Name="Debug_Max9|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3093,7 +6036,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max9|x64"
+						Name="Debug_Max9|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3101,7 +6044,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max9|Win32"
+						Name="Release_Max9|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3109,7 +6052,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max9|x64"
+						Name="Release_Max9|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3117,7 +6060,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2009|Win32"
+						Name="Debug_Max2009|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3125,7 +6068,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2009|x64"
+						Name="Debug_Max2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3133,7 +6076,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2009|Win32"
+						Name="Release_Max2009|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3141,7 +6084,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2009|x64"
+						Name="Release_Max2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3149,7 +6092,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2008|Win32"
+						Name="Release_Max2008|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3157,7 +6100,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2008|x64"
+						Name="Release_Max2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3165,7 +6108,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2008|Win32"
+						Name="Debug_Max2008|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3173,7 +6116,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2008|x64"
+						Name="Debug_Max2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3181,7 +6124,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max8|Win32"
+						Name="Debug_Max8|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3189,7 +6132,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max8|x64"
+						Name="Debug_Max8|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3197,7 +6140,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max8|Win32"
+						Name="Release_Max8|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3205,7 +6148,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max8|x64"
+						Name="Release_Max8|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3213,7 +6156,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2010|Win32"
+						Name="Debug_Max2010|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3221,7 +6164,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max2010|x64"
+						Name="Debug_Max2010|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3229,7 +6172,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2010|Win32"
+						Name="Release_Max2010|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3237,7 +6180,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2010|x64"
+						Name="Release_Max2010|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3245,7 +6188,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max7|Win32"
+						Name="Debug_Max7|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3253,7 +6196,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug Max7|x64"
+						Name="Debug_Max7|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3261,7 +6204,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max7|Win32"
+						Name="Release_Max7|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3269,7 +6212,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max7|x64"
+						Name="Release_Max7|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3277,7 +6220,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2009 ProgDB|Win32"
+						Name="Release_Max2009_ProgDB|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3285,7 +6228,215 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release Max2009 ProgDB|x64"
+						Name="Release_Max2009_ProgDB|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2008_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2008_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2009_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2009_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2010_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2010_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max7_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max7_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max8_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max8_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max9_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max9_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2008_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2008_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2009_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2009_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2010_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2010_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max7_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max7_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max8_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max8_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max9_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max9_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2009_ProgDB_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2009_ProgDB_static|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
