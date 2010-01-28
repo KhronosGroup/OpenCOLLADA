@@ -1061,6 +1061,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAFWInstanceKinematicsScene.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAFWKinematicsController.cpp"
 					>
 				</File>
@@ -1235,10 +1239,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWInstanceGeometry.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWInstanceKinematicsScene.h"
 				>
 			</File>
 			<File
@@ -1510,6 +1510,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAFWFormulaNewParam.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAFWInstanceKinematicsScene.h"
 					>
 				</File>
 				<File

@@ -3509,6 +3509,14 @@ namespace COLLADASaxFWL
 		const ParserChar* target;
 	};
 
+	struct kinematics_scene__AttributeData
+	{
+		static const kinematics_scene__AttributeData DEFAULT;
+
+		const ParserChar* id;
+		const ParserChar* name;
+	};
+
 
 }
 

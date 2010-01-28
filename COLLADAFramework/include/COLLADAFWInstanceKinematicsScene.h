@@ -29,13 +29,11 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		InstanceKinematicsScene(const UniqueId& uniqueId, const UniqueId& instanciatedObjectId )
-			: InstanceBase<COLLADA_TYPE::INSTANCE_KINEMATICS_SCENE>(uniqueId, instanciatedObjectId)
-			, mBoundNodes(UniqueIdArray::OWNER){}
+		InstanceKinematicsScene(const UniqueId& uniqueId, const UniqueId& instanciatedObjectId );
 
 
         /** Destructor. */
-		virtual ~InstanceKinematicsScene(){}
+		virtual ~InstanceKinematicsScene();
 
 		UniqueIdArray& getBoundNodes() { return mBoundNodes; }
 

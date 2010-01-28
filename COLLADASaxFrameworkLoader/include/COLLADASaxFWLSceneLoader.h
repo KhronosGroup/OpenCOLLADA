@@ -24,6 +24,8 @@
 namespace COLLADASaxFWL
 {
 
+	class KinematicsInstanceKinematicsScene;
+
     /** TODO Documentation */
 	class SceneLoader : public FilePartLoader
     {
@@ -41,6 +43,14 @@ namespace COLLADASaxFWL
 		/** List of all nodes of the visual scene that are bound to the kinematics model.*/
 		UniqueIdSet mBoundNodes;
 
+		/** The InstanceKinematicsScene currently being parsed.*/
+		KinematicsInstanceKinematicsScene* mCurrentInstanceKinematicsScene;
+
+		/** The bind joint axis currently being parsed.*/
+		KinematicsBindJointAxis* mCurrentBindJointAxis;
+
+		/** The character data gather from the current element. Used for param.*/
+		String mCurrentCharacterData;
 	public:
 
         /** Constructor. */
@@ -67,7 +77,19 @@ namespace COLLADASaxFWL
 
 		virtual bool begin__bind_joint_axis( const bind_joint_axis__AttributeData& attributeData );
 
-		virtual bool end__bind_joint_axis(){return true;}
+		virtual bool end__bind_joint_axis();
+
+		virtual bool begin__axis____common_sidref_or_param_type();
+		virtual bool end__axis____common_sidref_or_param_type();
+
+		virtual bool begin__value____common_float_or_param_type();
+		virtual bool end__value____common_float_or_param_type();
+
+		virtual bool begin__param____common_param_type();
+		virtual bool end__param____common_param_type();
+		virtual bool data__param____common_param_type( const ParserChar* value, size_t length );
+
+
 
         /** Sax callback function for ending reading the scene. */
         virtual bool end__scene ();

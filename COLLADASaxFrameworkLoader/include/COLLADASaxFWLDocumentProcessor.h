@@ -189,6 +189,12 @@ namespace COLLADASaxFWL
 		/** Adds @a kinematicsController to the list of joints. It will be written as part of kinematics, if used.*/
 		void addKinematicsController( KinematicsController* kinematicsController ) { mKinematicsIntermediateData.getKinematicsControllers().push_back(kinematicsController); }
 
+		/** Adds @a kinematicsScene to the list of joints. It will be written as part of kinematics, if used.*/
+		void addKinematicsScene( KinematicsScene* kinematicsScene ) { mKinematicsIntermediateData.getKinematicsScenes().push_back(kinematicsScene); }
+
+		/** Adds @a instanceKinematicsScene to the list of joints. It will be written as part of kinematics, if used.*/
+		void addInstanceKinematicsScene( KinematicsInstanceKinematicsScene* instanceKinematicsScene ) { mKinematicsIntermediateData.getInstanceKinematicsScenes().push_back(instanceKinematicsScene); }
+
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
 		is closed.

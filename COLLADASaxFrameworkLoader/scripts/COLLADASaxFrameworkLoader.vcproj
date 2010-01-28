@@ -2498,6 +2498,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLInstanceArticulatedSystemLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLIParserImpl14.cpp"
 				>
 			</File>
@@ -2551,6 +2555,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADASaxFWLLibraryKinematicsModelsLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLLibraryKinematicsScenesLoader.cpp"
 				>
 			</File>
 			<File
@@ -3357,6 +3365,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\generated15\COLLADASaxFWLLibraryLightsLoader15.cpp"
 					>
 				</File>
@@ -3480,6 +3492,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLInstanceArticulatedSystemLoader.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLIntermediateTargetable.h"
 				>
 			</File>
@@ -3545,6 +3561,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLLibraryKinematicsModelsLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryKinematicsScenesLoader.h"
 				>
 			</File>
 			<File
@@ -4084,6 +4104,10 @@
 				</File>
 				<File
 					RelativePath="..\include\generated15\COLLADASaxFWLLibraryKinematicsModelsLoader15.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLLibraryKinematicsScenesLoader15.h"
 					>
 				</File>
 				<File

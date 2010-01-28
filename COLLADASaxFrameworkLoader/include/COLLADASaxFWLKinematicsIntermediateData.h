@@ -301,11 +301,11 @@ namespace COLLADASaxFWL
 
 	};
 
+	typedef std::vector<KinematicsNewParam*> KinematicsNewParams;
+
 
 	class KinematicsInstanceKinematicsModel : public KinematicInstance
 	{
-	public:
-		typedef std::vector<KinematicsNewParam*> KinematicsNewParams;
 	private:
 		KinematicsNewParams mKinematicsNewParams;
 	public:
@@ -320,7 +320,7 @@ namespace COLLADASaxFWL
 
 	};
 
-	typedef std::vector<KinematicsInstanceKinematicsModel> KinematicsInstanceKinematicsModels;
+	typedef std::list<KinematicsInstanceKinematicsModel> KinematicsInstanceKinematicsModels;
 
 	/** A kinematics controller as described in COLLADA articulated system.*/
 	class KinematicsController: public IntermediateTargetableTemplate<INTERMEDIATETARGETABLE_TYPE::KINEMATICCONTROLLER>
@@ -355,6 +355,382 @@ namespace COLLADASaxFWL
 	};
 
 
+	/** Bind as it appears in kinematics */
+	class KinematicsBind
+	{
+	public:
+		enum ValueType { VALUETYPE_UNKNOWN, VALUETYPE_FLOAT, VALUETYPE_INT, VALUETYPE_BOOL, VALUETYPE_SIDREF, VALUETYPE_PARAM};
+	private:
+		/** Value type of the bind.*/
+		ValueType mValueType;
+
+		union Value
+		{
+			double _double;
+			int _int;
+			bool _bool;
+			SidAddress* _sidref;
+			String* _param;
+		} mValue;
+
+		/** The symbol of the bind (sid in COLLADA).*/
+		String mSymbol;
+	public:
+
+		/** Constructor. */
+		KinematicsBind(ValueType valueType);
+
+		/** Constructor. */
+		KinematicsBind();
+
+		/** Destructor. */
+		virtual ~KinematicsBind(){deleteAll();}
+
+		/** Returns the value type of the bind.*/
+		ValueType getValueType() const { return mValueType; }
+
+		/** Sets the value type of the bind.*/
+		//		void setValueType(ValueType valueType) { mValueType = valueType; }
+
+		/** Returns the double value of the bind. Type must be VALUETYPE_FLOAT.*/
+		double getDoubleValue() const { return mValue._double; }
+
+		/** Sets the double value of the bind. Type will be set to VALUETYPE_FLOAT.*/
+		void setDoubleValue(double doubleValue) { deleteAll(); mValue._double = doubleValue; mValueType = VALUETYPE_FLOAT; }
+
+		/** Returns the int value of the bind. Type must be VALUETYPE_INT.*/
+		int getIntValue() const { return mValue._int; }
+
+		/** Sets the int value of the bind. Type will be set to VALUETYPE_INT.*/
+		void setIntValue(int intValue) { deleteAll(); mValue._int = intValue; mValueType = VALUETYPE_INT; }
+
+		/** Returns the bool value of the bind. Type must be VALUETYPE_BOOL.*/
+		bool getBoolValue() const { return mValue._bool; }
+
+		/** Sets the bool value of the bind. Type will be set to VALUETYPE_BOOL.*/
+		void setBoolValue(bool boolValue) { deleteAll(); mValue._bool = boolValue; mValueType = VALUETYPE_BOOL; }
+
+		/** Returns the sidref value of the bind. Type must be VALUETYPE_SIDREF.*/
+		const SidAddress* getSidrefValue() const { return mValue._sidref; }
+
+		/** Sets the sidref value of the bind. Type will be set to VALUETYPE_SIDREF.*/
+		void setSidrefValue( const SidAddress& sidrefValue) { deleteAll(); mValue._sidref = new SidAddress(sidrefValue); mValueType = VALUETYPE_SIDREF; }
+
+		/** Returns the param ref of the bind. Type must be VALUETYPE_PARAM.*/
+		const String* getParamValue() const { return mValue._param; }
+
+		/** Sets the param value of the bind. Type will be set to VALUETYPE_PARAM.*/
+		void setParamValue( const String& paramValue) { deleteAll(); mValue._param = new String(paramValue); mValueType = VALUETYPE_PARAM; }
+
+		/** Returns the name of the bind (sid in COLLADA).*/
+		const String& getSymbol() const { return mSymbol; }
+
+		/** Returns the name of the bind (sid in COLLADA).*/
+		void setSymbol(const String& symbol) { mSymbol = symbol; }
+
+	private:
+		void deleteSidRef()
+		{
+			if ( mValueType == VALUETYPE_SIDREF)
+			{
+				delete mValue._sidref;
+				mValue._sidref = 0;
+			}
+		}
+
+		void deleteParam()
+		{
+			if ( mValueType == VALUETYPE_PARAM)
+			{
+				delete mValue._param;
+				mValue._param = 0;
+			}
+		}
+
+		void deleteAll()
+		{
+			deleteSidRef();
+			deleteParam();
+		}
+
+		/** Disable default copy ctor. */
+		KinematicsBind( const KinematicsBind& pre );
+
+		/** Disable default assignment operator. */
+		const KinematicsBind& operator= ( const KinematicsBind& pre );
+	};
+
+	typedef std::vector<KinematicsBind*> KinematicsBinds;
+
+
+
+	/** A kinematics controller as described in COLLADA articulated system.*/
+	class KinematicsInstanceArticulatedSystem : public KinematicInstance	
+	{
+	private:
+		KinematicsNewParams mKinematicsNewParams;
+		KinematicsBinds mKinematicsBinds;
+
+	public:
+		KinematicsInstanceArticulatedSystem( const COLLADABU::URI& uRL)
+			: KinematicInstance(uRL){}
+
+		~KinematicsInstanceArticulatedSystem();
+
+		void addBind( KinematicsBind* bind) { mKinematicsBinds.push_back(bind); }
+
+	};
+
+	typedef std::vector<KinematicsInstanceArticulatedSystem*> KinematicsInstanceArticulatedSystems;
+
+	/** A kinematics scene as described in COLLADA articulated system.*/
+	class KinematicsScene: public IntermediateTargetableTemplate<INTERMEDIATETARGETABLE_TYPE::KINEMATICSCENE>
+	{
+	private:
+		/** The id of the kinematics scene.*/
+		COLLADABU::URI mUri;
+
+		/** The name of the kinematics scene.*/
+		String mName;
+
+		KinematicsInstanceArticulatedSystems mKinematicsInstanceArticulatedSystems;
+
+	public:
+		KinematicsScene(const COLLADABU::URI& uri, const String& name )
+			: mUri( uri ), mName(name) {}
+
+		~KinematicsScene();
+
+		void addInstanceArticulatedSystem(KinematicsInstanceArticulatedSystem* kinematicsInstanceArticulatedSystem);
+
+	};
+
+
+	/** Bind as it appears in kinematics */
+	class KinematicsSidrefOrParam
+	{
+	public:
+		enum ValueType { VALUETYPE_UNKNOWN, VALUETYPE_PARAM, VALUETYPE_SIDREF};
+	private:
+		/** Value type of the bind.*/
+		ValueType mValueType;
+
+		union Value
+		{
+			SidAddress* _sidref;
+			String* _param;
+		} mValue;
+
+		/** The symbol of the bind (sid in COLLADA).*/
+		String mSymbol;
+	public:
+
+		/** Constructor. */
+		KinematicsSidrefOrParam(ValueType axisType);
+
+		/** Constructor. */
+		KinematicsSidrefOrParam() : mValueType(VALUETYPE_UNKNOWN){}
+
+		/** Destructor. */
+		virtual ~KinematicsSidrefOrParam(){deleteAll();}
+
+		/** Returns the value type SidrefOrParam.*/
+		ValueType getValueType() const { return mValueType; }
+
+		/** Returns the sidref value SidrefOrParam. Type must be VALUETYPE_SIDREF.*/
+		const SidAddress* getSidrefValue() const { return mValue._sidref; }
+
+		/** Sets the sidref value SidrefOrParam. Type will be set to VALUETYPE_SIDREF.*/
+		void setSidrefValue( const SidAddress& sidrefValue) { deleteAll(); mValue._sidref = new SidAddress(sidrefValue); mValueType = VALUETYPE_SIDREF; }
+
+		/** Returns the param ref SidrefOrParam. Type must be VALUETYPE_PARAM.*/
+		const String* getParamValue() const { return mValue._param; }
+
+		/** Sets the param value SidrefOrParam. Type will be set to VALUETYPE_PARAM.*/
+		void setParamValue( const String& paramValue) { deleteAll(); mValue._param = new String(paramValue); mValueType = VALUETYPE_PARAM; }
+	private:
+		void deleteSidRef()
+		{
+			if ( mValueType == VALUETYPE_SIDREF)
+			{
+				delete mValue._sidref;
+				mValue._sidref = 0;
+			}
+		}
+
+		void deleteParam()
+		{
+			if ( mValueType == VALUETYPE_PARAM)
+			{
+				delete mValue._param;
+				mValue._param = 0;
+			}
+		}
+
+		void deleteAll()
+		{
+			deleteSidRef();
+			deleteParam();
+		}
+
+		/** Disable default copy ctor. */
+		KinematicsSidrefOrParam( const KinematicsSidrefOrParam& pre );
+
+		/** Disable default assignment operator. */
+		const KinematicsSidrefOrParam& operator= ( const KinematicsSidrefOrParam& pre );
+	};
+
+	typedef KinematicsSidrefOrParam KinematicsAxis;
+
+	/** Bind as it appears in kinematics */
+	class KinematicsFloatOrParam
+	{
+	public:
+		enum ValueType { VALUETYPE_UNKNOWN, VALUETYPE_PARAM, VALUETYPE_FLOAT};
+	private:
+		/** Value type of the bind.*/
+		ValueType mValueType;
+
+		union Value
+		{
+			float _float;
+			String* _param;
+		} mValue;
+
+		/** The symbol of the bind (sid in COLLADA).*/
+		String mSymbol;
+	public:
+
+		/** Constructor. */
+		KinematicsFloatOrParam(ValueType axisType);
+
+		/** Constructor. */
+		KinematicsFloatOrParam() : mValueType(VALUETYPE_UNKNOWN){}
+
+		/** Destructor. */
+		virtual ~KinematicsFloatOrParam(){deleteParam();}
+
+		/** Returns the axis type FloatOrParam.*/
+		ValueType getValueType() const { return mValueType; }
+
+		/** Returns the sidref value FloatOrParam. Type must be VALUETYPE_FLOAT.*/
+		float getFloatValue() const { return mValue._float; }
+
+		/** Sets the sidref value FloatOrParam. Type will be set to VALUETYPE_FLOAT.*/
+		void setFloatValue( float value) { deleteParam(); mValue._float; mValueType = VALUETYPE_FLOAT; }
+
+		/** Returns the param ref FloatOrParam. Type must be VALUETYPE_PARAM.*/
+		const String* getParamValue() const { return mValue._param; }
+
+		/** Sets the param value FloatOrParam. Type will be set to VALUETYPE_PARAM.*/
+		void setParamValue( const String& paramValue) { deleteParam(); mValue._param = new String(paramValue); mValueType = VALUETYPE_PARAM; }
+	private:
+		void deleteParam()
+		{
+			if ( mValueType == VALUETYPE_PARAM)
+			{
+				delete mValue._param;
+				mValue._param = 0;
+			}
+		}
+
+		/** Disable default copy ctor. */
+		KinematicsFloatOrParam( const KinematicsFloatOrParam& pre );
+
+		/** Disable default assignment operator. */
+		const KinematicsFloatOrParam& operator= ( const KinematicsFloatOrParam& pre );
+	};
+
+	typedef KinematicsFloatOrParam KinematicsValue;
+
+	/** bind_joint_axis as it appears in kinematics */
+	class KinematicsBindJointAxis
+	{
+	private:
+
+		/** The target of the bind (sid in COLLADA).*/
+		SidAddress mTarget;
+	
+		/** The axis.*/
+		KinematicsAxis mAxis;
+
+		/** The value of the axis.*/
+		KinematicsValue mValue;
+	public:
+
+		/** Constructor. */
+		KinematicsBindJointAxis(SidAddress target) : mTarget(target){}
+
+		/** Destructor. */
+		virtual ~KinematicsBindJointAxis(){}
+
+		/** Returns the target of the bind (sid in COLLADA).*/
+		const SidAddress& getTarget() const { return mTarget; }
+
+		/** Sets the target of the bind (sid in COLLADA).*/
+		void setTarget( const SidAddress& target) { mTarget = target; }
+
+		/** Returns the axis.*/
+		const KinematicsAxis& getAxis() const { return mAxis; }
+
+		/** Returns the axis.*/
+		KinematicsAxis& getAxis(){ return mAxis; }
+
+		/** Returns the value.*/
+		const KinematicsValue& getValue() const { return mValue; }
+
+		/** Returns the value.*/
+		KinematicsValue& getValue(){ return mValue; }
+
+	private:
+		/** Disable default copy ctor. */
+		KinematicsBindJointAxis( const KinematicsBindJointAxis& pre );
+
+		/** Disable default assignment operator. */
+		const KinematicsBindJointAxis& operator= ( const KinematicsBindJointAxis& pre );
+	};
+
+	typedef std::vector<KinematicsBindJointAxis*> KinematicsBindJointAxes;
+
+
+	/** instance_kinematics_scene as it appears in kinematics */
+	class KinematicsInstanceKinematicsScene
+	{
+	private:
+
+		/** The url of the instantiate kinematics scene.*/
+		COLLADABU::URI mUrl;
+
+		KinematicsBindJointAxes mBindJointAxes;
+
+		// file id
+
+	public:
+
+		/** Constructor. */
+		KinematicsInstanceKinematicsScene(){}
+
+		/** Destructor. */
+		virtual ~KinematicsInstanceKinematicsScene();
+
+		/** The url of the instantiate kinematics scene.*/
+		COLLADABU::URI getUrl() const { return mUrl; }
+
+		/** The url of the instantiate kinematics scene.*/
+		void setUrl(COLLADABU::URI url) { mUrl = url; }
+
+		void addBindJointAxis(KinematicsBindJointAxis* bindJointAxis) { mBindJointAxes.push_back(bindJointAxis);}
+
+		const KinematicsBindJointAxes& getBindJointAxes() const { return mBindJointAxes; }
+	private:
+		/** Disable default copy ctor. */
+		KinematicsInstanceKinematicsScene( const KinematicsInstanceKinematicsScene& pre );
+
+		/** Disable default assignment operator. */
+		const KinematicsInstanceKinematicsScene& operator= ( const KinematicsInstanceKinematicsScene& pre );
+	};
+
+
     /** Kinematics data that needs to be stored while parsing a COLLADA file. This data is used to 
 	build the kinematics model, after the entire file has been parsed. 
 	All the heap instances of FW classes are created by using FW_NEW, instances of other classes by using new.*/
@@ -370,9 +746,14 @@ namespace COLLADASaxFWL
 		/** List of kinematic models.*/
 		typedef std::vector< KinematicsModel* > KinematicsModelList;
 
-		/** List of kinematic controller.*/
+		/** List of kinematic controllers.*/
 		typedef std::vector< KinematicsController* > KinematicsControllerList;
 
+		/** List of kinematic scenes.*/
+		typedef std::vector< KinematicsScene* > KinematicsSceneList;
+
+		/** List of instance kinematics scenes.*/
+		typedef std::vector<KinematicsInstanceKinematicsScene*> KinematicsInstanceKinematicsScenes;
 
 	private:
 		/** List of all joints already created. They will be written as part of kinematics.*/
@@ -386,6 +767,12 @@ namespace COLLADASaxFWL
 
 		/** List of all kinematic controller already created. They will be written as part of kinematics.*/
 		KinematicsControllerList mKinematicsControllers;
+
+		/** List of all kinematic scenes already created. They will be written as part of kinematics.*/
+		KinematicsSceneList mKinematicsScenes;
+
+		/** The only instance kinematics scenes.*/
+		KinematicsInstanceKinematicsScenes mInstanceKinematicsScenes;
 
 	public:
 
@@ -412,6 +799,15 @@ namespace COLLADASaxFWL
 
 		/** List of all kinematic controllers already created. They will be written as part of kinematics.*/
 		KinematicsControllerList& getKinematicsControllers() { return mKinematicsControllers; }
+
+		/** List of all kinematic scenes already created. They will be written as part of kinematics.*/
+		const KinematicsSceneList& getKinematicsScenes() const { return mKinematicsScenes; }
+
+		/** List of all kinematic scenes already created. They will be written as part of kinematics.*/
+		KinematicsSceneList& getKinematicsScenes() { return mKinematicsScenes; }
+
+		/** List of all instance kinematic scenes already created. They will be written as part of kinematics.*/
+		KinematicsInstanceKinematicsScenes& getInstanceKinematicsScenes() { return mInstanceKinematicsScenes; }
 
         /** Constructor. */
 		KinematicsIntermediateData();

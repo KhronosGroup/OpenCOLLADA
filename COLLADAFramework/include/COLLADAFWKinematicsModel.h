@@ -48,7 +48,7 @@ namespace COLLADAFW
 			{}
 
 			/** Returns the number of the link. This number is used to uniquely identify one link within a specific 
-			kinematics model. The base link has always number 0. */
+			kinematics model. */
 			size_t getLinkNumber() const { return mLinkNumber; }
 
 			/** Returns the index of the joint in mJoints of KinematicsModel.*/
