@@ -467,5 +467,28 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	//------------------------------
+	void DocumentProcessor::addKinematicsScene( KinematicsScene* kinematicsScene )
+	{
+		const COLLADABU::URI& uri = kinematicsScene->getUri();
+		mKinematicsIntermediateData.getKinematicsScenes().insert(std::make_pair(uri, kinematicsScene));
+	}
+
+	//------------------------------
+	KinematicsScene* DocumentProcessor::getKinematicsSceneByUri( const COLLADABU::URI& uri )
+	{
+		const KinematicsIntermediateData::KinematicsSceneMap& map = mKinematicsIntermediateData.getKinematicsScenes();
+		KinematicsIntermediateData::KinematicsSceneMap::const_iterator it = map.find(uri);
+		if ( it != map.end() )
+		{
+			return it->second;
+		}
+		else
+		{
+			return 0;
+		}
+		
+	}
+
 
 } // namespace COLLADASaxFWL

@@ -34,6 +34,9 @@ namespace COLLADASaxFWL
 	class KinematicAttachment;
 	class KinematicsController;
 	class KinematicsInstanceKinematicsModel;
+	class KinematicsInstanceKinematicsScene;
+	class KinematicsScene;
+	class KinematicsBindJointAxis;
 	class AxisInfo;
 
     /** Creates a kinematics scene from an intermediate kinematics data */
@@ -99,9 +102,13 @@ namespace COLLADASaxFWL
 	
 		COLLADAFW::KinematicsController* createFWKinematicsController(KinematicsController* kinematicsController);
 
+		COLLADAFW::InstanceKinematicsScene* createFWInstanceKinematicsScene(KinematicsInstanceKinematicsScene* instanceKinematicsScene);
+
 		COLLADAFW::AxisInfo createFWAxisInfo( const AxisInfo& axisInfo, bool& success );
 
 		COLLADAFW::UniqueId processInstanceKinematicsModel(const KinematicsInstanceKinematicsModel& instanceKinematicsModel);
+
+		const COLLADAFW::UniqueId& resolveJoint(KinematicsScene* kinematicsScene, KinematicsBindJointAxis* kinematicsBindJointAxis);
 	};
 
 } // namespace COLLADASAXFWL

@@ -503,6 +503,10 @@ namespace COLLADASaxFWL
 
 		void addInstanceArticulatedSystem(KinematicsInstanceArticulatedSystem* kinematicsInstanceArticulatedSystem);
 
+		const KinematicsInstanceArticulatedSystems& getKinematicsInstanceArticulatedSystems() const { return mKinematicsInstanceArticulatedSystems; }
+
+		/** The id of the kinematics scene.*/
+		const COLLADABU::URI& getUri() const { return mUri; }
 	};
 
 
@@ -750,7 +754,7 @@ namespace COLLADASaxFWL
 		typedef std::vector< KinematicsController* > KinematicsControllerList;
 
 		/** List of kinematic scenes.*/
-		typedef std::vector< KinematicsScene* > KinematicsSceneList;
+		typedef COLLADABU::hash_map< COLLADABU::URI, KinematicsScene* > KinematicsSceneMap;
 
 		/** List of instance kinematics scenes.*/
 		typedef std::vector<KinematicsInstanceKinematicsScene*> KinematicsInstanceKinematicsScenes;
@@ -769,7 +773,7 @@ namespace COLLADASaxFWL
 		KinematicsControllerList mKinematicsControllers;
 
 		/** List of all kinematic scenes already created. They will be written as part of kinematics.*/
-		KinematicsSceneList mKinematicsScenes;
+		KinematicsSceneMap mKinematicsScenes;
 
 		/** The only instance kinematics scenes.*/
 		KinematicsInstanceKinematicsScenes mInstanceKinematicsScenes;
@@ -801,10 +805,13 @@ namespace COLLADASaxFWL
 		KinematicsControllerList& getKinematicsControllers() { return mKinematicsControllers; }
 
 		/** List of all kinematic scenes already created. They will be written as part of kinematics.*/
-		const KinematicsSceneList& getKinematicsScenes() const { return mKinematicsScenes; }
+		const KinematicsSceneMap& getKinematicsScenes() const { return mKinematicsScenes; }
 
 		/** List of all kinematic scenes already created. They will be written as part of kinematics.*/
-		KinematicsSceneList& getKinematicsScenes() { return mKinematicsScenes; }
+		KinematicsSceneMap& getKinematicsScenes() { return mKinematicsScenes; }
+
+		/** List of all instance kinematic scenes already created. They will be written as part of kinematics.*/
+		const KinematicsInstanceKinematicsScenes& getInstanceKinematicsScenes() const { return mInstanceKinematicsScenes; }
 
 		/** List of all instance kinematic scenes already created. They will be written as part of kinematics.*/
 		KinematicsInstanceKinematicsScenes& getInstanceKinematicsScenes() { return mInstanceKinematicsScenes; }

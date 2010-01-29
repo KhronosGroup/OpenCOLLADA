@@ -14,17 +14,40 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWInstanceBase.h"
 #include "COLLADAFWUniqueId.h"
+#include "COLLADAFWPointerArray.h"
 
 namespace COLLADAFW
 {
+	class KinematicsModel;
 
     /** TODO Documentation */
 	class InstanceKinematicsScene : public InstanceBase<COLLADA_TYPE::INSTANCE_KINEMATICS_SCENE>
 	{
+	public:
+		struct NodeLinkBinding
+		{
+			/** The uniqueId of the node within the visual scene, that is bound to a link.*/
+			COLLADAFW::UniqueId nodeUniqueId;
+
+			/** The kinematics model the link the node is bound to belongs to.*/
+			KinematicsModel* kinematicsModel;
+
+			/** The number of the link within the kinematics model.*/
+			size_t linkNumber;
+		};
+
+		typedef Array<NodeLinkBinding> NodeLinkBindingArray;
+
 	private:
 
 		/** List of all nodes of the visual scene that are bound to the kinematics model.*/
 		UniqueIdArray mBoundNodes;
+
+		/** The node link bindings of the instance kinematics scene.*/
+		NodeLinkBindingArray mNodeLinkBindings;
+
+		/** The id of the COLLADA file the instance kinematics scene belongs to.*/
+		FileId mFileId;
 	
 	public:
 
@@ -39,6 +62,18 @@ namespace COLLADAFW
 
 		const UniqueIdArray& getBoundNodes() const { return mBoundNodes; }
 
+		/** The node link bindings of the instance kinematics scene.*/
+		const NodeLinkBindingArray& getNodeLinkBindings() const { return mNodeLinkBindings; }
+
+		/** The node link bindings of the instance kinematics scene.*/
+		NodeLinkBindingArray& getNodeLinkBindings() { return mNodeLinkBindings; }
+
+		/** The id of the COLLADA file the instance kinematics scene belongs to.*/
+		FileId getFileId() const { return mFileId; }
+
+		/** The id of the COLLADA file the instance kinematics scene belongs to.*/
+		void setFileId(FileId fileId) { mFileId = fileId; }
+
 	private:
 
         /** Disable default copy ctor. */
@@ -48,6 +83,9 @@ namespace COLLADAFW
 		const InstanceKinematicsScene& operator= ( const InstanceKinematicsScene& pre );
 
 	};
+
+	typedef PointerArray<InstanceKinematicsScene> InstanceKinematicsSceneArray;
+
 
 } // namespace COLLADAFW
 

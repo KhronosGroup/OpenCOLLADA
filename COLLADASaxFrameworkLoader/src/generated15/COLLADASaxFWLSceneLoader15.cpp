@@ -77,6 +77,34 @@ return mLoader->end__bind_joint_axis();
 }
 
 
+bool SceneLoader15::begin__axis____common_sidref_or_param_type()
+{
+SaxVirtualFunctionTest15(begin__axis____common_sidref_or_param_type());
+return mLoader->begin__axis____common_sidref_or_param_type();
+}
+
+
+bool SceneLoader15::end__axis____common_sidref_or_param_type()
+{
+SaxVirtualFunctionTest15(end__axis____common_sidref_or_param_type());
+return mLoader->end__axis____common_sidref_or_param_type();
+}
+
+
+bool SceneLoader15::begin__value____common_float_or_param_type()
+{
+SaxVirtualFunctionTest15(begin__value____common_float_or_param_type());
+return mLoader->begin__value____common_float_or_param_type();
+}
+
+
+bool SceneLoader15::end__value____common_float_or_param_type()
+{
+SaxVirtualFunctionTest15(end__value____common_float_or_param_type());
+return mLoader->end__value____common_float_or_param_type();
+}
+
+
 bool SceneLoader15::end__scene()
 {
 SaxVirtualFunctionTest15(end__scene());

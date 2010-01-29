@@ -117,7 +117,7 @@ namespace COLLADASaxFWL
 			{
 				++p;
 			}
-			const COLLADAFW::UniqueId nodeUniqueId = createUniqueIdFromId(String(target, p-target).c_str());
+			const COLLADAFW::UniqueId nodeUniqueId = getUniqueIdById(String(target, p-target).c_str());
 			if ( nodeUniqueId.isValid() )
 			{
 				mBoundNodes.insert(nodeUniqueId);

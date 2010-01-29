@@ -57,7 +57,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueId( const String& uriString)
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdByUrl( const String& uriString)
 	{
 		assert( getColladaLoader() );
 
@@ -80,7 +80,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromId( const ParserChar* colladaId )
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdById( const ParserChar* colladaId )
 	{
 		assert( getColladaLoader() );
 
@@ -123,7 +123,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const COLLADABU::URI& url, bool isAbsolute )
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdByUrl( const COLLADABU::URI& url, bool isAbsolute )
 	{
 		assert( getColladaLoader() );
 		

@@ -190,7 +190,11 @@ namespace COLLADASaxFWL
 		void addKinematicsController( KinematicsController* kinematicsController ) { mKinematicsIntermediateData.getKinematicsControllers().push_back(kinematicsController); }
 
 		/** Adds @a kinematicsScene to the list of joints. It will be written as part of kinematics, if used.*/
-		void addKinematicsScene( KinematicsScene* kinematicsScene ) { mKinematicsIntermediateData.getKinematicsScenes().push_back(kinematicsScene); }
+		void addKinematicsScene( KinematicsScene* kinematicsScene );
+
+		/** Returns the kinematics scene with URi @a uri or null if no kinematics scene with this URI has been
+		added using addKinematicsScene.*/
+		KinematicsScene* getKinematicsSceneByUri( const COLLADABU::URI& uri);
 
 		/** Adds @a instanceKinematicsScene to the list of joints. It will be written as part of kinematics, if used.*/
 		void addInstanceKinematicsScene( KinematicsInstanceKinematicsScene* instanceKinematicsScene ) { mKinematicsIntermediateData.getInstanceKinematicsScenes().push_back(instanceKinematicsScene); }

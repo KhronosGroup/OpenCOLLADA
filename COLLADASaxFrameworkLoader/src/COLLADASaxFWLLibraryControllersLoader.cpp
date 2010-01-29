@@ -216,7 +216,7 @@ namespace COLLADASaxFWL
 
         mCurrentSkinControllerData->setOriginalId ( mOriginalId );
         mCurrentSkinControllerData->setName ( mCurrentControllerName );
-		mCurrentControllerSourceUniqueId = createUniqueIdFromUrl(attributeData.source);
+		mCurrentControllerSourceUniqueId = getUniqueIdByUrl(attributeData.source);
 		COLLADABU::URI absoluteUri(getFileUri(), attributeData.source.getURIString());
 		addSkinDataSkinSourcePair( mCurrentSkinControllerData->getUniqueId(), absoluteUri);
 		return true;

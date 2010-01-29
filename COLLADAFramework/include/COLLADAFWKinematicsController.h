@@ -24,7 +24,7 @@ namespace COLLADAFW
 {
 
     /** TODO Documentation */
-	class KinematicsController 	: ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>
+	class KinematicsController 	: public ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>
 	{
 	private:
 
