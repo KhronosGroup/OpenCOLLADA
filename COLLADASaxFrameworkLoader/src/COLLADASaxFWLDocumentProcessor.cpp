@@ -487,7 +487,28 @@ namespace COLLADASaxFWL
 		{
 			return 0;
 		}
-		
+	}
+
+	//------------------------------
+	void DocumentProcessor::addKinematicsController( KinematicsController* kinematicsController )
+	{
+		const COLLADABU::URI& uri = kinematicsController->getUri();
+		mKinematicsIntermediateData.getKinematicsControllers().insert(std::make_pair(uri, kinematicsController));
+	}
+
+	//------------------------------
+	KinematicsController* DocumentProcessor::getKinematicsControllerByUri( const COLLADABU::URI& uri )
+	{
+		const KinematicsIntermediateData::KinematicsControllerMap& map = mKinematicsIntermediateData.getKinematicsControllers();
+		KinematicsIntermediateData::KinematicsControllerMap::const_iterator it = map.find(uri);
+		if ( it != map.end() )
+		{
+			return it->second;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 

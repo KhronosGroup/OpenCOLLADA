@@ -2502,6 +2502,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLInstanceKinematicsModelLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLIParserImpl14.cpp"
 				>
 			</File>
@@ -3493,6 +3497,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLInstanceArticulatedSystemLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLInstanceKinematicsModelLoader.h"
 				>
 			</File>
 			<File

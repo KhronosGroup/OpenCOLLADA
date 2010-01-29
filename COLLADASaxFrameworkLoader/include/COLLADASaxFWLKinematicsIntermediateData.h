@@ -751,7 +751,7 @@ namespace COLLADASaxFWL
 		typedef std::vector< KinematicsModel* > KinematicsModelList;
 
 		/** List of kinematic controllers.*/
-		typedef std::vector< KinematicsController* > KinematicsControllerList;
+		typedef COLLADABU::hash_map< COLLADABU::URI, KinematicsController* > KinematicsControllerMap;
 
 		/** List of kinematic scenes.*/
 		typedef COLLADABU::hash_map< COLLADABU::URI, KinematicsScene* > KinematicsSceneMap;
@@ -770,7 +770,7 @@ namespace COLLADASaxFWL
 		KinematicsModelList mKinematicsModels;
 
 		/** List of all kinematic controller already created. They will be written as part of kinematics.*/
-		KinematicsControllerList mKinematicsControllers;
+		KinematicsControllerMap mKinematicsControllers;
 
 		/** List of all kinematic scenes already created. They will be written as part of kinematics.*/
 		KinematicsSceneMap mKinematicsScenes;
@@ -799,10 +799,10 @@ namespace COLLADASaxFWL
 		KinematicsModelList& getKinematicsModels() { return mKinematicsModels; }
 
 		/** List of all kinematic controllers already created. They will be written as part of kinematics.*/
-		const KinematicsControllerList& getKinematicsControllers() const { return mKinematicsControllers; }
+		const KinematicsControllerMap& getKinematicsControllers() const { return mKinematicsControllers; }
 
 		/** List of all kinematic controllers already created. They will be written as part of kinematics.*/
-		KinematicsControllerList& getKinematicsControllers() { return mKinematicsControllers; }
+		KinematicsControllerMap& getKinematicsControllers() { return mKinematicsControllers; }
 
 		/** List of all kinematic scenes already created. They will be written as part of kinematics.*/
 		const KinematicsSceneMap& getKinematicsScenes() const { return mKinematicsScenes; }

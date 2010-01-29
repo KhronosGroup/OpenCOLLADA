@@ -85,7 +85,7 @@ namespace COLLADASaxFWL
 		deleteVector(mKinematicsModels);
 
 		// delete kinematic controllers
-		deleteVector(mKinematicsControllers);
+		deleteMap(mKinematicsControllers);
 
 		// delete  instance kinematics scenes
 		deleteVector(mInstanceKinematicsScenes);

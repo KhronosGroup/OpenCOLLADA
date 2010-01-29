@@ -98,11 +98,11 @@ namespace COLLADASaxFWL
 		//Kinematics controllers
 		COLLADAFW::KinematicsControllerArray& fwKinematicsControllers = mKinematicsScene->getKinematicsControllers();
 
-		const KinematicsIntermediateData::KinematicsControllerList& kinematicsControllers = mKinematicsIntermediateData.getKinematicsControllers();
-		KinematicsIntermediateData::KinematicsControllerList::const_iterator controllerIt = kinematicsControllers.begin();
+		const KinematicsIntermediateData::KinematicsControllerMap& kinematicsControllers = mKinematicsIntermediateData.getKinematicsControllers();
+		KinematicsIntermediateData::KinematicsControllerMap::const_iterator controllerIt = kinematicsControllers.begin();
 		for ( ; controllerIt != kinematicsControllers.end(); ++controllerIt )
 		{
-			KinematicsController* kinematicsController = *controllerIt;
+			KinematicsController* kinematicsController = controllerIt->second;
 
 			COLLADAFW::KinematicsController* fwKinematicsController = createFWKinematicsController(kinematicsController);
 			fwKinematicsControllers.append( fwKinematicsController );
@@ -419,7 +419,6 @@ namespace COLLADASaxFWL
 			resolveJoint(kinematicsScene, kinematicsBindJointAxis);
 
 		}
-
 		
 		return fwInstanceKinematicsScene;
 	}
@@ -429,14 +428,45 @@ namespace COLLADASaxFWL
 	{
 		const KinematicsInstanceArticulatedSystems& instanceArticulatedSystems = kinematicsScene->getKinematicsInstanceArticulatedSystems();
 		KinematicsInstanceArticulatedSystems::const_iterator it = instanceArticulatedSystems.begin();
-		for (; it != instanceArticulatedSystems.end(); ++it)
-		{
-			const KinematicsInstanceArticulatedSystem* instanceArticulatedSystem = *it;
+// 		for (; it != instanceArticulatedSystems.end(); ++it)
+// 		{
+// 			const KinematicsInstanceArticulatedSystem* instanceArticulatedSystem = *it;
+// 
+// 			const COLLADABU::URI& articulatedSystemUrl = instanceArticulatedSystem->getUrl();
+// 
+// 			KinematicsController* controller = mDocumentProcessor->getKinematicsControllerByUri(articulatedSystemUrl);
+// 
+// 			if ( !controller )
+// 			{
+// 				String msg = "Articulated scene \"" + articulatedSystemUrl.getURIString() + "\" could not be found.";
+// 
+// 				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+// 				continue;
+// 			}
+// 
+// 			controller->getKinematicsInstanceKinematicsModels()
+// 		}
 
-			const COLLADABU::URI& articulatedSystemUrl = instanceArticulatedSystem->getUrl();
-
-//			kin
-		}
+// 		const KinematicsInstanceArticulatedSystems& instanceArticulatedSystems = kinematicsScene->getKinematicsInstanceArticulatedSystems();
+// 		KinematicsInstanceArticulatedSystems::const_iterator it = instanceArticulatedSystems.begin();
+// 		for (; it != instanceArticulatedSystems.end(); ++it)
+// 		{
+// 			const KinematicsInstanceArticulatedSystem* instanceArticulatedSystem = *it;
+// 
+// 			const COLLADABU::URI& articulatedSystemUrl = instanceArticulatedSystem->getUrl();
+// 
+// 			KinematicsController* controller = mDocumentProcessor->getKinematicsControllerByUri(articulatedSystemUrl);
+// 
+// 			if ( !controller )
+// 			{
+// 				String msg = "Articulated scene \"" + articulatedSystemUrl.getURIString() + "\" could not be found.";
+// 
+// 				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+// 				continue;
+// 			}
+// 
+// 			controller->getKinematicsInstanceKinematicsModels()
+// 		}
 		return COLLADAFW::UniqueId::INVALID;
 	}
 
