@@ -41,7 +41,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool InstanceKinematicsModelLoader::end__newparam____kinematics_newparam_type()
 	{
-		mCurrentKinematicsInstanceKinematicsModel->getKinematicsNewParams().push_back(mCurrentKinematicsNewParam);
+		mCurrentKinematicsInstanceKinematicsModel->addKinematicsNewParam(mCurrentKinematicsNewParam);
 		mCurrentKinematicsNewParamSid.clear();
 		mCurrentKinematicsNewParam = 0;
 		return true;

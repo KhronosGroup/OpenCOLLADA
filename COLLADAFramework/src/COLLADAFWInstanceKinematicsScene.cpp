@@ -29,4 +29,34 @@ namespace COLLADAFW
 	{
 	}
 
+
+	//------------------------------
+	bool InstanceKinematicsScene::NodeLinkBinding::operator<( const NodeLinkBinding& rhs ) const
+	{
+		if ( nodeUniqueId < rhs.nodeUniqueId )
+		{
+			return true;
+		}
+		if ( nodeUniqueId > rhs.nodeUniqueId )
+		{
+			return false;
+		}
+
+		if ( kinematicsModel < rhs.kinematicsModel )
+		{
+			return true;
+		}
+		if ( kinematicsModel > rhs.kinematicsModel )
+		{
+			return false;
+		}
+
+		if ( linkNumber < rhs.linkNumber )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 } // namespace COLLADAFW

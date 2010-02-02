@@ -188,7 +188,7 @@ namespace COLLADASaxFWL
 		@param id The id of the element. Might be 0;
 		@param sid The sid of the element. Might be 0;
 		*/
-		void addToSidTree( const char* colladaId, const char* colladaSid );
+		SidTreeNode*  addToSidTree( const char* colladaId, const char* colladaSid );
 
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
@@ -197,7 +197,7 @@ namespace COLLADASaxFWL
 		@param sid The sid of the element. Might be 0;
 		@param target The target assigned to the sid tree node
 		*/
-		void addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Object* target );
+		SidTreeNode*  addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Object* target );
 
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
@@ -206,7 +206,7 @@ namespace COLLADASaxFWL
 		@param sid The sid of the element. Might be 0;
 		@param target The target assigned to the sid tree node
 		*/
-		void addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target );
+		SidTreeNode*  addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target );
 
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
@@ -215,11 +215,11 @@ namespace COLLADASaxFWL
 		@param sid The sid of the element. Might be 0;
 		@param target The target assigned to the sid tree node
 		*/
-		void addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target );
+		SidTreeNode*  addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target );
 
 		/** Moves one node up in the sid tree. Call this method whenever an element, for which addToSidTree() was
 		called, is closed.*/
-		void moveUpInSidTree();
+		void  moveUpInSidTree();
 
 		/** Tries to resolve the a sidaddress. If resolving failed, null is returned.*/
 		const SidTreeNode* resolveSid( const SidAddress& sidAddress);

@@ -3517,6 +3517,13 @@ namespace COLLADASaxFWL
 		const ParserChar* name;
 	};
 
+	struct bind_kinematics_model__AttributeData
+	{
+		static const bind_kinematics_model__AttributeData DEFAULT;
+
+		const ParserChar* node;
+	};
+
 
 }
 

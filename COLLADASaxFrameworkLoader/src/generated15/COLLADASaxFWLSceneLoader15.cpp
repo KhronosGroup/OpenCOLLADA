@@ -61,6 +61,22 @@ return mLoader->end__instance_kinematics_scene();
 }
 
 
+bool SceneLoader15::begin__bind_kinematics_model( const COLLADASaxFWL15::bind_kinematics_model__AttributeData& attributeData )
+{
+SaxVirtualFunctionTest15(begin__bind_kinematics_model(attributeData));
+COLLADASaxFWL::bind_kinematics_model__AttributeData attrData;
+attrData.node = attributeData.node;
+return mLoader->begin__bind_kinematics_model(attrData);
+}
+
+
+bool SceneLoader15::end__bind_kinematics_model()
+{
+SaxVirtualFunctionTest15(end__bind_kinematics_model());
+return mLoader->end__bind_kinematics_model();
+}
+
+
 bool SceneLoader15::begin__bind_joint_axis( const COLLADASaxFWL15::bind_joint_axis__AttributeData& attributeData )
 {
 SaxVirtualFunctionTest15(begin__bind_joint_axis(attributeData));
@@ -102,6 +118,27 @@ bool SceneLoader15::end__value____common_float_or_param_type()
 {
 SaxVirtualFunctionTest15(end__value____common_float_or_param_type());
 return mLoader->end__value____common_float_or_param_type();
+}
+
+
+bool SceneLoader15::begin__param____common_param_type()
+{
+SaxVirtualFunctionTest15(begin__param____common_param_type());
+return mLoader->begin__param____common_param_type();
+}
+
+
+bool SceneLoader15::end__param____common_param_type()
+{
+SaxVirtualFunctionTest15(end__param____common_param_type());
+return mLoader->end__param____common_param_type();
+}
+
+
+bool SceneLoader15::data__param____common_param_type( const ParserChar* value, size_t length )
+{
+SaxVirtualFunctionTest15(data__param____common_param_type(value, length));
+return mLoader->data__param____common_param_type(value, length);
 }
 
 

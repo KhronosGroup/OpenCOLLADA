@@ -19,9 +19,10 @@ namespace COLLADASaxFWL
 {
 
 	//------------------------------
-	KinematicsModel::KinematicsModel( const COLLADABU::URI& uri, const char* name )
-		: mUri(uri)
+	KinematicsModel::KinematicsModel( const COLLADABU::URI& url, const char* name )
+		: mUrl(url)
 		, mName(name)
+		, mSidTreeNode(0)
 	{
 	}
 
@@ -82,7 +83,7 @@ namespace COLLADASaxFWL
 		deleteVectorFW(mInstanceJoints);
 
 		// delete kinematic models
-		deleteVector(mKinematicsModels);
+		deleteMap(mKinematicsModels);
 
 		// delete kinematic controllers
 		deleteMap(mKinematicsControllers);
@@ -119,6 +120,49 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
+	void KinematicsSidrefOrParam::setParamValue( const String& paramValue )
+	{
+		deleteAll(); 
+		mValue._param = new String(paramValue); 
+		mValueType = VALUETYPE_PARAM;
+	}
+
+	//------------------------------
+	void KinematicsSidrefOrParam::setSidrefValue( const SidAddress& sidrefValue )
+	{
+		deleteAll(); 
+		mValue._sidref = new SidAddress(sidrefValue); 
+		mValueType = VALUETYPE_SIDREF;
+	}
+
+	//------------------------------
+	void KinematicsSidrefOrParam::deleteSidRef()
+	{
+		if ( mValueType == VALUETYPE_SIDREF)
+		{
+			delete mValue._sidref;
+			mValue._sidref = 0;
+		}
+	}
+
+	//------------------------------
+	void KinematicsSidrefOrParam::deleteParam()
+	{
+		if ( mValueType == VALUETYPE_PARAM)
+		{
+			delete mValue._param;
+			mValue._param = 0;
+		}
+	}
+
+	//------------------------------
+	void KinematicsSidrefOrParam::deleteAll()
+	{
+		deleteSidRef();
+		deleteParam();
+	}
+
+	//------------------------------
 	KinematicsFloatOrParam::KinematicsFloatOrParam( ValueType axisType )
 	{
 		switch ( mValueType )
@@ -137,6 +181,27 @@ namespace COLLADASaxFWL
 	{
 		// delete BindJointAxes
 		deleteVector(mBindJointAxes);
+	}
+
+	//------------------------------
+	void KinematicsInstanceKinematicsModel::addKinematicsNewParam( KinematicsNewParam* newParam )
+	{
+		const String& name = newParam->getName();
+		mKinematicsNewParams.insert(std::make_pair(name, newParam));
+	}
+
+	//------------------------------
+	KinematicsNewParam* KinematicsInstanceKinematicsModel::getNewParamBySid( const String& sid ) const
+	{
+		KinematicsNewParams::const_iterator it =  mKinematicsNewParams.find(sid);
+		if ( it != mKinematicsNewParams.end() )
+		{
+			return it->second;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 } // namespace COLLADASaxFWL

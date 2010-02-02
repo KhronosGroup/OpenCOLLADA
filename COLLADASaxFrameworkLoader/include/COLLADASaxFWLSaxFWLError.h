@@ -27,6 +27,7 @@ namespace COLLADASaxFWL
 			ERROR_UNRESOLVED_REFERENCE,             // An element that is referenced, could not be resolved.
 			ERROR_UNRESOLVED_FORMULA,               // A formula referenced in a formula, could not be resolved.
 			ERROR_UNRESOLVED_PARAMETER,             // A parameter referenced in a formula, could not be resolved.
+			ERROR_UNEXPECTED_ELEMENT,               // An element could be resolved but does not have the expected type
 			ERROR_PARAMETER_COUNT_DOESNOT_MATCH,    // A parameter referenced in a formula, could not be resolved.
 			ERROR_SOURCE_NOT_FOUND,					// A source referenced an an input element could not be resolved
 			ERROR_DATA_NOT_VALID,                   // Data not valid.

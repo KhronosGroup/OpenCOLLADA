@@ -89,6 +89,9 @@ namespace COLLADASaxFWL
 		/** Starts loading a library articulated systems.*/
 		virtual bool begin__library_articulated_systems( const COLLADASaxFWL15::library_articulated_systems__AttributeData& attributeData );
 
+		/** Starts loading a library kinematics scenes.*/
+		virtual bool begin__library_kinematics_scenes( const COLLADASaxFWL15::library_kinematics_scenes__AttributeData& attributeData );
+
         /** Starts loading an extra tag. */
         virtual bool begin__technique____technique_type( const COLLADASaxFWL15::technique____technique_type__AttributeData& attributeData );
 

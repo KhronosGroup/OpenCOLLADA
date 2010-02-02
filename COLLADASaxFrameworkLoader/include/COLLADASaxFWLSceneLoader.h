@@ -75,6 +75,9 @@ namespace COLLADASaxFWL
 		/** Sax callback function for ending reading the instance kinematics scene. */
 		virtual bool end__instance_kinematics_scene();
 
+		virtual bool begin__bind_kinematics_model( const bind_kinematics_model__AttributeData& attributeData ){return true;}
+		virtual bool end__bind_kinematics_model();
+
 		virtual bool begin__bind_joint_axis( const bind_joint_axis__AttributeData& attributeData );
 
 		virtual bool end__bind_joint_axis();

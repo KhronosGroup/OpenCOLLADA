@@ -147,6 +147,7 @@ namespace COLLADASaxFWL
 					{
 						KinematicInstance* ki = intermediateTargetableSafeCast<KinematicInstance>(iTargetable);
 						uri = &ki->getUrl();
+						break;
 					}
 				}
 
@@ -501,6 +502,28 @@ namespace COLLADASaxFWL
 	{
 		const KinematicsIntermediateData::KinematicsControllerMap& map = mKinematicsIntermediateData.getKinematicsControllers();
 		KinematicsIntermediateData::KinematicsControllerMap::const_iterator it = map.find(uri);
+		if ( it != map.end() )
+		{
+			return it->second;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	//------------------------------
+	void DocumentProcessor::addKinematicsModel( KinematicsModel* kinematicsModel )
+	{
+		const COLLADABU::URI& uri = kinematicsModel->getUrl();
+		mKinematicsIntermediateData.getKinematicsModels().insert(std::make_pair(uri, kinematicsModel));
+	}
+
+	//------------------------------
+	KinematicsModel* DocumentProcessor::getKinematicsModelByUri( const COLLADABU::URI& uri )
+	{
+		const KinematicsIntermediateData::KinematicsModelMap& map = mKinematicsIntermediateData.getKinematicsModels();
+		KinematicsIntermediateData::KinematicsModelMap::const_iterator it = map.find(uri);
 		if ( it != map.end() )
 		{
 			return it->second;

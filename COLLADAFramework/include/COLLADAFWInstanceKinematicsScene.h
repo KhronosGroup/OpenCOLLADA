@@ -34,6 +34,8 @@ namespace COLLADAFW
 
 			/** The number of the link within the kinematics model.*/
 			size_t linkNumber;
+
+			bool operator<(const NodeLinkBinding& rhs)const;
 		};
 
 		typedef Array<NodeLinkBinding> NodeLinkBindingArray;

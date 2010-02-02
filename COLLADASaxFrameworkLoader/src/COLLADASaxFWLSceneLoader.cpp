@@ -76,6 +76,9 @@ namespace COLLADASaxFWL
 	bool SceneLoader::begin__instance_kinematics_scene( const instance_kinematics_scene__AttributeData& attributeData )
 	{
 		mCurrentInstanceKinematicsScene = new KinematicsInstanceKinematicsScene();
+		const COLLADABU::URI& fileUri = getFileLoader()->getFileUri();
+		COLLADABU::URI url(fileUri, attributeData.url.getURIString());
+		mCurrentInstanceKinematicsScene->setUrl( url);
 		return true;
 	}
 
@@ -99,6 +102,13 @@ namespace COLLADASaxFWL
 			}
 		}
 
+		return true;
+	}
+
+	//------------------------------
+	bool SceneLoader::end__bind_kinematics_model()
+	{
+		mCurrentCharacterData.clear();
 		return true;
 	}
 

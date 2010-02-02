@@ -30,6 +30,14 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
+	bool LibraryKinematicsScenesLoader::end__library_kinematics_scenes()
+	{
+		moveUpInSidTree();
+		finish();
+		return true;
+	}
+
+	//------------------------------
 	bool LibraryKinematicsScenesLoader::begin__kinematics_scene( const kinematics_scene__AttributeData& attributeData )
 	{
 		COLLADABU::URI uri(getFileUri());
@@ -49,6 +57,7 @@ namespace COLLADASaxFWL
 		}
 
 		mCurrentKinematicsScene = new KinematicsScene(uri, name);
+		addToSidTree(attributeData.id, 0);
 		return true;
 	}
 
@@ -57,6 +66,7 @@ namespace COLLADASaxFWL
 	{
 		getFileLoader()->addKinematicsScene( mCurrentKinematicsScene );
 		mCurrentKinematicsScene = 0;
+		moveUpInSidTree();
 		return true;
 	}
 
@@ -100,5 +110,177 @@ namespace COLLADASaxFWL
 	{
 		return mInstanceArticulatedSystemLoader.end__param____kinematics_param_type();
 	}
+
+	//------------------------------
+	bool LibraryKinematicsScenesLoader::begin__instance_kinematics_model( const instance_kinematics_model__AttributeData& attributeData )
+	{
+		KinematicsInstanceKinematicsModels& instanceKinematicsModels = mCurrentKinematicsScene->getKinematicsInstanceKinematicsModels();
+		COLLADABU::URI absoluteUrl(getFileUri(), attributeData.url.getURIString());
+		instanceKinematicsModels.push_back(KinematicsInstanceKinematicsModel(absoluteUrl)); 
+		KinematicsInstanceKinematicsModel * instanceKinematicsModel = &instanceKinematicsModels.back();
+		addToSidTree( 0, attributeData.sid, instanceKinematicsModel);
+		mInstanceKinematicsModelLoader.setCurrentInstanceKinematicsModel(instanceKinematicsModel);
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryKinematicsScenesLoader::end__instance_kinematics_model()
+	{
+		moveUpInSidTree();
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryKinematicsScenesLoader::begin__newparam____kinematics_newparam_type( const newparam____kinematics_newparam_type__AttributeData& attributeData )
+	{
+		mValueElementParentType = VALUE_ELEMENT_NEWPARAM;
+		return mInstanceKinematicsModelLoader.begin__newparam____kinematics_newparam_type(attributeData);
+	}
+
+	//------------------------------
+	bool LibraryKinematicsScenesLoader::end__newparam____kinematics_newparam_type()
+	{
+		mValueElementParentType = VALUE_ELEMENT_NONE;
+		return mInstanceKinematicsModelLoader.end__newparam____kinematics_newparam_type();
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::begin__float()
+	{
+		switch ( mValueElementParentType )
+		{
+		case VALUE_ELEMENT_NEWPARAM:
+			{
+				return mInstanceKinematicsModelLoader.begin__float();
+			}
+		}
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::end__float()
+	{
+		return mInstanceKinematicsModelLoader.end__float();
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::data__float( float value )
+	{
+		switch ( mValueElementParentType )
+		{
+		case VALUE_ELEMENT_NEWPARAM:
+			{
+				mInstanceKinematicsModelLoader.data__float(value);
+				break;
+			}
+		}
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::begin__int()
+	{
+		switch ( mValueElementParentType )
+		{
+		case VALUE_ELEMENT_NEWPARAM:
+			{
+				mInstanceKinematicsModelLoader.begin__int();
+				break;
+			}
+		}
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::end__int()
+	{
+		mInstanceKinematicsModelLoader.end__int();
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::data__int( int value )
+	{
+		switch ( mValueElementParentType )
+		{
+		case VALUE_ELEMENT_NEWPARAM:
+			{
+				mInstanceKinematicsModelLoader.data__int(value);
+				break;
+			}
+		}
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::begin__bool()
+	{
+		switch ( mValueElementParentType )
+		{
+		case VALUE_ELEMENT_NEWPARAM:
+			{
+				mInstanceKinematicsModelLoader.begin__bool();
+				break;
+			}
+		}
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::end__bool()
+	{
+		mInstanceKinematicsModelLoader.end__bool();
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::data__bool( bool value )
+	{
+		switch ( mValueElementParentType )
+		{
+		case VALUE_ELEMENT_NEWPARAM:
+			{
+				mInstanceKinematicsModelLoader.data__bool(value);
+				break;
+			}
+		}
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::begin__SIDREF()
+	{
+		switch ( mValueElementParentType )
+		{
+		case VALUE_ELEMENT_NEWPARAM:
+			{
+				mInstanceKinematicsModelLoader.begin__SIDREF();
+				break;
+			}
+		}
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::end__SIDREF()
+	{
+		switch ( mValueElementParentType )
+		{
+		case VALUE_ELEMENT_NEWPARAM:
+			{
+				mInstanceKinematicsModelLoader.end__SIDREF();
+				break;
+			}
+		}
+		return true;
+	}
+
+	//-----------------------------------------------------------------
+	bool LibraryKinematicsScenesLoader::data__SIDREF( const ParserChar* value, size_t length )
+	{
+		mInstanceKinematicsModelLoader.data__SIDREF(value, length);
+		return true;
+	}
+
 
 } // namespace COLLADASaxFWL

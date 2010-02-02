@@ -118,7 +118,8 @@ namespace COLLADASaxFWL
 		}
 
 		mCurrentKinematicsModel = new KinematicsModel(uri, name);
-		addToSidTree( attributeData.id, 0);
+		SidTreeNode* sidTreeNode = addToSidTree( attributeData.id, 0, mCurrentKinematicsModel);
+		mCurrentKinematicsModel->setSidTreeNode(sidTreeNode);
 		return true;
 	}
 

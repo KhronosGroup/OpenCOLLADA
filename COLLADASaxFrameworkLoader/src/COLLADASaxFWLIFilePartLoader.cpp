@@ -194,27 +194,27 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid )
+	SidTreeNode* IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid )
 	{
-		getFileLoader()->addToSidTree( colladaId, colladaSid );
+		return getFileLoader()->addToSidTree( colladaId, colladaSid );
 	}
 
 	//------------------------------
-	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Object* target )
+	SidTreeNode*  IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Object* target )
 	{
-		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
+		return getFileLoader()->addToSidTree( colladaId, colladaSid, target );
 	}
 
 	//------------------------------
-	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target )
+	SidTreeNode*  IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target )
 	{
-		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
+		return getFileLoader()->addToSidTree( colladaId, colladaSid, target );
 	}
 
 	//------------------------------
-	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target )
+	SidTreeNode*  IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target )
 	{
-		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
+		return getFileLoader()->addToSidTree( colladaId, colladaSid, target );
 	}
 
 	//------------------------------

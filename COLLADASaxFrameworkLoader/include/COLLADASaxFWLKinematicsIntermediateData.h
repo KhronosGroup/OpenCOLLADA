@@ -31,6 +31,7 @@ namespace COLLADAFW
 
 namespace COLLADASaxFWL
 {
+	class SidTreeNode;
 
 	typedef std::vector<COLLADAFW::Transformation*> TransformationList;
 
@@ -124,12 +125,14 @@ namespace COLLADASaxFWL
 		KinematicLinkList mBaseLinks;
 
 		/** The id of the kinematics model.*/
-		COLLADABU::URI mUri;
+		COLLADABU::URI mUrl;
 
 		/** The name of the kinematics model.*/
 		String mName;
+
+		SidTreeNode* mSidTreeNode;
 	public:
-		KinematicsModel(const COLLADABU::URI& uri, const char* name );
+		KinematicsModel(const COLLADABU::URI& url, const char* name );
 
 		~KinematicsModel();
 
@@ -141,7 +144,10 @@ namespace COLLADASaxFWL
 		const String& getName() const { return mName; }
 
 		/** The id of the kinematics model.*/
-		const COLLADABU::URI& getUri() const { return mUri; }
+		const COLLADABU::URI& getUrl() const { return mUrl; }
+
+		SidTreeNode* getSidTreeNode() const { return mSidTreeNode; }
+		void setSidTreeNode(SidTreeNode* val) { mSidTreeNode = val; }
 	};
 
 
@@ -301,7 +307,7 @@ namespace COLLADASaxFWL
 
 	};
 
-	typedef std::vector<KinematicsNewParam*> KinematicsNewParams;
+	typedef COLLADABU::hash_map<String/*sid*/, KinematicsNewParam*> KinematicsNewParams;
 
 
 	class KinematicsInstanceKinematicsModel : public KinematicInstance
@@ -312,11 +318,15 @@ namespace COLLADASaxFWL
 		KinematicsInstanceKinematicsModel( const COLLADABU::URI& uRL)
 			: KinematicInstance(uRL){}
 
-		~KinematicsInstanceKinematicsModel() { deleteVector(mKinematicsNewParams);}
+		~KinematicsInstanceKinematicsModel() { deleteMap(mKinematicsNewParams);}
+
+		void addKinematicsNewParam(KinematicsNewParam* newParam);
 
 		const KinematicsNewParams& getKinematicsNewParams() const { return mKinematicsNewParams; }
 
 		KinematicsNewParams& getKinematicsNewParams() { return mKinematicsNewParams; }
+
+		KinematicsNewParam* getNewParamBySid(const String& sid)const;
 
 	};
 
@@ -495,6 +505,8 @@ namespace COLLADASaxFWL
 
 		KinematicsInstanceArticulatedSystems mKinematicsInstanceArticulatedSystems;
 
+		KinematicsInstanceKinematicsModels mKinematicsInstanceKinematicsModels;
+
 	public:
 		KinematicsScene(const COLLADABU::URI& uri, const String& name )
 			: mUri( uri ), mName(name) {}
@@ -504,6 +516,12 @@ namespace COLLADASaxFWL
 		void addInstanceArticulatedSystem(KinematicsInstanceArticulatedSystem* kinematicsInstanceArticulatedSystem);
 
 		const KinematicsInstanceArticulatedSystems& getKinematicsInstanceArticulatedSystems() const { return mKinematicsInstanceArticulatedSystems; }
+
+		void addInstanceKinematicsModel(KinematicsInstanceKinematicsModel* kinematicsInstanceKinematicsModel);
+
+		const KinematicsInstanceKinematicsModels& getKinematicsInstanceKinematicsModels() const { return mKinematicsInstanceKinematicsModels; }
+
+		KinematicsInstanceKinematicsModels& getKinematicsInstanceKinematicsModels() { return mKinematicsInstanceKinematicsModels; }
 
 		/** The id of the kinematics scene.*/
 		const COLLADABU::URI& getUri() const { return mUri; }
@@ -545,37 +563,19 @@ namespace COLLADASaxFWL
 		const SidAddress* getSidrefValue() const { return mValue._sidref; }
 
 		/** Sets the sidref value SidrefOrParam. Type will be set to VALUETYPE_SIDREF.*/
-		void setSidrefValue( const SidAddress& sidrefValue) { deleteAll(); mValue._sidref = new SidAddress(sidrefValue); mValueType = VALUETYPE_SIDREF; }
+		void setSidrefValue( const SidAddress& sidrefValue);
 
 		/** Returns the param ref SidrefOrParam. Type must be VALUETYPE_PARAM.*/
 		const String* getParamValue() const { return mValue._param; }
 
 		/** Sets the param value SidrefOrParam. Type will be set to VALUETYPE_PARAM.*/
-		void setParamValue( const String& paramValue) { deleteAll(); mValue._param = new String(paramValue); mValueType = VALUETYPE_PARAM; }
+		void setParamValue( const String& paramValue);
 	private:
-		void deleteSidRef()
-		{
-			if ( mValueType == VALUETYPE_SIDREF)
-			{
-				delete mValue._sidref;
-				mValue._sidref = 0;
-			}
-		}
+		void deleteSidRef();
 
-		void deleteParam()
-		{
-			if ( mValueType == VALUETYPE_PARAM)
-			{
-				delete mValue._param;
-				mValue._param = 0;
-			}
-		}
+		void deleteParam();
 
-		void deleteAll()
-		{
-			deleteSidRef();
-			deleteParam();
-		}
+		void deleteAll();
 
 		/** Disable default copy ctor. */
 		KinematicsSidrefOrParam( const KinematicsSidrefOrParam& pre );
@@ -748,7 +748,7 @@ namespace COLLADASaxFWL
 		typedef std::vector< KinematicInstance* > KinematicInstanceList;
 
 		/** List of kinematic models.*/
-		typedef std::vector< KinematicsModel* > KinematicsModelList;
+		typedef COLLADABU::hash_map< COLLADABU::URI, KinematicsModel* > KinematicsModelMap;
 
 		/** List of kinematic controllers.*/
 		typedef COLLADABU::hash_map< COLLADABU::URI, KinematicsController* > KinematicsControllerMap;
@@ -767,7 +767,7 @@ namespace COLLADASaxFWL
 		KinematicInstanceList mInstanceJoints;
 
 		/** List of all kinematic models already created. They will be written as part of kinematics.*/
-		KinematicsModelList mKinematicsModels;
+		KinematicsModelMap mKinematicsModels;
 
 		/** List of all kinematic controller already created. They will be written as part of kinematics.*/
 		KinematicsControllerMap mKinematicsControllers;
@@ -793,10 +793,10 @@ namespace COLLADASaxFWL
 		KinematicInstanceList& getInstanceJoints() { return mInstanceJoints; }
 
 		/** List of all kinematic models already created. They will be written as part of kinematics.*/
-		const KinematicsModelList& getKinematicsModels() const { return mKinematicsModels; }
+		const KinematicsModelMap& getKinematicsModels() const { return mKinematicsModels; }
 
 		/** List of all kinematic models already created. They will be written as part of kinematics.*/
-		KinematicsModelList& getKinematicsModels() { return mKinematicsModels; }
+		KinematicsModelMap& getKinematicsModels() { return mKinematicsModels; }
 
 		/** List of all kinematic controllers already created. They will be written as part of kinematics.*/
 		const KinematicsControllerMap& getKinematicsControllers() const { return mKinematicsControllers; }
