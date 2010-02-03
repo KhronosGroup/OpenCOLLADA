@@ -20,6 +20,7 @@ namespace COLLADAFW
 		: InstanceBase<COLLADA_TYPE::INSTANCE_KINEMATICS_SCENE>(uniqueId, instanciatedObjectId)
 		, mBoundNodes(UniqueIdArray::OWNER)
 		, mNodeLinkBindings(NodeLinkBindingArray::OWNER)
+		, mFileId(0)
 	{
 
 	}
@@ -27,9 +28,9 @@ namespace COLLADAFW
 	//------------------------------
 	InstanceKinematicsScene::InstanceKinematicsScene( const InstanceKinematicsScene& pre )
 		: InstanceBase<COLLADA_TYPE::INSTANCE_KINEMATICS_SCENE>(pre)
-		, mFileId(pre.mFileId)
 		, mBoundNodes(UniqueIdArray::OWNER)
 		, mNodeLinkBindings(NodeLinkBindingArray::OWNER)
+		, mFileId(pre.mFileId)
 	{
 		pre.mBoundNodes.cloneArray(mBoundNodes);
 		pre.mNodeLinkBindings.cloneArray(mNodeLinkBindings);
