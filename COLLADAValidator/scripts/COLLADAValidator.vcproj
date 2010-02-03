@@ -19,7 +19,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug LibXML|Win32"
+			Name="Debug_LibXML|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -65,11 +65,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader-d.lib COLLADAFramework-d.lib COLLADABaseUtils-d.lib GeneratedSaxParser-d.lib LibXML-d.lib pcre-d.lib"
+				AdditionalDependencies=" "
 				OutputFile="$(OutDir)\$(ProjectName)_LibXML.exe"
 				Version="1.1.3"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\Externals\LibXML\bin\win\$(PlatformName)&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;"
+				AdditionalLibraryDirectories=" "
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -103,7 +103,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug LibXML|x64"
+			Name="Debug_LibXML|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -150,11 +150,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader-d.lib COLLADAFramework-d.lib COLLADABaseUtils-d.lib GeneratedSaxParser-d.lib LibXML-d.lib pcre-d.lib"
+				AdditionalDependencies=" "
 				OutputFile="$(OutDir)\$(ProjectName)_LibXML.exe"
 				Version="1.1.3"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\Externals\LibXML\bin\win\$(PlatformName)&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;"
+				AdditionalLibraryDirectories=" "
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -188,7 +188,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release LibXML|Win32"
+			Name="Release_LibXML|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -232,11 +232,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader.lib COLLADAFramework.lib COLLADABaseUtils.lib GeneratedSaxParser.lib LibXML.lib pcre.lib"
+				AdditionalDependencies=" "
 				OutputFile="$(OutDir)\$(ProjectName)_LibXML.exe"
 				Version="1.1.3"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\Externals\LibXML\bin\win\$(PlatformName)&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;"
+				AdditionalLibraryDirectories=" "
 				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -270,7 +270,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release LibXML|x64"
+			Name="Release_LibXML|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -315,11 +315,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader.lib COLLADAFramework.lib COLLADABaseUtils.lib GeneratedSaxParser.lib LibXML.lib pcre.lib"
+				AdditionalDependencies=" "
 				OutputFile="$(OutDir)\$(ProjectName)_LibXML.exe"
 				Version="1.1.3"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML&quot;;&quot;..\..\Externals\LibXML\bin\win\$(PlatformName)&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;"
+				AdditionalLibraryDirectories=" "
 				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -353,7 +353,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Expat|Win32"
+			Name="Debug_Expat|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -399,11 +399,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader-d.lib COLLADAFramework-d.lib COLLADABaseUtils-d.lib GeneratedSaxParser-d.lib libexpatMT.lib pcre-d.lib"
+				AdditionalDependencies=" "
 				OutputFile="$(OutDir)\$(ProjectName)_Expat.exe"
 				Version="1.1.3"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\Expat&quot;;&quot;..\..\Externals\expat\win32\bin\debug&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\Expat&quot;"
+				AdditionalLibraryDirectories=" "
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -437,7 +437,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug Expat|x64"
+			Name="Debug_Expat|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -484,11 +484,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader-d.lib COLLADAFramework-d.lib COLLADABaseUtils-d.lib GeneratedSaxParser-d.lib libexpatMT.lib pcre-d.lib"
+				AdditionalDependencies=" "
 				OutputFile="$(OutDir)\$(ProjectName)_Expat.exe"
 				Version="1.1.3"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\Expat&quot;;&quot;..\..\Externals\expat\x64\bin\debug&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\Expat&quot;"
+				AdditionalLibraryDirectories=" "
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -522,7 +522,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Expat|Win32"
+			Name="Release_Expat|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -566,11 +566,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader.lib COLLADAFramework.lib COLLADABaseUtils.lib GeneratedSaxParser.lib libexpatMT.lib pcre.lib"
+				AdditionalDependencies=" "
 				OutputFile="$(OutDir)\$(ProjectName)_Expat.exe"
 				Version="1.1.3"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\Expat&quot;;&quot;..\..\Externals\expat\win32\bin\release&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\Expat&quot;"
+				AdditionalLibraryDirectories=" "
 				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -604,7 +604,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Expat|x64"
+			Name="Release_Expat|x64"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
@@ -649,436 +649,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader.lib COLLADAFramework.lib COLLADABaseUtils.lib GeneratedSaxParser.lib libexpatMT.lib pcre.lib"
+				AdditionalDependencies=" "
 				OutputFile="$(OutDir)\$(ProjectName)_Expat.exe"
 				Version="1.1.3"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\Expat&quot;;&quot;..\..\Externals\expat\x64\bin\release&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\Expat&quot;"
+				AdditionalLibraryDirectories=" "
 				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="17"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine=" "
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug LibXML NoValidation|Win32"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader-d.lib COLLADAFramework-d.lib COLLADABaseUtils-d.lib GeneratedSaxParser-d.lib LibXML-d.lib pcre-d.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_LibXML_NoValidation.exe"
-				Version="1.1.3"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML\NoValidation&quot;;&quot;..\..\Externals\LibXML\bin\win\$(PlatformName)&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;;&quot;"
-				GenerateManifest="true"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				SubSystem="1"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine=" "
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug LibXML NoValidation|x64"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader-d.lib COLLADAFramework-d.lib COLLADABaseUtils-d.lib GeneratedSaxParser-d.lib LibXML-d.lib pcre-d.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_LibXML_NoValidation.exe"
-				Version="1.1.3"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML\NoValidation&quot;;&quot;..\..\Externals\LibXML\bin\win\$(PlatformName)&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;"
-				GenerateManifest="true"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				SubSystem="1"
-				TargetMachine="17"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine=" "
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug Expat NoValidation|Win32"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader-d.lib COLLADAFramework-d.lib COLLADABaseUtils-d.lib GeneratedSaxParser-d.lib libexpatMT.lib pcre-d.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_Expat_NoValidation.exe"
-				Version="1.1.3"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\Expat\NoValidation&quot;;&quot;..\..\Externals\expat\win32\bin\debug&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\Expat&quot;"
-				GenerateManifest="true"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				SubSystem="1"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine=" "
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug Expat NoValidation|x64"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader-d.lib COLLADAFramework-d.lib COLLADABaseUtils-d.lib GeneratedSaxParser-d.lib libexpatMT.lib pcre-d.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_Expat_NoValidation.exe"
-				Version="1.1.3"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\Expat\NoValidation&quot;;&quot;..\..\Externals\expat\x64\bin\debug&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\Expat&quot;"
-				GenerateManifest="true"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				SubSystem="1"
-				TargetMachine="17"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine=" "
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release Expat NoValidation|Win32"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader.lib COLLADAFramework.lib COLLADABaseUtils.lib GeneratedSaxParser.lib libexpatMT.lib pcre.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_Expat_NoValidation.exe"
-				Version="1.1.3"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\Expat\NoValidation&quot;;&quot;..\..\Externals\expat\win32\bin\release&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\Expat&quot;"
-				GenerateDebugInformation="false"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1162,88 +742,6 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="17"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine=" "
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release LibXML NoValidation|Win32"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADASaxFrameworkLoader.lib COLLADAFramework.lib COLLADABaseUtils.lib GeneratedSaxParser.lib LibXML.lib pcre.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_LibXML_NoValidation.exe"
-				Version="1.1.3"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\LibXML\NoValidation&quot;;&quot;..\..\Externals\LibXML\bin\win\$(PlatformName)&quot;;&quot;..\..\Externals\pcre\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\LibXML&quot;"
-				GenerateDebugInformation="false"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
