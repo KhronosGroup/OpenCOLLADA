@@ -29,8 +29,8 @@ namespace COLLADAFW
 			/** The uniqueId of the node within the visual scene, that is bound to a link.*/
 			COLLADAFW::UniqueId nodeUniqueId;
 
-			/** The kinematics model the link the node is bound to belongs to.*/
-			KinematicsModel* kinematicsModel;
+			/** The index of the kinematics model the link the node is bound to belongs to.*/
+			size_t kinematicsModelId;
 
 			/** The number of the link within the kinematics model.*/
 			size_t linkNumber;

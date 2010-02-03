@@ -435,7 +435,20 @@ namespace COLLADASaxFWL
 				continue;
 			}
 
-			COLLADAFW::InstanceKinematicsScene::NodeLinkBinding nodeLinkBinding = {nodeUniqueId, kinematicsModel, linkNumber};
+
+			// find the kin model id
+			const COLLADAFW::KinematicsModelArray& kinematicsModels = mKinematicsScene->getKinematicsModels();
+			size_t kinModelId = SIZE_MAX;
+			for ( size_t i = 0; i < kinematicsModels.getCount(); ++i)
+			{
+				if ( kinematicsModels[i] == kinematicsModel )
+				{
+					kinModelId = i;
+					break;
+				}
+			}
+
+			COLLADAFW::InstanceKinematicsScene::NodeLinkBinding nodeLinkBinding = {nodeUniqueId, kinModelId, linkNumber};
 			mNodeLinkBindingSet.insert(nodeLinkBinding);
 
 		}

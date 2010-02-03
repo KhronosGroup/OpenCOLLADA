@@ -65,11 +65,11 @@ namespace COLLADAFW
 			return false;
 		}
 
-		if ( kinematicsModel < rhs.kinematicsModel )
+		if ( kinematicsModelId < rhs.kinematicsModelId )
 		{
 			return true;
 		}
-		if ( kinematicsModel > rhs.kinematicsModel )
+		if ( kinematicsModelId > rhs.kinematicsModelId )
 		{
 			return false;
 		}
