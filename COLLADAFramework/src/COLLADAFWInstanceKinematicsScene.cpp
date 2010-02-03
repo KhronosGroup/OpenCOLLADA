@@ -19,14 +19,36 @@ namespace COLLADAFW
 	InstanceKinematicsScene::InstanceKinematicsScene( const UniqueId& uniqueId, const UniqueId& instanciatedObjectId ) 
 		: InstanceBase<COLLADA_TYPE::INSTANCE_KINEMATICS_SCENE>(uniqueId, instanciatedObjectId)
 		, mBoundNodes(UniqueIdArray::OWNER)
+		, mNodeLinkBindings(NodeLinkBindingArray::OWNER)
 	{
 
+	}
+
+	//------------------------------
+	InstanceKinematicsScene::InstanceKinematicsScene( const InstanceKinematicsScene& pre )
+		: InstanceBase<COLLADA_TYPE::INSTANCE_KINEMATICS_SCENE>(pre)
+		, mFileId(pre.mFileId)
+		, mBoundNodes(UniqueIdArray::OWNER)
+		, mNodeLinkBindings(NodeLinkBindingArray::OWNER)
+	{
+		pre.mBoundNodes.cloneArray(mBoundNodes);
+		pre.mNodeLinkBindings.cloneArray(mNodeLinkBindings);
 	}
 
 
     //------------------------------
 	InstanceKinematicsScene::~InstanceKinematicsScene()
 	{
+	}
+
+	//------------------------------
+	const InstanceKinematicsScene& InstanceKinematicsScene::operator=( const InstanceKinematicsScene& pre )
+	{
+		InstanceBase<COLLADA_TYPE::INSTANCE_KINEMATICS_SCENE>::operator =(pre);
+		pre.mBoundNodes.cloneArray(mBoundNodes);
+		pre.mNodeLinkBindings.cloneArray(mNodeLinkBindings);
+		mFileId = pre.mFileId;
+		return *this;
 	}
 
 

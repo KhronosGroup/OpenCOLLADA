@@ -59,6 +59,10 @@ namespace COLLADAFW
 
 			/** Returns the transformation defining the position and orientation of the joint, relative to the link.*/
 			TransformationPointerArray& getTransformations(){ return mTransformations; }
+
+			/** Creates a clone of the LinkJointConnection and returns a pointer to it.*/
+			LinkJointConnection* clone() const { return FW_NEW LinkJointConnection(*this); }
+
 		};
 
 		typedef PointerArray<LinkJointConnection> LinkJointConnections;
@@ -102,6 +106,10 @@ namespace COLLADAFW
 
 		/** Returns the indices of the kinematics models base links.*/
 		SizeTValuesArray& getBaseLinks(){ return mBaseLinks; }
+
+		/** Creates a clone of the KinematicsModel and returns a pointer to it.*/
+		KinematicsModel* clone() const { return FW_NEW KinematicsModel(*this); }
+
 	private:
 
         /** Disable default copy ctor. */

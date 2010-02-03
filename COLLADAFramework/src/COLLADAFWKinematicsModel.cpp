@@ -21,10 +21,31 @@ namespace COLLADAFW
 		, mBaseLinks(SizeTValuesArray::OWNER)
 	{
 	}
-	
+
+	//------------------------------
+	KinematicsModel::KinematicsModel( const KinematicsModel& pre )
+		: ObjectTemplate<COLLADA_TYPE::KINEMATICS_MODEL>(pre)
+		, mJoints(pre.mJoints)
+		, mLinkJointConnections(pre.mLinkJointConnections)
+		, mBaseLinks(SizeTValuesArray::OWNER)
+	{
+
+	}
+
+
     //------------------------------
 	KinematicsModel::~KinematicsModel()
 	{
+	}
+
+	//------------------------------
+	const KinematicsModel& KinematicsModel::operator=( const KinematicsModel& pre )
+	{
+		ObjectTemplate<COLLADA_TYPE::KINEMATICS_MODEL>::operator=(pre);
+		mJoints = pre.mJoints;
+		mLinkJointConnections = pre.mLinkJointConnections;
+		pre.mBaseLinks.cloneArray(mBaseLinks);
+		return *this;
 	}
 
 } // namespace COLLADAFW

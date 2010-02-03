@@ -19,6 +19,7 @@
 #include "COLLADAFWTransformation.h"
 
 #include "COLLADABUURI.h"
+#include "COLLADABUhash_map.h"
 
 #include <list>
 

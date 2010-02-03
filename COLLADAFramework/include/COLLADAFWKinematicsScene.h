@@ -64,11 +64,11 @@ namespace COLLADAFW
 
 	private:
 
-        /** Disable default copy ctor. */
-		KinematicsScene( const KinematicsScene& pre );
-
-        /** Disable default assignment operator. */
-		const KinematicsScene& operator= ( const KinematicsScene& pre );
+//         /** Disable default copy ctor. */
+// 		KinematicsScene( const KinematicsScene& pre );
+// 
+//         /** Disable default assignment operator. */
+// 		const KinematicsScene& operator= ( const KinematicsScene& pre );
 
 	};
 

@@ -76,6 +76,9 @@ namespace COLLADAFW
 		/** The id of the COLLADA file the instance kinematics scene belongs to.*/
 		void setFileId(FileId fileId) { mFileId = fileId; }
 
+		/** Creates a clone of the InstanceKinematicsScene and returns a pointer to it.*/
+		InstanceKinematicsScene* clone() const { return FW_NEW InstanceKinematicsScene(*this); }
+
 	private:
 
         /** Disable default copy ctor. */

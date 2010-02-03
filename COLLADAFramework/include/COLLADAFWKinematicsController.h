@@ -78,6 +78,9 @@ namespace COLLADAFW
 		/** The motion profile of angular motion.*/
 		void setAngularMotionProfile( const MotionProfile& angularMotionProfile) { mAngularMotionProfile = angularMotionProfile; }
 
+		/** Creates a clone of the KinematicsController and returns a pointer to it.*/
+		KinematicsController* clone() const { return FW_NEW KinematicsController(*this); }
+
 	private:
 
         /** Disable default copy ctor. */
