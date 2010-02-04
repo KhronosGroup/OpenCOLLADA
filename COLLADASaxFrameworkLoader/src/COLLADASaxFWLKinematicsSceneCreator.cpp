@@ -431,7 +431,8 @@ namespace COLLADASaxFWL
 					msg = "Axis with sid address \"" + kinematicsBindJointAxis->getAxis().getSidrefValue()->getSidAddressString() + "\" could not be resolved.";
 					break;
 				}
-				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+				//todo: handle error smarter
+//				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
 				continue;
 			}
 
@@ -521,7 +522,9 @@ namespace COLLADASaxFWL
 			{
 				String msg = "Joint with sid address \"" + jointSidAddress.getSidAddressString() + 
 					         "\" referenced in kinematics model \"" + kinematicsModel->getUrl().getURIString() + "\" could not be found.";
-				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+				//todo: handle error smarter
+
+//				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
 				continue;
 			}
 
