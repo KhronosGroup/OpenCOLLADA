@@ -14,11 +14,17 @@
 
 #include <math.h>
 
+
+// no int32_t in MSVC
+#ifdef _MSC_VER
+typedef __int32 int32_t;
+#endif
+
 namespace Common
 {
 
 	typedef union {
-		long	L;
+		int32_t	L;
 		float	F;
 	}		LF_t;
 
@@ -35,7 +41,7 @@ namespace Common
 	{
 		LF_t x;
 		x.F = v;
-		return x.L == (long)0xFF800000L;
+		return x.L == (int32_t)0xFF800000L;
 	}
 
 
@@ -96,7 +102,7 @@ namespace Common
 
 	char* ftoa_no_exponent(float f, char* buffer, int maxLength)
 	{
-		long mantissa, int_part, frac_part;
+		int32_t mantissa, int_part, frac_part;
 		short exp2;
 		LF_t x;
 		char *p = buffer;
