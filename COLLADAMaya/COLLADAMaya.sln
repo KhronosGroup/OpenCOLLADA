@@ -45,9 +45,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathMLSolver", "..\External
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dae2ma", "..\dae2ma\scripts\dae2ma.vcproj", "{305C4DD6-E327-49B2-A14A-DBF7E06401D3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libBuffer", "..\..\OpenCOLLADA_google\common\libBuffer\scripts\libBuffer.vcproj", "{F36A0F1F-D046-4DD9-B231-F3A478443A68}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libBuffer", "..\common\libBuffer\scripts\libBuffer.vcproj", "{F36A0F1F-D046-4DD9-B231-F3A478443A68}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libftoa", "..\..\OpenCOLLADA_google\common\libftoa\scripts\libftoa.vcproj", "{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libftoa", "..\common\libftoa\scripts\libftoa.vcproj", "{12BBEF01-C49C-4DE5-B9C9-8E5BD3F4B0AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
