@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="9,00"
 	Name="COLLADAFramework"
 	ProjectGUID="{9F164B41-40E0-4EFA-A7C7-A89C12B4FB39}"
 	RootNamespace="COLLADAHelper"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform

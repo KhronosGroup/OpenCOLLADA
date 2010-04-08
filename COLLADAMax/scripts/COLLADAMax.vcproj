@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="9,00"
 	Name="COLLADAMax"
 	ProjectGUID="{8840B0EA-A0B3-45D6-855D-8382B247CE8B}"
 	RootNamespace="COLLADAMax"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -76,6 +77,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -95,9 +98,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -163,6 +163,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -182,9 +184,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -252,6 +251,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -271,9 +272,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -342,6 +340,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -361,9 +361,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -428,6 +425,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -447,9 +446,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -515,6 +511,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -534,9 +532,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -604,6 +599,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -623,9 +620,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -694,6 +688,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -713,9 +709,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -783,6 +776,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -802,9 +797,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -873,6 +865,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -892,9 +886,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -959,6 +950,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -978,9 +971,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1046,6 +1036,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1065,9 +1057,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1132,6 +1121,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -1151,9 +1142,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1219,6 +1207,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1238,9 +1228,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1308,6 +1295,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -1327,9 +1316,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1398,6 +1384,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1417,9 +1405,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1484,6 +1469,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -1503,9 +1490,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1571,6 +1555,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1590,9 +1576,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1660,6 +1643,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -1679,9 +1664,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1750,6 +1732,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1769,9 +1753,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1836,6 +1817,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -1855,9 +1838,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1923,6 +1903,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1942,9 +1924,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2012,6 +1991,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -2031,9 +2012,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2102,6 +2080,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -2121,9 +2101,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2192,6 +2169,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -2211,9 +2190,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2283,6 +2259,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -2302,9 +2280,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2369,6 +2344,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -2388,9 +2365,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2456,6 +2430,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -2475,9 +2451,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2542,6 +2515,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -2561,9 +2536,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2629,6 +2601,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -2648,9 +2622,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2715,6 +2686,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -2734,9 +2707,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2802,6 +2772,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -2821,9 +2793,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2888,6 +2857,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -2907,9 +2878,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2975,6 +2943,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -2994,9 +2964,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3061,6 +3028,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -3080,9 +3049,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3148,6 +3114,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -3167,9 +3135,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3234,6 +3199,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -3253,9 +3220,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3321,6 +3285,8 @@
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -3340,9 +3306,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3410,6 +3373,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -3429,9 +3394,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3500,6 +3462,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -3519,9 +3483,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3589,6 +3550,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -3608,9 +3571,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3679,6 +3639,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -3698,9 +3660,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3768,6 +3727,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -3787,9 +3748,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3858,6 +3816,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -3877,9 +3837,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -3947,6 +3904,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -3966,9 +3925,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -4037,6 +3993,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -4056,9 +4014,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -4126,6 +4081,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -4145,9 +4102,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -4216,6 +4170,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -4235,9 +4191,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -4305,6 +4258,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -4324,9 +4279,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -4395,6 +4347,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -4414,9 +4368,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -4485,6 +4436,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -4504,9 +4457,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -4576,6 +4526,8 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -4597,11 +4549,704 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2009_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2011_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2011)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2009_X64%\plugins\ColladaMaxNew.dle&quot;"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2011%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2011_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2011)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2011_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2011|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2011)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2011%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Max2011|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+				CompileAs="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2010)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2011_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2011_static|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2011)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2011%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2011_static|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2011)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2011_X64%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2011|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="2"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x86.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2011)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2011%\plugins\ColladaMaxNew.dle&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Max2011|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set HEADER=&quot;..\include\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;set F=&quot;$(IntDir)\COLLADAMaxVersionInfo.h&quot;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;if exist %HEADER%  (&#x0D;&#x0A;fc %HEADER% %F%    &gt; nul&#x0D;&#x0A;if NOT ERRORLEVEL 1 EXIT /B 0&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %HEADER%&#x0D;&#x0A;&#x0D;&#x0A;cp %F%  %HEADER%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="2"
+				BufferSecurityCheck="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies=" maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib gup.lib menus.lib morpher_x64.lib comctl32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="1.2.5"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2011)/x64/lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\lib"
+				IgnoreDefaultLibraryNames=" "
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy &quot;$(OutDir)\COLLADAMaxNew.dle&quot; &quot;%MAX_PATH2011_X64%\plugins\ColladaMaxNew.dle&quot;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -5084,6 +5729,78 @@
 						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2011_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2011_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2011|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2011|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2011_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2011_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2011|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2011|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\COLLADAMaxDllEntry.cpp"
@@ -5502,6 +6219,70 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Max2009_ProgDB_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2011_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2011_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2011|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Max2011|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2011_static|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2011_static|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2011|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Max2011|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -6023,6 +6804,70 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2011_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2011_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2011|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2011|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2011_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2011_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2011|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2011|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMaxXRefFile.cpp"
@@ -6437,6 +7282,70 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release_Max2009_ProgDB_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2011_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2011_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2011|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Max2011|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2011_static|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2011_static|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2011|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Max2011|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
