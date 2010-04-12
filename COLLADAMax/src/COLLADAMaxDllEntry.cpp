@@ -16,9 +16,8 @@
 */
 
 
-#include "COLLADAMaxPrerequisites.h"
-
 #include "COLLADAMaxStableHeaders.h"
+
 #include "COLLADAMaxColladaExporter.h"
 #include "COLLADAMaxColladaImporter.h"
 #include "COLLADAMaxGoogleWarehouse.h"

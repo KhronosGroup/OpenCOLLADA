@@ -30,6 +30,7 @@
 #include "COLLADASaxFWLLibraryJointsLoader15.h"
 #include "COLLADASaxFWLLibraryKinematicsModelsLoader15.h"
 #include "COLLADASaxFWLLibraryArticulatedSystemsLoader15.h"
+#include "COLLADASaxFWLLibraryKinematicsScenesLoader15.h"
 
 namespace COLLADASaxFWL
 {
@@ -209,6 +210,14 @@ namespace COLLADASaxFWL
 	{
 		SaxVirtualFunctionTest15(begin__library_articulated_systems(attributeData));
 		beginCommonWithId<LibraryArticulatedSystemsLoader, LibraryArticulatedSystemsLoader15>(attributeData.id);
+		return true;
+	}
+
+	//-----------------------------
+	bool RootParser15::begin__library_kinematics_scenes( const COLLADASaxFWL15::library_kinematics_scenes__AttributeData& attributeData )
+	{
+		SaxVirtualFunctionTest15(begin__library_kinematics_scenes(attributeData));
+		beginCommonWithId<LibraryKinematicsScenesLoader, LibraryKinematicsScenesLoader15>(attributeData.id);
 		return true;
 	}
 

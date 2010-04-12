@@ -95,7 +95,12 @@ namespace COLLADAMax
 		static Class_ID linearFloatClassId(LININTERP_FLOAT_CLASS_ID, 0);
 		static Class_ID hybridFloatClassId(HYBRIDINTERP_FLOAT_CLASS_ID, 0);
 
+#ifdef MAX_2011_OR_NEWER
+		DefaultRemapDir remapDir;
+		Control* clonedController = (Control*)controllerToClone->Clone(remapDir);
+#else
 		Control* clonedController = (Control*)controllerToClone->Clone();
+#endif
 		if ( (controllerToClone->SuperClassID() == CTRL_FLOAT_CLASS_ID) && (conversionFunctor) )
 		{
 			//we can only scale float controller

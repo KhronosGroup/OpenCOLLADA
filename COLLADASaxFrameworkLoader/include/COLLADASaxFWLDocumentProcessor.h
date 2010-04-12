@@ -184,10 +184,28 @@ namespace COLLADASaxFWL
 		void addInstanceJoint( KinematicInstance* instanceJoint ) { mKinematicsIntermediateData.getInstanceJoints().push_back(instanceJoint); }
 
 		/** Adds @a kinematicsModel to the list of joints. It will be written as part of kinematics, if used.*/
-		void addKinematicsModel( KinematicsModel* kinematicsModel ) { mKinematicsIntermediateData.getKinematicsModels().push_back(kinematicsModel); }
+		void addKinematicsModel( KinematicsModel* kinematicsModel );
+
+		/** Returns the kinematics model with URi @a uri or null if no kinematics model with this URI has been
+		added using addKinematicsModel.*/
+		KinematicsModel* getKinematicsModelByUri( const COLLADABU::URI& uri);
 
 		/** Adds @a kinematicsController to the list of joints. It will be written as part of kinematics, if used.*/
-		void addKinematicsController( KinematicsController* kinematicsController ) { mKinematicsIntermediateData.getKinematicsControllers().push_back(kinematicsController); }
+		void addKinematicsController( KinematicsController* kinematicsController );
+
+		/** Returns the kinematics controller with URi @a uri or null if no kinematics controller with this URI has been
+		added using addKinematicsController.*/
+		KinematicsController* getKinematicsControllerByUri( const COLLADABU::URI& uri);
+
+		/** Adds @a kinematicsScene to the list of joints. It will be written as part of kinematics, if used.*/
+		void addKinematicsScene( KinematicsScene* kinematicsScene );
+
+		/** Returns the kinematics scene with URi @a uri or null if no kinematics scene with this URI has been
+		added using addKinematicsScene.*/
+		KinematicsScene* getKinematicsSceneByUri( const COLLADABU::URI& uri);
+
+		/** Adds @a instanceKinematicsScene to the list of joints. It will be written as part of kinematics, if used.*/
+		void addInstanceKinematicsScene( KinematicsInstanceKinematicsScene* instanceKinematicsScene ) { mKinematicsIntermediateData.getInstanceKinematicsScenes().push_back(instanceKinematicsScene); }
 
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
@@ -206,10 +224,11 @@ namespace COLLADASaxFWL
 		@param target The target assigned to the sid tree node
 		*/
 		template<class TargetType>
-		void addToSidTree( const char* colladaId, const char* colladaSid, TargetType* target )
+		SidTreeNode* addToSidTree( const char* colladaId, const char* colladaSid, TargetType* target )
 		{
 			SidTreeNode* newNode = addToSidTree( colladaId, colladaSid );
 			newNode->setTarget( target );
+			return newNode;
 		}
 
 		/** Moves one node up in the sid tree. Call this method whenever an element, for which addToSidTree() was
@@ -225,7 +244,7 @@ namespace COLLADASaxFWL
 		/** Tries to resolve the a sidaddress. If resolving failed, null is returned.*/
 		const SidTreeNode* resolveSid( const COLLADABU::URI& id, const String& sid);
 
-		/** Resolves an sid in the element referenced by @a instancingElement. It uses teh sids ins @a sidAddress, 
+		/** Resolves an sid in the element referenced by @a instancingElement. It uses the sids ins @a sidAddress, 
 		starting with sid with index @a firstSidIndex. */
 		const SidTreeNode* resolveSidInInstance( const SidTreeNode* instancingElement, const SidAddress& sidAddress,  size_t firstSidIndex);
 

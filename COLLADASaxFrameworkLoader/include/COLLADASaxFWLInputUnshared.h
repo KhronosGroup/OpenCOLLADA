@@ -53,6 +53,30 @@ namespace COLLADASaxFWL
             WEIGHT, /** Skin influence weighting value */
             UNKNOWN = -1 /**< An unknown data source. */
         };
+
+		static const size_t BINORMAL_HASH = 238318908;
+		static const size_t COLOR_HASH = 4735298;
+		static const size_t CONTINUITY_HASH = 149363369;
+		static const size_t IMAGE_HASH = 5117365;
+		static const size_t INPUT_HASH = 5125540;
+		static const size_t IN_TANGENT_HASH = 140926580;
+		static const size_t INTERPOLATION_HASH = 238955310;
+		static const size_t INV_BIND_MATRIX_HASH = 2112040;
+		static const size_t JOINT_HASH = 5193268;
+		static const size_t LINEAR_STEPS_HASH = 54960947;
+		static const size_t MORPH_TARGET_HASH = 27402052;
+		static const size_t MORPH_WEIGHT_HASH = 27111220;
+		static const size_t NORMAL_HASH = 87322972;
+		static const size_t OUTPUT_HASH = 88774052;
+		static const size_t OUT_TANGENT_HASH = 135664756;
+		static const size_t POSITION_HASH = 75401582;
+		static const size_t TANGENT_HASH = 140687972;
+		static const size_t TEXBINORMAL_HASH = 244112700;
+		static const size_t TEXCOORD_HASH = 180896228;
+		static const size_t TEXTANGENT_HASH = 140981476;
+		static const size_t UV_HASH = 1446;
+		static const size_t VERTEX_HASH = 95058088;
+		static const size_t WEIGHT_HASH = 96066516;
     }
 
     /** 

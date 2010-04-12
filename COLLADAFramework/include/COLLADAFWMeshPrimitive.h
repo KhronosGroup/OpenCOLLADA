@@ -205,7 +205,7 @@ namespace COLLADAFW
         */
         IndexList* getColorIndices ( size_t index ) 
         { 
-            assert ( mColorIndicesArray.getCount () > index );
+            if ( index >= mColorIndicesArray.getCount () ) return 0;
             return mColorIndicesArray [ index ]; 
         }
 
@@ -214,7 +214,7 @@ namespace COLLADAFW
         */
         const IndexList* getColorIndices ( size_t index ) const 
         { 
-            assert ( mColorIndicesArray.getCount () > index );
+            if ( index >= mColorIndicesArray.getCount () ) return 0;
             return mColorIndicesArray [ index ]; 
         }
 
@@ -251,7 +251,7 @@ namespace COLLADAFW
         */
         IndexList* getUVCoordIndices ( size_t index )
         {
-            assert ( mUVCoordIndicesArray.getCount () > index );
+            if ( index >= mUVCoordIndicesArray.getCount () ) return 0;
             return mUVCoordIndicesArray [ index ]; 
         }
 
@@ -260,7 +260,7 @@ namespace COLLADAFW
         */
         const IndexList* getUVCoordIndices ( size_t index ) const 
         {
-            assert ( mUVCoordIndicesArray.getCount () > index );
+            if ( index >= mUVCoordIndicesArray.getCount () ) return 0;
             return mUVCoordIndicesArray [ index ]; 
         }
 

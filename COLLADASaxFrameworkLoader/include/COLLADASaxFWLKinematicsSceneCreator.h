@@ -34,6 +34,9 @@ namespace COLLADASaxFWL
 	class KinematicAttachment;
 	class KinematicsController;
 	class KinematicsInstanceKinematicsModel;
+	class KinematicsInstanceKinematicsScene;
+	class KinematicsScene;
+	class KinematicsBindJointAxis;
 	class AxisInfo;
 
     /** Creates a kinematics scene from an intermediate kinematics data */
@@ -45,6 +48,11 @@ namespace COLLADASaxFWL
 		typedef std::stack<size_t> NumberStack;
 
 		typedef std::map<COLLADAFW::JointPrimitive*, COLLADAFW::JointPrimitive*> JointPrimitiveJointPrimitiveMap;
+
+		typedef COLLADABU::hash_map<KinematicsModel*, COLLADAFW::KinematicsModel*> KinematicsModelFWKinematicsModelMap;
+
+		typedef std::set<COLLADAFW::InstanceKinematicsScene::NodeLinkBinding> NodeLinkBindingSet;
+
 	private:
 		/** The kinematics scene we are about to create.*/
 		COLLADAFW::KinematicsScene* mKinematicsScene;
@@ -71,9 +79,15 @@ namespace COLLADASaxFWL
 
 		/** We use this to map the joints created during the parse proces to the final nodes in the kinematics model,
 		to point to the correct joint in the axis infos.
-		TODO: This solution ist to simple for the general case. Requires a much better algo
+		TODO: This solution is to simple for the general case. Requires a much better algo
 		*/
 		JointPrimitiveJointPrimitiveMap mOriginalClonedJointPrimitiveMap;
+
+		/** Maps the intermediate kinematics model to the fw kinematics model.*/
+		KinematicsModelFWKinematicsModelMap mKinematicsModelFWKinematicsModelMap;
+
+		/** Set of all node link bindings. */
+		NodeLinkBindingSet mNodeLinkBindingSet;
 	public:
 
         /** Constructor. */
@@ -99,9 +113,18 @@ namespace COLLADASaxFWL
 	
 		COLLADAFW::KinematicsController* createFWKinematicsController(KinematicsController* kinematicsController);
 
+		COLLADAFW::InstanceKinematicsScene* createFWInstanceKinematicsScene(KinematicsInstanceKinematicsScene* instanceKinematicsScene);
+
 		COLLADAFW::AxisInfo createFWAxisInfo( const AxisInfo& axisInfo, bool& success );
 
 		COLLADAFW::UniqueId processInstanceKinematicsModel(const KinematicsInstanceKinematicsModel& instanceKinematicsModel);
+
+		bool resolveLink(KinematicsScene* kinematicsScene, 
+			             KinematicsBindJointAxis* kinematicsBindJointAxis,
+						 size_t* linkNumber,
+						 COLLADAFW::KinematicsModel** kinModel);
+
+		size_t findLinkByJOintPrimitive(const COLLADAFW::KinematicsModel* fwKinModel, const COLLADAFW::JointPrimitive* jointPrimitive);
 	};
 
 } // namespace COLLADASAXFWL

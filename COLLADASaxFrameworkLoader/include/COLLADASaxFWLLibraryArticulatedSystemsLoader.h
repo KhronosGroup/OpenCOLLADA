@@ -13,7 +13,7 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLFilePartLoader.h"
-
+#include "COLLADASaxFWLInstanceKinematicsModelLoader.h"
 
 
 namespace COLLADASaxFWL
@@ -36,6 +36,7 @@ namespace COLLADASaxFWL
 			VALUE_ELEMENT_LOCKED,
 			VALUE_ELEMENT_INDEX,
 		};
+
 	private:
 
 		/** The id of the current articulated system.*/
@@ -47,20 +48,10 @@ namespace COLLADASaxFWL
 		/** The kinematics  currently being filled.*/
 		KinematicsController* mCurrentKinematicsController;
 
-		/** The instance kinematics model currently being filled.*/
-		KinematicsInstanceKinematicsModel* mCurrentKinematicsInstanceKinematicsModel;
-
 		/** Specifies the type of the parent of a value type element <bool>, <int>, <float>, <SIDREF>.*/
 		ValueElementParentType mValueElementParentType;
 
-		/** The formula new param currently being parsed.*/
-		KinematicsNewParam* mCurrentKinematicsNewParam;
-
-		/** The sid of the current new param.*/
-		String mCurrentKinematicsNewParamSid;
-
-		/** Used to gather all the characters of a sid ref.*/
-		String mSidRefString;
+		InstanceKinematicsModelLoader mInstanceKinematicsModelLoader;
 
 		/** The current axis info.*/
 		AxisInfo* mCurrentAxisInfo;

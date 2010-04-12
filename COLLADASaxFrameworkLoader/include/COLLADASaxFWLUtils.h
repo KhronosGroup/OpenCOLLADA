@@ -45,6 +45,17 @@ namespace COLLADASaxFWL
 		}
 	}
 
+	/** Deletes the values of the Map @a map by calling delete. The value of the map must be a pointer.
+	The values in map must have been created using new.*/
+	template<class MapType>
+	void deleteMap( const MapType& map )
+	{
+		MapType::const_iterator it = map.begin();
+		for ( ; it != map.end(); ++it)
+		{
+			delete it->second;
+		}
+	}
 
 
 } // namespace COLLADASAXFWL

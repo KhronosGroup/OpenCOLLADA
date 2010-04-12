@@ -40,6 +40,32 @@ virtual bool begin__instance_visual_scene( const COLLADASaxFWL15::instance_visua
 
 virtual bool end__instance_visual_scene();
 
+virtual bool begin__instance_kinematics_scene( const COLLADASaxFWL15::instance_kinematics_scene__AttributeData& attributeData );
+
+virtual bool end__instance_kinematics_scene();
+
+virtual bool begin__bind_kinematics_model( const COLLADASaxFWL15::bind_kinematics_model__AttributeData& attributeData );
+
+virtual bool end__bind_kinematics_model();
+
+virtual bool begin__bind_joint_axis( const COLLADASaxFWL15::bind_joint_axis__AttributeData& attributeData );
+
+virtual bool end__bind_joint_axis();
+
+virtual bool begin__axis____common_sidref_or_param_type();
+
+virtual bool end__axis____common_sidref_or_param_type();
+
+virtual bool begin__value____common_float_or_param_type();
+
+virtual bool end__value____common_float_or_param_type();
+
+virtual bool begin__param____common_param_type();
+
+virtual bool end__param____common_param_type();
+
+virtual bool data__param____common_param_type( const ParserChar* value, size_t length );
+
 virtual bool end__scene();
 
 virtual bool begin__technique____technique_type( const COLLADASaxFWL15::technique____technique_type__AttributeData& attributeData );

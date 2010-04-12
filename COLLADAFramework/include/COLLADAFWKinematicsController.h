@@ -24,7 +24,7 @@ namespace COLLADAFW
 {
 
     /** TODO Documentation */
-	class KinematicsController 	: ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>
+	class KinematicsController 	: public ObjectTemplate<COLLADA_TYPE::KINEMATICS_CONTROLLER>
 	{
 	private:
 
@@ -77,6 +77,9 @@ namespace COLLADAFW
 
 		/** The motion profile of angular motion.*/
 		void setAngularMotionProfile( const MotionProfile& angularMotionProfile) { mAngularMotionProfile = angularMotionProfile; }
+
+		/** Creates a clone of the KinematicsController and returns a pointer to it.*/
+		KinematicsController* clone() const { return FW_NEW KinematicsController(*this); }
 
 	private:
 

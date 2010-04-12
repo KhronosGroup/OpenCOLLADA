@@ -21,7 +21,6 @@ namespace COLLADASaxFWL
 	LibraryArticulatedSystemsLoader::LibraryArticulatedSystemsLoader( IFilePartLoader* callingFilePartLoader )
 		: FilePartLoader(callingFilePartLoader)
 		, mCurrentKinematicsController(0)
-		, mCurrentKinematicsInstanceKinematicsModel(0)
 		, mValueElementParentType(VALUE_ELEMENT_NONE)
 		, mCurrentAxisInfo(0)
 	{
@@ -80,7 +79,9 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryArticulatedSystemsLoader::begin__kinematics()
 	{
-		mCurrentKinematicsController = new KinematicsController( mCurrentArticulatedId, mCurrentArticulatedName );
+		COLLADABU::URI uri(getFileUri());
+		uri.setFragment( mCurrentArticulatedId );
+		mCurrentKinematicsController = new KinematicsController( uri, mCurrentArticulatedName );
 		return true;
 	}
 
@@ -96,9 +97,11 @@ namespace COLLADASaxFWL
 	bool LibraryArticulatedSystemsLoader::begin__instance_kinematics_model( const instance_kinematics_model__AttributeData& attributeData )
 	{
 		KinematicsInstanceKinematicsModels& instanceKinematicsModels = mCurrentKinematicsController->getKinematicsInstanceKinematicsModels();
-		instanceKinematicsModels.push_back(KinematicsInstanceKinematicsModel(attributeData.url)); 
-		mCurrentKinematicsInstanceKinematicsModel = &instanceKinematicsModels.back();
-		addToSidTree( 0, attributeData.sid, mCurrentKinematicsInstanceKinematicsModel);
+		COLLADABU::URI absoluteUrl(getFileUri(), attributeData.url.getURIString());
+		instanceKinematicsModels.push_back(KinematicsInstanceKinematicsModel(absoluteUrl)); 
+		KinematicsInstanceKinematicsModel * instanceKinematicsModel = &instanceKinematicsModels.back();
+		addToSidTree( 0, attributeData.sid, instanceKinematicsModel);
+		mInstanceKinematicsModelLoader.setCurrentInstanceKinematicsModel(instanceKinematicsModel);
 		return true;
 	}
 
@@ -106,7 +109,6 @@ namespace COLLADASaxFWL
 	bool LibraryArticulatedSystemsLoader::end__instance_kinematics_model()
 	{
 		moveUpInSidTree();
-		mCurrentKinematicsInstanceKinematicsModel = 0;
 		return true;
 	}
 
@@ -114,21 +116,14 @@ namespace COLLADASaxFWL
 	bool LibraryArticulatedSystemsLoader::begin__newparam____kinematics_newparam_type( const newparam____kinematics_newparam_type__AttributeData& attributeData )
 	{
 		mValueElementParentType = VALUE_ELEMENT_NEWPARAM;
-		if ( attributeData.sid )
-		{
-			mCurrentKinematicsNewParamSid = attributeData.sid;
-		}
-		return true;
+		return mInstanceKinematicsModelLoader.begin__newparam____kinematics_newparam_type(attributeData);
 	}
 
 	//------------------------------
 	bool LibraryArticulatedSystemsLoader::end__newparam____kinematics_newparam_type()
 	{
-		mCurrentKinematicsInstanceKinematicsModel->getKinematicsNewParams().push_back(mCurrentKinematicsNewParam);
 		mValueElementParentType = VALUE_ELEMENT_NONE;
-		mCurrentKinematicsNewParamSid.clear();
-		mCurrentKinematicsNewParam = 0;
-		return true;
+		return mInstanceKinematicsModelLoader.end__newparam____kinematics_newparam_type();
 	}
 
 	//-----------------------------------------------------------------
@@ -138,9 +133,7 @@ namespace COLLADASaxFWL
 		{
 		case VALUE_ELEMENT_NEWPARAM:
 			{
-				mCurrentKinematicsNewParam = new KinematicsNewParam(KinematicsNewParam::VALUETYPE_FLOAT);
-				mCurrentKinematicsNewParam->setName(mCurrentKinematicsNewParamSid);
-				break;
+				return mInstanceKinematicsModelLoader.begin__float();
 			}
 		}
 		return true;
@@ -149,7 +142,7 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::end__float()
 	{
-		return true;
+		return mInstanceKinematicsModelLoader.end__float();
 	}
 
 	//-----------------------------------------------------------------
@@ -159,7 +152,7 @@ namespace COLLADASaxFWL
 		{
 		case VALUE_ELEMENT_NEWPARAM:
 			{
-				mCurrentKinematicsNewParam->setDoubleValue( value );
+				mInstanceKinematicsModelLoader.data__float(value);
 				break;
 			}
 		}
@@ -173,8 +166,7 @@ namespace COLLADASaxFWL
 		{
 		case VALUE_ELEMENT_NEWPARAM:
 			{
-				mCurrentKinematicsNewParam = new KinematicsNewParam(KinematicsNewParam::VALUETYPE_INT);
-				mCurrentKinematicsNewParam->setName(mCurrentKinematicsNewParamSid);
+				mInstanceKinematicsModelLoader.begin__int();
 				break;
 			}
 		}
@@ -184,6 +176,7 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::end__int()
 	{
+		mInstanceKinematicsModelLoader.end__int();
 		return true;
 	}
 
@@ -194,7 +187,7 @@ namespace COLLADASaxFWL
 		{
 		case VALUE_ELEMENT_NEWPARAM:
 			{
-				mCurrentKinematicsNewParam->setIntValue( value );
+				mInstanceKinematicsModelLoader.data__int(value);
 				break;
 			}
 		case VALUE_ELEMENT_INDEX:
@@ -213,8 +206,7 @@ namespace COLLADASaxFWL
 		{
 		case VALUE_ELEMENT_NEWPARAM:
 			{
-				mCurrentKinematicsNewParam = new KinematicsNewParam(KinematicsNewParam::VALUETYPE_BOOL);
-				mCurrentKinematicsNewParam->setName(mCurrentKinematicsNewParamSid);
+				mInstanceKinematicsModelLoader.begin__bool();
 				break;
 			}
 		}
@@ -224,6 +216,7 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::end__bool()
 	{
+		mInstanceKinematicsModelLoader.end__bool();
 		return true;
 	}
 
@@ -234,7 +227,7 @@ namespace COLLADASaxFWL
 		{
 		case VALUE_ELEMENT_NEWPARAM:
 			{
-				mCurrentKinematicsNewParam->setBoolValue( value );
+				mInstanceKinematicsModelLoader.data__bool(value);
 				break;
 			}
 		case VALUE_ELEMENT_AKTIVE:
@@ -258,8 +251,7 @@ namespace COLLADASaxFWL
 		{
 		case VALUE_ELEMENT_NEWPARAM:
 			{
-				mCurrentKinematicsNewParam = new KinematicsNewParam(KinematicsNewParam::VALUETYPE_SIDREF);
-				mCurrentKinematicsNewParam->setName(mCurrentKinematicsNewParamSid);
+				mInstanceKinematicsModelLoader.begin__SIDREF();
 				break;
 			}
 		}
@@ -273,8 +265,7 @@ namespace COLLADASaxFWL
 		{
 		case VALUE_ELEMENT_NEWPARAM:
 			{
-				mCurrentKinematicsNewParam->setSidrefValue( mSidRefString );
-				mSidRefString.clear();
+				mInstanceKinematicsModelLoader.end__SIDREF();
 				break;
 			}
 		}
@@ -284,7 +275,7 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::data__SIDREF( const ParserChar* value, size_t length )
 	{
-		mSidRefString.append( value, length );
+		mInstanceKinematicsModelLoader.data__SIDREF(value, length);
 		return true;
 	}
 

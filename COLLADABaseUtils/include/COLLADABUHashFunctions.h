@@ -12,7 +12,7 @@
 #define __COLLADABU_HASHFUNCTIONS_H__
 
 #include "COLLADABUPrerequisites.h"
-#include "COLLADABUhash_map.h"
+#include "COLLADABUPlatform.h"
 
 #ifdef COLLADABU_HAVE_TR1_UNORDERED_MAP
 //#  include 
@@ -33,7 +33,13 @@ namespace COLLADABU
 
 	size_t calculateHash(const String& str);
 
+	/** Converts all lower case ASCII caracters to the corresponding upper case character befor calculating the hash.*/
+	size_t calculateHashUpper(const String& str);
+
 	size_t calculateHash(const char* str);
+
+	/** Converts all lower case ASCII caracters to the corresponding upper case character befor calculating the hash.*/
+	size_t calculateHashUpper(const char* str);
 
 	size_t calculateHash(const URI& uri);
 	inline size_t calculateHashU(const URI& uri){

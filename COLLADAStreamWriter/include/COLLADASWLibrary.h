@@ -30,8 +30,6 @@ namespace COLLADASW
         /** Destructor*/
         virtual ~Library() {}
 
-
-    protected:
         /** Closes the @a \<library_geometry\> tag.
         This function should be called after the last geometry has been added*/
         void closeLibrary();

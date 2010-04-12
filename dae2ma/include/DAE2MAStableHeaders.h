@@ -32,8 +32,16 @@
 #include <math.h>
 #include <string>
 #include <iostream>
+#include <map>
+#include <hash_map>
 
 #include "COLLADASaxFWLColladaParserAutoGen15Attributes.h"
+
+// base utils
+#include <COLLADABU.h>
+
+// Framework
+#include <COLLADAFW.h>
 
 
 #ifdef WIN32

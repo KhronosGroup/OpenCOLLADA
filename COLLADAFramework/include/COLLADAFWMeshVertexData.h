@@ -118,6 +118,7 @@ namespace COLLADAFW
         String getName ( size_t index ) const
         {
             assert ( index <= mInputInfosArray.getCount() );
+            if ( index >= mInputInfosArray.getCount () ) return 0;
             return mInputInfosArray[index]->mName;
         }
 
@@ -125,6 +126,7 @@ namespace COLLADAFW
         size_t getStride ( size_t index ) const
         {
             assert ( index <= mInputInfosArray.getCount() );
+            if ( index >= mInputInfosArray.getCount () ) return 0;
             return mInputInfosArray[index]->mStride;
         }
 
@@ -132,6 +134,7 @@ namespace COLLADAFW
         size_t getLength ( size_t index ) const
         {
             assert ( index <= mInputInfosArray.getCount() );
+            if ( index >= mInputInfosArray.getCount () ) return 0;
             return mInputInfosArray[index]->mLength;
         }
 

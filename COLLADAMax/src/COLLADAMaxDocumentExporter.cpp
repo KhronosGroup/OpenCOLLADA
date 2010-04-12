@@ -320,12 +320,16 @@ namespace COLLADAMax
 			if (!mOptions.ShowDialog()) 
 				return false;
 		}
-		else if (!mOptions.getSampleAnimation())
+		else
 		{
-			Interval animRange = GetCOREInterface()->GetAnimRange();
-			int sceneStart = animRange.Start();
-			int sceneEnd = animRange.End();
-			mOptions.setAnimBounds(sceneStart, sceneEnd);
+			mOptions.LoadOptions();
+			if (!mOptions.getSampleAnimation())
+			{
+				Interval animRange = GetCOREInterface()->GetAnimRange();
+				int sceneStart = animRange.Start();
+				int sceneEnd = animRange.End();
+				mOptions.setAnimBounds(sceneStart, sceneEnd);
+			}
 		}
 
 		// Set relative/absolute export

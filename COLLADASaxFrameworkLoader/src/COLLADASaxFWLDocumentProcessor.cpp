@@ -147,6 +147,7 @@ namespace COLLADASaxFWL
 					{
 						KinematicInstance* ki = intermediateTargetableSafeCast<KinematicInstance>(iTargetable);
 						uri = &ki->getUrl();
+						break;
 					}
 				}
 
@@ -465,6 +466,72 @@ namespace COLLADASaxFWL
 			}
 		}
 		return true;
+	}
+
+	//------------------------------
+	void DocumentProcessor::addKinematicsScene( KinematicsScene* kinematicsScene )
+	{
+		const COLLADABU::URI& uri = kinematicsScene->getUri();
+		mKinematicsIntermediateData.getKinematicsScenes().insert(std::make_pair(uri, kinematicsScene));
+	}
+
+	//------------------------------
+	KinematicsScene* DocumentProcessor::getKinematicsSceneByUri( const COLLADABU::URI& uri )
+	{
+		const KinematicsIntermediateData::KinematicsSceneMap& map = mKinematicsIntermediateData.getKinematicsScenes();
+		KinematicsIntermediateData::KinematicsSceneMap::const_iterator it = map.find(uri);
+		if ( it != map.end() )
+		{
+			return it->second;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	//------------------------------
+	void DocumentProcessor::addKinematicsController( KinematicsController* kinematicsController )
+	{
+		const COLLADABU::URI& uri = kinematicsController->getUri();
+		mKinematicsIntermediateData.getKinematicsControllers().insert(std::make_pair(uri, kinematicsController));
+	}
+
+	//------------------------------
+	KinematicsController* DocumentProcessor::getKinematicsControllerByUri( const COLLADABU::URI& uri )
+	{
+		const KinematicsIntermediateData::KinematicsControllerMap& map = mKinematicsIntermediateData.getKinematicsControllers();
+		KinematicsIntermediateData::KinematicsControllerMap::const_iterator it = map.find(uri);
+		if ( it != map.end() )
+		{
+			return it->second;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	//------------------------------
+	void DocumentProcessor::addKinematicsModel( KinematicsModel* kinematicsModel )
+	{
+		const COLLADABU::URI& uri = kinematicsModel->getUrl();
+		mKinematicsIntermediateData.getKinematicsModels().insert(std::make_pair(uri, kinematicsModel));
+	}
+
+	//------------------------------
+	KinematicsModel* DocumentProcessor::getKinematicsModelByUri( const COLLADABU::URI& uri )
+	{
+		const KinematicsIntermediateData::KinematicsModelMap& map = mKinematicsIntermediateData.getKinematicsModels();
+		KinematicsIntermediateData::KinematicsModelMap::const_iterator it = map.find(uri);
+		if ( it != map.end() )
+		{
+			return it->second;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 

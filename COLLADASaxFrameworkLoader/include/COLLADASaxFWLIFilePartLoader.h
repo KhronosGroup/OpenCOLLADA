@@ -123,7 +123,7 @@ namespace COLLADASaxFWL
 		invalid unique id will be returned.
 		@param uriString The uriString of the element to get the COLLADAFW::UniqueId for
 		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
-		const COLLADAFW::UniqueId& createUniqueId(const String& uriString);
+		const COLLADAFW::UniqueId& getUniqueIdByUrl(const String& uriString);
 
 		/** Returns the COLLADAFW::UniqueId of the element with id  @a colladaId in the current file.
 		If the id within this file has been passed to this method before, the same 	COLLADAFW::UniqueId
@@ -132,6 +132,13 @@ namespace COLLADASaxFWL
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
 		COLLADAFW::UniqueId createUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId );
+
+		/** Returns the COLLADAFW::UniqueId of the element with id @a colladaId  in the current document. If the 
+		colladaId has been	passed to this method before while in the same file, the same COLLADAFW::UniqueId will 
+		be returned, if not, an invalid unique id will be returned.
+		@param id The id of the element to get the COLLADAFW::UniqueId for
+		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
+		const COLLADAFW::UniqueId& getUniqueIdById(const ParserChar* colladaId);
 
 		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has
 		been passed to this method before, the same COLLADAFW::UniqueId will be returned, if not,
@@ -146,17 +153,19 @@ namespace COLLADASaxFWL
 		a new one is created.
 		@param url The url of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
+		@param isAbsolute If true, the url is assumed to be absolute, otherwise it will be made absolute 
+		using the current file urie.
 		@return The elements COLLADAFW::UniqueId */
-		const COLLADAFW::UniqueId& createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId );
+		const COLLADAFW::UniqueId& createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId, bool isAbsolute = false );
 
 		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has
 		been passed to this method before, the same COLLADAFW::UniqueId will be returned,   if not, an 
 		invalid unique id will be returned.
 		@param uriString The uriString of the element to get the COLLADAFW::UniqueId for
 		@param isAbsolute If true, the url is assumed to be absolute, otherwise it will be made absolute 
-		using the current file urie.
+		using the current file uri.
 		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
-		const COLLADAFW::UniqueId& createUniqueIdFromUrl( const COLLADABU::URI& url, bool isAbsolute = false  );
+		const COLLADAFW::UniqueId& getUniqueIdByUrl( const COLLADABU::URI& url, bool isAbsolute = false  );
 
 		/** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new
 		COLLADAFW::UniqueId will be created and returned. Use this member for collada elements that
@@ -179,7 +188,7 @@ namespace COLLADASaxFWL
 		@param id The id of the element. Might be 0;
 		@param sid The sid of the element. Might be 0;
 		*/
-		void addToSidTree( const char* colladaId, const char* colladaSid );
+		SidTreeNode*  addToSidTree( const char* colladaId, const char* colladaSid );
 
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
@@ -188,7 +197,7 @@ namespace COLLADASaxFWL
 		@param sid The sid of the element. Might be 0;
 		@param target The target assigned to the sid tree node
 		*/
-		void addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Object* target );
+		SidTreeNode*  addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Object* target );
 
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
@@ -197,7 +206,7 @@ namespace COLLADASaxFWL
 		@param sid The sid of the element. Might be 0;
 		@param target The target assigned to the sid tree node
 		*/
-		void addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target );
+		SidTreeNode*  addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target );
 
 		/** Creates a new node in the sid tree. Call this method for every collada element that has an sid or that has an id 
 		and can have children with sids. For every call of this method you have to call moveUpInSidTree() when the element
@@ -206,11 +215,11 @@ namespace COLLADASaxFWL
 		@param sid The sid of the element. Might be 0;
 		@param target The target assigned to the sid tree node
 		*/
-		void addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target );
+		SidTreeNode*  addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target );
 
 		/** Moves one node up in the sid tree. Call this method whenever an element, for which addToSidTree() was
 		called, is closed.*/
-		void moveUpInSidTree();
+		void  moveUpInSidTree();
 
 		/** Tries to resolve the a sidaddress. If resolving failed, null is returned.*/
 		const SidTreeNode* resolveSid( const SidAddress& sidAddress);

@@ -225,6 +225,8 @@ namespace COLLADAMax
 		String id = morphControllerHelperGeometry.controllerId;
 		id += HELPER_GEOMETRY_ID_SUFFIX;
 		id += COLLADASW::Utils::toString(morphControllerHelperGeometry.channelBankindex);
+		id += "-";
+		id += morphControllerHelperGeometry.morphController->getMorph()->chanBank[morphControllerHelperGeometry.channelBankindex].mName;
 		return id;
 	}
 

@@ -48,7 +48,7 @@ namespace COLLADAFW
 			{}
 
 			/** Returns the number of the link. This number is used to uniquely identify one link within a specific 
-			kinematics model. The base link has always number 0. */
+			kinematics model. */
 			size_t getLinkNumber() const { return mLinkNumber; }
 
 			/** Returns the index of the joint in mJoints of KinematicsModel.*/
@@ -59,6 +59,10 @@ namespace COLLADAFW
 
 			/** Returns the transformation defining the position and orientation of the joint, relative to the link.*/
 			TransformationPointerArray& getTransformations(){ return mTransformations; }
+
+			/** Creates a clone of the LinkJointConnection and returns a pointer to it.*/
+			LinkJointConnection* clone() const { return FW_NEW LinkJointConnection(*this); }
+
 		};
 
 		typedef PointerArray<LinkJointConnection> LinkJointConnections;
@@ -102,6 +106,10 @@ namespace COLLADAFW
 
 		/** Returns the indices of the kinematics models base links.*/
 		SizeTValuesArray& getBaseLinks(){ return mBaseLinks; }
+
+		/** Creates a clone of the KinematicsModel and returns a pointer to it.*/
+		KinematicsModel* clone() const { return FW_NEW KinematicsModel(*this); }
+
 	private:
 
         /** Disable default copy ctor. */

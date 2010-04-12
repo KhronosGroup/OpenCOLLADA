@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="9,00"
 	Name="COLLADAMaya"
 	ProjectGUID="{60331F1F-2334-42AF-80A8-A4A6E3299186}"
 	RootNamespace="COLLADAMaya"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -47,9 +48,9 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -68,16 +69,19 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				OptimizeForWindows98="0"
 				LinkTimeCodeGeneration="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -98,12 +102,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2008%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2008%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2008%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2008%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -135,12 +136,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -155,14 +156,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
+				OptimizeForWindows98="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -184,12 +188,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008_X64%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2008_X64%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2008_X64%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2008_X64%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008_X64%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -197,6 +198,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -217,13 +219,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -237,19 +241,22 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
-				LinkTimeCodeGeneration="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -270,12 +277,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2008%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2008%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2008%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2008%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -283,6 +287,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -304,14 +309,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -325,14 +331,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
+				OptimizeForWindows98="0"
 				LinkTimeCodeGeneration="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -354,12 +363,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008_X64%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2008_X64%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2008_X64%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2008_X64%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008_X64%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -391,11 +397,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -410,17 +417,20 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				OptimizeForWindows98="0"
 				LinkTimeCodeGeneration="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -439,9 +449,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -478,12 +485,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -498,15 +505,18 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				OptimizeForWindows98="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -528,9 +538,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying console application into the testsuite"
 				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
@@ -541,6 +548,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -561,13 +569,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -581,20 +591,22 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
 				EnableCOMDATFolding="0"
-				OptimizeForWindows98="1"
-				LinkTimeCodeGeneration="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -615,9 +627,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying console application into the testsuite"
 				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
@@ -628,7 +637,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -650,14 +659,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -671,18 +681,22 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="1"
 				OptimizeReferences="0"
 				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol="main"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -704,9 +718,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying console application into the testsuite"
 				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
@@ -717,7 +728,6 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -741,12 +751,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -761,15 +771,18 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
+				OptimizeForWindows98="0"
 				LinkTimeCodeGeneration="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -790,12 +803,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2009%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2009%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2009%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2009%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2009%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2009%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2009%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2009%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -803,7 +813,6 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -828,12 +837,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -848,14 +857,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
+				OptimizeForWindows98="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -877,12 +889,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009_X64%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2009_X64%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2009_X64%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2009_X64%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009_X64%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -890,7 +899,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -912,14 +921,16 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="false"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -933,20 +944,23 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
-				LinkTimeCodeGeneration="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -968,12 +982,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH2009%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2009%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2009%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2009%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2009%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2009%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2009%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2009%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -981,7 +992,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1003,14 +1014,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1024,14 +1036,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
+				OptimizeForWindows98="0"
 				LinkTimeCodeGeneration="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1053,12 +1068,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009_X64%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2009_X64%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2009_X64%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2009_X64%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2009_X64%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009_X64%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -1090,11 +1102,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -1109,17 +1122,20 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				OptimizeForWindows98="0"
 				LinkTimeCodeGeneration="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1138,9 +1154,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1177,12 +1190,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -1197,15 +1210,18 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="dae2ma-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				OptimizeForWindows98="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1227,9 +1243,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying console application into the testsuite"
 				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
@@ -1240,6 +1253,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1260,13 +1274,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1280,20 +1296,22 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
 				EnableCOMDATFolding="0"
-				OptimizeForWindows98="1"
-				LinkTimeCodeGeneration="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1314,9 +1332,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying console application into the testsuite"
 				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
@@ -1327,7 +1342,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1349,14 +1364,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1370,18 +1386,22 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="1"
 				OptimizeReferences="0"
 				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol="main"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1403,9 +1423,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying console application into the testsuite"
 				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
@@ -1416,7 +1433,6 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1440,12 +1456,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -1460,15 +1476,18 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
+				OptimizeForWindows98="0"
 				LinkTimeCodeGeneration="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1489,12 +1508,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2010%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2010%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2010%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2010%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2010%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2010%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2010%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2010%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2010%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -1502,7 +1518,6 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1527,12 +1542,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -1547,14 +1562,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
+				OptimizeForWindows98="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1576,12 +1594,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2010_X64%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2010_X64%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2010_X64%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2010_X64%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2010_X64%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -1589,7 +1604,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1611,14 +1626,16 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="false"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1632,20 +1649,23 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
-				LinkTimeCodeGeneration="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -1667,12 +1687,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH2010%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2010%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2010%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2010%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2010%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2010%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2010%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2010%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2010%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2010%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -1680,7 +1697,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1702,14 +1719,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1723,14 +1741,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
+				OptimizeForWindows98="0"
 				LinkTimeCodeGeneration="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1752,12 +1773,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2010_X64%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2010_X64%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2010_X64%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2010_X64%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2010_X64%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2010_X64%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -1789,11 +1807,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -1808,17 +1827,20 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				OptimizeForWindows98="0"
 				LinkTimeCodeGeneration="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1837,9 +1859,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1876,12 +1895,12 @@
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -1896,15 +1915,18 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA-d.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib pcre-d.lib MathMLSolver-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				OptimizeForWindows98="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -1924,9 +1946,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -1939,6 +1958,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1959,13 +1979,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1979,20 +2001,22 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
 				EnableCOMDATFolding="0"
-				OptimizeForWindows98="1"
-				LinkTimeCodeGeneration="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -2011,9 +2035,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2026,7 +2047,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -2048,14 +2069,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2069,18 +2091,22 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="1"
 				OptimizeReferences="0"
 				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol="main"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -2100,9 +2126,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2115,6 +2138,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -2135,13 +2159,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010)\include&quot;;&quot;$(MAYA_PATH2010)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -2156,21 +2182,23 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				OptimizeReferences="0"
 				EnableCOMDATFolding="0"
-				OptimizeForWindows98="1"
-				LinkTimeCodeGeneration="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -2189,9 +2217,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2204,7 +2229,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -2226,14 +2251,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2010_X64)\include&quot;;&quot;$(MAYA_PATH2010_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
 				WarningLevel="2"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2247,18 +2273,22 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2010_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="1"
 				OptimizeReferences="0"
 				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				EntryPointSymbol="main"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -2280,19 +2310,16 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying console application into the testsuite"
 				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
-			Name="ReleaseConsoleProgDB2009|Win32"
+			Name="DebugPlugin2011|Win32"
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -2312,14 +2339,102 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011)\include&quot;;&quot;$(MAYA_PATH2011)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
-				WarningLevel="2"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mll"
+				Version="1.3.0"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreDefaultLibraryNames=""
+				GenerateDebugInformation="true"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying plugin to Maya install"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2011%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2011%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2011%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2011%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2011%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2011%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2011%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2011%\scripts\others&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugPlugin2011|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011_X64)\include&quot;;&quot;$(MAYA_PATH2011_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -2334,109 +2449,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
-				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mll"
+				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
 				GenerateManifest="true"
-				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames=""
+				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
-				OptimizeReferences="0"
-				EnableCOMDATFolding="0"
-				OptimizeForWindows98="1"
-				LinkTimeCodeGeneration="0"
-				EntryPointSymbol=""
-				ResourceOnlyDLL="false"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Copying console application into the testsuite"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ReleaseConsoleProgDB2009|x64"
-			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
-				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
-				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
-				WarningLevel="2"
-				Detect64BitPortabilityProblems="true"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="DAE2MA.lib Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib pcre.lib MathMLSolver.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
-				OutputFile="$(OutDir)\$(ProjectName).exe"
-				Version="1.2.2"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;..\..\COLLADAStreamWriter\lib\win\$(PlatformName);..\..\COLLADABaseUtils\lib\win\$(PlatformName);..\..\COLLADAFramework\lib\win\$(PlatformName);..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)\libxml;..\..\GeneratedSaxParser\lib\win\$(PlatformName)\libxml;..\..\Externals\pcre\lib\win\$(PlatformName);..\..\Externals\MathMLSolver\lib\win\$(PlatformName);..\..\DAE2MA\lib\win\$(PlatformName)"
-				GenerateManifest="true"
-				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames=""
-				SubSystem="1"
-				OptimizeReferences="0"
-				EnableCOMDATFolding="0"
-				EntryPointSymbol="main"
+				OptimizeForWindows98="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -2458,7 +2481,902 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
+				Name="VCPostBuildEventTool"
+				Description="Copying plugin to Maya install"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2011_X64%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2011_X64%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2011_X64%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2011_X64%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2011_X64%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2011_X64%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2011_X64%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2011_X64%\scripts\others&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleasePlugin2011|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011)\include&quot;;&quot;$(MAYA_PATH2011)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="false"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mll"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
+				SubSystem="2"
+				OptimizeReferences="1"
+				EnableCOMDATFolding="1"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
+				EntryPointSymbol=""
+				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying plugin to Maya install"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2011%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2011%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2011%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2011%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2011%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2011%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2011%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2011%\scripts\others&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleasePlugin2011|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011_X64)\include&quot;;&quot;$(MAYA_PATH2011_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mll"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreAllDefaultLibraries="false"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying plugin to Maya install"
+				CommandLine="if not exist &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; (&#x0D;&#x0A;echo Creating ..\bin\win\$(PlatformName)\$(ConfigurationName)&#x0D;&#x0A;mkdir &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2011_X64%\bin\plug-ins&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2011_X64%\bin\plug-ins&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2011_X64%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2011_X64%\bin\plug-ins&quot;&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;%MAYA_PATH2011_X64%\scripts\others&quot; (&#x0D;&#x0A;echo Creating &quot;%MAYA_PATH2011_X64%\scripts\others&quot;&#x0D;&#x0A;mkdir &quot;%MAYA_PATH2011_X64%\scripts\others&quot; &gt; nul&#x0D;&#x0A;)&#x0D;&#x0A;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2011_X64%\scripts\others&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugConsole2011|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				UseUnicodeResponseFiles="true"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011)\include&quot;;&quot;$(MAYA_PATH2011)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				Version="1.3.0"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying console application into the testsuite"
+				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugConsole2011|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011_X64)\include&quot;;&quot;$(MAYA_PATH2011_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				Version="1.3.0"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreDefaultLibraryNames="msvcrt"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				OptimizeForWindows98="0"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying console application into the testsuite"
+				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseConsole2011|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011)\include&quot;;&quot;$(MAYA_PATH2011)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
+				OptimizeReferences="0"
+				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
+				EntryPointSymbol=""
+				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying console application into the testsuite"
+				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseConsole2011|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011_X64)\include&quot;;&quot;$(MAYA_PATH2011_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
+				SubSystem="1"
+				OptimizeReferences="0"
+				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
+				EntryPointSymbol="main"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying console application into the testsuite"
+				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseConsoleProgDB2011|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011)\include&quot;;&quot;$(MAYA_PATH2011)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
+				GenerateDebugInformation="true"
+				OptimizeReferences="0"
+				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
+				EntryPointSymbol=""
+				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying console application into the testsuite"
+				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseConsoleProgDB2011|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2011_X64)\include&quot;;&quot;$(MAYA_PATH2011_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2011_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
+				SubSystem="1"
+				OptimizeReferences="0"
+				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
+				EntryPointSymbol="main"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying console application into the testsuite"
+				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseConsoleProgDB2009|Win32"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
+				GenerateDebugInformation="true"
+				OptimizeReferences="0"
+				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
+				EntryPointSymbol=""
+				ResourceOnlyDLL="false"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying console application into the testsuite"
+				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseConsoleProgDB2009|x64"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMayaVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAYA_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMayaPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMaya &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;$(NOINHERIT)"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="COLLADAMayaStableHeaders.h"
+				WarningLevel="2"
+				Detect64BitPortabilityProblems="false"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies=" Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib        cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				Version="1.3.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;"
+				GenerateManifest="true"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
+				SubSystem="1"
+				OptimizeReferences="0"
+				EnableCOMDATFolding="0"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
+				EntryPointSymbol="main"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -2485,6 +3403,22 @@
 					RelativePath="..\src\COLLADAMayaPrecompiledHeaders.cpp"
 					>
 					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
 						>
 						<Tool
@@ -2494,6 +3428,22 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleasePlugin2008|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -2517,6 +3467,22 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2009|Win32"
 						>
 						<Tool
@@ -2526,6 +3492,22 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleasePlugin2009|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2009|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2009|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -2549,6 +3531,22 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2010|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2010|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2010|Win32"
 						>
 						<Tool
@@ -2558,6 +3556,22 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleasePlugin2010|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2010|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2010|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -2590,6 +3604,86 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseConsoleProgDB2010|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2011|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2011|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2011|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2011|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2011|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2011|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2011|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2011|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsoleProgDB2011|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsoleProgDB2011|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"

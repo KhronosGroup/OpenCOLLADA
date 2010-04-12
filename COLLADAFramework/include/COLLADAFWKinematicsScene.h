@@ -14,6 +14,7 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWKinematicsModel.h"
 #include "COLLADAFWKinematicsController.h"
+#include "COLLADAFWInstanceKinematicsScene.h"
 
 
 namespace COLLADAFW
@@ -28,6 +29,9 @@ namespace COLLADAFW
 
 		/** All kinematics controllers.*/
 		KinematicsControllerArray mKinematicsControllerArray;
+
+		/** All the instance kinematics scenes in the model.*/
+		InstanceKinematicsSceneArray mInstanceKinematicsScenes;
 
 	public:
 
@@ -49,13 +53,22 @@ namespace COLLADAFW
 		/** Returns all kinematics models.*/
 		KinematicsControllerArray& getKinematicsControllers() { return mKinematicsControllerArray; }
 
+		/** All the instance kinematics scenes in the model.*/
+		InstanceKinematicsSceneArray InstanceKinematicsScenes;
+
+		/** Returns all kinematics models.*/
+		const InstanceKinematicsSceneArray& getInstanceKinematicsScenes() const { return mInstanceKinematicsScenes; }
+
+		/** Returns all kinematics models.*/
+		InstanceKinematicsSceneArray& getInstanceKinematicsScenes() { return mInstanceKinematicsScenes; }
+
 	private:
 
-        /** Disable default copy ctor. */
-		KinematicsScene( const KinematicsScene& pre );
-
-        /** Disable default assignment operator. */
-		const KinematicsScene& operator= ( const KinematicsScene& pre );
+//         /** Disable default copy ctor. */
+// 		KinematicsScene( const KinematicsScene& pre );
+// 
+//         /** Disable default assignment operator. */
+// 		const KinematicsScene& operator= ( const KinematicsScene& pre );
 
 	};
 

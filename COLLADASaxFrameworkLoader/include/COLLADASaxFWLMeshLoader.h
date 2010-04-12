@@ -76,6 +76,10 @@ namespace COLLADASaxFWL
 		/** The mapping of collada symbols to material ids.*/
 		GeometryMaterialIdInfo& mMaterialIdInfo;
 
+		/** The material symbol of the current mesh. Is only used for primitives, for which the 
+		the framework object is not created in the begin__* method.*/
+		String mCurrentMeshMaterial;
+
 		/** The mesh primitive being filled by the parser.*/
 		COLLADAFW::MeshPrimitive* mCurrentMeshPrimitive;
 
@@ -124,6 +128,9 @@ namespace COLLADASaxFWL
 		/** The number of faces of the current MeshPrimitive. Uses this, if the face count cannot be calculated
 		using the values above. (for collada polygons).*/
 		size_t mCurrentFaceOrLineCount;
+
+		/** The value of the count attribute in the COLLADA primitive. Might be used to pre-alloc memory.*/
+		size_t mCurrentCOLLADAPrimitiveCount;
 
         /** Variables for the offsets of the index input elements. */
         unsigned long long mPositionsOffset; 

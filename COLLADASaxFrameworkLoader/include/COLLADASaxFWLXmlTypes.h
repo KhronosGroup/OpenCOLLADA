@@ -3488,6 +3488,43 @@ namespace COLLADASaxFWL
 
 
 
+	struct instance_kinematics_scene__AttributeData
+	{
+		static const instance_kinematics_scene__AttributeData DEFAULT;
+
+		static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+		uint32 present_attributes;
+
+		COLLADABU::URI url;
+		const ParserChar* sid;
+		const ParserChar* name;
+	};
+
+
+	struct bind_joint_axis__AttributeData
+	{
+		static const bind_joint_axis__AttributeData DEFAULT;
+
+		const ParserChar* target;
+	};
+
+	struct kinematics_scene__AttributeData
+	{
+		static const kinematics_scene__AttributeData DEFAULT;
+
+		const ParserChar* id;
+		const ParserChar* name;
+	};
+
+	struct bind_kinematics_model__AttributeData
+	{
+		static const bind_kinematics_model__AttributeData DEFAULT;
+
+		const ParserChar* node;
+	};
+
+
 }
 
 #endif // __COLLADASAXFWL_XMLTYPES_H__
