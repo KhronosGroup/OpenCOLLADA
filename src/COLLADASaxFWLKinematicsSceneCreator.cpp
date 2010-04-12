@@ -83,13 +83,14 @@ namespace COLLADASaxFWL
 		//Kinematics models
 		COLLADAFW::KinematicsModelArray& fwKinematicsModels = mKinematicsScene->getKinematicsModels();
 
-		const KinematicsIntermediateData::KinematicsModelList& kinematicsModels = mKinematicsIntermediateData.getKinematicsModels();
-		KinematicsIntermediateData::KinematicsModelList::const_iterator modelIt = kinematicsModels.begin();
+		const KinematicsIntermediateData::KinematicsModelMap& kinematicsModels = mKinematicsIntermediateData.getKinematicsModels();
+		KinematicsIntermediateData::KinematicsModelMap::const_iterator modelIt = kinematicsModels.begin();
 		for ( ; modelIt != kinematicsModels.end(); ++modelIt )
 		{
-			KinematicsModel* kinematicsModel = *modelIt;
+			KinematicsModel* kinematicsModel = modelIt->second;
 
 			COLLADAFW::KinematicsModel* fwKinematicsModel = createFWKinematicsModel(kinematicsModel);
+			mKinematicsModelFWKinematicsModelMap.insert(std::make_pair(kinematicsModel, fwKinematicsModel));
 			fwKinematicsModels.append( fwKinematicsModel );
 			mLargestJointIndex = 0;
 			mJointIndexMap.clear();
@@ -98,14 +99,28 @@ namespace COLLADASaxFWL
 		//Kinematics controllers
 		COLLADAFW::KinematicsControllerArray& fwKinematicsControllers = mKinematicsScene->getKinematicsControllers();
 
-		const KinematicsIntermediateData::KinematicsControllerList& kinematicsControllers = mKinematicsIntermediateData.getKinematicsControllers();
-		KinematicsIntermediateData::KinematicsControllerList::const_iterator controllerIt = kinematicsControllers.begin();
+		const KinematicsIntermediateData::KinematicsControllerMap& kinematicsControllers = mKinematicsIntermediateData.getKinematicsControllers();
+		KinematicsIntermediateData::KinematicsControllerMap::const_iterator controllerIt = kinematicsControllers.begin();
 		for ( ; controllerIt != kinematicsControllers.end(); ++controllerIt )
 		{
-			KinematicsController* kinematicsController = *controllerIt;
+			KinematicsController* kinematicsController = controllerIt->second;
 
 			COLLADAFW::KinematicsController* fwKinematicsController = createFWKinematicsController(kinematicsController);
 			fwKinematicsControllers.append( fwKinematicsController );
+		}
+
+
+		//Instance kinematics scenes
+		COLLADAFW::InstanceKinematicsSceneArray& fwInstanceKinematicsScenes = mKinematicsScene->getInstanceKinematicsScenes();
+
+		const KinematicsIntermediateData::KinematicsInstanceKinematicsScenes& instanceKinematicsScenes = mKinematicsIntermediateData.getInstanceKinematicsScenes();
+		KinematicsIntermediateData::KinematicsInstanceKinematicsScenes::const_iterator instanceKinematicsSceneIt = instanceKinematicsScenes.begin();
+		for ( ; instanceKinematicsSceneIt != instanceKinematicsScenes.end(); ++instanceKinematicsSceneIt )
+		{
+			KinematicsInstanceKinematicsScene* instanceKinematicsScene= *instanceKinematicsSceneIt;
+
+			COLLADAFW::InstanceKinematicsScene* fwInstanceKinematicsScene = createFWInstanceKinematicsScene(instanceKinematicsScene);
+			fwInstanceKinematicsScenes.append( fwInstanceKinematicsScene );
 		}
 
 		return mKinematicsScene;
@@ -114,7 +129,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::KinematicsModel* KinematicsSceneCreator::createFWKinematicsModel(KinematicsModel* kinematicsModel)
 	{
-		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueIdFromId( kinematicsModel->getId().c_str(), COLLADAFW::KinematicsModel::ID());
+		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueIdFromUrl( kinematicsModel->getUrl(), COLLADAFW::KinematicsModel::ID(), true);
 		COLLADAFW::KinematicsModel* fwKinematicsModel = FW_NEW COLLADAFW::KinematicsModel(uniqueId);
 
 		COLLADAFW::SizeTValuesArray& fwBaseLinks = fwKinematicsModel->getBaseLinks();
@@ -246,7 +261,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::KinematicsController* KinematicsSceneCreator::createFWKinematicsController(KinematicsController* kinematicsController)
 	{
-		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueIdFromId( kinematicsController->getId().c_str(), COLLADAFW::KinematicsModel::ID());
+		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueIdFromUrl( kinematicsController->getUri(), COLLADAFW::KinematicsController::ID(), true);
 		COLLADAFW::KinematicsController* fwKinematicsController = FW_NEW COLLADAFW::KinematicsController(uniqueId);
 
 		// get instance kinematics models
@@ -355,13 +370,263 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::UniqueId KinematicsSceneCreator::processInstanceKinematicsModel(const KinematicsInstanceKinematicsModel& instanceKinematicsModel)
 	{
-		COLLADAFW::UniqueId kinematicsModelUniqueId =  mDocumentProcessor->createUniqueIdFromUrl( instanceKinematicsModel.getUrl() );
+		COLLADAFW::UniqueId kinematicsModelUniqueId =  mDocumentProcessor->createUniqueIdFromUrl( instanceKinematicsModel.getUrl(), true );
 		if ( !kinematicsModelUniqueId.isValid() )
 		{
 			return COLLADAFW::UniqueId::INVALID;
 		}
 
 		return kinematicsModelUniqueId;
+	}
+
+	//------------------------------
+	COLLADAFW::InstanceKinematicsScene* KinematicsSceneCreator::createFWInstanceKinematicsScene( KinematicsInstanceKinematicsScene* instanceKinematicsScene )
+	{
+		//COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueIdFromUrl( instanceKinematicsScene->getUrl(), COLLADAFW::KinematicsController::ID(), true);
+		COLLADAFW::UniqueId uniqueId = mDocumentProcessor->createUniqueId( COLLADAFW::InstanceKinematicsScene::ID());
+		COLLADAFW::InstanceKinematicsScene* fwInstanceKinematicsScene = FW_NEW COLLADAFW::InstanceKinematicsScene(uniqueId, COLLADAFW::UniqueId::INVALID);
+
+		const COLLADABU::URI& instanceKinematicsUrl = instanceKinematicsScene->getUrl();
+		KinematicsScene* kinematicsScene =  mDocumentProcessor->getKinematicsSceneByUri(instanceKinematicsUrl);
+		if ( !kinematicsScene )
+		{
+			String msg = "Kinematics scene \"" + instanceKinematicsUrl.getURIString() + "\" could not be found.";
+
+			mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+			return 0;
+		}
+
+		const KinematicsBindJointAxes& kinematicsBindJointAxes = instanceKinematicsScene->getBindJointAxes();
+		
+		KinematicsBindJointAxes::const_iterator kinematicsBindJointAxisIt = kinematicsBindJointAxes.begin();
+		for ( ; kinematicsBindJointAxisIt != kinematicsBindJointAxes.end(); ++kinematicsBindJointAxisIt )
+		{
+			KinematicsBindJointAxis* kinematicsBindJointAxis= *kinematicsBindJointAxisIt;
+
+
+			// find the unique id of the node a link is bound to
+			const String& nodeId = kinematicsBindJointAxis->getTarget().getId();
+			COLLADABU::URI nodeUri = instanceKinematicsScene->getUrl();
+			nodeUri.setFragment(nodeId);
+			const COLLADAFW::UniqueId nodeUniqueId = mDocumentProcessor->getUniqueIdByUrl(nodeUri, true);
+			if ( !nodeUniqueId.isValid() )
+			{
+				String msg = "Node with id \"" + nodeId + "\" referenced in <bind_joint_axis> in <bind_kinematics_model> in.";
+				
+				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+				continue;
+			}
+
+			size_t linkNumber = 0;
+			COLLADAFW::KinematicsModel* kinematicsModel = 0;
+			if ( !resolveLink(kinematicsScene, kinematicsBindJointAxis, &linkNumber, &kinematicsModel) )
+			{
+				String msg;
+				switch ( kinematicsBindJointAxis->getAxis().getValueType() )
+				{
+				case KinematicsAxis::VALUETYPE_PARAM:
+					msg = "Axis with sid \"" + *kinematicsBindJointAxis->getAxis().getParamValue() + "\" could not be resolved.";
+					break;
+				case KinematicsAxis::VALUETYPE_SIDREF:
+					msg = "Axis with sid address \"" + kinematicsBindJointAxis->getAxis().getSidrefValue()->getSidAddressString() + "\" could not be resolved.";
+					break;
+				}
+				//todo: handle error smarter
+//				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+				continue;
+			}
+
+
+			// find the kin model id
+			const COLLADAFW::KinematicsModelArray& kinematicsModels = mKinematicsScene->getKinematicsModels();
+			size_t kinModelId = SIZE_MAX;
+			for ( size_t i = 0; i < kinematicsModels.getCount(); ++i)
+			{
+				if ( kinematicsModels[i] == kinematicsModel )
+				{
+					kinModelId = i;
+					break;
+				}
+			}
+
+			COLLADAFW::InstanceKinematicsScene::NodeLinkBinding nodeLinkBinding = {nodeUniqueId, kinModelId, linkNumber};
+			mNodeLinkBindingSet.insert(nodeLinkBinding);
+
+		}
+			
+		COLLADAFW::InstanceKinematicsScene::NodeLinkBindingArray& nodeLinkBindings = fwInstanceKinematicsScene->getNodeLinkBindings();
+		size_t nodeLinkBindingCount = mNodeLinkBindingSet.size();
+		nodeLinkBindings.allocMemory(nodeLinkBindingCount);
+		nodeLinkBindings.setCount( nodeLinkBindingCount );
+		NodeLinkBindingSet::const_iterator it = mNodeLinkBindingSet.begin();
+		for ( size_t i = 0; it != mNodeLinkBindingSet.end(); ++it, ++i)
+		{
+			nodeLinkBindings[i] = *it;
+		}
+
+		mNodeLinkBindingSet.clear();
+		return fwInstanceKinematicsScene;
+	}
+
+	//------------------------------
+	bool KinematicsSceneCreator::resolveLink( KinematicsScene* kinematicsScene, 
+		                                      KinematicsBindJointAxis* kinematicsBindJointAxis,
+		                                      size_t* linkNumber,
+		                                      COLLADAFW::KinematicsModel** kinModel  )
+	{
+		const KinematicsInstanceKinematicsModels& instanceKinematicsModels = kinematicsScene->getKinematicsInstanceKinematicsModels();
+		KinematicsInstanceKinematicsModels::const_iterator it = instanceKinematicsModels.begin();
+
+		const KinematicsAxis& axis = kinematicsBindJointAxis->getAxis();
+		KinematicsAxis::ValueType axisValueType = axis.getValueType();
+		if ( axisValueType != KinematicsAxis::VALUETYPE_PARAM )
+		{
+			return false;
+		}
+		const String& param = *axis.getParamValue();
+
+		for (; it != instanceKinematicsModels.end(); ++it)
+		{
+			const KinematicsInstanceKinematicsModel& instanceKinematicsModel = *it;
+
+			const COLLADABU::URI& kinematicsModelUrl = instanceKinematicsModel.getUrl();
+
+			KinematicsModel* kinematicsModel = mDocumentProcessor->getKinematicsModelByUri(kinematicsModelUrl);
+
+			if ( !kinematicsModel )
+			{
+				String msg = "Kinematics Model \"" + kinematicsModelUrl.getURIString() + "\" could not be found.";
+
+				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+				continue;
+			}
+
+			KinematicsNewParam* newParam = instanceKinematicsModel.getNewParamBySid(param);
+
+			if ( !newParam )
+			{
+				continue;
+			}
+
+			KinematicsNewParam::ValueType newParamValueType = newParam->getValueType();
+			if ( newParamValueType != KinematicsNewParam::VALUETYPE_SIDREF )
+			{
+				continue;
+			}
+
+			const SidAddress& jointSidAddress = *newParam->getSidrefValue();
+
+			const SidTreeNode* jointSidTreeNode = mDocumentProcessor->resolveSid(jointSidAddress);
+
+			if ( !jointSidTreeNode || (jointSidTreeNode->getTargetType() != SidTreeNode::TARGETTYPECLASS_OBJECT) )
+			{
+				String msg = "Joint with sid address \"" + jointSidAddress.getSidAddressString() + 
+					         "\" referenced in kinematics model \"" + kinematicsModel->getUrl().getURIString() + "\" could not be found.";
+				//todo: handle error smarter
+
+//				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+				continue;
+			}
+
+			COLLADAFW::Object* jointPrimitiveObject = jointSidTreeNode->getObjectTarget();
+			COLLADAFW::JointPrimitive* jointPrimitive = COLLADAFW::objectSafeCast<COLLADAFW::JointPrimitive>( jointPrimitiveObject );
+
+			if ( !jointPrimitive )
+			{
+				String msg = "Element with sid address \"" + jointSidAddress.getSidAddressString() + 
+					"\" referenced in kinematics model \"" + kinematicsModel->getUrl().getURIString() + "\" is not a joint primitive.";
+				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNEXPECTED_ELEMENT, msg);
+				continue;
+			}
+
+			KinematicsModelFWKinematicsModelMap::const_iterator it = mKinematicsModelFWKinematicsModelMap.find(kinematicsModel);
+			// there hast to be always a corresponding fw kin model
+			assert( it != mKinematicsModelFWKinematicsModelMap.end());
+
+			COLLADAFW::KinematicsModel* fwKinematicsModel = it->second;
+
+			*linkNumber = findLinkByJOintPrimitive( fwKinematicsModel, jointPrimitive);
+
+			if ( *linkNumber == SIZE_MAX )
+			{
+				continue;
+			}
+
+			*kinModel = fwKinematicsModel;
+
+			return true;
+
+// 			instanceKinematicsModel->getKinematicsNewParams()
+// 			kinematicsModel->getKinematicsInstanceKinematicsModels()
+		}
+
+// 		const KinematicsInstanceArticulatedSystems& instanceArticulatedSystems = kinematicsScene->getKinematicsInstanceArticulatedSystems();
+// 		KinematicsInstanceArticulatedSystems::const_iterator it = instanceArticulatedSystems.begin();
+// 		for (; it != instanceArticulatedSystems.end(); ++it)
+// 		{
+// 			const KinematicsInstanceArticulatedSystem* instanceArticulatedSystem = *it;
+// 
+// 			const COLLADABU::URI& articulatedSystemUrl = instanceArticulatedSystem->getUrl();
+// 
+// 			KinematicsController* controller = mDocumentProcessor->getKinematicsControllerByUri(articulatedSystemUrl);
+// 
+// 			if ( !controller )
+// 			{
+// 				String msg = "Articulated scene \"" + articulatedSystemUrl.getURIString() + "\" could not be found.";
+// 
+// 				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
+// 				continue;
+// 			}
+// 
+// 			controller->getKinematicsInstanceKinematicsModels()
+// 		}
+		return false;
+	}
+
+	//------------------------------
+	size_t KinematicsSceneCreator::findLinkByJOintPrimitive( const COLLADAFW::KinematicsModel* fwKinModel, const COLLADAFW::JointPrimitive* jointPrimitive )
+	{
+		// find the joint containing the joint primitive
+		const COLLADAFW::JointPointerArray& joints = fwKinModel->getJoints();
+		size_t joindIndex = SIZE_MAX;
+		const COLLADAFW::UniqueId& jointPrimitiveUniqueId = jointPrimitive->getUniqueId();
+		size_t jointsCount = joints.getCount();
+		for ( size_t i = 0; (i<jointsCount) && (joindIndex == SIZE_MAX); ++i )
+		{
+			const COLLADAFW::Joint* joint = joints[i];
+			const COLLADAFW::JointPrimitivePointerArray& jointPrimitives = joint->getJointPrimitives();
+			size_t jointPrimitivesCount = jointPrimitives.getCount();
+			for ( size_t j = 0; (j<jointPrimitivesCount) && (joindIndex == SIZE_MAX); ++j )
+			{
+				const COLLADAFW::JointPrimitive* jointPrimitive2 = jointPrimitives[j];
+				const COLLADAFW::UniqueId& jointPrimitiveUniqueId2 = jointPrimitive2->getUniqueId();
+				if ( jointPrimitiveUniqueId == jointPrimitiveUniqueId2 )
+				{
+					joindIndex = i;
+				}
+			}
+		}
+
+		// joint primitive could not be found in kin model
+		if ( joindIndex == SIZE_MAX )
+		{
+			return SIZE_MAX;
+		}
+
+		// search all the link joint connection for the one with joint index joindIndex
+		const COLLADAFW::KinematicsModel::LinkJointConnections& linkJointConnections = fwKinModel->getLinkJointConnections();
+		size_t linkJointConnectionsCount = linkJointConnections.getCount();
+		size_t linkNumber = SIZE_MAX;
+		for ( size_t i = 0; i < linkJointConnectionsCount; ++i)
+		{
+			const COLLADAFW::KinematicsModel::LinkJointConnection* linkJointConnection = linkJointConnections[i];
+			if ( linkJointConnection->getJointIndex() == joindIndex )
+			{
+				linkNumber = std::min( linkNumber, linkJointConnection->getLinkNumber());
+			}
+		}
+
+		return linkNumber;
 	}
 
 } // namespace COLLADASaxFWL

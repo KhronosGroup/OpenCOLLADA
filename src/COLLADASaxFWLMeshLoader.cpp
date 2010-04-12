@@ -15,6 +15,7 @@
 #include "COLLADASaxFWLFileLoader.h"
 
 #include "COLLADAFWTriangles.h"
+#include "COLLADAFWLines.h"
 #include "COLLADAFWTristrips.h"
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWPolygons.h"
@@ -71,6 +72,7 @@ namespace COLLADASaxFWL
         switch ( mCurrentPrimitiveType )
         {
         case TRIANGLES:
+        case LINES:
         case TRISTRIPS:
         case TRIFANS:
         case POLYGONS:
@@ -933,14 +935,21 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__lines( const lines__AttributeData& attributeData )
 	{
-		return true;
+        mCurrentPrimitiveType = LINES;
+        if ( attributeData.material )
+            mCurrentMeshMaterial = attributeData.material;
+        mCurrentCOLLADAPrimitiveCount = (size_t)attributeData.count;
+        return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__lines()
 	{
-		initCurrentValues();
-		return true;
+        mMeshPrimitiveInputs.clearInputs();
+        mCurrentPrimitiveType = NONE;
+        return true;
+// 		initCurrentValues();
+// 		return true;
 	}
 
 	//------------------------------
@@ -950,7 +959,7 @@ namespace COLLADASaxFWL
 		// The actual size might be bigger, but its a lower bound
 		lineStrips->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = lineStrips;
-		mCurrentPrimitiveType = TRISTRIPS;
+		mCurrentPrimitiveType = LINESTRIPS;
 		if ( attributeData.material )
 			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
 		return true;
@@ -1158,6 +1167,23 @@ namespace COLLADASaxFWL
 				initializeOffsets();
 			}
 			break;
+        case LINES:
+            {
+                loadSourceElements(mMeshPrimitiveInputs);
+                initializeOffsets();
+                mCurrentMeshPrimitive = new COLLADAFW::Lines(createUniqueId(COLLADAFW::Lines::ID()));
+                if ( mCurrentCOLLADAPrimitiveCount > 0)
+                {
+                    mCurrentMeshPrimitive->getPositionIndices().reallocMemory(mCurrentCOLLADAPrimitiveCount);
+                    if ( mUseNormals )
+                    {
+                        mCurrentMeshPrimitive->getNormalIndices().reallocMemory(mCurrentCOLLADAPrimitiveCount);
+                    }
+                    // TODO pre-alloc memory for uv indices
+                }
+                mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(mCurrentMeshMaterial));
+            }
+            break;
 		case TRIFANS:
 			{
 				if ( mPOrPhElementCountOfCurrentPrimitive == 0)
@@ -1221,7 +1247,23 @@ namespace COLLADASaxFWL
 				
 			}
 			break;
-		case TRIFANS:
+        case LINES:
+            {
+                size_t linesCount = mCurrentVertexCount/2;
+                // check if the lines really contains lines. If not, we will discard it
+                if ( linesCount > 0 )
+                {
+                    mCurrentMeshPrimitive->setFaceCount(linesCount);
+                    mMesh->appendPrimitive(mCurrentMeshPrimitive);
+                }
+                else
+                {
+                    delete mCurrentMeshPrimitive;
+                }
+                initCurrentValues();
+            }
+            break;
+        case TRIFANS:
 			{
 				int currentTrifanVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
 				if ( currentTrifanVertexCount > 0 )

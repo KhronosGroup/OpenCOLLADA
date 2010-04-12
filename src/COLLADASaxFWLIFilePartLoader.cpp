@@ -57,7 +57,7 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueId( const String& uriString)
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdByUrl( const String& uriString)
 	{
 		assert( getColladaLoader() );
 
@@ -79,6 +79,19 @@ namespace COLLADASaxFWL
 		return getColladaLoader()->getUniqueId(uri, classId);
 	}
 
+	//------------------------------
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdById( const ParserChar* colladaId )
+	{
+		assert( getColladaLoader() );
+
+		if ( !colladaId || !(*colladaId) )
+			return COLLADAFW::UniqueId::INVALID;
+
+		COLLADABU::URI uri(getFileUri(), String("#") + String((const char *)colladaId));
+
+		return getColladaLoader()->getUniqueId(uri);
+	}
+
 
 	//-----------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId )
@@ -93,17 +106,24 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId )
+	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId, bool isAbsolute  )
 	{
 		assert( getColladaLoader() );
 
-		COLLADABU::URI absoluteUri(getFileUri(), url.getURIString());
+		if ( isAbsolute )
+		{
+			return getColladaLoader()->getUniqueId(url, classId);
+		}
+		else
+		{
+			COLLADABU::URI absoluteUri(getFileUri(), url.getURIString());
 
-		return getColladaLoader()->getUniqueId(absoluteUri, classId);
+			return getColladaLoader()->getUniqueId(absoluteUri, classId);
+		}
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const COLLADABU::URI& url, bool isAbsolute )
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdByUrl( const COLLADABU::URI& url, bool isAbsolute )
 	{
 		assert( getColladaLoader() );
 		
@@ -174,27 +194,27 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid )
+	SidTreeNode* IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid )
 	{
-		getFileLoader()->addToSidTree( colladaId, colladaSid );
+		return getFileLoader()->addToSidTree( colladaId, colladaSid );
 	}
 
 	//------------------------------
-	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Object* target )
+	SidTreeNode*  IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Object* target )
 	{
-		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
+		return getFileLoader()->addToSidTree( colladaId, colladaSid, target );
 	}
 
 	//------------------------------
-	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target )
+	SidTreeNode*  IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, COLLADAFW::Animatable* target )
 	{
-		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
+		return getFileLoader()->addToSidTree( colladaId, colladaSid, target );
 	}
 
 	//------------------------------
-	void IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target )
+	SidTreeNode*  IFilePartLoader::addToSidTree( const char* colladaId, const char* colladaSid, IntermediateTargetable* target )
 	{
-		getFileLoader()->addToSidTree( colladaId, colladaSid, target );
+		return getFileLoader()->addToSidTree( colladaId, colladaSid, target );
 	}
 
 	//------------------------------

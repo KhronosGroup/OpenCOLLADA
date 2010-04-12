@@ -35,8 +35,8 @@ namespace COLLADASaxFWL
     //------------------------------
     const COLLADAFW::UniqueId& LibraryNodesLoader::getUniqueId ()
     {
-        if ( mNodeStack.top () )
-            return mNodeStack.top ()->getUniqueId ();
+        if ( !mNodeStack.empty() )
+            return mNodeStack.top()->getUniqueId();
         return COLLADAFW::UniqueId::INVALID;
     }
 
