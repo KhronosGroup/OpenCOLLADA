@@ -29,8 +29,6 @@ class MGLFunctionTable;
 #include <maya/OpenMayaMac.h>
 #endif
 
-#include "COLLADAMayaSyntax.h"
-
 //STL
 #include <vector>
 #include <sstream>
@@ -38,6 +36,8 @@ class MGLFunctionTable;
 #include <math.h>
 #include <string>
 #include <iostream>
+#include <map>
+#include <hash_map>
 
 // Maya SDK
 #include <maya/MBoundingBox.h>
@@ -70,6 +70,9 @@ class MGLFunctionTable;
 #include <maya/MTimeArray.h>
 #include <maya/MVector.h>
 #include <maya/MVectorArray.h>
+
+// base utils
+#include <COLLADABU.h>
 
 #ifdef WIN32
 #elif WIN64

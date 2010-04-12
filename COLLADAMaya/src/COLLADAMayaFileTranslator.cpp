@@ -13,8 +13,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaPlatform.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaVersionInfo.h"

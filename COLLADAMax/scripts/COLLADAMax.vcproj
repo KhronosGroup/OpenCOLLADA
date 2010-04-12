@@ -216,8 +216,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -305,8 +305,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -564,8 +564,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -653,8 +653,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -741,8 +741,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -830,8 +830,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -1260,8 +1260,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH8)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -1349,8 +1349,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -1608,8 +1608,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2010)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -1697,8 +1697,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2010)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -1956,8 +1956,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH7)/include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADAFramework\include\Math&quot;;&quot;..\..\COLLADADomHelper\include&quot;;&quot;..\..\COLLADAStreamWriter\include&quot;;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -2045,8 +2045,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -2133,8 +2133,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -2223,8 +2223,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -3338,8 +3338,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -3427,8 +3427,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -3515,8 +3515,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -3604,8 +3604,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -3692,8 +3692,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2010)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -3781,8 +3781,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2010)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -3869,8 +3869,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH7)/include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADAFramework\include\Math&quot;;&quot;..\..\COLLADADomHelper\include&quot;;&quot;..\..\COLLADAStreamWriter\include&quot;;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -3958,8 +3958,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\COLLADASaxFrameworkLoader\include;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -4046,8 +4046,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH8)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -4135,8 +4135,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH8)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -4223,8 +4223,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -4312,8 +4312,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH9)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -4400,8 +4400,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -4490,8 +4490,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -4921,8 +4921,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -5010,8 +5010,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -5098,8 +5098,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
@@ -5187,8 +5187,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				FavorSizeOrSpeed="1"
+				Optimization="2"
+				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2011)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
