@@ -605,37 +605,62 @@ namespace COLLADAMax
             case AMBIENT:
                 profile.setAmbient ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-            case BUMP: 
-				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
-				texture.setChildElementName("bump");
-				profile.setExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
-				break;
 
-            case DIFFUSE:
+			case DIFFUSE:
                 profile.setDiffuse ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-                // case DISPLACEMENT: displacementTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
-
-            case EMISSION:
-                profile.setEmission ( COLLADASW::ColorOrTexture ( texture ) );
-                break;
-                // case FILTER: filterTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
-                // case REFLECTION: reflectivityTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
-                // case REFRACTION: refractionTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
-                // case SHININESS: shininessTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
-
-			case REFLECTION: 
-				profile.setReflective( COLLADASW::ColorOrTexture ( texture ) );
-				break;
 
             case SPECULAR:
                 profile.setSpecular ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-                // case SPECULAR_LEVEL: specularFactorTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
 
-            case TRANSPARENt:
+			case SPECULAR_LEVEL: 
+				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
+				texture.setChildElementName("specularLevel");
+				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
+				break;
+
+			case SHININESS:		// Glossiness
+				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
+				texture.setChildElementName("gloss");
+				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
+				break;
+
+            case EMISSION:		// Self-illumination
+                profile.setEmission ( COLLADASW::ColorOrTexture ( texture ) );
+                break;
+
+			case TRANSPARENt:		// Opacity
                 profile.setTransparent ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
+
+            case FILTER:
+				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
+				texture.setChildElementName("filter");
+				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
+				break;
+
+			case BUMP: 
+				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
+				texture.setChildElementName("bump");
+				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
+				break;
+		
+			case REFLECTION: 
+				profile.setReflective( COLLADASW::ColorOrTexture ( texture ) );
+				break;
+
+			case REFRACTION:
+				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
+				texture.setChildElementName("refraction");
+				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
+				break;
+
+            case DISPLACEMENT: 
+				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
+				texture.setChildElementName("displacement");
+				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
+				break;
 
             default:
                 ;

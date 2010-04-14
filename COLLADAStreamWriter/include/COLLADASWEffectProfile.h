@@ -87,6 +87,14 @@ namespace COLLADASW
 
         friend class LibraryEffects;
 
+		struct ExtraColorOrTextureEntry
+		{
+			ColorOrTexture colorOrTexture;
+			String elementSid;
+		};
+
+		typedef std::map<String, std::vector<ExtraColorOrTextureEntry> > ExtraColorOrTextureEntryByProfileName;
+
         /**
          * A text string containing the unique identifier of the element. 
          * This value must be unique within the instance document. Optional.
@@ -138,8 +146,7 @@ namespace COLLADASW
 
         /** Just if we want to add an extra technique element to the current effect
             with the information of a texture. */
-        ColorOrTexture mExtraTechniqueColorOrTexture;
-        String mExtraTechniqueColorOrTextureSid;
+		ExtraColorOrTextureEntryByProfileName mExtraTechniqueColorOrTextureEntries;
 
         /** A list with all sampled image ids, which was already written.
         So you will not sample the same object a second time. */
@@ -340,12 +347,11 @@ namespace COLLADASW
         /**
         * Adds extra technique tags to the current effect and writes 
         * the child element with the given colorOrTexture element in the tags.
-        * You just can add one extra technique texture.
         * @param profileName Name of the technique.
         * @param childElement Name of the colorOrTexture child element.
         * @param colorOrTexture The colorOrTexture to set.
         */
-        void setExtraTechniqueColorOrTexture ( const ColorOrTexture& colorOrTexture, const String& sid = "" );
+        void addExtraTechniqueColorOrTexture ( const ColorOrTexture& colorOrTexture, const String& sid = "" );
 
         /** Add the sampler required by @a colorOrTexture to the stream*/
         void addSampler ( const ColorOrTexture &colorOrTexture );
@@ -388,14 +394,12 @@ namespace COLLADASW
         /**
         * Adds extra technique tags to the current effect and writes 
         * the child element with the given colorOrTexture element in the tags.
-        * You just can add one extra technique texture.
         * @param profileName Name of the technique.
         * @param childElement Name of the colorOrTexture child element.
         * @param colorOrTexture The colorOrTexture to set.
         */
-        void addExtraTechniqueColorOrTexture ( 
-            const ColorOrTexture &colorOrTexture, 
-            const String &elementSid ) const;
+        void addExtraTechniqueColorOrTextures ( 
+			const ExtraColorOrTextureEntryByProfileName &entriesByProfileName ) const;
     };
 
 

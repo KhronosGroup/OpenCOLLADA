@@ -43,7 +43,7 @@ namespace COLLADASW
     , mReflectivitySid (  )
     , mTransparencySid (  )
     , mIndexOfRefractionSid (  )
-    , mExtraTechniqueColorOrTextureSid (  )
+    , mExtraTechniqueColorOrTextureEntries (  )
     , mIncludeSid ( "" )
     {}
 
@@ -77,7 +77,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void EffectProfile::closeProfile ()
     {
-        // Export the user defined profile extra data elements.
+		// Export the user defined profile extra data elements.
         mProfileExtra.addExtraTechniques ( mSW );
 
         // Close the current profile.
@@ -160,9 +160,9 @@ namespace COLLADASW
                 shaderTypeCloser.close ();
             }
 
-            // Adds extra technique tags to the current effect and writes the child element with the
-            // given colorOrTexture element in the tags. You just can add one extra technique texture.
-            addExtraTechniqueColorOrTexture ( mExtraTechniqueColorOrTexture, mExtraTechniqueColorOrTextureSid );
+            // Adds extra technique tags to the current effect and writes the child elements with the
+            // given colorOrTexture element in the tags.
+            addExtraTechniqueColorOrTextures ( mExtraTechniqueColorOrTextureEntries );
 
             // Export the user defined technique extra data elements.
             mProfileTechniqueExtra.addExtraTechniques ( mSW );
@@ -173,33 +173,46 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
-    void EffectProfile::addExtraTechniqueColorOrTexture ( 
-        const ColorOrTexture& colorOrTexture, 
-        const String& elementSid ) const
+    void EffectProfile::addExtraTechniqueColorOrTextures ( 
+		const ExtraColorOrTextureEntryByProfileName& entriesByProfileName ) const
     {
-        if ( colorOrTexture.isTexture() )
-        {
-            const Texture& texture = colorOrTexture.getTexture();
+		// Open the extra tag
+        COLLADASW::Extra colladaExtra ( mSW );
+        colladaExtra.openExtra();
 
-            const String& profileName = texture.getProfileName();
-            const String& childElement = texture.getChildElementName();
+		for ( ExtraColorOrTextureEntryByProfileName::const_iterator it = entriesByProfileName.begin(); 
+				it != entriesByProfileName.end(); ++it )
+		{
+			const String& profileName = it->first;
+			const std::vector<ExtraColorOrTextureEntry>& entries = it->second;
 
-            // Open the extra tag
-            COLLADASW::Extra colladaExtra ( mSW );
-            colladaExtra.openExtra();
+			// Open the technique tag
+			COLLADASW::Technique colladaTechnique ( mSW );
+			colladaTechnique.openTechnique( profileName );
 
-            // Open the technique tag
-            COLLADASW::Technique colladaTechnique ( mSW );
-            colladaTechnique.openTechnique( profileName );
+			for ( std::vector<ExtraColorOrTextureEntry>::const_iterator it = entries.begin(); it != entries.end(); ++it )
+			{
+				const ExtraColorOrTextureEntry& entry = *it;
 
-            // Add the texture
-            addColorOrTexture( childElement, colorOrTexture, elementSid );
+				if ( entry.colorOrTexture.isTexture() )
+				{
+					const Texture& texture = entry.colorOrTexture.getTexture();
 
-            // Close the technique and extra tags
-            colladaTechnique.closeTechnique();
-            colladaExtra.closeExtra();
-        }
-    }
+					const String& profileName = texture.getProfileName();
+					const String& childElement = texture.getChildElementName();
+
+					// Add the texture
+					addColorOrTexture( childElement, entry.colorOrTexture, entry.elementSid );
+				}
+			}
+
+			// Close the technique tag
+			colladaTechnique.closeTechnique();
+		}
+
+        // Close the extra tag
+        colladaExtra.closeExtra();
+	}
 
     //---------------------------------------------------------------
     void EffectProfile::addSamplers()
@@ -210,9 +223,20 @@ namespace COLLADASW
         addSampler ( mSpecular );
         addSampler ( mReflective );
         addSampler ( mTransparent );
-		if ( mExtraTechniqueColorOrTexture.isTexture() )
+		for ( ExtraColorOrTextureEntryByProfileName::const_iterator it = mExtraTechniqueColorOrTextureEntries.begin(); 
+				it != mExtraTechniqueColorOrTextureEntries.end(); ++it )
 		{
-			addSampler(mExtraTechniqueColorOrTexture);
+			const std::vector<ExtraColorOrTextureEntry>& entries = it->second;
+
+			for ( std::vector<ExtraColorOrTextureEntry>::const_iterator it = entries.begin(); it != entries.end(); ++it )
+			{
+				const ExtraColorOrTextureEntry& entry = *it;
+
+				if ( entry.colorOrTexture.isTexture() )
+				{
+					addSampler( entry.colorOrTexture );
+				}
+			}
 		}
     }
 
@@ -556,9 +580,15 @@ namespace COLLADASW
         return CSWC::CSW_ELEMENT_INDEX_OF_REFRACTION;
     }
 
-    void EffectProfile::setExtraTechniqueColorOrTexture( const ColorOrTexture& colorOrTexture, const String& sid /*= "" */ )
+    void EffectProfile::addExtraTechniqueColorOrTexture( const ColorOrTexture& colorOrTexture, const String& sid /*= "" */ )
     {
-        mExtraTechniqueColorOrTexture = colorOrTexture;
-        mExtraTechniqueColorOrTextureSid = sid;
+		ExtraColorOrTextureEntry entry;
+		entry.colorOrTexture = colorOrTexture;
+		entry.elementSid = sid;
+		if ( entry.colorOrTexture.isTexture() )
+		{
+			const String& profileName = entry.colorOrTexture.getTexture().getProfileName();
+	        mExtraTechniqueColorOrTextureEntries[profileName].push_back( entry );
+		}
     }
 } //namespace COLLADASW
