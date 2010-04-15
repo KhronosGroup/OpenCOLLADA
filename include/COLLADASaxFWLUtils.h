@@ -50,7 +50,7 @@ namespace COLLADASaxFWL
 	template<class MapType>
 	void deleteMap( const MapType& map )
 	{
-		MapType::const_iterator it = map.begin();
+		typename MapType::const_iterator it = map.begin();
 		for ( ; it != map.end(); ++it)
 		{
 			delete it->second;

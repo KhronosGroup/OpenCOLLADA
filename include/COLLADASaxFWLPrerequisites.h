@@ -11,6 +11,9 @@
 #ifndef __COLLADASAXFWL_PREREQUISITES_H__
 #define __COLLADASAXFWL_PREREQUISITES_H__
 
+#include <cstddef>
+#include <limits>
+
 #include <string>
 #include <cassert>
 #include "COLLADABUPlatform.h"

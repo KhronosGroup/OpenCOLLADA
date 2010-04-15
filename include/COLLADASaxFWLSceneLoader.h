@@ -18,6 +18,7 @@
 #include "COLLADAFWInstanceVisualScene.h"
 #include "COLLADAFWScene.h"
 
+#include "COLLADAFWHashFunctions.h"
 #include "COLLADABUhash_map.h"
 
 
