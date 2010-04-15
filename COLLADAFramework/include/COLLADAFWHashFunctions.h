@@ -22,16 +22,22 @@
 #   include "COLLADAFWUniqueId.h"
 #endif
 
-#if defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
+#if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP) || defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
+#if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP)
+namespace std { namespace tr1
+#else
 namespace __gnu_cxx
+#endif
 {
-	template<>
-	struct hash<COLLADAFW::UniqueId>
-	{
-		size_t
-			operator()(const COLLADAFW::UniqueId& uniqueId) const { return uniqueId; }
-	};
-
+    template<>
+    struct hash<COLLADAFW::UniqueId>
+    {
+        size_t
+            operator()(const COLLADAFW::UniqueId& uniqueId) const { return uniqueId; }
+    };
+#if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP)
+}
+#endif
 } // namespace __gnu_cxx
 #endif
 

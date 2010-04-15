@@ -3,6 +3,17 @@ Import('env')
 
 libName = 'xml'
 
+
+
+srcFiles = [ 'c14n.c', 'catalog.c', 'chvalid.c', 'debugXML.c', 'dict.c', 'DOCBparser.c',
+             'encoding.c', 'entities.c', 'error.c', 'legacy.c', 'list.c', 'nanoftp.c',
+             'nanohttp.c', 'parser.c', 'parserInternals.c', 'pattern.c', 'globals.c',
+             'hash.c', 'HTMLparser.c', 'HTMLtree.c', 'SAX2.c', 'SAX.c', 'threads.c',
+             'relaxng.c', 'uri.c', 'valid.c', 'xinclude.c', 'xlink.c', 'xmlIO.c',
+             'xmlmemory.c', 'xmlmodule.c', 'xmlreader.c', 'xmlregexp.c', 'xmlsave.c',
+             'xmlstring.c', 'xmlunicode.c', 'xmlwriter.c', 'tree.c']
+
+
 srcDir = './'
 
 variantDir = env['objDir'] + env['configurationBaseName'] + '/'
@@ -11,8 +22,8 @@ targetPath = outputDir + libName
 
 incDirs = ['include/']
 
-src = [ variantDir + str(p) for p in  Glob('*.c') ]   
-VariantDir(variant_dir=variantDir, src_dir=srcDir, duplicate=False)
+src = [ variantDir + srcDir + file for file in srcFiles ]   
+VariantDir(variant_dir=variantDir + srcDir, src_dir=srcDir, duplicate=False)
 
 if env['SHAREDLIB']:
     SharedLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])

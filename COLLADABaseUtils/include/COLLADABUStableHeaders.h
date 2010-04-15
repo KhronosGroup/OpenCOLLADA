@@ -11,6 +11,8 @@
 #ifndef __COLLADABU_STABLE_HEADERS_H__
 #define __COLLADABU_STABLE_HEADERS_H__
 
+#include "COLLADABUPrerequisites.h"
+
 //STL
 #include <vector>
 #include <sstream>
@@ -18,5 +20,8 @@
 #include <math.h>
 #include <string>
 #include <iostream>
+
+
+
 
 #endif //__COLLADABU_STABLE_HEADERS_H__

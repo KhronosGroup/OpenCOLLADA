@@ -13,24 +13,11 @@
 
 #include "COLLADABUPrerequisites.h"
 #include "COLLADABUPlatform.h"
-
-#ifdef COLLADABU_HAVE_TR1_UNORDERED_MAP
-//#  include 
-#else
-#  ifdef COLLADABU_OS_LINUX
-#	include <ext/hash_fun.h>
-#   include "COLLADABUURI.h"
-#  elif (defined COLLADABU_OS_MAC)
-#	include <ext/hash_fun.h>
-#   include "COLLADABUURI.h"
-#  endif
-#endif
+#include "COLLADABUURI.h"
+  
 
 namespace COLLADABU
 {
-	class URI;
-
-
 	size_t calculateHash(const String& str);
 
 	/** Converts all lower case ASCII caracters to the corresponding upper case character befor calculating the hash.*/
@@ -62,14 +49,6 @@ namespace __gnu_cxx
 			operator()(const COLLADABU::URI& uri) const
 		{ return COLLADABU::calculateHash(uri); }
 	};
-/*
-	template<>
-	struct hash<COLLADAFW::UniqueId>
-	{
-		size_t
-			operator()(const COLLADAFW::UniqueId& uniqueId) const { return uniqueId; }
-	};
-*/
 #if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP)
 }
 #endif

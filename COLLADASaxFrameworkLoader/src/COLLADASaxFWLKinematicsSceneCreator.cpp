@@ -17,6 +17,7 @@
 #include "COLLADAFWTranslate.h"
 #include "COLLADAFWRotate.h"
 
+
 namespace COLLADASaxFWL
 {
 
@@ -439,7 +440,7 @@ namespace COLLADASaxFWL
 
 			// find the kin model id
 			const COLLADAFW::KinematicsModelArray& kinematicsModels = mKinematicsScene->getKinematicsModels();
-			size_t kinModelId = SIZE_MAX;
+			size_t kinModelId = std::numeric_limits<size_t>::max();
 			for ( size_t i = 0; i < kinematicsModels.getCount(); ++i)
 			{
 				if ( kinematicsModels[i] == kinematicsModel )
@@ -547,7 +548,7 @@ namespace COLLADASaxFWL
 
 			*linkNumber = findLinkByJOintPrimitive( fwKinematicsModel, jointPrimitive);
 
-			if ( *linkNumber == SIZE_MAX )
+			if ( *linkNumber == std::numeric_limits<size_t>::max() )
 			{
 				continue;
 			}
@@ -588,15 +589,15 @@ namespace COLLADASaxFWL
 	{
 		// find the joint containing the joint primitive
 		const COLLADAFW::JointPointerArray& joints = fwKinModel->getJoints();
-		size_t joindIndex = SIZE_MAX;
+		size_t joindIndex = std::numeric_limits<size_t>::max();
 		const COLLADAFW::UniqueId& jointPrimitiveUniqueId = jointPrimitive->getUniqueId();
 		size_t jointsCount = joints.getCount();
-		for ( size_t i = 0; (i<jointsCount) && (joindIndex == SIZE_MAX); ++i )
+		for ( size_t i = 0; (i<jointsCount) && (joindIndex == std::numeric_limits<size_t>::max()); ++i )
 		{
 			const COLLADAFW::Joint* joint = joints[i];
 			const COLLADAFW::JointPrimitivePointerArray& jointPrimitives = joint->getJointPrimitives();
 			size_t jointPrimitivesCount = jointPrimitives.getCount();
-			for ( size_t j = 0; (j<jointPrimitivesCount) && (joindIndex == SIZE_MAX); ++j )
+			for ( size_t j = 0; (j<jointPrimitivesCount) && (joindIndex == std::numeric_limits<size_t>::max()); ++j )
 			{
 				const COLLADAFW::JointPrimitive* jointPrimitive2 = jointPrimitives[j];
 				const COLLADAFW::UniqueId& jointPrimitiveUniqueId2 = jointPrimitive2->getUniqueId();
@@ -608,15 +609,15 @@ namespace COLLADASaxFWL
 		}
 
 		// joint primitive could not be found in kin model
-		if ( joindIndex == SIZE_MAX )
+		if ( joindIndex == std::numeric_limits<size_t>::max() )
 		{
-			return SIZE_MAX;
+			return std::numeric_limits<size_t>::max();
 		}
 
 		// search all the link joint connection for the one with joint index joindIndex
 		const COLLADAFW::KinematicsModel::LinkJointConnections& linkJointConnections = fwKinModel->getLinkJointConnections();
 		size_t linkJointConnectionsCount = linkJointConnections.getCount();
-		size_t linkNumber = SIZE_MAX;
+		size_t linkNumber = std::numeric_limits<size_t>::max();
 		for ( size_t i = 0; i < linkJointConnectionsCount; ++i)
 		{
 			const COLLADAFW::KinematicsModel::LinkJointConnection* linkJointConnection = linkJointConnections[i];

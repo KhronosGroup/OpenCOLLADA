@@ -18,6 +18,7 @@
 
 #include "COLLADAFWTransformation.h"
 
+#include "COLLADABUHashFunctions.h"
 #include "COLLADABUURI.h"
 #include "COLLADABUhash_map.h"
 

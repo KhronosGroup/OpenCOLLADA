@@ -49,7 +49,7 @@ if (env['XMLPARSER'] == 'expat') or (env['XMLPARSER'] == 'expatnative'):
 else:
     env['CPPFLAGS'] += ' -DXMLPARSER_LIBXML'
     if env['XMLPARSER'] == 'libxml':
-        libPath += ['../Externals/libxml/' + env['libDir']  + env['configurationBaseName']]
+        libPath += ['../Externals/LibXML/' + env['libDir']  + env['configurationBaseName']]
         libs += ['xml']
     else:
         libs += ['xml2']
