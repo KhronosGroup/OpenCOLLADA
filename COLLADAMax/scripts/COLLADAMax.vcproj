@@ -54,7 +54,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -140,7 +140,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -402,7 +402,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -488,7 +488,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -927,7 +927,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -1013,7 +1013,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -1098,7 +1098,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -1184,7 +1184,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -1446,7 +1446,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -1532,7 +1532,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -1794,7 +1794,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -1880,7 +1880,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -2321,7 +2321,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -2407,7 +2407,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -2492,7 +2492,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -2578,7 +2578,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -2663,7 +2663,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -2749,7 +2749,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -2834,7 +2834,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -2920,7 +2920,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -3005,7 +3005,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -3091,7 +3091,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -3176,7 +3176,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -3262,7 +3262,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -4588,7 +4588,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -4674,7 +4674,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -4759,7 +4759,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				CompileAs="0"
 			/>
@@ -4845,7 +4845,7 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ColladaMaxStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
