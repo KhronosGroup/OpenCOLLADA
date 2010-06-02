@@ -1088,9 +1088,11 @@ namespace COLLADAMax
 			{
 				for( int vertexIndex = 0; vertexIndex < 3; ++vertexIndex )
 				{
+					triangles.appendValues( face.v[ vertexIndex ] );
+
 					if( mExportNormals )
 					{
-						triangles.appendValues( face.v[ vertexIndex ], norms->GetNormalIndex( faceIndex, vertexIndex ) );
+						triangles.appendValues( norms->GetNormalIndex( faceIndex, vertexIndex ) );
 					}
 
 					for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
@@ -1155,9 +1157,11 @@ namespace COLLADAMax
 
 				for( int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex )
 				{
+					polylist.appendValues( mnFace->vtx[ vertexIndex ] );
+
 					if( mExportNormals )
 					{
-						polylist.appendValues( mnFace->vtx[ vertexIndex ], normmalSpec->GetNormalIndex( faceIndex, vertexIndex ) );
+						polylist.appendValues( normmalSpec->GetNormalIndex( faceIndex, vertexIndex ) );
 					}
 
 					for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
