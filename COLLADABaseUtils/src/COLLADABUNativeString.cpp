@@ -51,10 +51,10 @@ namespace COLLADABU
 	void NativeString::fromWideString( const WideString& wideString )
 	{
 #ifdef COLLADABU_OS_WIN
-		char * dest = new char[ wideString.length() + 1 ];
-		WideCharToMultiByte( CP_ACP, 0, (LPCWSTR)wideString.c_str(), ( int ) wideString.length(),
-			dest, ( int ) wideString.length(), 0, 0 );
-		dest[ wideString.length() ] = 0; // null termination
+		int multibyteLength = WideCharToMultiByte( CP_ACP, 0, (LPCWSTR)wideString.c_str(), -1, 0, 0, 0, 0 );
+
+		char * dest = new char[ multibyteLength ];
+		WideCharToMultiByte( CP_ACP, 0, (LPCWSTR)wideString.c_str(), -1, dest, multibyteLength, 0, 0 );
 		this->assign( dest );
 		delete[] dest;
 #elif defined (COLLADABU_OS_LINUX) || defined (COLLADABU_OS_MAC)
