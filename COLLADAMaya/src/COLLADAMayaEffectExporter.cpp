@@ -515,7 +515,7 @@ namespace COLLADAMaya
                 // Then we can add it as the extra technique texture.
                 colladaTexture.setProfileName( PROFILE_MAYA );
                 colladaTexture.setChildElementName( MAYA_BUMP_PARAMETER );
-                effectProfile->addExtraTechniqueColorOrTexture( COLLADASW::ColorOrTexture ( colladaTexture ), MAYA_BUMP_PARAMETER );
+				effectProfile->addExtraTechniqueColorOrTexture( COLLADASW::ColorOrTexture ( colladaTexture ), COLLADASW::EffectProfile::StringPairList(), MAYA_BUMP_PARAMETER );
                 break;
             }
             case DIFFUSE:

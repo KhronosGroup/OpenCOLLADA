@@ -147,6 +147,10 @@ namespace COLLADAMax
         static const String DAE_SPECULARLEVEL_TEXTURE_CHANNEL;
         static const String DAE_TRANSPARENT_TEXTURE_CHANNEL;
 
+		static const String DAE_BUMP_TYPE_ATTRIBUTE;
+		static const String DAE_BUMP_TYPE_NORMALMAP;
+		static const String DAE_BUMP_TYPE_HEIGHTFIELD;
+
         static const String EMPTY_STRING;
 
 		static const String SELF_ILLUMINATION_PARAMETER;

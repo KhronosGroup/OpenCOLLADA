@@ -63,6 +63,10 @@ namespace COLLADAMax
     const String EffectExporter::DAE_SPECULARLEVEL_TEXTURE_CHANNEL = "SPECULAR-LEVEL";
     const String EffectExporter::DAE_TRANSPARENT_TEXTURE_CHANNEL = "TRANSPARENT";
 
+	const String EffectExporter::DAE_BUMP_TYPE_ATTRIBUTE = "bumptype";
+	const String EffectExporter::DAE_BUMP_TYPE_NORMALMAP = "NORMALMAP";
+	const String EffectExporter::DAE_BUMP_TYPE_HEIGHTFIELD = "HEIGHTFIELD";
+
     const String EffectExporter::EMPTY_STRING = "";
 
 	const String EffectExporter::SELF_ILLUMINATION_PARAMETER = "self_illumination";
@@ -605,63 +609,55 @@ namespace COLLADAMax
             case AMBIENT:
                 profile.setAmbient ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-
 			case DIFFUSE:
                 profile.setDiffuse ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-
             case SPECULAR:
                 profile.setSpecular ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-
 			case SPECULAR_LEVEL: 
 				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
 				texture.setChildElementName("specularLevel");
 				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
 				break;
-
 			case SHININESS:		// Glossiness
 				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
 				texture.setChildElementName("gloss");
 				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
 				break;
-
             case EMISSION:		// Self-illumination
                 profile.setEmission ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-
 			case TRANSPARENt:		// Opacity
                 profile.setTransparent ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-
             case FILTER:
 				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
 				texture.setChildElementName("filter");
 				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
 				break;
-
 			case BUMP: 
-				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
-				texture.setChildElementName("bump");
-				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
-				break;
-		
+				{
+					texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
+					texture.setChildElementName("bump");
+					COLLADASW::EffectProfile::StringPairList attributes;
+					attributes.push_back(std::make_pair(DAE_BUMP_TYPE_ATTRIBUTE, DAE_BUMP_TYPE_HEIGHTFIELD));
+					profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture), attributes); 
+					break;
+				}
 			case REFLECTION: 
 				profile.setReflective( COLLADASW::ColorOrTexture ( texture ) );
 				break;
-
 			case REFRACTION:
 				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
 				texture.setChildElementName("refraction");
 				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
 				break;
-
             case DISPLACEMENT: 
 				texture.setProfileName(Extra::TECHNIQUE_PROFILE_3DSMAX);
 				texture.setChildElementName("displacement");
 				profile.addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(texture)); 
 				break;
-
             default:
                 ;
                 //@TODO error handling

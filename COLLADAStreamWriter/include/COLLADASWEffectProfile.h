@@ -83,6 +83,8 @@ namespace COLLADASW
             RGB_ONE
         };
 
+		typedef std::list< std::pair<String, String> > StringPairList;
+
     private:
 
         friend class LibraryEffects;
@@ -91,6 +93,7 @@ namespace COLLADASW
 		{
 			ColorOrTexture colorOrTexture;
 			String elementSid;
+			StringPairList attributes;
 		};
 
 		typedef std::map<String, std::vector<ExtraColorOrTextureEntry> > ExtraColorOrTextureEntryByProfileName;
@@ -351,7 +354,7 @@ namespace COLLADASW
         * @param childElement Name of the colorOrTexture child element.
         * @param colorOrTexture The colorOrTexture to set.
         */
-        void addExtraTechniqueColorOrTexture ( const ColorOrTexture& colorOrTexture, const String& sid = "" );
+        void addExtraTechniqueColorOrTexture ( const ColorOrTexture& colorOrTexture, const StringPairList& attributes = StringPairList(), const String& sid = "" );
 
         /** Add the sampler required by @a colorOrTexture to the stream*/
         void addSampler ( const ColorOrTexture &colorOrTexture );
@@ -383,6 +386,7 @@ namespace COLLADASW
             const String &elementName, 
             const ColorOrTexture &colorOrTexture, 
             const String &elementSid, 
+			StringPairList attributes = StringPairList(),
             Opaque opaque = UNSPECIFIED_OPAQUE ) const;
 
         /** Adds element @a elementName and adds @a number to it.*/

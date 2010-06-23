@@ -153,7 +153,7 @@ namespace COLLADASW
                 addFloat ( CSWC::CSW_ELEMENT_SHININESS, mShininess, mShininessSid );
                 addColorOrTexture ( CSWC::CSW_ELEMENT_REFLECTIVE, mReflective, mReflectiveSid );
                 addFloat ( CSWC::CSW_ELEMENT_REFLECTIVITY, mReflectivity, mReflectivitySid );
-                addColorOrTexture ( CSWC::CSW_ELEMENT_TRANSPARENT, mTransparent, mTransparentSid, mOpaque );
+                addColorOrTexture ( CSWC::CSW_ELEMENT_TRANSPARENT, mTransparent, mTransparentSid, StringPairList(), mOpaque );
                 addFloat ( CSWC::CSW_ELEMENT_TRANSPARENCY, mTransparency, mTransparencySid );
                 addFloat ( CSWC::CSW_ELEMENT_INDEX_OF_REFRACTION, mIndexOfRefraction, mIndexOfRefractionSid );
 
@@ -198,11 +198,10 @@ namespace COLLADASW
 				{
 					const Texture& texture = entry.colorOrTexture.getTexture();
 
-					const String& profileName = texture.getProfileName();
 					const String& childElement = texture.getChildElementName();
 
 					// Add the texture
-					addColorOrTexture( childElement, entry.colorOrTexture, entry.elementSid );
+					addColorOrTexture( childElement, entry.colorOrTexture, entry.elementSid, entry.attributes  );
 				}
 			}
 
@@ -324,6 +323,7 @@ namespace COLLADASW
         const String& elementName,
         const ColorOrTexture& colorOrTexture,
         const String& elementSid,
+		StringPairList attributes,
         Opaque opaque
 		) const
     {
@@ -335,6 +335,14 @@ namespace COLLADASW
 
         if ( opaque != UNSPECIFIED_OPAQUE )
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_OPAQUE, getOpaqueString ( opaque ) );
+
+		for ( StringPairList::const_iterator it = attributes.begin(); it != attributes.end(); ++it)
+		{
+			const std::pair<String, String>& pair = *it;
+			const String& attributeName = pair.first;
+			const String& attributeValue = pair.second;
+			mSW->appendAttribute ( attributeName, attributeValue );
+		}
 
         if ( isTexture )
         {
@@ -580,11 +588,12 @@ namespace COLLADASW
         return CSWC::CSW_ELEMENT_INDEX_OF_REFRACTION;
     }
 
-    void EffectProfile::addExtraTechniqueColorOrTexture( const ColorOrTexture& colorOrTexture, const String& sid /*= "" */ )
+    void EffectProfile::addExtraTechniqueColorOrTexture( const ColorOrTexture& colorOrTexture, const StringPairList& attributes , const String& sid /*= "" */)
     {
 		ExtraColorOrTextureEntry entry;
 		entry.colorOrTexture = colorOrTexture;
 		entry.elementSid = sid;
+		entry.attributes = attributes;
 		if ( entry.colorOrTexture.isTexture() )
 		{
 			const String& profileName = entry.colorOrTexture.getTexture().getProfileName();
