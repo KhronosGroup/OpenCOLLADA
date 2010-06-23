@@ -645,7 +645,9 @@ namespace COLLADAMax
 								int mapChannel = texMap->GetMapChannel();
 								String semantic = EffectExporter::createTexcoordSementicFromMapchannel( mapChannel );
 								const String & inputSemantic = COLLADASW::InputList::getSemanticString(COLLADASW::TEXCOORD);
-								instanceMaterial.push_back( COLLADASW::BindVertexInput( semantic, inputSemantic, mapChannel) );
+								// max starts with 1 to index the texture maps. To start with 0 in COLLADA, we always substract one from the channel to get the set
+								// This is also relevant when the inouts of texture coordinates
+								instanceMaterial.push_back( COLLADASW::BindVertexInput( semantic, inputSemantic, mapChannel - 1) );
 							}
 						}
 					}

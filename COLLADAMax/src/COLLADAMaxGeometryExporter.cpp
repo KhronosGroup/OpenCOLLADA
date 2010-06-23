@@ -542,9 +542,13 @@ namespace COLLADAMax
 				// Add the polygons set input and its tessellation indices
 
 				if( isEditablePoly() )
+				{
 					exportPolylist( symbol, polylistListPerMaterialIdMap[ matID ], numMaterials <= 1 ? -1 :( int ) matID, numMaterials, channelList );
+				}
 				else
+				{
 					exportTriangles( symbol,( unsigned long ) facesPerMaterialIdMap[ matID ], numMaterials <= 1 ? -1 :( int ) matID, numMaterials, channelList );
+				}
 			}
 
 
@@ -1070,7 +1074,18 @@ namespace COLLADAMax
 		for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 		{
 			int channelIndex = *it;
-			triangles.getInputList().push_back( COLLADASW::Input( ( channelIndex <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+
+			if ( channelIndex <= 0)
+			{
+				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+			}
+			else
+			{
+				// max starts with 1 to index the texture maps. To start with 0 in COLLADA, we always substract one from the channel to get the set
+				// This is also relevant when exporting bind_vertex_input
+				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex - 1 ) );
+			}
+
 			if( mExportTextangentsAndNormals &&( channelIndex > 0 ) )
 			{
 				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::TEXTANGENT, "#" + mId + getTextangentSourceIdSuffix( channelIndex ), offset, channelIndex ) );
@@ -1140,7 +1155,17 @@ namespace COLLADAMax
 
 		for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 		{
-			polylist.getInputList().push_back( COLLADASW::Input( ( *it <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix( *it ), offset++, *it ) );
+			const int& channelIndex = *it;
+			if ( channelIndex <= 0)
+			{
+				polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+			}
+			else
+			{
+				// max starts with 1 to index the texture maps. To start with 0 in COLLADA, we always substract one from the channel to get the set
+				// This is also relevant when exporting bind_vertex_input
+				polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex - 1 ) );
+			}
 		}
 
 		polylist.prepareToAppendValues();
