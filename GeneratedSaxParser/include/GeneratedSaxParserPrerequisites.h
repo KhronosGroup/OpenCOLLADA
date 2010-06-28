@@ -11,6 +11,8 @@
 #ifndef __GENERATEDSAXPARSER_PREREQUISITES_H__
 #define __GENERATEDSAXPARSER_PREREQUISITES_H__
 
+#define LIBXML_STATIC
+
 #include <string>
 
 #include "COLLADABUPlatform.h"
