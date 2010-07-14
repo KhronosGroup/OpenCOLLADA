@@ -850,6 +850,7 @@ namespace COLLADASaxFWL
 			// TODO pre-alloc memory for uv indices
 		}
 		mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(attributeData.material));
+		mCurrentMeshPrimitive->setMaterial(attributeData.material);
 		return true;
 	}
 
@@ -905,7 +906,11 @@ namespace COLLADASaxFWL
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
 		if ( attributeData.material )
+		{
 			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
+			mCurrentMeshPrimitive->setMaterial(attributeData.material);
+
+		}
 		return true;
 	}
 
@@ -961,7 +966,10 @@ namespace COLLADASaxFWL
 		mCurrentMeshPrimitive = lineStrips;
 		mCurrentPrimitiveType = LINESTRIPS;
 		if ( attributeData.material )
+		{
 			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
+			mCurrentMeshPrimitive->setMaterial(attributeData.material);
+		}
 		return true;
 	}
 
@@ -1023,7 +1031,10 @@ namespace COLLADASaxFWL
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
 		if ( attributeData.material )
+		{
 			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
+			mCurrentMeshPrimitive->setMaterial(attributeData.material);
+		}
 		return true;
 	}
 
@@ -1100,7 +1111,10 @@ namespace COLLADASaxFWL
 		mCurrentMeshPrimitive = tristrips;
 		mCurrentPrimitiveType = TRISTRIPS;
 		if ( attributeData.material )
+		{
 			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
+			mCurrentMeshPrimitive->setMaterial(attributeData.material);
+		}
 		return true;
 	}
 
@@ -1133,7 +1147,10 @@ namespace COLLADASaxFWL
 		trifans->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = trifans;
 		if ( attributeData.material )
+		{
 			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
+			mCurrentMeshPrimitive->setMaterial(attributeData.material);
+		}
 		return true;
 	}
 
@@ -1182,6 +1199,7 @@ namespace COLLADASaxFWL
                     // TODO pre-alloc memory for uv indices
                 }
                 mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(mCurrentMeshMaterial));
+				mCurrentMeshPrimitive->setMaterial(mCurrentMeshMaterial);
             }
             break;
 		case TRIFANS:
