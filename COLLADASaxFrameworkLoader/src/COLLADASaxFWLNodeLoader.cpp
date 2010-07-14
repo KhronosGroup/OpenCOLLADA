@@ -249,6 +249,7 @@ namespace COLLADASaxFWL
         COLLADAFW::UniqueId uniqueId = getHandlingFilePartLoader()->createUniqueId ( COLLADAFW::InstanceGeometry::ID() );
 		COLLADAFW::InstanceGeometry* instanceGeometry = FW_NEW COLLADAFW::InstanceGeometry ( uniqueId, instantiatedGeometryUniqueId );
 		mCurrentInstanceGeometry = instanceGeometry;
+		instanceGeometry->setName(currentNode->getName());
 		currentNode->getInstanceGeometries().append(instanceGeometry);
 
 		return true;

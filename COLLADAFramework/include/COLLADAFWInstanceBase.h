@@ -49,7 +49,7 @@ namespace COLLADAFW
         const String& getName () const { return mName; }
 
         /** Sets the name of the node*/
-        void getName ( const String& name ) { mName = name; }
+        void setName ( const String& name ) { mName = name; }
 
         /** Returns the unique id of the instantiated object.*/
         const UniqueId& getInstanciatedObjectId() const { return mInstanciatedObjectId; }
