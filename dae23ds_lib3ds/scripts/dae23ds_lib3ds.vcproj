@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\COLLADABaseUtils\include\Math;..\..\COLLADAFramework\include;..\..\COLLADASaxFrameworkLoader\include;..\..\common\libBuffer\include;..\..\common\libftoa\include;&quot;E:\dev\tools\lib3ds\lib3ds-20080909\src&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\COLLADABaseUtils\include\Math;..\..\COLLADAFramework\include;..\..\COLLADASaxFrameworkLoader\include;..\..\common\libBuffer\include;..\..\common\libftoa\include;..\..\Externals\lib3ds\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,10 +63,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libexpatMT.lib COLLADAFramework.lib lib3ds-2_0.lib"
+				AdditionalDependencies="libexpatMT.lib COLLADAFramework.lib lib3ds.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;E:\dev\tools\lib3ds\lib3ds-20080909\release&quot;;E:\dev\Autodesk\maya\exporter\OpenCollada\trunk_commit\Externals\expat\Win32\bin\debug;E:\dev\Autodesk\maya\exporter\OpenCollada\trunk_commit\COLLADAFramework\lib\win\win32\debug"
+				AdditionalLibraryDirectories="..\..\Externals\lib3ds\lib\win\win32\debug;E:\dev\Autodesk\maya\exporter\OpenCollada\trunk_commit\Externals\expat\Win32\bin\debug;E:\dev\Autodesk\maya\exporter\OpenCollada\trunk_commit\COLLADAFramework\lib\win\win32\debug"
 				GenerateManifest="true"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
@@ -125,7 +125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\COLLADABaseUtils\include\Math;..\..\COLLADAFramework\include;..\..\COLLADASaxFrameworkLoader\include;..\..\common\libBuffer\include;..\..\common\libftoa\include;&quot;E:\dev\tools\lib3ds\lib3ds-20080909\src&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\COLLADABaseUtils\include\Math;..\..\COLLADAFramework\include;..\..\COLLADASaxFrameworkLoader\include;..\..\common\libBuffer\include;..\..\common\libftoa\include;..\..\Externals\lib3ds\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -145,9 +145,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\Externals\expat\win32\bin\release\libexpatMT.lib ..\..\COLLADAFramework\lib\win\win32\release\COLLADAFramework.lib lib3ds-2_0.lib"
+				AdditionalDependencies="..\..\Externals\expat\win32\bin\release\libexpatMT.lib ..\..\COLLADAFramework\lib\win\win32\release\COLLADAFramework.lib lib3ds.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;E:\dev\tools\lib3ds\lib3ds-20080909\release&quot;;E:\dev\Autodesk\maya\exporter\OpenCollada\trunk_commit\Externals\expat\Win32\bin\release;E:\dev\Autodesk\maya\exporter\OpenCollada\trunk_commit\COLLADAFramework\lib\win\win32\release"
+				AdditionalLibraryDirectories="..\..\Externals\lib3ds\lib\win\win32\release;E:\dev\Autodesk\maya\exporter\OpenCollada\trunk_commit\Externals\expat\Win32\bin\release;E:\dev\Autodesk\maya\exporter\OpenCollada\trunk_commit\COLLADAFramework\lib\win\win32\release"
 				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
