@@ -71,7 +71,6 @@ namespace COLLADASaxFWL
 	bool LibraryLightsLoader::end__light()
 	{
 		moveUpInSidTree();
-		bool success = true;
 		if ( (getObjectFlags() & Loader::LIGHT_FLAG) != 0 )
 		{
 			getFileLoader()->addLight( mCurrentLight );
