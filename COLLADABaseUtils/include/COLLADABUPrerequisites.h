@@ -11,13 +11,22 @@
 #ifndef __COLLADABU_PREREQUISITES_H__
 #define __COLLADABU_PREREQUISITES_H__
 
+#include "COLLADABUPlatform.h"
+
 #include <string>
 #include <string.h>
 
 
+namespace COLLADABU
+{
+    typedef std::string String;
+    typedef std::wstring WideString;
+}
+
+
 #define COLLADABU_HAVE_TR1_UNORDERED_MAP
 #ifndef WIN32
-#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 3)
+#if __GNUC__ < 4 || (__GNUC__ == 4 &&  ( !defined( COLLADABU_OS_MAC ) && __GNUC_MINOR__ < 3) )
 #undef COLLADABU_HAVE_TR1_UNORDERED_MAP
 #else
   #include <tr1/unordered_map>
@@ -61,11 +70,5 @@
 #   include "COLLADABUURI.h"
 #  endif
 #endif
-
-namespace COLLADABU
-{
-    typedef std::string String;
-    typedef std::wstring WideString;
-}
 
 #endif //__COLLADABU_PREREQUISITES_H__

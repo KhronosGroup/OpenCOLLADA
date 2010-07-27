@@ -253,9 +253,6 @@ namespace GeneratedSaxParser
             }
         }
 
-        FloatingPointType decimals = 0.0;
-		int exponent = 0;
-		bool infinity = false;
 		bool charBeforeDecimalPoint = false;
 		while ( true )
 		{
@@ -417,9 +414,6 @@ namespace GeneratedSaxParser
             }
         }
 
-        FloatingPointType decimals = 0.0;
-		int exponent = 0;
-		bool infinity = false;
 		bool charBeforeDecimalPoint = false;
 		while ( true )
 		{
@@ -571,9 +565,6 @@ namespace GeneratedSaxParser
             }
         }
 
-        FloatingPointType decimals = 0.0;
-        int exponent = 0;
-        bool infinity = false;
         bool charBeforeDecimalPoint = false;
         while ( true )
         {
@@ -1550,7 +1541,7 @@ namespace GeneratedSaxParser
 #ifdef COLLADABU_OS_WIN
         return _isnan( value ) ? true : false;
 #else
-        return isnan( value );
+        return std::isnan( value );
 #endif
     }
 

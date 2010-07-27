@@ -14,8 +14,11 @@
 		4D94103E102CEF390056403B /* DAE2OgreMeshWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D13EE871023C8DC00EDCE34 /* DAE2OgreMeshWriter.cpp */; };
 		4D94103F102CEF390056403B /* DAE2OgreBaseWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D13EE881023C8DC00EDCE34 /* DAE2OgreBaseWriter.cpp */; };
 		4D941040102CEF390056403B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; };
-		4DE72E32103BBC89004AE462 /* libxml.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE72E31103BBC89004AE462 /* libxml.framework */; };
 		4DE7350A103BC30D004AE462 /* libCOLLADASaxFrameworkLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE734A7103BBE20004AE462 /* libCOLLADASaxFrameworkLoader.a */; };
+		B033A13911FEBB5D00B04E0E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B033A13811FEBB5D00B04E0E /* libxml2.dylib */; };
+		B033A1BD11FED67200B04E0E /* libCOLLADABaseUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE734A9103BBE20004AE462 /* libCOLLADABaseUtils.a */; };
+		B033A1BE11FED67500B04E0E /* libCOLLADAFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE734AB103BBE20004AE462 /* libCOLLADAFramework.a */; };
+		B033A23D11FED9CA00B04E0E /* libMathMLSolver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B033A23C11FED9C700B04E0E /* libMathMLSolver.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,13 @@
 			remoteGlobalIDString = 4D0AEA141032402D00764973;
 			remoteInfo = pcre;
 		};
+		B033A23B11FED9C700B04E0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B033A23711FED9C700B04E0E /* MathMLSolver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libMathMLSolver.a */;
+			remoteInfo = MathMLSolver;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,9 +102,10 @@
 		4D13EE861023C8DC00EDCE34 /* DAE2OgreOgreWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAE2OgreOgreWriter.cpp; sourceTree = "<group>"; };
 		4D13EE871023C8DC00EDCE34 /* DAE2OgreMeshWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAE2OgreMeshWriter.cpp; sourceTree = "<group>"; };
 		4D13EE881023C8DC00EDCE34 /* DAE2OgreBaseWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAE2OgreBaseWriter.cpp; sourceTree = "<group>"; };
-		4DE72E31103BBC89004AE462 /* libxml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libxml.framework; path = Library/Frameworks/libxml.framework; sourceTree = SDKROOT; };
 		4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = COLLADASaxFrameworkLoader.xcodeproj; path = ../COLLADASaxFrameworkLoader/COLLADASaxFrameworkLoader.xcodeproj; sourceTree = SOURCE_ROOT; };
 		8DD76F6C0486A84900D96B5E /* dae2ogre */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dae2ogre; sourceTree = BUILT_PRODUCTS_DIR; };
+		B033A13811FEBB5D00B04E0E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		B033A23711FED9C700B04E0E /* MathMLSolver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MathMLSolver.xcodeproj; path = ../Externals/MathMLSolver/MathMLSolver.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +114,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DE7350A103BC30D004AE462 /* libCOLLADASaxFrameworkLoader.a in Frameworks */,
-				4DE72E32103BBC89004AE462 /* libxml.framework in Frameworks */,
+				B033A13911FEBB5D00B04E0E /* libxml2.dylib in Frameworks */,
+				B033A1BD11FED67200B04E0E /* libCOLLADABaseUtils.a in Frameworks */,
+				B033A1BE11FED67500B04E0E /* libCOLLADAFramework.a in Frameworks */,
+				B033A23D11FED9CA00B04E0E /* libMathMLSolver.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,12 +127,13 @@
 		08FB7794FE84155DC02AAC07 /* dae2ogre */ = {
 			isa = PBXGroup;
 			children = (
+				B033A23711FED9C700B04E0E /* MathMLSolver.xcodeproj */,
 				4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */,
 				4D13EE781023C81A00EDCE34 /* Include */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6859E8C029090F304C91782 /* Documents */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
-				4DE72E31103BBC89004AE462 /* libxml.framework */,
+				B033A13811FEBB5D00B04E0E /* libxml2.dylib */,
 			);
 			name = dae2ogre;
 			sourceTree = "<group>";
@@ -176,6 +191,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B033A23811FED9C700B04E0E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B033A23C11FED9C700B04E0E /* libMathMLSolver.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C6859E8C029090F304C91782 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +242,10 @@
 				{
 					ProductGroup = 4DE7349B103BBE20004AE462 /* Products */;
 					ProjectRef = 4DE7349A103BBE20004AE462 /* COLLADASaxFrameworkLoader.xcodeproj */;
+				},
+				{
+					ProductGroup = B033A23811FED9C700B04E0E /* Products */;
+					ProjectRef = B033A23711FED9C700B04E0E /* MathMLSolver.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -271,6 +298,13 @@
 			remoteRef = 4DE734B0103BBE20004AE462 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		B033A23C11FED9C700B04E0E /* libMathMLSolver.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMathMLSolver.a;
+			remoteRef = B033A23B11FED9C700B04E0E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -299,10 +333,6 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"_GLIBCXX_DEBUG=1",
-					"_GLIBCXX_DEBUG_PEDANTIC=1",
-				);
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -353,7 +383,7 @@
 		1DEB923608733DC60010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = GENERATEDSAXPARSER_XMLPARSER_LIBXML;
@@ -367,13 +397,14 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
 		1DEB923708733DC60010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = GENERATEDSAXPARSER_XMLPARSER_LIBXML;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -385,6 +416,7 @@
 				);
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};
