@@ -8,8 +8,6 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#define _CRT_SECURE_NO_WARNINGS
-
 #include "G3DStableHeaders.h"
 #include "G3DFileUnzipper.h"
 
