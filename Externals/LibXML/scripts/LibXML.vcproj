@@ -46,6 +46,7 @@
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;LIBXML_STATIC"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="false"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
@@ -109,6 +110,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -174,6 +176,7 @@
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;LIBXML_STATIC"
 				RuntimeLibrary="2"
+				RuntimeTypeInfo="false"
 				Detect64BitPortabilityProblems="true"
 			/>
 			<Tool
@@ -238,6 +241,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;LIBXML_STATIC_FOR_DLL"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
+				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -301,6 +305,7 @@
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;LIBXML_STATIC"
 				RuntimeLibrary="1"
+				RuntimeTypeInfo="false"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
@@ -364,6 +369,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
+				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -429,6 +435,7 @@
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;LIBXML_STATIC"
 				RuntimeLibrary="0"
+				RuntimeTypeInfo="false"
 				Detect64BitPortabilityProblems="true"
 			/>
 			<Tool
@@ -493,6 +500,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;LIBXML_STATIC_FOR_DLL"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
+				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"

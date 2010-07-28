@@ -41,6 +41,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				RuntimeTypeInfo="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -116,6 +117,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -196,6 +198,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				RuntimeTypeInfo="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -272,6 +275,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -350,6 +354,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				RuntimeTypeInfo="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -420,6 +425,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -485,6 +491,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				RuntimeTypeInfo="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -561,6 +568,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -648,6 +656,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -723,6 +732,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -788,6 +798,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				RuntimeTypeInfo="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -863,6 +874,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -953,6 +965,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -1028,6 +1041,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -1092,6 +1106,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				RuntimeTypeInfo="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1163,6 +1178,7 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -1236,6 +1252,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -1311,6 +1328,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -1386,6 +1404,7 @@
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -1461,6 +1480,7 @@
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
+				RuntimeTypeInfo="false"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
