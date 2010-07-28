@@ -68,7 +68,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = B033A23711FED9C700B04E0E /* MathMLSolver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libMathMLSolver.a */;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
 			remoteInfo = MathMLSolver;
 		};
 /* End PBXContainerItemProxy section */

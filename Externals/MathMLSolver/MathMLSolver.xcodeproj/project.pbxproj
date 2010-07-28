@@ -1,0 +1,544 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B033A21B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp */; };
+		B033A21C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp */; };
+		B033A21D11FED93100B04E0E /* MathMLASTConstantExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20D11FED93100B04E0E /* MathMLASTConstantExpression.cpp */; };
+		B033A21E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp */; };
+		B033A21F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp */; };
+		B033A22011FED93100B04E0E /* MathMLASTLogicExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21011FED93100B04E0E /* MathMLASTLogicExpression.cpp */; };
+		B033A22111FED93100B04E0E /* MathMLASTStringVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21111FED93100B04E0E /* MathMLASTStringVisitor.cpp */; };
+		B033A22211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp */; };
+		B033A22311FED93100B04E0E /* MathMLASTVariableExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21311FED93100B04E0E /* MathMLASTVariableExpression.cpp */; };
+		B033A22411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp */; };
+		B033A22511FED93100B04E0E /* MathMLSerializationUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21511FED93100B04E0E /* MathMLSerializationUtil.cpp */; };
+		B033A22611FED93100B04E0E /* MathMLSerializationVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21611FED93100B04E0E /* MathMLSerializationVisitor.cpp */; };
+		B033A22711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp */; };
+		B033A22811FED93100B04E0E /* MathMLSolverPrecompiled.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21811FED93100B04E0E /* MathMLSolverPrecompiled.cpp */; };
+		B033A22911FED93100B04E0E /* MathMLString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21911FED93100B04E0E /* MathMLString.cpp */; };
+		B033A22A11FED93100B04E0E /* MathMLSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21A11FED93100B04E0E /* MathMLSymbolTable.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B033A20B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTArithmeticExpression.cpp; path = src/AST/MathMLASTArithmeticExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A20C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTBinaryComparisionExpression.cpp; path = src/AST/MathMLASTBinaryComparisionExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A20D11FED93100B04E0E /* MathMLASTConstantExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTConstantExpression.cpp; path = src/AST/MathMLASTConstantExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A20E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTFragmentExpression.cpp; path = src/AST/MathMLASTFragmentExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A20F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTFunctionExpression.cpp; path = src/AST/MathMLASTFunctionExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21011FED93100B04E0E /* MathMLASTLogicExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTLogicExpression.cpp; path = src/AST/MathMLASTLogicExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21111FED93100B04E0E /* MathMLASTStringVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTStringVisitor.cpp; path = src/AST/MathMLASTStringVisitor.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTUnaryArithmeticExpression.cpp; path = src/AST/MathMLASTUnaryArithmeticExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21311FED93100B04E0E /* MathMLASTVariableExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTVariableExpression.cpp; path = src/AST/MathMLASTVariableExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLEvaluatorVisitor.cpp; path = src/MathMLEvaluatorVisitor.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21511FED93100B04E0E /* MathMLSerializationUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSerializationUtil.cpp; path = src/MathMLSerializationUtil.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21611FED93100B04E0E /* MathMLSerializationVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSerializationVisitor.cpp; path = src/MathMLSerializationVisitor.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSolverFunctionExtensions.cpp; path = src/MathMLSolverFunctionExtensions.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21811FED93100B04E0E /* MathMLSolverPrecompiled.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSolverPrecompiled.cpp; path = src/MathMLSolverPrecompiled.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21911FED93100B04E0E /* MathMLString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLString.cpp; path = src/MathMLString.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21A11FED93100B04E0E /* MathMLSymbolTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSymbolTable.cpp; path = src/MathMLSymbolTable.cpp; sourceTree = SOURCE_ROOT; };
+		D2AAC07E0554694100DB518D /* libMathMLSolver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMathMLSolver.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC07C0554694100DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC07E0554694100DB518D /* libMathMLSolver.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* MathMLSolver */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = MathMLSolver;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B033A20A11FED90400B04E0E /* src */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		B033A20A11FED90400B04E0E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B033A20B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp */,
+				B033A20C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp */,
+				B033A20D11FED93100B04E0E /* MathMLASTConstantExpression.cpp */,
+				B033A20E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp */,
+				B033A20F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp */,
+				B033A21011FED93100B04E0E /* MathMLASTLogicExpression.cpp */,
+				B033A21111FED93100B04E0E /* MathMLASTStringVisitor.cpp */,
+				B033A21211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp */,
+				B033A21311FED93100B04E0E /* MathMLASTVariableExpression.cpp */,
+				B033A21411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp */,
+				B033A21511FED93100B04E0E /* MathMLSerializationUtil.cpp */,
+				B033A21611FED93100B04E0E /* MathMLSerializationVisitor.cpp */,
+				B033A21711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp */,
+				B033A21811FED93100B04E0E /* MathMLSolverPrecompiled.cpp */,
+				B033A21911FED93100B04E0E /* MathMLString.cpp */,
+				B033A21A11FED93100B04E0E /* MathMLSymbolTable.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC07A0554694100DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC07D0554694100DB518D /* MathMLSolver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "MathMLSolver" */;
+			buildPhases = (
+				D2AAC07A0554694100DB518D /* Headers */,
+				D2AAC07B0554694100DB518D /* Sources */,
+				D2AAC07C0554694100DB518D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MathMLSolver;
+			productName = MathMLSolver;
+			productReference = D2AAC07E0554694100DB518D /* libMathMLSolver.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "MathMLSolver" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* MathMLSolver */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC07D0554694100DB518D /* MathMLSolver */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC07B0554694100DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B033A21B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp in Sources */,
+				B033A21C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp in Sources */,
+				B033A21D11FED93100B04E0E /* MathMLASTConstantExpression.cpp in Sources */,
+				B033A21E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp in Sources */,
+				B033A21F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp in Sources */,
+				B033A22011FED93100B04E0E /* MathMLASTLogicExpression.cpp in Sources */,
+				B033A22111FED93100B04E0E /* MathMLASTStringVisitor.cpp in Sources */,
+				B033A22211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp in Sources */,
+				B033A22311FED93100B04E0E /* MathMLASTVariableExpression.cpp in Sources */,
+				B033A22411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp in Sources */,
+				B033A22511FED93100B04E0E /* MathMLSerializationUtil.cpp in Sources */,
+				B033A22611FED93100B04E0E /* MathMLSerializationVisitor.cpp in Sources */,
+				B033A22711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp in Sources */,
+				B033A22811FED93100B04E0E /* MathMLSolverPrecompiled.cpp in Sources */,
+				B033A22911FED93100B04E0E /* MathMLString.cpp in Sources */,
+				B033A22A11FED93100B04E0E /* MathMLSymbolTable.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB921F08733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = /usr/local/lib;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = Debug;
+		};
+		1DEB922008733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = Release;
+		};
+		1DEB922308733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				USER_HEADER_SEARCH_PATHS = "include/**";
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Debug;
+		};
+		1DEB922408733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				USER_HEADER_SEARCH_PATHS = "include/**";
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "MathMLSolver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB921F08733DC00010E9CD /* Debug */,
+				1DEB922008733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "MathMLSolver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB922308733DC00010E9CD /* Debug */,
+				1DEB922408733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B033A21B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp */; };
+		B033A21C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp */; };
+		B033A21D11FED93100B04E0E /* MathMLASTConstantExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20D11FED93100B04E0E /* MathMLASTConstantExpression.cpp */; };
+		B033A21E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp */; };
+		B033A21F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A20F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp */; };
+		B033A22011FED93100B04E0E /* MathMLASTLogicExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21011FED93100B04E0E /* MathMLASTLogicExpression.cpp */; };
+		B033A22111FED93100B04E0E /* MathMLASTStringVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21111FED93100B04E0E /* MathMLASTStringVisitor.cpp */; };
+		B033A22211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp */; };
+		B033A22311FED93100B04E0E /* MathMLASTVariableExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21311FED93100B04E0E /* MathMLASTVariableExpression.cpp */; };
+		B033A22411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp */; };
+		B033A22511FED93100B04E0E /* MathMLSerializationUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21511FED93100B04E0E /* MathMLSerializationUtil.cpp */; };
+		B033A22611FED93100B04E0E /* MathMLSerializationVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21611FED93100B04E0E /* MathMLSerializationVisitor.cpp */; };
+		B033A22711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp */; };
+		B033A22811FED93100B04E0E /* MathMLSolverPrecompiled.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21811FED93100B04E0E /* MathMLSolverPrecompiled.cpp */; };
+		B033A22911FED93100B04E0E /* MathMLString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21911FED93100B04E0E /* MathMLString.cpp */; };
+		B033A22A11FED93100B04E0E /* MathMLSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B033A21A11FED93100B04E0E /* MathMLSymbolTable.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B033A20B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTArithmeticExpression.cpp; path = src/AST/MathMLASTArithmeticExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A20C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTBinaryComparisionExpression.cpp; path = src/AST/MathMLASTBinaryComparisionExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A20D11FED93100B04E0E /* MathMLASTConstantExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTConstantExpression.cpp; path = src/AST/MathMLASTConstantExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A20E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTFragmentExpression.cpp; path = src/AST/MathMLASTFragmentExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A20F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTFunctionExpression.cpp; path = src/AST/MathMLASTFunctionExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21011FED93100B04E0E /* MathMLASTLogicExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTLogicExpression.cpp; path = src/AST/MathMLASTLogicExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21111FED93100B04E0E /* MathMLASTStringVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTStringVisitor.cpp; path = src/AST/MathMLASTStringVisitor.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTUnaryArithmeticExpression.cpp; path = src/AST/MathMLASTUnaryArithmeticExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21311FED93100B04E0E /* MathMLASTVariableExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLASTVariableExpression.cpp; path = src/AST/MathMLASTVariableExpression.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLEvaluatorVisitor.cpp; path = src/MathMLEvaluatorVisitor.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21511FED93100B04E0E /* MathMLSerializationUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSerializationUtil.cpp; path = src/MathMLSerializationUtil.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21611FED93100B04E0E /* MathMLSerializationVisitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSerializationVisitor.cpp; path = src/MathMLSerializationVisitor.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSolverFunctionExtensions.cpp; path = src/MathMLSolverFunctionExtensions.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21811FED93100B04E0E /* MathMLSolverPrecompiled.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSolverPrecompiled.cpp; path = src/MathMLSolverPrecompiled.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21911FED93100B04E0E /* MathMLString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLString.cpp; path = src/MathMLString.cpp; sourceTree = SOURCE_ROOT; };
+		B033A21A11FED93100B04E0E /* MathMLSymbolTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathMLSymbolTable.cpp; path = src/MathMLSymbolTable.cpp; sourceTree = SOURCE_ROOT; };
+		D2AAC07E0554694100DB518D /* libMathMLSolver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMathMLSolver.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC07C0554694100DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC07E0554694100DB518D /* libMathMLSolver.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* MathMLSolver */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = MathMLSolver;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B033A20A11FED90400B04E0E /* src */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		B033A20A11FED90400B04E0E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B033A20B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp */,
+				B033A20C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp */,
+				B033A20D11FED93100B04E0E /* MathMLASTConstantExpression.cpp */,
+				B033A20E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp */,
+				B033A20F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp */,
+				B033A21011FED93100B04E0E /* MathMLASTLogicExpression.cpp */,
+				B033A21111FED93100B04E0E /* MathMLASTStringVisitor.cpp */,
+				B033A21211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp */,
+				B033A21311FED93100B04E0E /* MathMLASTVariableExpression.cpp */,
+				B033A21411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp */,
+				B033A21511FED93100B04E0E /* MathMLSerializationUtil.cpp */,
+				B033A21611FED93100B04E0E /* MathMLSerializationVisitor.cpp */,
+				B033A21711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp */,
+				B033A21811FED93100B04E0E /* MathMLSolverPrecompiled.cpp */,
+				B033A21911FED93100B04E0E /* MathMLString.cpp */,
+				B033A21A11FED93100B04E0E /* MathMLSymbolTable.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC07A0554694100DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC07D0554694100DB518D /* MathMLSolver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "MathMLSolver" */;
+			buildPhases = (
+				D2AAC07A0554694100DB518D /* Headers */,
+				D2AAC07B0554694100DB518D /* Sources */,
+				D2AAC07C0554694100DB518D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MathMLSolver;
+			productName = MathMLSolver;
+			productReference = D2AAC07E0554694100DB518D /* libMathMLSolver.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "MathMLSolver" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* MathMLSolver */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC07D0554694100DB518D /* MathMLSolver */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC07B0554694100DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B033A21B11FED93100B04E0E /* MathMLASTArithmeticExpression.cpp in Sources */,
+				B033A21C11FED93100B04E0E /* MathMLASTBinaryComparisionExpression.cpp in Sources */,
+				B033A21D11FED93100B04E0E /* MathMLASTConstantExpression.cpp in Sources */,
+				B033A21E11FED93100B04E0E /* MathMLASTFragmentExpression.cpp in Sources */,
+				B033A21F11FED93100B04E0E /* MathMLASTFunctionExpression.cpp in Sources */,
+				B033A22011FED93100B04E0E /* MathMLASTLogicExpression.cpp in Sources */,
+				B033A22111FED93100B04E0E /* MathMLASTStringVisitor.cpp in Sources */,
+				B033A22211FED93100B04E0E /* MathMLASTUnaryArithmeticExpression.cpp in Sources */,
+				B033A22311FED93100B04E0E /* MathMLASTVariableExpression.cpp in Sources */,
+				B033A22411FED93100B04E0E /* MathMLEvaluatorVisitor.cpp in Sources */,
+				B033A22511FED93100B04E0E /* MathMLSerializationUtil.cpp in Sources */,
+				B033A22611FED93100B04E0E /* MathMLSerializationVisitor.cpp in Sources */,
+				B033A22711FED93100B04E0E /* MathMLSolverFunctionExtensions.cpp in Sources */,
+				B033A22811FED93100B04E0E /* MathMLSolverPrecompiled.cpp in Sources */,
+				B033A22911FED93100B04E0E /* MathMLString.cpp in Sources */,
+				B033A22A11FED93100B04E0E /* MathMLSymbolTable.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB921F08733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = /usr/local/lib;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = Debug;
+		};
+		1DEB922008733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = Release;
+		};
+		1DEB922308733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				USER_HEADER_SEARCH_PATHS = "include/**";
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Debug;
+		};
+		1DEB922408733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				USER_HEADER_SEARCH_PATHS = "include/**";
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "MathMLSolver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB921F08733DC00010E9CD /* Debug */,
+				1DEB922008733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "MathMLSolver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB922308733DC00010E9CD /* Debug */,
+				1DEB922408733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

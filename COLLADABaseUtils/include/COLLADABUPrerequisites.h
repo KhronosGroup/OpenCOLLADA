@@ -16,6 +16,7 @@
 #include <string>
 #include <string.h>
 
+#include "COLLADABUPlatform.h"
 
 namespace COLLADABU
 {
@@ -23,10 +24,9 @@ namespace COLLADABU
     typedef std::wstring WideString;
 }
 
-
 #define COLLADABU_HAVE_TR1_UNORDERED_MAP
 #ifndef WIN32
-#if __GNUC__ < 4 || (__GNUC__ == 4 &&  ( !defined( COLLADABU_OS_MAC ) && __GNUC_MINOR__ < 3) )
+#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 3)
 #undef COLLADABU_HAVE_TR1_UNORDERED_MAP
 #else
   #include <tr1/unordered_map>
@@ -69,6 +69,31 @@ namespace COLLADABU
 #   include <ext/hash_fun.h>
 #   include "COLLADABUURI.h"
 #  endif
+#endif
+
+#ifndef COLLADABU_HAVE_TR1_UNORDERED_MAP
+    namespace __gnu_cxx {
+
+        template <>
+        struct hash<std::string> 
+        {
+            size_t operator() (const std::string& x) const 
+            {
+                return hash<const char*>()(x.c_str());
+            }
+        };
+
+        template < class _TYPE_ >
+        struct hash< _TYPE_ *> 
+        {
+            typedef _TYPE_* TYPE_PTR;
+            
+            size_t operator() ( TYPE_PTR x) const 
+            {
+                return hash<intptr_t>()((intptr_t)x);
+            }
+        };
+    }
 #endif
 
 #endif //__COLLADABU_PREREQUISITES_H__

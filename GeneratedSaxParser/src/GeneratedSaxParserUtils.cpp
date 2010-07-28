@@ -1541,7 +1541,8 @@ namespace GeneratedSaxParser
 #ifdef COLLADABU_OS_WIN
         return _isnan( value ) ? true : false;
 #else
-        return std::isnan( value );
+        using namespace std;
+        return isnan( value );
 #endif
     }
 

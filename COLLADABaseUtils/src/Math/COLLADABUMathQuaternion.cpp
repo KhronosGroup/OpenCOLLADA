@@ -202,7 +202,6 @@ namespace COLLADABU
         //-----------------------------------------------------------------------
         Vector3 Quaternion::xAxis( void ) const
         {
-            Real fTx = 2.0 * x;
             Real fTy = 2.0 * y;
             Real fTz = 2.0 * z;
             Real fTwy = fTy * w;
