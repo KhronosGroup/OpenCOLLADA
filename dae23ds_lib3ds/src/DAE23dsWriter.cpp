@@ -120,10 +120,10 @@ namespace DAE23ds
 		SceneGraphHandler sceneGraphHandler( mVisualScene );
 		sceneGraphHandler.handle();
 
+		writeMaterial_lib3ds();
 
 		writeInstanceMesh_lib3ds();
 
-		writeMaterial_lib3ds();
 
 		//printMaps();
 		
