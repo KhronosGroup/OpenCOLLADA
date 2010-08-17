@@ -30,7 +30,7 @@ namespace COLLADAMaya
     // --------------------------------------------
     AnimationMKey::~AnimationMKey()
     {
-        delete output;
+        delete[] output;
     }
 
     // --------------------------------------------
@@ -62,10 +62,10 @@ namespace COLLADAMaya
     // --------------------------------------------
     AnimationMKeyTCB::~AnimationMKeyTCB()
     {
-        delete tension;
-        delete continuity;
-        delete bias;
-        delete easeIn;
-        delete easeOut;
+        delete[] tension;
+        delete[] continuity;
+        delete[] bias;
+        delete[] easeIn;
+        delete[] easeOut;
     }
 }
