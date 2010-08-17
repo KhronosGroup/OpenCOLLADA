@@ -10,7 +10,8 @@
 
 #include "CommonFWriteBufferFlusher.h"
 
- #include <errno.h>
+#include <cstdio>
+#include <errno.h>
 
 namespace Common
 {

@@ -31,6 +31,7 @@ Torus Knot Software Ltd.
 #define __DAE2OGRE_OGRESERIALIZER_H__
 
 #include "DAE2OgrePrerequisites.h"
+#include <cstdio>
 
 namespace DAE2Ogre
 {
