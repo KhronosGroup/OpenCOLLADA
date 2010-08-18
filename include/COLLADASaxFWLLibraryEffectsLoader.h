@@ -150,6 +150,12 @@ namespace COLLADASaxFWL
         /** The source of the current sampler.*/
 		String mCurrentSamplerSource;
 
+        /** The wrapS mode of the current sampler.*/
+		COLLADAFW::Sampler::WrapMode mCurrentSamplerWrapS;
+
+        /** The wrapT mode of the current sampler.*/
+		COLLADAFW::Sampler::WrapMode mCurrentSamplerWrapT;
+
 		/** The current sampler.*/
 		COLLADAFW::Sampler* mCurrentSampler;
 
@@ -254,7 +260,24 @@ namespace COLLADASaxFWL
 		/** Store data in mCurrentSamplerSource.*/
 		virtual bool data__source____NCName( const ParserChar* data, size_t length );
 
-		
+		/** We don't need to do anything here.*/
+		virtual bool begin__wrap_s____fx_sampler_wrap_common(){return true;}
+
+		/** We don't need to do anything here.*/
+		virtual bool end__wrap_s____fx_sampler_wrap_common(){return true;}
+
+		/** Store data in mCurrentSamplerWrapS.*/
+		virtual bool data__wrap_s____fx_sampler_wrap_common( const ENUM__fx_sampler_wrap_common value );
+
+		/** We don't need to do anything here.*/
+		virtual bool begin__wrap_t____fx_sampler_wrap_common(){return true;}
+
+		/** We don't need to do anything here.*/
+		virtual bool end__wrap_t____fx_sampler_wrap_common(){return true;}
+
+		/** Store data in mCurrentSamplerWrapS.*/
+		virtual bool data__wrap_t____fx_sampler_wrap_common( const ENUM__fx_sampler_wrap_common value );
+
 		/** Resolve all the samplers and copy them to the current effect.*/
 		virtual bool begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData );
 

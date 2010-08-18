@@ -72,6 +72,18 @@ virtual bool end__source____NCName();
 
 virtual bool data__source____NCName( const ParserChar* data, size_t length );
 
+virtual bool begin__wrap_s____fx_sampler_wrap_common();
+
+virtual bool end__wrap_s____fx_sampler_wrap_common();
+
+virtual bool data__wrap_s____fx_sampler_wrap_common( const COLLADASaxFWL14::ENUM__fx_sampler_wrap_common value );
+
+virtual bool begin__wrap_t____fx_sampler_wrap_common();
+
+virtual bool end__wrap_t____fx_sampler_wrap_common();
+
+virtual bool data__wrap_t____fx_sampler_wrap_common( const COLLADASaxFWL14::ENUM__fx_sampler_wrap_common value );
+
 virtual bool begin__profile_COMMON__technique( const COLLADASaxFWL14::profile_COMMON__technique__AttributeData& attributeData );
 
 virtual bool end__profile_COMMON__technique();

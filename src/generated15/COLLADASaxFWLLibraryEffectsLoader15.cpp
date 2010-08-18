@@ -139,6 +139,68 @@ return mLoader->data__source____NCName(data, length);
 }
 
 
+bool LibraryEffectsLoader15::begin__wrap_s____fx_sampler_wrap_enum()
+{
+SaxVirtualFunctionTest15(begin__wrap_s____fx_sampler_wrap_enum());
+return mLoader->begin__wrap_s____fx_sampler_wrap_common();
+}
+
+
+bool LibraryEffectsLoader15::end__wrap_s____fx_sampler_wrap_enum()
+{
+SaxVirtualFunctionTest15(end__wrap_s____fx_sampler_wrap_enum());
+return mLoader->end__wrap_s____fx_sampler_wrap_common();
+}
+
+
+bool LibraryEffectsLoader15::data__wrap_s____fx_sampler_wrap_enum( const COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum value )
+{
+SaxVirtualFunctionTest15(data__wrap_s____fx_sampler_wrap_enum(value));
+COLLADASaxFWL::ENUM__fx_sampler_wrap_common newValue;
+switch (value) {
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__WRAP: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__WRAP; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__CLAMP: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__CLAMP; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__BORDER: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__BORDER; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__MIRROR: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__MIRROR; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__MIRROR_ONCE: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__MIRROR_ONCE; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__COUNT: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__COUNT; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__NOT_PRESENT: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__NOT_PRESENT; break;
+}
+return mLoader->data__wrap_s____fx_sampler_wrap_common(newValue);
+}
+
+
+bool LibraryEffectsLoader15::begin__wrap_t____fx_sampler_wrap_enum()
+{
+SaxVirtualFunctionTest15(begin__wrap_t____fx_sampler_wrap_enum());
+return mLoader->begin__wrap_t____fx_sampler_wrap_common();
+}
+
+
+bool LibraryEffectsLoader15::end__wrap_t____fx_sampler_wrap_enum()
+{
+SaxVirtualFunctionTest15(end__wrap_t____fx_sampler_wrap_enum());
+return mLoader->end__wrap_t____fx_sampler_wrap_common();
+}
+
+
+bool LibraryEffectsLoader15::data__wrap_t____fx_sampler_wrap_enum( const COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum value )
+{
+SaxVirtualFunctionTest15(data__wrap_t____fx_sampler_wrap_enum(value));
+COLLADASaxFWL::ENUM__fx_sampler_wrap_common newValue;
+switch (value) {
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__WRAP: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__WRAP; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__CLAMP: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__CLAMP; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__BORDER: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__BORDER; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__MIRROR: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__MIRROR; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__MIRROR_ONCE: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__MIRROR_ONCE; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__COUNT: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__COUNT; break;
+case COLLADASaxFWL15::ENUM__fx_sampler_wrap_enum__NOT_PRESENT: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__NOT_PRESENT; break;
+}
+return mLoader->data__wrap_t____fx_sampler_wrap_common(newValue);
+}
+
+
 bool LibraryEffectsLoader15::begin__profile_common_type____technique( const COLLADASaxFWL15::profile_common_type____technique__AttributeData& attributeData )
 {
 SaxVirtualFunctionTest15(begin__profile_common_type____technique(attributeData));
