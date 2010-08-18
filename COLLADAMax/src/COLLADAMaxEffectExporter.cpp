@@ -556,7 +556,7 @@ namespace COLLADAMax
             COLLADASW::Sampler sampler( COLLADASW::Sampler::SAMPLER_TYPE_2D, samplerSid, surfaceSid );
 			sampler.setImageId( imageId );
 			//sampler.setFormat( FORMAT );
-            texture.setSampler( sampler );
+            //texture.setSampler( sampler );
 
             int mapChannel = 1;
 
@@ -570,8 +570,29 @@ namespace COLLADAMax
 					StdUVGen* uvGenParameters = (StdUVGen*)uvCoordinatesGenerator;
 					int uvFlags = uvGenParameters->GetTextureTiling();
 					
-					sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_WRAP);
+					sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_CLAMP);
+					sampler.setWrapT(COLLADASW::Sampler::WRAP_MODE_CLAMP);
 
+					if ( uvFlags & U_WRAP )
+					{
+						//Indicates the texture map is tiled in the U direction. 
+						sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_WRAP);
+					}
+					if ( uvFlags & V_WRAP )
+					{
+						//Indicates the texture map is tiled in the V direction. 
+						sampler.setWrapT(COLLADASW::Sampler::WRAP_MODE_WRAP);
+					}
+					if ( uvFlags & U_MIRROR )
+					{
+						//Indicates the texture map is mirrored in the U direction. 
+						sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_MIRROR);
+					}
+					if ( uvFlags & V_MIRROR )
+					{
+						//Indicates the texture map is mirrored in the V direction. 
+						sampler.setWrapT(COLLADASW::Sampler::WRAP_MODE_MIRROR);
+					}
 
 					IParamBlock* uvParams = (IParamBlock*)uvGenParameters->GetReference(StdUVGenEnums::pblock);	
 
@@ -596,6 +617,8 @@ namespace COLLADAMax
 
                 // TODO: add extra tag
             }
+			
+			texture.setSampler( sampler );
 
 			String semantic = createTexcoordSementicFromMapchannel( mapChannel );
 

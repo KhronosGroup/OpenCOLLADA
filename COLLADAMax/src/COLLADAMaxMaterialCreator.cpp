@@ -548,8 +548,29 @@ namespace COLLADAMax
 		StdUVGen* stdUVGen = (StdUVGen*)uvGen;
 
 		// reset all flags
-		stdUVGen->SetFlag(U_WRAP|V_WRAP, 1);
-		stdUVGen->SetFlag(U_MIRROR|V_MIRROR, 0);
+		//stdUVGen->SetFlag(U_WRAP|V_WRAP, 1);
+		//stdUVGen->SetFlag(U_MIRROR|V_MIRROR, 0);
+		int tiling = 0;
+		
+		if ( sampler->getWrapS() == COLLADAFW::Sampler::WRAP_MODE_WRAP )
+		{
+			tiling += 1<<0;
+		}
+		else if ( sampler->getWrapS() == COLLADAFW::Sampler::WRAP_MODE_MIRROR )
+		{
+			tiling += 1<<2;
+		}
+
+		if ( sampler->getWrapT() == COLLADAFW::Sampler::WRAP_MODE_WRAP )
+		{
+			tiling += 1<<1;
+		}
+		else if ( sampler->getWrapT() == COLLADAFW::Sampler::WRAP_MODE_MIRROR )
+		{
+			tiling += 1<<3;
+		}
+
+		stdUVGen->SetTextureTiling(tiling);
 
 
 		return bitmapTexture;

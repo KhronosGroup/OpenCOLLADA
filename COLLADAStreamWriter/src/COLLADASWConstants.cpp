@@ -203,9 +203,9 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_VERTICES = "vertices";
     const String CSWC::CSW_ELEMENT_VIEWPORT_RATIO = "viewport_ratio";
     const String CSWC::CSW_ELEMENT_VISUAL_SCENE = "visual_scene";
-    const String CSWC::CSW_ELEMENT_WRAP_S = "wraps";
-    const String CSWC::CSW_ELEMENT_WRAP_T = "wrapt";
-    const String CSWC::CSW_ELEMENT_WRAP_P = "wrapp";
+    const String CSWC::CSW_ELEMENT_WRAP_S = "wrap_s";
+    const String CSWC::CSW_ELEMENT_WRAP_T = "wrap_t";
+    const String CSWC::CSW_ELEMENT_WRAP_P = "wrap_p";
     const String CSWC::CSW_ELEMENT_XFOV = "xfov";
     const String CSWC::CSW_ELEMENT_XMAG = "xmag";
     const String CSWC::CSW_ELEMENT_YFOV = "yfov";

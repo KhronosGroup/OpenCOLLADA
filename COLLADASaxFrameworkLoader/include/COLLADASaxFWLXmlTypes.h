@@ -103,6 +103,19 @@ namespace COLLADASaxFWL
         ENUM__fx_opaque__NOT_PRESENT = 5
     };
 
+
+	enum ENUM__fx_sampler_wrap_common
+	{
+		ENUM__fx_sampler_wrap_common__NONE = 0,
+		ENUM__fx_sampler_wrap_common__WRAP = 1,
+		ENUM__fx_sampler_wrap_common__MIRROR = 2,
+		ENUM__fx_sampler_wrap_common__MIRROR_ONCE = 3,
+		ENUM__fx_sampler_wrap_common__CLAMP = 4,
+		ENUM__fx_sampler_wrap_common__BORDER = 5,
+		ENUM__fx_sampler_wrap_common__COUNT = 6,
+		ENUM__fx_sampler_wrap_common__NOT_PRESENT = 7
+	};
+
     struct unit__AttributeData
     {
         float meter;

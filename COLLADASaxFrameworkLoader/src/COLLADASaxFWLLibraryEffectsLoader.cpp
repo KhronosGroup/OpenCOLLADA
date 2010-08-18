@@ -28,6 +28,8 @@ namespace COLLADASaxFWL
 		, mCurrentShaderParameterType(UNKNOWN_SHADER_TYPE)
 		, mCurrentColorValueIndex(0)
 		, mCurrentSampler(0)
+		, mCurrentSamplerWrapS(COLLADAFW::Sampler::WRAP_MODE_WRAP)
+		, mCurrentSamplerWrapT(COLLADAFW::Sampler::WRAP_MODE_WRAP)
         , mTransparency(1)
 		, mNextSamplerIndex(0)
         , mInProfileCommonTechnique (false)
@@ -478,6 +480,9 @@ namespace COLLADASaxFWL
 		samplerInfo.id = 0;
 		samplerInfo.surfaceSid = mCurrentSamplerSource;
         
+		samplerInfo.sampler->setWrapS(mCurrentSamplerWrapS);
+		samplerInfo.sampler->setWrapT(mCurrentSamplerWrapT);
+
         // Check if we have a sampler defined directly under an effect or under an effect profile.
         if ( mCurrentProfile == PROFILE_NONE )
             mEffectSidSamplerInfoMap.insert(std::make_pair(mCurrentNewParamSid, samplerInfo));
@@ -486,6 +491,9 @@ namespace COLLADASaxFWL
 
 		mCurrentSampler = 0;
 		mCurrentSamplerSource.clear();
+
+		mCurrentSamplerWrapS = COLLADAFW::Sampler::WRAP_MODE_WRAP;
+		mCurrentSamplerWrapT = COLLADAFW::Sampler::WRAP_MODE_WRAP;
 
         mInSampler2D = false;
 
@@ -499,6 +507,69 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	bool LibraryEffectsLoader::data__wrap_s____fx_sampler_wrap_common( const ENUM__fx_sampler_wrap_common value )
+	{	
+		switch (value)
+		{
+			case ENUM__fx_sampler_wrap_common__CLAMP: 
+				mCurrentSamplerWrapS = COLLADAFW::Sampler::WRAP_MODE_CLAMP;
+				break;
+		
+			case ENUM__fx_sampler_wrap_common__MIRROR: 
+				mCurrentSamplerWrapS = COLLADAFW::Sampler::WRAP_MODE_MIRROR;
+				break;
+
+			case ENUM__fx_sampler_wrap_common__WRAP: 
+				mCurrentSamplerWrapS = COLLADAFW::Sampler::WRAP_MODE_WRAP;
+				break;
+
+			case ENUM__fx_sampler_wrap_common__BORDER: 
+				mCurrentSamplerWrapS = COLLADAFW::Sampler::WRAP_MODE_BORDER;
+				break;
+
+			case ENUM__fx_sampler_wrap_common__NONE: 
+				mCurrentSamplerWrapS = COLLADAFW::Sampler::WRAP_MODE_NONE;
+				break;
+
+			case ENUM__fx_sampler_wrap_common__NOT_PRESENT: 
+				mCurrentSamplerWrapS = COLLADAFW::Sampler::WRAP_MODE_UNSPECIFIED;
+				break;
+		}
+		
+		return true;
+	}
+
+	bool LibraryEffectsLoader::data__wrap_t____fx_sampler_wrap_common( const ENUM__fx_sampler_wrap_common value )
+	{
+		switch (value)
+		{
+			case ENUM__fx_sampler_wrap_common__CLAMP: 
+				mCurrentSamplerWrapT = COLLADAFW::Sampler::WRAP_MODE_CLAMP;
+				break;
+		
+			case ENUM__fx_sampler_wrap_common__MIRROR: 
+				mCurrentSamplerWrapT = COLLADAFW::Sampler::WRAP_MODE_MIRROR;
+				break;
+
+			case ENUM__fx_sampler_wrap_common__WRAP: 
+				mCurrentSamplerWrapT = COLLADAFW::Sampler::WRAP_MODE_WRAP;
+				break;
+
+			case ENUM__fx_sampler_wrap_common__BORDER: 
+				mCurrentSamplerWrapT = COLLADAFW::Sampler::WRAP_MODE_BORDER;
+				break;
+
+			case ENUM__fx_sampler_wrap_common__NONE: 
+				mCurrentSamplerWrapT = COLLADAFW::Sampler::WRAP_MODE_NONE;
+				break;
+
+			case ENUM__fx_sampler_wrap_common__NOT_PRESENT: 
+				mCurrentSamplerWrapT = COLLADAFW::Sampler::WRAP_MODE_UNSPECIFIED;
+				break;
+		}
+		
+		return true;
+	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData )

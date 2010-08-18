@@ -177,6 +177,68 @@ return mLoader->data__source____NCName(data, length);
 }
 
 
+bool LibraryEffectsLoader14::begin__wrap_s____fx_sampler_wrap_common()
+{
+SaxVirtualFunctionTest14(begin__wrap_s____fx_sampler_wrap_common());
+return mLoader->begin__wrap_s____fx_sampler_wrap_common();
+}
+
+
+bool LibraryEffectsLoader14::end__wrap_s____fx_sampler_wrap_common()
+{
+SaxVirtualFunctionTest14(end__wrap_s____fx_sampler_wrap_common());
+return mLoader->end__wrap_s____fx_sampler_wrap_common();
+}
+
+
+bool LibraryEffectsLoader14::data__wrap_s____fx_sampler_wrap_common( const COLLADASaxFWL14::ENUM__fx_sampler_wrap_common value )
+{
+SaxVirtualFunctionTest14(data__wrap_s____fx_sampler_wrap_common(value));
+COLLADASaxFWL::ENUM__fx_sampler_wrap_common newValue;
+switch (value) {
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__NONE: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__NONE; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__WRAP: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__WRAP; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__MIRROR: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__MIRROR; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__CLAMP: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__CLAMP; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__BORDER: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__BORDER; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__COUNT: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__COUNT; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__NOT_PRESENT: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__NOT_PRESENT; break;
+}
+return mLoader->data__wrap_s____fx_sampler_wrap_common(newValue);
+}
+
+
+bool LibraryEffectsLoader14::begin__wrap_t____fx_sampler_wrap_common()
+{
+SaxVirtualFunctionTest14(begin__wrap_t____fx_sampler_wrap_common());
+return mLoader->begin__wrap_t____fx_sampler_wrap_common();
+}
+
+
+bool LibraryEffectsLoader14::end__wrap_t____fx_sampler_wrap_common()
+{
+SaxVirtualFunctionTest14(end__wrap_t____fx_sampler_wrap_common());
+return mLoader->end__wrap_t____fx_sampler_wrap_common();
+}
+
+
+bool LibraryEffectsLoader14::data__wrap_t____fx_sampler_wrap_common( const COLLADASaxFWL14::ENUM__fx_sampler_wrap_common value )
+{
+SaxVirtualFunctionTest14(data__wrap_t____fx_sampler_wrap_common(value));
+COLLADASaxFWL::ENUM__fx_sampler_wrap_common newValue;
+switch (value) {
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__NONE: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__NONE; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__WRAP: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__WRAP; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__MIRROR: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__MIRROR; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__CLAMP: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__CLAMP; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__BORDER: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__BORDER; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__COUNT: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__COUNT; break;
+case COLLADASaxFWL14::ENUM__fx_sampler_wrap_common__NOT_PRESENT: newValue=COLLADASaxFWL::ENUM__fx_sampler_wrap_common__NOT_PRESENT; break;
+}
+return mLoader->data__wrap_t____fx_sampler_wrap_common(newValue);
+}
+
+
 bool LibraryEffectsLoader14::begin__profile_COMMON__technique( const COLLADASaxFWL14::profile_COMMON__technique__AttributeData& attributeData )
 {
 SaxVirtualFunctionTest14(begin__profile_COMMON__technique(attributeData));
