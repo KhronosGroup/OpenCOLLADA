@@ -207,8 +207,14 @@ namespace COLLADAMaya
         // Set the author
         char* userName = getenv ( USERNAME );
 
-        if ( userName == NULL || *userName == 0 ) userName = getenv ( USER );
-        if ( userName != NULL && *userName != 0 ) asset.getContributor().mAuthor = String ( userName );
+        if ( !userName || *userName == 0 ) 
+		{
+			userName = getenv ( USER );
+		}
+        if ( userName && *userName != 0 ) 
+		{
+			asset.getContributor().mAuthor = NativeString( userName ).toUtf8String();
+		}
 
         // Source is the scene we have exported from
         String currentScene = MFileIO::currentFile().asChar();
