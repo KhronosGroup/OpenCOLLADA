@@ -33,15 +33,27 @@ namespace COLLADASaxFWL
 	}
 
     //------------------------------
-    const COLLADAFW::UniqueId& VisualSceneLoader::getUniqueId ()
+    const COLLADAFW::UniqueId& VisualSceneLoader::getUniqueId()
     {
         if ( mCurrentInstanceController )
-            return mCurrentInstanceController->getUniqueId ();
+		{
+			return mCurrentInstanceController->getUniqueId();
+		}
         else if ( mCurrentInstanceGeometry )
-            return mCurrentInstanceGeometry->getUniqueId ();
+		{
+			return mCurrentInstanceGeometry->getUniqueId();
+		}
+
+		if ( !mNodeStack.empty() )
+		{
+			COLLADAFW::Node* currentNode = mNodeStack.top();
+			return currentNode->getUniqueId();
+		}
 
         if ( mVisualScene )
-            return mVisualScene->getUniqueId ();
+		{
+			return mVisualScene->getUniqueId();
+		}
 
         return COLLADAFW::UniqueId::INVALID;
     }
