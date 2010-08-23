@@ -371,7 +371,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	COLLADAFW::UniqueId KinematicsSceneCreator::processInstanceKinematicsModel(const KinematicsInstanceKinematicsModel& instanceKinematicsModel)
 	{
-		COLLADAFW::UniqueId kinematicsModelUniqueId =  mDocumentProcessor->createUniqueIdFromUrl( instanceKinematicsModel.getUrl(), true );
+		COLLADAFW::UniqueId kinematicsModelUniqueId =  mDocumentProcessor->getUniqueIdByUrl( instanceKinematicsModel.getUrl(), true );
 		if ( !kinematicsModelUniqueId.isValid() )
 		{
 			return COLLADAFW::UniqueId::INVALID;

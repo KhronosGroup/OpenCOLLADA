@@ -455,7 +455,7 @@ namespace COLLADASaxFWL
 					continue;
 				}
 
-				const COLLADAFW::UniqueId& sourceUniqueId = createUniqueIdFromUrl(*sourceUrl, true);
+				const COLLADAFW::UniqueId& sourceUniqueId = getUniqueIdByUrl(*sourceUrl, true);
 				if ( !sourceUniqueId.isValid() )
 				{
 					// TODO handle error
