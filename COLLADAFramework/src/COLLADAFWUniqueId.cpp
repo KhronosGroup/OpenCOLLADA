@@ -79,7 +79,7 @@ namespace COLLADAFW
 			return false;
 		}
 		//parse
-		mClassId = atoi( &ascii[UNIQUEID_LENGTH+1]);
+		mClassId = (ClassId)atoi( &ascii[UNIQUEID_LENGTH+1]);
 
 		size_t objectIdFirstNonDigit = ascii.find_last_not_of( digits, classIdFirstNonDigit + 1);
 		if ( (objectIdFirstNonDigit == ascii.npos) || (objectIdFirstNonDigit == classIdFirstNonDigit + 1) )

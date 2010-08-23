@@ -35,8 +35,6 @@ namespace COLLADAFW
 
 	//  typedef xsNCName String;
 
-	typedef int ClassId;
-
 	typedef unsigned long long ObjectId;
 
 	typedef unsigned long FileId;
@@ -65,7 +63,8 @@ namespace COLLADAFW
     // Element Type Enum
     namespace COLLADA_TYPE
     {
-        const ClassId
+        enum ClassId
+		{
             NO_TYPE = 0,
             ANY = 1,
             INPUTGLOBAL = 2,
@@ -605,12 +604,14 @@ namespace COLLADAFW
 			KINEMATICS_CONTROLLER = 1007,
 			INSTANCE_KINEMATICS_SCENE = 1008
 
-
+			}
             ;
 
 
 
     }
+
+	typedef COLLADA_TYPE::ClassId ClassId;
 
 }
 
