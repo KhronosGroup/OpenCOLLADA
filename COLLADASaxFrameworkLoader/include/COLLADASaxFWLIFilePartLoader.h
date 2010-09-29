@@ -174,10 +174,8 @@ namespace COLLADASaxFWL
 		@return The elements COLLADAFW::UniqueId */
 		COLLADAFW::UniqueId createUniqueId(COLLADAFW::ClassId classId);
 
-		/** Returns the GeometryMaterialIdInfo object of the geometry with @a uniqueId. If this method has
-		not been called before with the same uniqueId, an empty GeometryMaterialIdInfo is created, added to
-		the map and returned.*/
-		GeometryMaterialIdInfo& getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId);
+		/** Returns the GeometryMaterialIdInfo to map symbols to ids*/
+		GeometryMaterialIdInfo& getMeshMaterialIdInfo( );
 
 		/** Returns TextureMapId for @a semantic. Successive call with same semantic return the same TextureMapId.*/
 		COLLADAFW::TextureMapId getTextureMapIdBySematic( const String& semantic );
