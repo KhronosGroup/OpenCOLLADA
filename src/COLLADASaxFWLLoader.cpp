@@ -285,9 +285,9 @@ namespace COLLADASaxFWL
     }
 
 	//---------------------------------
-	GeometryMaterialIdInfo& Loader::getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId )
+	GeometryMaterialIdInfo& Loader::getMeshMaterialIdInfo( )
 	{
-		return mGeometryMeshMaterialIdInfoMapMap[uniqueId];
+		return mGeometryMaterialIdInfo;
 	}
 
 	//---------------------------------

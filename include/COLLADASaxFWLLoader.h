@@ -64,8 +64,6 @@ namespace COLLADASaxFWL
 	class Loader : public COLLADAFW::ILoader
 	{
 	public:
-		/** Maps the unique id of each geometry to the corresponding ColladaSymbolMaterialIdMap.*/
-		typedef std::map<COLLADAFW::UniqueId, GeometryMaterialIdInfo> UniqueIdMeshMaterialIdInfoMap;
 
 		typedef std::map<String, COLLADAFW::TextureMapId> StringTextureMapIdMap;
 
@@ -215,7 +213,7 @@ namespace COLLADASaxFWL
 		COLLADAFW::FileId mCurrentFileId;
 
 		/** Maps the unique id of each geometry to the corresponding GeometryMaterialIdInfo.*/
-		UniqueIdMeshMaterialIdInfoMap mGeometryMeshMaterialIdInfoMapMap;
+		GeometryMaterialIdInfo mGeometryMaterialIdInfo;
 
 		/** The error handler to pass the errors to.*/
 		IErrorHandler* mErrorHandler;
@@ -390,10 +388,8 @@ namespace COLLADASaxFWL
 		@a fileId nor @a uri have been passed to that method before.*/
 		void addFileIdUriPair( COLLADAFW::FileId fileId, const COLLADABU::URI& uri );
 
-		/** Returns the GeometryMaterialIdInfo object of the geometry with @a uniqueId. If this method has 
-		not been called before with the same uniqueId, an empty GeometryMaterialIdInfo is created, added to
-		the map and returned.*/
-		GeometryMaterialIdInfo& getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId);
+		/** Returns the GeometryMaterialIdInfo to map symbols to ids*/
+		GeometryMaterialIdInfo& getMeshMaterialIdInfo( );
 
 		/** Returns TextureMapId for @a semantic. Successive call with same semantic return the same TextureMapId.*/
 		COLLADAFW::TextureMapId getTextureMapIdBySematic( const String& semantic );

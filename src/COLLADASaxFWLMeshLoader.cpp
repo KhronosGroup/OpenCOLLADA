@@ -32,7 +32,7 @@ namespace COLLADASaxFWL
 		: SourceArrayLoader (callingFilePartLoader )
 		, mMeshUniqueId(createUniqueIdFromId((ParserChar*)geometryId.c_str(), COLLADAFW::Geometry::ID()))
 		, mMesh ( new COLLADAFW::Mesh(mMeshUniqueId) )
-		, mMaterialIdInfo(getMeshMaterialIdInfo(mMeshUniqueId))
+		, mMaterialIdInfo(getMeshMaterialIdInfo())
 		, mCurrentMeshPrimitive(0)
 		, mCurrentVertexInput(0)
         , mInVertices ( false )

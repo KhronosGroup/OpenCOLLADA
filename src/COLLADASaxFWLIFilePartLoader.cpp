@@ -76,7 +76,8 @@ namespace COLLADASaxFWL
 
 		COLLADABU::URI uri(getFileUri(), String("#") + String((const char *)colladaId));
 
-		return getColladaLoader()->getUniqueId(uri, classId);
+		COLLADAFW::UniqueId createdUniqueId = createUniqueIdFromUrl(uri, classId, false);
+		return createdUniqueId;
 	}
 
 	//------------------------------
@@ -180,10 +181,10 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	GeometryMaterialIdInfo& IFilePartLoader::getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId )
+	GeometryMaterialIdInfo& IFilePartLoader::getMeshMaterialIdInfo( )
 	{
 		assert(getColladaLoader());
-		return getColladaLoader()->getMeshMaterialIdInfo(uniqueId);
+		return getColladaLoader()->getMeshMaterialIdInfo();
 	}
 
 	//------------------------------
