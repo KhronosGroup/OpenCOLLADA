@@ -32,6 +32,9 @@ namespace COLLADAFW
         /** The set index of the set of texture coordinates uses by the effect for parameter
         with parameter id. */
         size_t mSetIndex;
+        
+        /** The semantic used for this texture coordinate binding (<bind_vertex_input> attribute semantic) */
+        String mSemantic;
 
     public:
 
@@ -52,6 +55,9 @@ namespace COLLADAFW
         with parameter id. */
         const size_t& getSetIndex () const { return mSetIndex; }
         void setSetIndex ( const size_t& val ) { mSetIndex = val; }
+        
+        const String& getSemantic() const { return mSemantic; }
+        void setSemantic( const String& val ) { mSemantic = val; }
 
         /** Operator overloading. */
         bool operator<( const TextureCoordinateBinding& rhs) const

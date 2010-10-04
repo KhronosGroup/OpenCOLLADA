@@ -315,6 +315,7 @@ namespace COLLADASaxFWL
         {
             COLLADAFW::TextureCoordinateBinding texCoordinateBinding;
             texCoordinateBinding.setSetIndex ( (size_t)attributeData.input_set );
+            texCoordinateBinding.setSemantic( attributeData.semantic );
             texCoordinateBinding.setTextureMapId ( getHandlingFilePartLoader()->getTextureMapIdBySematic( attributeData.semantic ) );
             mCurrentTextureCoordinateBindings.insert(texCoordinateBinding);
         }
