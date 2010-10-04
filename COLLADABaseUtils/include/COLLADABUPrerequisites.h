@@ -25,7 +25,7 @@ namespace COLLADABU
 }
 
 #define COLLADABU_HAVE_TR1_UNORDERED_MAP
-#ifndef WIN32
+#ifndef COLLADABU_OS_WIN
 #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 3)
 #undef COLLADABU_HAVE_TR1_UNORDERED_MAP
 #else
