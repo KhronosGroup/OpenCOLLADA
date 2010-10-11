@@ -849,8 +849,11 @@ namespace COLLADASaxFWL
 			}
 			// TODO pre-alloc memory for uv indices
 		}
-		mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(attributeData.material));
-		mCurrentMeshPrimitive->setMaterial(attributeData.material);
+		if ( attributeData.material )
+		{
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(attributeData.material));
+			mCurrentMeshPrimitive->setMaterial(attributeData.material);
+		}
 		return true;
 	}
 
