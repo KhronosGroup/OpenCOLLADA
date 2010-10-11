@@ -59,6 +59,10 @@ namespace GeneratedSaxParser
 	}
 	bool ExpatSaxParser::parseFile( const char* fileName )
 	{
+		FILE *fd;
+		fd = fopen(fileName, "rb");
+		if (!fd)
+			return false;
 
 		//XML_ParserCreate(const XML_Char *encoding);
 		mParser = XML_ParserCreate(0);
@@ -71,9 +75,6 @@ namespace GeneratedSaxParser
 		char * buffer;
 		buffer = (char*) malloc (sizeof(char)*mBufferSize);
 
-
-		FILE *fd;
-		fd = fopen(fileName, "rb");
 
 		XML_Status status = XML_STATUS_OK;
 		while (!feof(fd) && (status != XML_STATUS_ERROR) )
