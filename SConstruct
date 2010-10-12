@@ -9,6 +9,7 @@ vars = Variables('custom.py')
 vars.Add(BoolVariable('RELEASE', 'Set to build for release', 0))
 vars.Add(BoolVariable('PG', 'Set to build with -pg set for gcc for profiling', 0))
 vars.Add(BoolVariable('SHAREDLIB', 'Set to build shared libraries instead of static ones (untested).', 0))
+vars.Add(EnumVariable('LIBDIRNAME', 'The name of the systems library directory, for linux use', 'lib/', allowed_values=('lib/', 'lib64/') ))
 vars.Add(BoolVariable('PCRENATIVE', 
 """Set to build using the systems native pcre lib instead of the delivered lib. Uses same configuration dir for both configurations.
 """, 1))
@@ -52,7 +53,7 @@ else:
     env['validationConfName'] = ''
 
 env['objDir'] = 'obj/'
-env['libDir'] = 'lib/'
+env['libDir'] = env['LIBDIRNAME']
 env['binDir'] = 'bin/'
 
 

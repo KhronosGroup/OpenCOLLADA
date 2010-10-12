@@ -40,6 +40,8 @@ libPath = [ '../COLLADABaseUtils/' + env['libDir']  + env['configurationBaseName
 
 if not env['PCRENATIVE']:
     libPath += '../Externals/pcre/' + env['libDir']  + env['configurationBaseName'],
+else:
+    libPath += '/usr/' + env['libDir']
 
 if (env['XMLPARSER'] == 'expat') or (env['XMLPARSER'] == 'expatnative'):
     env['CPPFLAGS'] += ' -DXMLPARSER_EXPAT'
@@ -53,6 +55,8 @@ else:
         libs += ['xml']
     else:
         libs += ['xml2']
+        if not env['PCRENATIVE']:
+            libPath += '/usr/' + env['libDir']
 
 linkFlags = []
 
@@ -60,8 +64,9 @@ linkFlags = []
 if env['PG']:
   linkFlags += ['-pg']
 
-if not env['SHAREDLIB']:
-  linkFlags += ['-static']
+# This is commented out to allow linking against shared system libraries.
+#if not env['SHAREDLIB']:
+#  linkFlags += ['-static']
 
 
 Program(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'], LIBS=libs, LIBPATH=libPath, LINKFLAGS=linkFlags)
