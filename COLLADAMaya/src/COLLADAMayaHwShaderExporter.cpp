@@ -86,7 +86,7 @@ namespace COLLADAMaya
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Get the filename of the current cgfx file
-        MString shaderFxFile = shaderNodeCgfx->shaderFxFile();
+        MString shaderFxFile = cgfxFindFile(shaderNodeCgfx->shaderFxFile());
         String shaderFxFileName = shaderFxFile.asChar (); // check3d.cgfx
         COLLADASW::URI  shaderFxFileUri ( COLLADASW::URI::nativePathToUri ( shaderFxFileName ) );
         setShaderFxFileUri ( shaderFxFileUri );
