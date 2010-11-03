@@ -43,14 +43,14 @@ namespace COLLADAFW
 
 	private:
 	
-        /** The type of the current element. */
-        Type mType;
-
         /** The value is represented by a literal floating-point scalar, for example:
         <float> 3.14 </float>. The sid attribute is optional. */
         float mFloatValue;
 
-        /** The value is represented by a reference to a previously defined parameter that can be 
+        /** The type of the current element. */
+        Type mType;
+
+		/** The value is represented by a reference to a previously defined parameter that can be 
         directly cast to a floatingpoint scalar. See main entry. */
         Param mParam;
 
@@ -64,9 +64,9 @@ namespace COLLADAFW
 
         /** Constructor. */
         FloatOrParam ( const Param& param ) 
-            : mParam ( param )
+            : mFloatValue ( -1 )
             , mType ( PARAM ) 
-            , mFloatValue ( -1 )
+            , mParam ( param )
         {};
 
         /** Destructor. */

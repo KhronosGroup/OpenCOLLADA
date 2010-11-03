@@ -35,9 +35,9 @@ namespace COLLADASW
             COLOR,
             TEXTURE
         };
-        Type mType;
         Color mColor;
         Texture mTexture;
+        Type mType;
         String mSid;
 
     public:

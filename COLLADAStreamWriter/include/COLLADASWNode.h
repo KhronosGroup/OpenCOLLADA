@@ -40,6 +40,9 @@ namespace COLLADASW
         /** Closer to close the node*/
         TagCloser mNodeCloser;
 
+        /** The type of the node*/
+        Type mType;
+
         /** The id of the node*/
         String mNodeId;
 
@@ -51,9 +54,6 @@ namespace COLLADASW
 
         /** The URL of an instance node. */
         COLLADABU::URI mNodeURL;
-
-        /** The type of the node*/
-        Type mType;
 
         /** Flag, if it is an node instance. */
         bool mIsInstanceNode;

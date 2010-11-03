@@ -35,8 +35,8 @@ namespace COLLADAFW
         };
 
 	private:
-        Type mType;
 		Color mColor;
+        Type mType;
         Texture mTexture;
 
     public:
@@ -44,17 +44,17 @@ namespace COLLADAFW
         @param color The color that should be represented.
         */
         ColorOrTexture ( Color color)
-        : mColor ( color )
-        , mType ( COLOR )
-        , mTexture ( COLLADAFW::UniqueId::INVALID )
+        	: mColor ( color )
+        	, mType ( COLOR )
+        	, mTexture ( COLLADAFW::UniqueId::INVALID )
         {}
 
         /** Constructor to create a ColorOrTexture object that represents a color.
         @param texture The color that should be represented.
         */
         ColorOrTexture ( Texture texture )
-        : mTexture ( texture )
-        , mType ( TEXTURE )
+        	: mType ( TEXTURE )
+        	, mTexture ( texture )
         {}
 
 		/** Creates an invalid CommonColorOrTextureType*/

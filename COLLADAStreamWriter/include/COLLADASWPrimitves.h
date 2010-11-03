@@ -36,6 +36,9 @@ namespace COLLADASW
         /** Pointer to the primitives closer. */
         TagCloser mPrimitiveCloser;
 
+		/** List of all the inputs*/
+        InputList mInputList;
+
         /** Name of the current primitive. */
         String mPrimitiveName;
 
@@ -44,9 +47,6 @@ namespace COLLADASW
 
         /** The primitive count*/
         unsigned long mCount;
-
-        /** List of all the inputs*/
-        InputList mInputList;
 
         /** List of the number in the @a \<vcount\> element*/
         VCountList mVCountList;

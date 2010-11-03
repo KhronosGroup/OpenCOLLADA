@@ -67,11 +67,11 @@ namespace COLLADASW
             const float* floatVal;
         } mValue;
 
-        /** The value type of the used union value. */
-        UnionType mUnionType;
-
         /** Number of values to insert (for arrays and pointer) */
         int mNumValues;
+
+		/** The value type of the used union value. */
+        UnionType mUnionType;
 
         /** Tag closer for the annotation. */
         TagCloser mAnnoCloser;
