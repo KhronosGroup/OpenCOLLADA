@@ -24,6 +24,9 @@ namespace COLLADAFW
 	{
 	private:
 
+		/** The morph weights.*/
+		FloatOrDoubleArray mMorphWeights;
+
         /**
         * The original object id, if it in the original file format exist. 
         */
@@ -35,8 +38,6 @@ namespace COLLADAFW
 		/** The unique ids of the morph targets (geometries).*/
 		UniqueIdArray mMorphTargets;
 
-		/** The morph weights.*/
-		FloatOrDoubleArray mMorphWeights;
 
 	public:
 

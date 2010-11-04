@@ -78,6 +78,10 @@ namespace COLLADAFW
 					transformationMatrix = transformationMatrix * matrix->getMatrix();
 					break;
 				}
+			case Transformation::LOOKAT:
+				break; /** @TODO unhandled case */
+			case Transformation::SKEW:
+				break; /** @TODO unhandled case */
 			}
 
 		}

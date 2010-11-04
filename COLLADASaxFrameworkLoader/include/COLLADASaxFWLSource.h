@@ -85,18 +85,18 @@ namespace COLLADASaxFWL
         unsigned long long mStride; 
 
         /**
+         * This member will be used, if multiple source elements with the same input semantic are
+         * referenced in the current mesh. 
+         */
+        size_t mInitialIndex;
+
+        /**
          * Flags, if the source element is already loaded into the framework. A source element 
          * can be referenced from the same input element in multiple primitive elements or from
          * different input elements (NORMALS, COLOR, TEXCOORD, ...). It should be loaded only once
          * from every input element.
          */
         COLLADAFW::ArrayPrimitiveType<InputSemantic::Semantic> mLoadedInputElements;
-
-        /**
-         * This member will be used, if multiple source elements with the same input semantic are
-         * referenced in the current mesh. 
-         */
-        size_t mInitialIndex;
 
 		/** The accessor of the source.*/
 		Accessor mAccessor;

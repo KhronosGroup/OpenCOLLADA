@@ -155,7 +155,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::KinematicsModel::LinkJointConnections& linkJointConnections = fwKinematicsModel->getLinkJointConnections();
 
-		const TransformationList& linkTransformations = link->getTransformations();
+		//TODO UNUSED const TransformationList& linkTransformations = link->getTransformations();
 
 		const KinematicAttachmentList& attachments = link->getAttachments();
 		KinematicAttachmentList::const_iterator it = attachments.begin();
@@ -243,7 +243,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::KinematicsModel::LinkJointConnections& linkJointConnections = fwKinematicsModel->getLinkJointConnections();
 
-		const TransformationList& linkTransformations = attachment->getTransformations();
+		// @TODO UNUSED const TransformationList& linkTransformations = attachment->getTransformations();
 
 		mLinkNumberStack.push(mLargestLinkNumber++);
 

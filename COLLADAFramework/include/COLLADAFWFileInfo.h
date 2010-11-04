@@ -239,11 +239,11 @@ namespace COLLADAFW
         to the right, and which is considered inward. */
         UpAxisType mUpAxisType;
 
-		/** The absolute file uri.*/
-		COLLADABU::URI mAbsoluteFileUri;
-
         /** A pair where you can hold file informations. */
         ValuePairPointerArray mValuePairArray;
+
+		/** The absolute file uri.*/
+		COLLADABU::URI mAbsoluteFileUri;
 
 	public:
 

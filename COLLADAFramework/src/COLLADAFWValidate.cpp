@@ -137,7 +137,7 @@ namespace COLLADAFW
 
 		for ( size_t i = 0, count = jointIndices.getCount(); i < count; ++i)
 		{
-			if ( jointIndices[i] >= jointsCount)
+			if ( (unsigned int)abs(jointIndices[i]) >= jointsCount)
 				return false;
 		}
 		return true;

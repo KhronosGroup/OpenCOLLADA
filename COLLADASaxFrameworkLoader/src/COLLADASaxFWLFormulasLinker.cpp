@@ -255,7 +255,7 @@ namespace COLLADASaxFWL
 			{
 				//search for the parameter name in the formulas new params
 				bool found = false;
-				size_t newParamIndex = getNewParamIndex(formula, *csymbolName, found);
+				// UNUSED size_t newParamIndex = getNewParamIndex(formula, *csymbolName, found);
 				if ( found )
 				{
 					// we are done. create new VariableExpression and return
