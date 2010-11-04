@@ -248,6 +248,8 @@ namespace COLLADASaxFWL
 			case VALUETYPE_SIDREF: 
 				mValue._sidref = 0;
 				break;
+			case VALUETYPE_UNKNOWN:
+				break;
 			}
 		}
 
@@ -623,7 +625,7 @@ namespace COLLADASaxFWL
 		float getFloatValue() const { return mValue._float; }
 
 		/** Sets the sidref value FloatOrParam. Type will be set to VALUETYPE_FLOAT.*/
-		void setFloatValue( float value) { deleteParam(); mValue._float; mValueType = VALUETYPE_FLOAT; }
+		void setFloatValue( float value) { deleteParam(); mValue._float=value; mValueType = VALUETYPE_FLOAT; }
 
 		/** Returns the param ref FloatOrParam. Type must be VALUETYPE_PARAM.*/
 		const String* getParamValue() const { return mValue._param; }
