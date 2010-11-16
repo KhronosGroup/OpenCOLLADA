@@ -1,4 +1,5 @@
-PROJECT(OpenCOLLADASaxFrameworkLoader)
+SET(name OpenCOLLADASaxFrameworkLoader)
+PROJECT(${name})
 
 SET(libSaxFrameworkLoader_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
@@ -19,8 +20,10 @@ file(GLOB_RECURSE libSaxFrameworkLoader_src_files
 
 SET(libSaxFrameworkLoader_libs
 	OpenCOLLADABaseUtils
-	OpenCOLLADAFramework
 	GeneratedSaxParser
+	OpenCOLLADAFramework
+	MathMLSolver
+      ${PCRE_LIBRARIES}
 )
 
 IF (USE_LIBXML)
@@ -39,10 +42,23 @@ INCLUDE_DIRECTORIES(
 	${libBaseUtils_include_dirs} 
 	${libFramework_include_dirs} 
 	${libGeneratedSaxParser_include_dirs}
+	${PCRE_INCLUDE_DIR}
 )
 LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
 
-ADD_LIBRARY(OpenCOLLADASaxFrameworkLoader ${libSaxFrameworkLoader_src_files})
-TARGET_LINK_LIBRARIES( 
-	OpenCOLLADASaxFrameworkLoader ${libSaxFrameworkLoader_libs} 
-)
+IF (USE_STATIC)
+	ADD_LIBRARY(${name}_static STATIC ${libSaxFrameworkLoader_src_files})
+	SET_TARGET_PROPERTIES(${name}_static PROPERTIES OUTPUT_NAME ${name})
+	TARGET_LINK_LIBRARIES(${name}_static ${libSaxFrameworkLoader_libs})
+	SET(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+ENDIF (USE_STATIC)
+
+IF (USE_SHARED)
+	IF (NOT UNIX)
+		message(${name} " WARNING: Shared library support implemented for UNIX-like OS only")
+	ENDIF (NOT UNIX)
+	ADD_LIBRARY(${name}_shared SHARED ${libSaxFrameworkLoader_src_files})
+	SET_TARGET_PROPERTIES(${name}_shared PROPERTIES OUTPUT_NAME ${name})
+	TARGET_LINK_LIBRARIES(${name}_shared ${libSaxFrameworkLoader_libs})
+	SET(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+ENDIF (USE_SHARED)
