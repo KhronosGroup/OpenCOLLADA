@@ -1,4 +1,5 @@
-PROJECT(pcre)
+SET(name pcre)
+PROJECT(${name})
 
 SET(libpcre_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
@@ -19,7 +20,6 @@ SET(libpcre_libs)
 INCLUDE_DIRECTORIES(${libpcre_include_dirs})
 LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
 
-ADD_LIBRARY(pcre ${libpcre_src_files})
-TARGET_LINK_LIBRARIES( 
-	pcre ${libpcre_libs} 
-)
+ADD_LIBRARY(${name} ${libpcre_src_files})
+TARGET_LINK_LIBRARIES(${name} ${libpcre_libs})
+SET(CMAKE_REQUIRED_LIBRARIES "${name};${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)

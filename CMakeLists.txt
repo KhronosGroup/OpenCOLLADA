@@ -16,9 +16,10 @@ IF (NOT WIN32)
 	set(CMAKE_CXX_FLAGS "-Wall")
 ENDIF (NOT WIN32)
 
+OPTION(USE_STATIC "Build static libraries" ON)
+OPTION(USE_SHARED "Build shared libraries" OFF)
 OPTION(USE_LIBXML "Use LibXml2 parser" ON)
 OPTION(USE_EXPAT "Use expat parser" OFF)
-
 #adding xml2
 IF(USE_LIBXML)
 	ADD_DEFINITIONS(-DGENERATEDSAXPARSER_XMLPARSER_LIBXML)
@@ -28,22 +29,21 @@ IF(USE_LIBXML)
 		MESSAGE(STATUS "SUCCESSFUL: LibXml2 found")
 	ELSE (LIBXML2_FOUND) #if xml2 not found building its local copy from ./Externals
 		IF (WIN32)
-			MESSAGE(STATUS "WARNING: Native LibXml2 not found, taking LibXml from ./Externals")
+			MESSAGE("WARNING: Native LibXml2 not found, taking LibXml from ./Externals")
 			ADD_SUBDIRECTORY(${EXTERNAL_LIBRARIES}/LibXML)
 			SET(LIBXML2_INCLUDE_DIR
 			${libxml_include_dirs}				
 			)
-			SET(LIBXML2_LIBRARIES ${libxml_include_dirs}				
-				xml)
+			SET(LIBXML2_LIBRARIES xml)
 		ELSE (WIN32)
-			MESSAGE(STATUS "ERROR: LibXml2 not found, please install libxml2-dev library")
+			MESSAGE("ERROR: LibXml2 not found, please install xml2 library (for Debian libxml2-dev)")
 		ENDIF (WIN32)
 	ENDIF (LIBXML2_FOUND)
 ENDIF(USE_LIBXML)
 
 IF(USE_EXPAT)
 	ADD_DEFINITIONS(-DGENERATEDSAXPARSER_XMLPARSER_EXPAT)
-	MESSAGE(STATUS "FATAL: EXPAT support not implemented")
+	MESSAGE("FATAL: EXPAT support not implemented")
 	#TODO:: use externals
 ENDIF(USE_EXPAT)
 
@@ -52,16 +52,17 @@ FIND_PACKAGE(PCRE)
 IF (PCRE_FOUND)
 	MESSAGE(STATUS "SUCCESSFUL: PCRE found")
 ELSE (PCRE_FOUND) #if pcre not found building its local copy from ./Externals
-	MESSAGE(STATUS "WARNING: Native PCRE not found, taking PCRE from ./Externals")
-	ADD_DEFINITIONS(-DPCRE_STATIC)
-	ADD_DEFINITIONS(-DCOLLADABU_USE_PCRE_PRECOMPILED)
-	ADD_SUBDIRECTORY(${EXTERNAL_LIBRARIES}/pcre)
-	SET(PCRE_INCLUDE_DIR
-		${libpcre_include_dirs}				
-	)
-	SET(PCRE_LIBRARIES
-		pcre				
-	)
+	IF (WIN32)
+		MESSAGE("WARNING: Native PCRE not found, taking PCRE from ./Externals")
+		ADD_DEFINITIONS(-DPCRE_STATIC)
+		ADD_SUBDIRECTORY(${EXTERNAL_LIBRARIES}/pcre)
+		SET(PCRE_INCLUDE_DIR
+			${libpcre_include_dirs}				
+		)
+		SET(PCRE_LIBRARIES pcre)
+	ELSE (WIN32)
+		MESSAGE("ERROR: PCRE not found, please install pcre library")
+	ENDIF (WIN32)
 ENDIF (PCRE_FOUND)
 
 #building required libs
@@ -79,4 +80,5 @@ ADD_SUBDIRECTORY(COLLADAStreamWriter)
 
 #building COLLADAValidator app
 ADD_SUBDIRECTORY(COLLADAValidator)
+
 

@@ -1,4 +1,5 @@
-PROJECT(OpenCOLLADAValidator)
+SET (name OpenCOLLADAValidator)
+PROJECT(${name})
 
 SET(libValidator_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
@@ -7,7 +8,7 @@ SET(libValidator_include_dirs
 SET(libValidator_include_dirs ${libValidator_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
 
 SET(libValidator_src_dirs 
-	${CMAKE_CURRENT_SOURCE_DIR}/src/
+	${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 file(GLOB_RECURSE libValidator_src_files 
@@ -16,7 +17,14 @@ file(GLOB_RECURSE libValidator_src_files
 )
 
 SET(libValidator_libs
-	OpenCOLLADASaxFrameworkLoader
+	OpenCOLLADASaxFrameworkLoader	
+	GeneratedSaxParser	
+	OpenCOLLADAFramework	
+	OpenCOLLADABaseUtils
+	MathMLSolver
+        ${PCRE_LIBRARIES}
+	${LIBXML2_LIBRARIES}
+	UTF
 )
 
 INCLUDE_DIRECTORIES(
@@ -28,7 +36,6 @@ INCLUDE_DIRECTORIES(
 )
 LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
 
-ADD_EXECUTABLE(OpenCOLLADAValidator ${libValidator_src_files})
-TARGET_LINK_LIBRARIES( 
-	OpenCOLLADAValidator ${libValidator_libs} 
-)
+ADD_EXECUTABLE(${name} ${libValidator_src_files})
+TARGET_LINK_LIBRARIES(${name} ${libValidator_libs})
+ADD_DEPENDENCIES(${name} ${CMAKE_REQUIRED_LIBRARIES})

@@ -1,4 +1,5 @@
-PROJECT(xml)
+SET(name xml)
+PROJECT(${name})
 
 SET(libxml_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
@@ -56,7 +57,7 @@ SET(libxml_libs)
 INCLUDE_DIRECTORIES(${libxml_include_dirs})
 LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
 
-ADD_LIBRARY(xml ${libxml_src_files})
-TARGET_LINK_LIBRARIES( 
-	xml ${libxml_libs} 
-)
+ADD_LIBRARY(${name} STATIC ${libxml_src_files})
+SET_TARGET_PROPERTIES(${name} PROPERTIES OUTPUT_NAME ${name})
+TARGET_LINK_LIBRARIES(${name} ${libxml_libs})
+SET(CMAKE_REQUIRED_LIBRARIES "${name};${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
