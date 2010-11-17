@@ -10,7 +10,7 @@ namespace COLLADAMax
 	const String COLLADAPlugin::LONGDESCRIPTION = "New COLLADA Document";
 	const String COLLADAPlugin::SHORTDESCRIPTION = "OpenCOLLADA";
 	const String COLLADAPlugin::AUTHORNAME = "NetAllied Systems GmbH";
-	const String COLLADAPlugin::COPYRIGHTMESSAGE = "Copyright 2008-2009 NetAllied Systems GmbH. Copyright 2006 Feeling Software. Based on Autodesk' 3dsMax COLLADASW Tools.";
+	const String COLLADAPlugin::COPYRIGHTMESSAGE = "Copyright 2008-2010 NetAllied Systems GmbH.";
 	const String COLLADAPlugin::OTHERMESSAGE1 = "";
 	const String COLLADAPlugin::OTHERMESSAGE2 = "";
 

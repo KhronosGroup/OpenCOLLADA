@@ -308,33 +308,37 @@ namespace COLLADAMax
 			largestMaterialId = materialId;
 		}
 
-		if ( largestMaterialId == 1 && false )
+		if ( !materialBindings.empty() )
 		{
-			const COLLADAFW::MaterialBinding& materialBinding = materialBindings[0];
-			const COLLADAFW::Effect* effect = getEffect(materialBinding);
-			if ( !effect )
-				return true;
-			Mtl* newMaterial = getMaxMaterial(*effect, materialBinding, geometryUniqueId);
-			maxNode->SetMtl( newMaterial );
-			return true;
-		}
+			if ( materialBindings.size() == 1 )
+			{
+				const COLLADAFW::MaterialBinding& materialBinding = materialBindings[0];
+				const COLLADAFW::Effect* effect = getEffect(materialBinding);
+				if ( !effect )
+					return true;
+				Mtl* newMaterial = getMaxMaterial(*effect, materialBinding, geometryUniqueId);
+				maxNode->SetMtl( newMaterial );
+			}
+			else
+			{
+				MultiMtl * multiMaterial = NewDefaultMultiMtl();
+				multiMaterial->SetNumSubMtls( largestMaterialId + 1 );
+				String multiMaterialName = String(maxNode->GetName()) + "-MultiMaterial";
+				multiMaterial->SetName(multiMaterialName.c_str());
 
-		MultiMtl * multiMaterial = NewDefaultMultiMtl();
-		multiMaterial->SetNumSubMtls( largestMaterialId + 1 );
-		String multiMaterialName = String(maxNode->GetName()) + "-MultiMaterial";
-		multiMaterial->SetName(multiMaterialName.c_str());
-
-		it = materialBindings.begin();
-		for ( ; it != materialBindings.end(); ++it)
-		{
-			const COLLADAFW::MaterialBinding& materialBinding = *it;
-			const COLLADAFW::Effect* effect = getEffect(materialBinding);
-			if ( !effect )
-				continue;
-			Mtl* newMaterial = getMaxMaterial(*effect, materialBinding, geometryUniqueId);
-			multiMaterial->SetSubMtl( materialBinding.getMaterialId(), newMaterial);
+				it = materialBindings.begin();
+				for ( ; it != materialBindings.end(); ++it)
+				{
+					const COLLADAFW::MaterialBinding& materialBinding = *it;
+					const COLLADAFW::Effect* effect = getEffect(materialBinding);
+					if ( !effect )
+						continue;
+					Mtl* newMaterial = getMaxMaterial(*effect, materialBinding, geometryUniqueId);
+					multiMaterial->SetSubMtl( materialBinding.getMaterialId(), newMaterial);
+				}
+				maxNode->SetMtl( multiMaterial );
+			}
 		}
-		maxNode->SetMtl( multiMaterial );
 		return true;
 	}
 
