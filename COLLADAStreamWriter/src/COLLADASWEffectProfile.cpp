@@ -176,41 +176,44 @@ namespace COLLADASW
     void EffectProfile::addExtraTechniqueColorOrTextures ( 
 		const ExtraColorOrTextureEntryByProfileName& entriesByProfileName ) const
     {
-		// Open the extra tag
-        COLLADASW::Extra colladaExtra ( mSW );
-        colladaExtra.openExtra();
-
-		for ( ExtraColorOrTextureEntryByProfileName::const_iterator it = entriesByProfileName.begin(); 
-				it != entriesByProfileName.end(); ++it )
+		if ( !entriesByProfileName.empty() )
 		{
-			const String& profileName = it->first;
-			const std::vector<ExtraColorOrTextureEntry>& entries = it->second;
+			// Open the extra tag
+			COLLADASW::Extra colladaExtra ( mSW );
+			colladaExtra.openExtra();
 
-			// Open the technique tag
-			COLLADASW::Technique colladaTechnique ( mSW );
-			colladaTechnique.openTechnique( profileName );
-
-			for ( std::vector<ExtraColorOrTextureEntry>::const_iterator it = entries.begin(); it != entries.end(); ++it )
+			for ( ExtraColorOrTextureEntryByProfileName::const_iterator it = entriesByProfileName.begin(); 
+				it != entriesByProfileName.end(); ++it )
 			{
-				const ExtraColorOrTextureEntry& entry = *it;
+				const String& profileName = it->first;
+				const std::vector<ExtraColorOrTextureEntry>& entries = it->second;
 
-				if ( entry.colorOrTexture.isTexture() )
+				// Open the technique tag
+				COLLADASW::Technique colladaTechnique ( mSW );
+				colladaTechnique.openTechnique( profileName );
+
+				for ( std::vector<ExtraColorOrTextureEntry>::const_iterator it = entries.begin(); it != entries.end(); ++it )
 				{
-					const Texture& texture = entry.colorOrTexture.getTexture();
+					const ExtraColorOrTextureEntry& entry = *it;
 
-					const String& childElement = texture.getChildElementName();
+					if ( entry.colorOrTexture.isTexture() )
+					{
+						const Texture& texture = entry.colorOrTexture.getTexture();
 
-					// Add the texture
-					addColorOrTexture( childElement, entry.colorOrTexture, entry.elementSid, entry.attributes  );
+						const String& childElement = texture.getChildElementName();
+
+						// Add the texture
+						addColorOrTexture( childElement, entry.colorOrTexture, entry.elementSid, entry.attributes  );
+					}
 				}
+
+				// Close the technique tag
+				colladaTechnique.closeTechnique();
 			}
 
-			// Close the technique tag
-			colladaTechnique.closeTechnique();
+			// Close the extra tag
+			colladaExtra.closeExtra();
 		}
-
-        // Close the extra tag
-        colladaExtra.closeExtra();
 	}
 
     //---------------------------------------------------------------
