@@ -312,7 +312,7 @@ namespace COLLADAMaya
             {
                 COLLADASW::SetParamFloat setParam ( streamWriter );
                 setParam.openParam ( attributeName );
-                if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[0]!=0 )  
+                if ( attribute->fNumericDef!=NULL /*&& attribute->fNumericDef[0]!=0*/ )  
                     setParam.appendValues ( attribute->fNumericDef[0] );
                 setParam.closeParam();
                 break;
@@ -323,7 +323,7 @@ namespace COLLADAMaya
                 setParam.openParam ( attributeName );
                 for ( int i=0; i<attribute->fSize; ++i )
                 {
-                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=0 )  
+                    if ( attribute->fNumericDef!=NULL /*&& attribute->fNumericDef[i]!=0*/ )  
                     {
                         double val = attribute->fNumericDef[i];
                         setParam.appendValues( val );
@@ -339,7 +339,7 @@ namespace COLLADAMaya
                 setParam.openParam ( attributeName );
                 for ( int i=0; i<attribute->fSize; ++i )
                 {
-                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=0 )  
+                    if ( attribute->fNumericDef!=NULL /*&& attribute->fNumericDef[i]!=0*/ )  
                     {
                         double val = attribute->fNumericDef[i];
                         setParam.appendValues( val );
@@ -355,7 +355,7 @@ namespace COLLADAMaya
                 setParam.openParam ( attributeName );
                 for ( int i=0; i<attribute->fSize; ++i )
                 {
-                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=0 )  
+                    if ( attribute->fNumericDef!=NULL /*&& attribute->fNumericDef[i]!=0*/ )  
                     {
                         double val = attribute->fNumericDef[i];
                         setParam.appendValues( val );
