@@ -50,50 +50,50 @@ namespace Common
 
 	double roundingSummand(double d, int maxLength, int& dezmialPointPos)
 	{
-		double fabs = fabs(d);
+		double fAbs = fabs(d);
 		dezmialPointPos = 0;
 
-		if ( fabs < 0.00000000000001 )
+		if ( fAbs < 0.00000000000001 )
 			dezmialPointPos = -15;
-		if ( fabs < 0.0000000000001 )
+		if ( fAbs < 0.0000000000001 )
 			dezmialPointPos = -14;
-		if ( fabs < 0.000000000001 )
+		if ( fAbs < 0.000000000001 )
 			dezmialPointPos = -13;
-		if ( fabs < 0.00000000001 )
+		if ( fAbs < 0.00000000001 )
 			dezmialPointPos = -12;
-		if ( fabs < 0.0000000001 )
+		if ( fAbs < 0.0000000001 )
 			dezmialPointPos = -11;
-		if ( fabs < 0.000000001 )
+		if ( fAbs < 0.000000001 )
 			dezmialPointPos = -10;
-		if ( fabs < 0.00000001 )
+		if ( fAbs < 0.00000001 )
 			dezmialPointPos = -9;
-		if ( fabs < 0.0000001 )
+		if ( fAbs < 0.0000001 )
 			dezmialPointPos = -8;
-		if ( fabs < 0.000001 )
+		if ( fAbs < 0.000001 )
 			dezmialPointPos = -7;
-		if ( fabs < 0.00001 )
+		if ( fAbs < 0.00001 )
 			dezmialPointPos = -6;
-		else if ( fabs < 0.0001 )
+		else if ( fAbs < 0.0001 )
 			dezmialPointPos = -5;
-		else if ( fabs < 0.001 )
+		else if ( fAbs < 0.001 )
 			dezmialPointPos = -4;
-		else if ( fabs < 0.01 )
+		else if ( fAbs < 0.01 )
 			dezmialPointPos = -3;
-		else if ( fabs < 0.1 )
+		else if ( fAbs < 0.1 )
 			dezmialPointPos = -2;
-		else if ( fabs < 1 )
+		else if ( fAbs < 1 )
 			dezmialPointPos = -1;
-		else if ( fabs < 10 )
+		else if ( fAbs < 10 )
 			dezmialPointPos = 0;
-		else if ( fabs < 100 )
+		else if ( fAbs < 100 )
 			dezmialPointPos = 1;
-		else if ( fabs < 1000 )
+		else if ( fAbs < 1000 )
 			dezmialPointPos = 2;
-		else if ( fabs < 10000 )
+		else if ( fAbs < 10000 )
 			dezmialPointPos = 3;
-		else if ( fabs < 100000 )
+		else if ( fAbs < 100000 )
 			dezmialPointPos = 4;
-		else if ( fabs < 1000000 )
+		else if ( fAbs < 1000000 )
 			dezmialPointPos = 5;
 
 		static const double roundingSummands[] = {   

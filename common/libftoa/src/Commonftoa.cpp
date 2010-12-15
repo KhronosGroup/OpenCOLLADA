@@ -53,32 +53,32 @@ namespace Common
 
 	float roundingSummand(float f, int maxLength, int& dezmialPointPos)
 	{
-		float fabs = fabs(f);
+		float fAbs = fabs(f);
 		dezmialPointPos = 0;
 
-		if ( fabs < 0.00001 )
+		if ( fAbs < 0.00001 )
 			dezmialPointPos = -6;
-		else if ( fabs < 0.0001 )
+		else if ( fAbs < 0.0001 )
 			dezmialPointPos = -5;
-		else if ( fabs < 0.001 )
+		else if ( fAbs < 0.001 )
 			dezmialPointPos = -4;
-		else if ( fabs < 0.01 )
+		else if ( fAbs < 0.01 )
 			dezmialPointPos = -3;
-		else if ( fabs < 0.1 )
+		else if ( fAbs < 0.1 )
 			dezmialPointPos = -2;
-		else if ( fabs < 1 )
+		else if ( fAbs < 1 )
 			dezmialPointPos = -1;
-		else if ( fabs < 10 )
+		else if ( fAbs < 10 )
 			dezmialPointPos = 0;
-		else if ( fabs < 100 )
+		else if ( fAbs < 100 )
 			dezmialPointPos = 1;
-		else if ( fabs < 1000 )
+		else if ( fAbs < 1000 )
 			dezmialPointPos = 2;
-		else if ( fabs < 10000 )
+		else if ( fAbs < 10000 )
 			dezmialPointPos = 3;
-		else if ( fabs < 100000 )
+		else if ( fAbs < 100000 )
 			dezmialPointPos = 4;
-		else if ( fabs < 1000000 )
+		else if ( fAbs < 1000000 )
 			dezmialPointPos = 5;
 
 		static const float roundingSummands[] = {   0.5e-11f,      // < 0.00001 
