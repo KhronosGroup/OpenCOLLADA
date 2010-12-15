@@ -181,13 +181,28 @@ namespace COLLADAMax
         mType = determineType ( mINode );
     }
 
-
+	//---------------------------------------------------------------
     void ExportNode::addSymbol ( Mtl * material, const String & symbol )
     {
-        Symbol newSymbol;
-        newSymbol.used = false;
-        newSymbol.name = mSymbolList.addId ( symbol );
-        mMeshSymbolMap[ material ] = newSymbol;
+		// TODO: should be tested with multiple (composite?) materials
+		bool found = false;
+
+		MeshSymbolMap::const_iterator it = mMeshSymbolMap.find( material );
+		if ( it!=mMeshSymbolMap.end() )
+		{
+			if ( it->second.name==symbol )
+			{
+				found = true;
+			}
+		}
+
+		if (!found)
+		{
+			Symbol newSymbol;
+			newSymbol.used = false;
+			newSymbol.name = mSymbolList.addId ( symbol );
+			mMeshSymbolMap[ material ] = newSymbol;
+		}
     }
 
 
