@@ -50,7 +50,7 @@ namespace Common
 
 	double roundingSummand(double d, int maxLength, int& dezmialPointPos)
 	{
-		double fabs = abs(d);
+		double fabs = fabs(d);
 		dezmialPointPos = 0;
 
 		if ( fabs < 0.00000000000001 )

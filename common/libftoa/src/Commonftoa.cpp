@@ -53,7 +53,7 @@ namespace Common
 
 	float roundingSummand(float f, int maxLength, int& dezmialPointPos)
 	{
-		float fabs = abs(f);
+		float fabs = fabs(f);
 		dezmialPointPos = 0;
 
 		if ( fabs < 0.00001 )
