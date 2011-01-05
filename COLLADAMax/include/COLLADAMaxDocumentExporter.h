@@ -164,6 +164,12 @@ namespace COLLADAMax
             return mOptions;
         }
 
+        /**
+        * Returns a pointer to the collada stream writer.
+        * @return StreamWriter* Pointer to the collada stream writer
+        */
+        COLLADASW::StreamWriter & getStreamWriter() { return mStreamWriter; };
+
 		/** The uri of the main output file.*/
 		const COLLADASW::URI& getOutputFileUri()const { return mOutputFileUri; }
 

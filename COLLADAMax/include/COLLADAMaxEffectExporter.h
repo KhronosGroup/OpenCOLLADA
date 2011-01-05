@@ -260,6 +260,9 @@ namespace COLLADAMax
         /** Exports am common COLLADASW effect created from  @a material.*/
         void exportCommonEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId, float weight = 1.0, bool inited = false );
 
+        /** Exports a HLSL COLLADASW effect created from  @a material.*/
+        void exportHLSLEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId, float weight = 1.0, bool inited = false );
+
         /** Exports the material @a material.*/
         void exportSimpleEffect ( ExportNode* exportNode, Mtl* material );
 

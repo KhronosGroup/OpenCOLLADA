@@ -24,6 +24,7 @@
 #include "COLLADAMaxMultiMtl.h"
 #include "COLLADAMaxAnimationExporter.h"
 #include "COLLADAMaxConversionFunctor.h"
+#include "COLLADAMaxHwShaderExporter.h"
 
 #include "COLLADAMaxXRefFunctions.h"
 
@@ -249,7 +250,7 @@ namespace COLLADAMax
 
 		setExtraTechnique(this);
 
-		COLLADASW::EffectProfile effectProfile ( LibraryEffects::mSW );
+		//COLLADASW::EffectProfile effectCommonProfile ( LibraryEffects::mSW );
 
 
         // Write out the custom attributes
@@ -257,6 +258,7 @@ namespace COLLADAMax
 
         /// @TODO Handle other types of material properly
         // does the material have an HLSL profile?
+        //bool itHasHardwareShader = false;
         IDxMaterial* dxm = static_cast<IDxMaterial*> ( baseMaterial->GetInterface( IDXMATERIAL_INTERFACE ) );
 
 #ifdef MAX_2010_OR_NEWER
@@ -268,17 +270,24 @@ namespace COLLADAMax
 
         if ( effectFileName && *effectFileName )
         {
+            /*
             if ( baseMaterial->NumSubMtls() > 0 && baseMaterial->GetSubMtl( 0 ) )
             {
                 // Create common profile
                 Mtl * workingMaterial = baseMaterial->GetSubMtl ( 0 );
                 //   ExportCustomAttributes(workingMaterial, material);
                 //    exportCommonEffect((FCDEffectStandard*)matEffect->AddProfile(FUDaeProfileType::COMMON), workingMaterial);
-                exportCommonEffect ( effectProfile, exportNode, workingMaterial, effectId );
+                exportCommonEffect ( effectCommonProfile, exportNode, workingMaterial, effectId );
             }
+            */
 
             // Create HLSL profile and add the effect instantiation elements
-            //   ExportEffectHLSL(material, baseMaterial);
+            COLLADASW::EffectProfile effectHLSLProfile ( LibraryEffects::mSW );
+
+            COLLADASW::URI  shaderFxFileUri ( COLLADASW::URI::nativePathToUri ( effectFileName ) );
+            effectHLSLProfile.setInclude ( shaderFxFileUri, shaderFxFileUri.getPathFileBase() );
+            exportHLSLEffect ( effectHLSLProfile, exportNode, baseMaterial, effectId );
+            //itHasHardwareShader = true;
         }
 
         //  else if (baseMaterial->ClassID() == COLLADASW_EFFECT_ID)
@@ -289,10 +298,31 @@ namespace COLLADAMax
         else
         {
             // Create common profile
-            exportCommonEffect ( effectProfile, exportNode, baseMaterial, effectId );
+            COLLADASW::EffectProfile effectCommonProfile ( LibraryEffects::mSW );
+            exportCommonEffect ( effectCommonProfile, exportNode, baseMaterial, effectId );
+            addEffectProfile ( effectCommonProfile );
+
         }
 
-        addEffectProfile ( effectProfile );
+        //addEffectProfile ( effectCommonProfile );
+        
+        //if ( itHasHardwareShader )
+        //{
+        //    effectHLSLProfile.openProfile ();
+        //    effectHLSLProfile.addProfileElements ();
+
+        //    exportEffectParameters ( shaderNode, cgEffect );
+
+        //    // Find if effect parameter is used by any program of the selected technique
+        //    CGtechnique cgTechnique = cgGetFirstTechnique ( cgEffect );
+        //    while ( cgTechnique )
+        //    {
+        //        exportTechnique ( cgTechnique );
+        //        cgTechnique = cgGetNextTechnique ( cgTechnique );
+        //    }
+
+        //    effectHLSLProfile.closeProfile ();
+        //}
 
 		addExtraTechniques(ElementWriter::mSW);
 
@@ -343,6 +373,74 @@ namespace COLLADAMax
             // This must be some strange 'RayTrace' or render-only material
             // Export whatever information we can from the Max material interface
             exportUnknownEffect ( effectProfile, exportNode, material, effectId );
+        }
+    }
+
+    //---------------------------------------------------------------
+    void logEffectParameters ( 
+        Mtl* material 
+        )
+    {
+        int numParamBlocks = material->NumParamBlocks();
+
+        for ( int i = 0; i < numParamBlocks; i++ )
+        {
+            IParamBlock2 * pblock = material->GetParamBlock ( i );
+            int parameterCount = pblock->NumParams();
+
+            fprintf( stdout, "Param block = %i;\n", i );
+
+            for ( int j = 0; j < parameterCount; j++ )
+            {
+                ParamID parameterID = pblock->IndextoID( j );
+                ParamType2 parameterType = pblock->GetParameterType( parameterID );
+                ParamDef parameterDef = pblock->GetParamDef( parameterID );
+
+                const char* paramName = parameterDef.int_name;
+                fprintf( stdout, "\tParam name = %s; Type = %i;\n", paramName, (int)parameterType );
+            }
+        }
+    }
+
+    void EffectExporter::exportHLSLEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId, float weight, bool inited )
+    {
+        // Export all submaterials first.
+        int subMaterialCount = material->NumSubMtls();
+        logEffectParameters( material );
+
+        /*
+        for ( int i = 0; i < subMaterialCount; ++i )
+        {
+            Mtl* subMaterial = material->GetSubMtl ( i );
+            float subMtlWeight = weight;
+
+            if ( material->ClassID() == CompositeMtl::classID )
+            {
+                IParamBlock2 * pblock = material->GetParamBlock ( 0 );
+
+                if ( pblock != NULL )
+                {
+                    if ( !pblock->GetInt ( CompositeMtl::compmat_map_on ) )
+                        subMtlWeight = 0;
+                    else
+                        subMtlWeight *= pblock->GetFloat ( CompositeMtl::compmat_amount ) / 100.0f;
+                }
+            }
+
+            if ( subMaterial != NULL )
+            {
+                exportHLSLEffect ( effectProfile, exportNode, subMaterial, effectId, subMtlWeight, inited );
+                inited = true;
+            }
+        }
+
+        Class_ID materialId = material->ClassID();
+
+        if ( materialId.PartA() == DMTL2_CLASS_ID || materialId.PartA() == DMTL_CLASS_ID )
+        */
+        {
+            HwShaderExporter hwShaderExporter ( mDocumentExporter );
+            hwShaderExporter.exportPluginHwShaderNode ( effectId, &effectProfile, exportNode, ( StdMat2* ) material, weight );
         }
     }
 
