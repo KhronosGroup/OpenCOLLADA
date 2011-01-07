@@ -121,6 +121,7 @@ namespace COLLADAMax
 			Extra(streamWriter, documentExporter),
             mExportSceneGraph ( exportSceneGraph ),
             mDocumentExporter ( documentExporter ),
+            mTextureExporter ( documentExporter ),
 			mAnimationExporter( documentExporter->getAnimationExporter() )
     {}
 

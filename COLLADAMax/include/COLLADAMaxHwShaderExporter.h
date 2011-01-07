@@ -62,10 +62,10 @@ namespace COLLADAMax
         void setShaderScope ( const COLLADASW::Shader::Scope& val ) { mShaderScope = val; }
 
         /** Export the current sampler. */
-        //void exportSampler ( 
-        //    MObject shaderNode, 
-        //    const CGparameter& cgParameter,
-        //    const bool writeNewParam );
+        void exportSampler ( 
+            const char* paramName,
+            const PBBitmap* bitmap
+            );
 
     private:
 
@@ -86,10 +86,10 @@ namespace COLLADAMax
         //    const CGparameter &cgParameter );
 
         ///** Export the current texture element. */
-        //void setTexture (
-        //    MObject shaderNode, 
-        //    COLLADASW::Sampler& sampler, 
-        //    const CGparameter& cgTextureParam );
+        void setTexture (
+            const PBBitmap * bitmap, 
+            COLLADASW::Sampler& sampler
+            );
 
         ///** Returns the type data of the current resource. */
         //void getResourceType(

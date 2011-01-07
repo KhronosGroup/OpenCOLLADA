@@ -7142,6 +7142,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxEffectTextureExporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxExportNode.cpp"
 					>
 				</File>
@@ -8457,6 +8461,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxEffectExporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxEffectTextureExporter.h"
 					>
 				</File>
 				<File

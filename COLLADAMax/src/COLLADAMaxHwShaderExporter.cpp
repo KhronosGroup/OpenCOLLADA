@@ -16,6 +16,8 @@
 #include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxHwShaderExporter.h"
+#include "COLLADAMaxEffectExporter.h"
+#include "COLLADAMaxEffectTextureExporter.h"
 
 #include "COLLADASWPass.h"
 #include "COLLADASWRenderState.h"
@@ -23,6 +25,8 @@
 #include "COLLADASWAnnotation.h"
 #include "COLLADASWOpenGLConstants.h"
 #include "COLLADASWConstants.h"
+
+#include <iostream>
 
 namespace COLLADAMax
 {
@@ -457,197 +461,135 @@ namespace COLLADAMax
             ParamDef parameterDef = pblock->GetParamDef( parameterID );
 
             const char* paramName = parameterDef.int_name;
-            /*
-            CGresource resource = cgGetParameterBaseResource ( cgParameter );
-            CGtype paramBaseType = cgGetParameterBaseType ( cgParameter );
-            CGtype paramType = cgGetParameterType ( cgParameter );
-            */
-            /* TYPE is int, float, or double or a sampler. */
+
             switch ( parameterType )
             {
-            case TYPE_BOOL:
-            {
-                COLLADASW::NewParam<> newParam ( streamWriter );
-                newParam.setParamType ( COLLADASW::ValueType::BOOL );
+                case TYPE_FLOAT:
+                {
+                    COLLADASW::NewParam<> newParam ( streamWriter );
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT );
 
-                int numOfValues = 1;
-                /*bool*/ int paramValue = pblock->GetInt( parameterID );
+                    int numOfValues = 1;
+                    float paramValue = pblock->GetFloat( parameterID );
 
-                // Export the parameter data.
-                exportParam ( paramName, &newParam, &paramValue, numOfValues );
+                    exportParam ( paramName, &newParam, &paramValue, numOfValues );
 
-                break;
+                    break;
+                }
+
+                case TYPE_INT:
+                {
+                    COLLADASW::NewParam<> newParam ( streamWriter );
+                    newParam.setParamType ( COLLADASW::ValueType::INT );
+
+                    int numOfValues = 1;
+                    int paramValue = pblock->GetInt( parameterID );
+
+                    exportParam ( paramName, &newParam, &paramValue, numOfValues );
+
+                    break;
+                }
+
+                case TYPE_RGBA:
+                case TYPE_FRGBA:
+                {
+                    COLLADASW::NewParam<> newParam ( streamWriter );
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT4 );
+
+                    int numOfValues = 4;
+                    AColor paramPoint3Value = pblock->GetAColor( parameterID );
+                    float* paramValue = (float*)paramPoint3Value;
+
+                    exportParam ( paramName, &newParam, paramValue, numOfValues );
+
+                    break;
+                }
+
+                case TYPE_POINT3:
+                {
+                    COLLADASW::NewParam<> newParam ( streamWriter );
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT3 );
+
+                    int numOfValues = 3;
+                    Point3 paramPoint3Value = pblock->GetPoint3( parameterID );
+                    float* paramValue = (float*)paramPoint3Value;
+
+                    exportParam ( paramName, &newParam, paramValue, numOfValues );
+
+                    break;
+                }
+
+                case TYPE_BOOL:
+                {
+                    COLLADASW::NewParam<> newParam ( streamWriter );
+                    newParam.setParamType ( COLLADASW::ValueType::BOOL );
+
+                    int numOfValues = 1;
+                    /*bool*/ int paramValue = pblock->GetInt( parameterID );
+
+                    exportParam ( paramName, &newParam, &paramValue, numOfValues );
+
+                    break;
+                }
+
+                //TYPE_ANGLE   
+                //TYPE_PCNT_FRAC   
+                //TYPE_WORLD   
+
+                case TYPE_STRING:
+                {
+                    COLLADASW::NewParam<> newParam ( streamWriter );
+
+                    const MCHAR * paramValue = pblock->GetStr( parameterID );
+                    String paramString = (String) paramValue;
+
+                    exportParam ( paramName, &newParam, paramString );
+
+                    break;
+                }
+
+                //TYPE_FILENAME   
+                //TYPE_HSV   
+                //TYPE_COLOR_CHANNEL   
+                //TYPE_TIMEVALUE   
+                //TYPE_RADIOBTN_INDEX   
+                //TYPE_MTL   
+                //TYPE_TEXMAP   
+
+                case TYPE_BITMAP:
+                {
+                    PBBitmap * bitmap = pblock->GetBitmap( parameterID );
+                    exportSampler ( paramName, bitmap );
+
+                    break;
+                }
+
+                //TYPE_INODE   
+                //TYPE_REFTARG   
+                //TYPE_INDEX   
+                //TYPE_MATRIX3   
+                //TYPE_PBLOCK2   
+
+                case TYPE_POINT4:
+                {
+                    COLLADASW::NewParam<> newParam ( streamWriter );
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT4 );
+
+                    int numOfValues = 4;
+                    Point4 paramPoint3Value = pblock->GetPoint4( parameterID );
+                    float* paramValue = (float*)paramPoint3Value;
+
+                    exportParam ( paramName, &newParam, paramValue, numOfValues );
+
+                    break;
+                }
+
+                default:
+                {
+                    //:TODO: warning (file and/or popup)
+                    GetCOREInterface()->Log()->LogEntry( SYSLOG_WARN, DISPLAY_DIALOG, _M( "Parameter export problem" ),_M( "Unsupported parameter type (%i) for parameter %s\n" ), parameterType, paramName );
+                }
             }
-            
-            case TYPE_FLOAT:
-            case TYPE_INT:
-            case TYPE_RGBA:
-            case TYPE_POINT3:
-            default:
-            {
-
-            }
-
-//            case CG_BOOL:
-//            {
-//                // Create the parameter
-//                COLLADASW::NewParam<> newParam ( streamWriter );
-//
-//                // Set the collada value type
-//                switch ( paramType )
-//                {
-//                case CG_BOOL: // The bool type represents Boolean values. Objects of bool type are either true or false.
-//                case CG_BOOL1: // Single-element, packed, bool array (vector type).
-//                    newParam.setParamType ( COLLADASW::ValueType::BOOL ); break;
-//                case CG_BOOL2: // Two-element, packed, bool array (vector type).
-//                    newParam.setParamType ( COLLADASW::ValueType::BOOL2 ); break;
-//                case CG_BOOL3: // Three-element, packed, bool array (vector type).
-//                    newParam.setParamType ( COLLADASW::ValueType::BOOL3 ); break;
-//                case CG_BOOL4: // Four-element, packed, bool array (vector type).
-//                    newParam.setParamType ( COLLADASW::ValueType::BOOL4 ); break;
-//                default:
-//                    {
-//                        MGlobal::displayWarning ( "Parameter type not supported! " + paramType );
-//                        newParam.setParamType ( COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED ); break;
-//                    }
-//                }
-//
-//                // Get the values
-//                int numOfValues = 0;
-//                CGenum valueType = CG_DEFAULT; // CG_CONSTANT
-//                const double* paramValues = cgGetParameterValues ( cgParameter, valueType, &numOfValues );
-//
-//                // Export the parameter data.
-//                exportParam ( cgParameter, &newParam, paramValues, numOfValues );
-//
-//                break;
-//            }
-//            case CG_INT:
-//            {
-//                // Create the parameter
-//                COLLADASW::NewParam<> newParam ( streamWriter );
-//
-//                // Set the collada value type
-//                switch ( paramType )
-//                {
-//                case CG_INT:
-//                case CG_INT1:
-//                    newParam.setParamType ( COLLADASW::ValueType::INT ); break;
-//                case CG_INT2:
-//                    newParam.setParamType ( COLLADASW::ValueType::INT2 ); break;
-//                case CG_INT3:
-//                    newParam.setParamType ( COLLADASW::ValueType::INT3 ); break;
-//                case CG_INT4:
-//                    newParam.setParamType ( COLLADASW::ValueType::INT4 ); break;
-//                default:
-//                    {
-//                        MGlobal::displayWarning ( "Parameter type not supported! " + paramType );
-//                        newParam.setParamType ( COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED ); break;
-//                    }
-//                }
-///*
-////                 // Determine the number of values.
-////                 int nrows = cgGetParameterRows ( cgParameter );
-////                 int ncols = cgGetParameterColumns ( cgParameter );
-////                 int asize = cgGetArrayTotalSize ( cgParameter );
-////                 int numOfValues = nrows*ncols;
-////
-////                 if (asize > 0) numOfValues *= asize;
-//// 
-////                 // Get the values
-////                 int* paramValues = 0;
-////                 cgGetParameterValueir ( cgParameter, numOfValues, paramValues );
-//*/
-//                // Get the values
-//                int numOfValues = 0;
-//                CGenum valueType = CG_DEFAULT; // CG_CONSTANT
-//                const double* paramValues = cgGetParameterValues ( cgParameter, valueType, &numOfValues );
-//
-//                // Export the parameter data.
-//                exportParam ( cgParameter, &newParam, paramValues, numOfValues );
-//
-//                break;
-//            }
-//            case CG_FLOAT:
-//            {
-//                // Create the parameter
-//                COLLADASW::NewParam<> newParam ( streamWriter );
-//
-//                // Set the collada value type
-//                switch ( paramType )
-//                {
-//                case CG_FLOAT:
-//                case CG_HALF:
-//                    newParam.setParamType ( COLLADASW::ValueType::FLOAT ); break;
-//                case CG_FLOAT2:
-//                case CG_HALF2:
-//                    newParam.setParamType ( COLLADASW::ValueType::FLOAT2 ); break;
-//                case CG_FLOAT3:
-//                case CG_HALF3:
-//                    newParam.setParamType ( COLLADASW::ValueType::FLOAT3 ); break;
-//                case CG_FLOAT4:
-//                case CG_HALF4:
-//                    newParam.setParamType ( COLLADASW::ValueType::FLOAT4 ); break;
-//                case CG_FLOAT3x3:
-//                case CG_HALF3x3:
-//                    newParam.setParamType ( COLLADASW::ValueType::FLOAT3x3 ); break;
-//                case CG_FLOAT4x4:
-//                case CG_HALF4x4:
-//                    newParam.setParamType ( COLLADASW::ValueType::FLOAT4x4 ); break;
-//                case CG_ARRAY:
-//                case CG_STRUCT:
-//                default:
-//                    {
-//                        MGlobal::displayWarning ( "Parameter type not supported! " + paramType );
-//                        newParam.setParamType ( COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED ); break;
-//                    }
-//                }
-//
-//                // Get the values
-//                int numOfValues = 0;
-//                CGenum valueType = CG_DEFAULT; // CG_CONSTANT
-//                const double* paramValues = cgGetParameterValues( cgParameter, valueType, &numOfValues );
-//
-//                // Export the parameter data.
-//                exportParam ( cgParameter, &newParam, paramValues, numOfValues );
-//
-//                break;
-//            }
-//            case CG_STRING:
-//                {
-//                    // Create the parameter
-//                    COLLADASW::NewParam<> newParam ( streamWriter );
-//
-//                    // Get the value
-//                    const char* paramValue = cgGetStringParameterValue ( cgParameter ); 
-//                    String paramString = (String) paramValue;
-//
-//                    // Export the parameter data.
-//                    exportParam ( cgParameter, &newParam, paramString );
-//
-//                    break;
-//                }
-//            case CG_TEXTURE:
-//                {
-//                    // Nothing to do. Will be done with the sampler.
-//                    break;
-//                }
-//            case CG_SAMPLER1D:
-//            case CG_SAMPLER2D:
-//            case CG_SAMPLER3D:
-//            case CG_SAMPLERCUBE:
-//            case CG_SAMPLERRECT:
-//                {
-//                    // Create the sampler and add it into the collada document
-//                    exportSampler ( shaderNode, cgParameter, true );
-//                    break;
-//                }
-//            default:
-//                MGlobal::displayWarning ( "Parameter type not supported! " + paramType );
-//                break;
-            }
-//
-//            cgParameter = cgGetNextParameter(cgParameter);
         }
     }
 
@@ -774,46 +716,26 @@ namespace COLLADAMax
     }
 */
     // --------------------------------------
-/*
+
     void HwShaderExporter::exportSampler ( 
-        MObject shaderNode, 
-        const CGparameter& cgParameter, 
-        const bool writeNewParam )
+        const char* paramName,
+        const PBBitmap* bitmap
+        )
     {
-        if ( cgGetParameterClass ( cgParameter ) != CG_PARAMETERCLASS_SAMPLER ) return;
-
-        // Get a pointer to the current stream writer.
-        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-
-        // The texture parameter (a sampler must have a texture)
-        CGparameter cgTextureParam = NULL;
-        CGstateassignment cgStateAssignment;
-        int valueCount = 0;
-
-        // Look for the "source" state assignment
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_TEXTURE.c_str() );
-        if ( cgStateAssignment )
-        {
-            cgTextureParam = cgGetTextureStateAssignmentValue ( cgStateAssignment );
-            // We directly set the surface sid and the referenced texture resource.
-            //const char* textureName = cgGetParameterName ( cgTextureParam );
-            //sampler.setSource ( textureName );
-        }
-        if ( cgTextureParam == 0 )
-        {
-            MGlobal::displayError ( "No surface for the current sampler! Data not valid!" );
-            return;
-        }
-
-        // Get the name of the current parameter
-        const char* samplerSid = cgGetParameterName ( cgParameter );
+        COLLADASW::StreamWriter* streamWriter = &mDocumentExporter->getStreamWriter();
 
         // Name of the current texture
-        const char* surfaceSid = cgGetParameterName( cgTextureParam );
+        const char* surfaceSid = paramName;//cgGetParameterName( cgTextureParam );
+
+        // Get the name of the current parameter
+        //const char* samplerSid = cgGetParameterName ( cgParameter );
+        char samplerSid[256];
+        _snprintf_s( samplerSid, 256, "%sSampler", surfaceSid );
 
         // Create the collada sampler object
         COLLADASW::Sampler sampler ( COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED, samplerSid, surfaceSid );
 
+        /*
         // Look for the wraps
         cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_WRAP_S.c_str() );
         if ( cgStateAssignment )
@@ -896,41 +818,39 @@ namespace COLLADAMax
 
         // TODO Look for extra tags
 //        exportSamplerStateAssignments (cgParameter, cgTextureParam, surfaceType, samplerType, samplerValueType);
+        */
 
-        // Get the type of the resource ( 1D, 2D, 3D, CUBE )
-        //COLLADASW::Surface::SurfaceType surfaceType = COLLADASW::Surface::SURFACE_TYPE_UNSPECIFIED;
-        COLLADASW::Sampler::SamplerType samplerType = COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED;
-        COLLADASW::ValueType::ColladaType samplerValueType = COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED;
-
-        // Get the type of the resource, if is set.
-        getResourceType ( cgTextureParam, samplerType, samplerValueType );
+        //:TODO: get sampler type from data
+        COLLADASW::Sampler::SamplerType samplerType = COLLADASW::Sampler::SAMPLER_TYPE_2D;
 
         // Set the sampler type
         sampler.setSamplerType ( samplerType );
 
         // Add the texture, if exist
-        setTexture ( shaderNode, sampler, cgTextureParam );
+        setTexture ( bitmap, sampler );
 
-        if ( writeNewParam )
+        //if ( writeNewParam )
         {
             // Get the surface annotations.
             std::vector<COLLADASW::Annotation> surfaceAnnotations;
-            getAnnotations( surfaceAnnotations, cgTextureParam );
+            //getAnnotations( surfaceAnnotations, cgTextureParam );
 
             // Get the sampler annotations.
             std::vector<COLLADASW::Annotation> samplerAnnotations;
-            getAnnotations( samplerAnnotations, cgParameter );
+            //getAnnotations( samplerAnnotations, cgParameter );
 
             // Add the parameter.
             sampler.addInNewParam ( streamWriter, &surfaceAnnotations, &samplerAnnotations );
         }
+        /*
         else
         {
             // Add the parameter.
             sampler.addInSetParam ( streamWriter );
         }
+        */
     }
-*/
+
     // --------------------------------------
 /*
     void HwShaderExporter::getAnnotations (
@@ -1085,86 +1005,52 @@ namespace COLLADAMax
     }
 */
     // --------------------------------------
-/*
+
     void HwShaderExporter::setTexture (
-        MObject shaderNode, 
-        COLLADASW::Sampler& sampler,
-        const CGparameter& cgTextureParam )
+        const PBBitmap * bitmap, 
+        COLLADASW::Sampler& sampler
+        )
     {
-        CGtype paramType = cgGetParameterBaseType( cgTextureParam );
-        if ( paramType != CG_TEXTURE ) return;
+        if ( !bitmap )
+        {
+            //:TODO: retrieve default values from fx file
+            return;
+        }
 
         // Set the texture format.
+        //:TODO: read from BitmapInfo::Type ()
         sampler.setFormat ( EffectTextureExporter::FORMAT );
 
         // Get the necessary exporters.
         EffectExporter* effectExporter = mDocumentExporter->getEffectExporter ();
         EffectTextureExporter* textureExporter = effectExporter->getTextureExporter();
-
+        
         // The file name to connect to.
-        String fileName = EMPTY_STRING;
-
-        // Check if there is a resource from the user interface input.
-        const char* attributeName = sampler.getSamplerSid ().c_str ();
-        MPlug plug;
-        if ( DagHelper::getPlugConnectedTo( shaderNode, attributeName, plug ) )
-        {
-            String plugName = plug.name().asChar(); // file1.outColor
-            MObject textureNode = plug.node();
-
-            // Get the image id
-            MFnDependencyNode fnTextureNode ( textureNode );
-            String fnPlugName = fnTextureNode.name().asChar(); // file1
-
-            // Get the file texture name
-            MPlug filenamePlug = fnTextureNode.findPlug ( ATTR_FILE_TEXTURE_NAME );
-            MString mayaFileName;
-            filenamePlug.getValue ( mayaFileName );
-            if ( mayaFileName.length() == 0 ) return;
-            fileName = mayaFileName.asChar ();
-        }
-        else
-        {
-            // Get the name of the resource for default value
-            CGannotation resourceNameAnnotation = cgGetNamedParameterAnnotation( cgTextureParam, COLLADASW::CSWC::CSW_FX_ANNOTATION_RESOURCE_NAME.c_str() );
-            if ( resourceNameAnnotation )
-            {
-                // Get the name of the annotation
-                const char* annotationValue = cgGetStringAnnotationValue ( resourceNameAnnotation );
-                String annotationString = String ( annotationValue );
-
-                // Get the filename, if not already done.
-                fileName = annotationString;
-            }
-        }
+        String fileName = bitmap->bi.Name() ? COLLADASW::URI::nativePathToUri( bitmap->bi.Name() ) : "";
 
         // Export, if we have a file name.
         if ( !fileName.empty () )
         {
             // Get the image path
-            COLLADASW::URI shaderFxFileUri = getShaderFxFileUri();
+            COLLADASW::URI shaderFxFileUri = mEffectProfile->getIncludeURI();
 
             // Take the filename for the unique image name
             COLLADASW::URI sourceFileUri ( shaderFxFileUri, fileName );
             if ( sourceFileUri.getScheme ().empty () )
                 sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
-            String mayaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );
+            String maxImageId = /*DocumentExporter::mayaNameToColladaName*/ ( sourceFileUri.getPathFileBase().c_str () );
 
             // Get the image id of the maya image 
-            String colladaImageId = effectExporter->findColladaImageId ( mayaImageId );
+            String colladaImageId = textureExporter->findColladaImageId ( maxImageId );
+
             if ( colladaImageId.empty () )
             {
-                // Generate a COLLADA id for the new light object
-                colladaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );
-
-                // Make the id unique and store it in a map for refernences.
-                EffectTextureExporter* textureExporter = effectExporter->getTextureExporter ();
-                colladaImageId = textureExporter->getImageIdList ().addId ( colladaImageId );
-                textureExporter->getMayaIdColladaImageId () [mayaImageId] = colladaImageId;
+                colladaImageId = textureExporter->getImageIdList ().addId ( maxImageId );
+                textureExporter->getMaxIdColladaImageId () [maxImageId] = colladaImageId;
             }
 
             // Export the image
-            COLLADASW::Image* colladaImage = textureExporter->exportImage ( mayaImageId, colladaImageId, sourceFileUri );
+            COLLADASW::Image* colladaImage = textureExporter->exportImage ( maxImageId, colladaImageId, sourceFileUri );
 
             // Get the image id of the exported collada image
             colladaImageId = colladaImage->getImageId();
@@ -1173,7 +1059,6 @@ namespace COLLADAMax
             sampler.setImageId ( colladaImageId );
         }
     }
-*/
 
     // --------------------------------------
     /*

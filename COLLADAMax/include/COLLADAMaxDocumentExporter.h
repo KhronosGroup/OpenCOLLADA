@@ -36,6 +36,8 @@ namespace COLLADAMax
 
     class AnimationExporter;
 
+    typedef std::map<String, String> StringToStringMap;
+
 	/** Class that uniquely identifies object.*/
 	class ObjectIdentifier
 	{

@@ -235,6 +235,8 @@ namespace COLLADASW
         /** Reference to the included file. */
         void setInclude ( const URI &includeUri, const String &sid="" );
 
+        const URI & getIncludeURI() { return mIncludeURI; }
+
         /** For writing code directly into code tags. */
         const String& getCode () const;
         void setCode ( const String &code, const String &sid="" );
