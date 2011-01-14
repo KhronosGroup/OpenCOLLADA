@@ -32,7 +32,7 @@ namespace COLLADASaxFWL
 		virtual ~IErrorHandler();
 
 		/** If this method returns true, the loader stops parsing immediately. If severity is nor CRITICAL
-		and this method returns true, the loader continues loading.*/
+		and this method returns false, the loader continues loading.*/
 		bool virtual handleError(const IError* error) = 0;
 
 	private:
