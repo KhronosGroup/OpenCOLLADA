@@ -1000,7 +1000,7 @@ namespace COLLADASW
     void StreamWriter::appendTextElement ( const String& elementName, const String& text )
     {
         openElement ( elementName );
-        appendText ( text );
+        appendText ( COLLADABU::StringUtils::translateToXML(text) );
         closeElement();
     }
 

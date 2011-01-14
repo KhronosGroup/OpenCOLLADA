@@ -43,6 +43,9 @@ namespace COLLADABU
 #    define COLLADABU_HAVE_TR1_UNORDERED_MAP
 #    include <unordered_map>
 #    include <unordered_set>
+#else
+#    define COLLADABU_HAVE_TR1_UNORDERED_MAP
+#	 include <xhash>
 #  endif
 #endif
 #ifndef COLLADABU_HAVE_TR1_UNORDERED_MAP
@@ -74,7 +77,7 @@ namespace COLLADABU
 #ifndef COLLADABU_HAVE_TR1_UNORDERED_MAP
     namespace __gnu_cxx {
 
-        template <>
+		template <>
         struct hash<std::string> 
         {
             size_t operator() (const std::string& x) const 
