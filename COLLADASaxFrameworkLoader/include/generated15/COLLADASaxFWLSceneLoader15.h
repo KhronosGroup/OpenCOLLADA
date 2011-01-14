@@ -40,6 +40,10 @@ virtual bool begin__instance_visual_scene( const COLLADASaxFWL15::instance_visua
 
 virtual bool end__instance_visual_scene();
 
+virtual bool begin__instance_physics_scene( const COLLADASaxFWL15::instance_physics_scene__AttributeData& attributeData );
+
+virtual bool end__instance_physics_scene();
+
 virtual bool begin__instance_kinematics_scene( const COLLADASaxFWL15::instance_kinematics_scene__AttributeData& attributeData );
 
 virtual bool end__instance_kinematics_scene();

@@ -3131,6 +3131,10 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\src\generated14\COLLADASaxFWLForceFieldLoader14.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\generated14\COLLADASaxFWLGeometryLoader14.cpp"
 					>
 				</File>
@@ -3167,11 +3171,35 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\generated14\COLLADASaxFWLLibraryPhysicsMaterialsLoader14.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated14\COLLADASaxFWLLibraryPhysicsModelsLoader14.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated14\COLLADASaxFWLLibraryPhysicsScenesLoader14.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\generated14\COLLADASaxFWLMeshLoader14.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\src\generated14\COLLADASaxFWLNodeLoader14.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated14\COLLADASaxFWLPhysicsMaterialLoader14.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated14\COLLADASaxFWLPhysicsModelLoader14.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated14\COLLADASaxFWLPhysicsSceneLoader14.cpp"
 					>
 				</File>
 				<File
@@ -3351,6 +3379,10 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLForceFieldLoader15.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\generated15\COLLADASaxFWLFormulasLoader15.cpp"
 					>
 				</File>
@@ -3411,11 +3443,35 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLLibraryPhysicsMaterialsLoader15.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLLibraryPhysicsModelsLoader15.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLLibraryPhysicsScenesLoader15.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\generated15\COLLADASaxFWLMeshLoader15.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\src\generated15\COLLADASaxFWLNodeLoader15.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLPhysicsMaterialLoader15.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLPhysicsModelLoader15.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated15\COLLADASaxFWLPhysicsSceneLoader15.cpp"
 					>
 				</File>
 				<File
@@ -3883,6 +3939,10 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\include\generated14\COLLADASaxFWLForceFieldLoader14.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\generated14\COLLADASaxFWLGeometryLoader14.h"
 					>
 				</File>
@@ -3903,6 +3963,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\generated14\COLLADASaxFWLLibraryForceFieldsLoader14.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\generated14\COLLADASaxFWLLibraryImagesLoader14.h"
 					>
 				</File>
@@ -3919,11 +3983,35 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\generated14\COLLADASaxFWLLibraryPhysicsMaterialsLoader14.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated14\COLLADASaxFWLLibraryPhysicsModelsLoader14.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated14\COLLADASaxFWLLibraryPhysicsScenesLoader14.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\generated14\COLLADASaxFWLMeshLoader14.h"
 					>
 				</File>
 				<File
 					RelativePath="..\include\generated14\COLLADASaxFWLNodeLoader14.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated14\COLLADASaxFWLPhysicsMaterialLoader14.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated14\COLLADASaxFWLPhysicsModelLoader14.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated14\COLLADASaxFWLPhysicsSceneLoader14.h"
 					>
 				</File>
 				<File
@@ -4125,6 +4213,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLLibraryForceFieldsLoader15.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\generated15\COLLADASaxFWLLibraryFormulasLoader15.h"
 					>
 				</File>
@@ -4157,11 +4249,35 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLLibraryPhysicsMaterialsLoader15.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLLibraryPhysicsModelsLoader15.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLLibraryPhysicsScenesLoader15.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\generated15\COLLADASaxFWLMeshLoader15.h"
 					>
 				</File>
 				<File
 					RelativePath="..\include\generated15\COLLADASaxFWLNodeLoader15.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLPhysicsMaterialLoader15.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLPhysicsModelLoader15.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\generated15\COLLADASaxFWLPhysicsSceneLoader15.h"
 					>
 				</File>
 				<File

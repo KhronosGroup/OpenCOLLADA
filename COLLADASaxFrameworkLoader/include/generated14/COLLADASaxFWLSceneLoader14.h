@@ -40,6 +40,10 @@ virtual bool begin__instance_visual_scene( const COLLADASaxFWL14::instance_visua
 
 virtual bool end__instance_visual_scene();
 
+virtual bool begin__instance_physics_scene( const COLLADASaxFWL14::instance_physics_scene__AttributeData& attributeData );
+
+virtual bool end__instance_physics_scene();
+
 virtual bool end__scene();
 
 virtual bool begin__technique( const COLLADASaxFWL14::technique__AttributeData& attributeData );

@@ -39,6 +39,28 @@ return mLoader->end__instance_visual_scene();
 }
 
 
+bool SceneLoader14::begin__instance_physics_scene( const COLLADASaxFWL14::instance_physics_scene__AttributeData& attributeData )
+{
+SaxVirtualFunctionTest14(begin__instance_physics_scene(attributeData));
+COLLADASaxFWL::instance_physics_scene__AttributeData attrData;
+attrData.present_attributes = 0;
+attrData.sid = attributeData.sid;
+attrData.name = attributeData.name;
+if ( (attributeData.present_attributes & COLLADASaxFWL14::instance_physics_scene__AttributeData::ATTRIBUTE_URL_PRESENT) == COLLADASaxFWL14::instance_physics_scene__AttributeData::ATTRIBUTE_URL_PRESENT ) {
+    attrData.url = attributeData.url;
+    attrData.present_attributes |= COLLADASaxFWL::instance_physics_scene__AttributeData::ATTRIBUTE_URL_PRESENT;
+}
+return mLoader->begin__instance_physics_scene(attrData);
+}
+
+
+bool SceneLoader14::end__instance_physics_scene()
+{
+SaxVirtualFunctionTest14(end__instance_physics_scene());
+return mLoader->end__instance_physics_scene();
+}
+
+
 bool SceneLoader14::end__scene()
 {
 SaxVirtualFunctionTest14(end__scene());
