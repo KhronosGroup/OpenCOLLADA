@@ -11,8 +11,7 @@
 #ifndef __COLLADABU_HASHFUNCTIONS_H__
 #define __COLLADABU_HASHFUNCTIONS_H__
 
-#include "COLLADABUPrerequisites.h"
-#include "COLLADABUPlatform.h"
+#include "COLLADABUhash_map.h"
 #include "COLLADABUURI.h"
   
 
@@ -35,25 +34,21 @@ namespace COLLADABU
 
 } // namespace COLLADABU
 
-#if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP) || defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
-#if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP)
-namespace std { namespace tr1
-#else
-namespace __gnu_cxx
-#endif
-{
-	template<>
-	struct hash<COLLADABU::URI>
-	{
-		size_t
-			operator()(const COLLADABU::URI& uri) const
-		{ return COLLADABU::calculateHash(uri); }
-	};
-#if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP)
-}
-#endif
-} // namespace __gnu_cxx
-#endif
 
+namespace COLLADABU_HASH_NAMESPACE_OPEN
+{
+    template<>
+    struct COLLADABU_HASH_FUN<COLLADABU::URI>
+    {
+        size_t operator() (const COLLADABU::URI& uri) const { return COLLADABU::calculateHash(uri); }
+
+#if defined(_MSC_VER) && _MSC_VER==1400
+        static const size_t bucket_size=4;
+        static const size_t min_buckets=8;
+
+        bool operator() (const COLLADABU::URI& uri1, const COLLADABU::URI& uri2) const { return uri1<uri2; }
+#endif
+    };
+} COLLADABU_HASH_NAMESPACE_CLOSE
 
 #endif // __COLLADABU_HASHFUNCTIONS_H__

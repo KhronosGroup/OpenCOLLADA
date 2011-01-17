@@ -12,33 +12,23 @@
 #define __COLLADAFW_HASHFUNCTIONS_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADABUPlatform.h"
+#include "COLLADAFWUniqueId.h"
+#include "COLLADABUhash_map.h"
 
-#ifdef COLLADABU_OS_LINUX
-#	include <backward/hash_fun.h>
-#   include "COLLADAFWUniqueId.h"
-#elif (defined COLLADABU_OS_MAC)
-#	include <ext/hash_fun.h>
-#   include "COLLADAFWUniqueId.h"
-#endif
-
-#if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP) || defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
-#if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP)
-namespace std { namespace tr1
-#else
-namespace __gnu_cxx
-#endif
+namespace COLLADABU_HASH_NAMESPACE_OPEN
 {
     template<>
-    struct hash<COLLADAFW::UniqueId>
+    struct COLLADABU_HASH_FUN<COLLADAFW::UniqueId>
     {
-        size_t
-            operator()(const COLLADAFW::UniqueId& uniqueId) const { return uniqueId; }
+        size_t operator() (const COLLADAFW::UniqueId& uniqueId) const { return uniqueId; }
+
+#if defined(_MSC_VER) && _MSC_VER==1400
+        static const size_t bucket_size=4;
+        static const size_t min_buckets=8;
+
+        bool operator() (const COLLADAFW::UniqueId& uniqueId1, const COLLADAFW::UniqueId& uniqueId2) const { return uniqueId1<uniqueId2; }
+#endif
     };
-#if defined(COLLADABU_HAVE_TR1_UNORDERED_MAP)
-}
-#endif
-} // namespace __gnu_cxx
-#endif
+} COLLADABU_HASH_NAMESPACE_CLOSE
 
 #endif // __COLLADAFW_HASHFUNCTIONS_H__

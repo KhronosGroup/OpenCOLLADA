@@ -15,13 +15,6 @@
 #include "COLLADABUPlatform.h"
 #include "COLLADABUhash_map.h"
 
-#ifndef COLLADABU_HAVE_TR1_UNORDERED_MAP
-#ifdef COLLADABU_OS_LINUX
-#	include <ext/hash_fun.h>
-#elif (defined COLLADABU_OS_MAC)
-#	include <ext/hash_fun.h>
-#endif
-#endif
 #include <assert.h>
 #include <climits>
 
@@ -126,22 +119,21 @@ namespace COLLADAFW
 
 } // namespace COLLADAFW
 
-#if defined (COLLADABU_HAVE_TR1_UNORDERED_MAP)|| defined(COLLADABU_OS_LINUX) || defined(COLLADABU_OS_MAC)
-#if defined (COLLADABU_HAVE_TR1_UNORDERED_MAP)
-namespace std { namespace tr1
-#else
-namespace __gnu_cxx
-#endif
+
+namespace COLLADABU_HASH_NAMESPACE_OPEN
 {
     template<>
-    struct hash<COLLADAFW::Edge>
+    struct COLLADABU_HASH_FUN<COLLADAFW::Edge>
     {
-        size_t operator()(const COLLADAFW::Edge& edge) const { return edge; }
+        size_t operator() (const COLLADAFW::Edge& edge) const { return edge; }
+
+#if defined(_MSC_VER) && _MSC_VER==1400
+        static const size_t bucket_size=4;
+        static const size_t min_buckets=8;
+
+        bool operator() (const COLLADAFW::Edge& edge1, const COLLADAFW::Edge& edge2) const { return edge1<edge2; }
+#endif
     };
-#if defined (COLLADABU_HAVE_TR1_UNORDERED_MAP)
-   }
-#endif
-} // namespace __gnu_cxx
-#endif
+} COLLADABU_HASH_NAMESPACE_CLOSE
 
 #endif // __COLLADAFW_EDGE_H__
