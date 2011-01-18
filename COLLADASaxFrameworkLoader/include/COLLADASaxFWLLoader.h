@@ -162,7 +162,7 @@ namespace COLLADASaxFWL
 
 
 		/** List of formulas.*/
-		typedef std::vector<COLLADAFW::Formula*> FormulaList;
+		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::Formula*> UniqueIdFormulaMap;
 
 		/** Contains the binding of an animation to the referenced object. Required to create animation lists*/
 		struct AnimationSidAddressBinding
@@ -282,9 +282,9 @@ namespace COLLADASaxFWL
 		/** Intermediate data to build up the kinematics after the COLLADA file has been parsed.*/
 		KinematicsIntermediateData mKinematicsIntermediateData;
 
-		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
+		/** Maps ids of all formulas in the file to the formula itself. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
-		FormulaList mFormulas;
+		UniqueIdFormulaMap mFormulasMap;
 
 		/** List all the connections of animations and sid addresses of the targets.
 		TODO: This list has to become a member of FileLoader. The animation post processing needs to be done per 
@@ -423,9 +423,9 @@ namespace COLLADASaxFWL
 		/** Returns the intermediate data to build up the kinematics after the COLLADA file has been parsed.*/
 		KinematicsIntermediateData& getKinematicsIntermediateData() { return mKinematicsIntermediateData; }
 
-		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
+		/** Maps ids of all formulas in the file to the formula itself. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
-		FormulaList& getFormulaList() { return mFormulas; }
+		UniqueIdFormulaMap& getFormulasMap() { return mFormulasMap; }
 
 		/** List all the connections of animations and sid addresses of the targets.*/
 		AnimationSidAddressBindingList& getAnimationSidAddressBindings() { return mAnimationSidAddressBindings; }

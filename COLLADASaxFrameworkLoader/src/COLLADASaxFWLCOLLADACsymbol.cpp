@@ -17,10 +17,24 @@
 namespace COLLADASaxFWL
 {
 
-    //------------------------------
-	COLLADACsymbol::COLLADACsymbol( const SidAddress& sidAddress, CSymbolType cSymbolType )
+	//------------------------------
+	COLLADACsymbol::COLLADACsymbol( const SidAddress& sidAddress)
 		: mSidAddress(sidAddress)
-		, mCSymbolType(cSymbolType) 
+		, mFunctionName()
+		, mFormulaUniqueId(COLLADAFW::UniqueId::INVALID)
+		, mCSymbolType(PARAMETER)
+		, mParameterList()
+	{
+
+	}
+
+	//------------------------------
+	COLLADACsymbol::COLLADACsymbol( const String& functionName, const COLLADAFW::UniqueId& formulaUniqueId )
+		: mSidAddress()
+		, mFunctionName(functionName)
+		, mFormulaUniqueId(formulaUniqueId)
+		, mCSymbolType(FUNCTION)
+		, mParameterList()
 	{
 
 	}
@@ -39,8 +53,28 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	MathML::AST::INode* COLLADACsymbol::clone(CloneFlags cloneFlags) const
 	{
-		COLLADACsymbol* copy = new COLLADACsymbol( mSidAddress, mCSymbolType);
+		COLLADACsymbol* copy = 0;
+		if ( mCSymbolType == PARAMETER)
+		{
+			copy = new COLLADACsymbol( mSidAddress );
+		}
+		else
+		{
+			copy = new COLLADACsymbol( mFunctionName, mFormulaUniqueId );
+		}
 		return copy;
+	}
+
+	//------------------------------
+	const COLLADAFW::UniqueId& COLLADACsymbol::getFormulaUniqueId() const
+	{
+		return mFormulaUniqueId;
+	}
+
+	//------------------------------
+	const String& COLLADACsymbol::getFunctionName() const
+	{
+		return mFunctionName;
 	}
 
 

@@ -131,6 +131,9 @@ namespace COLLADASaxFWL
 			/** Indicates if <sep /> was present inside <cn>. */
 			bool mSepOccurred;
 
+			/** Unique id of the function referenced by the current csymbol.*/
+			COLLADAFW::UniqueId mCurrentCSymbolFunctionUniqueId;
+
 			/** True if the currently open <csymbol> is a function, if none is open or it is not a function,
 			it is false.*/
 			bool mCurrentCSymbolIsFunction;

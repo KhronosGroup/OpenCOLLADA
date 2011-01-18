@@ -85,9 +85,9 @@ namespace COLLADASaxFWL
 		/** List of all joints already created. They will be written as part of kinematics.*/
 		KinematicsIntermediateData& mKinematicsIntermediateData;
 
-		/** List of all formulas in the file. They are send to the writer and deleted, when the file has 
+		/** Maps ids of all formulas in the file to the formula itself. They are send to the writer and deleted, when the file has 
 		completely been parsed. This is required to resolve referenced elements like parameters and other formulas.*/
-		Loader::FormulaList& mFormulas;
+		Loader::UniqueIdFormulaMap& mFormulasMap;
 
 		/** List all the connections of animations and sid addresses of the targets.*/
 		Loader::AnimationSidAddressBindingList& mAnimationSidAddressBindings;
@@ -175,7 +175,10 @@ namespace COLLADASaxFWL
 
 		/** Adds @a formula to the list of formulas. It will be sent to the writer and delete by the
 		file loader.*/
-		void addFormula( COLLADAFW::Formula* formula ) { mFormulas.push_back(formula); }
+		void addFormula( COLLADAFW::Formula* formula );
+
+		/** Returns the formula with unique id @a uniqueId.*/
+		COLLADAFW::Formula* getFormulaByUniqueId(const COLLADAFW::UniqueId& uniqueId)const;
 
 		/** Adds @a joint to the list of joints. It will be written as part of kinematics, if used.*/
 		void addJoint( COLLADAFW::Joint* joint ) { mKinematicsIntermediateData.getJoints().push_back(joint); }

@@ -51,6 +51,40 @@ virtual bool begin__newparam____kinematics_newparam_type( const COLLADASaxFWL15:
 
 virtual bool end__newparam____kinematics_newparam_type();
 
+virtual bool begin__joint( const COLLADASaxFWL15::joint__AttributeData& attributeData );
+
+virtual bool end__joint();
+
+virtual bool begin__prismatic( const COLLADASaxFWL15::prismatic__AttributeData& attributeData );
+
+virtual bool end__prismatic();
+
+virtual bool begin__axis____axis_type( const COLLADASaxFWL15::axis____axis_type__AttributeData& attributeData );
+
+virtual bool end__axis____axis_type();
+
+virtual bool data__axis____axis_type( const float* data, size_t length );
+
+virtual bool begin__limits____joint_limits_type();
+
+virtual bool end__limits____joint_limits_type();
+
+virtual bool begin__min____minmax_type( const COLLADASaxFWL15::min____minmax_type__AttributeData& attributeData );
+
+virtual bool end__min____minmax_type();
+
+virtual bool data__min____minmax_type( float value );
+
+virtual bool begin__max____minmax_type( const COLLADASaxFWL15::max____minmax_type__AttributeData& attributeData );
+
+virtual bool end__max____minmax_type();
+
+virtual bool data__max____minmax_type( float value );
+
+virtual bool begin__revolute( const COLLADASaxFWL15::revolute__AttributeData& attributeData );
+
+virtual bool end__revolute();
+
 virtual bool begin__instance_joint( const COLLADASaxFWL15::instance_joint__AttributeData& attributeData );
 
 virtual bool end__instance_joint();

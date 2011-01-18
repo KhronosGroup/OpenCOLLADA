@@ -412,7 +412,7 @@ namespace COLLADASaxFWL
 			const COLLADAFW::UniqueId nodeUniqueId = mDocumentProcessor->getUniqueIdByUrl(nodeUri, true);
 			if ( !nodeUniqueId.isValid() )
 			{
-				String msg = "Node with id \"" + nodeId + "\" referenced in <bind_joint_axis> in <bind_kinematics_model> in.";
+				String msg = "Node with id \"" + nodeId + "\" referenced in <bind_joint_axis> in <bind_kinematics_model> could not be found.";
 				
 				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);
 				continue;

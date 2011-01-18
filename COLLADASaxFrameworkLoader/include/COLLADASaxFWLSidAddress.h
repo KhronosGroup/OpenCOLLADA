@@ -56,7 +56,10 @@ namespace COLLADASaxFWL
 	
 	public:
 
-        /** Constructor. */
+		/** Constructor, invalid SidAddress. */
+		SidAddress( );
+
+		/** Constructor. */
 		SidAddress( const String& sidAddress );
 
 		/** Constructor. */

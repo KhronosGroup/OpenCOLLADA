@@ -32,7 +32,7 @@ namespace COLLADASaxFWL
 		, mLights( colladaLoader->getLights() )
 		, mCameras( colladaLoader->getCameras() )
 		, mKinematicsIntermediateData( colladaLoader->getKinematicsIntermediateData() )
-		, mFormulas( colladaLoader->getFormulaList() )
+		, mFormulasMap( colladaLoader->getFormulasMap() )
 		, mAnimationSidAddressBindings( colladaLoader->getAnimationSidAddressBindings() )
 		, mUniqueIdAnimationListMap( colladaLoader->getUniqueIdAnimationListMap() )
 		, mObjectFlags( objectFlags )
@@ -532,6 +532,24 @@ namespace COLLADASaxFWL
 		{
 			return 0;
 		}
+	}
+
+	//------------------------------
+	void DocumentProcessor::addFormula( COLLADAFW::Formula* formula )
+	{
+		mFormulasMap.insert(std::make_pair(formula->getUniqueId(), formula));
+	}
+
+	//------------------------------
+	COLLADAFW::Formula* DocumentProcessor::getFormulaByUniqueId( const COLLADAFW::UniqueId& uniqueId ) const
+	{
+		COLLADAFW::Formula* formula = 0;
+		Loader::UniqueIdFormulaMap::const_iterator it = mFormulasMap.find(uniqueId);
+		if ( it != mFormulasMap.end() )
+		{
+			formula = it->second;
+		}
+		return formula;
 	}
 
 

@@ -22,6 +22,15 @@ namespace COLLADASaxFWL
 	const char* sidSeparator = "/";
 
 	//------------------------------
+	SidAddress::SidAddress( )
+		: mMemberSelection(MEMBER_SELECTION_NONE)
+		, mFirstIndex(0)
+		, mSecondIndex(0)
+		, mIsValid(false)
+	{
+	}
+
+	//------------------------------
 	SidAddress::SidAddress( const String& sidAddress )
 		: mMemberSelection(MEMBER_SELECTION_NONE)
 		, mFirstIndex(0)

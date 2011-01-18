@@ -32,8 +32,14 @@ namespace COLLADASaxFWL
 		typedef MathML::AST::FragmentExpression::ParameterList ParameterList;
 
 	private:
-		/** Sid address of the referenced parameter or formula. */
+		/** Sid address of the referenced parameter. */
 		SidAddress mSidAddress;
+
+		/** Name of the function.*/
+		String mFunctionName;
+
+		/** Unique id of the COLLADA formula element if the symbol is a function.*/
+		COLLADAFW::UniqueId mFormulaUniqueId;
 
 		/** Type of the csymbol.*/
 		CSymbolType mCSymbolType;
@@ -42,10 +48,15 @@ namespace COLLADASaxFWL
 		ParameterList mParameterList;
 
 	public:
-		/** Initializing constructor.
-		@param name The name of the variable
+		/** Initializing constructor for a parameter CSymbol.
+		@param sidAddress The sid address of the variable
 		*/
-		COLLADACsymbol( const SidAddress& sidAddress, CSymbolType cSymbolType );
+		COLLADACsymbol( const SidAddress& sidAddress);
+
+		/** Initializing constructor for a function CSymbol.
+		@param formulaUniqueId The unique id address of the function
+		*/
+		COLLADACsymbol( const String& functionName, const COLLADAFW::UniqueId& formulaUniqueId);
 
 		/** D-tor. */
 		virtual ~COLLADACsymbol();
@@ -61,6 +72,12 @@ namespace COLLADASaxFWL
 
 		/** Sid address of the referenced parameter or formula. */
 		const SidAddress& getSidAddress() const { return mSidAddress; }
+
+		/** Unique id of the COLLADA formula element if the symbol is a function.*/
+		const COLLADAFW::UniqueId& getFormulaUniqueId()const;
+
+		/** Name of the function.*/
+		const String& getFunctionName()const;
 
 		/** The parameters of the function, if the csymbol is a function.*/
 		const ParameterList& getParameterList() const { return mParameterList; }
