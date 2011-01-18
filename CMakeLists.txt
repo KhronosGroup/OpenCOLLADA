@@ -13,7 +13,7 @@ SET(EXTERNAL_LIBRARIES        	   ${CMAKE_HOME_DIRECTORY}/Externals)  #external 
 SET(CMAKE_MODULE_PATH "${EXTERNAL_LIBRARIES}/cmake-modules")
 
 IF (NOT WIN32)
-	set(CMAKE_CXX_FLAGS "-Wall")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 ENDIF (NOT WIN32)
 
 OPTION(USE_STATIC "Build static libraries" ON)
@@ -80,5 +80,3 @@ ADD_SUBDIRECTORY(COLLADAStreamWriter)
 
 #building COLLADAValidator app
 ADD_SUBDIRECTORY(COLLADAValidator)
-
-
