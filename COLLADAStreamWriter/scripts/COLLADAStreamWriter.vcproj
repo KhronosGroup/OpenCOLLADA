@@ -911,6 +911,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASWInstancePhysicsModel.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWInstanceRigidBody.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASWLibrary.cpp"
 				>
 			</File>
@@ -951,6 +959,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASWLibraryPhysicsModel.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWLibraryPhysicsScenes.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASWLibraryVisualScenes.cpp"
 				>
 			</File>
@@ -971,11 +987,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASWPhysicsModel.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASWPrimitves.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\COLLADASWRenderState.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWRigidBody.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWRigidbodyShape.cpp"
 				>
 			</File>
 			<File
@@ -1137,6 +1165,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASWInstancePhysicsModel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWInstanceRigidBody.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASWLibrary.h"
 				>
 			</File>
@@ -1177,6 +1213,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASWLibraryPhysicsModel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWLibraryPhysicsScenes.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASWLibraryVisualScenes.h"
 				>
 			</File>
@@ -1205,6 +1249,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASWPhysicsModel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWPhysicsScene.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASWPlatform.h"
 				>
 			</File>
@@ -1222,6 +1274,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWRenderStateStatic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWRigidBody.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWRigidbodyShape.h"
 				>
 			</File>
 			<File

@@ -38,6 +38,7 @@ namespace COLLADASW
 
         static const String CSW_ELEMENT_ACCESSOR;
         static const String CSW_ELEMENT_AMBIENT;
+		static const String CSW_ELEMENT_ANGULAR_VELOCITY;
         static const String CSW_ELEMENT_ANIMATION;
         static const String CSW_ELEMENT_ANIMATION_CLIP;
         static const String CSW_ELEMENT_ANNOTATE;
@@ -51,9 +52,11 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_BIND_SHAPE_MATRIX;
 		static const String CSW_ELEMENT_BIND_VERTEX_INPUT;
         static const String CSW_ELEMENT_BORDER_COLOR;
+		static const String CSW_ELEMENT_BOX;
         static const String CSW_ELEMENT_CAMERA;
         static const String CSW_ELEMENT_CAMERA_ORTHOGRAPHIC;
         static const String CSW_ELEMENT_CAMERA_PERSPECTIVE;
+		static const String CSW_ELEMENT_CAPSULE;
         static const String CSW_ELEMENT_CHANNEL;
         static const String CSW_ELEMENT_CHANNELS;
         static const String CSW_ELEMENT_CODE;
@@ -72,12 +75,15 @@ namespace COLLADASW
         static const String CSW_ELEMENT_COLOR_CLEAR;
 		static const String CSW_ELEMENT_COLOR_TARGET;
 		static const String CSW_ELEMENT_CREATE_2D;
+		static const String CSW_ELEMENT_CYLINDER;
         static const String CSW_ELEMENT_DATA;
+		static const String CSW_ELEMENT_DENSITY;
         static const String CSW_ELEMENT_DEPTH_CLEAR;
         static const String CSW_ELEMENT_DEPTH_TARGET;
         static const String CSW_ELEMENT_DIFFUSE;
 		static const String CSW_ELEMENT_DIRECTIONAL;
         static const String CSW_ELEMENT_DRAW;
+		static const String CSW_ELEMENT_DYNAMIC;
         static const String CSW_ELEMENT_EFFECT;
         static const String CSW_ELEMENT_EMISSION;
         static const String CSW_ELEMENT_EXTRA;
@@ -88,7 +94,9 @@ namespace COLLADASW
         static const String CSW_ELEMENT_FORMAT;
         static const String CSW_ELEMENT_FORMAT_HINT;
         static const String CSW_ELEMENT_GEOMETRY;
+		static const String CSW_ELEMENT_GRAVITY;
         static const String CSW_ELEMENT_H;
+		static const String CSW_ELEMENT_HOLLOW;
         static const String CSW_ELEMENT_IDREF_ARRAY;
         static const String CSW_ELEMENT_IMAGE;
         static const String CSW_ELEMENT_INCLUDE;
@@ -113,6 +121,9 @@ namespace COLLADASW
         static const String CSW_ELEMENT_INSTANCE_LIGHT;
         static const String CSW_ELEMENT_INSTANCE_MATERIAL;
         static const String CSW_ELEMENT_INSTANCE_NODE;
+		static const String CSW_ELEMENT_INSTANCE_PHYSICS_MODEL;
+		static const String CSW_ELEMENT_INSTANCE_PHYSICS_SCENE;
+		static const String CSW_ELEMENT_INSTANCE_RIGID_BODY;
         static const String CSW_ELEMENT_INSTANCE_VISUAL_SCENE;
         static const String CSW_ELEMENT_JOINTS;
         static const String CSW_ELEMENT_KEYWORDS;
@@ -126,6 +137,8 @@ namespace COLLADASW
         static const String CSW_ELEMENT_LIBRARY_IMAGES;
         static const String CSW_ELEMENT_LIBRARY_LIGHTS;
         static const String CSW_ELEMENT_LIBRARY_MATERIALS;
+		static const String CSW_ELEMENT_LIBRARY_PHYSICS_SCENES;
+		static const String CSW_ELEMENT_LIBRARY_PHYSICS_MODEL;
         static const String CSW_ELEMENT_LIBRARY_VISUAL_SCENES;
         static const String CSW_ELEMENT_LIGHT;
 		static const String CSW_ELEMENT_LINEAR_ATTENUATION;
@@ -133,6 +146,7 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_LINE_STRIPS;
         static const String CSW_ELEMENT_LOOKAT;
         static const String CSW_ELEMENT_MAGFILTER;
+		static const String CSW_ELEMENT_MASS;
         static const String CSW_ELEMENT_MATERIAL;
         static const String CSW_ELEMENT_MATRIX;
         static const String CSW_ELEMENT_MESH;
@@ -156,6 +170,9 @@ namespace COLLADASW
         static const String CSW_ELEMENT_PASS;
         static const String CSW_ELEMENT_PH;
         static const String CSW_ELEMENT_PHONG;
+		static const String CSW_ELEMENT_PHYSICS_MODEL;
+		static const String CSW_ELEMENT_PHYSICS_SCENE;
+		static const String CSW_ELEMENT_PLANE;
 		static const String CSW_ELEMENT_POINT;
         static const String CSW_ELEMENT_POLYLIST;
         static const String CSW_ELEMENT_POLYGONS;
@@ -170,6 +187,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_REFLECTIVE;
         static const String CSW_ELEMENT_REFLECTIVITY;
         static const String CSW_ELEMENT_REVISION;
+		static const String CSW_ELEMENT_RIGID_BODY;
         static const String CSW_ELEMENT_ROTATE;
         static const String CSW_ELEMENT_SAMPLER;
         static const String CSW_ELEMENT_SAMPLER2D;
@@ -178,12 +196,14 @@ namespace COLLADASW
         static const String CSW_ELEMENT_SETPARAM;
         static const String CSW_ELEMENT_SEMANTIC;
         static const String CSW_ELEMENT_SHADER;
+		static const String CSW_ELEMENT_SHAPE;
         static const String CSW_ELEMENT_SHININESS;
         static const String CSW_ELEMENT_SIZE;
         static const String CSW_ELEMENT_SKELETON;
         static const String CSW_ELEMENT_SKEW;
         static const String CSW_ELEMENT_SKIN;
         static const String CSW_ELEMENT_SOURCE;
+		static const String CSW_ELEMENT_SPHERE;
         static const String CSW_ELEMENT_SPECULAR;
         static const String CSW_ELEMENT_SOURCE_DATA;
 		static const String CSW_ELEMENT_SPLINE;
@@ -197,6 +217,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_TECHNIQUE_HINT;
         static const String CSW_ELEMENT_TECHNIQUE_COMMON;
         static const String CSW_ELEMENT_TEXTURE;
+		static const String CSW_ELEMENT_TIMESTEP;
         static const String CSW_ELEMENT_TITLE;
         static const String CSW_ELEMENT_TRANSLATE;
         static const String CSW_ELEMENT_TRANSPARENCY;
@@ -238,6 +259,7 @@ namespace COLLADASW
         static const String CSW_ATTRIBUTE_NAME;
         static const String CSW_ATTRIBUTE_OFFSET;
         static const String CSW_ATTRIBUTE_OPAQUE;
+		static const String CSW_ATTRIBUTE_PARENT;
         static const String CSW_ATTRIBUTE_PLATFORM;
         static const String CSW_ATTRIBUTE_PROFILE;
         static const String CSW_ATTRIBUTE_PROGRAM;
