@@ -33,10 +33,10 @@ namespace COLLADASaxFWL
 	}
 
     //------------------------------
-    const COLLADAFW::UniqueId& LibraryImagesLoader::getUniqueId ()
+    const COLLADAFW::UniqueId& LibraryImagesLoader::getUniqueId()
     {
         if ( mCurrentImage )
-            return mCurrentImage->getUniqueId ();
+            return mCurrentImage->getUniqueId();
         return COLLADAFW::UniqueId::INVALID;
     }
 
@@ -80,6 +80,7 @@ namespace COLLADASaxFWL
 		    success = writer()->writeImage(mCurrentImage);
 		}
 		FW_DELETE mCurrentImage;
+		mCurrentImage = 0;
 		return success;
 	}
 

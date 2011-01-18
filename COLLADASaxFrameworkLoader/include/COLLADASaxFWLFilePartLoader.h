@@ -36,16 +36,16 @@ namespace COLLADASaxFWL
 
 	public:
 		/** Returns a pointer to the collada loader. */
-		Loader* getColladaLoader() { return mCallingFilePartLoader->getColladaLoader(); }
+		Loader* getColladaLoader();
 
 		/** Returns a const pointer to the collada document. */
-		const Loader* getColladaLoader() const { return mCallingFilePartLoader->getColladaLoader(); }
+		const Loader* getColladaLoader() const;
 
 		/** Returns a pointer to the file loader. */
-		FileLoader* getFileLoader() { return mCallingFilePartLoader->getFileLoader(); }
+		FileLoader* getFileLoader();
 
 		/** Returns a pointer to the file loader. */
-		const FileLoader* getFileLoader() const { return mCallingFilePartLoader->getFileLoader(); }
+		const FileLoader* getFileLoader() const;
 
 		/** A combination of ObjectFlags, indicating which objects should be parsed during the 
 		parse process.*/

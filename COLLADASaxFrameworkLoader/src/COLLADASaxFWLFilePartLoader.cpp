@@ -61,4 +61,28 @@ namespace COLLADASaxFWL
 		return getFileLoader()->getObjectFlags();
 	}
 
+	//------------------------------
+	Loader* FilePartLoader::getColladaLoader()
+	{
+		return mCallingFilePartLoader->getColladaLoader();
+	}
+
+	//------------------------------
+	const Loader* FilePartLoader::getColladaLoader() const
+	{
+		return mCallingFilePartLoader->getColladaLoader();
+	}
+
+	//------------------------------
+	FileLoader* FilePartLoader::getFileLoader()
+	{
+		return mCallingFilePartLoader->getFileLoader();
+	}
+
+	//------------------------------
+	const FileLoader* FilePartLoader::getFileLoader() const
+	{
+		return mCallingFilePartLoader->getFileLoader();
+	}
+
 } // namespace COLLADASaxFWL
