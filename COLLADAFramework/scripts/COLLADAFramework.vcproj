@@ -1211,6 +1211,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWGravity.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWHashFunctions.h"
 				>
 			</File>
@@ -1260,6 +1264,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWInstanceNode.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWInstancePhysicsScenes.h"
 				>
 			</File>
 			<File
@@ -1364,6 +1372,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWPassTarget.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWPhysicsModel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWPhysicsScene.h"
 				>
 			</File>
 			<File
