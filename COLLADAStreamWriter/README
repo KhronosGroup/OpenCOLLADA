@@ -1,0 +1,8 @@
+COLLADAStreamWriter is to export data into a COLLADA file, released under the 
+MIT-license. 
+
+This library does not store the COLLADA document in an intermidiate data 
+model, it writes the data directly into file. This results in reduction of 
+memory consumption and better performance.
+
+For installation instructions please read the "INSTALL" file.
