@@ -76,7 +76,7 @@ namespace COLLADASaxFWL
 
 		COLLADABU::URI uri(getFileUri(), String("#") + String((const char *)colladaId));
 
-		COLLADAFW::UniqueId createdUniqueId = createUniqueIdFromUrl(uri, classId, false);
+		COLLADAFW::UniqueId createdUniqueId = createUniqueIdFromUrl(uri, classId, true);
 		return createdUniqueId;
 	}
 
