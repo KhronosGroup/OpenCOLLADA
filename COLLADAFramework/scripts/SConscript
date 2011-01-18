@@ -1,0 +1,26 @@
+
+Import('env')
+
+libName = 'OpenCOLLADAFramework'
+
+
+srcDir = 'src/'
+
+variantDir = env['objDir']  + env['configurationDir']
+outputDir =  env['libDir']  + env['configurationDir']
+targetPath = outputDir + libName
+
+
+incDirs = ['../include/', 
+           '../../COLLADABaseUtils/include/', 
+           '../../Externals/MathMLSolver/include/', 
+           '../../Externals/MathMLSolver/include/AST']
+
+src = [ variantDir + str(p) for p in  Glob(srcDir + '*.cpp')]   
+VariantDir(variant_dir=variantDir + srcDir, src_dir=srcDir, duplicate=False)
+
+if env['SHAREDLIB']:
+    SharedLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])
+else:
+    StaticLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])
+
