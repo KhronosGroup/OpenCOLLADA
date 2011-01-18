@@ -43,10 +43,7 @@ namespace COLLADAFW
 		virtual ~Texture();
 
         /** Sets the unique id of the object.*/
-        void setUniqueId ( const UniqueId& uniqueId )
-        { 
-            ObjectTemplate<COLLADA_TYPE::TEXTURE>::setUniqueId ( uniqueId );
-        }
+        void setUniqueId ( const UniqueId& uniqueId );
 
 		/** 
          * Returns the id of the sampler. 
@@ -56,7 +53,7 @@ namespace COLLADAFW
 		SamplerID getSamplerId() const { return mSamplerId; }
 
 		/** Sets the id of the sampler.*/
-		void setSamplerId(SamplerID samplerId) { mSamplerId = samplerId; }
+		void setSamplerId(SamplerID samplerId);
 
 		/** Returns the id of the texture map, that should be used by this texture. It must be binded to a set of 
 		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
@@ -66,7 +63,7 @@ namespace COLLADAFW
 		/** Returns the id of the texture map, that should be used by this texture. It must be binded to a set of 
 		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
 		in InstanceGeometry*/
-		void setTextureMapId( TextureMapId textureMapId ) { mTextureMapId = textureMapId; }
+		void setTextureMapId( TextureMapId textureMapId );
 
 
 		bool isValid() const { return true; }

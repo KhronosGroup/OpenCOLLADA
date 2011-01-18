@@ -190,7 +190,10 @@ namespace COLLADASaxFWL
 				COLLADAFW::Texture& texture = colorOrTexture->getTexture();
                 texture.setUniqueId ( createUniqueId(COLLADAFW::Texture::ID()) );
 				texture.setSamplerId( samplerIndex );
-				texture.setTextureMapId( getTextureMapIdBySematic( attributeData.texcoord) );
+				if ( attributeData.texcoord )
+				{
+					texture.setTextureMapId( getTextureMapIdBySematic( attributeData.texcoord) );
+				}
 
 				break;
 			}

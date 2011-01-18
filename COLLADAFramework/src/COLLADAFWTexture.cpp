@@ -26,4 +26,22 @@ namespace COLLADAFW
 	{
 	}
 
+	//------------------------------
+	void Texture::setUniqueId( const UniqueId& uniqueId )
+	{
+		ObjectTemplate<COLLADA_TYPE::TEXTURE>::setUniqueId ( uniqueId );
+	}
+
+	//------------------------------
+	void Texture::setSamplerId( SamplerID samplerId )
+	{
+		mSamplerId = samplerId;
+	}
+
+	//------------------------------
+	void Texture::setTextureMapId( TextureMapId textureMapId )
+	{
+		mTextureMapId = textureMapId;
+	}
+
 } // namespace COLLADAFW
