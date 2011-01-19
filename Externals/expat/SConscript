@@ -11,13 +11,13 @@ outputDir =  env['libDir']  + env['configurationBaseName'] + '/'
 targetPath = outputDir + libName
 
 
-incDirs = ['include/']
+incDirs = ['include/', '.']
 
 src = [ variantDir + str(p) for p in  Glob(srcDir + '*.c')]   
 VariantDir(variant_dir=variantDir + srcDir, src_dir=srcDir, duplicate=False)
 
 if env['SHAREDLIB']:
-    SharedLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])
+    SharedLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'] + ' -DHAVE_EXPAT_CONFIG_H')
 else:
-    StaticLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'])
+    StaticLibrary(target=targetPath, source=src, CPPPATH=incDirs, CCFLAGS=env['CPPFLAGS'] + ' -DHAVE_EXPAT_CONFIG_H')
 
