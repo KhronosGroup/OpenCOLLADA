@@ -31,6 +31,7 @@ namespace COLLADASaxFWL
 		, mCurrentSamplerWrapS(COLLADAFW::Sampler::WRAP_MODE_WRAP)
 		, mCurrentSamplerWrapT(COLLADAFW::Sampler::WRAP_MODE_WRAP)
         , mTransparency(1)
+		, mOpaqueMode(UNSPECIFIED_OPAQUE)
 		, mNextSamplerIndex(0)
         , mInProfileCommonTechnique (false)
         , mInTexture (false)
