@@ -6,7 +6,7 @@
 and semantics are as close as possible to those of the Perl 5 language.
 
                        Written by Philip Hazel
-           Copyright (c) 1997-2008 University of Cambridge
+           Copyright (c) 1997-2009 University of Cambridge
 
 -----------------------------------------------------------------------------
 Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ auxiliary local function to flip the appropriate bytes. */
 
 
 #if (defined(WIN64) || defined(WIN32))
-#	include "config_win.h"
+#   include "config_win.h"
 #elif (defined(__APPLE__) || defined(OSMac_))
 #   include "config_mac.h"
 #elif defined(__linux__) || defined(__linux)
@@ -52,7 +52,6 @@ auxiliary local function to flip the appropriate bytes. */
 #elif defined(HAVE_CONFIG_H)
 #   include "config.h"
 #endif
-
 
 #include "pcre_internal.h"
 
@@ -135,7 +134,9 @@ if (study != NULL)
   {
   *internal_study = *study;   /* To copy other fields */
   internal_study->size = byteflip(study->size, sizeof(study->size));
-  internal_study->options = byteflip(study->options, sizeof(study->options));
+  internal_study->flags = byteflip(study->flags, sizeof(study->flags));
+  internal_study->minlength = byteflip(study->minlength,
+    sizeof(study->minlength));
   }
 
 return internal_re;
