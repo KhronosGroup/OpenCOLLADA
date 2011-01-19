@@ -15,28 +15,8 @@
 
 #include <cassert>
 
-#ifdef COLLADABU_USE_PCRE_PRECOMPILED
-#	if !( PCRE_MAJOR == 7) || !( PCRE_MINOR == 9 )
-#		error "Your version of pcre does not fit the pcre version to precompile the pattern in OpenCOLLADA."
-#	endif
-#endif
-
-
 namespace COLLADABU
 {
-
-    //------------------------------
-	PcreCompiledPattern::PcreCompiledPattern( const char* pattern, const char* compiledPattern )
-		:
-#ifdef COLLADABU_USE_PCRE_PRECOMPILED
-		mCompiledPattern( (pcre*) compiledPattern ) 
-		, mFreePattern( false )
-#else
-		mCompiledPattern( compilePattern(pattern) ) 
-		, mFreePattern( true )
-#endif
-	{
-	}
 
 	//------------------------------
 	PcreCompiledPattern::PcreCompiledPattern( const char* pattern )
@@ -70,4 +50,11 @@ namespace COLLADABU
 		assert( compiledPattern );
 		return compiledPattern;
 	}
+
+	//------------------------------
+	pcre* PcreCompiledPattern::getCompiledPattern() const
+	{
+		return mCompiledPattern;
+	}
+
 } // namespace COLLADABU

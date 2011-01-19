@@ -36,14 +36,6 @@ namespace COLLADABU
 
 	public:
 
-		/** If the preprocessor flag COLLADABU_USE_PCRE_PRECOMPILED is set, @a pattern is ignored and @a compiledPattern
-		is stored as compiled pattern. @a compiledPattern must persist at least as long as the PcreCompiledPattern
-		object.
-		If the preprocessor flag is not set, @a compiledPattern is ignored and the compiled pattern is created by 
-		compiling @a pattern.
-		*/
-		PcreCompiledPattern( const char* pattern, const char* compiledPattern);
-
 		/** The compiled pattern is created by compiling @a pattern. The behavior of this constructor is independent of  
 		COLLADABU_USE_PCRE_PRECOMPILED.*/
 		PcreCompiledPattern( const char* pattern );
@@ -52,7 +44,7 @@ namespace COLLADABU
 		virtual ~PcreCompiledPattern();
 
 		/** Returns the compiled pattern. */
-		pcre* getPattern() const { return mCompiledPattern; }
+		pcre* getCompiledPattern() const;
 
 	private:
 

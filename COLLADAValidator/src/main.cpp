@@ -11,7 +11,6 @@
 
 #include "COLLADAFWRoot.h"
 
- 
 #ifdef WIN32
 #   if defined(XMLPARSER_LIBXML)
         const char* programName = "COLLADAValidator_LibXML.exe";
@@ -48,7 +47,6 @@ void printHelpText()
 
 int main(int argc, char* argv[]) 
 {
-
 	if ( argc > 1 ) 
 	{
 		ValidationErrorHandler errorHandler;

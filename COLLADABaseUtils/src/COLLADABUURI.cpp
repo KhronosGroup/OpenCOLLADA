@@ -278,18 +278,14 @@ namespace COLLADABU
 			// /tmp/se.3/file
 
 			// regular expression: "(.*/)?(.*)?"
-			static const char _findDir[71]={69,82,67,80,71,0,0,0,0,0,0,0,1,0,0,0,2,0,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,27,103,95,0,9,0,1,57,12,28,47,
-				85,0,9,103,95,0,7,0,2,57,12,85,0,7,85,0,27,0,};
-			static const PcreCompiledPattern findDirCompiledPattern("(.*/)?(.*)?", _findDir);
+			static const PcreCompiledPattern findDirCompiledPattern("(.*/)?(.*)?");
 
-			pcre* findDir = findDirCompiledPattern.getPattern();
+			pcre* findDir = findDirCompiledPattern.getCompiledPattern();
 
 
 			// regular expression: "([^.]*)?(\.(.*))?"
-			static const char _findExt[79]={69,82,67,80,79,0,0,0,0,0,0,0,1,0,0,0,3,0,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,35,103,95,0,7,0,1,44,46,85,0,7
-				,103,95,0,17,0,2,28,46,95,0,7,0,3,57,12,85,0,7,85,0,17,85,0,35,0,};
-			static const PcreCompiledPattern findExtCompiledPattern("([^.]*)?(\\.(.*))?", _findExt);
-			pcre* findExt = findExtCompiledPattern.getPattern();
+			static const PcreCompiledPattern findExtCompiledPattern("([^.]*)?(\\.(.*))?");
+			pcre* findExt = findExtCompiledPattern.getCompiledPattern();
 			
 			String tmpFile;
 			dir.clear();
@@ -898,9 +894,8 @@ namespace COLLADABU
 		// This regular expression for parsing URI references comes from the URI spec:
 		//   http://tools.ietf.org/html/rfc3986#appendix-B
 		// regular expression: "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?"
-		static const char _matchUri[240]={69,82,67,80,-16,0,0,0,16,0,0,0,1,0,0,0,9,0,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,0,-60,26,103,95,0,49,0,1,95, 0,39,0,2,79,-1,-1,-1,-1,-9,127,-1,123,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,72,85,0,39,28,58,85,0,49,103,95,0,51,0,3,28,47,28,47,95,0,39,0,4,79,-1,-1,-1,-1,-9,127,-1,127,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,70,85,0,39,85,0,51,95,0,39,0,5,79,-1,-1,-1,-1,-9,-1,-1,127,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,70,85,0,39,103,95,0,17,0,6,28,63,95,0,7,0,7,44,35,85,0,7,85,0,17,103,95,0,17,0,8,28,35,95,0,7,0,9,57,12,85,0,7,85,0,17,85,0,-60,0,};
-		static const PcreCompiledPattern matchUriCompiledPattern("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?", _matchUri);
-		pcre* matchUri = matchUriCompiledPattern.getPattern();
+		static const PcreCompiledPattern matchUriCompiledPattern("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
+		pcre* matchUri = matchUriCompiledPattern.getCompiledPattern();
 
 
 		int uriMatches[regExpMatchesVectorLength];
