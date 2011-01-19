@@ -192,6 +192,8 @@ namespace COLLADASaxFWL
 			return false;
 		mWriter = writer;
 
+		mWriter->start();
+
 		SaxParserErrorHandler saxParserErrorHandler(mErrorHandler);
 
 		COLLADABU::URI rootFileUri(COLLADABU::URI::nativePathToUri(fileName));
@@ -199,7 +201,9 @@ namespace COLLADASaxFWL
 		// the root file has always file id 0
 		addFileIdUriPair( mNextFileId++, rootFileUri );
 
-		while ( mCurrentFileId < mNextFileId )
+		bool abortLoading = false;
+
+		while ( (mCurrentFileId < mNextFileId) && !abortLoading )
 		{
 			const COLLADABU::URI& fileUri = getFileUri( mCurrentFileId );
 
@@ -213,17 +217,27 @@ namespace COLLADASaxFWL
 					mObjectFlags,
 					mParsedObjectFlags, 
 					mExtraDataCallbackHandlerList );
-				fileLoader.load();
+				bool success = fileLoader.load();
+				abortLoading = !success;
 			}
 
 			mCurrentFileId++;
 		}
 
-		PostProcessor postProcessor(this, 
-				                    &saxParserErrorHandler, 
-				                    mObjectFlags,
-				                    mParsedObjectFlags);
-		postProcessor.postProcess();
+		if ( abortLoading )
+		{
+			PostProcessor postProcessor(this, 
+				&saxParserErrorHandler, 
+				mObjectFlags,
+				mParsedObjectFlags);
+			postProcessor.postProcess();
+		}
+		else
+		{
+			mWriter->cancel("Generic error");
+		}
+
+		mWriter->finish();
 
 		mParsedObjectFlags |= mObjectFlags;
 
@@ -244,7 +258,9 @@ namespace COLLADASaxFWL
 		// the root file has always file id 0
 		addFileIdUriPair( mNextFileId++, rootUri );
         
-		while ( mCurrentFileId < mNextFileId )
+		bool abortLoading = false;
+
+		while ( (mCurrentFileId < mNextFileId) && !abortLoading )
 		{
 			const COLLADABU::URI& fileUri = getFileUri( mCurrentFileId );
 
@@ -258,18 +274,28 @@ namespace COLLADASaxFWL
 					mObjectFlags,
 					mParsedObjectFlags, 
 					mExtraDataCallbackHandlerList );
-				fileLoader.load( buffer, length );
+				bool success = fileLoader.load();
+				abortLoading = !success;
 			}
             
 			mCurrentFileId++;
 		}
         
-		PostProcessor postProcessor(this, 
-				                    &saxParserErrorHandler, 
-				                    mObjectFlags,
-				                    mParsedObjectFlags);
-		postProcessor.postProcess();
+		if ( abortLoading )
+		{
+			PostProcessor postProcessor(this, 
+				&saxParserErrorHandler, 
+				mObjectFlags,
+				mParsedObjectFlags);
+			postProcessor.postProcess();
+		}
+		else
+		{
+			mWriter->cancel("Generic error");
+		}
         
+		mWriter->finish();
+
 		mParsedObjectFlags |= mObjectFlags;
         
 		return true;

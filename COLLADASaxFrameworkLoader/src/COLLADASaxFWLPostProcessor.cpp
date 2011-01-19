@@ -86,8 +86,6 @@ namespace COLLADASaxFWL
 		{
 			createAndWriteKinematicsScene();
 		}
-
-		writer()->finish();
 	}
 
 	//-----------------------------
