@@ -224,7 +224,7 @@ namespace COLLADASaxFWL
 			mCurrentFileId++;
 		}
 
-		if ( abortLoading )
+		if ( !abortLoading )
 		{
 			PostProcessor postProcessor(this, 
 				&saxParserErrorHandler, 
@@ -241,7 +241,7 @@ namespace COLLADASaxFWL
 
 		mParsedObjectFlags |= mObjectFlags;
 
-		return true;
+		return !abortLoading;
 	}
 
 	//---------------------------------
@@ -281,7 +281,7 @@ namespace COLLADASaxFWL
 			mCurrentFileId++;
 		}
         
-		if ( abortLoading )
+		if ( !abortLoading )
 		{
 			PostProcessor postProcessor(this, 
 				&saxParserErrorHandler, 
@@ -298,7 +298,7 @@ namespace COLLADASaxFWL
 
 		mParsedObjectFlags |= mObjectFlags;
         
-		return true;
+		return !abortLoading;
 	}
 
     //---------------------------------
