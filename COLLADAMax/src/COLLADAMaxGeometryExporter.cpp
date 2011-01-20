@@ -1048,7 +1048,7 @@ namespace COLLADAMax
 	{
 		COLLADASW::VerticesElement vertices( mGeometriesExporter->mSW );
 		vertices.setId( meshId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX );
-		vertices.getInputList().push_back( COLLADASW::Input( COLLADASW::POSITION, "#" + meshId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX ) );
+		vertices.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::POSITION, "#" + meshId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX ) );
 		vertices.add();
 	}
 
@@ -1065,10 +1065,10 @@ namespace COLLADAMax
 		COLLADASW::Triangles triangles( mGeometriesExporter->mSW );
 		triangles.setCount( numberOfFaces );
 		triangles.setMaterial( symbol );
-		triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
+		triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
 		if( mExportNormals )
 		{
-			triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+			triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
 		}
 
 		for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
@@ -1077,19 +1077,19 @@ namespace COLLADAMax
 
 			if ( channelIndex <= 0)
 			{
-				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
 			}
 			else
 			{
 				// max starts with 1 to index the texture maps. To start with 0 in COLLADA, we always substract one from the channel to get the set
 				// This is also relevant when exporting bind_vertex_input
-				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex - 1 ) );
+				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::TEXCOORD, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex - 1 ) );
 			}
 
 			if( mExportTextangentsAndNormals &&( channelIndex > 0 ) )
 			{
-				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::TEXTANGENT, "#" + mId + getTextangentSourceIdSuffix( channelIndex ), offset, channelIndex ) );
-				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::TEXBINORMAL, "#" + mId + getTexbinormalSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::TEXTANGENT, "#" + mId + getTextangentSourceIdSuffix( channelIndex ), offset, channelIndex ) );
+				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::TEXBINORMAL, "#" + mId + getTexbinormalSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
 			}
 		}
 
@@ -1147,10 +1147,10 @@ namespace COLLADAMax
 		int offset = 0;
 		polylist.setCount( ( unsigned long ) polylist.getVCountList().size() );
 		polylist.setMaterial( symbol );
-		polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
+		polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
 		if( mExportNormals )
 		{
-			polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+			polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
 		}
 
 		for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
@@ -1158,13 +1158,13 @@ namespace COLLADAMax
 			const int& channelIndex = *it;
 			if ( channelIndex <= 0)
 			{
-				polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+				polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
 			}
 			else
 			{
 				// max starts with 1 to index the texture maps. To start with 0 in COLLADA, we always substract one from the channel to get the set
 				// This is also relevant when exporting bind_vertex_input
-				polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex - 1 ) );
+				polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::TEXCOORD, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex - 1 ) );
 			}
 		}
 
@@ -1415,10 +1415,10 @@ namespace COLLADAMax
 
 
 		COLLADASW::ControlVertices controlVertices( mGeometriesExporter->mSW );
-		controlVertices.getInputList().push_back( COLLADASW::Input( COLLADASW::POSITION, "#" + positionsId ) );
-		controlVertices.getInputList().push_back( COLLADASW::Input( COLLADASW::IN_TANGENT, "#" + inTangentId ) );
-		controlVertices.getInputList().push_back( COLLADASW::Input( COLLADASW::OUT_TANGENT, "#" + outTangentId ) );
-		controlVertices.getInputList().push_back( COLLADASW::Input( COLLADASW::INTERPOLATION, "#" + interpolationId ) );
+		controlVertices.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::POSITION, "#" + positionsId ) );
+		controlVertices.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::IN_TANGENT, "#" + inTangentId ) );
+		controlVertices.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::OUT_TANGENT, "#" + outTangentId ) );
+		controlVertices.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::INTERPOLATION, "#" + interpolationId ) );
 		controlVertices.add();
 
 		mGeometriesExporter->closeSpline();

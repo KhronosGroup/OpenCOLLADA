@@ -58,32 +58,7 @@ namespace COLLADASW
 
         class Sampler
         {
-
-        public:
-            /** Semantics allowed in an @a \<input\> element*/
-            enum Semantic
-            {
-                POSITION,
-                INTERPOLATION,
-                LINEAR_STEPS,
-                INPUT,
-                OUTPUT,
-                IN_TANGENT,
-                OUT_TANGENT,
-                CONTINUITY
-            };
-
-            /** Holds all information about an @a \<input\> element.*/
-
-            struct Input
-            {
-                Semantic semantic;
-                COLLADABU::URI source;
-            };
-
-            /** A list of inputs*/
-            typedef std::vector<Input>  InputList;
-
+			/** semantics formerly defined here have been moved to COLLADASWInputList.h */ 
         private:
 
             /** The id of the sampler*/
@@ -96,7 +71,7 @@ namespace COLLADASW
             /** Constructor
             @param id The id of the sampler.
             */
-            Sampler ( const String& id ) : mId ( id ) {}
+            Sampler ( StreamWriter * streamWriter, const String& id );
 
             /** Returns a const reference of the sampler id*/
             const String& getId() const
@@ -105,17 +80,13 @@ namespace COLLADASW
             }
 
             /** Adds an input element to the sampler*/
-            void addInput ( Semantic semantic, const COLLADABU::URI& source );
+			void addInput ( InputSemantic::Semantics semantic, const COLLADABU::URI& source );
 
             /** Returns a const reference of the Inputlist*/
             const InputList& getInputList() const
             {
                 return mInputList;
             }
-
-            /** Returns the element name of the given type semantic. */
-            static const String& getElementNameBySemantic ( Semantic semantic );
-
         };
 
 

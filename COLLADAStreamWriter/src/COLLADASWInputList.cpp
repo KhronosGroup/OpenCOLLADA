@@ -16,10 +16,10 @@ namespace COLLADASW
 {
 
     //---------------------------------------------------------------
-    void InputList::add()
+    void InputList::add() const
     {
         // write inputs
-        for ( List::iterator it = mList.begin(); it != mList.end(); ++it )
+        for ( List::const_iterator it = mList.begin(); it != mList.end(); ++it )
         {
             mSW->openElement ( CSWC::CSW_ELEMENT_INPUT );
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_SEMANTIC, getSemanticString ( it->getSemantic() ) );
@@ -33,67 +33,56 @@ namespace COLLADASW
 
             mSW->closeElement();
         }
-
     }
 
 
     //---------------------------------------------------------------
-    const String& InputList::getSemanticString ( Semantics semantic )
+    const String& InputList::getSemanticString( InputSemantic::Semantics semantic )
     {
         switch ( semantic )
         {
-
-        case POSITION:
+        case InputSemantic::POSITION:
             return CSWC::CSW_SEMANTIC_POSITION;
-
-        case VERTEX:
+        case InputSemantic::VERTEX:
             return CSWC::CSW_SEMANTIC_VERTEX;
-
-        case NORMAL:
+        case InputSemantic::NORMAL:
             return CSWC::CSW_SEMANTIC_NORMAL;
-
-		case TEXCOORD:
+		case InputSemantic::TEXCOORD:
 			return CSWC::CSW_SEMANTIC_TEXCOORD;
-
-		case TANGENT:
+		case InputSemantic::TANGENT:
 			return CSWC::CSW_SEMANTIC_TANGENT;
-
-		case IN_TANGENT:
+		case InputSemantic::IN_TANGENT:
 			return CSWC::CSW_SEMANTIC_IN_TANGENT;
-
-		case OUT_TANGENT:
+		case InputSemantic::OUT_TANGENT:
 			return CSWC::CSW_SEMANTIC_OUT_TANGENT;
-
-		case INTERPOLATION:
+		case InputSemantic::INTERPOLATION:
 			return CSWC::CSW_SEMANTIC_INTERPOLATION;
-
-        case BINORMAL:
+        case InputSemantic::BINORMAL:
             return CSWC::CSW_SEMANTIC_BINORMAL;
-
-		case TEXTANGENT:
+		case InputSemantic::TEXTANGENT:
 			return CSWC::CSW_SEMANTIC_TEXTANGENT;
-
-		case TEXBINORMAL:
+		case InputSemantic::TEXBINORMAL:
 			return CSWC::CSW_SEMANTIC_TEXBINORMAL;
-
-        case COLOR:
+        case InputSemantic::COLOR:
             return CSWC::CSW_SEMANTIC_COLOR;
-
-        case JOINT:
+        case InputSemantic::JOINT:
             return CSWC::CSW_SEMANTIC_JOINT;
-
-        case BINDMATRIX:
+        case InputSemantic::BINDMATRIX:
             return CSWC::CSW_SEMANTIC_BINDMATRIX;
-
-        case WEIGHT:
+        case InputSemantic::WEIGHT:
             return CSWC::CSW_SEMANTIC_WEIGHT;
-
-        case MORPH_TARGET:
+        case InputSemantic::MORPH_TARGET:
             return CSWC::CSW_SEMANTIC_MORPH_TARGET;
-
-        case MORPH_WEIGHT:
-            return CSWC::CSW_SEMANTIC_MORPH_WEIGHT;
-
+		case InputSemantic::MORPH_WEIGHT:
+			return CSWC::CSW_SEMANTIC_MORPH_WEIGHT;
+		case InputSemantic::LINEAR_STEPS:
+			return CSWC::CSW_SEMANTIC_LINEAR_STEPS;
+		case InputSemantic::INPUT:
+			return CSWC::CSW_SEMANTIC_INPUT;
+		case InputSemantic::OUTPUT:
+			return CSWC::CSW_SEMANTIC_OUTPUT;
+		case InputSemantic::CONTINUITY:
+			return CSWC::CSW_SEMANTIC_CONTINUITY;
         default:
             return CSWC::EMPTY_STRING;
         }

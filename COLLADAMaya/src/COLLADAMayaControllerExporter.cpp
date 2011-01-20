@@ -1182,7 +1182,7 @@ namespace COLLADAMaya
         uint offset = 0;
         COLLADASW::VertexWeightsElement vertexWeightsElement( mDocumentExporter->getStreamWriter() );
         COLLADASW::InputList &inputList = vertexWeightsElement.getInputList();
-        inputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI (EMPTY_STRING, jointSourceId ), offset++ ) );        inputList.push_back ( COLLADASW::Input ( COLLADASW::WEIGHT, COLLADASW::URI (EMPTY_STRING, weightSourceId ), offset++ ) );
+        inputList.push_back ( COLLADASW::Input ( COLLADASW::InputSemantic::JOINT, COLLADASW::URI (EMPTY_STRING, jointSourceId ), offset++ ) );        inputList.push_back ( COLLADASW::Input ( COLLADASW::InputSemantic::WEIGHT, COLLADASW::URI (EMPTY_STRING, weightSourceId ), offset++ ) );
         // The list for the vertex values.
         std::vector<unsigned long> vertexMatches;
 
@@ -1230,8 +1230,8 @@ namespace COLLADAMaya
 
         COLLADASW::JointsElement jointsElement( mDocumentExporter->getStreamWriter() );
         COLLADASW::InputList &jointsInputList = jointsElement.getInputList();
-        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI ( EMPTY_STRING, jointSourceId ) ) );
-        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::BINDMATRIX, COLLADASW::URI ( EMPTY_STRING, jointBindSourceId ) ) );
+        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::InputSemantic::JOINT, COLLADASW::URI ( EMPTY_STRING, jointSourceId ) ) );
+        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::InputSemantic::BINDMATRIX, COLLADASW::URI ( EMPTY_STRING, jointBindSourceId ) ) );
         jointsElement.add();
     }
 
@@ -1244,8 +1244,8 @@ namespace COLLADAMaya
 
         COLLADASW::TargetsElement targetsElement( mDocumentExporter->getStreamWriter() );
         COLLADASW::InputList &targetsInputList = targetsElement.getInputList();
-        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::MORPH_TARGET, COLLADASW::URI ( EMPTY_STRING, targetSourceId ) ) );
-        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::MORPH_WEIGHT, COLLADASW::URI ( EMPTY_STRING, morphWeightsSourceId ) ) );
+        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::InputSemantic::MORPH_TARGET, COLLADASW::URI ( EMPTY_STRING, targetSourceId ) ) );
+        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::InputSemantic::MORPH_WEIGHT, COLLADASW::URI ( EMPTY_STRING, morphWeightsSourceId ) ) );
         targetsElement.add();
     }
 

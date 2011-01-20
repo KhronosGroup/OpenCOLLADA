@@ -1193,16 +1193,16 @@ namespace COLLADAMaya
     {
         String sourceId = animationCurve.getSourceId();
 
-        LibraryAnimations::Sampler sampler ( sourceId + SAMPLER_ID_SUFFIX );
+        LibraryAnimations::Sampler sampler ( mSW, sourceId + SAMPLER_ID_SUFFIX );
 
-        sampler.addInput ( LibraryAnimations::Sampler::INPUT, COLLADASW::URI ( EMPTY_STRING, sourceId + INPUT_SOURCE_ID_SUFFIX ) );
-        sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, COLLADASW::URI ( EMPTY_STRING, sourceId + OUTPUT_SOURCE_ID_SUFFIX ) );
-        sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, COLLADASW::URI ( EMPTY_STRING, sourceId + INTERPOLATION_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( COLLADASW::InputSemantic::INPUT, COLLADASW::URI ( EMPTY_STRING, sourceId + INPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( COLLADASW::InputSemantic::OUTPUT, COLLADASW::URI ( EMPTY_STRING, sourceId + OUTPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( COLLADASW::InputSemantic::INTERPOLATION, COLLADASW::URI ( EMPTY_STRING, sourceId + INTERPOLATION_SOURCE_ID_SUFFIX ) );
 
         if ( animationCurve.hasTangents() )
         {
-            sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, COLLADASW::URI ( EMPTY_STRING, sourceId + INTANGENT_SOURCE_ID_SUFFIX ) );
-            sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, COLLADASW::URI ( EMPTY_STRING, sourceId + OUTTANGENT_SOURCE_ID_SUFFIX ) );
+            sampler.addInput ( COLLADASW::InputSemantic::IN_TANGENT, COLLADASW::URI ( EMPTY_STRING, sourceId + INTANGENT_SOURCE_ID_SUFFIX ) );
+            sampler.addInput ( COLLADASW::InputSemantic::OUT_TANGENT, COLLADASW::URI ( EMPTY_STRING, sourceId + OUTTANGENT_SOURCE_ID_SUFFIX ) );
         }
 
         addSampler ( sampler );

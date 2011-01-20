@@ -439,7 +439,7 @@ namespace COLLADAMaya
         vertexSource.finish();
 
         // Add input to the mesh <vertices> node
-        mPolygonSources.push_back ( SourceInput ( vertexSource, COLLADASW::VERTEX ) );
+        mPolygonSources.push_back ( SourceInput ( vertexSource, COLLADASW::InputSemantic::VERTEX ) );
     }
 
     //---------------------------------------------------------------
@@ -520,12 +520,12 @@ namespace COLLADAMaya
             if ( perVertexColor )
             {
                 // Insert a per-vertex color set input
-				mVertexSources.push_back ( SourceInput ( colorSource, COLLADASW::COLOR, i ) );
+				mVertexSources.push_back ( SourceInput ( colorSource, COLLADASW::InputSemantic::COLOR, i ) );
             }
             else
             {
                 // Insert a per-face-vertex color set input
-				mPolygonSources.push_back ( SourceInput ( colorSource, COLLADASW::COLOR, i ) );
+				mPolygonSources.push_back ( SourceInput ( colorSource, COLLADASW::InputSemantic::COLOR, i ) );
             }
         }
     }
@@ -542,7 +542,7 @@ namespace COLLADAMaya
 
         // Always push the vertex positions in the vertices element
         // (we have to create a vertices element with a reference)
-        inputList->push_back ( COLLADASW::Input ( COLLADASW::POSITION, COLLADASW::URI ( EMPTY_STRING, meshId + POSITIONS_SOURCE_ID_SUFFIX ) ) );
+        inputList->push_back ( COLLADASW::Input ( COLLADASW::InputSemantic::POSITION, COLLADASW::URI ( EMPTY_STRING, meshId + POSITIONS_SOURCE_ID_SUFFIX ) ) );
 
         // Push all other vertex sources into the vertices element
         Sources::iterator it = mVertexSources.begin();
@@ -554,7 +554,7 @@ namespace COLLADAMaya
             String sourceId = source.getId();
 
             // Get the type of the current vertex source
-            const COLLADASW::Semantics& type = sourceInput.getType();
+            const COLLADASW::InputSemantic::Semantics& type = sourceInput.getType();
 
             // Push the vertex source to the collada vertices
             inputList->push_back ( COLLADASW::Input ( type, COLLADASW::URI ( EMPTY_STRING, sourceId ) ) );
@@ -626,7 +626,7 @@ namespace COLLADAMaya
 
             texCoordSource.finish();
 
-            mPolygonSources.push_back ( SourceInput ( texCoordSource, COLLADASW::TEXCOORD, realIndex ) );
+            mPolygonSources.push_back ( SourceInput ( texCoordSource, COLLADASW::InputSemantic::TEXCOORD, realIndex ) );
         }
     }
 
@@ -686,7 +686,7 @@ namespace COLLADAMaya
             }
 
             if ( !SourceInput::containsSourceBase ( &mVertexSources, &normalSource ) )
-                mVertexSources.push_back ( SourceInput ( normalSource, COLLADASW::NORMAL ) );
+                mVertexSources.push_back ( SourceInput ( normalSource, COLLADASW::InputSemantic::NORMAL ) );
         }
         else
         {
@@ -694,7 +694,7 @@ namespace COLLADAMaya
             fnMesh.getNormals ( normals, MSpace::kObject );
 
             // Erase the normal source from the list of vertex sources, if it is inside
-            mPolygonSources.push_back ( SourceInput ( normalSource, COLLADASW::NORMAL ) );
+            mPolygonSources.push_back ( SourceInput ( normalSource, COLLADASW::InputSemantic::NORMAL ) );
             SourceInput::eraseSourceBase ( &mVertexSources, &normalSource );
         }
 
@@ -759,7 +759,7 @@ namespace COLLADAMaya
                 texTangentSource.finish();
 
                 // Add input to the mesh polygon's node.
-                mPolygonSources.push_back ( SourceInput ( texTangentSource, COLLADASW::TEXTANGENT, (int) i ) );
+                mPolygonSources.push_back ( SourceInput ( texTangentSource, COLLADASW::InputSemantic::TEXTANGENT, (int) i ) );
             }
 
             // Texture Binormals
@@ -794,7 +794,7 @@ namespace COLLADAMaya
                 texBinormalSource.finish();
 
                 // Add input to the mesh polygon's node.
-                mPolygonSources.push_back ( SourceInput ( texBinormalSource, COLLADASW::TEXBINORMAL, (int) i ) );
+                mPolygonSources.push_back ( SourceInput ( texBinormalSource, COLLADASW::InputSemantic::TEXBINORMAL, (int) i ) );
             }
         }
     }
@@ -840,10 +840,10 @@ namespace COLLADAMaya
                 getPerVertexNormalsTangents ( fnMesh, normals, tangents, binormals );
 
                if ( !SourceInput::containsSourceBase ( &mVertexSources, &tangentSource ) )
-                   mVertexSources.push_back ( SourceInput ( tangentSource, COLLADASW::TANGENT ) );
+                   mVertexSources.push_back ( SourceInput ( tangentSource, COLLADASW::InputSemantic::TANGENT ) );
 
                if ( !SourceInput::containsSourceBase ( &mVertexSources, &binormalSource ) )
-                   mVertexSources.push_back ( SourceInput ( binormalSource, COLLADASW::BINORMAL ) );
+                   mVertexSources.push_back ( SourceInput ( binormalSource, COLLADASW::InputSemantic::BINORMAL ) );
             }
             else
             {
@@ -855,8 +855,8 @@ namespace COLLADAMaya
                 SourceInput::eraseSourceBase ( &mVertexSources, &binormalSource );
 
                 // Push them in the polygon sources list.
-                mPolygonSources.push_back ( SourceInput ( tangentSource, COLLADASW::TANGENT ) );
-                mPolygonSources.push_back ( SourceInput ( binormalSource, COLLADASW::BINORMAL ) );
+                mPolygonSources.push_back ( SourceInput ( tangentSource, COLLADASW::InputSemantic::TANGENT ) );
+                mPolygonSources.push_back ( SourceInput ( binormalSource, COLLADASW::InputSemantic::BINORMAL ) );
             }
 
             // Geo-tangent

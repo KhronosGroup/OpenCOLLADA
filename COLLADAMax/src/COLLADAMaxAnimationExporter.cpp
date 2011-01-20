@@ -2364,22 +2364,22 @@ namespace COLLADAMax
 		{
 			String baseId = getBaseId ( animation );
 
-			LibraryAnimations::Sampler sampler ( baseId + SAMPLER_ID_SUFFIX );
+			LibraryAnimations::Sampler sampler(mSW, baseId + SAMPLER_ID_SUFFIX );
 
 			if ( animation.inputFlagSet(Animation::INPUT) )
-				sampler.addInput ( LibraryAnimations::Sampler::INPUT, "#" + baseId + INPUT_SOURCE_ID_SUFFIX );
+				sampler.addInput ( COLLADASW::InputSemantic::INPUT, "#" + baseId + INPUT_SOURCE_ID_SUFFIX );
 
 			if ( animation.inputFlagSet(Animation::OUTPUT) )
-				sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, "#" + baseId + OUTPUT_SOURCE_ID_SUFFIX );
+				sampler.addInput ( COLLADASW::InputSemantic::OUTPUT, "#" + baseId + OUTPUT_SOURCE_ID_SUFFIX );
 
 			if ( animation.inputFlagSet(Animation::IN_TANGENT) )
-				sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, "#" + baseId + INTANGENT_SOURCE_ID_SUFFIX );
+				sampler.addInput ( COLLADASW::InputSemantic::IN_TANGENT, "#" + baseId + INTANGENT_SOURCE_ID_SUFFIX );
 
 			if ( animation.inputFlagSet(Animation::OUT_TANGENT) )
-				sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, "#" + baseId + OUTTANGENT_SOURCE_ID_SUFFIX );
+				sampler.addInput ( COLLADASW::InputSemantic::OUT_TANGENT, "#" + baseId + OUTTANGENT_SOURCE_ID_SUFFIX );
 
 			if ( animation.inputFlagSet(Animation::INTERPOLATION) )
-				sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, "#" + baseId + INTERPOLATION_SOURCE_ID_SUFFIX );
+				sampler.addInput ( COLLADASW::InputSemantic::INTERPOLATION, "#" + baseId + INTERPOLATION_SOURCE_ID_SUFFIX );
 
 			addSampler ( sampler );
 		}

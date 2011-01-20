@@ -84,7 +84,7 @@ namespace COLLADASW
         void closeGeometry();
 
         /** Returns the suffix string of the given type semantic. */
-        static String getSuffixBySemantic ( Semantics type );
+        static String getSuffixBySemantic ( InputSemantic::Semantics type );
     };
 
 } //namespace COLLADASW

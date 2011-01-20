@@ -38,41 +38,33 @@ namespace COLLADASW
     {}
 
     //---------------------------------------------------------------
-    String LibraryGeometries::getSuffixBySemantic( Semantics type )
+    String LibraryGeometries::getSuffixBySemantic( InputSemantic::Semantics type )
     {
         String suffix;
 
         switch( type )
         {
-
-        case COLLADASW::POSITION:
+        case InputSemantic::POSITION:
             suffix = LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX;
             break;
-
-        case COLLADASW::VERTEX:
+        case InputSemantic::VERTEX:
             suffix = LibraryGeometries::VERTICES_ID_SUFFIX;
             break;
-
-        case COLLADASW::NORMAL:
+        case InputSemantic::NORMAL:
             suffix = LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX;
             break;
-
-        case COLLADASW::TEXCOORD:
+        case InputSemantic::TEXCOORD:
             suffix = LibraryGeometries::TEXCOORDS_SOURCE_ID_SUFFIX;
             break;
-
-        case COLLADASW::COLOR:
+        case InputSemantic::COLOR:
             suffix = LibraryGeometries::COLORS_SOURCE_ID_SUFFIX;
             break;
-
-        case COLLADASW::TANGENT:
+        case InputSemantic::TANGENT:
             suffix = LibraryGeometries::TANGENT_ID_SUFFIX;
             break;
-
-        case COLLADASW::BINORMAL:
+        case InputSemantic::BINORMAL:
             suffix = LibraryGeometries::BINORMAL_ID_SUFFIX;
             break;
-
         default:
             suffix = "unknown";
             break;

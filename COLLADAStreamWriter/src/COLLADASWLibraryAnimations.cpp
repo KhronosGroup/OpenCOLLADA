@@ -123,15 +123,9 @@ namespace COLLADASW
         mSW->openElement ( CSWC::CSW_ELEMENT_SAMPLER );
         mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_ID, sampler.getId() );
 
-        const LibraryAnimations::Sampler::InputList & inputList = sampler.getInputList();
+        const InputList & inputList = sampler.getInputList();
 
-        for ( LibraryAnimations::Sampler::InputList::const_iterator it = inputList.begin(); it<inputList.end(); ++it )
-        {
-            mSW->openElement ( CSWC::CSW_ELEMENT_INPUT );
-            mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_SEMANTIC, Sampler::getElementNameBySemantic ( it->semantic ) );
-            mSW->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_SOURCE, it->source );
-            mSW->closeElement();
-        }
+		inputList.add();
 
         mSW->closeElement();
     }
@@ -146,47 +140,18 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
-    void LibraryAnimations::Sampler::addInput ( Semantic semantic, const URI& source )
+	void LibraryAnimations::Sampler::addInput ( InputSemantic::Semantics semantic, const URI& source )
     {
-        Input input;
-        input.semantic = semantic;
-        input.source = source;
+        Input input(semantic, source);
         mInputList.push_back ( input );
     }
+ 
+	//------------------------------
+	LibraryAnimations::Sampler::Sampler( StreamWriter * streamWriter, const String& id ) 
+		: mId ( id )
+		, mInputList(streamWriter)
+	{
 
-    //---------------------------------------------------------------
-    const String & LibraryAnimations::Sampler::getElementNameBySemantic ( Semantic semantic )
-    {
-        switch ( semantic )
-        {
-
-        case POSITION:
-            return CSWC::CSW_SEMANTIC_POSITION;
-
-        case INTERPOLATION:
-            return CSWC::CSW_SEMANTIC_INTERPOLATION;
-
-        case LINEAR_STEPS:
-            return CSWC::CSW_SEMANTIC_LINEAR_STEPS;
-
-        case INPUT:
-            return CSWC::CSW_SEMANTIC_INPUT;
-
-        case OUTPUT:
-            return CSWC::CSW_SEMANTIC_OUTPUT;
-
-        case IN_TANGENT:
-            return CSWC::CSW_SEMANTIC_IN_TANGENT;
-
-        case OUT_TANGENT:
-            return CSWC::CSW_SEMANTIC_OUT_TANGENT;
-
-        case CONTINUITY:
-            return CSWC::CSW_SEMANTIC_CONTINUITY;
-
-        default:
-            return CSWC::EMPTY_STRING;
-        }
-    }
+	}
 
 } //namespace COLLADASW

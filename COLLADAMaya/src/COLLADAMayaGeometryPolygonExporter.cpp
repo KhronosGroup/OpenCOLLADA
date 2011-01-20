@@ -741,18 +741,18 @@ namespace COLLADAMaya
         {
             const SourceInput param = ( *mPolygonSources ) [p];
             const COLLADASW::SourceBase source = param.getSource();
-            const COLLADASW::Semantics type = param.getType();
+            const COLLADASW::InputSemantic::Semantics type = param.getType();
 
             // Figure out which idx this parameter will use
             int foundIdx = -1;
 
             // For geometric tangents and bi-normals, use the same idx as the normals.
-            if ( type == COLLADASW::TANGENT || type == COLLADASW::BINORMAL )
+            if ( type == COLLADASW::InputSemantic::TANGENT || type == COLLADASW::InputSemantic::BINORMAL )
             {
                 foundIdx = normalsIdx;
             }
             // For texture tangents and bi-normals, group together for each UV set.
-            if ( type == COLLADASW::TEXBINORMAL )
+            if ( type == COLLADASW::InputSemantic::TEXBINORMAL )
             {
                 foundIdx = textureIdx;
             }
@@ -781,12 +781,12 @@ namespace COLLADAMaya
             }
 
             // For geometric tangents and bi-normals, use the same idx as the normals.
-            if ( type == COLLADASW::NORMAL )
+            if ( type == COLLADASW::InputSemantic::NORMAL )
             {
                 normalsIdx = (int)vertexAttributes.size () - 1;
             }
             // For texture tangents and bi-normals, group together for each UV set.
-            if ( type == COLLADASW::TEXTANGENT )
+            if ( type == COLLADASW::InputSemantic::TEXTANGENT )
             {
                 textureIdx = (int)vertexAttributes.size () - 1;
             }
@@ -805,7 +805,7 @@ namespace COLLADAMaya
         {
             const SourceInput param = ( *mPolygonSources ) [p];
             const COLLADASW::SourceBase source = param.getSource();
-            const COLLADASW::Semantics type = param.getType();
+            const COLLADASW::InputSemantic::Semantics type = param.getType();
 
             // Check if the vertex is already registered
             bool isVertexSource = SourceInput::containsSourceBase ( mVertexSources, &source );
@@ -817,13 +817,13 @@ namespace COLLADAMaya
                 String sourceId = source.getId();
 
                 // The vertex sources must reference to the vertexes element
-                if ( type == COLLADASW::VERTEX )
+                if ( type == COLLADASW::InputSemantic::VERTEX )
                 {
                     String suffix = getSuffixBySemantic ( type );
                     sourceId = mMeshId + suffix;
                 }
 
-                if ( type == COLLADASW::TEXCOORD )
+                if ( type == COLLADASW::InputSemantic::TEXCOORD )
                 {
                     // For texture coordinate-related inputs: set the 'set' attribute.
                     if ( param.getIdx () >= 0 )
@@ -831,7 +831,7 @@ namespace COLLADAMaya
                     else
                         inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( EMPTY_STRING, sourceId ), offset++ ) );
                 }
-                else if ( type == COLLADASW::TANGENT || type == COLLADASW::BINORMAL || type == COLLADASW::TEXBINORMAL )
+                else if ( type == COLLADASW::InputSemantic::TANGENT || type == COLLADASW::InputSemantic::BINORMAL || type == COLLADASW::InputSemantic::TEXBINORMAL )
                 {
                     // Tangents and binormals can use the same index than the normals.
                     // Texture binormals can use the index list of texture tangents.
@@ -887,16 +887,16 @@ namespace COLLADAMaya
         for ( size_t kk=0; kk<numAttributes; ++kk )
         {
             const SourceInput& vertexAttributes = polygon->getVertexAttributes()[kk];
-            COLLADASW::Semantics type = vertexAttributes.getType();
+            COLLADASW::InputSemantic::Semantics type = vertexAttributes.getType();
             switch ( vertexAttributes.getType() )
             {
-            case COLLADASW::VERTEX:
-            case COLLADASW::POSITION:
+            case COLLADASW::InputSemantic::VERTEX:
+            case COLLADASW::InputSemantic::POSITION:
                 primitivesBasePoly->appendValues ( vertexIndex );
                 break;
-            case COLLADASW::NORMAL:
-            case COLLADASW::TANGENT:
-            case COLLADASW::BINORMAL:
+            case COLLADASW::InputSemantic::NORMAL:
+            case COLLADASW::InputSemantic::TANGENT:
+            case COLLADASW::InputSemantic::BINORMAL:
                 {
                     if (mHasFaceVertexNormals)
                     {
@@ -914,15 +914,15 @@ namespace COLLADAMaya
                     }
                 }
                 break;
-            case COLLADASW::TEXTANGENT:
-            case COLLADASW::TEXBINORMAL:
+            case COLLADASW::InputSemantic::TEXTANGENT:
+            case COLLADASW::InputSemantic::TEXBINORMAL:
                 {
                     // The texture binormal can use the index of the texture tangent.
                     unsigned int texTangentIndex2 = meshPolygonsIter.tangentIndex ( iteratorVertexIndex );
                     primitivesBasePoly->appendValues ( texTangentIndex2 );
                 }
                 break;
-            case COLLADASW::TEXCOORD:
+            case COLLADASW::InputSemantic::TEXCOORD:
                 {
                     int uvIndex = 0;
                     int idx = vertexAttributes.getIdx();
@@ -930,7 +930,7 @@ namespace COLLADAMaya
                     primitivesBasePoly->appendValues ( uvIndex );
                 }
                 break;
-            case COLLADASW::COLOR:
+            case COLLADASW::InputSemantic::COLOR:
                 {
                     MString& colorSetName = mColorSetNames[vertexAttributes.getIdx()];
                     int colorIndex = 0;
@@ -944,9 +944,9 @@ namespace COLLADAMaya
                     primitivesBasePoly->appendValues ( colorIndex );
                 }
                 break;
-            case COLLADASW::UNKNOWN:
-            case COLLADASW::UV:
-            case COLLADASW::EXTRA:
+            case COLLADASW::InputSemantic::UNKNOWN:
+            case COLLADASW::InputSemantic::UV:
+//            case COLLADASW::EXTRA:
             default:
                 break; // Not exported/supported
             }

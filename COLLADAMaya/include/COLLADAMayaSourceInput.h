@@ -46,12 +46,12 @@ namespace COLLADAMaya
         int mIdx;
 
         /** Type of the source. */
-        COLLADASW::Semantics mType;
+		COLLADASW::InputSemantic::Semantics mType;
 
     public:
 
         /** Constructor */
-        SourceInput ( COLLADASW::SourceBase& source, COLLADASW::Semantics type, int idx = -1 )
+        SourceInput ( COLLADASW::SourceBase& source, COLLADASW::InputSemantic::Semantics type, int idx = -1 )
             : mSource ( source )
             , mType ( type )
             , mIdx ( idx ) 
@@ -77,8 +77,8 @@ namespace COLLADAMaya
         void incrementNumVertexIndices() { ++mNumVertexIndices; }
 
         /** Type of the source. */
-        const COLLADASW::Semantics& getType() const { return mType; }
-        void setType(COLLADASW::Semantics val) { mType = val; }
+        const COLLADASW::InputSemantic::Semantics& getType() const { return mType; }
+        void setType(COLLADASW::InputSemantic::Semantics val) { mType = val; }
 
         /** Index of the current vertex source. */
         const int getIdx() const { return mIdx; }
@@ -90,7 +90,7 @@ namespace COLLADAMaya
         static bool containsSourceBase ( const Sources* sources, const COLLADASW::SourceBase* searchedSourceBase );
 
         /**
-        * Returns true, if the given list contains the given SourceInput and erased sucessful.
+        * Returns true, if the given list contains the given SourceInput and erased successful.
         */
         static bool eraseSourceBase ( Sources* sources, COLLADASW::SourceBase* searchedSourceBase );
     };

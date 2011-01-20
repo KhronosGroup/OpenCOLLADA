@@ -267,14 +267,14 @@ namespace COLLADAMax
 		weightsSource.finish();
 
 		COLLADASW::JointsElement joints(mSW);
-		joints.getInputList().push_back(COLLADASW::Input(COLLADASW::JOINT, "#" + jointsId));
-		joints.getInputList().push_back(COLLADASW::Input(COLLADASW::BINDMATRIX, "#" + inverseBindMatrixId));
+		joints.getInputList().push_back(COLLADASW::Input(COLLADASW::InputSemantic::JOINT, "#" + jointsId));
+		joints.getInputList().push_back(COLLADASW::Input(COLLADASW::InputSemantic::BINDMATRIX, "#" + inverseBindMatrixId));
 		joints.add();
 
 		COLLADASW::VertexWeightsElement vertexWeights(mSW);
-		COLLADASW::Input weightInput(COLLADASW::WEIGHT, "#" + weightsId);
-		vertexWeights.getInputList().push_back(COLLADASW::Input(COLLADASW::JOINT, "#" + jointsId, 0));
-		vertexWeights.getInputList().push_back(COLLADASW::Input(COLLADASW::WEIGHT, "#" + weightsId, 1));
+		COLLADASW::Input weightInput(COLLADASW::InputSemantic::WEIGHT, "#" + weightsId);
+		vertexWeights.getInputList().push_back(COLLADASW::Input(COLLADASW::InputSemantic::JOINT, "#" + jointsId, 0));
+		vertexWeights.getInputList().push_back(COLLADASW::Input(COLLADASW::InputSemantic::WEIGHT, "#" + weightsId, 1));
 		vertexWeights.setCount(vertexCount);
 
 		vertexWeights.prepareToAppendVCountValues();
@@ -422,8 +422,8 @@ namespace COLLADAMax
 
 
 		COLLADASW::TargetsElement targets(mSW);
-		targets.getInputList().push_back(COLLADASW::Input(COLLADASW::MORPH_TARGET, "#" + targetId));
-		targets.getInputList().push_back(COLLADASW::Input(COLLADASW::MORPH_WEIGHT, "#" + weightsId));
+		targets.getInputList().push_back(COLLADASW::Input(COLLADASW::InputSemantic::MORPH_TARGET, "#" + targetId));
+		targets.getInputList().push_back(COLLADASW::Input(COLLADASW::InputSemantic::MORPH_WEIGHT, "#" + weightsId));
 		targets.add();
 
 		closeMorph();
