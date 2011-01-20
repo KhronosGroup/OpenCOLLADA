@@ -36,8 +36,15 @@ namespace G3D
 		--src;
 		size_t len = src - pchURLIn;
 		size_t urlStartStringLen = wcslen(URL_START_STRING);
+		size_t urlStartStringLen2 = wcslen(URL_START_STRING2);
 
-		if (len >=  urlStartStringLen && !_wcsnicmp(pchURLIn, URL_START_STRING , urlStartStringLen))
+		if ( ( ( len >=  urlStartStringLen ) &&  
+			   !_wcsnicmp(pchURLIn, URL_START_STRING , urlStartStringLen) 
+			 ) || 
+			 ( ( len >=  urlStartStringLen2 ) && 
+			   !_wcsnicmp(pchURLIn, URL_START_STRING2 , urlStartStringLen2)
+			 )
+			 )
 		{
 			//	modify URL
 			WideString inString ( pchURLIn );

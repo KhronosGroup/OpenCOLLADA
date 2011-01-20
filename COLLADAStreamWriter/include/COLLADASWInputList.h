@@ -49,11 +49,11 @@ namespace COLLADASW
      This is a type::POINTS specific type.  If the size is 0, a single pixel pt is rendered. */
         POINT_ROTATION, /**< Used to give a billboard orientation.  This is a type::POINTS
       specific type, and is not compulsory */
-        JOINT, /** Used for the skin controller element. */
-        BINDMATRIX, /** Used for the skin controller element. */
-        WEIGHT, /** Used for the skin controller element. */
-        MORPH_TARGET, /** Used for the morph controller element. */
-        MORPH_WEIGHT, /** Used for the morph controller element. */
+        JOINT, /**< Used for the skin controller element. */
+        BINDMATRIX, /**< Used for the skin controller element. */
+        WEIGHT, /**< Used for the skin controller element. */
+        MORPH_TARGET, /**< Used for the morph controller element. */
+        MORPH_WEIGHT, /**< Used for the morph controller element. */
         UNKNOWN = -1 /**< An unknown data source. */
     };
 

@@ -20,7 +20,7 @@
 namespace G3D
 {
 	static const wchar_t* URL_START_STRING = L"skp:getSkp@";
-	static const wchar_t* FILE_PATH = L"C:\\Temp\\test.zip";
+	static const wchar_t* URL_START_STRING2 = L"skp:getKmz@";
 
 	class DocHostUiHandler : public IDocHostUIHandler {
 

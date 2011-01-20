@@ -53,7 +53,8 @@ namespace COLLADAMax
 {
 
 	const char AUTORING_TOOL[] = "authoring_tool";
-	const char GOOGLE_SKETCHUP[] = "Google SketchUp";
+	const char GOOGLE_SKETCHUP6[] = "Google SketchUp 6";
+	const char GOOGLE_SKETCHUP70[] = "Google SketchUp 7.0";
 	const char MICROSTATION[] = "MicroStation";
 
 	//--------------------------------------------------------------------
@@ -251,9 +252,10 @@ namespace COLLADAMax
 			const String& value = valuePair->second;
 			if ( key == AUTORING_TOOL )
 			{
-				int googleSketchUpResult = value.compare(0, sizeof(GOOGLE_SKETCHUP)-1, GOOGLE_SKETCHUP);
+				int googleSketchUpResult6 = value.compare(0, sizeof(GOOGLE_SKETCHUP6)-1, GOOGLE_SKETCHUP6);
+				int googleSketchUpResult70 = value.compare(0, sizeof(GOOGLE_SKETCHUP70)-1, GOOGLE_SKETCHUP70);
 				int microstationResult = value.compare(0, sizeof(MICROSTATION)-1, MICROSTATION);
-				if ( (googleSketchUpResult == 0) || (microstationResult == 0) )
+				if ( (googleSketchUpResult6 == 0) || (microstationResult == 0) || (googleSketchUpResult70 == 0))
 				{
 					mInvertTransparency = true;
 				}
