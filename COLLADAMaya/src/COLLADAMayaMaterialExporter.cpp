@@ -35,6 +35,7 @@
 #include <maya/MFnSet.h>
 #include <maya/MFnMesh.h>
 
+#include <cgfxFindImage.h>
 
 namespace COLLADAMaya
 {
@@ -681,7 +682,7 @@ namespace COLLADAMaya
         cgfxShaderNode* shaderNodeCgfx )
     {
         // Get the filename of the current cgfx file
-        MString shaderFxFile = shaderNodeCgfx->shaderFxFile();
+		MString shaderFxFile = cgfxFindFile(shaderNodeCgfx->shaderFxFile());
         String shaderFxFileName = shaderFxFile.asChar(); // check3d.cgfx
         setShaderFxFileUri ( COLLADASW::URI ( COLLADASW::URI::nativePathToUri ( shaderFxFileName ) ) );
 
