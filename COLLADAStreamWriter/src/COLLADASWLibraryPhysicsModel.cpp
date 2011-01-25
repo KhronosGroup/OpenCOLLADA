@@ -8,7 +8,7 @@ namespace COLLADASW
 
     //---------------------------------------------------------------
     LibraryPhysicsModel::LibraryPhysicsModel ( COLLADASW::StreamWriter *streamWriter )
-		: Library ( streamWriter, CSWC::CSW_ELEMENT_LIBRARY_PHYSICS_MODEL )
+		: Library ( streamWriter, CSWC::CSW_ELEMENT_LIBRARY_PHYSICS_MODELS )
     {}
 
 

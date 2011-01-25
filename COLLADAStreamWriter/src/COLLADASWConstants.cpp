@@ -69,7 +69,7 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_CREATE_2D = "create_2d";
 	const String CSWC::CSW_ELEMENT_CYLINDER = "cylinder";
     const String CSWC::CSW_ELEMENT_DATA = "data";
-	const String CSWC::CSW_ELEMENT_DATA = "density";
+	const String CSWC::CSW_ELEMENT_DENSITY = "density";
     const String CSWC::CSW_ELEMENT_DEPTH_CLEAR = "depth_clear";
     const String CSWC::CSW_ELEMENT_DEPTH_TARGET = "depth_target";
     const String CSWC::CSW_ELEMENT_DIFFUSE = "diffuse";
@@ -126,7 +126,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_LIBRARY_IMAGES = "library_images";
     const String CSWC::CSW_ELEMENT_LIBRARY_LIGHTS = "library_lights";
     const String CSWC::CSW_ELEMENT_LIBRARY_MATERIALS = "library_materials";
-	const String CSWC::CSW_ELEMENT_LIBRARY_PHYSICS_MODEL = "library_physics_model";
+	const String CSWC::CSW_ELEMENT_LIBRARY_PHYSICS_MODELS = "library_physics_models";
 	const String CSWC::CSW_ELEMENT_LIBRARY_PHYSICS_SCENES = "library_physics_scenes";
     const String CSWC::CSW_ELEMENT_LIBRARY_VISUAL_SCENES = "library_visual_scenes";
     const String CSWC::CSW_ELEMENT_LIGHT = "light";

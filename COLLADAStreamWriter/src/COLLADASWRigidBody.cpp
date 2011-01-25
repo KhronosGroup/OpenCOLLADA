@@ -9,15 +9,17 @@ namespace COLLADASW
 	void RigidBody::add()
 	{
 		mSW->openElement ( CSWC::CSW_ELEMENT_RIGID_BODY );
-		if ( !mRigidBodyName.empty() )
-			mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, getBodyName() );
 		if ( !mRigidBodyId.empty() )
 			mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_ID, getBodyId() );
+		
+		if ( !mRigidBodyName.empty() )
+			mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, getBodyName() );
+		
 		
 		mSW->openElement(CSWC::CSW_ELEMENT_TECHNIQUE_COMMON);
 
 		mSW->openElement( CSWC::CSW_ELEMENT_DYNAMIC );
-		mSW->appendValues ( isDynamic() );
+		mSW->appendValues ( (bool)isDynamic() );
         mSW->closeElement(); // COLLADASW_ELEMENT_DYNAMIC
 
 		mSW->openElement( CSWC::CSW_ELEMENT_MASS );

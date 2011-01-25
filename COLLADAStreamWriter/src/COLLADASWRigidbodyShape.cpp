@@ -19,7 +19,7 @@ namespace COLLADASW
 		mSW->openElement ( CSWC::CSW_ELEMENT_SHAPE );
          
 		mSW->openElement ( CSWC::CSW_ELEMENT_HOLLOW );
-		mSW->appendBoolean ( mHollow );
+		mSW->appendValues ( (bool)mHollow );
 		mSW->closeElement();
 
 		mSW->openElement ( CSWC::CSW_ELEMENT_MASS );
@@ -39,3 +39,4 @@ namespace COLLADASW
         mSW->closeElement(); // COLLADASW_ELEMENT_TECHNIQUE_COMMON
         mSW->closeElement(); // COLLADASW_ELEMENT_SHAPE
     }
+}

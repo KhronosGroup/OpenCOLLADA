@@ -24,7 +24,8 @@ namespace COLLADASW
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_ID, getModelId() );
         
         if ( !getModelName().empty() )
-            mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, getModelName() );	}
+            mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, getModelName() );	
+	}
     
 	void PhysicsModel::end()
     {
