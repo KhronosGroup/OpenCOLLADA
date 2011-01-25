@@ -20,6 +20,8 @@ namespace COLLADAFW
     class Scene;
 	class VisualScene;
 	class PhysicsScene;
+	class PhysicsModel;
+	class RigidBody;
 	class Geometry;
 	class LibraryNodes;
 	class Material;
@@ -76,6 +78,10 @@ namespace COLLADAFW
 		/** When this method is called, the writer must write the entire physics scene.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writePhysicsScene ( const PhysicsScene* physicsScene ) = 0;
+
+		/** When this method is called, the writer must write the entire physics scene.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writePhysicsModel ( const PhysicsModel* physicsModel ) = 0;
 
 		/** When this method is called, the writer must handle all nodes contained in the 
 		library nodes.

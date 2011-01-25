@@ -40,7 +40,10 @@ namespace COLLADAFW
 		*/
 		String mName;
 
-
+		 /**
+        * The original object id, if it in the original file format exist. 
+        */
+        String mOriginalId;
 
 	public:
 
@@ -49,9 +52,9 @@ namespace COLLADAFW
 		  ObjectTemplate < COLLADA_TYPE::PHYSICS_SCENE > ( uniqueId ),
           mGravity(0,0,0)
 		  {}
-
+				 	
         /** Destructor. */
-		virtual ~PhysicsScene();
+	    virtual ~PhysicsScene() {};
         
 		//-------TODO-----------
 		///** Returns all Physics models.*/
@@ -77,6 +80,11 @@ namespace COLLADAFW
 
 		/** Sets the name of the scene.*/
 		void setName(const String& name) { mName = name; }
+
+		 /**
+        * The original object id, if it in the original file format exist. 
+        */
+        void setOriginalId ( const String& val ) { mOriginalId = val; }
 
         /** Returns the gravity of the scene.*/
 		Gravity& getGravity() { return mGravity; }
