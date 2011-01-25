@@ -16,6 +16,7 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLLibraryPhysicsScenesLoader.h"
 #include "COLLADASaxFWLPhysicsSceneLoader14.h"
+#include "COLLADASaxFWLIParserImpl14.h"
 
 
 namespace COLLADASaxFWL

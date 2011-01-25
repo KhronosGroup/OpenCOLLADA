@@ -24,53 +24,53 @@ return mLoader->end__physics_scene();
 }
 
 
-bool PhysicsSceneLoader14::begin__instance_force_field( const COLLADASaxFWL14::instance_force_field__AttributeData& attributeData )
-{
-SaxVirtualFunctionTest14(begin__instance_force_field(attributeData));
-COLLADASaxFWL::instance_force_field__AttributeData attrData;
-attrData.present_attributes = 0;
-attrData.sid = attributeData.sid;
-attrData.name = attributeData.name;
-if ( (attributeData.present_attributes & COLLADASaxFWL14::instance_force_field__AttributeData::ATTRIBUTE_URI_PRESENT) == COLLADASaxFWL14::instance_force_field__AttributeData::ATTRIBUTE_URI_PRESENT ) {
-    attrData.url = attributeData.url;
-    attrData.present_attributes |= COLLADASaxFWL::instance_force_field__AttributeData::ATTRIBUTE_URI_PRESENT;
-}
-return mLoader->begin__instance_force_field(attrData);
-}
-
-
-bool PhysicsSceneLoader14::end__instance_force_field()
-{
-SaxVirtualFunctionTest14(end__instance_force_field());
-return mLoader->end__instance_force_field();
-}
-
-
-bool PhysicsSceneLoader14::begin__instance_physics_model( const COLLADASaxFWL14::instance_physics_model__AttributeData& attributeData )
-{
-SaxVirtualFunctionTest14(begin__instance_physics_model(attributeData));
-COLLADASaxFWL::instance_physics_model__AttributeData attrData;
-attrData.present_attributes = 0;
-attrData.sid = attributeData.sid;
-attrData.name = attributeData.name;
-if ( (attributeData.present_attributes & COLLADASaxFWL14::instance_physics_model__AttributeData::ATTRIBUTE_URL_PRESENT) == COLLADASaxFWL14::instance_physics_model__AttributeData::ATTRIBUTE_URL_PRESENT ) {
-    attrData.url = attributeData.url;
-    attrData.present_attributes |= COLLADASaxFWL::instance_physics_model__AttributeData::ATTRIBUTE_URL_PRESENT;
-}
-if ( (attributeData.present_attributes & COLLADASaxFWL14::instance_physics_model__AttributeData::ATTRIBUTE_PARENT_PRESENT) == COLLADASaxFWL14::instance_physics_model__AttributeData::ATTRIBUTE_PARENT_PRESENT ) {
-    attrData.url = attributeData.url;
-    attrData.present_attributes |= COLLADASaxFWL::instance_physics_model__AttributeData::ATTRIBUTE_PARENT_PRESENT;
-}
-return mLoader->begin__instance_physics_model(attrData);
-}
-
-
-bool PhysicsSceneLoader14::end__instance_physics_model()
-{
-SaxVirtualFunctionTest14(end__instance_physics_model());
-return mLoader->end__instance_physics_model();
-}
-
+//bool PhysicsSceneLoader14::begin__instance_force_field( const COLLADASaxFWL14::instance_force_field__AttributeData& attributeData )
+//{
+//SaxVirtualFunctionTest14(begin__instance_force_field(attributeData));
+//COLLADASaxFWL::instance_force_field__AttributeData attrData;
+//attrData.present_attributes = 0;
+//attrData.sid = attributeData.sid;
+//attrData.name = attributeData.name;
+//if ( (attributeData.present_attributes & COLLADASaxFWL14::instance_force_field__AttributeData::ATTRIBUTE_URI_PRESENT) == COLLADASaxFWL14::instance_force_field__AttributeData::ATTRIBUTE_URI_PRESENT ) {
+//    attrData.url = attributeData.url;
+//    attrData.present_attributes |= COLLADASaxFWL::instance_force_field__AttributeData::ATTRIBUTE_URI_PRESENT;
+//}
+//return mLoader->begin__instance_force_field(attrData);
+//}
+//
+//
+//bool PhysicsSceneLoader14::end__instance_force_field()
+//{
+//SaxVirtualFunctionTest14(end__instance_force_field());
+//return mLoader->end__instance_force_field();
+//}
+//
+//
+//bool PhysicsSceneLoader14::begin__instance_physics_model( const COLLADASaxFWL14::instance_physics_model__AttributeData& attributeData )
+//{
+//SaxVirtualFunctionTest14(begin__instance_physics_model(attributeData));
+//COLLADASaxFWL::instance_physics_model__AttributeData attrData;
+//attrData.present_attributes = 0;
+//attrData.sid = attributeData.sid;
+//attrData.name = attributeData.name;
+//if ( (attributeData.present_attributes & COLLADASaxFWL14::instance_physics_model__AttributeData::ATTRIBUTE_URL_PRESENT) == COLLADASaxFWL14::instance_physics_model__AttributeData::ATTRIBUTE_URL_PRESENT ) {
+//    attrData.url = attributeData.url;
+//    attrData.present_attributes |= COLLADASaxFWL::instance_physics_model__AttributeData::ATTRIBUTE_URL_PRESENT;
+//}
+//if ( (attributeData.present_attributes & COLLADASaxFWL14::instance_physics_model__AttributeData::ATTRIBUTE_PARENT_PRESENT) == COLLADASaxFWL14::instance_physics_model__AttributeData::ATTRIBUTE_PARENT_PRESENT ) {
+//    attrData.url = attributeData.url;
+//    attrData.present_attributes |= COLLADASaxFWL::instance_physics_model__AttributeData::ATTRIBUTE_PARENT_PRESENT;
+//}
+//return mLoader->begin__instance_physics_model(attrData);
+//}
+//
+//
+//bool PhysicsSceneLoader14::end__instance_physics_model()
+//{
+//SaxVirtualFunctionTest14(end__instance_physics_model());
+//return mLoader->end__instance_physics_model();
+//}
+//
 
 bool PhysicsSceneLoader14::begin__physics_scene__technique_common()
 {

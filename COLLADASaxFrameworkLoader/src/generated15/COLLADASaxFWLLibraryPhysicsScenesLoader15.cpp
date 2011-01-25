@@ -21,7 +21,7 @@ bool LibraryPhysicsScenesLoader15::begin__physics_scene( const COLLADASaxFWL15::
 {
 SaxVirtualFunctionTest15(begin__physics_scene(attributeData));
 COLLADASaxFWL::physics_scene__AttributeData attrData;
-attrData.present_attributes = 0;
+//attrData.present_attributes = 0;
 attrData.id = attributeData.id;
 attrData.name = attributeData.name;
 return mLoader->begin__physics_scene(attrData);

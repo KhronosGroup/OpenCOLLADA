@@ -15,7 +15,8 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLPhysicsSceneLoader.h"
-#include "COLLADASaxFWLPhysicsModelLoader14.h"
+//#include "COLLADASaxFWLPhysicsModelLoader14.h"
+#include "COLLADASaxFWLIParserImpl14.h"
 
 
 namespace COLLADASaxFWL
@@ -25,27 +26,27 @@ namespace COLLADASaxFWL
 class IFilePartLoader;
 
 
-class PhysicsSceneLoader14 : public PhysicsModelLoader14
+class PhysicsSceneLoader14 : public IParserImpl14 //: public PhysicsModelLoader14
 {
 private:
 PhysicsSceneLoader* mLoader;
 
 public:
 PhysicsSceneLoader14(PhysicsSceneLoader* loader)
- : PhysicsModelLoader14(loader)
- , mLoader(loader)
+ :// PhysicsModelLoader14(loader)
+ mLoader(loader)
 {}
 
 
 virtual bool end__physics_scene();
 
-virtual bool begin__instance_force_field( const COLLADASaxFWL14::instance_force_field__AttributeData& attributeData );
-
-virtual bool end__instance_force_field();
-
-virtual bool begin__instance_physics_model( const COLLADASaxFWL14::instance_physics_model__AttributeData& attributeData );
-
-virtual bool end__instance_physics_model();
+//virtual bool begin__instance_force_field( const COLLADASaxFWL14::instance_force_field__AttributeData& attributeData );
+//
+//virtual bool end__instance_force_field();
+//
+//virtual bool begin__instance_physics_model( const COLLADASaxFWL14::instance_physics_model__AttributeData& attributeData );
+//
+//virtual bool end__instance_physics_model();
 
 virtual bool begin__physics_scene__technique_common();
 
@@ -61,7 +62,7 @@ virtual bool begin__time_step( const COLLADASaxFWL14::time_step__AttributeData& 
 
 virtual bool end__time_step();
 
-virtual bool data__time_step( const float value );
+virtual bool data__time_step( float value );
 
 
 private:
