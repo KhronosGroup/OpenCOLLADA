@@ -54,7 +54,7 @@ namespace COLLADASaxFWL
 
 	//------------------------------
 	bool LibraryPhysicsScenesLoader::end__library_physics_scenes()
-	{
+	{	std::cout << "in end library phys scenes in LPSL::end phys scene \n";
 		moveUpInSidTree();
 		getFileLoader()->addPhysicsScenes(mPhysicsScene);
 		finish();

@@ -63,11 +63,22 @@ namespace COLLADASaxFWL
 		virtual bool begin__physics_scene(const physics_scene__AttributeData& attributeData );
 
 
-		virtual bool begin__instance_physics_model( const instance_physics_model__AttributeData& attributeData ){ return true; }
-		
-		virtual bool end__instance_physics_model(){ return true; }
+		virtual bool begin__instance_force_field( const COLLADASaxFWL14::instance_force_field__AttributeData& attributeData ){return true; }
 
+		virtual bool end__instance_force_field(){return true; }
+
+		virtual bool begin__instance_physics_model( const COLLADASaxFWL14::instance_physics_model__AttributeData& attributeData ){return true; }
+
+		virtual bool end__instance_physics_model(){return true; }
+
+		virtual bool begin__instance_rigid_body( const COLLADASaxFWL14::instance_rigid_body__AttributeData& attributeData ){return true;}
 		
+		virtual bool end__instance_rigid_body(){return true;}
+
+		virtual bool begin__instance_rigid_body__technique_common() { return true; }
+
+		virtual bool end__instance_rigid_body__technique_common(){ return true; }
+
 		virtual bool begin__physics_scene__technique_common() { return true; }
 
 		virtual bool end__physics_scene__technique_common(){ return true; }

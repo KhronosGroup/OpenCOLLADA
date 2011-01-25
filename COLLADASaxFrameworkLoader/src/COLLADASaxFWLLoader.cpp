@@ -19,6 +19,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWPhysicsScene.h"
+#include "COLLADAFWPhysicsModel.h"
 #include "COLLADAFWLibraryNodes.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWEffect.h"
@@ -76,6 +77,9 @@ namespace COLLADASaxFWL
 
 		// delete Physics
 		deleteVectorFW(mPhysicsScenes);
+
+		// delete Physics
+		deleteVectorFW(mPhysicsModels);
 
 		// We do not delete formulas here. They are deleted by the Formulas class
 

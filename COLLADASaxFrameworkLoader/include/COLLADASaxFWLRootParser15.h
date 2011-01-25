@@ -56,8 +56,11 @@ namespace COLLADASaxFWL
         /** Starts loading a library nodes.*/
         virtual bool begin__library_nodes( const COLLADASaxFWL15::library_nodes__AttributeData& attributeData );
 
-		/** Starts loading a library nodes.*/
+		/** Starts loading a library physics scenes.*/
 		virtual bool begin__library_physics_scenes( const COLLADASaxFWL15::library_physics_scenes__AttributeData& attributeData );
+
+		/** Starts loading a library physics models.*/
+		virtual bool begin__library_physics_models( const COLLADASaxFWL15::library_physics_models__AttributeData& attributeData );
 
         /** Starts loading a library materials.*/
         virtual bool begin__library_materials( const COLLADASaxFWL15::library_materials__AttributeData& attributeData );

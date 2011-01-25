@@ -35,7 +35,7 @@ namespace COLLADASaxFWL
 
 	//---------------------------------
 	void PostProcessor::postProcess()
-	{
+	{   std::cout << "in post Porcessor, post processing\n";
 		if ( (getObjectFlags() & Loader::ANIMATION_LIST_FLAG) != 0 )
 		{
 			createMissingAnimationLists();
@@ -47,12 +47,12 @@ namespace COLLADASaxFWL
 		}
 
 		if ( (getObjectFlags() & Loader::LIGHT_FLAG) != 0 )
-		{
+		{   std::cout << "in post Porcessor, writing lights\n";
 			writeLights();
 		}
 
 		if ( (getObjectFlags() & Loader::CAMERA_FLAG) != 0 )
-		{
+		{   std::cout << "in post Porcessor, writing cameras\n";
 			writeCameras();
 		}
 
@@ -63,12 +63,12 @@ namespace COLLADASaxFWL
 		}
 
 		if ( (getObjectFlags() & Loader::VISUAL_SCENES_FLAG) != 0 )
-		{
+		{   std::cout << "in post Porcessor, visual scenes\n";
 			writeVisualScenes();
 		}
 
 		if ( (getObjectFlags() & Loader::LIBRARY_NODES_FLAG) != 0 )
-		{
+		{   std::cout << "in post Porcessor, lib nodes\n";
 			writeLibraryNodes();
 		}
 
@@ -87,7 +87,9 @@ namespace COLLADASaxFWL
 			createAndWriteKinematicsScene();
 		}
         //ToDO Check Flags Physics Flag
+		std::cout << "in post Porcessor, phys stuff\n";
 		writePhysicsScenes();
+		writePhysicsModels();
 
 		writer()->finish();
 	}
@@ -106,7 +108,7 @@ namespace COLLADASaxFWL
 	void PostProcessor::writeLibraryNodes()
 	{
 		for ( size_t i = 0, count = mLibraryNodes.size(); i < count; ++i)
-		{
+		{   std::cout << " writing node \n";
 			COLLADAFW::LibraryNodes *libraryNodes = mLibraryNodes[i];
 			writer()->writeLibraryNodes(libraryNodes);
 		}
@@ -114,11 +116,21 @@ namespace COLLADASaxFWL
 
 	//-----------------------------
 	void PostProcessor::writePhysicsScenes()
-	{
+	{	std::cout << " writing phys scenes \n";
 		for ( size_t i = 0, count = mPhysicsScenes.size(); i < count; ++i)
-		{
+		{	std::cout << " writing phys scene" << i << "\n";
 			COLLADAFW::PhysicsScene *physicsScene = mPhysicsScenes[i];
 			writer()->writePhysicsScene(physicsScene);
+		}
+	}
+
+	//-----------------------------
+	void PostProcessor::writePhysicsModels()
+	{	std::cout << " writing phys models \n";	
+		for ( size_t i = 0, count = mPhysicsModels.size(); i < count; ++i)
+		{	std::cout << " writing phys model" << i << "\n";
+			COLLADAFW::PhysicsModel *physicsModel = mPhysicsModels[i];
+			writer()->writePhysicsModel(physicsModel);
 		}
 	}
 

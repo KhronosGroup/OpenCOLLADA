@@ -70,6 +70,10 @@ namespace COLLADASaxFWL
 		completely been parsed.*/
 		Loader::PhysicsSceneList& mPhysicsScenes;
 
+		/** List of all physics scenes in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		Loader::PhysicsModelList& mPhysicsModels;
+
 		/** List of all library nodes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		Loader::LibraryNodesList& mLibraryNodes;
@@ -163,7 +167,15 @@ namespace COLLADASaxFWL
 
 		/** Adds @a physicsScene to the list of physics scenes. It will be sent to the writer and delete by the
 		file loader.*/
-		void addPhysicsScenes( COLLADAFW::PhysicsScene* physicsScene ) { mPhysicsScenes.push_back(physicsScene); }
+		void addPhysicsScenes( COLLADAFW::PhysicsScene* physicsScene ) { 
+			std::cout << "adding phys scenes in DProc::add phys scene \n";
+			mPhysicsScenes.push_back(physicsScene); }
+
+		/** Adds @a physicsScene to the list of physics scenes. It will be sent to the writer and delete by the
+		file loader.*/
+		void addPhysicsModels( COLLADAFW::PhysicsModel* physicsModel ) { 
+			std::cout << "adding phys models in DProc::add phys model \n";
+			mPhysicsModels.push_back(physicsModel); }
 
 		/** Adds @a libraryNodes to the list of library nodes. It will be sent to the writer and delete by the
 		file loader.*/
@@ -175,7 +187,9 @@ namespace COLLADASaxFWL
 
 		/** Adds @a light to the list of lights. It will be sent to the writer and delete by the
 		file loader.*/
-		void addLight( COLLADAFW::Light* light ) { mLights.push_back(light); }
+		void addLight( COLLADAFW::Light* light ) { 
+			std::cout << "adding light in DProc::add light \n";
+			mLights.push_back(light); }
 
 		/** Adds @a camera to the list of cameras. It will be sent to the writer and delete by the
 		file loader.*/

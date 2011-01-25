@@ -3576,7 +3576,36 @@ namespace COLLADASaxFWL
 		const ParserChar* sid;
     };
     
-    
+    struct physics_model__AttributeData
+	{
+		static const physics_model__AttributeData DEFAULT;
+
+		const ParserChar* id;
+		const ParserChar* name;
+	};
+
+	struct rigid_body__AttributeData
+	{
+		static const rigid_body__AttributeData DEFAULT;
+
+		const ParserChar* id;
+		const ParserChar* sid;
+		const ParserChar* name;
+	};
+
+	struct rigid_body__technique_common__dynamic__AttributeData
+	{
+    static const rigid_body__technique_common__dynamic__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+	};
+
+	struct mass__AttributeData
+	{
+		static const mass__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+	};
 }
 
 #endif // __COLLADASAXFWL_XMLTYPES_H__

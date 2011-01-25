@@ -25,6 +25,7 @@
 #include "COLLADASaxFWLLibraryAnimationsLoader14.h"
 #include "COLLADASaxFWLLibraryControllersLoader14.h"
 #include "COLLADASaxFWLLibraryPhysicsScenesLoader14.h"
+#include "COLLADASaxFWLLibraryPhysicsModelsLoader14.h"
 #include "COLLADASaxFWLMeshLoader14.h"
 #include "COLLADASaxFWLGeometryLoader14.h"
 
@@ -114,7 +115,7 @@ namespace COLLADASaxFWL
 
     //-----------------------------
     bool RootParser14::begin__library_nodes( const COLLADASaxFWL14::library_nodes__AttributeData& attributeData )
-    {
+    {	std::cout << "in begin lib nodes in root loader 14 \n";
         SaxVirtualFunctionTest14(begin__library_nodes(attributeData));
 		beginCommonWithId<LibraryNodesLoader, LibraryNodesLoader14>(attributeData.id);
         return true;
@@ -122,9 +123,16 @@ namespace COLLADASaxFWL
 
 	//-----------------------------
 	bool RootParser14::begin__library_physics_scenes( const COLLADASaxFWL14::library_physics_scenes__AttributeData& attributeData )
-    {
+	{   std::cout << "in begin lib phys scenes in root loader 14 \n"; 
 		SaxVirtualFunctionTest14(begin__library_physics_scenes(attributeData));
 		beginCommonWithId<LibraryPhysicsScenesLoader, LibraryPhysicsScenesLoader14>(attributeData.id);
+        return true;
+    }
+
+	bool RootParser14::begin__library_physics_models( const COLLADASaxFWL14::library_physics_models__AttributeData& attributeData )
+    {	std::cout << "in begin lib phys models in root loader 14 \n";	
+		SaxVirtualFunctionTest14(begin__library_physics_models(attributeData));
+		beginCommonWithId<LibraryPhysicsModelsLoader, LibraryPhysicsModelsLoader14>(attributeData.id);
         return true;
     }
 
@@ -154,7 +162,7 @@ namespace COLLADASaxFWL
 
     //-----------------------------
     bool RootParser14::begin__library_lights( const COLLADASaxFWL14::library_lights__AttributeData& attributeData )
-    {
+    {	std::cout << "begin library lights \n";
         SaxVirtualFunctionTest14(begin__library_lights(attributeData));
 		beginCommonWithId<LibraryLightsLoader, LibraryLightsLoader14>(attributeData.id);
         return true;

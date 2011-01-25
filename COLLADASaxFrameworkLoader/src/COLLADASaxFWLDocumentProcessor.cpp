@@ -28,6 +28,7 @@ namespace COLLADASaxFWL
 		, mIdStringSidTreeNodeMap( colladaLoader->getIdStringSidTreeNodeMap() )
 		, mVisualScenes( colladaLoader->getVisualScenes() )
 		, mPhysicsScenes( colladaLoader->getPhysicsScenes() )
+		, mPhysicsModels( colladaLoader->getPhysicsModels() )
 		, mLibraryNodes( colladaLoader->getLibraryNodes() )
 		, mEffects( colladaLoader->getEffects() )
 		, mLights( colladaLoader->getLights() )

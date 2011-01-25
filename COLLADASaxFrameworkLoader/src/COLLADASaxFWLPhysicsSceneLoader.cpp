@@ -44,7 +44,7 @@ namespace COLLADASaxFWL
 
 	//------------------------------
 	bool PhysicsSceneLoader::beginPhysicsScene( const physics_scene__AttributeData& attributeData)
-	{
+	{	std::cout << "begin phys scene \n";
 		mPhysicsScene = new COLLADAFW::PhysicsScene( getHandlingFilePartLoader()->createUniqueIdFromId(attributeData.id, COLLADAFW::PhysicsScene::ID()));
 
 		if ( attributeData.name )
@@ -62,7 +62,7 @@ namespace COLLADASaxFWL
 	
 	//------------------------------
 	bool PhysicsSceneLoader::endPhysicsScene()
-	{
+	{   std::cout << "end phys scene \n";
 		getHandlingFilePartLoader()->moveUpInSidTree();
 		return true;
 	}
