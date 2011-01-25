@@ -21,7 +21,7 @@ bool LibraryPhysicsModelsLoader15::begin__physics_model( const COLLADASaxFWL15::
 {
 SaxVirtualFunctionTest15(begin__physics_model(attributeData));
 COLLADASaxFWL::physics_model__AttributeData attrData;
-attrData.present_attributes = 0;
+//attrData.present_attributes = 0;
 attrData.id = attributeData.id;
 attrData.name = attributeData.name;
 return mLoader->begin__physics_model(attrData);

@@ -21,7 +21,7 @@ bool PhysicsModelLoader15::begin__physics_model( const COLLADASaxFWL15::physics_
 {
 SaxVirtualFunctionTest15(begin__physics_model(attributeData));
 COLLADASaxFWL::physics_model__AttributeData attrData;
-attrData.present_attributes = 0;
+//attrData.present_attributes = 0;
 attrData.id = attributeData.id;
 attrData.name = attributeData.name;
 return mLoader->begin__physics_model(attrData);
@@ -39,7 +39,7 @@ bool PhysicsModelLoader15::begin__rigid_body( const COLLADASaxFWL15::rigid_body_
 {
 SaxVirtualFunctionTest15(begin__rigid_body(attributeData));
 COLLADASaxFWL::rigid_body__AttributeData attrData;
-attrData.present_attributes = 0;
+//attrData.present_attributes = 0;
 attrData.id = attributeData.id;
 attrData.name = attributeData.name;
 attrData.sid = attributeData.sid;
@@ -71,8 +71,8 @@ return mLoader->end__rigid_body__technique_common();
 bool PhysicsModelLoader15::begin__rigid_body__technique_common__dynamic( const COLLADASaxFWL15::rigid_body__technique_common__dynamic__AttributeData& attributeData )
 {
 SaxVirtualFunctionTest15(begin__rigid_body__technique_common__dynamic(attributeData));
-COLLADASaxFWL::rigid_body__AttributeData attrData;
-attrData.present_attributes = 0;
+COLLADASaxFWL::rigid_body__technique_common__dynamic__AttributeData attrData;
+//attrData.present_attributes = 0;
 attrData.sid = attributeData.sid;
 return mLoader->begin__rigid_body__technique_common__dynamic(attrData);
 }
@@ -85,7 +85,7 @@ return mLoader->end__rigid_body__technique_common__dynamic();
 }
 
 
-bool PhysicsModelLoader15::data__rigid_body__technique_common__dynamic( const bool value )
+bool PhysicsModelLoader15::data__rigid_body__technique_common__dynamic( bool value )
 {
 SaxVirtualFunctionTest15(data__rigid_body__technique_common__dynamic(value));
 return mLoader->data__rigid_body__technique_common__dynamic(value);
@@ -108,13 +108,13 @@ return mLoader->end__mass();
 }
 
 
-bool PhysicsModelLoader15::data__mass( const float value )
+bool PhysicsModelLoader15::data__mass( float value )
 {
 SaxVirtualFunctionTest15(data__mass(value));
 return mLoader->data__mass(value);
 }
 
-
+/*
 bool PhysicsModelLoader15::begin__rigid_body__technique_common__mass_frame()
 {
 SaxVirtualFunctionTest15(begin__rigid_body__technique_common__mass_frame());
@@ -1035,5 +1035,5 @@ return mLoader->end__instanc_rigid_constraint();
 }
 
 
-
+*/
 }
