@@ -18,6 +18,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADABUURI.h"
 
 #include "COLLADAFWVisualScene.h"
+#include "COLLADAFWPhysicsScene.h"
 #include "COLLADAFWLibraryNodes.h"
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWEffect.h"
@@ -72,6 +73,9 @@ namespace COLLADASaxFWL
 
 		// delete cameras
 		deleteVectorFW(mCameras);
+
+		// delete Physics
+		deleteVectorFW(mPhysicsScenes);
 
 		// We do not delete formulas here. They are deleted by the Formulas class
 
@@ -187,7 +191,7 @@ namespace COLLADASaxFWL
 
 	//---------------------------------
 	bool Loader::loadDocument( const String& fileName, COLLADAFW::IWriter* writer )
-	{
+	{	
 		if ( !writer )
 			return false;
 		mWriter = writer;

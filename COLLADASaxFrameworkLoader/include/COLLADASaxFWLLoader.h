@@ -34,6 +34,7 @@ namespace COLLADAFW
 {
 	class IWriter;
 	class VisualScene;
+	class PhysicsScene;
 	class LibraryNodes;
 	class Effect;
 	class Light;
@@ -87,8 +88,9 @@ namespace COLLADASaxFWL
 			CONTROLLER_FLAG            = 1<<13,
 			FORMULA_FLAG               = 1<<14,
 			KINEMATICS_FLAG            = 1<<15,
+			PHYSICS_FLAG	           = 1<<16, 
 
-			ALL_OBJECTS_MASK           = (1<<16) - 1,
+			ALL_OBJECTS_MASK           = (1<<17) - 1,
 		};
 
 	public:
@@ -107,6 +109,9 @@ namespace COLLADASaxFWL
 
 		/** List of visual scenes.*/
 		typedef std::vector<COLLADAFW::VisualScene*> VisualSceneList;
+
+		/** List of physics scenes.*/
+		typedef std::vector<COLLADAFW::PhysicsScene*> PhysicsSceneList;
 
 		/** List of library nodes.*/
 		typedef std::vector<COLLADAFW::LibraryNodes*> LibraryNodesList;
@@ -240,6 +245,10 @@ namespace COLLADASaxFWL
 		/** List of all visual scenes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		VisualSceneList mVisualScenes;
+
+		/** List of all visual scenes in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		PhysicsSceneList mPhysicsScenes;
 
 		/** List of all library nodes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
@@ -403,6 +412,10 @@ namespace COLLADASaxFWL
 		/** List of all visual scenes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		VisualSceneList& getVisualScenes() { return mVisualScenes; }
+		
+		/** List of all physics scenes in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		PhysicsSceneList& getPhysicsScenes() { return mPhysicsScenes; }
 
 		/** List of all library nodes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/

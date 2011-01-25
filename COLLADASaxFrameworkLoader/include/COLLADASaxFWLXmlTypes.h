@@ -3537,7 +3537,46 @@ namespace COLLADASaxFWL
 		const ParserChar* node;
 	};
 
+	//-------------------------------Physics----------------------------------------------------
+	struct physics_scene__AttributeData
+	{
+		static const physics_scene__AttributeData DEFAULT;
 
+		const ParserChar* id;
+		const ParserChar* name;
+	};
+
+	
+	struct instance_physics_model__AttributeData
+	{
+		static const instance_physics_model__AttributeData DEFAULT;
+
+		static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+		static const uint32 ATTRIBUTE_PARENT_PRESENT = 0x2;
+
+		uint32 present_attributes;
+
+		COLLADABU::URI url;
+		const ParserChar* sid;
+		const ParserChar* name;
+		COLLADABU::URI parent;
+	};
+    
+	struct gravity__AttributeData
+    {
+        static const gravity__AttributeData DEFAULT;
+
+	    const ParserChar* sid;
+	};
+
+	struct time_step__AttributeData
+    {
+        static const time_step__AttributeData DEFAULT;
+
+		const ParserChar* sid;
+    };
+    
+    
 }
 
 #endif // __COLLADASAXFWL_XMLTYPES_H__

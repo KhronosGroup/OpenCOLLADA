@@ -66,6 +66,10 @@ namespace COLLADASaxFWL
 		completely been parsed.*/
 		Loader::VisualSceneList& mVisualScenes;
 
+		/** List of all physics scenes in the file. They are send to the writer and deleted, when the file has 
+		completely been parsed.*/
+		Loader::PhysicsSceneList& mPhysicsScenes;
+
 		/** List of all library nodes in the file. They are send to the writer and deleted, when the file has 
 		completely been parsed.*/
 		Loader::LibraryNodesList& mLibraryNodes;
@@ -156,6 +160,10 @@ namespace COLLADASaxFWL
 		/** Adds @a visualScene to the list of visual scenes. It will be sent to the writer and delete by the
 		file loader.*/
 		void addVisualScene( COLLADAFW::VisualScene* visualScene ) { mVisualScenes.push_back(visualScene); }
+
+		/** Adds @a physicsScene to the list of physics scenes. It will be sent to the writer and delete by the
+		file loader.*/
+		void addPhysicsScenes( COLLADAFW::PhysicsScene* physicsScene ) { mPhysicsScenes.push_back(physicsScene); }
 
 		/** Adds @a libraryNodes to the list of library nodes. It will be sent to the writer and delete by the
 		file loader.*/

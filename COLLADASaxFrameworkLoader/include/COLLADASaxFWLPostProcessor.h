@@ -65,6 +65,9 @@ namespace COLLADASaxFWL
 		/** Writes all the library nodes.*/
 		void writeLibraryNodes();
 
+		/** Writes all the library physics Scenes.*/
+		void writePhysicsScenes();
+
 		/** Writes all the effects.*/
 		void writeEffects();
 

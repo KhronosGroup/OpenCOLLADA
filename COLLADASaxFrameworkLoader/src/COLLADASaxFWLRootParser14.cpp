@@ -24,6 +24,7 @@
 #include "COLLADASaxFWLLibraryLightsLoader14.h"
 #include "COLLADASaxFWLLibraryAnimationsLoader14.h"
 #include "COLLADASaxFWLLibraryControllersLoader14.h"
+#include "COLLADASaxFWLLibraryPhysicsScenesLoader14.h"
 #include "COLLADASaxFWLMeshLoader14.h"
 #include "COLLADASaxFWLGeometryLoader14.h"
 
@@ -116,6 +117,14 @@ namespace COLLADASaxFWL
     {
         SaxVirtualFunctionTest14(begin__library_nodes(attributeData));
 		beginCommonWithId<LibraryNodesLoader, LibraryNodesLoader14>(attributeData.id);
+        return true;
+    }
+
+	//-----------------------------
+	bool RootParser14::begin__library_physics_scenes( const COLLADASaxFWL14::library_physics_scenes__AttributeData& attributeData )
+    {
+		SaxVirtualFunctionTest14(begin__library_physics_scenes(attributeData));
+		beginCommonWithId<LibraryPhysicsScenesLoader, LibraryPhysicsScenesLoader14>(attributeData.id);
         return true;
     }
 

@@ -86,6 +86,8 @@ namespace COLLADASaxFWL
 		{
 			createAndWriteKinematicsScene();
 		}
+        //ToDO Check Flags Physics Flag
+		writePhysicsScenes();
 
 		writer()->finish();
 	}
@@ -107,6 +109,16 @@ namespace COLLADASaxFWL
 		{
 			COLLADAFW::LibraryNodes *libraryNodes = mLibraryNodes[i];
 			writer()->writeLibraryNodes(libraryNodes);
+		}
+	}
+
+	//-----------------------------
+	void PostProcessor::writePhysicsScenes()
+	{
+		for ( size_t i = 0, count = mPhysicsScenes.size(); i < count; ++i)
+		{
+			COLLADAFW::PhysicsScene *physicsScene = mPhysicsScenes[i];
+			writer()->writePhysicsScene(physicsScene);
 		}
 	}
 
