@@ -21,7 +21,7 @@ namespace COLLADAFW
 	}
 
 	bool Root::loadDocument( const String& fileName )
-	{
+	{   
 		if ( !mLoader || !mWriter )
 			return false;
 		return mLoader->loadDocument(fileName, mWriter); 
