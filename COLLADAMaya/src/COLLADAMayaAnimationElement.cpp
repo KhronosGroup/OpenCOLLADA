@@ -101,7 +101,7 @@ namespace COLLADAMaya
             ( ( mSampleType & kQualifiedAngle ) == kQualifiedAngle ) )
             return 1;
 
-        std::cerr << "Unknown sampleType: " << mSampleType << endl;
+        std::cerr << "Unknown sampleType: " << mSampleType << std::endl;
 
         return 0;
     }

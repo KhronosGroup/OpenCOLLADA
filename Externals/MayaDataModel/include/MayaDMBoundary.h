@@ -24,10 +24,10 @@ public:
 		:BoundaryBase(file, name, parent, "boundary", shared, create){}
 	virtual ~Boundary(){}
 
-	void setOrder(bool or)
+	void setOrder(bool _or)
 	{
-		if(or == true) return;
-		fprintf(mFile,"\tsetAttr \".or\" %i;\n", or);
+		if(_or == true) return;
+		fprintf(mFile,"\tsetAttr \".or\" %i;\n", _or);
 	}
 	void setEndPoint(bool ep)
 	{

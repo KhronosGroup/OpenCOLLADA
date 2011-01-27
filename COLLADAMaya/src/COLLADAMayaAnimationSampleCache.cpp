@@ -67,7 +67,7 @@ namespace COLLADAMaya
         }
         else
         {
-            std::cerr << "Unsupported sampling type: " << node.apiTypeStr() << endl;
+            std::cerr << "Unsupported sampling type: " << node.apiTypeStr() << std::endl;
         }
     }
 

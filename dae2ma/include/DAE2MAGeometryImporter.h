@@ -798,7 +798,7 @@ namespace DAE2MA
          * @param meshNode
          * @return void
          */
-        void GeometryImporter::writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
+        void writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
     };
 
 }

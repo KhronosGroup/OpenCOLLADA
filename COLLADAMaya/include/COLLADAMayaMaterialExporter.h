@@ -27,7 +27,7 @@
 
 #include "COLLADABUIDList.h"
 
-#include "cgfxAttrDef.h"
+#include <cgfxAttrDef.h>
 
 #include <maya/MObject.h>
 

@@ -355,7 +355,7 @@ namespace COLLADAMaya
     T* BaseAnimationCurve<T>::getKey ( size_t index ) const
     {
         if ( mKeys.size() < index )
-            std::cerr << "Key index not valid! "  + index << endl;
+            std::cerr << "Key index not valid! "  + index << std::endl;
 
         return mKeys[index];
     }
@@ -400,7 +400,7 @@ namespace COLLADAMaya
     {
         if ( currentKey == NULL )
         {
-            std::cerr << "Current key is null!" << endl;
+            std::cerr << "Current key is null!" << std::endl;
             return;
         }
 

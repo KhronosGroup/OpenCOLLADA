@@ -252,7 +252,7 @@ int main(int argc,char** argv)
 
         // Display some closing information.
         endClock = clock();
-        cout << "Time to import file \"" << inFileName << "\": " << endClock - startClock << " ms" << endl;
+		std::cout << "Time to import file \"" << inFileName << "\": " << endClock - startClock << " ms" << std::endl;
     }
     else
     {

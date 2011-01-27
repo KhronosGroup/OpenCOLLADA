@@ -308,9 +308,9 @@ namespace COLLADAMaya
         // Display some closing information.
         endClock = clock();
         std::ostringstream stream; 
-        stream << "Time to export into file \"" << filename << "\": " << endClock - startClock << endl;
+        stream << "Time to export into file \"" << filename << "\": " << endClock - startClock << std::endl;
         MString message( stream.str().c_str() );
-        std::cerr << message << endl;
+        std::cerr << message << std::endl;
 
         return status;
     }
@@ -421,9 +421,9 @@ namespace COLLADAMaya
         endClock = clock();
 
         std::ostringstream stream; 
-        stream << "Time to import into file \"" << mayaAsciiFileName << "\": " << endClock - startClock << endl;
+        stream << "Time to import into file \"" << mayaAsciiFileName << "\": " << endClock - startClock << std::endl;
         String message( stream.str() );
-        std::cerr << message << endl;
+        std::cerr << message << std::endl;
 
         // TODO Open the maya ascii file in the maya instance
         MFileIO::importFile ( mayaAsciiFileName.c_str () );

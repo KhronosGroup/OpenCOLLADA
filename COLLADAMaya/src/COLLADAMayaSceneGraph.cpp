@@ -105,7 +105,7 @@ namespace COLLADAMaya
             // Grab the selected DAG components
             if ( MStatus::kFailure == MGlobal::getActiveSelectionList ( mTargets ) )
             {
-                std::cerr << "MGlobal::getActiveSelectionList" << endl;
+                std::cerr << "MGlobal::getActiveSelectionList" << std::endl;
                 return false;
             }
 

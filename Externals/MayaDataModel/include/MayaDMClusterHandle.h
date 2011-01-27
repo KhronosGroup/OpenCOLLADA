@@ -29,10 +29,10 @@ public:
 		:Shape(file, name, parent, "clusterHandle", shared, create){}
 	virtual ~ClusterHandle(){}
 
-	void setOrigin(const double3& or)
+	void setOrigin(const double3& _or)
 	{
 		fprintf(mFile,"\tsetAttr \".or\" -type \"double3\" ");
-		or.write(mFile);
+		_or.write(mFile);
 		fprintf(mFile,";\n");
 	}
 	void setOriginX(double ox)

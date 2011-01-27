@@ -37,7 +37,7 @@ class MGLFunctionTable;
 #include <string>
 #include <iostream>
 #include <map>
-#include <hash_map>
+//#include <hash_map>
 
 // Maya SDK
 #include <maya/MBoundingBox.h>

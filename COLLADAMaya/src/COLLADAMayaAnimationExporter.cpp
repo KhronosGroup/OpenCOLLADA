@@ -331,7 +331,7 @@ namespace COLLADAMaya
             size_t multiCurvesSize = multiCurves.size();
             if ( index >= multiCurvesSize ) 
             {
-                std::cerr << "Wrong curve index!" << endl; 
+                std::cerr << "Wrong curve index!" << std::endl; 
                 return NULL; 
             }
             else multiCurves[index] = curve;
@@ -1827,7 +1827,7 @@ namespace COLLADAMaya
                 curveType == MFnAnimCurve::kAnimCurveUnknown )
         {
             // Unsupported curve types.
-            std::cerr << "Animation curve type not supported! " << curveType << endl;
+            std::cerr << "Animation curve type not supported! " << curveType << std::endl;
             return NULL;
         }
 

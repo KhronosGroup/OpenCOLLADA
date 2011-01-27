@@ -352,7 +352,7 @@ namespace COLLADAMaya
                             MPlug targetComponentListPlug = DagHelper::getChildPlug( inputTargetInput, ATTR_INPUT_COMPONENT_TARGET ); // "inputComponentTarget"
                             if (inputTargetInput.attribute().isNull()) continue;
 
-                            std::cerr << "'exportMorphTarget' not implemented!" << endl;
+                            std::cerr << "'exportMorphTarget' not implemented!" << std::endl;
                             continue;
                             // We have a dangling geometry: create a FCDGeometry and fill it with the vertex positions.
 //                            blendShapeTargetId = exportMorphTarget(targetVertexListPlug, targetComponentListPlug, currentIndex, baseMesh);
