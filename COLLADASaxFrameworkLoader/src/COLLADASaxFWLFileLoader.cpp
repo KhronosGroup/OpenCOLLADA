@@ -103,14 +103,14 @@ namespace COLLADASaxFWL
 	//-----------------------------
     void FileLoader::setParser( COLLADASaxFWL14::ColladaParserAutoGen14* parserToBeSet )
 	{
-        assert(mPrivateParser14);
+		COLLADABU_ASSERT(mPrivateParser14);
         mPrivateParser14->setCallbackObject(parserToBeSet);
 	}
 
     //-----------------------------
     void FileLoader::setParser( COLLADASaxFWL15::ColladaParserAutoGen15* parserToBeSet )
     {
-        assert(mPrivateParser15);
+		COLLADABU_ASSERT(mPrivateParser15);
         mPrivateParser15->setCallbackObject(parserToBeSet);
     }
 

@@ -205,7 +205,7 @@ namespace COLLADABU
             */
             inline const Real *const operator [] ( size_t iRow ) const
             {
-                assert( iRow < 4 );
+                COLLADABU_ASSERT( iRow < 4 );
                 return m[ iRow ];
             }
 

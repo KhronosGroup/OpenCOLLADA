@@ -599,10 +599,10 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	MathML::AST::INode* FormulasLoader::createUserDefinedFunctionOperation( const NodeVector& nodes )
 	{
-		assert(!nodes.empty());
+		COLLADABU_ASSERT(!nodes.empty());
 		MathML::AST::INode* firstNode = nodes.front();
 
-		assert( firstNode->getNodeType() == MathML::AST::INode::USERDEFINED);
+		COLLADABU_ASSERT( firstNode->getNodeType() == MathML::AST::INode::USERDEFINED);
 		COLLADACsymbol* csymbol = (COLLADACsymbol*)firstNode;
 		size_t nodesCount = nodes.size();
 		if ( nodesCount > 1)

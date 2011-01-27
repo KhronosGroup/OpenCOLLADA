@@ -826,12 +826,12 @@ namespace COLLADAMaya
         plug.getValue ( obj );
 
         MStatus status = plug.getValue ( obj );
-        assert ( status );
+		COLLADABU_ASSERT ( status );
         MFnNumericData data ( obj );
 
         double x, y, z;
         status = data.getData ( x, y, z );
-        assert ( status );
+		COLLADABU_ASSERT ( status );
         value = MVector ( x,y,z );
 
         return true;

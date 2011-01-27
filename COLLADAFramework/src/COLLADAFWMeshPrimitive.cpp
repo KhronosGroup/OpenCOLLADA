@@ -145,7 +145,7 @@ namespace COLLADAFW
             break;
         default:
             std::cerr << "Primitive type not supported: " << primitiveType << std::endl;
-            assert ( "Primitive type not supported: " + primitiveType );
+			COLLADABU_ASSERT ( "Primitive type not supported: " + primitiveType );
             return 0;
         }
 

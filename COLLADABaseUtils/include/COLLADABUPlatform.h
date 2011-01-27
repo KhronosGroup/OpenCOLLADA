@@ -31,5 +31,21 @@
 #  define COLLADABU_OS_WIN
 #endif
 
+// from ogre OgrePlatform.h
+// Win32 compilers use _DEBUG for specifying debug builds.
+// Unlike the Win32 compilers, Linux compilers seem to use DEBUG for when
+// specifying a debug build.
+// (??? this is wrong, on Linux debug builds aren't marked in any way unless
+// you mark it yourself any way you like it -- zap ???)
+#if defined(_DEBUG) || defined(DEBUG)
+#     define COLLADABU_DEBUG 
+#endif
+
+#if defined(COLLADABU_DEBUG)
+#	define COLLADABU_ASSERT(cond) assert(cond);
+#else
+#	define COLLADABU_ASSERT(cond) 
+#endif
+
 
 #endif //__COLLADABU_PLATTFORM_H__

@@ -65,7 +65,7 @@ namespace COLLADASaxFWL
 	//---------------------------------
 	void DocumentProcessor::moveUpInSidTree()
 	{
-		assert(mCurrentSidTreeNode);
+		COLLADABU_ASSERT(mCurrentSidTreeNode);
 		mCurrentSidTreeNode = mCurrentSidTreeNode->getParent();
 	}
 

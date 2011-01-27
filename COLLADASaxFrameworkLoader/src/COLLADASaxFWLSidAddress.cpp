@@ -135,7 +135,7 @@ namespace COLLADASaxFWL
 			// this matches only, if the name accessor is present. Therefor there are exactly two matches 
 			int idOrSidStart = accessorNameMatches[2*1];
 			int idOrSidEnd = accessorNameMatches[2*1+1];
-			assert( idOrSidStart >= 0 );
+			COLLADABU_ASSERT( idOrSidStart >= 0 );
 			if ( idOrSidStart >= 0 )
 			{
 				if ( hasId )
@@ -152,7 +152,7 @@ namespace COLLADASaxFWL
 
 			int& nameStart = accessorNameMatches[2*2];
 			int& nameEnd = accessorNameMatches[2*2+1];
-			assert(nameStart>=0);
+			COLLADABU_ASSERT(nameStart>=0);
 			if ( nameStart>=0 )
 			{
 				mMemberSelectionName.assign(secondPart + nameStart, nameEnd - nameStart);
@@ -186,7 +186,7 @@ namespace COLLADASaxFWL
 				// the first match is id or sid
 				int& idOrSidStart = accessorIndexMatches[2*1];
 				int& idOrSidEnd = accessorIndexMatches[2*1+1];
-				assert( idOrSidStart >= 0 );
+				COLLADABU_ASSERT( idOrSidStart >= 0 );
 
 				if ( idOrSidStart >= 0 )
 				{

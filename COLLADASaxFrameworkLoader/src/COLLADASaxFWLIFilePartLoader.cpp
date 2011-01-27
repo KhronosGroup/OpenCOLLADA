@@ -49,7 +49,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueId( const String& uriString, COLLADAFW::ClassId classId )
 	{
-		assert( getColladaLoader() );
+		COLLADABU_ASSERT( getColladaLoader() );
 
 		COLLADABU::URI uri(getFileUri(), uriString);
 
@@ -59,7 +59,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdByUrl( const String& uriString)
 	{
-		assert( getColladaLoader() );
+		COLLADABU_ASSERT( getColladaLoader() );
 
 		COLLADABU::URI uri(getFileUri(), uriString);
 
@@ -69,7 +69,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	COLLADAFW::UniqueId IFilePartLoader::createUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId )
 	{
-		assert( getColladaLoader() );
+		COLLADABU_ASSERT( getColladaLoader() );
 
 		if ( !colladaId || !(*colladaId) )
 			return createUniqueId(classId);
@@ -83,7 +83,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdById( const ParserChar* colladaId )
 	{
-		assert( getColladaLoader() );
+		COLLADABU_ASSERT( getColladaLoader() );
 
 		if ( !colladaId || !(*colladaId) )
 			return COLLADAFW::UniqueId::INVALID;
@@ -97,7 +97,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId )
 	{
-		assert( getColladaLoader() );
+		COLLADABU_ASSERT( getColladaLoader() );
 		if ( !url || !(*url) )
 			return COLLADAFW::UniqueId::INVALID;
 
@@ -109,7 +109,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::createUniqueIdFromUrl( const COLLADABU::URI& url, COLLADAFW::ClassId classId, bool isAbsolute  )
 	{
-		assert( getColladaLoader() );
+		COLLADABU_ASSERT( getColladaLoader() );
 
 		if ( isAbsolute )
 		{
@@ -126,7 +126,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdByUrl( const COLLADABU::URI& url, bool isAbsolute )
 	{
-		assert( getColladaLoader() );
+		COLLADABU_ASSERT( getColladaLoader() );
 		
 		if ( isAbsolute )
 		{
@@ -144,7 +144,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	COLLADAFW::UniqueId IFilePartLoader::createUniqueId( COLLADAFW::ClassId classId )
 	{
-		assert( getColladaLoader() );
+		COLLADABU_ASSERT( getColladaLoader() );
 		return getColladaLoader()->getUniqueId(classId);
 	}
 
@@ -161,7 +161,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	void IFilePartLoader::setMeAsParser()
 	{
-        assert(mParserImpl);
+        COLLADABU_ASSERT(mParserImpl);
         switch ( mParserImpl->getCOLLADAVersion() )
         {
         case COLLADA_14:
@@ -183,14 +183,14 @@ namespace COLLADASaxFWL
 	//------------------------------
 	GeometryMaterialIdInfo& IFilePartLoader::getMeshMaterialIdInfo( )
 	{
-		assert(getColladaLoader());
+		COLLADABU_ASSERT(getColladaLoader());
 		return getColladaLoader()->getMeshMaterialIdInfo();
 	}
 
 	//------------------------------
 	COLLADAFW::TextureMapId IFilePartLoader::getTextureMapIdBySematic( const String& semantic )
 	{
-		assert( getColladaLoader() );
+		COLLADABU_ASSERT( getColladaLoader() );
 		return getColladaLoader()->getTextureMapIdBySematic(semantic);
 	}
 

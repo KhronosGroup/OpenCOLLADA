@@ -33,12 +33,12 @@ struct short2
 	}
 	short operator[](size_t i) const
 	{
-		assert( i < 2 );
+		COLLADABU_ASSERT( i < 2 );
 		return values[i];
 	}
 	short& operator[](size_t i)
 	{
-		assert( i < 2 );
+		COLLADABU_ASSERT( i < 2 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -67,12 +67,12 @@ struct short3
 	short values[3];
 	short operator[](size_t i) const
 	{
-		assert( i < 3 );
+		COLLADABU_ASSERT( i < 3 );
 		return values[i];
 	}
 	short& operator[](size_t i)
 	{
-		assert( i < 3 );
+		COLLADABU_ASSERT( i < 3 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -108,12 +108,12 @@ struct long2
 	}
 	int operator[](size_t i) const
 	{
-		assert( i < 2 );
+		COLLADABU_ASSERT( i < 2 );
 		return values[i];
 	}
 	int& operator[](size_t i)
 	{
-		assert( i < 2 );
+		COLLADABU_ASSERT( i < 2 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -148,12 +148,12 @@ struct long3
 	}
 	int operator[](size_t i) const
 	{
-		assert( i < 3 );
+		COLLADABU_ASSERT( i < 3 );
 		return values[i];
 	}
 	int& operator[](size_t i)
 	{
-		assert( i < 3 );
+		COLLADABU_ASSERT( i < 3 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -186,12 +186,12 @@ struct int32Array
 
 	int operator[](size_t i) const
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	int& operator[](size_t i)
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -222,12 +222,12 @@ struct float2
 	}
 	float operator[](size_t i) const
 	{
-		assert( i < 2 );
+		COLLADABU_ASSERT( i < 2 );
 		return values[i];
 	}
 	float& operator[](size_t i)
 	{
-		assert( i < 2 );
+		COLLADABU_ASSERT( i < 2 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -262,12 +262,12 @@ struct float3
 	}
 	float operator[](size_t i) const
 	{
-		assert( i < 3 );
+		COLLADABU_ASSERT( i < 3 );
 		return values[i];
 	}
 	float& operator[](size_t i)
 	{
-		assert( i < 3 );
+		COLLADABU_ASSERT( i < 3 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -303,12 +303,12 @@ struct double2
 	}
 	double operator[](size_t i) const
 	{
-		assert( i < 2 );
+		COLLADABU_ASSERT( i < 2 );
 		return values[i];
 	}
 	double& operator[](size_t i)
 	{
-		assert( i < 2 );
+		COLLADABU_ASSERT( i < 2 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -343,12 +343,12 @@ struct double3
 	}
 	double operator[](size_t i) const
 	{
-		assert( i < 3 );
+		COLLADABU_ASSERT( i < 3 );
 		return values[i];
 	}
 	double& operator[](size_t i)
 	{
-		assert( i < 3 );
+		COLLADABU_ASSERT( i < 3 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -389,12 +389,12 @@ struct double4
 	double values[4];
 	double operator[](size_t i) const
 	{
-		assert( i < 4 );
+		COLLADABU_ASSERT( i < 4 );
 		return values[i];
 	}
 	double& operator[](size_t i)
 	{
-		assert( i < 4 );
+		COLLADABU_ASSERT( i < 4 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -432,12 +432,12 @@ struct doubleArray
 
 	double operator[](size_t i) const
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	double& operator[](size_t i)
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -551,7 +551,7 @@ struct matrix
 	// member access, allows use of construct mat[r][c]
 	inline double* operator[] ( size_t iRow ) const
 	{
-		assert(iRow < 4);
+		COLLADABU_ASSERT(iRow < 4);
 		return ( double* ) m[ iRow ];
 	}
 
@@ -607,12 +607,12 @@ struct pointArray
 	~pointArray(){delete [] values;}
 	point operator[](size_t i) const
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	point& operator[](size_t i)
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -649,12 +649,12 @@ struct vectorArray
 	~vectorArray(){delete [] values;}
 	vector operator[](size_t i) const
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	vector& operator[](size_t i)
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -719,12 +719,12 @@ struct stringArray
 	~stringArray(){delete [] values;}
 	string operator[](size_t i) const
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	string& operator[](size_t i)
 	{
-		assert( i < size );
+		COLLADABU_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const

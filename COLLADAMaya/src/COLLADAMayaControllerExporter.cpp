@@ -1353,14 +1353,14 @@ namespace COLLADAMaya
             {
                 // Reset the skin controller node state.
                 size_t nodeStateSize = item->nodeStates.size();
-                assert ( nodeStateSize >= 1 );
+				COLLADABU_ASSERT ( nodeStateSize >= 1 );
                 int nodeState = item->nodeStates.front();
                 DagHelper::setPlugValue ( item->skinControllerNode, ATTR_NODE_STATE, nodeState );
 
                 // Maybe there are some morph controllers to reset.
                 for ( uint i=0; i<item->morphControllerNodes.length(); ++i )
                 {
-                    assert ( nodeStateSize < i+1 );
+                    COLLADABU_ASSERT ( nodeStateSize < i+1 );
                     nodeState = item->nodeStates[i+1];
                     DagHelper::setPlugValue ( item->morphControllerNodes[i], ATTR_NODE_STATE, nodeState );
                 }
@@ -1371,7 +1371,7 @@ namespace COLLADAMaya
                 size_t nodeStateSize = item->nodeStates.size();
                 for ( uint j=0; j<item->morphControllerNodes.length(); ++j )
                 {
-                    assert ( nodeStateSize >= j );
+                    COLLADABU_ASSERT ( nodeStateSize >= j );
                     int nodeState = item->nodeStates[j];
                     DagHelper::setPlugValue ( item->morphControllerNodes[j], ATTR_NODE_STATE, nodeState );
                 }

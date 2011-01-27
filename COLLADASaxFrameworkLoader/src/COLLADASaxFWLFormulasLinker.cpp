@@ -127,7 +127,7 @@ namespace COLLADASaxFWL
 				return linkedNode;
 			}
 		default:
-			assert(false);
+			COLLADABU_ASSERT(false);
 		}
 		return 0;
 	}
@@ -258,17 +258,17 @@ namespace COLLADASaxFWL
 				{
 					// the parameter is an object, e.g. a joint
 					const COLLADAFW::Object* object = targetSidTreeNode->getObjectTarget();
-					assert(object);
+					COLLADABU_ASSERT(object);
 					variableExpression = new MathML::AST::VariableExpression(object->getUniqueId().toAscii());
 				}
 				else if (targetSidTreeNode->getTargetType() == SidTreeNode::TARGETTYPECLASS_INTERMEDIATETARGETABLE)
 				{
 					// the parameter is an object, e.g. a joint
 					const IntermediateTargetable* intermediateTargetable = targetSidTreeNode->getIntermediateTargetableTarget();
-					assert(intermediateTargetable);
+					COLLADABU_ASSERT(intermediateTargetable);
 					const KinematicInstance* kinematicInstance = intermediateTargetableSafeCast<KinematicInstance>(intermediateTargetable);
 					// for now we only support kinematic instances here
-					assert(kinematicInstance);
+					COLLADABU_ASSERT(kinematicInstance);
 					variableExpression = new MathML::AST::VariableExpression(kinematicInstance->getReplacingObjectUniqueId().toAscii());
 				}
 				else

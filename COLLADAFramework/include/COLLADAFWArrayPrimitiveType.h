@@ -231,10 +231,10 @@ namespace COLLADAFW
 		const Type& operator[] ( size_t index ) const { return mData[index]; }
 
 		/** Returns a reference to the last element in the array. The array must not be empty.*/
-		Type& back() { assert(mData && (mCount > 0)); return mData[mCount - 1]; }
+		Type& back() { COLLADABU_ASSERT(mData && (mCount > 0)); return mData[mCount - 1]; }
 
 		/** Returns a reference to the last element in the array. The array must not be empty.*/
-		const Type& back() const { assert(mData && (mCount > 0)); return mData[mCount - 1]; }
+		const Type& back() const { COLLADABU_ASSERT(mData && (mCount > 0)); return mData[mCount - 1]; }
 
 		/** Clones the array into @a clonedArray.*/
 		void cloneArray( ArrayPrimitiveType<Type>& clonedArray ) const

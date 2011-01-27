@@ -48,11 +48,11 @@ namespace COLLADASaxFWL
 		/**************   should be removed after a redesign of IFileLoader **********/
 
 		/** Sets the parser to @a parserToBeSet.*/
-		virtual void setParser( COLLADASaxFWL14::ColladaParserAutoGen14* parserToBeSet ){ assert(false);}
+		virtual void setParser( COLLADASaxFWL14::ColladaParserAutoGen14* parserToBeSet ){ COLLADABU_ASSERT(false);}
 		/** Sets the parser to @a parserToBeSet.*/
-		virtual void setParser( COLLADASaxFWL15::ColladaParserAutoGen15* parserToBeSet ){ assert(false);}
+		virtual void setParser( COLLADASaxFWL15::ColladaParserAutoGen15* parserToBeSet ){ COLLADABU_ASSERT(false);}
 		/** Returns the absolute uri of the currently parsed file*/
-		virtual const COLLADABU::URI& getFileUri(){ assert(false); return COLLADABU::URI::INVALID; }
+		virtual const COLLADABU::URI& getFileUri(){ COLLADABU_ASSERT(false); return COLLADABU::URI::INVALID; }
 
 		/****************************************************************************/
 

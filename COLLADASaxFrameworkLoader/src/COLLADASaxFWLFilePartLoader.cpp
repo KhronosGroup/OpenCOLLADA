@@ -22,7 +22,7 @@ namespace COLLADASaxFWL
 	FilePartLoader::FilePartLoader( IFilePartLoader* callingFilePartLoader )
 		: mCallingFilePartLoader(callingFilePartLoader)
 	{
-		assert(callingFilePartLoader);
+		COLLADABU_ASSERT(callingFilePartLoader);
 	}
 
     //------------------------------

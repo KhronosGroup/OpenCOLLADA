@@ -69,7 +69,7 @@ namespace COLLADAFW
         /** Sets the unique id of the object.*/
 		void setUniqueId ( const UniqueId& uniqueId )
 		{ 
-			assert( uniqueId.getClassId() == classId ); 
+			COLLADABU_ASSERT( uniqueId.getClassId() == classId ); 
 			mUniqueId = uniqueId; 
 		}
 

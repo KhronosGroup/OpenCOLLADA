@@ -55,7 +55,7 @@ namespace COLLADAFW
 				MathML::AST::FragmentExpression* fragment = (MathML::AST::FragmentExpression*)astNode;
 				MathML::AST::INode* fragmentNode = fragment->getFragment();
 				Formula::ASTNodeASTNodeMap::const_iterator it = originalClonedASTNodeMap.find(fragmentNode);
-				assert( it != originalClonedASTNodeMap.end() );
+				COLLADABU_ASSERT( it != originalClonedASTNodeMap.end() );
 				fragment->setFragment( it->second );
 				break;
 			}
@@ -86,7 +86,7 @@ namespace COLLADAFW
 				break;
 			}
 		default:
-			assert(false);
+			COLLADABU_ASSERT(false);
 		}
 
 	}

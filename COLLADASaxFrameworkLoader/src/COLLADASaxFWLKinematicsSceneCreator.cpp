@@ -46,7 +46,7 @@ namespace COLLADASaxFWL
 					invertedRotate->setRotationAngle( -sourceRotate->getRotationAngle() );
 					invertedTransformation = invertedRotate;
 				}
-				assert( invertedTransformation );
+				COLLADABU_ASSERT( invertedTransformation );
 				target.append( invertedTransformation );
 			}
 		}
@@ -179,11 +179,11 @@ namespace COLLADASaxFWL
 			{
 				//this must be a KinematicInstance
 				const KinematicInstance* instanceJoint = intermediateTargetableSafeCast<KinematicInstance>(jointTreeNode->getIntermediateTargetableTarget());
-				assert(instanceJoint);
+				COLLADABU_ASSERT(instanceJoint);
 				SidAddress referencedJointAddress( instanceJoint->getUrl() );
 				const SidTreeNode* referencedJointTreeNode = mDocumentProcessor->resolveSid( referencedJointAddress );
 				
-				assert( referencedJointTreeNode->getTargetType() == SidTreeNode::TARGETTYPECLASS_OBJECT );
+				COLLADABU_ASSERT( referencedJointTreeNode->getTargetType() == SidTreeNode::TARGETTYPECLASS_OBJECT );
 				jointUniqueId = &instanceJoint->getReplacingObjectUniqueId();
 				joint = COLLADAFW::objectSafeCast<COLLADAFW::Joint>(referencedJointTreeNode->getObjectTarget());
 			}
@@ -195,7 +195,7 @@ namespace COLLADASaxFWL
 			if ( !joint )
 			{
 				//TODO: handle error
-				assert(joint);
+				COLLADABU_ASSERT(joint);
 				continue;
 			}
 
@@ -214,7 +214,7 @@ namespace COLLADASaxFWL
 
 				const COLLADAFW::JointPrimitivePointerArray& jointPrimitives = joint->getJointPrimitives();
 				const COLLADAFW::JointPrimitivePointerArray& clonedJointPrimitives = clonedJoint->getJointPrimitives();
-				assert(jointPrimitives.getCount() == clonedJointPrimitives.getCount() );
+				COLLADABU_ASSERT(jointPrimitives.getCount() == clonedJointPrimitives.getCount() );
 				for ( size_t j = 0; j < jointPrimitives.getCount(); ++j)
 				{
 					mOriginalClonedJointPrimitiveMap.insert(std::make_pair(jointPrimitives[j], clonedJointPrimitives[j] ));
@@ -542,7 +542,7 @@ namespace COLLADASaxFWL
 
 			KinematicsModelFWKinematicsModelMap::const_iterator it = mKinematicsModelFWKinematicsModelMap.find(kinematicsModel);
 			// there hast to be always a corresponding fw kin model
-			assert( it != mKinematicsModelFWKinematicsModelMap.end());
+			COLLADABU_ASSERT( it != mKinematicsModelFWKinematicsModelMap.end());
 
 			COLLADAFW::KinematicsModel* fwKinematicsModel = it->second;
 

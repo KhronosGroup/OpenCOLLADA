@@ -35,7 +35,7 @@ namespace COLLADASaxFWL
 	
 		/** Returns the handling FilePartLoader. You must set the handling FilePartLoader before the first sax callback
 		is called*/
-		FilePartLoader* getHandlingFilePartLoader() { assert(mHandlingFilePartLoader); return mHandlingFilePartLoader; }
+		FilePartLoader* getHandlingFilePartLoader() { COLLADABU_ASSERT(mHandlingFilePartLoader); return mHandlingFilePartLoader; }
 
 	private:
 

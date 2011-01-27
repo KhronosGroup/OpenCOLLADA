@@ -158,16 +158,16 @@ namespace COLLADAFW
 		bool empty() const { return mCount == 0; }
 
 		/** Return s the index'th element in the array. No check is performed, if the index is out of bounds.*/
-        Type& operator[] ( size_t index ) { assert(index < mCapacity); return mData[index]; }
+		Type& operator[] ( size_t index ) { COLLADABU_ASSERT(index < mCapacity); return mData[index]; }
 
         /** Return s the index'th element in the array. No check is performed, if the index is out of bounds.*/
         const Type& operator[] ( size_t index ) const { return mData[index]; }
 
 		/** Returns a reference to the last element in the array. The array must not be empty.*/
-		Type& back() { assert(mData && (mCount > 0)); return mData[mCount - 1]; }
+		Type& back() { COLLADABU_ASSERT(mData && (mCount > 0)); return mData[mCount - 1]; }
 
 		/** Returns a reference to the last element in the array. The array must not be empty.*/
-		const Type& back() const { assert(mData && (mCount > 0)); return mData[mCount - 1]; }
+		const Type& back() const { COLLADABU_ASSERT(mData && (mCount > 0)); return mData[mCount - 1]; }
 
 		/** Clones the array inti @a clonedArray.*/
 		void cloneArray( Array<Type>& clonedArray ) const

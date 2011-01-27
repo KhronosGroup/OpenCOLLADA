@@ -450,7 +450,7 @@ namespace COLLADAMaya
                 break;
             }
         default:
-            assert ( "Parameter type not supported! " + cgStateType );
+//            assert ( "Parameter type not supported! " + cgStateType );
 //            printf("UNEXPECTED CASE: 0x%x (%d)\n", cgStateType, cgStateType);
             break;
 
@@ -730,7 +730,7 @@ namespace COLLADAMaya
             case CG_FLOAT4x4:
                 {
                     // TODO
-                    assert ( "Annotation type not supported! " + cgAnnoType );
+//                    assert ( "Annotation type not supported! " + cgAnnoType );
                     break;
                 }
             case CG_STRING:
@@ -740,7 +740,7 @@ namespace COLLADAMaya
                     break;
                 }
             default:
-                assert ( "Annotation type not supported! " + cgAnnoType );
+ //               assert ( "Annotation type not supported! " + cgAnnoType );
                 break;
             }
 
@@ -1046,7 +1046,7 @@ namespace COLLADAMaya
             case CG_HALF4:
             case CG_HALF4x4:
                 {
-                    assert ( "Annotation type not supported! " + cgAnnoType );
+//                    assert ( "Annotation type not supported! " + cgAnnoType );
                     break;
                 }
             case CG_STRING:
@@ -1058,7 +1058,7 @@ namespace COLLADAMaya
                     break;
                 }
             default:
-                assert ( "Annotation type not supported! " + cgAnnoType );
+//                assert ( "Annotation type not supported! " + cgAnnoType );
                 break;
             }
 

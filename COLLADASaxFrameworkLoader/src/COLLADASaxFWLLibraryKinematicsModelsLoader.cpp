@@ -76,7 +76,7 @@ namespace COLLADASaxFWL
 	{
 		String joint(attributeData.joint);
 		mCurrentAttachment = new KinematicAttachment( attachmentType, joint);
-		assert( !mLinkStack.empty() );
+		COLLADABU_ASSERT( !mLinkStack.empty() );
 		KinematicLink* link = mLinkStack.top();
 		link->addAttachment( mCurrentAttachment );
 		return true;
@@ -164,7 +164,7 @@ namespace COLLADASaxFWL
 		else
 		{
 			// this is a child of the current attachment. 
-			assert(mCurrentAttachment);
+			COLLADABU_ASSERT(mCurrentAttachment);
 			link = &mCurrentAttachment->getLink();
 
 		}

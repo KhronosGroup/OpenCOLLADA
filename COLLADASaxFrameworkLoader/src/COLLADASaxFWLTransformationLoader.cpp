@@ -43,7 +43,7 @@ namespace COLLADASaxFWL
 			translate = (COLLADAFW::Translate*)(mCurrentTransformation);
 		}
 
-		assert(translate);
+		COLLADABU_ASSERT(translate);
 		COLLADABU::Math::Vector3& translationVector = translate->getTranslation();
 		for ( size_t i = 0; i < length; ++i )
 		{
@@ -62,7 +62,7 @@ namespace COLLADASaxFWL
 			rotate = (COLLADAFW::Rotate*)(mCurrentTransformation);
 		}
 
-		assert(rotate);
+		COLLADABU_ASSERT(rotate);
 		COLLADABU::Math::Vector3& axisVector = rotate->getRotationAxis();
 		for ( size_t i = 0; i < length; ++i )
 		{
@@ -88,7 +88,7 @@ namespace COLLADASaxFWL
 			matrix = (COLLADAFW::Matrix*)(mCurrentTransformation);
 		}
 
-		assert(matrix);
+		COLLADABU_ASSERT(matrix);
 		COLLADABU::Math::Matrix4& transformationMatrix = matrix->getMatrix();
 		for ( size_t i = 0; i < length; ++i )
 		{
@@ -110,7 +110,7 @@ namespace COLLADASaxFWL
 			scale = (COLLADAFW::Scale*)(mCurrentTransformation);
 		}
 
-		assert(scale);
+		COLLADABU_ASSERT(scale);
 		COLLADABU::Math::Vector3& scaleVector = scale->getScale();
 		for ( size_t i = 0; i < length; ++i )
 		{
@@ -129,7 +129,7 @@ namespace COLLADASaxFWL
 			skew = (COLLADAFW::Skew*)(mCurrentTransformation);
 		}
 
-		assert(skew);
+		COLLADABU_ASSERT(skew);
 
 		COLLADABU::Math::Vector3& rotateAxis = skew->getRotateAxis ();
 		COLLADABU::Math::Vector3& aroundAxis = skew->getTranslateAxis ();
@@ -170,7 +170,7 @@ namespace COLLADASaxFWL
 			lookat = (COLLADAFW::Lookat*)(mCurrentTransformation);
 		}
 
-		assert(lookat);
+		COLLADABU_ASSERT(lookat);
 
 		COLLADABU::Math::Vector3& eyePosition = lookat->getEyePosition ();
 		COLLADABU::Math::Vector3& interestPointPosition = lookat->getInterestPointPosition ();

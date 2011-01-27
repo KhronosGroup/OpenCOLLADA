@@ -30,7 +30,7 @@ namespace COLLADASW
             : mStreamWriter( streamWriter ),
 			mElementIndex(elementIndex)
     {
-        assert ( mStreamWriter != 0 );
+		COLLADABU_ASSERT ( mStreamWriter != 0 );
     }
 
     //---------------------------------------------------------------
@@ -109,7 +109,7 @@ namespace COLLADASW
 		}
 		else
 		{
-			assert(false);
+			COLLADABU_ASSERT(false);
 		}
     }
 
@@ -123,7 +123,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendURIAttribute ( const String &name, const COLLADABU::URI &uri )
     {
-        assert ( !mOpenTags.back().mHasContents );
+        COLLADABU_ASSERT ( !mOpenTags.back().mHasContents );
 
 		appendChar ( ' ' );
 		appendNCNameString ( name );
@@ -136,7 +136,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const String &value )
     {
-        assert ( !mOpenTags.back().mHasContents );
+        COLLADABU_ASSERT ( !mOpenTags.back().mHasContents );
 
         if ( !value.empty() )
         {
@@ -152,7 +152,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const double value )
     {
-        assert ( !mOpenTags.back().mHasContents );
+        COLLADABU_ASSERT ( !mOpenTags.back().mHasContents );
 
         appendChar ( ' ' );
         appendNCNameString ( name );
@@ -166,7 +166,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const unsigned long val )
     {
-        assert ( !mOpenTags.back().mHasContents );
+        COLLADABU_ASSERT ( !mOpenTags.back().mHasContents );
 
         appendChar ( ' ' );
         appendNCNameString ( name );
@@ -179,7 +179,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const unsigned int val )
     {
-        assert ( !mOpenTags.back().mHasContents );
+        COLLADABU_ASSERT ( !mOpenTags.back().mHasContents );
 
         appendChar ( ' ' );
         appendNCNameString ( name );
@@ -192,7 +192,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const int val )
     {
-        assert ( !mOpenTags.back().mHasContents );
+        COLLADABU_ASSERT ( !mOpenTags.back().mHasContents );
 
         appendChar ( ' ' );
         appendNCNameString ( name );
@@ -937,7 +937,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void StreamWriter::closeElement()
     {
-        assert ( !mOpenTags.empty() );
+        COLLADABU_ASSERT ( !mOpenTags.empty() );
 
         mLevel--;
 

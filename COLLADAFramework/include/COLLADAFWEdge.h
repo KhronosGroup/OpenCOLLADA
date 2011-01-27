@@ -85,7 +85,7 @@ namespace COLLADAFW
 
         unsigned int operator[](size_t i) const
         {
-            assert( i < 2 );
+			COLLADABU_ASSERT( i < 2 );
             return mVertexIndices [i];
         }
 

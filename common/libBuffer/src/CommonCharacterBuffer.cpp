@@ -58,7 +58,7 @@ namespace Common
 		}
 		
 		// Check if the buffer size is large enough
-		assert(getBytesAvailable() >= FTOA_BUFFERSIZE);
+//		assert(getBytesAvailable() >= FTOA_BUFFERSIZE);
 		if ( getBytesAvailable() < FTOA_BUFFERSIZE )
 		{
 			//No chance to convert the float with this buffer
@@ -82,7 +82,7 @@ namespace Common
 		}
 
 		// Check if the buffer size is large enough
-		assert(getBytesAvailable() >= DTOA_BUFFERSIZE);
+//		assert(getBytesAvailable() >= DTOA_BUFFERSIZE);
 		if ( getBytesAvailable() < DTOA_BUFFERSIZE )
 		{
 			//No chance to convert the double with this buffer
@@ -109,7 +109,7 @@ namespace Common
 		}
 
 		// Check if the buffer size is large enough
-		assert(getBytesAvailable() >= length);
+//		assert(getBytesAvailable() >= length);
 		if ( getBytesAvailable() < length )
 		{
 			//No chance to convert the bool with this buffer

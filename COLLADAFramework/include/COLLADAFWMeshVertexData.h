@@ -117,7 +117,7 @@ namespace COLLADAFW
         /** The stride at the specified index. */
         String getName ( size_t index ) const
         {
-            assert ( index <= mInputInfosArray.getCount() );
+			COLLADABU_ASSERT ( index <= mInputInfosArray.getCount() );
             if ( index >= mInputInfosArray.getCount () ) return 0;
             return mInputInfosArray[index]->mName;
         }
@@ -125,7 +125,7 @@ namespace COLLADAFW
         /** The stride at the specified index. */
         size_t getStride ( size_t index ) const
         {
-            assert ( index <= mInputInfosArray.getCount() );
+            COLLADABU_ASSERT ( index <= mInputInfosArray.getCount() );
             if ( index >= mInputInfosArray.getCount () ) return 0;
             return mInputInfosArray[index]->mStride;
         }
@@ -133,7 +133,7 @@ namespace COLLADAFW
         /** The stride can differ, so we have to set. */
         size_t getLength ( size_t index ) const
         {
-            assert ( index <= mInputInfosArray.getCount() );
+            COLLADABU_ASSERT ( index <= mInputInfosArray.getCount() );
             if ( index >= mInputInfosArray.getCount () ) return 0;
             return mInputInfosArray[index]->mLength;
         }

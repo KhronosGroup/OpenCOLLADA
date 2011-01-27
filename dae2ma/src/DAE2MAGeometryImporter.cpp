@@ -1359,7 +1359,7 @@ namespace DAE2MA
                 mGeometryUvSetNamesMap [geometryId].push_back ( uvSetName );
 
                 size_t stride = uvCoords.getStride ( i );
-                assert ( stride > 1 && stride <= 4 );
+				COLLADABU_ASSERT ( stride > 1 && stride <= 4 );
 //                 if ( stride != 2 ) 
 //                     std::cerr << "Just 2d uv set data will be imported! " << std::endl;
 
@@ -1441,7 +1441,7 @@ namespace DAE2MA
             if ( originalMesh )
             {
                 size_t stride = colors.getStride ( c );
-                assert ( stride == 1 || stride == 3 || stride == 4 );
+                COLLADABU_ASSERT ( stride == 1 || stride == 3 || stride == 4 );
 
                 unsigned int representation = 2; // RGBA = 2 DEFAULT
                 if ( stride == 1 ) representation = 1; // A = 1
@@ -2595,7 +2595,7 @@ namespace DAE2MA
             break;
         default:
             std::cerr << "Primitive type not implemented!" << std::endl;
-            assert ( "Primitive type not implemented!");
+            COLLADABU_ASSERT ( "Primitive type not implemented!");
         }
     }
 

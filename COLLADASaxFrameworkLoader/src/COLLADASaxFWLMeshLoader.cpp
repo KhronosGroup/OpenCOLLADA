@@ -626,7 +626,7 @@ namespace COLLADASaxFWL
     void MeshLoader::initializePositionsOffset ()
     {
         const InputShared* positionInput = mMeshPrimitiveInputs.getPositionInput ();
-        assert ( positionInput != 0 );
+		COLLADABU_ASSERT ( positionInput != 0 );
         if ( positionInput == 0 )
             handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "No positions, can't import!", IError::SEVERITY_CRITICAL );
 
@@ -635,7 +635,7 @@ namespace COLLADASaxFWL
         COLLADABU::URI inputUrl = positionInput->getSource ();
         String sourceId = inputUrl.getFragment ();
         const SourceBase* sourceBase = getSourceById ( sourceId );
-        assert ( sourceBase != 0 );
+        COLLADABU_ASSERT ( sourceBase != 0 );
         if ( sourceBase == 0 )
             handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positions sourceBase is null.", IError::SEVERITY_CRITICAL );
 
@@ -708,7 +708,7 @@ namespace COLLADASaxFWL
 
                 // only stride 1, 2, 3 or 4 makes sense for uv coords
                 size_t stride = ( size_t ) sourceBase->getStride();
-                assert ( (stride >= 1) || (stride <= 4) ); 
+                COLLADABU_ASSERT ( (stride >= 1) || (stride <= 4) ); 
 
                 size_t intitialIndex = sourceBase->getInitialIndex ();
                 size_t indexOffset = intitialIndex / stride;
@@ -748,7 +748,7 @@ namespace COLLADASaxFWL
 
                 // only stride 1, 2, 3 or 4 makes sense for uv coords
                 size_t stride = ( size_t ) sourceBase->getStride();
-                assert ( (stride >= 1) || (stride <= 4) ); 
+                COLLADABU_ASSERT ( (stride >= 1) || (stride <= 4) ); 
 
                 size_t intitialIndex = sourceBase->getInitialIndex ();
                 size_t indexOffset = intitialIndex / stride;

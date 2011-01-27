@@ -116,10 +116,10 @@ namespace COLLADASW
     {
         mSW->openElement ( CSWC::CSW_ELEMENT_CAMERA_PERSPECTIVE );
 
-        assert ( !( !mHasXFov && !mHasYFov) );
-        assert ( !( mHasAspectRatio && mHasXFov && mHasYFov) );
-        assert ( mHasZNear );
-        assert ( mHasZFar );
+		COLLADABU_ASSERT ( !( !mHasXFov && !mHasYFov) );
+        COLLADABU_ASSERT ( !( mHasAspectRatio && mHasXFov && mHasYFov) );
+        COLLADABU_ASSERT ( mHasZNear );
+        COLLADABU_ASSERT ( mHasZFar );
 
         if ( mHasXFov )
         {
@@ -166,10 +166,10 @@ namespace COLLADASW
     {
         mSW->openElement ( CSWC::CSW_ELEMENT_CAMERA_ORTHOGRAPHIC );
 
-        assert ( !( !mHasXMag && !mHasYMag ) );
-        assert ( !( mHasAspectRatio && mHasXMag && mHasYMag ) );
-        assert ( mHasZNear );
-        assert ( mHasZFar );
+        COLLADABU_ASSERT ( !( !mHasXMag && !mHasYMag ) );
+        COLLADABU_ASSERT ( !( mHasAspectRatio && mHasXMag && mHasYMag ) );
+        COLLADABU_ASSERT ( mHasZNear );
+        COLLADABU_ASSERT ( mHasZFar );
 
         if ( mHasXMag )
         {

@@ -101,7 +101,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::endTransformation()
 	{
-		assert(!mNodeStack.empty());
+		COLLADABU_ASSERT(!mNodeStack.empty());
 		mNodeStack.top()->getTransformations().append( mTransformationLoader.getCurrentTransformation());
 		getHandlingFilePartLoader()->moveUpInSidTree();
 		mTransformationLoader.endTransformation();

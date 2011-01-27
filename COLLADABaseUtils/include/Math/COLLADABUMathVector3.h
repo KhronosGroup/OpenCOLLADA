@@ -82,14 +82,14 @@ namespace COLLADABU
 
             inline Real operator [] ( size_t i ) const
             {
-                assert( i < 3 );
+				COLLADABU_ASSERT( i < 3 );
 
                 return *( &x + i );
             }
 
             inline Real& operator [] ( size_t i )
             {
-                assert( i < 3 );
+                COLLADABU_ASSERT( i < 3 );
 
                 return *( &x + i );
             }
@@ -164,7 +164,7 @@ namespace COLLADABU
 
             inline Vector3 operator / ( Real fScalar ) const
             {
-                assert( fScalar != 0.0 );
+                COLLADABU_ASSERT( fScalar != 0.0 );
 
                 Vector3 kDiv;
 
@@ -248,7 +248,7 @@ namespace COLLADABU
 
             inline Vector3& operator /= ( Real fScalar )
             {
-                assert( fScalar != 0.0 );
+                COLLADABU_ASSERT( fScalar != 0.0 );
 
                 Real fInv = 1.0 / fScalar;
 

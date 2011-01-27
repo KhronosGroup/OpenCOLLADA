@@ -47,7 +47,7 @@ namespace COLLADABU
 			                    &error,               /* for error message */
 			                    &erroffset,           /* for error offset */
 			                    0);                /* use default character tables */
-		assert( compiledPattern );
+		COLLADABU_ASSERT( compiledPattern );
 		return compiledPattern;
 	}
 

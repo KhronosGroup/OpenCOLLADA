@@ -50,7 +50,7 @@ namespace COLLADASaxFWL
 			ERRORTYPE2STRING(ERROR_PARAMETER_COUNT_DOESNOT_MATCH);
 			ERRORTYPE2STRING(ERROR_DATA_NOT_VALID);
 		default:
-			assert(false);
+			COLLADABU_ASSERT(false);
 		}
 
 		errorMessage << ": ";

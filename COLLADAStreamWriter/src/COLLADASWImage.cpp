@@ -64,7 +64,7 @@ namespace COLLADASW
 		}
 		else
 		{
-			assert(false);
+			COLLADABU_ASSERT(false);
 		}
 
         addExtraTechniques ( sw );

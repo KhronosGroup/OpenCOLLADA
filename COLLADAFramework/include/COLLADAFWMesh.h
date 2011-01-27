@@ -174,7 +174,7 @@ namespace COLLADAFW
                     return index;
             }
 //            std::cerr << "No color with name \"" << name << "\"!" << std::endl; 
-            assert ( COLLADABU::Utils::equals ( name, name ) );
+			COLLADABU_ASSERT ( COLLADABU::Utils::equals ( name, name ) );
 
             return 0;
         }
@@ -210,7 +210,7 @@ namespace COLLADAFW
                     return index;
             }
  //           std::cerr << "No uv set with name \"" << name << "\"!" << std::endl; 
-            assert ( true );
+            COLLADABU_ASSERT ( true );
 
             return 0;
         }

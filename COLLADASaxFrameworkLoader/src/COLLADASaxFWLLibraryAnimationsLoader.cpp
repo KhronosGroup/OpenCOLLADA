@@ -529,7 +529,7 @@ namespace COLLADASaxFWL
 					break;
 				}
 
-				assert( mCurrentAnimationInfo );
+				COLLADABU_ASSERT( mCurrentAnimationInfo );
 				COLLADAFW::PhysicalDimensionArray& physicalDimensions = mCurrentAnimationCurve->getOutPhysicalDimensions();
 				
 				if ( mCurrentAnimationInfo )

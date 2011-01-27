@@ -585,7 +585,7 @@ namespace COLLADAMaya
                                       COLLADASW::Color blendColor,
                                       double ammount )
     {
-        assert ( colorOrTexture.isColor() );
+		COLLADABU_ASSERT ( colorOrTexture.isColor() );
 
         COLLADASW::Color& color = colorOrTexture.getColor();
 
