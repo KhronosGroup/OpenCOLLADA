@@ -14,6 +14,22 @@
 #include <string>
 #include <vector>
 
+// from ogre OgrePlatform.h
+// Win32 compilers use _DEBUG for specifying debug builds.
+// Unlike the Win32 compilers, Linux compilers seem to use DEBUG for when
+// specifying a debug build.
+// (??? this is wrong, on Linux debug builds aren't marked in any way unless
+// you mark it yourself any way you like it -- zap ???)
+#if defined(_DEBUG) || defined(DEBUG)
+#     define MAYADM_DEBUG 
+#endif
+
+#if defined(MAYADM_DEBUG)
+#	define MAYADM_ASSERT(cond) assert(cond);
+#else
+#	define MAYADM_ASSERT(cond) 
+#endif
+
 namespace MayaDM
 {
 
@@ -33,12 +49,12 @@ struct short2
 	}
 	short operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < 2 );
+		MAYADM_ASSERT( i < 2 );
 		return values[i];
 	}
 	short& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < 2 );
+		MAYADM_ASSERT( i < 2 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -67,12 +83,12 @@ struct short3
 	short values[3];
 	short operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < 3 );
+		MAYADM_ASSERT( i < 3 );
 		return values[i];
 	}
 	short& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < 3 );
+		MAYADM_ASSERT( i < 3 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -108,12 +124,12 @@ struct long2
 	}
 	int operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < 2 );
+		MAYADM_ASSERT( i < 2 );
 		return values[i];
 	}
 	int& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < 2 );
+		MAYADM_ASSERT( i < 2 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -148,12 +164,12 @@ struct long3
 	}
 	int operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < 3 );
+		MAYADM_ASSERT( i < 3 );
 		return values[i];
 	}
 	int& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < 3 );
+		MAYADM_ASSERT( i < 3 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -186,12 +202,12 @@ struct int32Array
 
 	int operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	int& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -222,12 +238,12 @@ struct float2
 	}
 	float operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < 2 );
+		MAYADM_ASSERT( i < 2 );
 		return values[i];
 	}
 	float& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < 2 );
+		MAYADM_ASSERT( i < 2 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -262,12 +278,12 @@ struct float3
 	}
 	float operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < 3 );
+		MAYADM_ASSERT( i < 3 );
 		return values[i];
 	}
 	float& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < 3 );
+		MAYADM_ASSERT( i < 3 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -303,12 +319,12 @@ struct double2
 	}
 	double operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < 2 );
+		MAYADM_ASSERT( i < 2 );
 		return values[i];
 	}
 	double& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < 2 );
+		MAYADM_ASSERT( i < 2 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -343,12 +359,12 @@ struct double3
 	}
 	double operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < 3 );
+		MAYADM_ASSERT( i < 3 );
 		return values[i];
 	}
 	double& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < 3 );
+		MAYADM_ASSERT( i < 3 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -389,12 +405,12 @@ struct double4
 	double values[4];
 	double operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < 4 );
+		MAYADM_ASSERT( i < 4 );
 		return values[i];
 	}
 	double& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < 4 );
+		MAYADM_ASSERT( i < 4 );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -432,12 +448,12 @@ struct doubleArray
 
 	double operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	double& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -551,7 +567,7 @@ struct matrix
 	// member access, allows use of construct mat[r][c]
 	inline double* operator[] ( size_t iRow ) const
 	{
-		COLLADABU_ASSERT(iRow < 4);
+		MAYADM_ASSERT(iRow < 4);
 		return ( double* ) m[ iRow ];
 	}
 
@@ -607,12 +623,12 @@ struct pointArray
 	~pointArray(){delete [] values;}
 	point operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	point& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -649,12 +665,12 @@ struct vectorArray
 	~vectorArray(){delete [] values;}
 	vector operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	vector& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const
@@ -719,12 +735,12 @@ struct stringArray
 	~stringArray(){delete [] values;}
 	string operator[](size_t i) const
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	string& operator[](size_t i)
 	{
-		COLLADABU_ASSERT( i < size );
+		MAYADM_ASSERT( i < size );
 		return values[i];
 	}
 	void write(FILE* file) const
