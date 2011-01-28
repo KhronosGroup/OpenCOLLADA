@@ -13,6 +13,8 @@
 #include "COLLADABUException.h"
 #include "ConvertUTF.h"
 
+#include <cassert>
+
 
 /* Maximum number of bytes a unicode character can have in UTF8 encoding*/
 #define MAX_UTF8_CHAR_LENGTH 4
@@ -231,13 +233,13 @@ namespace COLLADABU
 			||	( c >= 0x203F && c <= 0x2040 );
 	}
 
-
+	//--------------------------------
 	WideString StringUtils::utf8String2WideString( const String& utf8String )
 	{
 		size_t widesize = utf8String.length();
 		WideString returnWideString;
 
-		if ( sizeof( wchar_t ) == 2 )
+		if ( sizeof( wchar_t ) == sizeof(UTF16) )
 		{
 			returnWideString.resize( widesize + 1, L'\0' );
 			const UTF8* sourcestart = reinterpret_cast<const UTF8*>( utf8String.c_str() );
@@ -255,8 +257,7 @@ namespace COLLADABU
 
 			*targetstart = 0;
 		}
-
-		else if ( sizeof( wchar_t ) == 4 )
+		else if ( sizeof( wchar_t ) == sizeof(UTF32) )
 		{
 			returnWideString.resize( widesize + 1, L'\0' );
 			const UTF8* sourcestart = reinterpret_cast<const UTF8*>( utf8String.c_str() );
@@ -274,21 +275,20 @@ namespace COLLADABU
 
 			*targetstart = 0;
 		}
-
 		else
 		{
-			throw Exception(Exception::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
+			COLLADABU_ASSERT(false);
 		}
 		return returnWideString;
 	}
 
-
+	//--------------------------------
 	String StringUtils::wideString2utf8String( const WideString& wideString )
 	{
 		size_t widesize = wideString.length();
 		String returnString;
 
-		if ( sizeof( wchar_t ) == 2 )
+		if ( sizeof( wchar_t ) == sizeof(UTF16) )
 		{
 			size_t utf8size = MAX_UTF8_CHAR_LENGTH * widesize + 1;
 			returnString.resize( utf8size, '\0' );
@@ -306,8 +306,7 @@ namespace COLLADABU
 
 			returnString.resize(targetstart - thisFirstWChar);
 		}
-
-		else if ( sizeof( wchar_t ) == 4 )
+		else if ( sizeof( wchar_t ) == sizeof(UTF32) )
 		{
 			size_t utf8size = MAX_UTF8_CHAR_LENGTH * widesize + 1;
 			returnString.resize( utf8size, '\0' );
@@ -325,10 +324,9 @@ namespace COLLADABU
 
 			returnString.resize(targetstart - thisFirstWChar);
 		}
-
 		else
 		{
-			throw Exception(Exception::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
+			COLLADABU_ASSERT(false);
 		}
 		return returnString;
 	}
