@@ -25,7 +25,8 @@ namespace G3D
 	static const wchar_t* BROWSER_CLASS_NAME = L"Browser Object";
 	static const wchar_t* WINDOW_TITLE = L"G3D Warehouse Collada Browser";
 	static const wchar_t* HOST_NAME =L"Host Name";
-	static const LPTSTR   HOME = L"http://sketchup.google.com/3dwarehouse/?ctyp=sxample&cv=p8.0.4811&rtyppref=s6&hl=en ";
+    static const LPTSTR   HOME = L"http://sketchup.google.com/3dwarehouse/?ctyp=sm&cv=p8.0.4811&hl=en_US";
+	//static const LPTSTR   HOME = L"http://sketchup.google.com/3dwarehouse/?ctyp=sxample&cv=p8.0.4811&rtyppref=s6&hl=en US";
 	//static const LPTSTR   HOME = L"http://sketchup.google.com/3dwarehouse/?ctyp=sxample&cv=su_6&rtyppref=s6&hl=en ";
 
 

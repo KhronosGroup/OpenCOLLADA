@@ -25,6 +25,7 @@ namespace G3D
 
 	const char IMAGES_DIRECTORY[] = "images";
 	const char MODEL_PATH[] = "models/model.dae";
+	const char WAREHOUSE_MODEL_PATH[] = "models/warehouse_model.dae";
 	const char MODEL_DIR[] = "models";
 
 	const String SLASH("/");
@@ -102,7 +103,7 @@ namespace G3D
 		while (zzip_dir_read (dir, &d))
 		{
 
-			if ( strcmp(d.d_name, MODEL_PATH) == 0 )
+			if ( (strcmp(d.d_name, MODEL_PATH) == 0) || (strcmp(d.d_name, WAREHOUSE_MODEL_PATH) == 0) )
 			{
 				_mkdir( (extractPath+MODEL_DIR).c_str() );
 				mDAEFilePath = unzipFile_(dir, d, extractPath, mLastErrorString);
