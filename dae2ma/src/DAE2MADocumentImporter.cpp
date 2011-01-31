@@ -314,7 +314,7 @@ namespace DAE2MA
     }
 
     //-----------------------------
-    void DocumentImporter::start ()
+    void DocumentImporter::initialize ()
     {
         // Create the maya file.
         bool retValue = createMayaAsciiFile ();
@@ -501,12 +501,22 @@ namespace DAE2MA
     //-----------------------------
     bool DocumentImporter::writeGlobalAsset ( const COLLADAFW::FileInfo* asset )
     {
-        if ( mParseStep >= IMPORT_ASSET ) return true;
+        if ( mParseStep >= IMPORT_ASSET ) 
+		{
+			return true;
+		}
         mParseStep = IMPORT_ASSET;
 
         // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-        if ( mFile == 0 ) return false;
+        if ( mFile == 0 ) 
+		{
+			initialize();
+		}
+
+		if ( mFile == 0 ) 
+		{
+			return false;
+		}
 
         // The maya version
         //String mayaVersion ( MGlobal::mayaVersion ().asChar () );
@@ -1247,4 +1257,11 @@ namespace DAE2MA
         }
         return 0;
     }
+
+	//------------------------------
+	void DocumentImporter::start()
+	{
+
+	}
+
 }

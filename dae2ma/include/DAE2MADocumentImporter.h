@@ -321,7 +321,10 @@ namespace DAE2MA
         virtual void cancel ( const String& errorMessage );
 
         /** This is the method called. The writer hast to prepare to receive data.*/
-        virtual void start ();
+        virtual void start();
+
+		/** Initializes the document importer.*/
+		void initialize();
 
         /** 
         * This method is called after the last write method. No other methods will be called after this.
@@ -330,7 +333,7 @@ namespace DAE2MA
         virtual void finish ();
 
         /**
-         * Makes all the neccessary connections.
+         * Makes all the necessary connections.
          */
         void writeConnections ();
 
@@ -453,13 +456,13 @@ namespace DAE2MA
 
         /**
         * A list of names which are used up to multiple times for dag nodes in the scene graph.
-        * Used to avoid dublicate names. 
+        * Used to avoid duplicate names. 
         */
         void addDagNodeId ( const String& newId );
 
         /**
         * A list of names which are used up to multiple times for dag nodes in the scene graph.
-        * Used to avoid dublicate names. 
+        * Used to avoid duplicate names. 
         */
         bool containsDagNodeId ( const String& id );
 
@@ -562,7 +565,7 @@ namespace DAE2MA
         * The list of all unique ids of maya nodes (dag nodes and depend nodes). 
         * A list of names which are either used up to multiple times for dag nodes in the scene 
         * graph or just once for any other maya depend object (materials, shading groups, material 
-        * infos, animations, blend shapes, skin clusters, textures ). Used to avoid dublicate names. 
+        * infos, animations, blend shapes, skin clusters, textures ). Used to avoid duplicate names. 
         */
         bool containsGlobalNodeId ( const String& id );
 
