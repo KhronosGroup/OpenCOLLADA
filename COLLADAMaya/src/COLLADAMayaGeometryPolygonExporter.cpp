@@ -857,7 +857,7 @@ namespace COLLADAMaya
         // The hole mustn't already be inserted in the hole faces list.
         std::vector<uint>::iterator searchIter;
         searchIter = find ( mHoleFaces.begin(), mHoleFaces.end(), index );
-        assert ( searchIter != mHoleFaces.end() );
+		COLLADABU_ASSERT ( searchIter != mHoleFaces.end() );
 
         // Ordered insert
         std::vector<uint>::iterator it = mHoleFaces.begin();
@@ -909,7 +909,7 @@ namespace COLLADAMaya
                         // Assert, if we don't have initialized the normal indices,
                         // but want to read them out here!
                         MGlobal::displayError("No face vertex normals to proceed!");
-                        assert ( mHasFaceVertexNormals );
+                        COLLADABU_ASSERT ( mHasFaceVertexNormals );
                         return;
                     }
                 }

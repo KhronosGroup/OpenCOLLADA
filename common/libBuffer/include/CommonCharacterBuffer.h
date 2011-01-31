@@ -96,7 +96,7 @@ namespace Common
 		}
 
 		// Check if the buffer size is large enough
-		assert(getBytesAvailable() >= maxIntLength);
+		//assert(getBytesAvailable() >= maxIntLength);
 		if ( getBytesAvailable() < maxIntLength )
 		{
 			//No chance to convert the double with this buffer

@@ -140,7 +140,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool JointsLoader::data__min____minmax_type( float value )
 	{
-		assert(mCurrentJointPrimitive);
+		COLLADABU_ASSERT(mCurrentJointPrimitive);
 		if ( mCurrentJointPrimitive )
 		{
 			mCurrentJointPrimitive->setHardLimitMin(value);
@@ -151,7 +151,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool JointsLoader::data__max____minmax_type( float value )
 	{
-		assert(mCurrentJointPrimitive);
+		COLLADABU_ASSERT(mCurrentJointPrimitive);
 		if ( mCurrentJointPrimitive )
 		{
 			mCurrentJointPrimitive->setHardLimitMax(value);
