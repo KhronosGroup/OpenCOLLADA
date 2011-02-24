@@ -1119,6 +1119,9 @@ namespace COLLADAMax
 					{
 						int channel = *it;
 
+						if ( channel < 0 )
+							continue; // see :TODO: above (MAP_SHADING & MAP_ALPHA)
+
 						if( channel < mesh.getNumMaps() && channel >= -NUM_HIDDENMAPS )
 						{
 							MeshMap & tmap = mesh.Map( channel );
@@ -1203,6 +1206,10 @@ namespace COLLADAMax
 					for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 					{
 						int channel = *it;
+
+						if ( channel < 0 )
+							continue; // see :TODO: above (MAP_SHADING & MAP_ALPHA)
+
 						MNMap * mnMap = mnMesh.M( channel );
 						assert( mnMap != 0 );
 						MNMapFace * mnMapFace = mnMap->F( faceIndex );
