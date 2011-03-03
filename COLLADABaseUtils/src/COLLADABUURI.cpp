@@ -208,15 +208,26 @@ namespace COLLADABU
 	URI::URI(const URI& copyFrom_, bool nofrag) 
 	{
 		initialize();
-		const String& uriStr = copyFrom_.getURIString();
 		if (nofrag) {
+			const String& uriStr = copyFrom_.getURIString();
 			size_t pos = uriStr.find_last_of('#');
 			if (pos != String::npos) {
 				set(uriStr.substr(0, pos));
 				return;
 			}
+			set(uriStr);
 		}
-		set(uriStr);
+		else
+		{
+			mUriString = copyFrom_.mUriString;
+			mOriginalURIString = copyFrom_.mOriginalURIString;
+			mScheme = copyFrom_.mScheme;
+			mAuthority = copyFrom_.mAuthority;
+			mPath = copyFrom_.mPath;
+			mQuery = copyFrom_.mQuery;
+			mFragment = copyFrom_.mFragment;
+			mIsValid = copyFrom_.mIsValid;
+		}
 	}
 
 	void URI::copyFrom(const URI& copyFrom)

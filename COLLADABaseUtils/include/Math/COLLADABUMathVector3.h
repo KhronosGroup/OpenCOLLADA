@@ -11,6 +11,7 @@
 #ifndef __COLLADABU_MATH_VECTOR3_H__
 #define __COLLADABU_MATH_VECTOR3_H__
 
+#include "COLLADABUPlatform.h"
 #include "COLLADABUMathPrerequisites.h"
 #include "COLLADABUMathQuaternion.h"
 
