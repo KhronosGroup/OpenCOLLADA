@@ -18,6 +18,8 @@ namespace COLLADAFW
     //------------------------------
     Texture::Texture ( const UniqueId& uniqueId )
         : ObjectTemplate<COLLADA_TYPE::TEXTURE>(uniqueId)
+		, mSamplerId(0)
+		, mTextureMapId(0)
     {
     }
 
