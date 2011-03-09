@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "COLLADASaxFrameworkLoader", "scripts\COLLADASaxFrameworkLoader.vcproj", "{8628A8F8-BD50-4463-9EE7-F9118CBA194A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{71A48A24-8603-49FB-9458-CB4E97309378} = {71A48A24-8603-49FB-9458-CB4E97309378}
@@ -63,8 +63,8 @@ Global
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug Expat|Win32.Build.0 = Debug Expat|Win32
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug Expat|x64.ActiveCfg = Debug Expat|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug Expat|x64.Build.0 = Debug Expat|x64
-		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug LibXML NoValidation|Win32.ActiveCfg = Debug LibXML NoValidation|Win32
-		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug LibXML NoValidation|Win32.Build.0 = Debug LibXML NoValidation|Win32
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug LibXML NoValidation|Win32.ActiveCfg = Debug_LibXML_NoValidation|Win32
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug LibXML NoValidation|Win32.Build.0 = Debug_LibXML_NoValidation|Win32
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug LibXML NoValidation|x64.ActiveCfg = Debug LibXML NoValidation|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug LibXML NoValidation|x64.Build.0 = Debug LibXML NoValidation|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug LibXML|Win32.ActiveCfg = Debug LibXML|Win32
@@ -79,8 +79,8 @@ Global
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release Expat|Win32.Build.0 = Release Expat|Win32
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release Expat|x64.ActiveCfg = Release Expat|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release Expat|x64.Build.0 = Release Expat|x64
-		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release LibXML NoValidation|Win32.ActiveCfg = Release LibXML NoValidation|Win32
-		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release LibXML NoValidation|Win32.Build.0 = Release LibXML NoValidation|Win32
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release LibXML NoValidation|Win32.ActiveCfg = Release_LibXML_NoValidation|Win32
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release LibXML NoValidation|Win32.Build.0 = Release_LibXML_NoValidation|Win32
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release LibXML NoValidation|x64.ActiveCfg = Release LibXML NoValidation|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release LibXML NoValidation|x64.Build.0 = Release LibXML NoValidation|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release LibXML ProgDB|Win32.ActiveCfg = Release LibXML ProgDB|Win32
@@ -135,8 +135,8 @@ Global
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug Expat|Win32.Build.0 = Debug Expat|Win32
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug Expat|x64.ActiveCfg = Debug Expat|x64
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug Expat|x64.Build.0 = Debug Expat|x64
-		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug LibXML NoValidation|Win32.ActiveCfg = Debug LibXML|Win32
-		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug LibXML NoValidation|Win32.Build.0 = Debug LibXML|Win32
+		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug LibXML NoValidation|Win32.ActiveCfg = Debug_LibXML|Win32
+		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug LibXML NoValidation|Win32.Build.0 = Debug_LibXML|Win32
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug LibXML NoValidation|x64.ActiveCfg = Debug LibXML|x64
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug LibXML NoValidation|x64.Build.0 = Debug LibXML|x64
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Debug LibXML|Win32.ActiveCfg = Debug LibXML|Win32
@@ -151,8 +151,8 @@ Global
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release Expat|Win32.Build.0 = Release Expat|Win32
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release Expat|x64.ActiveCfg = Release Expat|x64
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release Expat|x64.Build.0 = Release Expat|x64
-		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release LibXML NoValidation|Win32.ActiveCfg = Release LibXML ProgDB|Win32
-		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release LibXML NoValidation|Win32.Build.0 = Release LibXML ProgDB|Win32
+		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release LibXML NoValidation|Win32.ActiveCfg = Release_LibXML_ProgDB|Win32
+		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release LibXML NoValidation|Win32.Build.0 = Release_LibXML_ProgDB|Win32
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release LibXML NoValidation|x64.ActiveCfg = Release LibXML ProgDB|x64
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release LibXML NoValidation|x64.Build.0 = Release LibXML ProgDB|x64
 		{0B6C3FEA-0065-44D2-A69A-28F810A4F2AF}.Release LibXML ProgDB|Win32.ActiveCfg = Release LibXML ProgDB|Win32

@@ -135,6 +135,16 @@ namespace COLLADASaxFWL
             return getInputBySemantic ( InputSemantic::NORMAL );
         }
 
+        const InputShared* getTangentInput () const
+        {
+            return getInputBySemantic ( InputSemantic::TEXTANGENT );
+        }
+
+        const InputShared* getBinormalInput () const
+        {
+            return getInputBySemantic ( InputSemantic::TEXBINORMAL );
+        }
+
     };
 
     
