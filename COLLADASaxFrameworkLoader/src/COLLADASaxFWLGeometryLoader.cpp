@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLMeshLoader14.h"
+#include "COLLADASaxFWLSplineLoader14.h"
 #include "COLLADASaxFWLMeshLoader15.h"
 #include "COLLADASaxFWLGeometryLoader.h"
 
@@ -64,14 +65,43 @@ namespace COLLADASaxFWL
 	}
 
     //------------------------------
+    bool GeometryLoader::begin__spline(const spline__AttributeData & attributeData)
+    {
+        mSplineLoader = new SplineLoader(this, mGeometryId, mGeometryName);
+        setPartLoader(mSplineLoader);
+        switch (this->getParserImpl()->getCOLLADAVersion())
+        {
+        case COLLADA_14:
+            {
+                SplineLoader14* splineloader14 = new SplineLoader14( mSplineLoader );
+                mSplineLoader->setParserImpl(splineloader14);
+                setParser(splineloader14);
+                break;
+            }
+        case COLLADA_15:
+            {
+                return false;
+                break;
+            }
+        }
+        return true;
+    }
+
+    //------------------------------
 	bool GeometryLoader::end__geometry()
 	{
 		bool success = true;
 		COLLADAFW::Mesh * mesh = mMeshLoader ? mMeshLoader->getMesh() : 0;
 		if ( ((getObjectFlags() & Loader::GEOMETRY_FLAG) != 0) && mesh )
 		{
-			success = writer()->writeGeometry(mesh);
+			success |= writer()->writeGeometry(mesh);
 		}
+
+        COLLADAFW::Spline * spline = mSplineLoader ? mSplineLoader->getSpline() : 0;
+        if ( ((getObjectFlags() & Loader::GEOMETRY_FLAG) != 0) && spline )
+        {
+            success |= writer()->writeGeometry(spline);
+        }
 
 		finish();
 		moveUpInSidTree();
