@@ -23,6 +23,7 @@ namespace COLLADASaxFWL
 	GeometryLoader::GeometryLoader( IFilePartLoader* callingFilePartLoader)
 		: FilePartLoader(callingFilePartLoader)
         , mMeshLoader(0)
+        , mSplineLoader(0)
 	{
 	}
 
