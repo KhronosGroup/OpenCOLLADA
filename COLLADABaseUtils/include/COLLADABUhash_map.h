@@ -23,6 +23,7 @@
             #include <hash_set>
 
             #define COLLADABU_HASH_MAP stdext::hash_map
+			#define COLLADABU_HASH_MULTIMAP stdext::hash_multimap
             #define COLLADABU_HASH_SET stdext::hash_set
             #define COLLADABU_HASH_NAMESPACE_OPEN stdext
             #define COLLADABU_HASH_NAMESPACE_CLOSE
@@ -32,6 +33,7 @@
             #include <unordered_set>
 
             #define COLLADABU_HASH_MAP std::tr1::unordered_map
+			#define COLLADABU_HASH_MULTIMAP std::tr1::unordered_multimap
             #define COLLADABU_HASH_SET std::tr1::unordered_set
             #define COLLADABU_HASH_NAMESPACE_OPEN std { namespace tr1
             #define COLLADABU_HASH_NAMESPACE_CLOSE }
@@ -40,7 +42,8 @@
             #include <unordered_map>
             #include <unordered_set>
 
-            #define COLLADABU_HASH_MAP std::unordered_map
+			#define COLLADABU_HASH_MAP std::unordered_map
+			#define COLLADABU_HASH_MULTIMAP std::unordered_multimap
             #define COLLADABU_HASH_SET std::unordered_set
             #define COLLADABU_HASH_NAMESPACE_OPEN std
             #define COLLADABU_HASH_NAMESPACE_CLOSE
@@ -76,7 +79,8 @@
             };
         }
 
-        #define COLLADABU_HASH_MAP __gnu_cxx::hash_map
+		#define COLLADABU_HASH_MAP __gnu_cxx::hash_map
+		#define COLLADABU_HASH_MULTIMAP __gnu_cxx::hash_multimap
         #define COLLADABU_HASH_SET __gnu_cxx::hash_set
         #define COLLADABU_HASH_NAMESPACE_OPEN __gnu_cxx
         #define COLLADABU_HASH_NAMESPACE_CLOSE
@@ -85,7 +89,8 @@
         #include <tr1/unordered_map>
         #include <tr1/unordered_set>
 
-        #define COLLADABU_HASH_MAP std::tr1::unordered_map
+		#define COLLADABU_HASH_MAP std::tr1::unordered_map
+		#define COLLADABU_HASH_MULTIMAP std::tr1::unordered_multimap
         #define COLLADABU_HASH_SET std::tr1::unordered_set
         #define COLLADABU_HASH_NAMESPACE_OPEN std { namespace tr1
         #define COLLADABU_HASH_NAMESPACE_CLOSE }
@@ -96,15 +101,25 @@
 namespace COLLADABU
 {
     // typedef COLLADABU_HASH_MAP<X, Y> hash_map<X, Y>;   // Unfortunately, this is not possible...
-    template<class X, class Y>
-    class hash_map : public COLLADABU_HASH_MAP<X,Y>
-    {
-        public:
+	template<class X, class Y>
+	class hash_map : public COLLADABU_HASH_MAP<X,Y>
+	{
+	public:
 
-        hash_map() {}
-        hash_map(const hash_map& a) : COLLADABU_HASH_MAP<X,Y>(a) {}
-        hash_map& operator = (const hash_map& a) { COLLADABU_HASH_MAP<X,Y>::operator = (*this, a); return this; }
-    };
+		hash_map() {}
+		hash_map(const hash_map& a) : COLLADABU_HASH_MAP<X,Y>(a) {}
+		hash_map& operator = (const hash_map& a) { COLLADABU_HASH_MAP<X,Y>::operator = (*this, a); return this; }
+	};
+
+	template<class X, class Y>
+	class hash_multimap : public COLLADABU_HASH_MULTIMAP<X,Y>
+	{
+	public:
+
+		hash_multimap() {}
+		hash_multimap(const hash_multimap& a) : COLLADABU_HASH_MULTIMAP<X,Y>(a) {}
+		hash_multimap& operator = (const hash_multimap& a) { COLLADABU_HASH_MULTIMAP<X,Y>::operator = (*this, a); return this; }
+	};
 
     template<class X>
     class hash_set : public COLLADABU_HASH_SET<X>
