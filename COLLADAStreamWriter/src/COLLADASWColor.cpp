@@ -12,7 +12,6 @@
 #include "COLLADASWConstants.h"
 #include "COLLADASWExtra.h"
 #include "COLLADASWTechnique.h"
-#include <assert.h>
 #include <algorithm>
 
 namespace COLLADASW
@@ -40,7 +39,7 @@ namespace COLLADASW
             ( mB >= 0 && mB <= 1 ) &&
             ( mA >= 0 && mA <= 1 ))
         {
-            assert("Current color is not valid!");
+            COLLADABU_ASSERT("Current color is not valid!");
             return false;
         }
 

@@ -14,8 +14,6 @@
 #include "CommonBuffer.h"
 #include "Commonitoa.h"
 
-#include <cassert>
-
 namespace Common
 {
 	/** This is an extension Buffer, that can handle C++ built in types and copies there string representation.*/
@@ -96,7 +94,7 @@ namespace Common
 		}
 
 		// Check if the buffer size is large enough
-		//assert(getBytesAvailable() >= maxIntLength);
+		COLLADABU_ASSERT(getBytesAvailable() >= maxIntLength);
 		if ( getBytesAvailable() < maxIntLength )
 		{
 			//No chance to convert the double with this buffer

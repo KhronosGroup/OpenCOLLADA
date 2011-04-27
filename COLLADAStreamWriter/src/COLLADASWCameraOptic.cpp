@@ -11,7 +11,6 @@
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWCameraOptic.h"
 #include "COLLADASWConstants.h"
-#include <assert.h>
 
 namespace COLLADASW
 {

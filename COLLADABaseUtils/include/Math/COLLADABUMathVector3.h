@@ -15,9 +15,7 @@
 #include "COLLADABUMathPrerequisites.h"
 #include "COLLADABUMathQuaternion.h"
 
-#include <assert.h>
 #include <math.h>
-
 
 namespace COLLADABU
 {

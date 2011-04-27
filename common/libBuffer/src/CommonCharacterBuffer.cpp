@@ -11,7 +11,6 @@
 #include "CommonCharacterBuffer.h"
 #include "Commonftoa.h"
 #include "Commondtoa.h"
-#include <cassert>
 
 #include <string.h>
 

@@ -10,7 +10,6 @@
 
 #include "COLLADABUStableHeaders.h"
 #include "Math/COLLADABUMathMatrix3.h"
-#include <assert.h>
 
 #pragma warning( push )
 #pragma warning( disable: 4244 )

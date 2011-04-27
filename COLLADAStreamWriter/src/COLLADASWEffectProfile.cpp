@@ -12,7 +12,6 @@
 #include "COLLADASWExtra.h"
 #include "COLLADASWTechnique.h"
 #include "COLLADASWParamTemplate.h"
-#include <assert.h>
 #include <algorithm>
 
 namespace COLLADASW

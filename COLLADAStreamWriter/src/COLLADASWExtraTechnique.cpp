@@ -12,7 +12,6 @@
 #include "COLLADASWExtraTechnique.h"
 #include "COLLADASWExtra.h"
 #include "COLLADASWConstants.h"
-#include "assert.h"
 
 namespace COLLADASW
 {
@@ -27,7 +26,7 @@ namespace COLLADASW
             mExtraTechniques.insert ( ExtraTechnique ( profileName, Profile() ) );
 
         it = mExtraTechniques.find ( profileName );
-        if ( it == mExtraTechniques.end() ) assert ( "Could not create a profile" );
+        if ( it == mExtraTechniques.end() ) COLLADABU_ASSERT ( "Could not create a profile" );
 
         return ( *it ).second;
     }
@@ -44,7 +43,7 @@ namespace COLLADASW
             childElements.insert ( ChildElement ( childName, Parameters() ) );
 
         it = childElements.find ( childName );
-        if ( it == childElements.end() ) assert ( "Can't create a child parameter!" );
+        if ( it == childElements.end() ) COLLADABU_ASSERT ( "Can't create a child parameter!" );
 
         return ( *it ).second;
     }

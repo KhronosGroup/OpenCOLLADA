@@ -13,8 +13,6 @@
 
 #include "pcre.h"
 
-#include <cassert>
-
 namespace COLLADABU
 {
 

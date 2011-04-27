@@ -11,8 +11,6 @@
 #include "COLLADASWImage.h"
 #include "COLLADASWConstants.h"
 
-#include <cassert>
-
 namespace COLLADASW
 {
 

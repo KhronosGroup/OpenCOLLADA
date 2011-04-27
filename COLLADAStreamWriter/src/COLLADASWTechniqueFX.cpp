@@ -11,7 +11,6 @@
 
 #include "COLLADASWTechniqueFX.h"
 #include "COLLADASWConstants.h"
-#include "assert.h"
 
 namespace COLLADASW
 {

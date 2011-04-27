@@ -20,7 +20,6 @@
 
 #include <string>
 #include <fstream>
-#include <cassert>
 
 namespace COLLADASW
 {

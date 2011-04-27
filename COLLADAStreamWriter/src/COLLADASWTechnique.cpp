@@ -11,7 +11,6 @@
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWTechnique.h"
 #include "COLLADASWConstants.h"
-#include "assert.h"
 
 namespace COLLADASW
 {

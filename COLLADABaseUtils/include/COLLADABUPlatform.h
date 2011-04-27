@@ -41,6 +41,8 @@
 #     define COLLADABU_DEBUG 
 #endif
 
+#include <cassert>
+
 #if defined(COLLADABU_DEBUG)
 #	define COLLADABU_ASSERT(cond) assert(cond);
 #else
