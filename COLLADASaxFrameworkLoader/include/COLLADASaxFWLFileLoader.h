@@ -13,9 +13,16 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLDocumentProcessor.h"
-#include "COLLADASaxFWLColladaParserAutoGen14Private.h"
-#include "COLLADASaxFWLColladaParserAutoGen15Private.h"
 
+namespace COLLADASaxFWL14
+{
+    class ColladaParserAutoGen14Private;
+}
+
+namespace COLLADASaxFWL15
+{
+    class ColladaParserAutoGen15Private;
+}
 
 namespace COLLADASaxFWL
 {

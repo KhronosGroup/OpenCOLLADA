@@ -50,6 +50,7 @@ namespace COLLADASaxFWL
 	class IErrorHandler;
 	class DocumentProcessor;
 	class PostProcessor;
+    class FileLoader;
 
 
 	typedef std::list<String> StringList;
@@ -188,6 +189,8 @@ namespace COLLADASaxFWL
 		/** The version of the collada document.*/
 		COLLADAVersion mCOLLADAVersion;
 
+		FileLoader * mFileLoader;
+
 		/** Loader utils that will help us to fill the model.*/
 		COLLADAFW::LoaderUtils mLoaderUtil;
 
@@ -305,6 +308,8 @@ namespace COLLADASaxFWL
 
 		/** The version of the collada document.*/
 		COLLADAVersion getCOLLADAVersion() const { return mCOLLADAVersion; }
+
+        const FileLoader * getFileLoader() const { return mFileLoader; }
 
         /** Starts loading the model and feeds the writer with data.
 		@param fileName The name of the file that should be loaded.
