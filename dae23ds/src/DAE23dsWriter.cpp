@@ -333,7 +333,7 @@ namespace DAE23ds
 	//--------------------------------------------------------------------
 	void Writer::fillMaterialBindingMap(const GeometryMaterialBinding& materialBinding)
 	{
-		const COLLADAFW::InstanceGeometry::MaterialBindingArray& fwBindings = materialBinding.fwInstanceGeometry->getMaterialBindings();
+		const COLLADAFW::MaterialBindingArray& fwBindings = materialBinding.fwInstanceGeometry->getMaterialBindings();
 		size_t fwBindingCount = fwBindings.getCount();
 		
 		if ( fwBindingCount == materialBinding.bindingMap.size() )
@@ -344,7 +344,7 @@ namespace DAE23ds
 
 		for ( size_t i = 0; i< fwBindingCount; ++i)
 		{
-			const COLLADAFW::InstanceGeometry::MaterialBinding& fwBinding = fwBindings[i];
+			const COLLADAFW::MaterialBinding& fwBinding = fwBindings[i];
 			materialBinding.bindingMap.insert(std::make_pair(fwBinding.getMaterialId(), fwBinding.getReferencedMaterial()));
 		}
 	}
@@ -361,8 +361,8 @@ namespace DAE23ds
 		if ( lhsGeometryUniqueId > rhsGeometryUniqueId )
 			return false;
 
-		const COLLADAFW::InstanceGeometry::MaterialBindingArray& lhsFwBinding = lhs.fwInstanceGeometry->getMaterialBindings();
-		const COLLADAFW::InstanceGeometry::MaterialBindingArray& rhsFwBinding = rhs.fwInstanceGeometry->getMaterialBindings();
+		const COLLADAFW::MaterialBindingArray& lhsFwBinding = lhs.fwInstanceGeometry->getMaterialBindings();
+		const COLLADAFW::MaterialBindingArray& rhsFwBinding = rhs.fwInstanceGeometry->getMaterialBindings();
 
 		if ( lhsFwBinding.getCount() < rhsFwBinding.getCount() )
 			return true;

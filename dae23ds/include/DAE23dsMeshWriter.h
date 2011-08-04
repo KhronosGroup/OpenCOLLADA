@@ -78,10 +78,10 @@ namespace DAE23ds
 		bool writeTrianglesForMultipleObjects(CountType trianglesCount);
 
 		/** writes the faces materials.*/
-		bool writeFaceMaterials(const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings);
+		bool writeFaceMaterials(const COLLADAFW::MaterialBindingArray& materialBindings);
 
 		/** */
-		bool writeFaceMaterialsForMultipleObjects(const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings, const ObjectBlockData& blockData);
+		bool writeFaceMaterialsForMultipleObjects(const COLLADAFW::MaterialBindingArray& materialBindings, const ObjectBlockData& blockData);
 
 		/** Writes the mesh matrix of the tri object.*/
 		bool writeMeshMatrix(const COLLADABU::Math::Matrix4& worldMatrix);

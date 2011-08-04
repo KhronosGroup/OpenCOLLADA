@@ -119,10 +119,10 @@ namespace DAE23ds
 		size_t calculateTrianglesCount();
 
 		/** Calculates the length including null termination of all materials names.*/
-//		ChunkLength calculateMaterialNamesLength( const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings);
+//		ChunkLength calculateMaterialNamesLength( const COLLADAFW::MaterialBindingArray& materialBindings);
 
 		/** Calculates the length of all material faces.*/
-		ChunkLength calculateFacesMaterialsLength(CountType trianglesCount, const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings);
+		ChunkLength calculateFacesMaterialsLength(CountType trianglesCount, const COLLADAFW::MaterialBindingArray& materialBindings);
 
 		/** Calculates the length of the faces description, given the number of triangles.*/
 		ChunkLength calculateFacesDescriptionLength(CountType trianglesCount, ChunkLength facesMaterialsLength);

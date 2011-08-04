@@ -103,7 +103,7 @@ namespace DAE23ds
 	bool MeshBase::handleMeshIntoMultipleObjects( const Writer::InstanceGeometryInfo& instanceGeometryInfo, const COLLADAFW::InstanceGeometry* alreadyUsingInstance)
 	{
 		const COLLADAFW::InstanceGeometry* instanceGeometry = instanceGeometryInfo.fwInstanceGeometry;
-		const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
+		const COLLADAFW::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
 
 		size_t trianglesCount = calculateTrianglesCount();
 
@@ -154,7 +154,7 @@ namespace DAE23ds
 	bool MeshBase::handleMeshIntoOneObject( const Writer::InstanceGeometryInfo& instanceGeometryInfo, const COLLADAFW::InstanceGeometry* alreadyUsingInstance)
 	{
 		const COLLADAFW::InstanceGeometry* instanceGeometry = instanceGeometryInfo.fwInstanceGeometry;
-		const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
+		const COLLADAFW::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
 
 		CountType trianglesCount = (CountType)calculateTrianglesCount();
 
@@ -232,7 +232,7 @@ namespace DAE23ds
 	}
 
 	//------------------------------
-// 	ChunkLength MeshBase::calculateMaterialNamesLength( const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings)
+// 	ChunkLength MeshBase::calculateMaterialNamesLength( const COLLADAFW::MaterialBindingArray& materialBindings)
 // 	{
 // 		ChunkLength length = 0;
 // 
@@ -246,7 +246,7 @@ namespace DAE23ds
 // 	}
 
 	//------------------------------
-	ChunkLength MeshBase::calculateFacesMaterialsLength(CountType trianglesCount, const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings)
+	ChunkLength MeshBase::calculateFacesMaterialsLength(CountType trianglesCount, const COLLADAFW::MaterialBindingArray& materialBindings)
 	{
 		// the size is determined by:
 		// 1) the number of materials and their name length

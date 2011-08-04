@@ -66,7 +66,7 @@ namespace DAE23ds
 		else
 		{
 			// we need to export the mesh
-			const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
+			const COLLADAFW::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
 
 //			writeMaterialBlocks(materialBindings);
 
@@ -96,7 +96,7 @@ namespace DAE23ds
 	bool MeshWriter::writeMeshIntoObject( const Writer::InstanceGeometryInfo& instanceGeometryInfo, const ObjectBlockData& blockData)
 	{
 		const COLLADAFW::InstanceGeometry* instanceGeometry = instanceGeometryInfo.fwInstanceGeometry;
-		const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
+		const COLLADAFW::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
 		ChunkLength verticesLength = calculateVerticesLength(blockData.trianglesCount*3*3);
 
 		ChunkLength facesMaterialsLength = calculateFacesMaterialsLength(blockData.trianglesCount, materialBindings);
@@ -157,7 +157,7 @@ namespace DAE23ds
 		}
 		else
 		{
-			const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
+			const COLLADAFW::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
 
 //			writeMaterialBlocks(materialBindings);
 
@@ -409,11 +409,11 @@ namespace DAE23ds
 
 
 	//------------------------------
-	bool MeshWriter::writeFaceMaterials(const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings)
+	bool MeshWriter::writeFaceMaterials(const COLLADAFW::MaterialBindingArray& materialBindings)
 	{
 		for ( size_t i = 0, count = materialBindings.getCount(); i < count; ++i)
 		{
-			const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindings[i];
+			const COLLADAFW::MaterialBinding& materialBinding = materialBindings[i];
 			COLLADAFW::MaterialId materialId = materialBinding.getMaterialId();
 
 			const COLLADAFW::UniqueId& materialUniqueId = materialBinding.getReferencedMaterial();
@@ -488,11 +488,11 @@ namespace DAE23ds
 	}
 
 	//------------------------------
-	bool MeshWriter::writeFaceMaterialsForMultipleObjects(const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings, const ObjectBlockData& blockData)
+	bool MeshWriter::writeFaceMaterialsForMultipleObjects(const COLLADAFW::MaterialBindingArray& materialBindings, const ObjectBlockData& blockData)
 	{
 		for ( size_t i = 0, count = materialBindings.getCount(); i < count; ++i)
 		{
-			const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindings[i];
+			const COLLADAFW::MaterialBinding& materialBinding = materialBindings[i];
 			COLLADAFW::MaterialId materialId = materialBinding.getMaterialId();
 
 			const COLLADAFW::UniqueId& materialUniqueId = materialBinding.getReferencedMaterial();
