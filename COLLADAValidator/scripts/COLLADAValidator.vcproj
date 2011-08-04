@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -129,7 +129,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -212,7 +212,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
@@ -294,7 +294,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_LIBXML;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
@@ -375,7 +375,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -459,7 +459,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -542,7 +542,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
@@ -624,7 +624,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\include;&quot;..\..\COLLADABaseUtils\include&quot;;&quot;..\..\COLLADAFramework\include&quot;;&quot;..\..\COLLADASaxFrameworkLoader\include&quot;;&quot;..\..\GeneratedSaxParser\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;XML_STATIC;XMLPARSER_EXPAT;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="0"
@@ -681,6 +681,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release Expat NoValidation|Win32"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -821,6 +822,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release LibXML NoValidation|Win32"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
