@@ -64,6 +64,14 @@ copy "..\bin\win\win32\Release_Max2011_static\COLLADAMaxNew.dle" %DESTINATION%\m
 %UPX_PATH%\upx.exe -9 %DESTINATION%\max2011-x86\COLLADAMaxNew.dle >> %LOGFILE%
 
 
+devenv ..\COLLADAMax.sln /build "Release_Max2012_static|x64"
+copy "..\bin\win\x64\Release_Max2012_static\COLLADAMaxNew.dle" %DESTINATION%\max2012-x64 >> %LOGFILE%
+
+devenv ..\COLLADAMax.sln /build "Release_Max2012_static|Win32" >> %LOGFILE%
+copy "..\bin\win\win32\Release_Max2012_static\COLLADAMaxNew.dle" %DESTINATION%\max2012-x86 >> %LOGFILE%
+%UPX_PATH%\upx.exe -9 %DESTINATION%\max2012-x86\COLLADAMaxNew.dle >> %LOGFILE%
+
+
 
 pause
 

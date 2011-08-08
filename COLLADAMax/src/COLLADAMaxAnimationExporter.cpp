@@ -456,7 +456,11 @@ namespace COLLADAMax
 		if (animationNumber == -1)
 			return false;
 
+#ifdef MAX_2012_OR_NEWER
+		Control *controller = parameterBlock->GetControllerByIndex(animationNumber);
+#else
 		Control *controller = parameterBlock->GetController(animationNumber);
+#endif
 
 		if ( !isAnimated(controller) )
 			return false;
@@ -526,7 +530,12 @@ namespace COLLADAMax
 		if (animationNumber == -1)
 			return false;
 		//int pi = paramBlock->AnimNumToParamNum(animationNumber, tabIndex);
+#ifdef MAX_2012_OR_NEWER
+		Control *controller = paramBlock->GetControllerByIndex(animationNumber);
+#else
 		Control *controller = paramBlock->GetController(animationNumber);
+#endif
+
 		return isAnimated(controller);
 	}
 
