@@ -82,6 +82,19 @@ namespace COLLADAMax
 
 	typedef std::map<Object*, String> ObjectStringMap;
 
+	struct SkyLightParameters
+	{
+		float colorMapAmount;
+		bool colorMapOn;
+		int raysPerSample;
+		float mode;
+		float multiplier;
+		float rayBias;
+		bool castShadows;
+		bool intensityOn;
+	};
+
+
 }
 
 

@@ -34,6 +34,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxSceneGraphCreator.h"
 #include "COLLADAMaxMorphControllerCreator.h"
 #include "COLLADAMaxFWLErrorHandler.h"
+#include "COLLADAMaxExtraDataHandler.h"
 
 #include "COLLADAFWFileInfo.h"
 
@@ -66,11 +67,14 @@ namespace COLLADAMax
 		, mDummyObject((DummyObject*) getMaxImportInterface()->Create(HELPER_CLASS_ID, Class_ID(DUMMY_CLASS_ID, 0)))
 		, mCurrentParsingPass(GENERAL_PASS)
 		, mInvertTransparency(false)
+		, mExtraDataHandler(0)
 	{
 		mUnitConversionFunctors.lengthConversion = 0;
 		mUnitConversionFunctors.inverseLengthConversion = 0;
 		mUnitConversionFunctors.angleConversion = 0;
 		mUnitConversionFunctors.timeConversion = new ScaleConversionFunctor( (float)(GetTicksPerFrame() * GetFrameRate()));
+
+		mExtraDataHandler = new ExtraDataHandler(this);
 
 #pragma warning(disable: 4996)
 		_timeb startTimeBuffer;
@@ -106,6 +110,8 @@ namespace COLLADAMax
 		delete mUnitConversionFunctors.lengthConversion;
 		delete mUnitConversionFunctors.angleConversion;
 		delete mUnitConversionFunctors.timeConversion;
+
+		delete mExtraDataHandler;
 	}
 
 	//---------------------------------------------------------------
@@ -113,6 +119,7 @@ namespace COLLADAMax
 	{
 		FWLErrorHandler errorHandler;
 		COLLADASaxFWL::Loader loader(&errorHandler);
+		loader.registerExtraDataCallbackHandler(mExtraDataHandler);
 		COLLADAFW::Root root(&loader, this);
 
 		if ( !root.loadDocument(mImportFilePath) )

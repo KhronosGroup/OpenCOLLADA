@@ -20,6 +20,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAMaxPrerequisites.h"
 #include "COLLADAMaxConversionFunctor.h"
+#include "COLLADAMaxTypes.h"
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWMaterial.h"
@@ -54,6 +55,7 @@ namespace COLLADAMax
 {
 
 	class MaterialCreator;
+	class ExtraDataHandler;
 
 
 	class DocumentImporter 	: COLLADAFW::IWriter
@@ -170,6 +172,9 @@ namespace COLLADAMax
 			ConversionFunctor* angleConversion;
 			ConversionFunctor* timeConversion;
 		};
+
+		/** Maps unique ids of framework materials to the corresponding framework material.*/
+		typedef std::map<COLLADAFW::UniqueId, SkyLightParameters> UniqueIdSkyLightMap;
 			
 	private:
 		/** Max interface.*/
@@ -294,6 +299,10 @@ namespace COLLADAMax
 		/** If set to true, 1-transparency is used as transparency. This used to circumvent wrong transparency 
 		handling Google SketchUp COLLADA exporter*/
 		bool mInvertTransparency;
+
+		ExtraDataHandler* mExtraDataHandler;
+
+		UniqueIdSkyLightMap mUniqueIdSkyLightMap;
 
 	public:
 		/** Constructor .
@@ -479,6 +488,8 @@ namespace COLLADAMax
 
 		/** Returns the GeometrySetMapChannelMap.*/
 		GeometrySetMapChannelMap& getGeometrySetMapChannelMap() { return mGeometrySetMapChannelMap; }
+
+		UniqueIdSkyLightMap& getUniqueIdSkyLightMap() { return mUniqueIdSkyLightMap; }
 
 		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
 		When ever an inode is cloned, the cloned one and itself should be added to that list.*/

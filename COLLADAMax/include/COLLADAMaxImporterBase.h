@@ -298,6 +298,10 @@ namespace COLLADAMax
 		/** Converts a COLLADAFW Matrix4 into a max Matrix3.*/
 		void Matrix4ToMaxMatrix3 ( Matrix3 & copy,  const COLLADABU::Math::Matrix4& original  );
 
+		const SkyLightParameters* getSkyLightParametersByUniqueId( const COLLADAFW::UniqueId& uniqueId );
+
+		void addUniqueIdSkyLightParametersPair( const COLLADAFW::UniqueId& lihgtUniqueId, const SkyLightParameters& skyLightParameters);
+
 	private:
 
         /** Disable default copy ctor. */

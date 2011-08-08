@@ -8358,6 +8358,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxExtraDataHandler.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxFWLErrorHandler.cpp"
 					>
 				</File>
@@ -8617,6 +8621,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxEffectImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxExtraDataHandler.h"
 					>
 				</File>
 				<File

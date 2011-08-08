@@ -502,4 +502,25 @@ namespace COLLADAMax
 		return mDocumentImporter->convertSpaceUnit(originalValue);
 	}
 
+	//------------------------------
+	const SkyLightParameters* ImporterBase::getSkyLightParametersByUniqueId( const COLLADAFW::UniqueId& uniqueId )
+	{
+		const DocumentImporter::UniqueIdSkyLightMap&  map = mDocumentImporter->getUniqueIdSkyLightMap();
+		DocumentImporter::UniqueIdSkyLightMap::const_iterator it = map.find( uniqueId );
+		if ( it == map.end() )
+		{
+			return 0;
+		}
+		else
+		{
+			return &it->second;
+		}
+	}
+
+	//------------------------------
+	void ImporterBase::addUniqueIdSkyLightParametersPair( const COLLADAFW::UniqueId& lihgtUniqueId, const SkyLightParameters& skyLightParameters )
+	{
+		mDocumentImporter->getUniqueIdSkyLightMap()[lihgtUniqueId] = skyLightParameters;
+	}
+
 } // namespace COLLADAMax
