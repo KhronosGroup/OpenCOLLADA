@@ -52,7 +52,7 @@ namespace COLLADAMax
 		bool import();
 
 		/** Creates a new light from @a camera and returns a pointer to it. */
-		GenLight* createLight( const COLLADAFW::Light* light );
+		LightObject* createLight( const COLLADAFW::Light* light );
 
 		/** creates and adds an ambient light to the document. Since such a light is global 
 		i does not have to added to the scene.*/
@@ -66,6 +66,9 @@ namespace COLLADAMax
         /** Disable default assignment operator. */
 		const LightImporter& operator= ( const LightImporter& pre );
 
+		LightObject* createSkyLight( const COLLADAFW::Light* light, const SkyLightParameters* skyLightParameters );
+
+		GenLight* createGenericLight( const COLLADAFW::Light* light );
 	};
 
 } // namespace COLLADAMAX

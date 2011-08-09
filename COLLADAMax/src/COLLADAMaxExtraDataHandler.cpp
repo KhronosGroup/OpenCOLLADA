@@ -181,7 +181,14 @@ namespace COLLADAMax
 		switch ( elementHash )
 		{
 		case COLLADASaxFWL14::HASH_ELEMENT_LIGHT:
-			return true;
+			if ( strcmp(profileName, "OpenCOLLADA3dsMax") == 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		default:
 			return false;
 		}

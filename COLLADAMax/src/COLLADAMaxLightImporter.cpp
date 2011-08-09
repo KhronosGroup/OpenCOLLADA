@@ -50,7 +50,7 @@ namespace COLLADAMax
 	{
 
 		addLight( *mLight );
-		GenLight* maxLight = createLight(mLight);
+		LightObject* maxLight = createLight(mLight);
 
 		handleObjectReferences(mLight, maxLight);
 
@@ -58,7 +58,23 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	GenLight* LightImporter::createLight( const COLLADAFW::Light* light )
+	LightObject* LightImporter::createLight( const COLLADAFW::Light* light )
+	{
+		LightObject* maxLight = 0;
+		const SkyLightParameters* skyLightParameters = getSkyLightParametersByUniqueId(light->getUniqueId());
+		if ( skyLightParameters )
+		{
+			maxLight = createSkyLight(light, skyLightParameters);
+		}
+		else
+		{
+			maxLight = createGenericLight(light);
+		}
+		return maxLight;
+	}
+
+	//------------------------------
+	GenLight* LightImporter::createGenericLight( const COLLADAFW::Light* light )
 	{
 		// ambient, spot, directional, point
 
@@ -138,6 +154,31 @@ namespace COLLADAMax
 
 
 		return maxLight;
+	}
+
+
+	//------------------------------
+	LightObject* LightImporter::createSkyLight( const COLLADAFW::Light* light, const SkyLightParameters* skyLightParameters )
+	{
+		void* lightMaxObject = createMaxObject(LIGHT_CLASS_ID, SKY_LIGHT_CLASS_ID);
+		LightObject* skyLight = (LightObject*)lightMaxObject;
+
+		IParamBlock2* skyLightParams = (IParamBlock2*) skyLight->GetReference(MaxLight::PBLOCK_REF_SKY);
+
+		Point3 color = toMaxPoint3(light->getColor());
+
+		// param id documented in const Extra::ExtraParameter LightExporter::SKYLIGHT_PARAMETERS
+		skyLightParams->SetValue(0, 0, color);
+		skyLightParams->SetValue(1, 0, skyLightParameters->colorMapAmount);
+		skyLightParams->SetValue(3, 0, skyLightParameters->colorMapOn);
+		skyLightParams->SetValue(4, 0, skyLightParameters->raysPerSample);
+		skyLightParams->SetValue(7, 0, skyLightParameters->mode);
+		skyLightParams->SetValue(10, 0, skyLightParameters->multiplier);
+		skyLightParams->SetValue(11, 0, skyLightParameters->rayBias);
+		skyLightParams->SetValue(12, 0, skyLightParameters->castShadows);
+		skyLightParams->SetValue(13, 0, skyLightParameters->intensityOn);
+
+		return skyLight;
 	}
 
 	//------------------------------
