@@ -12,12 +12,23 @@
 #define __COMMON_FWRITEBUFFERFLUSHER_H__
 
 #include "CommonIBufferFlusher.h"
-#include <iostream>
+
+#if (defined(WIN64) || defined(_WIN64) || defined(__WIN64__)) || (defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__))
+#	include <unordered_map>
+#else
+#	include <tr1/unordered_map>
+#endif
+
 
 namespace Common
 {
 	class FWriteBufferFlusher : public IBufferFlusher
 	{
+	private:
+		typedef __int64 FilePosType;
+		typedef std::tr1::unordered_map<MarkId, FilePosType > MarkIdToFilePos;
+	public:
+		static const size_t DEFAUL_BUFFER_SIZE = 64*1024;
 	private:
 		/** The buffer size of the stream.*/
 		size_t mBufferSize;
@@ -31,9 +42,13 @@ namespace Common
 		/** The error code of fopen_s.*/
 		int mError;
 
+		MarkId mLastMarkId;
+
+		MarkIdToFilePos mMarkIds;
+
 	public:
-		FWriteBufferFlusher( const char* fileName, size_t bufferSize, const char* mode="wb" );
-		//FWriteBufferFlusher( const wchar_t* fileName, size_t bufferSize, const wchar_t* mode=L"wb" );
+		FWriteBufferFlusher( const char* fileName, size_t bufferSize = DEFAUL_BUFFER_SIZE, const char* mode="wb" );
+		FWriteBufferFlusher( const wchar_t* fileName, size_t bufferSize = DEFAUL_BUFFER_SIZE, const wchar_t* mode=L"wb" );
 		virtual ~FWriteBufferFlusher();
 
 		/** The error code of fopen_s.*/
@@ -51,6 +66,11 @@ namespace Common
 		*/
 		FILE* _getFileHandle() const { return mStream; }
 
+		void startMark();
+
+		IBufferFlusher::MarkId endMark();
+
+		bool jumpToMark(IBufferFlusher::MarkId markId, bool keepMarkId = false);
 
 	private:
         /** Disable default copy ctor. */

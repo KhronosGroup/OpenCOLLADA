@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="libBuffer"
-	ProjectGUID="{F36A0F1F-D046-4DD9-B231-F3A478443A68}"
+	ProjectGUID="{D1D50DE5-1C1D-4322-B076-8B223A5984A4}"
 	RootNamespace="libBuffer"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -109,7 +109,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -174,7 +174,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
@@ -238,7 +238,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
@@ -928,7 +928,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -994,7 +994,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -1059,7 +1059,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="false"
@@ -1124,7 +1124,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
@@ -1186,7 +1186,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -1251,7 +1251,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -1316,7 +1316,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -1380,7 +1380,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -1443,7 +1443,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				RuntimeLibrary="0"
 				TreatWChar_tAsBuiltInType="false"
@@ -1508,7 +1508,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -1570,7 +1570,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -1636,7 +1636,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\libftoa\include"
+				AdditionalIncludeDirectories="..\include;..\..\libftoa\include;..\..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;HAVE_SNPRINTF;PREFER_PORTABLE_SNPRINTF"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -1694,6 +1694,10 @@
 			</File>
 			<File
 				RelativePath="..\src\CommonFWriteBufferFlusher.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\CommonLogFileBufferFlusher.cpp"
 				>
 			</File>
 			<File
@@ -2296,6 +2300,10 @@
 			</File>
 			<File
 				RelativePath="..\include\CommonIBufferFlusher.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\CommonLogFileBufferFlusher.h"
 				>
 			</File>
 			<File

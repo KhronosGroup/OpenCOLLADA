@@ -11,13 +11,16 @@
 #ifndef __COMMON_IBUFFERFLUSHER_H__
 #define __COMMON_IBUFFERFLUSHER_H__
 
-#include <stdlib.h>
-
 namespace Common
 {
 	/** Derived classes of this interface are used by Buffer.*/
 	class IBufferFlusher 	
 	{
+	public:
+		typedef unsigned long MarkId;
+	public:
+		static const MarkId END_OF_STREAM = 0;
+		static const MarkId INVALID_ID = -1;
 	public:
 		IBufferFlusher(){}
 		virtual ~IBufferFlusher(){}
@@ -28,6 +31,14 @@ namespace Common
 
 		/** Flushes all the data previously received by receiveData.*/
 		virtual bool flush() = 0;
+
+		virtual void startMark() = 0;
+
+		virtual MarkId endMark() = 0;
+
+		virtual bool jumpToMark(MarkId markId, bool keepMarkId = false) = 0;
+
+		virtual int getError() const = 0;
 
 	private:
         /** Disable default copy ctor. */

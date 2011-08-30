@@ -12,7 +12,6 @@
 #define __COMMON_CHARACTERBUFFER_H__
 
 #include "CommonBuffer.h"
-#include "Commonitoa.h"
 
 namespace Common
 {
@@ -22,6 +21,9 @@ namespace Common
 	public:
 		static const char DEFAULT_TRUE_STRING[];
 		static const char DEFAULT_FALSE_STRING[];
+
+		/** The maximum length a UTF8 encoded character can have.*/
+		static const size_t MAX_UTF8_CHAR_LENGTH = 4;
 
 	private:
 		/** Text copied into the buffer for a true boolean.*/
@@ -63,13 +65,31 @@ namespace Common
 		( 16 digits ) if @a doublePrecision is true, otherwise single precision as the float version.*/
 		bool copyToBufferAsChar( double d, bool doublePrecision = false);
 
-		/** Copies a string representation @a i into the buffer.
-		@tparam IntegerType The type of the integer to copy to the buffer.*/
-		template<class IntegerType>
-		bool copyToBufferAsChar( IntegerType i);
+		/** Copies a string representation @a i into the buffer.*/
+		bool copyToBufferAsChar( char i);
+		bool copyToBufferAsChar( unsigned char i);
+
+		bool copyToBufferAsChar( short i);
+		bool copyToBufferAsChar( unsigned short i);
+
+		bool copyToBufferAsChar( long i);
+		bool copyToBufferAsChar( unsigned long i);
+
+		bool copyToBufferAsChar( int i);
+		bool copyToBufferAsChar( unsigned int i);
+
+		bool copyToBufferAsChar( long long i);
+		bool copyToBufferAsChar( unsigned long long i);
 
 		/** Copies a string representation @a v into the buffer. Either 0 or 1*/
 		bool copyToBufferAsChar( bool v);
+	
+		/** Copies a string  @a text into the buffer, encoded as UTF8.*/
+		void copyToBufferAsChar( const wchar_t* text, size_t length );
+
+		/** Converts the first @a sourceWideTextLength wide character in @a sourceWideText to UTF8 encoded char in @a targetTextBuffer. 
+		The size of @a targetTextBuffer hast be at least MAX_UTF8_CHAR_LENGTH * sourceWideTextLength.*/
+		static size_t convertWideStringToUTF8( const wchar_t* sourceWideText, size_t sourceWideTextLength, char* targetTextBuffer, size_t targetTextBufferLength);
 
 
 	private:
@@ -78,33 +98,12 @@ namespace Common
         /** Disable default assignment operator. */
 		const CharacterBuffer& operator= ( const CharacterBuffer& pre );
 
+		/** Copies a string representation @a i into the buffer.
+		@tparam IntegerType The type of the integer to copy to the buffer.*/
+		template<class IntegerType>
+		bool copyIntegerToBufferAsChar( IntegerType i);
+
 	};
-
-
-	//--------------------------------------------------------------------
-	template<class IntegerType>
-	bool CharacterBuffer::copyToBufferAsChar( IntegerType i)
-	{
-		size_t maxIntLength = Itoa<IntegerType>::MINIMUM_BUFFERSIZE_10; 
-
-		if ( getBytesAvailable() < maxIntLength )
-		{
-			//The int might not fit into the buffer. We need to flush first.
-			flushBuffer();
-		}
-
-		// Check if the buffer size is large enough
-		COLLADABU_ASSERT(getBytesAvailable() >= maxIntLength);
-		if ( getBytesAvailable() < maxIntLength )
-		{
-			//No chance to convert the double with this buffer
-			return false;
-		}
-
-		increaseCurrentPosition( itoa( i, getCurrentPosition(), 10) );
-
-		return true;
-	}
 
 
 

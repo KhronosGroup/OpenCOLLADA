@@ -31,8 +31,15 @@ namespace Common
 		be flushed before. */
 		size_t mDirectFlushSize;
 
+		/** Total number of bytes already passed to the flusher.*/
+		size_t mBytesFlushed;
+
 		/** The flusher used to flush the buffer.*/
 		IBufferFlusher* mFlusher;
+
+		bool mMarkSet;
+
+		bool mIsOverwriting;
 
 	public:
 		Buffer(size_t bufferSize, IBufferFlusher* flusher);
@@ -65,22 +72,35 @@ namespace Common
 		size_t getBufferSize() const { return mBufferSize; }
 
 		/** The number of bytes currently in the buffer.*/
-		size_t getBytesUsed() const { return mCurrentPos - mBuffer; }
+		size_t getBytesUsed() const;
 
 		/** The number of bytes currently available in the buffer.*/
-		size_t getBytesAvailable() const { return getBufferSize()-getBytesUsed(); }
+		size_t getBytesAvailable() const;
+
+		/** The number of bytes already copied to the buffer.*/
+		size_t getBytesCopiedToBuffer() const;
 
 		/** @return True, if the buffer does not contain any data, false otherwise.*/
-		size_t isEmpty() const { return mBuffer == mCurrentPos; }
+		size_t isEmpty() const;
 
 		/** Minimum size of data that will be flushed directly without copying to the buffer. The current buffer will 
 		be flushed before. */
-		size_t getDirectFlushSize() const { return mDirectFlushSize; }
+		size_t getDirectFlushSize() const;
 
 		/** Minimum size of data that will be flushed directly without copying to the buffer. The current buffer will 
 		be flushed before. If @a directFlushSize is larger than the buffer size, the direct flush size will be set
 		to the buffer size. */
 		void setDirectFlushSize(size_t directFlushSize);
+
+		/**
+		* Setting the start mark.
+		* @return True if start mark could be set, otherwise false.
+		*/
+		bool startMark();
+
+		IBufferFlusher::MarkId endMark();
+
+	    bool jumpToMark(IBufferFlusher::MarkId markId, bool keepMarkId = false);
 
 	protected:
 
@@ -92,11 +112,11 @@ namespace Common
 
 		/** Shifts the current position in the buffer by @a addedBytes bytes. No check is performed if the 
 		new position is beyond the buffers end.*/
-		void increaseCurrentPosition( size_t addedBytes) { mCurrentPos += addedBytes; } 
+		void increaseCurrentPosition( size_t addedBytes); 
 	
 		/** Shifts the current position in the buffer by 1 byte. No check is performed if the 
 		new position is beyond the buffers end.*/
-		void increaseCurrentPosition() { mCurrentPos++; } 
+		void increaseCurrentPosition(); 
 
 	private:
         /** Disable default copy ctor. */
@@ -104,6 +124,7 @@ namespace Common
         /** Disable default assignment operator. */
 		const Buffer& operator= ( const Buffer& pre );
 
+		bool sendDataToFlusher( const char* buffer, size_t length);
 	};
 
 
@@ -125,7 +146,7 @@ namespace Common
 			}
 
 			// flush the new data directly
-			return mFlusher->receiveData( (const char *)data, arraySize );
+			return sendDataToFlusher( (const char *)data, arraySize );
 		}
 
 		if ( arraySize > getBytesAvailable() )
@@ -160,7 +181,7 @@ namespace Common
 			}
 
 			// flush the new data directly
-			return mFlusher->receiveData( (const char *)&c, typeSize );
+			return sendDataToFlusher( (const char *)&c, typeSize );
 		}
 
 		if ( getBytesAvailable() < typeSize)
