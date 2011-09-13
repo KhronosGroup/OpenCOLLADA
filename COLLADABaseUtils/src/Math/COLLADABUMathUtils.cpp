@@ -25,5 +25,32 @@ namespace COLLADABU
 		const float Utils::DEG_TO_RAD_f = PI_f/180.0f;
 		const float Utils::RAD_TO_DEG_f = 180.0f/PI_f;
 
+
+		//------------------------------------------------------
+		bool Utils::epsilonEquals( Real r1, Real r2, Real epsilon )
+		{
+			Real upperBound = r1 + epsilon;
+			Real lowerBound = r1 - epsilon;
+
+			if ( upperBound > r2 && r2 > lowerBound )
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		//------------------------------------------------------
+		void Utils::getMatrixTransposed( float* matrix, const Matrix4 m )
+		{
+			for(size_t row = 0; row < 4; ++row)
+			{
+				for(size_t col = 0; col < 4; ++col)
+				{
+					size_t index = ((row * 4) +col);
+					matrix[index] = (float)(m[col][row]);
+				}
+			}
+		}
 	}
 } // namespace COLLADAFW

@@ -13,6 +13,7 @@
 
 #include "COLLADABUPrerequisites.h"
 #include "COLLADABUMathVector3.h"
+#include "COLLADABUMathMatrix4.h"
 
 #define TOLERANCE 0.0001f
 
@@ -144,6 +145,9 @@ namespace COLLADABU
 				return ( T ) ( ( val > ( T ) mx ) ? ( T ) mx : ( val < ( T ) mn ) ? ( T ) mn : val );
 			}
 
+			static bool epsilonEquals( Real r1, Real r2, Real epsilon );
+
+			static void getMatrixTransposed(float* matrix, const Matrix4 m);
 		};
 
 	}
