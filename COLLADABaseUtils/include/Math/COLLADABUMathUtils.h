@@ -147,7 +147,7 @@ namespace COLLADABU
 
 			static bool epsilonEquals( Real r1, Real r2, Real epsilon );
 
-			static void getMatrixTransposed(float* matrix, const Matrix4 m);
+			static void getMatrixTransposed(float* matrix, const class Matrix4 m);
 		};
 
 	}
