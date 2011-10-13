@@ -40,31 +40,6 @@ include_directories(
 	${libGeneratedSaxParser_include_dirs}
 	${libBaseUtils_include_dirs}
 )
-link_directories(${LIBRARY_OUTPUT_PATH})
 
-if (USE_STATIC)
-	add_library(${name}_static STATIC ${libGeneratedSaxParser_src_files})
-	set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
-	target_link_libraries(${name}_static ${libGeneratedSaxParser_libs})
-	set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+opencollada_add_lib(${name} "${libGeneratedSaxParser_src_files}" "${libGeneratedSaxParser_libs}")
 
-	install(
-		TARGETS ${name}_static
-		ARCHIVE DESTINATION ${OPENCOLLADA_INST_LIBRARY}
-	)
-endif ()
-
-if (USE_SHARED)
-	if (NOT UNIX)
-		message(${name} " WARNING: Shared library support implemented for UNIX-like OS only")
-	endif ()
-	add_library(${name}_shared SHARED ${libGeneratedSaxParser_src_files})
-	set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
-	target_link_libraries(${name}_shared ${libGeneratedSaxParser_libs})
-	set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-
-	install(
-		TARGETS ${name}_shared
-		LIBRARY DESTINATION ${OPENCOLLADA_INST_LIBRARY}
-	)
-endif ()

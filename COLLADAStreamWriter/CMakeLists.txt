@@ -7,7 +7,7 @@ set(libStreamWriter_include_dirs
 
 set(libStreamWriter_include_dirs ${libStreamWriter_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libStreamWriterLoader_src_files
+set(libStreamWriter_src_files
 	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADASWTechniqueFX.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADASWStreamWriter.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADASWImage.cpp
@@ -73,31 +73,5 @@ include_directories(
 	${libftoa_include_dirs} 
 	${libBuffer_include_dirs}
 )
-link_directories(${LIBRARY_OUTPUT_PATH})
 
-if (USE_STATIC)
-	add_library(${name}_static STATIC ${libStreamWriterLoader_src_files})
-	set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
-	target_link_libraries(${name}_static ${libStreamWriter_libs})
-	set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-
-	install(
-		TARGETS ${name}_static
-		ARCHIVE DESTINATION ${OPENCOLLADA_INST_LIBRARY}
-	)
-endif ()
-
-if (USE_SHARED)
-	if (NOT UNIX)
-		message(${name} " WARNING: Shared library support implemented for UNIX-like OS only")
-	endif ()
-	add_library(${name}_shared SHARED ${libStreamWriterLoader_src_files})
-	set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
-	target_link_libraries(${name}_shared ${libStreamWriter_libs})
-	set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-
-	install(
-		TARGETS ${name}_shared
-		LIBRARY DESTINATION ${OPENCOLLADA_INST_LIBRARY}
-	)
-endif ()
+opencollada_add_lib(${name} "${libStreamWriter_src_files}" "${libStreamWriter_libs}")

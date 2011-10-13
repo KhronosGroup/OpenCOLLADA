@@ -32,6 +32,6 @@ include_directories(
 )
 link_directories(${LIBRARY_OUTPUT_PATH})
 
-ADD_EXECUTABLE(${name} ${libValidator_src_files})
+add_executable(${name} ${libValidator_src_files})
 target_link_libraries(${name} ${libValidator_libs})
-ADD_DEPENDENCIES(${name} ${CMAKE_REQUIRED_LIBRARIES})
+add_dependencies(${name} ${CMAKE_REQUIRED_LIBRARIES})
