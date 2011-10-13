@@ -13,10 +13,10 @@ set(SRC
 	src/Commonitoa.cpp
 )
 
-set(libftoa_libs)
+set(TARGET_LIBS)
 
 include_directories(
 	${libftoa_include_dirs}
 )
 
-opencollada_add_lib(${name} "${SRC}" "${libftoa_libs}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")

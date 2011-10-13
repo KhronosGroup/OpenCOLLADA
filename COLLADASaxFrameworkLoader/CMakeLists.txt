@@ -9,6 +9,81 @@ set(libSaxFrameworkLoader_include_dirs
 
 set(libSaxFrameworkLoader_include_dirs ${libSaxFrameworkLoader_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
+set(INST_SRC
+	include/COLLADASaxFWLAccessor.h
+	include/COLLADASaxFWLArrayElement.h
+	include/COLLADASaxFWLAssetLoader.h
+	include/COLLADASaxFWLCOLLADACsymbol.h
+	include/COLLADASaxFWLDocumentProcessor.h
+	include/COLLADASaxFWLException.h
+	include/COLLADASaxFWLExtraDataElementHandler.h
+	include/COLLADASaxFWLExtraDataLoader.h
+	include/COLLADASaxFWLFileLoader.h
+	include/COLLADASaxFWLFilePartLoader.h
+	include/COLLADASaxFWLFormulasLinker.h
+	include/COLLADASaxFWLFormulasLoader.h
+	include/COLLADASaxFWLGeometryLoader.h
+	include/COLLADASaxFWLGeometryMaterialIdInfo.h
+	include/COLLADASaxFWLHelperLoaderBase.h
+	include/COLLADASaxFWLIError.h
+	include/COLLADASaxFWLIErrorHandler.h
+	include/COLLADASaxFWLIExtraDataCallbackHandler.h
+	include/COLLADASaxFWLIFilePartLoader.h
+	include/COLLADASaxFWLIParserImpl.h
+	include/COLLADASaxFWLIParserImpl14.h
+	include/COLLADASaxFWLIParserImpl15.h
+	include/COLLADASaxFWLInputShared.h
+	include/COLLADASaxFWLInputUnshared.h
+	include/COLLADASaxFWLInstanceArticulatedSystemLoader.h
+	include/COLLADASaxFWLInstanceKinematicsModelLoader.h
+	include/COLLADASaxFWLIntermediateTargetable.h
+	include/COLLADASaxFWLInterpolationTypeSource.h
+	include/COLLADASaxFWLJointsLoader.h
+	include/COLLADASaxFWLKinematicsIntermediateData.h
+	include/COLLADASaxFWLKinematicsSceneCreator.h
+	include/COLLADASaxFWLLibraryAnimationsLoader.h
+	include/COLLADASaxFWLLibraryArticulatedSystemsLoader.h
+	include/COLLADASaxFWLLibraryCamerasLoader.h
+	include/COLLADASaxFWLLibraryControllersLoader.h
+	include/COLLADASaxFWLLibraryEffectsLoader.h
+	include/COLLADASaxFWLLibraryFormulasLoader.h
+	include/COLLADASaxFWLLibraryImagesLoader.h
+	include/COLLADASaxFWLLibraryJointsLoader.h
+	include/COLLADASaxFWLLibraryKinematicsModelsLoader.h
+	include/COLLADASaxFWLLibraryKinematicsScenesLoader.h
+	include/COLLADASaxFWLLibraryLightsLoader.h
+	include/COLLADASaxFWLLibraryMaterialsLoader.h
+	include/COLLADASaxFWLLibraryNodesLoader.h
+	include/COLLADASaxFWLLoader.h
+	include/COLLADASaxFWLMeshLoader.h
+	include/COLLADASaxFWLMeshPrimitiveInputList.h
+	include/COLLADASaxFWLNodeLoader.h
+	include/COLLADASaxFWLPHElement.h
+	include/COLLADASaxFWLPolygons.h
+	include/COLLADASaxFWLPostProcessor.h
+	include/COLLADASaxFWLPrerequisites.h
+	include/COLLADASaxFWLPrimitiveBase.h
+	include/COLLADASaxFWLRootParser14.h
+	include/COLLADASaxFWLRootParser15.h
+	include/COLLADASaxFWLSaxFWLError.h
+	include/COLLADASaxFWLSaxParserError.h
+	include/COLLADASaxFWLSaxParserErrorHandler.h
+	include/COLLADASaxFWLSceneLoader.h
+	include/COLLADASaxFWLSidAddress.h
+	include/COLLADASaxFWLSidTreeNode.h
+	include/COLLADASaxFWLSource.h
+	include/COLLADASaxFWLSourceArrayLoader.h
+	include/COLLADASaxFWLStableHeaders.h
+	include/COLLADASaxFWLTechniqueCommon.h
+	include/COLLADASaxFWLTransformationLoader.h
+	include/COLLADASaxFWLTypes.h
+	include/COLLADASaxFWLUtils.h
+	include/COLLADASaxFWLVersionParser.h
+	include/COLLADASaxFWLVertices.h
+	include/COLLADASaxFWLVisualSceneLoader.h
+	include/COLLADASaxFWLXmlTypes.h
+)
+
 set(SRC
 	src/COLLADASaxFWLLibraryArticulatedSystemsLoader.cpp
 	src/COLLADASaxFWLCOLLADACsymbol.cpp
@@ -117,9 +192,11 @@ set(SRC
 	src/generated15/COLLADASaxFWLLibraryCamerasLoader15.cpp
 	src/generated15/COLLADASaxFWLLibraryMaterialsLoader15.cpp
 	src/generated15/COLLADASaxFWLLibraryControllersLoader15.cpp
+
+	${INST_SRC}
 )
 
-set(libSaxFrameworkLoader_libs
+set(TARGET_LIBS
 	OpenCOLLADABaseUtils
 	GeneratedSaxParser
 	OpenCOLLADAFramework
@@ -129,21 +206,42 @@ set(libSaxFrameworkLoader_libs
 
 if (USE_LIBXML)
 	list(APPEND libGeneratedSaxParser_include_dirs ${LIBXML2_INCLUDE_DIR})
-	list(APPEND libGeneratedSaxParser_libs ${LIBXML2_LIBRARIES})
+	list(APPEND TARGET_LIBS ${LIBXML2_LIBRARIES})
 endif ()
 
 if (USE_EXPAT)
 	list(APPEND libGeneratedSaxParser_include_dirs ${LIBEXPAT_INCLUDE_DIR})
-	list(APPEND libGeneratedSaxParser_libs ${LIBEXPAT_LIBRARIES})
+	list(APPEND TARGET_LIBS ${LIBEXPAT_LIBRARIES})
 endif ()
 
 include_directories(
-	${libSaxFrameworkLoader_include_dirs} 
-	${libMathMLSolver_include_dirs} 
-	${libBaseUtils_include_dirs} 
-	${libFramework_include_dirs} 
+	${libSaxFrameworkLoader_include_dirs}
+	${libMathMLSolver_include_dirs}
+	${libBaseUtils_include_dirs}
+	${libFramework_include_dirs}
 	${libGeneratedSaxParser_include_dirs}
 	${PCRE_INCLUDE_DIR}
 )
 
-opencollada_add_lib(${name} "${SRC}" "${libSaxFrameworkLoader_libs}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+
+install(
+	FILES ${INST_SRC}
+	DESTINATION ${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader
+)
+
+# HRMF, these should be in INST_SRC really! - campbell
+install(
+	DIRECTORY
+		include/generated14
+	DESTINATION
+		${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader
+	PATTERN ".svn" EXCLUDE
+)
+install(
+	DIRECTORY
+		include/generated15
+	DESTINATION
+		${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader
+	PATTERN ".svn" EXCLUDE
+)

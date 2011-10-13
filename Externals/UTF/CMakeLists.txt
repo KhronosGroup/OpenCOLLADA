@@ -11,10 +11,10 @@ set(SRC
 	src/ConvertUTF.c
 )
 
-set(libUTF_libs)
+set(TARGET_LIBS)
 
 include_directories(
 	${libUTF_include_dirs} 
 )
 
-opencollada_add_lib(${name} "${SRC}" "${libUTF_libs}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")

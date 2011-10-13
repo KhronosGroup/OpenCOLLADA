@@ -19,11 +19,11 @@ set(SRC
 	src/CommonStreamBufferFlusher.cpp
 )
 
-set(libBuffer_libs ftoa)
+set(TARGET_LIBS ftoa)
 
 include_directories(
 	${libBuffer_include_dirs}
 	${libftoa_include_dirs}
 )
 
-opencollada_add_lib(${name} "${SRC}" "${libBuffer_libs}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")

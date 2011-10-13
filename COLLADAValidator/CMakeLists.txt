@@ -13,9 +13,9 @@ set(SRC
 )
 
 set(libValidator_libs
-	OpenCOLLADASaxFrameworkLoader	
-	GeneratedSaxParser	
-	OpenCOLLADAFramework	
+	OpenCOLLADASaxFrameworkLoader
+	GeneratedSaxParser
+	OpenCOLLADAFramework
 	OpenCOLLADABaseUtils
 	MathMLSolver
 	${PCRE_LIBRARIES}
@@ -24,10 +24,10 @@ set(libValidator_libs
 )
 
 include_directories(
-	${libValidator_include_dirs} 
-	${libBaseUtils_include_dirs} 
-	${libFramework_include_dirs} 
-	${libSaxFrameworkLoader_include_dirs} 
+	${libValidator_include_dirs}
+	${libBaseUtils_include_dirs}
+	${libFramework_include_dirs}
+	${libSaxFrameworkLoader_include_dirs}
 	${libGeneratedSaxParser_include_dirs}
 )
 link_directories(${LIBRARY_OUTPUT_PATH})

@@ -27,10 +27,10 @@ set(SRC
 	src/MathMLString.cpp
 )
 
-set(libMathMLSolver_libs)
+set(TARGET_LIBS)
 
 include_directories(
 	${libMathMLSolver_include_dirs}
 )
 
-opencollada_add_lib(${name} "${SRC}" "${libMathMLSolver_libs}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")

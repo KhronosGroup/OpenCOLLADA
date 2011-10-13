@@ -7,6 +7,71 @@ set(libStreamWriter_include_dirs
 
 set(libStreamWriter_include_dirs ${libStreamWriter_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
+set(INST_SRC
+	include/COLLADASWAnnotation.h
+	include/COLLADASWAsset.h
+	include/COLLADASWBaseElement.h
+	include/COLLADASWBaseInputElement.h
+	include/COLLADASWBindMaterial.h
+	include/COLLADASWBuffer.h
+	include/COLLADASWCamera.h
+	include/COLLADASWCameraOptic.h
+	include/COLLADASWCode.h
+	include/COLLADASWColor.h
+	include/COLLADASWColorOrTexture.h
+	include/COLLADASWConstants.h
+	include/COLLADASWControlVertices.h
+	include/COLLADASWEffectProfile.h
+	include/COLLADASWElementWriter.h
+	include/COLLADASWException.h
+	include/COLLADASWExtra.h
+	include/COLLADASWExtraTechnique.h
+	include/COLLADASWFormatHint.h
+	include/COLLADASWImage.h
+	include/COLLADASWInclude.h
+	include/COLLADASWInputList.h
+	include/COLLADASWInstanceCamera.h
+	include/COLLADASWInstanceController.h
+	include/COLLADASWInstanceEffect.h
+	include/COLLADASWInstanceGeometry.h
+	include/COLLADASWInstanceLight.h
+	include/COLLADASWInstanceMaterial.h
+	include/COLLADASWInstanceNode.h
+	include/COLLADASWLibrary.h
+	include/COLLADASWLibraryAnimationClips.h
+	include/COLLADASWLibraryAnimations.h
+	include/COLLADASWLibraryCameras.h
+	include/COLLADASWLibraryControllers.h
+	include/COLLADASWLibraryEffects.h
+	include/COLLADASWLibraryGeometries.h
+	include/COLLADASWLibraryImages.h
+	include/COLLADASWLibraryLights.h
+	include/COLLADASWLibraryMaterials.h
+	include/COLLADASWLibraryVisualScenes.h
+	include/COLLADASWLight.h
+	include/COLLADASWNode.h
+	include/COLLADASWOpenGLConstants.h
+	include/COLLADASWParamBase.h
+	include/COLLADASWParamTemplate.h
+	include/COLLADASWPass.h
+	include/COLLADASWPlatform.h
+	include/COLLADASWPrerequisites.h
+	include/COLLADASWPrimitves.h
+	include/COLLADASWRenderState.h
+	include/COLLADASWRenderStateStatic.h
+	include/COLLADASWSampler.h
+	include/COLLADASWScene.h
+	include/COLLADASWShader.h
+	include/COLLADASWSource.h
+	include/COLLADASWStreamWriter.h
+	include/COLLADASWSurfaceInitOption.h
+	include/COLLADASWTechnique.h
+	include/COLLADASWTechniqueFX.h
+	include/COLLADASWTexture.h
+	include/COLLADASWValueType.h
+	include/COLLADASWVertices.h
+)
+
 set(SRC
 	src/COLLADASWTechniqueFX.cpp
 	src/COLLADASWStreamWriter.cpp
@@ -59,9 +124,11 @@ set(SRC
 	src/COLLADASWElementWriter.cpp
 	src/COLLADASWLibrary.cpp
 	src/COLLADASWConstants.cpp
+
+	${INST_SRC}
 )
 
-set(libStreamWriter_libs
+set(TARGET_LIBS
 	OpenCOLLADABaseUtils	
 	buffer
 	ftoa
@@ -74,4 +141,9 @@ include_directories(
 	${libBuffer_include_dirs}
 )
 
-opencollada_add_lib(${name} "${SRC}" "${libStreamWriter_libs}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+
+install(
+	FILES ${INST_SRC}
+	DESTINATION ${OPENCOLLADA_INST_INCLUDE}/COLLADAStreamWriter
+)

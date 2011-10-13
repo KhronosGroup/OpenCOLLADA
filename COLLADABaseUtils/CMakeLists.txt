@@ -8,6 +8,30 @@ set(libBaseUtils_include_dirs
 
 set(libBaseUtils_include_dirs ${libBaseUtils_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
+set(INST_SRC
+	include/COLLADABUIDList.h
+	include/COLLADABUStableHeaders.h
+	include/COLLADABUNativeString.h
+	include/COLLADABUException.h
+	include/COLLADABU.h
+	include/COLLADABUhash_map.h
+	include/COLLADABUStringUtils.h
+	include/COLLADABUPrerequisites.h
+	include/COLLADABUPcreCompiledPattern.h
+	include/COLLADABUUtils.h
+	include/COLLADABUPlatform.h
+	include/COLLADABUURI.h
+	include/COLLADABUHashFunctions.h
+)
+set(INST_MATH_SRC
+	include/Math/COLLADABUMathUtils.h
+	include/Math/COLLADABUMathVector3.h
+	include/Math/COLLADABUMathMatrix3.h
+	include/Math/COLLADABUMathMatrix4.h
+	include/Math/COLLADABUMathQuaternion.h
+	include/Math/COLLADABUMathPrerequisites.h
+)
+
 set(SRC
 	src/COLLADABUUtils.cpp
 	src/COLLADABUURI.cpp
@@ -23,9 +47,12 @@ set(SRC
 	src/Math/COLLADABUMathUtils.cpp
 	src/Math/COLLADABUMathQuaternion.cpp
 	src/Math/COLLADABUMathMatrix4.cpp
+
+    ${INST_SRC}
+    ${INST_MATH_SRC}
 )
 
-set(libBaseUtils_libs
+set(TARGET_LIBS
 	UTF
 	${PCRE_LIBRARIES}
 )
@@ -36,4 +63,13 @@ include_directories(
 	${PCRE_INCLUDE_DIR}
 )
 
-opencollada_add_lib(${name} "${SRC}" "${libBaseUtils_libs}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+
+install(
+	FILES ${INST_SRC}
+	DESTINATION ${OPENCOLLADA_INST_INCLUDE}/COLLADABaseUtils
+)
+install(
+	FILES ${INST_MATH_SRC}
+	DESTINATION ${OPENCOLLADA_INST_INCLUDE}/COLLADABaseUtils/Math
+)
