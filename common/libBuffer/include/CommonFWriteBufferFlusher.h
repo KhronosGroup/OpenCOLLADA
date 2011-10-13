@@ -19,13 +19,22 @@
 #	include <tr1/unordered_map>
 #endif
 
+/* size_t for gcc, may want to move this include some place else - campbell */
+#ifdef __GNUC__
+#   include <cstdlib> /* size_t */
+#   include <cstdio>  /* FILE */
+#endif
 
 namespace Common
 {
 	class FWriteBufferFlusher : public IBufferFlusher
 	{
 	private:
+#ifdef _WIN32
 		typedef __int64 FilePosType;
+#else
+		typedef int64_t FilePosType;
+#endif
 		typedef std::tr1::unordered_map<MarkId, FilePosType > MarkIdToFilePos;
 	public:
 		static const size_t DEFAUL_BUFFER_SIZE = 64*1024;

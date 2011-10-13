@@ -10,6 +10,9 @@
 
 #include "CommonFWriteBufferFlusher.h"
 
+#ifdef __GNUC__
+#   include <errno.h>
+#endif
 
 namespace Common
 {
@@ -32,15 +35,15 @@ namespace Common
 		}
 	}
 	//-----------------------------------------------------------------------
+
+	/* note: Unix has no _wfopen_s equivalent if its important we could
+	 * impliment our own but most likely this function is only needed
+	 * by windows developers - campbell */
+#ifdef _WIN32
 	FWriteBufferFlusher::FWriteBufferFlusher( const wchar_t* fileName, size_t bufferSize, const wchar_t* mode/*=L"wb"*/ )
 		: mBufferSize(bufferSize)
 		, mBuffer( new char[bufferSize] )
-#ifdef _WIN32
 		, mError( (int)_wfopen_s( &mStream, fileName, mode ) )
-#else
-		, mStream(_wfopen( fileName, mode ))
-		, mError( mStream ? 0 : errno )
-#endif
 		, mLastMarkId(END_OF_STREAM)
 		, mMarkIds()
 	{
@@ -49,6 +52,7 @@ namespace Common
 			mError = ( setvbuf( mStream , mBuffer, _IOFBF, mBufferSize ) != 0 );
 		}
 	}
+#endif
 	//--------------------------------------------------------------------
 	FWriteBufferFlusher::~FWriteBufferFlusher()
 	{
@@ -83,8 +87,12 @@ namespace Common
 	void FWriteBufferFlusher::startMark()
 	{
 		// store the current file position
+#ifdef _WIN32
 		__int64 currentPos = _ftelli64( mStream);
-		
+#else
+		int64_t currentPos = ftello64( mStream);
+#endif
+
 		mLastMarkId++;
 		mMarkIds.insert(std::make_pair(mLastMarkId, currentPos));		
 	}
@@ -100,7 +108,11 @@ namespace Common
 	{
 		if ( markId == END_OF_STREAM )
 		{
+#ifdef _WIN32
 			return (_fseeki64(mStream, 0, SEEK_END) == 0);
+#else
+			return (fseeko64(mStream, 0, SEEK_END) == 0);
+#endif
 		}
 		else
 		{
@@ -112,7 +124,11 @@ namespace Common
 			else
 			{
 				FilePosType pos = markIdIt->second;
+#ifdef _WIN32
 				bool success = (_fseeki64(mStream, pos, SEEK_SET) == 0);
+#else
+				bool success = (fseeko64(mStream, pos, SEEK_SET) == 0);
+#endif
 				if ( !keepMarkId )
 				{
 					mMarkIds.erase(markIdIt);

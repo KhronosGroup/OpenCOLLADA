@@ -3,6 +3,11 @@ PROJECT(${name})
 
 SET(libBuffer_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
+
+	# TODO, this needs to be fixed but get it working first.
+	# the way this variable is set its not really correct I think - campbell
+	#  ${libUTF_include_dirs} # XXX, this is not available so hard code the path
+	${CMAKE_CURRENT_SOURCE_DIR}/../../Externals/UTF/include
 )
 
 SET(libBuffer_include_dirs ${libBuffer_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope

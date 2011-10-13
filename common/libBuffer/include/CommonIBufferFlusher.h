@@ -11,6 +11,11 @@
 #ifndef __COMMON_IBUFFERFLUSHER_H__
 #define __COMMON_IBUFFERFLUSHER_H__
 
+/* size_t for gcc, may want to move this include some place else - campbell */
+#ifdef __GNUC__
+#  include <cstdlib> /* size_t */
+#endif
+
 namespace Common
 {
 	/** Derived classes of this interface are used by Buffer.*/
