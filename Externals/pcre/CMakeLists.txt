@@ -2,7 +2,7 @@ SET(name pcre)
 PROJECT(${name})
 
 SET(libpcre_include_dirs
-	${CMAKE_CURRENT_SOURCE_DIR}/include/
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 SET(libpcre_include_dirs ${libpcre_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
@@ -11,8 +11,14 @@ SET(libpcre_src_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/src/
 )
 
-file(GLOB libpcre_src_files 
-	${libpcre_src_dirs}/*.c
+set(libpcre_src_files
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_chartables.c
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_compile.c
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_exec.c
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_globals.c
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_newline.c
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_tables.c
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_try_flipped.c
 )
 
 SET(libpcre_libs)

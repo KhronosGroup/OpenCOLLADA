@@ -11,8 +11,8 @@ SET(libUTF_src_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/src/
 )
 
-file(GLOB_RECURSE libUTF_src_files 
-	${libUTF_src_dirs}/*.c
+set(libUTF_src_files
+	${CMAKE_CURRENT_SOURCE_DIR}/src/ConvertUTF.c
 )
 
 SET(libUTF_libs)

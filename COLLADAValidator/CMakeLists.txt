@@ -2,7 +2,7 @@ SET (name OpenCOLLADAValidator)
 PROJECT(${name})
 
 SET(libValidator_include_dirs
-	${CMAKE_CURRENT_SOURCE_DIR}/include/
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 SET(libValidator_include_dirs ${libValidator_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
@@ -11,9 +11,9 @@ SET(libValidator_src_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-file(GLOB_RECURSE libValidator_src_files 
-	${libValidator_src_dirs}/*.cpp
-	${libValidator_src_dirs}/*.h
+set(libValidator_src_files
+	${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/ValidationErrorHandler.cpp
 )
 
 SET(libValidator_libs
@@ -22,7 +22,7 @@ SET(libValidator_libs
 	OpenCOLLADAFramework	
 	OpenCOLLADABaseUtils
 	MathMLSolver
-        ${PCRE_LIBRARIES}
+	${PCRE_LIBRARIES}
 	${LIBXML2_LIBRARIES}
 	UTF
 )

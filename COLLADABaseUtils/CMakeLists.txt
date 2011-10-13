@@ -2,8 +2,8 @@ SET(name OpenCOLLADABaseUtils)
 PROJECT(${name})
 
 SET(libBaseUtils_include_dirs 
-	${CMAKE_CURRENT_SOURCE_DIR}/include/
-	${CMAKE_CURRENT_SOURCE_DIR}/include/Math/
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+	${CMAKE_CURRENT_SOURCE_DIR}/include/Math
 )
 
 SET(libBaseUtils_include_dirs ${libBaseUtils_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
@@ -12,9 +12,21 @@ SET(libBaseUtils_src_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/src/
 )
 
-file(GLOB_RECURSE libBaseUtils_src_files 
-	${libBaseUtils_src_dirs}/*.cpp
-	${libBaseUtils_src_dirs}/*.h
+set(libBaseUtils_src_files
+	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADABUUtils.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADABUURI.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADABUPrecompiledHeaders.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADABUPcreCompiledPattern.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADABUIDList.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADABUStringUtils.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADABUHashFunctions.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADABUNativeString.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Math/COLLADABUMathMatrix3.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Math/COLLADABUMathVector3.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Math/COLLADABUMathUtils.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Math/COLLADABUMathQuaternion.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Math/COLLADABUMathMatrix4.cpp
 )
 
 SET(libBaseUtils_libs
