@@ -9,6 +9,8 @@ set(libUTF_include_dirs ${libUTF_include_dirs} PARENT_SCOPE)  # adding include d
 
 set(SRC
 	src/ConvertUTF.c
+
+	include/ConvertUTF.h
 )
 
 set(TARGET_LIBS)

@@ -84,6 +84,60 @@ set(INST_SRC
 	include/COLLADASaxFWLXmlTypes.h
 )
 
+set(INST_GEN14_SRC
+	include/generated14/COLLADASaxFWLAssetLoader14.h
+	include/generated14/COLLADASaxFWLColladaParserAutoGen14.h
+	include/generated14/COLLADASaxFWLColladaParserAutoGen14Attributes.h
+	include/generated14/COLLADASaxFWLColladaParserAutoGen14Enums.h
+	include/generated14/COLLADASaxFWLColladaParserAutoGen14FunctionMapFactory.h
+	include/generated14/COLLADASaxFWLColladaParserAutoGen14Private.h
+	include/generated14/COLLADASaxFWLColladaParserAutoGen14ValidationData.h
+	include/generated14/COLLADASaxFWLGeometryLoader14.h
+	include/generated14/COLLADASaxFWLLibraryAnimationsLoader14.h
+	include/generated14/COLLADASaxFWLLibraryCamerasLoader14.h
+	include/generated14/COLLADASaxFWLLibraryControllersLoader14.h
+	include/generated14/COLLADASaxFWLLibraryEffectsLoader14.h
+	include/generated14/COLLADASaxFWLLibraryImagesLoader14.h
+	include/generated14/COLLADASaxFWLLibraryLightsLoader14.h
+	include/generated14/COLLADASaxFWLLibraryMaterialsLoader14.h
+	include/generated14/COLLADASaxFWLLibraryNodesLoader14.h
+	include/generated14/COLLADASaxFWLMeshLoader14.h
+	include/generated14/COLLADASaxFWLNodeLoader14.h
+	include/generated14/COLLADASaxFWLSceneLoader14.h
+	include/generated14/COLLADASaxFWLSourceArrayLoader14.h
+	include/generated14/COLLADASaxFWLVisualSceneLoader14.h
+)
+
+set(INST_GEN15_SRC
+	include/generated15/COLLADASaxFWLAssetLoader15.h
+	include/generated15/COLLADASaxFWLColladaParserAutoGen15.h
+	include/generated15/COLLADASaxFWLColladaParserAutoGen15Attributes.h
+	include/generated15/COLLADASaxFWLColladaParserAutoGen15Enums.h
+	include/generated15/COLLADASaxFWLColladaParserAutoGen15FunctionMapFactory.h
+	include/generated15/COLLADASaxFWLColladaParserAutoGen15Private.h
+	include/generated15/COLLADASaxFWLColladaParserAutoGen15ValidationData.h
+	include/generated15/COLLADASaxFWLFormulasLoader15.h
+	include/generated15/COLLADASaxFWLGeometryLoader15.h
+	include/generated15/COLLADASaxFWLLibraryAnimationsLoader15.h
+	include/generated15/COLLADASaxFWLLibraryArticulatedSystemsLoader15.h
+	include/generated15/COLLADASaxFWLLibraryCamerasLoader15.h
+	include/generated15/COLLADASaxFWLLibraryControllersLoader15.h
+	include/generated15/COLLADASaxFWLLibraryEffectsLoader15.h
+	include/generated15/COLLADASaxFWLLibraryFormulasLoader15.h
+	include/generated15/COLLADASaxFWLLibraryImagesLoader15.h
+	include/generated15/COLLADASaxFWLLibraryJointsLoader15.h
+	include/generated15/COLLADASaxFWLLibraryKinematicsModelsLoader15.h
+	include/generated15/COLLADASaxFWLLibraryKinematicsScenesLoader15.h
+	include/generated15/COLLADASaxFWLLibraryLightsLoader15.h
+	include/generated15/COLLADASaxFWLLibraryMaterialsLoader15.h
+	include/generated15/COLLADASaxFWLLibraryNodesLoader15.h
+	include/generated15/COLLADASaxFWLMeshLoader15.h
+	include/generated15/COLLADASaxFWLNodeLoader15.h
+	include/generated15/COLLADASaxFWLSceneLoader15.h
+	include/generated15/COLLADASaxFWLSourceArrayLoader15.h
+	include/generated15/COLLADASaxFWLVisualSceneLoader15.h
+)
+
 set(SRC
 	src/COLLADASaxFWLLibraryArticulatedSystemsLoader.cpp
 	src/COLLADASaxFWLCOLLADACsymbol.cpp
@@ -194,6 +248,8 @@ set(SRC
 	src/generated15/COLLADASaxFWLLibraryControllersLoader15.cpp
 
 	${INST_SRC}
+	${INST_GEN14_SRC}
+	${INST_GEN15_SRC}
 )
 
 set(TARGET_LIBS
@@ -229,19 +285,11 @@ install(
 	FILES ${INST_SRC}
 	DESTINATION ${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader
 )
-
-# HRMF, these should be in INST_SRC really! - campbell
 install(
-	DIRECTORY
-		include/generated14
-	DESTINATION
-		${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader
-	PATTERN ".svn" EXCLUDE
+	FILES ${INST_GEN14_SRC}
+	DESTINATION ${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader/generated14
 )
 install(
-	DIRECTORY
-		include/generated15
-	DESTINATION
-		${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader
-	PATTERN ".svn" EXCLUDE
+	FILES ${INST_GEN15_SRC}
+	DESTINATION ${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader/generated15
 )

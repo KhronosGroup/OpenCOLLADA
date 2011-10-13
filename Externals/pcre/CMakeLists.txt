@@ -15,7 +15,25 @@ set(SRC
 	src/pcre_newline.c
 	src/pcre_tables.c
 	src/pcre_try_flipped.c
+
+	include/pcre.h
+	include/pcre_internal.h
+	include/ucp.h
 )
+
+if (WIN32)
+	list(APPEND SRC
+		include/config_win.h
+	)
+else if (APPLE)
+	list(APPEND SRC
+		include/config_mac.h
+	)
+else ()  # *nix
+	list(APPEND SRC
+		include/config_linux.h
+	)
+endif()
 
 set(libpcre_libs)
 

@@ -17,6 +17,15 @@ set(SRC
 	src/CommonCharacterBuffer.cpp
 	src/CommonFWriteBufferFlusher.cpp
 	src/CommonStreamBufferFlusher.cpp
+	# src/CommonLogFileBufferFlusher.cpp
+
+	include/CommonBuffer.h
+	include/CommonCharacterBuffer.h
+	include/CommonFWriteBufferFlusher.h
+	include/CommonIBufferFlusher.h
+	include/CommonLogFileBufferFlusher.h
+	include/CommonStreamBufferFlusher.h
+	include/performanceTest/performanceTest.h
 )
 
 set(TARGET_LIBS ftoa)

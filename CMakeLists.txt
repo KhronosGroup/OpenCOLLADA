@@ -56,11 +56,11 @@ macro(opencollada_add_lib
 		set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
 		target_link_libraries(${name}_static ${target_libs})
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-		
+
 		install(
 			TARGETS ${name}_static
 			ARCHIVE DESTINATION ${OPENCOLLADA_INST_LIBRARY}
-		)	
+		)
 	endif ()
 
 	if (USE_SHARED)
@@ -86,8 +86,8 @@ endmacro()
 project(OPENCOLLADA)  # must be after setting cmake_configuration_types
 
 # defines where specific parts of BRICS_MM are stored or created
-set(LIBRARY_OUTPUT_PATH            ${CMAKE_HOME_DIRECTORY}/lib)  # static libraries 
-set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_HOME_DIRECTORY}/bin)  # executables 
+set(LIBRARY_OUTPUT_PATH            ${CMAKE_HOME_DIRECTORY}/lib)  # static libraries
+set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_HOME_DIRECTORY}/bin)  # executables
 set(EXTERNAL_LIBRARIES        	   ${CMAKE_HOME_DIRECTORY}/Externals)  # external libraries
 set(CMAKE_MODULE_PATH "${EXTERNAL_LIBRARIES}/cmake-modules")
 
@@ -131,7 +131,7 @@ if (USE_LIBXML)
 			message("WARNING: Native LibXml2 not found, taking LibXml from ./Externals")
 			add_subdirectory(${EXTERNAL_LIBRARIES}/LibXML)
 			set(LIBXML2_INCLUDE_DIR
-				${libxml_include_dirs}				
+				${libxml_include_dirs}
 			)
 			set(LIBXML2_LIBRARIES xml)
 		else ()
@@ -164,7 +164,7 @@ endif ()
 
 # building required libs
 add_subdirectory(common/libftoa)
-add_subdirectory(common/libBuffer)	
+add_subdirectory(common/libBuffer)
 add_subdirectory(${EXTERNAL_LIBRARIES}/UTF)
 add_subdirectory(${EXTERNAL_LIBRARIES}/MathMLSolver)
 

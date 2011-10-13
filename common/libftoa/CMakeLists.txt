@@ -11,6 +11,10 @@ set(SRC
 	src/Commondtoa.cpp
 	src/Commonftoa.cpp
 	src/Commonitoa.cpp
+
+	include/Commondtoa.h
+	include/Commonftoa.h
+	include/Commonitoa.h
 )
 
 set(TARGET_LIBS)

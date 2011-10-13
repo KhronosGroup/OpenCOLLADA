@@ -10,6 +10,9 @@ set(libValidator_include_dirs ${libValidator_include_dirs} PARENT_SCOPE)  # addi
 set(SRC
 	src/main.cpp
 	src/ValidationErrorHandler.cpp
+	
+	include/ValidationErrorHandler.h
+	include/Writer.h
 )
 
 set(libValidator_libs
