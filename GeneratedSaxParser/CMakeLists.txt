@@ -29,19 +29,15 @@ set(libGeneratedSaxParser_libs
 )
 
 if (USE_LIBXML)
-	LIST(APPEND libGeneratedSaxParser_src_files 
-		${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserLibxmlSaxParser.cpp
-	)
-	LIST(APPEND libGeneratedSaxParser_include_dirs ${LIBXML2_INCLUDE_DIR})
-	LIST(APPEND libGeneratedSaxParser_libs ${LIBXML2_LIBRARIES})
+	list(APPEND libGeneratedSaxParser_src_files ${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserLibxmlSaxParser.cpp)
+	list(APPEND libGeneratedSaxParser_include_dirs ${LIBXML2_INCLUDE_DIR})
+	list(APPEND libGeneratedSaxParser_libs ${LIBXML2_LIBRARIES})
 endif ()
 
 if (USE_EXPAT)
-	LIST(APPEND libGeneratedSaxParser_src_files 
-		${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserExpatSaxParser.cpp
-	)
-	LIST(APPEND libGeneratedSaxParser_include_dirs ${LIBEXPAT_INCLUDE_DIR})
-	LIST(APPEND libGeneratedSaxParser_libs ${LIBEXPAT_LIBRARIES})
+	list(APPEND libGeneratedSaxParser_src_files ${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserExpatSaxParser.cpp)
+	list(APPEND libGeneratedSaxParser_include_dirs ${LIBEXPAT_INCLUDE_DIR})
+	list(APPEND libGeneratedSaxParser_libs ${LIBEXPAT_LIBRARIES})
 endif ()
 
 include_directories(
