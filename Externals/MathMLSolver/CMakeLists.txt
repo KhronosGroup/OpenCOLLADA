@@ -8,23 +8,23 @@ set(libMathMLSolver_include_dirs
 
 set(libMathMLSolver_include_dirs ${libMathMLSolver_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libMathMLSolver_src_files
-	${CMAKE_CURRENT_SOURCE_DIR}/src/MathMLEvaluatorVisitor.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/MathMLSolverPrecompiled.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/MathMLSymbolTable.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/AST/MathMLASTStringVisitor.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/AST/MathMLASTUnaryArithmeticExpression.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/AST/MathMLASTBinaryComparisionExpression.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/AST/MathMLASTLogicExpression.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/AST/MathMLASTFragmentExpression.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/AST/MathMLASTFunctionExpression.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/AST/MathMLASTVariableExpression.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/AST/MathMLASTConstantExpression.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/AST/MathMLASTArithmeticExpression.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/MathMLSolverFunctionExtensions.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/MathMLSerializationVisitor.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/MathMLSerializationUtil.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/MathMLString.cpp
+set(SRC
+	src/MathMLEvaluatorVisitor.cpp
+	src/MathMLSolverPrecompiled.cpp
+	src/MathMLSymbolTable.cpp
+	src/AST/MathMLASTStringVisitor.cpp
+	src/AST/MathMLASTUnaryArithmeticExpression.cpp
+	src/AST/MathMLASTBinaryComparisionExpression.cpp
+	src/AST/MathMLASTLogicExpression.cpp
+	src/AST/MathMLASTFragmentExpression.cpp
+	src/AST/MathMLASTFunctionExpression.cpp
+	src/AST/MathMLASTVariableExpression.cpp
+	src/AST/MathMLASTConstantExpression.cpp
+	src/AST/MathMLASTArithmeticExpression.cpp
+	src/MathMLSolverFunctionExtensions.cpp
+	src/MathMLSerializationVisitor.cpp
+	src/MathMLSerializationUtil.cpp
+	src/MathMLString.cpp
 )
 
 set(libMathMLSolver_libs)
@@ -33,4 +33,4 @@ include_directories(
 	${libMathMLSolver_include_dirs}
 )
 
-opencollada_add_lib(${name} "${libMathMLSolver_src_files}" "${libMathMLSolver_libs}")
+opencollada_add_lib(${name} "${SRC}" "${libMathMLSolver_libs}")

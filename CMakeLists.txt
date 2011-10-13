@@ -495,7 +495,7 @@ install(
 		COLLADAStreamWriter/include/COLLADASWValueType.h
 		COLLADAStreamWriter/include/COLLADASWVertices.h
 	DESTINATION
-		${OPENCOLLADA_INST_INCLUDE}/COLLADABaseUtils/Math
+		${OPENCOLLADA_INST_INCLUDE}/COLLADAStreamWriter
 )
 
 

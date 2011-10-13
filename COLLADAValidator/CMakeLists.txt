@@ -7,9 +7,9 @@ set(libValidator_include_dirs
 
 set(libValidator_include_dirs ${libValidator_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libValidator_src_files
-	${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/src/ValidationErrorHandler.cpp
+set(SRC
+	src/main.cpp
+	src/ValidationErrorHandler.cpp
 )
 
 set(libValidator_libs
@@ -32,6 +32,6 @@ include_directories(
 )
 link_directories(${LIBRARY_OUTPUT_PATH})
 
-add_executable(${name} ${libValidator_src_files})
+add_executable(${name} ${SRC})
 target_link_libraries(${name} ${libValidator_libs})
 add_dependencies(${name} ${CMAKE_REQUIRED_LIBRARIES})

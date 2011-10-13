@@ -7,14 +7,14 @@ set(libpcre_include_dirs
 
 set(libpcre_include_dirs ${libpcre_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libpcre_src_files
-	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_chartables.c
-	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_compile.c
-	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_exec.c
-	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_globals.c
-	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_newline.c
-	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_tables.c
-	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_try_flipped.c
+set(SRC
+	src/pcre_chartables.c
+	src/pcre_compile.c
+	src/pcre_exec.c
+	src/pcre_globals.c
+	src/pcre_newline.c
+	src/pcre_tables.c
+	src/pcre_try_flipped.c
 )
 
 set(libpcre_libs)
@@ -24,6 +24,6 @@ include_directories(
 )
 link_directories(${LIBRARY_OUTPUT_PATH})
 
-add_library(${name} ${libpcre_src_files})
+add_library(${name} ${SRC})
 target_link_libraries(${name} ${libpcre_libs})
 set(CMAKE_REQUIRED_LIBRARIES "${name};${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)

@@ -2,7 +2,7 @@ if (MSVC)
 	add_definitions(-DLIB3DS_EXPORTS)
 endif ()
 
-add_library(lib3ds SHARED
+set(SRC
     lib3ds.h
     lib3ds_impl.h
     lib3ds_atmosphere.c
@@ -24,7 +24,10 @@ add_library(lib3ds SHARED
     lib3ds_util.c
     lib3ds_vector.c
     lib3ds_viewport.c
-    lib3ds.rc)
+    lib3ds.rc
+)
+
+add_library(lib3ds SHARED ${SRC})
 
 if (WIN32)
     set_target_properties(lib3ds PROPERTIES 
