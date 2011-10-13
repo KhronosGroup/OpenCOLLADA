@@ -65,6 +65,11 @@ if (USE_STATIC)
 	set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
 	target_link_libraries(${name}_static ${libFramework_libs})
 	set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+
+	install(
+		TARGETS ${name}_static
+		ARCHIVE DESTINATION ${OPENCOLLADA_INST_LIBRARY}
+	)
 endif ()
 
 if (USE_SHARED)
@@ -74,5 +79,10 @@ if (USE_SHARED)
 	add_library(${name}_shared SHARED ${libFramework_src_files})
 	set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
 	target_link_libraries(${name}_shared ${libFramework_libs})
-	set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE) 
+	set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+
+	install(
+		TARGETS ${name}_shared
+		LIBRARY DESTINATION ${OPENCOLLADA_INST_LIBRARY}
+	)
 endif ()
