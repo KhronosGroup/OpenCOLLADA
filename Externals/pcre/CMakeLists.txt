@@ -7,10 +7,6 @@ set(libpcre_include_dirs
 
 set(libpcre_include_dirs ${libpcre_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libpcre_src_dirs 
-	${CMAKE_CURRENT_SOURCE_DIR}/src/
-)
-
 set(libpcre_src_files
 	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_chartables.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_compile.c

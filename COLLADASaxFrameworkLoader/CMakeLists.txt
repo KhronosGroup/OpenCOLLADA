@@ -9,10 +9,6 @@ set(libSaxFrameworkLoader_include_dirs
 
 set(libSaxFrameworkLoader_include_dirs ${libSaxFrameworkLoader_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libSaxFrameworkLoader_src_dirs 
-	${CMAKE_CURRENT_SOURCE_DIR}/src/
-)
-
 set(libSaxFrameworkLoader_src_files
 	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADASaxFWLLibraryArticulatedSystemsLoader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADASaxFWLCOLLADACsymbol.cpp

@@ -7,21 +7,17 @@ set(libGeneratedSaxParser_include_dirs
 
 set(libGeneratedSaxParser_include_dirs ${libGeneratedSaxParser_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
 
-set(libGeneratedSaxParser_src_dirs 
-	${CMAKE_CURRENT_SOURCE_DIR}/src/
-)
-
 set(libGeneratedSaxParser_src_files 
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserCoutErrorHandler.cpp
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserNamespaceStack.cpp
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserParser.cpp
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserParserError.cpp
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserParserTemplateBase.cpp
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserParserTemplate.cpp
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserRawUnknownElementHandler.cpp
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserSaxParser.cpp
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserStackMemoryManager.cpp
-	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserUtils.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserCoutErrorHandler.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserNamespaceStack.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserParser.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserParserError.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserParserTemplateBase.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserParserTemplate.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserRawUnknownElementHandler.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserSaxParser.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserStackMemoryManager.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserUtils.cpp
 )
 
 set(libGeneratedSaxParser_libs
@@ -29,13 +25,13 @@ set(libGeneratedSaxParser_libs
 )
 
 if (USE_LIBXML)
-	list(APPEND libGeneratedSaxParser_src_files ${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserLibxmlSaxParser.cpp)
+	list(APPEND libGeneratedSaxParser_src_files ${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserLibxmlSaxParser.cpp)
 	list(APPEND libGeneratedSaxParser_include_dirs ${LIBXML2_INCLUDE_DIR})
 	list(APPEND libGeneratedSaxParser_libs ${LIBXML2_LIBRARIES})
 endif ()
 
 if (USE_EXPAT)
-	list(APPEND libGeneratedSaxParser_src_files ${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserExpatSaxParser.cpp)
+	list(APPEND libGeneratedSaxParser_src_files ${CMAKE_CURRENT_SOURCE_DIR}/src/GeneratedSaxParserExpatSaxParser.cpp)
 	list(APPEND libGeneratedSaxParser_include_dirs ${LIBEXPAT_INCLUDE_DIR})
 	list(APPEND libGeneratedSaxParser_libs ${LIBEXPAT_LIBRARIES})
 endif ()

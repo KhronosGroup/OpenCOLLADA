@@ -7,10 +7,6 @@ set(libFramework_include_dirs
 
 set(libFramework_include_dirs ${libFramework_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libFramework_src_dirs
-	${CMAKE_CURRENT_SOURCE_DIR}/src/
-)
-
 set(libFramework_src_files
 	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADAFWLight.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADAFWEffectCommon.cpp

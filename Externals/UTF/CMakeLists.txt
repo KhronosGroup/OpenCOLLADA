@@ -7,10 +7,6 @@ set(libUTF_include_dirs
 
 set(libUTF_include_dirs ${libUTF_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libUTF_src_dirs 
-	${CMAKE_CURRENT_SOURCE_DIR}/src/
-)
-
 set(libUTF_src_files
 	${CMAKE_CURRENT_SOURCE_DIR}/src/ConvertUTF.c
 )

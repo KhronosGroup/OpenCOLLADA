@@ -8,10 +8,6 @@ set(libMathMLSolver_include_dirs
 
 set(libMathMLSolver_include_dirs ${libMathMLSolver_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libMathMLSolver_src_dirs 
-	${CMAKE_CURRENT_SOURCE_DIR}/src/
-)
-
 set(libMathMLSolver_src_files
 	${CMAKE_CURRENT_SOURCE_DIR}/src/MathMLEvaluatorVisitor.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/MathMLSolverPrecompiled.cpp

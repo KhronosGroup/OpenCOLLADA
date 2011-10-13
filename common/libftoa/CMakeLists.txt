@@ -7,14 +7,10 @@ set(libftoa_include_dirs
 
 set(libftoa_include_dirs ${libftoa_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libftoa_src_dirs 
-	${CMAKE_CURRENT_SOURCE_DIR}/src/
-)
-
 set(libftoa_src_files 
-	${libftoa_src_dirs}/Commondtoa.cpp
-	${libftoa_src_dirs}/Commonftoa.cpp
-	${libftoa_src_dirs}/Commonitoa.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Commondtoa.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Commonftoa.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/Commonitoa.cpp
 )
 
 set(libftoa_libs)

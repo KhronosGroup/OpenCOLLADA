@@ -12,15 +12,11 @@ set(libBuffer_include_dirs
 
 set(libBuffer_include_dirs ${libBuffer_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-set(libBuffer_src_dirs 
-	${CMAKE_CURRENT_SOURCE_DIR}/src/
-)
-
 set(libBuffer_src_files 
-	${libBuffer_src_dirs}/CommonBuffer.cpp
-	${libBuffer_src_dirs}/CommonCharacterBuffer.cpp
-	${libBuffer_src_dirs}/CommonFWriteBufferFlusher.cpp
-	${libBuffer_src_dirs}/CommonStreamBufferFlusher.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/CommonBuffer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/CommonCharacterBuffer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/CommonFWriteBufferFlusher.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/CommonStreamBufferFlusher.cpp
 )
 
 set(libBuffer_libs ftoa)
