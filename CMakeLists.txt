@@ -1,8 +1,48 @@
+
+if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+	if(NOT DEFINED WITH_IN_SOURCE_BUILD)
+		message(FATAL_ERROR
+			"CMake generation for OpenCollada is not allowed within the source directory!"
+			"\n Remove the CMakeCache.txt file and try again from another folder, e.g.:"
+			"\n "
+			"\n rm CMakeCache.txt"
+			"\n cd .."
+			"\n mkdir cmake-make"
+			"\n cd cmake-make"
+			"\n cmake ../opencollada"
+			"\n "
+			"\n Alternately define WITH_IN_SOURCE_BUILD to force this option (not recommended!)"
+		)
+	endif()
+endif()
+
 cmake_minimum_required(VERSION 2.6)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/external/cmake-modules")
+
+#-----------------------------------------------------------------------------
+# Set policy.
+
+# see "cmake --help-policy CMP0003"
+# So library linking is more sane
+cmake_policy(SET CMP0003 NEW)
+
+# So defines are automatically quoted
+cmake_policy(SET CMP0005 NEW)
+
+# So syntax problems are errors
+cmake_policy(SET CMP0010 NEW)
+
+# Input directories must have CMakeLists.txt
+cmake_policy(SET CMP0014 NEW)
+
+
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Externals/cmake-modules")
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Only do Release and Debug" FORCE )
 mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
+
+
+#-----------------------------------------------------------------------------
+# Initialize project.
 
 project(OPENCOLLADA)  # must be after setting cmake_configuration_types
 
@@ -16,10 +56,21 @@ if (NOT WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif ()
 
+
+#-----------------------------------------------------------------------------
+# Redirect output files
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin CACHE INTERNAL "" FORCE )
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib CACHE INTERNAL "" FORCE )
+
+
+#-----------------------------------------------------------------------------
+# Set default config options
+
 option(USE_STATIC "Build static libraries"  ON)
 option(USE_SHARED "Build shared libraries"  OFF)
 option(USE_LIBXML "Use LibXml2 parser"      ON)
-option(USE_EXPAT "Use expat parser"         OFF)
+option(USE_EXPAT  "Use expat parser"        OFF)
 
 #adding xml2
 if (USE_LIBXML)
