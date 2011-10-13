@@ -1,14 +1,14 @@
-SET(name OpenCOLLADABaseUtils)
-PROJECT(${name})
+set(name OpenCOLLADABaseUtils)
+project(${name})
 
-SET(libBaseUtils_include_dirs 
+set(libBaseUtils_include_dirs 
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 	${CMAKE_CURRENT_SOURCE_DIR}/include/Math
 )
 
-SET(libBaseUtils_include_dirs ${libBaseUtils_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
+set(libBaseUtils_include_dirs ${libBaseUtils_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-SET(libBaseUtils_src_dirs 
+set(libBaseUtils_src_dirs 
 	${CMAKE_CURRENT_SOURCE_DIR}/src/
 )
 
@@ -29,33 +29,33 @@ set(libBaseUtils_src_files
 	${CMAKE_CURRENT_SOURCE_DIR}/src/Math/COLLADABUMathMatrix4.cpp
 )
 
-SET(libBaseUtils_libs
+set(libBaseUtils_libs
 	UTF
 	${PCRE_LIBRARIES}
 )
 
-INCLUDE_DIRECTORIES(${libBaseUtils_include_dirs} 
+include_directories(
+	${libBaseUtils_include_dirs} 
 	${libUTF_include_dirs}
 	${PCRE_INCLUDE_DIR}
 )
+link_directories(${LIBRARY_OUTPUT_PATH})
 
-LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
-
-IF (USE_STATIC)
-	ADD_LIBRARY(${name}_static STATIC ${libBaseUtils_src_files})
-	SET_TARGET_PROPERTIES(${name}_static PROPERTIES OUTPUT_NAME ${name})
-	TARGET_LINK_LIBRARIES(${name}_static ${libBaseUtils_libs})
-	SET(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-ENDIF (USE_STATIC)
-IF (USE_SHARED)
-	IF (NOT UNIX)
+if (USE_STATIC)
+	add_library(${name}_static STATIC ${libBaseUtils_src_files})
+	set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
+	target_link_libraries(${name}_static ${libBaseUtils_libs})
+	set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+endif ()
+if (USE_SHARED)
+	if (NOT UNIX)
 		message(${name} " WARNING: Shared library support implemented for UNIX-like OS only")
-	ENDIF (NOT UNIX)
-	ADD_LIBRARY(${name}_shared SHARED ${libBaseUtils_src_files})
-	SET_TARGET_PROPERTIES(${name}_shared PROPERTIES OUTPUT_NAME ${name})
-	TARGET_LINK_LIBRARIES(${name}_shared ${libBaseUtils_libs})
-	SET(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}"  PARENT_SCOPE)
-ENDIF (USE_SHARED)
+	endif ()
+	add_library(${name}_shared SHARED ${libBaseUtils_src_files})
+	set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
+	target_link_libraries(${name}_shared ${libBaseUtils_libs})
+	set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}"  PARENT_SCOPE)
+endif ()
 
 
 

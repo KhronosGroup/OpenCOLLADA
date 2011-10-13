@@ -1,8 +1,8 @@
-IF(MSVC)
-	ADD_DEFINITIONS(-DLIB3DS_EXPORTS)
-ENDIF(MSVC)
+if (MSVC)
+	add_definitions(-DLIB3DS_EXPORTS)
+endif ()
 
-ADD_LIBRARY(lib3ds SHARED
+add_library(lib3ds SHARED
     lib3ds.h
     lib3ds_impl.h
     lib3ds_atmosphere.c
@@ -26,12 +26,12 @@ ADD_LIBRARY(lib3ds SHARED
     lib3ds_viewport.c
     lib3ds.rc)
 
-IF(WIN32)
-    SET_TARGET_PROPERTIES(lib3ds PROPERTIES 
+if (WIN32)
+    set_target_properties(lib3ds PROPERTIES 
         OUTPUT_NAME "lib3ds-2_0" 
         DEBUG_POSTFIX "d")
-ENDIF(WIN32)
+endif ()
 
-SET_TARGET_PROPERTIES(lib3ds
+set_target_properties(lib3ds
     PROPERTIES VERSION 2.0)
     

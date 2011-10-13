@@ -1,15 +1,15 @@
-SET(name OpenCOLLADASaxFrameworkLoader)
-PROJECT(${name})
+set(name OpenCOLLADASaxFrameworkLoader)
+project(${name})
 
-SET(libSaxFrameworkLoader_include_dirs
+set(libSaxFrameworkLoader_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 	${CMAKE_CURRENT_SOURCE_DIR}/include/generated14
 	${CMAKE_CURRENT_SOURCE_DIR}/include/generated15
 )
 
-SET(libSaxFrameworkLoader_include_dirs ${libSaxFrameworkLoader_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
+set(libSaxFrameworkLoader_include_dirs ${libSaxFrameworkLoader_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-SET(libSaxFrameworkLoader_src_dirs 
+set(libSaxFrameworkLoader_src_dirs 
 	${CMAKE_CURRENT_SOURCE_DIR}/src/
 )
 
@@ -121,7 +121,7 @@ set(libSaxFrameworkLoader_src_files
 	${CMAKE_CURRENT_SOURCE_DIR}/src/COLLADASaxFWLExtraDataElementHandler.cpp
 )
 
-SET(libSaxFrameworkLoader_libs
+set(libSaxFrameworkLoader_libs
 	OpenCOLLADABaseUtils
 	GeneratedSaxParser
 	OpenCOLLADAFramework
@@ -129,17 +129,17 @@ SET(libSaxFrameworkLoader_libs
       ${PCRE_LIBRARIES}
 )
 
-IF (USE_LIBXML)
+if (USE_LIBXML)
 	LIST(APPEND libGeneratedSaxParser_include_dirs ${LIBXML2_INCLUDE_DIR})
 	LIST(APPEND libGeneratedSaxParser_libs ${LIBXML2_LIBRARIES})
-ENDIF (USE_LIBXML)
+endif ()
 
-IF (USE_EXPAT)
+if (USE_EXPAT)
 	LIST(APPEND libGeneratedSaxParser_include_dirs ${LIBEXPAT_INCLUDE_DIR})
 	LIST(APPEND libGeneratedSaxParser_libs ${LIBEXPAT_LIBRARIES})
-ENDIF (USE_EXPAT)
+endif ()
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${libSaxFrameworkLoader_include_dirs} 
 	${libMathMLSolver_include_dirs} 
 	${libBaseUtils_include_dirs} 
@@ -147,21 +147,21 @@ INCLUDE_DIRECTORIES(
 	${libGeneratedSaxParser_include_dirs}
 	${PCRE_INCLUDE_DIR}
 )
-LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
+link_directories(${LIBRARY_OUTPUT_PATH})
 
-IF (USE_STATIC)
-	ADD_LIBRARY(${name}_static STATIC ${libSaxFrameworkLoader_src_files})
-	SET_TARGET_PROPERTIES(${name}_static PROPERTIES OUTPUT_NAME ${name})
-	TARGET_LINK_LIBRARIES(${name}_static ${libSaxFrameworkLoader_libs})
-	SET(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-ENDIF (USE_STATIC)
+if (USE_STATIC)
+	add_library(${name}_static STATIC ${libSaxFrameworkLoader_src_files})
+	set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
+	target_link_libraries(${name}_static ${libSaxFrameworkLoader_libs})
+	set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+endif ()
 
-IF (USE_SHARED)
-	IF (NOT UNIX)
+if (USE_SHARED)
+	if (NOT UNIX)
 		message(${name} " WARNING: Shared library support implemented for UNIX-like OS only")
-	ENDIF (NOT UNIX)
-	ADD_LIBRARY(${name}_shared SHARED ${libSaxFrameworkLoader_src_files})
-	SET_TARGET_PROPERTIES(${name}_shared PROPERTIES OUTPUT_NAME ${name})
-	TARGET_LINK_LIBRARIES(${name}_shared ${libSaxFrameworkLoader_libs})
-	SET(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-ENDIF (USE_SHARED)
+	endif ()
+	add_library(${name}_shared SHARED ${libSaxFrameworkLoader_src_files})
+	set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
+	target_link_libraries(${name}_shared ${libSaxFrameworkLoader_libs})
+	set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+endif ()

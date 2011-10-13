@@ -1,7 +1,7 @@
-SET(name buffer)
-PROJECT(${name})
+set(name buffer)
+project(${name})
 
-SET(libBuffer_include_dirs
+set(libBuffer_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
 
 	# TODO, this needs to be fixed but get it working first.
@@ -10,9 +10,9 @@ SET(libBuffer_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/../../Externals/UTF/include
 )
 
-SET(libBuffer_include_dirs ${libBuffer_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
+set(libBuffer_include_dirs ${libBuffer_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-SET(libBuffer_src_dirs 
+set(libBuffer_src_dirs 
 	${CMAKE_CURRENT_SOURCE_DIR}/src/
 )
 
@@ -23,24 +23,27 @@ set(libBuffer_src_files
 	${libBuffer_src_dirs}/CommonStreamBufferFlusher.cpp
 )
 
-SET(libBuffer_libs ftoa)
+set(libBuffer_libs ftoa)
 
-INCLUDE_DIRECTORIES(${libBuffer_include_dirs} ${libftoa_include_dirs})
-LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
+include_directories(
+	${libBuffer_include_dirs}
+	${libftoa_include_dirs}
+)
+link_directories(${LIBRARY_OUTPUT_PATH})
 
-IF (USE_STATIC)
-	ADD_LIBRARY(${name}_static STATIC ${libBuffer_src_files})
-	SET_TARGET_PROPERTIES(${name}_static PROPERTIES OUTPUT_NAME ${name})
-	TARGET_LINK_LIBRARIES(${name}_static ${libBuffer_libs})
-	SET(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-ENDIF (USE_STATIC)
+if (USE_STATIC)
+	add_library(${name}_static STATIC ${libBuffer_src_files})
+	set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
+	target_link_libraries(${name}_static ${libBuffer_libs})
+	set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+endif ()
 
-IF (USE_SHARED)
-	IF (NOT UNIX)
+if (USE_SHARED)
+	if (NOT UNIX)
 		message(${name} " WARNING: Shared library support implemented for UNIX-like OS only")
-	ENDIF (NOT UNIX)
-	ADD_LIBRARY(${name}_shared SHARED ${libBuffer_src_files})
-	SET_TARGET_PROPERTIES(${name}_shared PROPERTIES OUTPUT_NAME ${name})
-	TARGET_LINK_LIBRARIES(${name}_shared ${libBuffer_libs}) 
-	SET(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-ENDIF (USE_SHARED)
+	endif ()
+	add_library(${name}_shared SHARED ${libBuffer_src_files})
+	set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
+	target_link_libraries(${name}_shared ${libBuffer_libs}) 
+	set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+endif ()

@@ -1,17 +1,17 @@
-SET(name GeneratedSaxParser)
-PROJECT(${name})
+set(name GeneratedSaxParser)
+project(${name})
 
-SET(libGeneratedSaxParser_include_dirs
+set(libGeneratedSaxParser_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
 )
 
-SET(libGeneratedSaxParser_include_dirs ${libGeneratedSaxParser_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
+set(libGeneratedSaxParser_include_dirs ${libGeneratedSaxParser_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
 
-SET(libGeneratedSaxParser_src_dirs 
+set(libGeneratedSaxParser_src_dirs 
 	${CMAKE_CURRENT_SOURCE_DIR}/src/
 )
 
-SET(libGeneratedSaxParser_src_files 
+set(libGeneratedSaxParser_src_files 
 	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserCoutErrorHandler.cpp
 	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserNamespaceStack.cpp
 	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserParser.cpp
@@ -24,42 +24,45 @@ SET(libGeneratedSaxParser_src_files
 	${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserUtils.cpp
 )
 
-SET(libGeneratedSaxParser_libs
+set(libGeneratedSaxParser_libs
 	OpenCOLLADABaseUtils
 )
 
-IF (USE_LIBXML)
+if (USE_LIBXML)
 	LIST(APPEND libGeneratedSaxParser_src_files 
 		${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserLibxmlSaxParser.cpp
 	)
 	LIST(APPEND libGeneratedSaxParser_include_dirs ${LIBXML2_INCLUDE_DIR})
 	LIST(APPEND libGeneratedSaxParser_libs ${LIBXML2_LIBRARIES})
-ENDIF (USE_LIBXML)
+endif ()
 
-IF (USE_EXPAT)
+if (USE_EXPAT)
 	LIST(APPEND libGeneratedSaxParser_src_files 
 		${libGeneratedSaxParser_src_dirs}/GeneratedSaxParserExpatSaxParser.cpp
 	)
 	LIST(APPEND libGeneratedSaxParser_include_dirs ${LIBEXPAT_INCLUDE_DIR})
 	LIST(APPEND libGeneratedSaxParser_libs ${LIBEXPAT_LIBRARIES})
-ENDIF (USE_EXPAT)
+endif ()
 
-INCLUDE_DIRECTORIES(${libGeneratedSaxParser_include_dirs} ${libBaseUtils_include_dirs})
-LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
+include_directories(
+	${libGeneratedSaxParser_include_dirs}
+	${libBaseUtils_include_dirs}
+)
+link_directories(${LIBRARY_OUTPUT_PATH})
 
-IF (USE_STATIC)
-	ADD_LIBRARY(${name}_static STATIC ${libGeneratedSaxParser_src_files})
-	SET_TARGET_PROPERTIES(${name}_static PROPERTIES OUTPUT_NAME ${name})
-	TARGET_LINK_LIBRARIES(${name}_static ${libGeneratedSaxParser_libs})
-	SET(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-ENDIF (USE_STATIC)
+if (USE_STATIC)
+	add_library(${name}_static STATIC ${libGeneratedSaxParser_src_files})
+	set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
+	target_link_libraries(${name}_static ${libGeneratedSaxParser_libs})
+	set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+endif ()
 
-IF (USE_SHARED)
-	IF (NOT UNIX)
+if (USE_SHARED)
+	if (NOT UNIX)
 		message(${name} " WARNING: Shared library support implemented for UNIX-like OS only")
-	ENDIF (NOT UNIX)
-	ADD_LIBRARY(${name}_shared SHARED ${libGeneratedSaxParser_src_files})
-	SET_TARGET_PROPERTIES(${name}_shared PROPERTIES OUTPUT_NAME ${name})
-	TARGET_LINK_LIBRARIES(${name}_shared ${libGeneratedSaxParser_libs})
-	SET(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
-ENDIF (USE_SHARED)
+	endif ()
+	add_library(${name}_shared SHARED ${libGeneratedSaxParser_src_files})
+	set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
+	target_link_libraries(${name}_shared ${libGeneratedSaxParser_libs})
+	set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+endif ()

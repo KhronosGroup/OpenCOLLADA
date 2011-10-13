@@ -1,17 +1,17 @@
-SET(name xml)
-PROJECT(${name})
+set(name xml)
+project(${name})
 
-SET(libxml_include_dirs
+set(libxml_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
 )
 
-SET(libxml_include_dirs ${libxml_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
+set(libxml_include_dirs ${libxml_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-SET(libxml_src_dirs 
+set(libxml_src_dirs 
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-SET(libxml_src_files 
+set(libxml_src_files 
 	${libxml_src_dirs}/c14n.c
 	${libxml_src_dirs}/catalog.c
 	${libxml_src_dirs}/chvalid.c
@@ -52,12 +52,14 @@ SET(libxml_src_files
 	${libxml_src_dirs}/tree.c
 )
 
-SET(libxml_libs)
+set(libxml_libs)
 
-INCLUDE_DIRECTORIES(${libxml_include_dirs})
-LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
+include_directories(
+	${libxml_include_dirs}
+)
+link_directories(${LIBRARY_OUTPUT_PATH})
 
-ADD_LIBRARY(${name} STATIC ${libxml_src_files})
-SET_TARGET_PROPERTIES(${name} PROPERTIES OUTPUT_NAME ${name})
-TARGET_LINK_LIBRARIES(${name} ${libxml_libs})
-SET(CMAKE_REQUIRED_LIBRARIES "${name};${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+add_library(${name} STATIC ${libxml_src_files})
+set_target_properties(${name} PROPERTIES OUTPUT_NAME ${name})
+target_link_libraries(${name} ${libxml_libs})
+set(CMAKE_REQUIRED_LIBRARIES "${name};${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)

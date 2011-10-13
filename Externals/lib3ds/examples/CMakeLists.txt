@@ -1,4 +1,4 @@
-ADD_SUBDIRECTORY(3ds2obj)
-ADD_SUBDIRECTORY(3dsdump)
-ADD_SUBDIRECTORY(cube)
-ADD_SUBDIRECTORY(3dsplay)
+add_subdirectory(3ds2obj)
+add_subdirectory(3dsdump)
+add_subdirectory(cube)
+add_subdirectory(3dsplay)

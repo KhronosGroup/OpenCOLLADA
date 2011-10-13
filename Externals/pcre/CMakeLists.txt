@@ -1,13 +1,13 @@
-SET(name pcre)
-PROJECT(${name})
+set(name pcre)
+project(${name})
 
-SET(libpcre_include_dirs
+set(libpcre_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-SET(libpcre_include_dirs ${libpcre_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
+set(libpcre_include_dirs ${libpcre_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-SET(libpcre_src_dirs 
+set(libpcre_src_dirs 
 	${CMAKE_CURRENT_SOURCE_DIR}/src/
 )
 
@@ -21,11 +21,13 @@ set(libpcre_src_files
 	${CMAKE_CURRENT_SOURCE_DIR}/src/pcre_try_flipped.c
 )
 
-SET(libpcre_libs)
+set(libpcre_libs)
 
-INCLUDE_DIRECTORIES(${libpcre_include_dirs})
-LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
+include_directories(
+	${libpcre_include_dirs}
+)
+link_directories(${LIBRARY_OUTPUT_PATH})
 
-ADD_LIBRARY(${name} ${libpcre_src_files})
-TARGET_LINK_LIBRARIES(${name} ${libpcre_libs})
-SET(CMAKE_REQUIRED_LIBRARIES "${name};${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+add_library(${name} ${libpcre_src_files})
+target_link_libraries(${name} ${libpcre_libs})
+set(CMAKE_REQUIRED_LIBRARIES "${name};${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
