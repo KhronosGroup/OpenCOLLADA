@@ -10,9 +10,7 @@
 
 #include "CommonFWriteBufferFlusher.h"
 
-#ifdef __GNUC__
-#   include <errno.h>
-#endif
+#include <cerrno>
 
 namespace Common
 {
@@ -90,7 +88,7 @@ namespace Common
 #ifdef _WIN32
 		__int64 currentPos = _ftelli64( mStream);
 #else
-		int64_t currentPos = ftello64( mStream);
+		__int64 currentPos = ftello64( mStream);
 #endif
 
 		mLastMarkId++;

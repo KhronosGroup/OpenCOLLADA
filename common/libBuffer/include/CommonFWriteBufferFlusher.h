@@ -25,16 +25,16 @@
 #   include <cstdio>  /* FILE */
 #endif
 
+#if (defined(__GNUC__) && !defined(__STRICT_ANSI__)) || (__STDC_VERSION__ >= 199901L)
+typedef int64_t __int64;
+#endif
+
 namespace Common
 {
 	class FWriteBufferFlusher : public IBufferFlusher
 	{
 	private:
-#ifdef _WIN32
 		typedef __int64 FilePosType;
-#else
-		typedef int64_t FilePosType;
-#endif
 		typedef std::tr1::unordered_map<MarkId, FilePosType > MarkIdToFilePos;
 	public:
 		static const size_t DEFAUL_BUFFER_SIZE = 64*1024;
