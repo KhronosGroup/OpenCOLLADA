@@ -1100,7 +1100,9 @@ namespace GeneratedSaxParser
         while ( !failed )
         {
             // just for error handling of item type validation
+#ifdef GENERATEDSAXPARSER_VALIDATION
             const ParserChar* currentElementPtr = dataBufferPos;
+#endif
             DataType dataValue = toData(&dataBufferPos, failed);
             if ( !failed )
             {

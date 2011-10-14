@@ -83,6 +83,44 @@ macro(opencollada_add_lib
 endmacro()
 
 
+# ---------------------
+# copied from blender's
+# build_files/cmake/macros.cmake
+
+macro(ADD_CHECK_C_COMPILER_FLAG
+	_CFLAGS
+	_CACHE_VAR
+	_FLAG)
+
+	include(CheckCCompilerFlag)
+
+	CHECK_C_COMPILER_FLAG("${_FLAG}" "${_CACHE_VAR}")
+	if(${_CACHE_VAR})
+		# message(STATUS "Using CFLAG: ${_FLAG}")
+		set(${_CFLAGS} "${${_CFLAGS}} ${_FLAG}")
+	else()
+		message(STATUS "Unsupported CFLAG: ${_FLAG}")
+	endif()
+endmacro()
+
+macro(ADD_CHECK_CXX_COMPILER_FLAG
+	_CXXFLAGS
+	_CACHE_VAR
+	_FLAG)
+
+	include(CheckCXXCompilerFlag)
+
+	CHECK_CXX_COMPILER_FLAG("${_FLAG}" "${_CACHE_VAR}")
+	if(${_CACHE_VAR})
+		# message(STATUS "Using CXXFLAG: ${_FLAG}")
+		set(${_CXXFLAGS} "${${_CXXFLAGS}} ${_FLAG}")
+	else()
+		message(STATUS "Unsupported CXXFLAG: ${_FLAG}")
+	endif()
+endmacro()
+# end copy
+# --------
+
 #-----------------------------------------------------------------------------
 # Initialize project.
 
@@ -94,9 +132,33 @@ set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_HOME_DIRECTORY}/bin)  # executables
 set(EXTERNAL_LIBRARIES        	   ${CMAKE_HOME_DIRECTORY}/Externals)  # external libraries
 set(CMAKE_MODULE_PATH "${EXTERNAL_LIBRARIES}/cmake-modules")
 
-if (NOT WIN32)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+#-----------------------------------------------------------------------------
+# Compiler warnings.
+
+set(C_WARNINGS   "")
+set(CXX_WARNINGS "")
+
+if (CMAKE_COMPILER_IS_GNUCC)
+	ADD_CHECK_C_COMPILER_FLAG(C_WARNINGS C_WARN_ALL -Wall)
+	ADD_CHECK_C_COMPILER_FLAG(C_WARNINGS C_WARN_EXTRA -Wextra)
+	ADD_CHECK_C_COMPILER_FLAG(C_WARNINGS C_WARN_NO_UNKNOWN_PRAGMAS -Wno-unknown-pragmas)
+	ADD_CHECK_C_COMPILER_FLAG(C_WARNINGS C_WARN_NO_SWITCH -Wno-switch)
+	ADD_CHECK_C_COMPILER_FLAG(C_WARNINGS C_WARN_NO_UNUSED_PARAMETER -Wno-unused-parameter)
+	ADD_CHECK_C_COMPILER_FLAG(C_WARNINGS C_WARN_NO_IGNORED_QUALIFIERS -Wno-ignored-qualifiers)
 endif ()
+if (CMAKE_COMPILER_IS_GNUCXX)
+	ADD_CHECK_CXX_COMPILER_FLAG(CXX_WARNINGS CXX_WARN_ALL -Wall)
+	ADD_CHECK_CXX_COMPILER_FLAG(CXX_WARNINGS CXX_WARN_EXTRA -Wextra)
+	ADD_CHECK_CXX_COMPILER_FLAG(CXX_WARNINGS CXX_WARN_NO_UNKNOWN_PRAGMAS -Wno-unknown-pragmas)
+	ADD_CHECK_CXX_COMPILER_FLAG(CXX_WARNINGS CXX_WARN_NO_SWITCH -Wno-switch)
+	ADD_CHECK_CXX_COMPILER_FLAG(CXX_WARNINGS CXX_WARN_NO_REORDER -Wno-reorder)  # could be re-ordered but for now this is just noise.
+	ADD_CHECK_CXX_COMPILER_FLAG(CXX_WARNINGS CXX_WARN_NO_UNUSED_PARAMETER -Wno-unused-parameter)
+	ADD_CHECK_CXX_COMPILER_FLAG(CXX_WARNINGS CXX_WARN_NO_IGNORED_QUALIFIERS -Wno-ignored-qualifiers)
+endif ()
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${C_WARNINGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_WARNINGS}")
 
 
 #-----------------------------------------------------------------------------
