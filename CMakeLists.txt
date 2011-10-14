@@ -35,10 +35,13 @@ cmake_policy(SET CMP0010 NEW)
 # Input directories must have CMakeLists.txt
 cmake_policy(SET CMP0014 NEW)
 
+# avoid having empty buildtype
+set(CMAKE_BUILD_TYPE_INIT "Release")
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Externals/cmake-modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Externals/cmake-modules")
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Only do Release and Debug" FORCE )
 mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
+
 
 #-----------------------------------------------------------------------------
 # Macro's
@@ -94,6 +97,7 @@ set(CMAKE_MODULE_PATH "${EXTERNAL_LIBRARIES}/cmake-modules")
 if (NOT WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif ()
+
 
 #-----------------------------------------------------------------------------
 # Install vars
