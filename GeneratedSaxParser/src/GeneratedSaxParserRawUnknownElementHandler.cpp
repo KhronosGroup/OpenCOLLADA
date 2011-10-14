@@ -43,7 +43,7 @@ namespace GeneratedSaxParser
 		mRawData.append( "<" );
 		mRawData.append( elementName );
 		mOpenTags.push( OpenTag() );
-		OpenTag& currentOpenTag = mOpenTags.top();
+		/* OpenTag& currentOpenTag = mOpenTags.top(); */ /* UNUSED */
 
 		if ( attributes )
 		{

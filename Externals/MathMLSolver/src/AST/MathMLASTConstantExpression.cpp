@@ -204,7 +204,7 @@ namespace MathML
                 return;
             }
 
-            else if ( this->getType() == SCALAR_BOOL && rhs.getType() == SCALAR_LONG || this->getType() == SCALAR_LONG && rhs.getType() == SCALAR_BOOL )
+            else if ( (this->getType() == SCALAR_BOOL && rhs.getType() == SCALAR_LONG) || (this->getType() == SCALAR_LONG && rhs.getType() == SCALAR_BOOL) )
             {				
 				long val1 = this->getLongValue();
 				long val2 = rhs.getLongValue();

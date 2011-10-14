@@ -193,7 +193,7 @@ namespace COLLADASaxFWL
                 COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement.getValues ();
 
                 // TODO
-                unsigned long long stride = source->getStride ();
+                /* unsigned long long stride = source->getStride (); */ /* UNUSED */
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.

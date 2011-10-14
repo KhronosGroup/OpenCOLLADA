@@ -186,7 +186,7 @@ namespace COLLADASaxFWL
 				}
 
 				// Initialize the texture element.
-				const SamplerInfo& samplerInfo = it->second;
+				/* const SamplerInfo& samplerInfo = it->second; */ /* UNUSED */
 				colorOrTexture->setType(COLLADAFW::ColorOrTexture::TEXTURE);
 				COLLADAFW::Texture& texture = colorOrTexture->getTexture();
                 texture.setUniqueId ( createUniqueId(COLLADAFW::Texture::ID()) );
