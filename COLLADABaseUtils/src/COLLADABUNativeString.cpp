@@ -74,9 +74,9 @@ namespace COLLADABU
 	{
 #ifdef COLLADABU_OS_WIN
 		wchar_t * dest = new wchar_t[ length() + 1 ];
-		MultiByteToWideChar ( CP_ACP, 0, c_str(), ( int ) length(),
+		int nDest = MultiByteToWideChar ( CP_ACP, 0, c_str(), ( int ) length(),
 			dest, ( int ) length() );
-		dest[ length() ] = 0; // null termination
+		dest[ nDest ] = 0; // null termination
 		WideString returnValue( dest );
 		delete[] dest;
 		return returnValue;
