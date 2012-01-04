@@ -86,9 +86,11 @@ namespace Common
 	{
 		// store the current file position
 #ifdef _WIN32
-		__int64 currentPos = _ftelli64( mStream);
+		FilePosType currentPos = _ftelli64(mStream);
+#elif defined (__APPLE__)
+		FilePosType currentPos = ftello(mStream);
 #else
-		__int64 currentPos = ftello64( mStream);
+		FilePosType currentPos = ftello64(mStream);
 #endif
 
 		mLastMarkId++;
@@ -108,6 +110,8 @@ namespace Common
 		{
 #ifdef _WIN32
 			return (_fseeki64(mStream, 0, SEEK_END) == 0);
+#elif defined (__APPLE__)
+			return (fseeko(mStream, 0, SEEK_END) == 0);
 #else
 			return (fseeko64(mStream, 0, SEEK_END) == 0);
 #endif
@@ -124,6 +128,8 @@ namespace Common
 				FilePosType pos = markIdIt->second;
 #ifdef _WIN32
 				bool success = (_fseeki64(mStream, pos, SEEK_SET) == 0);
+#elif defined (__APPLE__)
+				bool success = (fseeko(mStream, pos, SEEK_SET) == 0);
 #else
 				bool success = (fseeko64(mStream, pos, SEEK_SET) == 0);
 #endif

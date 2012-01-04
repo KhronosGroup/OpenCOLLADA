@@ -34,7 +34,11 @@ namespace Common
 	class FWriteBufferFlusher : public IBufferFlusher
 	{
 	private:
+#ifdef __APPLE__
+		typedef off_t FilePosType;
+#else
 		typedef __int64 FilePosType;
+#endif
 		typedef std::tr1::unordered_map<MarkId, FilePosType > MarkIdToFilePos;
 	public:
 		static const size_t DEFAUL_BUFFER_SIZE = 64*1024;
