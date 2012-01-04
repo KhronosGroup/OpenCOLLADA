@@ -21,9 +21,11 @@
 //
 
 #define _CRT_SECURE_NO_DEPRECATE 1
-#define _MGLFunctionTable_h_ // We don't want this one included by Maya 8.5
 
+/*
+#define _MGLFunctionTable_h_ // We don't want this one included by Maya 8.5
 class MGLFunctionTable;
+*/
 
 #ifdef OSMac_
 #include <maya/OpenMayaMac.h>

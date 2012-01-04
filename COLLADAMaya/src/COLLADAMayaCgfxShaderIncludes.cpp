@@ -41,6 +41,11 @@
 #include "cgfxVector.cpp"
 #include "nv_dds.cpp"
 
+#if MAYA_API_VERSION >= 201200
+#include "cgfxProfile.cpp"
+#include "cgfxPassStateSetter.cpp"
+#endif
+
 #ifdef _WIN32
 # pragma warning(default: 4312)
 #endif

@@ -681,6 +681,8 @@ namespace COLLADAMaya
         COLLADASW::InstanceEffect& effectInstance, 
         cgfxShaderNode* shaderNodeCgfx )
     {
+		// Disabled for Maya2012, the raw CGeffect is no-longer directly accessible from the cgfxShaderNode class.
+#if MAYA_API_VERSION < 201200
         // Get the filename of the current cgfx file
 		MString shaderFxFile = cgfxFindFile(shaderNodeCgfx->shaderFxFile());
         String shaderFxFileName = shaderFxFile.asChar(); // check3d.cgfx
@@ -706,6 +708,7 @@ namespace COLLADAMaya
             cgfxAttrDef* effectAttribute = *effectIt;
             setSetParam ( shaderNodeCgfx, effectAttribute );
         }
+#endif
     }
 
     // --------------------------------------

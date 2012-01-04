@@ -75,6 +75,8 @@ namespace COLLADAMaya
     // ---------------------------------
     void HwShaderExporter::exportCgfxShader ( cgfxShaderNode* shaderNodeCgfx )
     {
+		// Disabled for Maya2012, the raw CGeffect is no-longer directly accessible from the cgfxShaderNode class.
+#if MAYA_API_VERSION < 201200
         // Set the current shader scope to CG
         setShaderScope ( COLLADASW::Shader::SCOPE_CG );
 
@@ -125,6 +127,7 @@ namespace COLLADAMaya
             cgTechnique = cgGetNextTechnique ( cgTechnique );
         }
         mEffectProfile->closeProfile ();
+#endif
     }
 
     // --------------------------------

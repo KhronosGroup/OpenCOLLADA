@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24FFE6BB14A5236400D718C2 /* DAE2MAExtraDataCallbackHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24FFE6B914A5235300D718C2 /* DAE2MAExtraDataCallbackHandler.cpp */; };
+		24FFE6BE14A523D700D718C2 /* DAE2MAExtraDataCallbackHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FFE6BC14A523D100D718C2 /* DAE2MAExtraDataCallbackHandler.h */; };
+		24FFE6C514A525D100D718C2 /* COLLADASaxFWLInstanceArticulatedSystemLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24FFE6BF14A525CC00D718C2 /* COLLADASaxFWLInstanceArticulatedSystemLoader.cpp */; };
+		24FFE6C614A525D100D718C2 /* COLLADASaxFWLInstanceKinematicsModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24FFE6C014A525CC00D718C2 /* COLLADASaxFWLInstanceKinematicsModelLoader.cpp */; };
+		24FFE6C714A525D100D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24FFE6C114A525CC00D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader.cpp */; };
+		24FFE6CA14A525E500D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24FFE6C814A525E000D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp */; };
+		24FFE6CD14A526A500D718C2 /* COLLADAFWInstanceKinematicsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24FFE6CB14A5269600D718C2 /* COLLADAFWInstanceKinematicsScene.cpp */; };
+		24FFE6D214A526D600D718C2 /* COLLADAFWHashFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FFE6CE14A526CF00D718C2 /* COLLADAFWHashFunctions.h */; };
+		24FFE6D314A526D600D718C2 /* COLLADAFWInstanceKinematicsScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */; };
 		CE0B3D8A0F56AF48004F8570 /* COLLADASWAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3D570F56AF48004F8570 /* COLLADASWAsset.cpp */; };
 		CE0B3D8B0F56AF48004F8570 /* COLLADASWBaseElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3D580F56AF48004F8570 /* COLLADASWBaseElement.cpp */; };
 		CE0B3D8C0F56AF48004F8570 /* COLLADASWBaseInputElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3D590F56AF48004F8570 /* COLLADASWBaseInputElement.cpp */; };
@@ -158,8 +167,6 @@
 		CE0B3F0A0F56AFD8004F8570 /* COLLADAMayaSyntax.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0B3ED10F56AFD8004F8570 /* COLLADAMayaSyntax.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE0B3F0B0F56AFD8004F8570 /* COLLADAMayaTangentPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0B3ED20F56AFD8004F8570 /* COLLADAMayaTangentPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE0B3F0C0F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0B3ED30F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CE0B3F2D0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0B3F2C0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a */; };
-		CE0B3F310F56B096004F8570 /* libboost_system-xgcc40-mt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0B3F300F56B096004F8570 /* libboost_system-xgcc40-mt.a */; };
 		CE0B3FF50F56D037004F8570 /* COLLADABUMathMatrix3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3FF00F56D037004F8570 /* COLLADABUMathMatrix3.cpp */; };
 		CE0B3FF60F56D037004F8570 /* COLLADABUMathMatrix4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3FF10F56D037004F8570 /* COLLADABUMathMatrix4.cpp */; };
 		CE0B3FF70F56D037004F8570 /* COLLADABUMathQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3FF20F56D037004F8570 /* COLLADABUMathQuaternion.cpp */; };
@@ -921,6 +928,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		24FFE6B914A5235300D718C2 /* DAE2MAExtraDataCallbackHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DAE2MAExtraDataCallbackHandler.cpp; path = ../dae2ma/src/DAE2MAExtraDataCallbackHandler.cpp; sourceTree = "<group>"; };
+		24FFE6BC14A523D100D718C2 /* DAE2MAExtraDataCallbackHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DAE2MAExtraDataCallbackHandler.h; path = ../dae2ma/include/DAE2MAExtraDataCallbackHandler.h; sourceTree = "<group>"; };
+		24FFE6BF14A525CC00D718C2 /* COLLADASaxFWLInstanceArticulatedSystemLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLInstanceArticulatedSystemLoader.cpp; path = ../COLLADASaxFrameworkLoader/src/COLLADASaxFWLInstanceArticulatedSystemLoader.cpp; sourceTree = "<group>"; };
+		24FFE6C014A525CC00D718C2 /* COLLADASaxFWLInstanceKinematicsModelLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLInstanceKinematicsModelLoader.cpp; path = ../COLLADASaxFrameworkLoader/src/COLLADASaxFWLInstanceKinematicsModelLoader.cpp; sourceTree = "<group>"; };
+		24FFE6C114A525CC00D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLLibraryKinematicsScenesLoader.cpp; path = ../COLLADASaxFrameworkLoader/src/COLLADASaxFWLLibraryKinematicsScenesLoader.cpp; sourceTree = "<group>"; };
+		24FFE6C814A525E000D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp; path = ../COLLADASaxFrameworkLoader/src/generated15/COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp; sourceTree = "<group>"; };
+		24FFE6CB14A5269600D718C2 /* COLLADAFWInstanceKinematicsScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAFWInstanceKinematicsScene.cpp; path = ../COLLADAFramework/src/COLLADAFWInstanceKinematicsScene.cpp; sourceTree = "<group>"; };
+		24FFE6CE14A526CF00D718C2 /* COLLADAFWHashFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWHashFunctions.h; path = ../COLLADAFramework/include/COLLADAFWHashFunctions.h; sourceTree = "<group>"; };
+		24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWInstanceKinematicsScene.h; path = ../COLLADAFramework/include/COLLADAFWInstanceKinematicsScene.h; sourceTree = "<group>"; };
 		CE0B3D570F56AF48004F8570 /* COLLADASWAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWAsset.cpp; path = ../COLLADAStreamWriter/src/COLLADASWAsset.cpp; sourceTree = SOURCE_ROOT; };
 		CE0B3D580F56AF48004F8570 /* COLLADASWBaseElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWBaseElement.cpp; path = ../COLLADAStreamWriter/src/COLLADASWBaseElement.cpp; sourceTree = SOURCE_ROOT; };
 		CE0B3D590F56AF48004F8570 /* COLLADASWBaseInputElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWBaseInputElement.cpp; path = ../COLLADAStreamWriter/src/COLLADASWBaseInputElement.cpp; sourceTree = SOURCE_ROOT; };
@@ -1072,8 +1088,6 @@
 		CE0B3ED10F56AFD8004F8570 /* COLLADAMayaSyntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaSyntax.h; path = include/COLLADAMayaSyntax.h; sourceTree = "<group>"; };
 		CE0B3ED20F56AFD8004F8570 /* COLLADAMayaTangentPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaTangentPoint.h; path = include/COLLADAMayaTangentPoint.h; sourceTree = "<group>"; };
 		CE0B3ED30F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaVisualSceneExporter.h; path = include/COLLADAMayaVisualSceneExporter.h; sourceTree = "<group>"; };
-		CE0B3F2C0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_filesystem-xgcc40-mt.a"; path = "/usr/local/lib/libboost_filesystem-xgcc40-mt.a"; sourceTree = "<absolute>"; };
-		CE0B3F300F56B096004F8570 /* libboost_system-xgcc40-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_system-xgcc40-mt.a"; path = "/usr/local/lib/libboost_system-xgcc40-mt.a"; sourceTree = "<absolute>"; };
 		CE0B3F500F56B194004F8570 /* libCOLLADABaseUtils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCOLLADABaseUtils.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0B3FF00F56D037004F8570 /* COLLADABUMathMatrix3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADABUMathMatrix3.cpp; path = ../COLLADABaseUtils/src/Math/COLLADABUMathMatrix3.cpp; sourceTree = SOURCE_ROOT; };
 		CE0B3FF10F56D037004F8570 /* COLLADABUMathMatrix4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADABUMathMatrix4.cpp; path = ../COLLADABaseUtils/src/Math/COLLADABUMathMatrix4.cpp; sourceTree = SOURCE_ROOT; };
@@ -1796,8 +1810,6 @@
 			files = (
 				CE7FF17E0E9B9F2C00B97D2A /* OpenGL.framework in Frameworks */,
 				CE7FF1820E9B9F3600B97D2A /* Cg.framework in Frameworks */,
-				CE0B3F2D0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a in Frameworks */,
-				CE0B3F310F56B096004F8570 /* libboost_system-xgcc40-mt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1846,8 +1858,6 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				CE0B3F2C0F56B053004F8570 /* libboost_filesystem-xgcc40-mt.a */,
-				CE0B3F300F56B096004F8570 /* libboost_system-xgcc40-mt.a */,
 				CE7FF1810E9B9F3600B97D2A /* Cg.framework */,
 				CE7FF17D0E9B9F2C00B97D2A /* OpenGL.framework */,
 			);
@@ -2068,6 +2078,7 @@
 		CE7290AB10AC74DA00AE5662 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				24FFE6BC14A523D100D718C2 /* DAE2MAExtraDataCallbackHandler.h */,
 				CE72904310AC738F00AE5662 /* DAE2MAAnimationImporter.h */,
 				CE72904410AC738F00AE5662 /* DAE2MABaseAnimation.h */,
 				CE72904510AC738F00AE5662 /* DAE2MABaseImporter.h */,
@@ -2102,6 +2113,7 @@
 		CE7290AC10AC74E200AE5662 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				24FFE6B914A5235300D718C2 /* DAE2MAExtraDataCallbackHandler.cpp */,
 				CE72907910AC73E600AE5662 /* DAE2MAAnimationImporter.cpp */,
 				CE72907A10AC73E600AE5662 /* DAE2MABaseAnimation.cpp */,
 				CE72907B10AC73E600AE5662 /* DAE2MABaseImporter.cpp */,
@@ -2214,6 +2226,10 @@
 		CE7290AF10AC751900AE5662 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				24FFE6C814A525E000D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp */,
+				24FFE6BF14A525CC00D718C2 /* COLLADASaxFWLInstanceArticulatedSystemLoader.cpp */,
+				24FFE6C014A525CC00D718C2 /* COLLADASaxFWLInstanceKinematicsModelLoader.cpp */,
+				24FFE6C114A525CC00D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader.cpp */,
 				CE792BB610BD819500430A67 /* COLLADASaxFWLExtraDataElementHandler.cpp */,
 				CE792BB710BD819500430A67 /* COLLADASaxFWLExtraDataLoader.cpp */,
 				CE792BB810BD819500430A67 /* COLLADASaxFWLIExtraDataCallbackHandler.cpp */,
@@ -2328,6 +2344,7 @@
 		CE72910210AC7FD300AE5662 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				24FFE6CB14A5269600D718C2 /* COLLADAFWInstanceKinematicsScene.cpp */,
 				CE787CB20F58400C0019C2D7 /* COLLADAFWMaterial.cpp */,
 				CE787CB30F58400C0019C2D7 /* COLLADAFWMatrix.cpp */,
 				CE787CB40F58400C0019C2D7 /* COLLADAFWMesh.cpp */,
@@ -2780,6 +2797,8 @@
 		CE72911810AC82DE00AE5662 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				24FFE6CE14A526CF00D718C2 /* COLLADAFWHashFunctions.h */,
+				24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */,
 				CE792BA410BD810100430A67 /* COLLADAFWInstanceBase.h */,
 				CE792BA510BD810100430A67 /* COLLADAFWInstanceBindingBase.h */,
 				CE792BA610BD810100430A67 /* COLLADAFWLines.h */,
@@ -3141,6 +3160,7 @@
 				CE72907610AC738F00AE5662 /* DAE2MASyntax.h in Headers */,
 				CE72907710AC738F00AE5662 /* DAE2MATransformAnimation.h in Headers */,
 				CE72907810AC738F00AE5662 /* DAE2MAVisualSceneImporter.h in Headers */,
+				24FFE6BE14A523D700D718C2 /* DAE2MAExtraDataCallbackHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3283,6 +3303,8 @@
 				CE792BAD10BD810100430A67 /* COLLADAFWLinestrips.h in Headers */,
 				CE792BAE10BD810100430A67 /* COLLADAFWMaterialBinding.h in Headers */,
 				CE792BAF10BD810100430A67 /* COLLADAFWTextureCoordinateBinding.h in Headers */,
+				24FFE6D214A526D600D718C2 /* COLLADAFWHashFunctions.h in Headers */,
+				24FFE6D314A526D600D718C2 /* COLLADAFWInstanceKinematicsScene.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3719,7 +3741,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "COLLADAMaya" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* COLLADAMaya */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
 			projectDirPath = "";
@@ -3921,6 +3947,7 @@
 				CE7290A410AC73E600AE5662 /* DAE2MAShadingBinding.cpp in Sources */,
 				CE7290A510AC73E600AE5662 /* DAE2MATransformAnimation.cpp in Sources */,
 				CE7290A610AC73E600AE5662 /* DAE2MAVisualSceneImporter.cpp in Sources */,
+				24FFE6BB14A5236400D718C2 /* DAE2MAExtraDataCallbackHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3984,6 +4011,7 @@
 				CE79CFCF1020B80C00A3A027 /* COLLADAFWKinematicsScene.cpp in Sources */,
 				CE71CD1E104D0A3500368D98 /* COLLADAFWAxisInfo.cpp in Sources */,
 				CE71CD1F104D0A3500368D98 /* COLLADAFWKinematicsController.cpp in Sources */,
+				24FFE6CD14A526A500D718C2 /* COLLADAFWInstanceKinematicsScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4092,6 +4120,10 @@
 				CE792BB910BD819500430A67 /* COLLADASaxFWLExtraDataElementHandler.cpp in Sources */,
 				CE792BBA10BD819500430A67 /* COLLADASaxFWLExtraDataLoader.cpp in Sources */,
 				CE792BBB10BD819500430A67 /* COLLADASaxFWLIExtraDataCallbackHandler.cpp in Sources */,
+				24FFE6C514A525D100D718C2 /* COLLADASaxFWLInstanceArticulatedSystemLoader.cpp in Sources */,
+				24FFE6C614A525D100D718C2 /* COLLADASaxFWLInstanceKinematicsModelLoader.cpp in Sources */,
+				24FFE6C714A525D100D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader.cpp in Sources */,
+				24FFE6CA14A525E500D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4235,7 +4267,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
@@ -4263,7 +4294,6 @@
 				);
 				GCC_VERSION = "";
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(MAYA_PATH2008)/devkit/include",
 					"$(MAYA_PATH2008)/devkit/plug-ins",
@@ -4281,6 +4311,7 @@
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MAYA_PATH2008 = /Applications/Autodesk/maya2008;
+				MAYA_PATH2012 = /Applications/Autodesk/maya2012;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fPIC";
 				OTHER_LDFLAGS = (
@@ -4307,7 +4338,6 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = COLLADAMaya;
 				SDKROOT = "";
-				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				ZERO_LINK = YES;
 			};
 			name = "Debug 2008";
@@ -4316,7 +4346,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
@@ -4340,7 +4369,6 @@
 					_CRT_NONSTDC_NO_DEPRECATE,
 					_BOOL,
 				);
-				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(MAYA_PATH2008)/devkit/include",
 					"$(MAYA_PATH2008)/devkit/plug-ins",
@@ -4356,6 +4384,7 @@
 					/usr/local/lib,
 				);
 				MACH_O_TYPE = mh_bundle;
+				MAYA_PATH2012 = /Applications/Autodesk/maya2012;
 				OTHER_LDFLAGS = (
 					"-L/usr/local/lib",
 					"-L$(MAYA_PATH2008)/Maya.app/Contents/MacOS",
@@ -4397,7 +4426,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = "Debug 2008";
 		};
@@ -4424,9 +4453,362 @@
 				MAYA_PATH2008 = /Applications/Autodesk/maya2008;
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = YES;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = "Release 2008";
+		};
+		2425149014A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_APPS_DIR)/Autodesk/maya2009/Maya.app/Contents/Frameworks\"";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREFIX_HEADER = "$(MAYA_PATH2008)/devkit/include/maya/OpenMayaMac.h";
+				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/include/boost-1_36",
+					"$(MAYA_PATH2008)/devkit/include/",
+					../COLLADABaseUtils/include/,
+					"$(HOME)/include/libxml2",
+					"../COLLADABaseUtils/include/Math/*.h",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(HOME)/lib",
+					"$(MAYA_PATH2008)/Maya.app/Contents/MacOS",
+				);
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_PATH2008 = /Applications/Autodesk/maya2008;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-lxml2";
+				PREBINDING = YES;
+				SDKROOT = macosx;
+			};
+			name = "Release 2012";
+		};
+		2425149114A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_EXTENSION = bundle;
+				FRAMEWORK_SEARCH_PATHS = "\"$(MAYA_PATH2012)/Maya.app/Contents/Frameworks\"";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CREATE_IMPORT_PLUGIN,
+					MAC_PLUGIN,
+					NDEBUG,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					GLUT_NO_LIB_PRAGMA,
+					CM_EXPORTS,
+					GLUT_NO_WARNING_DISABLE,
+					_CRT_NONSTDC_NO_DEPRECATE,
+					_BOOL,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(MAYA_PATH2012)/devkit/include",
+					"$(MAYA_PATH2012)/devkit/plug-ins",
+					/usr/local/include/boost,
+					../COLLADAStreamWriter/include,
+					../Externals/MayaDataModel/include,
+					"../COLLADABaseUtils/include/Math/*.h",
+					../COLLADABaseUtils/include,
+					../COLLADAFramework/include,
+				);
+				INSTALL_MODE_FLAG = "u+rwx,go+rwx,a+rwX";
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2012/plug-ins";
+				LIBRARY_SEARCH_PATHS = (
+					"$(MAYA_PATH2012)/Maya.app/Contents/MacOS",
+					/usr/local/lib,
+				);
+				MACH_O_TYPE = mh_bundle;
+				MAYA_PATH2009 = /Applications/Autodesk/maya2009;
+				MAYA_PATH2010 = /Applications/Autodesk/maya2010;
+				MAYA_PATH2012 = /Applications/Autodesk/maya2012;
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-Wl,-executable_path,$(MAYA_PATH2012)/Maya.app/Contents/MacOS",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-lOpenMayaUI",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lFoundation",
+					"-lCOLLADAStreamWriter",
+					"-lCOLLADABaseUtils",
+					"-lCOLLADAFramework",
+					"-lCOLLADASaxFrameworkLoader",
+					"-lGeneratedSaxParser",
+					"-llibftoa",
+					"-llibBuffer",
+					"-ldae2ma",
+					"-lpcre",
+					"-lMathMLSolver",
+					"-lboost_filesystem-mt",
+					"-lxml2",
+					"-lboost_system-mt",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = COLLADAMaya;
+				SDKROOT = "";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+				ZERO_LINK = YES;
+			};
+			name = "Release 2012";
+		};
+		2425149214A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					"/usr/local/include/boost-1_36",
+					../common/libftoa,
+					../common/libBuffer,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				OTHER_LDFLAGS = "-L/usr/local/lib";
+				PREBINDING = NO;
+				PRODUCT_NAME = COLLADAStreamWriter;
+				SDKROOT = "";
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
+			};
+			name = "Release 2012";
+		};
+		2425149314A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/include/boost-1_36",
+					../Externals/UTF/include,
+					./include,
+					../COLLADABaseUtils/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = COLLADABaseUtils;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
+			};
+			name = "Release 2012";
+		};
+		2425149414A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/include/boost-1_36",
+					"$(MAYA_PATH2009)/devkit/include/",
+					../COLLADABaseUtils/include/,
+					/usr/include/libxml2,
+					"../COLLADABaseUtils/include/Math/*.h",
+				);
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(HOME)/lib",
+					"$(MAYA_PATH2009)/Maya.app/Contents/MacOS",
+				);
+				MAYA_PATH2009 = /Applications/Autodesk/maya2009;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = GeneratedSaxParser;
+			};
+			name = "Release 2012";
+		};
+		2425149514A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(HOME)/lib",
+					"$(MAYA_PATH2010)/Maya.app/Contents/MacOS",
+				);
+				MAYA_PATH2010 = /Applications/Autodesk/maya2010;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = COLLADAFramework;
+			};
+			name = "Release 2012";
+		};
+		2425149614A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
+				);
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/include/boost-1_36",
+					"$(MAYA_PATH2009)/devkit/include/",
+					../COLLADABaseUtils/include/,
+					/usr/include/libxml2,
+					"../COLLADABaseUtils/include/Math/*.h",
+					../GeneratedSaxParser/include,
+					../COLLADAFramework/include,
+					../COLLADASaxFrameworkLoader/include/generated15,
+					HEADER_SEARCH_PATHS,
+					"=",
+					"/usr/local/include/boost-1_36",
+					"$(MAYA_PATH2009)/devkit/include/",
+					../COLLADABaseUtils/include/,
+					/usr/include/libxml2,
+					"../COLLADABaseUtils/include/Math/*.h",
+					../GeneratedSaxParser/include,
+					../COLLADAFramework/include,
+					../COLLADASaxFrameworkLoader/include/generated15,
+					../COLLADASaxFrameworkLoader/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				MAYA_PATH2009 = /Applications/Autodesk/maya2009;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = COLLADASaxFrameworkLoader;
+			};
+			name = "Release 2012";
+		};
+		2425149714A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Release 2012";
+		};
+		2425149814A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = "Release 2012";
+		};
+		2425149914A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = libftoa;
+			};
+			name = "Release 2012";
+		};
+		2425149A14A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include/,
+					"../COLLADABaseUtils/include/Math/*.h",
+					../common/libftoa/include,
+					../Externals/UTF/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = libBuffer;
+			};
+			name = "Release 2012";
+		};
+		2425149B14A3B26200A60B09 /* Release 2012 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					MAC_PLUGIN,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../Externals/MayaDataModel/include,
+					../COLLADAFramework/include,
+					../COLLADASaxFrameworkLoader/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = dae2ma;
+			};
+			name = "Release 2012";
 		};
 		CE0B3F510F56B194004F8570 /* Debug 2008 */ = {
 			isa = XCBuildConfiguration;
@@ -4543,7 +4925,6 @@
 		CE3E667C0FD54A21003D1AD2 /* Debug 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
@@ -4555,7 +4936,6 @@
 		CE3E667D0FD54A21003D1AD2 /* Debug 2009 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
@@ -4567,10 +4947,10 @@
 		CE3E667E0FD54A21003D1AD2 /* Release 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = pcre;
 			};
@@ -4579,10 +4959,10 @@
 		CE3E667F0FD54A21003D1AD2 /* Release 2009 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = pcre;
 			};
@@ -4991,7 +5371,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = "Debug 2010";
 		};
@@ -4999,7 +5379,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = "";
@@ -5029,7 +5408,6 @@
 				);
 				GCC_VERSION = "";
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(MAYA_PATH2010)/devkit/include",
 					"$(MAYA_PATH2010)/devkit/plug-ins",
@@ -5047,6 +5425,7 @@
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MAYA_PATH2010 = /Applications/Autodesk/maya2010;
+				MAYA_PATH2012 = /Applications/Autodesk/maya2012;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fPIC";
 				OTHER_LDFLAGS = (
@@ -5073,7 +5452,6 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = COLLADAMaya;
 				SDKROOT = "";
-				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				ZERO_LINK = YES;
 			};
 			name = "Debug 2010";
@@ -5145,7 +5523,6 @@
 		CE7456DF104CF657000083A6 /* Debug 2010 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = (
@@ -5198,7 +5575,6 @@
 		CE7456E1104CF657000083A6 /* Debug 2010 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PREFIX_HEADER = "$(MAYA_PATH2009)/devkit/include/maya/OpenMayaMac.h";
@@ -5230,7 +5606,6 @@
 		CE7456E2104CF657000083A6 /* Debug 2010 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
@@ -5276,7 +5651,7 @@
 				MAYA_PATH2008 = /Applications/Autodesk/maya2008;
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = YES;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = "Release 2010";
 		};
@@ -5284,7 +5659,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
@@ -5308,7 +5682,6 @@
 					_CRT_NONSTDC_NO_DEPRECATE,
 					_BOOL,
 				);
-				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(MAYA_PATH2010)/devkit/include",
 					"$(MAYA_PATH2010)/devkit/plug-ins",
@@ -5327,6 +5700,7 @@
 				MACH_O_TYPE = mh_bundle;
 				MAYA_PATH2009 = /Applications/Autodesk/maya2009;
 				MAYA_PATH2010 = /Applications/Autodesk/maya2010;
+				MAYA_PATH2012 = /Applications/Autodesk/maya2012;
 				OTHER_LDFLAGS = (
 					"-L/usr/local/lib",
 					"-L$(MAYA_PATH2010)/Maya.app/Contents/MacOS",
@@ -5422,7 +5796,6 @@
 		CE7456E8104CF660000083A6 /* Release 2010 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -5477,7 +5850,6 @@
 		CE7456EA104CF660000083A6 /* Release 2010 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -5510,10 +5882,10 @@
 		CE7456EB104CF660000083A6 /* Release 2010 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = pcre;
 			};
@@ -5534,7 +5906,6 @@
 		CE787BCE0F583F360019C2D7 /* Debug 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = (
@@ -5559,7 +5930,6 @@
 		CE787BCF0F583F360019C2D7 /* Debug 2009 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = (
@@ -5585,7 +5955,6 @@
 		CE787BD00F583F360019C2D7 /* Release 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5602,7 +5971,6 @@
 		CE787BD10F583F360019C2D7 /* Release 2009 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -5727,7 +6095,6 @@
 		CE787CFF0F5840830019C2D7 /* Debug 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PREFIX_HEADER = "$(MAYA_PATH2008)/devkit/include/maya/OpenMayaMac.h";
@@ -5758,7 +6125,6 @@
 		CE787D000F5840830019C2D7 /* Debug 2009 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PREFIX_HEADER = "$(MAYA_PATH2009)/devkit/include/maya/OpenMayaMac.h";
@@ -5790,7 +6156,6 @@
 		CE787D010F5840830019C2D7 /* Release 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5815,7 +6180,6 @@
 		CE787D020F5840830019C2D7 /* Release 2009 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -5856,7 +6220,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = "Debug 2009";
 		};
@@ -5864,7 +6228,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = "";
@@ -5894,7 +6257,6 @@
 				);
 				GCC_VERSION = "";
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(MAYA_PATH2009)/devkit/include",
 					"$(MAYA_PATH2009)/devkit/plug-ins",
@@ -5912,6 +6274,7 @@
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MAYA_PATH2009 = /Applications/Autodesk/maya2009;
+				MAYA_PATH2012 = /Applications/Autodesk/maya2012;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fPIC";
 				OTHER_LDFLAGS = (
@@ -5938,7 +6301,6 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = COLLADAMaya;
 				SDKROOT = "";
-				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				ZERO_LINK = YES;
 			};
 			name = "Debug 2009";
@@ -6004,7 +6366,7 @@
 				MAYA_PATH2008 = /Applications/Autodesk/maya2008;
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = YES;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = "Release 2009";
 		};
@@ -6012,7 +6374,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
@@ -6036,7 +6397,6 @@
 					_CRT_NONSTDC_NO_DEPRECATE,
 					_BOOL,
 				);
-				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(MAYA_PATH2009)/devkit/include",
 					"$(MAYA_PATH2009)/devkit/plug-ins",
@@ -6054,6 +6414,7 @@
 				);
 				MACH_O_TYPE = mh_bundle;
 				MAYA_PATH2009 = /Applications/Autodesk/maya2009;
+				MAYA_PATH2012 = /Applications/Autodesk/maya2012;
 				OTHER_LDFLAGS = (
 					"-L/usr/local/lib",
 					"-L$(MAYA_PATH2009)/Maya.app/Contents/MacOS",
@@ -6131,9 +6492,10 @@
 				1DEB916208733D950010E9CD /* Release 2008 */,
 				CE84B3340E9F96D600728F47 /* Release 2009 */,
 				CE7456E5104CF660000083A6 /* Release 2010 */,
+				2425149114A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "COLLADAMaya" */ = {
 			isa = XCConfigurationList;
@@ -6144,9 +6506,10 @@
 				1DEB916608733D950010E9CD /* Release 2008 */,
 				CE84B3330E9F96D600728F47 /* Release 2009 */,
 				CE7456E4104CF660000083A6 /* Release 2010 */,
+				2425149014A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE0B3F590F56B1A9004F8570 /* Build configuration list for PBXNativeTarget "COLLADABaseUtils" */ = {
 			isa = XCConfigurationList;
@@ -6157,9 +6520,10 @@
 				CE0B3F530F56B194004F8570 /* Release 2008 */,
 				CE0B3F540F56B194004F8570 /* Release 2009 */,
 				CE7456E7104CF660000083A6 /* Release 2010 */,
+				2425149314A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE3E66800FD54A3F003D1AD2 /* Build configuration list for PBXNativeTarget "pcre" */ = {
 			isa = XCConfigurationList;
@@ -6170,9 +6534,10 @@
 				CE3E667E0FD54A21003D1AD2 /* Release 2008 */,
 				CE3E667F0FD54A21003D1AD2 /* Release 2009 */,
 				CE7456EB104CF660000083A6 /* Release 2010 */,
+				2425149714A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE6095240E93CD8A007F776B /* Build configuration list for PBXNativeTarget "COLLADAStreamWriter" */ = {
 			isa = XCConfigurationList;
@@ -6183,9 +6548,10 @@
 				CE6095230E93CD6C007F776B /* Release 2008 */,
 				CE84B3350E9F96D600728F47 /* Release 2009 */,
 				CE7456E6104CF660000083A6 /* Release 2010 */,
+				2425149214A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE615FD51020DC1400481492 /* Build configuration list for PBXNativeTarget "MathMLSolver" */ = {
 			isa = XCConfigurationList;
@@ -6196,9 +6562,10 @@
 				CE615FD31020DBF600481492 /* Release 2008 */,
 				CE615FD41020DBF600481492 /* Release 2009 */,
 				CE7456EC104CF660000083A6 /* Release 2010 */,
+				2425149814A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE728FEE10AC6DF400AE5662 /* Build configuration list for PBXNativeTarget "libftoa" */ = {
 			isa = XCConfigurationList;
@@ -6209,9 +6576,10 @@
 				CE728FE010AC6D5200AE5662 /* Release 2008 */,
 				CE728FE110AC6D5200AE5662 /* Release 2009 */,
 				CE728FE210AC6D5200AE5662 /* Release 2010 */,
+				2425149914A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE728FEF10AC6DF400AE5662 /* Build configuration list for PBXNativeTarget "libBuffer" */ = {
 			isa = XCConfigurationList;
@@ -6222,9 +6590,10 @@
 				CE728FEB10AC6D7A00AE5662 /* Release 2008 */,
 				CE728FEC10AC6D7A00AE5662 /* Release 2009 */,
 				CE728FED10AC6D7A00AE5662 /* Release 2010 */,
+				2425149A14A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE72900410AC6E5600AE5662 /* Build configuration list for PBXNativeTarget "dae2ma" */ = {
 			isa = XCConfigurationList;
@@ -6235,9 +6604,10 @@
 				CE728FFC10AC6E1F00AE5662 /* Release 2008 */,
 				CE728FFD10AC6E1F00AE5662 /* Release 2009 */,
 				CE728FFE10AC6E1F00AE5662 /* Release 2010 */,
+				2425149B14A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE787BD20F583F580019C2D7 /* Build configuration list for PBXNativeTarget "GeneratedSaxParser" */ = {
 			isa = XCConfigurationList;
@@ -6248,9 +6618,10 @@
 				CE787BD00F583F360019C2D7 /* Release 2008 */,
 				CE787BD10F583F360019C2D7 /* Release 2009 */,
 				CE7456E8104CF660000083A6 /* Release 2010 */,
+				2425149414A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE787CA40F583FE00019C2D7 /* Build configuration list for PBXNativeTarget "COLLADAFramework" */ = {
 			isa = XCConfigurationList;
@@ -6261,9 +6632,10 @@
 				CE787C040F583FC90019C2D7 /* Release 2008 */,
 				CE787C050F583FC90019C2D7 /* Release 2009 */,
 				CE7456E9104CF660000083A6 /* Release 2010 */,
+				2425149514A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 		CE787D530F5840960019C2D7 /* Build configuration list for PBXNativeTarget "COLLADASaxFrameworkLoader" */ = {
 			isa = XCConfigurationList;
@@ -6274,9 +6646,10 @@
 				CE787D010F5840830019C2D7 /* Release 2008 */,
 				CE787D020F5840830019C2D7 /* Release 2009 */,
 				CE7456EA104CF660000083A6 /* Release 2010 */,
+				2425149614A3B26200A60B09 /* Release 2012 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2008";
+			defaultConfigurationName = "Release 2012";
 		};
 /* End XCConfigurationList section */
 	};
