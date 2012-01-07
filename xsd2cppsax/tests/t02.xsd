@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This Test is based on t01 and handles a third case:
+    a subtree leaf under another element: root/toe.
+    That means we have something like:
+    - begin__root__toe
+    but what is with foot?
+    - begin__foot__toe
+    or
+    - begin__horse_leg__foot__toe
+    - begin__pig_leg__foot__toe
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType"></element>
+
+    <complexType name="RootType">
+    	<sequence>
+    		<element name="horse" type="tns:HorseType"></element>
+    		<element name="pig" type="tns:PigType"></element>
+    		<element name="toe" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="HorseType">
+    	<sequence>
+    		<element name="two_parents" type="string"></element>
+    		<element name="horse_leg" type="tns:HorseLegType"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="PigType">
+    	<sequence>
+    		<element name="two_parents" type="string"></element>
+    		<element name="pig_leg" type="tns:PigLegType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="HorseLegType">
+    	<sequence>
+    		<element name="foot" type="tns:FootType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="FootType">
+    	<sequence>
+    		<element name="toe" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="PigLegType">
+    	<sequence>
+    		<element name="foot" type="tns:FootType"></element>
+    	</sequence>
+    </complexType>
+</schema>

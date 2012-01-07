@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    xs:union.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns="http://www.netallied.de/xsd2cppsax/tests"
+		targetNamespace="http://www.netallied.de/xsd2cppsax/tests"
+		elementFormDefault="qualified">
+
+    <xs:element name="root" type="RootType"></xs:element>
+
+    <xs:complexType name="RootType">
+    	<xs:sequence>
+
+    		<xs:element name="attributeHolder" minOccurs="0" maxOccurs="unbounded">
+    			<xs:complexType>
+    				<xs:attribute name="union_atomic_attr" type="union_test_type" use="required" />
+    				<xs:attribute name="union_list_attr" type="union_test_list_type" use="required" />
+    			</xs:complexType>
+    		</xs:element>
+
+			<xs:element name="union_atomic_elem" type="union_test_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="union_list_elem" type="union_test_list_type" minOccurs="0" maxOccurs="unbounded" />
+
+    	</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="enum_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FOO" />
+			<xs:enumeration value="BAR" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="union_test_type">
+		<xs:union memberTypes="enum_type xs:int xs:string"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="union_test_list_type">
+		<xs:list itemType="union_test_type" />
+	</xs:simpleType>
+
+</xs:schema>

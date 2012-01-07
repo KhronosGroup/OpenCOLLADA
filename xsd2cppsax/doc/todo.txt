@@ -1,0 +1,12 @@
+Replace precompiled pcre pattern by not precompiled version using 
+static const COLLADABU::PcreCompiledPattern compiledPattern
+and 
+pcre* pattern = compiledPattern.getCompiledPattern();
+
+Occures in:
+validate__NCName
+validate__NMTOKEN
+
+
+Fix validation bug regarding <choice>
+see google code bug tracker

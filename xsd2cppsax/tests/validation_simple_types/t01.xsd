@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This test handles these simple type validation cases (as attribute and char data):
+
+numbers (int or float, one or more restrictions):
+- maxInclusive
+- maxExclusive
+- minExclusive
+- minInclusive
+
+strings:
+- length
+- minLength
+- maxLength
+
+lists (int and string lists, int with own restriction):
+- length
+- minLength
+- maxLength
+
+* unrestricted lists with unrestricted item type
+* restricted lists with unrestricted item type
+* unrestricted lists with restricted item type
+* restricted lists with restricted item type
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://www.netallied.de/xsd2cppsax/tests" 
+		xmlns="http://www.netallied.de/xsd2cppsax/tests" 
+		elementFormDefault="qualified">
+
+    <xs:element name="root" type="RootType"></xs:element>
+
+    <xs:complexType name="RootType">
+    	<xs:sequence>
+
+			<xs:element name="noFacetElem" minOccurs="0" maxOccurs="unbounded">
+    			<xs:complexType>
+    				<xs:attribute name="noFacet_byte" type="noFacet_byte_type" />
+    				<xs:attribute name="noFacet_short" type="noFacet_short_type" />
+    				<xs:attribute name="noFacet_int" type="noFacet_int_type" />
+    				<xs:attribute name="noFacet_long" type="noFacet_long_type" />
+    				<xs:attribute name="noFacet_unsigned_byte" type="noFacet_unsigned_byte_type" />
+    				<xs:attribute name="noFacet_unsigned_short" type="noFacet_unsigned_short_type" />
+    				<xs:attribute name="noFacet_unsigned_int" type="noFacet_unsigned_int_type" />
+    				<xs:attribute name="noFacet_unsigned_long" type="noFacet_unsigned_long_type" />
+    				<xs:attribute name="noFacet_float" type="noFacet_float_type" />
+    				<xs:attribute name="noFacet_double" type="noFacet_double_type" />
+    			</xs:complexType>
+    		</xs:element>
+
+			<xs:element name="noFacet_float_elem" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="noFacet_float_type">
+							<xs:attribute name="attr" type="xs:string" />
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="listItemWOFacetsAttrsElem" minOccurs="0" maxOccurs="unbounded">
+    			<xs:complexType>
+    				<xs:sequence>
+    					<xs:element name="floatList_elem" type="floatList" minOccurs="0" maxOccurs="unbounded" />
+    					<xs:element name="floatListMaxLength_elem" type="floatListMaxLength_type" minOccurs="0" maxOccurs="unbounded" />
+    					<xs:element name="unrestrictedListWithrestrictedItem_elem" type="unrestrictedListWithrestrictedItem_type" minOccurs="0" maxOccurs="unbounded" />
+    				</xs:sequence>
+    				<xs:attribute name="floatList_attr" type="floatList" />
+    				<xs:attribute name="floatListMaxLength_attr" type="floatListMaxLength_type" />
+    				<xs:attribute name="unrestrictedListWithrestrictedItem_attr" type="unrestrictedListWithrestrictedItem_type" />
+    			</xs:complexType>
+			</xs:element>
+
+    		<xs:element name="attributeHolder" minOccurs="0" maxOccurs="unbounded">
+    			<xs:complexType>
+    				<xs:attribute name="maxInc_attr" type="maxInc_type" />
+    				<xs:attribute name="maxInc_float_attr" type="maxInc_float_type" />
+    				<xs:attribute name="inc_attr" type="inc_type" />
+    				<xs:attribute name="ex_attr" type="ex_type" />
+    				<xs:attribute name="stringLength_attr" type="stringLength_type" />
+    				<xs:attribute name="stringMinLength_attr" type="stringMinLength_type" />
+    				<xs:attribute name="stringMaxLength_attr" type="stringMaxLength_type" />
+    				<xs:attribute name="intListLength_attr" type="intListLength_type" />
+    				<xs:attribute name="intListMaxLength_attr" type="intListMaxLength_type" />
+    				<xs:attribute name="intListMinLength_attr" type="intListMinLength_type" />
+    				<xs:attribute name="nameListLength_attr" type="nameListLength_type" />
+    				<xs:attribute name="nameListMaxLength_attr" type="nameListMaxLength_type" />
+    				<xs:attribute name="nameListMinLength_attr" type="nameListMinLength_type" />
+    				<xs:attribute name="restrictedItemListLength_attr" type="restrictedItemListLength_type" />
+    				<xs:attribute name="restrictedStringList_attr" type="restrictedStringList_type" />
+    			</xs:complexType>
+    		</xs:element>
+
+			<xs:element name="noFacet_elem" type="noFacet_int_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="maxInc_elem" type="maxInc_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="maxInc_float_elem" type="maxInc_float_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="inc_elem" type="inc_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="ex_elem" type="ex_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="stringLength_elem" type="stringLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="stringMinLength_elem" type="stringMinLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="stringMaxLength_elem" type="stringMaxLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="intListLength_elem" type="intListLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="intListMaxLength_elem" type="intListMaxLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="intListMinLength_elem" type="intListMinLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="nameListLength_elem" type="nameListLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="nameListMaxLength_elem" type="nameListMaxLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="nameListMinLength_elem" type="nameListMinLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="restrictedItemListLength_elem" type="restrictedItemListLength_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="restrictedStringList_elem" type="restrictedStringList_type" minOccurs="0" maxOccurs="unbounded" />
+
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="noFacet_byte_type">
+		<xs:restriction base="xs:byte" />
+	</xs:simpleType>
+
+	<xs:simpleType name="noFacet_short_type">
+		<xs:restriction base="xs:short" />
+	</xs:simpleType>
+
+	<xs:simpleType name="noFacet_int_type">
+		<xs:restriction base="xs:int" />
+	</xs:simpleType>
+
+	<xs:simpleType name="noFacet_long_type">
+		<xs:restriction base="xs:long" />
+	</xs:simpleType>
+
+	<xs:simpleType name="noFacet_unsigned_byte_type">
+		<xs:restriction base="xs:unsignedByte" />
+	</xs:simpleType>
+
+	<xs:simpleType name="noFacet_unsigned_short_type">
+		<xs:restriction base="xs:unsignedShort" />
+	</xs:simpleType>
+
+	<xs:simpleType name="noFacet_unsigned_int_type">
+		<xs:restriction base="xs:unsignedInt" />
+	</xs:simpleType>
+
+	<xs:simpleType name="noFacet_unsigned_long_type">
+		<xs:restriction base="xs:unsignedLong" />
+	</xs:simpleType>
+
+	<xs:simpleType name="noFacet_float_type">
+		<xs:restriction base="xs:float" />
+	</xs:simpleType>
+
+	<xs:simpleType name="noFacet_double_type">
+		<xs:restriction base="xs:double" />
+	</xs:simpleType>
+
+	<xs:simpleType name="maxInc_type">
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="maxInc_float_type">
+		<xs:restriction base="xs:float">
+			<xs:maxInclusive value="5.5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="inc_type">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="3" />
+			<xs:maxInclusive value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ex_type">
+		<xs:restriction base="xs:int">
+			<xs:minExclusive value="3" />
+			<xs:maxExclusive value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="stringLength_type">
+		<xs:restriction base="xs:string">
+			<xs:length value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="stringMinLength_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="stringMaxLength_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="intList">
+		<xs:list itemType="xs:int" />
+	</xs:simpleType>
+
+	<xs:simpleType name="nameList">
+		<xs:list itemType="xs:NCName" />
+	</xs:simpleType>
+
+	<xs:simpleType name="intListLength_type">
+		<xs:restriction base="intList">
+			<xs:length value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="intListMaxLength_type">
+		<xs:restriction base="intList">
+			<xs:maxLength value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="intListMinLength_type">
+		<xs:restriction base="intList">
+			<xs:minLength value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="nameListLength_type">
+		<xs:restriction base="nameList">
+			<xs:length value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="nameListMaxLength_type">
+		<xs:restriction base="nameList">
+			<xs:maxLength value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="nameListMinLength_type">
+		<xs:restriction base="nameList">
+			<xs:minLength value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="restrictedItem_type">
+		<xs:restriction base="xs:byte">
+			<xs:minInclusive value="3" />
+			<xs:maxInclusive value="7" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="restrictedItemList_type">
+		<xs:list itemType="restrictedItem_type" />
+	</xs:simpleType>
+
+	<xs:simpleType name="restrictedItemListLength_type">
+		<xs:restriction base="restrictedItemList_type">
+			<xs:length value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="floatList"> <!-- list is unrestricted -->
+		<xs:list itemType="xs:float" /> <!-- item type is unrestricted -->
+	</xs:simpleType>
+
+	<xs:simpleType name="floatListMaxLength_type">
+		<xs:restriction base="floatList">
+			<xs:maxLength value="5" /><!-- restricted list with unrestricted item type -->
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="unrestrictedListWithrestrictedItem_type">
+		<xs:list itemType="restrictedItem_type" />
+	</xs:simpleType>
+
+	<xs:simpleType name="restrictedItemStringList_type">
+		<xs:list itemType="stringLength_type" />
+	</xs:simpleType>
+
+	<xs:simpleType name="restrictedStringList_type">
+		<xs:restriction base="restrictedItemStringList_type">
+			<xs:length value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

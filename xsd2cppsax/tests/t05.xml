@@ -1,0 +1,45 @@
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      enumRestrictingAttr="2.2" anonymousEnumAttr="0.2">
+
+	<stringAttrAtomic stringEnumAtomic="bli" />
+	<stringAttrAtomic /> <!-- not present -->
+	<stringAttrAtomic stringEnumAtomic="foo" /> <!-- wrong value -->
+	<floatAttrAtomic floatEnumAtomic="3.3" />
+	<floatAttrAtomic floatEnumAtomic="1.1e0" />
+	<floatAttrAtomic /> <!-- not present -->
+
+	<intAttrAtomic intEnumAtomic="1"/>
+	<intAttrAtomic intEnumAtomic="2"/>
+	<intAttrAtomic intEnumAtomic="3"/>
+	<intAttrAtomic intEnumAtomic="4"/>
+	<intAttrAtomic intEnumAtomic="5"/>
+
+	<stringDataAtomic>bla</stringDataAtomic><!-- no whitespaces -->
+	<stringDataAtomic><!-- with whitespaces -->
+		bla
+	</stringDataAtomic>
+	<stringDataAtomic /> <!-- empty -->
+
+	<floatDataAtomic>
+		1.1
+	</floatDataAtomic>
+	<floatDataAtomic /> <!-- empty -->
+
+	<stringDataList> bli bla blub </stringDataList>
+	<stringDataList>bli bla blub</stringDataList>
+	<stringDataList>
+		bli bla blub
+	</stringDataList>
+
+	<!-- force special case where old prefix buffer has to be copied in new one. -->
+	<!-- note: gave up before I could force that case -->
+	<stringDataList>bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli bli blub</stringDataList> <!-- important: no whitespace at data end -->
+
+
+	<floatDataList> 1.1 2.2 3.3 </floatDataList>
+	<floatDataList>1.1 2.2 3.3</floatDataList>
+	<floatDataList>
+		1.1 2.2 3.3
+	</floatDataList>
+
+</root>

@@ -1,0 +1,254 @@
+<!--
+	This test is about method names for <color> in COLLADA 1.4. 
+ -->
+<xs:schema xmlns="http://www.collada.org/2005/11/COLLADASchema" 
+			xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			targetNamespace="http://www.netallied.de/xsd2cppsax/tests" 
+			elementFormDefault="qualified" 
+			xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
+
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="technique" minOccurs="0" />
+				<xs:element ref="light" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+				<xs:element name="technique">
+					<xs:complexType>
+							<xs:choice>
+								<xs:element name="constant">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="emission" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="reflective" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="reflectivity" type="common_float_or_param_type" minOccurs="0"/>
+											<xs:element name="transparent" type="common_transparent_type" minOccurs="0"/>
+											<xs:element name="transparency" type="common_float_or_param_type" minOccurs="0"/>
+											<xs:element name="index_of_refraction" type="common_float_or_param_type" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="lambert">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="emission" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="ambient" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="diffuse" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="reflective" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="reflectivity" type="common_float_or_param_type" minOccurs="0"/>
+											<xs:element name="transparent" type="common_transparent_type" minOccurs="0"/>
+											<xs:element name="transparency" type="common_float_or_param_type" minOccurs="0"/>
+											<xs:element name="index_of_refraction" type="common_float_or_param_type" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+
+								<xs:element name="phong">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="emission" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="ambient" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="diffuse" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="specular" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="shininess" type="common_float_or_param_type" minOccurs="0"/>
+											<xs:element name="reflective" type="common_color_or_texture_type" minOccurs="0"/>
+											<xs:element name="reflectivity" type="common_float_or_param_type" minOccurs="0"/>
+											<xs:element name="transparent" type="common_transparent_type" minOccurs="0"/>
+											<xs:element name="transparency" type="common_float_or_param_type" minOccurs="0"/>
+											<xs:element name="index_of_refraction" type="common_float_or_param_type" minOccurs="0"/>
+									</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+
+	<xs:complexType name="common_color_or_texture_type">
+		<xs:choice>
+			<xs:element name="color">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="fx_color_common">
+							<xs:attribute name="sid" type="xs:NCName"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="param">
+				<xs:complexType>
+					<xs:attribute name="ref" type="xs:NCName" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="texture">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="extra" minOccurs="0"/>
+					</xs:sequence>
+					<xs:attribute name="texture" type="xs:NCName" use="required"/>
+					<xs:attribute name="texcoord" type="xs:NCName" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:simpleType name="fx_color_common">
+		<xs:restriction base="float4"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="float4">
+		<xs:restriction base="ListOfFloats">
+			<xs:minLength value="4"/>
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ListOfFloats">
+		<xs:list itemType="float"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="float">
+		<xs:restriction base="xs:double"/>
+	</xs:simpleType>
+
+	<xs:complexType name="common_float_or_param_type">
+		<xs:choice>
+			<xs:element name="float">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="float">
+							<xs:attribute name="sid" type="xs:NCName"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="param">
+				<xs:complexType>
+					<xs:attribute name="ref" type="xs:NCName" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="common_transparent_type">
+		<xs:complexContent>
+			<xs:extension base="common_color_or_texture_type">
+				<xs:attribute name="opaque" type="fx_opaque_enum" default="A_ONE"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+	<xs:simpleType name="fx_opaque_enum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A_ONE">
+				<xs:annotation>
+					<xs:documentation>
+						When a transparent opaque attribute is set to A_ONE, it means the transparency information will be taken from the alpha channel of the color, texture, or parameter supplying the value. The value of 1.0 is opaque in this mode.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RGB_ZERO">
+				<xs:annotation>
+					<xs:documentation>
+						When a transparent opaque attribute is set to RGB_ZERO, it means the transparency information will be taken from the red, green, and blue channels of the color, texture, or parameter supplying the value. Each channel is modulated independently. The value of 0.0 is opaque in this mode.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="extra" />
+
+
+	<xs:element name="light">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="technique_common">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="ambient">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="color" type="TargetableFloat3">
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="directional">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="color" type="TargetableFloat3">
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="point">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="color" type="TargetableFloat3">
+										</xs:element>
+										<xs:element name="constant_attenuation" type="TargetableFloat" default="1.0" minOccurs="0">
+										</xs:element>
+										<xs:element name="linear_attenuation" type="TargetableFloat" default="0.0" minOccurs="0">
+										</xs:element>
+										<xs:element name="quadratic_attenuation" type="TargetableFloat" default="0.0" minOccurs="0">
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="spot">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="color" type="TargetableFloat3">
+										</xs:element>
+										<xs:element name="constant_attenuation" type="TargetableFloat" default="1.0" minOccurs="0">
+										</xs:element>
+										<xs:element name="linear_attenuation" type="TargetableFloat" default="0.0" minOccurs="0">
+										</xs:element>
+										<xs:element name="quadratic_attenuation" type="TargetableFloat" default="0.0" minOccurs="0">
+										</xs:element>
+										<xs:element name="falloff_angle" type="TargetableFloat" default="180.0" minOccurs="0">
+										</xs:element>
+										<xs:element name="falloff_exponent" type="TargetableFloat" default="0.0" minOccurs="0">
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="TargetableFloat3">
+		<xs:simpleContent>
+			<xs:extension base="float3">
+				<xs:attribute name="sid" type="xs:NCName">
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="float3">
+		<xs:restriction base="ListOfFloats">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="TargetableFloat">
+		<xs:simpleContent>
+			<xs:extension base="float">
+				<xs:attribute name="sid" type="xs:NCName">
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+
+</xs:schema>

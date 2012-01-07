@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t04.xsd"
+      >
+
+	<stringPatternElem stringPatternAttr="foo">foo</stringPatternElem>
+	<stringPatternElem>
+		bar
+	</stringPatternElem>
+	<stringPatternElem> bar </stringPatternElem>
+
+	<stringPatternListElem stringPatternListAttr="foo bar">foo bar</stringPatternListElem>
+	<stringPatternListElem>
+		foo bar
+	</stringPatternListElem>
+	<stringPatternListElem> foo bar </stringPatternListElem>
+
+	<nameElem nameAttr="1foo1" ncnameAttr="foo:" nmtokenAttr="*1foo" />
+
+</root>

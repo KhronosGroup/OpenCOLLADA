@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    default values for attributes.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns="http://www.netallied.de/xsd2cppsax/tests"
+		targetNamespace="http://www.netallied.de/xsd2cppsax/tests"
+		elementFormDefault="qualified">
+
+    <xs:element name="root" type="RootType"></xs:element>
+
+    <xs:complexType name="RootType">
+    	<xs:sequence>
+
+    		<xs:element name="attributeHolderNoDefaults" minOccurs="0" maxOccurs="unbounded">
+    			<xs:complexType>
+    				<xs:attribute name="int_attr" type="xs:int" />
+    				<xs:attribute name="bool_attr" type="xs:boolean" />
+    				<xs:attribute name="string_attr" type="xs:string" />
+    				<xs:attribute name="enum_attr" type="enum_type" />
+    				<xs:attribute name="union_attr" type="union_type" />
+    				<xs:attribute name="uri_attr" type="xs:anyURI" />
+
+    				<xs:attribute name="intList_attr" type="intList" />
+    				<xs:attribute name="boolList_attr" type="boolList" />
+    				<xs:attribute name="stringList_attr" type="stringList" />
+    				<xs:attribute name="enumList_attr" type="enumList" />
+    				<xs:attribute name="unionList_attr" type="unionList" />
+    				<xs:attribute name="uriList_attr" type="uriList" />
+    			</xs:complexType>
+    		</xs:element>
+
+    		<xs:element name="attributeHolderDefaults" minOccurs="0" maxOccurs="unbounded">
+    			<xs:complexType>
+    				<xs:attribute name="int_attr" type="xs:int" default="5" />
+    				<xs:attribute name="bool_attr" type="xs:boolean" default="true" />
+    				<xs:attribute name="string_attr" type="xs:string" default="foo" />
+    				<xs:attribute name="enum_attr" type="enum_type" default="BAR" />
+    				<xs:attribute name="union_attr" type="union_type" default="5" />
+    				<xs:attribute name="uri_attr" type="xs:anyURI" default="foo.xml" />
+
+    				<xs:attribute name="intList_attr" type="intList" default="3 4 5" />
+    				<xs:attribute name="boolList_attr" type="boolList" default="true false" />
+    				<xs:attribute name="stringList_attr" type="stringList" default="bar foo" />
+    				<xs:attribute name="enumList_attr" type="enumList" default="BAR FOO" />
+    				<xs:attribute name="unionList_attr" type="unionList" default="7 string BAR" />
+    				<xs:attribute name="uriList_attr" type="uriList" default="bar.xml foo.xml" />
+    			</xs:complexType>
+    		</xs:element>
+
+    		<xs:element name="attributeHolderAttrsRequired" minOccurs="0" maxOccurs="unbounded">
+    			<xs:complexType>
+    				<xs:attribute name="int_attr" type="xs:int" use="required" />
+    				<xs:attribute name="bool_attr" type="xs:boolean" use="required" />
+    				<xs:attribute name="string_attr" type="xs:string" use="required" />
+    				<xs:attribute name="enum_attr" type="enum_type" use="required" />
+    				<xs:attribute name="union_attr" type="union_type" use="required" />
+    				<xs:attribute name="uri_attr" type="xs:anyURI" use="required" />
+
+    				<xs:attribute name="intList_attr" type="intList" use="required" />
+    				<xs:attribute name="boolList_attr" type="boolList" use="required" />
+    				<xs:attribute name="stringList_attr" type="stringList" use="required" />
+    				<xs:attribute name="enumList_attr" type="enumList" use="required" />
+    				<xs:attribute name="unionList_attr" type="unionList" use="required" />
+    				<xs:attribute name="uriList_attr" type="uriList" use="required" />
+    			</xs:complexType>
+    		</xs:element>
+
+    	</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="intList">
+		<xs:list itemType="xs:int" />
+	</xs:simpleType>
+
+	<xs:simpleType name="boolList">
+		<xs:list itemType="xs:boolean" />
+	</xs:simpleType>
+
+	<xs:simpleType name="stringList">
+		<xs:list itemType="xs:string" />
+	</xs:simpleType>
+
+	<xs:simpleType name="enum_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FOO" />
+			<xs:enumeration value="BAR" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="enumList">
+		<xs:list itemType="enum_type" />
+	</xs:simpleType>
+
+	<xs:simpleType name="union_type">
+		<xs:union memberTypes="enum_type xs:int xs:string"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="unionList">
+		<xs:list itemType="union_type" />
+	</xs:simpleType>
+
+	<xs:simpleType name="uriList">
+		<xs:list itemType="xs:anyURI" />
+	</xs:simpleType>
+
+</xs:schema>

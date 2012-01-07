@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This Test handles elements with same name with different parents (two_parents).
+    It handles equal subtrees as well (foot/toe).
+    A third case is handled in t02. 
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType"></element>
+
+    <complexType name="RootType">
+    	<sequence>
+    		<element name="horse" type="tns:HorseType"></element>
+    		<element name="pig" type="tns:PigType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="HorseType">
+    	<sequence>
+    		<element name="two_parents" type="string"></element>
+    		<element name="horse_leg" type="tns:HorseLegType"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="PigType">
+    	<sequence>
+    		<element name="two_parents" type="string"></element>
+    		<element name="pig_leg" type="tns:PigLegType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="HorseLegType">
+    	<sequence>
+    		<element name="foot" type="tns:FootType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="FootType">
+    	<sequence>
+    		<element name="toe" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="PigLegType">
+    	<sequence>
+    		<element name="foot" type="tns:FootType"></element>
+    	</sequence>
+    </complexType>
+</schema>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t01.xsd"
+      >
+	<noFacetElem noFacet_byte="5"
+				 noFacet_short="345"
+				 noFacet_int="2368"
+				 noFacet_long="1234567"
+				 noFacet_float="5.5"
+				 noFacet_double="553.55478"
+				 />
+
+	<noFacet_float_elem attr="blub">
+		0.1
+	</noFacet_float_elem>
+
+	<listItemWOFacetsAttrsElem floatList_attr="0.1 0.2 0.3"
+	                           floatListMaxLength_attr="0.1 0.2 0.3 0.4 0.5"
+	                           unrestrictedListWithrestrictedItem_attr="3 4 5 6 7 6 5 4 3"
+	                           >
+	</listItemWOFacetsAttrsElem>
+
+	<attributeHolder maxInc_attr="5"
+					 maxInc_float_attr="5.5"
+					 inc_attr="5"
+					 ex_attr="4"
+					 stringLength_attr="aaaaa"
+					 stringMinLength_attr="aaaaa"
+					 stringMaxLength_attr="aaaaa"
+					 intListLength_attr="1 2 3 4 5"
+					 intListMaxLength_attr="1 2 3 4 5"
+					 intListMinLength_attr="1 2 3 4 5"
+					 nameListLength_attr="ab cd ef gh ij"
+					 nameListMaxLength_attr="ab cd ef gh ij"
+					 nameListMinLength_attr="ab cd ef gh ij"
+					 restrictedItemListLength_attr="3 4 5 6 7"
+					 restrictedStringList_attr=" aaaaa bbbbb ccccc ddddd eeeee "
+					 />
+
+	<attributeHolder inc_attr="3"
+					 ex_attr="4"
+					 />
+
+	<maxInc_elem>5</maxInc_elem>
+	<maxInc_elem>
+		5
+	</maxInc_elem>
+	<maxInc_float_elem>5.5</maxInc_float_elem>
+	<maxInc_float_elem>
+		5.5
+	</maxInc_float_elem>
+	<inc_elem>5</inc_elem>
+	<inc_elem>
+		5
+	</inc_elem>
+	<inc_elem>3</inc_elem>
+	<inc_elem>
+		3
+	</inc_elem>
+	<ex_elem>4</ex_elem>
+	<ex_elem>
+		4
+	</ex_elem>
+	<ex_elem>4</ex_elem>
+	<ex_elem>
+		4
+	</ex_elem>
+
+	<stringLength_elem>abcde</stringLength_elem>
+	<stringMinLength_elem>
+		abcde
+	</stringMinLength_elem>
+	<stringMaxLength_elem>abcde</stringMaxLength_elem>
+
+	<intListLength_elem> 1 2 3 4 5 </intListLength_elem>
+	<intListMaxLength_elem> 1 2 3 4 5 </intListMaxLength_elem>
+	<intListMinLength_elem> 1 2 3 4 5 </intListMinLength_elem>
+
+
+	<nameListLength_elem>ab cd ef gh ij</nameListLength_elem>
+	<nameListLength_elem> ab cd ef gh ij </nameListLength_elem>
+
+	<nameListMaxLength_elem>ab cd ef gh ij</nameListMaxLength_elem>
+	<nameListMaxLength_elem> ab cd ef gh ij </nameListMaxLength_elem>
+
+	<nameListMinLength_elem>ab cd ef gh ij</nameListMinLength_elem>
+	<nameListMinLength_elem> ab cd ef gh ij </nameListMinLength_elem>
+
+
+	<restrictedItemListLength_elem>3 4 5 6 7</restrictedItemListLength_elem>
+
+	<restrictedStringList_elem> aaaaa bbbbb ccccc ddddd eeeee </restrictedStringList_elem>
+
+</root>

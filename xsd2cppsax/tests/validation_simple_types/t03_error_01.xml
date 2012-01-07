@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t03.xsd"
+      >
+
+	<nameListLength_elem>ab cd ef gh</nameListLength_elem>
+	<nameListLength_elem> ab cd ef gh </nameListLength_elem> <!-- here is an error missing !!! -->
+	<nameListLength_elem>ab cd ef gh ij kl</nameListLength_elem>
+	<nameListLength_elem> ab cd ef gh ij kl </nameListLength_elem>
+
+</root>

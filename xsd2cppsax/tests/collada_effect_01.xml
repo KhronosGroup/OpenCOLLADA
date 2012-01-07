@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests collada_effect.xsd">
+
+	<technique>
+		<phong>
+			<emission>
+				<color>0 0 0 1</color>
+			</emission>
+			<ambient>
+				<color>0.2 0.2 0.2 1</color>
+			</ambient>
+			<diffuse>
+				<color>1 1 1 1</color>
+			</diffuse>
+			<specular>
+				<color>0.8 0.8 0.8 1</color>
+			</specular>
+			<shininess>
+				<float>15</float>
+			</shininess>
+		</phong>
+	</technique>
+
+</root>

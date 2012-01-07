@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests collada_profile_subsgrp.xsd">
+
+	<effect>
+		<profile_COMMON />
+		<profile_CG />
+		<fx_profile_abstract />
+	</effect>
+</root>

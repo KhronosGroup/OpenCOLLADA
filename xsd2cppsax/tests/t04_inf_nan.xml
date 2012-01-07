@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Handles special float values like INF and NaN.
+ -->
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t04.xsd"
+      > 
+
+	<FloatList>INF +INF -INF NaN</FloatList>
+
+	<!-- wrong values -->
+	<FloatList>INFa +INF1 -INF. +NaN -NaN NaNa NaN1 NaN.</FloatList>
+	<FloatList>+INF1 -INF. +NaN -NaN NaNa NaN1 NaN.</FloatList>
+	<FloatList>-INF. +NaN -NaN NaNa NaN1 NaN.</FloatList>
+	<FloatList>+NaN -NaN NaNa NaN1 NaN.</FloatList>
+	<FloatList>-NaN NaNa NaN1 NaN.</FloatList>
+	<FloatList>NaNa NaN1 NaN.</FloatList>
+	<FloatList>NaN1 NaN.</FloatList>
+	<FloatList>NaN.</FloatList>
+
+
+	<FloatElement>INF</FloatElement>
+	<FloatElement>+INF</FloatElement>
+	<FloatElement>-INF</FloatElement>
+	<FloatElement>NaN</FloatElement>
+
+	<!-- wrong values -->
+	<FloatElement>INFa</FloatElement>
+	<FloatElement>+INF1</FloatElement>
+	<FloatElement>-INF.</FloatElement>
+	<FloatElement>+NaN</FloatElement>
+	<FloatElement>-NaN</FloatElement>
+	<FloatElement>NaNa</FloatElement>
+	<FloatElement>NaN1</FloatElement>
+	<FloatElement>NaN.</FloatElement>
+
+
+	<ElementWithFloatListAttribute listAttr="INF +INF -INF NaN" />
+
+	<!-- wrong values -->
+	<ElementWithFloatListAttribute listAttr="INFa +INF1 -INF. +NaN -NaN NaNa NaN1 NaN." />
+	<ElementWithFloatListAttribute listAttr="+INF1 -INF. +NaN -NaN NaNa NaN1 NaN." />
+	<ElementWithFloatListAttribute listAttr="-INF. +NaN -NaN NaNa NaN1 NaN." />
+	<ElementWithFloatListAttribute listAttr="+NaN -NaN NaNa NaN1 NaN." />
+	<ElementWithFloatListAttribute listAttr="-NaN NaNa NaN1 NaN." />
+	<ElementWithFloatListAttribute listAttr="NaNa NaN1 NaN." />
+	<ElementWithFloatListAttribute listAttr="NaN1 NaN." />
+	<ElementWithFloatListAttribute listAttr="NaN." />
+
+
+	<ElementWithFloatAttribute floatAttr="INF" />
+	<ElementWithFloatAttribute floatAttr="+INF" />
+	<ElementWithFloatAttribute floatAttr="-INF" />
+	<ElementWithFloatAttribute floatAttr="NaN" />
+
+	<!-- wrong values -->
+	<ElementWithFloatAttribute floatAttr="INFa" />
+	<ElementWithFloatAttribute floatAttr="+INF1" />
+	<ElementWithFloatAttribute floatAttr="-INF." />
+	<ElementWithFloatAttribute floatAttr="+NaN" />
+	<ElementWithFloatAttribute floatAttr="-NaN" />
+	<ElementWithFloatAttribute floatAttr="NaNa" />
+	<ElementWithFloatAttribute floatAttr="NaN1" />
+	<ElementWithFloatAttribute floatAttr="NaN." />
+
+</root>

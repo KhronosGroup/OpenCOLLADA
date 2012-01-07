@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This test handles sequence nested inside choice.
+    minOccurs=0, minOccurs=1 and maxOccurs unbounded are tested as well.
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType"></element>
+
+	<complexType name="RootType">
+		<sequence>
+			<element name="rootElem1" minOccurs="0" maxOccurs="unbounded" type="tns:ChoiceType1" />
+			<element name="rootElem2" minOccurs="0" maxOccurs="unbounded" type="tns:ChoiceType2" />
+			<element name="rootElem3" minOccurs="0" maxOccurs="unbounded" type="tns:ChoiceType3" />
+		</sequence>
+	</complexType>
+
+	<!-- nested model group is unrestricted -->
+	<complexType name="ChoiceType1">
+		<choice>
+			<element name="choice1Elem1" minOccurs="1" maxOccurs="2" />
+			<element name="choice1Elem2" minOccurs="2" maxOccurs="2" />
+			<sequence minOccurs="0" maxOccurs="unbounded">
+				<element name="choiceSeq1Elem1" minOccurs="0" maxOccurs="2" />
+				<element name="choiceSeq1Elem2" minOccurs="1" maxOccurs="2" />
+				<element name="choiceSeq1Elem3" minOccurs="1" maxOccurs="unbounded" />
+			</sequence>
+			<element name="choice1Elem3" minOccurs="1" maxOccurs="3" />
+		</choice>
+	</complexType>
+
+	<!-- elements in nested model group are unrestricted -->
+	<complexType name="ChoiceType2">
+		<choice>
+			<element name="choice2Elem1" minOccurs="1" maxOccurs="2" />
+			<element name="choice2Elem2" minOccurs="2" maxOccurs="2" />
+			<sequence minOccurs="3" maxOccurs="5">
+				<element name="choiceSeq2Elem1" minOccurs="0" maxOccurs="2" />
+				<element name="choiceSeq2Elem2" minOccurs="1" maxOccurs="2" />
+				<element name="choiceSeq2Elem3" minOccurs="1" maxOccurs="unbounded" />
+			</sequence>
+			<element name="choice2Elem3" minOccurs="1" maxOccurs="3" />
+		</choice>
+	</complexType>
+
+	<!-- nested model group is restricted -->
+	<complexType name="ChoiceType3">
+		<choice>
+			<element name="choice3Elem1" minOccurs="1" maxOccurs="2" />
+			<element name="choice3Elem2" minOccurs="2" maxOccurs="2" />
+			<sequence minOccurs="3" maxOccurs="5">
+				<element name="choiceSeq3Elem1" minOccurs="2" maxOccurs="2" />
+				<element name="choiceSeq3Elem2" minOccurs="1" maxOccurs="2" />
+				<element name="choiceSeq3Elem3" minOccurs="1" maxOccurs="3" />
+			</sequence>
+			<element name="choice3Elem3" minOccurs="1" maxOccurs="3" />
+		</choice>
+	</complexType>
+
+</schema>

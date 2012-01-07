@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	This test uses a string type with pattern facet.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netallied.de/xsd2cppsax/tests"
+	xmlns="http://www.netallied.de/xsd2cppsax/tests"
+	elementFormDefault="qualified">
+
+	<xs:element name="root" type="RootType"></xs:element>
+
+	<xs:complexType name="RootType">
+		<xs:sequence>
+			<xs:element name="stringPatternElem" type="stringPatternElemType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="stringPatternListElem" type="stringPatternListElemType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="nameElem" type="nameElemType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="stringPatternElemType">
+		<xs:simpleContent>
+			<xs:extension base="stringPatternType">
+				<xs:attribute name="stringPatternAttr" type="stringPatternType" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="stringPatternListElemType">
+		<xs:simpleContent>
+			<xs:extension base="stringPatternListType">
+				<xs:attribute name="stringPatternListAttr" type="stringPatternListType" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="stringPatternType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(#(.*))" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="stringPatternListItemType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(1(.*))" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="stringPatternListType">
+		<xs:list itemType="stringPatternListItemType" />
+	</xs:simpleType>
+
+	<!--
+	 	Name pattern: \i\c*
+	 	NCName pattern: \i\c*    OR   [\i-[:]][\c-[:]]*
+	 	NMTOKEN pattern: \c+
+	 -->
+	<xs:complexType name="nameElemType">
+		<xs:attribute name="nameAttr" type="xs:Name" />
+		<xs:attribute name="nmtokenAttr" type="xs:NMTOKEN" />
+		<xs:attribute name="ncnameAttr" type="xs:NCName" />
+	</xs:complexType>
+
+</xs:schema>

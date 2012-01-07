@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<COLLADA xmlns="http://www.collada.org/2008/03/COLLADASchema" version="1.5.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.collada.org/2008/03/COLLADASchema ../collada_schema_1_5.xsd">
+	<asset>
+		<contributor>
+			<authoring_tool>ultra edit</authoring_tool>
+		</contributor>
+		<created>2009-05-14T12:33:48Z</created>
+		<modified>2009-05-14T12:33:48Z</modified>
+		<unit meter="0.001" name="millimeter"/>
+		<up_axis>Z_UP</up_axis>
+	</asset>
+
+	<library_formulas>
+		<formula>
+			<target>
+				<float>1.0</float>
+			</target>
+			<technique_common>
+				<math xmlns="http://www.w3.org/1998/Math/MathML">
+					<apply>
+						<times/>
+						<cn>5</cn>
+						<cn>5</cn>
+					</apply>
+				</math>
+			</technique_common>
+		</formula>
+	</library_formulas>
+
+	<scene>
+	</scene>
+</COLLADA>

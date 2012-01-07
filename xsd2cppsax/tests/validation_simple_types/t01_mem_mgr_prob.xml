@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t01.xsd"
+      >
+
+	<attributeHolder intListLength_attr="1 2 3 4 5"
+					 intListMaxLength_attr="1 2 3 4 5"
+					 intListMinLength_attr="1 2 3 4 5"
+					 restrictedItemListLength_attr="3 4 5 6 7"
+	                 />
+
+	<attributeHolder restrictedItemListLength_attr="3 4 5 6 7"
+					 intListMinLength_attr="1 2 3 4 5"
+					 intListMaxLength_attr="1 2 3 4 5"
+					 intListLength_attr="1 2 3 4 5"
+	                 />
+
+	<attributeHolder inc_attr="3" />
+
+</root>

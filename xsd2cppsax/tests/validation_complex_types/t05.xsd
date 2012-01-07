@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This test handles choice nested inside sequence.
+    minOccurs=0, minOccurs=1 and maxOccurs unbounded are tested as well.
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType"></element>
+
+	<complexType name="RootType">
+		<sequence>
+			<element name="rootElem1" minOccurs="0" maxOccurs="unbounded" type="tns:SequenceType1" />
+			<element name="rootElem2" minOccurs="0" maxOccurs="unbounded" type="tns:SequenceType2" />
+			<element name="rootElem3" minOccurs="0" maxOccurs="unbounded" type="tns:SequenceType3" />
+		</sequence>
+	</complexType>
+
+	<!-- nested model group is unrestricted -->
+	<complexType name="SequenceType1">
+		<sequence>
+			<!-- members of choice are not allowed here -->
+			<element name="seq1Elem1" minOccurs="1" maxOccurs="2" />
+			<element name="seq1Elem2" minOccurs="0" maxOccurs="2" />
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<!-- these three can occur as often as they want, in any order -->
+				<element name="seqChoice1Elem1" minOccurs="0" maxOccurs="2" />
+				<!-- occurrence must be %2==0 -->
+				<!-- it would be necessary to check current prev and next element -->
+				<element name="seqChoice1Elem2" minOccurs="2" maxOccurs="2" />
+				<!-- it is not necessary that seqChoice1Elem2 occurs always before seqChoice1Elem3 -->
+				<element name="seqChoice1Elem3" minOccurs="1" maxOccurs="unbounded" />
+			</choice>
+			<element name="seq1Elem3" minOccurs="1" maxOccurs="unbounded" />
+			<!-- members of choice are not allowed here -->
+		</sequence>
+	</complexType>
+
+	<!-- elements in nested model group are unrestricted -->
+	<complexType name="SequenceType2">
+		<sequence>
+			<element name="seq2Elem1" minOccurs="1" maxOccurs="2" />
+			<element name="seq2Elem2" minOccurs="0" maxOccurs="2" />
+			<choice minOccurs="3" maxOccurs="5">
+				<!-- only one of the following two is allowed to occur 10 times -->
+				<!-- maxOcc check for first child: 5 * 2 - occOfSiblings-minOcc, for unbounded take 1 -->
+				<!-- maxOcc check for parent choice: sum of occ*maxOcc for each sibling divided by own maxOcc -->
+				<element name="seqChoice2Elem1" minOccurs="0" maxOccurs="2" />
+				<element name="seqChoice2Elem2" minOccurs="2" maxOccurs="2" />
+				<!-- may occur as often as it wants -->
+				<!-- even zero times because of seqChoice2Elem1 -->
+				<element name="seqChoice2Elem3" minOccurs="1" maxOccurs="unbounded" />
+			</choice>
+			<element name="seq2Elem3" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<!-- nested model group is restricted -->
+	<complexType name="SequenceType3">
+		<sequence>
+			<element name="seq3Elem1" minOccurs="1" maxOccurs="2" />
+			<element name="seq3Elem2" minOccurs="0" maxOccurs="2" />
+			<choice minOccurs="3" maxOccurs="5">
+				<!-- check choice minOccurs: occOfChildren, each * childMinOcc -->
+				<element name="seqChoice3Elem1" minOccurs="2" maxOccurs="2" />
+				<element name="seqChoice3Elem2" minOccurs="2" maxOccurs="2" />
+				<element name="seqChoice3Elem3" minOccurs="1" maxOccurs="3" />
+			</choice>
+			<element name="seq3Elem3" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+</schema>

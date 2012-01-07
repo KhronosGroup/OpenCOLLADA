@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+    <asset>
+        <contributor>
+            <authoring_tool>u edit</authoring_tool>
+        </contributor>
+        <created>2007-08-24T12:35:39Z</created>
+        <modified>2007-08-24T12:35:39Z</modified>
+        <unit meter="0.01" name="centimeter"/>
+        <up_axis>Z_UP</up_axis>
+    </asset>
+
+	<scene />
+
+    <extra>
+        <technique profile="JTOpen">
+            <typeID>PART</typeID>
+            <name>technic_driver_torso_p_SOLIDS</name>
+        </technique>
+        <technique profile="sax_parser_test">
+        	<foo:bla xmlns:foo="http://foo.com" />
+        </technique>
+        <technique profile="sax_parser_test_2">
+        	<bla xmlns="http://foo.com">
+        		<bli>blub</bli>
+        	</bla>
+        </technique>
+        <technique profile="sax_parser_test_3">
+        	<bla xmlns="http://unknown.com">
+        		<bli>blub</bli>
+        	</bla>
+        	<foo:bla xmlns:foo="http://unknown.com">
+        		<foo:bli>blub</foo:bli>
+        	</foo:bla>
+        </technique>
+    </extra>
+
+</COLLADA>

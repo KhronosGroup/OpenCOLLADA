@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" elementFormDefault="qualified">
+
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+
+				<!-- <xs:element name="hund" minOccurs="0" /> -->
+				<xs:element name="hund" />
+
+				<xs:choice>
+				<!-- <xs:choice minOccurs="0"> -->
+					<xs:element name="gestreift" />
+					<xs:element name="gescheckt" />
+					<xs:sequence>
+						<xs:element name="schwarz" />
+						<xs:element name="weiss" />
+					</xs:sequence>
+				</xs:choice>
+
+				<!-- <xs:element name="schwarz" minOccurs="0" /> -->
+				<xs:element name="schwarz" minOccurs="0" />
+				<xs:element name="maus" />
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

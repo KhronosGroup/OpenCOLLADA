@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    any attributes.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns="http://www.netallied.de/xsd2cppsax/tests"
+		targetNamespace="http://www.netallied.de/xsd2cppsax/tests"
+		elementFormDefault="qualified" >
+
+    <xs:element name="root" type="RootType"></xs:element>
+
+	<!-- 
+	    Note: if xs:anyAttribute is present, xmlns parsing changes.
+	    Involved code template: ParseAttrDefaultXMLNS
+	 -->
+    <xs:complexType name="RootType">
+    	<xs:sequence>
+    		<xs:element name="elem" type="anyAttrType" minOccurs="0" maxOccurs="unbounded" />
+    		<xs:element name="anyAttrOnlyElem" type="anyAttrOnlyType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:anyAttribute namespace="##other" processContents="skip"/>
+	</xs:complexType>
+
+	<xs:complexType name="anyAttrType">
+		<xs:attribute name="string" type="xs:string"/>
+		<xs:anyAttribute namespace="##any" processContents="skip"/>
+	</xs:complexType>
+
+	<xs:complexType name="anyAttrOnlyType">
+		<xs:anyAttribute namespace="##any" processContents="skip"/>
+	</xs:complexType>
+
+</xs:schema>

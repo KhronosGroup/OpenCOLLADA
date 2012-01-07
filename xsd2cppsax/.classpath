@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/testsuitexsd.jar" sourcepath="lib/testsuitexsd_src.zip"/>
+	<classpathentry kind="lib" path="lib/xbean.jar"/>
+	<classpathentry kind="lib" path="lib/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="lib/saxfwlxsd.jar" sourcepath="lib/saxfwlxsd_src.zip"/>
+	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

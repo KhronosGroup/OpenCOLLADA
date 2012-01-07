@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.netallied.de/xsd2cppsax/testsuite"
+           targetNamespace="http://www.netallied.de/xsd2cppsax/testsuite"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="testSuite_type">
+		<xs:sequence minOccurs="1" maxOccurs="unbounded">
+			<xs:element name="test" type="test_type" />
+		</xs:sequence>
+		<xs:attribute name="outDir" use="required" type="xs:token" />
+	</xs:complexType>
+
+	<xs:complexType name="test_type">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="document" type="document_type" />
+		</xs:sequence>
+		<xs:attribute name="config" use="required" type="xs:token" />
+		<xs:attribute name="input" use="required" type="xs:token" />
+		<xs:attribute name="rootElement" use="required" type="xs:token" />
+	</xs:complexType>
+
+	<xs:complexType name="document_type">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="expectedError" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="input" use="required" type="xs:token" />
+		<xs:attribute name="output" use="required" type="xs:token" />
+	</xs:complexType>
+
+	<xs:element name="TestSuite" type="testSuite_type" />
+
+</xs:schema>

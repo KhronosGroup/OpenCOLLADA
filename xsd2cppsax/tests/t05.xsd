@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Enums.
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType" />
+
+    <complexType name="RootType">
+    	<sequence>
+    		<element name="stringAttrAtomic" type="tns:stringAttrAtomicType" minOccurs="0" maxOccurs="unbounded" />
+    		<element name="floatAttrAtomic" type="tns:floatAttrAtomicType" minOccurs="0" maxOccurs="unbounded" />
+			<element name="intAttrAtomic" type="tns:intAttrAtomicType" minOccurs="0" maxOccurs="unbounded" />
+    		<element name="stringDataAtomic" type="tns:stringDataAtomicType" minOccurs="0" maxOccurs="unbounded" />
+    		<element name="floatDataAtomic" type="tns:floatDataAtomicType" minOccurs="0" maxOccurs="unbounded" />
+
+    		<element name="stringAttrList" type="tns:stringAttrListType" minOccurs="0" maxOccurs="unbounded" />
+    		<element name="stringDataList" type="tns:stringDataListType" minOccurs="0" maxOccurs="unbounded" />
+    		<element name="floatAttrList" type="tns:floatAttrListType" minOccurs="0" maxOccurs="unbounded" />
+    		<element name="floatDataList" type="tns:floatDataListType" minOccurs="0" maxOccurs="unbounded" />
+
+    	</sequence>
+    	<attribute name="enumRestrictingAttr" type="tns:enumRestrictingType" />
+    	<attribute name="anonymousEnumAttr">
+    		<simpleType>
+		   		<restriction base="float">
+					<enumeration value="0.2" />
+					<enumeration value="0.3" />
+				</restriction>
+    		</simpleType>
+    	</attribute>
+    	<attribute name="enumWithDefaultAttr" type="tns:stringEnumType" default="blub" />
+    </complexType>
+
+	<complexType name="stringAttrAtomicType">
+		<attribute name="stringEnumAtomic" type="tns:stringEnumType"/>
+	</complexType>
+	<complexType name="stringDataAtomicType">
+		<simpleContent>
+			<extension base="tns:stringEnumType" />
+		</simpleContent>
+	</complexType>
+	<complexType name="floatAttrAtomicType">
+		<attribute name="floatEnumAtomic" type="tns:floatEnumType"/>
+	</complexType>
+	<complexType name="floatDataAtomicType">
+		<simpleContent>
+			<extension base="tns:floatEnumType" />
+		</simpleContent>
+	</complexType>
+
+	<complexType name="stringAttrListType">
+		<attribute name="stringListEnum" type="tns:stringEnumList"/>
+	</complexType>
+	<complexType name="stringDataListType">
+		<simpleContent>
+			<extension base="tns:stringEnumList" />
+		</simpleContent>
+	</complexType>
+	<complexType name="floatAttrListType">
+		<attribute name="floatListEnum" type="tns:floatEnumList"/>
+	</complexType>
+	<complexType name="floatDataListType">
+		<simpleContent>
+			<extension base="tns:floatEnumList" />
+		</simpleContent>
+	</complexType>
+
+	<simpleType name="floatEnumType">
+		<restriction base="float">
+			<enumeration value="1.1" /> <!-- test with different strings representing this value -->
+			<enumeration value="2.2" />
+			<enumeration value="3.3" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="stringEnumType">
+		<restriction base="string">
+			<enumeration value="bli" />
+			<enumeration value="bla" />
+			<enumeration value="blub" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="floatEnumList">
+		<list itemType="tns:floatEnumType" />
+	</simpleType>
+	<simpleType name="stringEnumList">
+		<list itemType="tns:stringEnumType" />
+	</simpleType>
+
+	<simpleType name="enumRestrictingType">
+		<restriction base="tns:floatEnumType">
+			<!-- <minInclusive value="2.1" /> --> <!-- not valid -->
+			<minInclusive value="2.2" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="intEnumType">
+		<restriction base="int">
+			<enumeration value="1" />
+			<enumeration value="2" />
+			<enumeration value="3" />
+			<enumeration value="4" />
+			<enumeration value="5" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="intAttrAtomicType">
+		<attribute name="intEnumAtomic" type="tns:intEnumType"/>
+	</complexType>
+
+</schema>

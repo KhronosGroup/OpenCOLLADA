@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t11.xsd">
+
+	<sub_type_elem>
+		<base_child attr="foo">
+			<base_grand_child>
+				<grand_grand_child>foo bar</grand_grand_child>
+			</base_grand_child>
+		</base_child>
+		<group_elem_1>foo</group_elem_1>
+		<group_elem_2>bar</group_elem_2>
+	</sub_type_elem>
+
+</root>

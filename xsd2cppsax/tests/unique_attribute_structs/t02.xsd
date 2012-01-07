@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This Test handles elements with same name, different parents and same type.
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType"></element>
+
+    <complexType name="RootType">
+    	<sequence>
+    		<element name="parent1" type="tns:ParentType1"></element>
+    		<element name="parent2" type="tns:ParentType2"></element>
+    		<element name="parent3" type="tns:ParentType3"></element>
+    		<element name="parent4" type="tns:ParentType4"></element>
+    	</sequence>
+    </complexType>
+
+	<complexType name="ParentType1">
+		<sequence>
+			<element name="node" type="tns:Type1"></element>
+		</sequence>
+	</complexType>
+	<complexType name="ParentType2">
+		<sequence>
+			<element name="node" type="tns:Type1"></element>
+		</sequence>
+	</complexType>
+	<complexType name="ParentType3">
+		<sequence>
+			<element name="node" type="tns:Type1"></element>
+		</sequence>
+	</complexType>
+	<complexType name="ParentType4">
+		<sequence>
+			<element name="node" type="tns:Type1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Type1">
+		<attribute name="stringAttr" type="string" />
+		<attribute name="floatAttr" type="float" />
+	</complexType>
+</schema>

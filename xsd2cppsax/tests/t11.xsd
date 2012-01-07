@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Inheritance.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns="http://www.netallied.de/xsd2cppsax/tests"
+		targetNamespace="http://www.netallied.de/xsd2cppsax/tests"
+		elementFormDefault="qualified" >
+
+    <xs:element name="root" type="RootType"></xs:element>
+
+    <xs:complexType name="RootType">
+    	<xs:sequence>
+    		<xs:element name="sub_type_elem" type="sub_type" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:group name="base_group">
+		<xs:sequence>
+			<xs:element name="group_elem_1" type="xs:string" />
+			<xs:element name="group_elem_2" type="xs:string" />
+		</xs:sequence>
+	</xs:group>
+<!-- 
+	<xs:complexType name="grand_child_base_type">
+		<xs:simpleContent>
+			<xs:extension base="xs:string" />
+		</xs:simpleContent>
+	</xs:complexType>
+ -->
+	<xs:complexType name="grand_child_base_type">
+		<xs:sequence>
+			<xs:element name="grand_grand_child" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="grand_child_sub_type">
+		<xs:complexContent>
+			<!-- 
+			<xs:restriction base="grand_child_base_type" />
+			 -->
+			<xs:extension base="grand_child_base_type" />
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="base_child_type">
+			<xs:sequence>
+				<xs:element name="base_grand_child" type="grand_child_sub_type" />
+			</xs:sequence>
+			<xs:attribute name="attr" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="base_type">
+		<xs:sequence>
+			<xs:element name="base_child" type="base_child_type" minOccurs="0" />
+			<xs:group ref="base_group" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="sub_type">
+		<xs:complexContent>
+			<!-- 
+			<xs:restriction base="base_type" />
+			 -->
+			<xs:extension base="base_type" />
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

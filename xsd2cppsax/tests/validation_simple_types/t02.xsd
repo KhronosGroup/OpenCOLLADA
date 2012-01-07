@@ -1,0 +1,27 @@
+<!--
+	This test handles a problem in COLLADA 1.4 with simple type validation. 
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://www.netallied.de/xsd2cppsax/tests" 
+		xmlns="http://www.netallied.de/xsd2cppsax/tests" 
+		elementFormDefault="qualified">
+
+    <xs:element name="root" type="RootType"></xs:element>
+
+    <xs:complexType name="RootType">
+    	<xs:sequence>
+    		<xs:element name="semantic_elem">
+    			<xs:complexType>
+    				<xs:simpleContent>
+    					<xs:extension base="xs:NMTOKEN">
+
+							<xs:attribute name="semantic_attr" type="xs:NMTOKEN" use="required" />
+
+    					</xs:extension>
+    				</xs:simpleContent>
+    			</xs:complexType>
+    		</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

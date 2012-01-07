@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    .
+ -->
+<xs:schema xmlns="http://www.netallied.de/xsd2cppsax/tests" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="root" type="RootType"></xs:element>
+
+	<xs:complexType name="RootType">
+		<xs:sequence>
+			<xs:element name="grandGrandParent1" type="grandGrandParent1type" />
+			<xs:element name="grandGrandParent2" type="grandGrandParent2type" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="grandGrandParent1type">
+		<xs:sequence>
+			<xs:element name="grandParent" type="grandParent1type"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="grandGrandParent2type">
+		<xs:sequence>
+			<xs:element name="grandParent" type="grandParent2type"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="grandParent1type">
+		<xs:sequence>
+			<xs:element name="parent" type="parent1type"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="grandParent2type">
+		<xs:sequence>
+			<xs:element name="parent" type="parent2type"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="parent1type">
+		<xs:sequence>
+			<xs:element name="child" />
+			<xs:choice>
+				<xs:element name="sibling1" />
+				<xs:element name="sibling2" />
+			</xs:choice>
+			<xs:element name="childWithAnonType">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="parent2type">
+		<xs:sequence>
+			<xs:element name="child" />
+			<xs:choice>
+				<xs:element name="sibling3" />
+				<xs:element name="sibling4" />
+			</xs:choice>
+			<xs:element name="childWithAnonType">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

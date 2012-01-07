@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This test file contains data several times, to see if StackMemoryManager is used correctly -->
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t09.xsd">
+
+	<attributeHolderNoDefaults />
+
+	<attributeHolderNoDefaults int_attr="5"
+	                           bool_attr="true"
+	                           string_attr="string"
+	                           enum_attr="FOO"
+	                           union_attr="4"
+	                           uri_attr="foo.xml"
+	                           intList_attr="1 2 3"
+	                           boolList_attr="false true false"
+	                           stringList_attr="string foo bar"
+	                           enumList_attr="BAR FOO BAR"
+	                           unionList_attr="4 FOO foo"
+	                           uriList_attr="foo.xml bar.xml"
+	                           />
+
+	<attributeHolderNoDefaults />
+
+	<attributeHolderNoDefaults int_attr="5"
+	                           bool_attr="true"
+	                           string_attr="string"
+	                           enum_attr="FOO"
+	                           union_attr="4"
+	                           uri_attr="foo.xml"
+	                           intList_attr="1 2 3"
+	                           boolList_attr="false true false"
+	                           stringList_attr="string foo bar"
+	                           enumList_attr="BAR FOO BAR"
+	                           unionList_attr="4 FOO foo"
+	                           uriList_attr="foo.xml bar.xml"
+	                           />
+
+	<attributeHolderNoDefaults />
+
+	<attributeHolderNoDefaults int_attr="5"
+	                           bool_attr="true"
+	                           string_attr="string"
+	                           enum_attr="FOO"
+	                           union_attr="4"
+	                           uri_attr="foo.xml"
+	                           intList_attr="1 2 3"
+	                           boolList_attr="false true false"
+	                           stringList_attr="string foo bar"
+	                           enumList_attr="BAR FOO BAR"
+	                           unionList_attr="4 FOO foo"
+	                           uriList_attr="foo.xml bar.xml"
+	                           />
+
+	<attributeHolderDefaults int_attr="5"
+	                           bool_attr="true"
+	                           string_attr="string"
+	                           enum_attr="FOO"
+	                           union_attr="4"
+	                           uri_attr="foo.xml"
+	                           intList_attr="1 2 3"
+	                           boolList_attr="false true false"
+	                           stringList_attr="string foo bar"
+	                           enumList_attr="BAR FOO BAR"
+	                           unionList_attr="4 FOO foo"
+	                           uriList_attr="foo.xml bar.xml"
+	                           />
+
+	<attributeHolderDefaults />
+	<attributeHolderDefaults />
+	<attributeHolderDefaults />
+
+</root>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    A simple namespace sample.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns="http://www.netallied.de/xsd2cppsax/tests"
+		targetNamespace="http://www.netallied.de/xsd2cppsax/tests"
+		elementFormDefault="qualified"
+		xmlns:foo="http://foo.com">
+
+    <xs:element name="root" type="RootType"></xs:element>
+
+    <xs:complexType name="RootType">
+    	<xs:sequence>
+    		<xs:element name="formula" type="formula_technique_type" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="formula_technique_type">
+		<xs:sequence>
+			<xs:element ref="foo:elemFromOtherNS"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

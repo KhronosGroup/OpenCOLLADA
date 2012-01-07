@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t04.xsd"
+      >
+	<!-- allElem1 and allElem3 are not present -->
+	<allElem2>
+		<seq2Elem3 /><!-- seq2Elem3 occurs before seq2Elem1 -->
+		<seq2Elem1 />
+		<seq2Elem1 /><!-- seq2Elem1 occurs too often -->
+		<seq2Elem1 />
+	</allElem2>
+
+</root>

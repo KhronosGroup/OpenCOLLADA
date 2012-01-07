@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    xs::anyURI.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns="http://www.netallied.de/xsd2cppsax/tests"
+		targetNamespace="http://www.netallied.de/xsd2cppsax/tests"
+		elementFormDefault="qualified">
+
+    <xs:element name="root" type="RootType"></xs:element>
+
+    <xs:complexType name="RootType">
+    	<xs:sequence>
+
+    		<xs:element name="attributeHolder" minOccurs="0" maxOccurs="unbounded">
+    			<xs:complexType>
+    				<xs:attribute name="uri" type="xs:anyURI" use="required" />
+    				<xs:attribute name="uriList" type="uriList" use="required" />
+    			</xs:complexType>
+    		</xs:element>
+
+			<xs:element name="uri" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="uriList" type="uriList" minOccurs="0" maxOccurs="unbounded" />
+
+    	</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="uriList">
+		<xs:list itemType="xs:anyURI" />
+	</xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This test handles a simple sequence.
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType"></element>
+
+	<complexType name="RootType">
+		<sequence>
+			<element name="elem1" minOccurs="1" maxOccurs="2" />
+			<element name="elem2" minOccurs="1" maxOccurs="2" />
+		</sequence>
+	</complexType>
+
+</schema>

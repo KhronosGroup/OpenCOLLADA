@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	About COLLADA 1.5 sidref_type pattern.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netallied.de/xsd2cppsax/tests"
+	xmlns="http://www.netallied.de/xsd2cppsax/tests"
+	elementFormDefault="qualified">
+
+	<xs:element name="root" type="RootType"></xs:element>
+
+	<xs:complexType name="RootType">
+		<xs:sequence>
+			<xs:element name="sid" type="sidref_type" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="sidref_type">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(([\i-[:]][\c-[:]]*)|.)(/[\i-[:\.]][\c-[:]]*)+((\.[\i-[:]][\c-[:]]*)|(\([0-9]+\)){1,2})?"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

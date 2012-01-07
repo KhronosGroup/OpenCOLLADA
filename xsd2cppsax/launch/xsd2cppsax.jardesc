@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="xsd2cppsax/dist/xsd2cppsax.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/xsd2cppsax/launch/xsd2cppsax.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=xsd2cppsax/src&lt;de.netallied.xsd2cppsax{Main.java[Main" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=xsd2cppsax/src&lt;de.netallied.xsd2cppsax.TypeMapping"/>
+        <javaElement handleIdentifier="=xsd2cppsax/src&lt;de.netallied.xsd2cppsax.printers"/>
+        <javaElement handleIdentifier="=xsd2cppsax/src&lt;de.netallied.xsd2cppsax"/>
+        <javaElement handleIdentifier="=xsd2cppsax/src&lt;de.netallied.xsd2cppsax.statemachine"/>
+    </selectedElements>
+</jardesc>

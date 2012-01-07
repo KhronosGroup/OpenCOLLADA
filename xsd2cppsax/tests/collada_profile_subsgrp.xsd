@@ -1,0 +1,30 @@
+<xs:schema xmlns="http://www.collada.org/2005/11/COLLADASchema" 
+			xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			targetNamespace="http://www.collada.org/2005/11/COLLADASchema" 
+			elementFormDefault="qualified" 
+			xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
+
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="effect" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="profile_COMMON" substitutionGroup="fx_profile_abstract" />
+	<xs:element name="profile_CG" substitutionGroup="fx_profile_abstract" />
+
+	<xs:element name="fx_profile_abstract" abstract="true">
+	</xs:element>
+
+	<xs:element name="effect">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fx_profile_abstract" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

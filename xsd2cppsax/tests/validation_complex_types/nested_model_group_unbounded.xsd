@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This test handles nested model groups with minOccurs=0 and maxOccurs=unbounded.
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType"></element>
+
+	<complexType name="RootType">
+		<sequence>
+			<element name="choiceUnbounded" minOccurs="1" maxOccurs="1" type="tns:choiceType" />
+			<element name="sequenceUnbounded" minOccurs="1" maxOccurs="1" type="tns:sequenceType" />
+		</sequence>
+	</complexType>
+
+	<complexType name="choiceType">
+		<sequence>
+			<element name="seqElem" minOccurs="0" maxOccurs="unbounded" />
+
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<element name="nestedChoiceElem1" />
+				<element name="nestedChoiceElem2" />
+			</choice>
+		</sequence>
+	</complexType>
+
+	<complexType name="sequenceType">
+		<choice>
+			<element name="choiceElem" minOccurs="0" maxOccurs="unbounded"/>
+
+			<sequence minOccurs="0" maxOccurs="unbounded">
+				<element name="nestedSeqElem1" />
+				<element name="nestedSeqElem2" />
+			</sequence>
+		</choice>
+	</complexType>
+
+</schema>

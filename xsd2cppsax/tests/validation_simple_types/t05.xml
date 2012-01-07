@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t05.xsd"
+      >
+
+	<sid>l_hip/rotateY.ANGLE</sid>
+	<sid>here/rot(3)</sid>
+	<sid>here/mat(3)(2)</sid>
+	<sid>./foo.bar</sid>
+	<sid>foo/bar/foobar.X</sid>
+	<sid>foo/bar</sid>
+
+	<!-- invalid -->
+	<sid>1foo/bar.X</sid>
+	<sid>foo/1bar.X</sid>
+	<sid>:foo/bar.X</sid>
+	<sid>foo/:bar.X</sid>
+	<sid>fo:o/bar.X</sid>
+	<sid>foo/ba:r.X</sid>
+	<sid>foo</sid>
+	<sid>foo.X</sid>
+	<sid>:</sid>
+
+</root>

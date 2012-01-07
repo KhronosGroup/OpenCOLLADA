@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t01.xsd"
+      >
+
+	<listItemWOFacetsAttrsElem floatListMaxLength_attr="0.1 0.2 0.3 0.4 0.5 0.6"
+	                           unrestrictedListWithrestrictedItem_attr="3 4 5 6 8 6 5 4 3"
+	                           >
+	</listItemWOFacetsAttrsElem>
+
+	<attributeHolder maxInc_attr="6"
+					 maxInc_float_attr="5.6"
+					 inc_attr="6"
+					 ex_attr="5"
+					 stringLength_attr="aaaaaa"
+					 stringMinLength_attr="aaaa"
+					 stringMaxLength_attr="aaaaaa"
+					 intListLength_attr="1 2 3 4 5 6"
+					 intListMaxLength_attr="1 2 3 4 5 6"
+					 intListMinLength_attr="1 2 3 4 "
+					 nameListLength_attr="ab cd ef gh ij kl"
+					 nameListMaxLength_attr="ab cd ef gh ij kl"
+					 nameListMinLength_attr="ab cd ef gh"
+					 restrictedItemListLength_attr="3 4 9 6 7"
+					 />
+
+	<attributeHolder inc_attr="2"
+					 ex_attr="3"
+					 stringLength_attr="aaaa"
+					 intListLength_attr="1 2 3 4 "
+					 nameListLength_attr="ab cd ef gh"
+					 restrictedItemListLength_attr="2 4 5 6 7"
+					 restrictedStringList_attr=" aaaaa bbbbb cccccc ddddd "
+					 />
+
+	<maxInc_elem>6</maxInc_elem>
+	<maxInc_elem>
+		6
+	</maxInc_elem>
+	<maxInc_float_elem>5.6</maxInc_float_elem>
+	<maxInc_float_elem>
+		5.6
+	</maxInc_float_elem>
+	<inc_elem>6</inc_elem>
+	<inc_elem>
+		6
+	</inc_elem>
+	<inc_elem>2</inc_elem>
+	<inc_elem>
+		2
+	</inc_elem>
+	<ex_elem>5</ex_elem>
+	<ex_elem>
+		5
+	</ex_elem>
+	<ex_elem>3</ex_elem>
+	<ex_elem>
+		3
+	</ex_elem>
+
+	<stringLength_elem>
+		abcde
+	</stringLength_elem>
+	<stringLength_elem>abcd</stringLength_elem>
+	<stringMinLength_elem>abcd</stringMinLength_elem>
+	<stringMaxLength_elem>
+		abcde
+	</stringMaxLength_elem>
+
+	<intListLength_elem> 1 2 3 4</intListLength_elem>
+	<intListLength_elem> 1 2 3 4 5 6</intListLength_elem>
+	<intListMaxLength_elem> 1 2 3 4 5 6 </intListMaxLength_elem>
+	<intListMinLength_elem> 1 2 3 4</intListMinLength_elem>
+
+
+	<nameListLength_elem>ab cd ef gh</nameListLength_elem>
+	<nameListLength_elem> ab cd ef gh </nameListLength_elem> <!-- here is an error missing !!! -->
+	<nameListLength_elem>ab cd ef gh ij kl</nameListLength_elem>
+	<nameListLength_elem> ab cd ef gh ij kl </nameListLength_elem>
+
+
+	<nameListMaxLength_elem>ab cd ef gh ij kl</nameListMaxLength_elem>
+	<nameListMaxLength_elem> ab cd ef gh ij kl </nameListMaxLength_elem>
+
+	<nameListMinLength_elem>ab cd ef gh</nameListMinLength_elem>
+	<nameListMinLength_elem> ab cd ef gh </nameListMinLength_elem> <!-- here is an error missing !!! -->
+
+
+	<restrictedItemListLength_elem>3 4 5 6</restrictedItemListLength_elem>
+	<restrictedItemListLength_elem>3 4 5 6 7 7 </restrictedItemListLength_elem>
+	<restrictedItemListLength_elem>3 4 8 6 7 </restrictedItemListLength_elem>
+	<restrictedItemListLength_elem>3 4 5 2 7 </restrictedItemListLength_elem>
+	<restrictedItemListLength_elem>3 4 5 2</restrictedItemListLength_elem>
+
+	<restrictedStringList_elem> aaaaa bbbbb cccccc ddddd </restrictedStringList_elem> <!-- here is an error missing !!! -->
+
+</root>

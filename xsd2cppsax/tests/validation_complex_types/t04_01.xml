@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t04.xsd"
+      >
+    <!-- allElem2 is not present -->
+	<allElem3 /><!-- allElem3 occurs before allElem1 -->
+	<allElem1>
+		<seqElem1 /><!-- seqElem1 is empty, that means choiceElem2 is chosen with occurrence = 0 -->
+		<!-- seqElem2 is not present -->
+		<seqElem3 /><!-- seqElem3 occurs multiple times -->
+		<seqElem3 />
+		<seqElem3 />
+		<seqElem3 />
+		<seqElem3 />
+		<seqElem3 />
+		<seqElem3 />
+	</allElem1>
+</root>

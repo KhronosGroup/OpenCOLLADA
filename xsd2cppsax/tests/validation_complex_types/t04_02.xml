@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t04.xsd"
+      >
+	<allElem3 /><!-- allElem3 occurs before allElem1 -->
+	<allElem1>
+		<!-- seqElem1 occurs two times -->
+		<seqElem1>
+			<choiceElem1 /><!-- choiceElem1 occurs two times -->
+			<choiceElem1 />
+		</seqElem1>
+		<seqElem1>
+			<choiceElem3 /><!-- choiceElem3 occurs multiple times -->
+			<choiceElem3 />
+			<choiceElem3 />
+			<choiceElem3 />
+			<choiceElem3 />
+			<choiceElem3 />
+			<choiceElem3 />
+			<choiceElem3 />
+		</seqElem1>
+		<seqElem2 />
+		<seqElem3 />
+	</allElem1>
+
+	<allElem2>
+		<!-- seq2Elem1 and seq2Elem2 are not present -->
+		<seq2Elem3 /><!-- seq2Elem3 occurs multiple times -->
+		<seq2Elem3 />
+		<seq2Elem3 />
+		<seq2Elem3 />
+		<seq2Elem3 />
+	</allElem2>
+</root>

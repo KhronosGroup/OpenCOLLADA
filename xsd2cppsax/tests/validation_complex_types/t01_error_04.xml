@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.netallied.de/xsd2cppsax/tests"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/tests t01.xsd"
+      >
+	<elem1 />
+	<elem1 />
+	<elem1 />
+	<elem2 />
+	<elem2 />
+</root>

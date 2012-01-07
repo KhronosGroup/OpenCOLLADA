@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.netallied.de/xsd2cppsax/saxfwl"
+           targetNamespace="http://www.netallied.de/xsd2cppsax/saxfwl"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- 
+A schema to describe input files of COLLADASaxFrameworkLoader.
+It is able to generate classes which map generated code for
+different COLLADA versions to hand written code.
+ -->
+
+	<xs:complexType name="version_type">
+		<xs:simpleContent>
+			<xs:extension base="xs:int">
+				<xs:attribute name="include" type="xs:string" />
+				<xs:attribute name="baseClass" type="xs:string" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="config_type">
+		<xs:sequence>
+			<xs:element name="version" type="version_type" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="header" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="namespace" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="includeHeader" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="includeImpl" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="forwardDecl" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="outpathBaseInc" type="xs:string" />
+		<xs:attribute name="outpathBaseSrc" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="variable_type">
+		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="name" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="initlist_type">
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="value" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="ctor_type">
+		<xs:sequence>
+			<xs:element name="parameter" type="variable_type" minOccurs="1" maxOccurs="1" />
+			<xs:element name="initlist" type="initlist_type" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="specific_type">
+		<xs:sequence>
+			<xs:element name="parameter" type="variable_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="code_line" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="version" type="xs:int" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="method_type">
+		<xs:sequence>
+			<xs:element name="parameter" type="variable_type" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="specific" type="specific_type" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="class_type">
+		<xs:sequence>
+			<xs:element name="member" type="variable_type" minOccurs="1" maxOccurs="1" />
+			<xs:element name="ctor" type="ctor_type" minOccurs="1" maxOccurs="1" />
+			<xs:element name="method" type="method_type" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="include" type="xs:string" />
+		<xs:attribute name="baseClass" type="xs:string" />
+		<xs:attribute name="baseInclude" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="root_type">
+		<xs:sequence>
+			<xs:element name="config" type="config_type" minOccurs="1" maxOccurs="1" />
+			<xs:element name="class" type="class_type" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="saxfwl" type="root_type" />
+
+</xs:schema>

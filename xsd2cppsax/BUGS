@@ -1,0 +1,245 @@
+
+!!! libxml skip new line in char data !!!
+parser.c: xmlParseCharData()
+
+
+- validation with substitution groups
+  * in COLLADA 1.4 that causes UNKNOWN ELEMENT errors
+  * 1.4:
+       <xs:element name="fx_profile_abstract" abstract="true">
+       <xs:element ref="fx_profile_abstract" maxOccurs="unbounded">
+  * 1.5: <xs:group ref="fx_profile_group" maxOccurs="unbounded"/>
+  * 1.4: We would need to inject a sub ModelGroup (xs:choice). That means
+    a switch from simple children counting to StateMachine.
+
+
+- check weird compiler errors under OSX:
+  * "fixed1" and "half4x4" as members of validation data structs are not compilable
+
+
+- create typedefs for c primitive types to hide compiler specific type sizes.
+  * specify more OSs, compilers, archs (specify in COLLADABU)
+prio: 1
+
+
+- support for variety union
+  * not supported:
+  * xsi:type
+  * lists as member types
+  * nested unions
+  * simple type validation for member types
+prio: 1
+
+
+- URI class is not used in generated code
+  * only used for variety atomic because of deep copy problem
+  * atomic URIs are returned/passed by value
+prio: 1
+
+
+- attrs as list/union/uri with default values are not supported (test 09)
+  * after attribute parsing, we check if they are present
+    and set default values if they are not. If they don't have default values
+    we create new/empty objects (on default C stack).
+    Thus memcpy is called for objects but they are overwritten by an object
+    created with c-tor.
+prio: 2
+
+
+- API to manipulate function map
+  * generate special function maps for children of given element
+  * currently supported: all children, only direct children
+  * maybe useful: given children depth (e.g. to gather geometry IDs), ...
+  * maybe useful: use children blacklist (e.g. to exclude <float_array> or <p>)
+  * handle substitution groups for that
+prio: 2
+
+
+
+- XML namespaces
+  * XSD built-in attributes (not supported):
+      xsi:type
+      xsi:nil
+      xsi:schemaLocation
+      xsi:noNamespaceSchemaLocation
+  * attributes from xml-infoset (http://www.w3.org/TR/xml-infoset/#infoitem.element):
+      xmlns
+      xmlns:<name>
+  * xml-infoset attributes are allowed for each element, supporting them only 
+    for (1) root element, (2) first element from different namespace, (3) where xs:any is allowed
+  * xml-infoset attributes are handled in hand-written code, thus hashes are calculated
+    two times (xmlns) or three times (xmlns:<name>)
+  * we have "namespace handlers" to allow implementors using their own namespaces
+  * additional we have one "unknown element handler"
+  * targetNamespace is optional
+  * we use variant of calcHash which returns always 2 hashes (nsPrefix and element name)
+  * COLLADA specifies <xs:annotation>/<xs:appinfo>enable-xmlns</xs:appinfo>
+  * we include configurable namespace name in method names if necessary
+  * we have laxNamespaceHandling to call generated methods when ns is not declared
+  * mathml presentation is not supported
+  * namespaces for attributes are not supported
+  * xml:base is a special case and it is supported. xml must always be bound to 
+    http://www.w3.org/XML/1998/namespace and that namespace must always be bound to the prefix xml.
+    And it is allowed to use xml:base without declaring the namespace xml.
+    For COLLADA-DOM it must be xml_base.
+    <COLLADA xml:base=""
+
+*************************
+Performance Measurement
+Test tool: GeneratedSaxParserNull
+test file: tristrip_test_NO_INDICES___geos_1000__tristrips_10000__tristrip_len_1.dae
+file size: 3.496 GB
+
+before NS impl (revision 555)
+115.157
+114.875
+113.797
+avg: 114.6096
+
+after element NS impl (before attribute NS handling)
+117.922
+117.218
+117.687
+avg: 117.609
+ca 2% slower
+
+prio: 3
+
+
+
+- sax coherency test framework
+prio: 3
+
+
+
+- unit testing framework
+  * need a xml compare tool
+prio: 3
+
+
+- atomic chardata is always copied because we don't know if it is complete (at least numeric, not sure about strings)
+  * with 'prefix buffers' in characterData2Data() it is the same.
+prio: 3
+
+
+- StackMemoryManager does not allocate additional memory
+  * handle case that no more mem could be allocated in calling code
+     # newObject() in hand written code:
+       ParserTemplate::characterData2Data() 3 times
+       ParserTemplate::characterData2EnumData 3 times
+       ParserTemplate::characterData2List 1 time
+       ParserTemplateBase::newData 1 time
+       ParserTemplateBase::toEnumDataPrefix 1 time
+       ParserTemplateBase::toDataPrefix 2 times
+     # growObject() in hand written code:
+       ParserTemplate::characterData2List 1 time
+  * in case new mem has to be allocated multiple times in one call, we have some unused blobs
+  * when one blob is nearly filled, and new objects are allocated and deleted
+    it may happen that std::new and std::delete are called every time
+prio: 3
+
+
+- about libxml buffersize
+http://mail.gnome.org/archives/xml/2004-July/msg00128.html
+prio: 3
+
+
+- COLLADA: optional attribute "maxInclusive" of element "int_array" does not use a XSD mechanism 
+  for validation and is ignored (same applies to magnitude and float_array)
+  -> generator flag / type mapping->xsd-double to c++-float *NO* we need doubles for BREP
+  Test float/double performance with 1 TB file
+TEST RESULTS:
+Test tool: GeneratedSaxParserNull
+test file: tristrip_test_NO_INDICES___geos_0__tristrips_1__tristrip_len_100000000.dae
+<float_array> length = 300000000
+file size: 3.21GB
+
+FLOAT:
+84.562
+84.844
+84.781
+
+DOUBLE:
+86.454
+84.125
+85
+
+prio: 3
+
+
+
+- empty elements cause errors (if they may have char data, e.g. <source_data />)
+prio: 4
+
+- strings as enums and chardata do ignore whitespaces
+prio: 4
+
+- each simpleType may define own whitespace rules. Not supported.
+prio: 4
+
+- we should strip whitespaces off strings for atomic chardata/attrs (at least sometimes)
+prio: 4
+
+- enums for attributes with variety list are missing
+prio: 4
+
+- if enums are further restricted in sub types, these restrictions are ignored.
+prio: 4
+
+- generate java code
+prio: 5
+
+- support for wildcards (e.g. <xs:any/>)
+  * required to handle elements allowed in COLLADA as unknown under technique
+  * generating always code as if:
+    -> namespace = ##any
+    -> processContents = lax
+  * xs:any is implicit present by usage of xs:anyType. In COLLADA e.g. <init_as_null>.
+prio: 5
+
+- float compares in conjunction with enums may fail (-> may cause that data() function is not called for enum lists)
+prio: 5
+
+
+
+- elements with mixed content may cause compiler errors in generated code
+- counters in complex type validation data may overflow
+- not supported: validation of <a/><b/><a/> inside sequence (could be done with nested model group)
+- not supported: minOccurs/maxOccrs with other values than 0,1,unbounded in nested model group 
+  (e.g. <sequence><choice maxOccurs=5></choice></sequence>)
+- create C++ clases for types like date-time
+- simple type validation for atomic-data-strings:
+  * whitespaces are NOT ignored
+  * when error is ignored by error handler it may occur several times
+- length validation for enum lists is missing
+- if parsing of an attribute list fails, error message contains parent element
+- No support for: <xs:attribute use="prohibited"
+- differences between xs:extension and xs:restriction are ignored
+- pattern validation: unicode is not supported, whitespaces are NOT ignored
+- pattern validation: pcre does not support set operations. Thus we have COLLADA 1.5 specific
+                      code in generator.
+                      A link which documents perl's lack of set substraction:
+                      http://search.cpan.org/dist/Unicode-Regex-Set/Set.pm 
+- if multiple patterns are defined, only the last one is used.
+  http://www.w3.org/TR/xmlschema11-2/#rf-pattern
+  4.3.4.2 XML Representation of pattern Schema Components
+
+- if URI as attribute is required we generate a present flag. Maybe this should be changed. 
+
+- unsupported simple type validations:
+    * length for hexBinary or base64Binary or QName or NOTATION or string lists
+    * minLength for hexBinary or base64Binary or QName or NOTATION or string lists
+    * maxLength for hexBinary or base64Binary or QName or NOTATION or string lists
+    * whiteSpace (<xs:whiteSpace value="preserve"/>)
+    * pattern for other types than atomic strings (strings as list items are supported)
+    * totalDigits
+    * fractionDigits
+    * maxScale
+    * minScale
+    * Assertions
+
+
+- nice to have: when an element is invalid, don't cancel completely, cancel just it's parent.
+- nice to have: info which elements are expected in nested model group error messages.
+- nice to have: toInteger should check max/min values (-> simple vali of built in types).
+- nice to have: when char data parsing fails, element name is not included in error message

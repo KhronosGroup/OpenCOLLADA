@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This Test handles elements with char data.
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests"
+	elementFormDefault="qualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="../xml.xsd" />
+	<element name="root" type="tns:RootType"></element>
+	<xs:simpleType name="float">
+		<xs:restriction base="xs:double" />
+	</xs:simpleType>
+	<xs:simpleType name="ListOfFloats">
+		<xs:list itemType="float" />
+	</xs:simpleType>
+	<xs:simpleType name="ListOfStrings">
+		<xs:list itemType="string" />
+	</xs:simpleType>
+	<xs:simpleType name="UpAxisType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="X_UP" />
+			<xs:enumeration value="Y_UP" />
+			<xs:enumeration value="Z_UP" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bool">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="ListOfBools">
+		<xs:list itemType="tns:bool"/>
+	</xs:simpleType>
+	<xs:simpleType name="bool2">
+		<xs:restriction base="tns:ListOfBools">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:group name="fx_basic_type_common">
+		<xs:choice>
+			<xs:element name="bool" type="tns:bool"/>
+			<xs:element name="bool2" type="tns:bool2"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="fx_surface_init_common">
+		<xs:choice>
+			<xs:element name="init_as_null" />
+			<xs:element name="init_as_target" />
+		</xs:choice>
+	</xs:group>
+	<xs:complexType name="fx_surface_common">
+		<xs:sequence>
+			<xs:group ref="tns:fx_surface_init_common" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<complexType name="RootType">
+		<sequence>
+			<element name="String" type="string" minOccurs="0" maxOccurs="unbounded"></element>
+			<element name="FloatList" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="tns:ListOfFloats">
+							<xs:attribute name="id" type="string" />
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</element>
+			<xs:element name="up_axis" type="tns:UpAxisType"
+				default="Y_UP" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="setparam" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:group ref="tns:fx_basic_type_common" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="surface" type="tns:fx_surface_common" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="interpenetrate" default="false"
+				 minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="tns:bool">
+							<xs:attribute name="sid" type="xs:NCName" />
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<element name="FloatElement" type="tns:float" minOccurs="0" maxOccurs="unbounded"></element>
+
+			<element name="ElementWithStringListAttribute" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<attribute name="stringList" type="tns:ListOfStrings"></attribute>
+				</complexType>
+			</element>
+
+			<element name="ElementWithBoolListAttribute" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<attribute name="boolList" type="tns:ListOfBools"></attribute>
+				</complexType>
+			</element>
+
+			<element name="ElementWithFloatListAttribute" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<attribute name="listAttr" type="tns:ListOfFloats"></attribute>
+				</complexType>
+			</element>
+
+			<element name="ElementWithFloatAttribute" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<attribute name="floatAttr" type="tns:float"></attribute>
+				</complexType>
+			</element>
+
+		</sequence>
+	</complexType>
+</schema>

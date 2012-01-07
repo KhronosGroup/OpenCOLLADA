@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuite xmlns="http://www.netallied.de/xsd2cppsax/testsuite"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.netallied.de/xsd2cppsax/testsuite test_suite.xsd"
+           outDir="tests_output">
+
+	<!-- test XSDs -->
+	<test config="config/testing.conf" input="tests/t04.xsd" rootElement="root">
+		<document input="tests/t04.xml" output="t04_01.xml">
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithBoolListAttribute, Attribute: boolList, Line: 33, Column: 40, Additional:  f t</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithBoolListAttribute, Attribute: boolList, Line: 34, Column: 40, Additional:  t f</expectedError>
+		</document>
+		<document input="tests/t04_02.xml" output="t04_02.xml" />
+		<document input="tests/t04_03.xml" output="t04_03.xml" />
+		<document input="tests/t04_inf_nan.xml" output="t04_inf_nan.xml">
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatList, Line: 13, Column: 54, Additional: INFa +INF1 -INF. +Na</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatList, Line: 14, Column: 49, Additional: INF1 -INF. +NaN -NaN</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatList, Line: 15, Column: 43, Additional: INF. +NaN -NaN NaNa</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatList, Line: 16, Column: 37, Additional: NaN -NaN NaNa NaN1 N</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatList, Line: 17, Column: 32, Additional: NaN NaNa NaN1 NaN.</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatList, Line: 18, Column: 27, Additional: NaNa NaN1 NaN.</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatList, Line: 19, Column: 22, Additional: NaN1 NaN.</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatList, Line: 20, Column: 17, Additional: NaN.</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatElement, Line: 29, Column: 35, </expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatElement, Line: 30, Column: 36, </expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatElement, Line: 31, Column: 36, </expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatElement, Line: 32, Column: 35, </expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatElement, Line: 33, Column: 35, </expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatElement, Line: 34, Column: 35, </expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatElement, Line: 35, Column: 35, </expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: FloatElement, Line: 36, Column: 35, </expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatListAttribute, Attribute: listAttr, Line: 42, Column: 41, Additional: INFa +INF1 -INF. +Na</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatListAttribute, Attribute: listAttr, Line: 43, Column: 41, Additional: INF1 -INF. +NaN -NaN</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatListAttribute, Attribute: listAttr, Line: 44, Column: 41, Additional: INF. +NaN -NaN NaNa</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatListAttribute, Attribute: listAttr, Line: 45, Column: 41, Additional: NaN -NaN NaNa NaN1 N</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatListAttribute, Attribute: listAttr, Line: 46, Column: 41, Additional: NaN NaNa NaN1 NaN.</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatListAttribute, Attribute: listAttr, Line: 47, Column: 41, Additional: NaNa NaN1 NaN.</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatListAttribute, Attribute: listAttr, Line: 48, Column: 41, Additional: NaN1 NaN.</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatListAttribute, Attribute: listAttr, Line: 49, Column: 41, Additional: NaN.</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatAttribute, Attribute: floatAttr, Line: 58, Column: 38, Additional: INFa</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatAttribute, Attribute: floatAttr, Line: 59, Column: 38, Additional: +INF1</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatAttribute, Attribute: floatAttr, Line: 60, Column: 38, Additional: -INF.</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatAttribute, Attribute: floatAttr, Line: 61, Column: 38, Additional: +NaN</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatAttribute, Attribute: floatAttr, Line: 62, Column: 38, Additional: -NaN</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatAttribute, Attribute: floatAttr, Line: 63, Column: 38, Additional: NaNa</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatAttribute, Attribute: floatAttr, Line: 64, Column: 38, Additional: NaN1</expectedError>
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: ElementWithFloatAttribute, Attribute: floatAttr, Line: 65, Column: 38, Additional: NaN.</expectedError>
+		</document>
+	</test>
+
+	<test config="config/testing.conf" input="tests/t05.xsd" rootElement="root">
+		<document input="tests/t05.xml" output="t05_01.xml">
+			<expectedError>Error: ERROR_ATTRIBUTE_PARSING_FAILED Element: stringAttrAtomic, Attribute: stringEnumAtomic, Line: 6, Column: 36, Additional: foo</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: stringDataAtomic, Line: 21, Column: 21</expectedError>
+			<expectedError>Error: ERROR_TEXTDATA_PARSING_FAILED Element: floatDataAtomic, Line: 26, Column: 20</expectedError>
+		</document>
+	</test>
+
+	<test config="config/testing.conf" input="tests/t06.xsd" rootElement="root">
+		<document input="tests/t06.xml" output="t06_01.xml" />
+	</test>
+
+	<test config="config/testing.conf" input="tests/t07.xsd" rootElement="root">
+		<document input="tests/t07.xml" output="t07_01.xml" />
+	</test>
+
+	<test config="config/testing.conf" input="tests/t08.xsd" rootElement="root">
+		<document input="tests/t08.xml" output="t08_01.xml" />
+	</test>
+
+	<test config="config/testing.conf" input="tests/t09.xsd" rootElement="root">
+		<document input="tests/t09.xml" output="t09_01.xml" />
+		<document input="tests/t09_02.xml" output="t09_02.xml" />
+		<document input="tests/t09_03.xml" output="t09_03.xml">
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: int_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: bool_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: string_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: enum_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: union_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: uri_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: intList_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: boolList_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: stringList_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: enumList_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: unionList_attr, Line: 11, Column: 31, Additional:</expectedError>
+			<expectedError>Error: ERROR_REQUIRED_ATTRIBUTE_MISSING Element: attributeHolderAttrsRequired, Attribute: uriList_attr, Line: 11, Column: 31, Additional:</expectedError>
+		</document>
+	</test>
+
+	<test config="config/testing.conf" input="tests/t10.xsd" rootElement="root">
+		<document input="tests/t10.xml" output="t10_01.xml" />
+	</test>
+
+	<test config="config/testing.conf" input="tests/t11.xsd" rootElement="root">
+		<document input="tests/t11_01.xml" output="t11_01.xml" />
+	</test>
+
+	<test config="config/testing.conf" input="tests/t12.xsd" rootElement="root">
+		<document input="tests/t12_01.xml" output="t12_01.xml" />
+	</test>
+
+	<!-- simple type validation -->
+	<test config="config/testing.conf" input="tests/validation_simple_types/t01.xsd" rootElement="root">
+		<document input="tests/validation_simple_types/t01_01.xml" output="validation_simple_types__t01_01.xml" />
+		<document input="tests/validation_simple_types/t01_error_01.xml" output="validation_simple_types__t01_error_01.xml">
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: listItemWOFacetsAttrsElem, Attribute: floatListMaxLength_attr, Line: 9, Column: 1, Additional: 0.1 0.2 0.3 0.4 0.5 0.6</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: listItemWOFacetsAttrsElem, Attribute: unrestrictedListWithrestrictedItem_attr, Line: 9, Column: 1, Additional:  8 6 5 4 3</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: attributeHolder, Attribute: maxInc_attr, Line: 26, Column: 1, Additional: 6</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: attributeHolder, Attribute: maxInc_float_attr, Line: 26, Column: 1, Additional: 5.6</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: attributeHolder, Attribute: inc_attr, Line: 26, Column: 1, Additional: 6</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_EXCLUSIVE Element: attributeHolder, Attribute: ex_attr, Line: 26, Column: 1, Additional: 5</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: attributeHolder, Attribute: stringLength_attr, Line: 26, Column: 1, Additional: aaaaaa</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_LENGTH Element: attributeHolder, Attribute: stringMinLength_attr, Line: 26, Column: 1, Additional: aaaa</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: attributeHolder, Attribute: stringMaxLength_attr, Line: 26, Column: 1, Additional: aaaaaa</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: attributeHolder, Attribute: intListLength_attr, Line: 26, Column: 1, Additional: 1 2 3 4 5 6</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: attributeHolder, Attribute: intListMaxLength_attr, Line: 26, Column: 1, Additional: 1 2 3 4 5 6</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_LENGTH Element: attributeHolder, Attribute: intListMinLength_attr, Line: 26, Column: 1, Additional: 1 2 3 4 </expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: attributeHolder, Attribute: nameListLength_attr, Line: 26, Column: 1, Additional: ab cd ef gh ij kl</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: attributeHolder, Attribute: nameListMaxLength_attr, Line: 26, Column: 1, Additional: ab cd ef gh ij kl</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_LENGTH Element: attributeHolder, Attribute: nameListMinLength_attr, Line: 26, Column: 1, Additional: ab cd ef gh</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: attributeHolder, Attribute: restrictedItemListLength_attr, Line: 26, Column: 1, Additional:  9 6 7</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_INCLUSIVE Element: attributeHolder, Attribute: inc_attr, Line: 35, Column: 1, Additional: 2</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_EXCLUSIVE Element: attributeHolder, Attribute: ex_attr, Line: 35, Column: 1, Additional: 3</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: attributeHolder, Attribute: stringLength_attr, Line: 35, Column: 1, Additional: aaaa</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: attributeHolder, Attribute: intListLength_attr, Line: 35, Column: 1, Additional: 1 2 3 4 </expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: attributeHolder, Attribute: nameListLength_attr, Line: 35, Column: 1, Additional: ab cd ef gh</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_INCLUSIVE Element: attributeHolder, Attribute: restrictedItemListLength_attr, Line: 35, Column: 1, Additional: 2 4 5 6 7</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: attributeHolder, Attribute: restrictedStringList_attr, Line: 35, Column: 1, Additional:  cccccc ddddd </expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: attributeHolder, Attribute: restrictedStringList_attr, Line: 35, Column: 1, Additional:  aaaaa bbbbb cccccc ddddd </expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: maxInc_elem, Line: 37, Column: 30</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: maxInc_elem, Line: 40, Column: 16</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: maxInc_float_elem, Line: 41, Column: 44</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: maxInc_float_elem, Line: 44, Column: 22</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: inc_elem, Line: 45, Column: 24</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: inc_elem, Line: 48, Column: 13</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_INCLUSIVE Element: inc_elem, Line: 49, Column: 24</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_INCLUSIVE Element: inc_elem, Line: 52, Column: 13</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_EXCLUSIVE Element: ex_elem, Line: 53, Column: 22</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_EXCLUSIVE Element: ex_elem, Line: 56, Column: 12</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_EXCLUSIVE Element: ex_elem, Line: 57, Column: 22</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_EXCLUSIVE Element: ex_elem, Line: 60, Column: 12</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: stringLength_elem, Line: 63, Column: 8</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: stringLength_elem, Line: 64, Column: 2</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: stringLength_elem, Line: 64, Column: 22</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: stringLength_elem, Line: 65, Column: 45</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_LENGTH Element: stringMinLength_elem, Line: 66, Column: 51</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: stringMaxLength_elem, Line: 68, Column: 8</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: stringMaxLength_elem, Line: 69, Column: 2</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: stringMaxLength_elem, Line: 69, Column: 25</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: intListLength_elem, Line: 71, Column: 51</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_LENGTH Element: intListLength_elem, Line: 71, Column: 51</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: intListLength_elem, Line: 72, Column: 55</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_LENGTH Element: intListLength_elem, Line: 72, Column: 55</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: intListMaxLength_elem, Line: 73, Column: 38</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_LENGTH Element: intListMinLength_elem, Line: 74, Column: 57</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_MIN_LENGTH Element: intListMinLength_elem, Line: 74, Column: 57</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 77, Column: 56</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 77, Column: 56</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 78, Column: 58</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 79, Column: 62</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 79, Column: 62</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 80, Column: 42</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 80, Column: 64</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: nameListMaxLength_elem, Line: 83, Column: 68</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_LENGTH Element: nameListMaxLength_elem, Line: 84, Column: 45</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_LENGTH Element: nameListMinLength_elem, Line: 86, Column: 62</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_MIN_LENGTH Element: nameListMinLength_elem, Line: 86, Column: 62</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_LENGTH Element: nameListMinLength_elem, Line: 87, Column: 64</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: restrictedItemListLength_elem, Line: 90, Column: 72</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_LENGTH Element: restrictedItemListLength_elem, Line: 90, Column: 72</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: restrictedItemListLength_elem, Line: 91, Column: 45</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_LENGTH Element: restrictedItemListLength_elem, Line: 91, Column: 77</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_INCLUSIVE Element: restrictedItemListLength_elem, Line: 92, Column: 43</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_INCLUSIVE Element: restrictedItemListLength_elem, Line: 93, Column: 43</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_INCLUSIVE Element: restrictedItemListLength_elem, Line: 94, Column: 72</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: restrictedItemListLength_elem, Line: 94, Column: 72</expectedError>
+            <expectedError>Error: ERROR_VALIDATION_LENGTH Element: restrictedItemListLength_elem, Line: 94, Column: 72</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: restrictedStringList_elem, Line: 96, Column: 55</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: restrictedStringList_elem, Line: 96, Column: 83</expectedError>
+		</document>
+		<document input="tests/validation_simple_types/t01_mem_mgr_prob.xml" output="validation_simple_types__t01_mem_mgr_prob.xml" />
+	</test>
+	<test config="config/testing.conf" input="tests/validation_simple_types/t03.xsd" rootElement="root">
+		<document input="tests/validation_simple_types/t03_error_01.xml" output="validation_simple_types__t03_error_01.xml">
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 7, Column: 56</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 7, Column: 56</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 8, Column: 58</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 9, Column: 62</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 9, Column: 62</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 10, Column: 42</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_LENGTH Element: nameListLength_elem, Line: 10, Column: 64</expectedError>
+		</document>
+	</test>
+	<test config="config/testing.conf" input="tests/validation_simple_types/t04.xsd" rootElement="root">
+		<document input="tests/validation_simple_types/t04_01.xml" output="validation_simple_types__t04_01.xml" />
+		<document input="tests/validation_simple_types/t04_error_01.xml" output="validation_simple_types__t04_error_01.xml">
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternElem, Attribute: stringPatternAttr, Line: 7, Column: 38</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternElem, Line: 7, Column: 62</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternElem, Line: 10, Column: 2</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternElem, Line: 11, Column: 46</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternListElem, Attribute: stringPatternListAttr, Line: 13, Column: 46</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternListElem, Attribute: stringPatternListAttr, Line: 13, Column: 46</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternListElem, Line: 13, Column: 54</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternListElem, Line: 13, Column: 78</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternListElem, Line: 15, Column: 10</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternListElem, Line: 16, Column: 2</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternListElem, Line: 17, Column: 34</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: stringPatternListElem, Line: 17, Column: 34</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: nameElem, Attribute: nameAttr, Line: 19, Column: 43, Additional: 1foo1</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: nameElem, Attribute: ncnameAttr, Line: 19, Column: 43, Additional: foo:</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: nameElem, Attribute: nmtokenAttr, Line: 19, Column: 43, Additional: *1foo</expectedError>
+		</document>
+	</test>
+
+	<test config="config/testing.conf" input="tests/validation_simple_types/t05.xsd" rootElement="root">
+		<document input="tests/validation_simple_types/t05.xml" output="validation_simple_types__t05.xml">
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: sid, Line: 15</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: sid, Line: 16</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: sid, Line: 17</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: sid, Line: 18</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: sid, Line: 19</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: sid, Line: 20</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: sid, Line: 21</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: sid, Line: 22</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_PATTERN Element: sid, Line: 23</expectedError>
+		</document>
+	</test>
+
+	<!-- complex type validation -->
+	<test config="config/testing.conf" input="tests/validation_complex_types/t01.xsd" rootElement="root">
+		<document input="tests/validation_complex_types/t01_01.xml" output="validation_complex_types__t01_01.xml" />
+		<document input="tests/validation_complex_types/t01_02.xml" output="validation_complex_types__t01_02.xml" />
+		<document input="tests/validation_complex_types/t01_03.xml" output="validation_complex_types__t01_03.xml" />
+		<document input="tests/validation_complex_types/t01_04.xml" output="validation_complex_types__t01_04.xml" />
+		<document input="tests/validation_complex_types/t01_error_01.xml" output="validation_complex_types__t01_error_01.xml">
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: root, Line: 6, Column: 8, Additional: child: elem1</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: root, Line: 6, Column: 8, Additional: child: elem2</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t01_error_02.xml" output="validation_complex_types__t01_error_02.xml">
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: root, Line: 7, Column: 8, Additional: child: elem2</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t01_error_03.xml" output="validation_complex_types__t01_error_03.xml">
+			<expectedError>Error: ERROR_VALIDATION_SEQUENCE_PREVIOUS_SIBLING_NOT_PRESENT Element: elem2, Line: 6, Column: 8, Additional: sibling: elem1</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: root, Line: 7, Column: 8, Additional: child: elem1</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t01_error_04.xml" output="validation_complex_types__t01_error_04.xml">
+			<expectedError>Error: ERROR_VALIDATION_MAX_OCCURS_EXCEEDED Element: elem1, Line: 8, Column: 8, Additional:</expectedError>
+		</document>
+	</test>
+
+	<test config="config/testing.conf" input="tests/validation_complex_types/t02.xsd" rootElement="root">
+		<document input="tests/validation_complex_types/t02_01.xml" output="validation_complex_types__t02_01.xml" />
+		<document input="tests/validation_complex_types/t02_02.xml" output="validation_complex_types__t02_02.xml" />
+		<document input="tests/validation_complex_types/t02_03.xml" output="validation_complex_types__t02_03.xml" />
+		<document input="tests/validation_complex_types/t02_error_01.xml" output="validation_complex_types__t02_error_01.xml">
+			<expectedError>Error: ERROR_VALIDATION_CHOICE_SIBLING_ALREADY_PRESENT Element: elem2, Line: 7, Column: 8, Additional: sibling: elem1</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t02_error_02.xml" output="validation_complex_types__t02_error_02.xml">
+			<expectedError>Error: ERROR_VALIDATION_CHOICE_NO_CHILD_PRESENT Element: root, Line: 6, Column: 8, Additional:</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t02_error_03.xml" output="validation_complex_types__t02_error_03.xml">
+			<expectedError>Error: ERROR_VALIDATION_MAX_OCCURS_EXCEEDED Element: elem1, Line: 8, Column: 8, Additional:</expectedError>
+		</document>
+	</test>
+
+	<test config="config/testing.conf" input="tests/validation_complex_types/t03.xsd" rootElement="root">
+		<document input="tests/validation_complex_types/t03_01.xml" output="validation_complex_types__t03_01.xml" />
+		<document input="tests/validation_complex_types/t03_02.xml" output="validation_complex_types__t03_02.xml" />
+		<document input="tests/validation_complex_types/t03_03.xml" output="validation_complex_types__t03_03.xml" />
+		<document input="tests/validation_complex_types/t03_error_01.xml" output="validation_complex_types__t03_error_01.xml">
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: root, Line: 6, Column: 8, Additional: child: elem2</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t03_error_02.xml" output="validation_complex_types__t03_error_02.xml">
+			<expectedError>Error: ERROR_VALIDATION_MAX_OCCURS_EXCEEDED Element: elem2, Line: 7, Column: 8, Additional:</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t03_error_03.xml" output="validation_complex_types__t03_error_03.xml">
+			<expectedError>Error: ERROR_VALIDATION_MAX_OCCURS_EXCEEDED Element: elem1, Line: 8, Column: 8, Additional:</expectedError>
+		</document>
+	</test>
+
+	<test config="config/testing.conf" input="tests/validation_complex_types/t04.xsd" rootElement="root">
+		<document input="tests/validation_complex_types/t04_01.xml" output="validation_complex_types__t04_01.xml" />
+		<document input="tests/validation_complex_types/t04_02.xml" output="validation_complex_types__t04_02.xml" />
+		<document input="tests/validation_complex_types/t04_03.xml" output="validation_complex_types__t04_03.xml" />
+		<document input="tests/validation_complex_types/t04_error_01.xml" output="validation_complex_types__t04_error_01.xml">
+			<expectedError>Error: ERROR_VALIDATION_SEQUENCE_NEXT_SIBLING_ALREADY_PRESENT Element: seq2Elem1, Line: 9, Column: 13, Additional: sibling: seq2Elem3</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_SEQUENCE_NEXT_SIBLING_ALREADY_PRESENT Element: seq2Elem1, Line: 10, Column: 13, Additional: sibling: seq2Elem3</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_SEQUENCE_NEXT_SIBLING_ALREADY_PRESENT Element: seq2Elem1, Line: 11, Column: 13, Additional: sibling: seq2Elem3</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_OCCURS_EXCEEDED Element: seq2Elem1, Line: 11, Column: 13, Additional:</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: root, Line: 14, Column: 8, Additional: child: allElem1</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: root, Line: 14, Column: 8, Additional: child: allElem3</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t04_error_02.xml" output="validation_complex_types__t04_error_02.xml">
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: allElem1, Line: 7, Column: 13, Additional: child: seqElem1</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: allElem1, Line: 7, Column: 13, Additional: child: seqElem3</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_OCCURS_EXCEEDED Element: allElem3, Line: 10, Column: 11, Additional:</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t04_error_03.xml" output="validation_complex_types__t04_error_03.xml">
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: root, Line: 7, Column: 8, Additional: child: allElem1</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: root, Line: 7, Column: 8, Additional: child: allElem3</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/t04_error_04.xml" output="validation_complex_types__t04_error_04.xml">
+			<expectedError>Error: ERROR_VALIDATION_SEQUENCE_PREVIOUS_SIBLING_NOT_PRESENT Element: seqElem2, Line: 8, Column: 12, Additional: sibling: seqElem1</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_SEQUENCE_PREVIOUS_SIBLING_NOT_PRESENT Element: seqElem2, Line: 9, Column: 12, Additional: sibling: seqElem1</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_SEQUENCE_PREVIOUS_SIBLING_NOT_PRESENT Element: seqElem2, Line: 10, Column: 12, Additional: sibling: seqElem1</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_OCCURS_EXCEEDED Element: seqElem2, Line: 10, Column: 12, Additional:</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_SEQUENCE_NEXT_SIBLING_ALREADY_PRESENT Element: seqElem1, Line: 12, Column: 12, Additional: sibling: seqElem2</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_CHOICE_SIBLING_ALREADY_PRESENT Element: choiceElem3, Line: 14, Column: 16, Additional: sibling: choiceElem2</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_SEQUENCE_NEXT_SIBLING_ALREADY_PRESENT Element: seqElem1, Line: 17, Column: 12, Additional: sibling: seqElem2</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MAX_OCCURS_EXCEEDED Element: choiceElem2, Line: 20, Column: 16, Additional:</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: allElem1, Line: 24, Column: 13, Additional: child: seqElem3</expectedError>
+		</document>
+	</test>
+
+	<test config="config/testing.conf" input="tests/validation_complex_types/ancestor_type_unique.xsd" rootElement="root">
+		<document input="tests/validation_complex_types/ancestor_type_unique_01.xml" output="validation_complex_types__ancestor_type_unique_01.xml" />
+		<document input="tests/validation_complex_types/ancestor_type_unique__error_01.xml" output="validation_complex_types__ancestor_type_unique__error_01.xml">
+			<expectedError>Error: ERROR_VALIDATION_UNEXPECTED_ELEMENT Element: childWithAnonType, Line: 22, Column: 23, Additional:</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_UNEXPECTED_CLOSING_TAG Element: parent, Line: 23, Column: 13, Additional:</expectedError>
+		</document>
+	</test>
+
+	<test config="config/testing.conf" input="tests/validation_complex_types/collada_animation.xsd" rootElement="root">
+		<document input="tests/validation_complex_types/collada_animation_01.xml" output="validation_complex_types__collada_animation_01.xml" />
+		<document input="tests/validation_complex_types/collada_animation_02.xml" output="validation_complex_types__collada_animation_02.xml" />
+		<document input="tests/validation_complex_types/collada_animation_03.xml" output="validation_complex_types__collada_animation_03.xml" />
+		<document input="tests/validation_complex_types/collada_animation_04.xml" output="validation_complex_types__collada_animation_04.xml" />
+		<document input="tests/validation_complex_types/collada_animation_05.xml" output="validation_complex_types__collada_animation_05.xml" />
+		<document input="tests/validation_complex_types/collada_animation_error_01.xml" output="validation_complex_types__collada_animation_error_01.xml">
+			<expectedError>Error: ERROR_VALIDATION_UNEXPECTED_ELEMENT Element: extra, Line: 6, Column: 9, Additional:</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_UNEXPECTED_CLOSING_TAG Element: animation, Line: 7, Column: 14, Additional:</expectedError>
+		</document>
+		<document input="tests/validation_complex_types/collada_animation_error_02.xml" output="validation_complex_types__collada_animation_error_02.xml">
+			<expectedError>Error: ERROR_VALIDATION_UNEXPECTED_CLOSING_TAG Element: animation, Line: 6, Column: 14, Additional:</expectedError>
+		</document>
+	</test>
+
+	<!-- CAEX -->
+	<test config="config/testing.conf" input="CAEX_ClassModel.xsd" rootElement="CAEXFile">
+		<document input="2008-04-16_CAEX-DemoCell_Logics.aml" output="2008-04-16_CAEX-DemoCell_Logics.aml">
+			<expectedError>Error: ERROR_UNKNOWN_ATTRIBUTE Element: CAEXFile, Attribute: xsi:noNamespaceSchemaLocation, Line: 2, Column: 73, Additional: CAEX_ClassModel.xsd</expectedError>
+		</document>
+	</test>
+
+	<!-- PLC open -->
+	<test config="config/testing.conf" input="tc6_xml_v20.xsd" rootElement="project">
+	</test>
+
+	<!-- COLLADA 1.5 -->
+	<test config="config/testing.conf" input="collada_schema_1_5.xsd" rootElement="COLLADA">
+		<document input="tests/collada_mathml_01.dae" output="collada_mathml_01.dae">
+			<expectedError>Error: ERROR_UNKNOWN_ATTRIBUTE Element: COLLADA, Attribute: xsi:schemaLocation</expectedError>
+		</document>
+		<document input="tests/collada_mathml_02.dae" output="collada_mathml_02.dae">
+			<expectedError>Error: ERROR_UNKNOWN_ATTRIBUTE Element: COLLADA, Attribute: xsi:schemaLocation</expectedError>
+		</document>
+		<document input="tests/collada_mathml_03.dae" output="collada_mathml_03.dae">
+			<expectedError>Error: ERROR_UNKNOWN_ATTRIBUTE Element: COLLADA, Attribute: xsi:schemaLocation</expectedError>
+		</document>
+		<document input="tests/collada_mathml_04.dae" output="collada_mathml_04.dae">
+			<expectedError>Error: ERROR_UNKNOWN_ATTRIBUTE Element: COLLADA, Attribute: xsi:schemaLocation</expectedError>
+			<expectedError>Error: ERROR_UNKNOWN_ATTRIBUTE Element: formula, Attribute: xmlns:math, Line: 16, Column: 22, Additional: http://www.w3.org/1998/Math/MathML</expectedError>
+			<expectedError>Error: ERROR_VALIDATION_MIN_OCCURS_UNMATCHED Element: technique_common, Line: 28, Column: 23, Additional: child: math</expectedError>
+		</document>
+	</test>
+
+	<!-- COLLADA 1.4 -->
+	<test config="config/testing.conf" input="collada_schema_1_4.xsd" rootElement="COLLADA">
+		<document input="tests/collada_ns_in_extra_01.dae" output="collada_ns_in_extra_01.dae" />
+	</test>
+
+</TestSuite>

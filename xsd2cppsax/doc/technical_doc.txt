@@ -1,0 +1,154 @@
+Technical overview about code generator and generated code
+**********************************************************
+
+1. Contents of Java Project xsd2cppsax
+**************************************
+Java Packages:
+- de.netallied.xsd2cppsax: Sax Parser Generator.
+- de.netallied.xsd2cppsax.statemachine: State Machine Klasses required for complex type validation with nested model groups.
+- de.netallied.xsd2cppsax.TypeMapping: Mapping of XSD types to C++ types.
+- de.netallied.xsd2cppsax.printers: Code printers which print implementations of generated Parser.
+
+- de.netallied.xsd2cppsax.testsuite: Test Suite of Sax Parser Generator.
+
+- de.netallied.xsd2cppsax.saxfwl: Generator which prints code to map COLLADA 1.4 and 1.5 to hand written code in COLLADASaxFrameworkLoader.
+- de.netallied.xsd2cppsax.saxfwl.model: Helper classes for saxfwl generator.
+
+
+Directories:
+- config: Configuration files for the three projects.
+- dist: Directory to place built jars in.
+- doc: Documentation.
+- launch: Eclipse lauch configurations and jardesc files to do binary releases.
+- lib: Required Java libraries and src zips.
+- mathml2: MathML XSDs. Containing changes to use local references and NOT to use MathML-Presentation.
+- tests: Test XSDs and example documents.
+- tests_output: Output dir for TestSuite.
+- src: Java sources.
+- bin: Java class files.
+
+
+Files:
+- 2008-04-16_CAEX-DemoCell_Logics.aml: CAEX example file. Used by TestSuite.
+- BUGS: Known issues and TODO list of Sax Parser Generator.
+- CAEX_ClassModel.xsd: CAEX XSD.
+- collada_schema_1_4.xsd: COLLADA 1.4 XSD. Changed to use local references.
+- collada_schema_1_5.xsd: COLLADA 1.5 XSD. Changed to use local references.
+- pcre_compiler.exe: Used by Sax Parser Generator to create PCRE precompiled patterns for Regular Expression Validation.
+                     It's Code can be found here:
+                     http://devserver/svnroot/maxmaya/trunk/saxLoader/pcre_compiler
+- saxfwl.xsd: XSD for input files of saxfwl generator. Used to generate code with apache xml beans.
+- tc6_xml_v20.xsd: PLC open XSD.
+- test_suite.xml: Input file for TestSuite.
+- test_suite.xsd: XSD for TestSuite input files. Used to generate code with apache xml beans.
+- xml.xsd: XML XSD. Referenced by COLLADA XSDs.
+
+
+
+2. About generated code
+***********************
+The main thing are two big parser classes (private parser and public parser) and some helper stuff. The two parser classes
+contain several methods for each element in input XSD. The public parser is intended to be subclassed by implementors
+it contains two or three methods per element: begin, end, and if necessary: data. As some XML formats are pretty complex 
+it is convenient to parse different parts of an input file with different specialized classes. To respect that it is
+possible to change the public parser implementation at runtime.
+The private parser contains more methods per element:
+begin, end, data, preBegin, preEnd, validateBegin, validateEnd. At the beginning the code in the 'pre' and 'validate'
+methods was all in 'validate'. This has been changed to put validation code into it's own source file. If you read
+generator code you may find stuff called 'validate' which ends up in 'pre' methods.
+
+The validateBegin and validateEnd methods are obviously for validation. The preBegin and preEnd methods are used to
+parse text from XML (attributes and char data). The private parser (and thus implementors) never get to see the plain XML
+text data. They get always parsed binary data.
+
+Generated methods of private parser are called by it's base class: GeneratedSaxParser::ParserTemplate. This base class is
+a C++ template and needs two type parameters: generated private (DerivedClass) and public (ImplClass) parser. ParserTemplate
+recieves SAX calls from plain XML libraries, like libxml or expat. Thoes libraries pass in an element name. ParserTemplate
+has to map that element name to a generated method of private parser. To increase performance string compares are avoided when
+dealing with element names. Instead strings are hashed (GeneratedSaxParser::Utils::calculateStringHash()). As element names
+are not unique in XSD it is not enough to hash the element name received by libxml and call a generated method by that.
+
+Samll example XSD with non-unique element names (child is not unique):
+	<xs:complexType name="parent1Type">
+		<xs:sequence>
+			<xs:element name="child" type="xs:int"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="parent2Type">
+		<xs:sequence>
+			<xs:element name="child" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="parent1" type="parent1Type" />
+				<xs:element name="parent2" type="parent2Type" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+To get an unique ID for all elements in XSD one special function is generated: findElementHash(). That method contains a big
+switch-case block which uses an ID of the current parent-element-type and the current element name to find that unique element
+ID. The parent-element-type is created at begin of generation. It is just a number for each type present in input XSD.
+
+After the unique element ID has been obtained, ParserTemplate has to map it to generated methods of private parser. Therefore
+a big function map is generated. It contains the unique element ID as key and a struct with member-function-pointers as value.
+That struct contains the methods of private parser which belong to current element.
+
+A second generated map is nameMap. That one contains a mapping of element and attribute hashes to their names. It is used
+for error handling.
+
+ParserTemplate needs two more special functions. One is used to find out if any element is allowed in current element: isXsAnyAllowed().
+If that method returns true, GeneratedSaxParser::IUnknownElementHandler is used. The other method is called isDifferentNamespaceAllowed.
+That one is used to decide if current attributes shall be searched for XML namespace declarations with xmlns. After XML specs that 
+namespace handling should be done at every element. But to increase performance it is only done at elements which reference children
+from different namespaces.
+
+Validation is split up in two different parts: complex type validation and simple type validation. Complex type validation means to check
+if child elements are allowed. Therefore it is necessary to validate the order in which child elements occur and to count how often
+a child element occurrs. Complex type validation gets more complicated when nested model groups are involved (that means e.g. a xs:sequence
+inside a xs:choice). In that case a state machine is used to find out if child elements are allowed. The state machine objects exist
+only at generation time. At runtime only interger compares take place. To implement these two kinds of complex type validation a
+validation struct is generated for each type. It contains members to count children or to update state machine.
+
+Simple type validation means to reduce allowed values. E.g. a float type which must be between 0.0 and 1.0. Or a list which must have at
+least 5 items. To ensure that a validation function is generated for each simple type. These functions are called during parsing of
+attributes and char data. As libxml passes char data chunk wise, we never know when char data are complete. To ensure that max length
+is not exeeded somewhen in the middle of several data-method calls, special 'stream' and 'streamEnd' validation functions are generated.
+'stream' is called during each data-method call and 'streamEnd' when char data are completed, that means during 'preEnd'.
+
+
+
+3. About code generator
+***********************
+The Sax Parser Generator uses apache xerces to parse the input XSD. It uses the xerces XSD model, too. That model is traversed element
+wise using abstract classes:
+- AbstractXSTraverser
+- AbstractStackBasedTraverser
+
+Before real code generation can start several information has to be gathered about input XSD. Therefore several sub classes of these
+traversers are used (see javadoc for details):
+- CppConstantsCreator
+- CppElementNameCreator
+- CppValidationDataStructNameCreator
+- ElementUsageCollector
+- SubstitutionGroupResolver
+
+Beside these traversers IDs for XSD types are generated. These infos are made available to several classes through interface
+IGenerationDataProvider.
+
+After information gathering output files are setup. In that steps are printed header comments, includes, class declarations
+and other stuff which does not depent on an element wise traversal.
+
+Afterwards the actual code generation starts. Required methods are printed to public and private parser files for each element.
+If necessary additional things like attribute structures, validation structures and functions, enums and unions are printed
+along the way.
+
+As generator and generated code should be independent, code templates are used. These are split up in two kinds: type dependent
+and type independent. Type dependent ones are defined in package de.netallied.xsd2cppsax.TypeMapping. Type independent ones
+are defined in a config file. That file is referenced in global generator config file via option 'codeTemplates'. These code
+templates contain placeholders to be filled in during generation. These placeholders start and end with a '#' character. They
+reference things like current element name or validation function for current XSD type. All allowed placeholders are defined in
+class 'Constants' and are obtaind through class 'Config'. The replacement of placeholders with their values is done by class
+'TemplateEngine'. As some code templates reference other code templates recursive replacement is required in some cases.

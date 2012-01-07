@@ -1,0 +1,222 @@
+<xs:schema xmlns="http://www.collada.org/2005/11/COLLADASchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.collada.org/2005/11/COLLADASchema" elementFormDefault="qualified" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
+
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="optics"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+			<xs:element name="optics">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="technique_common">
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="orthographic">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:choice>
+													<xs:sequence>
+														<xs:element name="xmag" type="targetable_float_type">
+														</xs:element>
+														<xs:choice minOccurs="0">
+															<xs:element name="ymag" type="targetable_float_type">
+															</xs:element>
+															<xs:element name="aspect_ratio" type="targetable_float_type">
+															</xs:element>
+														</xs:choice>
+													</xs:sequence>
+													<xs:sequence>
+														<xs:element name="ymag" type="targetable_float_type"/>
+														<xs:element name="aspect_ratio" type="targetable_float_type" minOccurs="0"/>
+													</xs:sequence>
+												</xs:choice>
+												<xs:element name="znear" type="targetable_float_type">
+												</xs:element>
+												<xs:element name="zfar" type="targetable_float_type">
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="perspective">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:choice>
+													<xs:sequence>
+														<xs:element name="xfov" type="targetable_float_type">
+														</xs:element>
+														<xs:choice minOccurs="0">
+															<xs:element name="yfov" type="targetable_float_type">
+															</xs:element>
+															<xs:element name="aspect_ratio" type="targetable_float_type">
+															</xs:element>
+														</xs:choice>
+													</xs:sequence>
+													<xs:sequence>
+														<xs:element name="yfov" type="targetable_float_type"/>
+														<xs:element name="aspect_ratio" type="targetable_float_type" minOccurs="0"/>
+													</xs:sequence>
+												</xs:choice>
+												<xs:element name="znear" type="targetable_float_type">
+												</xs:element>
+												<xs:element name="zfar" type="targetable_float_type">
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="technique" type="technique_type" minOccurs="0" maxOccurs="unbounded">
+						</xs:element>
+						<xs:element name="extra" type="extra_type" minOccurs="0" maxOccurs="unbounded">
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+	<!-- additional types -->
+		<xs:complexType name="targetable_float_type">
+		<xs:simpleContent>
+			<xs:extension base="float_type">
+				<xs:attribute name="sid" type="sid_type">
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:simpleType name="float_type">
+		<xs:restriction base="xs:double"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="sid_type">
+		<xs:restriction base="xs:NCName"/>
+	</xs:simpleType>
+
+
+	<xs:complexType name="technique_type">
+		<xs:sequence>
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="profile" type="xs:NMTOKEN" use="required">
+		</xs:attribute>
+	</xs:complexType>
+
+
+
+	<xs:complexType name="extra_type">
+		<xs:sequence>
+			<xs:element name="asset" type="asset_type" minOccurs="0">
+			</xs:element>
+			<xs:element name="technique" type="technique_type" maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID">
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:token">
+		</xs:attribute>
+		<xs:attribute name="type" type="xs:NMTOKEN">
+		</xs:attribute>
+	</xs:complexType>
+
+
+
+
+
+	<xs:complexType name="asset_type">
+		<xs:sequence>
+			<xs:element name="contributor" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="author" type="xs:string" minOccurs="0">
+						</xs:element>
+						<xs:element name="author_email" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value="[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="author_website" type="xs:anyURI" minOccurs="0">
+						</xs:element>
+						<xs:element name="authoring_tool" type="xs:string" minOccurs="0">
+						</xs:element>
+						<xs:element name="comments" type="xs:string" minOccurs="0">
+						</xs:element>
+						<xs:element name="copyright" type="xs:string" minOccurs="0">
+						</xs:element>
+						<xs:element name="source_data" type="xs:anyURI" minOccurs="0">
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="coverage" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="geographic_location" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="longitude" type="xs:float"/>
+									<xs:element name="latitude" type="xs:float"/>
+									<xs:element name="altitude">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:float">
+													<xs:attribute name="mode" type="altitude_mode_enum" default="relativeToGround"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="created" type="xs:dateTime">
+			</xs:element>
+			<xs:element name="keywords" type="xs:token" minOccurs="0">
+			</xs:element>
+			<xs:element name="modified" type="xs:dateTime">
+			</xs:element>
+			<xs:element name="revision" type="xs:string" minOccurs="0">
+			</xs:element>
+			<xs:element name="subject" type="xs:string" minOccurs="0">
+			</xs:element>
+			<xs:element name="title" type="xs:string" minOccurs="0">
+			</xs:element>
+			<xs:element name="unit" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="meter" type="float_type" default="1.0">
+					</xs:attribute>
+					<xs:attribute name="name" type="xs:NMTOKEN" default="meter">
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="up_axis" type="up_axis_enum" default="Y_UP" minOccurs="0">
+			</xs:element>
+			<xs:element name="extra" type="extra_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:simpleType name="altitude_mode_enum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="absolute"/>
+			<xs:enumeration value="relativeToGround"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<xs:simpleType name="up_axis_enum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="X_UP"/>
+			<xs:enumeration value="Y_UP"/>
+			<xs:enumeration value="Z_UP"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+</xs:schema>

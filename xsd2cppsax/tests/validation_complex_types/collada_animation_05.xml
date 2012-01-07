@@ -1,0 +1,16 @@
+<root xmlns="http://www.collada.org/2005/11/COLLADASchema">
+	<animation>
+
+		<sampler />
+		<sampler />
+		<sampler />
+		<sampler />
+		<sampler />
+		<sampler />
+
+		<channel />
+		<channel />
+		<channel />
+
+	</animation>
+</root>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This test handles different compositors in different elements (no nested ModelGroups).
+    minOccurs=0, minOccurs=1 and maxOccurs unbounded are tested as well.
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType"></element>
+
+	<complexType name="RootType">
+		<all>
+			<element name="allElem1" minOccurs="1" maxOccurs="1" type="tns:SequenceType" />
+			<element name="allElem2" minOccurs="0" maxOccurs="1" type="tns:SequenceType2" />
+			<element name="allElem3" minOccurs="1" maxOccurs="1" />
+		</all>
+	</complexType>
+
+	<complexType name="SequenceType">
+		<sequence>
+			<element name="seqElem1" minOccurs="1" maxOccurs="2" type="tns:ChoiceType" />
+			<element name="seqElem2" minOccurs="0" maxOccurs="2" />
+			<element name="seqElem3" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SequenceType2"><!-- first two elements with minOccurs="0" -->
+		<sequence>
+			<element name="seq2Elem1" minOccurs="0" maxOccurs="2" />
+			<element name="seq2Elem2" minOccurs="0" maxOccurs="2" />
+			<element name="seq2Elem3" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ChoiceType">
+		<choice>
+			<element name="choiceElem1" minOccurs="1" maxOccurs="2" />
+			<element name="choiceElem2" minOccurs="0" maxOccurs="2" />
+			<element name="choiceElem3" minOccurs="1" maxOccurs="unbounded" />
+		</choice>
+	</complexType>
+
+</schema>

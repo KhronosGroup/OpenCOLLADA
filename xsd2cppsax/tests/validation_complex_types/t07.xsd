@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This test was intended as a place holder for nested model groups with compositor all.
+    But that is not allowed. So it may be used for sequence-sequence or choice-choice.
+    minOccurs=0, minOccurs=1 and maxOccurs unbounded are tested as well.
+ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.netallied.de/xsd2cppsax/tests" xmlns:tns="http://www.netallied.de/xsd2cppsax/tests" elementFormDefault="qualified">
+
+    <element name="root" type="tns:RootType"></element>
+
+	<complexType name="RootType">
+		<sequence>
+			<element name="rootElem1" minOccurs="0" maxOccurs="unbounded" type="tns:AllType" />
+			<element name="rootElem2" minOccurs="0" maxOccurs="unbounded" type="tns:AllType2" />
+			<element name="rootElem3" minOccurs="0" maxOccurs="unbounded" type="tns:AllType" />
+			<element name="rootElem4" minOccurs="0" maxOccurs="unbounded" type="tns:AllType2" />
+		</sequence>
+	</complexType>
+
+	<complexType name="AllType"><!-- with minOccurs=0 -->
+		<all>
+			<element name="allElem1" minOccurs="1" maxOccurs="1" />
+			<element name="allElem2" minOccurs="0" maxOccurs="1" />
+			<element name="allElem3" minOccurs="1" maxOccurs="1" />
+		</all>
+	</complexType>
+
+	<complexType name="AllType2"><!-- always minOccurs -->
+		<all>
+			<element name="all2Elem1" minOccurs="1" maxOccurs="1" />
+			<element name="all2Elem2" minOccurs="1" maxOccurs="1" />
+			<element name="all2Elem3" minOccurs="1" maxOccurs="1" />
+		</all>
+	</complexType>
+
+</schema>
