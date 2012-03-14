@@ -93,7 +93,7 @@ namespace COLLADASW
     private:
 
         /** Returns the modifier as string. */
-        String& getModifierString ( const Modifier& modifier )
+        const String& getModifierString ( const Modifier& modifier )
         {
             switch ( modifier )
             {

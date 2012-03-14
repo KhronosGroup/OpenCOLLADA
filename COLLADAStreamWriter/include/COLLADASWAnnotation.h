@@ -219,7 +219,7 @@ namespace COLLADASW
         void add ( 
             const String &name, 
             const ValueType::ColladaType &type, 
-            const T val ) const
+            const T val )
         {
             openAnnotation ( name );
             openValuesElement ( type );
