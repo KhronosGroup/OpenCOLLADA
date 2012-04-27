@@ -14,6 +14,7 @@
 /* size_t for gcc, may want to move this include some place else - campbell */
 #ifdef __GNUC__
 #  include <cstdlib> /* size_t */
+#  include <cstring> /* memcpy */
 #endif
 
 namespace Common
