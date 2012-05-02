@@ -73,6 +73,7 @@ set(INST_SRC
 	include/COLLADASaxFWLSidTreeNode.h
 	include/COLLADASaxFWLSource.h
 	include/COLLADASaxFWLSourceArrayLoader.h
+	include/COLLADASaxFWLSplineLoader.h
 	include/COLLADASaxFWLStableHeaders.h
 	include/COLLADASaxFWLTechniqueCommon.h
 	include/COLLADASaxFWLTransformationLoader.h
@@ -105,6 +106,7 @@ set(INST_GEN14_SRC
 	include/generated14/COLLADASaxFWLNodeLoader14.h
 	include/generated14/COLLADASaxFWLSceneLoader14.h
 	include/generated14/COLLADASaxFWLSourceArrayLoader14.h
+	include/generated14/COLLADASaxFWLSplineLoader14.h
 	include/generated14/COLLADASaxFWLVisualSceneLoader14.h
 )
 
@@ -194,7 +196,9 @@ set(SRC
 	src/COLLADASaxFWLVisualSceneLoader.cpp
 	src/COLLADASaxFWLGeometryLoader.cpp
 	src/COLLADASaxFWLExtraDataElementHandler.cpp
+	src/COLLADASaxFWLSplineLoader.cpp
 
+	src/generated14/COLLADASaxFWLSplineLoader14.cpp
 	src/generated14/COLLADASaxFWLColladaParserAutoGen14PrivateNameMap.cpp
 	src/generated14/COLLADASaxFWLLibraryNodesLoader14.cpp
 	src/generated14/COLLADASaxFWLGeometryLoader14.cpp
@@ -217,6 +221,7 @@ set(SRC
 	src/generated14/COLLADASaxFWLMeshLoader14.cpp
 	src/generated14/COLLADASaxFWLLibraryImagesLoader14.cpp
 	src/generated14/COLLADASaxFWLLibraryLightsLoader14.cpp
+	src/generated14/COLLADASaxFWLSplineLoader14.cpp
 
 	src/generated15/COLLADASaxFWLNodeLoader15.cpp
 	src/generated15/COLLADASaxFWLColladaParserAutoGen15PrivateNameMap.cpp
