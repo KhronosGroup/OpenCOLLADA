@@ -49,6 +49,16 @@
             #define COLLADABU_HASH_NAMESPACE_CLOSE
             #define COLLADABU_HASH_FUN hash
         #endif
+    #elif defined(__MINGW32__) || defined(__MINGW64__)
+        #include <tr1/unordered_map>
+        #include <tr1/unordered_set>
+
+        #define COLLADABU_HASH_MAP std::tr1::unordered_map
+        #define COLLADABU_HASH_MULTIMAP std::tr1::unordered_multimap
+        #define COLLADABU_HASH_SET std::tr1::unordered_set
+        #define COLLADABU_HASH_NAMESPACE_OPEN std { namespace tr1
+        #define COLLADABU_HASH_NAMESPACE_CLOSE }
+        #define COLLADABU_HASH_FUN hash
     #endif
 #else   // Linux or Mac
     #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 3)

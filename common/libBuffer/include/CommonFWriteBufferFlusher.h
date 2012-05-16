@@ -14,7 +14,11 @@
 #include "CommonIBufferFlusher.h"
 
 #if (defined(WIN64) || defined(_WIN64) || defined(__WIN64__)) || (defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__))
+#ifdef __GNUC__
+#	include <tr1/unordered_map>
+#else
 #	include <unordered_map>
+#endif
 #else
 #	include <tr1/unordered_map>
 #endif
@@ -25,7 +29,7 @@
 #   include <cstdio>  /* FILE */
 #endif
 
-#if (defined(__GNUC__) && !defined(__STRICT_ANSI__)) || (__STDC_VERSION__ >= 199901L)
+#if (defined(__GNUC__) && !defined(__STRICT_ANSI__) && !defined(__MINGW32__)) || (__STDC_VERSION__ >= 199901L)
 typedef int64_t __int64;
 #endif
 

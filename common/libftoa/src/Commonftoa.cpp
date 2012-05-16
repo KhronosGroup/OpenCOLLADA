@@ -14,10 +14,11 @@
 
 #include <math.h>
 
-
 // no int32_t in MSVC
 #ifdef _MSC_VER
 typedef __int32 int32_t;
+#else
+#include <stdint.h>
 #endif
 
 namespace Common

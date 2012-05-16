@@ -1538,7 +1538,7 @@ namespace GeneratedSaxParser
     template<typename T>
     bool GeneratedSaxParser::Utils::isNaN( T value )
     {
-#ifdef COLLADABU_OS_WIN
+#if defined(COLLADABU_OS_WIN) && !defined(__MINGW32__)
         return _isnan( value ) ? true : false;
 #else
         using namespace std;

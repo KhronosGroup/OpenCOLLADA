@@ -25,7 +25,7 @@ if (WIN32)
 	list(APPEND SRC
 		include/config_win.h
 	)
-else if (APPLE)
+elseif (APPLE)
 	list(APPEND SRC
 		include/config_mac.h
 	)

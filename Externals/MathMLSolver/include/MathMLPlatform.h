@@ -130,7 +130,7 @@ namespace MathML
     // Disable unicode support on MingW at the moment, poorly supported in stdlibc++
     // STLPORT fixes this though so allow if found
     // MinGW C++ Toolkit supports unicode and sets the define __MINGW32_TOOLKIT_UNICODE__ in _mingw.h
-#if defined( __MINGW32__ ) && !defined(_STLPORT_VERSION)
+#if defined( __MINGW32__ ) && !defined(_STLPORT_VERSION) && !defined( __MINGW64__ )
 #   include<_mingw.h>
 #   if defined(__MINGW32_TOOLBOX_UNICODE__)
 #     define MML_UNICODE_SUPPORT 1

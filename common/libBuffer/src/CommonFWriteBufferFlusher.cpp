@@ -18,7 +18,7 @@ namespace Common
 	FWriteBufferFlusher::FWriteBufferFlusher( const char* fileName, size_t bufferSize, const char* mode/*="wb"*/ )
 		: mBufferSize(bufferSize)
 		, mBuffer( new char[bufferSize] )
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__GNUC__)
 		, mError( (int)fopen_s( &mStream, fileName, mode ) )
 #else
 		, mStream(fopen( fileName, mode ))
@@ -37,7 +37,7 @@ namespace Common
 	/* note: Unix has no _wfopen_s equivalent if its important we could
 	 * impliment our own but most likely this function is only needed
 	 * by windows developers - campbell */
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__GNUC__)
 	FWriteBufferFlusher::FWriteBufferFlusher( const wchar_t* fileName, size_t bufferSize, const wchar_t* mode/*=L"wb"*/ )
 		: mBufferSize(bufferSize)
 		, mBuffer( new char[bufferSize] )
