@@ -80,7 +80,6 @@
 #  define MAX_2012
 #endif
 
-
 // Max 2009 requires RTTI to be enabled
 #ifdef MAX_2009_OR_NEWER
 #ifndef _CPPRTTI
