@@ -18,6 +18,7 @@
 #include "COLLADAMaxHwShaderExporter.h"
 #include "COLLADAMaxEffectExporter.h"
 #include "COLLADAMaxEffectTextureExporter.h"
+#include "COLLADAMaxAnimationExporter.h"
 
 #include "COLLADASWPass.h"
 #include "COLLADASWRenderState.h"
@@ -42,10 +43,42 @@ namespace COLLADAMax
     {
         // Set the effect profile
         mEffectProfile = effectProfile;
-        
+
+        exportParameterAnimations( effectId, material );
         //:TODO: check if this call is necessary (might have been done earlier)
         exportNode->addSymbol ( material, NativeString(material->GetName().data()) );
         exportCgfxShader ( effectProfile, material, weight );
+    }
+
+    // ---------------------------------
+    void HwShaderExporter::exportParameterAnimations(
+        const String &effectId,
+        StdMat2* material
+        )
+    {
+        IParamBlock2 * pblock = material->GetParamBlock ( 0 );
+        int parameterCount = pblock->NumParams();
+
+        for ( int i = 0; i < parameterCount; i++ )
+        {
+            ParamID parameterID = pblock->IndextoID( i );
+            ParamType2 parameterType = pblock->GetParameterType( parameterID );
+
+            if( parameterType != TYPE_FLOAT )
+            {
+                continue;
+            }
+
+            ParamDef parameterDef = pblock->GetParamDef( parameterID );
+
+            const char* paramName = parameterDef.int_name;
+            Control *controller = pblock->GetControllerByID(parameterID);
+
+            if( controller != 0 )
+            {
+                mDocumentExporter->getAnimationExporter()->addAnimatedFloat( controller, effectId, paramName, 0 );
+            }
+        }
     }
 
     // ---------------------------------

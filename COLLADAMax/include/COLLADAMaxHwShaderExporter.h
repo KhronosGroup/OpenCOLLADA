@@ -69,6 +69,11 @@ namespace COLLADAMax
 
     private:
 
+        /** Export animated parameters */
+        void exportParameterAnimations(
+            const String &effectId,
+            StdMat2* material );
+
         /** Exports the effect data of a cgfxShader node. */
         void exportCgfxShader (
             COLLADASW::EffectProfile *effectProfile,
