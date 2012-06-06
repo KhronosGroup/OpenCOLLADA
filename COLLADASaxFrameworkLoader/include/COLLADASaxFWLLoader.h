@@ -311,6 +311,8 @@ namespace COLLADASaxFWL
 
         const FileLoader * getFileLoader() const { return mFileLoader; }
 
+        AnimationSidAddressBindingList & getAnimationSidAddressBindingList() { return mAnimationSidAddressBindings; }
+
         /** Starts loading the model and feeds the writer with data.
 		@param fileName The name of the file that should be loaded.
 		@param writer The writer that should be fed with data.
