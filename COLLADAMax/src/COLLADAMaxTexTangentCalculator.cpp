@@ -58,10 +58,20 @@ namespace COLLADAMax
 		Real t1 = w2.y - w1.y;
 		Real t2 = w3.y - w1.y;
 
-		Real r = (Real)1.0 / (s1 * t2 - s2 * t1);
-		texTangent.set( (t2 * x1 - t1 * x2) * r, (t2 * y1 - t1 * y2) * r, (t2 * z1 - t1 * z2) * r);
+		Real determinant = s1 * t2 - s2 * t1;
+
+		if( !COLLADABU::Math::Utils::equalsZero( determinant ) )
+		{
+			Real r = (Real)1.0 / determinant;
+			texTangent.set( (t2 * x1 - t1 * x2) * r, (t2 * y1 - t1 * y2) * r, (t2 * z1 - t1 * z2) * r);
+			//	tDir.set( (s1 * x2 - s2 * x1) * r, (s1 * y2 - s2 * y1) * r, (s1 * z2 - s2 * z1) * r);
+		}
+		else
+		{
+			texTangent.set( x1, y1, z1 );
+		}
+
 		texTangent.normalise();
-	//	tDir.set( (s1 * x2 - s2 * x1) * r, (s1 * y2 - s2 * y1) * r, (s1 * z2 - s2 * z1) * r);
 	}
 
 
