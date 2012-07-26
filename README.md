@@ -22,4 +22,4 @@ Directories
 * [GeneratedSaxParser](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/GeneratedSaxParser) -- Library used to load xml files in the way used by COLLADASaxFrameworkLoader      
 
 OpenCOLLADA Tools
-You may download binaires of OpenCOLLADA tools [here](OpenCOLLADA Tools).
+You may download binaires of OpenCOLLADA tools [here](https://github.com/KhronosGroup/OpenCOLLADA/wiki/OpenCOLLADA-Tools).
