@@ -589,6 +589,11 @@ namespace COLLADASaxFWL
         const ParserChar* sid;
         const ParserChar* name;
     };
+
+    struct spline__AttributeData
+    {
+        bool closed;
+    };
     struct technique__AttributeData
     {
         const ParserChar* profile;

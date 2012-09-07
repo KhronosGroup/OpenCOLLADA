@@ -2952,6 +2952,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLSplineLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLTransformationLoader.cpp"
 				>
 			</File>
@@ -3180,6 +3184,10 @@
 				</File>
 				<File
 					RelativePath="..\src\generated14\COLLADASaxFWLSourceArrayLoader14.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\generated14\COLLADASaxFWLSplineLoader14.cpp"
 					>
 				</File>
 				<File
