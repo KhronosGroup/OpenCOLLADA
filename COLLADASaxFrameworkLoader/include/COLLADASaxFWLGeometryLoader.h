@@ -15,6 +15,7 @@
 #include "COLLADASaxFWLSource.h"
 #include "COLLADASaxFWLXmlTypes.h"
 #include "COLLADASaxFWLMeshLoader.h"
+#include "COLLADASaxFWLSplineLoader.h"
 #include "COLLADASaxFWLFilePartLoader.h"
 
 
@@ -39,6 +40,9 @@ namespace COLLADASaxFWL
 
 		/** The mesh loader used to load the mesh inside the geometry.*/
         MeshLoader* mMeshLoader;
+
+        /** The mesh loader used to load the mesh inside the geometry.*/
+        SplineLoader* mSplineLoader;
 
 	public:
 
@@ -65,6 +69,9 @@ namespace COLLADASaxFWL
 
         /** Sax callback function for the beginning of a mesh.*/
 		virtual bool begin__mesh();
+
+        /** Sax callback function for the beginning of a spline.*/
+        virtual bool begin__spline(const spline__AttributeData & attributeData);
 
         /** Sax callback function for the ending of a geometry.*/
 		virtual bool end__geometry();

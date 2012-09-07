@@ -1043,6 +1043,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWSpline.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWTexture.cpp"
 				>
 			</File>

@@ -104,6 +104,7 @@ set(INST_SRC
 	include/COLLADAFWSkew.h
 	include/COLLADAFWSkinController.h
 	include/COLLADAFWSkinControllerData.h
+	include/COLLADAFWSpline.h
 	include/COLLADAFWStableHeaders.h
 	include/COLLADAFWTarget.h
 	include/COLLADAFWTargetableValue.h
@@ -162,6 +163,7 @@ set(SRC
 	src/COLLADAFWFileInfo.cpp
 	src/COLLADAFWSkinControllerData.cpp
 	src/COLLADAFWMesh.cpp
+	src/COLLADAFWSpline.cpp
 
 	${INST_SRC}
 )

@@ -82,6 +82,7 @@
 #include "COLLADAFWSkew.h"
 #include "COLLADAFWSkinController.h"
 #include "COLLADAFWSkinControllerData.h"
+#include "COLLADAFWSpline.h"
 #include "COLLADAFWTargetableValue.h"
 #include "COLLADAFWTechnique.h"
 #include "COLLADAFWTexture.h"
