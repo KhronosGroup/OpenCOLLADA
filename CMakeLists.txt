@@ -127,9 +127,9 @@ endmacro()
 project(OPENCOLLADA)  # must be after setting cmake_configuration_types
 
 # defines where specific parts of BRICS_MM are stored or created
-set(LIBRARY_OUTPUT_PATH            ${CMAKE_HOME_DIRECTORY}/lib)  # static libraries
-set(EXECUTABLE_OUTPUT_PATH         ${CMAKE_HOME_DIRECTORY}/bin)  # executables
-set(EXTERNAL_LIBRARIES        	   ${CMAKE_HOME_DIRECTORY}/Externals)  # external libraries
+set(LIBRARY_OUTPUT_PATH            ${OPENCOLLADA_SOURCE_DIR}/lib)  # static libraries
+set(EXECUTABLE_OUTPUT_PATH         ${OPENCOLLADA_SOURCE_DIR}/bin)  # executables
+set(EXTERNAL_LIBRARIES        	   ${OPENCOLLADA_SOURCE_DIR}/Externals)  # external libraries
 set(CMAKE_MODULE_PATH "${EXTERNAL_LIBRARIES}/cmake-modules")
 
 
