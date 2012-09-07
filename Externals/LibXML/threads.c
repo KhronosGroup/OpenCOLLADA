@@ -967,7 +967,7 @@ xmlOnceInit(void)
  *
  * Returns TRUE always
  */
-#define LIBXML_STATIC_FOR_DLL 1
+
 #if defined(HAVE_WIN32_THREADS) && !defined(HAVE_COMPILER_TLS) && (!defined(LIBXML_STATIC) || defined(LIBXML_STATIC_FOR_DLL))
 #if defined(LIBXML_STATIC_FOR_DLL)
 BOOL XMLCALL
