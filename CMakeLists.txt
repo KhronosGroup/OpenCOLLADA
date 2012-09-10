@@ -57,7 +57,13 @@ macro(opencollada_add_lib
 	if (USE_STATIC)
 		add_library(${name}_static STATIC ${sources})
 		set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
-		target_link_libraries(${name}_static ${target_libs})
+		foreach(target_lib ${target_libs})
+			if(TARGET ${target_lib}_static)
+				target_link_libraries(${name}_static ${target_lib}_static)
+			else()
+				target_link_libraries(${name}_static ${target_lib})
+			endif()
+		endforeach()
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
 
 		install(
@@ -72,7 +78,13 @@ macro(opencollada_add_lib
 		endif ()
 		add_library(${name}_shared SHARED ${sources})
 		set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
-		target_link_libraries(${name}_shared ${target_libs})
+		foreach(target_lib ${target_libs})
+			if(TARGET ${target_lib}_shared)
+				target_link_libraries(${name}_shared ${target_lib}_shared)
+			else()
+				target_link_libraries(${name}_shared ${target_lib})
+			endif()
+		endforeach()
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}"  PARENT_SCOPE)
 
 		install(
