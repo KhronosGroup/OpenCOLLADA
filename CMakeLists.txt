@@ -61,7 +61,7 @@ macro(opencollada_add_lib
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
 
 		install(
-			TARGETS ${name}_static
+			TARGETS ${name}_static EXPORT LibraryExport
 			ARCHIVE DESTINATION ${OPENCOLLADA_INST_LIBRARY}
 		)
 	endif ()
@@ -76,7 +76,7 @@ macro(opencollada_add_lib
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}"  PARENT_SCOPE)
 
 		install(
-			TARGETS ${name}_shared
+			TARGETS ${name}_shared EXPORT LibraryExport
 			LIBRARY DESTINATION ${OPENCOLLADA_INST_LIBRARY}
 		)
 	endif ()
@@ -132,6 +132,11 @@ set(EXECUTABLE_OUTPUT_PATH         ${OPENCOLLADA_SOURCE_DIR}/bin)  # executables
 set(EXTERNAL_LIBRARIES        	   ${OPENCOLLADA_SOURCE_DIR}/Externals)  # external libraries
 set(CMAKE_MODULE_PATH "${EXTERNAL_LIBRARIES}/cmake-modules")
 
+set(OPENCOLLADA_VERSION_MAJOR 0)
+set(OPENCOLLADA_VERSION_MINOR 1)
+set(OPENCOLLADA_VERSION_PATCH 0)
+set(OPENCOLLADA_VERSION ${OPENCOLLADA_VERSION_MAJOR}.${OPENCOLLADA_VERSION_MINOR}.${OPENCOLLADA_VERSION_PATCH})
+
 
 #-----------------------------------------------------------------------------
 # Compiler warnings.
@@ -166,6 +171,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_WARNINGS}")
 
 set(OPENCOLLADA_INST_INCLUDE ${CMAKE_INSTALL_PREFIX}/include/opencollada)
 set(OPENCOLLADA_INST_LIBRARY ${CMAKE_INSTALL_PREFIX}/lib/opencollada)
+set(OPENCOLLADA_INST_CMAKECONFIG ${OPENCOLLADA_INST_LIBRARY}/cmake)
 
 
 #-----------------------------------------------------------------------------
@@ -243,3 +249,21 @@ add_subdirectory(COLLADAStreamWriter)
 
 # building COLLADAValidator app
 add_subdirectory(COLLADAValidator)
+
+
+# Library export
+install(EXPORT LibraryExport DESTINATION ${OPENCOLLADA_INST_CMAKECONFIG} FILE OpenCOLLADATargets.cmake)
+
+# Create the configuration files
+include(CMakePackageConfigHelpers)
+configure_package_config_file(OpenCOLLADAConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/OpenCOLLADAConfig.cmake
+                              INSTALL_DESTINATION ${OPENCOLLADA_INST_CMAKECONFIG}
+                              PATH_VARS OPENCOLLADA_INST_INCLUDE OPENCOLLADA_INST_CMAKECONFIG
+                              NO_SET_AND_CHECK_MACRO NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/OpenCOLLADAConfigVersion.cmake
+                                 VERSION ${OPENCOLLADA_VERSION}
+                                 COMPATIBILITY SameMajorVersion)
+
+# Install the configuration files
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/OpenCOLLADAConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/OpenCOLLADAConfigVersion.cmake
+        DESTINATION ${OPENCOLLADA_INST_CMAKECONFIG})
