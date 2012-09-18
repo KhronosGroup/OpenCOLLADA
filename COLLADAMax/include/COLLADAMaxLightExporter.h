@@ -60,9 +60,15 @@ namespace COLLADAMax
 
 
 		static const String OVERSHOOT_PARAMETER;
+		static const String MULTIPLIER_PARAMETER;
 		static const String DECAY_TYPE_PARAMETER;
+		static const String DECAY_RADIUS_PARAMETER;
 		static const String USE_FAR_ATTENUATION_PARAMETER;
 		static const String USE_NEAR_ATTENUATION_PARAMETER;
+		static const String NEAR_START_ATTENUATION_PARAMETER;
+		static const String NEAR_END_ATTENUATION_PARAMETER;
+		static const String FAR_START_ATTENUATION_PARAMETER;
+		static const String FAR_END_ATTENUATION_PARAMETER;
 
 
 		static const String SHADOW_ATTRIBS;

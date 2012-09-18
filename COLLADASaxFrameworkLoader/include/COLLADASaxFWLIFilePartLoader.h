@@ -269,6 +269,7 @@ namespace COLLADASaxFWL
 
 		/** Sets the part loader.*/
 		void setPartLoader(IFilePartLoader* partLoader){mPartLoader=partLoader;}
+		const IFilePartLoader* getPartLoader() const {return mPartLoader;}
 
 		/** Returns the absolute uri of the currently parsed file*/
 		virtual const COLLADABU::URI& getFileUri()=0;

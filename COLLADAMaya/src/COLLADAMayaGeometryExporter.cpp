@@ -520,12 +520,12 @@ namespace COLLADAMaya
             if ( perVertexColor )
             {
                 // Insert a per-vertex color set input
-				mVertexSources.push_back ( SourceInput ( colorSource, COLLADASW::InputSemantic::COLOR, i ) );
+                mVertexSources.push_back ( SourceInput ( colorSource, COLLADASW::InputSemantic::COLOR, i ) );
             }
             else
             {
                 // Insert a per-face-vertex color set input
-				mPolygonSources.push_back ( SourceInput ( colorSource, COLLADASW::InputSemantic::COLOR, i ) );
+                mPolygonSources.push_back ( SourceInput ( colorSource, COLLADASW::InputSemantic::COLOR, i ) );
             }
         }
     }

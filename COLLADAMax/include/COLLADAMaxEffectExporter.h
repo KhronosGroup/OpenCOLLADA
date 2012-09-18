@@ -28,6 +28,7 @@
 
 #include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxMaterialExporter.h"
+#include "COLLADAMaxEffectTextureExporter.h"
 #include "COLLADAMaxExtra.h"
 #include "COLLADAMaxTypes.h"
 
@@ -174,6 +175,8 @@ namespace COLLADAMax
 
 		AnimationExporter * mAnimationExporter;
 
+        EffectTextureExporter mTextureExporter;
+
         /** List of ids of the already exported materials that are used in the COLLADASW file.*/
         ExportedEffectIdAndNameList * mExportedEffectIdList;
 
@@ -189,6 +192,10 @@ namespace COLLADAMax
 		/** Maps material and channels to the IParamBlock of the corresponding StdUVGen*/
 		MaterialChannelPairParamBlockMap mMaterialChannelPairParamBlockMap;
 
+        /**
+         * The max id with the collada id.
+         */
+        StringToStringMap mMaxIdColladaImageIdMap;
 
     public:
         /** Constructor
@@ -220,6 +227,9 @@ namespace COLLADAMax
         {
             return mExportedImageMap;
         }
+
+		/** Returns the TextureExporter of the effect exporter.*/
+		 EffectTextureExporter* getTextureExporter () { return &mTextureExporter; }
 
 		/** Returns the MaterialChannelPairParamBlockMap used by the effect exporter*/
 		const MaterialChannelPairParamBlockMap & getMaterialChannelPairParamBlockMap() const
@@ -259,6 +269,9 @@ namespace COLLADAMax
 
         /** Exports am common COLLADASW effect created from  @a material.*/
         void exportCommonEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId, float weight = 1.0, bool inited = false );
+
+        /** Exports a HLSL COLLADASW effect created from  @a material.*/
+        void exportHLSLEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId, float weight = 1.0, bool inited = false );
 
         /** Exports the material @a material.*/
         void exportSimpleEffect ( ExportNode* exportNode, Mtl* material );

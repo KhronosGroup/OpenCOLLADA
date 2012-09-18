@@ -39,7 +39,8 @@ namespace COLLADASaxFWL
 
 
 	Loader::Loader( IErrorHandler* errorHandler )
-		: mNextFileId(0)
+		: mFileLoader(0)
+		, mNextFileId(0)
 		, mCurrentFileId(0)
 		, mErrorHandler(errorHandler)
 		, mNextTextureMapId(0)
@@ -211,13 +212,14 @@ namespace COLLADASaxFWL
 				|| !mExternalReferenceDeciderCallbackFunction 
 				|| mExternalReferenceDeciderCallbackFunction(fileUri, mCurrentFileId) )
 			{
-				FileLoader fileLoader(this, 
+				mFileLoader = new FileLoader(this, 
 					fileUri,
 					&saxParserErrorHandler, 
 					mObjectFlags,
 					mParsedObjectFlags, 
 					mExtraDataCallbackHandlerList );
-				bool success = fileLoader.load();
+				bool success = mFileLoader->load();
+				delete mFileLoader;
 				abortLoading = !success;
 			}
 

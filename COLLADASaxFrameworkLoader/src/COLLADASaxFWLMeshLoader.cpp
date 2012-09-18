@@ -51,6 +51,8 @@ namespace COLLADASaxFWL
 		, mNormalsOffset (0)
 		, mNormalsIndexOffset(0)
 		, mUseNormals ( false )
+        , mUseTangents ( false )
+        , mUseBinormals ( false )
         , mTexCoordList (0)
         , mColorList (0)
 		, mCurrentPrimitiveType(NONE)
@@ -151,6 +153,12 @@ namespace COLLADASaxFWL
         case InputSemantic::UV:
         case InputSemantic::TEXCOORD:
             retValue = loadTexCoordsSourceElement ( input );
+            break;
+        case InputSemantic::TEXTANGENT:
+            retValue = loadTexTangentSourceElement( input );
+            break;
+        case InputSemantic::TEXBINORMAL:
+            retValue = loadTexBinormalSourceElement( input );
             break;
         default:
             // Not implemented source
@@ -392,6 +400,94 @@ namespace COLLADASaxFWL
         return retValue;
     }
 
+    bool MeshLoader::loadTexTangentSourceElement( const InputShared& input )
+    {
+        bool retValue = true;
+
+        // Get the semantic of the current input element.
+        InputSemantic::Semantic semantic = input.getSemantic ();
+        if ( semantic != InputSemantic::TEXTANGENT )
+        {
+            std::cerr << "The current input element is not a TEXTANGENT element!" << std::endl;
+            return false;
+        }
+
+        // Get the source element with the uri of the input element.
+        COLLADABU::URI inputUrl = input.getSource ();
+        String sourceId = inputUrl.getFragment ();
+        SourceBase* sourceBase = getSourceById ( sourceId );
+        if ( sourceBase == 0 ) return false;
+
+        // Check if the source element is already loaded.
+        if ( sourceBase->isLoadedInputElement ( semantic ) ) return false;
+
+        // Get the stride of the uv coordinates. 
+        // This is the dimension of the uv coordinates.
+        // In depend on the dimension, we store the coordinates in the mesh.
+        unsigned long long stride = sourceBase->getStride ();
+        if ( stride !=  3 )
+        {
+            std::cerr << "The tangent source " <<  input.getSource().getURIString () 
+                << " has a wrong dimension of " << stride 
+                << ". Dimensions must be 3." << std::endl;
+            retValue = false;
+        }
+        else
+        {
+            COLLADAFW::MeshVertexData& colors = mMesh->getTangents ();
+            retValue = appendVertexValues ( sourceBase, colors );
+        }
+
+        // Set the source base as loaded element.
+        sourceBase->addLoadedInputElement ( semantic );
+
+        return retValue;
+    }
+
+    bool MeshLoader::loadTexBinormalSourceElement ( const InputShared& input )
+    {
+        bool retValue = true;
+
+        // Get the semantic of the current input element.
+        InputSemantic::Semantic semantic = input.getSemantic ();
+        if ( semantic != InputSemantic::TEXBINORMAL )
+        {
+            std::cerr << "The current input element is not a TEXBINORMAL element!" << std::endl;
+            return false;
+        }
+
+        // Get the source element with the uri of the input element.
+        COLLADABU::URI inputUrl = input.getSource ();
+        String sourceId = inputUrl.getFragment ();
+        SourceBase* sourceBase = getSourceById ( sourceId );
+        if ( sourceBase == 0 ) return false;
+
+        // Check if the source element is already loaded.
+        if ( sourceBase->isLoadedInputElement ( semantic ) ) return false;
+
+        // Get the stride of the uv coordinates. 
+        // This is the dimension of the uv coordinates.
+        // In depend on the dimension, we store the coordinates in the mesh.
+        unsigned long long stride = sourceBase->getStride ();
+        if ( stride !=  3 )
+        {
+            std::cerr << "The binormal source " <<  input.getSource().getURIString () 
+                << " has a wrong dimension of " << stride 
+                << ". Dimensions must be 3." << std::endl;
+            retValue = false;
+        }
+        else
+        {
+            COLLADAFW::MeshVertexData& colors = mMesh->getBinormals ();
+            retValue = appendVertexValues ( sourceBase, colors );
+        }
+
+        // Set the source base as loaded element.
+        sourceBase->addLoadedInputElement ( semantic );
+
+        return retValue;
+    }
+
     //------------------------------
     bool MeshLoader::appendVertexValues ( 
         SourceBase* sourceBase, 
@@ -511,6 +607,18 @@ namespace COLLADASaxFWL
 				normalIndices.append ( index + mNormalsIndexOffset );
 			}
 
+            if ( mUseTangents && (mCurrentOffset == mTangentsOffset) )
+            {
+                COLLADAFW::UIntValuesArray& tangentIndices = mCurrentMeshPrimitive->getTangentIndices();
+                tangentIndices.append ( index + mTangentsIndexOffset );
+            }
+
+            if ( mUseBinormals && (mCurrentOffset == mBinormalsOffset) )
+            {
+                COLLADAFW::UIntValuesArray& binormalIndices = mCurrentMeshPrimitive->getBinormalIndices();
+                binormalIndices.append ( index + mBinormalsIndexOffset );
+            }
+
 
             // Look if the current offset is a texcoord offset.
             size_t numTexCoordinates = mTexCoordList.size();
@@ -608,6 +716,8 @@ namespace COLLADASaxFWL
         mNormalsOffset = 0;
         mNormalsIndexOffset = 0;
         mUseNormals = false;
+        mUseTangents = false;
+        mUseBinormals = false;
         mTexCoordList.clear ();
         mColorList.clear ();
 
@@ -620,6 +730,8 @@ namespace COLLADASaxFWL
         initializeNormalsOffset();
         initializeColorsOffset();
         initializeTexCoordsOffset();
+        initializeTangentsOffset();
+        initializeBinormalsOffset();
 	}
 
     //------------------------------
@@ -682,6 +794,83 @@ namespace COLLADASaxFWL
         {
             mNormalsIndexOffset = 0;
             mUseNormals = false;
+        }
+    }
+
+    //------------------------------
+    void MeshLoader::initializeTangentsOffset ()
+    {
+        // Check for using normals
+        const InputShared* tangentInput = mMeshPrimitiveInputs.getTangentInput ();
+        if ( tangentInput != 0 ) 
+        {
+            // Get the offset value, the initial index values and alloc the memory.
+            mTangentsOffset = tangentInput->getOffset ();
+            const SourceBase* sourceBase = getSourceById ( tangentInput->getSource ().getFragment () );
+            if ( !sourceBase )
+            {
+                mTangentsIndexOffset = 0;
+                mUseTangents = false;
+            }
+            else 
+            {
+                // only stride 3 makes sense for normals
+                unsigned long long stride = sourceBase->getStride();
+                if ( stride == 3 )
+                {
+                    mTangentsIndexOffset = (unsigned int)(sourceBase->getInitialIndex() / stride);
+                    mUseTangents = true;
+                }
+                else
+                {
+                    mTangentsIndexOffset = 0;
+                    mUseTangents = false;
+                }
+            }
+        }
+        else
+        {
+            mTangentsIndexOffset = 0;
+            mUseTangents = false;
+        }
+    }
+
+
+    //------------------------------
+    void MeshLoader::initializeBinormalsOffset ()
+    {
+        // Check for using normals
+        const InputShared* binormalInput = mMeshPrimitiveInputs.getBinormalInput ();
+        if ( binormalInput != 0 ) 
+        {
+            // Get the offset value, the initial index values and alloc the memory.
+            mBinormalsOffset = binormalInput->getOffset ();
+            const SourceBase* sourceBase = getSourceById ( binormalInput->getSource ().getFragment () );
+            if ( !sourceBase )
+            {
+                mBinormalsIndexOffset = 0;
+                mUseBinormals = false;
+            }
+            else 
+            {
+                // only stride 3 makes sense for normals
+                unsigned long long stride = sourceBase->getStride();
+                if ( stride == 3 )
+                {
+                    mBinormalsIndexOffset = (unsigned int)(sourceBase->getInitialIndex() / stride);
+                    mUseBinormals = true;
+                }
+                else
+                {
+                    mBinormalsIndexOffset = 0;
+                    mUseBinormals = false;
+                }
+            }
+        }
+        else
+        {
+            mBinormalsIndexOffset = 0;
+            mUseBinormals = false;
         }
     }
 
@@ -847,6 +1036,17 @@ namespace COLLADASaxFWL
 			{
 				mCurrentMeshPrimitive->getNormalIndices().reallocMemory((size_t)attributeData.count);
 			}
+
+            if ( mUseTangents )
+            {
+                mCurrentMeshPrimitive->getTangentIndices().reallocMemory((size_t)attributeData.count);
+            }
+
+            if ( mUseBinormals )
+            {
+                mCurrentMeshPrimitive->getBinormalIndices().reallocMemory((size_t)attributeData.count);
+            }
+
 			// TODO pre-alloc memory for uv indices
 		}
 		if ( attributeData.material )

@@ -1077,7 +1077,12 @@ namespace COLLADAMax
 
 			if ( channelIndex <= 0)
 			{
-				triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+                if ( channelIndex == 0 )
+                {
+                    triangles.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+                }
+                //:NOTE: we removed the negative channel indices handling because they generate invalid input sets in exported DAE
+                //:TODO: handle channel indices -1 and -2 if support of MAP_SHADING and MAP_ALPHA is needed (see mesh.h)
 			}
 			else
 			{
@@ -1113,6 +1118,9 @@ namespace COLLADAMax
 					for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 					{
 						int channel = *it;
+
+						if ( channel < 0 )
+							continue; // see :TODO: above (MAP_SHADING & MAP_ALPHA)
 
 						if( channel < mesh.getNumMaps() && channel >= -NUM_HIDDENMAPS )
 						{
@@ -1156,9 +1164,15 @@ namespace COLLADAMax
 		for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 		{
 			const int& channelIndex = *it;
+
 			if ( channelIndex <= 0)
 			{
-				polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+                if ( channelIndex == 0 )
+                {
+                    polylist.getInputList().push_back( COLLADASW::Input( COLLADASW::InputSemantic::COLOR, "#" + mId + getTextureSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
+                }
+                //:NOTE: we removed the negative channel indices handling because they generate invalid input sets in exported DAE
+                //:TODO: handle channel indices -1 and -2 if support of MAP_SHADING and MAP_ALPHA is needed (see mesh.h)
 			}
 			else
 			{
@@ -1192,6 +1206,10 @@ namespace COLLADAMax
 					for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 					{
 						int channel = *it;
+
+						if ( channel < 0 )
+							continue; // see :TODO: above (MAP_SHADING & MAP_ALPHA)
+
 						MNMap * mnMap = mnMesh.M( channel );
 						assert( mnMap != 0 );
 						MNMapFace * mnMapFace = mnMap->F( faceIndex );

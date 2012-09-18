@@ -141,6 +141,14 @@ namespace COLLADASaxFWL
 		unsigned int mNormalsIndexOffset; 
         bool mUseNormals;
 
+        unsigned long long mTangentsOffset; 
+        unsigned int mTangentsIndexOffset; 
+        bool mUseTangents;
+
+        unsigned long long mBinormalsOffset; 
+        unsigned int mBinormalsIndexOffset; 
+        bool mUseBinormals;
+
         /** Multiple colors. */
         std::vector<PrimitiveInput> mColorList;
 
@@ -359,6 +367,8 @@ namespace COLLADASaxFWL
         void initializeTexCoordsOffset ();
         void initializeColorsOffset ();
         void initializeNormalsOffset ();
+        void initializeTangentsOffset ();
+        void initializeBinormalsOffset ();
         void initializePositionsOffset ();
 
 		/** Writes all the indices in data into the indices array of the current mesh primitive.*/
@@ -401,6 +411,18 @@ namespace COLLADASaxFWL
         * Load the uv coordinates source element of the current input element into the framework mesh.
         */
         bool loadTexCoordsSourceElement ( const InputShared& input );
+
+        /** 
+        * Load the tangent source element of the current input element into the framework mesh
+        */
+
+        bool loadTexBinormalSourceElement( const InputShared & input );
+
+        /** 
+        * Load the tangent source element of the current input element into the framework mesh
+        */
+
+        bool loadTexTangentSourceElement( const InputShared & input );
 
         /**
         * Appends the values of the source in the list with the dimension of source's stride.

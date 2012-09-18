@@ -452,6 +452,13 @@ namespace COLLADASaxFWL
         return true;
     }
 
+    //------------------------------
+    bool LibraryEffectsLoader::begin__newparam____cg_newparam( const newparam____cg_newparam__AttributeData& attributeData )
+    {
+        addToSidTree( 0, (const char *) attributeData.sid ); 
+        return true;
+    }
+
 	//------------------------------
 	bool LibraryEffectsLoader::begin__newparam____common_newparam_type( const newparam____common_newparam_type__AttributeData& attributeData )
 	{

@@ -84,9 +84,15 @@ namespace COLLADAMax
 
 
 	const String LightExporter::OVERSHOOT_PARAMETER = "overshoot";
+	const String LightExporter::MULTIPLIER_PARAMETER = "multiplier";
 	const String LightExporter::DECAY_TYPE_PARAMETER = "decay_type";
+	const String LightExporter::DECAY_RADIUS_PARAMETER = "decay_radius";
 	const String LightExporter::USE_FAR_ATTENUATION_PARAMETER = "use_far_attenuation";
 	const String LightExporter::USE_NEAR_ATTENUATION_PARAMETER = "use_near_attenuation";
+	const String LightExporter::NEAR_START_ATTENUATION_PARAMETER = "attenuation_near_start";
+	const String LightExporter::NEAR_END_ATTENUATION_PARAMETER = "attenuation_near_end";
+	const String LightExporter::FAR_START_ATTENUATION_PARAMETER = "attenuation_far_start";
+	const String LightExporter::FAR_END_ATTENUATION_PARAMETER = "attenuation_far_end";
 
 
 	const String LightExporter::SHADOW_ATTRIBS = "shadow_attributes";
@@ -303,7 +309,9 @@ namespace COLLADAMax
 
 
 		if ( parameters )
-			addParamBlockAnimatedExtraParameters(LIGHT_ELEMENT, LIGHT_PARAMETERS, LIGHT_PARAMETER_COUNT, parameters, lightId);
+		{
+			//addParamBlockAnimatedExtraParameters(LIGHT_ELEMENT, LIGHT_PARAMETERS, LIGHT_PARAMETER_COUNT, parameters, lightId);
+		}
 		else
 			addParamBlockAnimatedExtraParameters(SKYLIGHT_ELEMENT, SKYLIGHT_PARAMETERS, SKYLIGHT_PARAMETER_COUNT, parametersSky, lightId);
 
@@ -326,8 +334,14 @@ namespace COLLADAMax
 			}
 
 			addExtraChildParameter(LIGHT_ELEMENT, DECAY_TYPE_PARAMETER, (int)light->GetDecayType());
+			addExtraChildParameter(LIGHT_ELEMENT, MULTIPLIER_PARAMETER, light->GetIntensity( 0 ));
+			addExtraChildParameter(LIGHT_ELEMENT, DECAY_RADIUS_PARAMETER, light->GetDecayRadius( 0 ));
 			addExtraChildParameter(LIGHT_ELEMENT, USE_NEAR_ATTENUATION_PARAMETER, (light->GetUseAttenNear() != false));
 			addExtraChildParameter(LIGHT_ELEMENT, USE_FAR_ATTENUATION_PARAMETER, (light->GetUseAtten() != false));
+			addExtraChildParameter(LIGHT_ELEMENT, NEAR_START_ATTENUATION_PARAMETER, light->GetAtten( 0, ATTEN1_START ) );
+			addExtraChildParameter(LIGHT_ELEMENT, NEAR_END_ATTENUATION_PARAMETER, light->GetAtten( 0, ATTEN1_END ) );
+			addExtraChildParameter(LIGHT_ELEMENT, FAR_START_ATTENUATION_PARAMETER, light->GetAtten( 0, ATTEN_START ) );
+			addExtraChildParameter(LIGHT_ELEMENT, FAR_END_ATTENUATION_PARAMETER, light->GetAtten( 0, ATTEN_END ) );
 
 			exportShadowParameters(light);
 
