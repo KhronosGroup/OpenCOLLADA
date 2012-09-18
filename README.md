@@ -8,6 +8,32 @@ For information about how to build OpenCOLLADA under linux and mac OSX usings SC
 
 NOTE: The COLLADA.sln solution, contained in this directory, exists only for development purposes. To build the NextGen plug-ins, please use the solutions in the COLLADAMax and COLLADAMaya directories.
 
+Building with cmake
+-------------------
+
+Mac OS X *Tested with Lion and Mountain Lion*:
+
+1. Install cmake with command line links (http://www.cmake.org/cmake/resources/software.html).
+2. some packages are required, they can be easily installed using a terminal with [brew](http://mxcl.github.com/homebrew/) type:
+ * ruby <(curl -fsSkL raw.github.com/mxcl/homebrew/go)
+ * brew install pkgconfig
+ * brew install pcre
+4. When using recent Xcode, install the command line tools in Prereferences -> Download -> Command Line Tools. (otherwise cmake will not be able to find out what is the compiler)
+5. Open Terminal
+6. Within the OpenCOLLADA folder (if you want to override projects in place)
+Type in a terminal:
+cmake -G Xcode -DWITH_IN_SOURCE_BUILD=ON
+If you don't want to override the projects, just type:
+cmake -G Xcode OpenCOLLADA  *Assuming your current directory is OpenCOLLADA's parent directory*.
+
+You should end up with a ready to be used OPENCOLLADA.xcodeproj.
+
+Windows *todo*
+-------
+
+Linux *todo*
+----- 
+
 Directories
 -----------
 * [COLLADABaseUtils](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/COLLADABaseUtils) -- Utils used by many of the other projects
