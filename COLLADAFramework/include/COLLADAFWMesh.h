@@ -72,6 +72,18 @@ namespace COLLADAFW
         MeshVertexData mUVCoords;
 
         /**
+        * The Tangent array
+        */
+
+        MeshVertexData mTangents;
+
+        /**
+        * The Binormal array
+        */
+
+        MeshVertexData mBinormals;
+
+        /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
         * Each primitive element holds the index arrays of the used input elements
         * Can be any combination of the following in any order:
@@ -214,6 +226,30 @@ namespace COLLADAFW
 
             return 0;
         }
+
+        /** 
+        * The 3 dimensional tangent coordinates array. 
+        * Tangent coordinates can be stored as float or double values.
+        */
+        const MeshVertexData& getTangents () const { return mTangents; }
+
+        /** 
+        * The 3 dimensional tangent coordinates array. 
+        * Tangent coordinates can be stored as float or double values.
+        */
+        MeshVertexData& getTangents () { return mTangents; }
+
+        /** 
+        * The 3 dimensional binormal coordinates array. 
+        * Binormal coordinates can be stored as float or double values.
+        */
+        const MeshVertexData& getBinormals () const { return mBinormals; }
+
+        /** 
+        * The 3 dimensional binormal coordinates array. 
+        * Binormal coordinates can be stored as float or double values.
+        */
+        MeshVertexData& getBinormals () { return mBinormals; }
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 

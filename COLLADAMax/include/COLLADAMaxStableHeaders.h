@@ -35,9 +35,9 @@
 #elif defined MAX_2010
 #	pragma message ("Compling for Max2010")
 #elif defined MAX_2011
-#	pragma message ("Compling for Max2011")
+#	pragma message ("Compiling for Max2011")
 #elif defined MAX_2012
-#	pragma message ("Compling for Max2012")
+#	pragma message ("Compiling for Max2012")
 #else
 #	error( "Unsupported Max version" )
 #endif

@@ -211,6 +211,8 @@ namespace COLLADASaxFWL
         /** Clear the sid of the new param.*/
         virtual bool end__newparam____fx_newparam_common();
 
+        /** Store the sid of the new param.*/
+        virtual bool begin__newparam____cg_newparam( const newparam____cg_newparam__AttributeData& attributeData );
 
 		/** Set the current profile to PROFILE_COMMON. Create and append common effect to current 
 		effect.*/

@@ -543,6 +543,10 @@ namespace COLLADASaxFWL
     {
         const ParserChar* sid;
     };
+    struct newparam____cg_newparam__AttributeData
+    {
+        const ParserChar* sid;
+    };
     struct newparam____common_newparam_type__AttributeData
     {
         const ParserChar* sid;

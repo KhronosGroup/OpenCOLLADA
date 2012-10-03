@@ -109,6 +109,17 @@ namespace COLLADAFW
         UIntValuesArray mNormalIndices;
 
         /** 
+        * The index list of the tangent array (support of multiple uv sets). 
+        */
+        UIntValuesArray mTangentIndices;
+
+        /** 
+        * The index list of the binormal array (support of multiple uv sets). 
+        */
+        UIntValuesArray mBinormalIndices;
+        
+
+        /** 
         * The index list of the colors array  (support of multiple colors). 
         */
         IndexListArray mColorIndicesArray;
@@ -117,7 +128,7 @@ namespace COLLADAFW
         * The index list of the uv coordinates array (support of multiple uv sets). 
         */
         IndexListArray mUVCoordIndicesArray;
-        
+
     public:	
 
         /**
@@ -199,6 +210,42 @@ namespace COLLADAFW
 
 		/**Returns true if the mesh primitive has normals.*/
 		bool hasNormalIndices() const { return !mNormalIndices.empty(); }
+
+        /** 
+		* The index list of the normals array. 
+		*/
+		UIntValuesArray& getTangentIndices () { return mTangentIndices; }
+
+		/** 
+		* The index list of the normals array. 
+		*/
+        const UIntValuesArray& getTangentIndices () const{ return mTangentIndices; }
+
+        /** 
+        * The index list of the normals array. 
+        */
+        void setTagentIndices ( const UIntValuesArray& TangentIndices ) { mTangentIndices = TangentIndices; }
+
+		/**Returns true if the mesh primitive has normals.*/
+		bool hasTangentIndices() const { return !mTangentIndices.empty(); }
+
+        		/** 
+		* The index list of the normals array. 
+		*/
+		UIntValuesArray& getBinormalIndices () { return mBinormalIndices; }
+
+		/** 
+		* The index list of the normals array. 
+		*/
+		const UIntValuesArray& getBinormalIndices () const{ return mBinormalIndices; }
+
+        /** 
+        * The index list of the normals array. 
+        */
+        void setBinormalIndices ( const UIntValuesArray& BinormalIndices ) { mBinormalIndices = BinormalIndices; }
+
+		/**Returns true if the mesh primitive has normals.*/
+		bool hasBinormalIndices() const { return !mBinormalIndices.empty(); }
 
         /** 
         * The index list of the colors array. 

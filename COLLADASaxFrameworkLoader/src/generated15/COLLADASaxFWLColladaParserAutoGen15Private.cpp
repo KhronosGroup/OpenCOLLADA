@@ -47861,7 +47861,6 @@ if ( !attributeData->sid )
         return false;
 }
 
-
     return true;
 }
 
