@@ -181,7 +181,7 @@ endif ()
 # Install vars
 
 set(OPENCOLLADA_INST_INCLUDE ${CMAKE_INSTALL_PREFIX}/include/opencollada)
-set(OPENCOLLADA_INST_LIBRARY ${CMAKE_INSTALL_PREFIX}/lib/opencollada)
+set(OPENCOLLADA_INST_LIBRARY ${CMAKE_INSTALL_PREFIX}/lib)
 
 
 #-----------------------------------------------------------------------------
