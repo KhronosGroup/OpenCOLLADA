@@ -72,7 +72,18 @@ macro(opencollada_add_lib
 		endif ()
 		add_library(${name}_shared SHARED ${sources})
 		set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
-		target_link_libraries(${name}_shared ${target_libs})
+
+		set(target_libs_TMP)
+		foreach(l ${target_libs})
+			if (NOT EXISTS ${l})
+				list(APPEND target_libs_TMP ${l}_shared )
+			else ()
+				list(APPEND target_libs_TMP ${l} )
+			endif ()
+		endforeach()
+		target_link_libraries(${name}_shared ${target_libs_TMP})
+		unset(target_libs_TMP)
+
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}"  PARENT_SCOPE)
 
 		install(
