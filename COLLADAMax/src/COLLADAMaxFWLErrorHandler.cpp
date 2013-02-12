@@ -29,6 +29,7 @@ namespace COLLADAMax
 
     //------------------------------
 	FWLErrorHandler::FWLErrorHandler()
+		: mHasCriticalError( false )
 	{
 	}
 	
@@ -37,9 +38,11 @@ namespace COLLADAMax
 	{
 	}
 
+	//------------------------------
 	bool FWLErrorHandler::handleError( const COLLADASaxFWL::IError* error )
 	{
 		std::string msg;
+		COLLADASaxFWL::IError::Severity severity = error->getSeverity();
 		switch ( error->getErrorClass())
 		{
 		case COLLADASaxFWL::IError::ERROR_SAXPARSER:
@@ -50,6 +53,17 @@ namespace COLLADAMax
 			break;
 		}
 		msg;
-		return false;
+
+		bool criticalError = (severity == COLLADASaxFWL::IError::SEVERITY_CRITICAL);
+		if( criticalError )
+			mHasCriticalError = true;
+
+		return criticalError ? true : false;
+	}
+
+	//------------------------------
+	const bool FWLErrorHandler::hasCriticalError() const
+	{
+		return mHasCriticalError;
 	}
 } // namespace COLLADAMax
