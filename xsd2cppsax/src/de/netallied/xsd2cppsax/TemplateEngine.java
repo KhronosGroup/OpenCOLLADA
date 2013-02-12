@@ -15,10 +15,13 @@ import org.apache.xerces.xs.XSAttributeUse;
 import org.apache.xerces.xs.XSComplexTypeDefinition;
 import org.apache.xerces.xs.XSElementDeclaration;
 import org.apache.xerces.xs.XSModelGroup;
+import org.apache.xerces.xs.XSNamespaceItem;
 import org.apache.xerces.xs.XSObject;
 import org.apache.xerces.xs.XSParticle;
 import org.apache.xerces.xs.XSSimpleTypeDefinition;
 import org.apache.xerces.xs.XSTypeDefinition;
+
+import com.sun.org.apache.xerces.internal.xs.XSConstants;
 
 import de.netallied.xsd2cppsax.TypeMapping.TypeMap;
 import de.netallied.xsd2cppsax.statemachine.StateMachineNode;
@@ -278,9 +281,17 @@ public class TemplateEngine {
             StateMachineRootNode sm, IGenerationDataProvider dataProvider) {
 
         XSModelGroup modelGroup = null;
+        boolean complexTypeMaxOccursUnbounded = false;
+        int complexTypeMinOccurs = -1;
+        int complexTypeMaxOccurs = -1;
         if (complexType != null) {
-            if (complexType.getParticle() != null) {
-                if (complexType.getParticle().getTerm() instanceof XSModelGroup) {
+        	XSParticle complexTypeParticle = complexType.getParticle();
+            if (complexTypeParticle != null) {
+            	complexTypeMaxOccursUnbounded = complexTypeParticle.getMaxOccursUnbounded();
+            	complexTypeMinOccurs = complexTypeParticle.getMinOccurs();
+            	complexTypeMaxOccurs = complexTypeParticle.getMaxOccurs();
+                if (complexTypeParticle.getTerm() instanceof XSModelGroup) {
+                	
                     modelGroup = (XSModelGroup) complexType.getParticle().getTerm();
                 }
             }
@@ -301,7 +312,7 @@ public class TemplateEngine {
                 }
             }
         }
-
+        
         Config config = dataProvider.getConfig();
         int iterationCounter = 0;
         while (tmpl.contains(Constants.TEMPLATE_DELIMITER_COMPLEX_VALIDATION)) {
@@ -331,7 +342,7 @@ public class TemplateEngine {
             }
             if (tmpl.contains(Constants.TMPL_COMPLEX_VALI_CHECK_MAX_OCCURENCE)) {
                 String maxOccCheck = config.getTemplateComplexValidationCheckMaxOccurence();
-                if (particle == null || (particle != null && particle.getMaxOccursUnbounded())) {
+                if (particle == null || (particle != null && particle.getMaxOccursUnbounded()) || complexTypeMaxOccursUnbounded ) {
                     maxOccCheck = "";
                 }
                 tmpl = tmpl.replace(Constants.TMPL_COMPLEX_VALI_CHECK_MAX_OCCURENCE, maxOccCheck);
@@ -445,11 +456,14 @@ public class TemplateEngine {
                         }
                         break;
                     case XSModelGroup.COMPOSITOR_CHOICE:
-                        List<XSParticle> siblings = Util.splitParticlesForChoice(modelGroup, particle);
-                        for (XSParticle sibling : siblings) {
-                            String particleTmpl = config.getTemplateComplexValidationChoiceCheckSiblilngs();
-                            siblingsCheck += fillInComplexValidationParticleTemplate(particleTmpl, sibling, config);
-                        }
+                    	if( !complexTypeMaxOccursUnbounded )
+                    	{
+	                        List<XSParticle> siblings = Util.splitParticlesForChoice(modelGroup, particle);
+	                        for (XSParticle sibling : siblings) {
+	                            String particleTmpl = config.getTemplateComplexValidationChoiceCheckSiblilngs();
+	                            siblingsCheck += fillInComplexValidationParticleTemplate(particleTmpl, sibling, config);
+	                        }
+                    	}
                         break;
                     }
                 }

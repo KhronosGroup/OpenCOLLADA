@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008-2009 NetAllied Systems GmbH
+    Copyright (c) 2008-2013 NetAllied Systems GmbH
 
     This file is part of COLLADASaxFrameworkLoader.
 
@@ -48,64 +48,64 @@ const char* NAME_NAMESPACE_COLLADA = "http://www.collada.org/2005/11/COLLADASche
 const char* NAME_NAMESPACE_http___www_w3_org_2001_XMLSchema = "http://www.w3.org/2001/XMLSchema";
 const char* NAME_NAMESPACE_http___www_w3_org_XML_1998_namespace = "http://www.w3.org/XML/1998/namespace";
 
-const char* NAME_ATTRIBUTE_BASE = "xml:base";
-const char* NAME_ATTRIBUTE_BODY = "body";
-const char* NAME_ATTRIBUTE_CAMERA_NODE = "camera_node";
-const char* NAME_ATTRIBUTE_CLOSED = "closed";
-const char* NAME_ATTRIBUTE_CONSTRAINT = "constraint";
-const char* NAME_ATTRIBUTE_CONVEX_HULL_OF = "convex_hull_of";
-const char* NAME_ATTRIBUTE_COUNT = "count";
-const char* NAME_ATTRIBUTE_DEPTH = "depth";
-const char* NAME_ATTRIBUTE_DIGITS = "digits";
-const char* NAME_ATTRIBUTE_END = "end";
-const char* NAME_ATTRIBUTE_FACE = NAME_ELEMENT_FACE;
-const char* NAME_ATTRIBUTE_FORMAT = "format";
-const char* NAME_ATTRIBUTE_HEIGHT = "height";
-const char* NAME_ATTRIBUTE_ID = "id";
-const char* NAME_ATTRIBUTE_INDEX = "index";
-const char* NAME_ATTRIBUTE_INPUT_SEMANTIC = "input_semantic";
-const char* NAME_ATTRIBUTE_INPUT_SET = "input_set";
-const char* NAME_ATTRIBUTE_LAYER = "layer";
-const char* NAME_ATTRIBUTE_LENGTH = "length";
-const char* NAME_ATTRIBUTE_MAGNITUDE = "magnitude";
-const char* NAME_ATTRIBUTE_MATERIAL = "material";
-const char* NAME_ATTRIBUTE_MAXINCLUSIVE = "maxInclusive";
-const char* NAME_ATTRIBUTE_METER = "meter";
-const char* NAME_ATTRIBUTE_METHOD = "method";
-const char* NAME_ATTRIBUTE_MININCLUSIVE = "minInclusive";
-const char* NAME_ATTRIBUTE_MIP = "mip";
-const char* NAME_ATTRIBUTE_NAME = "name";
-const char* NAME_ATTRIBUTE_OFFSET = "offset";
-const char* NAME_ATTRIBUTE_OPAQUE = "opaque";
-const char* NAME_ATTRIBUTE_OPERAND = "operand";
-const char* NAME_ATTRIBUTE_OPERATOR = "operator";
-const char* NAME_ATTRIBUTE_PARAM = NAME_ELEMENT_PARAM;
-const char* NAME_ATTRIBUTE_PARENT = "parent";
-const char* NAME_ATTRIBUTE_PLATFORM = "platform";
-const char* NAME_ATTRIBUTE_PROFILE = "profile";
-const char* NAME_ATTRIBUTE_PROGRAM = "program";
-const char* NAME_ATTRIBUTE_REF = "ref";
-const char* NAME_ATTRIBUTE_RIGID_BODY = NAME_ELEMENT_RIGID_BODY;
-const char* NAME_ATTRIBUTE_SCALE = NAME_ELEMENT_SCALE;
-const char* NAME_ATTRIBUTE_SEMANTIC = "semantic";
-const char* NAME_ATTRIBUTE_SET = "set";
-const char* NAME_ATTRIBUTE_SID = "sid";
-const char* NAME_ATTRIBUTE_SLICE = "slice";
-const char* NAME_ATTRIBUTE_SOURCE = NAME_ELEMENT_SOURCE;
-const char* NAME_ATTRIBUTE_STAGE = "stage";
-const char* NAME_ATTRIBUTE_START = "start";
-const char* NAME_ATTRIBUTE_STRIDE = "stride";
-const char* NAME_ATTRIBUTE_SYMBOL = "symbol";
-const char* NAME_ATTRIBUTE_TARGET = "target";
-const char* NAME_ATTRIBUTE_TEXCOORD = NAME_ELEMENT_TEXCOORD;
-const char* NAME_ATTRIBUTE_TEXTURE = NAME_ELEMENT_TEXTURE;
-const char* NAME_ATTRIBUTE_TYPE = "type";
-const char* NAME_ATTRIBUTE_UNIT = NAME_ELEMENT_UNIT;
-const char* NAME_ATTRIBUTE_URL = "url";
-const char* NAME_ATTRIBUTE_VALUE = "value";
-const char* NAME_ATTRIBUTE_VERSION = "version";
-const char* NAME_ATTRIBUTE_WIDTH = "width";
-const char* NAME_ATTRIBUTE_XMLNS = "xmlns";
+const char* NAME_ATTRIBUTE_base = "xml:base";
+const char* NAME_ATTRIBUTE_body = "body";
+const char* NAME_ATTRIBUTE_camera_node = "camera_node";
+const char* NAME_ATTRIBUTE_closed = "closed";
+const char* NAME_ATTRIBUTE_constraint = "constraint";
+const char* NAME_ATTRIBUTE_convex_hull_of = "convex_hull_of";
+const char* NAME_ATTRIBUTE_count = "count";
+const char* NAME_ATTRIBUTE_depth = "depth";
+const char* NAME_ATTRIBUTE_digits = "digits";
+const char* NAME_ATTRIBUTE_end = "end";
+const char* NAME_ATTRIBUTE_face = NAME_ELEMENT_FACE;
+const char* NAME_ATTRIBUTE_format = "format";
+const char* NAME_ATTRIBUTE_height = "height";
+const char* NAME_ATTRIBUTE_id = "id";
+const char* NAME_ATTRIBUTE_index = "index";
+const char* NAME_ATTRIBUTE_input_semantic = "input_semantic";
+const char* NAME_ATTRIBUTE_input_set = "input_set";
+const char* NAME_ATTRIBUTE_layer = "layer";
+const char* NAME_ATTRIBUTE_length = "length";
+const char* NAME_ATTRIBUTE_magnitude = "magnitude";
+const char* NAME_ATTRIBUTE_material = "material";
+const char* NAME_ATTRIBUTE_maxInclusive = "maxInclusive";
+const char* NAME_ATTRIBUTE_meter = "meter";
+const char* NAME_ATTRIBUTE_method = "method";
+const char* NAME_ATTRIBUTE_minInclusive = "minInclusive";
+const char* NAME_ATTRIBUTE_mip = "mip";
+const char* NAME_ATTRIBUTE_name = "name";
+const char* NAME_ATTRIBUTE_offset = "offset";
+const char* NAME_ATTRIBUTE_opaque = "opaque";
+const char* NAME_ATTRIBUTE_operand = "operand";
+const char* NAME_ATTRIBUTE_operator = "operator";
+const char* NAME_ATTRIBUTE_param = NAME_ELEMENT_PARAM;
+const char* NAME_ATTRIBUTE_parent = "parent";
+const char* NAME_ATTRIBUTE_platform = "platform";
+const char* NAME_ATTRIBUTE_profile = "profile";
+const char* NAME_ATTRIBUTE_program = "program";
+const char* NAME_ATTRIBUTE_ref = "ref";
+const char* NAME_ATTRIBUTE_rigid_body = NAME_ELEMENT_RIGID_BODY;
+const char* NAME_ATTRIBUTE_scale = NAME_ELEMENT_SCALE;
+const char* NAME_ATTRIBUTE_semantic = "semantic";
+const char* NAME_ATTRIBUTE_set = "set";
+const char* NAME_ATTRIBUTE_sid = "sid";
+const char* NAME_ATTRIBUTE_slice = "slice";
+const char* NAME_ATTRIBUTE_source = NAME_ELEMENT_SOURCE;
+const char* NAME_ATTRIBUTE_stage = "stage";
+const char* NAME_ATTRIBUTE_start = "start";
+const char* NAME_ATTRIBUTE_stride = "stride";
+const char* NAME_ATTRIBUTE_symbol = "symbol";
+const char* NAME_ATTRIBUTE_target = "target";
+const char* NAME_ATTRIBUTE_texcoord = NAME_ELEMENT_TEXCOORD;
+const char* NAME_ATTRIBUTE_texture = NAME_ELEMENT_TEXTURE;
+const char* NAME_ATTRIBUTE_type = "type";
+const char* NAME_ATTRIBUTE_unit = NAME_ELEMENT_UNIT;
+const char* NAME_ATTRIBUTE_url = "url";
+const char* NAME_ATTRIBUTE_value = "value";
+const char* NAME_ATTRIBUTE_version = "version";
+const char* NAME_ATTRIBUTE_width = "width";
+const char* NAME_ATTRIBUTE_xmlns = "xmlns";
 const char* NAME_ELEMENT_ACCESSOR = "accessor";
 const char* NAME_ELEMENT_ALL = "all";
 const char* NAME_ELEMENT_ALPHA = "alpha";
@@ -368,7 +368,7 @@ const char* NAME_ELEMENT_FOG_END = "fog_end";
 const char* NAME_ELEMENT_FOG_MODE = "fog_mode";
 const char* NAME_ELEMENT_FOG_START = "fog_start";
 const char* NAME_ELEMENT_FORCE_FIELD = "force_field";
-const char* NAME_ELEMENT_FORMAT = NAME_ATTRIBUTE_FORMAT;
+const char* NAME_ELEMENT_FORMAT = NAME_ATTRIBUTE_format;
 const char* NAME_ELEMENT_FORMAT_HINT = "format_hint";
 const char* NAME_ELEMENT_FRONT = "front";
 const char* NAME_ELEMENT_FRONT_FACE = "front_face";
@@ -408,7 +408,7 @@ const char* NAME_ELEMENT_HALF4X2 = "half4x2";
 const char* NAME_ELEMENT_HALF4X3 = "half4x3";
 const char* NAME_ELEMENT_HALF4X4 = "half4x4";
 const char* NAME_ELEMENT_HALF_EXTENTS = "half_extents";
-const char* NAME_ELEMENT_HEIGHT = NAME_ATTRIBUTE_HEIGHT;
+const char* NAME_ELEMENT_HEIGHT = NAME_ATTRIBUTE_height;
 const char* NAME_ELEMENT_HOLLOW = "hollow";
 const char* NAME_ELEMENT_IDREF_ARRAY = "IDREF_array";
 const char* NAME_ELEMENT_IMAGE = "image";
@@ -487,7 +487,7 @@ const char* NAME_ELEMENT_INT____INT = "int____int";
 const char* NAME_ELEMENT_JOINTS = "joints";
 const char* NAME_ELEMENT_KEYWORDS = "keywords";
 const char* NAME_ELEMENT_LAMBERT = "lambert";
-const char* NAME_ELEMENT_LAYER = NAME_ATTRIBUTE_LAYER;
+const char* NAME_ELEMENT_LAYER = NAME_ATTRIBUTE_layer;
 const char* NAME_ELEMENT_LIBRARY_ANIMATIONS = "library_animations";
 const char* NAME_ELEMENT_LIBRARY_ANIMATION_CLIPS = "library_animation_clips";
 const char* NAME_ELEMENT_LIBRARY_CAMERAS = "library_cameras";
@@ -540,7 +540,7 @@ const char* NAME_ELEMENT_MAGFILTER = "magfilter";
 const char* NAME_ELEMENT_MASK = "mask";
 const char* NAME_ELEMENT_MASS = "mass";
 const char* NAME_ELEMENT_MASS_FRAME = "mass_frame";
-const char* NAME_ELEMENT_MATERIAL = NAME_ATTRIBUTE_MATERIAL;
+const char* NAME_ELEMENT_MATERIAL = NAME_ATTRIBUTE_material;
 const char* NAME_ELEMENT_MATERIAL_AMBIENT = "material_ambient";
 const char* NAME_ELEMENT_MATERIAL_DIFFUSE = "material_diffuse";
 const char* NAME_ELEMENT_MATERIAL_EMISSION = "material_emission";
@@ -562,7 +562,7 @@ const char* NAME_ELEMENT_MODIFIED = "modified";
 const char* NAME_ELEMENT_MODIFIER = "modifier";
 const char* NAME_ELEMENT_MORPH = "morph";
 const char* NAME_ELEMENT_MULTISAMPLE_ENABLE = "multisample_enable";
-const char* NAME_ELEMENT_NAME = NAME_ATTRIBUTE_NAME;
+const char* NAME_ELEMENT_NAME = NAME_ATTRIBUTE_name;
 const char* NAME_ELEMENT_NAME_ARRAY = "Name_array";
 const char* NAME_ELEMENT_NEWPARAM = "newparam";
 const char* NAME_ELEMENT_NEWPARAM____CG_NEWPARAM = "newparam____cg_newparam";
@@ -804,7 +804,7 @@ const char* NAME_ELEMENT_RADIUS2 = "radius2";
 const char* NAME_ELEMENT_RADIUS____FLOAT = "radius____float";
 const char* NAME_ELEMENT_RADIUS____FLOAT2 = "radius____float2";
 const char* NAME_ELEMENT_RANGE = "range";
-const char* NAME_ELEMENT_REF = NAME_ATTRIBUTE_REF;
+const char* NAME_ELEMENT_REF = NAME_ATTRIBUTE_ref;
 const char* NAME_ELEMENT_REFLECTIVE = "reflective";
 const char* NAME_ELEMENT_REFLECTIVITY = "reflectivity";
 const char* NAME_ELEMENT_REF_ATTACHMENT = "ref_attachment";
@@ -857,7 +857,7 @@ const char* NAME_ELEMENT_SCALE = "scale";
 const char* NAME_ELEMENT_SCENE = "scene";
 const char* NAME_ELEMENT_SCISSOR = "scissor";
 const char* NAME_ELEMENT_SCISSOR_TEST_ENABLE = "scissor_test_enable";
-const char* NAME_ELEMENT_SEMANTIC = NAME_ATTRIBUTE_SEMANTIC;
+const char* NAME_ELEMENT_SEMANTIC = NAME_ATTRIBUTE_semantic;
 const char* NAME_ELEMENT_SETPARAM = "setparam";
 const char* NAME_ELEMENT_SETPARAM____CG_SETPARAM = "setparam____cg_setparam";
 const char* NAME_ELEMENT_SETPARAM____CG_SETPARAM_SIMPLE = "setparam____cg_setparam_simple";
@@ -957,7 +957,7 @@ const char* NAME_ELEMENT_UNIT = "unit";
 const char* NAME_ELEMENT_UP_AXIS = "up_axis";
 const char* NAME_ELEMENT_USERTYPE = "usertype";
 const char* NAME_ELEMENT_V = "v";
-const char* NAME_ELEMENT_VALUE = NAME_ATTRIBUTE_VALUE;
+const char* NAME_ELEMENT_VALUE = NAME_ATTRIBUTE_value;
 const char* NAME_ELEMENT_VALUE____GLES_TEXTURE_PIPELINE = "value____gles_texture_pipeline";
 const char* NAME_ELEMENT_VALUE____GL_SAMPLER1D = "value____gl_sampler1D";
 const char* NAME_ELEMENT_VALUE____GL_SAMPLER2D = "value____gl_sampler2D";
@@ -1031,14 +1031,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VERSION:
+    case HASH_ATTRIBUTE_version:
     {
 bool failed;
 attributeData->version = Utils::toEnum<ENUM__VersionType, StringHash, ENUM__VersionType__COUNT>(attributeValue, failed, ENUM__VersionTypeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLLADA,
-        HASH_ATTRIBUTE_VERSION,
+        HASH_ATTRIBUTE_version,
         attributeValue))
 {
     return false;
@@ -1046,14 +1046,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_BASE:
+    case HASH_ATTRIBUTE_base:
     {
 bool failed;
 attributeData->base = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLLADA,
-        HASH_ATTRIBUTE_BASE,
+        HASH_ATTRIBUTE_base,
         attributeValue))
 {
     return false;
@@ -1063,7 +1063,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_XMLNS:
+    case HASH_ATTRIBUTE_xmlns:
     {
     // ignore
 
@@ -1072,7 +1072,7 @@ if ( !failed )
     default:
     {
         StringHashPair hashPair = Utils::calculateStringHashWithNamespace( attribute );
-        if ( hashPair.first != HASH_ATTRIBUTE_XMLNS )
+        if ( hashPair.first != HASH_ATTRIBUTE_xmlns )
         {
         if ( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLLADA, attribute, attributeValue))
             {return false;}        }
@@ -1091,7 +1091,7 @@ if ((attributeData->present_attributes & COLLADA__AttributeData::ATTRIBUTE_BASE_
 }
 if ( attributeData->version == ENUM__VersionType__NOT_PRESENT )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_COLLADA, HASH_ATTRIBUTE_VERSION, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_COLLADA, HASH_ATTRIBUTE_version, 0 ) )
         return false;
 }
 
@@ -1816,14 +1816,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_METER:
+    case HASH_ATTRIBUTE_meter:
     {
 bool failed;
 attributeData->meter = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_UNIT,
-        HASH_ATTRIBUTE_METER,
+        HASH_ATTRIBUTE_meter,
         attributeValue))
 {
     return false;
@@ -1831,7 +1831,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -1844,7 +1844,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_UNIT,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -2046,14 +2046,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -2066,7 +2066,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_ANIMATIONS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -2158,14 +2158,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -2178,7 +2178,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ANIMATION,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -2270,14 +2270,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -2290,7 +2290,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SOURCE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -2311,7 +2311,7 @@ attributeData->name = attributeValue;
 }
 if ( !attributeData->id )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SOURCE, HASH_ATTRIBUTE_ID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SOURCE, HASH_ATTRIBUTE_id, 0 ) )
         return false;
 }
 
@@ -2403,14 +2403,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -2423,7 +2423,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_IDREF_ARRAY,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -2434,14 +2434,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_IDREF_ARRAY,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -2461,7 +2461,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & IDREF_array__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_IDREF_ARRAY, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_IDREF_ARRAY, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -2580,14 +2580,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -2600,7 +2600,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NAME_ARRAY,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -2611,14 +2611,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_NAME_ARRAY,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -2638,7 +2638,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & Name_array__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NAME_ARRAY, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NAME_ARRAY, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -2743,14 +2743,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -2763,7 +2763,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BOOL_ARRAY,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -2774,14 +2774,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_BOOL_ARRAY,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -2801,7 +2801,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & bool_array__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BOOL_ARRAY, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BOOL_ARRAY, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -2906,14 +2906,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -2926,7 +2926,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FLOAT_ARRAY,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -2937,14 +2937,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FLOAT_ARRAY,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -2954,14 +2954,14 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_DIGITS:
+    case HASH_ATTRIBUTE_digits:
     {
 bool failed;
 attributeData->digits = GeneratedSaxParser::Utils::toSint16(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FLOAT_ARRAY,
-        HASH_ATTRIBUTE_DIGITS,
+        HASH_ATTRIBUTE_digits,
         attributeValue))
 {
     return false;
@@ -2969,14 +2969,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_MAGNITUDE:
+    case HASH_ATTRIBUTE_magnitude:
     {
 bool failed;
 attributeData->magnitude = GeneratedSaxParser::Utils::toSint16(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FLOAT_ARRAY,
-        HASH_ATTRIBUTE_MAGNITUDE,
+        HASH_ATTRIBUTE_magnitude,
         attributeValue))
 {
     return false;
@@ -2994,7 +2994,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 }
 if ( (attributeData->present_attributes & float_array__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_FLOAT_ARRAY, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_FLOAT_ARRAY, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -3099,14 +3099,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -3119,7 +3119,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INT_ARRAY,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -3130,14 +3130,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INT_ARRAY,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -3147,14 +3147,14 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_MININCLUSIVE:
+    case HASH_ATTRIBUTE_minInclusive:
     {
 bool failed;
 attributeData->minInclusive = GeneratedSaxParser::Utils::toSint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INT_ARRAY,
-        HASH_ATTRIBUTE_MININCLUSIVE,
+        HASH_ATTRIBUTE_minInclusive,
         attributeValue))
 {
     return false;
@@ -3162,14 +3162,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_MAXINCLUSIVE:
+    case HASH_ATTRIBUTE_maxInclusive:
     {
 bool failed;
 attributeData->maxInclusive = GeneratedSaxParser::Utils::toSint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INT_ARRAY,
-        HASH_ATTRIBUTE_MAXINCLUSIVE,
+        HASH_ATTRIBUTE_maxInclusive,
         attributeValue))
 {
     return false;
@@ -3187,7 +3187,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 }
 if ( (attributeData->present_attributes & int_array__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INT_ARRAY, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INT_ARRAY, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -3322,14 +3322,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ACCESSOR,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -3339,14 +3339,14 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_OFFSET:
+    case HASH_ATTRIBUTE_offset:
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ACCESSOR,
-        HASH_ATTRIBUTE_OFFSET,
+        HASH_ATTRIBUTE_offset,
         attributeValue))
 {
     return false;
@@ -3354,14 +3354,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 bool failed;
 attributeData->source = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ACCESSOR,
-        HASH_ATTRIBUTE_SOURCE,
+        HASH_ATTRIBUTE_source,
         attributeValue))
 {
     return false;
@@ -3371,14 +3371,14 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_STRIDE:
+    case HASH_ATTRIBUTE_stride:
     {
 bool failed;
 attributeData->stride = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ACCESSOR,
-        HASH_ATTRIBUTE_STRIDE,
+        HASH_ATTRIBUTE_stride,
         attributeValue))
 {
     return false;
@@ -3400,7 +3400,7 @@ if ((attributeData->present_attributes & accessor__AttributeData::ATTRIBUTE_SOUR
 }
 if ( (attributeData->present_attributes & accessor__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -3477,7 +3477,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -3490,7 +3490,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PARAM,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -3501,7 +3501,7 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -3514,7 +3514,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PARAM,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -3525,7 +3525,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SEMANTIC:
+    case HASH_ATTRIBUTE_semantic:
     {
 
 attributeData->semantic = attributeValue;
@@ -3538,7 +3538,7 @@ attributeData->semantic = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PARAM,
-            HASH_ATTRIBUTE_SEMANTIC,
+            HASH_ATTRIBUTE_semantic,
             attributeValue) )
         {
             return false;
@@ -3549,7 +3549,7 @@ attributeData->semantic = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_TYPE:
+    case HASH_ATTRIBUTE_type:
     {
 
 attributeData->type = attributeValue;
@@ -3562,7 +3562,7 @@ attributeData->type = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PARAM,
-            HASH_ATTRIBUTE_TYPE,
+            HASH_ATTRIBUTE_type,
             attributeValue) )
         {
             return false;
@@ -3583,7 +3583,7 @@ attributeData->type = attributeValue;
 }
 if ( !attributeData->type )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_TYPE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_type, 0 ) )
         return false;
 }
 
@@ -3659,7 +3659,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_PROFILE:
+    case HASH_ATTRIBUTE_profile:
     {
 
 attributeData->profile = attributeValue;
@@ -3672,7 +3672,7 @@ attributeData->profile = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TECHNIQUE,
-            HASH_ATTRIBUTE_PROFILE,
+            HASH_ATTRIBUTE_profile,
             attributeValue) )
         {
             return false;
@@ -3693,7 +3693,7 @@ attributeData->profile = attributeValue;
 }
 if ( !attributeData->profile )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_PROFILE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_profile, 0 ) )
         return false;
 }
 
@@ -3769,7 +3769,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
@@ -3857,7 +3857,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SEMANTIC:
+    case HASH_ATTRIBUTE_semantic:
     {
 
 attributeData->semantic = attributeValue;
@@ -3870,7 +3870,7 @@ attributeData->semantic = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INPUT,
-            HASH_ATTRIBUTE_SEMANTIC,
+            HASH_ATTRIBUTE_semantic,
             attributeValue) )
         {
             return false;
@@ -3881,7 +3881,7 @@ attributeData->semantic = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 
 attributeData->source = attributeValue;
@@ -3894,7 +3894,7 @@ attributeData->source = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INPUT,
-            HASH_ATTRIBUTE_SOURCE,
+            HASH_ATTRIBUTE_source,
             attributeValue) )
         {
             return false;
@@ -3915,12 +3915,12 @@ attributeData->source = attributeValue;
 }
 if ( !attributeData->semantic )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_SEMANTIC, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_semantic, 0 ) )
         return false;
 }
 if ( !attributeData->source )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_SOURCE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_source, 0 ) )
         return false;
 }
 
@@ -3996,7 +3996,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 
 attributeData->source = attributeValue;
@@ -4009,7 +4009,7 @@ attributeData->source = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CHANNEL,
-            HASH_ATTRIBUTE_SOURCE,
+            HASH_ATTRIBUTE_source,
             attributeValue) )
         {
             return false;
@@ -4020,7 +4020,7 @@ attributeData->source = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_TARGET:
+    case HASH_ATTRIBUTE_target:
     {
 
 attributeData->target = attributeValue;
@@ -4037,12 +4037,12 @@ attributeData->target = attributeValue;
 }
 if ( !attributeData->source )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_CHANNEL, HASH_ATTRIBUTE_SOURCE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_CHANNEL, HASH_ATTRIBUTE_source, 0 ) )
         return false;
 }
 if ( !attributeData->target )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_CHANNEL, HASH_ATTRIBUTE_TARGET, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_CHANNEL, HASH_ATTRIBUTE_target, 0 ) )
         return false;
 }
 
@@ -4118,14 +4118,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -4138,7 +4138,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_EXTRA,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -4149,7 +4149,7 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_TYPE:
+    case HASH_ATTRIBUTE_type:
     {
 
 attributeData->type = attributeValue;
@@ -4162,7 +4162,7 @@ attributeData->type = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_EXTRA,
-            HASH_ATTRIBUTE_TYPE,
+            HASH_ATTRIBUTE_type,
             attributeValue) )
         {
             return false;
@@ -4254,14 +4254,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -4274,7 +4274,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -4366,14 +4366,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -4386,7 +4386,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ANIMATION_CLIP,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -4397,14 +4397,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_START:
+    case HASH_ATTRIBUTE_start:
     {
 bool failed;
 attributeData->start = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ANIMATION_CLIP,
-        HASH_ATTRIBUTE_START,
+        HASH_ATTRIBUTE_start,
         attributeValue))
 {
     return false;
@@ -4412,14 +4412,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_END:
+    case HASH_ATTRIBUTE_end:
     {
 bool failed;
 attributeData->end = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ANIMATION_CLIP,
-        HASH_ATTRIBUTE_END,
+        HASH_ATTRIBUTE_end,
         attributeValue))
 {
     return false;
@@ -4510,14 +4510,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_ANIMATION,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -4527,7 +4527,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -4540,7 +4540,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_ANIMATION,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -4551,7 +4551,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -4564,7 +4564,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_ANIMATION,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -4589,7 +4589,7 @@ if ((attributeData->present_attributes & instance_animation__AttributeData::ATTR
 }
 if ( (attributeData->present_attributes & instance_animation__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_ANIMATION, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_ANIMATION, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -4665,14 +4665,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -4685,7 +4685,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_CAMERAS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -4777,14 +4777,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -4797,7 +4797,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CAMERA,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -5037,7 +5037,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -5050,7 +5050,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_XMAG,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -5173,7 +5173,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -5186,7 +5186,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_YMAG,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -5309,7 +5309,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -5322,7 +5322,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ASPECT_RATIO,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -5445,7 +5445,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -5458,7 +5458,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ZNEAR,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -5581,7 +5581,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -5594,7 +5594,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ZFAR,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -5761,7 +5761,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -5774,7 +5774,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_XFOV,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -5897,7 +5897,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -5910,7 +5910,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_YFOV,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -6061,14 +6061,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -6081,7 +6081,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_CONTROLLERS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -6173,14 +6173,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -6193,7 +6193,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CONTROLLER,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -6285,14 +6285,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 bool failed;
 attributeData->source = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SKIN,
-        HASH_ATTRIBUTE_SOURCE,
+        HASH_ATTRIBUTE_source,
         attributeValue))
 {
     return false;
@@ -6316,7 +6316,7 @@ if ((attributeData->present_attributes & skin__AttributeData::ATTRIBUTE_SOURCE_P
 }
 if ( (attributeData->present_attributes & skin__AttributeData::ATTRIBUTE_SOURCE_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SKIN, HASH_ATTRIBUTE_SOURCE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SKIN, HASH_ATTRIBUTE_source, 0 ) )
         return false;
 }
 
@@ -6525,14 +6525,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_VERTEX_WEIGHTS,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -6552,7 +6552,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & vertex_weights__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_VERTEX_WEIGHTS, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_VERTEX_WEIGHTS, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -6628,14 +6628,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_OFFSET:
+    case HASH_ATTRIBUTE_offset:
     {
 bool failed;
 attributeData->offset = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INPUT,
-        HASH_ATTRIBUTE_OFFSET,
+        HASH_ATTRIBUTE_offset,
         attributeValue))
 {
     return false;
@@ -6645,7 +6645,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SEMANTIC:
+    case HASH_ATTRIBUTE_semantic:
     {
 
 attributeData->semantic = attributeValue;
@@ -6658,7 +6658,7 @@ attributeData->semantic = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INPUT,
-            HASH_ATTRIBUTE_SEMANTIC,
+            HASH_ATTRIBUTE_semantic,
             attributeValue) )
         {
             return false;
@@ -6669,7 +6669,7 @@ attributeData->semantic = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 
 attributeData->source = attributeValue;
@@ -6682,7 +6682,7 @@ attributeData->source = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INPUT,
-            HASH_ATTRIBUTE_SOURCE,
+            HASH_ATTRIBUTE_source,
             attributeValue) )
         {
             return false;
@@ -6693,14 +6693,14 @@ attributeData->source = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SET:
+    case HASH_ATTRIBUTE_set:
     {
 bool failed;
 attributeData->set = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INPUT,
-        HASH_ATTRIBUTE_SET,
+        HASH_ATTRIBUTE_set,
         attributeValue))
 {
     return false;
@@ -6720,17 +6720,17 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & input____InputLocalOffset__AttributeData::ATTRIBUTE_OFFSET_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_OFFSET, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_offset, 0 ) )
         return false;
 }
 if ( !attributeData->semantic )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_SEMANTIC, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_semantic, 0 ) )
         return false;
 }
 if ( !attributeData->source )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_SOURCE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INPUT, HASH_ATTRIBUTE_source, 0 ) )
         return false;
 }
 
@@ -6952,14 +6952,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_METHOD:
+    case HASH_ATTRIBUTE_method:
     {
 bool failed;
 attributeData->method = Utils::toEnum<ENUM__MorphMethodType, StringHash, ENUM__MorphMethodType__COUNT>(attributeValue, failed, ENUM__MorphMethodTypeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MORPH,
-        HASH_ATTRIBUTE_METHOD,
+        HASH_ATTRIBUTE_method,
         attributeValue))
 {
     return false;
@@ -6967,14 +6967,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 bool failed;
 attributeData->source = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MORPH,
-        HASH_ATTRIBUTE_SOURCE,
+        HASH_ATTRIBUTE_source,
         attributeValue))
 {
     return false;
@@ -6998,7 +6998,7 @@ if ((attributeData->present_attributes & morph__AttributeData::ATTRIBUTE_SOURCE_
 }
 if ( (attributeData->present_attributes & morph__AttributeData::ATTRIBUTE_SOURCE_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_MORPH, HASH_ATTRIBUTE_SOURCE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_MORPH, HASH_ATTRIBUTE_source, 0 ) )
         return false;
 }
 
@@ -7154,14 +7154,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -7174,7 +7174,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_GEOMETRIES,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -7266,14 +7266,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -7286,7 +7286,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_GEOMETRY,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -7378,14 +7378,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_CONVEX_HULL_OF:
+    case HASH_ATTRIBUTE_convex_hull_of:
     {
 bool failed;
 attributeData->convex_hull_of = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CONVEX_MESH,
-        HASH_ATTRIBUTE_CONVEX_HULL_OF,
+        HASH_ATTRIBUTE_convex_hull_of,
         attributeValue))
 {
     return false;
@@ -7480,14 +7480,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -7500,7 +7500,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_VERTICES,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -7521,7 +7521,7 @@ attributeData->name = attributeValue;
 }
 if ( !attributeData->id )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_VERTICES, HASH_ATTRIBUTE_ID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_VERTICES, HASH_ATTRIBUTE_id, 0 ) )
         return false;
 }
 
@@ -7597,7 +7597,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -7610,7 +7610,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINES,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -7621,14 +7621,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LINES,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -7638,7 +7638,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_MATERIAL:
+    case HASH_ATTRIBUTE_material:
     {
 
 attributeData->material = attributeValue;
@@ -7651,7 +7651,7 @@ attributeData->material = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINES,
-            HASH_ATTRIBUTE_MATERIAL,
+            HASH_ATTRIBUTE_material,
             attributeValue) )
         {
             return false;
@@ -7672,7 +7672,7 @@ attributeData->material = attributeValue;
 }
 if ( (attributeData->present_attributes & lines__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LINES, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LINES, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -7821,7 +7821,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -7834,7 +7834,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINESTRIPS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -7845,14 +7845,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LINESTRIPS,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -7862,7 +7862,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_MATERIAL:
+    case HASH_ATTRIBUTE_material:
     {
 
 attributeData->material = attributeValue;
@@ -7875,7 +7875,7 @@ attributeData->material = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINESTRIPS,
-            HASH_ATTRIBUTE_MATERIAL,
+            HASH_ATTRIBUTE_material,
             attributeValue) )
         {
             return false;
@@ -7896,7 +7896,7 @@ attributeData->material = attributeValue;
 }
 if ( (attributeData->present_attributes & linestrips__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LINESTRIPS, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LINESTRIPS, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -7972,7 +7972,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -7985,7 +7985,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGONS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -7996,14 +7996,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYGONS,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -8013,7 +8013,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_MATERIAL:
+    case HASH_ATTRIBUTE_material:
     {
 
 attributeData->material = attributeValue;
@@ -8026,7 +8026,7 @@ attributeData->material = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGONS,
-            HASH_ATTRIBUTE_MATERIAL,
+            HASH_ATTRIBUTE_material,
             attributeValue) )
         {
             return false;
@@ -8047,7 +8047,7 @@ attributeData->material = attributeValue;
 }
 if ( (attributeData->present_attributes & polygons__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_POLYGONS, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_POLYGONS, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -8240,7 +8240,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -8253,7 +8253,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYLIST,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -8264,14 +8264,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYLIST,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -8281,7 +8281,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_MATERIAL:
+    case HASH_ATTRIBUTE_material:
     {
 
 attributeData->material = attributeValue;
@@ -8294,7 +8294,7 @@ attributeData->material = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYLIST,
-            HASH_ATTRIBUTE_MATERIAL,
+            HASH_ATTRIBUTE_material,
             attributeValue) )
         {
             return false;
@@ -8315,7 +8315,7 @@ attributeData->material = attributeValue;
 }
 if ( (attributeData->present_attributes & polylist__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_POLYLIST, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_POLYLIST, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -8391,7 +8391,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -8404,7 +8404,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TRIANGLES,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -8415,14 +8415,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TRIANGLES,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -8432,7 +8432,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_MATERIAL:
+    case HASH_ATTRIBUTE_material:
     {
 
 attributeData->material = attributeValue;
@@ -8445,7 +8445,7 @@ attributeData->material = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TRIANGLES,
-            HASH_ATTRIBUTE_MATERIAL,
+            HASH_ATTRIBUTE_material,
             attributeValue) )
         {
             return false;
@@ -8466,7 +8466,7 @@ attributeData->material = attributeValue;
 }
 if ( (attributeData->present_attributes & triangles__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TRIANGLES, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TRIANGLES, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -8542,7 +8542,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -8555,7 +8555,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TRIFANS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -8566,14 +8566,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TRIFANS,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -8583,7 +8583,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_MATERIAL:
+    case HASH_ATTRIBUTE_material:
     {
 
 attributeData->material = attributeValue;
@@ -8596,7 +8596,7 @@ attributeData->material = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TRIFANS,
-            HASH_ATTRIBUTE_MATERIAL,
+            HASH_ATTRIBUTE_material,
             attributeValue) )
         {
             return false;
@@ -8617,7 +8617,7 @@ attributeData->material = attributeValue;
 }
 if ( (attributeData->present_attributes & trifans__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TRIFANS, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TRIFANS, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -8693,7 +8693,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -8706,7 +8706,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TRISTRIPS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -8717,14 +8717,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_COUNT:
+    case HASH_ATTRIBUTE_count:
     {
 bool failed;
 attributeData->count = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TRISTRIPS,
-        HASH_ATTRIBUTE_COUNT,
+        HASH_ATTRIBUTE_count,
         attributeValue))
 {
     return false;
@@ -8734,7 +8734,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_MATERIAL:
+    case HASH_ATTRIBUTE_material:
     {
 
 attributeData->material = attributeValue;
@@ -8747,7 +8747,7 @@ attributeData->material = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TRISTRIPS,
-            HASH_ATTRIBUTE_MATERIAL,
+            HASH_ATTRIBUTE_material,
             attributeValue) )
         {
             return false;
@@ -8768,7 +8768,7 @@ attributeData->material = attributeValue;
 }
 if ( (attributeData->present_attributes & tristrips__AttributeData::ATTRIBUTE_COUNT_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TRISTRIPS, HASH_ATTRIBUTE_COUNT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TRISTRIPS, HASH_ATTRIBUTE_count, 0 ) )
         return false;
 }
 
@@ -8888,14 +8888,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_CLOSED:
+    case HASH_ATTRIBUTE_closed:
     {
 bool failed;
 attributeData->closed = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SPLINE,
-        HASH_ATTRIBUTE_CLOSED,
+        HASH_ATTRIBUTE_closed,
         attributeValue))
 {
     return false;
@@ -9028,14 +9028,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -9048,7 +9048,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_EFFECTS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -9140,14 +9140,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -9160,7 +9160,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_EFFECT,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -9181,7 +9181,7 @@ attributeData->name = attributeValue;
 }
 if ( !attributeData->id )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_EFFECT, HASH_ATTRIBUTE_ID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_EFFECT, HASH_ATTRIBUTE_id, 0 ) )
         return false;
 }
 
@@ -9257,7 +9257,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -9270,7 +9270,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ANNOTATE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -9291,7 +9291,7 @@ attributeData->name = attributeValue;
 }
 if ( !attributeData->name )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ANNOTATE, HASH_ATTRIBUTE_NAME, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ANNOTATE, HASH_ATTRIBUTE_name, 0 ) )
         return false;
 }
 
@@ -10705,14 +10705,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -10725,7 +10725,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_IMAGE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -10736,21 +10736,21 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_FORMAT:
+    case HASH_ATTRIBUTE_format:
     {
 
 attributeData->format = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_HEIGHT:
+    case HASH_ATTRIBUTE_height:
     {
 bool failed;
 attributeData->height = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_IMAGE,
-        HASH_ATTRIBUTE_HEIGHT,
+        HASH_ATTRIBUTE_height,
         attributeValue))
 {
     return false;
@@ -10760,14 +10760,14 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_WIDTH:
+    case HASH_ATTRIBUTE_width:
     {
 bool failed;
 attributeData->width = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_IMAGE,
-        HASH_ATTRIBUTE_WIDTH,
+        HASH_ATTRIBUTE_width,
         attributeValue))
 {
     return false;
@@ -10777,14 +10777,14 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_DEPTH:
+    case HASH_ATTRIBUTE_depth:
     {
 bool failed;
 attributeData->depth = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_IMAGE,
-        HASH_ATTRIBUTE_DEPTH,
+        HASH_ATTRIBUTE_depth,
         attributeValue))
 {
     return false;
@@ -11021,7 +11021,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -11034,7 +11034,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NEWPARAM,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -11055,7 +11055,7 @@ attributeData->sid = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -12475,14 +12475,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_TYPE:
+    case HASH_ATTRIBUTE_type:
     {
 bool failed;
 attributeData->type = Utils::toEnum<ENUM__fx_surface_type_enum, StringHash, ENUM__fx_surface_type_enum__COUNT>(attributeValue, failed, ENUM__fx_surface_type_enumMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SURFACE,
-        HASH_ATTRIBUTE_TYPE,
+        HASH_ATTRIBUTE_type,
         attributeValue))
 {
     return false;
@@ -12500,7 +12500,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 }
 if ( attributeData->type == ENUM__fx_surface_type_enum__NOT_PRESENT )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SURFACE, HASH_ATTRIBUTE_TYPE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SURFACE, HASH_ATTRIBUTE_type, 0 ) )
         return false;
 }
 
@@ -12830,7 +12830,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -12847,7 +12847,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ALL, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ALL, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -12923,7 +12923,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -12940,7 +12940,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PRIMARY, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PRIMARY, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -13126,7 +13126,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -13143,7 +13143,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_FACE, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_FACE, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -13263,7 +13263,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -13280,7 +13280,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ALL, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ALL, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -13356,7 +13356,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -13373,7 +13373,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PRIMARY, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PRIMARY, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -13493,7 +13493,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -13510,7 +13510,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ALL, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ALL, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -13587,44 +13587,78 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_MIP:
+    case HASH_ATTRIBUTE_mip:
     {
 bool failed;
 attributeData->mip = GeneratedSaxParser::Utils::toUint32(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INIT_FROM,
-        HASH_ATTRIBUTE_MIP,
+        HASH_ATTRIBUTE_mip,
         attributeValue))
 {
     return false;
 }
+#ifdef GENERATEDSAXPARSER_VALIDATION
+    if ( mValidate )
+    {
+    ParserError::ErrorType simpleTypeValidationResult = validate__unsignedInt(attributeData->mip);
+    if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
+    {
+        if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+            simpleTypeValidationResult,
+            HASH_ELEMENT_INIT_FROM,
+            HASH_ATTRIBUTE_mip,
+            attributeValue) )
+        {
+            return false;
+        }
+    }
+    } // validation
+#endif
 
     break;
     }
-    case HASH_ATTRIBUTE_SLICE:
+    case HASH_ATTRIBUTE_slice:
     {
 bool failed;
 attributeData->slice = GeneratedSaxParser::Utils::toUint32(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INIT_FROM,
-        HASH_ATTRIBUTE_SLICE,
+        HASH_ATTRIBUTE_slice,
         attributeValue))
 {
     return false;
 }
+#ifdef GENERATEDSAXPARSER_VALIDATION
+    if ( mValidate )
+    {
+    ParserError::ErrorType simpleTypeValidationResult = validate__unsignedInt(attributeData->slice);
+    if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
+    {
+        if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+            simpleTypeValidationResult,
+            HASH_ELEMENT_INIT_FROM,
+            HASH_ATTRIBUTE_slice,
+            attributeValue) )
+        {
+            return false;
+        }
+    }
+    } // validation
+#endif
 
     break;
     }
-    case HASH_ATTRIBUTE_FACE:
+    case HASH_ATTRIBUTE_face:
     {
 bool failed;
 attributeData->face = Utils::toEnum<ENUM__fx_surface_face_enum, StringHash, ENUM__fx_surface_face_enum__COUNT>(attributeValue, failed, ENUM__fx_surface_face_enumMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INIT_FROM,
-        HASH_ATTRIBUTE_FACE,
+        HASH_ATTRIBUTE_face,
         attributeValue))
 {
     return false;
@@ -14436,6 +14470,24 @@ uint32 parameter = GeneratedSaxParser::Utils::toUint32((const ParserChar**)&mLas
 bool returnValue;
 if (!failed)
 {
+#ifdef GENERATEDSAXPARSER_VALIDATION
+    if ( mValidate )
+    {
+    ParserError::ErrorType simpleTypeValidationResult = validate__unsignedInt(parameter);
+    if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
+    {
+        ParserChar msg[21];
+        Utils::fillErrorMsg(msg, ptrForErr, 20);
+        if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+            simpleTypeValidationResult,
+            0,
+            msg) )
+        {
+            return false;
+        }
+    }
+    } // validation
+#endif
     returnValue = mImpl->data__mip_levels(parameter);
 }
 else
@@ -15812,14 +15864,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -15832,7 +15884,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_FORCE_FIELDS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -15924,14 +15976,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -15944,7 +15996,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FORCE_FIELD,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -16036,14 +16088,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -16056,7 +16108,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_IMAGES,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -16148,14 +16200,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -16168,7 +16220,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_LIGHTS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -16260,14 +16312,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -16280,7 +16332,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -16476,7 +16528,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -16489,7 +16541,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -16714,7 +16766,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -16727,7 +16779,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CONSTANT_ATTENUATION,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -16850,7 +16902,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -16863,7 +16915,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINEAR_ATTENUATION,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -16986,7 +17038,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -16999,7 +17051,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_QUADRATIC_ATTENUATION,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -17166,7 +17218,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -17179,7 +17231,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FALLOFF_ANGLE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -17302,7 +17354,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -17315,7 +17367,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FALLOFF_EXPONENT,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -17422,14 +17474,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -17442,7 +17494,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_MATERIALS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -17534,14 +17586,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -17554,7 +17606,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -17646,14 +17698,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_EFFECT,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -17663,7 +17715,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -17676,7 +17728,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_EFFECT,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -17687,7 +17739,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -17700,7 +17752,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_EFFECT,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -17725,7 +17777,7 @@ if ((attributeData->present_attributes & instance_effect__AttributeData::ATTRIBU
 }
 if ( (attributeData->present_attributes & instance_effect__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_EFFECT, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_EFFECT, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -17801,7 +17853,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_PLATFORM:
+    case HASH_ATTRIBUTE_platform:
     {
 
 attributeData->platform = attributeValue;
@@ -17814,7 +17866,7 @@ attributeData->platform = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TECHNIQUE_HINT,
-            HASH_ATTRIBUTE_PLATFORM,
+            HASH_ATTRIBUTE_platform,
             attributeValue) )
         {
             return false;
@@ -17825,7 +17877,7 @@ attributeData->platform = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_PROFILE:
+    case HASH_ATTRIBUTE_profile:
     {
 
 attributeData->profile = attributeValue;
@@ -17838,7 +17890,7 @@ attributeData->profile = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TECHNIQUE_HINT,
-            HASH_ATTRIBUTE_PROFILE,
+            HASH_ATTRIBUTE_profile,
             attributeValue) )
         {
             return false;
@@ -17849,7 +17901,7 @@ attributeData->profile = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -17862,7 +17914,7 @@ attributeData->ref = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TECHNIQUE_HINT,
-            HASH_ATTRIBUTE_REF,
+            HASH_ATTRIBUTE_ref,
             attributeValue) )
         {
             return false;
@@ -17883,7 +17935,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE_HINT, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE_HINT, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -17959,7 +18011,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -17976,7 +18028,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -18052,14 +18104,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -18072,7 +18124,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_NODES,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -18164,14 +18216,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -18184,7 +18236,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NODE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -18195,7 +18247,7 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -18208,7 +18260,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NODE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -18219,14 +18271,14 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_TYPE:
+    case HASH_ATTRIBUTE_type:
     {
 bool failed;
 attributeData->type = Utils::toEnum<ENUM__NodeType, StringHash, ENUM__NodeType__COUNT>(attributeValue, failed, ENUM__NodeTypeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_NODE,
-        HASH_ATTRIBUTE_TYPE,
+        HASH_ATTRIBUTE_type,
         attributeValue))
 {
     return false;
@@ -18234,13 +18286,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_LAYER:
+    case HASH_ATTRIBUTE_layer:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2StringList(attributeValue, attributeData->layer, &validate__Name, HASH_ELEMENT_NODE, HASH_ATTRIBUTE_LAYER);
+failed = !characterData2StringList(attributeValue, attributeData->layer, &validate__Name, HASH_ELEMENT_NODE, HASH_ATTRIBUTE_layer);
     }
     else
     {
@@ -18254,7 +18306,7 @@ failed = !characterData2StringList(attributeValue, attributeData->layer);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_NODE,
-        HASH_ATTRIBUTE_LAYER,
+        HASH_ATTRIBUTE_layer,
         attributeValue))
 {
     return false;
@@ -18407,7 +18459,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -18420,7 +18472,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LOOKAT,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -18557,7 +18609,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -18570,7 +18622,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATRIX,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -18707,7 +18759,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -18720,7 +18772,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ROTATE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -18857,7 +18909,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -18870,7 +18922,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SCALE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -19007,7 +19059,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -19020,7 +19072,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SKEW,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -19157,7 +19209,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -19170,7 +19222,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TRANSLATE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -19291,14 +19343,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_CAMERA,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -19308,7 +19360,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -19321,7 +19373,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_CAMERA,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -19332,7 +19384,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -19345,7 +19397,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_CAMERA,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -19370,7 +19422,7 @@ if ((attributeData->present_attributes & instance_camera__AttributeData::ATTRIBU
 }
 if ( (attributeData->present_attributes & instance_camera__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_CAMERA, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_CAMERA, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -19446,14 +19498,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_CONTROLLER,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -19463,7 +19515,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -19476,7 +19528,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_CONTROLLER,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -19487,7 +19539,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -19500,7 +19552,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_CONTROLLER,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -19525,7 +19577,7 @@ if ((attributeData->present_attributes & instance_controller__AttributeData::ATT
 }
 if ( (attributeData->present_attributes & instance_controller__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_CONTROLLER, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_CONTROLLER, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -19764,7 +19816,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SYMBOL:
+    case HASH_ATTRIBUTE_symbol:
     {
 
 attributeData->symbol = attributeValue;
@@ -19777,7 +19829,7 @@ attributeData->symbol = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_MATERIAL,
-            HASH_ATTRIBUTE_SYMBOL,
+            HASH_ATTRIBUTE_symbol,
             attributeValue) )
         {
             return false;
@@ -19788,14 +19840,14 @@ attributeData->symbol = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_TARGET:
+    case HASH_ATTRIBUTE_target:
     {
 bool failed;
 attributeData->target = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_MATERIAL,
-        HASH_ATTRIBUTE_TARGET,
+        HASH_ATTRIBUTE_target,
         attributeValue))
 {
     return false;
@@ -19805,7 +19857,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -19818,7 +19870,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_MATERIAL,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -19829,7 +19881,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -19842,7 +19894,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_MATERIAL,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -19867,12 +19919,12 @@ if ((attributeData->present_attributes & instance_material__AttributeData::ATTRI
 }
 if ( !attributeData->symbol )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_MATERIAL, HASH_ATTRIBUTE_SYMBOL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_MATERIAL, HASH_ATTRIBUTE_symbol, 0 ) )
         return false;
 }
 if ( (attributeData->present_attributes & instance_material__AttributeData::ATTRIBUTE_TARGET_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_MATERIAL, HASH_ATTRIBUTE_TARGET, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_MATERIAL, HASH_ATTRIBUTE_target, 0 ) )
         return false;
 }
 
@@ -19948,7 +20000,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SEMANTIC:
+    case HASH_ATTRIBUTE_semantic:
     {
 
 attributeData->semantic = attributeValue;
@@ -19961,7 +20013,7 @@ attributeData->semantic = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BIND,
-            HASH_ATTRIBUTE_SEMANTIC,
+            HASH_ATTRIBUTE_semantic,
             attributeValue) )
         {
             return false;
@@ -19972,7 +20024,7 @@ attributeData->semantic = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_TARGET:
+    case HASH_ATTRIBUTE_target:
     {
 
 attributeData->target = attributeValue;
@@ -19989,12 +20041,12 @@ attributeData->target = attributeValue;
 }
 if ( !attributeData->semantic )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND, HASH_ATTRIBUTE_SEMANTIC, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND, HASH_ATTRIBUTE_semantic, 0 ) )
         return false;
 }
 if ( !attributeData->target )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND, HASH_ATTRIBUTE_TARGET, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND, HASH_ATTRIBUTE_target, 0 ) )
         return false;
 }
 
@@ -20070,7 +20122,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SEMANTIC:
+    case HASH_ATTRIBUTE_semantic:
     {
 
 attributeData->semantic = attributeValue;
@@ -20083,7 +20135,7 @@ attributeData->semantic = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BIND_VERTEX_INPUT,
-            HASH_ATTRIBUTE_SEMANTIC,
+            HASH_ATTRIBUTE_semantic,
             attributeValue) )
         {
             return false;
@@ -20094,7 +20146,7 @@ attributeData->semantic = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INPUT_SEMANTIC:
+    case HASH_ATTRIBUTE_input_semantic:
     {
 
 attributeData->input_semantic = attributeValue;
@@ -20107,7 +20159,7 @@ attributeData->input_semantic = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BIND_VERTEX_INPUT,
-            HASH_ATTRIBUTE_INPUT_SEMANTIC,
+            HASH_ATTRIBUTE_input_semantic,
             attributeValue) )
         {
             return false;
@@ -20118,14 +20170,14 @@ attributeData->input_semantic = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INPUT_SET:
+    case HASH_ATTRIBUTE_input_set:
     {
 bool failed;
 attributeData->input_set = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_BIND_VERTEX_INPUT,
-        HASH_ATTRIBUTE_INPUT_SET,
+        HASH_ATTRIBUTE_input_set,
         attributeValue))
 {
     return false;
@@ -20145,12 +20197,12 @@ if ( !failed )
 }
 if ( !attributeData->semantic )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND_VERTEX_INPUT, HASH_ATTRIBUTE_SEMANTIC, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND_VERTEX_INPUT, HASH_ATTRIBUTE_semantic, 0 ) )
         return false;
 }
 if ( !attributeData->input_semantic )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND_VERTEX_INPUT, HASH_ATTRIBUTE_INPUT_SEMANTIC, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND_VERTEX_INPUT, HASH_ATTRIBUTE_input_semantic, 0 ) )
         return false;
 }
 
@@ -20226,14 +20278,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_GEOMETRY,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -20243,7 +20295,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -20256,7 +20308,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_GEOMETRY,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -20267,7 +20319,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -20280,7 +20332,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_GEOMETRY,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -20305,7 +20357,7 @@ if ((attributeData->present_attributes & instance_geometry__AttributeData::ATTRI
 }
 if ( (attributeData->present_attributes & instance_geometry__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_GEOMETRY, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_GEOMETRY, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -20381,14 +20433,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_LIGHT,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -20398,7 +20450,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -20411,7 +20463,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_LIGHT,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -20422,7 +20474,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -20435,7 +20487,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_LIGHT,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -20460,7 +20512,7 @@ if ((attributeData->present_attributes & instance_light__AttributeData::ATTRIBUT
 }
 if ( (attributeData->present_attributes & instance_light__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_LIGHT, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_LIGHT, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -20536,14 +20588,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_NODE,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -20553,7 +20605,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -20566,7 +20618,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_NODE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -20577,7 +20629,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -20590,7 +20642,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_NODE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -20615,7 +20667,7 @@ if ((attributeData->present_attributes & instance_node__AttributeData::ATTRIBUTE
 }
 if ( (attributeData->present_attributes & instance_node__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_NODE, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_NODE, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -20691,14 +20743,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -20711,7 +20763,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -20803,14 +20855,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -20823,7 +20875,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PHYSICS_MATERIAL,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -20975,7 +21027,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -20988,7 +21040,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DYNAMIC_FRICTION,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -21111,7 +21163,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -21124,7 +21176,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_RESTITUTION,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -21247,7 +21299,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -21260,7 +21312,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_STATIC_FRICTION,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -21367,14 +21419,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -21387,7 +21439,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_PHYSICS_MODELS,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -21479,14 +21531,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -21499,7 +21551,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PHYSICS_MODEL,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -21591,7 +21643,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -21604,7 +21656,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_RIGID_BODY,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -21615,7 +21667,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -21628,7 +21680,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_RIGID_BODY,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -21649,7 +21701,7 @@ attributeData->name = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_RIGID_BODY, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_RIGID_BODY, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -21785,7 +21837,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -21798,7 +21850,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DYNAMIC,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -21921,7 +21973,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -21934,7 +21986,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MASS,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -22101,7 +22153,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -22114,7 +22166,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INERTIA,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -22235,14 +22287,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -22252,7 +22304,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -22265,7 +22317,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -22276,7 +22328,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -22289,7 +22341,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -22314,7 +22366,7 @@ if ((attributeData->present_attributes & instance_physics_material__AttributeDat
 }
 if ( (attributeData->present_attributes & instance_physics_material__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -22450,7 +22502,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -22463,7 +22515,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_HOLLOW,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -22586,7 +22638,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -22599,7 +22651,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DENSITY,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -23609,7 +23661,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -23622,7 +23674,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_RIGID_CONSTRAINT,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -23633,7 +23685,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -23646,7 +23698,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_RIGID_CONSTRAINT,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -23667,7 +23719,7 @@ attributeData->name = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_RIGID_CONSTRAINT, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_RIGID_CONSTRAINT, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -23743,14 +23795,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_RIGID_BODY:
+    case HASH_ATTRIBUTE_rigid_body:
     {
 bool failed;
 attributeData->rigid_body = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_REF_ATTACHMENT,
-        HASH_ATTRIBUTE_RIGID_BODY,
+        HASH_ATTRIBUTE_rigid_body,
         attributeValue))
 {
     return false;
@@ -23845,14 +23897,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_RIGID_BODY:
+    case HASH_ATTRIBUTE_rigid_body:
     {
 bool failed;
 attributeData->rigid_body = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ATTACHMENT,
-        HASH_ATTRIBUTE_RIGID_BODY,
+        HASH_ATTRIBUTE_rigid_body,
         attributeValue))
 {
     return false;
@@ -24007,7 +24059,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -24020,7 +24072,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ENABLED,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -24143,7 +24195,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -24156,7 +24208,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INTERPENETRATE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -24367,7 +24419,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -24380,7 +24432,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MIN,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -24517,7 +24569,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -24530,7 +24582,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MAX,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -24799,7 +24851,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -24812,7 +24864,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_STIFFNESS,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -24935,7 +24987,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -24948,7 +25000,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DAMPING,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -25071,7 +25123,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -25084,7 +25136,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TARGET_VALUE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -25235,14 +25287,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_PHYSICS_MODEL,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -25252,7 +25304,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -25265,7 +25317,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_PHYSICS_MODEL,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -25276,7 +25328,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -25289,7 +25341,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_PHYSICS_MODEL,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -25300,14 +25352,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_PARENT:
+    case HASH_ATTRIBUTE_parent:
     {
 bool failed;
 attributeData->parent = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_PHYSICS_MODEL,
-        HASH_ATTRIBUTE_PARENT,
+        HASH_ATTRIBUTE_parent,
         attributeValue))
 {
     return false;
@@ -25335,7 +25387,7 @@ if ((attributeData->present_attributes & instance_physics_model__AttributeData::
 }
 if ( (attributeData->present_attributes & instance_physics_model__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_PHYSICS_MODEL, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_PHYSICS_MODEL, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -25411,14 +25463,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_FORCE_FIELD,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -25428,7 +25480,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -25441,7 +25493,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_FORCE_FIELD,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -25452,7 +25504,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -25465,7 +25517,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_FORCE_FIELD,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -25490,7 +25542,7 @@ if ((attributeData->present_attributes & instance_force_field__AttributeData::AT
 }
 if ( (attributeData->present_attributes & instance_force_field__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_FORCE_FIELD, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_FORCE_FIELD, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -25566,7 +25618,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_BODY:
+    case HASH_ATTRIBUTE_body:
     {
 
 attributeData->body = attributeValue;
@@ -25579,7 +25631,7 @@ attributeData->body = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_RIGID_BODY,
-            HASH_ATTRIBUTE_BODY,
+            HASH_ATTRIBUTE_body,
             attributeValue) )
         {
             return false;
@@ -25590,7 +25642,7 @@ attributeData->body = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -25603,7 +25655,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_RIGID_BODY,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -25614,7 +25666,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -25627,7 +25679,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_RIGID_BODY,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -25638,14 +25690,14 @@ attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_TARGET:
+    case HASH_ATTRIBUTE_target:
     {
 bool failed;
 attributeData->target = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_RIGID_BODY,
-        HASH_ATTRIBUTE_TARGET,
+        HASH_ATTRIBUTE_target,
         attributeValue))
 {
     return false;
@@ -25669,12 +25721,12 @@ if ((attributeData->present_attributes & instance_rigid_body__AttributeData::ATT
 }
 if ( !attributeData->body )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_RIGID_BODY, HASH_ATTRIBUTE_BODY, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_RIGID_BODY, HASH_ATTRIBUTE_body, 0 ) )
         return false;
 }
 if ( (attributeData->present_attributes & instance_rigid_body__AttributeData::ATTRIBUTE_TARGET_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_RIGID_BODY, HASH_ATTRIBUTE_TARGET, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_RIGID_BODY, HASH_ATTRIBUTE_target, 0 ) )
         return false;
 }
 
@@ -25988,7 +26040,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -26001,7 +26053,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DYNAMIC,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -26212,7 +26264,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -26225,7 +26277,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_HOLLOW,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -26332,7 +26384,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_CONSTRAINT:
+    case HASH_ATTRIBUTE_constraint:
     {
 
 attributeData->constraint = attributeValue;
@@ -26345,7 +26397,7 @@ attributeData->constraint = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT,
-            HASH_ATTRIBUTE_CONSTRAINT,
+            HASH_ATTRIBUTE_constraint,
             attributeValue) )
         {
             return false;
@@ -26356,7 +26408,7 @@ attributeData->constraint = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -26369,7 +26421,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -26380,7 +26432,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -26393,7 +26445,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -26414,7 +26466,7 @@ attributeData->name = attributeValue;
 }
 if ( !attributeData->constraint )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT, HASH_ATTRIBUTE_CONSTRAINT, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT, HASH_ATTRIBUTE_constraint, 0 ) )
         return false;
 }
 
@@ -26490,14 +26542,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -26510,7 +26562,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_PHYSICS_SCENES,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -26602,14 +26654,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -26622,7 +26674,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PHYSICS_SCENE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -26774,7 +26826,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -26787,7 +26839,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_GRAVITY,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -26924,7 +26976,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -26937,7 +26989,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TIME_STEP,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -27044,14 +27096,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -27064,7 +27116,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIBRARY_VISUAL_SCENES,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -27156,14 +27208,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -27176,7 +27228,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_VISUAL_SCENE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -27268,7 +27320,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -27281,7 +27333,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_EVALUATE_SCENE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -27373,14 +27425,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_CAMERA_NODE:
+    case HASH_ATTRIBUTE_camera_node:
     {
 bool failed;
 attributeData->camera_node = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_RENDER,
-        HASH_ATTRIBUTE_CAMERA_NODE,
+        HASH_ATTRIBUTE_camera_node,
         attributeValue))
 {
     return false;
@@ -27404,7 +27456,7 @@ if ((attributeData->present_attributes & render__AttributeData::ATTRIBUTE_CAMERA
 }
 if ( (attributeData->present_attributes & render__AttributeData::ATTRIBUTE_CAMERA_NODE_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_RENDER, HASH_ATTRIBUTE_CAMERA_NODE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_RENDER, HASH_ATTRIBUTE_camera_node, 0 ) )
         return false;
 }
 
@@ -27615,14 +27667,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_PHYSICS_SCENE,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -27632,7 +27684,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -27645,7 +27697,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_PHYSICS_SCENE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -27656,7 +27708,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -27669,7 +27721,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_PHYSICS_SCENE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -27694,7 +27746,7 @@ if ((attributeData->present_attributes & instance_physics_scene__AttributeData::
 }
 if ( (attributeData->present_attributes & instance_physics_scene__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_PHYSICS_SCENE, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_PHYSICS_SCENE, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -27770,14 +27822,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INSTANCE_VISUAL_SCENE,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -27787,7 +27839,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -27800,7 +27852,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_VISUAL_SCENE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -27811,7 +27863,7 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
@@ -27824,7 +27876,7 @@ attributeData->name = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INSTANCE_VISUAL_SCENE,
-            HASH_ATTRIBUTE_NAME,
+            HASH_ATTRIBUTE_name,
             attributeValue) )
         {
             return false;
@@ -27849,7 +27901,7 @@ if ((attributeData->present_attributes & instance_visual_scene__AttributeData::A
 }
 if ( (attributeData->present_attributes & instance_visual_scene__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_VISUAL_SCENE, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INSTANCE_VISUAL_SCENE, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -27925,14 +27977,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_PLATFORM:
+    case HASH_ATTRIBUTE_platform:
     {
 
 attributeData->platform = attributeValue;
@@ -27945,7 +27997,7 @@ attributeData->platform = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PROFILE_GLES,
-            HASH_ATTRIBUTE_PLATFORM,
+            HASH_ATTRIBUTE_platform,
             attributeValue) )
         {
             return false;
@@ -28037,7 +28089,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -28050,7 +28102,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NEWPARAM,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -28071,7 +28123,7 @@ attributeData->sid = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -28147,7 +28199,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -28160,7 +28212,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE_PIPELINE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -28296,13 +28348,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CONSTANT, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CONSTANT, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -28316,7 +28368,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CONSTANT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -28330,7 +28382,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CONSTANT,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -28344,7 +28396,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -28357,7 +28409,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CONSTANT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -28458,14 +28510,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_OPERATOR:
+    case HASH_ATTRIBUTE_operator:
     {
 bool failed;
 attributeData->_operator = Utils::toEnum<ENUM__gles_texcombiner_operatorRGB_enums, StringHash, ENUM__gles_texcombiner_operatorRGB_enums__COUNT>(attributeValue, failed, ENUM__gles_texcombiner_operatorRGB_enumsMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_RGB,
-        HASH_ATTRIBUTE_OPERATOR,
+        HASH_ATTRIBUTE_operator,
         attributeValue))
 {
     return false;
@@ -28473,14 +28525,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_SCALE:
+    case HASH_ATTRIBUTE_scale:
     {
 bool failed;
 attributeData->scale = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_RGB,
-        HASH_ATTRIBUTE_SCALE,
+        HASH_ATTRIBUTE_scale,
         attributeValue))
 {
     return false;
@@ -28607,14 +28659,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 bool failed;
 attributeData->source = Utils::toEnum<ENUM__gles_texcombiner_source_enums, StringHash, ENUM__gles_texcombiner_source_enums__COUNT>(attributeValue, failed, ENUM__gles_texcombiner_source_enumsMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ARGUMENT,
-        HASH_ATTRIBUTE_SOURCE,
+        HASH_ATTRIBUTE_source,
         attributeValue))
 {
     return false;
@@ -28622,14 +28674,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_OPERAND:
+    case HASH_ATTRIBUTE_operand:
     {
 bool failed;
 attributeData->operand = Utils::toEnum<ENUM__gles_texcombiner_operandRGB_enums, StringHash, ENUM__gles_texcombiner_operandRGB_enums__COUNT>(attributeValue, failed, ENUM__gles_texcombiner_operandRGB_enumsMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ARGUMENT,
-        HASH_ATTRIBUTE_OPERAND,
+        HASH_ATTRIBUTE_operand,
         attributeValue))
 {
     return false;
@@ -28637,7 +28689,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_UNIT:
+    case HASH_ATTRIBUTE_unit:
     {
 
 attributeData->unit = attributeValue;
@@ -28650,7 +28702,7 @@ attributeData->unit = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ARGUMENT,
-            HASH_ATTRIBUTE_UNIT,
+            HASH_ATTRIBUTE_unit,
             attributeValue) )
         {
             return false;
@@ -28814,14 +28866,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_OPERATOR:
+    case HASH_ATTRIBUTE_operator:
     {
 bool failed;
 attributeData->_operator = Utils::toEnum<ENUM__gles_texcombiner_operatorAlpha_enums, StringHash, ENUM__gles_texcombiner_operatorAlpha_enums__COUNT>(attributeValue, failed, ENUM__gles_texcombiner_operatorAlpha_enumsMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ALPHA,
-        HASH_ATTRIBUTE_OPERATOR,
+        HASH_ATTRIBUTE_operator,
         attributeValue))
 {
     return false;
@@ -28829,14 +28881,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_SCALE:
+    case HASH_ATTRIBUTE_scale:
     {
 bool failed;
 attributeData->scale = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ALPHA,
-        HASH_ATTRIBUTE_SCALE,
+        HASH_ATTRIBUTE_scale,
         attributeValue))
 {
     return false;
@@ -28963,14 +29015,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 bool failed;
 attributeData->source = Utils::toEnum<ENUM__gles_texcombiner_source_enums, StringHash, ENUM__gles_texcombiner_source_enums__COUNT>(attributeValue, failed, ENUM__gles_texcombiner_source_enumsMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ARGUMENT,
-        HASH_ATTRIBUTE_SOURCE,
+        HASH_ATTRIBUTE_source,
         attributeValue))
 {
     return false;
@@ -28978,14 +29030,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_OPERAND:
+    case HASH_ATTRIBUTE_operand:
     {
 bool failed;
 attributeData->operand = Utils::toEnum<ENUM__gles_texcombiner_operandAlpha_enums, StringHash, ENUM__gles_texcombiner_operandAlpha_enums__COUNT>(attributeValue, failed, ENUM__gles_texcombiner_operandAlpha_enumsMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ARGUMENT,
-        HASH_ATTRIBUTE_OPERAND,
+        HASH_ATTRIBUTE_operand,
         attributeValue))
 {
     return false;
@@ -28993,7 +29045,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_UNIT:
+    case HASH_ATTRIBUTE_unit:
     {
 
 attributeData->unit = attributeValue;
@@ -29006,7 +29058,7 @@ attributeData->unit = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ARGUMENT,
-            HASH_ATTRIBUTE_UNIT,
+            HASH_ATTRIBUTE_unit,
             attributeValue) )
         {
             return false;
@@ -29134,14 +29186,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_OPERATOR:
+    case HASH_ATTRIBUTE_operator:
     {
 bool failed;
 attributeData->_operator = Utils::toEnum<ENUM__gles_texenv_mode_enums, StringHash, ENUM__gles_texenv_mode_enums__COUNT>(attributeValue, failed, ENUM__gles_texenv_mode_enumsMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXENV,
-        HASH_ATTRIBUTE_OPERATOR,
+        HASH_ATTRIBUTE_operator,
         attributeValue))
 {
     return false;
@@ -29149,7 +29201,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_UNIT:
+    case HASH_ATTRIBUTE_unit:
     {
 
 attributeData->unit = attributeValue;
@@ -29162,7 +29214,7 @@ attributeData->unit = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXENV,
-            HASH_ATTRIBUTE_UNIT,
+            HASH_ATTRIBUTE_unit,
             attributeValue) )
         {
             return false;
@@ -29290,7 +29342,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -29303,7 +29355,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SAMPLER_STATE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -29579,7 +29631,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -29592,7 +29644,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE_UNIT,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -29866,7 +29918,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SEMANTIC:
+    case HASH_ATTRIBUTE_semantic:
     {
 
 attributeData->semantic = attributeValue;
@@ -29879,7 +29931,7 @@ attributeData->semantic = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXCOORD,
-            HASH_ATTRIBUTE_SEMANTIC,
+            HASH_ATTRIBUTE_semantic,
             attributeValue) )
         {
             return false;
@@ -30455,14 +30507,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -30475,7 +30527,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TECHNIQUE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -30496,7 +30548,7 @@ attributeData->sid = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -30572,7 +30624,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -30585,7 +30637,7 @@ attributeData->ref = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SETPARAM,
-            HASH_ATTRIBUTE_REF,
+            HASH_ATTRIBUTE_ref,
             attributeValue) )
         {
             return false;
@@ -30606,7 +30658,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -30682,7 +30734,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -30695,7 +30747,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PASS,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -31388,14 +31440,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_func_type, StringHash, ENUM__gl_func_type__COUNT>(attributeValue, failed, ENUM__gl_func_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FUNC,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -31403,7 +31455,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -31416,7 +31468,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FUNC,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -31508,14 +31560,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_VALUE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -31529,7 +31581,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_VALUE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -31540,7 +31592,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -31553,7 +31605,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_VALUE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -31689,14 +31741,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_type, StringHash, ENUM__gl_blend_type__COUNT>(attributeValue, failed, ENUM__gl_blend_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SRC,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -31704,7 +31756,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -31717,7 +31769,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SRC,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -31809,14 +31861,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_type, StringHash, ENUM__gl_blend_type__COUNT>(attributeValue, failed, ENUM__gl_blend_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEST,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -31824,7 +31876,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -31837,7 +31889,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEST,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -31929,13 +31981,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CLEAR_COLOR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CLEAR_COLOR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -31949,7 +32001,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLEAR_COLOR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -31963,7 +32015,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLEAR_COLOR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -31977,7 +32029,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -31990,7 +32042,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLEAR_COLOR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -32091,14 +32143,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toSint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLEAR_STENCIL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -32108,7 +32160,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -32121,7 +32173,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLEAR_STENCIL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -32213,14 +32265,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLEAR_DEPTH,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -32230,7 +32282,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -32243,7 +32295,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLEAR_DEPTH,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -32335,13 +32387,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2BoolList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2BoolList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -32355,7 +32407,7 @@ failed = !characterData2BoolList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLIP_PLANE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -32369,7 +32421,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLIP_PLANE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -32383,7 +32435,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -32396,7 +32448,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLIP_PLANE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -32407,14 +32459,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLIP_PLANE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -32428,7 +32480,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLIP_PLANE,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -32455,7 +32507,7 @@ if ((attributeData->present_attributes & profile_GLES__technique__pass__clip_pla
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__clip_plane__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -32536,13 +32588,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2BoolList(attributeValue, attributeData->value, 0, HASH_ELEMENT_COLOR_MASK, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2BoolList(attributeValue, attributeData->value, 0, HASH_ELEMENT_COLOR_MASK, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -32556,7 +32608,7 @@ failed = !characterData2BoolList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -32570,7 +32622,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR_MASK,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -32584,7 +32636,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -32597,7 +32649,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -32698,14 +32750,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_face_type, StringHash, ENUM__gl_face_type__COUNT>(attributeValue, failed, ENUM__gl_face_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CULL_FACE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -32713,7 +32765,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -32726,7 +32778,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CULL_FACE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -32818,14 +32870,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_func_type, StringHash, ENUM__gl_func_type__COUNT>(attributeValue, failed, ENUM__gl_func_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_FUNC,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -32833,7 +32885,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -32846,7 +32898,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_FUNC,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -32938,14 +32990,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -32953,7 +33005,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -32966,7 +33018,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -33058,13 +33110,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_DEPTH_RANGE, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_DEPTH_RANGE, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -33078,7 +33130,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_RANGE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -33092,7 +33144,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_RANGE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -33106,7 +33158,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -33119,7 +33171,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_RANGE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -33223,13 +33275,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_FOG_COLOR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_FOG_COLOR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -33243,7 +33295,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_COLOR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -33257,7 +33309,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_COLOR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -33271,7 +33323,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -33284,7 +33336,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_COLOR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -33388,14 +33440,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_DENSITY,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -33403,7 +33455,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -33416,7 +33468,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_DENSITY,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -33508,14 +33560,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_fog_type, StringHash, ENUM__gl_fog_type__COUNT>(attributeValue, failed, ENUM__gl_fog_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_MODE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -33523,7 +33575,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -33536,7 +33588,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_MODE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -33628,14 +33680,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_START,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -33643,7 +33695,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -33656,7 +33708,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_START,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -33748,14 +33800,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_END,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -33763,7 +33815,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -33776,7 +33828,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_END,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -33868,14 +33920,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_front_face_type, StringHash, ENUM__gl_front_face_type__COUNT>(attributeValue, failed, ENUM__gl_front_face_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FRONT_FACE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -33883,7 +33935,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -33896,7 +33948,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FRONT_FACE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -33988,7 +34040,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -34001,7 +34053,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE_PIPELINE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -34090,7 +34142,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -34103,7 +34155,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_VALUE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -34195,14 +34247,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_logic_op_type, StringHash, ENUM__gl_logic_op_type__COUNT>(attributeValue, failed, ENUM__gl_logic_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LOGIC_OP,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -34210,7 +34262,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -34223,7 +34275,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LOGIC_OP,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -34315,13 +34367,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -34335,7 +34387,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_AMBIENT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -34349,7 +34401,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_AMBIENT,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -34363,7 +34415,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -34376,7 +34428,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_AMBIENT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -34387,14 +34439,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_AMBIENT,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -34408,7 +34460,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_AMBIENT,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -34438,7 +34490,7 @@ if ((attributeData->present_attributes & profile_GLES__technique__pass__light_am
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_ambient__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -34519,13 +34571,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -34539,7 +34591,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_DIFFUSE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -34553,7 +34605,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_DIFFUSE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -34567,7 +34619,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -34580,7 +34632,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_DIFFUSE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -34591,14 +34643,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_DIFFUSE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -34612,7 +34664,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_DIFFUSE,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -34642,7 +34694,7 @@ if ((attributeData->present_attributes & profile_GLES__technique__pass__light_di
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_diffuse__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -34723,13 +34775,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -34743,7 +34795,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPECULAR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -34757,7 +34809,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPECULAR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -34771,7 +34823,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -34784,7 +34836,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPECULAR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -34795,14 +34847,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPECULAR,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -34816,7 +34868,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPECULAR,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -34846,7 +34898,7 @@ if ((attributeData->present_attributes & profile_GLES__technique__pass__light_sp
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_specular__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -34927,13 +34979,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -34947,7 +34999,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_POSITION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -34961,7 +35013,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_POSITION,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -34975,7 +35027,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -34988,7 +35040,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_POSITION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -34999,14 +35051,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_POSITION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -35020,7 +35072,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_POSITION,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -35050,7 +35102,7 @@ if ((attributeData->present_attributes & profile_GLES__technique__pass__light_po
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_position__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -35131,14 +35183,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -35146,7 +35198,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -35159,7 +35211,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -35170,14 +35222,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -35191,7 +35243,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -35214,7 +35266,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_constant_attenuation__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -35290,14 +35342,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -35305,7 +35357,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -35318,7 +35370,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -35329,14 +35381,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -35350,7 +35402,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -35373,7 +35425,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & light_linear_attenutation__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -35449,14 +35501,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -35464,7 +35516,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -35477,7 +35529,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -35488,14 +35540,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -35509,7 +35561,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -35532,7 +35584,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_quadratic_attenuation__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -35608,14 +35660,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_CUTOFF,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -35623,7 +35675,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -35636,7 +35688,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_CUTOFF,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -35647,14 +35699,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_CUTOFF,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -35668,7 +35720,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_CUTOFF,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -35691,7 +35743,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_spot_cutoff__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_CUTOFF, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_CUTOFF, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -35767,13 +35819,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -35787,7 +35839,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_DIRECTION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -35801,7 +35853,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_DIRECTION,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -35815,7 +35867,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -35828,7 +35880,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_DIRECTION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -35839,14 +35891,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_DIRECTION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -35860,7 +35912,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_DIRECTION,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -35890,7 +35942,7 @@ if ((attributeData->present_attributes & profile_GLES__technique__pass__light_sp
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_spot_direction__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -35971,14 +36023,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_EXPONENT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -35986,7 +36038,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -35999,7 +36051,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_EXPONENT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -36010,14 +36062,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_EXPONENT,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -36031,7 +36083,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_EXPONENT,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -36054,7 +36106,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_spot_exponent__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_EXPONENT, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_EXPONENT, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -36130,13 +36182,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_MODEL_AMBIENT, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_MODEL_AMBIENT, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -36150,7 +36202,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_MODEL_AMBIENT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -36164,7 +36216,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_MODEL_AMBIENT,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -36178,7 +36230,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -36191,7 +36243,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_MODEL_AMBIENT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -36295,14 +36347,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LINE_WIDTH,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -36310,7 +36362,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -36323,7 +36375,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINE_WIDTH,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -36415,13 +36467,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_AMBIENT, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_AMBIENT, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -36435,7 +36487,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_AMBIENT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -36449,7 +36501,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_AMBIENT,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -36463,7 +36515,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -36476,7 +36528,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_AMBIENT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -36580,13 +36632,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_DIFFUSE, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_DIFFUSE, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -36600,7 +36652,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_DIFFUSE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -36614,7 +36666,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_DIFFUSE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -36628,7 +36680,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -36641,7 +36693,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_DIFFUSE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -36745,13 +36797,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_EMISSION, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_EMISSION, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -36765,7 +36817,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_EMISSION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -36779,7 +36831,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_EMISSION,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -36793,7 +36845,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -36806,7 +36858,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_EMISSION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -36910,14 +36962,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_SHININESS,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -36925,7 +36977,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -36938,7 +36990,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_SHININESS,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -37030,13 +37082,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_SPECULAR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_SPECULAR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -37050,7 +37102,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_SPECULAR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -37064,7 +37116,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_SPECULAR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -37078,7 +37130,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -37091,7 +37143,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_SPECULAR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -37195,13 +37247,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MODEL_VIEW_MATRIX, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MODEL_VIEW_MATRIX, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -37215,7 +37267,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MODEL_VIEW_MATRIX,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -37229,7 +37281,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MODEL_VIEW_MATRIX,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -37243,7 +37295,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -37256,7 +37308,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MODEL_VIEW_MATRIX,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -37360,13 +37412,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_POINT_DISTANCE_ATTENUATION, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_POINT_DISTANCE_ATTENUATION, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -37380,7 +37432,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_DISTANCE_ATTENUATION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -37394,7 +37446,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_DISTANCE_ATTENUATION,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -37408,7 +37460,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -37421,7 +37473,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_DISTANCE_ATTENUATION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -37525,14 +37577,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_FADE_THRESHOLD_SIZE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -37540,7 +37592,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -37553,7 +37605,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_FADE_THRESHOLD_SIZE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -37645,14 +37697,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_SIZE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -37660,7 +37712,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -37673,7 +37725,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_SIZE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -37765,14 +37817,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_SIZE_MIN,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -37780,7 +37832,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -37793,7 +37845,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_SIZE_MIN,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -37885,14 +37937,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_SIZE_MAX,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -37900,7 +37952,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -37913,7 +37965,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_SIZE_MAX,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -38005,13 +38057,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_POLYGON_OFFSET, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_POLYGON_OFFSET, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -38025,7 +38077,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYGON_OFFSET,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -38039,7 +38091,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_OFFSET,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -38053,7 +38105,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -38066,7 +38118,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_OFFSET,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -38170,13 +38222,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_PROJECTION_MATRIX, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_PROJECTION_MATRIX, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -38190,7 +38242,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_PROJECTION_MATRIX,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -38204,7 +38256,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PROJECTION_MATRIX,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -38218,7 +38270,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -38231,7 +38283,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PROJECTION_MATRIX,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -38335,13 +38387,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2Sint64List(attributeValue, attributeData->value, 0, HASH_ELEMENT_SCISSOR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2Sint64List(attributeValue, attributeData->value, 0, HASH_ELEMENT_SCISSOR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -38355,7 +38407,7 @@ failed = !characterData2Sint64List(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SCISSOR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -38369,7 +38421,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SCISSOR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -38383,7 +38435,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -38396,7 +38448,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SCISSOR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -38497,14 +38549,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_shade_model_type, StringHash, ENUM__gl_shade_model_type__COUNT>(attributeValue, failed, ENUM__gl_shade_model_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SHADE_MODEL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -38512,7 +38564,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -38525,7 +38577,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SHADE_MODEL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -38661,14 +38713,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_func_type, StringHash, ENUM__gl_func_type__COUNT>(attributeValue, failed, ENUM__gl_func_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FUNC,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -38676,7 +38728,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -38689,7 +38741,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FUNC,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -38781,14 +38833,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toUint8(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_REF,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -38796,7 +38848,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -38809,7 +38861,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_REF,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -38901,14 +38953,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toUint8(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -38916,7 +38968,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -38929,7 +38981,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -39021,14 +39073,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toSint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_STENCIL_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -39036,7 +39088,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -39049,7 +39101,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_STENCIL_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -39185,14 +39237,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gles_stencil_op_type, StringHash, ENUM__gles_stencil_op_type__COUNT>(attributeValue, failed, ENUM__gles_stencil_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FAIL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -39200,7 +39252,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -39213,7 +39265,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FAIL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -39341,14 +39393,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gles_stencil_op_type, StringHash, ENUM__gles_stencil_op_type__COUNT>(attributeValue, failed, ENUM__gles_stencil_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ZFAIL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -39356,7 +39408,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -39369,7 +39421,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ZFAIL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -39461,14 +39513,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gles_stencil_op_type, StringHash, ENUM__gles_stencil_op_type__COUNT>(attributeValue, failed, ENUM__gles_stencil_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ZPASS,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -39476,7 +39528,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -39489,7 +39541,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ZPASS,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -39581,14 +39633,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ALPHA_TEST_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -39596,7 +39648,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -39609,7 +39661,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ALPHA_TEST_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -39701,14 +39753,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_BLEND_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -39716,7 +39768,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -39729,7 +39781,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BLEND_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -39821,14 +39873,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLIP_PLANE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -39836,7 +39888,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -39849,7 +39901,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLIP_PLANE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -39860,14 +39912,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLIP_PLANE_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -39881,7 +39933,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLIP_PLANE_ENABLE,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -39975,14 +40027,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_LOGIC_OP_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -39990,7 +40042,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -40003,7 +40055,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR_LOGIC_OP_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -40095,14 +40147,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_MATERIAL_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -40110,7 +40162,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -40123,7 +40175,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR_MATERIAL_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -40215,14 +40267,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CULL_FACE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -40230,7 +40282,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -40243,7 +40295,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CULL_FACE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -40335,14 +40387,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_TEST_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -40350,7 +40402,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -40363,7 +40415,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_TEST_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -40455,14 +40507,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DITHER_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -40470,7 +40522,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -40483,7 +40535,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DITHER_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -40575,14 +40627,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -40590,7 +40642,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -40603,7 +40655,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -40695,14 +40747,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE_PIPELINE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -40710,7 +40762,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -40723,7 +40775,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE_PIPELINE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -40815,14 +40867,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -40830,7 +40882,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -40843,7 +40895,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -40854,14 +40906,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -40875,7 +40927,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_ENABLE,
-            HASH_ATTRIBUTE_INDEX,
+            HASH_ATTRIBUTE_index,
             attributeValue) )
         {
             return false;
@@ -40898,7 +40950,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLES__technique__pass__light_enable__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_ENABLE, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_ENABLE, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -40974,14 +41026,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHTING_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -40989,7 +41041,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -41002,7 +41054,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHTING_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -41094,14 +41146,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -41109,7 +41161,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -41122,7 +41174,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -41214,14 +41266,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LINE_SMOOTH_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -41229,7 +41281,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -41242,7 +41294,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINE_SMOOTH_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -41334,14 +41386,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MULTISAMPLE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -41349,7 +41401,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -41362,7 +41414,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MULTISAMPLE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -41454,14 +41506,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_NORMALIZE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -41469,7 +41521,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -41482,7 +41534,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NORMALIZE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -41574,14 +41626,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_SMOOTH_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -41589,7 +41641,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -41602,7 +41654,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_SMOOTH_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -41694,14 +41746,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYGON_OFFSET_FILL_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -41709,7 +41761,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -41722,7 +41774,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_OFFSET_FILL_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -41814,14 +41866,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_RESCALE_NORMAL_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -41829,7 +41881,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -41842,7 +41894,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_RESCALE_NORMAL_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -41934,14 +41986,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -41949,7 +42001,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -41962,7 +42014,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -42054,14 +42106,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -42069,7 +42121,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -42082,7 +42134,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -42174,14 +42226,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SAMPLE_COVERAGE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -42189,7 +42241,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -42202,7 +42254,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SAMPLE_COVERAGE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -42294,14 +42346,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SCISSOR_TEST_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -42309,7 +42361,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -42322,7 +42374,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SCISSOR_TEST_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -42414,14 +42466,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_STENCIL_TEST_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -42429,7 +42481,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -42442,7 +42494,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_STENCIL_TEST_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -42623,7 +42675,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
@@ -42712,7 +42764,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -42725,7 +42777,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CODE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -42817,7 +42869,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -42830,7 +42882,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_INCLUDE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -42841,14 +42893,14 @@ attributeData->sid = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_URL:
+    case HASH_ATTRIBUTE_url:
     {
 bool failed;
 attributeData->url = GeneratedSaxParser::Utils::toURI(&attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_INCLUDE,
-        HASH_ATTRIBUTE_URL,
+        HASH_ATTRIBUTE_url,
         attributeValue))
 {
     return false;
@@ -42872,12 +42924,12 @@ if ((attributeData->present_attributes & include__AttributeData::ATTRIBUTE_URL_P
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INCLUDE, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INCLUDE, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 if ( (attributeData->present_attributes & include__AttributeData::ATTRIBUTE_URL_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INCLUDE, HASH_ATTRIBUTE_URL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_INCLUDE, HASH_ATTRIBUTE_url, 0 ) )
         return false;
 }
 
@@ -42953,7 +43005,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -42970,7 +43022,7 @@ attributeData->sid = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -44013,6 +44065,24 @@ sint32 parameter = GeneratedSaxParser::Utils::toSint32((const ParserChar**)&mLas
 bool returnValue;
 if (!failed)
 {
+#ifdef GENERATEDSAXPARSER_VALIDATION
+    if ( mValidate )
+    {
+    ParserError::ErrorType simpleTypeValidationResult = validate__glsl_int(parameter);
+    if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
+    {
+        ParserChar msg[21];
+        Utils::fillErrorMsg(msg, ptrForErr, 20);
+        if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+            simpleTypeValidationResult,
+            0,
+            msg) )
+        {
+            return false;
+        }
+    }
+    } // validation
+#endif
     returnValue = mImpl->data__int____glsl_int(parameter);
 }
 else
@@ -44038,7 +44108,7 @@ bool ColladaParserAutoGen14Private::_data__int2____glsl_int2( const ParserChar* 
     {
         int2____glsl_int2__ValidationData* validationData = (int2____glsl_int2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2____glsl_int2, &validate__glsl_int2__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2____glsl_int2, &validate__glsl_int2__stream, &validationData->validationWholeSize, &validate__glsl_int);
     }
     else
     {
@@ -44086,7 +44156,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int2____glsl_int2()
     {
         int2____glsl_int2__ValidationData* validationData = (int2____glsl_int2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2____glsl_int2, &validate__glsl_int2__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2____glsl_int2, &validate__glsl_int2__streamEnd, &validationData->validationWholeSize, &validate__glsl_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__glsl_int2(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -44127,7 +44197,7 @@ bool ColladaParserAutoGen14Private::_data__int3____glsl_int3( const ParserChar* 
     {
         int3____glsl_int3__ValidationData* validationData = (int3____glsl_int3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3____glsl_int3, &validate__glsl_int3__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3____glsl_int3, &validate__glsl_int3__stream, &validationData->validationWholeSize, &validate__glsl_int);
     }
     else
     {
@@ -44175,7 +44245,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int3____glsl_int3()
     {
         int3____glsl_int3__ValidationData* validationData = (int3____glsl_int3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3____glsl_int3, &validate__glsl_int3__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3____glsl_int3, &validate__glsl_int3__streamEnd, &validationData->validationWholeSize, &validate__glsl_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__glsl_int3(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -44216,7 +44286,7 @@ bool ColladaParserAutoGen14Private::_data__int4____glsl_int4( const ParserChar* 
     {
         int4____glsl_int4__ValidationData* validationData = (int4____glsl_int4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4____glsl_int4, &validate__glsl_int4__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4____glsl_int4, &validate__glsl_int4__stream, &validationData->validationWholeSize, &validate__glsl_int);
     }
     else
     {
@@ -44264,7 +44334,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int4____glsl_int4()
     {
         int4____glsl_int4__ValidationData* validationData = (int4____glsl_int4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4____glsl_int4, &validate__glsl_int4__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4____glsl_int4, &validate__glsl_int4__streamEnd, &validationData->validationWholeSize, &validate__glsl_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__glsl_int4(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -44339,14 +44409,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_TYPE:
+    case HASH_ATTRIBUTE_type:
     {
 bool failed;
 attributeData->type = Utils::toEnum<ENUM__fx_surface_type_enum, StringHash, ENUM__fx_surface_type_enum__COUNT>(attributeValue, failed, ENUM__fx_surface_type_enumMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SURFACE,
-        HASH_ATTRIBUTE_TYPE,
+        HASH_ATTRIBUTE_type,
         attributeValue))
 {
     return false;
@@ -44364,7 +44434,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 }
 if ( attributeData->type == ENUM__fx_surface_type_enum__NOT_PRESENT )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SURFACE, HASH_ATTRIBUTE_TYPE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SURFACE, HASH_ATTRIBUTE_type, 0 ) )
         return false;
 }
 
@@ -44500,7 +44570,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 
 attributeData->source = attributeValue;
@@ -44513,7 +44583,7 @@ attributeData->source = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NAME,
-            HASH_ATTRIBUTE_SOURCE,
+            HASH_ATTRIBUTE_source,
             attributeValue) )
         {
             return false;
@@ -44636,7 +44706,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -44653,7 +44723,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -45153,14 +45223,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_LENGTH:
+    case HASH_ATTRIBUTE_length:
     {
 bool failed;
 attributeData->length = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ARRAY,
-        HASH_ATTRIBUTE_LENGTH,
+        HASH_ATTRIBUTE_length,
         attributeValue))
 {
     return false;
@@ -45174,7 +45244,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ARRAY,
-            HASH_ATTRIBUTE_LENGTH,
+            HASH_ATTRIBUTE_length,
             attributeValue) )
         {
             return false;
@@ -45197,7 +45267,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & array____glsl_newarray_type__AttributeData::ATTRIBUTE_LENGTH_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ARRAY, HASH_ATTRIBUTE_LENGTH, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ARRAY, HASH_ATTRIBUTE_length, 0 ) )
         return false;
 }
 
@@ -45273,14 +45343,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -45293,7 +45363,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TECHNIQUE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -45314,7 +45384,7 @@ attributeData->sid = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -45390,14 +45460,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_PROGRAM:
+    case HASH_ATTRIBUTE_program:
     {
 
 attributeData->program = attributeValue;
@@ -45410,7 +45480,7 @@ attributeData->program = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SETPARAM,
-            HASH_ATTRIBUTE_PROGRAM,
+            HASH_ATTRIBUTE_program,
             attributeValue) )
         {
             return false;
@@ -45431,7 +45501,7 @@ attributeData->program = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -45507,14 +45577,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_LENGTH:
+    case HASH_ATTRIBUTE_length:
     {
 bool failed;
 attributeData->length = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ARRAY,
-        HASH_ATTRIBUTE_LENGTH,
+        HASH_ATTRIBUTE_length,
         attributeValue))
 {
     return false;
@@ -45528,7 +45598,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ARRAY,
-            HASH_ATTRIBUTE_LENGTH,
+            HASH_ATTRIBUTE_length,
             attributeValue) )
         {
             return false;
@@ -45622,7 +45692,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -45635,7 +45705,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PASS,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -45743,14 +45813,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_TARGET,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -45758,14 +45828,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_FACE:
+    case HASH_ATTRIBUTE_face:
     {
 bool failed;
 attributeData->face = Utils::toEnum<ENUM__fx_surface_face_enum, StringHash, ENUM__fx_surface_face_enum__COUNT>(attributeValue, failed, ENUM__fx_surface_face_enumMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_TARGET,
-        HASH_ATTRIBUTE_FACE,
+        HASH_ATTRIBUTE_face,
         attributeValue))
 {
     return false;
@@ -45773,14 +45843,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_MIP:
+    case HASH_ATTRIBUTE_mip:
     {
 bool failed;
 attributeData->mip = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_TARGET,
-        HASH_ATTRIBUTE_MIP,
+        HASH_ATTRIBUTE_mip,
         attributeValue))
 {
     return false;
@@ -45788,14 +45858,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_SLICE:
+    case HASH_ATTRIBUTE_slice:
     {
 bool failed;
 attributeData->slice = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_TARGET,
-        HASH_ATTRIBUTE_SLICE,
+        HASH_ATTRIBUTE_slice,
         attributeValue))
 {
     return false;
@@ -45931,14 +46001,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_TARGET,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -45946,14 +46016,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_FACE:
+    case HASH_ATTRIBUTE_face:
     {
 bool failed;
 attributeData->face = Utils::toEnum<ENUM__fx_surface_face_enum, StringHash, ENUM__fx_surface_face_enum__COUNT>(attributeValue, failed, ENUM__fx_surface_face_enumMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_TARGET,
-        HASH_ATTRIBUTE_FACE,
+        HASH_ATTRIBUTE_face,
         attributeValue))
 {
     return false;
@@ -45961,14 +46031,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_MIP:
+    case HASH_ATTRIBUTE_mip:
     {
 bool failed;
 attributeData->mip = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_TARGET,
-        HASH_ATTRIBUTE_MIP,
+        HASH_ATTRIBUTE_mip,
         attributeValue))
 {
     return false;
@@ -45976,14 +46046,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_SLICE:
+    case HASH_ATTRIBUTE_slice:
     {
 bool failed;
 attributeData->slice = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_TARGET,
-        HASH_ATTRIBUTE_SLICE,
+        HASH_ATTRIBUTE_slice,
         attributeValue))
 {
     return false;
@@ -46119,14 +46189,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_STENCIL_TARGET,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -46134,14 +46204,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_FACE:
+    case HASH_ATTRIBUTE_face:
     {
 bool failed;
 attributeData->face = Utils::toEnum<ENUM__fx_surface_face_enum, StringHash, ENUM__fx_surface_face_enum__COUNT>(attributeValue, failed, ENUM__fx_surface_face_enumMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_STENCIL_TARGET,
-        HASH_ATTRIBUTE_FACE,
+        HASH_ATTRIBUTE_face,
         attributeValue))
 {
     return false;
@@ -46149,14 +46219,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_MIP:
+    case HASH_ATTRIBUTE_mip:
     {
 bool failed;
 attributeData->mip = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_STENCIL_TARGET,
-        HASH_ATTRIBUTE_MIP,
+        HASH_ATTRIBUTE_mip,
         attributeValue))
 {
     return false;
@@ -46164,14 +46234,14 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_SLICE:
+    case HASH_ATTRIBUTE_slice:
     {
 bool failed;
 attributeData->slice = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_STENCIL_TARGET,
-        HASH_ATTRIBUTE_SLICE,
+        HASH_ATTRIBUTE_slice,
         attributeValue))
 {
     return false;
@@ -46307,14 +46377,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_CLEAR,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -46448,14 +46518,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_CLEAR,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -46575,14 +46645,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_STENCIL_CLEAR,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -46730,14 +46800,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_func_type, StringHash, ENUM__gl_func_type__COUNT>(attributeValue, failed, ENUM__gl_func_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FUNC,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -46745,7 +46815,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -46758,7 +46828,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FUNC,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -46850,14 +46920,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_VALUE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -46871,7 +46941,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_VALUE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -46882,7 +46952,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -46895,7 +46965,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_VALUE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -47031,14 +47101,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_type, StringHash, ENUM__gl_blend_type__COUNT>(attributeValue, failed, ENUM__gl_blend_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SRC,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -47046,7 +47116,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -47059,7 +47129,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SRC,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -47151,14 +47221,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_type, StringHash, ENUM__gl_blend_type__COUNT>(attributeValue, failed, ENUM__gl_blend_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEST,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -47166,7 +47236,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -47179,7 +47249,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEST,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -47315,14 +47385,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_type, StringHash, ENUM__gl_blend_type__COUNT>(attributeValue, failed, ENUM__gl_blend_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SRC_RGB,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -47330,7 +47400,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -47343,7 +47413,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SRC_RGB,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -47435,14 +47505,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_type, StringHash, ENUM__gl_blend_type__COUNT>(attributeValue, failed, ENUM__gl_blend_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEST_RGB,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -47450,7 +47520,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -47463,7 +47533,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEST_RGB,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -47555,14 +47625,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_type, StringHash, ENUM__gl_blend_type__COUNT>(attributeValue, failed, ENUM__gl_blend_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SRC_ALPHA,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -47570,7 +47640,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -47583,7 +47653,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SRC_ALPHA,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -47675,14 +47745,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_type, StringHash, ENUM__gl_blend_type__COUNT>(attributeValue, failed, ENUM__gl_blend_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEST_ALPHA,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -47690,7 +47760,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -47703,7 +47773,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEST_ALPHA,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -47795,14 +47865,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_equation_type, StringHash, ENUM__gl_blend_equation_type__COUNT>(attributeValue, failed, ENUM__gl_blend_equation_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_BLEND_EQUATION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -47810,7 +47880,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -47823,7 +47893,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BLEND_EQUATION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -47959,14 +48029,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_equation_type, StringHash, ENUM__gl_blend_equation_type__COUNT>(attributeValue, failed, ENUM__gl_blend_equation_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_RGB,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -47974,7 +48044,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -47987,7 +48057,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_RGB,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -48079,14 +48149,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_blend_equation_type, StringHash, ENUM__gl_blend_equation_type__COUNT>(attributeValue, failed, ENUM__gl_blend_equation_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ALPHA,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -48094,7 +48164,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -48107,7 +48177,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ALPHA,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -48243,14 +48313,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_face_type, StringHash, ENUM__gl_face_type__COUNT>(attributeValue, failed, ENUM__gl_face_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FACE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -48258,7 +48328,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -48271,7 +48341,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FACE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -48363,14 +48433,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_material_type, StringHash, ENUM__gl_material_type__COUNT>(attributeValue, failed, ENUM__gl_material_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MODE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -48378,7 +48448,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -48391,7 +48461,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MODE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -48483,14 +48553,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_face_type, StringHash, ENUM__gl_face_type__COUNT>(attributeValue, failed, ENUM__gl_face_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CULL_FACE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -48498,7 +48568,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -48511,7 +48581,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CULL_FACE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -48603,14 +48673,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_func_type, StringHash, ENUM__gl_func_type__COUNT>(attributeValue, failed, ENUM__gl_func_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_FUNC,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -48618,7 +48688,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -48631,7 +48701,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_FUNC,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -48723,14 +48793,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_fog_type, StringHash, ENUM__gl_fog_type__COUNT>(attributeValue, failed, ENUM__gl_fog_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_MODE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -48738,7 +48808,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -48751,7 +48821,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_MODE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -48843,14 +48913,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_fog_coord_src_type, StringHash, ENUM__gl_fog_coord_src_type__COUNT>(attributeValue, failed, ENUM__gl_fog_coord_src_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_COORD_SRC,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -48858,7 +48928,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -48871,7 +48941,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_COORD_SRC,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -48963,14 +49033,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_front_face_type, StringHash, ENUM__gl_front_face_type__COUNT>(attributeValue, failed, ENUM__gl_front_face_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FRONT_FACE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -48978,7 +49048,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -48991,7 +49061,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FRONT_FACE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -49083,14 +49153,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_light_model_color_control_type, StringHash, ENUM__gl_light_model_color_control_type__COUNT>(attributeValue, failed, ENUM__gl_light_model_color_control_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_MODEL_COLOR_CONTROL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -49098,7 +49168,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -49111,7 +49181,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_MODEL_COLOR_CONTROL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -49203,14 +49273,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_logic_op_type, StringHash, ENUM__gl_logic_op_type__COUNT>(attributeValue, failed, ENUM__gl_logic_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LOGIC_OP,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -49218,7 +49288,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -49231,7 +49301,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LOGIC_OP,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -49367,14 +49437,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_face_type, StringHash, ENUM__gl_face_type__COUNT>(attributeValue, failed, ENUM__gl_face_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FACE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -49382,7 +49452,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -49395,7 +49465,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FACE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -49487,14 +49557,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_polygon_mode_type, StringHash, ENUM__gl_polygon_mode_type__COUNT>(attributeValue, failed, ENUM__gl_polygon_mode_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MODE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -49502,7 +49572,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -49515,7 +49585,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MODE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -49607,14 +49677,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_shade_model_type, StringHash, ENUM__gl_shade_model_type__COUNT>(attributeValue, failed, ENUM__gl_shade_model_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SHADE_MODEL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -49622,7 +49692,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -49635,7 +49705,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SHADE_MODEL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -49771,14 +49841,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_func_type, StringHash, ENUM__gl_func_type__COUNT>(attributeValue, failed, ENUM__gl_func_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FUNC,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -49786,7 +49856,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -49799,7 +49869,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FUNC,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -49891,14 +49961,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toUint8(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_REF,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -49906,7 +49976,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -49919,7 +49989,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_REF,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -50011,14 +50081,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toUint8(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -50026,7 +50096,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -50039,7 +50109,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -50175,14 +50245,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_stencil_op_type, StringHash, ENUM__gl_stencil_op_type__COUNT>(attributeValue, failed, ENUM__gl_stencil_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FAIL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -50190,7 +50260,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -50203,7 +50273,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FAIL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -50295,14 +50365,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_stencil_op_type, StringHash, ENUM__gl_stencil_op_type__COUNT>(attributeValue, failed, ENUM__gl_stencil_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ZFAIL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -50310,7 +50380,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -50323,7 +50393,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ZFAIL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -50415,14 +50485,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_stencil_op_type, StringHash, ENUM__gl_stencil_op_type__COUNT>(attributeValue, failed, ENUM__gl_stencil_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ZPASS,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -50430,7 +50500,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -50443,7 +50513,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ZPASS,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -50579,14 +50649,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_func_type, StringHash, ENUM__gl_func_type__COUNT>(attributeValue, failed, ENUM__gl_func_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FRONT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -50594,7 +50664,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -50607,7 +50677,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FRONT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -50699,14 +50769,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_func_type, StringHash, ENUM__gl_func_type__COUNT>(attributeValue, failed, ENUM__gl_func_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_BACK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -50714,7 +50784,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -50727,7 +50797,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BACK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -50819,14 +50889,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toUint8(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_REF,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -50834,7 +50904,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -50847,7 +50917,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_REF,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -50939,14 +51009,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toUint8(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -50954,7 +51024,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -50967,7 +51037,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -51103,14 +51173,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_face_type, StringHash, ENUM__gl_face_type__COUNT>(attributeValue, failed, ENUM__gl_face_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FACE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -51118,7 +51188,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -51131,7 +51201,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FACE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -51223,14 +51293,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_stencil_op_type, StringHash, ENUM__gl_stencil_op_type__COUNT>(attributeValue, failed, ENUM__gl_stencil_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FAIL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -51238,7 +51308,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -51251,7 +51321,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FAIL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -51343,14 +51413,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_stencil_op_type, StringHash, ENUM__gl_stencil_op_type__COUNT>(attributeValue, failed, ENUM__gl_stencil_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ZFAIL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -51358,7 +51428,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -51371,7 +51441,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ZFAIL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -51463,14 +51533,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_stencil_op_type, StringHash, ENUM__gl_stencil_op_type__COUNT>(attributeValue, failed, ENUM__gl_stencil_op_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ZPASS,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -51478,7 +51548,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -51491,7 +51561,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ZPASS,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -51627,14 +51697,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = Utils::toEnum<ENUM__gl_face_type, StringHash, ENUM__gl_face_type__COUNT>(attributeValue, failed, ENUM__gl_face_typeMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FACE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -51642,7 +51712,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -51655,7 +51725,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FACE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -51747,14 +51817,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toUint8(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -51762,7 +51832,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -51775,7 +51845,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -51867,14 +51937,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -51882,7 +51952,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -51895,7 +51965,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -51906,14 +51976,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -51933,7 +52003,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_enable__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_ENABLE, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_ENABLE, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -52009,13 +52079,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -52029,7 +52099,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_AMBIENT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -52043,7 +52113,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_AMBIENT,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -52057,7 +52127,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -52070,7 +52140,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_AMBIENT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -52081,14 +52151,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_AMBIENT,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -52115,7 +52185,7 @@ if ((attributeData->present_attributes & profile_GLSL__technique__pass__light_am
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_ambient__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_AMBIENT, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -52196,13 +52266,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -52216,7 +52286,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_DIFFUSE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -52230,7 +52300,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_DIFFUSE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -52244,7 +52314,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -52257,7 +52327,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_DIFFUSE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -52268,14 +52338,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_DIFFUSE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -52302,7 +52372,7 @@ if ((attributeData->present_attributes & profile_GLSL__technique__pass__light_di
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_diffuse__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_DIFFUSE, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -52383,13 +52453,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -52403,7 +52473,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPECULAR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -52417,7 +52487,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPECULAR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -52431,7 +52501,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -52444,7 +52514,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPECULAR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -52455,14 +52525,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPECULAR,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -52489,7 +52559,7 @@ if ((attributeData->present_attributes & profile_GLSL__technique__pass__light_sp
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_specular__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPECULAR, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -52570,13 +52640,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -52590,7 +52660,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_POSITION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -52604,7 +52674,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_POSITION,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -52618,7 +52688,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -52631,7 +52701,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_POSITION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -52642,14 +52712,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_POSITION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -52676,7 +52746,7 @@ if ((attributeData->present_attributes & profile_GLSL__technique__pass__light_po
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_position__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_POSITION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -52757,14 +52827,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -52772,7 +52842,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -52785,7 +52855,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -52796,14 +52866,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -52823,7 +52893,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_constant_attenuation__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -52899,14 +52969,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_LINEAR_ATTENUATION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -52914,7 +52984,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -52927,7 +52997,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_LINEAR_ATTENUATION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -52938,14 +53008,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_LINEAR_ATTENUATION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -52965,7 +53035,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & light_linear_attenuation__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_LINEAR_ATTENUATION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_LINEAR_ATTENUATION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -53041,14 +53111,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -53056,7 +53126,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -53069,7 +53139,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -53080,14 +53150,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -53107,7 +53177,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_quadratic_attenuation__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -53183,14 +53253,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_CUTOFF,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -53198,7 +53268,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -53211,7 +53281,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_CUTOFF,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -53222,14 +53292,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_CUTOFF,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -53249,7 +53319,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_spot_cutoff__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_CUTOFF, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_CUTOFF, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -53325,13 +53395,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -53345,7 +53415,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_DIRECTION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -53359,7 +53429,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_DIRECTION,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -53373,7 +53443,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -53386,7 +53456,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_DIRECTION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -53397,14 +53467,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_DIRECTION,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -53431,7 +53501,7 @@ if ((attributeData->present_attributes & profile_GLSL__technique__pass__light_sp
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_spot_direction__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_DIRECTION, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -53512,14 +53582,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_EXPONENT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -53527,7 +53597,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -53540,7 +53610,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_SPOT_EXPONENT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -53551,14 +53621,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_SPOT_EXPONENT,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -53578,7 +53648,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & profile_GLSL__technique__pass__light_spot_exponent__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_EXPONENT, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_LIGHT_SPOT_EXPONENT, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -53654,14 +53724,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE1D,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -53681,7 +53751,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & texture1D__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE1D, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE1D, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -53892,14 +53962,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE2D,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -53919,7 +53989,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & texture2D__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE2D, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE2D, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -54039,14 +54109,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE3D,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -54066,7 +54136,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & texture3D__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE3D, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE3D, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -54186,14 +54256,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURECUBE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -54213,7 +54283,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & textureCUBE__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURECUBE, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURECUBE, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -54333,14 +54403,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURERECT,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -54360,7 +54430,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & textureRECT__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURERECT, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURERECT, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -54480,14 +54550,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTUREDEPTH,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -54507,7 +54577,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & textureDEPTH__AttributeData::ATTRIBUTE_INDEX_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTUREDEPTH, HASH_ATTRIBUTE_INDEX, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTUREDEPTH, HASH_ATTRIBUTE_index, 0 ) )
         return false;
 }
 
@@ -54627,14 +54697,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE1D_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -54642,7 +54712,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -54655,7 +54725,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE1D_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -54666,14 +54736,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE1D_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -54764,14 +54834,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE2D_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -54779,7 +54849,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -54792,7 +54862,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE2D_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -54803,14 +54873,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE2D_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -54901,14 +54971,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE3D_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -54916,7 +54986,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -54929,7 +54999,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE3D_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -54940,14 +55010,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE3D_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -55038,14 +55108,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURECUBE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -55053,7 +55123,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -55066,7 +55136,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURECUBE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -55077,14 +55147,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURECUBE_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -55175,14 +55245,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURERECT_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -55190,7 +55260,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -55203,7 +55273,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURERECT_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -55214,14 +55284,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURERECT_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -55312,14 +55382,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTUREDEPTH_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -55327,7 +55397,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -55340,7 +55410,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTUREDEPTH_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -55351,14 +55421,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTUREDEPTH_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -55449,13 +55519,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_TEXTURE_ENV_COLOR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_TEXTURE_ENV_COLOR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -55469,7 +55539,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE_ENV_COLOR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -55483,7 +55553,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE_ENV_COLOR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -55497,7 +55567,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -55510,7 +55580,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE_ENV_COLOR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -55521,14 +55591,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE_ENV_COLOR,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -55628,14 +55698,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 
 attributeData->value = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -55648,7 +55718,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE_ENV_MODE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -55659,14 +55729,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TEXTURE_ENV_MODE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -55757,13 +55827,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CLIP_PLANE, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -55777,7 +55847,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLIP_PLANE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -55791,7 +55861,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLIP_PLANE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -55805,7 +55875,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -55818,7 +55888,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLIP_PLANE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -55829,14 +55899,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLIP_PLANE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -55939,14 +56009,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLIP_PLANE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -55954,7 +56024,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -55967,7 +56037,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLIP_PLANE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -55978,14 +56048,14 @@ attributeData->param = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_INDEX:
+    case HASH_ATTRIBUTE_index:
     {
 bool failed;
 attributeData->index = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLIP_PLANE_ENABLE,
-        HASH_ATTRIBUTE_INDEX,
+        HASH_ATTRIBUTE_index,
         attributeValue))
 {
     return false;
@@ -56076,13 +56146,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_BLEND_COLOR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_BLEND_COLOR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -56096,7 +56166,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_BLEND_COLOR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -56110,7 +56180,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BLEND_COLOR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -56124,7 +56194,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -56137,7 +56207,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BLEND_COLOR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -56241,13 +56311,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CLEAR_COLOR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_CLEAR_COLOR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -56261,7 +56331,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLEAR_COLOR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -56275,7 +56345,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLEAR_COLOR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -56289,7 +56359,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -56302,7 +56372,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLEAR_COLOR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -56406,14 +56476,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toSint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLEAR_STENCIL,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -56421,7 +56491,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -56434,7 +56504,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLEAR_STENCIL,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -56526,14 +56596,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CLEAR_DEPTH,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -56541,7 +56611,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -56554,7 +56624,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CLEAR_DEPTH,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -56646,13 +56716,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2BoolList(attributeValue, attributeData->value, 0, HASH_ELEMENT_COLOR_MASK, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2BoolList(attributeValue, attributeData->value, 0, HASH_ELEMENT_COLOR_MASK, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -56666,7 +56736,7 @@ failed = !characterData2BoolList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -56680,7 +56750,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR_MASK,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -56694,7 +56764,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -56707,7 +56777,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -56811,13 +56881,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_DEPTH_BOUNDS, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_DEPTH_BOUNDS, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -56831,7 +56901,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_BOUNDS,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -56845,7 +56915,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_BOUNDS,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -56859,7 +56929,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -56872,7 +56942,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_BOUNDS,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -56973,14 +57043,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -56988,7 +57058,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -57001,7 +57071,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -57093,13 +57163,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_DEPTH_RANGE, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_DEPTH_RANGE, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -57113,7 +57183,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_RANGE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -57127,7 +57197,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_RANGE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -57141,7 +57211,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -57154,7 +57224,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_RANGE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -57258,14 +57328,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_DENSITY,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -57273,7 +57343,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -57286,7 +57356,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_DENSITY,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -57378,14 +57448,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_START,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -57393,7 +57463,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -57406,7 +57476,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_START,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -57498,14 +57568,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_END,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -57513,7 +57583,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -57526,7 +57596,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_END,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -57618,13 +57688,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_FOG_COLOR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_FOG_COLOR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -57638,7 +57708,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_COLOR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -57652,7 +57722,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_COLOR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -57666,7 +57736,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -57679,7 +57749,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_COLOR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -57783,13 +57853,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_MODEL_AMBIENT, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_LIGHT_MODEL_AMBIENT, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -57803,7 +57873,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_MODEL_AMBIENT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -57817,7 +57887,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_MODEL_AMBIENT,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -57831,7 +57901,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -57844,7 +57914,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_MODEL_AMBIENT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -57948,14 +58018,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHTING_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -57963,7 +58033,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -57976,7 +58046,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHTING_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -58068,13 +58138,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2Sint64List(attributeValue, attributeData->value, 0, HASH_ELEMENT_LINE_STIPPLE, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2Sint64List(attributeValue, attributeData->value, 0, HASH_ELEMENT_LINE_STIPPLE, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -58088,7 +58158,7 @@ failed = !characterData2Sint64List(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LINE_STIPPLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -58102,7 +58172,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINE_STIPPLE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -58116,7 +58186,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -58129,7 +58199,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINE_STIPPLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -58233,14 +58303,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LINE_WIDTH,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -58248,7 +58318,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -58261,7 +58331,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINE_WIDTH,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -58353,13 +58423,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_AMBIENT, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_AMBIENT, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -58373,7 +58443,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_AMBIENT,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -58387,7 +58457,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_AMBIENT,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -58401,7 +58471,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -58414,7 +58484,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_AMBIENT,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -58518,13 +58588,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_DIFFUSE, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_DIFFUSE, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -58538,7 +58608,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_DIFFUSE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -58552,7 +58622,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_DIFFUSE,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -58566,7 +58636,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -58579,7 +58649,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_DIFFUSE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -58683,13 +58753,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_EMISSION, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_EMISSION, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -58703,7 +58773,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_EMISSION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -58717,7 +58787,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_EMISSION,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -58731,7 +58801,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -58744,7 +58814,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_EMISSION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -58848,14 +58918,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_SHININESS,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -58863,7 +58933,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -58876,7 +58946,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_SHININESS,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -58968,13 +59038,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_SPECULAR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MATERIAL_SPECULAR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -58988,7 +59058,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MATERIAL_SPECULAR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -59002,7 +59072,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_SPECULAR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -59016,7 +59086,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -59029,7 +59099,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MATERIAL_SPECULAR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -59133,13 +59203,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MODEL_VIEW_MATRIX, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_MODEL_VIEW_MATRIX, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -59153,7 +59223,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MODEL_VIEW_MATRIX,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -59167,7 +59237,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MODEL_VIEW_MATRIX,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -59181,7 +59251,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -59194,7 +59264,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MODEL_VIEW_MATRIX,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -59298,13 +59368,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_POINT_DISTANCE_ATTENUATION, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_POINT_DISTANCE_ATTENUATION, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -59318,7 +59388,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_DISTANCE_ATTENUATION,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -59332,7 +59402,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_DISTANCE_ATTENUATION,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -59346,7 +59416,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -59359,7 +59429,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_DISTANCE_ATTENUATION,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -59463,14 +59533,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_FADE_THRESHOLD_SIZE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -59478,7 +59548,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -59491,7 +59561,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_FADE_THRESHOLD_SIZE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -59583,14 +59653,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_SIZE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -59598,7 +59668,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -59611,7 +59681,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_SIZE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -59703,14 +59773,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_SIZE_MIN,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -59718,7 +59788,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -59731,7 +59801,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_SIZE_MIN,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -59823,14 +59893,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_SIZE_MAX,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -59838,7 +59908,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -59851,7 +59921,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_SIZE_MAX,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -59943,13 +60013,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_POLYGON_OFFSET, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_POLYGON_OFFSET, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -59963,7 +60033,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYGON_OFFSET,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -59977,7 +60047,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_OFFSET,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -59991,7 +60061,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -60004,7 +60074,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_OFFSET,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -60108,13 +60178,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_PROJECTION_MATRIX, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2FloatList(attributeValue, attributeData->value, 0, HASH_ELEMENT_PROJECTION_MATRIX, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -60128,7 +60198,7 @@ failed = !characterData2FloatList(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_PROJECTION_MATRIX,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -60142,7 +60212,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PROJECTION_MATRIX,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -60156,7 +60226,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -60169,7 +60239,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PROJECTION_MATRIX,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -60273,13 +60343,13 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 #ifdef GENERATEDSAXPARSER_VALIDATION
     if ( mValidate )
     {
-failed = !characterData2Sint64List(attributeValue, attributeData->value, 0, HASH_ELEMENT_SCISSOR, HASH_ATTRIBUTE_VALUE);
+failed = !characterData2Sint64List(attributeValue, attributeData->value, 0, HASH_ELEMENT_SCISSOR, HASH_ATTRIBUTE_value);
     }
     else
     {
@@ -60293,7 +60363,7 @@ failed = !characterData2Sint64List(attributeValue, attributeData->value);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SCISSOR,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -60307,7 +60377,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SCISSOR,
-            HASH_ATTRIBUTE_VALUE,
+            HASH_ATTRIBUTE_value,
             attributeValue) )
         {
             return false;
@@ -60321,7 +60391,7 @@ if ( !failed )
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -60334,7 +60404,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SCISSOR,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -60435,14 +60505,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toSint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_STENCIL_MASK,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -60450,7 +60520,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -60463,7 +60533,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_STENCIL_MASK,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -60555,14 +60625,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ALPHA_TEST_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -60570,7 +60640,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -60583,7 +60653,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ALPHA_TEST_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -60675,14 +60745,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_AUTO_NORMAL_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -60690,7 +60760,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -60703,7 +60773,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_AUTO_NORMAL_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -60795,14 +60865,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_BLEND_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -60810,7 +60880,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -60823,7 +60893,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BLEND_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -60915,14 +60985,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_LOGIC_OP_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -60930,7 +61000,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -60943,7 +61013,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR_LOGIC_OP_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -61035,14 +61105,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_COLOR_MATERIAL_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -61050,7 +61120,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -61063,7 +61133,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR_MATERIAL_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -61155,14 +61225,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_CULL_FACE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -61170,7 +61240,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -61183,7 +61253,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_CULL_FACE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -61275,14 +61345,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_BOUNDS_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -61290,7 +61360,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -61303,7 +61373,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_BOUNDS_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -61395,14 +61465,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_CLAMP_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -61410,7 +61480,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -61423,7 +61493,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_CLAMP_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -61515,14 +61585,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DEPTH_TEST_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -61530,7 +61600,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -61543,7 +61613,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DEPTH_TEST_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -61635,14 +61705,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_DITHER_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -61650,7 +61720,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -61663,7 +61733,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_DITHER_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -61755,14 +61825,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_FOG_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -61770,7 +61840,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -61783,7 +61853,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FOG_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -61875,14 +61945,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_MODEL_LOCAL_VIEWER_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -61890,7 +61960,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -61903,7 +61973,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_MODEL_LOCAL_VIEWER_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -61995,14 +62065,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -62010,7 +62080,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -62023,7 +62093,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -62115,14 +62185,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LINE_SMOOTH_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -62130,7 +62200,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -62143,7 +62213,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINE_SMOOTH_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -62235,14 +62305,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LINE_STIPPLE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -62250,7 +62320,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -62263,7 +62333,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LINE_STIPPLE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -62355,14 +62425,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_LOGIC_OP_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -62370,7 +62440,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -62383,7 +62453,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_LOGIC_OP_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -62475,14 +62545,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_MULTISAMPLE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -62490,7 +62560,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -62503,7 +62573,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_MULTISAMPLE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -62595,14 +62665,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_NORMALIZE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -62610,7 +62680,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -62623,7 +62693,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NORMALIZE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -62715,14 +62785,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POINT_SMOOTH_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -62730,7 +62800,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -62743,7 +62813,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POINT_SMOOTH_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -62835,14 +62905,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYGON_OFFSET_FILL_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -62850,7 +62920,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -62863,7 +62933,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_OFFSET_FILL_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -62955,14 +63025,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYGON_OFFSET_LINE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -62970,7 +63040,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -62983,7 +63053,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_OFFSET_LINE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -63075,14 +63145,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYGON_OFFSET_POINT_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -63090,7 +63160,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -63103,7 +63173,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_OFFSET_POINT_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -63195,14 +63265,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYGON_SMOOTH_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -63210,7 +63280,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -63223,7 +63293,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_SMOOTH_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -63315,14 +63385,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_POLYGON_STIPPLE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -63330,7 +63400,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -63343,7 +63413,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_POLYGON_STIPPLE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -63435,14 +63505,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_RESCALE_NORMAL_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -63450,7 +63520,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -63463,7 +63533,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_RESCALE_NORMAL_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -63555,14 +63625,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -63570,7 +63640,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -63583,7 +63653,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -63675,14 +63745,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -63690,7 +63760,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -63703,7 +63773,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -63795,14 +63865,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SAMPLE_COVERAGE_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -63810,7 +63880,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -63823,7 +63893,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SAMPLE_COVERAGE_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -63915,14 +63985,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SCISSOR_TEST_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -63930,7 +64000,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -63943,7 +64013,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SCISSOR_TEST_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -64035,14 +64105,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_VALUE:
+    case HASH_ATTRIBUTE_value:
     {
 bool failed;
 attributeData->value = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_STENCIL_TEST_ENABLE,
-        HASH_ATTRIBUTE_VALUE,
+        HASH_ATTRIBUTE_value,
         attributeValue))
 {
     return false;
@@ -64050,7 +64120,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 
     break;
     }
-    case HASH_ATTRIBUTE_PARAM:
+    case HASH_ATTRIBUTE_param:
     {
 
 attributeData->param = attributeValue;
@@ -64063,7 +64133,7 @@ attributeData->param = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_STENCIL_TEST_ENABLE,
-            HASH_ATTRIBUTE_PARAM,
+            HASH_ATTRIBUTE_param,
             attributeValue) )
         {
             return false;
@@ -64242,14 +64312,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_STAGE:
+    case HASH_ATTRIBUTE_stage:
     {
 bool failed;
 attributeData->stage = Utils::toEnum<ENUM__glsl_pipeline_stage, StringHash, ENUM__glsl_pipeline_stage__COUNT>(attributeValue, failed, ENUM__glsl_pipeline_stageMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SHADER,
-        HASH_ATTRIBUTE_STAGE,
+        HASH_ATTRIBUTE_stage,
         attributeValue))
 {
     return false;
@@ -64526,7 +64596,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 
 attributeData->source = attributeValue;
@@ -64539,7 +64609,7 @@ attributeData->source = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NAME,
-            HASH_ATTRIBUTE_SOURCE,
+            HASH_ATTRIBUTE_source,
             attributeValue) )
         {
             return false;
@@ -64662,7 +64732,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SYMBOL:
+    case HASH_ATTRIBUTE_symbol:
     {
 
 attributeData->symbol = attributeValue;
@@ -64675,7 +64745,7 @@ attributeData->symbol = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BIND,
-            HASH_ATTRIBUTE_SYMBOL,
+            HASH_ATTRIBUTE_symbol,
             attributeValue) )
         {
             return false;
@@ -64696,7 +64766,7 @@ attributeData->symbol = attributeValue;
 }
 if ( !attributeData->symbol )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND, HASH_ATTRIBUTE_SYMBOL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND, HASH_ATTRIBUTE_symbol, 0 ) )
         return false;
 }
 
@@ -64772,7 +64842,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -64789,7 +64859,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -64865,14 +64935,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_PLATFORM:
+    case HASH_ATTRIBUTE_platform:
     {
 
 attributeData->platform = attributeValue;
@@ -64885,7 +64955,7 @@ attributeData->platform = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PROFILE_CG,
-            HASH_ATTRIBUTE_PLATFORM,
+            HASH_ATTRIBUTE_platform,
             attributeValue) )
         {
             return false;
@@ -64977,7 +65047,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -64994,7 +65064,7 @@ attributeData->sid = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -68768,6 +68838,24 @@ sint32 parameter = GeneratedSaxParser::Utils::toSint32((const ParserChar**)&mLas
 bool returnValue;
 if (!failed)
 {
+#ifdef GENERATEDSAXPARSER_VALIDATION
+    if ( mValidate )
+    {
+    ParserError::ErrorType simpleTypeValidationResult = validate__cg_int(parameter);
+    if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
+    {
+        ParserChar msg[21];
+        Utils::fillErrorMsg(msg, ptrForErr, 20);
+        if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+            simpleTypeValidationResult,
+            0,
+            msg) )
+        {
+            return false;
+        }
+    }
+    } // validation
+#endif
     returnValue = mImpl->data__int____cg_int(parameter);
 }
 else
@@ -68843,6 +68931,24 @@ sint32 parameter = GeneratedSaxParser::Utils::toSint32((const ParserChar**)&mLas
 bool returnValue;
 if (!failed)
 {
+#ifdef GENERATEDSAXPARSER_VALIDATION
+    if ( mValidate )
+    {
+    ParserError::ErrorType simpleTypeValidationResult = validate__cg_int1(parameter);
+    if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
+    {
+        ParserChar msg[21];
+        Utils::fillErrorMsg(msg, ptrForErr, 20);
+        if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
+            simpleTypeValidationResult,
+            0,
+            msg) )
+        {
+            return false;
+        }
+    }
+    } // validation
+#endif
     returnValue = mImpl->data__int1(parameter);
 }
 else
@@ -68868,7 +68974,7 @@ bool ColladaParserAutoGen14Private::_data__int2____cg_int2( const ParserChar* te
     {
         int2____cg_int2__ValidationData* validationData = (int2____cg_int2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2____cg_int2, &validate__cg_int2__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2____cg_int2, &validate__cg_int2__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -68916,7 +69022,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int2____cg_int2()
     {
         int2____cg_int2__ValidationData* validationData = (int2____cg_int2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2____cg_int2, &validate__cg_int2__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2____cg_int2, &validate__cg_int2__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int2(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -68957,7 +69063,7 @@ bool ColladaParserAutoGen14Private::_data__int3____cg_int3( const ParserChar* te
     {
         int3____cg_int3__ValidationData* validationData = (int3____cg_int3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3____cg_int3, &validate__cg_int3__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3____cg_int3, &validate__cg_int3__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69005,7 +69111,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int3____cg_int3()
     {
         int3____cg_int3__ValidationData* validationData = (int3____cg_int3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3____cg_int3, &validate__cg_int3__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3____cg_int3, &validate__cg_int3__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int3(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69046,7 +69152,7 @@ bool ColladaParserAutoGen14Private::_data__int4____cg_int4( const ParserChar* te
     {
         int4____cg_int4__ValidationData* validationData = (int4____cg_int4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4____cg_int4, &validate__cg_int4__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4____cg_int4, &validate__cg_int4__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69094,7 +69200,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int4____cg_int4()
     {
         int4____cg_int4__ValidationData* validationData = (int4____cg_int4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4____cg_int4, &validate__cg_int4__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4____cg_int4, &validate__cg_int4__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int4(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69135,7 +69241,7 @@ bool ColladaParserAutoGen14Private::_data__int1x1( const ParserChar* text, size_
     {
         int1x1__ValidationData* validationData = (int1x1__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int1x1, &validate__cg_int1x1__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int1x1, &validate__cg_int1x1__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69183,7 +69289,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int1x1()
     {
         int1x1__ValidationData* validationData = (int1x1__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int1x1, &validate__cg_int1x1__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int1x1, &validate__cg_int1x1__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int1x1(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69224,7 +69330,7 @@ bool ColladaParserAutoGen14Private::_data__int1x2( const ParserChar* text, size_
     {
         int1x2__ValidationData* validationData = (int1x2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int1x2, &validate__cg_int1x2__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int1x2, &validate__cg_int1x2__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69272,7 +69378,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int1x2()
     {
         int1x2__ValidationData* validationData = (int1x2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int1x2, &validate__cg_int1x2__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int1x2, &validate__cg_int1x2__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int1x2(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69313,7 +69419,7 @@ bool ColladaParserAutoGen14Private::_data__int1x3( const ParserChar* text, size_
     {
         int1x3__ValidationData* validationData = (int1x3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int1x3, &validate__cg_int1x3__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int1x3, &validate__cg_int1x3__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69361,7 +69467,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int1x3()
     {
         int1x3__ValidationData* validationData = (int1x3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int1x3, &validate__cg_int1x3__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int1x3, &validate__cg_int1x3__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int1x3(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69402,7 +69508,7 @@ bool ColladaParserAutoGen14Private::_data__int1x4( const ParserChar* text, size_
     {
         int1x4__ValidationData* validationData = (int1x4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int1x4, &validate__cg_int1x4__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int1x4, &validate__cg_int1x4__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69450,7 +69556,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int1x4()
     {
         int1x4__ValidationData* validationData = (int1x4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int1x4, &validate__cg_int1x4__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int1x4, &validate__cg_int1x4__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int1x4(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69491,7 +69597,7 @@ bool ColladaParserAutoGen14Private::_data__int2x1( const ParserChar* text, size_
     {
         int2x1__ValidationData* validationData = (int2x1__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2x1, &validate__cg_int2x1__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2x1, &validate__cg_int2x1__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69539,7 +69645,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int2x1()
     {
         int2x1__ValidationData* validationData = (int2x1__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2x1, &validate__cg_int2x1__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2x1, &validate__cg_int2x1__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int2x1(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69580,7 +69686,7 @@ bool ColladaParserAutoGen14Private::_data__int2x2( const ParserChar* text, size_
     {
         int2x2__ValidationData* validationData = (int2x2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2x2, &validate__cg_int2x2__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2x2, &validate__cg_int2x2__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69628,7 +69734,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int2x2()
     {
         int2x2__ValidationData* validationData = (int2x2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2x2, &validate__cg_int2x2__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2x2, &validate__cg_int2x2__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int2x2(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69669,7 +69775,7 @@ bool ColladaParserAutoGen14Private::_data__int2x3( const ParserChar* text, size_
     {
         int2x3__ValidationData* validationData = (int2x3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2x3, &validate__cg_int2x3__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2x3, &validate__cg_int2x3__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69717,7 +69823,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int2x3()
     {
         int2x3__ValidationData* validationData = (int2x3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2x3, &validate__cg_int2x3__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2x3, &validate__cg_int2x3__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int2x3(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69758,7 +69864,7 @@ bool ColladaParserAutoGen14Private::_data__int2x4( const ParserChar* text, size_
     {
         int2x4__ValidationData* validationData = (int2x4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2x4, &validate__cg_int2x4__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int2x4, &validate__cg_int2x4__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69806,7 +69912,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int2x4()
     {
         int2x4__ValidationData* validationData = (int2x4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2x4, &validate__cg_int2x4__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int2x4, &validate__cg_int2x4__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int2x4(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69847,7 +69953,7 @@ bool ColladaParserAutoGen14Private::_data__int3x1( const ParserChar* text, size_
     {
         int3x1__ValidationData* validationData = (int3x1__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3x1, &validate__cg_int3x1__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3x1, &validate__cg_int3x1__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69895,7 +70001,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int3x1()
     {
         int3x1__ValidationData* validationData = (int3x1__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3x1, &validate__cg_int3x1__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3x1, &validate__cg_int3x1__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int3x1(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -69936,7 +70042,7 @@ bool ColladaParserAutoGen14Private::_data__int3x2( const ParserChar* text, size_
     {
         int3x2__ValidationData* validationData = (int3x2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3x2, &validate__cg_int3x2__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3x2, &validate__cg_int3x2__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -69984,7 +70090,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int3x2()
     {
         int3x2__ValidationData* validationData = (int3x2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3x2, &validate__cg_int3x2__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3x2, &validate__cg_int3x2__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int3x2(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -70025,7 +70131,7 @@ bool ColladaParserAutoGen14Private::_data__int3x3( const ParserChar* text, size_
     {
         int3x3__ValidationData* validationData = (int3x3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3x3, &validate__cg_int3x3__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3x3, &validate__cg_int3x3__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -70073,7 +70179,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int3x3()
     {
         int3x3__ValidationData* validationData = (int3x3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3x3, &validate__cg_int3x3__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3x3, &validate__cg_int3x3__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int3x3(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -70114,7 +70220,7 @@ bool ColladaParserAutoGen14Private::_data__int3x4( const ParserChar* text, size_
     {
         int3x4__ValidationData* validationData = (int3x4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3x4, &validate__cg_int3x4__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int3x4, &validate__cg_int3x4__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -70162,7 +70268,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int3x4()
     {
         int3x4__ValidationData* validationData = (int3x4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3x4, &validate__cg_int3x4__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int3x4, &validate__cg_int3x4__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int3x4(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -70203,7 +70309,7 @@ bool ColladaParserAutoGen14Private::_data__int4x1( const ParserChar* text, size_
     {
         int4x1__ValidationData* validationData = (int4x1__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4x1, &validate__cg_int4x1__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4x1, &validate__cg_int4x1__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -70251,7 +70357,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int4x1()
     {
         int4x1__ValidationData* validationData = (int4x1__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4x1, &validate__cg_int4x1__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4x1, &validate__cg_int4x1__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int4x1(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -70292,7 +70398,7 @@ bool ColladaParserAutoGen14Private::_data__int4x2( const ParserChar* text, size_
     {
         int4x2__ValidationData* validationData = (int4x2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4x2, &validate__cg_int4x2__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4x2, &validate__cg_int4x2__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -70340,7 +70446,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int4x2()
     {
         int4x2__ValidationData* validationData = (int4x2__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4x2, &validate__cg_int4x2__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4x2, &validate__cg_int4x2__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int4x2(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -70381,7 +70487,7 @@ bool ColladaParserAutoGen14Private::_data__int4x3( const ParserChar* text, size_
     {
         int4x3__ValidationData* validationData = (int4x3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4x3, &validate__cg_int4x3__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4x3, &validate__cg_int4x3__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -70429,7 +70535,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int4x3()
     {
         int4x3__ValidationData* validationData = (int4x3__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4x3, &validate__cg_int4x3__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4x3, &validate__cg_int4x3__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int4x3(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -70470,7 +70576,7 @@ bool ColladaParserAutoGen14Private::_data__int4x4( const ParserChar* text, size_
     {
         int4x4__ValidationData* validationData = (int4x4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4x4, &validate__cg_int4x4__stream, &validationData->validationWholeSize, 0);
+return characterData2Sint32Data(text, textLength, &ColladaParserAutoGen14::data__int4x4, &validate__cg_int4x4__stream, &validationData->validationWholeSize, &validate__cg_int);
     }
     else
     {
@@ -70518,7 +70624,7 @@ bool ColladaParserAutoGen14Private::_preEnd__int4x4()
     {
         int4x4__ValidationData* validationData = (int4x4__ValidationData*)mValidationDataStack.top();
         DISABLE_WARNING_UNUSED(validationData)
-bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4x4, &validate__cg_int4x4__streamEnd, &validationData->validationWholeSize, 0 );
+bool returnValue = sint32DataEnd( &ColladaParserAutoGen14::data__int4x4, &validate__cg_int4x4__streamEnd, &validationData->validationWholeSize, &validate__cg_int );
         ParserError::ErrorType simpleTypeValidationResult = validate__cg_int4x4(0, (*(&validationData->validationWholeSize)));
         mValidationDataStack.deleteObject();
         if (simpleTypeValidationResult != ParserError::SIMPLE_TYPE_VALIDATION_OK)
@@ -74311,14 +74417,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_TYPE:
+    case HASH_ATTRIBUTE_type:
     {
 bool failed;
 attributeData->type = Utils::toEnum<ENUM__fx_surface_type_enum, StringHash, ENUM__fx_surface_type_enum__COUNT>(attributeValue, failed, ENUM__fx_surface_type_enumMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SURFACE,
-        HASH_ATTRIBUTE_TYPE,
+        HASH_ATTRIBUTE_type,
         attributeValue))
 {
     return false;
@@ -74336,7 +74442,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
 }
 if ( attributeData->type == ENUM__fx_surface_type_enum__NOT_PRESENT )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SURFACE, HASH_ATTRIBUTE_TYPE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SURFACE, HASH_ATTRIBUTE_type, 0 ) )
         return false;
 }
 
@@ -74472,7 +74578,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 
 attributeData->source = attributeValue;
@@ -74485,7 +74591,7 @@ attributeData->source = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NAME,
-            HASH_ATTRIBUTE_SOURCE,
+            HASH_ATTRIBUTE_source,
             attributeValue) )
         {
             return false;
@@ -74608,7 +74714,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -74625,7 +74731,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -74965,14 +75071,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_NAME:
+    case HASH_ATTRIBUTE_name:
     {
 
 attributeData->name = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 
 attributeData->source = attributeValue;
@@ -74985,7 +75091,7 @@ attributeData->source = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_USERTYPE,
-            HASH_ATTRIBUTE_SOURCE,
+            HASH_ATTRIBUTE_source,
             attributeValue) )
         {
             return false;
@@ -75006,12 +75112,12 @@ attributeData->source = attributeValue;
 }
 if ( !attributeData->name )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_USERTYPE, HASH_ATTRIBUTE_NAME, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_USERTYPE, HASH_ATTRIBUTE_name, 0 ) )
         return false;
 }
 if ( !attributeData->source )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_USERTYPE, HASH_ATTRIBUTE_SOURCE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_USERTYPE, HASH_ATTRIBUTE_source, 0 ) )
         return false;
 }
 
@@ -75087,14 +75193,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_LENGTH:
+    case HASH_ATTRIBUTE_length:
     {
 bool failed;
 attributeData->length = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ARRAY,
-        HASH_ATTRIBUTE_LENGTH,
+        HASH_ATTRIBUTE_length,
         attributeValue))
 {
     return false;
@@ -75108,7 +75214,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ARRAY,
-            HASH_ATTRIBUTE_LENGTH,
+            HASH_ATTRIBUTE_length,
             attributeValue) )
         {
             return false;
@@ -75202,7 +75308,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -75219,7 +75325,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_CONNECT_PARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_CONNECT_PARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -75295,14 +75401,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_PROGRAM:
+    case HASH_ATTRIBUTE_program:
     {
 
 attributeData->program = attributeValue;
@@ -75315,7 +75421,7 @@ attributeData->program = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_SETPARAM,
-            HASH_ATTRIBUTE_PROGRAM,
+            HASH_ATTRIBUTE_program,
             attributeValue) )
         {
             return false;
@@ -75336,7 +75442,7 @@ attributeData->program = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_SETPARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -75412,14 +75518,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_LENGTH:
+    case HASH_ATTRIBUTE_length:
     {
 bool failed;
 attributeData->length = GeneratedSaxParser::Utils::toUint64(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_ARRAY,
-        HASH_ATTRIBUTE_LENGTH,
+        HASH_ATTRIBUTE_length,
         attributeValue))
 {
     return false;
@@ -75433,7 +75539,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_ARRAY,
-            HASH_ATTRIBUTE_LENGTH,
+            HASH_ATTRIBUTE_length,
             attributeValue) )
         {
             return false;
@@ -75456,7 +75562,7 @@ if ( !failed )
 }
 if ( (attributeData->present_attributes & array____cg_newarray_type__AttributeData::ATTRIBUTE_LENGTH_PRESENT) == 0 )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ARRAY, HASH_ATTRIBUTE_LENGTH, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_ARRAY, HASH_ATTRIBUTE_length, 0 ) )
         return false;
 }
 
@@ -75532,14 +75638,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -75552,7 +75658,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TECHNIQUE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -75573,7 +75679,7 @@ attributeData->sid = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -75649,7 +75755,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -75662,7 +75768,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PASS,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -75754,14 +75860,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_STAGE:
+    case HASH_ATTRIBUTE_stage:
     {
 bool failed;
 attributeData->stage = Utils::toEnum<ENUM__cg_pipeline_stage, StringHash, ENUM__cg_pipeline_stage__COUNT>(attributeValue, failed, ENUM__cg_pipeline_stageMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_SHADER,
-        HASH_ATTRIBUTE_STAGE,
+        HASH_ATTRIBUTE_stage,
         attributeValue))
 {
     return false;
@@ -75993,7 +76099,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SOURCE:
+    case HASH_ATTRIBUTE_source:
     {
 
 attributeData->source = attributeValue;
@@ -76006,7 +76112,7 @@ attributeData->source = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NAME,
-            HASH_ATTRIBUTE_SOURCE,
+            HASH_ATTRIBUTE_source,
             attributeValue) )
         {
             return false;
@@ -76129,7 +76235,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SYMBOL:
+    case HASH_ATTRIBUTE_symbol:
     {
 
 attributeData->symbol = attributeValue;
@@ -76142,7 +76248,7 @@ attributeData->symbol = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_BIND,
-            HASH_ATTRIBUTE_SYMBOL,
+            HASH_ATTRIBUTE_symbol,
             attributeValue) )
         {
             return false;
@@ -76163,7 +76269,7 @@ attributeData->symbol = attributeValue;
 }
 if ( !attributeData->symbol )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND, HASH_ATTRIBUTE_SYMBOL, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_BIND, HASH_ATTRIBUTE_symbol, 0 ) )
         return false;
 }
 
@@ -76239,7 +76345,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -76252,7 +76358,7 @@ attributeData->ref = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PARAM,
-            HASH_ATTRIBUTE_REF,
+            HASH_ATTRIBUTE_ref,
             attributeValue) )
         {
             return false;
@@ -76273,7 +76379,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -76349,7 +76455,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
@@ -76437,7 +76543,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -76450,7 +76556,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_NEWPARAM,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -76471,7 +76577,7 @@ attributeData->sid = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_NEWPARAM, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -76547,14 +76653,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_ID:
+    case HASH_ATTRIBUTE_id:
     {
 
 attributeData->id = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -76567,7 +76673,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TECHNIQUE,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -76588,7 +76694,7 @@ attributeData->sid = attributeValue;
 }
 if ( !attributeData->sid )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_SID, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TECHNIQUE, HASH_ATTRIBUTE_sid, 0 ) )
         return false;
 }
 
@@ -76768,7 +76874,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -76781,7 +76887,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_COLOR,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -76902,7 +77008,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -76915,7 +77021,7 @@ attributeData->ref = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PARAM,
-            HASH_ATTRIBUTE_REF,
+            HASH_ATTRIBUTE_ref,
             attributeValue) )
         {
             return false;
@@ -76936,7 +77042,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -77012,7 +77118,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_TEXTURE:
+    case HASH_ATTRIBUTE_texture:
     {
 
 attributeData->texture = attributeValue;
@@ -77025,7 +77131,7 @@ attributeData->texture = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE,
-            HASH_ATTRIBUTE_TEXTURE,
+            HASH_ATTRIBUTE_texture,
             attributeValue) )
         {
             return false;
@@ -77036,7 +77142,7 @@ attributeData->texture = attributeValue;
 
     break;
     }
-    case HASH_ATTRIBUTE_TEXCOORD:
+    case HASH_ATTRIBUTE_texcoord:
     {
 
 attributeData->texcoord = attributeValue;
@@ -77049,7 +77155,7 @@ attributeData->texcoord = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_TEXTURE,
-            HASH_ATTRIBUTE_TEXCOORD,
+            HASH_ATTRIBUTE_texcoord,
             attributeValue) )
         {
             return false;
@@ -77070,12 +77176,12 @@ attributeData->texcoord = attributeValue;
 }
 if ( !attributeData->texture )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE, HASH_ATTRIBUTE_TEXTURE, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE, HASH_ATTRIBUTE_texture, 0 ) )
         return false;
 }
 if ( !attributeData->texcoord )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE, HASH_ATTRIBUTE_TEXCOORD, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_TEXTURE, HASH_ATTRIBUTE_texcoord, 0 ) )
         return false;
 }
 
@@ -77255,7 +77361,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_SID:
+    case HASH_ATTRIBUTE_sid:
     {
 
 attributeData->sid = attributeValue;
@@ -77268,7 +77374,7 @@ attributeData->sid = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_FLOAT,
-            HASH_ATTRIBUTE_SID,
+            HASH_ATTRIBUTE_sid,
             attributeValue) )
         {
             return false;
@@ -77375,7 +77481,7 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_REF:
+    case HASH_ATTRIBUTE_ref:
     {
 
 attributeData->ref = attributeValue;
@@ -77388,7 +77494,7 @@ attributeData->ref = attributeValue;
         if( handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
             simpleTypeValidationResult,
             HASH_ELEMENT_PARAM,
-            HASH_ATTRIBUTE_REF,
+            HASH_ATTRIBUTE_ref,
             attributeValue) )
         {
             return false;
@@ -77409,7 +77515,7 @@ attributeData->ref = attributeValue;
 }
 if ( !attributeData->ref )
 {
-    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_REF, 0 ) )
+    if ( handleError ( ParserError::SEVERITY_ERROR_NONCRITICAL, ParserError::ERROR_REQUIRED_ATTRIBUTE_MISSING, HASH_ELEMENT_PARAM, HASH_ATTRIBUTE_ref, 0 ) )
         return false;
 }
 
@@ -77485,14 +77591,14 @@ if ( attributeArray )
 
     switch ( hash )
     {
-    case HASH_ATTRIBUTE_OPAQUE:
+    case HASH_ATTRIBUTE_opaque:
     {
 bool failed;
 attributeData->opaque = Utils::toEnum<ENUM__fx_opaque_enum, StringHash, ENUM__fx_opaque_enum__COUNT>(attributeValue, failed, ENUM__fx_opaque_enumMap, Utils::calculateStringHash);
 if ( failed && handleError(ParserError::SEVERITY_ERROR_NONCRITICAL,
         ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
         HASH_ELEMENT_TRANSPARENT,
-        HASH_ATTRIBUTE_OPAQUE,
+        HASH_ATTRIBUTE_opaque,
         attributeValue))
 {
     return false;
