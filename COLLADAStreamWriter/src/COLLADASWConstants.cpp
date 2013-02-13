@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008-2009 NetAllied Systems GmbH
+    Copyright (c) 2008-2013 NetAllied Systems GmbH
 
 	This file is part of COLLADAStreamWriter.
 	
@@ -116,6 +116,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_LIBRARY_LIGHTS = "library_lights";
     const String CSWC::CSW_ELEMENT_LIBRARY_MATERIALS = "library_materials";
     const String CSWC::CSW_ELEMENT_LIBRARY_VISUAL_SCENES = "library_visual_scenes";
+	const String CSWC::CSW_ELEMENT_LIBRARY_NODES = "library_nodes";
     const String CSWC::CSW_ELEMENT_LIGHT = "light";
 	const String CSWC::CSW_ELEMENT_LINEAR_ATTENUATION = "linear_attenuation";
 	const String CSWC::CSW_ELEMENT_LINES = "lines";
