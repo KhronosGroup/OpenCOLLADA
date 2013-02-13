@@ -304,6 +304,8 @@ namespace COLLADAMax
 
 		UniqueIdSkyLightMap mUniqueIdSkyLightMap;
 
+		COLLADAFW::UniqueId mVisualSceneUniqueId;
+
 	public:
 		/** Constructor .
 		@param maxInterface The max interface.
@@ -366,10 +368,7 @@ namespace COLLADAMax
 
 		/** Writes the scene.
 		@return True on succeeded, false otherwise.*/
-		virtual bool writeScene ( const COLLADAFW::Scene* Scene )
-		{
-			return true;
-		}
+		virtual bool writeScene ( const COLLADAFW::Scene* scene );
 
 		/** Writes the entire visual scene.
 		@return True on succeeded, false otherwise.*/
