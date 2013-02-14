@@ -267,6 +267,8 @@ attrData.input_semantic = attributeData.input_semantic;
 if ( (attributeData.present_attributes & COLLADASaxFWL14::bind_vertex_input__AttributeData::ATTRIBUTE_INPUT_SET_PRESENT) == COLLADASaxFWL14::bind_vertex_input__AttributeData::ATTRIBUTE_INPUT_SET_PRESENT ) {
     attrData.input_set = attributeData.input_set;
     attrData.present_attributes |= COLLADASaxFWL::bind_vertex_input__AttributeData::ATTRIBUTE_INPUT_SET_PRESENT;
+} else {
+    attrData.input_set = ~0;
 }
 return mLoader->begin__bind_vertex_input(attrData);
 }

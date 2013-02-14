@@ -31,7 +31,8 @@ namespace COLLADAFW
 		, mLinearMotionProfile(pre.mLinearMotionProfile)
 		, mAngularMotionProfile(pre.mAngularMotionProfile)
 	{
-
+		pre.mKinematicsModelUniqueIds.cloneArray(mKinematicsModelUniqueIds);
+		pre.mAxisInfos.cloneArray(mAxisInfos);
 	}
 
 
