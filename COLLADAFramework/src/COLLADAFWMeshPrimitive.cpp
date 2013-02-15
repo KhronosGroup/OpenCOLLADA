@@ -11,6 +11,7 @@
 #include "COLLADAFWStableHeaders.h"
 #include "COLLADAFWMeshPrimitive.h"
 #include "COLLADAFWPolygons.h"
+#include "COLLADAFWPolylist.h"
 #include "COLLADAFWMeshPrimitiveWithFaceVertexCount.h"
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWTristrips.h"
@@ -86,8 +87,10 @@ namespace COLLADAFW
             return ((Linestrips*)this)->getGroupedVerticesVertexCount ( faceIndex );
             break;
         case POLYGONS:
+			return ((Polygons*)this)->getGroupedVerticesVertexCount ( faceIndex );
+			break;
         case POLYLIST:
-            return ((Polygons*)this)->getGroupedVerticesVertexCount ( faceIndex );
+            return ((Polylist*)this)->getGroupedVerticesVertexCount ( faceIndex );
             break;
         default:
             std::cerr << "Unknown primitive type: " << mPrimitiveType << std::endl;
@@ -122,12 +125,19 @@ namespace COLLADAFW
                 break;
             }
         case MeshPrimitive::POLYGONS:
+			{
+				Polygons* polygons = (Polygons*) this;
+				Polygons::VertexCountArray& vertexCountArray =
+					polygons->getGroupedVerticesVertexCountArray ();
+				groupedVertexElementsCount = vertexCountArray.getCount ();
+			}
+			break;
         case MeshPrimitive::POLYLIST:
             {
-                Polygons* polygons = (Polygons*) this;
-                Polygons::VertexCountArray& vertexCountArray =
-                    polygons->getGroupedVerticesVertexCountArray ();
-                groupedVertexElementsCount = vertexCountArray.getCount ();
+				Polylist* polylist = (Polylist*) this;
+				Polylist::VertexCountArray& vertexCountArray =
+					polylist->getGroupedVerticesVertexCountArray ();
+				groupedVertexElementsCount = vertexCountArray.getCount ();
             }
             break;
         case MeshPrimitive::LINES:

@@ -38,8 +38,6 @@ GeometryLoader14(GeometryLoader* loader)
 
 virtual bool begin__mesh();
 
-virtual bool begin__spline( const COLLADASaxFWL14::spline__AttributeData& attributeData );
-
 virtual bool end__geometry();
 
 virtual bool begin__technique( const COLLADASaxFWL14::technique__AttributeData& attributeData );
