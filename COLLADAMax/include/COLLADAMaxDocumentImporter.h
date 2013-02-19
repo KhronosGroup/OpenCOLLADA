@@ -31,6 +31,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWController.h"
 #include "COLLADAFWMorphController.h"
 #include "COLLADAFWSkinController.h"
+#include "COLLADAFWFileInfo.h"
 
 #include <list>
 
@@ -159,7 +160,7 @@ namespace COLLADAMax
 		{
 			COLLADABU::URI absoluteFileUri;
 			float unitScale;
-
+			COLLADAFW::FileInfo::UpAxisType upAxis;
 		};
 
 		/** List of unique ids.*/
@@ -304,6 +305,8 @@ namespace COLLADAMax
 
 		UniqueIdSkyLightMap mUniqueIdSkyLightMap;
 
+		COLLADAFW::UniqueId mVisualSceneUniqueId;
+
 	public:
 		/** Constructor .
 		@param maxInterface The max interface.
@@ -366,10 +369,7 @@ namespace COLLADAMax
 
 		/** Writes the scene.
 		@return True on succeeded, false otherwise.*/
-		virtual bool writeScene ( const COLLADAFW::Scene* Scene )
-		{
-			return true;
-		}
+		virtual bool writeScene ( const COLLADAFW::Scene* scene );
 
 		/** Writes the entire visual scene.
 		@return True on succeeded, false otherwise.*/

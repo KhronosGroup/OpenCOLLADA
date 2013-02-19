@@ -41,6 +41,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWLibraryNodes.h"
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWVisualScene.h"
+#include "COLLADAFWInstanceVisualScene.h"
+#include "COLLADAFWScene.h"
 
 
 #include "COLLADASaxFWLLoader.h"
@@ -58,6 +60,10 @@ namespace COLLADAMax
 	const char GOOGLE_SKETCHUP70[] = "Google SketchUp 7.0";
 	const char MICROSTATION[] = "MicroStation";
 
+	static const COLLADABU::Math::Matrix4 X_UPAXIS_CORRECTION( 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1);
+	static const COLLADABU::Math::Matrix4 Y_UPAXIS_CORRECTION( 1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1);
+
+
 	//--------------------------------------------------------------------
 	DocumentImporter::DocumentImporter(Interface * maxInterface, ImpInterface* maxImportInterface, const NativeString &filepath)
 		: mMaxInterface(maxInterface)
@@ -68,6 +74,8 @@ namespace COLLADAMax
 		, mCurrentParsingPass(GENERAL_PASS)
 		, mInvertTransparency(false)
 		, mExtraDataHandler(0)
+		, mUniqueIdSkyLightMap()
+		, mVisualSceneUniqueId( COLLADAFW::UniqueId::INVALID )
 	{
 		mUnitConversionFunctors.lengthConversion = 0;
 		mUnitConversionFunctors.inverseLengthConversion = 0;
@@ -130,10 +138,19 @@ namespace COLLADAMax
 			mMaxImportInterface->SetAmbient(0, Point3(mAmbientColor.getRed(), mAmbientColor.getGreen(), mAmbientColor.getBlue() ));
 		}
 
+		if( errorHandler.hasCriticalError() )
+			return false;
+
 		if ( !createSceneGraph() )
 			return false;
 
+		if( errorHandler.hasCriticalError() )
+			return false;
+
 		if ( !createMorphController() )
+			return false;
+
+		if( errorHandler.hasCriticalError() )
 			return false;
 
 		mCurrentParsingPass = CONTROLLER_DATA_PASS;
@@ -145,12 +162,20 @@ namespace COLLADAMax
 		if ( !root.loadDocument(mImportFilePath) )
 			return false;
 
+		if( errorHandler.hasCriticalError() )
+			return false;
 
 		MaterialCreator materialCreator(this);
 		if ( !materialCreator.create() )
 			return false;
 
+		if( errorHandler.hasCriticalError() )
+			return false;
+
 		if ( !assignControllers(materialCreator) )
+			return false;
+
+		if( errorHandler.hasCriticalError() )
 			return false;
 
 		return true;
@@ -211,12 +236,32 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::createSceneGraph()
 	{
+		//set first available visual scene for fallback if no scene is defined
 		UniqueIdVisualSceneMap::const_iterator it = mUniqueIdVisualSceneMap.begin();
-		if ( it != mUniqueIdVisualSceneMap.end() )
+
+		if(mVisualSceneUniqueId != COLLADAFW::UniqueId::INVALID)
 		{
-			SceneGraphCreator sceneGraphCreator(this, it->second);
+			it = mUniqueIdVisualSceneMap.find( mVisualSceneUniqueId );
+
+			//reset first available visual scene for fallback if referenced visual scene could not be found
+			if( it == mUniqueIdVisualSceneMap.end() )
+				it = mUniqueIdVisualSceneMap.begin(); 
+		}
+
+		bool visualSceneAvailable = (it != mUniqueIdVisualSceneMap.end());
+		if ( visualSceneAvailable )
+		{
+			COLLADABU::Math::Matrix4 upAxisRotation = COLLADABU::Math::Matrix4::IDENTITY;
+			if( COLLADAFW::FileInfo::X_UP == mFileInfo.upAxis )
+				upAxisRotation = X_UPAXIS_CORRECTION;
+			else if( COLLADAFW::FileInfo::Y_UP == mFileInfo.upAxis )
+				upAxisRotation = Y_UPAXIS_CORRECTION;
+			//else upAxis unknown or z  -> no rotation
+			
+			SceneGraphCreator sceneGraphCreator(this, it->second, upAxisRotation);
 			return sceneGraphCreator.create();
 		}
+
 		return true;
 	}
 
@@ -313,6 +358,8 @@ namespace COLLADAMax
      		delete mUnitConversionFunctors.angleConversion;
 			mUnitConversionFunctors.angleConversion = ConversionFunctors::degToRad.clone();
 		}
+
+		mFileInfo.upAxis = asset->getUpAxisType();
 
 		return true;
 	}
@@ -442,6 +489,19 @@ namespace COLLADAMax
 	float DocumentImporter::convertSpaceUnit( float originalValue )
 	{
 		return originalValue * mFileInfo.unitScale;
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::writeScene( const COLLADAFW::Scene* scene )
+	{
+		if( scene == 0 )
+			return true;
+
+		const COLLADAFW::InstanceVisualScene* instanceVisualScene = scene->getInstanceVisualScene();
+		COLLADAFW::UniqueId id = instanceVisualScene->getInstanciatedObjectId();
+		if(id.getFileId() == 0)
+			mVisualSceneUniqueId = id;
+		return true;
 	}
 
 } // namespace COLLADAMax
