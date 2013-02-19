@@ -60,6 +60,10 @@ namespace COLLADAMax
 	const char GOOGLE_SKETCHUP70[] = "Google SketchUp 7.0";
 	const char MICROSTATION[] = "MicroStation";
 
+	static const COLLADABU::Math::Matrix4 X_UPAXIS_CORRECTION( 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1);
+	static const COLLADABU::Math::Matrix4 Y_UPAXIS_CORRECTION( 1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1);
+
+
 	//--------------------------------------------------------------------
 	DocumentImporter::DocumentImporter(Interface * maxInterface, ImpInterface* maxImportInterface, const NativeString &filepath)
 		: mMaxInterface(maxInterface)
@@ -247,7 +251,14 @@ namespace COLLADAMax
 		bool visualSceneAvailable = (it != mUniqueIdVisualSceneMap.end());
 		if ( visualSceneAvailable )
 		{
-			SceneGraphCreator sceneGraphCreator(this, it->second);
+			COLLADABU::Math::Matrix4 upAxisRotation = COLLADABU::Math::Matrix4::IDENTITY;
+			if( COLLADAFW::FileInfo::X_UP == mFileInfo.upAxis )
+				upAxisRotation = X_UPAXIS_CORRECTION;
+			else if( COLLADAFW::FileInfo::Y_UP == mFileInfo.upAxis )
+				upAxisRotation = Y_UPAXIS_CORRECTION;
+			//else upAxis unknown or z  -> no rotation
+			
+			SceneGraphCreator sceneGraphCreator(this, it->second, upAxisRotation);
 			return sceneGraphCreator.create();
 		}
 
@@ -347,6 +358,8 @@ namespace COLLADAMax
      		delete mUnitConversionFunctors.angleConversion;
 			mUnitConversionFunctors.angleConversion = ConversionFunctors::degToRad.clone();
 		}
+
+		mFileInfo.upAxis = asset->getUpAxisType();
 
 		return true;
 	}
