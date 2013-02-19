@@ -31,6 +31,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWController.h"
 #include "COLLADAFWMorphController.h"
 #include "COLLADAFWSkinController.h"
+#include "COLLADAFWFileInfo.h"
 
 #include <list>
 
@@ -159,7 +160,7 @@ namespace COLLADAMax
 		{
 			COLLADABU::URI absoluteFileUri;
 			float unitScale;
-
+			COLLADAFW::FileInfo::UpAxisType upAxis;
 		};
 
 		/** List of unique ids.*/
