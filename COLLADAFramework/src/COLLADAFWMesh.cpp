@@ -55,6 +55,11 @@ namespace COLLADAFW
 		return getPrimitiveCount(MeshPrimitive::POLYGONS);
 	}
 
+	//---------------------------------------------------------------
+	size_t Mesh::getPolylistPolygonCount()
+	{
+		return getPrimitiveCount(MeshPrimitive::POLYLIST);
+	}
 
 	//---------------------------------------------------------------
 	size_t Mesh::getPrimitiveCount( MeshPrimitive::PrimitiveType primitiveType )
@@ -71,6 +76,7 @@ namespace COLLADAFW
 				case MeshPrimitive::TRIANGLES:
                 case MeshPrimitive::LINES:
 				case MeshPrimitive::POLYGONS:
+				case MeshPrimitive::POLYLIST:
 					primitiveCount += primitive->getFaceCount();
 					break;
 				case MeshPrimitive::TRIANGLE_STRIPS:
