@@ -951,6 +951,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASWLibraryNodes.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASWLibraryVisualScenes.cpp"
 				>
 			</File>
@@ -1174,6 +1178,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWLibraryMaterials.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWLibraryNodes.h"
 				>
 			</File>
 			<File

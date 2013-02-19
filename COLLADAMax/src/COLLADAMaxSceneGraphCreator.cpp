@@ -25,9 +25,10 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAMax
 {
 
-	SceneGraphCreator::SceneGraphCreator( DocumentImporter* documentImporter, const COLLADAFW::VisualScene* visualScene )
-		: ImporterBase(documentImporter)
+	SceneGraphCreator::SceneGraphCreator( DocumentImporter* documentImporter, const COLLADAFW::VisualScene* visualScene, COLLADABU::Math::Matrix4 upAxisRotation )
+		: ImporterBase( documentImporter )
 		, mVisualScene( visualScene )
+		, mUpAxisRotation( upAxisRotation )
 	{}
 
 	//------------------------------
@@ -36,7 +37,7 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	void SceneGraphCreator::setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode)
+	void SceneGraphCreator::setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode )
 	{
 		const String& newNodeName = node->getName();
 		if ( !newNodeName.empty() )
@@ -57,7 +58,28 @@ namespace COLLADAMax
 			return false;
 
 		INode* rootNode = getMaxInterface()->GetRootNode();
-		importNodes(mVisualScene->getRootNodes(), rootNode);
+
+//why does this not work: setting rotation on root node
+// 		Matrix3 maxTransformationMatrix;
+// 		Matrix4ToMaxMatrix3(maxTransformationMatrix, mUpAxisRotation);
+// 		rootNode->SetNodeTM(0, maxTransformationMatrix);
+// 
+// 		Matrix3 x = rootNode->GetNodeTM(0);
+
+		if( COLLADABU::Math::Matrix4::IDENTITY != mUpAxisRotation )
+		{
+			ImpNode* upAxisCorrectionNode = getMaxImportInterface()->CreateNode();
+			Matrix3 maxTransformationMatrix;
+			Matrix4ToMaxMatrix3( maxTransformationMatrix, mUpAxisRotation );
+			upAxisCorrectionNode->SetName("upaxis");
+			upAxisCorrectionNode->SetTransform(0, maxTransformationMatrix);
+			INode* iNode = upAxisCorrectionNode->GetINode();
+			upAxisCorrectionNode->Reference( getDummyObject() );
+			rootNode->AttachChild(iNode, FALSE);
+			importNodes(mVisualScene->getRootNodes(), iNode);
+		}
+		else
+			importNodes(mVisualScene->getRootNodes(), rootNode);
 
 		return true;
 	}
@@ -366,6 +388,5 @@ namespace COLLADAMax
 		}
 
 	}
-
 
 } // namespace COLLADAMax
