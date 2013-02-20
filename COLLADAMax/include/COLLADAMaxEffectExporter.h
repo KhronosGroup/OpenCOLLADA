@@ -198,6 +198,12 @@ namespace COLLADAMax
          */
         StringToStringMap mMaxIdColladaImageIdMap;
 
+        /** Holds the unique ids of the images.*/
+        COLLADABU::IDList mImageIdList;
+
+        /** Counter for prefixing copied images for making image names unique.*/
+        unsigned int mCopyImageCounter;
+
     public:
         /** Constructor
         @param streamWriter The stream the animation should be written to

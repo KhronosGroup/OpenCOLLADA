@@ -117,12 +117,14 @@ namespace COLLADAMax
 
     //---------------------------------------------------------------
     EffectExporter::EffectExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
-            : COLLADASW::LibraryEffects ( streamWriter ),
-			Extra(streamWriter, documentExporter),
-            mExportSceneGraph ( exportSceneGraph ),
-            mDocumentExporter ( documentExporter ),
-            mTextureExporter ( documentExporter ),
-			mAnimationExporter( documentExporter->getAnimationExporter() )
+            : COLLADASW::LibraryEffects ( streamWriter )
+            , Extra(streamWriter, documentExporter)
+            , mExportSceneGraph ( exportSceneGraph )
+            , mDocumentExporter ( documentExporter )
+            , mTextureExporter ( documentExporter )
+            , mAnimationExporter( documentExporter->getAnimationExporter() )
+            , mImageIdList()
+            , mCopyImageCounter( 0 )
     {}
 
     //---------------------------------------------------------------
@@ -1257,8 +1259,8 @@ namespace COLLADAMax
                     slashIndex = backSlashIndex;
 
                 imageInfo.imageId = ( slashIndex != String::npos ) ? fullFileName.substr ( slashIndex + 1 ) : fullFileName;
-
 				imageInfo.imageId = COLLADASW::Utils::replaceDot ( COLLADASW::Utils::checkID(imageInfo.imageId) );
+				imageInfo.imageId = mImageIdList.addId( imageInfo.imageId );
 
 				if ( mDocumentExporter->getOptions().getCopyImages() )
 				{
@@ -1331,6 +1333,8 @@ namespace COLLADAMax
 		
 		String relativePath = mDocumentExporter->getOptions().getImageDirectory();
 		relativePath.append("/");
+		relativePath.append( COLLADABU::Utils::toString( mCopyImageCounter++ ) );
+		relativePath.append("_");
 		relativePath.append( sourceUri.getPathFile() );
 
 		COLLADASW::URI targetUri ( outputFile, relativePath);
