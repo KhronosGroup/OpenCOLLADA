@@ -214,6 +214,9 @@ namespace COLLADAMax
 
 				transformationController->SetScaleController( scaleController );
 			}
+
+			//why don't i need to invalidate cached trafo; likewise after setting iNode->SetTMController(..)
+			//iNode->InvalidateTM();
 		}
 
 		return true;
@@ -731,6 +734,7 @@ namespace COLLADAMax
 
 		AnimateOn();
 		iNode->SetTMController(transformationController);
+		iNode->InvalidateTM();
 		ResumeAnimate(); 
 
 		return true;
