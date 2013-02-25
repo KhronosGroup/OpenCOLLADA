@@ -76,7 +76,7 @@ namespace COLLADAMax
 
         Animatable* base = animatable;
 
-		String gg = iNode->GetName();
+		//String gg = iNode->GetName();
 
 
 		// check for an XRef

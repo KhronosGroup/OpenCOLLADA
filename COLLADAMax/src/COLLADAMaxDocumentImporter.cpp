@@ -185,7 +185,12 @@ namespace COLLADAMax
 	void DocumentImporter::printMessage( const String& message )
 	{
 		char* str = (char *)message.c_str();
+#ifdef UNICODE
+		WideString wide = COLLADABU::StringUtils::toWideString(str);
+		mMaxInterface->ReplacePrompt(wide.c_str());
+#else
 		mMaxInterface->ReplacePrompt(str);
+#endif
 //		mMaxInterface->PushPrompt(str);
 	}
 
@@ -504,4 +509,15 @@ namespace COLLADAMax
 		return true;
 	}
 
+	//---------------------------------------------------------------
+	void DocumentImporter::addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpParameters& bumpParameters )
+	{
+		COLLADAFW::EffectMaps& effectMaps = getUniqueIdEffectMapsMap()[effectUniqueId];
+		effectMaps.mBumpMap.bumpType = bumpParameters.bumpType;
+		if( effectMaps.mBumpMap.bumpType != BUMP_TYPE_INVALID )
+		{
+			effectMaps.mBumpMap.textureAttributes.textureSampler = bumpParameters.textureSampler;
+			effectMaps.mBumpMap.textureAttributes.texCoord = bumpParameters.texCoord;
+		}
+	}
 } // namespace COLLADAMax

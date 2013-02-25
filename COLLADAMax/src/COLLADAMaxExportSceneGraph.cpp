@@ -70,7 +70,11 @@ namespace COLLADAMax
 		{
 			XRefSceneGraph xRefScene;
 #ifdef MAX_2010_OR_NEWER
+ #ifdef UNICODE
+			const char* XRefFileName = COLLADABU::StringUtils::toUTF8String(mRootNode->GetXRefFile(i).GetFileName().data()).c_str();
+ #else
 			const char* XRefFileName = mRootNode->GetXRefFile(i).GetFileName().data();
+ #endif
 #else
 			const char* XRefFileName = mRootNode->GetXRefFileName(i).data();
 #endif
@@ -226,7 +230,11 @@ namespace COLLADAMax
 		id += HELPER_GEOMETRY_ID_SUFFIX;
 		id += COLLADASW::Utils::toString(morphControllerHelperGeometry.channelBankindex);
 		id += "-";
+#ifdef UNICODE
+		id += COLLADABU::StringUtils::toUTF8String(morphControllerHelperGeometry.morphController->getMorph()->chanBank[morphControllerHelperGeometry.channelBankindex].mName);
+#else
 		id += morphControllerHelperGeometry.morphController->getMorph()->chanBank[morphControllerHelperGeometry.channelBankindex].mName;
+#endif
 		return id;
 	}
 

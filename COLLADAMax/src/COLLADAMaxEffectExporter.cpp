@@ -265,7 +265,11 @@ namespace COLLADAMax
         IDxMaterial* dxm = static_cast<IDxMaterial*> ( baseMaterial->GetInterface( IDXMATERIAL_INTERFACE ) );
 
 #ifdef MAX_2010_OR_NEWER
+ #ifdef UNICODE
+		const char* effectFileName = dxm ? COLLADABU::StringUtils::toUTF8String(dxm->GetEffectFile().GetFileName().data()).c_str() : 0;
+ #else
 		const char* effectFileName = dxm ? dxm->GetEffectFile().GetFileName().data() : 0;
+ #endif
 #else
 		const char* effectFileName = dxm ? dxm->GetEffectFilename() : 0;
 #endif
@@ -399,7 +403,11 @@ namespace COLLADAMax
                 ParamType2 parameterType = pblock->GetParameterType( parameterID );
                 ParamDef parameterDef = pblock->GetParamDef( parameterID );
 
-                const char* paramName = parameterDef.int_name;
+#ifdef UNICODE
+				const char* paramName = COLLADABU::StringUtils::toUTF8String(parameterDef.int_name).c_str();
+#else
+				const char* paramName = parameterDef.int_name;
+#endif
                 fprintf( stdout, "\tParam name = %s; Type = %i;\n", paramName, (int)parameterType );
             }
         }

@@ -208,6 +208,10 @@ namespace COLLADAMax
 		received effect, null otherwise.*/
 		const COLLADAFW::Effect* getFWEffectByUniqueId( const COLLADAFW::UniqueId& uniqueId );
 
+        /** Returns the frame work effect maps for effects with unique id @a uniqueId, if this node is
+        in an already received effect, null otherwise.*/
+        const COLLADAFW::EffectMaps* getFWEffectMapsByUniqueId( const COLLADAFW::UniqueId& uniqueId );
+
 		/** Returns the frame work image with unique id @a uniqueId, if this node is in an already 
 		received image, null otherwise.*/
 		const COLLADAFW::Image* getFWImageByUniqueId( const COLLADAFW::UniqueId& uniqueId );
@@ -300,7 +304,8 @@ namespace COLLADAMax
 
 		const SkyLightParameters* getSkyLightParametersByUniqueId( const COLLADAFW::UniqueId& uniqueId );
 
-		void addUniqueIdSkyLightParametersPair( const COLLADAFW::UniqueId& lihgtUniqueId, const SkyLightParameters& skyLightParameters);
+		void addUniqueIdSkyLightParametersPair( const COLLADAFW::UniqueId& lightUniqueId, const SkyLightParameters& skyLightParameters);
+		void addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpParameters& bumpParameters);
 
 	private:
 

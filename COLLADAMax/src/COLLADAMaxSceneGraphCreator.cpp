@@ -41,7 +41,14 @@ namespace COLLADAMax
 	{
 		const String& newNodeName = node->getName();
 		if ( !newNodeName.empty() )
+		{
+#ifdef UNICODE
+			WideString wideNodeName = COLLADABU::StringUtils::toWideString(newNodeName.c_str());
+			importNode->SetName(wideNodeName.c_str());
+#else
 			importNode->SetName(newNodeName.c_str());
+#endif
+		}
 
 		// set transform. we always do this. If there is an animation, the controller will be changed
 		COLLADABU::Math::Matrix4 transformationMatrix;
@@ -71,7 +78,7 @@ namespace COLLADAMax
 			ImpNode* upAxisCorrectionNode = getMaxImportInterface()->CreateNode();
 			Matrix3 maxTransformationMatrix;
 			Matrix4ToMaxMatrix3( maxTransformationMatrix, mUpAxisRotation );
-			upAxisCorrectionNode->SetName("upaxis");
+			upAxisCorrectionNode->SetName(__T("upaxis"));
 			upAxisCorrectionNode->SetTransform(0, maxTransformationMatrix);
 			INode* iNode = upAxisCorrectionNode->GetINode();
 			upAxisCorrectionNode->Reference( getDummyObject() );
@@ -252,7 +259,14 @@ namespace COLLADAMax
 			const String& objectName = getObjectNameByObject(object);
 
 			if ( node->getName().empty() && !objectName.empty() )
+			{
+#ifdef UNICODE
+				WideString wideObjectName = COLLADABU::StringUtils::toWideString(objectName.c_str());
+				newImportNode->SetName( wideObjectName.c_str() );
+#else
 				newImportNode->SetName( objectName.c_str() );
+#endif
+			}
 		}
 		else
 		{
