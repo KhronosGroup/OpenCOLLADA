@@ -31,6 +31,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWController.h"
 #include "COLLADAFWMorphController.h"
 #include "COLLADAFWSkinController.h"
+#include "COLLADAFWFileInfo.h"
 
 #include <list>
 
@@ -159,7 +160,7 @@ namespace COLLADAMax
 		{
 			COLLADABU::URI absoluteFileUri;
 			float unitScale;
-
+			COLLADAFW::FileInfo::UpAxisType upAxis;
 		};
 
 		/** List of unique ids.*/
@@ -175,7 +176,10 @@ namespace COLLADAMax
 
 		/** Maps unique ids of framework materials to the corresponding framework material.*/
 		typedef std::map<COLLADAFW::UniqueId, SkyLightParameters> UniqueIdSkyLightMap;
-			
+
+		/** Maps unique ids of framework effects to the corresponding bump-map definitions.*/
+		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::EffectMaps> UniqueIdEffectMapsMap;
+
 	private:
 		/** Max interface.*/
 		Interface* mMaxInterface;
@@ -304,6 +308,10 @@ namespace COLLADAMax
 
 		UniqueIdSkyLightMap mUniqueIdSkyLightMap;
 
+		COLLADAFW::UniqueId mVisualSceneUniqueId;
+
+		UniqueIdEffectMapsMap mEffectMaps;
+
 	public:
 		/** Constructor .
 		@param maxInterface The max interface.
@@ -366,10 +374,7 @@ namespace COLLADAMax
 
 		/** Writes the scene.
 		@return True on succeeded, false otherwise.*/
-		virtual bool writeScene ( const COLLADAFW::Scene* Scene )
-		{
-			return true;
-		}
+		virtual bool writeScene ( const COLLADAFW::Scene* scene );
 
 		/** Writes the entire visual scene.
 		@return True on succeeded, false otherwise.*/
@@ -490,6 +495,8 @@ namespace COLLADAMax
 		GeometrySetMapChannelMap& getGeometrySetMapChannelMap() { return mGeometrySetMapChannelMap; }
 
 		UniqueIdSkyLightMap& getUniqueIdSkyLightMap() { return mUniqueIdSkyLightMap; }
+		UniqueIdEffectMapsMap& getUniqueIdEffectMapsMap() { return mEffectMaps; }
+		void addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpParameters& bumpParameters);
 
 		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
 		When ever an inode is cloned, the cloned one and itself should be added to that list.*/

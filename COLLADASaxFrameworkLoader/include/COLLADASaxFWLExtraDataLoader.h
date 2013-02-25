@@ -44,6 +44,9 @@ namespace COLLADASaxFWL
         /** Returns the unique id of the current parsed object. */
         virtual const COLLADAFW::UniqueId& getUniqueId() { return COLLADAFW::UniqueId::INVALID; }
 
+		/** Returns current parsed object. */
+		virtual const COLLADAFW::Object* getObject() { return 0; }
+
 	private:
 
         /** Disable default copy ctor. */

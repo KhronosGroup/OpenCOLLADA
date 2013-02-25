@@ -49,7 +49,8 @@ namespace COLLADAMax
 			DIFFUSE_COLOR = 1,
 			SPECULAR_COLOR = 2,
 			SELF_ILLUMINATION_COLOR = 8,
-			GLOSSINESS = 10
+			GLOSSINESS = 10,
+			SPECULAR_LEVEL = 11
 		};
 	}
 
@@ -196,6 +197,12 @@ namespace COLLADAMax
          * The max id with the collada id.
          */
         StringToStringMap mMaxIdColladaImageIdMap;
+
+        /** Holds the unique ids of the images.*/
+        COLLADABU::IDList mImageIdList;
+
+        /** Counter for prefixing copied images for making image names unique.*/
+        unsigned int mCopyImageCounter;
 
     public:
         /** Constructor

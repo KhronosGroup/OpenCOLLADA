@@ -36,10 +36,11 @@ namespace COLLADAMax
 	private:
 		/** The visual scene that should be imported.*/
 		const COLLADAFW::VisualScene* mVisualScene;
+		COLLADABU::Math::Matrix4 mUpAxisRotation;
 
 	public:
 		/** Constructor. */
-		SceneGraphCreator(DocumentImporter* documentImporter, const COLLADAFW::VisualScene* visualScene);
+		SceneGraphCreator(DocumentImporter* documentImporter, const COLLADAFW::VisualScene* visualScene, COLLADABU::Math::Matrix4 upAxisRotation);
 
 		/** Destructor. */
 		virtual ~SceneGraphCreator();
@@ -48,7 +49,7 @@ namespace COLLADAMax
 		bool create();
 
 	private:
-		void setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode);
+		void setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode );
 
 		/** Recursively imports @a node.*/
 		ImpNode* importNode( const COLLADAFW::Node* node, INode* parentINode );

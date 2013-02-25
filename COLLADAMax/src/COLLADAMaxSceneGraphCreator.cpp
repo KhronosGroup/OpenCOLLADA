@@ -25,9 +25,10 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAMax
 {
 
-	SceneGraphCreator::SceneGraphCreator( DocumentImporter* documentImporter, const COLLADAFW::VisualScene* visualScene )
-		: ImporterBase(documentImporter)
+	SceneGraphCreator::SceneGraphCreator( DocumentImporter* documentImporter, const COLLADAFW::VisualScene* visualScene, COLLADABU::Math::Matrix4 upAxisRotation )
+		: ImporterBase( documentImporter )
 		, mVisualScene( visualScene )
+		, mUpAxisRotation( upAxisRotation )
 	{}
 
 	//------------------------------
@@ -36,11 +37,18 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	void SceneGraphCreator::setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode)
+	void SceneGraphCreator::setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode )
 	{
 		const String& newNodeName = node->getName();
 		if ( !newNodeName.empty() )
+		{
+#ifdef UNICODE
+			WideString wideNodeName = COLLADABU::StringUtils::toWideString(newNodeName.c_str());
+			importNode->SetName(wideNodeName.c_str());
+#else
 			importNode->SetName(newNodeName.c_str());
+#endif
+		}
 
 		// set transform. we always do this. If there is an animation, the controller will be changed
 		COLLADABU::Math::Matrix4 transformationMatrix;
@@ -57,7 +65,28 @@ namespace COLLADAMax
 			return false;
 
 		INode* rootNode = getMaxInterface()->GetRootNode();
-		importNodes(mVisualScene->getRootNodes(), rootNode);
+
+//why does this not work: setting rotation on root node
+// 		Matrix3 maxTransformationMatrix;
+// 		Matrix4ToMaxMatrix3(maxTransformationMatrix, mUpAxisRotation);
+// 		rootNode->SetNodeTM(0, maxTransformationMatrix);
+// 
+// 		Matrix3 x = rootNode->GetNodeTM(0);
+
+		if( COLLADABU::Math::Matrix4::IDENTITY != mUpAxisRotation )
+		{
+			ImpNode* upAxisCorrectionNode = getMaxImportInterface()->CreateNode();
+			Matrix3 maxTransformationMatrix;
+			Matrix4ToMaxMatrix3( maxTransformationMatrix, mUpAxisRotation );
+			upAxisCorrectionNode->SetName(__T("upaxis"));
+			upAxisCorrectionNode->SetTransform(0, maxTransformationMatrix);
+			INode* iNode = upAxisCorrectionNode->GetINode();
+			upAxisCorrectionNode->Reference( getDummyObject() );
+			rootNode->AttachChild(iNode, FALSE);
+			importNodes(mVisualScene->getRootNodes(), iNode);
+		}
+		else
+			importNodes(mVisualScene->getRootNodes(), rootNode);
 
 		return true;
 	}
@@ -230,7 +259,14 @@ namespace COLLADAMax
 			const String& objectName = getObjectNameByObject(object);
 
 			if ( node->getName().empty() && !objectName.empty() )
+			{
+#ifdef UNICODE
+				WideString wideObjectName = COLLADABU::StringUtils::toWideString(objectName.c_str());
+				newImportNode->SetName( wideObjectName.c_str() );
+#else
 				newImportNode->SetName( objectName.c_str() );
+#endif
+			}
 		}
 		else
 		{
@@ -366,6 +402,5 @@ namespace COLLADAMax
 		}
 
 	}
-
 
 } // namespace COLLADAMax

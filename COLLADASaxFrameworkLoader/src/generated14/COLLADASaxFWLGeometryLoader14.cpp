@@ -23,14 +23,6 @@ SaxVirtualFunctionTest14(begin__mesh());
 return mLoader->begin__mesh();
 }
 
-bool GeometryLoader14::begin__spline( const COLLADASaxFWL14::spline__AttributeData& attributeData )
-{
-    SaxVirtualFunctionTest14(begin__spline( attributeData ));
-    COLLADASaxFWL::spline__AttributeData attrData;
-    attrData.closed = attributeData.closed;
-    return mLoader->begin__spline( attrData );
-}
-
 
 bool GeometryLoader14::end__geometry()
 {
