@@ -29,9 +29,15 @@
 HINSTANCE hInstance;
 int controlsInit = FALSE;
 
+#ifdef UNICODE
+static const COLLADAMax::WideString LIBDESCRIPTION = L"OpenCOLLADA" + 
+		(_tcslen(COLLADAMax::COLLADAPlugin::PLUGIN_VERSION_TCHAR) == 0 ? L"" : (COLLADAMax::WideString(L" ") + COLLADAMax::COLLADAPlugin::PLUGIN_VERSION_TCHAR))+
+		(COLLADAMax::COLLADAPlugin::REVISION_STRING.empty() ? COLLADAMax::WideString(L"") : (COLLADAMax::WideString(L" ") + COLLADABU::StringUtils::toWideString(COLLADAMax::COLLADAPlugin::REVISION_STRING.c_str()) ));
+#else
 static const COLLADAMax::String LIBDESCRIPTION = "OpenCOLLADA" + 
-		(COLLADAMax::COLLADAPlugin::PLUGIN_VERSION_STRING.empty() ? "" : (COLLADAMax::String(" ") + COLLADAMax::COLLADAPlugin::PLUGIN_VERSION_STRING))+
+		(_tcslen(COLLADAMax::COLLADAPlugin::PLUGIN_VERSION_TCHAR) == 0 ? "" : (COLLADAMax::String(" ") + COLLADAMax::COLLADAPlugin::PLUGIN_VERSION_TCHAR))+
 		(COLLADAMax::COLLADAPlugin::REVISION_STRING.empty() ? "" : (COLLADAMax::String(" ") + COLLADAMax::COLLADAPlugin::REVISION_STRING));
+#endif
 
 BOOL WINAPI DllMain ( HINSTANCE hinstDLL, ULONG fdwReason, LPVOID UNUSED ( lpvReserved ) )
 {
