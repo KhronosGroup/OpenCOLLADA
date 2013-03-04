@@ -24,7 +24,7 @@ namespace COLLADAMax
 {
 	const Class_ID ColladaImporter::COLLADAIMPORTER_CLASS_ID (0x6cc0e3b, 0x28c77f86);
 
-	const String ColladaImporter::PROGRESSSTART = "COLLADA import...";
+	const TCHAR* ColladaImporter::PROGRESSSTART = __T("COLLADA import...");
 
 
 	//--------------------------------------------------------------------
@@ -47,43 +47,43 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	const TCHAR* ColladaImporter::Ext ( int )
 	{
-		return COLLADAPlugin::EXTENSIONNAME.c_str();
+		return COLLADAPlugin::EXTENSIONNAME;
 	}
 
 	//---------------------------------------------------------------
 	const TCHAR* ColladaImporter::LongDesc()
 	{
-		return COLLADAPlugin::LONGDESCRIPTION.c_str();
+		return COLLADAPlugin::LONGDESCRIPTION;
 	}
 
 	//---------------------------------------------------------------
 	const TCHAR* ColladaImporter::ShortDesc()
 	{
-		return COLLADAPlugin::SHORTDESCRIPTION.c_str();
+		return COLLADAPlugin::SHORTDESCRIPTION;
 	}
 
 	//---------------------------------------------------------------
 	const TCHAR* ColladaImporter::AuthorName()
 	{
-		return COLLADAPlugin::AUTHORNAME.c_str();
+		return COLLADAPlugin::AUTHORNAME;
 	}
 
 	//---------------------------------------------------------------
 	const TCHAR* ColladaImporter::CopyrightMessage()
 	{
-		return COLLADAPlugin::COPYRIGHTMESSAGE.c_str();
+		return COLLADAPlugin::COPYRIGHTMESSAGE;
 	}
 
 	//---------------------------------------------------------------
 	const TCHAR* ColladaImporter::OtherMessage1()
 	{
-		return COLLADAPlugin::OTHERMESSAGE1.c_str();
+		return COLLADAPlugin::OTHERMESSAGE1;
 	}
 
 	//---------------------------------------------------------------
 	const TCHAR* ColladaImporter::OtherMessage2()
 	{
-		return COLLADAPlugin::OTHERMESSAGE2.c_str();
+		return COLLADAPlugin::OTHERMESSAGE2;
 	}
 
 	//---------------------------------------------------------------
@@ -118,7 +118,7 @@ namespace COLLADAMax
 	int ColladaImporter::DoImport(const TCHAR *fileName,ImpInterface *maxImportInterface,Interface *maxInterface, BOOL suppressPrompts/*=FALSE*/)
 	{
 		bool success = true;
-		maxInterface->ProgressStart ( ( char * ) PROGRESSSTART.c_str(), true, fn, 0 );
+		maxInterface->ProgressStart ( const_cast<TCHAR*>(PROGRESSSTART), true, fn, 0 );
 //	    maxInterface->DisableSceneRedraw();
 
 		try
@@ -150,7 +150,7 @@ namespace COLLADAMax
 		catch ( ... )
 		{
 			// Add some check, here, for full UI-mode or batch-mode only.
-			MessageBox ( 0, COLLADAPlugin::FATALERROR.c_str(), COLLADAPlugin::SHORTDESCRIPTION.c_str(), MB_OK );
+			MessageBox ( 0, COLLADAPlugin::FATALERROR, COLLADAPlugin::SHORTDESCRIPTION, MB_OK );
 		}
 
 		maxInterface->ProgressEnd();

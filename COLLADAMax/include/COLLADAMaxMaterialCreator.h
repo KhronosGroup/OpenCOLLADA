@@ -41,7 +41,8 @@ namespace COLLADAMax
 				SPECULAR    = 1<<2,
 				SHININESS   = 1<<3,
 				EMISSION    = 1<<4,   //self-illumination
-				OPACITY     = 1<<5
+				OPACITY     = 1<<5,
+				BUMP        = 1<<6
 			};
 
 			/** The unique id of the frame work effect this material has been created from.*/
@@ -56,6 +57,8 @@ namespace COLLADAMax
 			unsigned char shininessMapChannel;
 			unsigned char emissionMapChannel;
 			unsigned char opacityMapChannel;
+
+			unsigned char bumpMapChannel;
 
 			bool operator<( const MaterialIdentifier& rhs ) const;
 		};
@@ -85,7 +88,7 @@ namespace COLLADAMax
 		bool createAndAssingMaxMaterial( const DocumentImporter::NodeMaterialBindingsPair& materialBinding );
 
 		/** Creates a standard material from @a effectCommon.*/ 
-		StdMat2* createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name, const MaterialCreator::MaterialIdentifier& materialIdentifier);
+		StdMat2* createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name, const MaterialCreator::MaterialIdentifier& materialIdentifier, const COLLADAFW::EffectMaps* extraEffectMaps);
 
 		/** Creates a material from @a effect.*/
 		Mtl* createMaxMaterial( const COLLADAFW::Effect& effect, const MaterialCreator::MaterialIdentifier& materialIdentifier);
@@ -112,14 +115,20 @@ namespace COLLADAMax
 		/** Creates a max texture from the frame work texture @a texture.*/
 		BitmapTex* createTexture( const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::Texture& texture );
 
+		BitmapTex* createTexture( const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::SamplerID& samplerId );
+
 		/** Assigns @a texture to @a slot of @a material.*/
 		void assignTextureToMaterial(  Mtl* material, int slot, BitmapTex* texture);
 	
     	void createAndAssignTexture( Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::ColorOrTexture& (COLLADAFW::EffectCommon::*f)()const, int slot, unsigned char mapChannel);
 
+		void handleExtraEffectMaps( const COLLADAFW::EffectMaps* extraEffectMaps, Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const MaterialCreator::MaterialIdentifier& materialIdentifier );
+
 
 		/** Sets the vertex color flag for all nodes that use vertex color.*/
 		void setVertexColorFlag();
+
+
 	};
 
 } // namespace COLLADAMAX

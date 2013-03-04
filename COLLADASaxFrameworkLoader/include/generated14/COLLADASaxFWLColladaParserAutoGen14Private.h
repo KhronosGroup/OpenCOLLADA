@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008-2009 NetAllied Systems GmbH
+    Copyright (c) 2008-2013 NetAllied Systems GmbH
 
     This file is part of COLLADASaxFrameworkLoader.
 
@@ -415,9 +415,7 @@ bool _validateEnd__param();
 #endif
 bool _freeAttributes__param( void* attributeData );
 
-bool _begin__technique( void* attributeData ){
-    return mImpl->begin__technique(*static_cast<technique__AttributeData*>(attributeData));
-}
+bool _begin__technique( void* attributeData ){return mImpl->begin__technique(*static_cast<technique__AttributeData*>(attributeData));}
 bool _data__technique( const ParserChar* text, size_t textLength );
 bool _end__technique(){return mImpl->end__technique();}
 bool _preBegin__technique( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );

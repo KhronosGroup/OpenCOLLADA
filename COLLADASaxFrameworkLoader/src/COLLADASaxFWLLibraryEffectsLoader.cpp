@@ -204,6 +204,67 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
+	bool LibraryEffectsLoader::handleExtraEffectMaps( COLLADAFW::EffectMaps* effectMaps )
+	{
+		bool success = true;
+		if( effectMaps == 0 )
+			return success;
+
+// 		switch ( mCurrentProfile )
+// 		{
+// 		case PROFILE_COMMON:
+//			{
+
+		COLLADAFW::BumpMap& bumpMap = effectMaps->mBumpMap;
+
+		// Check if the texture is referenced.
+		const String& textureSid = bumpMap.textureAttributes.textureSampler;
+		SidSamplerInfoMap::const_iterator it = mEffectProfileSidSamplerInfoMap.find(textureSid);
+		if ( it == mEffectProfileSidSamplerInfoMap.end() )
+		{
+			it = mEffectSidSamplerInfoMap.find( textureSid );
+			if ( it == mEffectSidSamplerInfoMap.end() )
+			{
+				String msg("Texture with sid \"" + textureSid + "\" not found");
+				if ( mCurrentEffect )
+				{
+					msg += " in effect with id \"" + mCurrentEffect->getOriginalId() + "\"";
+				}
+				msg += ".";
+				success = handleFWLError ( SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg );
+				return success;
+			}
+		}
+
+		// Push the texture sid of the current sampler in the list of used samplers
+		// of the current effect profile. 
+		size_t samplerIndex = 0;
+		StringIndexMap::const_iterator samplerIt = mEffectProfileSamplersMap.find(textureSid);
+		if ( samplerIt == mEffectProfileSamplersMap.end() )
+		{
+			// This sid has not been used before. Add to map with next index
+			samplerIndex = mNextSamplerIndex;
+			mEffectProfileSamplersMap.insert(std::make_pair(textureSid, mNextSamplerIndex++));
+		}
+		else
+		{
+			// This sid is already in the map. Use its index
+			samplerIndex = samplerIt->second;
+		}
+
+		// Initialize the texture element.
+		//bumpMap.setUniqueId ( createUniqueId(COLLADAFW::Texture::ID()) ); //texture id?
+		bumpMap.samplerId = samplerIndex;
+		if ( !(bumpMap.textureAttributes.texCoord.empty()) )
+			bumpMap.textureMapId = getTextureMapIdBySematic( bumpMap.textureAttributes.texCoord );
+
+//				break;
+//			}
+//		}
+		return success;
+	}
+
+	//------------------------------
 	double LibraryEffectsLoader::calculateLuminance ( const COLLADAFW::Color& color )
 	{
 		return ( (color.getRed () * 0.212671) + (color.getGreen () * 0.715160) + (color.getBlue () * 0.072169) );
@@ -328,7 +389,9 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__effect()
 	{
-		getFileLoader()->addEffect(mCurrentEffect);
+		COLLADASaxFWL::Loader* colladaLoader = getColladaLoader();
+		COLLADASaxFWL::FileLoader* fileLoader = getFileLoader();
+		fileLoader->addEffect(mCurrentEffect);
 
         mCurrentEffect = 0;
         SidSamplerInfoMap::iterator samplerIt = mEffectSidSamplerInfoMap.begin();
@@ -363,6 +426,11 @@ namespace COLLADASaxFWL
 	{
 		// Calculate the opacity value.
 		calculateOpacity ();
+
+//todo:
+//		//COLLADAFW::EffectMaps* effectMaps = mCurrentEffect->getEffectMaps();
+//		//handleExtraEffectMaps( effectMaps );
+//		instead: mCurrentEffect->getExtraTextures
 
         // Fill the array of samplers of the current profile.
         if ( !fillSamplerArray() )
@@ -960,5 +1028,15 @@ namespace COLLADASaxFWL
             return mCurrentEffect->getUniqueId ();
         return COLLADAFW::UniqueId::INVALID;
     }
+
+	//------------------------------
+	const COLLADAFW::Object* LibraryEffectsLoader::getObject()
+	{
+		if ( mCurrentSampler ) 
+			return mCurrentSampler;
+		else if ( mCurrentEffect ) 
+			return mCurrentEffect;
+		return 0;
+	}
 
 } // namespace COLLADASaxFWL

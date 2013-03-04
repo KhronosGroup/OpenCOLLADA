@@ -1379,6 +1379,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWPolylist.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWPrerequisites.h"
 				>
 			</File>
