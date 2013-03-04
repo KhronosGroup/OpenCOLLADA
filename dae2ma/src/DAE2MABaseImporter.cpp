@@ -556,6 +556,7 @@ namespace DAE2MA
             return COLLADABU::Math::Matrix3::IDENTITY;
         }
 
+		m3x3.orthonormalize();
         return m3x3;
     }
 
