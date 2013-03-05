@@ -155,6 +155,14 @@ namespace COLLADAMax
 	{
 	}
 
+#ifdef MAX_2013_OR_NEWER
+	//------------------------------
+	void GoogleWarehouse::DeleteThis()
+	{
+		delete this;
+	}
+#endif
+
 	//------------------------------
 	ActionTable* GoogleWarehouseDesc::GetActions()
 	{

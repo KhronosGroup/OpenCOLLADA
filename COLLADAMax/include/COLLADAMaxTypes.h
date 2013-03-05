@@ -94,6 +94,19 @@ namespace COLLADAMax
 		bool intensityOn;
 	};
 
+	enum BumpType
+	{
+		BUMP_TYPE_INVALID,
+		BUMP_TYPE_HEIGHTFIELD,
+	};
+
+	struct BumpParameters
+	{
+		BumpType bumpType;
+		char* textureSampler;
+		char* texCoord;
+	};
+
 
 }
 

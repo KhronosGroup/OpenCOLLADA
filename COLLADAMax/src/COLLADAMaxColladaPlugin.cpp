@@ -6,21 +6,22 @@
 namespace COLLADAMax
 {
 
-	const String COLLADAPlugin::EXTENSIONNAME = "dae";
-	const String COLLADAPlugin::LONGDESCRIPTION = "New COLLADA Document";
-	const String COLLADAPlugin::SHORTDESCRIPTION = "OpenCOLLADA";
-	const String COLLADAPlugin::AUTHORNAME = "NetAllied Systems GmbH";
-	const String COLLADAPlugin::COPYRIGHTMESSAGE = "Copyright 2008-2011 NetAllied Systems GmbH.";
-	const String COLLADAPlugin::OTHERMESSAGE1 = "";
-	const String COLLADAPlugin::OTHERMESSAGE2 = "";
+	const TCHAR* COLLADAPlugin::EXTENSIONNAME = __T("dae");
+	const TCHAR* COLLADAPlugin::LONGDESCRIPTION = __T("New COLLADA Document");
+	const TCHAR* COLLADAPlugin::SHORTDESCRIPTION = __T("OpenCOLLADA");
+	const TCHAR* COLLADAPlugin::AUTHORNAME = __T("NetAllied Systems GmbH");
+	const TCHAR* COLLADAPlugin::COPYRIGHTMESSAGE = __T("Copyright 2008-2011 NetAllied Systems GmbH.");
+	const TCHAR* COLLADAPlugin::OTHERMESSAGE1 = __T("");
+	const TCHAR* COLLADAPlugin::OTHERMESSAGE2 = __T("");
 
-	const String COLLADAPlugin::PLUGIN_VERSION_STRING = String("Version: 1.3.0");
+	const TCHAR* COLLADAPlugin::PLUGIN_VERSION_TCHAR = __T("Version: 1.3.5");
+	const String COLLADAPlugin::PLUGIN_VERSION_STRING = "Version: 1.3.5";
 	const String COLLADAPlugin::REVISION_STRING = (CURRENT_REVISION.empty() ? "" : String("Revision: ") + CURRENT_REVISION);
 	const String COLLADAPlugin::PLATFORM_STRING = String("Platform: ") + CURRENT_PLATFORM;
 	const String COLLADAPlugin::CONFIGURATION_STRING = String("Configuration: ") + CURRENT_CONFIGURATION;
 
 
-	const String COLLADAPlugin::FATALERROR = "Fatal Error: exception caught.";
+	const TCHAR* COLLADAPlugin::FATALERROR = __T("Fatal Error: exception caught.");
 
 	const unsigned int COLLADAPlugin::PLUGINVERSION = 505;
 
