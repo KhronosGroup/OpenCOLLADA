@@ -46,4 +46,16 @@ namespace COLLADAFW
 		mTextureMapId = textureMapId;
 	}
 
+	//------------------------------
+	COLLADAFW::SamplerID Texture::getSamplerId() const
+	{
+		return mSamplerId;
+	}
+
+	//------------------------------
+	COLLADAFW::TextureMapId Texture::getTextureMapId() const
+	{
+		return mTextureMapId;
+	}
+
 } // namespace COLLADAFW

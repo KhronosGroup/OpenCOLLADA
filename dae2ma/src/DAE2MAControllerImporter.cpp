@@ -1218,6 +1218,9 @@ namespace DAE2MA
                 const COLLADAFW::UniqueId& jointId = joints [i];
                 MayaDM::Joint* jointNode = ( MayaDM::Joint* ) visualSceneImporter->findMayaDMTransform ( jointId );
 
+				if( jointNode == 0 )
+					continue;
+
                 // connectAttr "joint1.worldMatrix" "skinCluster1.matrix[0]";
                 connectAttr ( file, jointNode->getWorldMatrix (), skinCluster->getMatrix ( i ) );
 

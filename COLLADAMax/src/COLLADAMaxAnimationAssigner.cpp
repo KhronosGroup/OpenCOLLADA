@@ -66,7 +66,12 @@ namespace COLLADAMax
 				}
 
 				TSTR name = a->SubAnimName(subAnimIndex);
+#ifdef UNICODE
+				String nameString = COLLADABU::StringUtils::toUTF8String( name.data() );
+				if ( _stricmp(animName, nameString.c_str()) == 0 )
+#else
 				if ( _stricmp(animName, name.data()) == 0 )
+#endif
 				{
 					return a;
 				}
@@ -214,6 +219,9 @@ namespace COLLADAMax
 
 				transformationController->SetScaleController( scaleController );
 			}
+
+			//why don't i need to invalidate cached trafo; likewise after setting iNode->SetTMController(..)
+			//iNode->InvalidateTM();
 		}
 
 		return true;
@@ -731,6 +739,7 @@ namespace COLLADAMax
 
 		AnimateOn();
 		iNode->SetTMController(transformationController);
+		iNode->InvalidateTM();
 		ResumeAnimate(); 
 
 		return true;

@@ -198,6 +198,9 @@ namespace COLLADASaxFWL
         /** Returns the unique id of the current parsed object. */
         virtual const COLLADAFW::UniqueId& getUniqueId();
 
+		/** Returns the current parsed object. */
+		virtual const COLLADAFW::Object* getObject();
+
 		/** Creates a new current effect.*/
 		virtual bool begin__effect( const effect__AttributeData& attributeData );
 
@@ -381,6 +384,8 @@ namespace COLLADASaxFWL
 
 		/** Stores texture data into the @a shaderParameterType texture object.*/
 		bool handleTexture( const texture__AttributeData& attributeData);
+
+		bool handleExtraEffectMaps( COLLADAFW::EffectMaps* effectMaps );
 
         /**
          * Luminance is the function, based on the ISO/CIE color standards (see ITU-R 

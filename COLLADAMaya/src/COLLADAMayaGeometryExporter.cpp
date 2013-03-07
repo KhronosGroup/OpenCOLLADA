@@ -41,6 +41,7 @@
 
 namespace COLLADAMaya
 {
+	static const char* NAME_SUFFIX_INVALID = "_MAKE_NAME_INVALID";
 
     // --------------------------------------------------------
     GeometryExporter::GeometryExporter ( COLLADASW::StreamWriter* streamWriter,
@@ -306,8 +307,11 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     void GeometryExporter::getUVSetNames ( const MFnMesh& fnMesh, MStringArray& uvSetNames )
     {
+		std::tr1::unordered_set<std::wstring> duplicateLookup;
+
         MPlug uvSetPlug = fnMesh.findPlug ( ATTR_UV_SET );
-        for ( uint i = 0; i < uvSetPlug.numElements(); i++ )
+        unsigned int countElements = uvSetPlug.numElements();
+        for ( uint i = 0; i < countElements; i++ )
         {
             // get uvSet[<index>] and uvSet[<index>].uvSetName
             MPlug uvSetElememtPlug = uvSetPlug.elementByPhysicalIndex ( i );
@@ -316,7 +320,29 @@ namespace COLLADAMaya
             // get value of plug (uvSet's name)
             MString uvSetName;
             uvSetNamePlug.getValue ( uvSetName );
-            uvSetNames.append ( uvSetName );
+
+			std::tr1::unordered_set<std::wstring>::iterator it = duplicateLookup.find( uvSetName.asWChar() );
+			bool noDuplicate = it == duplicateLookup.end();
+			if( noDuplicate )
+				uvSetNames.append ( uvSetName );
+			else
+			{
+				//@remark:
+				// [fixing issue63] Making name invalid for lookup uvarrays but maintain index in uvset name list.
+				// cause:
+				// 1. maya does not allow retrieving uv-coords by index ONLY by uvset-name 
+				// 2. maya retrieves for fnMesh only non-duplicated-name for uv-names
+				//    // Get UVSets for this mesh
+				//    MStringArray  UVSets;
+				//    MStatus status = fnMesh.getUVSetNames( UVSets );
+				//    uint countUVSByFnMesh = UVSets.length();
+
+				MString uvSetNameWithIndex( uvSetName );
+				uvSetNameWithIndex += NAME_SUFFIX_INVALID;
+				uvSetNames.append ( uvSetNameWithIndex );
+			}
+
+			duplicateLookup.insert( uvSetName.asWChar() );
         }
     }
 
@@ -572,15 +598,21 @@ namespace COLLADAMaya
         if ( !ExportOptions::exportTexCoords() ) return;
 
         uint texCoordsCount = uvSetNames.length();
-        for ( uint i=0; i<texCoordsCount; ++i )
+        for ( uint iTexCoords=0; iTexCoords<texCoordsCount; ++iTexCoords )
         {
             MFloatArray uArray, vArray;
-            MString uvSetName = uvSetNames[i];
+            MString uvSetName = uvSetNames[iTexCoords];
             String uvSetNameStr = uvSetName.asChar();
             fnMesh.getUVs ( uArray, vArray, &uvSetName );
             uint uvCount = uArray.length();
 
-            if ( uvCount == 0 || vArray.length() != uvCount ) continue;
+            //@remark
+            //1. ignoring empty uvsets or uvsets with different uv-lengths
+            //2. [fixing issue63] also ignores invalid uvsets with same names
+            //   cause uvSetNames-list contains all uvset names; but duplicated
+            //   uvset-names are invalidated by getUVSetNames(..) 
+            if ( uvCount == 0 || vArray.length() != uvCount )
+				continue;
 
             // Get the stride
             uint stride = 2;
@@ -607,26 +639,13 @@ namespace COLLADAMaya
                     COLLADABU::Math::Utils::equalsZero ( vArray[j], getTolerance () ) ? 0 : vArray[j] );
             }
 
-            // Figure out the real index for this texture coordinate set
-            MPlug uvSetPlug = fnMesh.findPlug ( ATTR_UV_SET );
-            uint numElements = uvSetPlug.numElements();
-            uint realIndex=0;
-            for ( ; realIndex<numElements; ++realIndex )
-            {
-                // get uvSet[<index>] and uvSet[<index>].uvSetName
-                MPlug uvSetElememtPlug = uvSetPlug.elementByPhysicalIndex ( realIndex );
-                MPlug uvSetNamePlug = uvSetElememtPlug.child ( 0 );
-
-                // get value of plug (uvSet's name)
-                MString uvSetNamePlugValue;
-                uvSetNamePlug.getValue ( uvSetNamePlugValue );
-
-                if ( uvSetName == uvSetNamePlugValue ) break;
-            }
-
             texCoordSource.finish();
 
-            mPolygonSources.push_back ( SourceInput ( texCoordSource, COLLADASW::InputSemantic::TEXCOORD, realIndex ) );
+            //@remark
+            // 1. getUVSetNames() retrieves the list by uvSetPlug.elementByPhysicalIndex ( .. )
+            //   -> so the index in the array is the 'realIndex'
+            // 2. [fixing issue63] uv-sets with same names are invalidated by getUVSetNames() adding suffix to maintain index in list 
+            mPolygonSources.push_back ( SourceInput ( texCoordSource, COLLADASW::InputSemantic::TEXCOORD, iTexCoords ) );
         }
     }
 

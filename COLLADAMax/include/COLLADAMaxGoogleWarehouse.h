@@ -51,6 +51,10 @@ namespace COLLADAMax
 
 		void Stop();
 
+#ifdef MAX_2013_OR_NEWER
+		void DeleteThis();
+#endif
+
 	private:
 
         /** Disable default copy ctor. */
@@ -81,7 +85,7 @@ namespace COLLADAMax
 
 		const TCHAR * ClassName()
 		{
-			return "GoogleWarehouse";
+			return __T("GoogleWarehouse");
 		}
 
 		SClass_ID SuperClassID()
@@ -96,12 +100,12 @@ namespace COLLADAMax
 
 		const TCHAR* Category()
 		{
-			return "Import";
+			return __T("Import");
 		} 
 
 		const TCHAR* InternalName()
 		{
-			return "GoogleWarehouse";
+			return __T("GoogleWarehouse");
 		} 
 
 		HINSTANCE HInstance()
