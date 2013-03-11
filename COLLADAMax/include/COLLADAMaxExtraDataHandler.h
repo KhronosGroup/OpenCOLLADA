@@ -41,11 +41,12 @@ namespace COLLADAMax
 		String mTextBuffer;
 		ExtraTagType mExtraTagType;
 		COLLADAFW::UniqueId mCurrentElementUniqueId;
+		COLLADAFW::Object* mCurrentObject;
 
 		union 
 		{
 			SkyLightParameters skyLightParameters;
-			BumpParameters bumpParameters;
+			BumpMap bumpParameters;
 		} mExtraParameters;
 
 	public:
@@ -56,7 +57,8 @@ namespace COLLADAMax
 		bool elementEnd(const COLLADASaxFWL::ParserChar* elementName );
 		bool textData(const COLLADASaxFWL::ParserChar* text, size_t textLength);
 
-		bool parseElement( const COLLADASaxFWL::ParserChar* profileName, const COLLADASaxFWL::StringHash& elementHash, const COLLADAFW::UniqueId& uniqueId );
+		bool parseElement( const COLLADASaxFWL::ParserChar* profileName, const COLLADASaxFWL::StringHash& elementHash
+			, const COLLADAFW::UniqueId& uniqueId, COLLADAFW::Object* object );
 
 	private:
 		void determineBumpType( const GeneratedSaxParser::xmlChar** attributes );

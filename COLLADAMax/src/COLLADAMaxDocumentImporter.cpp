@@ -510,14 +510,14 @@ namespace COLLADAMax
 	}
 
 	//---------------------------------------------------------------
-	void DocumentImporter::addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpParameters& bumpParameters )
+	void DocumentImporter::addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpMap& bumpParameters )
 	{
-		COLLADAFW::EffectMaps& effectMaps = getUniqueIdEffectMapsMap()[effectUniqueId];
+		EffectMaps& effectMaps = getUniqueIdEffectMapsMap()[effectUniqueId];
 		effectMaps.mBumpMap.bumpType = bumpParameters.bumpType;
 		if( effectMaps.mBumpMap.bumpType != BUMP_TYPE_INVALID )
 		{
-			effectMaps.mBumpMap.textureAttributes.textureSampler = bumpParameters.textureSampler;
-			effectMaps.mBumpMap.textureAttributes.texCoord = bumpParameters.texCoord;
+			if( bumpParameters.textureAttributes )
+				effectMaps.mBumpMap.textureAttributes = bumpParameters.textureAttributes;
 		}
 	}
 } // namespace COLLADAMax

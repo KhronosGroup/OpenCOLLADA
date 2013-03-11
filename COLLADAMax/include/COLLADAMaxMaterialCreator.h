@@ -88,7 +88,7 @@ namespace COLLADAMax
 		bool createAndAssingMaxMaterial( const DocumentImporter::NodeMaterialBindingsPair& materialBinding );
 
 		/** Creates a standard material from @a effectCommon.*/ 
-		StdMat2* createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name, const MaterialCreator::MaterialIdentifier& materialIdentifier, const COLLADAFW::EffectMaps* extraEffectMaps);
+		StdMat2* createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name, const MaterialCreator::MaterialIdentifier& materialIdentifier, const EffectMaps* extraEffectMaps);
 
 		/** Creates a material from @a effect.*/
 		Mtl* createMaxMaterial( const COLLADAFW::Effect& effect, const MaterialCreator::MaterialIdentifier& materialIdentifier);
@@ -122,7 +122,7 @@ namespace COLLADAMax
 	
     	void createAndAssignTexture( Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const COLLADAFW::ColorOrTexture& (COLLADAFW::EffectCommon::*f)()const, int slot, unsigned char mapChannel);
 
-		void handleExtraEffectMaps( const COLLADAFW::EffectMaps* extraEffectMaps, Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const MaterialCreator::MaterialIdentifier& materialIdentifier );
+		void handleExtraEffectMaps( const EffectMaps* extraEffectMaps, Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const MaterialCreator::MaterialIdentifier& materialIdentifier );
 
 
 		/** Sets the vertex color flag for all nodes that use vertex color.*/

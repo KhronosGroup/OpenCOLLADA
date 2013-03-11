@@ -615,32 +615,25 @@ namespace COLLADAFW
 
 	typedef COLLADA_TYPE::ClassId ClassId;
 
-	struct TextureAttributes
-	{
-		TextureAttributes() : textureSampler(), texCoord() {}
-		String textureSampler;
-		String texCoord;
-	};
 	/** Holding effect maps parameters loaded from <extra>. */
 	struct TextureSamplerAndCoordsId
 	{
 		TextureSamplerAndCoordsId() : samplerId( INVALID_SAMPLER_ID ), textureMapId( INVALID_MAP_ID ) {}
+		TextureSamplerAndCoordsId( const TextureSamplerAndCoordsId& pre ) : samplerId( pre.samplerId ), textureMapId( pre.textureMapId ) {}
 		virtual ~TextureSamplerAndCoordsId() {}
 
 		SamplerID samplerId;
 		TextureMapId textureMapId;
 	};
-	struct BumpMap : public TextureSamplerAndCoordsId
+	struct TextureAttributes : public TextureSamplerAndCoordsId
 	{
-		BumpMap() : bumpType(/*BUMP_TYPE_INVALID*/0) {}
-		/*BumpType*/int bumpType;
-		TextureAttributes textureAttributes;
-	};
-	struct EffectMaps
-	{
-		BumpMap mBumpMap;
-	};
+		TextureAttributes() : TextureSamplerAndCoordsId(), textureSampler(), texCoord() {}
+		TextureAttributes(const TextureAttributes& pre) : TextureSamplerAndCoordsId(pre), textureSampler( pre.textureSampler ), texCoord( pre.texCoord ) {}
+		String textureSampler;
+		String texCoord;
 
+		TextureAttributes* clone() const { return new TextureAttributes(*this); }
+	};
 
 }
 

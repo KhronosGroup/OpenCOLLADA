@@ -178,7 +178,7 @@ namespace COLLADAMax
 		typedef std::map<COLLADAFW::UniqueId, SkyLightParameters> UniqueIdSkyLightMap;
 
 		/** Maps unique ids of framework effects to the corresponding bump-map definitions.*/
-		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::EffectMaps> UniqueIdEffectMapsMap;
+		typedef std::map<COLLADAFW::UniqueId, EffectMaps> UniqueIdEffectMapsMap;
 
 	private:
 		/** Max interface.*/
@@ -496,7 +496,7 @@ namespace COLLADAMax
 
 		UniqueIdSkyLightMap& getUniqueIdSkyLightMap() { return mUniqueIdSkyLightMap; }
 		UniqueIdEffectMapsMap& getUniqueIdEffectMapsMap() { return mEffectMaps; }
-		void addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpParameters& bumpParameters);
+		void addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpMap& bumpParameters);
 
 		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
 		When ever an inode is cloned, the cloned one and itself should be added to that list.*/

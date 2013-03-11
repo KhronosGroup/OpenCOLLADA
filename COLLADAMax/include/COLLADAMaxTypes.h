@@ -22,6 +22,7 @@
 #include "COLLADAMaxPrerequisites.h"
 
 #include "COLLADABUURI.h"
+#include "COLLADAFWTypes.h"
 
 #include <vector>
 #include <map>
@@ -100,11 +101,15 @@ namespace COLLADAMax
 		BUMP_TYPE_HEIGHTFIELD,
 	};
 
-	struct BumpParameters
+	struct BumpMap
 	{
+		//BumpMap() : bumpType(BUMP_TYPE_INVALID), textureAttributes(0) {}
 		BumpType bumpType;
-		char* textureSampler;
-		char* texCoord;
+		COLLADAFW::TextureAttributes* textureAttributes;
+	};
+	struct EffectMaps
+	{
+		BumpMap mBumpMap;
 	};
 
 

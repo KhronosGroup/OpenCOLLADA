@@ -85,8 +85,7 @@ namespace COLLADAMax
 					if( mExtraParameters.bumpParameters.bumpType != BUMP_TYPE_INVALID )
 					{
 						mExtraTagType = EXTRA_TAG_TYPE_BUMP;
-						mExtraParameters.bumpParameters.textureSampler = 0;
-						mExtraParameters.bumpParameters.texCoord = 0;
+						mExtraParameters.bumpParameters.textureAttributes = 0;
 					}
 				}
 			}
@@ -185,8 +184,6 @@ namespace COLLADAMax
 				{
 					mExtraTagType = EXTRA_TAG_TYPE_UNKNOWN;
 					addUniqueIdEffectBumpMapParametersPair(mCurrentElementUniqueId, mExtraParameters.bumpParameters);
-					delete[] mExtraParameters.bumpParameters.textureSampler;
-					delete[] mExtraParameters.bumpParameters.texCoord;
 				} 
 				//else if ( strcmp(elementName, MAX_EXTRA_ATTRIBUTE_...) == 0 )
 				//{
@@ -206,9 +203,13 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	bool ExtraDataHandler::parseElement( const COLLADASaxFWL::ParserChar* profileName, const COLLADASaxFWL::StringHash& elementHash, const COLLADAFW::UniqueId& uniqueId )
+	bool ExtraDataHandler::parseElement( const COLLADASaxFWL::ParserChar* profileName, const COLLADASaxFWL::StringHash& elementHash
+		, const COLLADAFW::UniqueId& uniqueId, COLLADAFW::Object* object )
 	{
 		mCurrentElementUniqueId = uniqueId;
+		mCurrentObject = 0;
+		if( object != 0 && object->getUniqueId() == mCurrentElementUniqueId )
+			mCurrentObject = object;
 
 		switch ( elementHash )
 		{
@@ -253,8 +254,19 @@ namespace COLLADAMax
 	//------------------------------
 	void ExtraDataHandler::determineBumpTextureSamplerAndTexCoord( const GeneratedSaxParser::xmlChar** attributes )
 	{
-		mExtraParameters.bumpParameters.textureSampler = 0;
-		mExtraParameters.bumpParameters.texCoord = 0;
+		mExtraParameters.bumpParameters.textureAttributes = 0;
+
+		if( mCurrentObject )
+		{
+			if( COLLADAFW::COLLADA_TYPE::EFFECT == mCurrentObject->getClassId() )
+			{
+				COLLADAFW::Effect* effect = (COLLADAFW::Effect*)mCurrentObject;
+				mExtraParameters.bumpParameters.textureAttributes = effect->createExtraTextureAttributes();
+			}
+		}
+
+		if( mExtraParameters.bumpParameters.textureAttributes == 0 )
+			return;
 
 		size_t index = 0;
 
@@ -265,23 +277,13 @@ namespace COLLADAMax
 			attributeValue = attributes[index++];
 			if( strcmp(attributeKey, "texture") == 0 && attributeValue != 0 )
 			{
-				if( mExtraParameters.bumpParameters.textureSampler == 0 )
-				{
-					size_t length = strlen(attributeValue);
-					mExtraParameters.bumpParameters.textureSampler = new char[length + 1];
-					memcpy(mExtraParameters.bumpParameters.textureSampler, attributeValue, length);
-					mExtraParameters.bumpParameters.textureSampler[length] = 0;
-				}
+				if( mExtraParameters.bumpParameters.textureAttributes )
+					mExtraParameters.bumpParameters.textureAttributes->textureSampler = attributeValue;
 			}
 			else if( strcmp(attributeKey, "texcoord") == 0 && attributeValue != 0 )
 			{
-				if( mExtraParameters.bumpParameters.texCoord == 0 )
-				{
-					size_t length = strlen(attributeValue);
-					mExtraParameters.bumpParameters.texCoord = new char[length + 1];
-					memcpy(mExtraParameters.bumpParameters.texCoord, attributeValue, length);
-					mExtraParameters.bumpParameters.texCoord[length] = 0;
-				}
+				if( mExtraParameters.bumpParameters.textureAttributes )
+					mExtraParameters.bumpParameters.textureAttributes->texCoord = attributeValue;
 			}
 
 			attributeKey = attributes[index++];

@@ -105,16 +105,16 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-    void setMaterialIdentifierMapChannels( const COLLADAFW::EffectMaps* effectMaps, const COLLADAFW::TextureCoordinateBindingArray& texCoordBindings
+    void setMaterialIdentifierMapChannels( const EffectMaps* effectMaps, const COLLADAFW::TextureCoordinateBindingArray& texCoordBindings
         , const DocumentImporter::SetMapChannelMap& setMapChannelMap, MaterialCreator::MaterialIdentifier& materialIdentifier)
 	{
 		if( effectMaps == 0 )
 			return;
 
-		if( effectMaps->mBumpMap.bumpType == BUMP_TYPE_HEIGHTFIELD )
+		if( effectMaps->mBumpMap.bumpType == BUMP_TYPE_HEIGHTFIELD && effectMaps->mBumpMap.textureAttributes != 0 )
 		{
-			if( effectMaps->mBumpMap.textureMapId != COLLADAFW::INVALID_MAP_ID )
-				setMaterialIdentifierMapChannel( effectMaps->mBumpMap.textureMapId, texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::BUMP, materialIdentifier.slotFlags, materialIdentifier.bumpMapChannel );
+			if( effectMaps->mBumpMap.textureAttributes->textureMapId != COLLADAFW::INVALID_MAP_ID )
+				setMaterialIdentifierMapChannel( effectMaps->mBumpMap.textureAttributes->textureMapId, texCoordBindings, setMapChannelMap, MaterialCreator::MaterialIdentifier::BUMP, materialIdentifier.slotFlags, materialIdentifier.bumpMapChannel );
 		}
 	}
 
@@ -123,7 +123,7 @@ namespace COLLADAMax
 	MaterialCreator::MaterialIdentifier getMaterialIdentifier( const COLLADAFW::Effect& effect,
 															   const COLLADAFW::MaterialBinding& materialBinding,
 															   const DocumentImporter::SetMapChannelMap& setMapChannelMap,
-															   const COLLADAFW::EffectMaps* effectMaps)
+															   const EffectMaps* effectMaps)
 	{
 //		assert( !effect.getCommonEffects().empty() );
 		MaterialCreator::MaterialIdentifier materialIdentifier;
@@ -386,7 +386,7 @@ namespace COLLADAMax
 	//------------------------------
 	Mtl* MaterialCreator::createMaxMaterial( const COLLADAFW::Effect& effect, const MaterialCreator::MaterialIdentifier& materialIdentifier )
 	{
-		const COLLADAFW::EffectMaps* effectMaps = getFWEffectMapsByUniqueId( effect.getUniqueId() );
+		const EffectMaps* effectMaps = getFWEffectMapsByUniqueId( effect.getUniqueId() );
 
 		const COLLADAFW::CommonEffectPointerArray& commonEffects = effect.getCommonEffects();
 		if ( commonEffects.getCount() > 0)
@@ -402,7 +402,7 @@ namespace COLLADAMax
 	{
 		const DocumentImporter::SetMapChannelMap& setMapChannelMap = getSetMapChannelByGeometryUniqueId( geometryUniqueId );
 
-		const COLLADAFW::EffectMaps* effectMaps = getFWEffectMapsByUniqueId( effect.getUniqueId() );
+		const EffectMaps* effectMaps = getFWEffectMapsByUniqueId( effect.getUniqueId() );
 		MaterialCreator::MaterialIdentifier materialIdentifier = getMaterialIdentifier( effect, materialBinding, setMapChannelMap, effectMaps );
 
 		MaterialIdentifierMaxMaterialMap::const_iterator it = mMaterialIdentifierMaxMaterialMap.find(materialIdentifier);
@@ -440,16 +440,16 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	void MaterialCreator::handleExtraEffectMaps( const COLLADAFW::EffectMaps* effectMaps, Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const MaterialCreator::MaterialIdentifier& materialIdentifier )
+	void MaterialCreator::handleExtraEffectMaps( const EffectMaps* effectMaps, Mtl* material, const COLLADAFW::EffectCommon& effectCommon, const MaterialCreator::MaterialIdentifier& materialIdentifier )
 	{
 		if( effectMaps == 0 )
 			return;
 
-		if( effectMaps->mBumpMap.bumpType == BUMP_TYPE_HEIGHTFIELD )
+		if( effectMaps->mBumpMap.bumpType == BUMP_TYPE_HEIGHTFIELD && effectMaps->mBumpMap.textureAttributes != 0 )
 		{
-			if( effectMaps->mBumpMap.samplerId != COLLADAFW::INVALID_SAMPLER_ID )
+			if( effectMaps->mBumpMap.textureAttributes->samplerId != COLLADAFW::INVALID_SAMPLER_ID )
 			{
-				BitmapTex* texture = createTexture( effectCommon, effectMaps->mBumpMap.samplerId );
+				BitmapTex* texture = createTexture( effectCommon, effectMaps->mBumpMap.textureAttributes->samplerId );
 				if( texture )
 				{
 					texture->GetUVGen()->SetMapChannel( materialIdentifier.bumpMapChannel );
@@ -461,7 +461,7 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	StdMat2* MaterialCreator::createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name, const MaterialCreator::MaterialIdentifier& materialIdentifier, const COLLADAFW::EffectMaps* extraEffectMaps )
+	StdMat2* MaterialCreator::createStandardMaterial( const COLLADAFW::EffectCommon& effectCommon, const String& name, const MaterialCreator::MaterialIdentifier& materialIdentifier, const EffectMaps* extraEffectMaps )
 	{
 		StdMat2* material = NewDefaultStdMat();
 

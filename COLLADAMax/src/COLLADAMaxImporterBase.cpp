@@ -318,7 +318,7 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	const COLLADAFW::EffectMaps* ImporterBase::getFWEffectMapsByUniqueId( const COLLADAFW::UniqueId& uniqueId )
+	const EffectMaps* ImporterBase::getFWEffectMapsByUniqueId( const COLLADAFW::UniqueId& uniqueId )
 	{
 		const DocumentImporter::UniqueIdEffectMapsMap& uniqueIdEffectMapsMap = mDocumentImporter->getUniqueIdEffectMapsMap();
 		DocumentImporter::UniqueIdEffectMapsMap::const_iterator it = uniqueIdEffectMapsMap.find(uniqueId);
@@ -535,7 +535,7 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	void ImporterBase::addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpParameters& bumpParameters )
+	void ImporterBase::addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpMap& bumpParameters )
 	{
 		mDocumentImporter->addUniqueIdEffectBumpMapParametersPair(effectUniqueId, bumpParameters);
 	}
