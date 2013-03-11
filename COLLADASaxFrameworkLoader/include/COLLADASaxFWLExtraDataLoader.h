@@ -39,10 +39,14 @@ namespace COLLADASaxFWL
         /** Starts loading an extra tag. */
         virtual bool base__begin__technique ( 
             const technique__AttributeData& attributeData, 
-            const COLLADAFW::UniqueId& uniqueId );
+            const COLLADAFW::UniqueId& uniqueId,
+			COLLADAFW::Object* object );
 
         /** Returns the unique id of the current parsed object. */
         virtual const COLLADAFW::UniqueId& getUniqueId() { return COLLADAFW::UniqueId::INVALID; }
+
+		/** Returns current parsed object. */
+		virtual COLLADAFW::Object* getObject() { return 0; }
 
 	private:
 

@@ -43,9 +43,11 @@ namespace COLLADAFW
 
 	typedef unsigned long TextureMapId;
 
-
 	/** Data type to reference sampler. Used by texture.*/
 	typedef size_t SamplerID;
+
+	static const SamplerID INVALID_SAMPLER_ID = -1;
+	static const TextureMapId INVALID_MAP_ID = -1;
 
 	/** Enum listing all physical dimensions used in the data model.*/
 	enum PhysicalDimension
@@ -612,6 +614,26 @@ namespace COLLADAFW
     }
 
 	typedef COLLADA_TYPE::ClassId ClassId;
+
+	/** Holding effect maps parameters loaded from <extra>. */
+	struct TextureSamplerAndCoordsId
+	{
+		TextureSamplerAndCoordsId() : samplerId( INVALID_SAMPLER_ID ), textureMapId( INVALID_MAP_ID ) {}
+		TextureSamplerAndCoordsId( const TextureSamplerAndCoordsId& pre ) : samplerId( pre.samplerId ), textureMapId( pre.textureMapId ) {}
+		virtual ~TextureSamplerAndCoordsId() {}
+
+		SamplerID samplerId;
+		TextureMapId textureMapId;
+	};
+	struct TextureAttributes : public TextureSamplerAndCoordsId
+	{
+		TextureAttributes() : TextureSamplerAndCoordsId(), textureSampler(), texCoord() {}
+		TextureAttributes(const TextureAttributes& pre) : TextureSamplerAndCoordsId(pre), textureSampler( pre.textureSampler ), texCoord( pre.texCoord ) {}
+		String textureSampler;
+		String texCoord;
+
+		TextureAttributes* clone() const { return new TextureAttributes(*this); }
+	};
 
 }
 
