@@ -38,7 +38,7 @@ namespace COLLADAMax
 
     public:
         static const Class_ID COLLADASWEXPORTER_CLASS_ID;
-		static const String PROGRESSSTART;
+		static const TCHAR* PROGRESSSTART;
 
 
 
@@ -102,7 +102,7 @@ namespace COLLADAMax
 
         const TCHAR * ClassName()
         {
-            return "OpenCOLLADAExporter";
+            return __T("OpenCOLLADAExporter");
         }
 
         SClass_ID SuperClassID()
@@ -117,7 +117,7 @@ namespace COLLADAMax
 
         const TCHAR* Category()
         {
-            return "Export";
+            return __T("Export");
         } //GetString(IDS_CATEGORY_E); }
 
         const TCHAR* InternalName()

@@ -234,7 +234,7 @@ namespace COLLADASaxFWL
         SaxVirtualFunctionTest15(begin__technique____technique_type(attributeData));
         technique__AttributeData attr;
         attr.profile = attributeData.profile;
-        return base__begin__technique ( attr, getUniqueId () );
+        return base__begin__technique ( attr, getUniqueId(), getObject() );
     }
 
 }

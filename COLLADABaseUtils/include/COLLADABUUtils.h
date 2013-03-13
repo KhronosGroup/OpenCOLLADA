@@ -169,6 +169,13 @@ namespace COLLADABU
         static void split ( const String& text, const String& separators, std::vector<String>& words );
 
 
+		static bool createDirectoryIfNeeded( const WideString &pathString );
+		static bool createDirectoryIfNeeded( const String &pathString );
+		static bool directoryExists( const WideString &pathString );
+		static bool directoryExists( const String &pathString );
+
+		static bool copyFile( const String &source, const String &destination );
+		static bool fileExistsAndIsReadable( const String &pathString );
     };
 }
 

@@ -61,7 +61,10 @@ namespace GeneratedSaxParser
 	//--------------------------------------------------------------------
 	LibxmlSaxParser::~LibxmlSaxParser()
 	{
-		xmlCleanupParser();
+		//issue 102: removing call of libxml cleanup as stated in issue.
+		//-> libxml documentation says xmlCleanupParser() should only be called before
+		//   process terminates and the libxml-library is not to be used anymore.
+		//xmlCleanupParser();
 	}
 
 	bool LibxmlSaxParser::parseFile( const char* fileName )

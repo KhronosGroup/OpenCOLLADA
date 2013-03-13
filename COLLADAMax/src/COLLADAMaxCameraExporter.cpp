@@ -193,7 +193,12 @@ namespace COLLADAMax
 			optics->setZFar(parameters->GetFloat(MaxCamera::FAR_CLIP), hasAnimatedZFar);
 
 
+#ifdef UNICODE
+			String exportNodeName = COLLADABU::StringUtils::toUTF8String(exportNode->getINode()->GetName());
+			COLLADASW::Camera colladaCamera(COLLADASW::LibraryCameras::mSW, optics, cameraId, COLLADASW::Utils::checkNCName(exportNodeName));
+#else
 			COLLADASW::Camera colladaCamera(COLLADASW::LibraryCameras::mSW, optics, cameraId, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));
+#endif
 			setExtraTechnique(&colladaCamera);
 
 

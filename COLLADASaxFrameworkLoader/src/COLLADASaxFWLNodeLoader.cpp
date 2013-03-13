@@ -330,6 +330,8 @@ namespace COLLADASaxFWL
 
         COLLADAFW::UniqueId instanceNodeUniqueId = getHandlingFilePartLoader()->createUniqueId( COLLADAFW::InstanceNode::ID() );
 		COLLADAFW::InstanceNode* instanceNode = FW_NEW COLLADAFW::InstanceNode(instanceNodeUniqueId,instantiatedNodeUniqueId);
+		if( attributeData.name )
+			instanceNode->setName( attributeData.name );
 		currentNode->getInstanceNodes().append(instanceNode);
 
 		return true;

@@ -22,6 +22,7 @@
 #include "COLLADAMaxPrerequisites.h"
 
 #include "COLLADABUURI.h"
+#include "COLLADAFWTypes.h"
 
 #include <vector>
 #include <map>
@@ -92,6 +93,23 @@ namespace COLLADAMax
 		float rayBias;
 		bool castShadows;
 		bool intensityOn;
+	};
+
+	enum BumpType
+	{
+		BUMP_TYPE_INVALID,
+		BUMP_TYPE_HEIGHTFIELD,
+	};
+
+	struct BumpMap
+	{
+		//BumpMap() : bumpType(BUMP_TYPE_INVALID), textureAttributes(0) {}
+		BumpType bumpType;
+		COLLADAFW::TextureAttributes* textureAttributes;
+	};
+	struct EffectMaps
+	{
+		BumpMap mBumpMap;
 	};
 
 

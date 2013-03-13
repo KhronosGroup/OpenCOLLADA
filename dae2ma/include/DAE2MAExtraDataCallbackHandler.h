@@ -91,7 +91,8 @@ namespace DAE2MA
         virtual bool parseElement ( 
             const GeneratedSaxParser::ParserChar* profileName, 
             const StringHash& elementHash, 
-            const COLLADAFW::UniqueId& uniqueId );
+            const COLLADAFW::UniqueId& uniqueId,
+			COLLADAFW::Object* object);
 
         /** The methods to get the extra data tags to the registered callback handlers. */
         virtual bool elementBegin( const GeneratedSaxParser::ParserChar* elementName, const GeneratedSaxParser::xmlChar** attributes);
