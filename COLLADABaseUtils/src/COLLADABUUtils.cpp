@@ -13,6 +13,7 @@
 #include "COLLADABUPlatform.h"
 
 #include <string.h>
+#include <fstream>
 
 namespace COLLADABU
 {
@@ -201,4 +202,106 @@ namespace COLLADABU
             start = text.find_first_not_of(separators, stop+1);
         }
     }
+
+	//--------------------------------
+	bool Utils::createDirectoryIfNeeded( const WideString &pathString )
+	{
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		const wchar_t* currentPath = _wgetcwd( 0, 0);
+		const wchar_t* testPath = pathString.c_str();
+
+		bool pathExists = _wchdir( testPath ) == 0;
+		if( !pathExists )
+		{
+			_wmkdir( testPath );
+			pathExists = _wchdir( testPath ) == 0;
+		}
+
+		_wchdir( currentPath );
+		return pathExists;
+	}
+
+	//--------------------------------
+	bool Utils::createDirectoryIfNeeded( const String &pathString )
+	{
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		const char* currentPath = _getcwd( 0, 0);
+		const char* testPath = pathString.c_str();
+
+		bool pathExists = _chdir( testPath ) == 0;
+		if( !pathExists )
+		{
+			_mkdir( testPath );
+			pathExists = _chdir( testPath ) == 0;
+		}
+
+		_chdir( currentPath );
+		return pathExists;
+	}
+
+	//--------------------------------
+	bool Utils::directoryExists( const WideString &pathString )
+	{
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		const wchar_t* currentPath = _wgetcwd( 0, 0);
+		const wchar_t* testPath = pathString.c_str();
+
+		bool pathExists = _wchdir( testPath ) == 0;
+		_wchdir( currentPath );
+		return pathExists;
+	}
+
+	//--------------------------------
+	bool Utils::directoryExists( const String &pathString )
+	{
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		const char* currentPath = _getcwd( 0, 0);
+		const char* testPath = pathString.c_str();
+
+		bool pathExists = _chdir( testPath ) == 0;
+		_chdir( currentPath );
+		return pathExists;
+	}
+
+	//--------------------------------
+	bool Utils::copyFile( const String &source, const String &destination )
+	{
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		char command[4097];
+		sprintf(command,"copy \"%s\" \"%s\"", source.c_str(), destination.c_str() );
+		size_t length = strlen(command);
+		if( length > 4096)
+			return false;
+
+		system(command);
+		return true;
+	}
+
+	//--------------------------------
+	bool Utils::fileExistsAndIsReadable( const String &pathString )
+	{
+// 		ifstream in( pathString.c_str(), ios::in );
+// 		bool readable = in.good();
+// 		return readable;
+		FILE* f = fopen( pathString.c_str(), "r");
+		bool readable = (f != 0);
+		if( readable )
+			fclose(f);
+		return readable;
+	}
 }

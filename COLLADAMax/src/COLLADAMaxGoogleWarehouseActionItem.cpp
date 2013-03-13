@@ -22,9 +22,6 @@
 #include "G3DBrowser.h"
 #include "G3DFileUnzipper.h"
 
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
-
 
 namespace COLLADAMax
 {
@@ -92,8 +89,8 @@ namespace COLLADAMax
 
 		WideString tmpDirPathString(tmpDirPathNativeString.toWideString());
 
-		boost::filesystem::wpath tmpDirPathWpath(tmpDirPathString);
-		if ( !boost::filesystem::exists(tmpDirPathWpath) && !boost::filesystem::create_directory(tmpDirPathWpath) )
+		bool pathExists = COLLADABU::Utils::createDirectoryIfNeeded(tmpDirPathString);
+		if ( !pathExists )
 		{
 			// TODO handle error could not create temp dir
 			return true;
@@ -154,4 +151,5 @@ namespace COLLADAMax
 	{
 		return 0;
 	}
+
 } // namespace COLLADAMax

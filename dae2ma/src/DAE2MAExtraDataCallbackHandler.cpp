@@ -51,7 +51,8 @@ namespace DAE2MA
     bool ExtraDataCallbackHandler::parseElement ( 
         const GeneratedSaxParser::ParserChar* profileName, 
         const StringHash& elementHash, 
-        const COLLADAFW::UniqueId& uniqueId ) 
+        const COLLADAFW::UniqueId& uniqueId,
+		COLLADAFW::Object* object ) 
     {
         if ( COLLADABU::Utils::equals ( PROFILE_MAYA, profileName ) ) 
         {

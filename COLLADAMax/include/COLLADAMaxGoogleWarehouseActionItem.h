@@ -44,6 +44,7 @@ namespace COLLADAMax
 		void GetDescriptionText(TSTR& descText);
 		
 		BOOL ExecuteAction();
+
 		BOOL IsEnabled();
 
 		int GetId();
@@ -64,7 +65,6 @@ namespace COLLADAMax
 
         /** Disable default assignment operator. */
 		const GoogleWarehouseActionItem& operator= ( const GoogleWarehouseActionItem& pre );
-
 	};
 
 } // namespace COLLADAMAX

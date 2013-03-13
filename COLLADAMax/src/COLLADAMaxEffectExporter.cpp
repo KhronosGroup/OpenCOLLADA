@@ -40,9 +40,6 @@
 #include <shaders.h>
 #include <imtl.h> 
 
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
-
 namespace COLLADAMax
 {
 
@@ -1275,7 +1272,8 @@ namespace COLLADAMax
 					// we need to copy the image in  output directory/images
 					COLLADASW::URI imageTargetPath = createTargetURI(fullFileNameURI);
 					// Copy the texture, if it isn't already there...
-					if ( !boost::filesystem::exists( imageTargetPath.toNativePath () ) )
+					bool exists = COLLADABU::Utils::fileExistsAndIsReadable( imageTargetPath.toNativePath() );
+					if( !exists )
 					{
 						try 
 						{
@@ -1283,14 +1281,21 @@ namespace COLLADAMax
 							// Note: some systems (window$) requires the string to be 
 							// enclosed in quotes when a space is present.
 							COLLADASW::URI imageTargetPathDir ( imageTargetPath.getPathDir() );
-							boost::filesystem::create_directory ( imageTargetPathDir.toNativePath() );
+							exists = COLLADABU::Utils::createDirectoryIfNeeded( imageTargetPathDir.toNativePath() );
 
-							// Throws: basic_filesystem_error<Path> if
-							// from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
-							boost::filesystem::copy_file ( boost::filesystem::path ( fullFileNameURI.toNativePath() ), 
-								                           boost::filesystem::path ( imageTargetPath.toNativePath() ) );
+							if( exists )
+							{
+								// Throws: basic_filesystem_error<Path> if
+								// from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
+								exists = COLLADABU::Utils::copyFile( fullFileNameURI.toNativePath(), imageTargetPath.toNativePath() );
+							}
 						}
 						catch ( ... )
+						{
+							exists = false;
+						}
+
+						if( !exists )
 						{
 							// todo handle error
 						}
