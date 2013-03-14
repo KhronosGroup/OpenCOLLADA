@@ -19,6 +19,7 @@
 #include "COLLADAFWTristrips.h"
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWPolygons.h"
+#include "COLLADAFWPolylist.h"
 #include "COLLADAFWLinestrips.h"
 #include "COLLADAFWIWriter.h"
 
@@ -1105,9 +1106,9 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__polylist( const polylist__AttributeData& attributeData )
 	{
 		mCurrentPrimitiveType = POLYLIST;
-        COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons(createUniqueId(COLLADAFW::Polygons::ID()));
-		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
-		mCurrentMeshPrimitive = polygons;
+        COLLADAFW::Polylist* polylist = new COLLADAFW::Polylist(createUniqueId(COLLADAFW::Polylist::ID()));
+		polylist->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
+		mCurrentMeshPrimitive = polylist;
 		if ( attributeData.material )
 		{
 			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( attributeData.material ));
@@ -1124,8 +1125,8 @@ namespace COLLADASaxFWL
 		// one polygon. If not, we will discard it
 		if ( mCurrentVertexCount >= mCurrentExpectedVertexCount && mCurrentVertexCount > 0 )
 		{
-			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
-			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
+			COLLADAFW::Polylist* polylist = (COLLADAFW::Polylist*) mCurrentMeshPrimitive;
+			COLLADAFW::Polylist::VertexCountArray& vertexCountArray = polylist->getGroupedVerticesVertexCountArray();
 
 			mCurrentMeshPrimitive->setFaceCount(vertexCountArray.getCount());
 			mMesh->appendPrimitive(mCurrentMeshPrimitive);

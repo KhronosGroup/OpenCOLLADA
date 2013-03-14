@@ -40,9 +40,6 @@
 #include <shaders.h>
 #include <imtl.h> 
 
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
-
 namespace COLLADAMax
 {
 
@@ -117,12 +114,14 @@ namespace COLLADAMax
 
     //---------------------------------------------------------------
     EffectExporter::EffectExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
-            : COLLADASW::LibraryEffects ( streamWriter ),
-			Extra(streamWriter, documentExporter),
-            mExportSceneGraph ( exportSceneGraph ),
-            mDocumentExporter ( documentExporter ),
-            mTextureExporter ( documentExporter ),
-			mAnimationExporter( documentExporter->getAnimationExporter() )
+            : COLLADASW::LibraryEffects ( streamWriter )
+            , Extra(streamWriter, documentExporter)
+            , mExportSceneGraph ( exportSceneGraph )
+            , mDocumentExporter ( documentExporter )
+            , mTextureExporter ( documentExporter )
+            , mAnimationExporter( documentExporter->getAnimationExporter() )
+            , mImageIdList()
+            , mCopyImageCounter( 0 )
     {}
 
     //---------------------------------------------------------------
@@ -263,7 +262,11 @@ namespace COLLADAMax
         IDxMaterial* dxm = static_cast<IDxMaterial*> ( baseMaterial->GetInterface( IDXMATERIAL_INTERFACE ) );
 
 #ifdef MAX_2010_OR_NEWER
+ #ifdef UNICODE
+		const char* effectFileName = dxm ? COLLADABU::StringUtils::toUTF8String(dxm->GetEffectFile().GetFileName().data()).c_str() : 0;
+ #else
 		const char* effectFileName = dxm ? dxm->GetEffectFile().GetFileName().data() : 0;
+ #endif
 #else
 		const char* effectFileName = dxm ? dxm->GetEffectFilename() : 0;
 #endif
@@ -397,7 +400,11 @@ namespace COLLADAMax
                 ParamType2 parameterType = pblock->GetParameterType( parameterID );
                 ParamDef parameterDef = pblock->GetParamDef( parameterID );
 
-                const char* paramName = parameterDef.int_name;
+#ifdef UNICODE
+				const char* paramName = COLLADABU::StringUtils::toUTF8String(parameterDef.int_name).c_str();
+#else
+				const char* paramName = parameterDef.int_name;
+#endif
                 fprintf( stdout, "\tParam name = %s; Type = %i;\n", paramName, (int)parameterType );
             }
         }
@@ -506,8 +513,12 @@ namespace COLLADAMax
 			bool isSpecularAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SPECULAR_COLOR, effectId, effectProfile.getSpecularDefaultSid(), COLOR_PARAMETERS, true, &scaleConversion);
 			effectProfile.setSpecular ( maxColor2ColorOrTexture ( shader->GetSpecularClr ( animationStart ), weight ), isSpecularAnimated );
 
-			bool isGlossinessAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::GLOSSINESS, effectId, effectProfile.getShininessDefaultSid(), 0, true, &ConversionFunctors::toPercent);
-			effectProfile.setShininess ( ConversionFunctors::toPercent(shader->GetGlossiness ( animationStart )) * weight, isGlossinessAnimated );
+			//bool isGlossinessAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::GLOSSINESS, effectId, effectProfile.getShininessDefaultSid(), 0, true, &ConversionFunctors::toPercent);
+			//effectProfile.setShininess ( ConversionFunctors::toPercent(shader->GetGlossiness ( animationStart )) * weight, isGlossinessAnimated );
+
+			bool isSpecularLevelAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SPECULAR_LEVEL, effectId, effectProfile.getShininessDefaultSid(), 0, true, &ConversionFunctors::toPercent);
+			float specularLevel = shader->GetSpecularLevel ( animationStart );
+			effectProfile.setShininess ( specularLevel * weight, isSpecularLevelAnimated );
 
 			bool useEmissionColor = shader->IsSelfIllumClrOn() != false;
 			if (useEmissionColor)
@@ -1253,15 +1264,16 @@ namespace COLLADAMax
                     slashIndex = backSlashIndex;
 
                 imageInfo.imageId = ( slashIndex != String::npos ) ? fullFileName.substr ( slashIndex + 1 ) : fullFileName;
-
 				imageInfo.imageId = COLLADASW::Utils::replaceDot ( COLLADASW::Utils::checkID(imageInfo.imageId) );
+				imageInfo.imageId = mImageIdList.addId( imageInfo.imageId );
 
 				if ( mDocumentExporter->getOptions().getCopyImages() )
 				{
 					// we need to copy the image in  output directory/images
 					COLLADASW::URI imageTargetPath = createTargetURI(fullFileNameURI);
 					// Copy the texture, if it isn't already there...
-					if ( !boost::filesystem::exists( imageTargetPath.toNativePath () ) )
+					bool exists = COLLADABU::Utils::fileExistsAndIsReadable( imageTargetPath.toNativePath() );
+					if( !exists )
 					{
 						try 
 						{
@@ -1269,14 +1281,21 @@ namespace COLLADAMax
 							// Note: some systems (window$) requires the string to be 
 							// enclosed in quotes when a space is present.
 							COLLADASW::URI imageTargetPathDir ( imageTargetPath.getPathDir() );
-							boost::filesystem::create_directory ( imageTargetPathDir.toNativePath() );
+							exists = COLLADABU::Utils::createDirectoryIfNeeded( imageTargetPathDir.toNativePath() );
 
-							// Throws: basic_filesystem_error<Path> if
-							// from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
-							boost::filesystem::copy_file ( boost::filesystem::path ( fullFileNameURI.toNativePath() ), 
-								                           boost::filesystem::path ( imageTargetPath.toNativePath() ) );
+							if( exists )
+							{
+								// Throws: basic_filesystem_error<Path> if
+								// from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
+								exists = COLLADABU::Utils::copyFile( fullFileNameURI.toNativePath(), imageTargetPath.toNativePath() );
+							}
 						}
 						catch ( ... )
+						{
+							exists = false;
+						}
+
+						if( !exists )
 						{
 							// todo handle error
 						}
@@ -1327,6 +1346,8 @@ namespace COLLADAMax
 		
 		String relativePath = mDocumentExporter->getOptions().getImageDirectory();
 		relativePath.append("/");
+		relativePath.append( COLLADABU::Utils::toString( mCopyImageCounter++ ) );
+		relativePath.append("_");
 		relativePath.append( sourceUri.getPathFile() );
 
 		COLLADASW::URI targetUri ( outputFile, relativePath);

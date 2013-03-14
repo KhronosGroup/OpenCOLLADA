@@ -37,6 +37,9 @@ namespace COLLADAMax
 	static const char* MAX_EXTRA_ATTRIBUTE_RAYS_PER_SAMPLE = "rays_per_sample";
 
 
+	static const char* MAX_EXTRA_ATTRIBUTE_BUMP = "bump";
+	static const char* MAX_EXTRA_ATTRIBUTE_TEXTURE = "texture";
+
 
 	//------------------------------
 	ExtraDataHandler::ExtraDataHandler(DocumentImporter* colladaImporter)
@@ -75,8 +78,23 @@ namespace COLLADAMax
 					mExtraParameters.skyLightParameters.rayBias = 0.004999995f;
 					mExtraParameters.skyLightParameters.raysPerSample = 20;
 				}
+
+				else if( strcmp(elementName, MAX_EXTRA_ATTRIBUTE_BUMP) == 0 )
+				{
+					determineBumpType(attributes);
+					if( mExtraParameters.bumpParameters.bumpType != BUMP_TYPE_INVALID )
+					{
+						mExtraTagType = EXTRA_TAG_TYPE_BUMP;
+						mExtraParameters.bumpParameters.textureAttributes = 0;
+					}
+				}
 			}
 			break;
+		case EXTRA_TAG_TYPE_BUMP:
+			if( strcmp(elementName, MAX_EXTRA_ATTRIBUTE_TEXTURE) == 0 )
+			{
+				determineBumpTextureSamplerAndTexCoord(attributes);
+			}
 		}
 		return true;
 	}
@@ -160,6 +178,17 @@ namespace COLLADAMax
 				}
 			}
 			break;
+		case EXTRA_TAG_TYPE_BUMP:
+			{
+				if ( strcmp(elementName, MAX_EXTRA_ATTRIBUTE_BUMP) == 0 )
+				{
+					mExtraTagType = EXTRA_TAG_TYPE_UNKNOWN;
+					addUniqueIdEffectBumpMapParametersPair(mCurrentElementUniqueId, mExtraParameters.bumpParameters);
+				} 
+				//else if ( strcmp(elementName, MAX_EXTRA_ATTRIBUTE_...) == 0 )
+				//{
+				//}
+			}
 		}
 
 		mTextBuffer.clear();
@@ -174,13 +203,18 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	bool ExtraDataHandler::parseElement( const COLLADASaxFWL::ParserChar* profileName, const COLLADASaxFWL::StringHash& elementHash, const COLLADAFW::UniqueId& uniqueId )
+	bool ExtraDataHandler::parseElement( const COLLADASaxFWL::ParserChar* profileName, const COLLADASaxFWL::StringHash& elementHash
+		, const COLLADAFW::UniqueId& uniqueId, COLLADAFW::Object* object )
 	{
 		mCurrentElementUniqueId = uniqueId;
+		mCurrentObject = 0;
+		if( object != 0 && object->getUniqueId() == mCurrentElementUniqueId )
+			mCurrentObject = object;
 
 		switch ( elementHash )
 		{
 		case COLLADASaxFWL14::HASH_ELEMENT_LIGHT:
+		case COLLADASaxFWL14::HASH_ELEMENT_TECHNIQUE:
 			if ( strcmp(profileName, "OpenCOLLADA3dsMax") == 0)
 			{
 				return true;
@@ -191,6 +225,68 @@ namespace COLLADAMax
 			}
 		default:
 			return false;
+		}
+	}
+
+	//------------------------------
+	void ExtraDataHandler::determineBumpType( const GeneratedSaxParser::xmlChar** attributes )
+	{
+		mExtraParameters.bumpParameters.bumpType = BUMP_TYPE_INVALID;
+
+		size_t index = 0;
+
+		const GeneratedSaxParser::xmlChar* attributeKey = attributes[index++];
+		const GeneratedSaxParser::xmlChar* attributeValue = 0;
+		while( attributeKey != 0 )
+		{
+			attributeValue = attributes[index++];
+			if( strcmp(attributeKey, "bumptype") == 0 && attributeValue != 0 )
+			{
+				if( strcmp(attributeValue, "HEIGHTFIELD") == 0 )
+					mExtraParameters.bumpParameters.bumpType = BUMP_TYPE_HEIGHTFIELD;
+				break;
+			}
+
+			attributeKey = attributes[index++];
+		}
+	}
+
+	//------------------------------
+	void ExtraDataHandler::determineBumpTextureSamplerAndTexCoord( const GeneratedSaxParser::xmlChar** attributes )
+	{
+		mExtraParameters.bumpParameters.textureAttributes = 0;
+
+		if( mCurrentObject )
+		{
+			if( COLLADAFW::COLLADA_TYPE::EFFECT == mCurrentObject->getClassId() )
+			{
+				COLLADAFW::Effect* effect = (COLLADAFW::Effect*)mCurrentObject;
+				mExtraParameters.bumpParameters.textureAttributes = effect->createExtraTextureAttributes();
+			}
+		}
+
+		if( mExtraParameters.bumpParameters.textureAttributes == 0 )
+			return;
+
+		size_t index = 0;
+
+		const GeneratedSaxParser::xmlChar* attributeKey = attributes[index++];
+		const GeneratedSaxParser::xmlChar* attributeValue = 0;
+		while( attributeKey != 0 )
+		{
+			attributeValue = attributes[index++];
+			if( strcmp(attributeKey, "texture") == 0 && attributeValue != 0 )
+			{
+				if( mExtraParameters.bumpParameters.textureAttributes )
+					mExtraParameters.bumpParameters.textureAttributes->textureSampler = attributeValue;
+			}
+			else if( strcmp(attributeKey, "texcoord") == 0 && attributeValue != 0 )
+			{
+				if( mExtraParameters.bumpParameters.textureAttributes )
+					mExtraParameters.bumpParameters.textureAttributes->texCoord = attributeValue;
+			}
+
+			attributeKey = attributes[index++];
 		}
 	}
 

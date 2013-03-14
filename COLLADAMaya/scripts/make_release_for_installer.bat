@@ -14,16 +14,16 @@ del /Q  %WD%\%LOGFILE%
 
 
 
-devenv ..\COLLADAMaya.sln /build "ReleasePlugin2008|x64"
-copy "..\bin\win\x64\ReleasePlugin2008\COLLADAMaya.mll" %DESTINATION%\maya2008-x64 >> %LOGFILE%
-copy "openColladaExporterOpts.mel" %DESTINATION%\maya2008-x64 >> %LOGFILE%
-copy "openColladaImporterOpts.mel" %DESTINATION%\maya2008-x64 >> %LOGFILE%
-
-devenv ..\COLLADAMaya.sln /build "ReleasePlugin2008|Win32" >> %LOGFILE%
-copy "..\bin\win\win32\ReleasePlugin2008\COLLADAMaya.mll" %DESTINATION%\maya2008-x86 >> %LOGFILE%
-%UPX_PATH%\upx.exe -9 %DESTINATION%\maya2008-x86\COLLADAMaya.mll >> %LOGFILE%
-copy "openColladaExporterOpts.mel" %DESTINATION%\maya2008-x86 >> %LOGFILE%
-copy "openColladaImporterOpts.mel" %DESTINATION%\maya2008-x86 >> %LOGFILE%
+REM devenv ..\COLLADAMaya.sln /build "ReleasePlugin2008|x64"
+REM copy "..\bin\win\x64\ReleasePlugin2008\COLLADAMaya.mll" %DESTINATION%\maya2008-x64 >> %LOGFILE%
+REM copy "openColladaExporterOpts.mel" %DESTINATION%\maya2008-x64 >> %LOGFILE%
+REM copy "openColladaImporterOpts.mel" %DESTINATION%\maya2008-x64 >> %LOGFILE%
+REM 
+REM devenv ..\COLLADAMaya.sln /build "ReleasePlugin2008|Win32" >> %LOGFILE%
+REM copy "..\bin\win\win32\ReleasePlugin2008\COLLADAMaya.mll" %DESTINATION%\maya2008-x86 >> %LOGFILE%
+REM %UPX_PATH%\upx.exe -9 %DESTINATION%\maya2008-x86\COLLADAMaya.mll >> %LOGFILE%
+REM copy "openColladaExporterOpts.mel" %DESTINATION%\maya2008-x86 >> %LOGFILE%
+REM copy "openColladaImporterOpts.mel" %DESTINATION%\maya2008-x86 >> %LOGFILE%
 
 
 devenv ..\COLLADAMaya.sln /build "ReleasePlugin2009|x64"
@@ -60,6 +60,30 @@ copy "..\bin\win\win32\ReleasePlugin2011\COLLADAMaya.mll" %DESTINATION%\maya2011
 %UPX_PATH%\upx.exe -9 %DESTINATION%\maya2011-x86\COLLADAMaya.mll >> %LOGFILE%
 copy "openColladaExporterOpts.mel" %DESTINATION%\maya2011-x86 >> %LOGFILE%
 copy "openColladaImporterOpts.mel" %DESTINATION%\maya2011-x86 >> %LOGFILE%
+
+
+devenv ..\COLLADAMaya.sln /build "ReleasePlugin2012|x64"
+copy "..\bin\win\x64\ReleasePlugin2012\COLLADAMaya.mll" %DESTINATION%\maya2012-x64 >> %LOGFILE%
+copy "openColladaExporterOpts.mel" %DESTINATION%\maya2012-x64 >> %LOGFILE%
+copy "openColladaImporterOpts.mel" %DESTINATION%\maya2012-x64 >> %LOGFILE%
+
+devenv ..\COLLADAMaya.sln /build "ReleasePlugin2012|Win32" >> %LOGFILE%
+copy "..\bin\win\win32\ReleasePlugin2012\COLLADAMaya.mll" %DESTINATION%\maya2012-x86 >> %LOGFILE%
+%UPX_PATH%\upx.exe -9 %DESTINATION%\maya2012-x86\COLLADAMaya.mll >> %LOGFILE%
+copy "openColladaExporterOpts.mel" %DESTINATION%\maya2012-x86 >> %LOGFILE%
+copy "openColladaImporterOpts.mel" %DESTINATION%\maya2012-x86 >> %LOGFILE%
+
+
+devenv ..\COLLADAMaya.sln /build "ReleasePlugin2013|x64"
+copy "..\bin\win\x64\ReleasePlugin2013\COLLADAMaya.mll" %DESTINATION%\maya2013-x64 >> %LOGFILE%
+copy "openColladaExporterOpts.mel" %DESTINATION%\maya2013-x64 >> %LOGFILE%
+copy "openColladaImporterOpts.mel" %DESTINATION%\maya2013-x64 >> %LOGFILE%
+
+devenv ..\COLLADAMaya.sln /build "ReleasePlugin2013|Win32" >> %LOGFILE%
+copy "..\bin\win\win32\ReleasePlugin2013\COLLADAMaya.mll" %DESTINATION%\maya2013-x86 >> %LOGFILE%
+%UPX_PATH%\upx.exe -9 %DESTINATION%\maya2013-x86\COLLADAMaya.mll >> %LOGFILE%
+copy "openColladaExporterOpts.mel" %DESTINATION%\maya2013-x86 >> %LOGFILE%
+copy "openColladaImporterOpts.mel" %DESTINATION%\maya2013-x86 >> %LOGFILE%
 
 
 

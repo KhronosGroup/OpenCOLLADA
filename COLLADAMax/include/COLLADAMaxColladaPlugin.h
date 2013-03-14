@@ -10,21 +10,22 @@ namespace COLLADAMax
 	class COLLADAPlugin 	
 	{
 	public:
-		static const String EXTENSIONNAME;
-		static const String LONGDESCRIPTION;
-		static const String SHORTDESCRIPTION;
-		static const String AUTHORNAME;
-		static const String COPYRIGHTMESSAGE;
-		static const String OTHERMESSAGE1;
-		static const String OTHERMESSAGE2;
+		static const TCHAR* EXTENSIONNAME;
+		static const TCHAR* LONGDESCRIPTION;
+		static const TCHAR* SHORTDESCRIPTION;
+		static const TCHAR* AUTHORNAME;
+		static const TCHAR* COPYRIGHTMESSAGE;
+		static const TCHAR* OTHERMESSAGE1;
+		static const TCHAR* OTHERMESSAGE2;
 
+		static const TCHAR* PLUGIN_VERSION_TCHAR;
 		static const String PLUGIN_VERSION_STRING;
 		static const String REVISION_STRING;
 		static const String PLATFORM_STRING;
 		static const String CONFIGURATION_STRING;
 
 
-		static const String FATALERROR;
+		static const TCHAR* FATALERROR;
 
 
 		static const unsigned int PLUGINVERSION;

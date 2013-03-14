@@ -751,6 +751,8 @@
 	            <code_line>if ( (attributeData.present_attributes &amp; COLLADASaxFWL14::bind_vertex_input__AttributeData::ATTRIBUTE_INPUT_SET_PRESENT) == COLLADASaxFWL14::bind_vertex_input__AttributeData::ATTRIBUTE_INPUT_SET_PRESENT ) {</code_line>
 	            <code_line>    attrData.input_set = attributeData.input_set;</code_line>
 	            <code_line>    attrData.present_attributes |= COLLADASaxFWL::bind_vertex_input__AttributeData::ATTRIBUTE_INPUT_SET_PRESENT;</code_line>
+	            <code_line>} else {</code_line>
+	            <code_line>    attrData.input_set = ~0;</code_line>
 	            <code_line>}</code_line>
 			</specific>
 			<specific version="15" name="begin__bind_vertex_input">
@@ -762,6 +764,8 @@
 	            <code_line>if ( (attributeData.present_attributes &amp; COLLADASaxFWL15::bind_vertex_input__AttributeData::ATTRIBUTE_INPUT_SET_PRESENT) == COLLADASaxFWL15::bind_vertex_input__AttributeData::ATTRIBUTE_INPUT_SET_PRESENT ) {</code_line>
 	            <code_line>    attrData.input_set = attributeData.input_set;</code_line>
 	            <code_line>    attrData.present_attributes |= COLLADASaxFWL::bind_vertex_input__AttributeData::ATTRIBUTE_INPUT_SET_PRESENT;</code_line>
+	            <code_line>} else {</code_line>
+	            <code_line>    attrData.input_set = ~0;</code_line>
 	            <code_line>}</code_line>
 			</specific>
 		</method>

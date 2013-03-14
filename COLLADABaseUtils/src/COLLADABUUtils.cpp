@@ -201,4 +201,163 @@ namespace COLLADABU
             start = text.find_first_not_of(separators, stop+1);
         }
     }
+
+	//--------------------------------
+	bool Utils::createDirectoryIfNeeded( const WideString &pathString )
+	{
+		bool pathExists = false;
+
+#ifdef COLLADABU_OS_WIN
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		const wchar_t* currentPath = _wgetcwd( 0, 0);
+		const wchar_t* testPath = pathString.c_str();
+
+		pathExists = _wchdir( testPath ) == 0;
+		if( !pathExists )
+		{
+			_wmkdir( testPath );
+			pathExists = _wchdir( testPath ) == 0;
+		}
+
+		_wchdir( currentPath );
+		return pathExists;
+#else
+		SystemType type = getSystemType();
+		if( type != POSIX )
+			return false;
+
+		//...
+#endif
+
+		return pathExists;
+	}
+
+	//--------------------------------
+	bool Utils::createDirectoryIfNeeded( const String &pathString )
+	{
+		bool pathExists = false;
+
+#ifdef COLLADABU_OS_WIN
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		const char* currentPath = _getcwd( 0, 0);
+		const char* testPath = pathString.c_str();
+
+		pathExists = _chdir( testPath ) == 0;
+		if( !pathExists )
+		{
+			_mkdir( testPath );
+			pathExists = _chdir( testPath ) == 0;
+		}
+
+		_chdir( currentPath );
+		return pathExists;
+#else
+		SystemType type = getSystemType();
+		if( type != POSIX )
+			return false;
+
+		//...
+#endif
+
+		return pathExists;
+	}
+
+	//--------------------------------
+	bool Utils::directoryExists( const WideString &pathString )
+	{
+		bool pathExists = false;
+
+#ifdef COLLADABU_OS_WIN
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		const wchar_t* currentPath = _wgetcwd( 0, 0);
+		const wchar_t* testPath = pathString.c_str();
+
+		pathExists = _wchdir( testPath ) == 0;
+		_wchdir( currentPath );
+		return pathExists;
+#else
+		SystemType type = getSystemType();
+		if( type != POSIX )
+			return false;
+
+		//...
+#endif
+
+		return pathExists;
+	}
+
+	//--------------------------------
+	bool Utils::directoryExists( const String &pathString )
+	{
+		bool pathExists = false;
+
+#ifdef COLLADABU_OS_WIN
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		const char* currentPath = _getcwd( 0, 0);
+		const char* testPath = pathString.c_str();
+
+		pathExists = _chdir( testPath ) == 0;
+		_chdir( currentPath );
+		return pathExists;
+#else
+		SystemType type = getSystemType();
+		if( type != POSIX )
+			return false;
+
+		//...
+#endif
+
+		return pathExists;
+	}
+
+	//--------------------------------
+	bool Utils::copyFile( const String &source, const String &destination )
+	{
+		bool pathExists = false;
+
+#ifdef COLLADABU_OS_WIN
+		SystemType type = getSystemType();
+		if( type != WINDOWS )
+			return false;
+
+		char command[4097];
+		sprintf(command,"copy \"%s\" \"%s\"", source.c_str(), destination.c_str() );
+		size_t length = strlen(command);
+		if( length > 4096)
+			return false;
+
+		system(command);
+		return true;
+#else
+		SystemType type = getSystemType();
+		if( type != POSIX )
+			return false;
+
+		//...
+#endif
+
+		return pathExists;
+	}
+
+	//--------------------------------
+	bool Utils::fileExistsAndIsReadable( const String &pathString )
+	{
+		FILE* f = fopen( pathString.c_str(), "r");
+		bool readable = (f != 0);
+		if( readable )
+			fclose(f);
+		return readable;
+	}
 }

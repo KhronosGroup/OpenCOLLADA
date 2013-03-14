@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008-2009 NetAllied Systems GmbH
+    Copyright (c) 2008-2013 NetAllied Systems GmbH
 
     This file is part of COLLADASaxFrameworkLoader.
 
@@ -727,6 +727,8 @@ struct init_planar__ValidationData
 {
     size_t all;
 };
+
+ParserError::ErrorType validate__unsignedInt( const uint32 value );
 
 struct format_hint__ValidationData
 {
@@ -1882,6 +1884,8 @@ ParserError::ErrorType validate__glsl_float4x4( const float* value, size_t lengt
 ParserError::ErrorType validate__glsl_float4x4__stream( const float* value, size_t length );
 ParserError::ErrorType validate__glsl_float4x4__streamEnd( const float* value, size_t length );
 
+ParserError::ErrorType validate__glsl_int( const sint32 value );
+
 struct int2____glsl_int2__ValidationData
 {
     size_t validationWholeSize;
@@ -2941,6 +2945,10 @@ struct float4x4____cg_float4x4__ValidationData
 ParserError::ErrorType validate__cg_float4x4( const float* value, size_t length );
 ParserError::ErrorType validate__cg_float4x4__stream( const float* value, size_t length );
 ParserError::ErrorType validate__cg_float4x4__streamEnd( const float* value, size_t length );
+
+ParserError::ErrorType validate__cg_int( const sint32 value );
+
+ParserError::ErrorType validate__cg_int1( const sint32 value );
 
 struct int2____cg_int2__ValidationData
 {

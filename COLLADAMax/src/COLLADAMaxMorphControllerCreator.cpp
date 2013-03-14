@@ -260,7 +260,12 @@ namespace COLLADAMax
 		}
 
 		// Set the channel's name and the necessary flags
+#ifdef UNICODE
+		WideString wideObjectName = COLLADABU::StringUtils::toWideString(getObjectNameByObject(geometryObject).c_str());
+		channel->mName = wideObjectName.c_str();
+#else
 		channel->mName = getObjectNameByObject(geometryObject).c_str();
+#endif
 		channel->mInvalid = false;
 		channel->mActive = true;
 		channel->mModded = true;

@@ -25,6 +25,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWTristrips.h"
 #include "COLLADAFWTrifans.h"
 #include "COLLADAFWPolygons.h"
+#include "COLLADAFWPolylist.h"
 #include "COLLADAFWUniqueId.h"
 
 
@@ -75,7 +76,7 @@ namespace COLLADAMax
 		bool success = true;
 		mTotalTrianglesCount = mesh->getTrianglesTriangleCount() + mesh->getTristripsTriangleCount() + mesh->getTrifansTriangleCount();
 
-		if ( mesh->getPolygonsPolygonCount() > 0 )
+		if ( mesh->getPolygonsPolygonCount() > 0 || mesh->getPolylistPolygonCount() > 0 )
 		{
 			success = importPolygonMesh();
 		}
@@ -794,7 +795,7 @@ namespace COLLADAMax
 			}
 		}
 
-		size_t polygonsCount = mTotalTrianglesCount + mesh->getPolygonsPolygonCount();
+		size_t polygonsCount = mTotalTrianglesCount + mesh->getPolygonsPolygonCount() + mesh->getPolylistPolygonCount();
 		polgonMesh.setNumFaces((int)polygonsCount);
 		COLLADAFW::MeshPrimitiveArray& meshPrimitiveArray =  mesh->getMeshPrimitives();
 		size_t faceIndex = 0;
@@ -896,6 +897,27 @@ namespace COLLADAMax
 					{
 						int faceVertexCount = faceVertexCountArray[j];
 						// TODO for now, we ignore holes in polygons
+						if ( faceVertexCount <= 0 )
+							continue;
+						MNFace* face = polgonMesh.F((int)faceIndex);
+						face->MakePoly(faceVertexCount, (int*) (&positionIndices[currentIndex]));
+						if ( maxMaterialId != 0 )
+							face->material = maxMaterialId;
+						currentIndex += faceVertexCount;
+						++faceIndex;
+					}
+					break;
+				}
+			case COLLADAFW::MeshPrimitive::POLYLIST:
+				{
+					const COLLADAFW::Polylist* polylist = (const COLLADAFW::Polylist*) meshPrimitive;
+					const COLLADAFW::UIntValuesArray& positionIndices =  polylist->getPositionIndices();
+					const COLLADAFW::IntValuesArray& faceVertexCountArray = polylist->getGroupedVerticesVertexCountArray();
+					size_t currentIndex = 0;
+					for ( size_t j = 0, count = faceVertexCountArray.getCount() ; j < count; ++j )
+					{
+						int faceVertexCount = faceVertexCountArray[j];
+						// polylist does not support holes!
 						if ( faceVertexCount <= 0 )
 							continue;
 						MNFace* face = polgonMesh.F((int)faceIndex);
@@ -1063,6 +1085,32 @@ namespace COLLADAMax
 						int faceVertexCount = faceVertexCountArray[j];
 
 						// TODO for now, we ignore holes in polygons
+						if ( faceVertexCount <= 0 )
+							continue;
+
+						MNNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
+						normalFace.SetDegree((int)faceVertexCount);
+						normalFace.SpecifyAll();
+						for ( int k = 0; k < faceVertexCount; ++k)
+						{
+							normalFace.SetNormalID(k, normalIndices[currentIndex + k]);
+						}
+						currentIndex += faceVertexCount;
+						++faceIndex;
+					}
+				}
+				break;
+			case COLLADAFW::MeshPrimitive::POLYLIST:
+				{
+					COLLADAFW::Polylist* polylist = (COLLADAFW::Polylist*) meshPrimitive;
+
+					COLLADAFW::IntValuesArray& faceVertexCountArray = polylist->getGroupedVerticesVertexCountArray();
+					size_t currentIndex = 0;
+					for ( size_t j = 0, count = faceVertexCountArray.getCount(); j < count; ++j)
+					{
+						int faceVertexCount = faceVertexCountArray[j];
+
+						// polylist does not support holes!
 						if ( faceVertexCount <= 0 )
 							continue;
 
@@ -1259,6 +1307,31 @@ namespace COLLADAMax
 				}
 				break;
 			}
+		case COLLADAFW::MeshPrimitive::POLYLIST:
+			{
+				const COLLADAFW::Polylist* polylist = (const COLLADAFW::Polylist*) meshPrimitive;
+				const COLLADAFW::IntValuesArray& faceVertexCountArray = polylist->getGroupedVerticesVertexCountArray();
+				size_t currentIndex = 0;
+				for ( size_t j = 0, count = faceVertexCountArray.getCount() ; j < count; ++j )
+				{
+					int faceVertexCount = faceVertexCountArray[j];
+					// polylist does not support holes!
+					if ( faceVertexCount <= 0 )
+						continue;
+					MNMapFace* face = meshMap->F((int)currentFaceIndex);
+					int* indices = new int[faceVertexCount];
+					for ( int j = 0; j < faceVertexCount; ++j)
+					{
+						indices[j] = uvIndices[ currentIndex + j ] - initialIndex;
+					}
+
+					face->MakePoly(faceVertexCount, indices);
+					currentIndex += faceVertexCount;
+					++currentFaceIndex;
+					delete[] indices;
+				}
+				break;
+			}
 		default:
 			return;
 		}
@@ -1287,6 +1360,20 @@ namespace COLLADAMax
 					{
 						faceCount++;
 					}
+				}
+				return faceCount;
+			}
+		case COLLADAFW::MeshPrimitive::POLYLIST:
+			{
+				const COLLADAFW::Polylist* polylist = (const COLLADAFW::Polylist*) meshPrimitive;
+				const COLLADAFW::IntValuesArray& faceVertexCountArray = polylist->getGroupedVerticesVertexCountArray();
+				size_t faceCount = 0;
+				for ( size_t j = 0, count = faceVertexCountArray.getCount() ; j < count; ++j )
+				{
+					int faceVertexCount = faceVertexCountArray[j];
+					// polylist does not support holes
+					if ( faceVertexCount > 0 )
+						faceCount++;
 				}
 				return faceCount;
 			}
