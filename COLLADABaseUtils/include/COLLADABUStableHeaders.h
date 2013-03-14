@@ -20,7 +20,14 @@
 #include <math.h>
 #include <string>
 #include <iostream>
+
+#ifdef COLLADABU_OS_WIN
 #include <direct.h>
+#else
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#endif
 
 
 
