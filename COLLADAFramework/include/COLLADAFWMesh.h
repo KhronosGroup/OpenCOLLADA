@@ -293,6 +293,7 @@ namespace COLLADAFW
 
 		/** Counts the number of all polygons in all polygons primitives.*/
 		size_t getPolygonsPolygonCount();
+		size_t getPolylistPolygonCount();
 
 
 		/** Counts the number of all primitives in all primitives of type @a primitiveType.

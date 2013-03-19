@@ -14,30 +14,30 @@ del /Q  %WD%\%LOGFILE%
 
 
 
-devenv ..\COLLADAMax.sln /build "Release_Max7_static|Win32" >> %LOGFILE%
-copy "..\bin\win\win32\Release_Max7_static\COLLADAMaxNew.dle" %DESTINATION%\max7-x86 >> %LOGFILE%
-%UPX_PATH%\upx.exe -9 %DESTINATION%\max7-x86\COLLADAMaxNew.dle >> %LOGFILE%
-
-
-devenv ..\COLLADAMax.sln /build "Release_Max8_static|Win32" >> %LOGFILE%
-copy "..\bin\win\win32\Release_Max8_static\COLLADAMaxNew.dle" %DESTINATION%\max8-x86 >> %LOGFILE%
-%UPX_PATH%\upx.exe -9 %DESTINATION%\max8-x86\COLLADAMaxNew.dle >> %LOGFILE%
-
-
-devenv ..\COLLADAMax.sln /build "Release_Max9_static|x64"
-copy "..\bin\win\x64\Release_Max9_static\COLLADAMaxNew.dle" %DESTINATION%\max9-x64 >> %LOGFILE%
-
-devenv ..\COLLADAMax.sln /build "Release_Max9_static|Win32" >> %LOGFILE%
-copy "..\bin\win\win32\Release_Max9_static\COLLADAMaxNew.dle" %DESTINATION%\max9-x86 >> %LOGFILE%
-%UPX_PATH%\upx.exe -9 %DESTINATION%\max9-x86\COLLADAMaxNew.dle >> %LOGFILE%
-
-
-devenv ..\COLLADAMax.sln /build "Release_Max2008_static|x64"
-copy "..\bin\win\x64\Release_Max2008_static\COLLADAMaxNew.dle" %DESTINATION%\max2008-x64 >> %LOGFILE%
-
-devenv ..\COLLADAMax.sln /build "Release_Max2008_static|Win32" >> %LOGFILE%
-copy "..\bin\win\win32\Release_Max2008_static\COLLADAMaxNew.dle" %DESTINATION%\max2008-x86 >> %LOGFILE%
-%UPX_PATH%\upx.exe -9 %DESTINATION%\max2008-x86\COLLADAMaxNew.dle >> %LOGFILE%
+REM devenv ..\COLLADAMax.sln /build "Release_Max7_static|Win32" >> %LOGFILE%
+REM copy "..\bin\win\win32\Release_Max7_static\COLLADAMaxNew.dle" %DESTINATION%\max7-x86 >> %LOGFILE%
+REM %UPX_PATH%\upx.exe -9 %DESTINATION%\max7-x86\COLLADAMaxNew.dle >> %LOGFILE%
+REM 
+REM 
+REM devenv ..\COLLADAMax.sln /build "Release_Max8_static|Win32" >> %LOGFILE%
+REM copy "..\bin\win\win32\Release_Max8_static\COLLADAMaxNew.dle" %DESTINATION%\max8-x86 >> %LOGFILE%
+REM %UPX_PATH%\upx.exe -9 %DESTINATION%\max8-x86\COLLADAMaxNew.dle >> %LOGFILE%
+REM 
+REM 
+REM devenv ..\COLLADAMax.sln /build "Release_Max9_static|x64"
+REM copy "..\bin\win\x64\Release_Max9_static\COLLADAMaxNew.dle" %DESTINATION%\max9-x64 >> %LOGFILE%
+REM 
+REM devenv ..\COLLADAMax.sln /build "Release_Max9_static|Win32" >> %LOGFILE%
+REM copy "..\bin\win\win32\Release_Max9_static\COLLADAMaxNew.dle" %DESTINATION%\max9-x86 >> %LOGFILE%
+REM %UPX_PATH%\upx.exe -9 %DESTINATION%\max9-x86\COLLADAMaxNew.dle >> %LOGFILE%
+REM 
+REM 
+REM devenv ..\COLLADAMax.sln /build "Release_Max2008_static|x64"
+REM copy "..\bin\win\x64\Release_Max2008_static\COLLADAMaxNew.dle" %DESTINATION%\max2008-x64 >> %LOGFILE%
+REM 
+REM devenv ..\COLLADAMax.sln /build "Release_Max2008_static|Win32" >> %LOGFILE%
+REM copy "..\bin\win\win32\Release_Max2008_static\COLLADAMaxNew.dle" %DESTINATION%\max2008-x86 >> %LOGFILE%
+REM %UPX_PATH%\upx.exe -9 %DESTINATION%\max2008-x86\COLLADAMaxNew.dle >> %LOGFILE%
 
 
 devenv ..\COLLADAMax.sln /build "Release_Max2009_static|x64"
@@ -71,6 +71,13 @@ devenv ..\COLLADAMax.sln /build "Release_Max2012_static|Win32" >> %LOGFILE%
 copy "..\bin\win\win32\Release_Max2012_static\COLLADAMaxNew.dle" %DESTINATION%\max2012-x86 >> %LOGFILE%
 %UPX_PATH%\upx.exe -9 %DESTINATION%\max2012-x86\COLLADAMaxNew.dle >> %LOGFILE%
 
+
+devenv ..\COLLADAMax.sln /build "Release_Max2013_static|x64"
+copy "..\bin\win\x64\Release_Max2013_static\COLLADAMaxNew.dle" %DESTINATION%\max2013-x64 >> %LOGFILE%
+
+devenv ..\COLLADAMax.sln /build "Release_Max2013_static|Win32" >> %LOGFILE%
+copy "..\bin\win\win32\Release_Max2013_static\COLLADAMaxNew.dle" %DESTINATION%\max2013-x86 >> %LOGFILE%
+%UPX_PATH%\upx.exe -9 %DESTINATION%\max2012-x86\COLLADAMaxNew.dle >> %LOGFILE%
 
 
 pause

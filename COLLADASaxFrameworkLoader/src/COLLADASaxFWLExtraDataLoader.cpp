@@ -31,7 +31,8 @@ namespace COLLADASaxFWL
     //------------------------------
     bool ExtraDataLoader::base__begin__technique ( 
         const technique__AttributeData& attributeData, 
-        const COLLADAFW::UniqueId& uniqueId )
+		const COLLADAFW::UniqueId& uniqueId,
+		COLLADAFW::Object* object )
     {
         // Get the extra data element handler.
         ExtraDataElementHandler& extraDataElementHandler = getFileLoader ()->getExtraDataElementHandler ();
@@ -52,7 +53,7 @@ namespace COLLADASaxFWL
             const ParserChar* profileName = attributeData.profile;
 
             // Ask, if the current handler should parse the extra tags of the current element.
-            bool parseElement = extraDataCallbackHandler->parseElement ( profileName, elementHash, uniqueId );
+            bool parseElement = extraDataCallbackHandler->parseElement ( profileName, elementHash, uniqueId, object );
 
             // Store the flag in the list.
             extraDataElementHandler.setExtraDataCallbackHandlerCalling ( i, parseElement );

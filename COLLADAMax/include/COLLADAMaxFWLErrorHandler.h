@@ -29,6 +29,7 @@ namespace COLLADAMax
 	class FWLErrorHandler : public COLLADASaxFWL::IErrorHandler	
 	{
 	private:
+		bool mHasCriticalError;
 	
 	public:
 
@@ -42,6 +43,7 @@ namespace COLLADAMax
 		and this method returns true, the loader continues loading.*/
 		bool virtual handleError(const COLLADASaxFWL::IError* error);
 
+		const bool hasCriticalError() const;
 
 	private:
 

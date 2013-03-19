@@ -39,7 +39,8 @@ namespace COLLADASaxFWL
         virtual bool parseElement ( 
             const ParserChar* profileName, 
             const StringHash& elementHash, 
-            const COLLADAFW::UniqueId& uniqueId ) = 0;
+            const COLLADAFW::UniqueId& uniqueId,
+			COLLADAFW::Object* object ) = 0;
 
 	private:
 

@@ -1,3 +1,10 @@
+/**
+ *   Copyright &copy; 2008-2013 NetAllied Systems GmbH, Ravensburg, Germany. 
+ *       
+ *   Licensed under the MIT Open Source License, 
+ *   for details please see LICENSE file or the website
+ *   http://www.opensource.org/licenses/mit-license.php
+*/
 package de.netallied.xsd2cppsax;
 
 import java.io.FileNotFoundException;
@@ -805,7 +812,6 @@ public class Generator extends AbstractStackBasedTraverser implements DOMErrorHa
         if (!ignoreElement) {
             // String cppName = createElementName(element);
             String cppName = elementNameMapping.get(element).cppElementName;
-
             if (!elementNamesAlreadyHandled.contains(cppName)) {
                 System.out.println("handling element: " + cppName);
 
@@ -3745,10 +3751,12 @@ public class Generator extends AbstractStackBasedTraverser implements DOMErrorHa
                 stream.print(config.getIndentation());
                 stream.print(config.getIndentation());
                 stream.println("{");
+                String typeId = null;
                 for (XSComplexTypeDefinition parentType : complexParentTypes) {
                     stream.print(config.getIndentation());
                     stream.print(config.getIndentation());
-                    stream.println("case " + typeIdMapping.get(parentType) + ":");
+                    typeId = typeIdMapping.get(parentType);
+                    stream.println("case " + typeId + ":");
                     stream.print(config.getIndentation());
                     stream.print(config.getIndentation());
                     stream.println("{");

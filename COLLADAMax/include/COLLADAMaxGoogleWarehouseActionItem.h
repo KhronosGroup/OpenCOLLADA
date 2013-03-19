@@ -29,7 +29,7 @@ namespace COLLADAMax
 	class GoogleWarehouseActionItem : public ActionItem
 	{
 	public:
-		static const char mMenuText[];
+		static const TCHAR* mMenuText;
 		static const char mButtonText[];
 		static const char mCatText[];
 		static const char mDescText[];
@@ -44,6 +44,7 @@ namespace COLLADAMax
 		void GetDescriptionText(TSTR& descText);
 		
 		BOOL ExecuteAction();
+
 		BOOL IsEnabled();
 
 		int GetId();
@@ -64,7 +65,6 @@ namespace COLLADAMax
 
         /** Disable default assignment operator. */
 		const GoogleWarehouseActionItem& operator= ( const GoogleWarehouseActionItem& pre );
-
 	};
 
 } // namespace COLLADAMAX
