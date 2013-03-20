@@ -25,4 +25,23 @@ namespace COLLADAFW
 	{
 	}
 
+	//------------------------------
+	TextureAttributes* Effect::createExtraTextureAttributes()
+	{
+		COLLADAFW::TextureAttributes* newTextureAttributes = new TextureAttributes();
+		addExtraTextureAttributes( newTextureAttributes );
+		return newTextureAttributes;
+	}
+
+	//------------------------------
+	void Effect::addExtraTextureAttributes( COLLADAFW::TextureAttributes* textureAttributes )
+	{
+		mExtraTextures.append( textureAttributes );
+	}
+
+	//------------------------------
+	const PointerArray<TextureAttributes>& Effect::getExtraTextures()
+	{
+		return mExtraTextures;
+	}
 } // namespace COLLADAFW

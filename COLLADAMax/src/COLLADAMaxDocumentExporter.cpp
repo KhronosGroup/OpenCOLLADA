@@ -48,7 +48,6 @@ namespace COLLADAMax
 		String(";  ") + COLLADAPlugin::PLATFORM_STRING + 
 		String(";  ") + COLLADAPlugin::CONFIGURATION_STRING;
 
-
     //---------------------------------------------------------------
 	DocumentExporter::DocumentExporter ( Interface * i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames, bool exportOnlySelected  )
             : 

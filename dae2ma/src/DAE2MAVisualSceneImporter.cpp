@@ -317,7 +317,7 @@ namespace DAE2MA
 
         // Now we can get the rotation and set it into the document.
         double x=0.0, y=0.0, z=0.0;
-        m3x3.toEulerAnglesZYX ( z, y, x );
+		m3x3.toEulerAnglesXYZ ( x, y, z );
         if ( !COLLADABU::Math::Utils::equals ( x, 1.0, getTolerance () ) || !COLLADABU::Math::Utils::equals ( y, 1.0, getTolerance () ) || !COLLADABU::Math::Utils::equals ( z, 1.0, getTolerance () ) )
             transformNode->setRotate ( toAngularUnit ( MayaDM::double3 ( x, y, z ) ) );
 

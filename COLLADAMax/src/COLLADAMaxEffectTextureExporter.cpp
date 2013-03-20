@@ -18,18 +18,10 @@
 #include "COLLADAMaxOptions.h"
 
 #include "Math/COLLADABUMathUtils.h"
+#include "COLLADABUUtils.h"
 
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWLibraryImages.h"
-
-#include <boost/filesystem/config.hpp>
-#include <boost/filesystem/convenience.hpp>
-#include <boost/filesystem/exception.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
-using namespace boost::filesystem;
-
 
 namespace COLLADAMax
 {
@@ -257,7 +249,8 @@ namespace COLLADAMax
             // Get the target file from source file.
             COLLADASW::URI targetUri = createTargetURI ( sourceUri );
 
-            if ( !exists ( sourceUri.toNativePath() ) )
+			bool exists = COLLADABU::Utils::fileExistsAndIsReadable( sourceUri.toNativePath() );
+            if ( !exists )
             {
                 String message = "The source texture file doesn't exist! Filename = " + sourceUri.toNativePath();
                 GetCOREInterface()->Log()->LogEntry( SYSLOG_ERROR, DISPLAY_DIALOG, _M( "Image export problem" ),_M( "%s\n" ), message.c_str() );
@@ -265,7 +258,8 @@ namespace COLLADAMax
             else
             {
                 // Copy the texture, if it isn't already there...
-                if ( !exists( targetUri.toNativePath () ) )
+				exists = COLLADABU::Utils::fileExistsAndIsReadable( targetUri.toNativePath() );
+                if ( !exists )
                 {
                     try 
                     {
@@ -273,17 +267,25 @@ namespace COLLADAMax
                         // Note: some systems (window$) requires the string to be 
                         // enclosed in quotes when a space is present.
                         COLLADASW::URI targetPathUri ( targetUri.getPathDir() );
-                        create_directory ( targetPathUri.toNativePath() );
+						exists = COLLADABU::Utils::createDirectoryIfNeeded( targetPathUri.toNativePath() );
 
-                        // Throws: basic_filesystem_error<Path> if
-                        // from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
-                        copy_file ( path ( sourceUri.toNativePath() ), path ( targetUri.toNativePath() ) );
+						if( exists )
+						{
+							// Throws: basic_filesystem_error<Path> if
+							// from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
+							exists = COLLADABU::Utils::copyFile ( sourceUri.toNativePath(), targetUri.toNativePath() );
+						}
                     }
                     catch ( std::exception ex )
                     {
-                        String message = "Could not successful create directory and copy file: " + sourceUri.toNativePath();
-                        GetCOREInterface()->Log()->LogEntry( SYSLOG_ERROR, DISPLAY_DIALOG, _M( "Image export problem" ),_M( "%s\nCould not copy file %s\n" ), message.c_str(), sourceUri.toNativePath().c_str() );
+						exists = false;
                     }
+
+					if( !exists )
+					{
+						String message = "Could not successful create directory and copy file: " + sourceUri.toNativePath();
+						GetCOREInterface()->Log()->LogEntry( SYSLOG_ERROR, DISPLAY_DIALOG, _M( "Image export problem" ),_M( "%s\nCould not copy file %s\n" ), message.c_str(), sourceUri.toNativePath().c_str() );
+					}
                 }
             }
         }

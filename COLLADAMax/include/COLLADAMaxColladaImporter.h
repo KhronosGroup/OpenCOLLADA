@@ -13,7 +13,7 @@ namespace COLLADAMax
 	{
 	public:
 		static const Class_ID COLLADAIMPORTER_CLASS_ID;
-		static const String PROGRESSSTART;
+		static const TCHAR* PROGRESSSTART;
 
 	
 		// public function declarations
@@ -100,7 +100,7 @@ namespace COLLADAMax
 
 		const TCHAR * ClassName()
 		{
-			return "OpenCOLLADAImporter";
+			return __T("OpenCOLLADAImporter");
 		}
 
 		SClass_ID SuperClassID()
@@ -115,12 +115,12 @@ namespace COLLADAMax
 
 		const TCHAR* Category()
 		{
-			return "Import";
+			return __T("Import");
 		} //GetString(IDS_CATEGORY_E); }
 
 		const TCHAR* InternalName()
 		{
-			return "OpenCOLLADAImporter";
+			return __T("OpenCOLLADAImporter");
 		} // returns fixed parsable name (scripter-visible name)
 
 		HINSTANCE HInstance()

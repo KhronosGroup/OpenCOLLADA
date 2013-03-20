@@ -71,12 +71,21 @@ namespace COLLADAMax
 
             ParamDef parameterDef = pblock->GetParamDef( parameterID );
 
-            const char* paramName = parameterDef.int_name;
-            Control *controller = pblock->GetControllerByID(parameterID);
+            const TCHAR* paramName = parameterDef.int_name;
+#ifdef MAX_2012_OR_NEWER
+			Control *controller = pblock->GetControllerByID(parameterID);
+#else
+			Control *controller = pblock->GetController(parameterID);
+#endif
 
             if( controller != 0 )
             {
-                mDocumentExporter->getAnimationExporter()->addAnimatedFloat( controller, effectId, paramName, 0 );
+#ifdef UNICODE
+				String paramNameString = COLLADABU::StringUtils::toUTF8String( paramName );
+                mDocumentExporter->getAnimationExporter()->addAnimatedFloat( controller, effectId, paramNameString.c_str(), 0 );
+#else
+				mDocumentExporter->getAnimationExporter()->addAnimatedFloat( controller, effectId, paramName, 0 );
+#endif
             }
         }
     }
@@ -493,7 +502,7 @@ namespace COLLADAMax
             ParamType2 parameterType = pblock->GetParameterType( parameterID );
             ParamDef parameterDef = pblock->GetParamDef( parameterID );
 
-            const char* paramName = parameterDef.int_name;
+            const TCHAR* paramName = parameterDef.int_name;
 
             switch ( parameterType )
             {
@@ -574,9 +583,7 @@ namespace COLLADAMax
                     COLLADASW::NewParam<> newParam ( streamWriter );
 
                     const MCHAR * paramValue = pblock->GetStr( parameterID );
-                    String paramString = (String) paramValue;
-
-                    exportParam ( paramName, &newParam, paramString );
+                    exportParam ( paramName, &newParam, paramValue );
 
                     break;
                 }
@@ -631,12 +638,17 @@ namespace COLLADAMax
     template <class Type>
     void HwShaderExporter::exportParam (
         //const CGparameter& cgParameter,
-        const char* paramName,
+        const TCHAR* paramName,
         COLLADASW::ParamBase* param,
         const Type* paramValues,
         const int numOfValues )
     {
-        param->openParam ( paramName );
+#ifdef UNICODE
+		String stringParamName = COLLADABU::StringUtils::toUTF8String( paramName );
+        param->openParam ( stringParamName );
+#else
+		param->openParam ( paramName );
+#endif
 
         //exportAnnotations ( cgParameter, param );
         //exportSemantic ( cgParameter, param );
@@ -651,16 +663,27 @@ namespace COLLADAMax
 
     void HwShaderExporter::exportParam (
         //const CGparameter& cgParameter,
-        const char* paramName,
+        const TCHAR* paramName,
         COLLADASW::ParamBase* param,
-        const String& paramValue )
+        const TCHAR* paramValue )
     {
-        param->openParam ( paramName );
+#ifdef UNICODE
+		String stringParamName = COLLADABU::StringUtils::toUTF8String( paramName );
+        param->openParam ( stringParamName );
 
         //exportAnnotations ( cgParameter, param );
         //exportSemantic ( cgParameter, param );
 
-        param->appendValues ( paramValue );
+		String stringParamValue = COLLADABU::StringUtils::toUTF8String( paramValue );
+        param->appendValues ( stringParamValue );
+#else
+		param->openParam ( paramName );
+
+		//exportAnnotations ( cgParameter, param );
+		//exportSemantic ( cgParameter, param );
+
+		param->appendValues ( paramValue );
+#endif
 
         param->closeParam();
     }
@@ -751,14 +774,19 @@ namespace COLLADAMax
     // --------------------------------------
 
     void HwShaderExporter::exportSampler ( 
-        const char* paramName,
+        const TCHAR* paramName,
         const PBBitmap* bitmap
         )
     {
         COLLADASW::StreamWriter* streamWriter = &mDocumentExporter->getStreamWriter();
 
         // Name of the current texture
-        const char* surfaceSid = paramName;//cgGetParameterName( cgTextureParam );
+#ifdef UNICODE
+		String stringParamName = COLLADABU::StringUtils::toUTF8String( paramName );
+		const char* surfaceSid = stringParamName.c_str();
+#else
+		const char* surfaceSid = paramName;//cgGetParameterName( cgTextureParam );
+#endif
 
         // Get the name of the current parameter
         //const char* samplerSid = cgGetParameterName ( cgParameter );
@@ -1059,7 +1087,11 @@ namespace COLLADAMax
         EffectTextureExporter* textureExporter = effectExporter->getTextureExporter();
         
         // The file name to connect to.
+#ifdef UNICODE
+		String fileName = bitmap->bi.Name() ? COLLADASW::URI::nativePathToUri( COLLADABU::StringUtils::toUTF8String(bitmap->bi.Name()) ) : "";
+#else
         String fileName = bitmap->bi.Name() ? COLLADASW::URI::nativePathToUri( bitmap->bi.Name() ) : "";
+#endif
 
         // Export, if we have a file name.
         if ( !fileName.empty () )

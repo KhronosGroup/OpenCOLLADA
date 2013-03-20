@@ -63,7 +63,7 @@ namespace COLLADAMax
 
         /** Export the current sampler. */
         void exportSampler ( 
-            const char* paramName,
+            const TCHAR* paramName,
             const PBBitmap* bitmap
             );
 
@@ -106,16 +106,16 @@ namespace COLLADAMax
         template<class Type>
         void exportParam (
             //const CGparameter& cgParameter,
-            const char* paramName,
+            const TCHAR* paramName,
             COLLADASW::ParamBase *param,
             const Type* paramValues,
             const int numOfValues );
 
         void exportParam (
             //const CGparameter& cgParameter,
-            const char* paramName,
+            const TCHAR* paramName,
             COLLADASW::ParamBase* param,
-            const String& paramValue );
+            const TCHAR* paramValue );
 
         ///** Exports the annotation data of the given parameter. */
         //void exportAnnotations ( const CGparameter &cgParameter, COLLADASW::ParamBase *param );

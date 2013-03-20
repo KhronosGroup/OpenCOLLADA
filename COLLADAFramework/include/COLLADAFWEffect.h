@@ -77,6 +77,8 @@ namespace COLLADAFW
          */
         Color mStandardColor;
 
+		PointerArray<TextureAttributes> mExtraTextures;
+
     public:
 
         /** Constructor. */
@@ -115,6 +117,11 @@ namespace COLLADAFW
 		/** Returns the common effects.*/
 		const CommonEffectPointerArray& getCommonEffects()const { return mCommonEffects; }
 
+		TextureAttributes* createExtraTextureAttributes();
+		const PointerArray<TextureAttributes>& getExtraTextures();
+
+	private:
+		void addExtraTextureAttributes( COLLADAFW::TextureAttributes* textureAttributes );
 
 	private:
 
