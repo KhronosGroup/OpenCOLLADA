@@ -35,6 +35,8 @@ namespace COLLADAMax
 
 	const String Extra::CAST_SHADOWS_PROPERTY = "cast_shadows";
 	const String Extra::RECEIVE_SHADOWS_PROPERTY = "receive_shadows";
+	const String Extra::PRIMARY_VISIBILITY_PROPERTY = "primary_visibility";
+	const String Extra::SECONDARY_VISIBILITY_PROPERTY = "secondary_visibility";
 
     //---------------------------------------------------------------
     Extra::Extra ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter )

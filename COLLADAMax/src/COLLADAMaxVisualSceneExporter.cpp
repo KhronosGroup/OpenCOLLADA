@@ -261,12 +261,12 @@ namespace COLLADAMax
 
 		if ( !exportOnlyChilds )
 		{
-			colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, "cast_shadows", exportNode->getCastShadows());
-			colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, "receive_shadows", exportNode->getReceiveShadows());
+			colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, Extra::CAST_SHADOWS_PROPERTY, exportNode->getCastShadows());
+			colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, Extra::RECEIVE_SHADOWS_PROPERTY, exportNode->getReceiveShadows());
 
 			if (INode* node = exportNode->getINode()) {
-				colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, "primary_visibility", node->GetPrimaryVisibility());
-				colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, "secondary_visibility", node->GetSecondaryVisibility());
+				colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, Extra::PRIMARY_VISIBILITY_PROPERTY, node->GetPrimaryVisibility());
+				colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, Extra::SECONDARY_VISIBILITY_PROPERTY, node->GetSecondaryVisibility());
 			}
 
 			if ( mDocumentExporter->getOptions().getExportUserDefinedProperties() )
