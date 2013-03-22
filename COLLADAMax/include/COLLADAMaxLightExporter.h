@@ -70,9 +70,16 @@ namespace COLLADAMax
 		static const String FAR_START_ATTENUATION_PARAMETER;
 		static const String FAR_END_ATTENUATION_PARAMETER;
 
+		static const String AFFECT_SPECULAR_PARAMETER;
+		static const String AFFECT_DIFFUSE_PARAMETER;
+
+		static const String FALLSIZE_PARAMETER;
+		static const String HOTSPOT_PARAMETER;
+
 
 		static const String SHADOW_ATTRIBS;
 		static const String SHADOW_TYPE;
+		static const String SHADOW_SIZE;
 		static const String SHADOW_TYPE_MAP;
 		static const String SHADOW_TYPE_RAYTRACE;
 		static const String SHADOW_AFFECTS;

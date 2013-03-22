@@ -62,6 +62,12 @@ namespace COLLADAMax
 		/** The element name of the element to store user defined properties.*/
 		static const String USERDEFINED_PROPERTIES;
 
+		/** The element name of the element to store user 'Cast Shadows' object's property.*/
+		static const String CAST_SHADOWS_PROPERTY;
+
+		/** The element name of the element to store user 'Receive Shadows' object's property.*/
+		static const String RECEIVE_SHADOWS_PROPERTY;
+
     private:
 		COLLADASW::StreamWriter* mSW;
 		AnimationExporter * mAnimationExporter;

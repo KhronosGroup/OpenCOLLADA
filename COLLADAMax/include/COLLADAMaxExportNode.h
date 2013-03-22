@@ -176,6 +176,17 @@ namespace COLLADAMax
             return mINode;
         }
 
+		/** Returns true if object cast shadows. */
+		inline bool getCastShadows() {
+			return getINode() ? getINode()->CastShadows() > 0 : false;
+		}
+
+		/** Returns true if object receive shadows. */
+		inline bool getReceiveShadows() {
+			return getINode() ? getINode()->RcvShadows() > 0 : false;
+		}
+
+
 		/** Returns the camera object represented by the export node. This functions returns a non zero pointer
 		only if the node is a camera.*/
 		CameraObject* getCamera()const{ return (CameraObject*)mINode->GetObjectRef(); }

@@ -261,6 +261,14 @@ namespace COLLADAMax
 
 		if ( !exportOnlyChilds )
 		{
+			colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, "cast_shadows", exportNode->getCastShadows());
+			colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, "receive_shadows", exportNode->getReceiveShadows());
+
+			if (INode* node = exportNode->getINode()) {
+				colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, "primary_visibility", node->GetPrimaryVisibility());
+				colladaNode.addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_OPENCOLLADA, "secondary_visibility", node->GetSecondaryVisibility());
+			}
+
 			if ( mDocumentExporter->getOptions().getExportUserDefinedProperties() )
 			{
 				// export user defined data stored for the max node
