@@ -27,9 +27,9 @@
 #include "COLLADAMaxVisualSceneExporter.h"
 #include "COLLADAMaxExtra.h"
 #include "COLLADASWLight.h"
-//#include "COLLADAMaxConversionFunctor.h"
 
 #include <max.h>
+#include <shadgen.h>
 
 namespace COLLADAMax
 {
@@ -94,9 +94,15 @@ namespace COLLADAMax
 	const String LightExporter::FAR_START_ATTENUATION_PARAMETER = "attenuation_far_start";
 	const String LightExporter::FAR_END_ATTENUATION_PARAMETER = "attenuation_far_end";
 
+	const String LightExporter::FALLSIZE_PARAMETER = "decay_falloff";
+	const String LightExporter::HOTSPOT_PARAMETER = "hotspot_beam";
+
+	const String LightExporter::AFFECT_SPECULAR_PARAMETER = "affect_specular";
+	const String LightExporter::AFFECT_DIFFUSE_PARAMETER = "affect_diffuse";
 
 	const String LightExporter::SHADOW_ATTRIBS = "shadow_attributes";
 	const String LightExporter::SHADOW_TYPE = "type";
+	const String LightExporter::SHADOW_SIZE = "size";
 	const String LightExporter::SHADOW_TYPE_MAP = "type_map";
 	const String LightExporter::SHADOW_TYPE_RAYTRACE = "type_raytrace";
 	const String LightExporter::SHADOW_AFFECTS_LIST_NODES = "affect_list_nodes";
@@ -326,12 +332,21 @@ namespace COLLADAMax
 				return;
 			}
 
+			// do not export turned off lights
+			if (light->GetUseLight() != TRUE) {
+				delete colladaLight;
+				return;
+			}
+
 
 			// Export the overshoot flag for directional lights
 			if (isDirectional || isSpot)
 			{
 				addExtraChildParameter(LIGHT_ELEMENT, OVERSHOOT_PARAMETER, light->GetOvershoot() != false);
 			}
+
+			addExtraChildParameter(LIGHT_ELEMENT, AFFECT_SPECULAR_PARAMETER, (int)light->GetAffectSpecular());
+			addExtraChildParameter(LIGHT_ELEMENT, AFFECT_DIFFUSE_PARAMETER, (int)light->GetAffectDiffuse());
 
 			addExtraChildParameter(LIGHT_ELEMENT, DECAY_TYPE_PARAMETER, (int)light->GetDecayType());
 			addExtraChildParameter(LIGHT_ELEMENT, MULTIPLIER_PARAMETER, light->GetIntensity( 0 ));
@@ -342,6 +357,11 @@ namespace COLLADAMax
 			addExtraChildParameter(LIGHT_ELEMENT, NEAR_END_ATTENUATION_PARAMETER, light->GetAtten( 0, ATTEN1_END ) );
 			addExtraChildParameter(LIGHT_ELEMENT, FAR_START_ATTENUATION_PARAMETER, light->GetAtten( 0, ATTEN_START ) );
 			addExtraChildParameter(LIGHT_ELEMENT, FAR_END_ATTENUATION_PARAMETER, light->GetAtten( 0, ATTEN_END ) );
+
+			if (isSpot) {
+				addExtraChildParameter(LIGHT_ELEMENT, FALLSIZE_PARAMETER, light->GetFallsize( 0 ) );
+				addExtraChildParameter(LIGHT_ELEMENT, HOTSPOT_PARAMETER, light->GetHotspot( 0 ) );
+			}
 
 			exportShadowParameters(light);
 
@@ -385,8 +405,11 @@ namespace COLLADAMax
 		{
 			// Light casts shadows
 			int shadowType = light->GetShadowType();
-			if (shadowType == 0) 
+			if (shadowType == 0) {
 				addExtraChildParameter(SHADOW_ATTRIBS, SHADOW_TYPE, SHADOW_TYPE_MAP);
+				int size = light->GetShadowGenerator()->GetMapSize(0);
+				addExtraChildParameter(SHADOW_ATTRIBS, SHADOW_SIZE, size);				
+			}
 			else if (shadowType == 1) 
 				addExtraChildParameter(SHADOW_ATTRIBS, SHADOW_TYPE, SHADOW_TYPE_RAYTRACE);
 
