@@ -194,7 +194,8 @@ namespace COLLADASaxFWL
 				if ( attributeData.texcoord )
 				{
 					texture.setTextureMapId( getTextureMapIdBySematic( attributeData.texcoord) );
-				}
+                    texture.setTexcoord(attributeData.texcoord);
+                }
 
 				break;
 			}
@@ -1024,6 +1025,42 @@ namespace COLLADASaxFWL
 		return true;
     }
 
+    bool LibraryEffectsLoader::data__minfilter( const ENUM__fx_sampler_filter_common value )
+    {
+        COLLADAFW::Sampler::SamplerFilter filter = COLLADAFW::Sampler::SAMPLER_FILTER_UNSPECIFIED;
+        if ( mCurrentSampler ) {
+            switch (value) {
+                case ENUM__fx_sampler_filter_common__NOT_PRESENT:
+                case ENUM__fx_sampler_filter_common__COUNT:
+                case ENUM__fx_sampler_filter_common__NONE:
+                    filter = COLLADAFW::Sampler::SAMPLER_FILTER_NONE;
+                    break;
+                case ENUM__fx_sampler_filter_common__NEAREST:
+                    filter = COLLADAFW::Sampler::SAMPLER_FILTER_NEAREST;
+                    break;
+                case ENUM__fx_sampler_filter_common__LINEAR:
+                    filter = COLLADAFW::Sampler::SAMPLER_FILTER_LINEAR;
+                    break;
+                case ENUM__fx_sampler_filter_common__NEAREST_MIPMAP_NEAREST:
+                    filter = COLLADAFW::Sampler::SAMPLER_FILTER_NEAREST_MIPMAP_NEAREST;
+                    break;
+                case ENUM__fx_sampler_filter_common__LINEAR_MIPMAP_NEAREST:
+                    filter = COLLADAFW::Sampler::SAMPLER_FILTER_LINEAR_MIPMAP_NEAREST;
+                    break;
+                case ENUM__fx_sampler_filter_common__NEAREST_MIPMAP_LINEAR:
+                    filter = COLLADAFW::Sampler::SAMPLER_FILTER_NEAREST_MIPMAP_LINEAR;
+                    break;
+                case ENUM__fx_sampler_filter_common__LINEAR_MIPMAP_LINEAR:
+                    filter = COLLADAFW::Sampler::SAMPLER_FILTER_LINEAR_MIPMAP_LINEAR;
+                    break;
+            }
+            mCurrentSampler->setMinFilter(filter);
+        }
+        
+        return true;
+    }
+
+    
     //------------------------------
     const COLLADAFW::UniqueId& LibraryEffectsLoader::getUniqueId ()
     {

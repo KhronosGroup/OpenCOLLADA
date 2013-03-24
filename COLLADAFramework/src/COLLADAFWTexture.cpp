@@ -20,6 +20,7 @@ namespace COLLADAFW
         : ObjectTemplate<COLLADA_TYPE::TEXTURE>(uniqueId)
 		, mSamplerId(0)
 		, mTextureMapId(0)
+        , mTexcoord("")
     {
     }
 
@@ -45,7 +46,13 @@ namespace COLLADAFW
 	{
 		mTextureMapId = textureMapId;
 	}
-
+    
+	//------------------------------
+    void Texture::setTexcoord( const String& texcoord )
+	{
+		mTexcoord = texcoord;
+	}
+    
 	//------------------------------
 	COLLADAFW::SamplerID Texture::getSamplerId() const
 	{
@@ -56,6 +63,12 @@ namespace COLLADAFW
 	COLLADAFW::TextureMapId Texture::getTextureMapId() const
 	{
 		return mTextureMapId;
+	}
+    
+	//------------------------------
+    String Texture::getTexcoord() const
+	{
+		return mTexcoord;
 	}
 
 } // namespace COLLADAFW

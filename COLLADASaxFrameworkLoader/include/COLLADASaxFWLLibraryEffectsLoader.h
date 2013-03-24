@@ -256,7 +256,10 @@ namespace COLLADASaxFWL
 		/** Adds the sampler to the map of samplers.*/
 		virtual bool end__sampler2D____fx_sampler2D_common();
 
-
+        virtual bool begin__minfilter(){return true;}
+        virtual bool end__minfilter(){return true;}
+        virtual bool data__minfilter( const ENUM__fx_sampler_filter_common value );
+        
 		/** We don't need to do anything here.*/
 		virtual bool begin__source____NCName(){return true;}
 

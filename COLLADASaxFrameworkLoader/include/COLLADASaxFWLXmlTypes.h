@@ -116,6 +116,19 @@ namespace COLLADASaxFWL
 		ENUM__fx_sampler_wrap_common__NOT_PRESENT = 7
 	};
 
+    enum ENUM__fx_sampler_filter_common
+    {
+        ENUM__fx_sampler_filter_common__NONE = 0,
+        ENUM__fx_sampler_filter_common__NEAREST = 1,
+        ENUM__fx_sampler_filter_common__LINEAR = 2,
+        ENUM__fx_sampler_filter_common__NEAREST_MIPMAP_NEAREST = 3,
+        ENUM__fx_sampler_filter_common__LINEAR_MIPMAP_NEAREST = 4,
+        ENUM__fx_sampler_filter_common__NEAREST_MIPMAP_LINEAR = 5,
+        ENUM__fx_sampler_filter_common__LINEAR_MIPMAP_LINEAR = 6,
+        ENUM__fx_sampler_filter_common__COUNT = 7,
+        ENUM__fx_sampler_filter_common__NOT_PRESENT = 8
+    };
+
     struct unit__AttributeData
     {
         float meter;

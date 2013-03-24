@@ -544,6 +544,22 @@ SaxVirtualFunctionTest14(end__technique());
 return mLoader->end__technique();
 }
 
+    bool LibraryEffectsLoader14::begin__minfilter(){
+        SaxVirtualFunctionTest14(begin__minfilter());
+        mLoader->begin__minfilter();
+        return true;}
+    bool LibraryEffectsLoader14::end__minfilter(){
+        SaxVirtualFunctionTest14(end__minfilter());
+        mLoader->end__minfilter();
+
+        return true;
+    }
+    bool LibraryEffectsLoader14::data__minfilter( const COLLADASaxFWL14::ENUM__fx_sampler_filter_common value )
+    {
+        mLoader->data__minfilter((const ENUM__fx_sampler_filter_common)value);
+
+        return true;
+    }
 
 
 }

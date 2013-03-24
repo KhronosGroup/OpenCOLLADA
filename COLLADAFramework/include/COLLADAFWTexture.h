@@ -33,6 +33,9 @@ namespace COLLADAFW
 		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
 		in InstanceGeometry*/
 		TextureMapId mTextureMapId;
+        
+        /** see setTexcoord & getTexccord */
+        String mTexcoord;
 
 	public:
 
@@ -64,7 +67,16 @@ namespace COLLADAFW
 		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
 		in InstanceGeometry*/
 		void setTextureMapId( TextureMapId textureMapId );
-
+        
+        /*  Attribute from <texture> to be associate with the semantic attribute from bind_vertex_input.
+            This allows to which UV set should be used. 
+         */
+        void setTexcoord( const String& texcoord );
+        
+        /*  Attribute from <texture> to be associate with the semantic attribute from bind_vertex_input.
+         This allows to which UV set should be used.
+         */
+        String getTexcoord() const;
 
 		bool isValid() const { return true; }
 	};
