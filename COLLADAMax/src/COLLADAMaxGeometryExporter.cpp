@@ -738,6 +738,16 @@ namespace COLLADAMax
 		if( normalSpec == NULL )
 			return ;
 
+		bool isSetMESH_NORMAL_NORMALS_BUILT = normalSpec->GetFlag(MESH_NORMAL_NORMALS_BUILT);
+		bool isSetMESH_NORMAL_NORMALS_COMPUTED = normalSpec->GetFlag(MESH_NORMAL_NORMALS_COMPUTED);
+		bool isSetMESH_NORMAL_MODIFIER_SUPPORT = normalSpec->GetFlag(MESH_NORMAL_MODIFIER_SUPPORT);
+
+		if( !isSetMESH_NORMAL_NORMALS_BUILT || !isSetMESH_NORMAL_NORMALS_COMPUTED )
+		{
+			normalSpec->SetParent( &mesh );
+			normalSpec->CheckNormals();
+		}
+
 		if( normalSpec->GetNumNormals() == 0 )
 		{
 			normalSpec->SetParent( &mesh );
@@ -787,6 +797,7 @@ namespace COLLADAMax
 			return ;
 
 		// rebuild as needed
+		mnNormalSpec->SetParent( &mnMesh );
 		mnNormalSpec->CheckNormals();
 
 		int normalCount = mnNormalSpec->GetNumNormals();
@@ -1112,7 +1123,8 @@ namespace COLLADAMax
 
 					if( mExportNormals )
 					{
-						triangles.appendValues( norms->GetNormalIndex( faceIndex, vertexIndex ) );
+						int normalIndex = norms->GetNormalIndex( faceIndex, vertexIndex );
+						triangles.appendValues( normalIndex );
 					}
 
 					for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
@@ -1200,7 +1212,8 @@ namespace COLLADAMax
 
 					if( mExportNormals )
 					{
-						polylist.appendValues( normmalSpec->GetNormalIndex( faceIndex, vertexIndex ) );
+						int normalIndex = normmalSpec->GetNormalIndex( faceIndex, vertexIndex );
+						polylist.appendValues( normalIndex );
 					}
 
 					for( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )

@@ -42,6 +42,7 @@
 #include "nv_dds.cpp"
 
 #if MAYA_API_VERSION >= 201200
+//# pragma message("IS api >= 201200")
 #include "cgfxProfile.cpp"
 #include "cgfxPassStateSetter.cpp"
 #endif

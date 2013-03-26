@@ -318,6 +318,17 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	const EffectMaps* ImporterBase::getFWEffectMapsByUniqueId( const COLLADAFW::UniqueId& uniqueId )
+	{
+		const DocumentImporter::UniqueIdEffectMapsMap& uniqueIdEffectMapsMap = mDocumentImporter->getUniqueIdEffectMapsMap();
+		DocumentImporter::UniqueIdEffectMapsMap::const_iterator it = uniqueIdEffectMapsMap.find(uniqueId);
+		if ( it == uniqueIdEffectMapsMap.end() )
+			return 0;
+		else
+			return &it->second;
+	}
+
+	//------------------------------
 	const COLLADAFW::Image* ImporterBase::getFWImageByUniqueId( const COLLADAFW::UniqueId& uniqueId )
 	{
 		const DocumentImporter::UniqueIdFWImageMap& uniqueIdFWImageMap = mDocumentImporter->getUniqueIdFWImageMap();
@@ -518,9 +529,15 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	void ImporterBase::addUniqueIdSkyLightParametersPair( const COLLADAFW::UniqueId& lihgtUniqueId, const SkyLightParameters& skyLightParameters )
+	void ImporterBase::addUniqueIdSkyLightParametersPair( const COLLADAFW::UniqueId& lightUniqueId, const SkyLightParameters& skyLightParameters )
 	{
-		mDocumentImporter->getUniqueIdSkyLightMap()[lihgtUniqueId] = skyLightParameters;
+		mDocumentImporter->getUniqueIdSkyLightMap()[lightUniqueId] = skyLightParameters;
+	}
+
+	//------------------------------
+	void ImporterBase::addUniqueIdEffectBumpMapParametersPair( const COLLADAFW::UniqueId& effectUniqueId, const BumpMap& bumpParameters )
+	{
+		mDocumentImporter->addUniqueIdEffectBumpMapParametersPair(effectUniqueId, bumpParameters);
 	}
 
 } // namespace COLLADAMax

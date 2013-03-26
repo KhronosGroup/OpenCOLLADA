@@ -62,6 +62,20 @@ namespace COLLADAMax
 		/** The element name of the element to store user defined properties.*/
 		static const String USERDEFINED_PROPERTIES;
 
+		/** The element name of the element to store user 'Cast Shadows' object's property.*/
+		static const String CAST_SHADOWS_PROPERTY;
+
+		/** The element name of the element to store user 'Receive Shadows' object's property.*/
+		static const String RECEIVE_SHADOWS_PROPERTY;
+
+		/** The on/off state of the primary visibility to determine whether or not the node is 
+		visible to the camera. */
+		static const String PRIMARY_VISIBILITY_PROPERTY;
+
+		/** The on/off state of the secondary visibility to determine whether or not the node is
+		visible to reflections and refractions. */
+		static const String SECONDARY_VISIBILITY_PROPERTY;
+
     private:
 		COLLADASW::StreamWriter* mSW;
 		AnimationExporter * mAnimationExporter;

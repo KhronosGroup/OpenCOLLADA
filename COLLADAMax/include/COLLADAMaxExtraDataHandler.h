@@ -34,25 +34,35 @@ namespace COLLADAMax
 		{
 			EXTRA_TAG_TYPE_UNKNOWN,
 			EXTRA_TAG_TYPE_SKYLIGHT,
+			EXTRA_TAG_TYPE_BUMP,
 		};
+
 	private:
 		String mTextBuffer;
 		ExtraTagType mExtraTagType;
 		COLLADAFW::UniqueId mCurrentElementUniqueId;
+		COLLADAFW::Object* mCurrentObject;
 
 		union 
 		{
 			SkyLightParameters skyLightParameters;
+			BumpMap bumpParameters;
 		} mExtraParameters;
 
 	public:
 		ExtraDataHandler(DocumentImporter* colladaImporter);
 		~ExtraDataHandler();
 		bool elementBegin( const COLLADASaxFWL::ParserChar* elementName, const GeneratedSaxParser::xmlChar** attributes);
+
 		bool elementEnd(const COLLADASaxFWL::ParserChar* elementName );
 		bool textData(const COLLADASaxFWL::ParserChar* text, size_t textLength);
 
-		bool parseElement( const COLLADASaxFWL::ParserChar* profileName, const COLLADASaxFWL::StringHash& elementHash, const COLLADAFW::UniqueId& uniqueId );
+		bool parseElement( const COLLADASaxFWL::ParserChar* profileName, const COLLADASaxFWL::StringHash& elementHash
+			, const COLLADAFW::UniqueId& uniqueId, COLLADAFW::Object* object );
+
+	private:
+		void determineBumpType( const GeneratedSaxParser::xmlChar** attributes );
+		void determineBumpTextureSamplerAndTexCoord( const GeneratedSaxParser::xmlChar** attributes );
 
 	};
 

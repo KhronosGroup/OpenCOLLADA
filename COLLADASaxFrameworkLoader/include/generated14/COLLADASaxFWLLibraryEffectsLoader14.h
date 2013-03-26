@@ -166,6 +166,9 @@ virtual bool begin__technique( const COLLADASaxFWL14::technique__AttributeData& 
 
 virtual bool end__technique();
 
+    virtual bool begin__minfilter();
+    virtual bool end__minfilter();
+    virtual bool data__minfilter( const COLLADASaxFWL14::ENUM__fx_sampler_filter_common value );
 
 private:
 /** Disable default copy ctor. */

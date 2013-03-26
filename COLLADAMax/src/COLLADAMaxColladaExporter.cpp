@@ -28,7 +28,7 @@ namespace COLLADAMax
 
     const Class_ID COLLADAExporter::COLLADASWEXPORTER_CLASS_ID ( 0x7d656d57, 0x6f963848 );
 
-	const String COLLADAExporter::PROGRESSSTART = "COLLADA export...";
+	const TCHAR* COLLADAExporter::PROGRESSSTART = __T("COLLADA export...");
 
 
     //---------------------------------------------------------------
@@ -48,43 +48,43 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     const TCHAR* COLLADAExporter::Ext ( int )
     {
-        return COLLADAPlugin::EXTENSIONNAME.c_str();
+        return COLLADAPlugin::EXTENSIONNAME;
     }
 
     //---------------------------------------------------------------
     const TCHAR* COLLADAExporter::LongDesc()
     {
-        return COLLADAPlugin::LONGDESCRIPTION.c_str();
+        return COLLADAPlugin::LONGDESCRIPTION;
     }
 
     //---------------------------------------------------------------
     const TCHAR* COLLADAExporter::ShortDesc()
     {
-        return COLLADAPlugin::SHORTDESCRIPTION.c_str();
+        return COLLADAPlugin::SHORTDESCRIPTION;
     }
 
     //---------------------------------------------------------------
     const TCHAR* COLLADAExporter::AuthorName()
     {
-        return COLLADAPlugin::AUTHORNAME.c_str();
+        return COLLADAPlugin::AUTHORNAME;
     }
 
     //---------------------------------------------------------------
     const TCHAR* COLLADAExporter::CopyrightMessage()
     {
-        return COLLADAPlugin::COPYRIGHTMESSAGE.c_str();
+        return COLLADAPlugin::COPYRIGHTMESSAGE;
     }
 
     //---------------------------------------------------------------
     const TCHAR* COLLADAExporter::OtherMessage1()
     {
-        return COLLADAPlugin::OTHERMESSAGE1.c_str();
+        return COLLADAPlugin::OTHERMESSAGE1;
     }
 
     //---------------------------------------------------------------
     const TCHAR* COLLADAExporter::OtherMessage2()
     {
-        return COLLADAPlugin::OTHERMESSAGE2.c_str();
+        return COLLADAPlugin::OTHERMESSAGE2;
     }
 
     //---------------------------------------------------------------
@@ -120,7 +120,7 @@ namespace COLLADAMax
     int COLLADAExporter::DoExport ( const TCHAR* name, ExpInterface* UNUSED ( ei ), Interface* maxInterface, BOOL suppressPrompts, DWORD options )
     {
         bool success = true;
-        maxInterface->ProgressStart ( ( char * ) PROGRESSSTART.c_str(), true, fn, 0 );
+        maxInterface->ProgressStart ( const_cast<TCHAR*>(PROGRESSSTART), true, fn, 0 );
 
         try
         {
@@ -140,13 +140,18 @@ namespace COLLADAMax
 		catch ( COLLADASW::StreamWriterException& streamWriterException  )
 		{
 			// Add some check, here, for full UI-mode or batch-mode only.
-			MessageBox ( 0, streamWriterException.getMessage().c_str(), COLLADAPlugin::SHORTDESCRIPTION.c_str(), MB_OK );
+#ifdef UNICODE
+			WideString exceptionMessage = COLLADABU::StringUtils::toWideString( streamWriterException.getMessage().c_str() );
+			MessageBox ( 0, exceptionMessage.c_str(), COLLADAPlugin::SHORTDESCRIPTION, MB_OK );
+#else
+			MessageBox ( 0, streamWriterException.getMessage().c_str(), COLLADAPlugin::SHORTDESCRIPTION, MB_OK );
+#endif
 		}
 
         catch ( ... )
         {
             // Add some check, here, for full UI-mode or batch-mode only.
-            MessageBox ( 0, COLLADAPlugin::FATALERROR.c_str(), COLLADAPlugin::SHORTDESCRIPTION.c_str(), MB_OK );
+            MessageBox ( 0, COLLADAPlugin::FATALERROR, COLLADAPlugin::SHORTDESCRIPTION, MB_OK );
         }
 
         maxInterface->ProgressEnd();

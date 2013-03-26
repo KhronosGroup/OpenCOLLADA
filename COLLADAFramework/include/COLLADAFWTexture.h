@@ -33,6 +33,9 @@ namespace COLLADAFW
 		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
 		in InstanceGeometry*/
 		TextureMapId mTextureMapId;
+        
+        /** see setTexcoord & getTexccord */
+        String mTexcoord;
 
 	public:
 
@@ -50,7 +53,7 @@ namespace COLLADAFW
          * The sampler id is the array index position in the samplers array 
          * (see EffectCommon::mSamplers from type SamplerPointerArray).
          */
-		SamplerID getSamplerId() const { return mSamplerId; }
+		SamplerID getSamplerId() const;
 
 		/** Sets the id of the sampler.*/
 		void setSamplerId(SamplerID samplerId);
@@ -58,13 +61,22 @@ namespace COLLADAFW
 		/** Returns the id of the texture map, that should be used by this texture. It must be binded to a set of 
 		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
 		in InstanceGeometry*/
-		TextureMapId getTextureMapId() const { return mTextureMapId; }
+		TextureMapId getTextureMapId() const;
 
 		/** Returns the id of the texture map, that should be used by this texture. It must be binded to a set of 
 		texture coordinates, when the material is binded to the geometry. See also TextureCoordinateBinding 
 		in InstanceGeometry*/
 		void setTextureMapId( TextureMapId textureMapId );
-
+        
+        /*  Attribute from <texture> to be associate with the semantic attribute from bind_vertex_input.
+            This allows to which UV set should be used. 
+         */
+        void setTexcoord( const String& texcoord );
+        
+        /*  Attribute from <texture> to be associate with the semantic attribute from bind_vertex_input.
+         This allows to which UV set should be used.
+         */
+        String getTexcoord() const;
 
 		bool isValid() const { return true; }
 	};

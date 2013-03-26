@@ -105,7 +105,9 @@ namespace COLLADASaxFWL
 
         /** Constructor. */
         SourceBase (  )
-            : mInitialIndex (0)
+            : mId()
+			, mStride(0)
+			, mInitialIndex (0)
             , mLoadedInputElements ( COLLADAFW::MeshPrimitiveArray::OWNER )
         {}
 

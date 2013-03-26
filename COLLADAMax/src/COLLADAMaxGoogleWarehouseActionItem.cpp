@@ -22,14 +22,11 @@
 #include "G3DBrowser.h"
 #include "G3DFileUnzipper.h"
 
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
-
 
 namespace COLLADAMax
 {
 
-	const char GoogleWarehouseActionItem::mMenuText[]="Google Warehouse";
+	const TCHAR* GoogleWarehouseActionItem::mMenuText = __T("Google Warehouse");
 	const char GoogleWarehouseActionItem::mButtonText[]="Google Warehouse";
 	const char GoogleWarehouseActionItem::mCatText[]="Google Warehouse";
 	const char GoogleWarehouseActionItem::mDescText[]="Google Warehouse";
@@ -54,25 +51,25 @@ namespace COLLADAMax
 	//------------------------------
 	void GoogleWarehouseActionItem::GetMenuText( TSTR& menuText )
 	{
-		menuText.printf("%s",mMenuText);
+		menuText.printf(__T("%s"),mMenuText);
 	}
 
 	//------------------------------
 	void GoogleWarehouseActionItem::GetButtonText( TSTR& buttonText )
 	{
-		buttonText.printf("%s",mButtonText);
+		buttonText.printf(__T("%s"),mButtonText);
 	}
 
 	//------------------------------
 	void GoogleWarehouseActionItem::GetCategoryText( TSTR& catText )
 	{
-		catText.printf("%s",mCatText);
+		catText.printf(__T("%s"),mCatText);
 	}
 
 	//------------------------------
 	void GoogleWarehouseActionItem::GetDescriptionText( TSTR& descText )
 	{
-		descText.printf("%s",mDescText);
+		descText.printf(__T("%s"),mDescText);
 	}
 
 	//------------------------------
@@ -80,7 +77,7 @@ namespace COLLADAMax
 	{
 		G3D::Browser browser;
 
-		char tmpDirPath[MAX_PATH];
+		TCHAR tmpDirPath[MAX_PATH];
 
 		if( GetTempPath( sizeof(tmpDirPath), tmpDirPath) == 0 )
 		{
@@ -92,8 +89,8 @@ namespace COLLADAMax
 
 		WideString tmpDirPathString(tmpDirPathNativeString.toWideString());
 
-		boost::filesystem::wpath tmpDirPathWpath(tmpDirPathString);
-		if ( !boost::filesystem::exists(tmpDirPathWpath) && !boost::filesystem::create_directory(tmpDirPathWpath) )
+		bool pathExists = COLLADABU::Utils::createDirectoryIfNeeded(tmpDirPathString);
+		if ( !pathExists )
 		{
 			// TODO handle error could not create temp dir
 			return true;
@@ -121,7 +118,12 @@ namespace COLLADAMax
 		ClassDesc2* importerClassDescription = getCOLLADAImporterDesc();
 		Class_ID importerClassClassId = importerClassDescription->ClassID();
 
-		GetCOREInterface()->ImportFromFile(  modelPath.c_str(), true, &importerClassClassId );
+#ifdef UNICODE
+		WideString wideModelPath = COLLADABU::StringUtils::toWideString(modelPath.c_str());
+		GetCOREInterface()->ImportFromFile( wideModelPath.c_str(), true, &importerClassClassId );
+#else
+		GetCOREInterface()->ImportFromFile( modelPath.c_str(), true, &importerClassClassId );
+#endif
 
 		return true;
 	}
@@ -149,4 +151,5 @@ namespace COLLADAMax
 	{
 		return 0;
 	}
+
 } // namespace COLLADAMax

@@ -18,6 +18,7 @@
 #include "COLLADAFWEffectCommon.h"
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWColorOrTexture.h"
+#include "COLLADAFWPointerArray.h"
 
 
 namespace COLLADAFW
@@ -198,6 +199,9 @@ namespace COLLADASaxFWL
         /** Returns the unique id of the current parsed object. */
         virtual const COLLADAFW::UniqueId& getUniqueId();
 
+		/** Returns the current parsed object. */
+		virtual COLLADAFW::Object* getObject();
+
 		/** Creates a new current effect.*/
 		virtual bool begin__effect( const effect__AttributeData& attributeData );
 
@@ -252,7 +256,10 @@ namespace COLLADASaxFWL
 		/** Adds the sampler to the map of samplers.*/
 		virtual bool end__sampler2D____fx_sampler2D_common();
 
-
+        virtual bool begin__minfilter(){return true;}
+        virtual bool end__minfilter(){return true;}
+        virtual bool data__minfilter( const ENUM__fx_sampler_filter_common value );
+        
 		/** We don't need to do anything here.*/
 		virtual bool begin__source____NCName(){return true;}
 
@@ -381,6 +388,8 @@ namespace COLLADASaxFWL
 
 		/** Stores texture data into the @a shaderParameterType texture object.*/
 		bool handleTexture( const texture__AttributeData& attributeData);
+
+		bool handleExtraEffectTextures( const COLLADAFW::PointerArray<COLLADAFW::TextureAttributes>& effectTextures );
 
         /**
          * Luminance is the function, based on the ISO/CIE color standards (see ITU-R 
