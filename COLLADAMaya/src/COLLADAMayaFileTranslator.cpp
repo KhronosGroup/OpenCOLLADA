@@ -97,7 +97,7 @@
             COLLADAMaya::COLLADA_EXPORTER,
             "", // pathname of the icon used in file selection dialogs
             COLLADAMaya::FileTranslator::createExporter, // this class implements the new file type
-            COLLADAMaya::MEL_EXPORT_OPTS, // name of a MEL script that will be used to display the contents of the options dialog during file open and save
+            (char*)COLLADAMaya::MEL_EXPORT_OPTS, // name of a MEL script that will be used to display the contents of the options dialog during file open and save
             NULL ); // defaultOptionsString
         if ( !status )
         {
@@ -111,7 +111,7 @@
             COLLADAMaya::COLLADA_IMPORTER,
             "",
             COLLADAMaya::FileTranslator::createImporter,
-            COLLADAMaya::MEL_IMPORT_OPTS,
+            (char*)COLLADAMaya::MEL_IMPORT_OPTS,
             NULL );
         if ( !status )
         {

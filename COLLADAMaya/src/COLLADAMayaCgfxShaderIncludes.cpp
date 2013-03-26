@@ -46,6 +46,11 @@
 #include "cgfxPassStateSetter.cpp"
 #endif
 
+#if MAYA_API_VERSION >= 201300
+#include "cgfxTextureCache.cpp"
+#endif
+
+
 #ifdef _WIN32
 # pragma warning(default: 4312)
 #endif

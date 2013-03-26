@@ -63,8 +63,8 @@ namespace COLLADAMaya
     // Mel-Scripts
     // Name of a MEL script that will be used to display the contents of the
     // options dialog during file open and save
-    static char*  MEL_EXPORT_OPTS                                   = "openColladaExporterOpts";
-    static char*  MEL_IMPORT_OPTS                                   = "openColladaImporterOpts";
+    static const char*  MEL_EXPORT_OPTS                                   = "openColladaExporterOpts";
+    static const char*  MEL_IMPORT_OPTS                                   = "openColladaImporterOpts";
 
     // COLLADA 1.4 Maya-specific definitions
     static const char* MAYA_TEXTURE_NODETYPE                        = "dgnode_type";
