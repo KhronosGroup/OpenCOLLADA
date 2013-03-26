@@ -14,8 +14,8 @@ namespace COLLADAMax
 	const TCHAR* COLLADAPlugin::OTHERMESSAGE1 = __T("");
 	const TCHAR* COLLADAPlugin::OTHERMESSAGE2 = __T("");
 
-	const TCHAR* COLLADAPlugin::PLUGIN_VERSION_TCHAR = __T("Version: 1.3.5");
-	const String COLLADAPlugin::PLUGIN_VERSION_STRING = "Version: 1.3.5";
+	const TCHAR* COLLADAPlugin::PLUGIN_VERSION_TCHAR = __T("Version: 1.4.0");
+	const String COLLADAPlugin::PLUGIN_VERSION_STRING = "Version: 1.4.0";
 	const String COLLADAPlugin::REVISION_STRING = (CURRENT_REVISION.empty() ? "" : String("Revision: ") + CURRENT_REVISION);
 	const String COLLADAPlugin::PLATFORM_STRING = String("Platform: ") + CURRENT_PLATFORM;
 	const String COLLADAPlugin::CONFIGURATION_STRING = String("Configuration: ") + CURRENT_CONFIGURATION;
