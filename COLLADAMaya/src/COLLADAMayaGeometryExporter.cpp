@@ -307,7 +307,7 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     void GeometryExporter::getUVSetNames ( const MFnMesh& fnMesh, MStringArray& uvSetNames )
     {
-		std::tr1::unordered_set<std::wstring> duplicateLookup;
+		std::set<std::wstring> duplicateLookup;
 
         MPlug uvSetPlug = fnMesh.findPlug ( ATTR_UV_SET );
         unsigned int countElements = uvSetPlug.numElements();
@@ -321,7 +321,7 @@ namespace COLLADAMaya
             MString uvSetName;
             uvSetNamePlug.getValue ( uvSetName );
 
-			std::tr1::unordered_set<std::wstring>::iterator it = duplicateLookup.find( uvSetName.asWChar() );
+            std::set<std::wstring>::iterator it = duplicateLookup.find( uvSetName.asWChar() );
 			bool noDuplicate = it == duplicateLookup.end();
 			if( noDuplicate )
 				uvSetNames.append ( uvSetName );

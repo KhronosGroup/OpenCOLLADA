@@ -324,6 +324,7 @@
 		CE3E66A30FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE3E66A20FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp */; };
 		CE3E66B60FD54FA7003D1AD2 /* COLLADAFWSkinController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE784F2F0FB5AAC100F2F8D6 /* COLLADAFWSkinController.cpp */; };
 		CE4A34C90F98E47A00E32945 /* COLLADAMayaVersionInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4A34C80F98E47A00E32945 /* COLLADAMayaVersionInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE55B8AE1701A4080038F432 /* COLLADAFWPolylist.h in Headers */ = {isa = PBXBuildFile; fileRef = CE55B8AD1701A4080038F432 /* COLLADAFWPolylist.h */; };
 		CE615FD81020DC3D00481492 /* MathMLASTArithmeticExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = CE79D1281020BD9A00A3A027 /* MathMLASTArithmeticExpression.h */; };
 		CE615FD91020DC3D00481492 /* MathMLASTBinaryComparisionExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = CE79D1291020BD9A00A3A027 /* MathMLASTBinaryComparisionExpression.h */; };
 		CE615FDA1020DC3D00481492 /* MathMLASTConstantExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = CE79D12A1020BD9A00A3A027 /* MathMLASTConstantExpression.h */; };
@@ -1212,6 +1213,7 @@
 		CE3E66A00FD54BD4003D1AD2 /* COLLADAFWMorphController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWMorphController.h; path = ../COLLADAFramework/include/COLLADAFWMorphController.h; sourceTree = SOURCE_ROOT; };
 		CE3E66A20FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAFWMorphController.cpp; path = ../COLLADAFramework/src/COLLADAFWMorphController.cpp; sourceTree = SOURCE_ROOT; };
 		CE4A34C80F98E47A00E32945 /* COLLADAMayaVersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaVersionInfo.h; path = include/COLLADAMayaVersionInfo.h; sourceTree = "<group>"; };
+		CE55B8AD1701A4080038F432 /* COLLADAFWPolylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWPolylist.h; path = ../COLLADAFramework/include/COLLADAFWPolylist.h; sourceTree = "<group>"; };
 		CE6095210E93CD6B007F776B /* libCOLLADAStreamWriter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCOLLADAStreamWriter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE615FD01020DBF500481492 /* libMathMLSolver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMathMLSolver.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6186250FF8E29200493A63 /* COLLADASaxFWLColladaParserAutoGen14PrivateValidation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLColladaParserAutoGen14PrivateValidation.cpp; path = ../COLLADASaxFrameworkLoader/src/generated14/COLLADASaxFWLColladaParserAutoGen14PrivateValidation.cpp; sourceTree = SOURCE_ROOT; };
@@ -2728,15 +2730,6 @@
 		CE72911810AC82DE00AE5662 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				CE27BA4816D4F93C00C109C3 /* COLLADAFWSpline.h */,
-				24FFE6CE14A526CF00D718C2 /* COLLADAFWHashFunctions.h */,
-				24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */,
-				CE792BA410BD810100430A67 /* COLLADAFWInstanceBase.h */,
-				CE792BA510BD810100430A67 /* COLLADAFWInstanceBindingBase.h */,
-				CE792BA610BD810100430A67 /* COLLADAFWLines.h */,
-				CE792BA710BD810100430A67 /* COLLADAFWLinestrips.h */,
-				CE792BA810BD810100430A67 /* COLLADAFWMaterialBinding.h */,
-				CE792BA910BD810100430A67 /* COLLADAFWTextureCoordinateBinding.h */,
 				CE71CD10104D0A1500368D98 /* COLLADAFW.h */,
 				CE8D7C350F98BFED007F8DF9 /* COLLADAFWAnimatable.h */,
 				CE79CF051020B7E900A3A027 /* COLLADAFWAnimatableFloat.h */,
@@ -2764,14 +2757,18 @@
 				CE71CD12104D0A1500368D98 /* COLLADAFWFormulaNewParam.h */,
 				CE79CF071020B7E900A3A027 /* COLLADAFWFormulas.h */,
 				CE787C140F583FE00019C2D7 /* COLLADAFWGeometry.h */,
+				24FFE6CE14A526CF00D718C2 /* COLLADAFWHashFunctions.h */,
 				CE787C150F583FE00019C2D7 /* COLLADAFWILoader.h */,
 				CE787C160F583FE00019C2D7 /* COLLADAFWImage.h */,
 				CE787C170F583FE00019C2D7 /* COLLADAFWImageSource.h */,
 				CE787C180F583FE00019C2D7 /* COLLADAFWInclude.h */,
 				CE787C190F583FE00019C2D7 /* COLLADAFWIndexList.h */,
+				CE792BA410BD810100430A67 /* COLLADAFWInstanceBase.h */,
+				CE792BA510BD810100430A67 /* COLLADAFWInstanceBindingBase.h */,
 				CE787C1A0F583FE00019C2D7 /* COLLADAFWInstanceCamera.h */,
 				CE784F220FB5AAA800F2F8D6 /* COLLADAFWInstanceController.h */,
 				CE787C1C0F583FE00019C2D7 /* COLLADAFWInstanceGeometry.h */,
+				24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */,
 				CE787C1D0F583FE00019C2D7 /* COLLADAFWInstanceLight.h */,
 				CE787C1F0F583FE00019C2D7 /* COLLADAFWInstanceNode.h */,
 				CE784F230FB5AAA800F2F8D6 /* COLLADAFWInstanceSceneGraph.h */,
@@ -2784,9 +2781,12 @@
 				CE79CF0B1020B7E900A3A027 /* COLLADAFWKinematicsScene.h */,
 				CE787C210F583FE00019C2D7 /* COLLADAFWLibraryNodes.h */,
 				CE787C220F583FE00019C2D7 /* COLLADAFWLight.h */,
+				CE792BA610BD810100430A67 /* COLLADAFWLines.h */,
+				CE792BA710BD810100430A67 /* COLLADAFWLinestrips.h */,
 				CE787C230F583FE00019C2D7 /* COLLADAFWLoaderUtils.h */,
 				CE787C240F583FE00019C2D7 /* COLLADAFWLookat.h */,
 				CE787C250F583FE00019C2D7 /* COLLADAFWMaterial.h */,
+				CE792BA810BD810100430A67 /* COLLADAFWMaterialBinding.h */,
 				CE787C260F583FE00019C2D7 /* COLLADAFWMatrix.h */,
 				CE787C270F583FE00019C2D7 /* COLLADAFWMesh.h */,
 				CE787C280F583FE00019C2D7 /* COLLADAFWMeshPrimitive.h */,
@@ -2805,6 +2805,7 @@
 				CE787C330F583FE00019C2D7 /* COLLADAFWPassTarget.h */,
 				CE787C340F583FE00019C2D7 /* COLLADAFWPointerArray.h */,
 				CE787C350F583FE00019C2D7 /* COLLADAFWPolygons.h */,
+				CE55B8AD1701A4080038F432 /* COLLADAFWPolylist.h */,
 				CE787C360F583FE00019C2D7 /* COLLADAFWPrerequisites.h */,
 				CE787C370F583FE00019C2D7 /* COLLADAFWRenderDraw.h */,
 				CE787C380F583FE00019C2D7 /* COLLADAFWRenderState.h */,
@@ -2826,11 +2827,13 @@
 				CE787C480F583FE00019C2D7 /* COLLADAFWSkew.h */,
 				CE784F260FB5AAA800F2F8D6 /* COLLADAFWSkinController.h */,
 				CE784F270FB5AAA800F2F8D6 /* COLLADAFWSkinControllerData.h */,
+				CE27BA4816D4F93C00C109C3 /* COLLADAFWSpline.h */,
 				CE787C490F583FE00019C2D7 /* COLLADAFWStableHeaders.h */,
 				CE71CD14104D0A1500368D98 /* COLLADAFWTarget.h */,
 				CE71CD15104D0A1500368D98 /* COLLADAFWTargetableValue.h */,
 				CE787C4A0F583FE00019C2D7 /* COLLADAFWTechnique.h */,
 				CE787C4B0F583FE00019C2D7 /* COLLADAFWTexture.h */,
+				CE792BA910BD810100430A67 /* COLLADAFWTextureCoordinateBinding.h */,
 				CE787C4C0F583FE00019C2D7 /* COLLADAFWTransformation.h */,
 				CE787C4D0F583FE00019C2D7 /* COLLADAFWTranslate.h */,
 				CE787C4E0F583FE00019C2D7 /* COLLADAFWTriangles.h */,
@@ -3418,6 +3421,7 @@
 				CE4A34C90F98E47A00E32945 /* COLLADAMayaVersionInfo.h in Headers */,
 				CE7D40150FF1308D00849CFA /* COLLADAMayaBaseAnimation.h in Headers */,
 				CE7D40160FF1308E00849CFA /* COLLADAMayaMayaTransform.h in Headers */,
+				CE55B8AE1701A4080038F432 /* COLLADAFWPolylist.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
