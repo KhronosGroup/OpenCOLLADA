@@ -12,6 +12,7 @@
 #define __COMMON_BUFFER_H__
 
 #include "CommonIBufferFlusher.h"
+#include "COLLADABUPlatform.h"
 #include <string.h>
 
 namespace Common
