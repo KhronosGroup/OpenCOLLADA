@@ -1,14 +1,4 @@
-#!/bin/bash
-
-#force build of jam
-./configure --show-libraries
-
-#build
-./tools/jam/src/bin.linuxx86_64/bjam \
---prefix=$HOME \
---with-regex \
---with-system \
---with-filesystem \
-variant=release \
-link=static \
-install
+cd Externals
+mkdir boost_1_53_0
+tar xjf ...
+./b2 --with-regex --with-system --with-filesystem variant=release link=static toolset=darwin architecture=x86 address-model=32_64

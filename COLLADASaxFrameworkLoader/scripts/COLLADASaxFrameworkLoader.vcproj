@@ -1734,7 +1734,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;..\include\generated14;..\include\generated15;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MathMLSolver\include;..\..\Externals\MathMLSolver\include\AST"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GENERATEDSAXPARSER_XMLPARSER_LIBXML;PCRE_STATIC;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
