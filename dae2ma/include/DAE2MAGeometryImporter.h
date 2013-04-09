@@ -271,6 +271,8 @@ namespace DAE2MA
          */
         std::map<COLLADAFW::UniqueId, std::vector<GeometryShadingEngine> > mGeometryShadingEnginesMap;
 
+		size_t mCount2013Workarounds;
+
     public:
 
         /** Constructor. */
@@ -278,6 +280,8 @@ namespace DAE2MA
 
         /** Destructor. */
         virtual ~GeometryImporter ();
+
+		size_t getCount2013Workarounds() { return mCount2013Workarounds; }
 
         /** 
         * Imports the geometry element. 

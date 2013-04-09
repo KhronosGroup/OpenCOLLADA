@@ -41,6 +41,7 @@ namespace DAE2MA
     // --------------------------------------------
     GeometryImporter::GeometryImporter( DocumentImporter* documentImporter ) 
     : BaseImporter ( documentImporter )
+	, mCount2013Workarounds( 0 )
     {}
 
     // --------------------------------------------
@@ -678,6 +679,10 @@ namespace DAE2MA
                     COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) meshPrimitive;
                     COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getGroupedVerticesVertexCountArray ();
                     size_t groupedVtxCount = vertexCountArray.getCount ();
+
+					if( normalIndices.getCount() == 0 )
+						continue;
+
                     for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
                     {
                         // Iterate over the indices and write their normal values into the maya file.
@@ -755,6 +760,10 @@ namespace DAE2MA
                     COLLADAFW::Tristrips* tristrips = (COLLADAFW::Tristrips*) meshPrimitive;
                     COLLADAFW::Tristrips::VertexCountArray& vertexCountArray = tristrips->getGroupedVerticesVertexCountArray ();
                     size_t groupedVtxCount = vertexCountArray.getCount ();
+
+					if( normalIndices.getCount() == 0 )
+						continue;
+
                     for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
                     {
                         // Iterate over the indices and write their normal values into the maya file.
@@ -1616,7 +1625,7 @@ namespace DAE2MA
 
         // Iterate over all grouped vertex elements (faces, holes, tristrips or trifans)
         // and determine the values for the maya polyFace object.
-        for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVtxCount; ++groupedVtxIndex )
+        for ( size_t groupedVtxIndex = 0; groupedVtxIndex < groupedVtxCount; ++groupedVtxIndex )
         {
             // The number of edges is always the same than the number of vertices in the current 
             // grouped vertices object. If the number is negative, the grouped object is a hole.
@@ -1638,6 +1647,10 @@ namespace DAE2MA
             // Handle the color infos.
             setPolygonColorInfos ( mesh, primitiveElement, polyFace, colorIndicesIndex, numEdges );
 
+			//--- @Workaround for maya 2013 with single face geometries
+			bool duplicateSingleFaceWorkaround = false;
+			//---------------------------------------------------------
+
             // Start the block if necessary (Maya doesn't count hole elements, about this,
             // if the current element is a hole, don't start, except it is the very first element!)
             if ( globalFaceIndex % blockSize == 0 )
@@ -1647,12 +1660,31 @@ namespace DAE2MA
                     endPosition = globalFaceIndex+blockSize-1;
                     if ( endPosition > numGlobalFaces-1 ) 
                         endPosition = numGlobalFaces-1;
+					
+					//--- @Workaround for maya 2013 with single face geometries
+					String versionString = getDocumentImporter()->getMayaVersion();
+					if(groupedVtxCount == 1 && versionString == "2013")
+					{
+						if( globalFaceIndex == 0 && endPosition == globalFaceIndex )
+						{
+							++mCount2013Workarounds;
+							duplicateSingleFaceWorkaround = true;
+							endPosition = 1;
+						}
+					}
+					//---------------------------------------------------------
+
                     meshNode.startFace ( globalFaceIndex, endPosition ); 
                 }
             }
 
             // Write the polyFace data in the maya file.
             meshNode.appendFace ( polyFace );
+
+			//--- @Workaround for maya 2013 with single face geometries
+			if( duplicateSingleFaceWorkaround )
+				meshNode.appendFace ( polyFace );
+			//---------------------------------------------------------
 
             // Check if the next element is a hole.
             bool nextElementIsHole = false;
@@ -1663,7 +1695,7 @@ namespace DAE2MA
             }
 
             // End the block if necessary (if the next element is a hole, don't close).
-            if ( globalFaceIndex == endPosition && !nextElementIsHole ) 
+            if ( duplicateSingleFaceWorkaround || (globalFaceIndex == endPosition && !nextElementIsHole) ) 
                 meshNode.endFace (); 
 
             // Increment the face index (if it is not a hole, this will not be counted).
@@ -1724,6 +1756,11 @@ namespace DAE2MA
 
             // Determine the number of edges and iterate over it.
             unsigned int numEdges = ( vertexCount - 3 ) * 3 + 3;
+
+			//--- @Workaround for maya 2013 with single face geometries
+			bool duplicateSingleFaceWorkaround = false;
+			//---------------------------------------------------------
+
             for ( unsigned int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
             {
                 if ( triangleEdgeCounter == 0 )
@@ -1781,14 +1818,33 @@ namespace DAE2MA
                         endPosition = globalFaceIndex+blockSize-1;
                         if ( endPosition > numGlobalFaces-1 ) 
                             endPosition = numGlobalFaces-1;
+
+						//--- @Workaround for maya 2013 with single face geometries
+						String versionString = getDocumentImporter()->getMayaVersion();
+						if(numEdges == 3 && versionString == "2013")
+						{
+							if( globalFaceIndex == 0 && endPosition == globalFaceIndex )
+							{
+								++mCount2013Workarounds;
+								duplicateSingleFaceWorkaround = true;
+								endPosition = 1;
+							}
+						}
+						//---------------------------------------------------------
+
                         meshNode.startFace ( globalFaceIndex, endPosition ); 
                     }
 
                     // Write the polyFace data in the maya file.
                     meshNode.appendFace ( *polyFace );
 
+					//--- @Workaround for maya 2013 with single face geometries
+					if( duplicateSingleFaceWorkaround )
+						meshNode.appendFace ( *polyFace );
+					//---------------------------------------------------------
+
                     // End the block if necessary.
-                    if ( globalFaceIndex == endPosition ) 
+                    if ( duplicateSingleFaceWorkaround || globalFaceIndex == endPosition ) 
                         meshNode.endFace (); 
 
                     // Increment the face index.
@@ -1855,7 +1911,12 @@ namespace DAE2MA
 
             // Determine the number of edges and iterate over it.
             unsigned int numEdges = ( vertexCount - 3 ) * 3 + 3;
-            for ( unsigned int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
+
+			//--- @Workaround for maya 2013 with single face geometries
+			bool duplicateSingleFaceWorkaround = false;
+			//---------------------------------------------------------
+
+			for ( unsigned int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
             {
                 if ( triangleEdgeCounter == 0 )
                 {
@@ -1928,14 +1989,33 @@ namespace DAE2MA
                         endPosition = globalFaceIndex+blockSize-1;
                         if ( endPosition > numGlobalFaces-1 ) 
                             endPosition = numGlobalFaces-1;
+						
+						//--- @Workaround for maya 2013 with single face geometries
+						String versionString = getDocumentImporter()->getMayaVersion();
+						if(versionString == "2013")
+						{
+							if( globalFaceIndex == 0 && endPosition == globalFaceIndex )
+							{
+								++mCount2013Workarounds;
+								duplicateSingleFaceWorkaround = true;
+								endPosition = 1;
+							}
+						}
+						//---------------------------------------------------------
+
                         meshNode.startFace ( globalFaceIndex, endPosition ); 
                     }
 
                     // Write the polyFace data in the maya file.
                     meshNode.appendFace ( *polyFace );
 
+					//--- @Workaround for maya 2013 with single face geometries
+					if( duplicateSingleFaceWorkaround )
+						meshNode.appendFace ( *polyFace );
+					//---------------------------------------------------------
+
                     // End the block if necessary.
-                    if ( globalFaceIndex == endPosition ) 
+                    if ( duplicateSingleFaceWorkaround || globalFaceIndex == endPosition ) 
                         meshNode.endFace (); 
 
                     // Increment the face index.
