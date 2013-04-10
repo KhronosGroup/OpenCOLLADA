@@ -261,6 +261,8 @@ namespace DAE2MA
         /** Destructor. */
         virtual ~DocumentImporter ();
 
+		const char* getMayaVersion() { return mMayaVersion; }
+
         /** Imports the current scene. */
         void importCurrentScene ();
 

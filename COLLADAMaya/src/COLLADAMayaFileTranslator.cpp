@@ -361,7 +361,7 @@ namespace COLLADAMaya
             if (ImportOptions::hasError()) status = MStatus::kFailure;
 
             // Import the COLLADA DAE file
-            status = importFromFile ( filename.asChar() );
+			status = importFromFile ( filename.asChar() );
         }
         catch ( COLLADABU::Exception* exception  )
         {
@@ -399,6 +399,7 @@ namespace COLLADAMaya
         mayaAsciiFileURI.setPathExtension ( ASCII_PATH_EXTENSION_DEBUG );
 #endif
         String mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
+		const char* cpMayaAsciiFileName = mayaAsciiFileName.c_str();
 
         // Get the current maya version
         String mayaVersion ( MGlobal::mayaVersion ().asChar () );
@@ -414,8 +415,10 @@ namespace COLLADAMaya
         }
 
         // Actually import the document
-        DAE2MA::DocumentImporter documentImporter ( importFileName, mayaAsciiFileURI.getURIString (), mayaVersion.c_str () );
-        documentImporter.importCurrentScene ();
+		{
+			DAE2MA::DocumentImporter documentImporter ( importFileName, mayaAsciiFileURI.getURIString (), mayaVersion.c_str () );
+			documentImporter.importCurrentScene ();
+		}
 
         // Display some closing information.
         endClock = clock();
@@ -426,14 +429,14 @@ namespace COLLADAMaya
         std::cerr << message << std::endl;
 
         // TODO Open the maya ascii file in the maya instance
-        MFileIO::importFile ( mayaAsciiFileName.c_str () );
-        //MFileIO::open ( mayaAsciiFileName.c_str (), "mayaAscii", true ); 
+		MFileIO::importFile ( cpMayaAsciiFileName );
+		//MFileIO::open ( mayaAsciiFileName.c_str (), "mayaAscii", true ); 
 
-//         mayaAsciiFileURI.setPathExtension ( ".opencollada.mb" );
-//         mayaFileName = mayaAsciiFileURI.getURIString ();
-//         MFileIO::saveAs ( mayaFileName.c_str () );
-//         MGlobal::displayInfo ( "File saved as maya binary: " );
-//         MGlobal::displayInfo ( mayaFileName.c_str () 
+		//         mayaAsciiFileURI.setPathExtension ( ".opencollada.mb" );
+		//         mayaFileName = mayaAsciiFileURI.getURIString ();
+		//         MFileIO::saveAs ( mayaFileName.c_str () );
+		//         MGlobal::displayInfo ( "File saved as maya binary: " );
+		//         MGlobal::displayInfo ( mayaFileName.c_str () 
         
         return status;
     }
@@ -470,6 +473,7 @@ namespace COLLADAMaya
         return "dae";
     }
 
+	// ------------------------------
     MString FileTranslator::filter() const
     {
         return "*.dae;*.xml";
