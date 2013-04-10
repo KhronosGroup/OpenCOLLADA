@@ -405,6 +405,10 @@ namespace DAE2MA
 
             // Close the file
             closeMayaAsciiFile ();
+
+			if( mGeometryImporter && mGeometryImporter->getCount2013Workarounds() > 0 )
+				std::cerr << "Warning: Maya 2013 workaround applied! (duplication of single face geometry!)" << std::endl;
+
         }
     }
 
