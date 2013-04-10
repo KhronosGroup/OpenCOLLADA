@@ -7,7 +7,7 @@
    provided without guarantee or warrantee expressed or  implied. This
    program is -not- in the public domain. */
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__CYGWIN__)
 
 /* GLUT 3.7 now tries to avoid including <windows.h>
    to avoid name space pollution, but Win32's <GL/gl.h> 
@@ -24,10 +24,14 @@
        environments for Win32.  Note that __CYGWIN32__ is deprecated
        in favor of simply __CYGWIN__. */
 #   if defined(__MINGW32__) || defined(__CYGWIN32__) || defined(__CYGWIN__)
-#    ifdef i386
-#     define APIENTRY __attribute__((stdcall))
+#    if defined(__CYGWIN__)
+#     define APIENTRY __stdcall
 #    else
-#     define APIENTRY
+#     ifdef i386
+#      define APIENTRY __attribute__((stdcall))
+#     else
+#      define APIENTRY
+#     endif
 #    endif
 #   else
 #    if (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED)
@@ -76,8 +80,8 @@ typedef unsigned short wchar_t;
 # endif
 
 /* To disable automatic library usage for GLUT, define GLUT_NO_LIB_PRAGMA
-   in your compile preprocessor options. */
-# if !defined(GLUT_BUILDING_LIB) && !defined(GLUT_NO_LIB_PRAGMA)
+   in your compile preprocessor options (Microsoft Visual C only). */
+# if !defined(GLUT_BUILDING_LIB) && !defined(GLUT_NO_LIB_PRAGMA) && defined(_MSC_VER)
 #  pragma comment (lib, "winmm.lib")      /* link with Windows MultiMedia lib */
 #  pragma comment (lib, "user32.lib")     /* link with Windows User lib */
 #  pragma comment (lib, "gdi32.lib")      /* link with Windows GDI lib */
@@ -182,11 +186,16 @@ typedef unsigned short wchar_t;
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+/* Microsoft source-code annotation language (SAL) needed for VC9 and onwards */
+#if _MSC_VER >= 1500
+#include <sal.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__CYGWIN__)
 # ifndef GLUT_BUILDING_LIB
 #  if __BORLANDC__
 #   if defined(_BUILDRTLDLL)
@@ -195,8 +204,10 @@ void __cdecl __export exit(int __status);
 void __cdecl exit(int __status);
 #   endif
 #  else
-#   if _MSC_VER >= 1200
-     extern _CRTIMP __declspec(noreturn) void   __cdecl exit(int);
+#   if _MSC_VER >= 1500
+     extern _CRTIMP __declspec(noreturn) void __cdecl exit(_In_ int);
+#   elif _MSC_VER >= 1200
+     extern _CRTIMP __declspec(noreturn) void __cdecl exit(int);
 #   else
      extern _CRTIMP void __cdecl exit(int);
 #   endif
@@ -204,13 +215,20 @@ void __cdecl exit(int __status);
 # endif
 #else
 /* non-Win32 case. */
+
+/* Use global linker scoping for Sun compiler */
+#if (defined(__SUNPRO_C) || defined(__SUNPRO_CC)) && defined(GLUT_BUILDING_LIB) && defined(_DLL)
+# define GLUTAPIENTRY __global
+#else
+# define GLUTAPIENTRY
+#endif
+
 /* Define APIENTRY and CALLBACK to nothing if we aren't on Win32. */
 # define APIENTRY
 # define GLUT_APIENTRY_DEFINED
 # define CALLBACK
 /* Define GLUTAPI and GLUTCALLBACK as below if we aren't on Win32. */
 # define GLUTAPI extern
-# define GLUTAPIENTRY
 # define GLUTCALLBACK
 /* Prototype exit for the non-Win32 case (see above). */
 # ifdef __GNUC__
@@ -366,7 +384,7 @@ extern void exit(int);
 #define GLUT_GREEN                      1
 #define GLUT_BLUE                       2
 
-#ifdef _WIN32
+#if defined(_WIN32)
 /* Stroke font constants (use these in GLUT program). */
 #define GLUT_STROKE_ROMAN               ((void*)0)
 #define GLUT_STROKE_MONO_ROMAN          ((void*)1)
@@ -766,7 +784,13 @@ GLUTAPI int GLUTAPIENTRY glutGameModeGet(GLenum mode);
 
 #ifdef GLUT_APIENTRY_DEFINED
 # undef GLUT_APIENTRY_DEFINED
-# undef APIENTRY
+# if defined(__CYGWIN__)
+   /* Leave APIENTRY defined when __CYGWIN__ is defined since OpenGL.org's
+      offical glext.h logic does not define APIENTY when __CYGWIN__
+      is defined. */
+# else
+#  undef APIENTRY
+# endif
 #endif
 
 #ifdef GLUT_WINGDIAPI_DEFINED
