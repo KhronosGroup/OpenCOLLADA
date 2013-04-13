@@ -246,7 +246,7 @@ namespace COLLADAMaya
             // Get the target file from source file.
             COLLADASW::URI targetUri = createTargetURI ( sourceUri );
 
-			bool exists = COLLADABU::Utils::directoryExists( sourceUri.toNativePath() );
+			bool exists = COLLADABU::Utils::fileExistsAndIsReadable( sourceUri.toNativePath() );
 			if ( !exists )
             {
                 String message = "The source texture file doesn't exist! Filename = " + sourceUri.toNativePath();
