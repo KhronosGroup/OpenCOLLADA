@@ -28,7 +28,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 #include "MathMLSolverPrerequisites.h"
 #include <libxml/xmlreader.h>
-#include "MathMLParserHandler.h"
 #include "MathMLASTConstantExpression.h"
 
 #include <stack>

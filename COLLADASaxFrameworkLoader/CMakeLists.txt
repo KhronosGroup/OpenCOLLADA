@@ -265,6 +265,14 @@ set(TARGET_LIBS
 	${PCRE_LIBRARIES}
 )
 
+# For parallel building.
+if(USE_SHARED)
+    add_dependencies(GeneratedSaxParser_shared OpenCOLLADABaseUtils_shared)
+endif()
+if(USE_STATIC)
+    add_dependencies(GeneratedSaxParser_static OpenCOLLADABaseUtils_static)
+endif()
+
 if (USE_LIBXML)
 	list(APPEND libGeneratedSaxParser_include_dirs ${LIBXML2_INCLUDE_DIR})
 	list(APPEND TARGET_LIBS ${LIBXML2_LIBRARIES})

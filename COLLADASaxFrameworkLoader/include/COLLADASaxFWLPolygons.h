@@ -12,7 +12,6 @@
 #define __COLLADASAXFWL_POLYGONS_H__
 
 #include "COLLADASaxFWLPHElement.h"
-#include "COLLADASaxFWLPolyBase.h"
 
 
 namespace COLLADASaxFWL

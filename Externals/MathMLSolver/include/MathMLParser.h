@@ -28,7 +28,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 #include "MathMLSolverPrerequisites.h"
 #include <xercesc/parsers/XercesDOMParser.hpp>
-#include "MathMLParserHandler.h"
 #include "MathMLASTConstantExpression.h"
 
 namespace MathML
