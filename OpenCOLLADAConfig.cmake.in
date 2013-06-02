@@ -1,0 +1,58 @@
+# - Configuration file for the OpenCOLLADA library
+# It defines the following variables:
+#  OPENCOLLADA_INCLUDE_DIRS - include directories for OpenCOLLADA
+#  OPENCOLLADA_LIBRARIES - libraries to link against OpenCOLLADA
+#  OPENCOLLADA_VERSION_MAJOR - major version of OpenCOLLADA
+#  OPENCOLLADA_VERSION_MINOR - minor version of OpenCOLLADA
+#  OPENCOLLADA_VERSION_PATCH - patch version of OpenCOLLADA
+#  OPENCOLLADA_VERSION_STRING - human-readable string containing the version of OpenCOLLADA
+
+# Set the version of OpenCOLLADA
+set(OPENCOLLADA_VERSION_MAJOR @OPENCOLLADA_VERSION_MAJOR@)
+set(OPENCOLLADA_VERSION_MINOR @OPENCOLLADA_VERSION_MINOR@)
+set(OPENCOLLADA_VERSION_PATCH @OPENCOLLADA_VERSION_PATCH@)
+set(OPENCOLLADA_VERSION_STRING ${OPENCOLLADA_VERSION_MAJOR}.${OPENCOLLADA_VERSION_MINOR}.${OPENCOLLADA_VERSION_PATCH})
+
+@PACKAGE_INIT@
+
+# Set the include directory
+set(OPENCOLLADA_INCLUDE_DIRS
+	"@PACKAGE_OPENCOLLADA_INST_INCLUDE@/COLLADABaseUtils"
+	"@PACKAGE_OPENCOLLADA_INST_INCLUDE@/COLLADABaseUtils/Math"
+	"@PACKAGE_OPENCOLLADA_INST_INCLUDE@/COLLADAFramework"
+	"@PACKAGE_OPENCOLLADA_INST_INCLUDE@/COLLADASaxFrameworkLoader"
+	"@PACKAGE_OPENCOLLADA_INST_INCLUDE@/COLLADASaxFrameworkLoader/generated14"
+	"@PACKAGE_OPENCOLLADA_INST_INCLUDE@/COLLADASaxFrameworkLoader/generated15"
+	"@PACKAGE_OPENCOLLADA_INST_INCLUDE@/COLLADAStreamWriter"
+	"@PACKAGE_OPENCOLLADA_INST_INCLUDE@/GeneratedSaxParser"
+)
+
+# Import the exported targets
+include("@PACKAGE_OPENCOLLADA_INST_CMAKECONFIG@/OpenCOLLADATargets.cmake")
+
+# Set the library variable
+if(UNIX)
+	set(OPENCOLLADA_LIBRARIES
+		ftoa_shared
+		buffer_shared
+		UTF_shared
+		MathMLSolver_shared
+		OpenCOLLADABaseUtils_shared
+		OpenCOLLADAFramework_shared
+		GeneratedSaxParser_shared
+		OpenCOLLADASaxFrameworkLoader_shared
+		OpenCOLLADAStreamWriter_shared
+	)
+else()
+	set(OPENCOLLADA_LIBRARIES
+		ftoa_static
+		buffer_static
+		UTF_static
+		MathMLSolver_static
+		OpenCOLLADABaseUtils_static
+		OpenCOLLADAFramework_static
+		GeneratedSaxParser_static
+		OpenCOLLADASaxFrameworkLoader_static
+		OpenCOLLADAStreamWriter_static
+	)
+endif()
