@@ -1,4 +1,4 @@
-#include "Writer.h"
+#include "../include/Writer.h"
 
 #include <iostream>
 #include <string>
@@ -30,7 +30,7 @@ void parse(char* fileName, ValidationErrorHandler& errorHandler)
 {
 	COLLADASaxFWL::Loader loader(&errorHandler);
 
-	Writer writer;
+	::Writer writer;
 
 	COLLADAFW::Root root(&loader, &writer);
 
