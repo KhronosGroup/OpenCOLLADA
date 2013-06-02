@@ -42,6 +42,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Externals/cmake-modules")
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Only do Release and Debug" FORCE )
 mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
 
+SET(CMAKE_DEBUG_POSTFIX ""  CACHE STRING "Add this string to as suffix to Debug libraries, e.g.: xml2_d.lib " )
 
 #-----------------------------------------------------------------------------
 # Macro's
