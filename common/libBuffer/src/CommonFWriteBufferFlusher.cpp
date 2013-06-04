@@ -85,7 +85,9 @@ namespace Common
 	void FWriteBufferFlusher::startMark()
 	{
 		// store the current file position
-#ifdef _WIN32
+#ifdef __MINGW32__
+		FilePosType currentPos = ftello64(mStream);
+#elif defined( _WIN32)
 		FilePosType currentPos = _ftelli64(mStream);
 #elif defined (__APPLE__)
 		FilePosType currentPos = ftello(mStream);
@@ -108,7 +110,9 @@ namespace Common
 	{
 		if ( markId == END_OF_STREAM )
 		{
-#ifdef _WIN32
+#ifdef __MINGW32__
+  			return (fseeko64(mStream,0,SEEK_END) == 0);
+#elif defined( _WIN32)
 			return (_fseeki64(mStream, 0, SEEK_END) == 0);
 #elif defined (__APPLE__)
 			return (fseeko(mStream, 0, SEEK_END) == 0);
@@ -126,7 +130,9 @@ namespace Common
 			else
 			{
 				FilePosType pos = markIdIt->second;
-#ifdef _WIN32
+#ifdef __MINGW32__
+  				bool success = (fseeko64(mStream,pos,SEEK_SET) == 0);
+#elif defined( _WIN32)
 				bool success = (_fseeki64(mStream, pos, SEEK_SET) == 0);
 #elif defined (__APPLE__)
 				bool success = (fseeko(mStream, pos, SEEK_SET) == 0);
@@ -143,3 +149,4 @@ namespace Common
 	}
 
 } // namespace Common
+
