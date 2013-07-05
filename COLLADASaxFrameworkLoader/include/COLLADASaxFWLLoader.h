@@ -352,6 +352,10 @@ namespace COLLADASaxFWL
 		assigned to any Uri, an invalid uri is returned.*/
 		const COLLADABU::URI& getFileUri( COLLADAFW::FileId fileId )const;
 
+        /** Maps the Unique generated from the id of the COLLADA controller element to the
+         InstanceControllerDataList containing all instance controllers that reference the same controller.*/
+		InstanceControllerDataListMap& getInstanceControllerDataListMap() { return mInstanceControllerDataListMap; }
+        
 	private:
 		friend class IFilePartLoader;
 		friend class FileLoader;
@@ -448,10 +452,6 @@ namespace COLLADASaxFWL
 		/** Maps unique ids of skin data to the sids or ids of the joints of this skin controller.*/
 		SkinDataJointSidsMap& getSkinDataJointSidsMap() { return mSkinDataJointSidsMap; }
 		
-		/** Maps the Unique generated from the id of the COLLADA controller element to the 
-		InstanceControllerDataList containing all instance controllers that reference the same controller.*/
-		InstanceControllerDataListMap& getInstanceControllerDataListMap() { return mInstanceControllerDataListMap; }
-
 		/** Maps unique ids of skin data to the source uri string.*/
 		SkinDataSkinSourceMap& getSkinDataSkinSourceMap() { 
 			return mSkinDataSkinSourceMap; 
