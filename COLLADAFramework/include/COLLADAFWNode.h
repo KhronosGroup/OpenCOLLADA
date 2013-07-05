@@ -70,6 +70,11 @@ namespace COLLADAFW
          * NODE. Optional. 
          */
         NodeType mType;
+        
+        /**
+         * The sid of the joint. Only relevant is mType is JOINT.
+         */
+        String mSid;
 
 		/** List of all transformations of the node. Array and contents will be delete in destructor.*/
 		TransformationPointerArray mTransformations;
@@ -114,7 +119,13 @@ namespace COLLADAFW
 
 		/** Sets the name of the node*/
 		void setName(const String& name) { mName = name; }
-
+        
+        /** Returns the sid of the joint. Only relevant when mType is JOINT. */
+        const String& getSid() const { return mSid; }
+        
+        /** Sets the sid of the joint. Only relevant when mType is JOINT. */
+        void setSid(const String& sid) { mSid = sid; }
+        
         /** The type of the <node> element. Valid values are JOINT or NODE. The default is
         NODE. Optional. */
         const Node::NodeType getType () const { return mType; }

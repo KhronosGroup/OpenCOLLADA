@@ -35,7 +35,7 @@ namespace COLLADAFW
 	{
 		// sample: UniqueId(1,4)
 		std::stringstream stream;
-		stream << UNIQUEID << '(' << mClassId << ',' << mObjectId << ')';
+		stream << UNIQUEID << '(' << mClassId << ',' << mObjectId << ',' << mFileId <<')';
 		return stream.str();
 	}
 
@@ -79,17 +79,26 @@ namespace COLLADAFW
 			return false;
 		}
 		//parse
-		mClassId = (ClassId)atoi( &ascii[UNIQUEID_LENGTH+1]);
+		mClassId = (ClassId)atoi( &ascii[classIdFirstNonDigit+1]);
 
-		size_t objectIdFirstNonDigit = ascii.find_last_not_of( digits, classIdFirstNonDigit + 1);
+		size_t objectIdFirstNonDigit = ascii.find_first_not_of( digits, classIdFirstNonDigit + 1);
 		if ( (objectIdFirstNonDigit == ascii.npos) || (objectIdFirstNonDigit == classIdFirstNonDigit + 1) )
 		{
 			// no digit follows the opening bracket 
 			return false;
 		}
 
-		mObjectId = atoi( &ascii[classIdFirstNonDigit+1]);
-
+		mObjectId = atoi( &ascii[objectIdFirstNonDigit+1]);
+        
+		size_t fileIdFirstNonDigit = ascii.find_first_not_of( digits, objectIdFirstNonDigit + 1);
+		if ( (fileIdFirstNonDigit == ascii.npos) || (fileIdFirstNonDigit == objectIdFirstNonDigit + 1) )
+		{
+			// no digit follows the opening bracket
+			return false;
+		}
+        
+		mFileId = atoi( &ascii[fileIdFirstNonDigit+1]);
+                
 		return true;
 	}
 
