@@ -38,7 +38,6 @@ cmake_policy(SET CMP0014 NEW)
 # avoid having empty buildtype
 set(CMAKE_BUILD_TYPE_INIT "Release")
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Externals/cmake-modules")
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Only do Release and Debug" FORCE )
 mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
 
@@ -139,9 +138,6 @@ endmacro()
 
 project(OPENCOLLADA)  # must be after setting cmake_configuration_types
 
-# defines where specific parts of BRICS_MM are stored or created
-set(LIBRARY_OUTPUT_PATH            ${OPENCOLLADA_SOURCE_DIR}/lib)  # static libraries
-set(EXECUTABLE_OUTPUT_PATH         ${OPENCOLLADA_SOURCE_DIR}/bin)  # executables
 set(EXTERNAL_LIBRARIES        	   ${OPENCOLLADA_SOURCE_DIR}/Externals)  # external libraries
 set(CMAKE_MODULE_PATH "${EXTERNAL_LIBRARIES}/cmake-modules")
 

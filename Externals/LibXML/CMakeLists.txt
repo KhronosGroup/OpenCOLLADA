@@ -55,7 +55,6 @@ include_directories(
 )
 link_directories(${LIBRARY_OUTPUT_PATH})
 
-add_library(${name} STATIC ${SRC})
-set_target_properties(${name} PROPERTIES OUTPUT_NAME ${name})
-target_link_libraries(${name} ${libxml_libs})
-set(CMAKE_REQUIRED_LIBRARIES "${name};${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+set(TARGET_LIBS)
+
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
