@@ -40,8 +40,7 @@ set(libpcre_libs)
 include_directories(
 	${libpcre_include_dirs}
 )
-link_directories(${LIBRARY_OUTPUT_PATH})
 
-add_library(${name} ${SRC})
-target_link_libraries(${name} ${libpcre_libs})
-set(CMAKE_REQUIRED_LIBRARIES "${name};${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
+set(TARGET_LIBS)
+
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
