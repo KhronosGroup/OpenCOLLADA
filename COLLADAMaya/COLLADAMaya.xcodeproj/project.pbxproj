@@ -4522,6 +4522,408 @@
 			};
 			name = "Release 2012";
 		};
+		A3ED9FE417A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MAYA_PATH = /Applications/Autodesk/maya2013;
+				SDKROOT = macosx;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FE517A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_EXTENSION = bundle;
+				FRAMEWORK_SEARCH_PATHS = "\"$(MAYA_PATH)/Maya.app/Contents/Frameworks\"";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CREATE_IMPORT_PLUGIN,
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					GLUT_NO_LIB_PRAGMA,
+					CM_EXPORTS,
+					GLUT_NO_WARNING_DISABLE,
+					_CRT_NONSTDC_NO_DEPRECATE,
+					DEBUG,
+					_BOOL,
+				);
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../Externals/boost_1_53_0,
+					../Externals/MayaDataModel/include,
+					"$(MAYA_PATH)/devkit/plug-ins",
+					"$(MAYA_PATH)/devkit/include",
+				);
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2013/plug-ins";
+				LIBRARY_SEARCH_PATHS = (
+					"$(MAYA_PATH)/Maya.app/Contents/MacOS",
+					../Externals/boost_1_53_0/stage/lib,
+				);
+				MACH_O_TYPE = mh_dylib;
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_PATH)/Maya.app/Contents/MacOS",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-lOpenMayaUI",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lCOLLADAStreamWriter",
+					"-lCOLLADABaseUtils",
+					"-lCOLLADAFramework",
+					"-lCOLLADASaxFrameworkLoader",
+					"-lGeneratedSaxParser",
+					"-llibftoa",
+					"-llibBuffer",
+					"-ldae2ma",
+					"-lpcre",
+					"-lMathMLSolver",
+					"-lxml2",
+					"-lboost_system",
+					"-lboost_filesystem",
+					"-shared",
+					"-framework",
+					Cg,
+				);
+				PRODUCT_NAME = COLLADAMaya;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FE617A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					DEBUG,
+				);
+				HEADER_SEARCH_PATHS = ../COLLADABaseUtils/include;
+				PRODUCT_NAME = COLLADAStreamWriter;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FE717A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					REQUIRE_IOSTREAM,
+					DEBUG,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../Externals/UTF/include,
+					../COLLADABaseUtils/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = COLLADABaseUtils;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FE817A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				PRODUCT_NAME = GeneratedSaxParser;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FE917A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../COLLADABaseUtils/include\"";
+				PRODUCT_NAME = COLLADAFramework;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FEA17A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					_DEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include/,
+					/usr/include/libxml2,
+				);
+				PRODUCT_NAME = COLLADASaxFrameworkLoader;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FEB17A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FEC17A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FED17A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = libftoa;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FEE17A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					../common/libftoa/include,
+					../Externals/UTF/include,
+				);
+				PRODUCT_NAME = libBuffer;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FEF17A63E660036CBBF /* Debug 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					MAC_PLUGIN,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADASaxFrameworkLoader/include,
+					"\"$(SRCROOT)/../Externals/MayaDataModel/include/\"",
+				);
+				PRODUCT_NAME = dae2ma;
+			};
+			name = "Debug 2014";
+		};
+		A3ED9FF017A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MAYA_PATH = /Applications/Autodesk/maya2013;
+				SDKROOT = macosx;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FF117A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_EXTENSION = bundle;
+				FRAMEWORK_SEARCH_PATHS = "\"$(MAYA_PATH)/Maya.app/Contents/Frameworks\"";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CREATE_IMPORT_PLUGIN,
+					MAC_PLUGIN,
+					NDEBUG,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					GLUT_NO_LIB_PRAGMA,
+					CM_EXPORTS,
+					GLUT_NO_WARNING_DISABLE,
+					_CRT_NONSTDC_NO_DEPRECATE,
+					_BOOL,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../Externals/boost_1_53_0,
+					../Externals/MayaDataModel/include,
+					"$(MAYA_PATH)/devkit/plug-ins",
+					"$(MAYA_PATH)/devkit/include",
+				);
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2013/plug-ins";
+				LIBRARY_SEARCH_PATHS = (
+					"$(MAYA_PATH)/Maya.app/Contents/MacOS",
+					../Externals/boost_1_53_0/stage/lib,
+				);
+				MACH_O_TYPE = mh_dylib;
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_PATH)/Maya.app/Contents/MacOS",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-lOpenMayaUI",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lCOLLADAStreamWriter",
+					"-lCOLLADABaseUtils",
+					"-lCOLLADAFramework",
+					"-lCOLLADASaxFrameworkLoader",
+					"-lGeneratedSaxParser",
+					"-llibftoa",
+					"-llibBuffer",
+					"-ldae2ma",
+					"-lpcre",
+					"-lMathMLSolver",
+					"-lxml2",
+					"-lboost_system",
+					"-lboost_filesystem",
+					"-shared",
+					"-framework",
+					Cg,
+				);
+				PRODUCT_NAME = COLLADAMaya;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = "Release 2014";
+		};
+		A3ED9FF217A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+				);
+				HEADER_SEARCH_PATHS = ../COLLADABaseUtils/include;
+				PRODUCT_NAME = COLLADAStreamWriter;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FF317A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../Externals/UTF/include,
+					../COLLADABaseUtils/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = COLLADABaseUtils;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FF417A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				PRODUCT_NAME = GeneratedSaxParser;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FF517A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../COLLADABaseUtils/include\"";
+				PRODUCT_NAME = COLLADAFramework;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FF617A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include/,
+					/usr/include/libxml2,
+				);
+				PRODUCT_NAME = COLLADASaxFrameworkLoader;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FF717A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FF817A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FF917A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = libftoa;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FFA17A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					../common/libftoa/include,
+					../Externals/UTF/include,
+				);
+				PRODUCT_NAME = libBuffer;
+			};
+			name = "Release 2014";
+		};
+		A3ED9FFB17A63E6F0036CBBF /* Release 2014 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					MAC_PLUGIN,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADASaxFrameworkLoader/include,
+					"\"$(SRCROOT)/../Externals/MayaDataModel/include/\"",
+				);
+				PRODUCT_NAME = dae2ma;
+			};
+			name = "Release 2014";
+		};
 		CE0B3F510F56B194004F8570 /* Debug 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6594,15 +6996,17 @@
 				CEACFB6E16D5246D004EA121 /* Debug 2011 */,
 				CEACFB7A16D52475004EA121 /* Debug 2012 */,
 				CEACFB8616D52479004EA121 /* Debug 2013 */,
+				A3ED9FE517A63E660036CBBF /* Debug 2014 */,
 				1DEB916208733D950010E9CD /* Release 2008 */,
 				CE84B3340E9F96D600728F47 /* Release 2009 */,
 				CE7456E5104CF660000083A6 /* Release 2010 */,
 				2425149114A3B26200A60B09 /* Release 2012 */,
 				CEACFB6216D52460004EA121 /* Release 2011 */,
 				CEACFB5616D52459004EA121 /* Release 2013 */,
+				A3ED9FF117A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "COLLADAMaya" */ = {
 			isa = XCConfigurationList;
@@ -6613,15 +7017,17 @@
 				CEACFB6D16D5246D004EA121 /* Debug 2011 */,
 				CEACFB7916D52475004EA121 /* Debug 2012 */,
 				CEACFB8516D52479004EA121 /* Debug 2013 */,
+				A3ED9FE417A63E660036CBBF /* Debug 2014 */,
 				1DEB916608733D950010E9CD /* Release 2008 */,
 				CE84B3330E9F96D600728F47 /* Release 2009 */,
 				CE7456E4104CF660000083A6 /* Release 2010 */,
 				2425149014A3B26200A60B09 /* Release 2012 */,
 				CEACFB6116D52460004EA121 /* Release 2011 */,
 				CEACFB5516D52459004EA121 /* Release 2013 */,
+				A3ED9FF017A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE0B3F590F56B1A9004F8570 /* Build configuration list for PBXNativeTarget "COLLADABaseUtils" */ = {
 			isa = XCConfigurationList;
@@ -6632,15 +7038,17 @@
 				CEACFB7016D5246D004EA121 /* Debug 2011 */,
 				CEACFB7C16D52475004EA121 /* Debug 2012 */,
 				CEACFB8816D52479004EA121 /* Debug 2013 */,
+				A3ED9FE717A63E660036CBBF /* Debug 2014 */,
 				CE0B3F530F56B194004F8570 /* Release 2008 */,
 				CE0B3F540F56B194004F8570 /* Release 2009 */,
 				CE7456E7104CF660000083A6 /* Release 2010 */,
 				2425149314A3B26200A60B09 /* Release 2012 */,
 				CEACFB6416D52460004EA121 /* Release 2011 */,
 				CEACFB5816D52459004EA121 /* Release 2013 */,
+				A3ED9FF317A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE3E66800FD54A3F003D1AD2 /* Build configuration list for PBXNativeTarget "pcre" */ = {
 			isa = XCConfigurationList;
@@ -6651,15 +7059,17 @@
 				CEACFB7416D5246D004EA121 /* Debug 2011 */,
 				CEACFB8016D52475004EA121 /* Debug 2012 */,
 				CEACFB8C16D52479004EA121 /* Debug 2013 */,
+				A3ED9FEB17A63E660036CBBF /* Debug 2014 */,
 				CE3E667E0FD54A21003D1AD2 /* Release 2008 */,
 				CE3E667F0FD54A21003D1AD2 /* Release 2009 */,
 				CE7456EB104CF660000083A6 /* Release 2010 */,
 				2425149714A3B26200A60B09 /* Release 2012 */,
 				CEACFB6816D52460004EA121 /* Release 2011 */,
 				CEACFB5C16D52459004EA121 /* Release 2013 */,
+				A3ED9FF717A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE6095240E93CD8A007F776B /* Build configuration list for PBXNativeTarget "COLLADAStreamWriter" */ = {
 			isa = XCConfigurationList;
@@ -6670,15 +7080,17 @@
 				CEACFB6F16D5246D004EA121 /* Debug 2011 */,
 				CEACFB7B16D52475004EA121 /* Debug 2012 */,
 				CEACFB8716D52479004EA121 /* Debug 2013 */,
+				A3ED9FE617A63E660036CBBF /* Debug 2014 */,
 				CE6095230E93CD6C007F776B /* Release 2008 */,
 				CE84B3350E9F96D600728F47 /* Release 2009 */,
 				CE7456E6104CF660000083A6 /* Release 2010 */,
 				2425149214A3B26200A60B09 /* Release 2012 */,
 				CEACFB6316D52460004EA121 /* Release 2011 */,
 				CEACFB5716D52459004EA121 /* Release 2013 */,
+				A3ED9FF217A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE615FD51020DC1400481492 /* Build configuration list for PBXNativeTarget "MathMLSolver" */ = {
 			isa = XCConfigurationList;
@@ -6689,15 +7101,17 @@
 				CEACFB7516D5246D004EA121 /* Debug 2011 */,
 				CEACFB8116D52475004EA121 /* Debug 2012 */,
 				CEACFB8D16D52479004EA121 /* Debug 2013 */,
+				A3ED9FEC17A63E660036CBBF /* Debug 2014 */,
 				CE615FD31020DBF600481492 /* Release 2008 */,
 				CE615FD41020DBF600481492 /* Release 2009 */,
 				CE7456EC104CF660000083A6 /* Release 2010 */,
 				2425149814A3B26200A60B09 /* Release 2012 */,
 				CEACFB6916D52460004EA121 /* Release 2011 */,
 				CEACFB5D16D52459004EA121 /* Release 2013 */,
+				A3ED9FF817A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE728FEE10AC6DF400AE5662 /* Build configuration list for PBXNativeTarget "libftoa" */ = {
 			isa = XCConfigurationList;
@@ -6708,15 +7122,17 @@
 				CEACFB7616D5246D004EA121 /* Debug 2011 */,
 				CEACFB8216D52475004EA121 /* Debug 2012 */,
 				CEACFB8E16D52479004EA121 /* Debug 2013 */,
+				A3ED9FED17A63E660036CBBF /* Debug 2014 */,
 				CE728FE010AC6D5200AE5662 /* Release 2008 */,
 				CE728FE110AC6D5200AE5662 /* Release 2009 */,
 				CE728FE210AC6D5200AE5662 /* Release 2010 */,
 				2425149914A3B26200A60B09 /* Release 2012 */,
 				CEACFB6A16D52460004EA121 /* Release 2011 */,
 				CEACFB5E16D52459004EA121 /* Release 2013 */,
+				A3ED9FF917A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE728FEF10AC6DF400AE5662 /* Build configuration list for PBXNativeTarget "libBuffer" */ = {
 			isa = XCConfigurationList;
@@ -6727,15 +7143,17 @@
 				CEACFB7716D5246D004EA121 /* Debug 2011 */,
 				CEACFB8316D52475004EA121 /* Debug 2012 */,
 				CEACFB8F16D52479004EA121 /* Debug 2013 */,
+				A3ED9FEE17A63E660036CBBF /* Debug 2014 */,
 				CE728FEB10AC6D7A00AE5662 /* Release 2008 */,
 				CE728FEC10AC6D7A00AE5662 /* Release 2009 */,
 				CE728FED10AC6D7A00AE5662 /* Release 2010 */,
 				2425149A14A3B26200A60B09 /* Release 2012 */,
 				CEACFB6B16D52460004EA121 /* Release 2011 */,
 				CEACFB5F16D52459004EA121 /* Release 2013 */,
+				A3ED9FFA17A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE72900410AC6E5600AE5662 /* Build configuration list for PBXNativeTarget "dae2ma" */ = {
 			isa = XCConfigurationList;
@@ -6746,15 +7164,17 @@
 				CEACFB7816D5246D004EA121 /* Debug 2011 */,
 				CEACFB8416D52475004EA121 /* Debug 2012 */,
 				CEACFB9016D52479004EA121 /* Debug 2013 */,
+				A3ED9FEF17A63E660036CBBF /* Debug 2014 */,
 				CE728FFC10AC6E1F00AE5662 /* Release 2008 */,
 				CE728FFD10AC6E1F00AE5662 /* Release 2009 */,
 				CE728FFE10AC6E1F00AE5662 /* Release 2010 */,
 				2425149B14A3B26200A60B09 /* Release 2012 */,
 				CEACFB6C16D52460004EA121 /* Release 2011 */,
 				CEACFB6016D52459004EA121 /* Release 2013 */,
+				A3ED9FFB17A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE787BD20F583F580019C2D7 /* Build configuration list for PBXNativeTarget "GeneratedSaxParser" */ = {
 			isa = XCConfigurationList;
@@ -6765,15 +7185,17 @@
 				CEACFB7116D5246D004EA121 /* Debug 2011 */,
 				CEACFB7D16D52475004EA121 /* Debug 2012 */,
 				CEACFB8916D52479004EA121 /* Debug 2013 */,
+				A3ED9FE817A63E660036CBBF /* Debug 2014 */,
 				CE787BD00F583F360019C2D7 /* Release 2008 */,
 				CE787BD10F583F360019C2D7 /* Release 2009 */,
 				CE7456E8104CF660000083A6 /* Release 2010 */,
 				2425149414A3B26200A60B09 /* Release 2012 */,
 				CEACFB6516D52460004EA121 /* Release 2011 */,
 				CEACFB5916D52459004EA121 /* Release 2013 */,
+				A3ED9FF417A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE787CA40F583FE00019C2D7 /* Build configuration list for PBXNativeTarget "COLLADAFramework" */ = {
 			isa = XCConfigurationList;
@@ -6784,15 +7206,17 @@
 				CEACFB7216D5246D004EA121 /* Debug 2011 */,
 				CEACFB7E16D52475004EA121 /* Debug 2012 */,
 				CEACFB8A16D52479004EA121 /* Debug 2013 */,
+				A3ED9FE917A63E660036CBBF /* Debug 2014 */,
 				CE787C040F583FC90019C2D7 /* Release 2008 */,
 				CE787C050F583FC90019C2D7 /* Release 2009 */,
 				CE7456E9104CF660000083A6 /* Release 2010 */,
 				2425149514A3B26200A60B09 /* Release 2012 */,
 				CEACFB6616D52460004EA121 /* Release 2011 */,
 				CEACFB5A16D52459004EA121 /* Release 2013 */,
+				A3ED9FF517A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 		CE787D530F5840960019C2D7 /* Build configuration list for PBXNativeTarget "COLLADASaxFrameworkLoader" */ = {
 			isa = XCConfigurationList;
@@ -6803,15 +7227,17 @@
 				CEACFB7316D5246D004EA121 /* Debug 2011 */,
 				CEACFB7F16D52475004EA121 /* Debug 2012 */,
 				CEACFB8B16D52479004EA121 /* Debug 2013 */,
+				A3ED9FEA17A63E660036CBBF /* Debug 2014 */,
 				CE787D010F5840830019C2D7 /* Release 2008 */,
 				CE787D020F5840830019C2D7 /* Release 2009 */,
 				CE7456EA104CF660000083A6 /* Release 2010 */,
 				2425149614A3B26200A60B09 /* Release 2012 */,
 				CEACFB6716D52460004EA121 /* Release 2011 */,
 				CEACFB5B16D52459004EA121 /* Release 2013 */,
+				A3ED9FF617A63E6F0036CBBF /* Release 2014 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release 2012";
+			defaultConfigurationName = "Release 2014";
 		};
 /* End XCConfigurationList section */
 	};
