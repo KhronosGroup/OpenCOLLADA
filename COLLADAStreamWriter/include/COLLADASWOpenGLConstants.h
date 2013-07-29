@@ -29,14 +29,18 @@ namespace COLLADASW
         */
         static const String WrapModesOpenGL[] =
         {
-            "Repeat", 
-            "Clamp",
-            "ClampToEdge",
-            "ClampToBorder",
-            "MirroredRepeat",
-            "MirrorClamp",
-            "MirrorClampToEdge",
-            "MirrorClampToBorder"
+            "repeat", 
+            "clamp",
+            "clamptoedge",
+            "clamptoborder",
+            "mirroredrepeat",
+            "mirrorclamp",
+            "mirrorclamptoedge",
+            "mirrorclamptoborder",
+			"wrap",
+			"border",
+			"mirror",
+			"mirroronce",
         };
 
         //-------------------------------
@@ -60,7 +64,7 @@ namespace COLLADASW
 
             // "MirroredRepeat"
             else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[4] ) )
-                return Sampler::WRAP_MODE_CLAMP;
+                return Sampler::WRAP_MODE_MIRROR;
 
             // "MirrorClamp"
             else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[5] ) )
@@ -74,6 +78,19 @@ namespace COLLADASW
             else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[7] ) )
                 return Sampler::WRAP_MODE_MIRROR;
 
+            // "Wrap"
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[8] ) )
+				return Sampler::WRAP_MODE_WRAP;
+            // "Border"
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[9] ) )
+				return Sampler::WRAP_MODE_BORDER;
+            // "Mirror"
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[10] ) )
+                return Sampler::WRAP_MODE_MIRROR;
+            // "MirrorOnce"
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[11] ) )
+                return Sampler::WRAP_MODE_MIRROR;
+               
             else return Sampler::WRAP_MODE_UNSPECIFIED;
         }
 
