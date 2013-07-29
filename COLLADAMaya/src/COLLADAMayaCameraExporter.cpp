@@ -24,6 +24,15 @@
 
 #include <maya/MFnCamera.h>
 
+#if defined(__APPLE__) && defined(__MACH__)
+//This needs to be defined explicitly here since we're using libc++ with Clang
+//This is actually an std::__1::ostream version
+//Failure to define this will result in an undefined symbol error during linking.
+std::ostream& operator<<(std::ostream& Out, const MString& In)
+{
+    Out << In.asChar();
+}
+#endif
 
 namespace COLLADAMaya
 {
