@@ -4528,7 +4528,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				MAYA_PATH = /Applications/Autodesk/maya2013;
+				MAYA_PATH = /Applications/Autodesk/maya2014;
 				SDKROOT = macosx;
 			};
 			name = "Debug 2014";
@@ -4724,7 +4724,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
-				MAYA_PATH = /Applications/Autodesk/maya2013;
+				MAYA_PATH = /Applications/Autodesk/maya2014;
 				SDKROOT = macosx;
 			};
 			name = "Release 2014";
