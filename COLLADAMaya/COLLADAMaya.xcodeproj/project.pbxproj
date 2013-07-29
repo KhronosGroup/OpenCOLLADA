@@ -4298,6 +4298,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				MAYA_PATH = /Applications/Autodesk/maya2008;
@@ -4309,6 +4310,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
 				MAYA_PATH = /Applications/Autodesk/maya2008;
@@ -4320,6 +4322,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
 				MAYA_PATH = /Applications/Autodesk/maya2012;
@@ -4526,6 +4529,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				MAYA_PATH = /Applications/Autodesk/maya2014;
@@ -4561,6 +4565,7 @@
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
+					"$(MAYA_PATH)/devkit/plug-ins/cgFx",
 				);
 				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2013/plug-ins";
 				LIBRARY_SEARCH_PATHS = (
@@ -4722,6 +4727,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
 				MAYA_PATH = /Applications/Autodesk/maya2014;
@@ -4755,6 +4761,7 @@
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
+					"$(MAYA_PATH)/devkit/plug-ins/cgFx",
 				);
 				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2013/plug-ins";
 				LIBRARY_SEARCH_PATHS = (
@@ -5320,6 +5327,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				MAYA_PATH = /Applications/Autodesk/maya2010;
@@ -5478,6 +5486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
 				MAYA_PATH = /Applications/Autodesk/maya2010;
@@ -5810,6 +5819,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				MAYA_PATH = /Applications/Autodesk/maya2009;
@@ -5898,6 +5908,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
 				MAYA_PATH = /Applications/Autodesk/maya2009;
@@ -5986,6 +5997,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
 				MAYA_PATH = /Applications/Autodesk/maya2013;
@@ -6192,6 +6204,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
 				MAYA_PATH = /Applications/Autodesk/maya2011;
@@ -6400,6 +6413,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				MAYA_PATH = /Applications/Autodesk/maya2011;
@@ -6596,6 +6610,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				MAYA_PATH = /Applications/Autodesk/maya2012;
@@ -6792,6 +6807,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				MAYA_PATH = /Applications/Autodesk/maya2013;
