@@ -37,10 +37,10 @@ namespace COLLADASW
             "mirrorclamp",
             "mirrorclamptoedge",
             "mirrorclamptoborder",
-			"wrap",
-			"border",
-			"mirror",
-			"mirroronce",
+            "wrap",
+            "border",
+            "mirror",
+            "mirroronce",
         };
 
         //-------------------------------
@@ -80,10 +80,10 @@ namespace COLLADASW
 
             // "Wrap"
             else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[8] ) )
-				return Sampler::WRAP_MODE_WRAP;
+                return Sampler::WRAP_MODE_WRAP;
             // "Border"
             else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[9] ) )
-				return Sampler::WRAP_MODE_BORDER;
+                return Sampler::WRAP_MODE_BORDER;
             // "Mirror"
             else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[10] ) )
                 return Sampler::WRAP_MODE_MIRROR;
