@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DebugConsole2008|Win32">
@@ -3055,7 +3055,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2011_X64)\include;$(MAYA_PATH2011_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\3.0.0015\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2011_X64)\include;$(MAYA_PATH2011_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -3145,7 +3145,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2011)\include;$(MAYA_PATH2011)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\2.2.0017\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2011)\include;$(MAYA_PATH2011)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>false</FunctionLevelLinking>
@@ -3243,7 +3243,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2011_X64)\include;$(MAYA_PATH2011_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\2.2.0017\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2011_X64)\include;$(MAYA_PATH2011_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -3955,7 +3955,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2012)\include;$(MAYA_PATH2012)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\3.0.0015\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2012)\include;$(MAYA_PATH2012)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>false</FunctionLevelLinking>
@@ -4053,7 +4053,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2012_X64)\include;$(MAYA_PATH2012_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\3.0.0015\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2012_X64)\include;$(MAYA_PATH2012_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -4139,7 +4139,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2012)\include;$(MAYA_PATH2012)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\2.2.0017\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2012)\include;$(MAYA_PATH2012)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -4231,7 +4231,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2012_X64)\include;$(MAYA_PATH2012_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\2.2.0017\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2012_X64)\include;$(MAYA_PATH2012_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -4319,7 +4319,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013)\include;$(MAYA_PATH2013)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\2.2.0017\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013)\include;$(MAYA_PATH2013)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -4408,7 +4408,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2014)\include;$(MAYA_PATH2014)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\2.2.0017\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2014)\include;$(MAYA_PATH2014)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -4500,7 +4500,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013_X64)\include;$(MAYA_PATH2013_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\3.0.0015\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013_X64)\include;$(MAYA_PATH2013_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -4681,7 +4681,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013)\include;$(MAYA_PATH2013)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\3.0.0015\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013)\include;$(MAYA_PATH2013)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>false</FunctionLevelLinking>
@@ -4776,7 +4776,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013)\include;$(MAYA_PATH2013)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\3.0.0015\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013)\include;$(MAYA_PATH2013)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>false</FunctionLevelLinking>
@@ -4874,7 +4874,7 @@ echo #endif // __COLLADAMAYA_VERSIONINFO_H__ &gt;&gt; %F%
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013_X64)\include;$(MAYA_PATH2013_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\..\cg\3.0.0015\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2013_X64)\include;$(MAYA_PATH2013_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
