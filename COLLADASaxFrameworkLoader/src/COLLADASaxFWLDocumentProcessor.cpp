@@ -317,7 +317,7 @@ namespace COLLADASaxFWL
 
 			bool jointFound = false;
 
-			if ( resolveIds )
+			if ( resolveIds && skeletonRoots.size() == 0)
 			{
 				const SidTreeNode* joint = resolveSid( sidOrId );
 				if ( joint )
