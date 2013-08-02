@@ -317,8 +317,9 @@ namespace COLLADASaxFWL
 
 			bool jointFound = false;
 
-			if ( resolveIds && skeletonRoots.size() == 0)
+			if ( (!resolveIds) && skeletonRoots.size() == 0)
 			{
+				// We have a list of sids
 				const SidTreeNode* joint = resolveSid( sidOrId );
 				if ( joint )
 				{
@@ -347,6 +348,7 @@ namespace COLLADASaxFWL
 			}
 			else
 			{
+				// we get the list from the <skeleton> entries
 				for ( URIList::const_iterator skeletonIt = skeletonRoots.begin(); skeletonIt != skeletonRoots.end(); ++skeletonIt)
 				{
 					const COLLADABU::URI& skeletonUri = *skeletonIt;

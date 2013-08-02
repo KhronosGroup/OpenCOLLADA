@@ -332,7 +332,7 @@ namespace COLLADASaxFWL
 						if ( itSid != mJointSidsMap.end() )
 						{
 							nodeSidsOrIds = &itSid->second;
-							isIdArray = true;
+							isIdArray = false;
 						}
 						else
 						{
