@@ -316,7 +316,9 @@ namespace COLLADASaxFWL
 			const String sidOrId = *it;
 
 			bool jointFound = false;
-
+			// if joint is referenced by SId and 
+			// if there is not skeleton information,
+			// then search everywhere 
 			if ( (!resolveIds) && skeletonRoots.size() == 0)
 			{
 				// We have a list of sids
