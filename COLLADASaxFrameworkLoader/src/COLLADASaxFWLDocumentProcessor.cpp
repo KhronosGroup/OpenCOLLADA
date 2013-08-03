@@ -316,12 +316,38 @@ namespace COLLADASaxFWL
 			const String sidOrId = *it;
 
 			bool jointFound = false;
-			// if joint is referenced by SId and 
-			// if there is not skeleton information,
-			// then search everywhere 
-			if ( (!resolveIds) && skeletonRoots.size() == 0)
+			if ( resolveIds )
 			{
-				// We have a list of sids
+				// Joints are referenced by Id
+				const SidTreeNode* joint = resolveId( sidOrId );
+				if ( joint )
+				{
+					// the joint could be found
+					if ( joint->getTargetType() == SidTreeNode::TARGETTYPECLASS_OBJECT )
+					{
+						const COLLADAFW::Object* object = joint->getObjectTarget();
+
+						if ( object->getClassId() == COLLADAFW::Node::ID() )
+						{
+							joints.push_back( (COLLADAFW::Node*)object );
+
+							jointFound = true;
+							//search for the next joint
+						}
+						else
+						{
+							// we could resolve the sid, but is not a joint/node
+						}
+					}
+					else
+					{
+						// we could resolve the sid, but is not a joint/node
+					}
+				}
+			}
+			else if ( skeletonRoots.size() == 0 )
+			{
+				// Joints are referenced by Sid and no <skeleton> entries are defined
 				const SidTreeNode* joint = resolveSid( sidOrId );
 				if ( joint )
 				{
