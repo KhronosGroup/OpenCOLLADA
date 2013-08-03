@@ -326,9 +326,11 @@ namespace COLLADASaxFWL
         /** Disable default assignment operator. */
 		const DocumentProcessor& operator= ( const DocumentProcessor& pre );
 
-
 		/** The version of the collada document.*/
 		void setCOLLADAVersion(COLLADAVersion cOLLADAVersion);
+
+		/** add joint for skin controller */
+		bool addValidatedJoint(const SidTreeNode &joint, NodeList &joints);
 	};
 
 } // namespace COLLADASAXFWL
