@@ -20,7 +20,11 @@
 #	include <unordered_map>
 #endif
 #else
+#if defined(__APPLE__) && defined(__MACH__)
+#	include <unordered_map>
+#else
 #	include <tr1/unordered_map>
+#endif //if defined(__APPLE__) && defined(__MACH__)
 #endif
 
 /* size_t for gcc, may want to move this include some place else - campbell */
@@ -43,7 +47,11 @@ namespace Common
 #else
 		typedef __int64 FilePosType;
 #endif
+#if defined(__APPLE__) && defined(__MACH__)
+        typedef std::unordered_map<MarkId, FilePosType > MarkIdToFilePos;
+#else
 		typedef std::tr1::unordered_map<MarkId, FilePosType > MarkIdToFilePos;
+#endif
 	public:
 		static const size_t DEFAUL_BUFFER_SIZE = 64*1024;
 	private:
