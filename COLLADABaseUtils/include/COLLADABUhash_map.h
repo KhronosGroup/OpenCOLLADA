@@ -64,7 +64,9 @@
     #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 3)
         #include <ext/hash_map>
         #include <ext/hash_set>
+    #if !(defined(__APPLE__) && defined(__MACH__))
         #include <ext/hash_fun.h>
+    #endif //if !(defined(__APPLE__) && defined(__MACH__))
 
         namespace __gnu_cxx     // Do we need these specializations under Windows (with _MSC_VER==1400 (VS2005) and namespace "stdext") as well?
         {
