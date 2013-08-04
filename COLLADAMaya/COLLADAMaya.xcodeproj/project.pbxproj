@@ -4567,7 +4567,7 @@
 					"$(MAYA_PATH)/devkit/include",
 					"$(MAYA_PATH)/devkit/plug-ins/cgFx",
 				);
-				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2013/plug-ins";
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2014/plug-ins";
 				LIBRARY_SEARCH_PATHS = (
 					"$(MAYA_PATH)/Maya.app/Contents/MacOS",
 					../Externals/boost_1_53_0/stage/lib,
@@ -4763,7 +4763,7 @@
 					"$(MAYA_PATH)/devkit/include",
 					"$(MAYA_PATH)/devkit/plug-ins/cgFx",
 				);
-				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2013/plug-ins";
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2014/plug-ins";
 				LIBRARY_SEARCH_PATHS = (
 					"$(MAYA_PATH)/Maya.app/Contents/MacOS",
 					../Externals/boost_1_53_0/stage/lib,
