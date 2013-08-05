@@ -316,37 +316,27 @@ namespace COLLADASaxFWL
 			const String sidOrId = *it;
 
 			bool jointFound = false;
-
 			if ( resolveIds )
 			{
+				// Joints are referenced by Id
+				const SidTreeNode* joint = resolveId( sidOrId );
+				if ( joint )
+				{
+					jointFound = addValidatedJoint(*joint, joints);
+				}
+			}
+			else if ( skeletonRoots.size() == 0 )
+			{
+				// Joints are referenced by Sid and no <skeleton> entries are defined
 				const SidTreeNode* joint = resolveSid( sidOrId );
 				if ( joint )
 				{
-					// the joint could be found
-					if ( joint->getTargetType() == SidTreeNode::TARGETTYPECLASS_OBJECT )
-					{
-						const COLLADAFW::Object* object = joint->getObjectTarget();
-
-						if ( object->getClassId() == COLLADAFW::Node::ID() )
-						{
-							joints.push_back( (COLLADAFW::Node*)object );
-
-							jointFound = true;
-							//search for the next joint
-						}
-						else
-						{
-							// we could resolve the sid, but is not a joint/node
-						}
-					}
-					else
-					{
-						// we could resolve the sid, but is not a joint/node
-					}
+					jointFound = addValidatedJoint(*joint, joints);
 				}
 			}
 			else
 			{
+				// we get the list from the <skeleton> entries
 				for ( URIList::const_iterator skeletonIt = skeletonRoots.begin(); skeletonIt != skeletonRoots.end(); ++skeletonIt)
 				{
 					const COLLADABU::URI& skeletonUri = *skeletonIt;
@@ -355,26 +345,11 @@ namespace COLLADASaxFWL
 					const SidTreeNode* joint = resolveSid( sidAddress );
 					if ( joint )
 					{
-						// the joint could be found
-						if ( joint->getTargetType() != SidTreeNode::TARGETTYPECLASS_OBJECT )
+						if( jointFound = addValidatedJoint(*joint, joints))
 						{
-							// we could resolve the sid, but is not a joint/node
+							//search for the next joint
 							break;
 						}
-
-						const COLLADAFW::Object* object = joint->getObjectTarget();
-
-						if ( object->getClassId() != COLLADAFW::Node::ID() )
-						{
-							// we could resolve the sid, but is not a joint/node
-							break;
-						}
-
-						joints.push_back( (COLLADAFW::Node*)object );
-
-						jointFound = true;
-						//search for the next joint
-						break;
 					}
 				}
 			}
@@ -466,6 +441,35 @@ namespace COLLADASaxFWL
 			}
 		}
 		return true;
+	}
+
+	//------------------------------
+	bool DocumentProcessor::addValidatedJoint(const SidTreeNode &joint, NodeList &joints)
+	{
+		bool jointValid = false;
+
+		// the joint could be found
+		if ( joint.getTargetType() == SidTreeNode::TARGETTYPECLASS_OBJECT )
+		{
+			const COLLADAFW::Object* object = joint.getObjectTarget();
+
+			if ( object->getClassId() == COLLADAFW::Node::ID() )
+			{
+				joints.push_back( (COLLADAFW::Node*)object );
+
+				jointValid = true;
+				//search for the next joint
+			}
+			else
+			{
+				// we could resolve the sid, but is not a joint/node
+			}
+		}
+		else
+		{
+			// we could resolve the sid, but is not a joint/node
+		}
+		return jointValid;
 	}
 
 	//------------------------------
