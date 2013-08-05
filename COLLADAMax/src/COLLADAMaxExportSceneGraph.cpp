@@ -71,7 +71,8 @@ namespace COLLADAMax
 			XRefSceneGraph xRefScene;
 #ifdef MAX_2010_OR_NEWER
  #ifdef UNICODE
-			const char* XRefFileName = COLLADABU::StringUtils::toUTF8String(mRootNode->GetXRefFile(i).GetFileName().data()).c_str();
+            std::string XRefFileNameString = COLLADABU::StringUtils::wideString2utf8String(mRootNode->GetXRefFile(i).GetFileName().data());
+            const char* XRefFileName = XRefFileNameString.c_str();
  #else
 			const char* XRefFileName = mRootNode->GetXRefFile(i).GetFileName().data();
  #endif
