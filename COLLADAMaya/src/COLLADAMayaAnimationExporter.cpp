@@ -1979,10 +1979,10 @@ namespace COLLADAMaya
         // for Bezier curves are used to store the control points.
         // 
         // In COLLADA, a geometry vector for BÈzier segment[i] is defined by:
-        // ÅEP0 is POSITION[i]
-        // ÅEC0 is OUT_TANGENT[i]
-        // ÅEC1 is IN_TANGENT[i+1]
-        // ÅEP1 is POSITION[i+1]
+        // ï P0 is POSITION[i]
+        // ï C0 is OUT_TANGENT[i]
+        // ï C1 is IN_TANGENT[i+1]
+        // ï P1 is POSITION[i+1]
         // 
         // A cubic BÈzier spline equation is given by:
         // B(s) = P0*(1-s)^3 + 3*C0*s*(1-s)^2 + 3*C1*s^2*(1-s) + P1*s^3
