@@ -551,6 +551,7 @@ namespace COLLADAMaya
 
         case kVector:
         case kColour:
+        case kVector2:
         {
             // Check for one node affecting the whole value.
             bool forceSampling = ExportOptions::isSampling();
