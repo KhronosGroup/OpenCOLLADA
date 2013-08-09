@@ -88,6 +88,95 @@ namespace COLLADASW
     }
 
     // -------------------------------
+    const RenderState::PassStateBlendFunction RenderState::getPassStateBlendFuncFromCgName ( const char* cgName )
+    {
+        COLLADASW::String val(cgName);
+
+             if ( COLLADABU::Utils::equalsIgnoreCase ( val, "Zero"                  ) ) return PASS_STATE_BLEND_FN_ZERO;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "One"                   ) ) return PASS_STATE_BLEND_FN_ONE;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "SrcColor"              ) ) return PASS_STATE_BLEND_FN_SRC_COLOR;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "OneMinusSrcColor"      ) ) return PASS_STATE_BLEND_FN_ONE_MINUS_SRC_COLOR;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "DestColor"             ) ) return PASS_STATE_BLEND_FN_DEST_COLOR;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "OneMinusDestColor"     ) ) return PASS_STATE_BLEND_FN_ONE_MINUS_DST_COLOR;             
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "SrcAlpha"              ) ) return PASS_STATE_BLEND_FN_SRC_ALPHA;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "OneMinusSrcAlpha"      ) ) return PASS_STATE_BLEND_FN_ONE_MINUS_SRC_ALPHA;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "DstAlpha"              ) ) return PASS_STATE_BLEND_FN_DST_ALPHA;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "OneMinusDstAlpha"      ) ) return PASS_STATE_BLEND_FN_ONE_MINUS_DST_ALPHA;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "ConstantColor"         ) ) return PASS_STATE_BLEND_FN_CONSTANT_COLOR;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "OneMinusConstantColor" ) ) return PASS_STATE_BLEND_FN_ONE_MINUS_CONSTANT_COLOR;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "ConstantAlpha"         ) ) return PASS_STATE_BLEND_FN_CONSTANT_ALPHA;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "OneMinusConstantAlpha" ) ) return PASS_STATE_BLEND_FN_ONE_MINUS_CONSTANT_ALPHA;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "SrcAlphaSaturate"      ) ) return PASS_STATE_BLEND_FN_SRC_ALPHA_SATURATE;
+        /*
+            SrcAlphaSat,
+            BlendFactor,
+            InvDestColor,
+            InvSrcAlpha,
+            InvDestAlpha,
+            InvSrcColor,
+            InvBlendFactor, 
+        */
+        return PASS_STATE_BLEND_FN_INVALID;
+    }
+
+    // -------------------------------
+    const String& RenderState::getColladaPassStateBlendFunctionString ( const PassStateBlendFunction& fn )
+    {
+        switch (fn)
+        {
+        case PASS_STATE_BLEND_FN_ZERO                       : return CSWC::CSW_FX_BLEND_FUNCTION_ZERO;
+        case PASS_STATE_BLEND_FN_ONE                        : return CSWC::CSW_FX_BLEND_FUNCTION_ONE;
+        case PASS_STATE_BLEND_FN_SRC_COLOR                  : return CSWC::CSW_FX_BLEND_FUNCTION_SRC_COLOR;
+        case PASS_STATE_BLEND_FN_ONE_MINUS_SRC_COLOR        : return CSWC::CSW_FX_BLEND_FUNCTION_ONE_MINUS_SRC_COLOR;
+        case PASS_STATE_BLEND_FN_DEST_COLOR                 : return CSWC::CSW_FX_BLEND_FUNCTION_DEST_COLOR;
+        case PASS_STATE_BLEND_FN_ONE_MINUS_DST_COLOR        : return CSWC::CSW_FX_BLEND_FUNCTION_ONE_MINUS_DST_COLOR;
+        case PASS_STATE_BLEND_FN_SRC_ALPHA                  : return CSWC::CSW_FX_BLEND_FUNCTION_SRC_ALPHA;
+        case PASS_STATE_BLEND_FN_ONE_MINUS_SRC_ALPHA        : return CSWC::CSW_FX_BLEND_FUNCTION_ONE_MINUS_SRC_ALPHA;
+        case PASS_STATE_BLEND_FN_DST_ALPHA                  : return CSWC::CSW_FX_BLEND_FUNCTION_DST_ALPHA;
+        case PASS_STATE_BLEND_FN_ONE_MINUS_DST_ALPHA        : return CSWC::CSW_FX_BLEND_FUNCTION_ONE_MINUS_DST_ALPHA;
+        case PASS_STATE_BLEND_FN_CONSTANT_COLOR             : return CSWC::CSW_FX_BLEND_FUNCTION_CONSTANT_COLOR;
+        case PASS_STATE_BLEND_FN_ONE_MINUS_CONSTANT_COLOR   : return CSWC::CSW_FX_BLEND_FUNCTION_ONE_MINUS_CONSTANT_COLOR;
+        case PASS_STATE_BLEND_FN_CONSTANT_ALPHA             : return CSWC::CSW_FX_BLEND_FUNCTION_CONSTANT_ALPHA;
+        case PASS_STATE_BLEND_FN_ONE_MINUS_CONSTANT_ALPHA   : return CSWC::CSW_FX_BLEND_FUNCTION_ONE_MINUS_CONSTANT_ALPHA;
+        case PASS_STATE_BLEND_FN_SRC_ALPHA_SATURATE         : return CSWC::CSW_FX_BLEND_FUNCTION_SRC_ALPHA_SATURATE;
+        default: return CSWC::CSW_ERR_UNKNOWN_INPUT;
+        }
+    }
+
+    // -------------------------------
+    const RenderState::PassStateBlendEquation RenderState::getPassStateBlendEquationFromCgName ( const char* cgName )
+    {
+        COLLADASW::String val(cgName);
+
+             if ( COLLADABU::Utils::equalsIgnoreCase ( val, "FuncAdd"                ) ) return PASS_STATE_BLEND_EQ_FUNC_ADD;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "FuncSubtract"           ) ) return PASS_STATE_BLEND_EQ_FUNC_SUBTRACT;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "FuncReverseSubtract"    ) ) return PASS_STATE_BLEND_EQ_FUNC_REVERSE_SUBTRACT;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "Min"                    ) ) return PASS_STATE_BLEND_EQ_MIN;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "Max"                    ) ) return PASS_STATE_BLEND_EQ_MAX;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "Add"                    ) ) return PASS_STATE_BLEND_EQ_FUNC_ADD;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "Subtract"               ) ) return PASS_STATE_BLEND_EQ_FUNC_SUBTRACT;
+        else if ( COLLADABU::Utils::equalsIgnoreCase ( val, "ReverseSubtract"        ) ) return PASS_STATE_BLEND_EQ_FUNC_REVERSE_SUBTRACT;               
+        /*
+            LogicOp
+        */
+        return PASS_STATE_BLEND_EQ_INVALID;
+    }
+
+    // -------------------------------
+    const String& RenderState::getColladaPassStateBlendEquationString ( const PassStateBlendEquation& fn )
+    {
+        switch (fn)
+        {
+        case PASS_STATE_BLEND_EQ_FUNC_ADD               : return CSWC::CSW_FX_BLEND_EQUATION_FUNC_ADD;
+        case PASS_STATE_BLEND_EQ_FUNC_SUBTRACT          : return CSWC::CSW_FX_BLEND_EQUATION_FUNC_SUBTRACT;
+        case PASS_STATE_BLEND_EQ_FUNC_REVERSE_SUBTRACT  : return CSWC::CSW_FX_BLEND_EQUATION_FUNC_REVERSE_SUBTRACT;
+        case PASS_STATE_BLEND_EQ_MIN                    : return CSWC::CSW_FX_BLEND_EQUATION_MIN;
+        case PASS_STATE_BLEND_EQ_MAX                    : return CSWC::CSW_FX_BLEND_EQUATION_MAX;
+        default: return CSWC::CSW_ERR_UNKNOWN_INPUT;
+        }
+    }
+
+    // -------------------------------
     const String& RenderState::getColladaRenderStateName ( const PassState& state )    
     {
         switch (state)

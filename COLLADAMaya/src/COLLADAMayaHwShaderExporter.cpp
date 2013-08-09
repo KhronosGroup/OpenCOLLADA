@@ -30,6 +30,9 @@
 #include "cgfxShaderNode.h"
 #include "cgfxFindImage.h"
 
+#include <Cg/cg.h>
+#include <algorithm>
+#include <cctype> // for tolower
 #include <assert.h>
 
 
@@ -313,6 +316,30 @@ namespace COLLADAMaya
         if ( cgPassName == NULL ) cgPassName = EMPTY_CSTRING;
         colladaPass.openPass ( cgPassName );
 
+        CGstateassignment cgStateAssignmentPre = cgGetFirstStateAssignment ( cgPass );
+        while ( cgStateAssignmentPre )
+        {
+            {
+                // Write the render states.
+                CGstate cgState = cgGetStateAssignmentState ( cgStateAssignmentPre );
+                const char* cgStateNameC = cgGetStateName ( cgState );
+                String cgStateName ( cgStateNameC );
+                //CGtype cgStateType = cgGetStateType ( cgState );
+
+                std::transform( cgStateName.begin(), cgStateName.end(), cgStateName.begin(), std::tolower );
+                if( 0 == cgStateName.compare( mStateAlphaRefName ) )
+                {
+                    int valueCount = 0;
+                    const float* values = cgGetFloatStateAssignmentValues( cgStateAssignmentPre, &valueCount );
+                    mAlphaRefFound  = true;
+                    mAlphaRef       = values[0];
+                }
+            }
+
+            // Get the next state assignment
+            cgStateAssignmentPre = cgGetNextStateAssignment( cgStateAssignmentPre );
+        }
+
         // Go through the pass's render state assignments and write it into the collada file.
         // The shaders will be exported last.
         CGstateassignment cgStateAssignment = cgGetFirstStateAssignment ( cgPass );
@@ -364,6 +391,115 @@ namespace COLLADAMaya
         COLLADASW::RenderState::PassState passState =
             COLLADASW::RenderState::getRenderStateFromCgName( cgStateNameC );
         const String& renderStateName = COLLADASW::RenderState::getColladaRenderStateName ( passState );
+
+        {
+            int valueCount = 0;
+
+            switch( passState )
+            {
+            case COLLADASW::RenderState::ALPHA_FUNC:
+                {
+                    const float* values = cgGetFloatStateAssignmentValues( cgStateAssignment, &valueCount );
+                    assert(2==valueCount);
+
+                    COLLADASW::ParamBase param( streamWriter, &renderStateName );
+                    param.openParam ();
+                    {
+                        const char* cgStateEnum = cgGetStateEnumerantName( cgState, static_cast<int>(values[0]) );
+                        COLLADASW::RenderState::PassStateFunction passStateFunction =
+                            COLLADASW::RenderState::getPassStateFunction ( cgStateEnum );
+                        const String renderStateFunctionName =
+                            COLLADASW::RenderState::getColladaPassStateString ( passStateFunction );
+                        param.appendAttribute ( "func", renderStateFunctionName );
+
+                        if( mAlphaRefFound )
+                        {
+                            param.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_VALUE, COLLADASW::Utils::toString(mAlphaRef) );
+                        }
+                        else
+                        {
+                            param.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_VALUE, COLLADASW::Utils::toString(values[1]) );
+                        }
+                    }
+                    param.closeParam();
+
+                    return;
+                }
+                break;
+            case COLLADASW::RenderState::BLEND_FUNC:
+                {
+                    //BlendFunc = int2(sfactor, dfactor)
+
+                    const int* values = cgGetIntStateAssignmentValues( cgStateAssignment, &valueCount );
+                    assert(2==valueCount);
+
+                    COLLADASW::ParamBase param( streamWriter, &renderStateName );
+                    param.openParam();
+
+                    {
+                        const char* cgStateEnumSrc
+                            = cgGetStateEnumerantName( cgState, values[0] );
+                        COLLADASW::RenderState::PassStateBlendFunction passStateBlendFunctionSrc
+                            = COLLADASW::RenderState::getPassStateBlendFuncFromCgName( cgStateEnumSrc );
+                        String renderStateBlendFunctionNameSrc
+                            = COLLADASW::RenderState::getColladaPassStateBlendFunctionString( passStateBlendFunctionSrc );
+
+                        const char* cgStateEnumDest
+                            = cgGetStateEnumerantName( cgState, values[1] );
+                        COLLADASW::RenderState::PassStateBlendFunction passStateBlendFunctionDest
+                            = COLLADASW::RenderState::getPassStateBlendFuncFromCgName( cgStateEnumDest );
+                        String renderStateBlendFunctionNameDest
+                            = COLLADASW::RenderState::getColladaPassStateBlendFunctionString( passStateBlendFunctionDest );
+
+                        String strValue;
+                        strValue += "<src value=\"" + renderStateBlendFunctionNameSrc + "\" />";
+                        strValue += "<dest value=\"" + renderStateBlendFunctionNameDest + "\" />";
+
+                        param.appendValues( strValue );
+                    }
+
+                    param.closeParam();
+
+                    return;
+                }
+                break;
+            case COLLADASW::RenderState::BLEND_EQUATION:
+                {
+                    //BlendOp = int(func)
+                    const int* values = cgGetIntStateAssignmentValues( cgStateAssignment, &valueCount );
+                    assert(1==valueCount);
+
+                    COLLADASW::ParamBase param( streamWriter, &renderStateName );
+                    param.openParam ();
+
+                    {
+                        const char* cgStateEnumSrc
+                            = cgGetStateEnumerantName( cgState, values[0] );
+                        COLLADASW::RenderState::PassStateBlendEquation passStateBlendEquation
+                            = COLLADASW::RenderState::getPassStateBlendEquationFromCgName( cgStateEnumSrc );
+                        String renderStateBlendEquation
+                            = COLLADASW::RenderState::getColladaPassStateBlendEquationString( passStateBlendEquation );
+                        param.appendAttribute( "value" , renderStateBlendEquation );
+                    }
+
+                    param.closeParam();
+
+                    return;
+                }
+                break;
+            default:
+                {
+                    String cgStateNameTmp( cgStateNameC );
+                    std::transform( cgStateNameTmp.begin(), cgStateNameTmp.end(), cgStateNameTmp.begin(), std::tolower );
+                    if( 0==cgStateNameTmp.compare( mStateAlphaRefName ) )
+                    {
+                        //skip.
+                        return;
+                    }
+                }
+                break;
+            }
+        }
 
         switch ( cgStateType )
         {

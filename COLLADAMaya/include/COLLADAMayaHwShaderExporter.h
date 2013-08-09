@@ -49,9 +49,17 @@ namespace COLLADAMaya
         /** The scope of the current shader. */
         COLLADASW::Shader::Scope mShaderScope;
 
+        bool  mAlphaRefFound;
+        float mAlphaRef;
+
+        String mStateAlphaRefName;
+
     public:
 
-        HwShaderExporter ( DocumentExporter* documentExporter ) : mDocumentExporter ( documentExporter ) {}
+        HwShaderExporter ( DocumentExporter* documentExporter )
+            : mDocumentExporter ( documentExporter ) , mAlphaRefFound(false), mAlphaRef(0.0f), mStateAlphaRefName("alpharef")
+        {
+        }
 
         virtual ~HwShaderExporter () {}
 
