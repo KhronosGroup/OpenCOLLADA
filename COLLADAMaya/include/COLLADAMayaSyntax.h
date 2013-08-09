@@ -155,6 +155,10 @@ namespace COLLADAMaya
     static const String MATRIX_PARAMETER[1]                         = { "MATRIX" };
     static const String TRANSFORM_PARAMETER[1]                      = { "TRANSFORM" };
 
+    static const String A_PARAMETER[1]                              = { "A" };
+    static const String RGB_PARAMETERS[3]                           = { "R", "G", "B" };
+    static const String ST_PARAMETERS[2]                            = { "S", "T" };
+
     static const String VERTEX_SID                                  = "VERTEX";
     static const String SKEW_XY_SID                                 = "skewXY";
     static const String SKEW_XZ_SID                                 = "skewXZ";
