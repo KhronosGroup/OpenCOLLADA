@@ -29,6 +29,10 @@
 
 #include <maya/MFnDependencyNode.h>
 
+#if MAYA_API_VERSION >= 201200
+class cgfxTechnique;
+#endif // MAYA_API_VERSION >= 201200
+
 namespace COLLADAMaya
 {
 
@@ -85,7 +89,12 @@ namespace COLLADAMaya
         /** Export the effects parameter. */
         void exportEffectParameters ( 
             MObject shaderNode, 
-            const CGeffect &cgEffect );
+#if MAYA_API_VERSION < 201200
+            const CGeffect &cgEffect
+#else // MAYA_API_VERSION < 201200
+            const cgfxRCPtr<const cgfxEffect>& cgEffect
+#endif // MAYA_API_VERSION < 201200
+            );
 
         /** Create the annotation data of the given parameter and push it in the list. */
         void getAnnotations ( 
@@ -122,6 +131,10 @@ namespace COLLADAMaya
 
         /** Exports the semantic data of the given parameter. */
         void exportSemantic( const CGparameter &cgParameter, COLLADASW::ParamBase *param );
+#if MAYA_API_VERSION >= 201200
+        /** Write the current technique and all sub-elements into the current collada document. */
+        void exportTechnique( const cgfxTechnique* technique );
+#endif // MAYA_API_VERSION >= 201200
 
         /** Write the current technique and all sub-elements into the current collada document. */
         void exportTechnique ( const CGtechnique &cgTechnique );
