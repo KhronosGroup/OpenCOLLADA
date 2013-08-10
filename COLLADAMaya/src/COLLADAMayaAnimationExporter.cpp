@@ -1052,7 +1052,11 @@ namespace COLLADAMaya
             source.setArrayId ( sourceId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( dimension );
 
-            if ( dimension != 16 && dimension != 32 )
+            if ( dimension == 1 && parameters->empty() ){
+                source.setParameterTypeName ( &COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT );
+                source.getParameterNameList().push_back ( "PARAM" );
+            }
+            else if ( dimension != 16 && dimension != 32 )
             {
                 // It's a float source.
                 source.setParameterTypeName ( &COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT );
