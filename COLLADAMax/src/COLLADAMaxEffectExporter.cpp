@@ -511,14 +511,11 @@ namespace COLLADAMax
             effectProfile.setReflective ( COLLADASW::ColorOrTexture ( COLLADASW::Color::BLACK ) );
 
 			bool isSpecularAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SPECULAR_COLOR, effectId, effectProfile.getSpecularDefaultSid(), COLOR_PARAMETERS, true, &scaleConversion);
-			effectProfile.setSpecular ( maxColor2ColorOrTexture ( shader->GetSpecularClr ( animationStart ), weight ), isSpecularAnimated );
-
-			//bool isGlossinessAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::GLOSSINESS, effectId, effectProfile.getShininessDefaultSid(), 0, true, &ConversionFunctors::toPercent);
-			//effectProfile.setShininess ( ConversionFunctors::toPercent(shader->GetGlossiness ( animationStart )) * weight, isGlossinessAnimated );
-
-			bool isSpecularLevelAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SPECULAR_LEVEL, effectId, effectProfile.getShininessDefaultSid(), 0, true, &ConversionFunctors::toPercent);
 			float specularLevel = shader->GetSpecularLevel ( animationStart );
-			effectProfile.setShininess ( specularLevel * weight, isSpecularLevelAnimated );
+			effectProfile.setSpecular ( maxColor2ColorOrTexture ( shader->GetSpecularClr ( animationStart ), weight * specularLevel ), isSpecularAnimated );
+
+			bool isGlossinessAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::GLOSSINESS, effectId, effectProfile.getShininessDefaultSid(), 0, true, &ConversionFunctors::toPercent);
+			effectProfile.setShininess ( ConversionFunctors::toPercent(shader->GetGlossiness ( animationStart )) * weight, isGlossinessAnimated );
 
 			bool useEmissionColor = shader->IsSelfIllumClrOn() != false;
 			if (useEmissionColor)
