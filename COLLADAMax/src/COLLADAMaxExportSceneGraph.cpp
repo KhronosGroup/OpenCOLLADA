@@ -232,7 +232,7 @@ namespace COLLADAMax
 		id += COLLADASW::Utils::toString(morphControllerHelperGeometry.channelBankindex);
 		id += "-";
 #ifdef UNICODE
-		id += COLLADABU::StringUtils::toUTF8String(morphControllerHelperGeometry.morphController->getMorph()->chanBank[morphControllerHelperGeometry.channelBankindex].mName);
+        id += COLLADABU::StringUtils::wideString2utf8String(morphControllerHelperGeometry.morphController->getMorph()->chanBank[morphControllerHelperGeometry.channelBankindex].mName.data());
 #else
 		id += morphControllerHelperGeometry.morphController->getMorph()->chanBank[morphControllerHelperGeometry.channelBankindex].mName;
 #endif
