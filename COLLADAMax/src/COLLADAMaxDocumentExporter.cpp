@@ -56,7 +56,7 @@ namespace COLLADAMax
 			mMaxInterface ( i ),
 			mStreamWriter ( filepath, false ),
 			mOutputFileUri ( COLLADASW::URI::nativePathToUri(filepath) ),
-			mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode(), COLLADASW::URI::nativePathToUri(NativeString(i->GetCurFilePath().data()).toUtf8String()), xRefExportFileNames ) ),
+			mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode(), COLLADASW::URI::nativePathToUri(NativeString(i->GetCurFilePath().data()).toUtf8String()), *this, xRefExportFileNames ) ),
 			mDeleteExportSceneGraph(true)
     {
 		mOutputFileUri.setScheme( URI::SCHEME_FILE);
@@ -116,14 +116,17 @@ namespace COLLADAMax
 
         mStreamWriter.endDocument();
 
-		const ExportSceneGraph::XRefSceneGraphList& sceneGraphList = mExportSceneGraph->getXRefSceneGraphList();
+        if (mOptions.getIncludeXRefs())
+        {
+            const ExportSceneGraph::XRefSceneGraphList sceneGraphList = mExportSceneGraph->findAllXRefScenes();
 
-		for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = sceneGraphList.begin(); it!=sceneGraphList.end(); ++it )
-		{
-			NativeString outputFileName(NativeString(getXRefOutputPath(*it)));
-			DocumentExporter document(mMaxInterface, it->exportSceneGraph, outputFileName, mOptions, mExportOnlySelected);
-			document.exportMaxScene();
-		}
+		    for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = sceneGraphList.begin(); it!=sceneGraphList.end(); ++it )
+		    {
+			    NativeString outputFileName(NativeString(getXRefOutputPath(*it)));
+			    DocumentExporter document(mMaxInterface, it->exportSceneGraph, outputFileName, mOptions, mExportOnlySelected);
+			    document.exportMaxScene();
+		    }
+        }
     }
 
     //---------------------------------------------------------------

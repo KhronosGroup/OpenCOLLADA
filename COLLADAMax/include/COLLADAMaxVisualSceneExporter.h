@@ -70,11 +70,16 @@ namespace COLLADAMax
 		/** The id of the visual scene.*/
 		const String & mVisualSceneId;
 
+        /** Document exporter instance */
 		DocumentExporter * mDocumentExporter;
 
 		/** The prefix used for node ids.*/
 		static const String NODE_ID_PRAEFIX;
 
+        /** Name of node containing XRefs (as instance_node elements)
+        that are not bound to any INode. */
+
+        static const String XREF_NODE_NAME;
 
     public:
         /** Constructor

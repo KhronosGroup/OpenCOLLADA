@@ -18,8 +18,9 @@
 
 #include "COLLADAMaxStableHeaders.h"
 
-#include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxControllerExporter.h"
+#include "COLLADAMaxDocumentExporter.h"
+#include "COLLADAMaxExportSceneGraph.h"
 
 #include <sstream>
 #include <iostream>
@@ -30,10 +31,11 @@ namespace COLLADAMax
 	const String ExportSceneGraph::HELPER_GEOMETRY_ID_SUFFIX ="-helper_geometry";
 	const String ExportSceneGraph::JOINT_SID_BASE_NAME = "joint";
 
-	ExportSceneGraph::ExportSceneGraph ( INode * iNode, const COLLADASW::URI& maxFileUri, COLLADABU::IDList& xRefExportFileNames )
+	ExportSceneGraph::ExportSceneGraph ( INode * iNode, const COLLADASW::URI& maxFileUri, DocumentExporter const& documentExporter, COLLADABU::IDList& xRefExportFileNames )
             : mExportSelection ( false ),
             mRootNode ( iNode ),
 			mMaxFileUri(maxFileUri),
+            mDocumentExporter(documentExporter),
 			mXRefExportFileNames(xRefExportFileNames),
             mRootExportNode ( 0 ),
 			mBoneCount(0)
@@ -46,8 +48,13 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	ExportSceneGraph::~ExportSceneGraph()
 	{
-		for ( XRefSceneGraphList::iterator it = mXRefSceneGraphList.begin(); it!=mXRefSceneGraphList.end(); ++it)
-			delete it->exportSceneGraph;
+        for ( INodeXRefSceneGraphListMap::iterator i = mINodeXRefSceneGraphListMap.begin(); i != mINodeXRefSceneGraphListMap.end(); ++i )
+        {
+            for ( XRefSceneGraphList::iterator j = i->second.begin(); j != i->second.end(); ++j )
+            {
+			    delete j->exportSceneGraph;
+            }
+        }
 	}
 
 
@@ -64,11 +71,20 @@ namespace COLLADAMax
 
 		findReferencedObjects(mRootExportNode);
 
+        bool shouldExportXRefedFiles = mDocumentExporter.getOptions().getIncludeXRefs();
+        bool shouldAddInstanceNodesForXRefs = true;
+
 		int xRefFileCount = mRootNode->GetXRefFileCount();
 
 		for ( int i = 0; i < xRefFileCount; ++i)
 		{
-			XRefSceneGraph xRefScene;
+#ifdef MAX_2010_OR_NEWER
+            if ( mRootNode->GetXRefFlags(i) & XREF_DISABLED )
+            {
+                continue;
+            }
+#endif
+
 #ifdef MAX_2010_OR_NEWER
  #ifdef UNICODE
             std::string XRefFileNameString = COLLADABU::StringUtils::wideString2utf8String(mRootNode->GetXRefFile(i).GetFileName().data());
@@ -80,17 +96,35 @@ namespace COLLADAMax
 			const char* XRefFileName = mRootNode->GetXRefFileName(i).data();
 #endif
 			COLLADASW::URI uri(COLLADASW::URI::nativePathToUri(NativeString(XRefFileName)));
+            
+			XRefSceneGraph xRefScene;
 			xRefScene.exportFileBaseName = mXRefExportFileNames.addId(uri.getPathFileBase(), false);
-			xRefScene.exportSceneGraph = new ExportSceneGraph(mRootNode->GetXRefTree(i), uri, mXRefExportFileNames);
-			if ( xRefScene.exportSceneGraph->create(exportSelection) )
-			{
-				mXRefSceneGraphList.push_back(xRefScene);
+            xRefScene.exportSceneGraph = new ExportSceneGraph(mRootNode->GetXRefTree(i), uri, mDocumentExporter, mXRefExportFileNames);
+
+            INode* xRefParent = mRootNode->GetXRefParent(i);
+
+            if ( shouldAddInstanceNodesForXRefs )
+            {
+                auto& xRefSceneGraphList = mINodeXRefSceneGraphListMap[xRefParent ? xRefParent : mRootNode];
+                xRefSceneGraphList.push_back(xRefScene);
+
 				isNotEmpty = true;
-			}
-			else
-			{
-				delete xRefScene.exportSceneGraph;
-			}
+            }
+
+            if ( shouldExportXRefedFiles )
+            {
+			    if ( xRefScene.exportSceneGraph->create(false) )
+			    {
+				    isNotEmpty = true;
+			    }
+            }
+            else
+            {
+                if ( shouldAddInstanceNodesForXRefs )
+                {
+                    xRefScene.exportSceneGraph->create(true);
+                }
+            }
 		}
 
         return isNotEmpty;
@@ -167,6 +201,45 @@ namespace COLLADAMax
 		else
 			return 0;
 	}
+
+    //---------------------------------------------------------------
+    const ExportSceneGraph::XRefSceneGraphList* ExportSceneGraph::getXRefSceneGraphList(INode* node) const
+    {
+        auto i = mINodeXRefSceneGraphListMap.find(node);
+
+        if ( i == mINodeXRefSceneGraphListMap.cend() )
+        {
+            return NULL;
+        }
+
+        return &i->second;
+    }
+
+    const ExportSceneGraph::XRefSceneGraphList ExportSceneGraph::findAllXRefScenes() const
+    {
+        std::set<const XRefSceneGraph*> set;
+
+        for ( auto i = mINodeXRefSceneGraphListMap.cbegin(); i != mINodeXRefSceneGraphListMap.cend(); ++ i )
+        {
+            for ( XRefSceneGraphList::const_iterator j = i->second.cbegin(); j != i->second.cend(); ++j )
+            {
+                set.insert(&*j);
+            }
+        }
+
+        //double copying... could have been evaded by changing return type
+        //but I do not want to create/force new conventions... anyway it should
+        //not be a big problem since it is, at most, called once per scene.
+
+        ExportSceneGraph::XRefSceneGraphList result;
+
+        for ( auto i = set.cbegin(); i != set.cend(); ++i )
+        {
+            result.push_back(**i);
+        }
+
+        return result;
+    }
 
 	//---------------------------------------------------------------
 	void ExportSceneGraph::findReferencedObjects( ExportNode* exportNode )
