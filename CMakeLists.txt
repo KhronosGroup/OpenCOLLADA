@@ -232,7 +232,7 @@ find_package(PCRE)
 if (PCRE_FOUND)
 	message(STATUS "SUCCESSFUL: PCRE found")
 else ()  # if pcre not found building its local copy from ./Externals
-	if (WIN32)
+	if (WIN32 OR APPLE)
 		message("WARNING: Native PCRE not found, taking PCRE from ./Externals")
 		add_definitions(-DPCRE_STATIC)
 		add_subdirectory(${EXTERNAL_LIBRARIES}/pcre)
