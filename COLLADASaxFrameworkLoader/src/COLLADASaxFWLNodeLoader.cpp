@@ -57,18 +57,13 @@ namespace COLLADASaxFWL
 		else if ( attributeData.id )
 			newNode->setName ( (const char*)attributeData.id );
 
-		if ( attributeData.id )
-			newNode->setOriginalId ( (const char*)attributeData.id );
+        if ( attributeData.id )
+            newNode->setOriginalId ( (const char*)attributeData.id );
 
-		if ( attributeData.type == ENUM__NodeType__JOINT ) {
-			newNode->setType ( COLLADAFW::Node::JOINT );
-			if ( attributeData.sid )
-				newNode->setSid( (const char*) attributeData.sid );
-			else if ( attributeData.id )
-				newNode->setSid( (const char*) attributeData.id );
-			else if ( attributeData.name )
-				newNode->setSid( (const char*) attributeData.name );
-		}
+        if ( attributeData.type == ENUM__NodeType__JOINT ) {
+            newNode->setType ( COLLADAFW::Node::JOINT );
+            newNode->setSid( (const char*)attributeData.sid );
+        }
 
 		getHandlingFilePartLoader()->addToSidTree(attributeData.id, attributeData.sid, newNode);
 
