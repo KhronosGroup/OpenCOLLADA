@@ -66,8 +66,6 @@ namespace COLLADASaxFWL
 				newNode->setSid( (const char*) attributeData.sid );
 			else if ( attributeData.id )
 				newNode->setSid( (const char*) attributeData.id );
-			else if ( attributeData.name )
-				newNode->setSid( (const char*) attributeData.name );
 		}
 
 		getHandlingFilePartLoader()->addToSidTree(attributeData.id, attributeData.sid, newNode);
