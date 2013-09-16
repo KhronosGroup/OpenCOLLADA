@@ -88,7 +88,7 @@ namespace COLLADAMax
 		// Set the option values to their default
 		mNormals(true),
 		mTriangulate(true),
-		mIncludeXrefs(true),
+		mIncludeXrefs(false),
 		mTangents(false),
 		mAnimations(true),
 		mSampleAnimation(false),

@@ -67,7 +67,7 @@ namespace COLLADAMax
 
 				TSTR name = a->SubAnimName(subAnimIndex);
 #ifdef UNICODE
-				String nameString = COLLADABU::StringUtils::toUTF8String( name.data() );
+				String nameString = COLLADABU::StringUtils::wideString2utf8String( name.data() );
 				if ( _stricmp(animName, nameString.c_str()) == 0 )
 #else
 				if ( _stricmp(animName, name.data()) == 0 )

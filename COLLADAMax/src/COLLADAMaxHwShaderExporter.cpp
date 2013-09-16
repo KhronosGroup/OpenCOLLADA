@@ -81,7 +81,7 @@ namespace COLLADAMax
             if( controller != 0 )
             {
 #ifdef UNICODE
-				String paramNameString = COLLADABU::StringUtils::toUTF8String( paramName );
+				String paramNameString = COLLADABU::StringUtils::wideString2utf8String( paramName );
                 mDocumentExporter->getAnimationExporter()->addAnimatedFloat( controller, effectId, paramNameString.c_str(), 0 );
 #else
 				mDocumentExporter->getAnimationExporter()->addAnimatedFloat( controller, effectId, paramName, 0 );
@@ -644,7 +644,7 @@ namespace COLLADAMax
         const int numOfValues )
     {
 #ifdef UNICODE
-		String stringParamName = COLLADABU::StringUtils::toUTF8String( paramName );
+		String stringParamName = COLLADABU::StringUtils::wideString2utf8String( paramName );
         param->openParam ( stringParamName );
 #else
 		param->openParam ( paramName );
@@ -668,13 +668,13 @@ namespace COLLADAMax
         const TCHAR* paramValue )
     {
 #ifdef UNICODE
-		String stringParamName = COLLADABU::StringUtils::toUTF8String( paramName );
+		String stringParamName = COLLADABU::StringUtils::wideString2utf8String( paramName );
         param->openParam ( stringParamName );
 
         //exportAnnotations ( cgParameter, param );
         //exportSemantic ( cgParameter, param );
 
-		String stringParamValue = COLLADABU::StringUtils::toUTF8String( paramValue );
+		String stringParamValue = COLLADABU::StringUtils::wideString2utf8String( paramValue );
         param->appendValues ( stringParamValue );
 #else
 		param->openParam ( paramName );
@@ -782,7 +782,7 @@ namespace COLLADAMax
 
         // Name of the current texture
 #ifdef UNICODE
-		String stringParamName = COLLADABU::StringUtils::toUTF8String( paramName );
+		String stringParamName = COLLADABU::StringUtils::wideString2utf8String( paramName );
 		const char* surfaceSid = stringParamName.c_str();
 #else
 		const char* surfaceSid = paramName;//cgGetParameterName( cgTextureParam );
@@ -1088,7 +1088,7 @@ namespace COLLADAMax
         
         // The file name to connect to.
 #ifdef UNICODE
-		String fileName = bitmap->bi.Name() ? COLLADASW::URI::nativePathToUri( COLLADABU::StringUtils::toUTF8String(bitmap->bi.Name()) ) : "";
+		String fileName = bitmap->bi.Name() ? COLLADASW::URI::nativePathToUri( COLLADABU::StringUtils::wideString2utf8String(bitmap->bi.Name()) ) : "";
 #else
         String fileName = bitmap->bi.Name() ? COLLADASW::URI::nativePathToUri( bitmap->bi.Name() ) : "";
 #endif

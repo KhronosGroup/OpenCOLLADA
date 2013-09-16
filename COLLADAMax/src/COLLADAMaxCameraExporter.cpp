@@ -194,7 +194,7 @@ namespace COLLADAMax
 
 
 #ifdef UNICODE
-			String exportNodeName = COLLADABU::StringUtils::toUTF8String(exportNode->getINode()->GetName());
+			String exportNodeName = COLLADABU::StringUtils::wideString2utf8String(exportNode->getINode()->GetName());
 			COLLADASW::Camera colladaCamera(COLLADASW::LibraryCameras::mSW, optics, cameraId, COLLADASW::Utils::checkNCName(exportNodeName));
 #else
 			COLLADASW::Camera colladaCamera(COLLADASW::LibraryCameras::mSW, optics, cameraId, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));

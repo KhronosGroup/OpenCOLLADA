@@ -46,6 +46,7 @@ namespace COLLADAMax
 
 
 	const String VisualSceneExporter::NODE_ID_PRAEFIX = "node-";
+    const String VisualSceneExporter::XREF_NODE_NAME = "XRefs";
 
 	const String VisualSceneExporter::MATRIX_SID = "matrix";
 	const String VisualSceneExporter::TRANSLATE_SID = "translation";
@@ -237,20 +238,34 @@ namespace COLLADAMax
 				//close the pivot node 
 				colladaPivotNode.end();
 			}
+        }
 
+        //export instance nodes for XRef scenes attached to current INode
+        const ExportSceneGraph::XRefSceneGraphList* xRefScenes = xRefScenes = mExportSceneGraph->getXRefSceneGraphList(node);
 
-			//export instance nodes for XRef scenes
-			if ( mExportSceneGraph->isRootExportNode(exportNode) )
+		if ( xRefScenes != NULL )
+		{
+            //add new node if we do not have one yet
+            if (exportOnlyChilds)
+            {
+                colladaNode.setNodeName(XREF_NODE_NAME);
+                colladaNode.start();
+            }
+
+			for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = xRefScenes->begin(); it != xRefScenes->end(); ++it)
 			{
-				const ExportSceneGraph::XRefSceneGraphList& xRefScenes = mExportSceneGraph->getXRefSceneGraphList();
-				for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = xRefScenes.begin(); it != xRefScenes.end(); ++it)
-				{
-					COLLADASW::URI target = mDocumentExporter->getXRefOutputURI(*it);
-					target.setFragment(getNodeId( *(it->exportSceneGraph->getRootExportNode()) ) );
-					COLLADASW::InstanceNode instanceNode(mSW, target);
-					instanceNode.add();
-				}
+				COLLADASW::URI target = mDocumentExporter->getXRefOutputURI(*it);
+				target.setFragment(getNodeId( *(it->exportSceneGraph->getRootExportNode()) ) );
+
+				COLLADASW::InstanceNode instanceNode(mSW, target);
+				instanceNode.add();
 			}
+
+            //close new node if we've opened it before
+            if (exportOnlyChilds)
+            {
+                colladaNode.end();
+            }
 		}
 
 		//export the child nodes

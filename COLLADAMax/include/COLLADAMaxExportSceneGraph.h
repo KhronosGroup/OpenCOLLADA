@@ -31,6 +31,7 @@ class INode;
 
 namespace COLLADAMax
 {
+    class DocumentExporter;
 
 	/** Contains Information about a geometry that is used by a morph controller but is not in the scene, 
 	neither hidden nor unhidden.*/
@@ -60,6 +61,7 @@ namespace COLLADAMax
 		};
 
 		typedef std::vector<XRefSceneGraph> XRefSceneGraphList;
+        typedef std::map<INode*, XRefSceneGraphList> INodeXRefSceneGraphListMap;
 
     private:
         /** True if only the selection should be exported, false if the entire scene should be exported.*/
@@ -74,11 +76,15 @@ namespace COLLADAMax
 		/** The file name of the max file represented by this export scene graph.*/
 		COLLADABU::URI mMaxFileUri;
 
-		/** List of all XRef scenes below the file represented by this export scene graph*/
-		XRefSceneGraphList mXRefSceneGraphList;
+		/** Mapping between INodes and lists of all XRef scenes below
+        those INodes represented by export scene graphs. */
+        INodeXRefSceneGraphListMap mINodeXRefSceneGraphListMap;
 
         /** Holds the unique ids of the nodes.*/
         COLLADABU::IDList mNodeIdList;
+
+        /** Document exporter instance */
+		DocumentExporter const& mDocumentExporter;
 
 		/** Holds the unique file names of the exported XRef files. This is necessary if all files
 		are exported into the same directory.*/
@@ -100,7 +106,7 @@ namespace COLLADAMax
 		MorphControllerHelperGeometryList mMorphControllerHelperGeometryList;
 
     public:
-		ExportSceneGraph ( INode * iNode, const COLLADABU::URI& maxFileUri, COLLADABU::IDList& xRefExportFileNames );
+		ExportSceneGraph ( INode* iNode, const COLLADABU::URI& maxFileUri, DocumentExporter const& documentExporter, COLLADABU::IDList& xRefExportFileNames );
         ~ExportSceneGraph();
 
         /** Creates the export scene graph.
@@ -134,8 +140,13 @@ namespace COLLADAMax
 		/** Returns the list of helper geometries used by morph controllers.*/
 		const MorphControllerHelperGeometryList& getMorphControllerHelperGeometryList()const{return mMorphControllerHelperGeometryList;}
 
-		/** Returns the XRefSceneGraphList of all XRef scenes.*/
-		const XRefSceneGraphList& getXRefSceneGraphList() const { return mXRefSceneGraphList; }
+		/** Returns the XRefSceneGraphList of all XRef scenes for an iNode.
+        If iNode is NULL then it returns list of XRef scenes that are not bound
+        to any node. Returns NULL if node does not have any XRefs bound. */
+        const XRefSceneGraphList* getXRefSceneGraphList(INode* node) const;
+
+        /** Returns the XRefSceneGraphList of all XRef scenes.*/
+        const XRefSceneGraphList findAllXRefScenes() const;
 
     private:
         ExportSceneGraph ( const ExportSceneGraph & exportSceneGraph );
