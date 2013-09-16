@@ -7,19 +7,17 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "afxres.h"
+#include "windows.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -49,7 +47,7 @@ BEGIN
     CONTROL         "Bake Matrices",IDC_BAKE_MATRICES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,18,61,10
     CONTROL         "Relative Paths",IDC_RELATIVE_PATHS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,18,62,10
     CONTROL         "Tangents/Binormals",IDC_GEOM_TANGENTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,70,79,10
-    CONTROL         "Include XRefs",IDC_GEOM_XREFS,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_DISABLED | WS_TABSTOP,163,58,69,10
+    CONTROL         "Include XRefs",IDC_GEOM_XREFS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,163,58,69,10
     CONTROL         "Enable export",IDC_ANIM_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,101,59,10
     CONTROL         "Copy Images",IDC_COPY_IMAGES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,152,18,57,10
     CONTROL         "Export user defined properties",IDC_EXPORT_USER_PROPERTIES,
@@ -167,7 +165,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_EXPORT_OPTIONS, DIALOG
     BEGIN
@@ -220,7 +218,7 @@ END
 
 2 TEXTINCLUDE 
 BEGIN
-    "#include ""afxres.h""\r\n"
+    "#include ""windows.h""\r\n"
     "\0"
 END
 
@@ -239,18 +237,16 @@ END
 //
 
 IDR_RCDATA1             RCDATA                  "error.fx"
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.K.) resources
+// English (United Kingdom) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -294,7 +290,7 @@ END
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_LIBDESCRIPTION      "COLLADAMax"
     IDS_CATEGORY_E          "Export"
@@ -313,7 +309,7 @@ BEGIN
     IDS_CE_RSTATES_PARAMS   "Render States"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_COLLADASW_A_PARAMS  "COLLADASW Params"
     IDS_CLASS_NAME_A        "ColladaXml"
@@ -321,13 +317,13 @@ BEGIN
     IDS_CE_SHADERS_PARAMS   "Shaders"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_COLLADASW_XREF_ID   "Collada ID"
     IDS_CE_BOOL             "My check box"
 END
 
-#endif    // English (U.K.) resources
+#endif    // English (United Kingdom) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

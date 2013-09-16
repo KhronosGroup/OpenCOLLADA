@@ -263,14 +263,20 @@ namespace COLLADAMax
 
 #ifdef MAX_2010_OR_NEWER
  #ifdef UNICODE
-		const char* effectFileName = dxm ? COLLADABU::StringUtils::toUTF8String(dxm->GetEffectFile().GetFileName().data()).c_str() : 0;
+        std::string effectFileNameString;
+        const char* effectFileName = NULL;
+
+        if (dxm)
+        {
+            COLLADABU::StringUtils::wideString2utf8String(dxm->GetEffectFile().GetFileName().data());
+		    effectFileName = effectFileNameString.c_str();
+        }
  #else
 		const char* effectFileName = dxm ? dxm->GetEffectFile().GetFileName().data() : 0;
  #endif
 #else
 		const char* effectFileName = dxm ? dxm->GetEffectFilename() : 0;
 #endif
-
 
         if ( effectFileName && *effectFileName )
         {
@@ -401,7 +407,8 @@ namespace COLLADAMax
                 ParamDef parameterDef = pblock->GetParamDef( parameterID );
 
 #ifdef UNICODE
-				const char* paramName = COLLADABU::StringUtils::toUTF8String(parameterDef.int_name).c_str();
+                std::string paramNameString = COLLADABU::StringUtils::wideString2utf8String(parameterDef.int_name);
+				const char* paramName = paramNameString.c_str();
 #else
 				const char* paramName = parameterDef.int_name;
 #endif
