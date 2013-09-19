@@ -1556,17 +1556,6 @@ namespace COLLADASaxFWL
 			}
 			break;
 		case POLYLIST:
-			{
-				int currentFaceVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
-				if ( currentFaceVertexCount > 0 )
-				{
-					COLLADAFW::Polylist* polylist = (COLLADAFW::Polylist*) mCurrentMeshPrimitive;
-					COLLADAFW::Polylist::VertexCountArray& vertexCountArray = polylist->getGroupedVerticesVertexCountArray();
-					vertexCountArray.append(currentFaceVertexCount);
-					mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
-					mCurrentFaceOrLineCount++;
-				}
-			}
 			break;
 		case POLYGONS:
 			{
