@@ -54,7 +54,7 @@ set(SRC
 
 set(TARGET_LIBS
 	UTF
-	${PCRE_LIBRARIES}
+	${PCRE_LIBRARY}
 )
 
 include_directories(

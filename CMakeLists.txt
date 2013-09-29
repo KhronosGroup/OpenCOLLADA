@@ -214,7 +214,7 @@ if (USE_LIBXML)
 			set(LIBXML2_INCLUDE_DIR
 				${libxml_include_dirs}
 			)
-			set(LIBXML2_LIBRARIES xml)
+			set(LIBXML2_LIBRARY xml)
 		else ()
 			message("ERROR: LibXml2 not found, please install xml2 library (for Debian libxml2-dev)")
 		endif ()
@@ -237,7 +237,7 @@ else ()  # if pcre not found building its local copy from ./Externals
 		add_definitions(-DPCRE_STATIC)
 		add_subdirectory(${EXTERNAL_LIBRARIES}/pcre)
 		set(PCRE_INCLUDE_DIR ${libpcre_include_dirs})
-		set(PCRE_LIBRARIES pcre)
+		set(PCRE_LIBRARY pcre)
 	else ()
 		message("ERROR: PCRE not found, please install pcre library")
 	endif ()

@@ -262,7 +262,7 @@ set(TARGET_LIBS
 	GeneratedSaxParser
 	OpenCOLLADAFramework
 	MathMLSolver
-	${PCRE_LIBRARIES}
+	${PCRE_LIBRARY}
 )
 
 # For parallel building.
@@ -275,7 +275,7 @@ endif()
 
 if (USE_LIBXML)
 	list(APPEND libGeneratedSaxParser_include_dirs ${LIBXML2_INCLUDE_DIR})
-	list(APPEND TARGET_LIBS ${LIBXML2_LIBRARIES})
+	list(APPEND TARGET_LIBS ${LIBXML2_LIBRARY})
 endif ()
 
 if (USE_EXPAT)
