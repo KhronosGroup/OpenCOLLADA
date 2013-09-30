@@ -16,7 +16,7 @@
 #include <string>
 
 #ifdef COLLADABU_OS_WIN
-#include <Windows.h>
+#include <windows.h>
 #endif
 
 namespace COLLADABU
