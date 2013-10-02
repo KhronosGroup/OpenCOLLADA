@@ -59,6 +59,10 @@ namespace COLLADASaxFWL
 		to parse a sampler. This allows to not store tangents, if set to false.*/
 		bool mCurrentAnimationCurveRequiresTangents;
 
+		/** Used to control if validate function should report errors
+		or do its job silently */
+		bool mVerboseValidate;
+
 	public:
 
         /** Constructor. */

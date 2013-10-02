@@ -89,6 +89,7 @@ namespace COLLADASaxFWL
 		, mCurrentOffset(0)
 		, mCurrentBindShapeMatrix( COLLADABU::Math::Matrix4::IDENTITY)
 		, mCurrentMatrixIndex(0)
+		, mVerboseValidate(true)
 	{}
 
     //------------------------------
@@ -226,7 +227,7 @@ namespace COLLADASaxFWL
 	bool LibraryControllersLoader::end__skin()
 	{
 		bool success = true;
-		if ( validate( mCurrentSkinControllerData ) )
+		if ( validate( mCurrentSkinControllerData, mVerboseValidate ) == 0 )
 		{
 			success = writer()->writeSkinControllerData( mCurrentSkinControllerData );
 		}

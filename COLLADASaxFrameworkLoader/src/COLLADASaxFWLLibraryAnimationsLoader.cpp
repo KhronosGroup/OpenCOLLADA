@@ -283,6 +283,7 @@ namespace COLLADASaxFWL
 		, mCurrentlyParsingInterpolationArray(false)
 		, mCurrentAnimationInfo( 0 )
 		, mCurrentAnimationCurveRequiresTangents(true)
+		, mVerboseValidate(true)
 	{}
 
     //------------------------------
@@ -391,7 +392,7 @@ namespace COLLADASaxFWL
 				mCurrentAnimationCurve->setInterpolationType(COLLADAFW::AnimationCurve::INTERPOLATION_LINEAR );
 			}
 
-			if ( COLLADAFW::validate( mCurrentAnimationCurve ) )
+			if ( COLLADAFW::validate( mCurrentAnimationCurve, mVerboseValidate ) == 0)
 			{
 				success = writer()->writeAnimation(mCurrentAnimationCurve);
 				FW_DELETE mCurrentAnimationCurve;
