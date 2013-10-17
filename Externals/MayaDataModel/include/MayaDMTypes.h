@@ -45,7 +45,7 @@ struct short2
 	short2(short s1, short s2)
 	{
 		values[0] = s1;
-		values[2] = s2;
+		values[1] = s2;
 	}
 	short operator[](size_t i) const
 	{
@@ -315,7 +315,7 @@ struct double2
 	double2( double d1, double d2)
 	{
 		values[0]=d1;
-		values[0]=d2;
+		values[1]=d2;
 	}
 	double operator[](size_t i) const
 	{
