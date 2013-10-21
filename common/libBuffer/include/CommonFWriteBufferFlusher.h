@@ -13,14 +13,22 @@
 
 #include "CommonIBufferFlusher.h"
 
-#if (defined(WIN64) || defined(_WIN64) || defined(__WIN64__)) || (defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__))
-#ifdef __GNUC__
+#if (defined(WIN64) || defined(_WIN64) || defined(__WIN64__)) || (defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__) || defined(__APPLE__))
+#if defined(__GNUC__) && !defined(_LIBCPP_VERSION)
 #	include <tr1/unordered_map>
 #else
 #	include <unordered_map>
 #endif
 #else
 #	include <tr1/unordered_map>
+#endif
+
+#ifdef _LIBCPP_VERSION
+// If we're compiling with libc++, create a namespace alias for tr1 that points to std.
+// Not particularly elegant, and largely should be filed under "hack", but it works for OS X with clang for now.
+namespace std {
+    namespace tr1 = std;
+}
 #endif
 
 /* size_t for gcc, may want to move this include some place else - campbell */
