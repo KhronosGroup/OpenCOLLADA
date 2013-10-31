@@ -104,6 +104,10 @@ namespace COLLADASaxFWL
 		/** The index of the current matrix element, while parsing the bind_shape_matrix element.*/
 		size_t mCurrentMatrixIndex;
 
+		/** Used to control if validate function should report errors
+		or do its job silently */
+		bool mVerboseValidate;
+
 	public:
 
         /** Constructor. */
