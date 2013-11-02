@@ -35,17 +35,17 @@ namespace COLLADASaxFWL
 		, mMesh ( new COLLADAFW::Mesh(mMeshUniqueId) )
 		, mMaterialIdInfo(getMeshMaterialIdInfo())
 		, mCurrentMeshPrimitive(0)
-		, mCurrentVertexInput(0)
         , mInVertices ( false )
+        , mCurrentVertexInput(0)
 		, mMeshPrimitiveInputs(mVerticesInputs)
 		, mCurrentMeshPrimitiveInput(0)
-		, mCurrentMaxOffset(0)
-		, mCurrentVertexCount(0)
-		, mCurrentLastPrimitiveVertexCount(0)
-		, mCurrentPhHasEmptyP(true)
-		, mCurrentExpectedVertexCount(0)
-		, mCurrentFaceOrLineCount(0)
         , mCurrentOffset (0)
+        , mCurrentMaxOffset(0)
+        , mCurrentVertexCount(0)
+        , mCurrentLastPrimitiveVertexCount(0)
+        , mCurrentPhHasEmptyP(true)
+        , mCurrentExpectedVertexCount(0)
+        , mCurrentFaceOrLineCount(0)
 		, mPositionsOffset (0)
 		, mPositionsIndexOffset(0)
 		, mUsePositions ( true )
@@ -54,8 +54,8 @@ namespace COLLADASaxFWL
 		, mUseNormals ( false )
         , mUseTangents ( false )
         , mUseBinormals ( false )
-        , mTexCoordList (0)
         , mColorList (0)
+        , mTexCoordList (0)
 		, mCurrentPrimitiveType(NONE)
 		, mPOrPhElementCountOfCurrentPrimitive(0)
         , mInMesh (true)
@@ -1454,6 +1454,8 @@ namespace COLLADASaxFWL
 				}
 			}
 			break;
+        case NONE:
+            return false;
 		}
 		return true;
 	}
@@ -1611,6 +1613,8 @@ namespace COLLADASaxFWL
 				}
 			}
 			break;
+        case NONE:
+            return false;
 		}
 		return true;
 	}

@@ -129,13 +129,10 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::begin__float()
 	{
-		switch ( mValueElementParentType )
-		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				return mInstanceKinematicsModelLoader.begin__float();
-			}
-		}
+        if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
+        {
+            return mInstanceKinematicsModelLoader.begin__float();
+        }
 		return true;
 	}
 
@@ -148,13 +145,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::data__float( float value )
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.data__float(value);
-				break;
-			}
+            mInstanceKinematicsModelLoader.data__float(value);
 		}
 		return true;
 	}
@@ -162,13 +155,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::begin__int()
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.begin__int();
-				break;
-			}
+            mInstanceKinematicsModelLoader.begin__int();
 		}
 		return true;
 	}
@@ -195,6 +184,8 @@ namespace COLLADASaxFWL
 				mCurrentAxisInfo->setIndex(value);
 				break;
 			}
+        default:
+            break;
 		}
 		return true;
 	}
@@ -202,13 +193,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::begin__bool()
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.begin__bool();
-				break;
-			}
+            mInstanceKinematicsModelLoader.begin__bool();
 		}
 		return true;
 	}
@@ -240,6 +227,8 @@ namespace COLLADASaxFWL
 				mCurrentAxisInfo->setIsLocked(value);
 				break;
 			}
+        default:
+            break;
 		}
 		return true;
 	}
@@ -247,13 +236,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::begin__SIDREF()
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.begin__SIDREF();
-				break;
-			}
+            mInstanceKinematicsModelLoader.begin__SIDREF();
 		}
 		return true;
 	}
@@ -261,13 +246,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryArticulatedSystemsLoader::end__SIDREF()
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.end__SIDREF();
-				break;
-			}
+            mInstanceKinematicsModelLoader.end__SIDREF();
 		}
 		return true;
 	}

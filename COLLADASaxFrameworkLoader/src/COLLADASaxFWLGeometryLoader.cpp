@@ -61,6 +61,8 @@ namespace COLLADASaxFWL
             setParser(meshloader15);
             break;
             }
+        default:
+            break;
         }
 		return true;
 	}
@@ -84,6 +86,8 @@ namespace COLLADASaxFWL
                 return false;
                 break;
             }
+        default:
+            break;
         }
         return true;
     }

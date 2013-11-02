@@ -143,7 +143,7 @@ return mLoader->end__int();
 }
 
 
-bool LibraryKinematicsScenesLoader15::data__int____int_type( int value )
+bool LibraryKinematicsScenesLoader15::data__int____int_type( sint64 value )
 {
 SaxVirtualFunctionTest15(data__int____int_type(value));
 return mLoader->data__int(value);

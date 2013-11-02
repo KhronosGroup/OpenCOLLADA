@@ -147,12 +147,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryKinematicsScenesLoader::begin__float()
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				return mInstanceKinematicsModelLoader.begin__float();
-			}
+            return mInstanceKinematicsModelLoader.begin__float();
 		}
 		return true;
 	}
@@ -166,13 +163,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryKinematicsScenesLoader::data__float( float value )
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.data__float(value);
-				break;
-			}
+            mInstanceKinematicsModelLoader.data__float(value);
 		}
 		return true;
 	}
@@ -180,13 +173,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryKinematicsScenesLoader::begin__int()
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.begin__int();
-				break;
-			}
+            mInstanceKinematicsModelLoader.begin__int();
 		}
 		return true;
 	}
@@ -201,13 +190,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryKinematicsScenesLoader::data__int( int value )
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.data__int(value);
-				break;
-			}
+            mInstanceKinematicsModelLoader.data__int(value);
 		}
 		return true;
 	}
@@ -215,13 +200,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryKinematicsScenesLoader::begin__bool()
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.begin__bool();
-				break;
-			}
+            mInstanceKinematicsModelLoader.begin__bool();
 		}
 		return true;
 	}
@@ -236,13 +217,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryKinematicsScenesLoader::data__bool( bool value )
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.data__bool(value);
-				break;
-			}
+            mInstanceKinematicsModelLoader.data__bool(value);
 		}
 		return true;
 	}
@@ -250,13 +227,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryKinematicsScenesLoader::begin__SIDREF()
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.begin__SIDREF();
-				break;
-			}
+            mInstanceKinematicsModelLoader.begin__SIDREF();
 		}
 		return true;
 	}
@@ -264,13 +237,9 @@ namespace COLLADASaxFWL
 	//-----------------------------------------------------------------
 	bool LibraryKinematicsScenesLoader::end__SIDREF()
 	{
-		switch ( mValueElementParentType )
+		if ( mValueElementParentType == VALUE_ELEMENT_NEWPARAM )
 		{
-		case VALUE_ELEMENT_NEWPARAM:
-			{
-				mInstanceKinematicsModelLoader.end__SIDREF();
-				break;
-			}
+            mInstanceKinematicsModelLoader.end__SIDREF();
 		}
 		return true;
 	}

@@ -129,9 +129,13 @@ namespace MathML
 				case INode::VARIABLE:
 					visit(static_cast<const VariableExpression* const>(node));
 					break;
+                //to prevent WARNING for unusued enum USERDEFINED
+                case INode::USERDEFINED:
+                default:
+                    break;
 				}
 			}
-
+            
         };
 
         /** Default expression node visitor implementing AST-Node-Interface ('INode').

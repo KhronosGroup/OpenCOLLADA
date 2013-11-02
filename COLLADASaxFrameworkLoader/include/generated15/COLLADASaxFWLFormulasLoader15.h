@@ -64,7 +64,7 @@ virtual bool begin__int____int_type();
 
 virtual bool end__int____int_type();
 
-virtual bool data__int____int_type( int value );
+virtual bool data__int____int_type( sint64 value );
 
 virtual bool begin__bool();
 

@@ -24,20 +24,20 @@ namespace COLLADASaxFWL
 	LibraryEffectsLoader::LibraryEffectsLoader( IFilePartLoader* callingFilePartLoader )
 		: FilePartLoader(callingFilePartLoader)
 		, mCurrentEffect(0)
-		, mCurrentProfile(PROFILE_NONE)
-		, mCurrentShaderParameterType(UNKNOWN_SHADER_TYPE)
-		, mCurrentColorValueIndex(0)
-		, mCurrentSampler(0)
-		, mCurrentSamplerWrapS(COLLADAFW::Sampler::WRAP_MODE_WRAP)
-		, mCurrentSamplerWrapT(COLLADAFW::Sampler::WRAP_MODE_WRAP)
         , mTransparency(1)
 		, mOpaqueMode(UNSPECIFIED_OPAQUE)
+        , mCurrentProfile(PROFILE_NONE)
+        , mCurrentShaderParameterType(UNKNOWN_SHADER_TYPE)
+        , mCurrentColorValueIndex(0)
+        , mCurrentSamplerWrapS(COLLADAFW::Sampler::WRAP_MODE_WRAP)
+        , mCurrentSamplerWrapT(COLLADAFW::Sampler::WRAP_MODE_WRAP)
+        , mCurrentSampler(0)
 		, mNextSamplerIndex(0)
         , mInProfileCommonTechnique (false)
         , mInTexture (false)
         , mInSurface (false)
-        , mInSampler2D (false)
         , mSurfaceIndex (0)
+        , mInSampler2D (false)
 	{
 	}
 	
@@ -54,6 +54,8 @@ namespace COLLADASaxFWL
 		case PROFILE_COMMON:
 			mCurrentEffect->getCommonEffects().back()->setShaderType( shaderType );
 			break;
+        default:
+            break;
 		}
 		return true;
 	}
@@ -108,6 +110,8 @@ namespace COLLADASaxFWL
 
 				break;
 			}
+        default:
+            break;
 		}
 		return true;
 
@@ -199,6 +203,17 @@ namespace COLLADASaxFWL
 
 				break;
 			}
+            /*
+                PROFILE_BRIDGE,
+                PROFILE_CG,
+                PROFILE_GLES,
+                PROFILE_GLES2,
+                PROFILE_GLSL,
+                PROFILE_COMMON,
+                PROFILE_NONE
+              */
+            default:
+                break;
 		}
 		return success;
 
@@ -397,7 +412,6 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__effect()
 	{
-		COLLADASaxFWL::Loader* colladaLoader = getColladaLoader();
 		COLLADASaxFWL::FileLoader* fileLoader = getFileLoader();
 		fileLoader->addEffect(mCurrentEffect);
 
@@ -619,6 +633,8 @@ namespace COLLADASaxFWL
 			case ENUM__fx_sampler_wrap_common__NOT_PRESENT: 
 				mCurrentSamplerWrapS = COLLADAFW::Sampler::WRAP_MODE_UNSPECIFIED;
 				break;
+            default:
+                break;
 		}
 		
 		return true;
@@ -651,6 +667,8 @@ namespace COLLADASaxFWL
 			case ENUM__fx_sampler_wrap_common__NOT_PRESENT: 
 				mCurrentSamplerWrapT = COLLADAFW::Sampler::WRAP_MODE_UNSPECIFIED;
 				break;
+            default:
+                break;
 		}
 		
 		return true;
@@ -764,6 +782,8 @@ namespace COLLADASaxFWL
         case SHADER_PARAMETER_TRANSPARENCY:
             addToSidTree( 0, attributeData.sid, &mTransparency );
             break;
+        default:
+            break;
         }      
         return true;
     }
@@ -792,7 +812,10 @@ namespace COLLADASaxFWL
 		case SHADER_PARAMETER_TRANSPARENCY:
 			mTransparency.setFloatValue (value);
 			break;
+        default:
+            break;
 		}
+        
 		return true;
 	}
 

@@ -432,7 +432,12 @@ namespace COLLADASaxFWL
 						}
 					}
 					break;
+                    //Prevent warnings for semantics used by MORPH_CONTROLLER
+                default:
+                    break;
+                        
 				}
+                
 			}
 			break;
 		case MORPH_CONTROLLER:
@@ -507,9 +512,15 @@ namespace COLLADASaxFWL
 						setRealValues( morphWeights, weightSource );
 					}
 					break;
+                    //Prevent warnings for semantics used by SKIN_CONTROLLER
+                    default:
+                        break;
 				}
+                
 			}
 			break;
+            default:
+            break;
 		}
 
 		return true;
@@ -572,6 +583,8 @@ namespace COLLADASaxFWL
 		case SEMANTIC_JOINT:
 			mJointOffset = attributeData.offset;
 			break;
+        default:
+            break;
 		}
 		return true;
 	}

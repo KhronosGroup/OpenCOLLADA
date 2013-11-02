@@ -300,11 +300,11 @@ namespace COLLADASaxFWL
         int flags,
         int& parsedFlags)
         : GeneratedSaxParser::Parser( errorHandler )
+        , mPrivateParser14( 0 )
+        , mPrivateParser15( 0 )
         , mFileLoader( fileLoader )
         , mFlags( flags )
         , mParsedFlags( parsedFlags )
-        , mPrivateParser14( 0 )
-        , mPrivateParser15( 0 )
     {
 
     }

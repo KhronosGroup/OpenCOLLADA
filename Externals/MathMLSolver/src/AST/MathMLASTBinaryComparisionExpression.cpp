@@ -8,9 +8,9 @@ namespace MathML
     {
         //---------------------------------------------------------------------------------
         BinaryComparisonExpression::BinaryComparisonExpression()
-                : mOperator( EQ )
-                , mLeftOperand( 0 )
-                , mRightOperand( 0 )
+                : mLeftOperand( 0 )
+                , mRightOperand( 0 ),
+                  mOperator( EQ )
         {}
 
         BinaryComparisonExpression::~BinaryComparisonExpression()
