@@ -176,8 +176,9 @@ namespace COLLADASaxFWL
                 setParser( impl15->getGeneratedParser() );
                 break;
             }
+        default:
+                break;
         }
-		
 	}
 
 	//------------------------------

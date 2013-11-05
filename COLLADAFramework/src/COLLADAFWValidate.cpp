@@ -56,8 +56,8 @@ namespace COLLADAFW
 			if (verbose)
 				printf("ERROR: [%s] Found %d input values for %d keys\n",
 				animationCurve->getName().c_str(),
-				animationCurve->getInputValues().getValuesCount(),
-				keyCount);
+				(int)animationCurve->getInputValues().getValuesCount(),
+				(int)keyCount);
 			failure_count +=1;
 		}
 
@@ -77,8 +77,8 @@ namespace COLLADAFW
 				if (verbose)
 					printf("ERROR: [%s] Found %d interpolation types for %d keys\n",
 					animationCurve->getName().c_str(),
-					animationCurve->getInterpolationTypes().getCount(),
-					keyCount);
+					(int)animationCurve->getInterpolationTypes().getCount(),
+					(int)keyCount);
 				failure_count +=1;
 			}
 
@@ -103,7 +103,8 @@ namespace COLLADAFW
 			if ( animationCurve->getInterpolationTypes().getCount() != 0 ) {
 				if (verbose)
 					printf("ERROR: [%s] Found %d mixed interpolation types (expected only one type).\n",
-					animationCurve->getInterpolationTypes().getCount());
+                        animationCurve->getName().c_str(),
+                        (int)animationCurve->getInterpolationTypes().getCount());
 				failure_count +=1;
 			}
 		}
@@ -119,8 +120,8 @@ namespace COLLADAFW
 				if (verbose)
 					printf("ERROR: [%s] Found %d IN tangent values for %d tangents\n",
 					animationCurve->getName().c_str(),
-					animationCurve->getInTangentValues().getValuesCount(),
-					tangentCount);
+					(int)animationCurve->getInTangentValues().getValuesCount(),
+					(int)tangentCount);
 			failure_count +=1;
 		}
 
@@ -129,8 +130,8 @@ namespace COLLADAFW
 				if (verbose)
 					printf("ERROR: [%s] Found %d OUT tangent values for %d tangents\n",
 					animationCurve->getName().c_str(),
-					animationCurve->getOutTangentValues().getValuesCount(),
-					tangentCount);
+					(int)animationCurve->getOutTangentValues().getValuesCount(),
+					(int)tangentCount);
 			failure_count +=1;
 		}
 
@@ -153,8 +154,8 @@ namespace COLLADAFW
 			if (verbose)
 				printf("ERROR: [%s] found %d bind matrices and %d joints\n",
 				skinControllerData->getName().c_str(),
-				skinControllerData->getInverseBindMatrices().getCount(),
-				jointsCount);
+				(int)skinControllerData->getInverseBindMatrices().getCount(),
+				(int)jointsCount);
 			failure_count +=1;
 		}
 	
@@ -174,7 +175,7 @@ namespace COLLADAFW
 				printf("ERROR: [%s] found %d joint-Vertex Pairs and %d weights\n",
 				skinControllerData->getName().c_str(),
 				jointsVertexPairCount,
-				weightIndices.getCount());
+				(int)weightIndices.getCount());
 			failure_count +=1;
 		}
 
@@ -184,9 +185,9 @@ namespace COLLADAFW
 				if (verbose)
 					printf("ERROR: [%s] weight index %d=%d points outside of weight array of length %d\n",
 					skinControllerData->getName().c_str(),
-					i,
+					(int)i,
 					weightIndices[i],
-					weightsCount);
+					(int)weightsCount);
 				failure_count +=1;
 			}
 		}
@@ -199,7 +200,7 @@ namespace COLLADAFW
 				printf("ERROR: [%s] found %d joint-Vertex Pairs and %d joint indices\n",
 				skinControllerData->getName().c_str(),
 				jointsVertexPairCount,
-				jointIndices.getCount());
+				(int)jointIndices.getCount());
 			failure_count +=1;
 		}
 
@@ -209,9 +210,9 @@ namespace COLLADAFW
 				if (verbose)
 					printf("ERROR: [%s] joint index %d=%d points outside of weight array of length %d\n",
 					skinControllerData->getName().c_str(),
-					i,
+					(int)i,
 					(unsigned int)abs(jointIndices[i]),
-					jointsCount);
+					(int)jointsCount);
 				failure_count +=1;
 			}
 		}

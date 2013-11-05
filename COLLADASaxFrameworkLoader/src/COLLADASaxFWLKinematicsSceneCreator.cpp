@@ -431,6 +431,8 @@ namespace COLLADASaxFWL
 				case KinematicsAxis::VALUETYPE_SIDREF:
 					msg = "Axis with sid address \"" + kinematicsBindJointAxis->getAxis().getSidrefValue()->getSidAddressString() + "\" could not be resolved.";
 					break;
+                case KinematicsAxis::VALUETYPE_UNKNOWN:
+                    break;
 				}
 				//todo: handle error smarter
 //				mDocumentProcessor->handleFWLError(SaxFWLError::ERROR_UNRESOLVED_REFERENCE, msg);

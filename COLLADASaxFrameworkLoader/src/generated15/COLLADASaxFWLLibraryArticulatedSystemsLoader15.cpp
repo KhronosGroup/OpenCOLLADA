@@ -134,7 +134,7 @@ return mLoader->end__int();
 }
 
 
-bool LibraryArticulatedSystemsLoader15::data__int____int_type( int value )
+bool LibraryArticulatedSystemsLoader15::data__int____int_type( sint64 value )
 {
 SaxVirtualFunctionTest15(data__int____int_type(value));
 return mLoader->data__int(value);

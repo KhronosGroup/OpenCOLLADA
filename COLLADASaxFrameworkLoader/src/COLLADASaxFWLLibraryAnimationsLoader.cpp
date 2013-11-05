@@ -597,6 +597,14 @@ namespace COLLADASaxFWL
                     case COLLADAFW::AnimationList::FLOAT:
                         physicalDimensions.append(COLLADAFW::PHYSICAL_DIMENSION_NUMBER);
                         break;
+                    case COLLADAFW::AnimationList::ARRAY_ELEMENT_1D:
+                    case COLLADAFW::AnimationList::ARRAY_ELEMENT_2D:
+                            //https://github.com/KhronosGroup/OpenCOLLADA/issues/245
+                            //FR: is this an issue to have nothing processed here, or is it processed somewhere else ?
+                        break;
+                    case COLLADAFW::AnimationList::UNKNOWN_CLASS:
+                    case COLLADAFW::AnimationList::TIME:
+                        break;
 					}
 				}
 
@@ -673,6 +681,8 @@ namespace COLLADASaxFWL
 				}
 			}
 			break;
+        default:
+            break;
 		}
 
 		return true;

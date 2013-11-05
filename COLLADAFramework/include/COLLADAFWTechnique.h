@@ -81,7 +81,7 @@ namespace COLLADAFW
         Array<Image> mImageArray;
 
         /** blinn, constant, lambert, phong */
-        ShaderElement* mShaderElement;
+        //ShaderElement* mShaderElement;
 
         /** Provides a static declaration of all the render states, shaders, and settings for one 
         rendering pipeline. One or more occurances. */

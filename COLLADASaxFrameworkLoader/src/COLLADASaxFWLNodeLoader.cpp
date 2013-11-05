@@ -36,8 +36,8 @@ namespace COLLADASaxFWL
 	NodeLoader::NodeLoader(  )
         : mCurrentInstanceGeometry (0)
         , mCurrentInstanceController (0)
-        , mCurrentMaterialInfo(0)
         , mCurrentMaterialBinding(0)
+        , mCurrentMaterialInfo(0)
         , mCurrentInstanceControllerData(0)
 	{
 	}

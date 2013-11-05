@@ -164,6 +164,8 @@ namespace COLLADASaxFWL
 			// 					}
 			// 				}
 			// 			}
+        default:
+            break;
 		}
 
 		if ( !uri )
@@ -345,7 +347,8 @@ namespace COLLADASaxFWL
 					const SidTreeNode* joint = resolveSid( sidAddress );
 					if ( joint )
 					{
-						if( jointFound = addValidatedJoint(*joint, joints))
+                        jointFound = addValidatedJoint(*joint, joints);
+						if( jointFound )
 						{
 							//search for the next joint
 							break;

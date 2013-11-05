@@ -193,10 +193,10 @@ namespace COLLADABU
         size_t start, stop;
 
         start = text.find_first_not_of(separators);
-        while ((start >= 0) && (start < n))
+        while (start < n)
         {
             stop = text.find_first_of(separators, start);
-            if ((stop < 0) || (stop > n)) stop = n;
+            if (stop > n) stop = n;
             words.push_back(text.substr(start, stop - start));
             start = text.find_first_not_of(separators, stop+1);
         }

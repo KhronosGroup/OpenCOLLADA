@@ -12603,7 +12603,6 @@ if ( attributeArray )
         const ParserChar * attribute = *attributeArray;
         if ( !attribute )
             break;
-        StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
         if ( !attributeArray )
             return false;
@@ -12690,7 +12689,6 @@ if ( attributeArray )
         const ParserChar * attribute = *attributeArray;
         if ( !attribute )
             break;
-        StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
         if ( !attributeArray )
             return false;
@@ -15768,7 +15766,6 @@ if ( attributeArray )
         const ParserChar * attribute = *attributeArray;
         if ( !attribute )
             break;
-        StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
         if ( !attributeArray )
             return false;
@@ -64216,7 +64213,6 @@ if ( attributeArray )
         const ParserChar * attribute = *attributeArray;
         if ( !attribute )
             break;
-        StringHash hash = GeneratedSaxParser::Utils::calculateStringHash(attribute);
         attributeArray++;
         if ( !attributeArray )
             return false;

@@ -117,7 +117,9 @@ namespace GeneratedSaxParser
         case SIMPLE_TYPE_VALIDATION_OK:
             errorMessage << "SIMPLE_TYPE_VALIDATION_OK ";
             break;
-
+        case ERROR_XML_PARSER_ERROR:
+            errorMessage << "ERROR_XML_PARSER_ERROR ";
+            break;
 		}
 		
 		if ( mElementName )

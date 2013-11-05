@@ -59,6 +59,8 @@ namespace COLLADASaxFWL
 		case VALUETYPE_PARAM: 
 			mValue._param = 0;
 			break;
+        case VALUETYPE_UNKNOWN:
+            break;
 		}
 	}
 
@@ -116,6 +118,8 @@ namespace COLLADASaxFWL
 		case VALUETYPE_PARAM: 
 			mValue._param = 0;
 			break;
+        case VALUETYPE_UNKNOWN:
+            break;
 		}
 	}
 
@@ -173,6 +177,8 @@ namespace COLLADASaxFWL
 		case VALUETYPE_PARAM: 
 			mValue._param = 0;
 			break;
+        case VALUETYPE_UNKNOWN:
+            break;
 		}
 	}
 
