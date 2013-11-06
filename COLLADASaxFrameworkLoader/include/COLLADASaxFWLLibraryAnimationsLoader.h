@@ -63,6 +63,8 @@ namespace COLLADASaxFWL
 		or do its job silently */
 		bool mVerboseValidate;
 
+        /* internal count of animation processed, used to build up a default id */
+        size_t mProcessedCount;
 	public:
 
         /** Constructor. */

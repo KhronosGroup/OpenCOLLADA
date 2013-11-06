@@ -284,6 +284,7 @@ namespace COLLADASaxFWL
 		, mCurrentAnimationInfo( 0 )
 		, mCurrentAnimationCurveRequiresTangents(true)
 		, mVerboseValidate(true)
+        , mProcessedCount(0)
 	{}
 
     //------------------------------
@@ -345,7 +346,14 @@ namespace COLLADASaxFWL
 
         if ( attributeData.id )
             mOriginalId = (const char*)attributeData.id;
-
+        else {
+            //FR: we create an id, so that clients can figure out - for an incoming animation - which animation it originally belongs to.
+            //Thus, it can be able to respect the same layout of animation than the input COLLADA file.
+            std::ostringstream o;
+            o << "animation_"  << this->mProcessedCount++;
+            mOriginalId = o.str();
+        }
+        
 		return true;
 	}
 
