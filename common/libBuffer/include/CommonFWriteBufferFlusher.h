@@ -35,6 +35,9 @@ namespace std {
 #ifdef __GNUC__
 #   include <cstdlib> /* size_t */
 #   include <cstdio>  /* FILE */
+#ifdef __FreeBSD__
+#include <stdint.h> /* int64_t */
+#endif
 #endif
 
 #if (defined(__GNUC__) && !defined(__STRICT_ANSI__) && !defined(__MINGW32__)) || (__STDC_VERSION__ >= 199901L)
