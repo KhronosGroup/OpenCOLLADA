@@ -32,8 +32,14 @@ Type in a terminal:
 
 You should end up with a ready to be used OPENCOLLADA.xcodeproj.
 
-Windows *todo*
+Windows
 -------
+
+1. Install [CMake](http://cmake.org/cmake/resources/software.html).
+2. Create a new folder alongside this repository (not inside it), called `OpenCOLLADA-cmake`
+3. `cd OpenCOLLADA-cmake`
+4. `cmake ../OpenCOLLADA`
+5. Open `OPENCOLLADA.sln` from the new folder, and build the default startup project, `ALL_BUILD`.
 
 Linux *todo*
 ----- 

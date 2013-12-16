@@ -1,0 +1,5 @@
+*.dir
+*.vcxproj*
+*.suo
+CMakeFiles
+cmake_install.cmake
