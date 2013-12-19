@@ -867,8 +867,9 @@ namespace GeneratedSaxParser
             failed = false;
             return COLLADABU::URI(0);
         }
-        const ParserString& string = toStringListItem(buffer, bufferEnd, failed);
-        return COLLADABU::URI(string.str, string.length);
+        //const ParserString& string = toStringListItem(buffer, bufferEnd, failed);
+        //return COLLADABU::URI(string.str, string.length);
+        return COLLADABU::URI((const char*)*buffer, bufferEnd - *buffer);
     }
 
     //--------------------------------------------------------------------
@@ -879,8 +880,9 @@ namespace GeneratedSaxParser
             failed = false;
             return COLLADABU::URI(0);
         }
-        const ParserString& string = toStringListItem(buffer, failed);
-        return COLLADABU::URI(string.str, string.length);
+        //const ParserString& string = toStringListItem(buffer, failed);
+        //return COLLADABU::URI(string.str, string.length);
+        return COLLADABU::URI((const char*)*buffer);
     }
 
 
