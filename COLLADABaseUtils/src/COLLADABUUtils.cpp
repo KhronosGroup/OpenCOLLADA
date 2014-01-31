@@ -262,9 +262,15 @@ namespace COLLADABU
 		if( type != POSIX )
 			return false;
 
-		//...
+		const char* currentPath = getcwd( 0, 0);
+		const char* testPath = pathString.c_str();
+        pathExists = chdir( testPath ) == 0;
+		if( !pathExists )
+		{
+            pathExists = mkdir(testPath, 0755) == false;
+            chdir( currentPath );
+        }
 #endif
-
 		return pathExists;
 	}
 
