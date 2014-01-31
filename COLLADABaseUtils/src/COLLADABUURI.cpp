@@ -455,6 +455,15 @@ namespace COLLADABU
 	}
 
 	void URI::setPath(const String& dir, const String& baseName, const String& ext) {
+        //FR:Is this a bug or intention, but ext in OpenCOLLADA originaly seems to expect "." here
+        //We relax this by just add "." when not present
+        if (ext.length() > 0) {
+            if (ext.c_str()[0] != '.') {
+                setPath(addSlashToEnd(dir) + baseName + "." + ext);
+                return;
+            }
+        }
+        
 		setPath(addSlashToEnd(dir) + baseName + ext);
 	}
 
