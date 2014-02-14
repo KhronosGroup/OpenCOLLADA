@@ -565,6 +565,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::begin__sampler2D____fx_sampler2D_common()
 	{
+		mCurrentSamplerSource.clear();
         mInSampler2D = true;
 		mCurrentSampler = new COLLADAFW::Sampler( createUniqueId (COLLADAFW::Sampler::ID()));
 		mCurrentSampler->setSamplerType( COLLADAFW::Sampler::SAMPLER_TYPE_2D );
