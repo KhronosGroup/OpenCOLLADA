@@ -240,8 +240,7 @@ namespace COLLADASaxFWL
 		virtual bool end__surface____fx_surface_common();
 
 
-		/** We don't need to do anything here.*/
-		virtual bool begin__init_from____fx_surface_init_from_common( const init_from____fx_surface_init_from_common__AttributeData& attributeData ){return true;}
+		virtual bool begin__init_from____fx_surface_init_from_common( const init_from____fx_surface_init_from_common__AttributeData& attributeData);
 
 		/** Assign the unique id of the surface image.*/
 		virtual bool end__init_from____fx_surface_init_from_common();

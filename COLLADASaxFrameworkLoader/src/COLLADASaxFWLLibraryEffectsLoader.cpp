@@ -494,12 +494,16 @@ namespace COLLADASaxFWL
         else
             mEffectProfileSidSurfaceMap.insert(std::make_pair(mCurrentNewParamSid, mCurrentSurface));
 
-		mCurrentSurfaceInitFrom.clear();
-
         mInSurface = false;
 
         return true;
 	}
+    
+	//------------------------------
+    bool LibraryEffectsLoader::begin__init_from____fx_surface_init_from_common( const init_from____fx_surface_init_from_common__AttributeData& attributeData ) {
+		mCurrentSurfaceInitFrom.clear();
+        return true;
+    }
 
 	//------------------------------
 	bool LibraryEffectsLoader::end__init_from____fx_surface_init_from_common()
