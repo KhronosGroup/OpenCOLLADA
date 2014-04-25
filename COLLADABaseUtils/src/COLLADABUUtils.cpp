@@ -268,8 +268,8 @@ namespace COLLADABU
 		if( !pathExists )
 		{
             pathExists = mkdir(testPath, 0755) == false;
-            chdir( currentPath );
         }
+        chdir( currentPath );
 #endif
 		return pathExists;
 	}
