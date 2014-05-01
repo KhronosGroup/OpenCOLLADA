@@ -40,8 +40,12 @@ namespace std {
 #endif
 #endif
 
+#if __cplusplus > 199711L
+typedef int64_t __int64;
+#else
 #if (defined(__GNUC__) && !defined(__STRICT_ANSI__) && !defined(__MINGW32__)) || (__STDC_VERSION__ >= 199901L)
 typedef int64_t __int64;
+#endif
 #endif
 
 namespace Common
