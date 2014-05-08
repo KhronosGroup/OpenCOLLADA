@@ -570,7 +570,8 @@ virtual bool begin__wrap_p(){return true;}
 virtual bool end__wrap_p(){return true;}
 virtual bool data__wrap_p( const ENUM__fx_sampler_wrap_common value ){return true;}
 
-virtual bool begin__samplerCUBE____fx_samplerCUBE_common(){return true;}
+virtual bool begin__samplerCUBE____fx_samplerCUBE_common(){
+    return true;}
 virtual bool end__samplerCUBE____fx_samplerCUBE_common(){return true;}
 
 virtual bool begin__samplerRECT____fx_samplerRECT_common(){return true;}

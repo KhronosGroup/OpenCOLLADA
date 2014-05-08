@@ -604,6 +604,44 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+    
+	bool LibraryEffectsLoader::begin__samplerCUBE____fx_samplerCUBE_common()
+	{
+		mCurrentSamplerSource.clear();
+        mInSampler2D = false;
+		mCurrentSampler = new COLLADAFW::Sampler( createUniqueId (COLLADAFW::Sampler::ID()));
+		mCurrentSampler->setSamplerType( COLLADAFW::Sampler::SAMPLER_TYPE_CUBE );
+		return true;
+	}
+    
+	//------------------------------
+	bool LibraryEffectsLoader::end__samplerCUBE____fx_samplerCUBE_common()
+	{
+		SamplerInfo samplerInfo;
+		samplerInfo.sampler = mCurrentSampler;
+		samplerInfo.id = 0;
+		samplerInfo.surfaceSid = mCurrentSamplerSource;
+        
+		samplerInfo.sampler->setWrapS(mCurrentSamplerWrapS);
+		samplerInfo.sampler->setWrapT(mCurrentSamplerWrapT);
+        
+        // Check if we have a sampler defined directly under an effect or under an effect profile.
+        if ( mCurrentProfile == PROFILE_NONE )
+            mEffectSidSamplerInfoMap.insert(std::make_pair(mCurrentNewParamSid, samplerInfo));
+        else
+    		mEffectProfileSidSamplerInfoMap.insert(std::make_pair(mCurrentNewParamSid, samplerInfo));
+        
+		mCurrentSampler = 0;
+		mCurrentSamplerSource.clear();
+        
+		mCurrentSamplerWrapS = COLLADAFW::Sampler::WRAP_MODE_WRAP;
+		mCurrentSamplerWrapT = COLLADAFW::Sampler::WRAP_MODE_WRAP;
+        
+        mInSampler2D = false;
+        
+		return true;
+	}
+    
 	//------------------------------
 	bool LibraryEffectsLoader::data__source____NCName( const ParserChar* data, size_t length )
 	{

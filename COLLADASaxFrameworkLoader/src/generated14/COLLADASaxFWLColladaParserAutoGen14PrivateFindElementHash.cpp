@@ -8771,6 +8771,10 @@ bool ColladaParserAutoGen14Private::findElementHash( ElementData& elementData )
                 elementData.typeID = 497;
                 elementData.generatedElementHash = HASH_ELEMENT_SURFACE____FX_SURFACE_COMMON;
                 break;
+            case HASH_ELEMENT_SAMPLERCUBE:
+                elementData.typeID = 371;
+                elementData.generatedElementHash = HASH_ELEMENT_SAMPLERCUBE____FX_SAMPLERCUBE_COMMON;
+                break;
             default:
                 return false;
             }

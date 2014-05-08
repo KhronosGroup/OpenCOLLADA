@@ -2080,7 +2080,8 @@ bool _validateEnd__wrap_p();
 #endif
 bool _freeAttributes__wrap_p( void* attributeData );
 
-bool _begin__samplerCUBE____fx_samplerCUBE_common( void* attributeData ){return mImpl->begin__samplerCUBE____fx_samplerCUBE_common();}
+bool _begin__samplerCUBE____fx_samplerCUBE_common( void* attributeData ){
+    return mImpl->begin__samplerCUBE____fx_samplerCUBE_common();}
 bool _data__samplerCUBE____fx_samplerCUBE_common( const ParserChar* text, size_t textLength );
 bool _end__samplerCUBE____fx_samplerCUBE_common(){return mImpl->end__samplerCUBE____fx_samplerCUBE_common();}
 bool _preBegin__samplerCUBE____fx_samplerCUBE_common( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );

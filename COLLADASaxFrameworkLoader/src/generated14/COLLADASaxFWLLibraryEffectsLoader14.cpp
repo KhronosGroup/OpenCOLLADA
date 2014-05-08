@@ -162,13 +162,25 @@ SaxVirtualFunctionTest14(end__sampler2D____fx_sampler2D_common());
 return mLoader->end__sampler2D____fx_sampler2D_common();
 }
 
+    bool LibraryEffectsLoader14::begin__samplerCUBE____fx_samplerCUBE_common()
+    {
+        SaxVirtualFunctionTest14(begin__samplerCUBE____fx_samplerCUBE_common());
+        return mLoader->begin__samplerCUBE____fx_samplerCUBE_common();
+    }
+    
+    
+    bool LibraryEffectsLoader14::end__samplerCUBE____fx_samplerCUBE_common()
+    {
+        SaxVirtualFunctionTest14(end__samplerCUBE____fx_samplerCUBE_common());
+        return mLoader->end__samplerCUBE____fx_samplerCUBE_common();
+    }
+
 
 bool LibraryEffectsLoader14::begin__source____NCName()
 {
 SaxVirtualFunctionTest14(begin__source____NCName());
 return mLoader->begin__source____NCName();
 }
-
 
 bool LibraryEffectsLoader14::end__source____NCName()
 {

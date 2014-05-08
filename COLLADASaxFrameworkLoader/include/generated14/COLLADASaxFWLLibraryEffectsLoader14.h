@@ -67,6 +67,10 @@ virtual bool data__init_from____fx_surface_init_from_common( const ParserChar* d
 virtual bool begin__sampler2D____fx_sampler2D_common();
 
 virtual bool end__sampler2D____fx_sampler2D_common();
+    
+virtual bool begin__samplerCUBE____fx_samplerCUBE_common();
+    
+virtual bool end__samplerCUBE____fx_samplerCUBE_common();
 
 virtual bool begin__source____NCName();
 
