@@ -129,6 +129,9 @@ namespace COLLADAFW
 		that is used by the sampler to evaluate the MIPmap chain. */
 		float mMipmapBias;
 
+        /* sampler Sid, required to be able to retrieve a sampler from extras */
+        std::string mSid;
+        
 	public:
 
         /** Constructor. */
@@ -203,8 +206,11 @@ namespace COLLADAFW
 		/** Returns the mipmap Bias.*/
 		void setMipmapBias ( float mipmapBias ) { mMipmapBias = mipmapBias; }
 
-		Sampler* clone() { return FW_NEW Sampler(*this); }
+        void setSid( const std::string &sid) { mSid = sid; }
 
+        const std::string& getSid() { return mSid; }
+
+		Sampler* clone() { return FW_NEW Sampler(*this); }
 	};
 
     /** 

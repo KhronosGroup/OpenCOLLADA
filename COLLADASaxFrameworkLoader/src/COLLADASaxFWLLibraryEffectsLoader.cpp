@@ -1003,18 +1003,20 @@ namespace COLLADASaxFWL
 
             bool validSampler =  false;
             SidSamplerInfoMap::iterator samplerIt = mEffectProfileSidSamplerInfoMap.find ( samplerSid );
+            
             if ( samplerIt == mEffectProfileSidSamplerInfoMap.end () )
             {
                 samplerIt = mEffectSidSamplerInfoMap.find ( samplerSid );
                 if ( samplerIt != mEffectSidSamplerInfoMap.end () ) validSampler = true;
             }
             else validSampler = true;
-
+            
             if ( validSampler )
             {
                 SamplerInfo& samplerInfo = samplerIt->second;
                 samplerInfo.id = samplerArray.getCount();
                 COLLADAFW::Sampler* sampler = samplerInfo.sampler;
+                sampler->setSid(samplerSid);
                 if ( !sampler->getSourceImage().isValid() )
                 {
                     bool validSurface = false;
