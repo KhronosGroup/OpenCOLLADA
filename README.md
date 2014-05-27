@@ -44,6 +44,9 @@ Windows
 Linux *todo*
 ----- 
 
+Recent changes requires having C++11 enabled, thus GCC 4.7 must be installed.
+As an example, for Unbuntu please check [this](http://askubuntu.com/questions/113291/how-do-i-install-gcc-4-7) and [this]( http://charette.no-ip.com:81/programming/2011-12-24_GCCv47/)
+
 Directories
 -----------
 * [COLLADABaseUtils](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/COLLADABaseUtils) -- Utils used by many of the other projects
