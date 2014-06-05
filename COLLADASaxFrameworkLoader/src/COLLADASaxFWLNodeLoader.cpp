@@ -424,6 +424,7 @@ namespace COLLADASaxFWL
 		if (mCurrentInstanceControllerData)
 		{
 			mCurrentInstanceControllerData->skeletonRoots.push_back( value );
+            mCurrentInstanceControllerData->instanceController->skeletons().push_back( value );
 		}
 
 		return true;

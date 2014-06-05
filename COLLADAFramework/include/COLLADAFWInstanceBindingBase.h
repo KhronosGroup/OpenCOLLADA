@@ -15,7 +15,6 @@
 #include "COLLADAFWInstanceBase.h"
 #include "COLLADAFWMaterialBinding.h"
 
-
 namespace COLLADAFW
 {
 
@@ -49,7 +48,10 @@ namespace COLLADAFW
 
         /** Returns the list of all material bindings.*/
         const MaterialBindingArray& getMaterialBindings() const { return mMaterialBindings; }
-
+       
+        /** Returns a reference to all the skeletons from this controller */
+        std::vector <COLLADABU::URI> &skeletons() { return mSkeletons; }
+        
 	private:
 
         /** Default copy constructor. */
@@ -59,7 +61,8 @@ namespace COLLADAFW
         {
             pre.mMaterialBindings.cloneArray ( mMaterialBindings );
         }
-
+        
+        std::vector <COLLADABU::URI> mSkeletons;
 	};
 
 } // namespace COLLADAFW
