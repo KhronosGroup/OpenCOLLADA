@@ -355,6 +355,28 @@ namespace COLLADASaxFWL
         /** Maps the Unique generated from the id of the COLLADA controller element to the
          InstanceControllerDataList containing all instance controllers that reference the same controller.*/
 		InstanceControllerDataListMap& getInstanceControllerDataListMap() { return mInstanceControllerDataListMap; }
+
+        /** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been
+        passed to this method before, the same 	COLLADAFW::UniqueId will be returned, if not, a
+        new one is created.
+        @param uri The uri of the element to get the COLLADAFW::UniqueId for
+        @param classId The COLLADAFW::ClassId of the object that will be created for @a element.
+        @return The elements COLLADAFW::UniqueId */
+        const COLLADAFW::UniqueId& getUniqueId(const COLLADABU::URI& uri, COLLADAFW::ClassId classId);
+
+        /** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been
+        passed to this method before, the same 	COLLADAFW::UniqueId will be returned, if not, an
+        invalid unique id will be returned.
+        @param uri The uri of the element to get the COLLADAFW::UniqueId for
+        @return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
+        const COLLADAFW::UniqueId& getUniqueId(const COLLADABU::URI& uri);
+
+        /** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new
+        COLLADAFW::UniqueId will be created and returned. Use this member for collada elements that
+        do not have an id.
+        @param classId The COLLADAFW::ClassId of the object that will be created for @a element.
+        @return The elements COLLADAFW::UniqueId */
+        COLLADAFW::UniqueId getUniqueId(COLLADAFW::ClassId classId);
         
 	private:
 		friend class IFilePartLoader;
@@ -367,28 +389,6 @@ namespace COLLADASaxFWL
 
 		/** The error handler to pass the errors to.*/
 		IErrorHandler* getErrorHandler() {return mErrorHandler;}
-
-		/** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been 
-		passed to this method before, the same 	COLLADAFW::UniqueId will be returned, if not, a 
-		new one is created.
-		@param uri The uri of the element to get the COLLADAFW::UniqueId for
-		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
-		@return The elements COLLADAFW::UniqueId */
-		const COLLADAFW::UniqueId& getUniqueId(const COLLADABU::URI& uri, COLLADAFW::ClassId classId);
-
-		/** Returns the COLLADAFW::UniqueId of the element with uri @a uri. If the uri has been 
-		passed to this method before, the same 	COLLADAFW::UniqueId will be returned, if not, an 
-		invalid unique id will be returned.
-		@param uri The uri of the element to get the COLLADAFW::UniqueId for
-		@return The elements COLLADAFW::UniqueId or COLLADAFW::UniqueId::INVALID*/
-		const COLLADAFW::UniqueId& getUniqueId(const COLLADABU::URI& uri);
-
-		/** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new 
-		COLLADAFW::UniqueId will be created and returned. Use this member for collada elements that
-		do not have an id.
-		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
-		@return The elements COLLADAFW::UniqueId */
-		COLLADAFW::UniqueId getUniqueId(COLLADAFW::ClassId classId);
 
 		/** Returns the file id of the file pointed to by the path in @a uri. If @a uri is relative, 
 		the file id of the current file is returned. If the an uri with the same path has been passed to 
