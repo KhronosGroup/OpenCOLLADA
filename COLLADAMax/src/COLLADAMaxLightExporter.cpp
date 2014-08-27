@@ -289,7 +289,7 @@ namespace COLLADAMax
 
 		if (isSpot || isPoint)
 		{
-			int decayFunction = parameters->GetInt(isPoint ? MaxLight::PB_DECAY : MaxLight::PB_OMNIDECAY, mDocumentExporter->getOptions().getAnimationStart());
+			int decayFunction = parameters->GetInt(isPoint ? MaxLight::PB_OMNIDECAY : MaxLight::PB_DECAY, mDocumentExporter->getOptions().getAnimationStart());
 			switch (decayFunction)
 			{
 			case 1:
