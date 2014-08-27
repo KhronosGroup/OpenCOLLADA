@@ -20,7 +20,7 @@ Mac OS X *Tested with Lion and Mountain Lion*:
 
 1. Install [cmake](http://www.cmake.org/cmake/resources/software.html) with command line links.
 2. some packages are required, they can be easily installed using a terminal with [brew](http://mxcl.github.com/homebrew/) type:
- * ruby <(curl -fsSkL raw.github.com/mxcl/homebrew/go)
+ * ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
  * brew install pkgconfig
  * brew install pcre
 4. When using recent Xcode, install the command line tools in Prereferences -> Download -> Command Line Tools. (otherwise cmake will not be able to find out what is the compiler)
