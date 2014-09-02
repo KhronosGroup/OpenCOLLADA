@@ -277,8 +277,10 @@ namespace COLLADAMax
 
 		if (parameters)
 		{
+			GenLight* light = (GenLight*)(lightObject);
+			float intensity = light->GetIntensity( 0 );
 			bool hasAnimatedColor = mAnimationExporter->addAnimatedParameter(parameters, MaxLight::PB_COLOR, lightId, colladaLight->getColorDefaultSid(), 0 );
-			colladaLight->setColor(EffectExporter::maxColor2Color(parameters->GetColor(MaxLight::PB_COLOR)), hasAnimatedColor);
+			colladaLight->setColor(EffectExporter::maxColor2Color(parameters->GetColor(MaxLight::PB_COLOR) * intensity), hasAnimatedColor);
 		}
 		else if (parametersSky )
 		{
