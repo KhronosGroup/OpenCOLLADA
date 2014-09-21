@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Private Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Private Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Public Header Files">
+      <UniqueIdentifier>{a5de315a-246c-4198-a84d-10d4ce6ee2c0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\c14n.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\catalog.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\chvalid.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\debugXML.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dict.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DOCBparser.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\encoding.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\entities.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\error.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\globals.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\hash.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HTMLparser.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HTMLtree.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\legacy.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\list.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nanoftp.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\nanohttp.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\parser.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\parserInternals.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\pattern.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\relaxng.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SAX.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SAX2.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\threads.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tree.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\uri.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\valid.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xinclude.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xlink.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xmlIO.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xmlmemory.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xmlmodule.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xmlreader.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xmlregexp.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xmlsave.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xmlstring.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xmlunicode.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xmlwriter.c">
+      <Filter>Private Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\acconfig.h">
+      <Filter>Private Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\config-ps3.h">
+      <Filter>Private Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\config.h">
+      <Filter>Private Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elfgcchack.h">
+      <Filter>Private Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libxml.h">
+      <Filter>Private Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\c14n.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\catalog.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\chvalid.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\debugXML.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\dict.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\DOCBparser.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\encoding.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\entities.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\globals.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\hash.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\HTMLparser.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\HTMLtree.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\list.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\nanoftp.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\nanohttp.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\parser.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\parserInternals.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\pattern.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\relaxng.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\SAX.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\SAX2.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\schemasInternals.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\threads.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\tree.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\uri.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\valid.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\win32config.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\wsockcompat.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xinclude.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xlink.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlautomata.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlerror.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlexports.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlIO.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlmemory.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlmodule.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlreader.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlregexp.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlsave.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlschemas.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlschemastypes.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlstring.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlunicode.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlversion.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xmlwriter.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xpath.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xpathInternals.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\libxml\xpointer.h">
+      <Filter>Public Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\generated 1.4">
+      <UniqueIdentifier>{3fbcedde-2035-4c34-9e7b-ac5a47a04f9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated 1.5">
+      <UniqueIdentifier>{c2b8c7a2-ad58-4ad7-a071-d7830416081b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\generated 1.4">
+      <UniqueIdentifier>{34c0249a-35da-45ec-928c-c1c8b7c6f591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated 1.5">
+      <UniqueIdentifier>{3ec4e970-01c9-4654-80e4-50d26bc88936}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\COLLADASaxFWLAssetLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLCOLLADACsymbol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLDocumentProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLExtraDataElementHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLExtraDataLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLFileLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLFilePartLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLFormulasLinker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLFormulasLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLGeometryLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLGeometryMaterialIdInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLIError.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLIErrorHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLIExtraDataCallbackHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLIFilePartLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLInputUnshared.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLInstanceArticulatedSystemLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLInstanceKinematicsModelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLIParserImpl14.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLIParserImpl15.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLJointsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLKinematicsIntermediateData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLKinematicsSceneCreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryAnimationsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryArticulatedSystemsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryCamerasLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryControllersLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryEffectsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryFormulasLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryImagesLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryJointsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryKinematicsModelsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryKinematicsScenesLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryLightsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryMaterialsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryNodesLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLMeshLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLMeshPrimitiveInputList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLNodeLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLPostProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLPrecompiledHeaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLRootParser14.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLRootParser15.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLSaxFWLError.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLSaxParserError.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLSaxParserErrorHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLSceneLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLSidAddress.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLSidTreeNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLSourceArrayLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLSplineLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLTransformationLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLTypes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLVersionParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLVisualSceneLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLAssetLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLColladaParserAutoGen14Private.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLColladaParserAutoGen14PrivateEnums.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLColladaParserAutoGen14PrivateFindElementHash.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLColladaParserAutoGen14PrivateFunctionMap.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLColladaParserAutoGen14PrivateFunctionMapFactory.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLColladaParserAutoGen14PrivateNameMap.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLColladaParserAutoGen14PrivateValidation.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLGeometryLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryAnimationsLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryCamerasLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryControllersLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryEffectsLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryImagesLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryLightsLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryMaterialsLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryNodesLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLMeshLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLNodeLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLSceneLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLSourceArrayLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLSplineLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLVisualSceneLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLAssetLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLColladaParserAutoGen15Private.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLColladaParserAutoGen15PrivateEnums.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLColladaParserAutoGen15PrivateFindElementHash.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLColladaParserAutoGen15PrivateFunctionMap.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLColladaParserAutoGen15PrivateFunctionMapFactory.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLColladaParserAutoGen15PrivateNameMap.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLColladaParserAutoGen15PrivateValidation.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLFormulasLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLGeometryLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryAnimationsLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryArticulatedSystemsLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryCamerasLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryControllersLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryEffectsLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryFormulasLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryImagesLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryJointsLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryKinematicsModelsLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryLightsLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryMaterialsLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryNodesLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLMeshLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLNodeLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLSceneLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLSourceArrayLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLVisualSceneLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\COLLADASaxFWLAccessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLArrayElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLAssetLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLCOLLADACsymbol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLDocumentProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLExtraDataElementHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLExtraDataLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLFileLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLFilePartLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLFormulasLinker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLFormulasLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLGeometryLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLGeometryMaterialIdInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLHelperLoaderBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLIError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLIErrorHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLIExtraDataCallbackHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLIFilePartLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLInputShared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLInputUnshared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLInstanceArticulatedSystemLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLInstanceKinematicsModelLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLIntermediateTargetable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLInterpolationTypeSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLIParserImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLIParserImpl14.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLIParserImpl15.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLJointsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLKinematicsIntermediateData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLKinematicsSceneCreator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryAnimationsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryArticulatedSystemsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryCamerasLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryControllersLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryEffectsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryFormulasLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryImagesLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryJointsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryKinematicsModelsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryKinematicsScenesLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryLightsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryMaterialsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryNodesLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLMeshLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLMeshPrimitiveInputList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLNodeLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLPHElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLPolygons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLPostProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLPrerequisites.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLPrimitiveBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLRootParser14.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLRootParser15.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLSaxFWLError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLSaxParserError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLSaxParserErrorHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLSceneLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLSidAddress.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLSidTreeNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLSourceArrayLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLStableHeaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLTechniqueCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLTransformationLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLVersionParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLVertices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLVisualSceneLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLXmlTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLAssetLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLColladaParserAutoGen14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLColladaParserAutoGen14Attributes.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLColladaParserAutoGen14Enums.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLColladaParserAutoGen14FunctionMapFactory.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLColladaParserAutoGen14Private.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLGeometryLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryAnimationsLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryCamerasLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryControllersLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryEffectsLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryImagesLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryLightsLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryMaterialsLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryNodesLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLMeshLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLNodeLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLSceneLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLSourceArrayLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLVisualSceneLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLAssetLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLColladaParserAutoGen15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLColladaParserAutoGen15Attributes.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLColladaParserAutoGen15Enums.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLColladaParserAutoGen15FunctionMapFactory.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLColladaParserAutoGen15Private.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLFormulasLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLGeometryLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryAnimationsLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryArticulatedSystemsLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryCamerasLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryControllersLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryEffectsLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryFormulasLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryImagesLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryJointsLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryKinematicsModelsLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryKinematicsScenesLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryLightsLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryMaterialsLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryNodesLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLMeshLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLNodeLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLSceneLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLSourceArrayLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLVisualSceneLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="..\include\generated14\COLLADASaxFWLColladaParserAutoGen14ValidationData.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\include\generated15\COLLADASaxFWLColladaParserAutoGen15ValidationData.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </CustomBuildStep>
+  </ItemGroup>
+</Project>

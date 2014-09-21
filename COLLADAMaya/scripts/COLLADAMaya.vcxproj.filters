@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{85813086-34ab-4d0e-97f7-a84bf5cd42f6}</UniqueIdentifier>
+      <Extensions>cpp</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{7a8cd4ec-4f7e-4bdc-a9fd-63aa674935f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils\Animation">
+      <UniqueIdentifier>{3e77a1cd-c167-4f35-9389-a57ae4b17dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils\Geometry">
+      <UniqueIdentifier>{d84c1b8f-ef27-43b9-b782-6952df71e02a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{659290c5-b43e-487f-8967-fb4203eeff68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exporters">
+      <UniqueIdentifier>{4668b00f-fc15-4c08-a5bc-f056fccafaf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SceneGraph">
+      <UniqueIdentifier>{6e6d84ff-84c2-431f-b035-9d34ae2f09e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Plugin">
+      <UniqueIdentifier>{2a64430e-c84a-42e1-9ad3-2da045887184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Console">
+      <UniqueIdentifier>{edee3515-04e1-481e-b01b-172cbff5ed5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{b7760f72-7819-43d1-a5b8-30043f9ab716}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{81f83461-b4c9-4a1d-8424-ebb82d376fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils\Animation">
+      <UniqueIdentifier>{885c1083-721c-4a7b-980f-9dd50b38a196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils\Controller">
+      <UniqueIdentifier>{1d1635cf-4ef3-40a6-a099-2f204c440249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils\Geometry">
+      <UniqueIdentifier>{d35a171d-b295-4c3a-9860-33ebdbc7edd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{b23d3f82-0161-4938-8a13-1e6ff9ea6c77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Exporters">
+      <UniqueIdentifier>{e126a499-f884-4405-8704-dbccabfec547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SceneGraph">
+      <UniqueIdentifier>{dfcd33df-7885-43be-ac4b-29de101b7d4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Plugin">
+      <UniqueIdentifier>{3aba517c-84a1-45b9-95c3-9f9997bb0d42}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\COLLADAMayaCgfxShaderIncludes.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaPrecompiledHeaders.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaReferenceManager.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaAnimationCurves.cpp">
+      <Filter>Source Files\Utils\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaAnimationElement.cpp">
+      <Filter>Source Files\Utils\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaAnimationKeys.cpp">
+      <Filter>Source Files\Utils\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaAnimationSampleCache.cpp">
+      <Filter>Source Files\Utils\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaAnimationTools.cpp">
+      <Filter>Source Files\Utils\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaSourceInput.cpp">
+      <Filter>Source Files\Utils\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaAnimationHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaDagHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaRotateHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaSetHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaShaderHelper.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaAnimationClipExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaAnimationExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaCameraExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaControllerExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaDocumentExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaEffectExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaEffectTextureExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaGeometryExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaGeometryPolygonExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaHwShaderExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaImageExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaLightExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaMaterialExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaVisualSceneExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaSceneElement.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaSceneGraph.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaExportOptions.cpp">
+      <Filter>Source Files\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaFileTranslator.cpp">
+      <Filter>Source Files\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaImportOptions.cpp">
+      <Filter>Source Files\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaConsoleMain.cpp">
+      <Filter>Source Files\Console</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\COLLADAMayaConversion.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaPlatform.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaPrerequisites.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaReferenceManager.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaStableHeaders.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaSyntax.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaAnimationCurves.h">
+      <Filter>Header Files\Utils\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaAnimationElement.h">
+      <Filter>Header Files\Utils\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaAnimationKeys.h">
+      <Filter>Header Files\Utils\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaAnimationSampleCache.h">
+      <Filter>Header Files\Utils\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaAnimationTools.h">
+      <Filter>Header Files\Utils\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaTangentPoint.h">
+      <Filter>Header Files\Utils\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaBaseController.h">
+      <Filter>Header Files\Utils\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaMorphController.h">
+      <Filter>Header Files\Utils\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaSkinController.h">
+      <Filter>Header Files\Utils\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaPolygonSource.h">
+      <Filter>Header Files\Utils\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaSourceInput.h">
+      <Filter>Header Files\Utils\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaAnimationHelper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaDagHelper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaRotateHelper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaSetHelper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaShaderHelper.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaAnimationClipExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaAnimationExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaCameraExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaControllerExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaDocumentExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaEffectExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaEffectTextureExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaGeometryExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaGeometryPolygonExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaHwShaderExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaImageExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaLightExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaMaterialExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaVisualSceneExporter.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaSceneElement.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaSceneGraph.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaExportOptions.h">
+      <Filter>Header Files\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaFileTranslator.h">
+      <Filter>Header Files\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaImportOptions.h">
+      <Filter>Header Files\Plugin</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
