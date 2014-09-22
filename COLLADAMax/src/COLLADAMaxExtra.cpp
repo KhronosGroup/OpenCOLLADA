@@ -76,6 +76,7 @@ namespace COLLADAMax
 				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart));
 			}
 			break;
+		case TYPE_PCNT_FRAC:
 		case TYPE_FLOAT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
@@ -125,6 +126,7 @@ namespace COLLADAMax
 				mExtraTechnique->addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart));
 			}
 			break;
+		case TYPE_PCNT_FRAC:
 		case TYPE_FLOAT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
