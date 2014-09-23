@@ -107,6 +107,11 @@ namespace COLLADASW
         virtual ~BaseExtraTechnique() {};
 
         /**
+         * Reinitialize to blank
+         */
+        void flushAllTechniques ( );
+
+        /**
          * Adds a textblock to the extra profile, which contains the full extra technique text.
          */
         void addExtraTechniqueTextblock ( const String& profileName, const String& text );

@@ -401,4 +401,10 @@ namespace COLLADASW
         }
     }
 
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::flushAllTechniques()
+    {
+      mExtraTechniques.clear();
+    }
+
 } //namespace COLLADASW
