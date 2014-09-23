@@ -250,6 +250,8 @@ namespace COLLADAMax
 
 		setExtraTechnique(this);
 
+		flushAllTechniques();
+
 		//COLLADASW::EffectProfile effectCommonProfile ( LibraryEffects::mSW );
 
 
@@ -947,6 +949,7 @@ namespace COLLADAMax
 
             openEffect ( effectId );
 			setExtraTechnique(this);
+			flushAllTechniques();
 
 			COLLADASW::EffectProfile effectProfile ( LibraryEffects::mSW );
             effectProfile.setShaderType ( COLLADASW::EffectProfile::PHONG );
