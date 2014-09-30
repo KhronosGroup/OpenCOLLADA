@@ -5251,8 +5251,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_Max2012|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			>
@@ -5275,7 +5275,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\res;&quot;$(ADSK_3DSMAX_SDK_2012)/maxsdk/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2012)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -5303,7 +5303,7 @@
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ADSK_3DSMAX_SDK_2012)/maxsdk/lib&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2012)/lib&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -5336,8 +5336,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_Max2012|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			>
@@ -5361,7 +5361,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\res;&quot;$(ADSK_3DSMAX_SDK_2012)/maxsdk/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2012)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -5389,7 +5389,7 @@
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.3.0"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ADSK_3DSMAX_SDK_2012)/maxsdk/x64/lib&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2012)/x64/lib&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -5593,8 +5593,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release_Max2012|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
@@ -5619,7 +5619,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				FavorSizeOrSpeed="0"
-				AdditionalIncludeDirectories="..\include;..\res;&quot;$(ADSK_3DSMAX_SDK_2012)/maxsdk/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2012)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -5646,7 +5646,7 @@
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.3.0"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ADSK_3DSMAX_SDK_2012)/maxsdk/lib&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2012)/lib&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -5681,8 +5681,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release_Max2012|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
@@ -5708,7 +5708,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				FavorSizeOrSpeed="0"
-				AdditionalIncludeDirectories="..\include;..\res;&quot;$(ADSK_3DSMAX_SDK_2012)/maxsdk/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;..\res;&quot;$(MAX_SDK_PATH2012)/include&quot;;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;&quot;$(BOOST_ROOT)&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -5735,7 +5735,7 @@
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				Version="1.3.0"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ADSK_3DSMAX_SDK_2012)/maxsdk/x64/lib&quot;;..\lib"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2012)/x64/lib&quot;;..\lib"
 				IgnoreDefaultLibraryNames=" "
 				GenerateDebugInformation="false"
 				SubSystem="2"
