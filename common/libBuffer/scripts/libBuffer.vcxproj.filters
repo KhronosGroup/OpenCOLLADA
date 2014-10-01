@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\performanceTest">
+      <UniqueIdentifier>{cc5fab09-622b-4f80-887e-5768753fbc19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\unitTest">
+      <UniqueIdentifier>{3c68d1e0-6836-4109-b79a-e45c998c41ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\performanceTest">
+      <UniqueIdentifier>{3ac7bac2-d894-4d73-922a-3e378bcd95f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\unitTest">
+      <UniqueIdentifier>{075c7c56-332b-4b4c-9b1a-b9b7ffef1154}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\CommonBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CommonCharacterBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CommonFWriteBufferFlusher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CommonLogFileBufferFlusher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CommonStreamBufferFlusher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\performanceTest\main.cpp">
+      <Filter>Source Files\performanceTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\performanceTest\performanceTest.cpp">
+      <Filter>Source Files\performanceTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\unitTest\main.cpp">
+      <Filter>Source Files\unitTest</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\CommonBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CommonCharacterBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CommonFWriteBufferFlusher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CommonIBufferFlusher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CommonLogFileBufferFlusher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CommonStreamBufferFlusher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\performanceTest\performanceTest.h">
+      <Filter>Header Files\performanceTest</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

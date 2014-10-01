@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\exporter">
+      <UniqueIdentifier>{44fd66f7-c998-4a1e-93dc-941315aef197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\importer">
+      <UniqueIdentifier>{7620692d-4b93-4247-adce-40b3367d679a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\warehouse">
+      <UniqueIdentifier>{7d3da91d-dec5-49a1-bd97-8064be9feb58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\exporter">
+      <UniqueIdentifier>{38ce0f68-82f2-46ae-b9d3-888c97fd60fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\external">
+      <UniqueIdentifier>{4aa6f6e9-8736-4528-8c3f-7376113235fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\importer">
+      <UniqueIdentifier>{e1082203-3eb1-4838-9a2b-090d8eccc71d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\warehouse">
+      <UniqueIdentifier>{bf5fc9de-1612-4b06-bb21-6e86d1b2e47f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{a067125e-1cf6-4828-91bc-e92676857670}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\COLLADAMaxColladaPlugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxDllEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxPrecompiledHeaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxAnimationExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxCameraExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxColladaExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxController.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxControllerExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxControllerList.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxConversionFunctor.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxDocumentExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxEffectExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxEffectTextureExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxExportNode.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxExportSceneGraph.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxExtra.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxGeometriesExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxGeometryExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxGeometryExtra.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxHwShaderExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxImageExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxLightExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxMaterialExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxOptions.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxPhysiqueSkinInterface.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxSkinInterface.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxTexTangentCalculator.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxVisualSceneExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxXRefExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxXRefFile.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxXRefFunctions.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxAnimationAssigner.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxAnimationCreator.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxAnimationImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxAnimationListImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxCameraImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxColladaImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxControllerImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxDocumentImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxEffectImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxExtraDataHandler.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxFWLErrorHandler.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxGeometryImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxImageImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxImporterBase.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxLibraryNodesImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxLightImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxMaterialCreator.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxMaterialImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxMorphControllerCreator.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxNodeImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxSceneGraphCreator.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxSkinControllerDataImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxVisualSceneImporter.cpp">
+      <Filter>Source Files\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxGoogleWarehouse.cpp">
+      <Filter>Source Files\warehouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxGoogleWarehouseActionItem.cpp">
+      <Filter>Source Files\warehouse</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\COLLADAMaxColladaPlugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxMultiMtl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxPrerequisites.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxStableHeaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxAnimationExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxCameraExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxColladaExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxController.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxControllerExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxControllerList.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxConversionFunctor.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxDocumentExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxEffectExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxEffectTextureExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxExportNode.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxExportSceneGraph.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxExtra.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxGeometriesExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxGeometryExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxGeometryExtra.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxHwShaderExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxImageExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxIMeshAccess.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxISkinInterface.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxLightExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxMaterialExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxMeshAccess.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxOptions.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxPhysiqueSkinInterface.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxSkinInterface.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxTexTangentCalculator.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxVisualSceneExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxXRefExporter.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxXRefFile.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxXRefFunctions.h">
+      <Filter>Header Files\exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxXRefIncludes.h">
+      <Filter>Header Files\external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MorphR3.h">
+      <Filter>Header Files\external</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxAnimationAssigner.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxAnimationCreator.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxAnimationImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxAnimationListImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxCameraImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxColladaImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxControllerImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxDocumentImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxEffectImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxExtraDataHandler.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxFWLErrorHandler.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxGeometryImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxImageImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxImporterBase.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxLibraryNodesImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxLightImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxMaterialCreator.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxMaterialImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxMorphControllerCreator.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxNodeImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxSceneGraphCreator.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxSkinControllerDataImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxVisualSceneImporter.h">
+      <Filter>Header Files\importer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxGoogleWarehouse.h">
+      <Filter>Header Files\warehouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxGoogleWarehouseActionItem.h">
+      <Filter>Header Files\warehouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\res\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\res\ColladaMax.def">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\res\ColladaMax.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

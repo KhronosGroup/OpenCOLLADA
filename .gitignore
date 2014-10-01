@@ -1,5 +1,7 @@
 *.dir
-*.vcxproj*
 *.suo
+*.sdf
+*.opensdf
+*~
 CMakeFiles
 cmake_install.cmake

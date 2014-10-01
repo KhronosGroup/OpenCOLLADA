@@ -4,3 +4,8 @@ bin/
 *.ncb
 *.suo
 *.user
+UpgradeLog.htm
+Backup/
+COLLADAMaxVersionInfo.h
+ipch/
+
