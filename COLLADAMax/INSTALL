@@ -1,28 +1,48 @@
 Requirements:
 -------------
-To run the COLLADAMax plugin you need a version of 3ds Max installed that matches the version 
-your plugin has been build against.
+
+To run the COLLADAMax plugin you need a version of 3ds Max installed that 
+matches the version your plugin has been build against.
 
 Supported versions are:
+
+3ds Max 2011   (32bit/64bit)
+3ds Max 2012   (32bit/64bit)
+3ds Max 2013   (32bit/64bit)
+3ds Max 2014   (64bit)
+3ds Max 2015   (64bit)
+
+The solution and project files have been updated to use Visual Studio 2013
+
+To use the plugin, you will probably have to download and install the
+redistributable package:
+ http://www.microsoft.com/en-us/download/details.aspx?id=40784
+
+Install:
+---------
+
+Copy the plugin (ColladaMaxNew.dle) in the "plugins" directory of the 3dsMax 
+installation folder.
+
+If you compile the plugin yourself, you'll find it inside:
+OpenCOLLADA\COLLADAMax\bin\win\[Win32 or X64]\.. folder
+
+For example, if you have Max 2014 installed at "E:\Program Files\Autodesk\3ds Max 2014\3dsmax.exe" then copy ColladaMaxNew.dle in the "E:\Program Files\Autodesk\3ds Max 2014\plugins\" folder. Note this path is for a 64bit version. 32 bits applications are in "Program Files (x86)" folder.
+
+After the next start of 3ds Max the plugin is available and can be found as 
+"COLLADA NextGen" in the export dialog.
+
+
+Archives:
+---------
+
+The following versions used to be supported by the plug-in.
+But those are no longer maintained/tested. However, nothing as been removed
+from the code and project files so far.
+
+3ds Max 7      (32bit)
 3ds Max 8      (32bit)
 3ds Max 9      (32bit/64bit)
 3ds Max 2008   (32bit/64bit)
 3ds Max 2009   (32bit/64bit)
 3ds Max 2010   (32bit/64bit)
-
-To run the binary you have to install the Microsoft Visual C++ 2005 
-Redistributable Package (x86). You can download and install it from:
-http://www.microsoft.com/downloads/details.aspx?FamilyID=32bc1bee-a3f9-4c13-9c99-220b62a191ee&displaylang=en
-
-
-Install:
----------
-If you build the plugin yourself using the provided build scripts the plugin file (ColladaMaxNew.dle) 
-is automatically copied into your "plugins" directory of your 3ds Max installation.
-
-If you use the precompiled version of the plugin you have to copy it in your "plugins" 
-directory of your 3ds Max installation.
-
-After the next start of 3ds Max the plugin is available and can be found as "COLLADA NextGen" in the 
-export dialog.
-
