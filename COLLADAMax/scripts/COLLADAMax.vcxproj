@@ -4386,7 +4386,7 @@ echo copy "$(OutDir)COLLADAMaxNew.dle" "%25MAX_PATH8%25\plugins\ColladaMaxNew.dl
       <AdditionalDependencies>maxutil.lib;core.lib;paramblk2.lib;geom.lib;bmm.lib;mesh.lib;mnmath.lib;poly.lib;gup.lib;menus.lib;morpher_x64.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)New.dle</OutputFile>
       <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014)/x64/lib;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014)\lib\x64\Release;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -4424,7 +4424,7 @@ echo copy "$(OutDir)COLLADAMaxNew.dle" "%25MAX_PATH8%25\plugins\ColladaMaxNew.dl
       <AdditionalDependencies>maxutil.lib;core.lib;paramblk2.lib;geom.lib;bmm.lib;mesh.lib;mnmath.lib;poly.lib;gup.lib;menus.lib;morpher_x64.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)New.dle</OutputFile>
       <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2015)/x64/lib;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2015)\lib\x64\Release;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -4603,7 +4603,7 @@ echo copy "$(OutDir)COLLADAMaxNew.dle" "%25MAX_PATH8%25\plugins\ColladaMaxNew.dl
       <AdditionalDependencies>maxutil.lib;core.lib;paramblk2.lib;geom.lib;bmm.lib;mesh.lib;mnmath.lib;poly.lib;gup.lib;menus.lib;morpher_x64.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)New.dle</OutputFile>
       <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014)/x64/lib;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014)\lib\x64\Release;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -4641,7 +4641,7 @@ echo copy "$(OutDir)COLLADAMaxNew.dle" "%25MAX_PATH8%25\plugins\ColladaMaxNew.dl
       <AdditionalDependencies>maxutil.lib;core.lib;paramblk2.lib;geom.lib;bmm.lib;mesh.lib;mnmath.lib;poly.lib;gup.lib;menus.lib;morpher_x64.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)New.dle</OutputFile>
       <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2015)/x64/lib;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2015)\lib\x64\Release;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -4831,7 +4831,7 @@ echo copy "$(OutDir)COLLADAMaxNew.dle" "%25MAX_PATH8%25\plugins\ColladaMaxNew.dl
       <AdditionalDependencies>maxutil.lib;core.lib;paramblk2.lib;geom.lib;bmm.lib;mesh.lib;mnmath.lib;poly.lib;gup.lib;menus.lib;morpher_x64.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)New.dle</OutputFile>
       <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014)/x64/lib;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014)\lib\x64\Release;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -4872,7 +4872,7 @@ echo copy "$(OutDir)COLLADAMaxNew.dle" "%25MAX_PATH8%25\plugins\ColladaMaxNew.dl
       <AdditionalDependencies>maxutil.lib;core.lib;paramblk2.lib;geom.lib;bmm.lib;mesh.lib;mnmath.lib;poly.lib;gup.lib;menus.lib;morpher_x64.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)New.dle</OutputFile>
       <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2015)/x64/lib;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2015)\lib\x64\Release;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -5064,7 +5064,7 @@ echo copy "$(OutDir)COLLADAMaxNew.dle" "%25MAX_PATH8%25\plugins\ColladaMaxNew.dl
       <AdditionalDependencies>maxutil.lib;core.lib;paramblk2.lib;geom.lib;bmm.lib;mesh.lib;mnmath.lib;poly.lib;gup.lib;menus.lib;morpher_x64.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)New.dle</OutputFile>
       <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014)/x64/lib;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014)\lib\x64\Release;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -5105,7 +5105,7 @@ echo copy "$(OutDir)COLLADAMaxNew.dle" "%25MAX_PATH8%25\plugins\ColladaMaxNew.dl
       <AdditionalDependencies>maxutil.lib;core.lib;paramblk2.lib;geom.lib;bmm.lib;mesh.lib;mnmath.lib;poly.lib;gup.lib;menus.lib;morpher_x64.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)New.dle</OutputFile>
       <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2015)/x64/lib;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2015)\lib\x64\Release;$(BOOST_LIB64_PATH);..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
