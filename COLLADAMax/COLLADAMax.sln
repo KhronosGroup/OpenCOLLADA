@@ -978,8 +978,8 @@ Global
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2014|x64.ActiveCfg = Release_LibXML|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2014|x64.Build.0 = Release_LibXML|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2015_static|Win32.ActiveCfg = Release_Max2015_static|Win32
-		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2015_static|x64.ActiveCfg = Debug_LibXML_static|x64
-		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2015_static|x64.Build.0 = Debug_LibXML_static|x64
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2015_static|x64.ActiveCfg = Release_LibXML_static|x64
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2015_static|x64.Build.0 = Release_LibXML_static|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2015|Win32.ActiveCfg = Release_Max2015|Win32
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2015|x64.ActiveCfg = Release_LibXML|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2015|x64.Build.0 = Release_LibXML|x64
