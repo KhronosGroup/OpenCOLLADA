@@ -1,3 +1,6 @@
+NOTE: work in progress - moving to visual studio 2013, adding Maya 2014,2015
+
+
 Requirements:
 -------------
 To build the COLLADAMaya plug-in, you need following installations:
