@@ -4,53 +4,43 @@ Requirements:
 - Autodesk 3ds Max
   To build the COLLADAMax plug-in you need to have a version of 3ds Max, including the SDK, installed.
   Supported versions are:
-  3ds Max 9
-  3ds Max 2008
-  3ds Max 2009
+  3ds Max 2011, 2012, 2013, 2014, 2015
 
-- boost C++ libraries
-  Supported and tested versions:
-  -	Boost 1.35 available at http://www.boost.org/users/download/
-  -	Boost 1.36 available at http://www.boost.org/users/download/
+- MS Visual Studio 2013
 
-- MS Visual Studio 2005.
-
-- SVN comand line tool, especially svnversion  (optional)
-  Available at http://subversion.tigris.org/
-  svnversion must be in your path
+(optional)
+- GIT comand line tool in your path. This is used by script\create_version_info_h.bat to create include\COLLADAMaxVersionInfo.h file in the COLLADAMAX prebuild
 
 
 Building:
 ---------
-Before you can start to build you need to set three environment variables. The MAX_PATH* variable 
-must be set to the installation path of the 3ds Max installation you want to use, i.e. the path  
-that contains 3dsmax.exe and the MAX_SDK_PATH* variable must be set to the installation path of the 
-3ds Max installation you want to use, i.e. the path hat contains, among others,  the "include"  
-and "lib" directories. The complete name of the environment variable 
-depends on the version of 3ds Max as listed below:
+Before you can start to build you need to set an environment variable that points to the MAX SDK
 
-3ds Max Version  |  max environment variable   |  max sdk environment variable 
-------------------------------------------------------------------------------
-3ds Max 9        |  MAX_PATH9                  |  MAX_SDK_PATH9
-3ds Max 2008     |  MAX_PATH2008               |  MAX_SDK_PATH2008
-3ds Max 2009     |  MAX_PATH2009               |  MAX_SDK_PATH2009
+The variable is MAX_SDK_PATHXXXX with XXXX replaced with the version of 3DSMAX you want to build for.
 
+For example:
 
-The following environment variables need to be set for BOOST:
+MAX_SDK_PATH2012=C:\Program Files (x86)\Autodesk\3ds Max 2012\maxsdk
 
-"BOOST_ROOT":                     Set to your installation path of the boost headers, i.e. the path that contains 
-                                  the "include" directory.
-"BOOST_LIB_PATH" (win32 only):    Set to your installation path of the boost libraries, i.e. the path that contains 
-                                  all the *.lib files.
-"BOOST_LIB64_PATH" (win64 only):  Set to your installation path of the boost libraries, i.e. the path that contains 
-                                  all the *.lib files.
+would be the value for a 2012 default installation. 
+
+remember to set the variable before launching visual studio, preferably using the 
+
+Then selet the corresponding build target in visual studio
+
+Release or ReleaseStatic or Debug or DebugStatic for the correct version of 3DS MAX.
 
 
-To build the plug-in open "COLLADAMax.sln" with MS Visual Studio 2005, choose the configuration 
-you want to build und build the project.
+Archives:
+---------
 
-If the build process succeeded the plug-in file (ColladaMaxNew.dle) is automatically copied into 
-your "plugins" directory of your 3ds Max installation.
+The following versions used to be supported by the plug-in.
+But those are no longer maintained/tested. However, nothing as been removed
+from the code and project files so far.
 
-After the next start of 3ds Max the plugin is available and can be found as "NEWCOLLADA" in the 
-export dialog.
+3ds Max 7      (32bit)
+3ds Max 8      (32bit)
+3ds Max 9      (32bit/64bit)
+3ds Max 2008   (32bit/64bit)
+3ds Max 2009   (32bit/64bit)
+3ds Max 2010   (32bit/64bit)
