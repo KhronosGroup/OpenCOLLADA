@@ -15,6 +15,11 @@
 #include "COLLADAFWInstanceBase.h"
 #include "COLLADAFWMaterialBinding.h"
 
+#include "COLLADABUURI.h"
+
+#include <vector>
+
+
 namespace COLLADAFW
 {
 
