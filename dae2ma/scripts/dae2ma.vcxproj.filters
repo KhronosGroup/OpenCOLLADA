@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{90078ccc-f97c-4b68-b97a-cf74a1cd04f0}</UniqueIdentifier>
+      <Extensions>cpp</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{be752be3-29bb-4a7e-b801-f428525d37b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Importers">
+      <UniqueIdentifier>{4dff2b39-67e5-43ff-8ab1-7b40e2acafcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Console">
+      <UniqueIdentifier>{364aee5d-cd28-4063-8af0-bc39c0b22c7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0e26fe45-fa44-45de-8b35-d41d8af076c8}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{727edb71-1f7f-4992-94ab-6aece9adc239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Importers">
+      <UniqueIdentifier>{67c32d31-f790-4e07-a155-20ce0d91398a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\DAE2MAImportOptions.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAPrecompiledHeaders.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAAnimationImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MABaseAnimation.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MABaseImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MACameraImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAControllerImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MADocumentImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAEffectAnimation.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAEffectImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAExtraDataCallbackHandler.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAGeometryBinding.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAGeometryImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAImageImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MALightImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAMaterialImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAMorphAnimation.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MANode.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MANodeImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MASaxErrorHandler.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAShadingBinding.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MATransformAnimation.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAVisualSceneImporter.cpp">
+      <Filter>Source Files\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DAE2MAConsoleMain.cpp">
+      <Filter>Source Files\Console</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\DAE2MAConversion.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAImportOptions.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAPrerequisites.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAStableHeaders.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MASyntax.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAAnimationImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MABaseAnimation.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAControllerImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAEffectAnimation.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAEffectImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAExtraDataCallbackHandler.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAGeometryBinding.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAImageImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MALightImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAMayaTransform.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAMorphAnimation.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MANode.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MANodeImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MASaxErrorHandler.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MAShadingBinding.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DAE2MATransformAnimation.h">
+      <Filter>Header Files\Importers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\include\DAE2MABaseImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\include\DAE2MACameraImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\include\DAE2MADocumentImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\include\DAE2MAGeometryImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\include\DAE2MAMaterialImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\include\DAE2MAVisualSceneImporter.h">
+      <Filter>Header Files\Importers</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>
