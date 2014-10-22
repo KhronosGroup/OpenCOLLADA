@@ -3,39 +3,26 @@ Requirements:
 To run the COLLADAMaya plug-in, you need a version of Autodesk Maya installed.
 
 Supported versions are:
-Autodesk Maya 2010
-Autodesk Maya 2009
-Autodesk Maya 2008
+Autodesk Maya 2015
+Autodesk Maya 2014
+Autodesk Maya 2013
+Autodesk Maya 2012
+Autodesk Maya 2011
 
 For help on build, please read the BUILD file.
 
 Install:
 --------
-On build with XCode, the required plugin files will be copied into 
-your Autodesk Maya directories.
 
-NOTE: The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
-version. Following environment variables to your Maya location are supported:
-- MAYA_PATH2010
-- MAYA_PATH2009
-- MAYA_PATH2008
+You have to copy following 3 files:
+- Build/Debug 2011/COLLADAMaya.bundle to your Maya plug-in directory.
+    The default directory (2011 example) is:
+	/Users/Shared/Autodesk/maya/2011/plug-ins
 
-You have to copy following files:
-- ~project_dir/COLLADAMaya/build/Debug/COLLADAMaya.bundle to your personal
-	Maya plug-in directory. The default directory on OSMac is 
-	/Users/Shared/Autodesk/maya/2010/plug-ins respectively
-	/Users/Shared/Autodesk/maya/2009/plug-ins respectively
-	/Users/Shared/Autodesk/maya/2008/plug-ins
-- ~project_dir/COLLADAMaya/scripts/openColladaExporterOpts.mel to your 
-	personal Maya scripts directory. The default directory on OSMac is 
-	/Users/Shared/Autodesk/maya/2010/scripts respectively
-	/Users/Shared/Autodesk/maya/2009/scripts respectively
-	/Users/Shared/Autodesk/maya/2008/scripts 
-- ~project_dir/COLLADAMaya/scripts/openColladaImporterOpts.mel to your 
-	personal Maya scripts directory. The default directory on OSMac is 
-	/Users/Shared/Autodesk/maya/2010/scripts respectively
-	/Users/Shared/Autodesk/maya/2009/scripts respectively
-	/Users/Shared/Autodesk/maya/2008/scripts 
+- scripts/openColladaExporterOpts.mel 
+ and scripts/openColladaImporterOpts.mel to your Maya scripts directory.
+      The default directory (Maya 2011 example) is
+	/Users/Shared/Autodesk/maya/2011/scripts 
 
 You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
 mll-file into the refered directory. Autodesk Maya will load the plug-ins 
