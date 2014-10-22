@@ -3266,19 +3266,19 @@ mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
 
 copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
 
-if not exist "%25MAYA_PATH2013_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2013_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2013_X64%25\bin\plug-ins" &gt; nul
+if not exist "%25MAYA_PATH2014_X64%25\bin\plug-ins" (
+echo Creating "%25MAYA_PATH2014_X64%25\bin\plug-ins"
+mkdir "%25MAYA_PATH2014_X64%25\bin\plug-ins" &gt; nul
 )
 
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2013_X64%25\bin\plug-ins"
+copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2014_X64%25\bin\plug-ins"
 
-if not exist "%25MAYA_PATH2013_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2013_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2013_X64%25\scripts\others" &gt; nul
+if not exist "%25MAYA_PATH2014_X64%25\scripts\others" (
+echo Creating "%25MAYA_PATH2014_X64%25\scripts\others"
+mkdir "%25MAYA_PATH2014_X64%25\scripts\others" &gt; nul
 )
 
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013_X64%25\scripts\others"
+copy "$(ProjectDir)*.mel" "%25MAYA_PATH2014_X64%25\scripts\others"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -3323,19 +3323,19 @@ mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
 
 copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
 
-if not exist "%25MAYA_PATH2013_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2013_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2013_X64%25\bin\plug-ins" &gt; nul
+if not exist "%25MAYA_PATH2015_X64%25\bin\plug-ins" (
+echo Creating "%25MAYA_PATH2015_X64%25\bin\plug-ins"
+mkdir "%25MAYA_PATH2015_X64%25\bin\plug-ins" &gt; nul
 )
 
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2013_X64%25\bin\plug-ins"
+copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2015_X64%25\bin\plug-ins"
 
-if not exist "%25MAYA_PATH2013_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2013_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2013_X64%25\scripts\others" &gt; nul
+if not exist "%25MAYA_PATH2015_X64%25\scripts\others" (
+echo Creating "%25MAYA_PATH2015_X64%25\scripts\others"
+mkdir "%25MAYA_PATH2015_X64%25\scripts\others" &gt; nul
 )
 
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013_X64%25\scripts\others"
+copy "$(ProjectDir)*.mel" "%25MAYA_PATH2015_X64%25\scripts\others"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -4106,19 +4106,19 @@ mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
 
 copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
 
-if not exist "%25MAYA_PATH2013_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2013_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2013_X64%25\bin\plug-ins" &gt; nul
+if not exist "%25MAYA_PATH2014_X64%25\bin\plug-ins" (
+echo Creating "%25MAYA_PATH2014_X64%25\bin\plug-ins"
+mkdir "%25MAYA_PATH2014_X64%25\bin\plug-ins" &gt; nul
 )
 
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2013_X64%25\bin\plug-ins"
+copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2014_X64%25\bin\plug-ins"
 
-if not exist "%25MAYA_PATH2013_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2013_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2013_X64%25\scripts\others" &gt; nul
+if not exist "%25MAYA_PATH2014_X64%25\scripts\others" (
+echo Creating "%25MAYA_PATH2014_X64%25\scripts\others"
+mkdir "%25MAYA_PATH2014_X64%25\scripts\others" &gt; nul
 )
 
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013_X64%25\scripts\others"
+copy "$(ProjectDir)*.mel" "%25MAYA_PATH2014_X64%25\scripts\others"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -4162,19 +4162,19 @@ mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
 
 copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
 
-if not exist "%25MAYA_PATH2013_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2013_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2013_X64%25\bin\plug-ins" &gt; nul
+if not exist "%25MAYA_PATH2015_X64%25\bin\plug-ins" (
+echo Creating "%25MAYA_PATH2015_X64%25\bin\plug-ins"
+mkdir "%25MAYA_PATH2015_X64%25\bin\plug-ins" &gt; nul
 )
 
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2013_X64%25\bin\plug-ins"
+copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2015_X64%25\bin\plug-ins"
 
-if not exist "%25MAYA_PATH2013_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2013_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2013_X64%25\scripts\others" &gt; nul
+if not exist "%25MAYA_PATH2015_X64%25\scripts\others" (
+echo Creating "%25MAYA_PATH2015_X64%25\scripts\others"
+mkdir "%25MAYA_PATH2015_X64%25\scripts\others" &gt; nul
 )
 
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013_X64%25\scripts\others"
+copy "$(ProjectDir)*.mel" "%25MAYA_PATH2015_X64%25\scripts\others"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
