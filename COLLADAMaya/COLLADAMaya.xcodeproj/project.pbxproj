@@ -16,6 +16,7 @@
 		24FFE6CD14A526A500D718C2 /* COLLADAFWInstanceKinematicsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24FFE6CB14A5269600D718C2 /* COLLADAFWInstanceKinematicsScene.cpp */; };
 		24FFE6D214A526D600D718C2 /* COLLADAFWHashFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FFE6CE14A526CF00D718C2 /* COLLADAFWHashFunctions.h */; };
 		24FFE6D314A526D600D718C2 /* COLLADAFWInstanceKinematicsScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */; };
+		A5155E1619F795D800D5D4DC /* COLLADAMaya.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = D2AAC09D05546B4700DB518D /* COLLADAMaya.bundle */; };
 		CE0B3D8A0F56AF48004F8570 /* COLLADASWAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3D570F56AF48004F8570 /* COLLADASWAsset.cpp */; };
 		CE0B3D8B0F56AF48004F8570 /* COLLADASWBaseElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3D580F56AF48004F8570 /* COLLADASWBaseElement.cpp */; };
 		CE0B3D8C0F56AF48004F8570 /* COLLADASWBaseInputElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3D590F56AF48004F8570 /* COLLADASWBaseInputElement.cpp */; };
@@ -893,6 +894,19 @@
 			remoteInfo = COLLADAStreamWriter;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A5155E1519F7959800D5D4DC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PROJECT_DIR)/Build/$(CONFIGURATION)";
+			dstSubfolderSpec = 0;
+			files = (
+				A5155E1619F795D800D5D4DC /* COLLADAMaya.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		24FFE6B914A5235300D718C2 /* DAE2MAExtraDataCallbackHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DAE2MAExtraDataCallbackHandler.cpp; path = ../dae2ma/src/DAE2MAExtraDataCallbackHandler.cpp; sourceTree = "<group>"; };
@@ -3609,6 +3623,7 @@
 				D2AAC09905546B4700DB518D /* Headers */,
 				D2AAC09B05546B4700DB518D /* Frameworks */,
 				D2AAC09A05546B4700DB518D /* Sources */,
+				A5155E1519F7959800D5D4DC /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -4940,6 +4955,7 @@
 				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2014/plug-ins";
 				LIBRARY_SEARCH_PATHS = "$(MAYA_PATH)/Maya.app/Contents/MacOS";
 				MACH_O_TYPE = mh_dylib;
+				MAYA_PATH = /Applications/Autodesk/maya2015;
 				OTHER_LDFLAGS = (
 					"-Wl,-executable_path,$(MAYA_PATH)/Maya.app/Contents/MacOS",
 					"-lOpenMaya",
