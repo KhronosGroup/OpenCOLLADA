@@ -1,85 +1,42 @@
-NOTE: work in progress - moving to visual studio 2013, adding Maya 2014,2015
-
+++ Building for windows
 
 Requirements:
 -------------
 To build the COLLADAMaya plug-in, you need following installations:
 -	Autodesk Maya, including the SDK
-- 	Boost C++ libraries
+-	Microsoft Visual Studio 2013
 
 Supported versions of Autodesk Maya are:
--	Autodesk Maya 2008
--	Autodesk Maya 2009
--	Autodesk Maya 2010
+-	Autodesk Maya 2011
+-	Autodesk Maya 2012
+-	Autodesk Maya 2013
+-	Autodesk Maya 2014
+-	Autodesk Maya 2015
 
-Supported and tested versions of boost c++ libraries:
--	Boost 1.35
--	Boost 1.36
 
-You can download the latest version of boost from:
-http://www.boost.org/users/download/
+You find the MVS solution file in COLLADAMaya/COLLADAMaya.sln
 
-You also need a c++ compiler. The Project was build and tested with: 
--	For Windows: Microsoft Visual Studio 2005 and the VC2005 Platform SDK. 
-	You find the MVS solution file in ~project_dir/COLLADAMaya/COLLADAMaya.sln, 
-	respectively the MVS project file in 
-	~project_dir/COLLADAMaya/scripts/COLLADAMaya.vcproj
-- 	For OSMac: XCode 
-	You can find the XCode project file in 
-	~project_dir/COLLADAMaya/COLLADAMaya.xcodeproj
 
-The project's build is tested for: win32, x64, mac.
+The project's build is tested for: win32, x64
 
 Build:
 ------
-Before you start to build, you have to define following environment 
-variables for a win32, respectively a x64 system: 
+Before you start to build, you have to check the following environment 
+variables are correctly defined. Replace 2011 with the version you want to compile for:
 
-NOTE: The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
-version. Following environment variables to your Maya location are supported:
-- MAYA_PATH2010
-- MAYA_PATH2010_X64
-- MAYA_PATH2009
-- MAYA_PATH2009_X64
-- MAYA_PATH2008
-- MAYA_PATH2008_X64
+MAYA_PATH2011 and/or MAYA_PATH2011_X64
 
-win32:
--	"YOUR_MAYA_PATH" to your installation path of Autodesk Maya.
-	The include directory of maya has to be "$(YOUR_MAYA_PATH)\include".
-	The lib directory of maya has to be "$(YOUR_MAYA_PATH)\lib".
--	The "BOOST_ROOT" environment variable has to be the path to your 
-	installation path of boost.
--	The "BOOST_LIB_PATH" environment variable has to be the path to your 
-	lib directory of boost.
-	
-x64:
--	"MAYA_PATH2008_X64" to your installation path of Autodesk Maya.
-	The include directory of maya has to be "$(YOUR_MAYA_PATH)\include".
-	The lib directory of maya has to be "$(YOUR_MAYA_PATH)\lib".
--	The "BOOST_ROOT" environment variable has to be the path to your 
-	installation path of boost.
--	The "BOOST_LIB64_PATH" environment variable has to be the path to your 
-	lib directory of boost.
+Note: only X64 is supported in most recent versions of Maya, so only the _X64 variable is needed.
 
-Download and compile the sources of COLLADAMaya from
-http://code.google.com/p/opencollada/source/checkout
+For example:
+MAYA_PATH2015_X64=C:\Program Files\Autodesk\Maya2015
 
-Open the solution in ~project_dir/COLLADAMaya/COLLADAMaya.sln
-The solution configurations 
-- ReleasePlugin2010
-- DebugPlugin2010
-- ReleasePlugin2009
-- DebugPlugin2009
-- ReleasePlugin2008
-- DebugPlugin2008
-will create a dynamic library called "COLLADAMaya.mll". The file 
-will be created in the output folder and copied into the folder 
-$(YOUR_MAYA_PATH)/bin/plug-ins of your Autodesk Maya installation.
-If you don't use the MS Visual Studio project file, you have to copy the 
-created "COLLADAMaya.mll" file into this directory.
+This will create a dynamic library called "COLLADAMaya.mll". The file 
+will be created in the output folder and automatically copied into the folder 
+ 'bin/plug-ins' of your Autodesk Maya installation.
 
-The solution configuration "ReleaseConsole2008" and "DebugConsole2008" create
+
+The solution configuration "ReleaseConsole" and "DebugConsole" create
 the "COLLADAMaya.exe" file in the output folder and will be copied into the
 "./OpenCOLLADA/COLLADAMaya/testsuite" folder. If you start the "testAllFiles.bat",
 all maya files in the current directory and all sub-directories will be 

@@ -1,41 +1,44 @@
+## Installation of openCOLLADA plugin for Maya
+
 Requirements:
 -------------
 To run the COLLADAMaya plug-in, you need a version of Autodesk Maya installed.
 
 Supported versions are:
-Autodesk Maya 2010
-Autodesk Maya 2009
-Autodesk Maya 2008
+Autodesk Maya 2011
+Autodesk Maya 2012
+Autodesk Maya 2013
+Autodesk Maya 2014
+Autodesk Maya 2015
 
-To run the binary you have to install the Microsoft Visual C++ 2005 
-Redistributable Package (x86). You can download
-and install it from:
-http://www.microsoft.com/downloads/details.aspx?FamilyID=32bc1bee-a3f9-4c13-9c99-220b62a191ee&displaylang=en
+The solution and project files have been updated to use Visual Studio 2013
 
-For help on build, please
-read the BUILD file.
+To use the plugin, you will probably have to download and install the
+redistributable package:
+ http://www.microsoft.com/en-us/download/details.aspx?id=40784
 
 Install:
 --------
-On build with MS Visual Studio, the required plugin files will be copied into 
-your Autodesk Maya directories.
 
-NOTE:
-The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
-version. Following environment variables to your Maya location are supported:
-- MAYA_PATH2010
-- MAYA_PATH2010_X64
-- MAYA_PATH2009
-- MAYA_PATH2009_X64
-- MAYA_PATH2008
-- MAYA_PATH2008_X64
+Find where Maya is installed. You should have an environment variable such as MAYA_PATH2012 or/and MAYA_PATH2015_X64.
+To list all environment variables starting with MAYA, type the following command in a dos prompt:
 
-If you install the binary, you have to copy following files:
+prompt>set maya
+
+Find the plug-in binary. It will be in COLLADAMaya\bin\win 
+Go to Win32 or X64 depending if your installing for Maya 32 or 64 bits
+Then go to the specific build you want to install. 
+ Most commonly it will be ReleasePlugin2011-2015 depending of what Maya version you have.
+
+The mel scripts are located in the scripts/ folder.
+
+
+Then copy the files:
 - "COLLADAMaya.mll" to $(YOUR_MAYA_PATH)/bin/plug-ins 
 - "openColladaExporterOpts.mel" to $(YOUR_MAYA_PATH)/scripts/others 
 - "openColladaImporterOpts.mel" to $(YOUR_MAYA_PATH)/scripts/others 
 
-You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
+Alternatively, you can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
 mll-file into the refered directory. Autodesk Maya will load the plug-ins 
 from this directory too.
 
@@ -47,10 +50,14 @@ and load the plug-in "COLLADAMaya.mll" from the extended list.
 
 Now you can export your maya scene into a COLLADA file.
 
-Maya plugin loader bug:
------------------------
+Known Maya bug:
+--------------
 Maya error: "Failed to find COLLADAMaya plug-in"
 It's a known bug that sometimes in some maya versions maya don't recognoize the
 last converter on the list. To fix this, load a extra plug-in after the fact 
 and it should work.
+
+Report issues:
+--------------
+https://github.com/KhronosGroup/OpenCOLLADA/issues
 
