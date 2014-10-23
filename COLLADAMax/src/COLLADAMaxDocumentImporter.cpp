@@ -159,7 +159,7 @@ namespace COLLADAMax
 
 		// We need the second pass to create skin controllers
 		COLLADAFW::Root root2(&loader2, this);
-		if ( !root.loadDocument(mImportFilePath) )
+		if ( !root2.loadDocument(mImportFilePath) )
 			return false;
 
 		if( errorHandler.hasCriticalError() )
