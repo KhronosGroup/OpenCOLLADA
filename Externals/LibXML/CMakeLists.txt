@@ -5,6 +5,8 @@ set(libxml_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+add_definitions( -DLIBXML_STATIC )
+
 set(libxml_include_dirs ${libxml_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
 set(SRC
