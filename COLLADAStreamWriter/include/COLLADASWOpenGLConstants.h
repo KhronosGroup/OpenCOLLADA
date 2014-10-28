@@ -47,48 +47,48 @@ namespace COLLADASW
         static const Sampler::WrapMode getWrapModeFromOpenGL ( const String& wrapModeOpenGL )
         {
             // "Repeat"
-            if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[0] ) )
+            if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[0] ) )
                 return Sampler::WRAP_MODE_WRAP;
 
             // "Clamp"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[1] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[1] ) )
                 return Sampler::WRAP_MODE_CLAMP;
 
             // "ClampToEdge"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[2] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[2] ) )
                 return Sampler::WRAP_MODE_CLAMP;
 
             // "ClampToBorder"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[3] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[3] ) )
                 return Sampler::WRAP_MODE_BORDER;
 
             // "MirroredRepeat"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[4] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[4] ) )
                 return Sampler::WRAP_MODE_MIRROR;
 
             // "MirrorClamp"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[5] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[5] ) )
                 return Sampler::WRAP_MODE_MIRROR;
 
             // "MirrorClampToEdge"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[6] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[6] ) )
                 return Sampler::WRAP_MODE_MIRROR;
 
             // "MirrorClampToBorder"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[7] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[7] ) )
                 return Sampler::WRAP_MODE_MIRROR;
 
             // "Wrap"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[8] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[8] ) )
                 return Sampler::WRAP_MODE_WRAP;
             // "Border"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[9] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[9] ) )
                 return Sampler::WRAP_MODE_BORDER;
             // "Mirror"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[10] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[10] ) )
                 return Sampler::WRAP_MODE_MIRROR;
             // "MirrorOnce"
-            else if ( COLLADASW::Utils::equalsIgnoreCase ( wrapModeOpenGL, WrapModesOpenGL[11] ) )
+            else if ( COLLADASW::Utils::equals ( wrapModeOpenGL, WrapModesOpenGL[11] ) )
                 return Sampler::WRAP_MODE_MIRROR;
                
             else return Sampler::WRAP_MODE_UNSPECIFIED;
