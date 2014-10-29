@@ -50,6 +50,22 @@ and load the plug-in "COLLADAMaya.mll" from the extended list.
 
 Now you can export your maya scene into a COLLADA file.
 
+Console Build:
+--------------
+
+This build a standalone app 'COLLADAMaya.exe'.
+In order to run this application, two environment variables need to be set:
+  PATH need to contain the path to the maya dlls
+  MAYA_LOCATION need to point to maya install dir
+ 
+ for example, for MAYA 2015 64 bits:
+  PATH=%PATH;%MAYA_PATH2015_X64%
+  MAYA_LOCATION=%MAYA_PATH2015_X64%
+
+if the PATH is not set, windows will complain about not finding dlls
+if the MAYA_LOCATION is not set, running the program will show an empty error window.
+
+
 Known Maya bug:
 --------------
 Maya error: "Failed to find COLLADAMaya plug-in"
