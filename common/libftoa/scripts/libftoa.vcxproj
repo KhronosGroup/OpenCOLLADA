@@ -680,46 +680,46 @@
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_unitTest|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\lib\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_unitTest|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\lib\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_unitTest|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\lib\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_unitTest|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\lib\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_performanceTest|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\lib\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_performanceTest|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\lib\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_performanceTest|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\lib\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_performanceTest|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\lib\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
