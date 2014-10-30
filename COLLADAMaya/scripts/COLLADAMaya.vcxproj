@@ -1,30 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="DebugConsole2008|Win32">
-      <Configuration>DebugConsole2008</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugConsole2008|x64">
-      <Configuration>DebugConsole2008</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugConsole2009|Win32">
-      <Configuration>DebugConsole2009</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugConsole2009|x64">
-      <Configuration>DebugConsole2009</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugConsole2010|Win32">
-      <Configuration>DebugConsole2010</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugConsole2010|x64">
-      <Configuration>DebugConsole2010</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="DebugConsole2011|Win32">
       <Configuration>DebugConsole2011</Configuration>
       <Platform>Win32</Platform>
@@ -63,30 +39,6 @@
     </ProjectConfiguration>
     <ProjectConfiguration Include="DebugConsole2015|x64">
       <Configuration>DebugConsole2015</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugPlugin2008|Win32">
-      <Configuration>DebugPlugin2008</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugPlugin2008|x64">
-      <Configuration>DebugPlugin2008</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugPlugin2009|Win32">
-      <Configuration>DebugPlugin2009</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugPlugin2009|x64">
-      <Configuration>DebugPlugin2009</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugPlugin2010|Win32">
-      <Configuration>DebugPlugin2010</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugPlugin2010|x64">
-      <Configuration>DebugPlugin2010</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="DebugPlugin2011|Win32">
@@ -129,30 +81,6 @@
       <Configuration>DebugPlugin2015</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsole2008|Win32">
-      <Configuration>ReleaseConsole2008</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsole2008|x64">
-      <Configuration>ReleaseConsole2008</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsole2009|Win32">
-      <Configuration>ReleaseConsole2009</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsole2009|x64">
-      <Configuration>ReleaseConsole2009</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsole2010|Win32">
-      <Configuration>ReleaseConsole2010</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsole2010|x64">
-      <Configuration>ReleaseConsole2010</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="ReleaseConsole2011|Win32">
       <Configuration>ReleaseConsole2011</Configuration>
       <Platform>Win32</Platform>
@@ -193,52 +121,12 @@
       <Configuration>ReleaseConsole2015</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsoleProgDB2009|Win32">
-      <Configuration>ReleaseConsoleProgDB2009</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsoleProgDB2009|x64">
-      <Configuration>ReleaseConsoleProgDB2009</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsoleProgDB2010|Win32">
-      <Configuration>ReleaseConsoleProgDB2010</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseConsoleProgDB2010|x64">
-      <Configuration>ReleaseConsoleProgDB2010</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="ReleaseConsoleProgDB2011|Win32">
       <Configuration>ReleaseConsoleProgDB2011</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="ReleaseConsoleProgDB2011|x64">
       <Configuration>ReleaseConsoleProgDB2011</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleasePlugin2008|Win32">
-      <Configuration>ReleasePlugin2008</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleasePlugin2008|x64">
-      <Configuration>ReleasePlugin2008</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleasePlugin2009|Win32">
-      <Configuration>ReleasePlugin2009</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleasePlugin2009|x64">
-      <Configuration>ReleasePlugin2009</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleasePlugin2010|Win32">
-      <Configuration>ReleasePlugin2010</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleasePlugin2010|x64">
-      <Configuration>ReleasePlugin2010</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="ReleasePlugin2011|Win32">
@@ -289,17 +177,17 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2012|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2012|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2012|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2012|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -307,45 +195,45 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2013|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2014|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2015|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2013|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2014|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2015|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2013|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2015|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2014|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2013|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -359,11 +247,6 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2011|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v120</PlatformToolset>
@@ -371,95 +254,35 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2011|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2011|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2011|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>NotSet</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2012|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2012|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2012|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2012|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -467,45 +290,45 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2013|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2014|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2015|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2013|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2014|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2015|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2013|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2015|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2014|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2013|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -519,11 +342,6 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2011|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v120</PlatformToolset>
@@ -531,78 +349,19 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2011|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2011|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2011|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v90</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
@@ -657,9 +416,6 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2015|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2011|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -673,45 +429,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2012|x64'" Label="PropertySheets">
@@ -762,9 +479,6 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2015|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2011|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -780,204 +494,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|Win32'">
     <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
@@ -1034,18 +553,6 @@
     <GenerateManifest>true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2011|x64'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|Win32'">
-    <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <GenerateManifest>true</GenerateManifest>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|x64'">
     <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
@@ -1243,1229 +750,6 @@
     <LinkIncremental>false</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <CustomBuildStep>
-      <Command>
-      </Command>
-    </CustomBuildStep>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2008)\include;$(MAYA_PATH2008)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>CREATE_IMPORT_PLUGIN;WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-    </ClCompile>
-    <PreLinkEvent>
-      <Command />
-    </PreLinkEvent>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2008)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
-      <LinkTimeCodeGeneration />
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2008%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2008%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2008%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2008%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2008%25\scripts\others" (
-echo Creating "%25MAYA_PATH2008%25\scripts\others"
-mkdir "%25MAYA_PATH2008%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2008%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2008_X64)\include;$(MAYA_PATH2008_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2008_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>msvcrt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2008_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2008_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2008_X64%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2008_X64%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2008_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2008_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2008_X64%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2008_X64%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2008)\include;$(MAYA_PATH2008)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2008)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol />
-      <NoEntryPoint>false</NoEntryPoint>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2008%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2008%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2008%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2008%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2008%25\scripts\others" (
-echo Creating "%25MAYA_PATH2008%25\scripts\others"
-mkdir "%25MAYA_PATH2008%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2008%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2008_X64)\include;$(MAYA_PATH2008_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2008_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2008_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2008_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2008_X64%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2008_X64%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2008_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2008_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2008_X64%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2008_X64%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2008)\include;$(MAYA_PATH2008)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2008)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <LinkTimeCodeGeneration />
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2008_X64)\include;$(MAYA_PATH2008_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2008_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>msvcrt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2008)\include;$(MAYA_PATH2008)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2008)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol />
-      <NoEntryPoint>false</NoEntryPoint>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2008_X64)\include;$(MAYA_PATH2008_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2008_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <SubSystem>Console</SubSystem>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol>main</EntryPointSymbol>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009)\include;$(MAYA_PATH2009)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LinkTimeCodeGeneration />
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2009%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2009%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2009%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2009%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2009%25\scripts\others" (
-echo Creating "%25MAYA_PATH2009%25\scripts\others"
-mkdir "%25MAYA_PATH2009%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2009%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009_X64)\include;$(MAYA_PATH2009_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>msvcrt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2009_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2009_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2009_X64%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2009_X64%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2009_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2009_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2009_X64%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2009_X64%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009)\include;$(MAYA_PATH2009)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol />
-      <NoEntryPoint>false</NoEntryPoint>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX86</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2009%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2009%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2009%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2009%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2009%25\scripts\others" (
-echo Creating "%25MAYA_PATH2009%25\scripts\others"
-mkdir "%25MAYA_PATH2009%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2009%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009_X64)\include;$(MAYA_PATH2009_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2009_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2009_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2009_X64%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2009_X64%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2009_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2009_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2009_X64%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2009_X64%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009)\include;$(MAYA_PATH2009)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <LinkTimeCodeGeneration />
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009_X64)\include;$(MAYA_PATH2009_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>msvcrt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009)\include;$(MAYA_PATH2009)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol />
-      <NoEntryPoint>false</NoEntryPoint>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009_X64)\include;$(MAYA_PATH2009_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <SubSystem>Console</SubSystem>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol>main</EntryPointSymbol>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010)\include;$(MAYA_PATH2010)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LinkTimeCodeGeneration />
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2010%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2010%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2010%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2010%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2010%25\scripts\others" (
-echo Creating "%25MAYA_PATH2010%25\scripts\others"
-mkdir "%25MAYA_PATH2010%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2010%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010_X64)\include;$(MAYA_PATH2010_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>msvcrt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2010_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2010_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2010_X64%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2010_X64%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2010_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2010_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2010_X64%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2010_X64%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010)\include;$(MAYA_PATH2010)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol />
-      <NoEntryPoint>false</NoEntryPoint>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX86</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2010%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2010%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2010%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2010%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2010%25\scripts\others" (
-echo Creating "%25MAYA_PATH2010%25\scripts\others"
-mkdir "%25MAYA_PATH2010%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2010%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010_X64)\include;$(MAYA_PATH2010_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST;IWILLNOTUSEASSERTSOUTSIDETHISSCOPE</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying plugin to Maya install</Message>
-      <Command>if not exist "..\bin\win\$(Platform)\$(Configuration)" (
-echo Creating ..\bin\win\$(Platform)\$(Configuration)
-mkdir "..\bin\win\$(Platform)\$(Configuration)" &gt; nul
-)
-
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration)
-
-if not exist "%25MAYA_PATH2010_X64%25\bin\plug-ins" (
-echo Creating "%25MAYA_PATH2010_X64%25\bin\plug-ins"
-mkdir "%25MAYA_PATH2010_X64%25\bin\plug-ins" &gt; nul
-)
-
-copy "$(TargetDir)\COLLADAMaya.mll" "%25MAYA_PATH2010_X64%25\bin\plug-ins"
-
-if not exist "%25MAYA_PATH2010_X64%25\scripts\others" (
-echo Creating "%25MAYA_PATH2010_X64%25\scripts\others"
-mkdir "%25MAYA_PATH2010_X64%25\scripts\others" &gt; nul
-)
-
-copy "$(ProjectDir)*.mel" "%25MAYA_PATH2010_X64%25\scripts\others"
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010)\include;$(MAYA_PATH2010)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\pcre\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <LinkTimeCodeGeneration />
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010_X64)\include;$(MAYA_PATH2010_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>msvcrt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010)\include;$(MAYA_PATH2010)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol />
-      <NoEntryPoint>false</NoEntryPoint>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010_X64)\include;$(MAYA_PATH2010_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <SubSystem>Console</SubSystem>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol>main</EntryPointSymbol>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010)\include;$(MAYA_PATH2010)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol />
-      <NoEntryPoint>false</NoEntryPoint>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2010_X64)\include;$(MAYA_PATH2010_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2010_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <SubSystem>Console</SubSystem>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol>main</EntryPointSymbol>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|Win32'">
     <PreBuildEvent>
       <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
@@ -2909,88 +1193,6 @@ copy $(TargetPath) ..\testsuite &gt; nul
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2011_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <SubSystem>Console</SubSystem>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol>main</EntryPointSymbol>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|Win32'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009)\include;$(MAYA_PATH2009)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OptimizeReferences />
-      <EnableCOMDATFolding />
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol />
-      <NoEntryPoint>false</NoEntryPoint>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-    </Link>
-    <PostBuildEvent>
-      <Message>Copying console application into the testsuite</Message>
-      <Command>mkdir ..\bin\win\$(Platform)\$(Configuration) 2&gt; nul
-copy $(TargetPath) ..\bin\win\$(Platform)\$(Configuration) &gt; nul
-copy $(TargetPath) ..\testsuite &gt; nul
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|x64'">
-    <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
-    </PreBuildEvent>
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\include;$(MAYA_PATH2009_X64)\include;$(MAYA_PATH2009_X64)\devkit\plug-ins;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADASaxFrameworkLoader\include\generated15;..\..\COLLADAFramework\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include;..\..\Externals\MayaDataModel\include;..\..\DAE2MA\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;MLIBRARY_DONTUSE_MFC_MANIFEST</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
-      <WarningLevel>Level2</WarningLevel>
-    </ClCompile>
-    <Link>
-      <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009_X64)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences />
@@ -4568,20 +2770,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClCompile Include="..\src\COLLADAMayaAnimationTools.cpp" />
     <ClCompile Include="..\src\COLLADAMayaCameraExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaCgfxShaderIncludes.cpp" />
-    <ClCompile Include="..\src\COLLADAMayaConsoleMain.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaConsoleMain.cpp" />
     <ClCompile Include="..\src\COLLADAMayaControllerExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaDagHelper.cpp" />
     <ClCompile Include="..\src\COLLADAMayaDocumentExporter.cpp" />
@@ -4597,12 +2786,6 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClCompile Include="..\src\COLLADAMayaLightExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaMaterialExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaPrecompiledHeaders.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2008|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2009|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2010|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2011|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2011|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2012|Win32'">Create</PrecompiledHeader>
@@ -4613,12 +2796,6 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2013|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2015|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2014|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2008|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2009|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2010|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2012|Win32'">Create</PrecompiledHeader>
@@ -4629,12 +2806,6 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2013|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2014|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2015|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2008|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2009|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2010|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2011|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2011|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2012|Win32'">Create</PrecompiledHeader>
@@ -4645,18 +2816,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2013|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2014|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2015|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2009|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2010|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2011|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2011|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2008|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2009|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2010|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2011|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2011|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2012|Win32'">Create</PrecompiledHeader>
