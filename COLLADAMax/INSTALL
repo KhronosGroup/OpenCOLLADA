@@ -12,12 +12,6 @@ Supported versions are:
 3ds Max 2014   (64bit)
 3ds Max 2015   (64bit)
 
-The solution and project files have been updated to use Visual Studio 2013
-
-To use the plugin, you will probably have to download and install the
-redistributable package:
- http://www.microsoft.com/en-us/download/details.aspx?id=40784
-
 Install:
 ---------
 

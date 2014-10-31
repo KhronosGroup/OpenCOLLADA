@@ -105,8 +105,7 @@ namespace COLLADAMax
 
             if ( shouldAddInstanceNodesForXRefs )
             {
-                auto& xRefSceneGraphList = mINodeXRefSceneGraphListMap[xRefParent ? xRefParent : mRootNode];
-                xRefSceneGraphList.push_back(xRefScene);
+                mINodeXRefSceneGraphListMap[xRefParent ? xRefParent : mRootNode].push_back(xRefScene);
 
 				isNotEmpty = true;
             }
@@ -205,9 +204,9 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     const ExportSceneGraph::XRefSceneGraphList* ExportSceneGraph::getXRefSceneGraphList(INode* node) const
     {
-        auto i = mINodeXRefSceneGraphListMap.find(node);
+		INodeXRefSceneGraphListMap::const_iterator i = mINodeXRefSceneGraphListMap.find(node);
 
-        if ( i == mINodeXRefSceneGraphListMap.cend() )
+        if ( i == mINodeXRefSceneGraphListMap.end() )
         {
             return NULL;
         }
@@ -219,9 +218,9 @@ namespace COLLADAMax
     {
         std::set<const XRefSceneGraph*> set;
 
-        for ( auto i = mINodeXRefSceneGraphListMap.cbegin(); i != mINodeXRefSceneGraphListMap.cend(); ++ i )
+		for (INodeXRefSceneGraphListMap::const_iterator i = mINodeXRefSceneGraphListMap.begin(); i != mINodeXRefSceneGraphListMap.end(); ++i)
         {
-            for ( XRefSceneGraphList::const_iterator j = i->second.cbegin(); j != i->second.cend(); ++j )
+            for ( XRefSceneGraphList::const_iterator j = i->second.begin(); j != i->second.end(); ++j )
             {
                 set.insert(&*j);
             }
@@ -233,7 +232,7 @@ namespace COLLADAMax
 
         ExportSceneGraph::XRefSceneGraphList result;
 
-        for ( auto i = set.cbegin(); i != set.cend(); ++i )
+		for (std::set<const XRefSceneGraph*>::const_iterator i = set.begin(); i != set.end(); ++i)
         {
             result.push_back(**i);
         }

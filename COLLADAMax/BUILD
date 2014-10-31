@@ -6,7 +6,13 @@ Requirements:
   Supported versions are:
   3ds Max 2011, 2012, 2013, 2014, 2015
 
-- MS Visual Studio 2013
+- MS Visual Studio 2013 for loading the solution (should work with 2012)
+   MS Visual Studio 2008 to compile for Max 2011/2012
+   MS Visual Studio 2010 to compile for Max 2013/2014
+   MS Visual Studio 2012 to compile for Max 2015
+
+IMPORTANT : DO NOT let visual studio convert the project files if it ask to when loading the solution.
+  It is normal that the solution references different toolchains.
 
 (optional)
 - GIT comand line tool in your path. This is used by script\create_version_info_h.bat to create include\COLLADAMaxVersionInfo.h file in the COLLADAMAX prebuild
@@ -31,12 +37,12 @@ Then selet the corresponding build target in visual studio
 Release or ReleaseStatic or Debug or DebugStatic for the correct version of 3DS MAX.
 
 
-Archives:
----------
+No longer supported:
+--------------------
 
 The following versions used to be supported by the plug-in.
-But those are no longer maintained/tested. However, nothing as been removed
-from the code and project files so far.
+But those are no longer maintained/tested. The source code still contains reference to those versions
+
 
 3ds Max 7      (32bit)
 3ds Max 8      (32bit)

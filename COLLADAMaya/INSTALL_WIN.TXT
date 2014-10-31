@@ -11,13 +11,6 @@ Autodesk Maya 2013
 Autodesk Maya 2014
 Autodesk Maya 2015
 
-The solution and project files have been updated to use Visual Studio 2013
-
-To use the plugin, you will probably have to download and install the
-redistributable package:
- http://www.microsoft.com/en-us/download/details.aspx?id=40784
-
-Install:
 --------
 
 Find where Maya is installed. You should have an environment variable such as MAYA_PATH2012 or/and MAYA_PATH2015_X64.
