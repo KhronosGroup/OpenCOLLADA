@@ -201,13 +201,14 @@ namespace COLLADABU
             start = text.find_first_not_of(separators, stop+1);
         }
     }
-
+    
+#ifdef COLLADABU_OS_WIN
 	//--------------------------------
 	bool Utils::createDirectoryIfNeeded( const WideString &pathString )
 	{
 		bool pathExists = false;
 
-#ifdef COLLADABU_OS_WIN
+
 		SystemType type = getSystemType();
 		if( type != WINDOWS )
 			return false;
@@ -224,17 +225,10 @@ namespace COLLADABU
 
 		_wchdir( currentPath );
 		return pathExists;
-#else
-		SystemType type = getSystemType();
-		if( type != POSIX )
-			return false;
 
-		//...
-#endif
-
-		return pathExists;
 	}
-
+#endif
+    
 	//--------------------------------
 	bool Utils::createDirectoryIfNeeded( const String &pathString )
 	{
@@ -256,7 +250,7 @@ namespace COLLADABU
 		}
 
 		_chdir( currentPath );
-		return pathExists;
+
 #else
 		SystemType type = getSystemType();
 		if( type != POSIX )
@@ -273,13 +267,14 @@ namespace COLLADABU
 #endif
 		return pathExists;
 	}
-
+    
+#ifdef COLLADABU_OS_WIN
 	//--------------------------------
 	bool Utils::directoryExists( const WideString &pathString )
 	{
 		bool pathExists = false;
 
-#ifdef COLLADABU_OS_WIN
+
 		SystemType type = getSystemType();
 		if( type != WINDOWS )
 			return false;
@@ -290,17 +285,10 @@ namespace COLLADABU
 		pathExists = _wchdir( testPath ) == 0;
 		_wchdir( currentPath );
 		return pathExists;
-#else
-		SystemType type = getSystemType();
-		if( type != POSIX )
-			return false;
 
-		//...
-#endif
-
-		return pathExists;
 	}
-
+#endif
+    
 	//--------------------------------
 	bool Utils::directoryExists( const String &pathString )
 	{
@@ -322,7 +310,10 @@ namespace COLLADABU
 		if( type != POSIX )
 			return false;
 
-		//...
+        struct stat st;
+        if(stat(pathString.c_str(),&st) == 0)
+            pathExists = true;
+        
 #endif
 
 		return pathExists;
@@ -331,7 +322,7 @@ namespace COLLADABU
 	//--------------------------------
 	bool Utils::copyFile( const String &source, const String &destination )
 	{
-		bool pathExists = false;
+		bool copystatus = false;
 
 #ifdef COLLADABU_OS_WIN
 		SystemType type = getSystemType();
@@ -344,17 +335,25 @@ namespace COLLADABU
 		if( length > 4096)
 			return false;
 
-		system(command);
-		return true;
+		int status = system(command);
+        copystatus = (status == 0 ? true : false);
 #else
 		SystemType type = getSystemType();
 		if( type != POSIX )
 			return false;
 
-		//...
+        char command[4097];
+        sprintf(command, "/bin/cp \"%s\" \"%s\"", source.c_str(), destination.c_str());
+        size_t length = strlen(command);
+        if( length > 4096)
+            return false;
+        
+        
+        int status = system(command);
+        copystatus = (status == 0 ? true : false);
 #endif
 
-		return pathExists;
+		return copystatus;
 	}
 
 	//--------------------------------

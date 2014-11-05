@@ -255,7 +255,9 @@ namespace COLLADAMaya
             else
             {
                 // Copy the texture, if it isn't already there...
-				exists = COLLADABU::Utils::directoryExists( targetUri.toNativePath() );
+				// exists = COLLADABU::Utils::directoryExists( targetUri.toNativePath() );
+                // Remi - always copy the texture, it may not be the same file
+                exists = false;
 				if ( !exists )
                 {
                     try 
