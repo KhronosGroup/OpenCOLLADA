@@ -4,5 +4,5 @@ bin/
 *.ncb
 *.suo
 *.user
-buffer.sln
-buffer_static.vcxproj*
+UTF.sln
+UTF_static.vcxproj*

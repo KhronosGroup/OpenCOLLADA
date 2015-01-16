@@ -4,3 +4,5 @@ bin/
 *.ncb
 *.suo
 *.user
+ftoa.sln
+ftoa_static.vcxproj*
