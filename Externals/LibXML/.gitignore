@@ -4,3 +4,5 @@ bin/
 *.ncb
 *.suo
 *.user
+xml.sln
+xml_static.vcxproj*

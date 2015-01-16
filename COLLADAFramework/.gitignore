@@ -4,3 +4,5 @@ bin/
 *.ncb
 *.suo
 *.user
+OpenCOLLADAFramework.sln
+OpenCOLLADAFramework_static.vcxproj*

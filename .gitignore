@@ -5,3 +5,9 @@
 *~
 CMakeFiles
 cmake_install.cmake
+ZERO_CHECK.vcxproj*
+ALL_BUILD.vcxproj*
+INSTALL.vcxproj*
+OpenCOLLADA.sln
+OpenCOLLADAConfig*.cmake
+CMakeCache.txt
