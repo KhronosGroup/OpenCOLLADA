@@ -659,7 +659,13 @@ namespace COLLADAMaya
         {
             status.perror ( "MFnDagNode constructor" );
             return false;
-        }
+        } 
+
+///////TEST
+		MFnDagNode element(transformNode);
+		MString elementName;
+		elementName = element.name();
+///////TEST
 
         // Get the transforms local translation
         MFnTransform fn ( transformNode );
@@ -672,6 +678,12 @@ namespace COLLADAMaya
                 mTransformMatrix = MTransformationMatrix ( mTransformMatrix.asMatrix() * t.transformationMatrix() );
             }
         }
+
+///////TEST
+		double resultFinal[4][4];
+		mTransformMatrix.asMatrix().get(resultFinal);
+		MVector translation = mTransformMatrix.translation(MSpace::kTransform);
+///////TEST
 
         // Skins being exported from maya need to have the bindpose matrix 
         // subtracted from the instance matrix.
@@ -716,6 +728,11 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void VisualSceneExporter::exportDecomposedTransform()
     {
+///////TEST
+		double resultFinal[4][4];
+		mTransformMatrix.asMatrix().get(resultFinal);
+///////TEST
+
         MVector translation = mTransformMatrix.translation ( MSpace::kTransform );
         MPoint rotatePivotTranslation = mTransformMatrix.rotatePivotTranslation ( MSpace::kTransform );
         MPoint rotatePivot = mTransformMatrix.rotatePivot ( MSpace::kTransform, NULL );

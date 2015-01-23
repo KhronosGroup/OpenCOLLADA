@@ -50,6 +50,10 @@ namespace COLLADAMaya
     /** The unique name for the visual scene node on export. */
     static const String VISUAL_SCENE_NODE_ID                        = "VisualSceneNode";
 
+	/** The unique name for the physic scene node on export. */
+	static const String PHYSIC_SCENE_NODE_ID						= "collada_physics_scene";
+
+
     /** The standard name for the collada id attribute. */
     static const String COLLADA_ID_ATTRIBUTE_NAME                   = "colladaId";
     static const String COLLADA_EFFECT_ID_ATTRIBUTE_NAME            = "colladaEffectId";
@@ -307,7 +311,11 @@ namespace COLLADAMaya
     /** Constants for the physical scenes. */
     static const char* NIMA_INTERNAL_PHYSIKS                        = "nimaInternalPhysics";
     static const char* AGEIA_PHYSIKS_MODEL                          = "AgeiaPhysicsModel";
-
+	static const char* ATTR_MASS									= "mass";
+	static const char* ATTR_DYNAMIC									= "dynamic";
+	static const char* ATTR_INERTIA									= "inertia";
+	static const char* ATTR_EXTENT									= "extent";
+	
     /** Shader constants */
     static const char* COLLADA_FX_SHADER                            = "colladafxShader";
     static const char* COLLADA_FX_PASSES                            = "colladafxPasses";

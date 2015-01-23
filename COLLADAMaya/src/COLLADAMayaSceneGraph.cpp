@@ -328,6 +328,32 @@ namespace COLLADAMaya
         mForcedNodes.clear();
     }
 
+	void ProcessVisibilityOnChild(MObject& parent)
+	{
+		MFnDagNode fnParent(parent);
+		for (int i = 0; i < fnParent.childCount(); ++i) {
+
+			// get the MObject for the i'th child 
+			MObject child = fnParent.child(i);
+
+			MFnDagNode fnChild(child);
+			MString name;
+			name = fnChild.name();
+
+			if (!child.hasFn(MFn::kRigid))
+			{
+				MStatus status;
+				MPlug plug = MFnDependencyNode(child).findPlug(ATTR_VISIBILITY, &status);
+				if (status == MStatus::kSuccess)
+					DagHelper::setPlugValue(plug, false);
+			}
+
+			ProcessVisibilityOnChild(child);
+		}
+
+		
+	}
+
     // --------------------------------------------------------------------
     bool SceneGraph::getIsExportNode ( 
         const MDagPath& dagPath, 
@@ -361,6 +387,30 @@ namespace COLLADAMaya
         DagHelper::getPlugValue ( dagPath.node(), ATTR_VISIBILITY, isVisible );
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();
+
+///////TEST
+		MObject& node = dagPath.node();
+		MFnDagNode DagNode(node);
+		MString Name1;
+		Name1 = DagNode.name();
+
+		if (node.hasFn(MFn::kRigid))
+		{
+			MObject parent = DagNode.parent(0);
+			MFnDagNode fnParent(parent);
+
+			MString Name2;
+			Name2 = fnParent.name();
+
+//			ProcessVisibilityOnChild(parent);
+
+
+			MDagPath parentDagPath = MDagPath::getAPathTo(parent);
+			SceneElement* parentElement = findElement(parentDagPath);
+//			parentElement->setIsVisible(false);
+//			parentElement->setIsExportNode(false);
+		}
+///////TEST
 
         if ( !isForced )
         {

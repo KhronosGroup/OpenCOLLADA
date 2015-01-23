@@ -101,8 +101,11 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_INSTANCE_IMAGE = "instance_image";
     const String CSWC::CSW_ELEMENT_INSTANCE_LIGHT = "instance_light";
     const String CSWC::CSW_ELEMENT_INSTANCE_MATERIAL = "instance_material";
+	const String CSWC::CSW_ELEMENT_INSTANCE_RIGID_BODY = "instance_rigid_body";
+	const String CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_MODEL = "instance_physics_model";
     const String CSWC::CSW_ELEMENT_INSTANCE_NODE = "instance_node";
     const String CSWC::CSW_ELEMENT_INSTANCE_VISUAL_SCENE = "instance_visual_scene";
+	const String CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_SCENE = "instance_physics_scene";
     const String CSWC::CSW_ELEMENT_JOINTS = "joints";
     const String CSWC::CSW_ELEMENT_KEYWORDS = "keywords";
     const String CSWC::CSW_ELEMENT_LAMBERT = "lambert";
@@ -112,10 +115,12 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_LIBRARY_CONTROLLERS = "library_controllers";
     const String CSWC::CSW_ELEMENT_LIBRARY_EFFECTS = "library_effects";
     const String CSWC::CSW_ELEMENT_LIBRARY_GEOMETRIES = "library_geometries";
+	const String CSWC::CSW_ELEMENT_LIBRARY_PHYSICS_MODELS = "library_physics_models";
     const String CSWC::CSW_ELEMENT_LIBRARY_IMAGES = "library_images";
     const String CSWC::CSW_ELEMENT_LIBRARY_LIGHTS = "library_lights";
     const String CSWC::CSW_ELEMENT_LIBRARY_MATERIALS = "library_materials";
     const String CSWC::CSW_ELEMENT_LIBRARY_VISUAL_SCENES = "library_visual_scenes";
+	const String CSWC::CSW_ELEMENT_LIBRARY_PHYSICS_SCENES = "library_physics_scenes";
 	const String CSWC::CSW_ELEMENT_LIBRARY_NODES = "library_nodes";
     const String CSWC::CSW_ELEMENT_LIGHT = "light";
 	const String CSWC::CSW_ELEMENT_LINEAR_ATTENUATION = "linear_attenuation";
@@ -126,6 +131,14 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_MATERIAL = "material";
     const String CSWC::CSW_ELEMENT_MATRIX = "matrix";
     const String CSWC::CSW_ELEMENT_MESH = "mesh";
+	const String CSWC::CSW_ELEMENT_PHYSICS_MODEL = "physics_model";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY = "rigid_body";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_DYNAMIC = "dynamic";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_MASS = "mass";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_INERTIA = "inertia";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE = "shape";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_BOX = "box";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_BOX_EXTENTS = "half_extents";
     const String CSWC::CSW_ELEMENT_MINFILTER = "minfilter";
     const String CSWC::CSW_ELEMENT_MIPFILTER = "mipfilter";
     const String CSWC::CSW_ELEMENT_MIP_LEVELS = "mip_levels";
@@ -204,6 +217,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_VERTICES = "vertices";
     const String CSWC::CSW_ELEMENT_VIEWPORT_RATIO = "viewport_ratio";
     const String CSWC::CSW_ELEMENT_VISUAL_SCENE = "visual_scene";
+	const String CSWC::CSW_ELEMENT_PHYSICS_SCENE = "physics_scene";
     const String CSWC::CSW_ELEMENT_WRAP_S = "wrap_s";
     const String CSWC::CSW_ELEMENT_WRAP_T = "wrap_t";
     const String CSWC::CSW_ELEMENT_WRAP_P = "wrap_p";
@@ -242,6 +256,7 @@ namespace COLLADASW
     const String CSWC::CSW_ATTRIBUTE_START = "start";
     const String CSWC::CSW_ATTRIBUTE_STRIDE = "stride";
     const String CSWC::CSW_ATTRIBUTE_SYMBOL = "symbol";
+	const String CSWC::CSW_ATTRIBUTE_BODY = "body";
     const String CSWC::CSW_ATTRIBUTE_TARGET = "target";
     const String CSWC::CSW_ATTRIBUTE_TEXCOORD = "texcoord";
     const String CSWC::CSW_ATTRIBUTE_TEXTURE = "texture";

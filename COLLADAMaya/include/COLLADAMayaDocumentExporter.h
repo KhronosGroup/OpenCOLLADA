@@ -34,7 +34,9 @@ namespace COLLADAMaya
     class EffectTextureExporter;
     class ImageExporter;
     class GeometryExporter;
+	class PhysicsExporter;
     class VisualSceneExporter;
+	class PhysicSceneExporter;
     class AnimationExporter;
     class AnimationClipExporter;
     class AnimationSampleCache;
@@ -72,8 +74,14 @@ namespace COLLADAMaya
         /** Exports the geometry. */
         GeometryExporter* mGeometryExporter;
 
+		/** Exports the geometry. */
+		PhysicsExporter* mPhysicsExporter;
+
         /** Exports the visual scene. */
         VisualSceneExporter* mVisualSceneExporter;
+
+		/** Exports the Physic scene */
+		PhysicSceneExporter* mPhysicSceneExporter;
 
         /** Exports the animations. */
         AnimationExporter* mAnimationExporter;
@@ -200,6 +208,12 @@ namespace COLLADAMaya
         * @return VisualSceneExporter* Pointer to the visual scene exporter
         */
         VisualSceneExporter* getVisualSceneExporter();
+
+        /**
+		* Returns a pointer to the physic scene exporter.
+		* @return PhysicSceneExporter* Pointer to the visual scene exporter
+		*/
+		PhysicSceneExporter* getPhysicSceneExporter();
 
         /**
         * Returns a pointer to the animation exporter.

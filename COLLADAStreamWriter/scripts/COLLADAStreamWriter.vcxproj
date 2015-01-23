@@ -1164,6 +1164,8 @@
     <ClCompile Include="..\src\COLLADASWInstanceLight.cpp" />
     <ClCompile Include="..\src\COLLADASWInstanceMaterial.cpp" />
     <ClCompile Include="..\src\COLLADASWInstanceNode.cpp" />
+    <ClCompile Include="..\src\COLLADASWInstancePhysicsModel.cpp" />
+    <ClCompile Include="..\src\COLLADASWInstanceRigidBody.cpp" />
     <ClCompile Include="..\src\COLLADASWLibrary.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryAnimationClips.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryAnimations.cpp" />
@@ -1175,6 +1177,8 @@
     <ClCompile Include="..\src\COLLADASWLibraryLights.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryMaterials.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryNodes.cpp" />
+    <ClCompile Include="..\src\COLLADASWLibraryPhysicsModels.cpp" />
+    <ClCompile Include="..\src\COLLADASWLibraryPhysicsScenes.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryVisualScenes.cpp" />
     <ClCompile Include="..\src\COLLADASWLight.cpp" />
     <ClCompile Include="..\src\COLLADASWNode.cpp" />
@@ -1222,6 +1226,8 @@
     <ClInclude Include="..\include\COLLADASWInstanceLight.h" />
     <ClInclude Include="..\include\COLLADASWInstanceMaterial.h" />
     <ClInclude Include="..\include\COLLADASWInstanceNode.h" />
+    <ClInclude Include="..\include\COLLADASWInstancePhysicsModel.h" />
+    <ClInclude Include="..\include\COLLADASWInstanceRigidBody.h" />
     <ClInclude Include="..\include\COLLADASWLibrary.h" />
     <ClInclude Include="..\include\COLLADASWLibraryAnimationClips.h" />
     <ClInclude Include="..\include\COLLADASWLibraryAnimations.h" />
@@ -1233,6 +1239,8 @@
     <ClInclude Include="..\include\COLLADASWLibraryLights.h" />
     <ClInclude Include="..\include\COLLADASWLibraryMaterials.h" />
     <ClInclude Include="..\include\COLLADASWLibraryNodes.h" />
+    <ClInclude Include="..\include\COLLADASWLibraryPhysicsModels.h" />
+    <ClInclude Include="..\include\COLLADASWLibraryPhysicsScenes.h" />
     <ClInclude Include="..\include\COLLADASWLibraryVisualScenes.h" />
     <ClInclude Include="..\include\COLLADASWLight.h" />
     <ClInclude Include="..\include\COLLADASWNode.h" />
