@@ -11,3 +11,10 @@ INSTALL.vcxproj*
 OpenCOLLADA.sln
 OpenCOLLADAConfig*.cmake
 CMakeCache.txt
+
+.DS_Store
+*.xcodeproj
+*.build
+CMakeScripts/
+/bin/
+/lib/
