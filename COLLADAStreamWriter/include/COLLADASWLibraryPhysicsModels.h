@@ -53,10 +53,13 @@ namespace COLLADASW
 
 		void openTechniqueCommon();
 		void closeTechniqueCommon();
+		
 
 		void openShape();
 		void closeShape();
 		void AddBoxShape(float x, float y, float z);
+		void AddCapsuleShape(float radiusX, float radiusY, float radiusZ, float height);
+		void AddConvexMeshShape(const String &convexHullOf);
 		//void closeBoxShape();
 
 		void addDynamic(bool dynamic);

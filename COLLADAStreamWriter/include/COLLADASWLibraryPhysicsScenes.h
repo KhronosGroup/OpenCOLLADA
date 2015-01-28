@@ -43,8 +43,13 @@ namespace COLLADASW
 
 		void closeLibraryPhysicsScene();
 
+		void openTechniqueCommon();
+		void closeTechniqueCommon();
+		void addGravity(double x, double y, double z) const;
+
     private:
         TagCloser mCurrentPhysicsSceneCloser;  //!< Used to close the current physics scene
+		TagCloser mCurrentTechniqueCommonCloser;  //!< Used to close the current techniqueCommon
     };
 
 } //namespace COLLADASW

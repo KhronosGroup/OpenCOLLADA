@@ -138,6 +138,10 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_INERTIA = "inertia";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE = "shape";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_BOX = "box";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE = "capsule";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS = "radius";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_HEIGHT = "height";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CONVEX_MESH = "convex_mesh";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_BOX_EXTENTS = "half_extents";
     const String CSWC::CSW_ELEMENT_MINFILTER = "minfilter";
     const String CSWC::CSW_ELEMENT_MIPFILTER = "mipfilter";
@@ -227,6 +231,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_YMAG = "ymag";
     const String CSWC::CSW_ELEMENT_ZFAR = "zfar";
     const String CSWC::CSW_ELEMENT_ZNEAR = "znear";
+	const String CSWC::CSW_ELEMENT_GRAVITY = "gravity";
 
 	const String CSWC::CSW_ATTRIBUTE_CLOSED = "closed";
     const String CSWC::CSW_ATTRIBUTE_COUNT = "count";
@@ -267,6 +272,7 @@ namespace COLLADASW
 	const String CSWC::CSW_ATTRIBUTE_XMLNS = "xmlns";
 	const String CSWC::CSW_ATTRIBUTE_XMLNS_XSI = "xmlns:xsi";
 	const String CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION = "xsi:schemaLocation";
+	const String CSWC::CSW_ATTRIBUTE_CONVEX_HULL_OF = "convex_hull_of";
 
     const String CSWC::CSW_SEMANTIC_BINDMATRIX = "INV_BIND_MATRIX";
     const String CSWC::CSW_SEMANTIC_COLOR = "COLOR";

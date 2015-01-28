@@ -150,6 +150,10 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_RIGID_BODY_SHAPE;
 		static const String CSW_ELEMENT_RIGID_BODY_SHAPE_BOX;
 		static const String CSW_ELEMENT_RIGID_BODY_SHAPE_BOX_EXTENTS;
+		static const String CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE;
+		static const String CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS;
+		static const String	CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_HEIGHT;
+		static const String	CSW_ELEMENT_RIGID_BODY_SHAPE_CONVEX_MESH;
         static const String CSW_ELEMENT_MINFILTER;
         static const String CSW_ELEMENT_MIPFILTER;
         static const String CSW_ELEMENT_MIP_LEVELS;
@@ -236,6 +240,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_YMAG;
         static const String CSW_ELEMENT_ZFAR;
         static const String CSW_ELEMENT_ZNEAR;
+		static const String CSW_ELEMENT_GRAVITY;
 
 
 		static const String CSW_ATTRIBUTE_CLOSED;
@@ -277,6 +282,7 @@ namespace COLLADASW
 		static const String CSW_ATTRIBUTE_XMLNS;
 		static const String CSW_ATTRIBUTE_XMLNS_XSI;
 		static const String CSW_ATTRIBUTE_XSI_SCHEMALOCATION;
+		static const String CSW_ATTRIBUTE_CONVEX_HULL_OF;
 
         static const String CSW_SEMANTIC_BINDMATRIX;
         static const String CSW_SEMANTIC_COLOR;

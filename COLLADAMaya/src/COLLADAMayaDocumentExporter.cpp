@@ -196,7 +196,7 @@ namespace COLLADAMaya
 				}
 
                 // Export the scene
-                if ( visualSceneExported ) exportScene();
+                exportScene(visualSceneExported, physicSceneExported);
             }
             else
             {
@@ -243,7 +243,7 @@ namespace COLLADAMaya
         }
 
         asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();
-
+		
         // comments
 		MString optstr = MString("\n\t\t\tColladaMaya export options: ")
 			+ "\n\t\t\tbakeTransforms=" + ExportOptions::bakeTransforms()
@@ -255,7 +255,7 @@ namespace COLLADAMaya
             + ";\n\t\t\tisSampling=" + ExportOptions::isSampling() 
             + ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
             + ";removeStaticCurves=" + ExportOptions::removeStaticCurves() 
-			+ ";exportPhysicsModels=" + ExportOptions::exportPhysicsModels()
+			+ ";exportPhysic=" + ExportOptions::exportPhysic()
             + ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes() 
             + ";exportLights=" + ExportOptions::exportLights() 
             + ";\n\t\t\texportCameras=" + ExportOptions::exportCameras() 
@@ -309,9 +309,11 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void DocumentExporter::exportScene()
+    void DocumentExporter::exportScene(bool exportScene, bool exportPhysic)
     {
 		COLLADASW::Scene scene(&mStreamWriter, COLLADASW::URI(EMPTY_STRING, VISUAL_SCENE_NODE_ID), COLLADASW::URI(EMPTY_STRING, PHYSIC_SCENE_NODE_ID));
+		scene.exportScene = exportScene;
+		scene.exportPhysic = exportPhysic;
         scene.add();
     }
 

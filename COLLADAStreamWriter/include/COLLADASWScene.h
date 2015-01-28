@@ -40,7 +40,13 @@ namespace COLLADASW
         : ElementWriter ( streamWriter ) 
 		, mInstanceVisualSceneUrl(instanceVisualSceneURI)
 		, mInstancePhysicsSceneUrl(instancePhysicsSceneURI)
-        {}
+        {
+			exportScene = true;
+			exportPhysic = false;
+		}
+
+		bool exportScene;
+		bool exportPhysic;
 
         /** Adds the scene to the stream, i.e. performes the actual writing*/
         void add();

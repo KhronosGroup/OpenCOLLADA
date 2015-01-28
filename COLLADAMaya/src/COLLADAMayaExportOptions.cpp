@@ -28,7 +28,7 @@ namespace COLLADAMaya
 	bool ExportOptions::mPreserveSourceTree = false;
     bool ExportOptions::mCopyTextures = false;
     bool ExportOptions::mExportPolygonMeshes = true;
-	bool ExportOptions::mExportPhysicsModels = true;
+	bool ExportOptions::mExportPhysic = true;
     bool ExportOptions::mExportLights  = true;
     bool ExportOptions::mExportCgfxFileReferences = true;
     bool ExportOptions::mExportCameras = true;
@@ -74,7 +74,7 @@ namespace COLLADAMaya
         mExportTriangles = false;
         
         mExportPolygonMeshes = true;
-		mExportPhysicsModels = true;
+		mExportPhysic = true;
         mExportLights = true;
         mExportCameras = true;
         mExportMaterialsOnly = false;
@@ -130,7 +130,7 @@ namespace COLLADAMaya
                 else if ( optionName == "cgfxFileReferences" ) mExportCgfxFileReferences = value;
                 else if ( optionName == "copyTextures" ) mCopyTextures = value;
                 else if ( optionName == "exportPolygonMeshes" ) mExportPolygonMeshes = value;
-				else if (optionName  == "exportPhysicsModels") mExportPhysicsModels = value;
+				else if (optionName  == "exportPhysic") mExportPhysic = value;
                 else if ( optionName == "exportLights" ) mExportLights = value;
                 else if ( optionName == "exportCameras" ) mExportCameras = value;
                 else if ( optionName == "exportJointsAndSkin" ) mExportJointsAndSkin = value;
@@ -169,9 +169,9 @@ namespace COLLADAMaya
         return mBakeTransforms;
     }
 
-	bool ExportOptions::exportPhysicsModels()
+	bool ExportOptions::exportPhysic()
 	{
-		return mExportPhysicsModels;
+		return mExportPhysic;
 	}
 
     bool ExportOptions::exportPolygonMeshes()

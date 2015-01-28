@@ -37,6 +37,7 @@
 #include "COLLADAMayaPlatform.h"
 #include "assert.h"
 
+#include "COLLADAMayaPhysicsExporter.h"
 
 namespace COLLADAMaya
 {
@@ -328,31 +329,6 @@ namespace COLLADAMaya
         mForcedNodes.clear();
     }
 
-	void ProcessVisibilityOnChild(MObject& parent)
-	{
-		MFnDagNode fnParent(parent);
-		for (int i = 0; i < fnParent.childCount(); ++i) {
-
-			// get the MObject for the i'th child 
-			MObject child = fnParent.child(i);
-
-			MFnDagNode fnChild(child);
-			MString name;
-			name = fnChild.name();
-
-			if (!child.hasFn(MFn::kRigid))
-			{
-				MStatus status;
-				MPlug plug = MFnDependencyNode(child).findPlug(ATTR_VISIBILITY, &status);
-				if (status == MStatus::kSuccess)
-					DagHelper::setPlugValue(plug, false);
-			}
-
-			ProcessVisibilityOnChild(child);
-		}
-
-		
-	}
 
     // --------------------------------------------------------------------
     bool SceneGraph::getIsExportNode ( 
@@ -388,29 +364,34 @@ namespace COLLADAMaya
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();
 
-///////TEST
-		MObject& node = dagPath.node();
-		MFnDagNode DagNode(node);
-		MString Name1;
-		Name1 = DagNode.name();
-
-		if (node.hasFn(MFn::kRigid))
+		
+		// remove physic geometry if not convex
+		int shape; 
+		const MObject& transformNode = dagPath.transform();
+		bool found = DagHelper::getPlugValue(transformNode, ATTR_COLLISION_SHAPE, shape);
+		if (ExportOptions::exportPhysic() && (shape == PhysicsExporter::collisionShape::Box || shape == PhysicsExporter::collisionShape::Capsule) ||
+			!ExportOptions::exportPhysic() && found)
 		{
-			MObject parent = DagNode.parent(0);
-			MFnDagNode fnParent(parent);
-
-			MString Name2;
-			Name2 = fnParent.name();
-
-//			ProcessVisibilityOnChild(parent);
-
-
-			MDagPath parentDagPath = MDagPath::getAPathTo(parent);
-			SceneElement* parentElement = findElement(parentDagPath);
-//			parentElement->setIsVisible(false);
-//			parentElement->setIsExportNode(false);
+			isVisible = false;
 		}
-///////TEST
+
+
+		// remove Physic Node from visual scene
+		MFnDagNode fnNode(dagPath.node());
+		MString Name = fnNode.name();
+
+		for (int i = 0; i < fnNode.childCount(); ++i) 
+		{
+			MObject child = fnNode.child(i);
+			MFnDagNode fnChild(child);
+			MString childName = fnChild.name();
+
+			if (child.hasFn(MFn::kRigid))
+			{
+				isVisible = false;
+			}
+		}
+
 
         if ( !isForced )
         {

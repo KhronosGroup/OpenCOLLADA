@@ -5,7 +5,7 @@
   
 namespace COLLADAMaya 
 { 
-    const String CURRENT_REVISION = "3b4d80c"; 
+    const String CURRENT_REVISION = "9982f7d"; 
     const String CURRENT_PLATFORM = "x64"; 
     const String CURRENT_CONFIGURATION = "DebugPlugin2015"; 
 } 

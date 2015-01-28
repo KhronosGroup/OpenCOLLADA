@@ -321,7 +321,7 @@ namespace COLLADAMaya
         void exportAsset();
 
         /** Exports the current scene. */
-        void exportScene();
+        void exportScene(bool exportScene, bool exportPhysic);
 
         /** Creates the import/export libraries */
         void createLibraries();

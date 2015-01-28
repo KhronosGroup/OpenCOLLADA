@@ -35,6 +35,26 @@ namespace COLLADASW
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_NAME, nodeName );
     }
 
+	void LibraryPhysicsScenes::closeTechniqueCommon()
+	{
+		mCurrentTechniqueCommonCloser.close();
+	}
+
+	void LibraryPhysicsScenes::openTechniqueCommon()
+	{
+		mCurrentTechniqueCommonCloser = mSW->openElement(CSWC::CSW_ELEMENT_TECHNIQUE_COMMON);
+	}
+
+
+	void LibraryPhysicsScenes::addGravity(double x, double y, double z) const
+	{
+		mSW->openElement(CSWC::CSW_ELEMENT_GRAVITY);
+
+		mSW->appendValues(x, y, z);
+
+		mSW->closeElement();
+	}
+
 
     //---------------------------------------------------------------
     void LibraryPhysicsScenes::closePhysicsScene()

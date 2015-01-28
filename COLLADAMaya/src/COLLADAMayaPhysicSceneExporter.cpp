@@ -19,6 +19,7 @@
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaExportOptions.h"
 
 #include <maya/MItDag.h>
 #include <maya/MDagPath.h>
@@ -51,6 +52,7 @@ namespace COLLADAMaya
 
 	bool PhysicSceneExporter::exportPhysicScenes()
 	{
+		if ( !ExportOptions::exportPhysic() ) return false;
 
 		//PhysicsExporter::RB_Map& myMap = PhysicsExporter::getRB_Map();
 		std::map<std::string, PhysicsExporter::BodyTarget>::iterator iter;
@@ -80,6 +82,10 @@ namespace COLLADAMaya
 		}
 
 		// Technique common gravity
+		libraryPhysicsScene.openTechniqueCommon();
+
+		libraryPhysicsScene.addGravity(PhysicsExporter::gravityField.x , PhysicsExporter::gravityField.y, PhysicsExporter::gravityField.z);
+		libraryPhysicsScene.closeTechniqueCommon();
 
 		libraryPhysicsScene.closePhysicsScene();
 

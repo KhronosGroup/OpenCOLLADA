@@ -316,6 +316,10 @@ namespace COLLADAMaya
 	static const char* ATTR_INERTIA									= "inertia";
 	static const char* ATTR_EXTENT									= "extent";
 	
+	static const char* ATTR_ACTIVE									= "active";
+	static const char* ATTR_COLLISION_SHAPE							= "collision_shape";
+	
+
     /** Shader constants */
     static const char* COLLADA_FX_SHADER                            = "colladafxShader";
     static const char* COLLADA_FX_PASSES                            = "colladafxPasses";

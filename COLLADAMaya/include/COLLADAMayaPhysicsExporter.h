@@ -61,6 +61,13 @@ namespace COLLADAMaya
 
     public:
 
+		enum collisionShape
+		{
+			Box = 0,
+			Capsule = 1,
+			Convex_mesh = 2
+		};
+
 		typedef struct BodyTarget {
 			String Body;
 			String Target;
@@ -90,6 +97,7 @@ namespace COLLADAMaya
 	//	static RB_Map& getRB_Map() { return myMap; }
 
 		static RB_Map myMap;
+		static MVector gravityField;
 
     private:
 

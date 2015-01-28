@@ -19,17 +19,28 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void Scene::add()
     {
-        mSW->openElement ( CSWC::CSW_ELEMENT_SCENE );
+
+		if (exportScene || exportPhysic)
+		{
+		
+			mSW->openElement ( CSWC::CSW_ELEMENT_SCENE );
         
-        mSW->openElement ( CSWC::CSW_ELEMENT_INSTANCE_VISUAL_SCENE );
-        mSW->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_URL, mInstanceVisualSceneUrl );
-        mSW->closeElement();
+			if (exportScene)
+			{
+				mSW->openElement ( CSWC::CSW_ELEMENT_INSTANCE_VISUAL_SCENE );
+				mSW->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_URL, mInstanceVisualSceneUrl );
+				mSW->closeElement();
+			}
 
-		mSW->openElement(CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_SCENE);
-		mSW->appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, mInstancePhysicsSceneUrl);
-		mSW->closeElement();
+			if (exportPhysic)
+			{
+				mSW->openElement(CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_SCENE);
+				mSW->appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, mInstancePhysicsSceneUrl);
+				mSW->closeElement();
+			}
 
-        mSW->closeElement();
+			mSW->closeElement();
+		}
     }
 
 } //namespace COLLADASW

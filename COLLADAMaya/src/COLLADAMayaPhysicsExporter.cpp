@@ -20,6 +20,7 @@
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaRotateHelper.h"
+#include "COLLADAMayaGeometryExporter.h"
 
 #include <algorithm>
 
@@ -35,6 +36,7 @@ namespace COLLADAMaya
 {
 	static const char* NAME_SUFFIX_INVALID = "_MAKE_NAME_INVALID";
 	std::map<String, PhysicsExporter::BodyTarget> PhysicsExporter::myMap;
+	MVector PhysicsExporter::gravityField;
 
     // --------------------------------------------------------
 	PhysicsExporter::PhysicsExporter(COLLADASW::StreamWriter* streamWriter,
@@ -54,7 +56,7 @@ namespace COLLADAMaya
     // --------------------------------------------------------
 	void PhysicsExporter::exportAllPhysics()
     {
-        if ( !ExportOptions::exportPhysicsModels() ) return;
+        if ( !ExportOptions::exportPhysic() ) return;
 
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
@@ -150,7 +152,7 @@ namespace COLLADAMaya
     // --------------------------------------------------------
 	bool PhysicsExporter::exportPhysicsElement(SceneElement* sceneElement)
     {
-		if (!ExportOptions::exportPhysicsModels()) return false;
+		if (!ExportOptions::exportPhysic()) return false;
 
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
@@ -182,27 +184,7 @@ namespace COLLADAMaya
         if ( !colladaMeshId.empty () ) return colladaMeshId;
 
         // Get the node of the current mesh
-        MObject meshNode = dagPath.node();
-
-        // Attach a function set to the mesh node.
-        // We access all of the meshes data through the function set
-        MStatus status;
-        MFnMesh fnMesh ( meshNode, &status );
-        if ( status != MStatus::kSuccess ) return colladaMeshId;
-
-        // Check if there is an extra attribute "colladaId" and use this as export id.
-        MString attributeValue;
-        DagHelper::getPlugValue ( meshNode, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-        if ( attributeValue != EMPTY_CSTRING )
-        {
-            // Generate a valid collada name, if necessary.
-            colladaMeshId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
-        }
-        else
-        {
-            // Generate a COLLADA id for the new object
-            colladaMeshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
-        }
+		 colladaMeshId = mDocumentExporter->dagPathToColladaName ( dagPath );
 
         // Make the id unique and store it in a map.
         colladaMeshId = mPhysicsIdList.addId ( colladaMeshId );
@@ -211,14 +193,6 @@ namespace COLLADAMaya
         return colladaMeshId;
     }
 
-
-
-
-
-
-	
-
-	
 
 	//---------------------------------------------------------------
 	void PhysicsExporter::exportTranslation(
@@ -355,61 +329,7 @@ namespace COLLADAMaya
 		exportTranslation(ATTR_ROTATE_PIVOT_INVERSE, rotatePivot * -1);
 	}
 
-
-	void PrintConnections(MPlug& plug)
-	{
-
-		// will hold the connections to this node
-		MPlugArray plugs;
-
-		cout << "plug " << plug.name().asChar() << endl;
-		String name = plug.name().asChar();
-
-		// get input plugs
-		plug.connectedTo(plugs, true, false);
-
-		cout << "\tinputs " << plugs.length() << endl;
-		for (int i = 0; i<plugs.length(); ++i) {
-
-			cout << "\t\t" << plugs[i].name().asChar() << endl;
-		}
-
-
-		// get output plugs
-		plug.connectedTo(plugs, false, true);
-
-		cout << "\toutputs " << plugs.length() << endl;
-		for (int i = 0; i<plugs.length(); ++i) {
-
-			String name =  plugs[i].name().asChar();
-
-			cout << "\t\t" << plugs[i].name().asChar() << endl;
-		}
-	}
-
-	void PrintNodeConnections(MObject& node)
-	{
-
-		// will hold the connections to this node
-		MPlugArray nodeplugs;
-
-		MFnDependencyNode fn(node);
-
-		cout << "node " << fn.name().asChar() << endl;
-		String name = fn.name().asChar();
-		// using the getConnections function we return a list
-		// of attributes on THIS node that have connections. 
-		fn.getConnections(nodeplugs);
-
-		cout << "numplugs " << nodeplugs.length() << endl;
-		for (int i = 0; i<nodeplugs.length(); ++i) {
-
-			// use function from above to print all of the
-			// connected attributes.
-			PrintConnections(nodeplugs[i]);
-		}
-
-	}
+	
 	void PhysicsExporter::createShape(MDagPath& childDagPath)
 	{
 ///////TEST
@@ -437,44 +357,12 @@ namespace COLLADAMaya
 
 			MFnMesh fnMesh(meshNode);
 			MBoundingBox bb = fnMesh.boundingBox();
+
 			
-
-			/* MPoint p = bb.center();
-			 double w = bb.width();
-			 double h = bb.height();
-			 double d = bb.depth();
-
-			 MPoint min = bb.min();
-			 MPoint max = bb.max();*/
-
-			MString attributeValue;
-
-			MFnAttribute pathAttribute(childTransform);
-			String pathAttributeName = pathAttribute.name().asChar ();
+			int shape;
+			DagHelper::getPlugValue(childTransform, ATTR_COLLISION_SHAPE, shape);
 			
-			String name = "extra attributes";
-			MStatus status;
-			MPlug plug = MFnDependencyNode(meshNode).findPlug(name.c_str(), &status);
-			MFnAttribute pathAttribute2(plug.attribute());
-			String pathAttributeName2 = pathAttribute2.name().asChar();
-
-			size_t numChildren = plug.numChildren();
-			for (uint i = 0; i < numChildren; ++i)
-			{
-				MPlug childPlug = plug.child(i, &status);
-				if (status != MStatus::kSuccess) continue;
-
-				// Get the collada attribute.
-				MFnAttribute pathAttribute(childPlug.attribute());
-				String pathAttributeName = pathAttribute.name().asChar();
-				//     
-			}
-
-			PrintNodeConnections(childTransform);
-			PrintNodeConnections(const_cast<MObject&>(meshNode));
-
-
-			DagHelper::getPlugValue(meshNode, "extra attributes", attributeValue);
+			/*DagHelper::getPlugValue(childTransform, "toto", attributeValue);
 			if (attributeValue != EMPTY_CSTRING)
 			{
 				String attributeName = attributeValue.asChar();
@@ -483,11 +371,69 @@ namespace COLLADAMaya
 				{
 					AddBoxShape(MDistance::internalToUI(bb.width() / 2), MDistance::internalToUI(bb.height() / 2), MDistance::internalToUI(bb.depth() / 2));
 				}
-			}
+			}*/
 
-			AddBoxShape(MDistance::internalToUI(bb.width() / 2), MDistance::internalToUI(bb.height() / 2), MDistance::internalToUI(bb.depth() / 2));
+
+			if (shape == collisionShape::Box)
+			{
+				AddBoxShape(MDistance::internalToUI(bb.width() / 2), MDistance::internalToUI(bb.height() / 2), MDistance::internalToUI(bb.depth() / 2));
+			}
+			else if (shape == collisionShape::Capsule)
+			{
+				float radius = MDistance::internalToUI(bb.width() / 2);
+				float height = MDistance::internalToUI(bb.depth()) - 2 * radius;
+				AddCapsuleShape(radius,radius,radius, height);
+			}
+			else if (shape == collisionShape::Convex_mesh)
+			{
+				MDagPath dagPath = MDagPath::getAPathTo(meshNode);
+				GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
+				const String& colladaMeshId = geometryExporter->getColladaGeometryId ( dagPath );
+				AddConvexMeshShape(colladaMeshId);
+			}
+			
 			exportDecomposedTransform();
 			closeShape();
+	}
+
+	static bool firstTime = true;
+
+	void getGravityField(MDagPath& dagPath)
+	{
+		MObject& node = dagPath.node();
+		MFnDagNode fnNode(node);
+		MString Name = fnNode.name();
+
+		for (int i = 0; i < fnNode.childCount(); ++i) 
+		{
+			MObject child = fnNode.child(i);
+			MFnDagNode fnChild(child);
+			MString childName = fnChild.name();
+
+			if (child.hasFn(MFn::kGravity))
+			{
+				MFnGravityField GravityField(child);
+				MVector dir = GravityField.direction();
+				double mag = GravityField.magnitude();
+
+				PhysicsExporter::gravityField = dir * mag;
+				firstTime = false;
+			}
+			else
+			{
+				MFnDagNode DagNode(node);
+			
+				for (int i = 0; i < DagNode.parentCount(); ++i) 
+				{
+					MObject parent = DagNode.parent(i);
+					MFnDagNode fnParent(parent);
+					MDagPath parentPath = MDagPath::getAPathTo(parent);
+
+					if (firstTime)
+						getGravityField(parentPath);
+				}
+			}
+		}
 	}
 
     // --------------------------------------------------------
@@ -504,16 +450,16 @@ namespace COLLADAMaya
 			MObject parent = DagNode.parent(0);
 			MFnDagNode fnParent(parent);
 			MString parentName = fnParent.name();
-			openPhysicsModel(parentName.asChar(), meshName);
+			openPhysicsModel(parentName.asChar(), colladaMeshId);
 		}
 		
-		openRigidBody(meshName, "");
+		openRigidBody(colladaMeshId, "");
 
 		openTechniqueCommon();
 
-		bool dynamic;
-		DagHelper::getPlugValue(dagPath.node(), ATTR_DYNAMIC, dynamic);
-		addDynamic(dynamic);
+		bool active;
+		DagHelper::getPlugValue(dagPath.node(), ATTR_ACTIVE, active);
+		addDynamic(active);
 
 		float mass;
 		MObject& node = dagPath.node();
@@ -554,18 +500,8 @@ namespace COLLADAMaya
 			MFnDagNode fnParent2(parent2);
 			MString parentName2 = fnParent2.name();
 
-			// Get Gravity Field
-			for (int i = 0; i < fnParent2.childCount(); ++i) {
-				
-				MObject child = fnParent2.child(i);
-
-				if (child.hasFn(MFn::kGravity))
-				{
-					MFnGravityField GravityField(child);
-					MVector dir = GravityField.direction();
-					double mag = GravityField.magnitude();
-				}
-			}
+			// search in top level for Gravity Field
+			getGravityField(MDagPath::getAPathTo(parent));
 
 			for (int i = 0; i < fnParent.childCount(); ++i) {
 
@@ -589,9 +525,10 @@ namespace COLLADAMaya
 					MFnDagNode fnChild(child);
 					MString childName;
 					childName = fnChild.name();
+					const String& colladaBodyId = generateColladaMeshId(ChildPath);
 
 					BodyTarget mBodyTarget;
-					mBodyTarget.Body = childName.asChar();
+					mBodyTarget.Body = colladaBodyId;//childName.asChar();
 					mBodyTarget.Target = (MString("#") + parentName2).asChar();
 					myMap[(MString("#") + parentName).asChar()] = mBodyTarget;
 				}

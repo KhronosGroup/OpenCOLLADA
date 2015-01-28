@@ -82,6 +82,29 @@ namespace COLLADASW
 		mSW->closeElement();
 	}
 
+	void LibraryPhysicsModels::AddCapsuleShape(float radiusX, float radiusY, float radiusZ, float height)
+	{
+		mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE);
+		
+		mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_HEIGHT);
+		mSW->appendValues(height);
+		mSW->closeElement();
+		
+		mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS);
+		mSW->appendValues(radiusX, radiusY, radiusZ);
+		mSW->closeElement();
+		
+		mSW->closeElement();
+	}
+
+	void LibraryPhysicsModels::AddConvexMeshShape(const String &convexHullOf)
+	{
+		mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CONVEX_MESH);
+		if (!convexHullOf.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_CONVEX_HULL_OF, String("#") + convexHullOf);
+		mSW->closeElement();
+	}
+
 	void LibraryPhysicsModels::addTranslate(const String &sid, float x, float y, float z) const 
 	{
 		mSW->openElement(CSWC::CSW_ELEMENT_TRANSLATE);
