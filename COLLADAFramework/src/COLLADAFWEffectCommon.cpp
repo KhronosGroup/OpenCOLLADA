@@ -20,7 +20,8 @@ namespace COLLADAFW
 		: mShaderType(SHADER_UNKNOWN)
 		, mShininess(-1)
 		, mReflectivity(-1)
-		, mIndexOfRefraction(-1)
+        , mTransparency(1)
+        , mIndexOfRefraction(-1)
 	{
 	}
 	

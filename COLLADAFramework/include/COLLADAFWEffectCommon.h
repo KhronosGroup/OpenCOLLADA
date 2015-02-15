@@ -38,6 +38,19 @@ namespace COLLADAFW
 			SHADER_PHONG,
 			SHADER_LAMBERT
 		};
+        
+        /**
+         * There is a transparent color and a transparency value with an opaque mode in COLLADA.
+         * We have to calculate with this the opaque color for the framework.
+         */
+        enum OpaqueMode
+        {
+            UNSPECIFIED_OPAQUE,
+            A_ONE,
+            RGB_ZERO,
+            A_ZERO,
+            RGB_ONE
+        };
 
 	private:
 
@@ -117,24 +130,16 @@ namespace COLLADAFW
         */
         ColorOrTexture mOpacity;
 
-//         /** Declares the color of perfectly refracted light. 
-// 		Used by the following shaders:
-// 		Blinn
-// 		Constant
-// 		Phong
-// 		Lambert
-// 		*/
-// 		ColorOrTexture mTransparent;
-// 
-// 		/** Declares the amount of perfectly refracted light added to the reflected color as a 
-// 		scalar value between 0.0 and 1.0. 
-// 		Used by the following shaders:
-// 		Blinn
-// 		Constant
-// 		Phong
-// 		Lambert
-// 		*/
-// 		FloatOrParam mTransparency;
+        /** Declares transparent color.
+         Note: this property should only be used if one wants to know the value that were used to compute the final opacity color
+        */
+        
+ 		ColorOrTexture mTransparent;
+        
+        /** Declares the transparency value.
+         Note: this property should only be used if one wants to know the value that were used to compute the final opacity color
+         */
+		FloatOrParam mTransparency;
 
 		/** Declares the index of refraction for perfectly refracted light as a single scalar index. 
 		Used by the following shaders:
@@ -148,6 +153,9 @@ namespace COLLADAFW
 		/** All the samplers used as texture in the CommonEffect.*/
 		SamplerPointerArray mSamplers;
 
+        /** Declares the opaque mode */
+        OpaqueMode mOpaqueMode;
+        
 	public:
 
         /** Constructor. */
@@ -251,6 +259,17 @@ namespace COLLADAFW
 		*/
 		void setDiffuse ( const ColorOrTexture& Diffuse ) { mDiffuse = Diffuse; }
 
+        /** Declares the transparent color
+         */
+        const ColorOrTexture& getTransparent () const { return mTransparent; }
+        
+        /** Declares the transparent color
+         */
+        ColorOrTexture& getTransparent () { return mTransparent; }
+        
+        /** Declares the transparent color
+         */
+        void setTransparent ( const ColorOrTexture& transparent ) { mTransparent = transparent; }
 
 		/** Declares the color of light specularly reflected from the surface of this object. 
 		Used by the following shaders:
@@ -353,6 +372,26 @@ namespace COLLADAFW
 		*/
 		void setReflectivity( const FloatOrParam& Reflectivity ) { mReflectivity = Reflectivity; }
 
+        /** Declares the transparency value
+         */
+        FloatOrParam& getTransparency() { return mTransparency; }
+
+        /** Declares the transparency value
+         */
+        const FloatOrParam& getTransparency() const { return mTransparency; }
+        
+        /** Declares the transparency value
+         */
+        void setTransparency( const FloatOrParam& transparency ) { mTransparency = transparency; }
+        
+        /** Declares the opaque mode
+         */
+        OpaqueMode getOpaqueMode() const { return mOpaqueMode; }
+
+        /** Declares the transparency value
+         */
+        void setOpaqueMode(OpaqueMode opaqueMode ) { mOpaqueMode = opaqueMode; }
+        
         /** Declares the opaque color. 
         Used by the following shaders:
         Blinn

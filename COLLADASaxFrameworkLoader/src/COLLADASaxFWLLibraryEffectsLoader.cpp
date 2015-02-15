@@ -309,14 +309,6 @@ namespace COLLADASaxFWL
 			COLLADAFW::Color& transparentColor = mTransparent.getColor ();
 			switch ( mOpaqueMode )
 			{
-			case LibraryEffectsLoader::A_ONE:
-				{
-					opaqueColor.setRed ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
-					opaqueColor.setGreen ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
-					opaqueColor.setBlue ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
-					opaqueColor.setAlpha ( transparentColor.getAlpha () * mTransparency.getFloatValue () );
-					break;
-				}
 			case LibraryEffectsLoader::A_ZERO:
 				{
 					opaqueColor.setRed ( 1 - transparentColor.getAlpha () * mTransparency.getFloatValue () );
@@ -341,6 +333,7 @@ namespace COLLADASaxFWL
 					opaqueColor.setAlpha ( 1 - calculateLuminance ( transparentColor ) * mTransparency.getFloatValue () );
 					break;
 				}
+            case LibraryEffectsLoader::A_ONE:
 			case LibraryEffectsLoader::UNSPECIFIED_OPAQUE:
 			default:
 				{
@@ -353,6 +346,7 @@ namespace COLLADASaxFWL
 				}
 			}
 
+            
 			// Reset the transparent color.
 			transparentColor.set (-1,-1,-1,-1);
 		}
@@ -446,6 +440,11 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryEffectsLoader::end__profile_COMMON()
 	{
+        // Store values original transparency and transparent values
+        mCurrentEffect->getCommonEffects ().back ()->setTransparent (mTransparent);
+        mCurrentEffect->getCommonEffects ().back ()->setTransparency(mTransparency);
+        mCurrentEffect->getCommonEffects ().back ()->setOpaqueMode((COLLADAFW::EffectCommon::OpaqueMode)mOpaqueMode);
+
 		// Calculate the opacity value.
 		calculateOpacity ();
 
