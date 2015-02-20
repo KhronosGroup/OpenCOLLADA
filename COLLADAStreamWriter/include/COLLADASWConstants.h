@@ -142,6 +142,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_MATERIAL;
         static const String CSW_ELEMENT_MATRIX;
         static const String CSW_ELEMENT_MESH;
+		static const String CSW_ELEMENT_CONVEX_MESH;
 		static const String CSW_ELEMENT_PHYSICS_MODEL;
 		static const String	CSW_ELEMENT_RIGID_BODY;
 		static const String CSW_ELEMENT_RIGID_BODY_DYNAMIC;

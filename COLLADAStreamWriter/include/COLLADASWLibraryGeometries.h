@@ -44,6 +44,7 @@ namespace COLLADASW
 
         TagCloser mCurrentGeometryCloser;  //!< Used to close the current geometry
         TagCloser mCurrentMeshOrSplineCloser;   //!< Used to close the current mesh
+		TagCloser mCurrentConvexMeshCloser;   //!< Used to close the current mesh
         TagCloser mCurrentExtraCloser;   //!< Used to close the current extra
 
     public:
@@ -61,6 +62,7 @@ namespace COLLADASW
         @param geoId The id of the geometry
         @param geoName The Name of the geometry*/
         void openMesh ( const String& geoId, const String& geoName = EMPTY_STRING );
+		void openConvexMesh(const String &convexHullOf, const String& geoId, const String& geoName = EMPTY_STRING);
 
 		/** Writes the opening @a \<geometry\> and @a \<spline\> tags and, if necessary the opening @a \<library_geometry\> tag.
 		closeMesh() must be use to close the opened tags.
@@ -70,6 +72,7 @@ namespace COLLADASW
 
 		/** Closes the tag opened by openMesh()*/
 		void closeMesh();
+		void closeConvexMesh();
 
 		/** Closes the tag opened by openSpline()*/
 		void closeSpline();

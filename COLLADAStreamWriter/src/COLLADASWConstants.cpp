@@ -131,6 +131,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_MATERIAL = "material";
     const String CSWC::CSW_ELEMENT_MATRIX = "matrix";
     const String CSWC::CSW_ELEMENT_MESH = "mesh";
+	const String CSWC::CSW_ELEMENT_CONVEX_MESH = "convex_mesh";
 	const String CSWC::CSW_ELEMENT_PHYSICS_MODEL = "physics_model";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY = "rigid_body";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_DYNAMIC = "dynamic";

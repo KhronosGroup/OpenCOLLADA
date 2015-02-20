@@ -24,6 +24,8 @@
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaControllerExporter.h"
 
+#include "COLLADAMayaPhysicsExporter.h"
+
 #include <algorithm>
 
 #include <maya/MItDependencyNodes.h>
@@ -202,7 +204,25 @@ namespace COLLADAMaya
 
         // Write the mesh data
         String meshName = mDocumentExporter->dagPathToColladaName ( dagPath );
-        return exportMesh ( fnMesh, colladaMeshId, meshName );
+		bool result = exportMesh(fnMesh, colladaMeshId, meshName);
+
+		if (ExportOptions::exportPhysic())
+		{
+			MObject transform = dagPath.transform();
+			int shape;
+			bool shapeResult = DagHelper::getPlugValue(transform, ATTR_COLLISION_SHAPE, shape);
+
+			if (shapeResult)
+			{
+				if (shape == PhysicsExporter::collisionShape::Convex_mesh)
+				{
+					openConvexMesh(colladaMeshId, meshName);
+					closeConvexMesh();
+				}
+			}
+		}
+			
+		return result;
     }
 
     // --------------------------------------------------------

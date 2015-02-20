@@ -81,6 +81,21 @@ namespace COLLADASW
 
 	}
 
+	void LibraryGeometries::openConvexMesh(const String &convexHullOf, const String & geoId, const String & geoName)
+	{
+		mCurrentConvexMeshCloser = mSW->openElement(CSWC::CSW_ELEMENT_GEOMETRY);
+
+		if (!geoId.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_ID, geoId + String("_"));
+
+		if (!geoName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_NAME, geoName);
+
+		TagCloser closer = mSW->openElement(CSWC::CSW_ELEMENT_CONVEX_MESH);
+		mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_CONVEX_HULL_OF, String("#") + convexHullOf);
+		closer.close();
+	}
+
 	//---------------------------------------------------------------
 	void LibraryGeometries::openSpline( bool closed, const String & geoId, const String & geoName )
 	{
@@ -107,6 +122,11 @@ namespace COLLADASW
 	void LibraryGeometries::closeMesh()
 	{
 		mCurrentMeshOrSplineCloser.close();
+	}
+
+	void LibraryGeometries::closeConvexMesh()
+	{
+		mCurrentConvexMeshCloser.close();
 	}
 
 	//---------------------------------------------------------------

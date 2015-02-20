@@ -21,6 +21,7 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaRotateHelper.h"
 #include "COLLADAMayaGeometryExporter.h"
+#include "COLLADASWInstanceGeometry.h"
 
 #include <algorithm>
 
@@ -31,6 +32,7 @@
 #include <maya/MFnTransform.h>
 #include <maya/MFnGravityField.h>
 #include <maya/MFnAttribute.h>
+
 
 namespace COLLADAMaya
 {
@@ -332,68 +334,81 @@ namespace COLLADAMaya
 	
 	void PhysicsExporter::createShape(MDagPath& childDagPath)
 	{
-///////TEST
 			MFnDagNode fnChild(mTransformObject);
 			MString childName;
 			childName = fnChild.name();
-///////TEST
 
 			MObject& childTransform = childDagPath.transform();
 			MFnTransform fn(childTransform);
 			mTransformMatrix = fn.transformation();
 
-			// Write Tag
-			openShape();
 
 			//Get BoundingBox
 			childDagPath.extendToShape();
-			//String pathName1 = childDagPath.fullPathName().asChar();
 
 			const MObject& meshNode = childDagPath.node();
-
-			//MDagPath FnPath = MDagPath::getAPathTo(meshNode);
-			//String pathName2 = FnPath.fullPathName().asChar();
-
-
 			MFnMesh fnMesh(meshNode);
 			MBoundingBox bb = fnMesh.boundingBox();
-
 			
+
 			int shape;
-			DagHelper::getPlugValue(childTransform, ATTR_COLLISION_SHAPE, shape);
-			
-			/*DagHelper::getPlugValue(childTransform, "toto", attributeValue);
-			if (attributeValue != EMPTY_CSTRING)
-			{
-				String attributeName = attributeValue.asChar();
+			bool shapeResult = DagHelper::getPlugValue(childTransform, ATTR_COLLISION_SHAPE, shape);
 
-				if (attributeName.compare("box") == 0)
+			if (shapeResult)
+			{
+				// Write Tag
+				openShape();
+
+				if (shape == collisionShape::Box)
 				{
 					AddBoxShape(MDistance::internalToUI(bb.width() / 2), MDistance::internalToUI(bb.height() / 2), MDistance::internalToUI(bb.depth() / 2));
 				}
-			}*/
+				else if (shape == collisionShape::Capsule)
+				{
+					float radius = MDistance::internalToUI(bb.width() / 2);
+					float height = MDistance::internalToUI(bb.depth()) - 2 * radius;
+					AddCapsuleShape(radius, radius, radius, height);
+				}
+				else if (shape == collisionShape::Convex_mesh)
+				{
+					MDagPath dagPath = MDagPath::getAPathTo(meshNode);
+					GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter();
+					const String& colladaMeshId = geometryExporter->getColladaGeometryId(dagPath);
+					//AddConvexMeshShape(colladaMeshId);
 
+					COLLADASW::URI uri( (String("#") + String(colladaMeshId) + String("_")));
 
-			if (shape == collisionShape::Box)
-			{
-				AddBoxShape(MDistance::internalToUI(bb.width() / 2), MDistance::internalToUI(bb.height() / 2), MDistance::internalToUI(bb.depth() / 2));
+					// Get the streamWriter from the export document
+					COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+					// Write the geometry instance
+					COLLADASW::InstanceGeometry instanceGeometry(streamWriter);
+					instanceGeometry.setUrl(uri);
+
+					instanceGeometry.add();
+				}
+				else if (shape == collisionShape::Mesh)
+				{
+					MDagPath dagPath = MDagPath::getAPathTo(meshNode);
+					GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter();
+					const String& colladaMeshId = geometryExporter->getColladaGeometryId(dagPath);
+					//AddConvexMeshShape(colladaMeshId);
+
+					COLLADASW::URI uri((String("#") + String(colladaMeshId)));
+
+					// Get the streamWriter from the export document
+					COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+					// Write the geometry instance
+					COLLADASW::InstanceGeometry instanceGeometry(streamWriter);
+					instanceGeometry.setUrl(uri);
+
+					instanceGeometry.add();
+				}
+
+				exportDecomposedTransform();
+				closeShape();
 			}
-			else if (shape == collisionShape::Capsule)
-			{
-				float radius = MDistance::internalToUI(bb.width() / 2);
-				float height = MDistance::internalToUI(bb.depth()) - 2 * radius;
-				AddCapsuleShape(radius,radius,radius, height);
-			}
-			else if (shape == collisionShape::Convex_mesh)
-			{
-				MDagPath dagPath = MDagPath::getAPathTo(meshNode);
-				GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter ();
-				const String& colladaMeshId = geometryExporter->getColladaGeometryId ( dagPath );
-				AddConvexMeshShape(colladaMeshId);
-			}
-			
-			exportDecomposedTransform();
-			closeShape();
 	}
 
 	static bool firstTime = true;

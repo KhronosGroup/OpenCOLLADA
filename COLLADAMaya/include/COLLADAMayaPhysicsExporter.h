@@ -63,9 +63,10 @@ namespace COLLADAMaya
 
 		enum collisionShape
 		{
-			Box = 0,
-			Capsule = 1,
-			Convex_mesh = 2
+			Box			= 0,
+			Capsule		= 1,
+			Convex_mesh = 2,
+			Mesh		= 3
 		};
 
 		typedef struct BodyTarget {
