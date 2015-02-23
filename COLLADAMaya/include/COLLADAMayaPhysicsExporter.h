@@ -133,6 +133,9 @@ namespace COLLADAMaya
 		bool mIsFirstRotation;
 		MTransformationMatrix mTransformMatrix;
 		MObject mTransformObject;
+
+		/** Exports an extra tag. */
+		void exportExtraTechniqueParameters(const MDagPath& dagPath, int shapeType);
     };
 }
 

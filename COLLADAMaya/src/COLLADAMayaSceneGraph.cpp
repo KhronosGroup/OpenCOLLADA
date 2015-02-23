@@ -265,9 +265,11 @@ namespace COLLADAMaya
         // tell the scene node to be transformed or not.
         bool isForced = false;
         bool isVisible = false;
-        bool isExportNode = getIsExportNode ( dagPath, isForced, isVisible );
+		bool isPhysic = false;
+        bool isExportNode = getIsExportNode ( dagPath, isForced, isVisible, isPhysic );
         sceneElement->setIsForced ( isForced );
         sceneElement->setIsVisible ( isVisible );
+		sceneElement->setIsPhysic(isPhysic);
 
         // Check for a file reference
         MFnDagNode dagFn ( dagPath );
@@ -334,7 +336,8 @@ namespace COLLADAMaya
     bool SceneGraph::getIsExportNode ( 
         const MDagPath& dagPath, 
         bool& isForced,
-        bool& isVisible )
+        bool& isVisible,
+		bool& isPhysic)
     {
         // Does this dagPath already exist? If so, only recurse if FollowInstancedChildren() is set.
         MFnDagNode dagFn ( dagPath );
@@ -363,32 +366,35 @@ namespace COLLADAMaya
         DagHelper::getPlugValue ( dagPath.node(), ATTR_VISIBILITY, isVisible );
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();
-
+		 
 		
 		// remove physic geometry if not convex
-		int shape; 
-		const MObject& transformNode = dagPath.transform();
-		bool found = DagHelper::getPlugValue(transformNode, ATTR_COLLISION_SHAPE, shape);
-		if (ExportOptions::exportPhysic() && (shape == PhysicsExporter::collisionShape::Box || shape == PhysicsExporter::collisionShape::Capsule) ||
-			!ExportOptions::exportPhysic() && found)
-		{
-			isVisible = false;
-		}
+		//int shape; 
+		//const MObject& transformNode = dagPath.transform();
+		//bool found = DagHelper::getPlugValue(transformNode, ATTR_COLLISION_SHAPE, shape);
+		//if (ExportOptions::exportPhysic() && (shape == PhysicsExporter::collisionShape::Box || shape == PhysicsExporter::collisionShape::Capsule) ||
+		//	!ExportOptions::exportPhysic() && found)
+		//{
+		//	isVisible = false;
+		//}
 
 
 		// remove Physic Node from visual scene
-		MFnDagNode fnNode(dagPath.node());
-		MString Name = fnNode.name();
-
-		for (int i = 0; i < fnNode.childCount(); ++i) 
+		if (ExportOptions::exportPhysic())
 		{
-			MObject child = fnNode.child(i);
-			MFnDagNode fnChild(child);
-			MString childName = fnChild.name();
+			MFnDagNode fnNode(dagPath.node());
+			MString Name = fnNode.name();
 
-			if (child.hasFn(MFn::kRigid))
+			for (int i = 0; i < fnNode.childCount(); ++i)
 			{
-				isVisible = false;
+				MObject child = fnNode.child(i);
+				MFnDagNode fnChild(child);
+				MString childName = fnChild.name();
+
+				if (child.hasFn(MFn::kRigid))
+				{
+					isPhysic = true;
+				}
 			}
 		}
 

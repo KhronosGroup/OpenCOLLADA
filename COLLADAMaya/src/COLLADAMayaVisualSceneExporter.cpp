@@ -631,6 +631,17 @@ namespace COLLADAMaya
 
             // Export the original maya name.
             mVisualSceneNode->addExtraTechniqueParameter ( PROFILE_MAYA, PARAMETER_MAYA_ID, nodeName );
+
+			if (ExportOptions::exportPhysic())
+			{
+				if (sceneElement->getParentCount())
+				{
+					SceneElement* sceneParentElement = sceneElement->getParent(0);
+					if (sceneElement->getIsPhysic() /*|| sceneParentElement && sceneParentElement->getIsPhysic()*/)
+						mVisualSceneNode->addExtraTechniqueParameter(PROFILE_FL4RE, PARAMETER_PHYSIC_NODE, "true");
+				}
+			}
+			
         }
 
 		exportExtraAttributes(sceneElement);

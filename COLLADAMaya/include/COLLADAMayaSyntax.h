@@ -38,10 +38,13 @@ namespace COLLADAMaya
     static const char* PROFILE_COLLADA                              = "COLLADA";
     static const char* PROFILE_MAYA                                 = "OpenCOLLADAMaya";
     static const char* PROFILE_MAX                                  = "OpenCOLLADA3dsMax";
+	static const char* PROFILE_FL4RE								= "fl4re";
 
     /** Extra technique parameters. */
     static const String PARAMETER_MAYA_ID                           = "originalMayaNodeId";
     static const String PARAMETER_DOUBLE_SIDED                      = "double_sided";
+	static const String PARAMETER_SHAPE_TYPE						= "shapeType";
+	static const String PARAMETER_PHYSIC_NODE						= "physicNode";
 
     /** Empty strings. */
     static const String EMPTY_STRING                                = "";

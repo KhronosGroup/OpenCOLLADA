@@ -97,6 +97,8 @@ namespace COLLADAMaya
         /** True, if the transform element has joints. */
         bool mHasJoint;
 
+		bool mIsPhysic;
+
         /** Set the list of skeleton-Ids. It indicates where a skin
             controller is to start to search for the joint nodes
             it needs. This element is meaningless for morph controllers. */
@@ -257,6 +259,21 @@ namespace COLLADAMaya
          * @return bool True, if the transform element has joints.
          */
         bool getHasJoint () { return mHasJoint; }
+
+
+
+		
+		void setIsPhysic(bool val)
+		{
+			mIsPhysic = val;
+		}
+
+		
+		bool getIsPhysic() const
+		{
+			return mIsPhysic;
+		}
+
 
         /** Set the skeleton uri. It indicates where a skin
         controller is to start to search for the joint nodes

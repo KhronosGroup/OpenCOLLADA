@@ -331,6 +331,26 @@ namespace COLLADAMaya
 		exportTranslation(ATTR_ROTATE_PIVOT_INVERSE, rotatePivot * -1);
 	}
 
+
+	void PhysicsExporter::exportExtraTechniqueParameters(
+		const MDagPath& dagPath,
+		int shapeType)
+	{
+
+		String meshName = mDocumentExporter->dagPathToColladaName(dagPath);
+
+		COLLADASW::Extra extraSource(mSW);
+		extraSource.openExtra();
+
+		COLLADASW::Technique techniqueSource(mSW);
+		techniqueSource.openTechnique(PROFILE_MAYA);
+		techniqueSource.addParameter(PARAMETER_MAYA_ID, meshName);
+		techniqueSource.addParameter(PARAMETER_SHAPE_TYPE, shapeType);
+
+		techniqueSource.closeTechnique();
+
+		extraSource.closeExtra();
+	}
 	
 	void PhysicsExporter::createShape(MDagPath& childDagPath)
 	{
@@ -407,6 +427,8 @@ namespace COLLADAMaya
 				}
 
 				exportDecomposedTransform();
+
+				exportExtraTechniqueParameters(childDagPath, shape);
 				closeShape();
 			}
 	}
