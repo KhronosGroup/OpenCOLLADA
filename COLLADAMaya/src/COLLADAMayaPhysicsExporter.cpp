@@ -358,7 +358,7 @@ namespace COLLADAMaya
 			MString childName;
 			childName = fnChild.name();
 
-			MObject& childTransform = childDagPath.transform();
+			MObject childTransform = childDagPath.transform();
 			MFnTransform fn(childTransform);
 			mTransformMatrix = fn.transformation();
 
@@ -379,17 +379,17 @@ namespace COLLADAMaya
 				// Write Tag
 				openShape();
 
-				if (shape == collisionShape::Box)
+				if (shape == COLLADAMaya::PhysicsExporter::Box)
 				{
 					AddBoxShape(MDistance::internalToUI(bb.width() / 2), MDistance::internalToUI(bb.height() / 2), MDistance::internalToUI(bb.depth() / 2));
 				}
-				else if (shape == collisionShape::Capsule)
+				else if (shape == COLLADAMaya::PhysicsExporter::Capsule)
 				{
 					float radius = MDistance::internalToUI(bb.width() / 2);
 					float height = MDistance::internalToUI(bb.depth()) - 2 * radius;
 					AddCapsuleShape(radius, radius, radius, height);
 				}
-				else if (shape == collisionShape::Convex_mesh)
+				else if (shape == COLLADAMaya::PhysicsExporter::Convex_mesh)
 				{
 					MDagPath dagPath = MDagPath::getAPathTo(meshNode);
 					GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter();
@@ -407,7 +407,7 @@ namespace COLLADAMaya
 
 					instanceGeometry.add();
 				}
-				else if (shape == collisionShape::Mesh)
+				else if (shape == COLLADAMaya::PhysicsExporter::Mesh)
 				{
 					MDagPath dagPath = MDagPath::getAPathTo(meshNode);
 					GeometryExporter* geometryExporter = mDocumentExporter->getGeometryExporter();
@@ -435,9 +435,9 @@ namespace COLLADAMaya
 
 	static bool firstTime = true;
 
-	void getGravityField(MDagPath& dagPath)
+	void getGravityField(MDagPath dagPath)
 	{
-		MObject& node = dagPath.node();
+		MObject node = dagPath.node();
 		MFnDagNode fnNode(node);
 		MString Name = fnNode.name();
 
@@ -499,7 +499,7 @@ namespace COLLADAMaya
 		addDynamic(active);
 
 		float mass;
-		MObject& node = dagPath.node();
+		MObject node = dagPath.node();
 		
 ///////TEST		
 		//MFnDagNode fnNode(node);

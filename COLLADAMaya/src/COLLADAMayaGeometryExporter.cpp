@@ -214,7 +214,7 @@ namespace COLLADAMaya
 
 			if (shapeResult)
 			{
-				if (shape == PhysicsExporter::collisionShape::Convex_mesh)
+				if (shape == COLLADAMaya::PhysicsExporter::Convex_mesh)
 				{
 					openConvexMesh(colladaMeshId, meshName);
 					closeConvexMesh();
