@@ -92,6 +92,7 @@ namespace COLLADAMax
 
         /** The id of the @a \<scene\> element.*/
         static const String SCENE_ID;
+		static const String PHYSIC_SCENE_ID;
 
 		static const String AUTHORING_TOOL;
 

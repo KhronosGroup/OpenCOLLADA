@@ -41,6 +41,8 @@ namespace COLLADAMax
 {
 
     const String DocumentExporter::SCENE_ID = "MaxScene";
+	const String DocumentExporter::PHYSIC_SCENE_ID = "PhysicMaxScene";
+
 
 	const String DocumentExporter::AUTHORING_TOOL = String("OpenCOLLADA for 3ds Max") + 
 		(COLLADAPlugin::PLUGIN_VERSION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::PLUGIN_VERSION_STRING) +
@@ -274,9 +276,10 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    void DocumentExporter::exportScene()
+	void DocumentExporter::exportScene()
     {
-        COLLADASW::Scene scene ( &mStreamWriter, COLLADASW::URI ( COLLADASW::Utils::EMPTY_STRING, SCENE_ID ) );        scene.add();
+		COLLADASW::Scene scene(&mStreamWriter, COLLADASW::URI(COLLADASW::Utils::EMPTY_STRING, SCENE_ID), COLLADASW::URI(COLLADASW::Utils::EMPTY_STRING, PHYSIC_SCENE_ID));
+		scene.add();
     }
 
     //---------------------------------------------------------------
