@@ -201,9 +201,8 @@ global proc int openColladaExporterOpts ( string $parent,
 							-ncb 2
 							-va2 true true
 							-la2 "Export references" "Dereference"
-							-on1 "checkBoxGrp -e -en2 true -v2 true colladaXRef;"
+							-on1 "checkBoxGrp -e -en2 true colladaXRef;"
 							-of1 "checkBoxGrp -e -en2 false colladaXRef;"
-							-of2 "checkBoxGrp -e -v1 false colladaXRef;"
 							-on2 "checkBoxGrp -e -v1 true colladaXRef;"
 							colladaXRef;
 

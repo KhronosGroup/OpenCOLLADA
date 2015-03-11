@@ -62,13 +62,13 @@ namespace COLLADAMaya
         const MDagPath mDagPath;
 
         /** Transient information */
-        MObject mNode;
+        mutable MObject mNode;
 
         /** The unique id of the node */
         String mNodeId;
 
         /** The name of the node */
-        String mNodeName;
+        mutable String mNodeName;
 
         /** std::vector with parent elements */
         SceneElementsList mParentElements;
@@ -115,7 +115,7 @@ namespace COLLADAMaya
         const MDagPath getPath () const;
 
         /** Returns the node */
-        const MObject& getNode ();
+        const MObject& getNode () const;
 
         /** Returns the type of the node*/
         const Type& getType () const;
@@ -142,7 +142,7 @@ namespace COLLADAMaya
             mNodeName = name;
         }
 
-        const String& getNodeName ();
+        const String& getNodeName () const;
 
         /** Adds @a exportNode to its children*/
         void addParentElement ( SceneElement* exportElement )
