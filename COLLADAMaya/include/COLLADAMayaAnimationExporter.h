@@ -90,6 +90,12 @@ namespace COLLADAMaya
         /** The list with the animation clips. */
         AnimationClipList mAnimationClips;
 
+
+		/* baked Clip Animation Stuff*/
+		String currentAnimationClip;
+		int numberOfInstancedClip;
+
+
     public:
 
         /**
@@ -645,6 +651,11 @@ namespace COLLADAMaya
         template<class T>
         String getTarget ( const BaseAnimationCurve<T> &animationCurve );
 
+
+		/* baked Clip Animation Stuff*/
+		void  saveParamInstancedClip(std::vector<bool>& OriginalValues);
+		void restoreParamInstancedClip(std::vector<bool>& OriginalValues);
+		void createAnimationClip();
     };
 
 }

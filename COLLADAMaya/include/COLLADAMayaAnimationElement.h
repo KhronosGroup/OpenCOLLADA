@@ -52,6 +52,7 @@ namespace COLLADAMaya
 
         /** The ids of the current element. */
         String mBaseId;
+		String mOriginalBaseId;
         String mNodeId;
         String mTargetSid;
         String mOriginalColladaId;
@@ -112,6 +113,23 @@ namespace COLLADAMaya
         {
             return mBaseId;
         }
+
+		// stuff for baking Animation
+		void setBaseId(String name)
+		{
+			mBaseId = name;
+		}
+		
+		void setOriginalBaseId(String name)
+		{
+			mOriginalBaseId = name;
+		}
+
+		const String& getOriginalBaseId() const
+		{
+			return mOriginalBaseId;
+		}
+		// stuff for baking Animation
 
         const String& getTargetSid() const
         {

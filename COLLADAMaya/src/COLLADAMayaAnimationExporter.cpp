@@ -36,6 +36,7 @@
 
 #include "Math/COLLADABUMathUtils.h"
 
+#include <maya/MItDependencyNodes.h>
 
 namespace COLLADAMaya
 {
@@ -84,6 +85,69 @@ namespace COLLADAMaya
         }
     }
 
+
+	void AnimationExporter::restoreParamInstancedClip(std::vector<bool>& OriginalValues)
+	{
+		MItDependencyNodes clipItr(MFn::kClip);
+		for (int i = 0; !clipItr.isDone(); clipItr.next(), i++)
+		{
+			MFnClip clipFn;
+			clipFn.setObject(clipItr.item());
+			clipFn.setEnabled(OriginalValues[i]);
+		}
+	}
+
+	void AnimationExporter::saveParamInstancedClip(std::vector<bool>& OriginalValues)
+	{
+		numberOfInstancedClip = 0;
+		MItDependencyNodes clipItr(MFn::kClip);
+		for (; !clipItr.isDone(); clipItr.next())
+		{
+			MFnClip clipFn;
+
+			if (!clipFn.setObject(clipItr.item())) continue;
+
+			String clipName = DocumentExporter::mayaNameToColladaName(clipFn.name());
+
+			if (!clipFn.getEnabled())
+				OriginalValues.push_back(false);
+			else
+				OriginalValues.push_back(true);
+
+			if (clipFn.isInstancedClip())
+				numberOfInstancedClip++;
+		}
+	}
+	
+	void AnimationExporter::createAnimationClip()
+	{
+		MItDependencyNodes clipItr4(MFn::kClip);
+		for (; !clipItr4.isDone(); clipItr4.next())
+		{
+			MFnClip clipFn;
+			if (!clipFn.setObject(clipItr4.item())) continue;
+			if (!clipFn.isInstancedClip()) continue;
+			if (!clipFn.getEnabled()) continue;
+
+			String clipName = DocumentExporter::mayaNameToColladaName(clipFn.name());
+			float startTime = (float)clipFn.getSourceStart().as(MTime::kSeconds);
+			float endTime = startTime + (float)clipFn.getSourceDuration().as(MTime::kSeconds);
+
+			AnimationClip* clip = new AnimationClip();
+			clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, startTime, endTime);
+
+			AnimatedElementList::iterator it = mAnimationElements.begin();
+			while (it != mAnimationElements.end())
+			{
+				AnimationElement* animatedElement = *it;
+				clip->colladaClip->setInstancedAnimation(clipName + "_" + animatedElement->getBaseId());
+				++it;
+			}
+
+			mAnimationClips.push_back(clip);
+		}
+	}
+	
     //---------------------------------------------------------------
     const AnimationClipList* AnimationExporter::exportAnimations()
     {
@@ -92,22 +156,85 @@ namespace COLLADAMaya
 
         // Create the curves for the samples
         AnimationSampleCache* animationSampleCache = mDocumentExporter->getAnimationCache();
-        animationSampleCache->samplePlugs();
+        
+		// stuff for baking Animation
+		if (ExportOptions::bakeTransforms())
+		{
+			numberOfInstancedClip = 0;
+			int indexCurrentInstancedClip = 0;
+		    std::vector< bool > OriginalValues;
 
-        // Export all animations, which aren't exported until now.
-        postSampling();
+			saveParamInstancedClip(OriginalValues);
+			
+			// Get the currentClip activated and disable all other Clip
+			MItDependencyNodes clipItr(MFn::kClip);
+			MFnClip clipFn1;
+			for (int i1 = 0; !clipItr.isDone(); clipItr.next(), i1++)
+			{
+				if (!clipFn1.setObject(clipItr.item())) continue;
+				if (!clipFn1.isInstancedClip()) continue;
+				if (!clipFn1.getEnabled()) continue;
 
-        if ( !mAnimationElements.empty() )
-        {
-            // Open the animation library
-            openLibrary();
+				String clipNameDisable;
+				currentAnimationClip = DocumentExporter::mayaNameToColladaName(clipFn1.name());
 
-            // Export the curves of the animated element and of the child elements recursive
-            exportAnimatedElements ( mAnimationElements );
+				MItDependencyNodes clipItr2(MFn::kClip);
+				for (int i2 = 0; !clipItr2.isDone(); clipItr2.next(), i2++)
+				{
+					MFnClip clipFn2;
+					clipFn2.setObject(clipItr2.item());
+					if (i2 != i1)
+					{
+						clipFn2.setEnabled(false);
+						clipNameDisable = DocumentExporter::mayaNameToColladaName(clipFn2.name());
+					}
+				}
+				
+				animationSampleCache->samplePlugs();
+				
+				// Export all animations, which aren't exported until now.
+				postSampling();
 
-            // Close the collada animation tag
-            closeLibrary();
-        }
+				if (!mAnimationElements.empty())
+				{
+					// Open the animation library
+					if (indexCurrentInstancedClip == 0)
+						openLibrary();
+
+					// Export the curves of the animated element and of the child elements recursive
+					exportAnimatedElements(mAnimationElements);
+
+					// Close the collada animation tag
+					if (indexCurrentInstancedClip == (numberOfInstancedClip - 1))
+						closeLibrary();
+
+					indexCurrentInstancedClip++;
+				}
+
+				restoreParamInstancedClip(OriginalValues);
+			}
+
+			createAnimationClip();
+		}
+		else
+		{
+			animationSampleCache->samplePlugs();
+
+			// Export all animations, which aren't exported until now.
+			postSampling();
+
+			if (!mAnimationElements.empty())
+			{
+				// Open the animation library
+				openLibrary();
+
+				// Export the curves of the animated element and of the child elements recursive
+				exportAnimatedElements(mAnimationElements);
+
+				// Close the collada animation tag
+				closeLibrary();
+			}
+		}
 
         // Return the list with the animation clips to export
         return &mAnimationClips;
@@ -216,6 +343,11 @@ namespace COLLADAMaya
 
             // Close the current animation tag
             closeAnimation();
+
+			// stuff for baking Animation
+			String originalID = animatedElement->getOriginalBaseId();
+			animatedElement->setBaseId(originalID);
+			// stuff for baking Animation
         }
     }
 
@@ -564,7 +696,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::postSampling()
+	void AnimationExporter::postSampling()
     {
         AnimatedElementList::iterator it = mAnimationElements.begin();
         while ( it!=mAnimationElements.end() )
@@ -574,6 +706,11 @@ namespace COLLADAMaya
             // Sample the animated elements, which aren't created until now
             if ( animatedElement->isSampling() )
             {
+				// stuff for baking Animation
+				if (ExportOptions::bakeTransforms())
+					animatedElement->setBaseId(currentAnimationClip + "_" + animatedElement->getBaseId());
+				// stuff for baking Animation
+
                 if ( !exportAnimation ( animatedElement ) )
                 {
                     delete animatedElement;
@@ -1439,6 +1576,11 @@ namespace COLLADAMaya
         animatedElement->setArrayElement ( arrayElement );
         animatedElement->setIsSampling ( isSampling );
 
+		// stuff for baking Animation
+		animatedElement->setOriginalBaseId(baseId);
+		// stuff for baking Animation
+
+
         // Get the animation object
         MObject animationObject = plug.node();
 
@@ -1713,7 +1855,7 @@ namespace COLLADAMaya
             AnimationClip* clip = ( *it );
             int index = clip->findPlug ( plug );
             if ( index == -1 ) continue;
-
+			
             // Create a new animated element
             String baseId = getBaseId ( plug ) + "-" + clip->getClipId();
             String subId = COLLADASW::Utils::checkID ( animatedElement->getTargetSid() );
@@ -1722,6 +1864,10 @@ namespace COLLADAMaya
             bool convertUnits = animatedElement->getConvertUnits ();
             SampleType sampleType = animatedElement->getSampleType();
             AnimationElement* animatedChild = new AnimationElement ( plug, baseId, subId, nodeId, parameters, convertUnits, sampleType );
+			
+			// stuff for baking Animation
+			animatedChild->setOriginalBaseId(baseId);
+			// stuff for baking Animation
 
             // Push the animated child in the child list of the parent animated element
             animatedElement->addChildElement ( animatedChild );
