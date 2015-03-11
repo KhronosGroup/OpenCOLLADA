@@ -135,7 +135,14 @@ namespace COLLADAMaya
 
 			AnimationClip* clip = new AnimationClip();
 			clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, startTime, endTime);
-			clip->colladaClip->setInstancedAnimation(clipName);
+
+			AnimatedElementList::iterator it = mAnimationElements.begin();
+			while (it != mAnimationElements.end())
+			{
+				AnimationElement* animatedElement = *it;
+				clip->colladaClip->setInstancedAnimation(clipName + "_" + animatedElement->getBaseId());
+				++it;
+			}
 
 			mAnimationClips.push_back(clip);
 		}
@@ -182,7 +189,7 @@ namespace COLLADAMaya
 						clipNameDisable = DocumentExporter::mayaNameToColladaName(clipFn2.name());
 					}
 				}
-
+				
 				animationSampleCache->samplePlugs();
 				
 				// Export all animations, which aren't exported until now.
@@ -701,7 +708,7 @@ namespace COLLADAMaya
             {
 				// stuff for baking Animation
 				if (ExportOptions::bakeTransforms())
-					animatedElement->setBaseId(currentAnimationClip);
+					animatedElement->setBaseId(currentAnimationClip + "_" + animatedElement->getBaseId());
 				// stuff for baking Animation
 
                 if ( !exportAnimation ( animatedElement ) )
