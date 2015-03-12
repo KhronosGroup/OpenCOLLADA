@@ -1407,6 +1407,7 @@ namespace COLLADAMaya
     {
         MObject node = plug.node();
         MFnDagNode fnDagNode ( node );
+		MDagPath FnPath = MDagPath::getAPathTo(node);
 
         // Get the collada id.
         if ( node.hasFn ( MFn::kTransform ) )
@@ -1417,7 +1418,7 @@ namespace COLLADAMaya
             DagHelper::getPlugValue ( node, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
             if ( attributeValue != EMPTY_CSTRING )
                 nodeId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
-            else nodeId = mDocumentExporter->mayaNameToColladaName ( fnDagNode.name ().asChar (), false );
+			else nodeId = mDocumentExporter->mayaNameToColladaName(FnPath.partialPathName().asChar(), false);
             return nodeId;
         }
         // TODO Do we need it?
