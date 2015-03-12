@@ -1424,13 +1424,13 @@ namespace COLLADAMaya
         // Get the collada id.
         if ( node.hasFn ( MFn::kTransform ) )
         {
-            // Check if there is an extra attribute "colladaId" and use this as export id.
-            String nodeId;
-            MString attributeValue;
-            DagHelper::getPlugValue ( node, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
-            if ( attributeValue != EMPTY_CSTRING )
-                nodeId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
-            else nodeId = mDocumentExporter->mayaNameToColladaName ( fnDagNode.name ().asChar () );
+            MDagPath dagPath;
+            fnDagNode.getPath( dagPath );
+            // The maya node id.
+            String mayaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
+            
+            VisualSceneExporter* visualSceneExporter = mDocumentExporter->getVisualSceneExporter();
+            String nodeId = visualSceneExporter->findColladaNodeId( mayaNodeId );
             return nodeId;
         }
         // TODO Do we need it?
