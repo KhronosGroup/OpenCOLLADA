@@ -31,6 +31,7 @@
 #include "COLLADASWSource.h"
 
 #include "COLLADABUIDList.h"
+#include <maya/MFnClip.h>
 
 
 namespace COLLADAMaya
@@ -91,8 +92,10 @@ namespace COLLADAMaya
         AnimationClipList mAnimationClips;
 
 
-		/* baked Clip Animation Stuff*/
+		/* Current clip animation name during baking*/
 		String currentAnimationClip;
+		
+		/* Number of instancied Clip*/
 		int numberOfInstancedClip;
 
 
@@ -652,10 +655,9 @@ namespace COLLADAMaya
         String getTarget ( const BaseAnimationCurve<T> &animationCurve );
 
 
-		/* baked Clip Animation Stuff*/
 		void  saveParamInstancedClip(std::vector<bool>& OriginalValues);
 		void restoreParamInstancedClip(std::vector<bool>& OriginalValues);
-		void createAnimationClip();
+		void createAnimationClip(MFnClip& currentMfnclip);
     };
 
 }

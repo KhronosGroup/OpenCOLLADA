@@ -119,33 +119,24 @@ namespace COLLADAMaya
 		}
 	}
 	
-	void AnimationExporter::createAnimationClip()
+	void AnimationExporter::createAnimationClip(MFnClip &currentMfnclip)
 	{
-		MItDependencyNodes clipItr4(MFn::kClip);
-		for (; !clipItr4.isDone(); clipItr4.next())
+		String clipName = DocumentExporter::mayaNameToColladaName(currentMfnclip.name());
+		float startTime = (float)currentMfnclip.getSourceStart().as(MTime::kSeconds);
+		float endTime = startTime + (float)currentMfnclip.getSourceDuration().as(MTime::kSeconds);
+
+		AnimationClip* clip = new AnimationClip();
+		clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, startTime, endTime);
+
+		AnimatedElementList::iterator it = mAnimationElements.begin();
+		while (it != mAnimationElements.end())
 		{
-			MFnClip clipFn;
-			if (!clipFn.setObject(clipItr4.item())) continue;
-			if (!clipFn.isInstancedClip()) continue;
-			if (!clipFn.getEnabled()) continue;
-
-			String clipName = DocumentExporter::mayaNameToColladaName(clipFn.name());
-			float startTime = (float)clipFn.getSourceStart().as(MTime::kSeconds);
-			float endTime = startTime + (float)clipFn.getSourceDuration().as(MTime::kSeconds);
-
-			AnimationClip* clip = new AnimationClip();
-			clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, startTime, endTime);
-
-			AnimatedElementList::iterator it = mAnimationElements.begin();
-			while (it != mAnimationElements.end())
-			{
-				AnimationElement* animatedElement = *it;
-				clip->colladaClip->setInstancedAnimation(clipName + "_" + animatedElement->getBaseId());
-				++it;
-			}
-
-			mAnimationClips.push_back(clip);
+			AnimationElement* animatedElement = *it;
+			clip->colladaClip->setInstancedAnimation(clipName + "_" + animatedElement->getBaseId());
+			++it;
 		}
+
+		mAnimationClips.push_back(clip);
 	}
 	
     //---------------------------------------------------------------
@@ -157,7 +148,6 @@ namespace COLLADAMaya
         // Create the curves for the samples
         AnimationSampleCache* animationSampleCache = mDocumentExporter->getAnimationCache();
         
-		// stuff for baking Animation
 		if (ExportOptions::bakeTransforms())
 		{
 			numberOfInstancedClip = 0;
@@ -212,9 +202,9 @@ namespace COLLADAMaya
 				}
 
 				restoreParamInstancedClip(OriginalValues);
-			}
 
-			createAnimationClip();
+				createAnimationClip(clipFn1);
+			}
 		}
 		else
 		{
@@ -344,10 +334,9 @@ namespace COLLADAMaya
             // Close the current animation tag
             closeAnimation();
 
-			// stuff for baking Animation
+			// Retrieve Original BaseId
 			String originalID = animatedElement->getOriginalBaseId();
 			animatedElement->setBaseId(originalID);
-			// stuff for baking Animation
         }
     }
 
@@ -706,10 +695,8 @@ namespace COLLADAMaya
             // Sample the animated elements, which aren't created until now
             if ( animatedElement->isSampling() )
             {
-				// stuff for baking Animation
 				if (ExportOptions::bakeTransforms())
 					animatedElement->setBaseId(currentAnimationClip + "_" + animatedElement->getBaseId());
-				// stuff for baking Animation
 
                 if ( !exportAnimation ( animatedElement ) )
                 {
@@ -1575,11 +1562,7 @@ namespace COLLADAMaya
         animatedElement->setIsRelativeAnimation( isRelativeAnimation );
         animatedElement->setArrayElement ( arrayElement );
         animatedElement->setIsSampling ( isSampling );
-
-		// stuff for baking Animation
 		animatedElement->setOriginalBaseId(baseId);
-		// stuff for baking Animation
-
 
         // Get the animation object
         MObject animationObject = plug.node();
@@ -1864,10 +1847,8 @@ namespace COLLADAMaya
             bool convertUnits = animatedElement->getConvertUnits ();
             SampleType sampleType = animatedElement->getSampleType();
             AnimationElement* animatedChild = new AnimationElement ( plug, baseId, subId, nodeId, parameters, convertUnits, sampleType );
-			
-			// stuff for baking Animation
+	
 			animatedChild->setOriginalBaseId(baseId);
-			// stuff for baking Animation
 
             // Push the animated child in the child list of the parent animated element
             animatedElement->addChildElement ( animatedChild );

@@ -114,7 +114,6 @@ namespace COLLADAMaya
             return mBaseId;
         }
 
-		// stuff for baking Animation
 		void setBaseId(String name)
 		{
 			mBaseId = name;
@@ -129,7 +128,6 @@ namespace COLLADAMaya
 		{
 			return mOriginalBaseId;
 		}
-		// stuff for baking Animation
 
         const String& getTargetSid() const
         {
