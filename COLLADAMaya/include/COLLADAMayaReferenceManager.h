@@ -73,6 +73,13 @@ namespace COLLADAMaya
         
         Reference() { file = NULL; }
 
+		bool rootContains(const MDagPath & dagPath) const {
+			for (unsigned int i = 0; i < paths.length(); ++i)
+				if (paths[i] == dagPath)
+					return true;
+			return false;
+		}
+
     };
     typedef std::vector<Reference*> ReferenceList;
 
@@ -108,11 +115,56 @@ namespace COLLADAMaya
         /** Initializes the external file references of the current scene. */
         void initialize ();
 
+		const ReferenceList & getReferences() const
+		{
+			return mReferences;
+		}
+
         /** Retrieves the filename of a referenced node. */
         static MString getReferenceFilename ( const MDagPath& path );
 
         /** Retrieves the filename of a referenced node. */
         static MString getReferenceFilename ( const MObject& dgNode );
+
+		/**
+		* Returns the node which is referenced from the file.
+		* @param filename The file which references the searched node.
+		* @return MObject The node, which is referenced from in the file.
+		*/
+		static MObject	getReferenceNode(const MString& filename);
+
+		/**
+		* Returns a list of the root transforms attached to a reference, given by its filename.
+		* @param referenceNode Current reference node.
+		* @param rootPaths List of root pathes to fill.
+		* @param subReferences List of sub references to fill.
+		*/
+		static void getRootObjects(const MObject& referenceNode, MDagPathArray& rootPaths, MObjectArray& subReferences);
+
+		/**
+		* Checks if a node is in given reference node (supports nested reference nodes).
+		* @param dagPath DAG path of tested node.
+		* @param referenceNode reference node in which dagPath is searched.
+		* @return true if node is in reference node, false otherwise.
+		*/
+		// TODO use bool 	containsNode (const MObject &node, MStatus *ReturnStatus=NULL) const
+		static bool isIn(const MDagPath & dagPath, const MObject & referenceNode);
+
+		/**
+		* Retrieves the top level reference node of given DAG path in case of nested reference nodes.
+		* @param dagPath DAG path of a node
+		* @param outReferenceNode returned reference node
+		* @return MS::kSuccess if succeeded. MS::kFailure if failed.
+		*/
+		static MStatus getTopLevelReferenceNode(const MDagPath & dagPath, MObject & outReferenceNode);
+
+		/**
+		* Retrieves the filename of given reference node.
+		* @param referenceNode reference node
+		* @param referenceFilename returned reference filename
+		* @return MS::kSuccess if succeeded. MS::kFailure if failed.
+		*/
+		static MStatus getReferenceFilename(const MObject & referenceNode, MString & referenceFilename);
 
     private:
 
@@ -125,29 +177,14 @@ namespace COLLADAMaya
         /** Delete all created files. */
         void deleteFiles ();
 
-        /**
-         * Returns the node which is referenced from the file.
-         * @param filename The file which references the searched node.
-         * @return MObject The node, which is referenced from in the file.
-         */
-        MObject	getReferenceNode ( const MString& filename );
-
         /** Grab all the referencing information from the current scene. Used on export. */
         void processReference ( const MObject& referenceNode );
 
         /** Grab all the referencing information from the current scene. Used on export. */
         ReferenceFile* processReferenceFile ( const MString& filename );
 
-        /**
-         * Returns a list of the root transforms attached to a reference, given by its filename.
-         * @param referenceNode Current reference node.
-         * @param rootPaths List of root pathes to fill.
-         * @param subReferences List of sub references to fill.
-         */
-        void getRootObjects ( const MObject& referenceNode, MDagPathArray& rootPaths, MObjectArray& subReferences );
-
         /** Returns whether the given path is a root transform in the given list of paths. */
-        bool isRootTransform ( const MDagPathArray& allPaths, const MDagPath& testPath );
+        static bool isRootTransform ( const MDagPathArray& allPaths, const MDagPath& testPath );
 
         /**
          * Retrieve the name of the last reference created.

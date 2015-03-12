@@ -39,6 +39,7 @@
 #include <maya/MEulerRotation.h>
 #include <maya/MDagPath.h>
 #include <maya/MFnCamera.h>
+#include <maya/MFileIO.h>
 
 #include "COLLADASWNode.h"
 #include "COLLADASWInstanceGeometry.h"
@@ -197,7 +198,7 @@ namespace COLLADAMaya
             else
             {
                 // Just local export
-                if ( !isForced && !isLocal ) return false;
+				if (!isForced && !isLocal && !ExportOptions::exportXRefs()) return false;
 
                 if ( animationExport )
                 {
@@ -383,7 +384,7 @@ namespace COLLADAMaya
         bool isLocal = sceneElement->getIsLocal();
 
         // Do all the stuff if we export a full node.
-        if ( !isInstanceNode && isLocal )
+        if ( !isInstanceNode )
         {
             // Initialize the member variables
             if ( !initializeTransform ( sceneElement ) )
@@ -399,6 +400,26 @@ namespace COLLADAMaya
         // (open the visual scene node o a node instance, if we need this).
         openVisualSceneNode ( sceneElement );
 
+		if (!isLocal || !isInstanceNode)
+		{
+			// Export the transformation information
+			if (ExportOptions::bakeTransforms())
+			{
+				exportMatrixTransform();
+			}
+			else if (ExportOptions::exportCameraAsLookat() && dagPath.hasFn(MFn::kCamera))
+			{
+				exportLookatTransform();
+			}
+			else
+			{
+				exportDecomposedTransform();
+			}
+
+			// Exports the visibility technique tag and the visibility animation.
+			exportVisibility(sceneNode);
+		}
+
         if ( !isLocal )
         {
             // Export the node external reference
@@ -406,25 +427,6 @@ namespace COLLADAMaya
         }
         else if ( !isInstanceNode )
         {
-            // Do all the stuff if we export a full node.
-
-            // Export the transformation information
-            if ( ExportOptions::bakeTransforms() )
-            {
-                exportMatrixTransform ();
-            }
-            else if ( ExportOptions::exportCameraAsLookat() && dagPath.hasFn ( MFn::kCamera ) )
-            {
-                exportLookatTransform ();
-            }
-            else
-            {
-                exportDecomposedTransform ();
-            }
-
-            // Exports the visibility technique tag and the visibility animation.
-            exportVisibility ( sceneNode );
-
             // Write the instance urls of the geometries, controllers
             // and lights into the collada document.
             exportInstanceChildNodes ( sceneElement );
@@ -1205,6 +1207,10 @@ namespace COLLADAMaya
     {
         // Get the collada id.
         String mayaNodeId = sceneElement->getNodeId();
+		if (mayaNodeId.empty())
+		{
+			mayaNodeId = mVisualSceneNode->getNodeId();
+		}
         if ( mayaNodeId.empty() )
             mayaNodeId = sceneElement->getNodeName();
         String colladaNodeId = findColladaNodeId ( mayaNodeId );
@@ -1238,9 +1244,45 @@ namespace COLLADAMaya
         // Get the Uri of the element.
         if ( !sceneElement->getIsLocal() )
         {
-            // Load the external reference through the reference manager.
-            String referenceFilename = ReferenceManager::getReferenceFilename( dagPath ).asChar();
-            return COLLADASW::URI ( COLLADASW::URI::nativePathToUri ( referenceFilename ) );
+			MObject referenceNode;
+			MStatus status = ReferenceManager::getTopLevelReferenceNode(dagPath, referenceNode);
+			if (status == MS::kFailure) {
+				return COLLADASW::URI();
+			}
+
+			MString mayaReferenceFilename;
+			status = ReferenceManager::getReferenceFilename(referenceNode, mayaReferenceFilename);
+
+			String referenceFilename = mayaReferenceFilename.asChar();
+
+			// Replace .mb by .dae
+			String::size_type dotPos = referenceFilename.rfind('.');
+			if (dotPos != String::npos) {
+				referenceFilename.resize(dotPos);
+				referenceFilename.append(".dae");
+			}
+			MString exportedFile = MFileIO::currentFile();
+
+			// Make referenced file path relative to exported file directory
+			COLLADASW::URI exportedFileURI = exportedFile.asChar();
+			COLLADASW::URI exportedFileDirURI = exportedFileURI.getPathDir();
+			exportedFileDirURI.setScheme(exportedFileURI.getScheme());
+			COLLADASW::URI referencedFileURI = referenceFilename;
+			referencedFileURI.makeRelativeTo(exportedFileDirURI);
+
+			COLLADASW::URI sceneElementURI(referencedFileURI);
+			MString fullPathName = dagPath.fullPathName(&status);
+			MStringArray parts;
+			fullPathName.split(':', parts);
+			MString fragment;
+			for (unsigned int i = 1; i < parts.length(); ++i) {
+				if (i > 1) {
+					fragment += MString("_");
+				}
+				fragment += parts[i];
+			}
+			sceneElementURI.setFragment(fragment.asChar());
+			return sceneElementURI;
         }
         else
         {

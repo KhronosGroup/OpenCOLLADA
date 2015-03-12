@@ -46,7 +46,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    const MObject& SceneElement::getNode()
+    const MObject& SceneElement::getNode() const
     {
         if ( mNode.isNull() )
         {
@@ -70,11 +70,11 @@ namespace COLLADAMaya
     }
 
     // -------------------------------------------
-    const String& SceneElement::getNodeName()
+    const String& SceneElement::getNodeName() const
     {
         if ( mNodeName.empty() )
         {
-            MObject _node = getNode();
+            const MObject & _node = getNode();
 
             // Attach a function set
             MFnDependencyNode fn ( _node );

@@ -357,4 +357,45 @@ namespace COLLADAMaya
         return filename;
     }
 
+	bool ReferenceManager::isIn(const MDagPath & dagPath, const MObject & referenceNode)
+	{
+		MDagPathArray rootDagPaths;
+		MObjectArray subReferences;
+		ReferenceManager::getRootObjects(referenceNode, rootDagPaths, subReferences);
+		for (unsigned int i = 0; i < rootDagPaths.length(); ++i) {
+			if (rootDagPaths[i] == dagPath) {
+				return true;
+			}
+		}
+		for (unsigned int i = 0; i < subReferences.length(); ++i) {
+			if (isIn(dagPath, subReferences[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	MStatus ReferenceManager::getTopLevelReferenceNode(const MDagPath & dagPath, MObject & outReferenceNode)
+	{
+		MStringArray references;
+		MStatus status = MFileIO::getReferences(references);
+		unsigned int referenceCount = references.length();
+		for (unsigned int referenceIndex = 0; referenceIndex < referenceCount; ++referenceIndex)
+		{
+			MString referenceFilename = references[referenceIndex];
+			MObject referenceNode = ReferenceManager::getReferenceNode(referenceFilename);
+
+			if (isIn(dagPath, referenceNode)) {
+				outReferenceNode = referenceNode;
+				return MS::kSuccess;
+			}
+		}
+		return MS::kFailure;
+	}
+
+	MStatus ReferenceManager::getReferenceFilename(const MObject & referenceNode, MString & referenceFilename)
+	{
+		MString command = MString("referenceQuery -filename ") + MFnDependencyNode(referenceNode).name();
+		return MGlobal::executeCommand(command, referenceFilename);
+	}
 }
