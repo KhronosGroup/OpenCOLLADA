@@ -1271,17 +1271,9 @@ namespace COLLADAMaya
 			referencedFileURI.makeRelativeTo(exportedFileDirURI);
 
 			COLLADASW::URI sceneElementURI(referencedFileURI);
-			MString fullPathName = dagPath.fullPathName(&status);
-			MStringArray parts;
-			fullPathName.split(':', parts);
-			MString fragment;
-			for (unsigned int i = 1; i < parts.length(); ++i) {
-				if (i > 1) {
-					fragment += MString("_");
-				}
-				fragment += parts[i];
-			}
-			sceneElementURI.setFragment(fragment.asChar());
+			const bool removeFirstNamespace = true;
+			String refNodeId = getColladaNodeId(dagPath, removeFirstNamespace);
+			sceneElementURI.setFragment(refNodeId);
 			return sceneElementURI;
         }
         else
@@ -1353,7 +1345,8 @@ namespace COLLADAMaya
 
     // ------------------------------------
     COLLADAMaya::String VisualSceneExporter::getColladaNodeId ( 
-        const MDagPath &dagPath )
+        const MDagPath &dagPath,
+		bool removeFirstNamespace)
     {
         String colladaNodeId;
 
@@ -1363,13 +1356,13 @@ namespace COLLADAMaya
         if ( attributeValue != EMPTY_CSTRING )
         {
             // Generate a valid collada name, if necessary.
-            colladaNodeId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
+            colladaNodeId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false, removeFirstNamespace );
         }
         else
         {
             // Generate a COLLADA id for the new object
             //colladaNodeId = mDocumentExporter->mayaNameToColladaName ( node.name ().asChar () );
-            colladaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
+            colladaNodeId = mDocumentExporter->dagPathToColladaId ( dagPath, removeFirstNamespace );
         }	
         
         return colladaNodeId;

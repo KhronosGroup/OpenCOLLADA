@@ -306,7 +306,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------
-    String DocumentExporter::mayaNameToColladaName ( const MString& str, bool removeNamespace )
+	String DocumentExporter::mayaNameToColladaName(const MString& str, bool removeNamespace, bool removeFirstNamespace)
     {
         // Replace characters that are supported in Maya,
         // but not supported in collada names
@@ -320,6 +320,17 @@ namespace COLLADAMaya
             int prefixIndex = str.rindex ( ':' );
             mayaName = ( prefixIndex < 0 ) ? str : str.substring ( prefixIndex + 1, str.length() );
         }
+		else if (removeFirstNamespace)
+		{
+			// Keep potential '|' character at the beginning 
+			bool startsWithVerticalLine = str.index('|') == 0;
+			int colonIndex = str.index(':');
+			mayaName = (colonIndex < 0) ? str : str.substring(colonIndex + 1, str.length());
+			if (colonIndex >= 0 && startsWithVerticalLine)
+			{
+				mayaName = MString("|") + mayaName;
+			}
+		}
         else mayaName = str;
 
         const char* c = mayaName.asChar();
@@ -348,13 +359,13 @@ namespace COLLADAMaya
     }
 
     //---------------------------
-    String DocumentExporter::dagPathToColladaId ( const MDagPath& dagPath )
+	String DocumentExporter::dagPathToColladaId(const MDagPath& dagPath, bool removeFirstNamespace)
     {
         // Make an unique COLLADA Id from a dagPath.
         // We are free to use anything we want for Ids. For now use
         // a honking unique name for readability - but in future we
         // could just use an incrementing integer
-        return mayaNameToColladaName ( dagPath.partialPathName(), false );
+        return mayaNameToColladaName ( dagPath.partialPathName(), false, removeFirstNamespace );
     }
 
     //---------------------------

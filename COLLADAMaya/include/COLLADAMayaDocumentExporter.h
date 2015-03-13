@@ -235,16 +235,18 @@ namespace COLLADAMaya
          * Converts the given string to a valid collada string.
          * @param str String to convert
          * @param removeNamespace True, if the namespace should be removed.
+		 * @param removeFirstNamespace True, if first part of namespace should be removed. (namespace1:namespace2:nodeName -> namespace2_nodeName or |namespace1:namespace2:nodeName -> _namespace2_nodeName)
          * @return MString Maya string with the converted string.
          */
-        static String mayaNameToColladaName ( const MString& str, bool removeNamespace=true );
+		static String mayaNameToColladaName(const MString& str, bool removeNamespace = true, bool removeFirstNamespace = false);
 
         /**
          * Make an unique COLLADA Id from a dagPath.
          * @param dagPath The dag path to convert.
+		 * @param removeFirstNamespace True, if first part of namespace should be removed. (namespace1:namespace2:nodeName -> namespace2_nodeName or |namespace1:namespace2:nodeName -> _namespace2_nodeName)
          * @return MString The converted collada id.
          */
-        String dagPathToColladaId ( const MDagPath& dagPath );
+		String dagPathToColladaId(const MDagPath& dagPath, bool removeFirstNamespace = false);
 
         /**
          * Get a COLLADA suitable node name from a DAG path

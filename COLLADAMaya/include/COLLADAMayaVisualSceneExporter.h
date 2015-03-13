@@ -124,9 +124,15 @@ namespace COLLADAMaya
         COLLADASW::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = EMPTY_STRING );
 
         /**
-         * Returns the collada id of the current node, if it is a transform node
+         * Returns the collada id of the current node, if it is a transform node.
+		 *
+		 * removeFirstNamespace allows to create id without first part of namespace:
+		 * namespace1:namespace2:nodeName -> namespace2_nodeName
+		 * namespace:nodeName -> nodeName
+		 * |namespace1:namespace2:nodeName -> _namespace2_nodeName
+		 * |namespace:nodeName -> _nodeName
          */
-        String getColladaNodeId ( const MDagPath& dagPath );
+        String getColladaNodeId ( const MDagPath& dagPath, bool removeFirstNamespace = false );
 
     private:
 
