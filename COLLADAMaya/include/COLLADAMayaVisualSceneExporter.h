@@ -127,7 +127,7 @@ namespace COLLADAMaya
          * Returns the collada id of the current node, if it is a transform node.
 		 *
 		 * removeFirstNamespace allows to create id without first part of namespace:
-		 * namespace1:namespace2:nodeName -> namespace2:nodeName
+		 * namespace1:namespace2:nodeName -> namespace2_nodeName
 		 * namespace:nodeName -> nodeName
 		 * |namespace1:namespace2:nodeName -> _namespace2_nodeName
 		 * |namespace:nodeName -> _nodeName
