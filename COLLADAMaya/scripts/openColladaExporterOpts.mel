@@ -65,6 +65,8 @@ global proc int openColladaExporterOpts ( string $parent,
 							-ncb 1
 							-v1 false
 							-l1 "Bake transforms" 
+							-on2 "checkBoxGrp -e -en1 false colladaIsSampling;
+                            -of2 "checkBoxGrp -e -en1 true colladaIsSampling;
 							colladaBakeTransforms;
 							
 					checkBoxGrp

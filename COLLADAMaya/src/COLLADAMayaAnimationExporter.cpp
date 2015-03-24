@@ -132,7 +132,10 @@ namespace COLLADAMaya
 		while (it != mAnimationElements.end())
 		{
 			AnimationElement* animatedElement = *it;
-			clip->colladaClip->setInstancedAnimation(clipName + "_" + animatedElement->getBaseId());
+			
+			if (animatedElement->isSampling())
+				clip->colladaClip->setInstancedAnimation(clipName + "_" + animatedElement->getBaseId());
+			
 			++it;
 		}
 
@@ -156,6 +159,18 @@ namespace COLLADAMaya
 
 			saveParamInstancedClip(OriginalValues);
 			
+
+			/*AnimatedElementList mAnimationElementsTemp;
+			mAnimationElementsTemp.resize(mAnimationElements.size());
+
+			for (std::vector<AnimationElement*>::iterator it = mAnimationElements.begin(); it != mAnimationElements.end(); ++it)
+			{
+				AnimationElement* animatedElement = *it;
+			}
+
+			copy(mAnimationElements.begin(), mAnimationElements.end(), mAnimationElementsTemp.begin());
+			*/
+
 			// Get the currentClip activated and disable all other Clip
 			MItDependencyNodes clipItr(MFn::kClip);
 			MFnClip clipFn1;
@@ -179,7 +194,11 @@ namespace COLLADAMaya
 						clipNameDisable = DocumentExporter::mayaNameToColladaName(clipFn2.name());
 					}
 				}
-				
+			/*
+				mAnimationElements.clear();
+				mAnimationElements.resize(mAnimationElementsTemp.size());
+				copy(mAnimationElementsTemp.begin(), mAnimationElementsTemp.end(), mAnimationElements.begin());*/
+
 				animationSampleCache->samplePlugs();
 				
 				// Export all animations, which aren't exported until now.
@@ -1438,6 +1457,8 @@ namespace COLLADAMaya
         }
         else
         {
+			String partialPathName1 = FnPath.partialPathName().asChar();
+
             String partialPathName = fnDagNode.partialPathName().asChar();
             if ( partialPathName.empty() )
             {
@@ -1556,6 +1577,12 @@ namespace COLLADAMaya
         // Buffer the call to support driven-key animations
         String baseId = getBaseId ( plug );
         String nodeId = getNodeId ( plug );
+
+		if (nodeId == "")
+		{
+			nodeId = DocumentExporter::mayaNameToColladaName(targetSid.c_str());
+		}
+		
 
         // Create the animated element.
         AnimationElement* animatedElement;
