@@ -171,12 +171,19 @@ namespace COLLADAMaya
 				if (!clipFn1.setObject(clipItr.item())) continue;
 				if (!clipFn1.isInstancedClip()) continue;
 				if (!clipFn1.getEnabled()) continue;
+				
 
-				MFnDagNode dagFn(clipItr.item());
-				bool isLocal = !dagFn.isFromReferencedFile();
-				if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) isLocal = true;
-				if (!isLocal) continue;
-
+				// Do not export referenced animation
+				MStatus status;
+				MObject obj = clipItr.thisNode(&status);
+								
+				if (obj.hasFn(MFn::kDependencyNode))
+				{
+					MFnDependencyNode ClipFnNode(obj);
+					bool isLocal = !ClipFnNode.isFromReferencedFile();
+					if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) isLocal = true;
+					if (!isLocal) continue;
+				}
 
 
 				String clipNameDisable;
@@ -1963,6 +1970,16 @@ namespace COLLADAMaya
                 MObject clipNode = characterFn.getSourceClip ( i );
                 MFnClip clipFn ( clipNode, &status );
                 if ( status != MStatus::kSuccess ) continue;
+
+				// Do not export referenced animation
+				if (clipNode.hasFn(MFn::kDependencyNode))
+				{
+					MFnDependencyNode ClipFnNode(clipNode);
+					bool isLocal = !ClipFnNode.isFromReferencedFile();
+					if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) isLocal = true;
+					if (!isLocal) continue;
+				}
+				
 
                 // Create the corresponding COLLADA animation clip
                 String clipName = DocumentExporter::mayaNameToColladaName ( clipFn.name() );
