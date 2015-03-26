@@ -233,6 +233,12 @@ namespace COLLADAMaya
             COLLADASW::EffectProfile *effectProfile,
             MObject shadingNetwork );
 
+		/** Export a shaderfx shader node. */
+		void exportShaderFXShader(
+			const String & effectId,
+			COLLADASW::EffectProfile* effectProfile,
+			MObject shader);
+
         /**
          * Exports the transparency.
          * @param shadingNetwork Maya object to export.

@@ -2876,6 +2876,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClCompile Include="..\src\COLLADAMayaSceneElement.cpp" />
     <ClCompile Include="..\src\COLLADAMayaSceneGraph.cpp" />
     <ClCompile Include="..\src\COLLADAMayaSetHelper.cpp" />
+    <ClCompile Include="..\src\COLLADAMayaShaderFXShaderExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaShaderHelper.cpp" />
     <ClCompile Include="..\src\COLLADAMayaSourceInput.cpp" />
     <ClCompile Include="..\src\COLLADAMayaVisualSceneExporter.cpp" />
@@ -2915,6 +2916,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClInclude Include="..\include\COLLADAMayaSceneElement.h" />
     <ClInclude Include="..\include\COLLADAMayaSceneGraph.h" />
     <ClInclude Include="..\include\COLLADAMayaSetHelper.h" />
+    <ClInclude Include="..\include\COLLADAMayaShaderFXShaderExporter.h" />
     <ClInclude Include="..\include\COLLADAMayaShaderHelper.h" />
     <ClInclude Include="..\include\COLLADAMayaSkinController.h" />
     <ClInclude Include="..\include\COLLADAMayaSourceInput.h" />

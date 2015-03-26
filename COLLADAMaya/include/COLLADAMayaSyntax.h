@@ -268,6 +268,14 @@ namespace COLLADAMaya
     static const char* ATTR_SCALE_PIVOT_INVERSE                     = "scalePivotInverse";
     static const char* ATTR_SCALE_PIVOT                             = "scalePivot";
     static const char* ATTR_SCALE_PIVOT_TRANSLATION                 = "scalePivotTranslation";
+	//static const char* ATTR_SHADERFX_ALBEDO							= "Albedo";
+	//static const char* ATTR_SHADERFX_ALBEDO_MULTIPLIER				= "Albedo_Multiplier";
+	//static const char* ATTR_SHADERFX_METALNESS						= "Metalness";
+	//static const char* ATTR_SHADERFX_NORMAL_MAP						= "Normal_Map";
+	//static const char* ATTR_SHADERFX_NORMAL_MULTIPLIER				= "Normal_Multiplier";
+	//static const char* ATTR_SHADERFX_ROUGHNESS						= "Roughness";
+	//static const char* ATTR_SHADERFX_ROUGHNESS_MULTIPLIER			= "Roughness_Multiplier";
+	//static const char* ATTR_SHADERFX_SUBSTANCE_MULTIPLIER			= "Substance_Multiplier";
     static const char* ATTR_SHADERS                                 = "shaders";
     static const char* ATTR_SEGMENT_SCALE_COMPENSATE                = "ssc";
     static const char* ATTR_SKEW                                    = "skew";
@@ -306,6 +314,12 @@ namespace COLLADAMaya
     /** Shader constants */
     static const char* COLLADA_FX_SHADER                            = "colladafxShader";
     static const char* COLLADA_FX_PASSES                            = "colladafxPasses";
+	static const char* MAYA_SHADERFX_SHADER							= "ShaderfxShader";
+
+	/** ShaderFX constants */
+	static const char* SHADERFX										= "shaderfx";
+	static const char* SHADERFX_ATTRIBUTE							= "attribute";
+	static const char* SHADERFX_STRING								= "string";
     
     // COLLADA 1.4 Max-specific profile
     static const char* MAX_TARGET_CAMERA_PARAMETER                  = "target";
