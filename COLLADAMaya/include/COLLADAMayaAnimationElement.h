@@ -90,6 +90,8 @@ namespace COLLADAMaya
         /** True, if the internal units has to be converted into the UI units.  */
         bool mConvertUnits;
 
+		bool mNeedToexport;
+
     public:
 
         /** Constructor. */
@@ -260,6 +262,16 @@ namespace COLLADAMaya
         {
             mArrayElement = val;
         }
+
+		const bool isExported() const
+		{
+			return mNeedToexport;
+		}
+
+		void isExported(bool val)
+		{
+			mNeedToexport = val;
+		}
     };
 
 }

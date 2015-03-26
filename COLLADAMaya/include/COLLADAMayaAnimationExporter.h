@@ -247,7 +247,7 @@ namespace COLLADAMaya
                                         std::vector<float>& defaultValues );
 
         /** Create the curves for the samples */
-        void postSampling();
+        bool postSampling();
 
         /**
          * Export a scene element animation.

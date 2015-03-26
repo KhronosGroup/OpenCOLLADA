@@ -174,10 +174,13 @@ namespace COLLADAMaya
                 bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
 
                 // Export the animations
-                const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
+				if (ExportOptions::exportAnimations())
+				{
+					const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
 
-                // Export the animation clips
-                mAnimationClipExporter->exportAnimationClips ( animationClips );
+					// Export the animation clips
+					mAnimationClipExporter->exportAnimationClips(animationClips);
+				}
 
                 // Export the scene
                 if ( visualSceneExported ) exportScene();
