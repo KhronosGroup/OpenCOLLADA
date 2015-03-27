@@ -43,6 +43,7 @@ namespace COLLADAMaya
     , mIsRelativeAnimation ( false )
     , mArrayElement ( -1 )
     , mConvertUnits ( convertUnits )
+	, mNeedToexport(true)
     {}
 
     // ----------------------------------------------------------

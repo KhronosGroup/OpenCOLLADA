@@ -132,13 +132,30 @@ namespace COLLADAMaya
 		while (it != mAnimationElements.end())
 		{
 			AnimationElement* animatedElement = *it;
-			clip->colladaClip->setInstancedAnimation(clipName + "_" + animatedElement->getBaseId());
+			
+			if (animatedElement->isSampling() && animatedElement->isExported())
+				clip->colladaClip->setInstancedAnimation(clipName + "_" + animatedElement->getBaseId());
+			
 			++it;
 		}
 
-		mAnimationClips.push_back(clip);
+		if (clip->colladaClip->getInstancedAnimations().size() > 0)
+			mAnimationClips.push_back(clip);
 	}
 	
+	void AnimationExporter::generateSamplingFunctionForClip(MFnClip& clipFn)
+	{
+		AnimationHelper::mSamplingTimes.clear();
+
+		// Avoid any potential precision accumulation problems by using the MTime class as an iterator
+		MTime startT = clipFn.getSourceStart();
+		MTime endT = startT + clipFn.getSourceDuration();
+		for (MTime currentT = startT; currentT <= endT; ++currentT)
+		{
+			AnimationHelper::mSamplingTimes.push_back((float)currentT.as(MTime::kSeconds));
+		}
+	}
+
     //---------------------------------------------------------------
     const AnimationClipList* AnimationExporter::exportAnimations()
     {
@@ -156,6 +173,9 @@ namespace COLLADAMaya
 
 			saveParamInstancedClip(OriginalValues);
 			
+			//delete all clip added fro character clip
+			mAnimationClips.clear();
+
 			// Get the currentClip activated and disable all other Clip
 			MItDependencyNodes clipItr(MFn::kClip);
 			MFnClip clipFn1;
@@ -164,6 +184,20 @@ namespace COLLADAMaya
 				if (!clipFn1.setObject(clipItr.item())) continue;
 				if (!clipFn1.isInstancedClip()) continue;
 				if (!clipFn1.getEnabled()) continue;
+				
+
+				// Do not export referenced animation
+				MStatus status;
+				MObject obj = clipItr.thisNode(&status);
+								
+				if (obj.hasFn(MFn::kDependencyNode))
+				{
+					MFnDependencyNode ClipFnNode(obj);
+					bool isLocal = !ClipFnNode.isFromReferencedFile();
+					if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) isLocal = true;
+					if (!isLocal) continue;
+				}
+
 
 				String clipNameDisable;
 				currentAnimationClip = DocumentExporter::mayaNameToColladaName(clipFn1.name());
@@ -179,13 +213,14 @@ namespace COLLADAMaya
 						clipNameDisable = DocumentExporter::mayaNameToColladaName(clipFn2.name());
 					}
 				}
-				
+			
+				generateSamplingFunctionForClip(clipFn1);
 				animationSampleCache->samplePlugs();
 				
 				// Export all animations, which aren't exported until now.
-				postSampling();
+				bool bNeedtoExport = postSampling();
 
-				if (!mAnimationElements.empty())
+				if (bNeedtoExport)
 				{
 					// Open the animation library
 					if (indexCurrentInstancedClip == 0)
@@ -205,6 +240,7 @@ namespace COLLADAMaya
 
 				createAnimationClip(clipFn1);
 			}
+
 		}
 		else
 		{
@@ -212,7 +248,7 @@ namespace COLLADAMaya
 
 			// Export all animations, which aren't exported until now.
 			postSampling();
-
+			
 			if (!mAnimationElements.empty())
 			{
 				// Open the animation library
@@ -292,47 +328,51 @@ namespace COLLADAMaya
             // Get the animated element
             AnimationElement* animatedElement = *elementIter;
 
-            // Check the flag, if the element or a child element has curves
-            if ( !animatedElement->hasCurves() ) continue;
+			if (animatedElement->isExported())
+			{
 
-            // TODO id preservation
-            // Open an animation node and add the channel of the current animation
-            const String& originalColladaId = animatedElement->getOriginalColladaId ();
-            if ( !originalColladaId.empty () )
-            {
-                openAnimation ( originalColladaId );
-            }
-            else
-            {
-                const String& baseId = animatedElement->getBaseId();
-                openAnimation ( baseId );
-            }
+				// Check the flag, if the element or a child element has curves
+				if (!animatedElement->hasCurves()) continue;
 
-            // Recursive call for all the animated children
-            const AnimatedElementList childElements = animatedElement->getAnimatedChildElements();
-            exportAnimatedElements ( childElements );
+				// TODO id preservation
+				// Open an animation node and add the channel of the current animation
+				const String& originalColladaId = animatedElement->getOriginalColladaId();
+				if (!originalColladaId.empty())
+				{
+					openAnimation(originalColladaId);
+				}
+				else
+				{
+					const String& baseId = animatedElement->getBaseId();
+					openAnimation(baseId);
+				}
 
-            // Get the animated curves
-            AnimationCurveList animatedCurves = animatedElement->getAnimatedCurves();
-            if ( animatedCurves.size() > 0 )
-            {
-                // Check if the curves in the animated element can be merged.
-                std::vector<float> defaultValues;
-                curvesAreMergeable ( animatedElement, &defaultValues );
-                if ( defaultValues.size() != 0 )
-                {
-                    // Create a multi curve and export it
-                    exportAnimatedMultiCurve ( animatedElement, defaultValues );
-                }
-                else
-                {
-                    // Export the data of every curve in the animated element
-                    exportAnimatedCurves ( animatedElement );
-                }
-            }
+				// Recursive call for all the animated children
+				const AnimatedElementList childElements = animatedElement->getAnimatedChildElements();
+				exportAnimatedElements(childElements);
 
-            // Close the current animation tag
-            closeAnimation();
+				// Get the animated curves
+				AnimationCurveList animatedCurves = animatedElement->getAnimatedCurves();
+				if (animatedCurves.size() > 0)
+				{
+					// Check if the curves in the animated element can be merged.
+					std::vector<float> defaultValues;
+					curvesAreMergeable(animatedElement, &defaultValues);
+					if (defaultValues.size() != 0)
+					{
+						// Create a multi curve and export it
+						exportAnimatedMultiCurve(animatedElement, defaultValues);
+					}
+					else
+					{
+						// Export the data of every curve in the animated element
+						exportAnimatedCurves(animatedElement);
+					}
+				}
+
+				// Close the current animation tag
+				closeAnimation();
+			}
 
 			// Retrieve Original BaseId
 			String originalID = animatedElement->getOriginalBaseId();
@@ -685,8 +725,10 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-	void AnimationExporter::postSampling()
+	bool AnimationExporter::postSampling()
     {
+		bool needToExport = false;
+
         AnimatedElementList::iterator it = mAnimationElements.begin();
         while ( it!=mAnimationElements.end() )
         {
@@ -696,18 +738,31 @@ namespace COLLADAMaya
             if ( animatedElement->isSampling() )
             {
 				if (ExportOptions::bakeTransforms())
+				{
 					animatedElement->setBaseId(currentAnimationClip + "_" + animatedElement->getBaseId());
+					animatedElement->clearAnimatedCurve();
+				}
 
                 if ( !exportAnimation ( animatedElement ) )
                 {
-                    delete animatedElement;
+					if (ExportOptions::bakeTransforms())
+					{
+						animatedElement->isExported(false);
+						++it;
+					}
+					else
+					{
+						delete animatedElement;
 
-                    // After erase, the iterator points to the next element in the list
-                    it = mAnimationElements.erase ( it );
+						// After erase, the iterator points to the next element in the list
+						it = mAnimationElements.erase(it);
+					}
                 }
                 else
                 {
+					animatedElement->isExported(true);
                     ++it;
+					needToExport = true;
                 }
             }
             else
@@ -715,6 +770,8 @@ namespace COLLADAMaya
                 ++it;
             }
         }
+
+		return needToExport;
     }
 
     //---------------------------------------------------------------
@@ -1438,6 +1495,8 @@ namespace COLLADAMaya
         }
         else
         {
+			String partialPathName1 = FnPath.partialPathName().asChar();
+
             String partialPathName = fnDagNode.partialPathName().asChar();
             if ( partialPathName.empty() )
             {
@@ -1556,6 +1615,12 @@ namespace COLLADAMaya
         // Buffer the call to support driven-key animations
         String baseId = getBaseId ( plug );
         String nodeId = getNodeId ( plug );
+
+		if (nodeId == "")
+		{
+			nodeId = DocumentExporter::mayaNameToColladaName(targetSid.c_str());
+		}
+		
 
         // Create the animated element.
         AnimationElement* animatedElement;
@@ -1922,6 +1987,16 @@ namespace COLLADAMaya
                 MObject clipNode = characterFn.getSourceClip ( i );
                 MFnClip clipFn ( clipNode, &status );
                 if ( status != MStatus::kSuccess ) continue;
+
+				// Do not export referenced animation
+				if (clipNode.hasFn(MFn::kDependencyNode))
+				{
+					MFnDependencyNode ClipFnNode(clipNode);
+					bool isLocal = !ClipFnNode.isFromReferencedFile();
+					if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) isLocal = true;
+					if (!isLocal) continue;
+				}
+				
 
                 // Create the corresponding COLLADA animation clip
                 String clipName = DocumentExporter::mayaNameToColladaName ( clipFn.name() );

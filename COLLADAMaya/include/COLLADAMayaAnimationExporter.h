@@ -247,7 +247,7 @@ namespace COLLADAMaya
                                         std::vector<float>& defaultValues );
 
         /** Create the curves for the samples */
-        void postSampling();
+        bool postSampling();
 
         /**
          * Export a scene element animation.
@@ -655,9 +655,12 @@ namespace COLLADAMaya
         String getTarget ( const BaseAnimationCurve<T> &animationCurve );
 
 
-		void  saveParamInstancedClip(std::vector<bool>& OriginalValues);
+		void saveParamInstancedClip(std::vector<bool>& OriginalValues);
 		void restoreParamInstancedClip(std::vector<bool>& OriginalValues);
 		void createAnimationClip(MFnClip& currentMfnclip);
+
+
+		void generateSamplingFunctionForClip(MFnClip& clipFn);
     };
 
 }
