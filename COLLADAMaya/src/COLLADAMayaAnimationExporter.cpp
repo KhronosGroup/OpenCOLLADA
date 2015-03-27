@@ -143,6 +143,19 @@ namespace COLLADAMaya
 			mAnimationClips.push_back(clip);
 	}
 	
+	void AnimationExporter::generateSamplingFunctionForClip(MFnClip& clipFn)
+	{
+		AnimationHelper::mSamplingTimes.clear();
+
+		// Avoid any potential precision accumulation problems by using the MTime class as an iterator
+		MTime startT = clipFn.getSourceStart();
+		MTime endT = startT + clipFn.getSourceDuration();
+		for (MTime currentT = startT; currentT <= endT; ++currentT)
+		{
+			AnimationHelper::mSamplingTimes.push_back((float)currentT.as(MTime::kSeconds));
+		}
+	}
+
     //---------------------------------------------------------------
     const AnimationClipList* AnimationExporter::exportAnimations()
     {
@@ -201,6 +214,7 @@ namespace COLLADAMaya
 					}
 				}
 			
+				generateSamplingFunctionForClip(clipFn1);
 				animationSampleCache->samplePlugs();
 				
 				// Export all animations, which aren't exported until now.
@@ -724,7 +738,10 @@ namespace COLLADAMaya
             if ( animatedElement->isSampling() )
             {
 				if (ExportOptions::bakeTransforms())
+				{
 					animatedElement->setBaseId(currentAnimationClip + "_" + animatedElement->getBaseId());
+					animatedElement->clearAnimatedCurve();
+				}
 
                 if ( !exportAnimation ( animatedElement ) )
                 {

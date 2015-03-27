@@ -202,6 +202,11 @@ namespace COLLADAMaya
             return mAnimatedCurves;
         }
 
+		void clearAnimatedCurve()
+		{
+			mAnimatedCurves.clear();
+		}
+
         /** true, if it is a sampled animation. */
         bool isSampling() const
         {
