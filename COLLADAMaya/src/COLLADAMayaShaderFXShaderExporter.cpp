@@ -115,18 +115,19 @@ namespace COLLADAMaya
 	{
 	public:
 		ScopedElement(COLLADASW::StreamWriter & streamWriter, const String & name)
+			: mStreamWriter(streamWriter)
 		{
-			mTagCloser = streamWriter.openElement(name);
+			mStreamWriter.openElement(name);
 		}
 
 		~ScopedElement()
 		{
-			mTagCloser.close();
+			mStreamWriter.closeElement();
 		}
 
 	private:
 
-		COLLADASW::TagCloser mTagCloser;
+		COLLADASW::StreamWriter & mStreamWriter;
 	};
 
 	bool isStringAttribute(const MObject & attr)
@@ -136,35 +137,10 @@ namespace COLLADAMaya
 
 		MStatus status;
 		MFnTypedAttribute typedAttr(attr, &status);
+		if (!status) return false;
 		MFnData::Type type = typedAttr.attrType(&status);
+		if (!status) return false;
 		return type == MFnData::Type::kString;
-
-		/*if (attr.hasFn(MFn::kNumericAttribute)) {
-			MStatus status;
-			MFnNumericAttribute numAttr(attr, &status);
-			MFnNumericData::Type unit = numAttr.unitType(&status);
-			switch (unit)
-			{
-			case MFnNumericData::Type::kChar:
-				return true;
-			default:
-				return false;
-			}
-		}
-		return false;*/
-		/*
-		//fnAttr.isUsedAsFilename()
-		MFn::Type type = fnAttr.type();
-
-		if (f)
-		if (type == MFn::kMessageAttribute)
-			return true;
-
-		if (type == MFn::kAttribute)
-			return true;
-
-		return false;
-		*/
 	}
 
 	bool hasValue(const MFnDependencyNode & node, const MObject & attr)
@@ -174,39 +150,34 @@ namespace COLLADAMaya
 
 		MStatus status;
 		MPlug plug = node.findPlug(attr, &status);
-		
-		if (!status)
-			return false;
+		if (!status) return false;
 
 		MString value;
 		status = plug.getValue(value);
-
-		if (!status)
-			return false;
+		if (!status) return false;
 
 		return value.length() > 0;
 	}
 
-    // ---------------------------------
+    // ------------------------------------------------------------------------
 
-	ShaderFXShaderExporter::ShaderFXShaderExporter(DocumentExporter* documentExporter)
-		: mStreamWriter(*documentExporter->getStreamWriter())
-		//mDocumentExporter(documentExporter)
+	ShaderFXShaderExporter::ShaderFXShaderExporter(DocumentExporter & documentExporter, COLLADASW::EffectProfile & effectProfile)
+		: mDocumentExporter(documentExporter)
+		, mStreamWriter(*documentExporter.getStreamWriter())
+		, mEffectProfile(effectProfile)
 	{}
 
 	void ShaderFXShaderExporter::exportShaderFXShader(
-        const String &effectId,
-        COLLADASW::EffectProfile *effectProfile,
-        MObject shaderObject )
+        const String & effectId,
+        MObject & shaderObject )
     {
-        // Set the effect profile
-        mEffectProfile = effectProfile;
-
         MStatus status;
 
         MFnDependencyNode shaderNode(shaderObject, &status);
-		MTypeId typeId = shaderNode.typeId(&status);
+		if (!status) return;
+
 		MString typeName = shaderNode.typeName(&status);
+		if (!status) return;
 		
 		if (typeName != "ShaderfxShader")
 			return;
@@ -234,9 +205,7 @@ namespace COLLADAMaya
 				{
 					MObject attrObject = shaderNode.attribute(attrIndex, &status);
 					MFnAttribute fnAttr(attrObject, &status);
-					
-					if (!status)
-						continue;
+					if (!status) continue;
 
 					MString attrName = fnAttr.name(&status);
 
@@ -246,9 +215,7 @@ namespace COLLADAMaya
 
 					// Get node plug for current attribute 
 					MPlug plug = shaderNode.findPlug(attrObject, &status);
-
-					if (!status)
-						continue;
+					if (!status) continue;
 
 					// Check attribute value (string) is not empty before creating an <attribute> section
 					//if (!hasValue(shaderNode, attrObject))
@@ -258,85 +225,17 @@ namespace COLLADAMaya
 				}
 			}
 		}
-
-		//unsigned int attrCount = shaderNode.attributeCount(&status);
-		//for (unsigned int attrIndex = 0; attrIndex < attrCount; ++attrIndex) {
-		//	
-		//	MObject attrObject = shaderNode.attribute(attrIndex, &status);
-		//	MFn::Type attrType = attrObject.apiType();
-		//	MString attrTypeStr = attrObject.apiTypeStr();
-
-		//	MFnAttribute fnAttr(attrObject, &status);
-
-		//	if (!status)
-		//		continue;
-
-		//	/*
-		//	const char* className = fnAttr.className();
-
-		//	MStringArray categories;
-		//	status = fnAttr.getCategories(categories);
-
-		//	unsigned int catCount = categories.length();
-		//	for (unsigned int catIndex = 0; catIndex < catCount; ++catIndex) {
-		//		MString category = categories[catIndex];
-		//		int huhu = 0;
-		//	}
-		//	*/
-
-		//	//MString attrName = fnAttr.name(&status);
-
-		//	//if (skipAttribute(attrName))
-		//	//	continue;
-
-
-		//	//MFn::Type type = fnAttr.type();
-
-		//	
-
-		//	/*
-		//	MFnDependencyNode attrNode(attrObject, &status);
-		//	MString attrName = attrNode.name(&status);
-		//	const char* attrClassName = attrNode.className();
-		//	MString pluginName = attrNode.pluginName(&status);
-		//	MFn::Type type = attrNode.type();
-		//	MTypeId typeId = attrNode.typeId(&status);
-		//	MString typeName = attrNode.typeName(&status);
-		//	*/
-		//	int huhu = 0;
-		//}
-
-		//MFn
-
-        //if ( fnNode.typeId () == cgfxShaderNode::sId )
-        //{
-        //    // Create a cgfx shader node
-        //    cgfxShaderNode* shaderNodeCgfx = ( cgfxShaderNode* ) fnNode.userNode();
-
-        //    // Exports the effect data of a cgfxShader node.
-        //    exportCgfxShader( shaderNodeCgfx );
-        //}
-        //else
-        //{
-        //    // Writes the current effect profile into the collada document
-        //    mEffectProfile->openProfile ();
-        //    mEffectProfile->addProfileElements ();
-        //    mEffectProfile->closeProfile ();
-        //}
     }
 
 	void ShaderFXShaderExporter::exportAttribute(const MFnDependencyNode & node, const MObject & attr)
 	{
 		MStatus status;
-		MFnAttribute fnAttr(attr, &status);
 
-		if (!status)
-			return;
+		MFnAttribute fnAttr(attr, &status);
+		if (!status) return;
 
 		MString attrName = fnAttr.name(&status);
-
-		if (!status)
-			return;
+		if (!status) return;
 
 		ScopedElement attribute(mStreamWriter, SHADERFX_ATTRIBUTE);
 		mStreamWriter.appendAttribute("name", attrName.asChar());
@@ -375,23 +274,26 @@ namespace COLLADAMaya
 	{
 		MStatus status;
 		MFnNumericAttribute fnNumAttr(attr, &status);
+		if (!status) return;
 
-		if (!status)
-			return;
+		MFnNumericData::Type type = fnNumAttr.unitType(&status);
+		if (!status) return;
+
+		MPlug plug = node.findPlug(attr, &status);
+		if (!status) return;
+
+		exportNumeric(plug, type);
 	}
 
 	void ShaderFXShaderExporter::exportTypedAttribute(const MFnDependencyNode & node, const MObject & attr)
 	{
 		MStatus status;
-		MFnTypedAttribute fnTypedAttr(attr, &status);
 
-		if (!status)
-			return;
+		MFnTypedAttribute fnTypedAttr(attr, &status);
+		if (!status) return;
 
 		MFnData::Type type = fnTypedAttr.attrType(&status);
-
-		if (!status)
-			return;
+		if (!status) return;
 
 		switch (type)
 		{
@@ -524,34 +426,314 @@ namespace COLLADAMaya
 
 	void ShaderFXShaderExporter::exportNumericData(const MFnDependencyNode & node, const MObject & attr)
 	{
+		MStatus status;
 
+		MFnNumericData fnNumericData(attr, &status);
+		if (!status) return;
+
+		MPlug plug = node.findPlug(attr, &status);
+		if (!status) return;
+
+		MFnNumericData::Type type = fnNumericData.numericType(&status);
+
+		exportNumeric(plug, type);
+	}
+
+	void ShaderFXShaderExporter::exportNumeric(MPlug plug, MFnNumericData::Type type)
+	{
+		MStatus status;
+
+		switch (type)
+		{
+		case MFnNumericData::Type::kInvalid:			//!< Invalid data.
+			break;
+		case MFnNumericData::Type::kBoolean:			//!< Boolean.
+		{
+			bool value;
+			status = plug.getValue(value);
+			if (!status) return;
+			ScopedElement element(mStreamWriter, SHADERFX_BOOLEAN);
+			mStreamWriter.appendText(value ? SHADERFX_TRUE : SHADERFX_FALSE);
+		}
+		break;
+		case MFnNumericData::Type::kByte:				//!< One byte.
+		{
+			char value;
+			status = plug.getValue(value);
+			if (!status) return;
+			char text[5];
+			sprintf(text, "0x%X", value);
+			ScopedElement element(mStreamWriter, SHADERFX_BYTE);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::kChar:				//!< One character.
+		{
+			char text[2] = { '\0' };
+			status = plug.getValue(text[0]);
+			if (!status) return;
+			ScopedElement element(mStreamWriter, SHADERFX_BYTE);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::kShort:				//!< One short.
+		{
+			short value;
+			status = plug.getValue(value);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%i", value);
+			ScopedElement element(mStreamWriter, SHADERFX_SHORT);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::k2Short:			//!< Two shorts.
+		{
+			short value[2];
+			MPlug plug0 = plug.child(0, &status);
+			if (!status) return;
+			MPlug plug1 = plug.child(1, &status);
+			if (!status) return;
+			status = plug0.getValue(value[0]);
+			if (!status) return;
+			status = plug1.getValue(value[1]);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%i %i", value[0], value[1]);
+			ScopedElement element(mStreamWriter, SHADERFX_SHORT2);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::k3Short:			//!< Three shorts.
+		{
+			short value[3];
+			MPlug plug0 = plug.child(0, &status);
+			if (!status) return;
+			MPlug plug1 = plug.child(1, &status);
+			if (!status) return;
+			MPlug plug2 = plug.child(2, &status);
+			if (!status) return;
+			status = plug0.getValue(value[0]);
+			if (!status) return;
+			status = plug1.getValue(value[1]);
+			if (!status) return;
+			status = plug2.getValue(value[2]);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%i %i %i", value[0], value[1], value[2]);
+			ScopedElement element(mStreamWriter, SHADERFX_SHORT3);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::kLong:				//!< One long. Same as int since "long" is not platform-consistent.
+		{
+			int value;
+			status = plug.getValue(value);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%i", value);
+			ScopedElement element(mStreamWriter, SHADERFX_LONG);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		//case MFnNumericData::Type::kInt:		//!< One int.
+		//	break;
+		case MFnNumericData::Type::k2Long:				//!< Two longs. Same as 2 ints since "long" is not platform-consistent.
+		{
+			int value[2];
+			MPlug plug0 = plug.child(0, &status);
+			if (!status) return;
+			MPlug plug1 = plug.child(1, &status);
+			if (!status) return;
+			status = plug0.getValue(value[0]);
+			if (!status) return;
+			status = plug1.getValue(value[1]);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%i %i", value[0], value[1]);
+			ScopedElement element(mStreamWriter, SHADERFX_LONG2);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		//case MFnNumericData::Type::k2Int:		//!< Two ints.
+		//	break;
+		case MFnNumericData::Type::k3Long:				//!< Three longs. Same as 3 ints since "long" is not platform-consistent.
+		{
+			int value[3];
+			MPlug plug0 = plug.child(0, &status);
+			if (!status) return;
+			MPlug plug1 = plug.child(1, &status);
+			if (!status) return;
+			MPlug plug2 = plug.child(2, &status);
+			if (!status) return;
+			status = plug0.getValue(value[0]);
+			if (!status) return;
+			status = plug1.getValue(value[1]);
+			if (!status) return;
+			status = plug2.getValue(value[2]);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%i %i %i", value[0], value[1], value[2]);
+			ScopedElement element(mStreamWriter, SHADERFX_LONG3);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		//case MFnNumericData::Type::k3Int:		//!< Three ints.
+		//	break;
+		case MFnNumericData::Type::kFloat:				//!< One float.
+		{
+			float value;
+			status = plug.getValue(value);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%f", value);
+			ScopedElement element(mStreamWriter, SHADERFX_FLOAT);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::k2Float:			//!< Two floats.
+		{
+			float value[2];
+			MPlug plug0 = plug.child(0, &status);
+			if (!status) return;
+			MPlug plug1 = plug.child(1, &status);
+			if (!status) return;
+			status = plug0.getValue(value[0]);
+			if (!status) return;
+			status = plug1.getValue(value[1]);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%f %f", value[0], value[1]);
+			ScopedElement element(mStreamWriter, SHADERFX_FLOAT2);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::k3Float:			//!< Three floats.
+		{
+			float value[3];
+			MPlug plug0 = plug.child(0, &status);
+			if (!status) return;
+			MPlug plug1 = plug.child(1, &status);
+			if (!status) return;
+			MPlug plug2 = plug.child(2, &status);
+			if (!status) return;
+			status = plug0.getValue(value[0]);
+			if (!status) return;
+			status = plug1.getValue(value[1]);
+			if (!status) return;
+			status = plug2.getValue(value[2]);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%f %f %f", value[0], value[1], value[2]);
+			ScopedElement element(mStreamWriter, SHADERFX_FLOAT3);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::kDouble:			//!< One double.
+		{
+			double value;
+			status = plug.getValue(value);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%f", value);
+			ScopedElement element(mStreamWriter, SHADERFX_DOUBLE);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::k2Double:			//!< Two doubles.
+		{
+			double value[2];
+			MPlug plug0 = plug.child(0, &status);
+			if (!status) return;
+			MPlug plug1 = plug.child(1, &status);
+			if (!status) return;
+			status = plug0.getValue(value[0]);
+			if (!status) return;
+			status = plug1.getValue(value[1]);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%f %f", value[0], value[1]);
+			ScopedElement element(mStreamWriter, SHADERFX_DOUBLE2);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::k3Double:			//!< Three doubles.
+		{
+			double value[3];
+			MPlug plug0 = plug.child(0, &status);
+			if (!status) return;
+			MPlug plug1 = plug.child(1, &status);
+			if (!status) return;
+			MPlug plug2 = plug.child(2, &status);
+			if (!status) return;
+			status = plug0.getValue(value[0]);
+			if (!status) return;
+			status = plug1.getValue(value[1]);
+			if (!status) return;
+			status = plug2.getValue(value[2]);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%f %f %f", value[0], value[1], value[2]);
+			ScopedElement element(mStreamWriter, SHADERFX_DOUBLE3);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::k4Double:			//!< Four doubles.
+		{
+			double value[4];
+			MPlug plug0 = plug.child(0, &status);
+			if (!status) return;
+			MPlug plug1 = plug.child(1, &status);
+			if (!status) return;
+			MPlug plug2 = plug.child(2, &status);
+			if (!status) return;
+			MPlug plug3 = plug.child(3, &status);
+			if (!status) return;
+			status = plug0.getValue(value[0]);
+			if (!status) return;
+			status = plug1.getValue(value[1]);
+			if (!status) return;
+			status = plug2.getValue(value[2]);
+			if (!status) return;
+			status = plug3.getValue(value[3]);
+			if (!status) return;
+			char text[512];
+			sprintf(text, "%f %f %f %f", value[0], value[1], value[2], value[3]);
+			ScopedElement element(mStreamWriter, SHADERFX_DOUBLE4);
+			mStreamWriter.appendText(text);
+		}
+		break;
+		case MFnNumericData::Type::kAddr:				//!< An address.
+			// TODO
+			break;
+		default:
+			break;
+		}
 	}
 
 	void ShaderFXShaderExporter::exportStringData(const MFnDependencyNode & node, const MObject & attr)
 	{
 		MStatus status;
-		MFnStringData fnStringData(attr, &status);
-
-		if (!status)
-			return;
+		//MFnStringData fnStringData(attr, &status);
+		//if (!status) return;
 
 		MPlug plug = node.findPlug(attr, &status);
 
 		MString value;
 		status = plug.getValue(value);
+		if (!status) return;
 
-		if (!status)
+		if (value.length() == 0)
 			return;
 
 		bool isUsedAsFilename = MFnAttribute(attr).isUsedAsFilename(&status);
-		
-		if (!status)
-			return;
+		if (!status) return;
 
-		// filename are treated as texture filenames
+		// Filename are treated as texture filenames.
 		if (isUsedAsFilename)
 		{
 			// Export texture
+			exportTexture(value, MFnAttribute(attr).name());
 		}
 		else
 		{
@@ -559,5 +741,60 @@ namespace COLLADAMaya
 			ScopedElement string(mStreamWriter, SHADERFX_STRING);
 			mStreamWriter.appendText(value.asChar());
 		}
+	}
+
+	void ShaderFXShaderExporter::exportTexture(const MString & filename, const MString & attrName)
+	{
+		EffectExporter & effectExporter = *mDocumentExporter.getEffectExporter();
+		EffectTextureExporter & textureExporter = *effectExporter.getTextureExporter();
+
+		// Take the filename for the unique image name
+		COLLADASW::URI fileURI(COLLADASW::URI::nativePathToUri(filename.asChar()));
+		if (fileURI.getScheme().empty())
+			fileURI.setScheme(COLLADASW::URI::SCHEME_FILE);
+
+		String mayaImageId = DocumentExporter::mayaNameToColladaName(fileURI.getPathFileBase().c_str());
+
+		String colladaImageId = effectExporter.findColladaImageId(mayaImageId);
+		if (colladaImageId.empty())
+		{
+			// Generate a COLLADA id for the new image object
+			colladaImageId = DocumentExporter::mayaNameToColladaName(fileURI.getPathFileBase().c_str());
+
+			// Make the id unique and store it in a map for refernences.
+			colladaImageId = textureExporter.getImageIdList().addId(colladaImageId);
+			textureExporter.getMayaIdColladaImageId()[mayaImageId] = colladaImageId;
+		}
+
+		// Export the image
+		COLLADASW::Image* colladaImage = textureExporter.exportImage(mayaImageId, colladaImageId, fileURI);
+
+		// Get the image id of the exported collada image
+		colladaImageId = colladaImage->getImageId();
+
+		String samplerSid = colladaImageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
+		String surfaceSid = colladaImageId + COLLADASW::Sampler::SURFACE_SID_SUFFIX;
+
+		// Create the collada sampler object
+		// TODO handle other sampler types
+		COLLADASW::Sampler sampler(COLLADASW::Sampler::SAMPLER_TYPE_2D, samplerSid, surfaceSid);
+
+		// TODO get wrap mode in ShaderFX graph
+		//sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_WRAP);
+		//sampler.setWrapT(COLLADASW::Sampler::WRAP_MODE_WRAP);
+		//sampler.setWrapP(COLLADASW::Sampler::WRAP_MODE_WRAP);
+
+		// No filtering option in ShaderFX. Default to linear.
+		//sampler.setMinFilter(COLLADASW::Sampler::SAMPLER_FILTER_LINEAR);
+		//sampler.setMagFilter(COLLADASW::Sampler::SAMPLER_FILTER_LINEAR);
+		//sampler.setMipFilter(COLLADASW::Sampler::SAMPLER_FILTER_LINEAR);
+
+		// Set the image reference
+		sampler.setImageId(colladaImageId);
+
+		sampler.setFormat(EffectTextureExporter::FORMAT);
+
+		// Add the parameter.
+		sampler.addInNewParam(&mStreamWriter);
 	}
 }

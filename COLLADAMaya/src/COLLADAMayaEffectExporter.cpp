@@ -226,7 +226,7 @@ namespace COLLADAMaya
             MGlobal::displayError("Export HardwareShader not implemented!");
         }
 #endif
-		else if (shader.hasFn(MFn::kPluginHardwareShader) && shaderNodeTypeName == MAYA_SHADERFX_SHADER)
+		else if (shader.hasFn(MFn::kPluginHardwareShader) && shaderNodeTypeName == SHADERFX_SHADER.c_str())
 		{
 			exportShaderFXShader(colladaEffectId, &effectProfile, shader);
 		}
@@ -265,10 +265,10 @@ namespace COLLADAMaya
 	void EffectExporter::exportShaderFXShader(
 		const String & effectId,
 		COLLADASW::EffectProfile* effectProfile,
-		MObject shader)
+		MObject & shader)
 	{
-		ShaderFXShaderExporter shaderFXShaderExporter(mDocumentExporter);
-		shaderFXShaderExporter.exportShaderFXShader(effectId, effectProfile, shader);
+		ShaderFXShaderExporter shaderFXShaderExporter(*mDocumentExporter, *effectProfile);
+		shaderFXShaderExporter.exportShaderFXShader(effectId, shader);
 	}
 
     //------------------------------------------------------

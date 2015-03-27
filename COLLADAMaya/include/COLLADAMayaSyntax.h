@@ -314,12 +314,32 @@ namespace COLLADAMaya
     /** Shader constants */
     static const char* COLLADA_FX_SHADER                            = "colladafxShader";
     static const char* COLLADA_FX_PASSES                            = "colladafxPasses";
-	static const char* MAYA_SHADERFX_SHADER							= "ShaderfxShader";
 
 	/** ShaderFX constants */
-	static const char* SHADERFX										= "shaderfx";
-	static const char* SHADERFX_ATTRIBUTE							= "attribute";
-	static const char* SHADERFX_STRING								= "string";
+	static const String SHADERFX_SHADER								= "ShaderfxShader";
+	static const String SHADERFX									= "shaderfx";
+	static const String SHADERFX_ATTRIBUTE							= "attribute";
+	static const String SHADERFX_STRING								= "string";
+	static const String SHADERFX_BOOLEAN							= "bool";
+	static const String SHADERFX_TRUE								= "true";
+	static const String SHADERFX_FALSE								= "false";
+	static const String SHADERFX_BYTE								= "byte";
+	static const String SHADERFX_SHORT								= "short";
+	static const String SHADERFX_SHORT2								= "short2";
+	static const String SHADERFX_SHORT3								= "short3";
+	static const String SHADERFX_LONG								= "long";
+	static const String SHADERFX_LONG2								= "long2";
+	static const String SHADERFX_LONG3								= "long3";
+	static const String SHADERFX_INT								= "int";
+	static const String SHADERFX_INT2								= "int2";
+	static const String SHADERFX_INT3								= "int3";
+	static const String SHADERFX_FLOAT								= "float";
+	static const String SHADERFX_FLOAT2								= "float2";
+	static const String SHADERFX_FLOAT3								= "float3";
+	static const String SHADERFX_DOUBLE								= "double";
+	static const String SHADERFX_DOUBLE2							= "double2";
+	static const String SHADERFX_DOUBLE3							= "double3";
+	static const String SHADERFX_DOUBLE4							= "double3";
     
     // COLLADA 1.4 Max-specific profile
     static const char* MAX_TARGET_CAMERA_PARAMETER                  = "target";

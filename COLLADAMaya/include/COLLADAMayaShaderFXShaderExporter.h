@@ -26,6 +26,7 @@
 #include "COLLADASWShader.h"
 
 #include <maya/MFnDependencyNode.h>
+#include <maya/MFnNumericData.h>
 
 namespace COLLADAMaya
 {
@@ -35,26 +36,28 @@ namespace COLLADAMaya
 
     private:
 
-        /** Pointer to the document exporter */
-        //DocumentExporter* mDocumentExporter;
+        /** Document exporter */
+        DocumentExporter& mDocumentExporter;
+
+		/** Stream writer */
+		COLLADASW::StreamWriter & mStreamWriter;
 
         /** The currently used collada effect profile to write the data. */
-        COLLADASW::EffectProfile *mEffectProfile;
+        COLLADASW::EffectProfile& mEffectProfile;
 
         /** The scope of the current shader. */
         //COLLADASW::Shader::Scope mShaderScope;
 
     public:
 
-		ShaderFXShaderExporter(DocumentExporter* documentExporter);
+		ShaderFXShaderExporter(DocumentExporter & documentExporter, COLLADASW::EffectProfile & effectProfile);
 
 		virtual ~ShaderFXShaderExporter() {}
 
         /** Export a hardware shader node. */
 		void exportShaderFXShader(
             const String &effectId,
-            COLLADASW::EffectProfile *effectProfile,
-            MObject shadingNetwork );
+            MObject & shadingNetwork );
 
         /** The scope of the current shader. */
         //const COLLADASW::Shader::Scope& getShaderScope () const { return mShaderScope; }
@@ -66,9 +69,9 @@ namespace COLLADAMaya
 		void exportNumericAttribute(const MFnDependencyNode & node, const MObject & attr);
 		void exportTypedAttribute(const MFnDependencyNode & node, const MObject & attr);
 		void exportNumericData(const MFnDependencyNode & node, const MObject & attr);
+		void exportNumeric(MPlug plug, MFnNumericData::Type type);
 		void exportStringData(const MFnDependencyNode & node, const MObject & attr);
-
-		COLLADASW::StreamWriter & mStreamWriter;
+		void exportTexture(const MString & filename, const MString & attrName);
     };
 }
 

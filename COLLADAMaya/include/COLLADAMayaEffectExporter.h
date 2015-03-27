@@ -237,7 +237,7 @@ namespace COLLADAMaya
 		void exportShaderFXShader(
 			const String & effectId,
 			COLLADASW::EffectProfile* effectProfile,
-			MObject shader);
+			MObject & shader);
 
         /**
          * Exports the transparency.
