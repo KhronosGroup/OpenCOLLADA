@@ -48,15 +48,19 @@ namespace COLLADAMaya
         /** The scope of the current shader. */
         //COLLADASW::Shader::Scope mShaderScope;
 
+		int mTextureIndex;
+
+		String mEffectId;
+
     public:
 
-		ShaderFXShaderExporter(DocumentExporter & documentExporter, COLLADASW::EffectProfile & effectProfile);
+		ShaderFXShaderExporter(DocumentExporter & documentExporter, COLLADASW::EffectProfile & effectProfile, const String & effectId);
 
 		virtual ~ShaderFXShaderExporter() {}
 
         /** Export a hardware shader node. */
 		void exportShaderFXShader(
-            const String &effectId,
+            //const String &effectId,
             MObject & shadingNetwork );
 
         /** The scope of the current shader. */
@@ -65,13 +69,20 @@ namespace COLLADAMaya
 
     private:
 
+		//typedef void (ShaderFXShaderExporter::*ParseAttributeMethod)(const MFnDependencyNode &, const MObject&);
+		//void parseAttributes(const MFnDependencyNode & node, ParseAttributeMethod method);
+		template<typename Method>
+		void parseAttributes(const MFnDependencyNode & node, Method method);
+
+		void exportSamplerAndSurface(const MFnDependencyNode & node, const MObject & attr);
+		void exportSamplerAndSurfaceInner(const MString & filename);
 		void exportAttribute(const MFnDependencyNode & node, const MObject & attr);
 		void exportNumericAttribute(const MFnDependencyNode & node, const MObject & attr);
 		void exportTypedAttribute(const MFnDependencyNode & node, const MObject & attr);
 		void exportNumericData(const MFnDependencyNode & node, const MObject & attr);
 		void exportNumeric(MPlug plug, MFnNumericData::Type type);
 		void exportStringData(const MFnDependencyNode & node, const MObject & attr);
-		void exportTexture(const MString & filename, const MString & attrName);
+		void exportTexture(const MFnDependencyNode & node, const MString & filename, const MString & attrName);
     };
 }
 

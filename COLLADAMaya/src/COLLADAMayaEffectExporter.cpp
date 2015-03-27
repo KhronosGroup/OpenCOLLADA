@@ -267,8 +267,8 @@ namespace COLLADAMaya
 		COLLADASW::EffectProfile* effectProfile,
 		MObject & shader)
 	{
-		ShaderFXShaderExporter shaderFXShaderExporter(*mDocumentExporter, *effectProfile);
-		shaderFXShaderExporter.exportShaderFXShader(effectId, shader);
+		ShaderFXShaderExporter shaderFXShaderExporter(*mDocumentExporter, *effectProfile, effectId);
+		shaderFXShaderExporter.exportShaderFXShader(shader);
 	}
 
     //------------------------------------------------------
@@ -558,6 +558,77 @@ namespace COLLADAMaya
         return ( fileTextures.length() > 0 ) ? fileTextures[0] : MObject::kNullObj;
     }
 
+	void EffectExporter::exportTexturedParameter(
+		const String& effectId,
+		COLLADASW::EffectProfile* effectProfile,
+		const MObject& node,
+		const char* attributeName,
+		//EffectExporter::Channel channel,
+		int& nextTextureIndex,
+		const URI & fileURI
+		/*,
+		bool animated*/)
+	{
+		String channelSemantic = TEXCOORD_BASE + COLLADASW::Utils::toString(nextTextureIndex);
+
+		// Get the animation target path
+		String targetPath = effectId + "/" + effectProfile->getTechniqueSid() + "/";
+
+		// Create the texture element.
+		COLLADASW::Texture colladaTexture;
+
+		// TODO
+		//             // Extra tag preservation
+		//             String secondKey = COLLADAFW::ExtraKeys::TEXTURE; secondKey.append ( "_" );
+		//             size_t index = getShaderParameterTypeByChannel ( channel );
+		//             secondKey.append ( COLLADABU::Utils::toString ( index ) );
+		//             mDocumentExporter->exportExtraData ( node, COLLADAFW::ExtraKeys::TEXTURE, secondKey.c_str (), &colladaTexture );
+
+		MString fileName;
+		DagHelper::getPlugValue(node, attributeName, fileName);
+
+		//mTextureExporter.currentMayaFileName = fileName;
+		//mTextureExporter.currentMayaImageId = attributeName;
+		//mTextureExporter.currentColladaImageId = mTextureExporter.currentMayaImageId;
+
+		// Export the data of the texture.
+		mTextureExporter.exportTexture(&colladaTexture,
+			channelSemantic,
+			fileURI);
+
+		++nextTextureIndex;
+
+		mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_TEXTURE);
+		mSW->appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_TEXTURE, colladaTexture.getSamplerSid());
+		mSW->appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_TEXCOORD, colladaTexture.getTexcoord());
+		colladaTexture.addExtraTechniques(mSW);
+		mSW->closeElement();
+
+		//colladaTexture.setProfileName(PROFILE_MAYA);
+		////colladaTexture.setChildElementName(MAYA_METALNESS_PARAMETER);
+		//effectProfile->addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(colladaTexture), COLLADASW::EffectProfile::StringPairList(), MAYA_METALNESS_PARAMETER);
+
+
+		//switch (channel)
+		//{
+		//case EffectExporter::METALNESS:
+		//	// Set the profile name and the child element name to the texture.
+		//	// Then we can add it as the extra technique texture.
+		//	colladaTexture.setProfileName("Fl4re");
+		//	colladaTexture.setChildElementName(MAYA_METALNESS_PARAMETER);
+		//	effectProfile->addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(colladaTexture), COLLADASW::EffectProfile::StringPairList(), MAYA_METALNESS_PARAMETER);
+		//	break;
+
+		//case EffectExporter::GLOSSINESS:
+		//	// Set the profile name and the child element name to the texture.
+		//	// Then we can add it as the extra technique texture.
+		//	colladaTexture.setProfileName("Fl4re");
+		//	colladaTexture.setChildElementName(MAYA_GLOSSINESS_PARAMETER);
+		//	effectProfile->addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(colladaTexture), COLLADASW::EffectProfile::StringPairList(), MAYA_GLOSSINESS_PARAMETER);
+		//	break;
+		//}
+	}
+
     //---------------------------------------------------------------
     void EffectExporter::getShaderTextures (
         const MObject& shader,
@@ -694,12 +765,20 @@ namespace COLLADAMaya
     // ------------------------------------
     const String EffectExporter::findColladaImageId ( const String& mayaImageId )
     {
+		const StringToStringMap::const_iterator it = mTextureExporter.getMayaIdColladaImageId().find(mayaImageId);
+		if (it != mTextureExporter.getMayaIdColladaImageId().end())
+		{
+			return it->second;
+		}
+		return EMPTY_STRING;
+		/*
         const StringToStringMap::const_iterator it = mMayaIdColladaImageIdMap.find ( mayaImageId );
         if ( it != mMayaIdColladaImageIdMap.end () )
         {
             return it->second;
         }
         return EMPTY_STRING;
+		*/
     }
 
     // ------------------------------------

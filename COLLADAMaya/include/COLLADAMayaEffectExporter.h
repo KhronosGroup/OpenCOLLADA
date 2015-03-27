@@ -186,6 +186,17 @@ namespace COLLADAMaya
             int& nextTextureIndex, 
             bool animated = false );
 
+		void EffectExporter::exportTexturedParameter(
+			const String& effectId,
+			COLLADASW::EffectProfile* effectProfile,
+			const MObject& node,
+			const char* attributeName,
+			//EffectExporter::Channel channel,
+			int& nextTextureIndex,
+			const URI & fileURI
+			/*,
+								 bool animated*/);
+
         /**
         * Retrieve any texture (file or layered) associated with a material attribute.
         * @param shader The maya shader object.

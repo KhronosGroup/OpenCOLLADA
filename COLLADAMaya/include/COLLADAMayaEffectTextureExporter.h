@@ -125,6 +125,15 @@ namespace COLLADAMaya
                              int blendMode,
                              const String &targetPath );
 
+		void exportTexture(
+			COLLADASW::Texture* colladaTexture,
+			const String & channelSemantic,
+			const URI & fileURI
+			/*,
+			const MObject &texture,
+			int blendMode,
+			const String &targetPath*/);
+
         /**
         * Returns the std::map with the exported images.
         * @return const ImageMap*
