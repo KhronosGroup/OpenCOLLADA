@@ -198,6 +198,10 @@ namespace COLLADAMaya
         float intensity = lightFn.intensity ( &status ); CHECK_STAT(status);
         animated = anim->addNodeAnimation ( lightNode, ATTR_INTENSITY, kSingle );
         light->setIntensity( intensity, animated );
+		
+		// Export light intensity
+		light->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_INTENSITY, intensity);
+
 
         // Add the type specific attributes
         if (lightNode.hasFn(MFn::kNonAmbientLight))
