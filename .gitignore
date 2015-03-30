@@ -2,6 +2,7 @@
 *.suo
 *.sdf
 *.opensdf
+*.ipch
 *~
 CMakeFiles
 cmake_install.cmake
@@ -11,6 +12,7 @@ INSTALL.vcxproj*
 OpenCOLLADA.sln
 OpenCOLLADAConfig*.cmake
 CMakeCache.txt
+COLLADAMayaVersionInfo.h
 
 .DS_Store
 *.xcodeproj
