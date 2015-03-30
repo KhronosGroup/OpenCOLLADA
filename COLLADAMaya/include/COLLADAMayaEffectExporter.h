@@ -181,7 +181,7 @@ namespace COLLADAMaya
             int& nextTextureIndex, 
             bool animated = false );
 
-		void EffectExporter::exportTexturedParameter(
+		void exportTexturedParameter(
 			const String& effectId,
 			COLLADASW::EffectProfile* effectProfile,
 			int& nextTextureIndex,
