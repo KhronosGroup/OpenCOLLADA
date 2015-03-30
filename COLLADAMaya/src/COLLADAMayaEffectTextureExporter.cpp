@@ -130,12 +130,7 @@ namespace COLLADAMaya
         sampler.setMipFilter ( COLLADASW::Sampler::SAMPLER_FILTER_NONE );
     }
 
-	void EffectTextureExporter::exportTexture(COLLADASW::Texture* colladaTexture, const String & channelSemantic, const URI & fileURI
-		/*,
-							  const MObject &texture,
-							  int blendMode,
-							  const String &targetPath*/
-							  )
+	void EffectTextureExporter::exportTexture(COLLADASW::Texture* colladaTexture, const String & channelSemantic, const URI & fileURI)
 	{
 		String mayaImageId = DocumentExporter::mayaNameToColladaName(fileURI.getPathFileBase().c_str());
 
@@ -172,18 +167,7 @@ namespace COLLADAMaya
 
 		colladaTexture->setSampler(sampler);
 
-		// Add 2D placement parameters
-		//add2DPlacement(colladaTexture, texture);
-
-		// Check for 3D projection node
-		//MObject colorReceiver = DagHelper::getSourceNodeConnectedTo(texture, ATTR_OUT_COLOR);
-		//if (colorReceiver != MObject::kNullObj && colorReceiver.apiType() == MFn::kProjection)
-		//{
-		//	add3DProjection(colladaTexture, colorReceiver);
-		//}
-
 		// Add blend mode information
-		//String blendModeString = getBlendMode(blendMode);
 		colladaTexture->addExtraTechniqueParameter(PROFILE_MAYA, MAYA_TEXTURE_BLENDMODE_PARAMETER, String(MAYA_BLENDMODE_NONE));
 
 		// Wrap elements

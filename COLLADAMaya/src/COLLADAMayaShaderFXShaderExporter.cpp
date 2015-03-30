@@ -13,29 +13,15 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-// TODO remove unused headers
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaShaderFXShaderExporter.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaSyntax.h"
-#include "COLLADAMayaConversion.h"
-#include "COLLADAMayaExportOptions.h"
-
-#include "COLLADASWPass.h"
-#include "COLLADASWRenderState.h"
-#include "COLLADASWShader.h"
-#include "COLLADASWAnnotation.h"
-#include "COLLADASWOpenGLConstants.h"
-#include "COLLADASWConstants.h"
-
-#include <assert.h>
-
-// TODO remove if not needed
-#include <maya/MPxHardwareShader.h>
 
 #include <maya/MFnAttribute.h>
 #include <maya/MFnNumericAttribute.h>
 #include <maya/MFnTypedAttribute.h>
+#include <maya/MPxHardwareShader.h>
 
 namespace COLLADAMaya
 {
@@ -148,35 +134,6 @@ namespace COLLADAMaya
 		COLLADASW::StreamWriter & mStreamWriter;
 	};
 
-	bool isStringAttribute(const MObject & attr)
-	{
-		if (!attr.hasFn(MFn::kTypedAttribute))
-			return false;
-
-		MStatus status;
-		MFnTypedAttribute typedAttr(attr, &status);
-		if (!status) return false;
-		MFnData::Type type = typedAttr.attrType(&status);
-		if (!status) return false;
-		return type == MFnData::Type::kString;
-	}
-
-	bool hasValue(const MFnDependencyNode & node, const MObject & attr)
-	{
-		if (!isStringAttribute(attr))
-			return true;
-
-		MStatus status;
-		MPlug plug = node.findPlug(attr, &status);
-		if (!status) return false;
-
-		MString value;
-		status = plug.getValue(value);
-		if (!status) return false;
-
-		return value.length() > 0;
-	}
-
     // ------------------------------------------------------------------------
 
 	ShaderFXShaderExporter::ShaderFXShaderExporter(DocumentExporter & documentExporter, COLLADASW::EffectProfile & effectProfile, const String & effectId)
@@ -187,8 +144,6 @@ namespace COLLADAMaya
 		, mEffectId(effectId)
 	{}
 
-	//typedef void (ShaderFXShaderExporter::*ParseAttributeMethod)(const MFnDependencyNode &, const MObject&);
-	//void ShaderFXShaderExporter::parseAttributes(const MFnDependencyNode & shaderNode, ParseAttributeMethod method)
 	template<typename Method>
 	void ShaderFXShaderExporter::parseAttributes(const MFnDependencyNode & shaderNode, Method method)
 	{
@@ -210,17 +165,11 @@ namespace COLLADAMaya
 			MPlug plug = shaderNode.findPlug(attrObject, &status);
 			if (!status) continue;
 
-			// Check attribute value (string) is not empty before creating an <attribute> section
-			//if (!hasValue(shaderNode, attrObject))
-			//	continue;
-
 			(this->*method)(shaderNode, attrObject);
 		}
 	}
 
-	void ShaderFXShaderExporter::exportShaderFXShader(
-        //const String & effectId,
-        MObject & shaderObject )
+	void ShaderFXShaderExporter::exportShaderFXShader(MObject & shaderObject )
     {
         MStatus status;
 
@@ -242,7 +191,7 @@ namespace COLLADAMaya
 			return;
 
 		// Write ShaderFX attributes to COLLADA file
-		// TODO: export .sfx and write file name in COLLADA file?
+		// TODO: export .sfx and write file name in COLLADA file? Or try to export ShaderFX graph?
 		{
 			ScopedEffectProfile profile(mEffectProfile);
 			{
@@ -255,35 +204,8 @@ namespace COLLADAMaya
 					// Open a <shaderfx> section
 					ScopedElement shaderfx(mStreamWriter, SHADERFX);
 
-					// Export attributes
+					// Parse attributes and export them
 					parseAttributes(shaderNode, &ShaderFXShaderExporter::exportAttribute);
-
-					// Parse ShaderFX attributes
-					/*
-					unsigned int attrCount = shaderNode.attributeCount(&status);
-					for (unsigned int attrIndex = 0; attrIndex < attrCount; ++attrIndex)
-					{
-						MObject attrObject = shaderNode.attribute(attrIndex, &status);
-						MFnAttribute fnAttr(attrObject, &status);
-						if (!status) continue;
-
-						MString attrName = fnAttr.name(&status);
-
-						// Skip irrelevant attributes
-						if (shouldSkipAttribute(attrName))
-							continue;
-
-						// Get node plug for current attribute 
-						MPlug plug = shaderNode.findPlug(attrObject, &status);
-						if (!status) continue;
-
-						// Check attribute value (string) is not empty before creating an <attribute> section
-						//if (!hasValue(shaderNode, attrObject))
-						//	continue;
-
-						exportAttribute(shaderNode, attrObject);
-					}
-					*/
 				}
 			}
 		}
@@ -776,10 +698,9 @@ namespace COLLADAMaya
 	void ShaderFXShaderExporter::exportStringData(const MFnDependencyNode & node, const MObject & attr)
 	{
 		MStatus status;
-		//MFnStringData fnStringData(attr, &status);
-		//if (!status) return;
 
 		MPlug plug = node.findPlug(attr, &status);
+		if (!status) return;
 
 		MString value;
 		status = plug.getValue(value);
@@ -795,7 +716,7 @@ namespace COLLADAMaya
 		if (isUsedAsFilename)
 		{
 			// Export texture
-			exportTexture(node, value, MFnAttribute(attr).name());
+			exportTexture(value);
 		}
 		else
 		{
@@ -808,12 +729,6 @@ namespace COLLADAMaya
 	void ShaderFXShaderExporter::exportSamplerAndSurface(const MFnDependencyNode & node, const MObject & attr)
 	{
 		MStatus status;
-
-		MFnAttribute fnAttr(attr, &status);
-		if (!status) return;
-
-		MString attrName = fnAttr.name(&status);
-		if (!status) return;
 
 		if (!attr.hasFn(MFn::kTypedAttribute))
 			return;
@@ -901,8 +816,7 @@ namespace COLLADAMaya
 		sampler.addInNewParam(&mStreamWriter);
 	}
 
-	// TODO virer attrName
-	void ShaderFXShaderExporter::exportTexture(const MFnDependencyNode & node, const MString & filename, const MString & attrName)
+	void ShaderFXShaderExporter::exportTexture(const MString & filename)
 	{
 		EffectExporter & effectExporter = *mDocumentExporter.getEffectExporter();
 		EffectTextureExporter & textureExporter = *effectExporter.getTextureExporter();
@@ -912,115 +826,6 @@ namespace COLLADAMaya
 		if (fileURI.getScheme().empty())
 			fileURI.setScheme(COLLADASW::URI::SCHEME_FILE);
 
-		//String channelSemantic = EffectExporter::TEXCOORD_BASE + COLLADASW::Utils::toString(mTextureIndex);
-		//String targetPath = filename.asChar();
-
-		effectExporter.exportTexturedParameter(mEffectId, &mEffectProfile, node.object(), attrName.asChar(), mTextureIndex, fileURI);
-
-
-
-		/*
-		COLLADASW::Texture texture;
-		textureExporter.exportTexture(&texture, channelSemantic, fileURI);
-
-
-
-		String mayaImageId = DocumentExporter::mayaNameToColladaName(fileURI.getPathFileBase().c_str());
-
-		String colladaImageId = effectExporter.findColladaImageId(mayaImageId);
-		if (colladaImageId.empty())
-		{
-			// Generate a COLLADA id for the new image object
-			colladaImageId = DocumentExporter::mayaNameToColladaName(fileURI.getPathFileBase().c_str());
-
-			// Make the id unique and store it in a map for refernences.
-			colladaImageId = textureExporter.getImageIdList().addId(colladaImageId);
-			textureExporter.getMayaIdColladaImageId()[mayaImageId] = colladaImageId;
-		}
-
-		// Export the image
-		COLLADASW::Image* colladaImage = textureExporter.exportImage(mayaImageId, colladaImageId, fileURI);
-
-		// Get the image id of the exported collada image
-		colladaImageId = colladaImage->getImageId();
-
-		String samplerSid = colladaImageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
-		String surfaceSid = colladaImageId + COLLADASW::Sampler::SURFACE_SID_SUFFIX;
-
-		// Create the collada sampler object
-		// TODO handle other sampler types
-		COLLADASW::Sampler sampler(COLLADASW::Sampler::SAMPLER_TYPE_2D, samplerSid, surfaceSid);
-
-		// TODO get wrap mode in ShaderFX graph
-		//sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_WRAP);
-		//sampler.setWrapT(COLLADASW::Sampler::WRAP_MODE_WRAP);
-		//sampler.setWrapP(COLLADASW::Sampler::WRAP_MODE_WRAP);
-
-		// No filtering option in ShaderFX. Default to linear.
-		//sampler.setMinFilter(COLLADASW::Sampler::SAMPLER_FILTER_LINEAR);
-		//sampler.setMagFilter(COLLADASW::Sampler::SAMPLER_FILTER_LINEAR);
-		//sampler.setMipFilter(COLLADASW::Sampler::SAMPLER_FILTER_LINEAR);
-
-		// Set the image reference
-		sampler.setImageId(colladaImageId);
-
-		sampler.setFormat(EffectTextureExporter::FORMAT);
-
-		//////// <-
-
-		// Add the parameter.
-		sampler.addInNewParam(&mStreamWriter);
-
-		*/
-
-		/*
-		COLLADASW::Texture colladaTexture;
-
-		String channelSemantic = EffectExporter::TEXCOORD_BASE + COLLADASW::Utils::toString(mTextureIndex++);
-
-		// Export the data of the texture.
-		textureExporter.exportTexture(&colladaTexture, channelSemantic, fileTextures[i],
-			blendModes[i],
-			targetPath);
-
-		// Special case for bump maps: export the bump height in the "amount" texture parameter.
-		// Exists currently within the ColladaMax profile.
-		if (channel == EffectExporter::BUMP)
-		{
-			MObject bumpNode = DagHelper::getNodeConnectedTo(node, attributeName);
-			if (!bumpNode.isNull() && (bumpNode.hasFn(MFn::kBump) || bumpNode.hasFn(MFn::kBump3d)))
-			{
-				// Get the animation exporter
-				AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-
-				// The target id for the animation
-				String targetSid = targetPath + MAX_AMOUNT_TEXTURE_PARAMETER;
-				bool animated = animationExporter->addNodeAnimation(bumpNode, targetSid, ATTR_BUMP_DEPTH, kSingle);
-
-				float amount = 1.0f;
-				MFnDependencyNode(bumpNode).findPlug(ATTR_BUMP_DEPTH).getValue(amount);
-				String paramSid = EMPTY_STRING; if (animated) paramSid = MAX_AMOUNT_TEXTURE_PARAMETER;
-				colladaTexture.addExtraTechniqueParameter(PROFILE_MAX, MAX_AMOUNT_TEXTURE_PARAMETER, amount, paramSid);
-
-				int interp = 0;
-				MFnDependencyNode(bumpNode).findPlug(ATTR_BUMP_INTERP).getValue(interp);
-				colladaTexture.addExtraTechniqueParameter(PROFILE_MAX, MAX_BUMP_INTERP_TEXTURE_PARAMETER, interp);
-			}
-		}
-
-		// Change the color values to textures
-		switch (channel)
-		{
-		case AMBIENT:
-			effectProfile->setAmbient(COLLADASW::ColorOrTexture(colladaTexture), animated);
-			break;
-		case BUMP:
-		{
-			// Set the profile name and the child element name to the texture.
-			// Then we can add it as the extra technique texture.
-			colladaTexture.setProfileName(PROFILE_MAYA);
-			colladaTexture.setChildElementName(MAYA_BUMP_PARAMETER);
-			effectProfile->addExtraTechniqueColorOrTexture(COLLADASW::ColorOrTexture(colladaTexture), COLLADASW::EffectProfile::StringPairList(), MAYA_BUMP_PARAMETER);
-		*/
+		effectExporter.exportTexturedParameter(mEffectId, &mEffectProfile, mTextureIndex, fileURI);
 	}
 }

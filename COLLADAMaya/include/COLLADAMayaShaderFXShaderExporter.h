@@ -19,11 +19,7 @@
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaDocumentExporter.h"
 
-#include "COLLADASWParamBase.h"
-#include "COLLADASWParamTemplate.h"
-#include "COLLADASWValueType.h"
 #include "COLLADASWEffectProfile.h"
-#include "COLLADASWShader.h"
 
 #include <maya/MFnDependencyNode.h>
 #include <maya/MFnNumericData.h>
@@ -45,11 +41,10 @@ namespace COLLADAMaya
         /** The currently used collada effect profile to write the data. */
         COLLADASW::EffectProfile& mEffectProfile;
 
-        /** The scope of the current shader. */
-        //COLLADASW::Shader::Scope mShaderScope;
-
+		/** Current texture index */
 		int mTextureIndex;
 
+		/** Current effect id */
 		String mEffectId;
 
     public:
@@ -58,19 +53,12 @@ namespace COLLADAMaya
 
 		virtual ~ShaderFXShaderExporter() {}
 
-        /** Export a hardware shader node. */
-		void exportShaderFXShader(
-            //const String &effectId,
-            MObject & shadingNetwork );
+        /** Export a ShaderFX shader node. */
+		void exportShaderFXShader(MObject & shaderObject );
 
-        /** The scope of the current shader. */
-        //const COLLADASW::Shader::Scope& getShaderScope () const { return mShaderScope; }
-        //void setShaderScope ( const COLLADASW::Shader::Scope& val ) { mShaderScope = val; }
 
     private:
 
-		//typedef void (ShaderFXShaderExporter::*ParseAttributeMethod)(const MFnDependencyNode &, const MObject&);
-		//void parseAttributes(const MFnDependencyNode & node, ParseAttributeMethod method);
 		template<typename Method>
 		void parseAttributes(const MFnDependencyNode & node, Method method);
 
@@ -82,7 +70,7 @@ namespace COLLADAMaya
 		void exportNumericData(const MFnDependencyNode & node, const MObject & attr);
 		void exportNumeric(MPlug plug, MFnNumericData::Type type);
 		void exportStringData(const MFnDependencyNode & node, const MObject & attr);
-		void exportTexture(const MFnDependencyNode & node, const MString & filename, const MString & attrName);
+		void exportTexture(const MString & filename);
     };
 }
 

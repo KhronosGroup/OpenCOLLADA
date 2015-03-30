@@ -107,11 +107,6 @@ namespace COLLADAMaya
         /** The std::map which stores all already exported effects */
         EffectMap mExportedEffectMap;
 
-        /**
-         * The maya id with the collada id.
-         */
-        StringToStringMap mMayaIdColladaImageIdMap;
-
     public:
 
         /** A texture channel.
@@ -189,13 +184,8 @@ namespace COLLADAMaya
 		void EffectExporter::exportTexturedParameter(
 			const String& effectId,
 			COLLADASW::EffectProfile* effectProfile,
-			const MObject& node,
-			const char* attributeName,
-			//EffectExporter::Channel channel,
 			int& nextTextureIndex,
-			const URI & fileURI
-			/*,
-								 bool animated*/);
+			const URI & fileURI);
 
         /**
         * Retrieve any texture (file or layered) associated with a material attribute.
