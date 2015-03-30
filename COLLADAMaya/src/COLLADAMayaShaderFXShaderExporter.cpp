@@ -14,6 +14,9 @@
 */
 
 #include "COLLADAMayaStableHeaders.h"
+
+#if MAYA_API_VERSION >= 201500
+
 #include "COLLADAMayaShaderFXShaderExporter.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaSyntax.h"
@@ -91,8 +94,8 @@ namespace COLLADAMaya
 	public:
 		ScopedExtraTechnique(COLLADASW::StreamWriter & streamWriter, const String & profile)
 			: mStreamWriter(streamWriter)
-			, mpExtra(nullptr)
-			, mpTechnique(nullptr)
+			, mpExtra(NULL)
+			, mpTechnique(NULL)
 		{
 			mpExtra = new COLLADASW::Extra(&mStreamWriter);
 			mpExtra->openExtra();
@@ -187,7 +190,7 @@ namespace COLLADAMaya
 
 		MPxHardwareShader* pHWShader = MPxHardwareShader::getHardwareShaderPtr(shaderObject);
 
-		if (pHWShader == nullptr)
+		if (pHWShader == NULL)
 			return;
 
 		// Write ShaderFX attributes to COLLADA file
@@ -829,3 +832,5 @@ namespace COLLADAMaya
 		effectExporter.exportTexturedParameter(mEffectId, &mEffectProfile, mTextureIndex, fileURI);
 	}
 }
+
+#endif // #if MAYA_API_VERSION >= 201500

@@ -16,6 +16,8 @@
 #ifndef __COLLADA_MAYA_SHADERFX_SHADER_EXPORTER_H__
 #define __COLLADA_MAYA_SHADERFX_SHADER_EXPORTER_H__
 
+#if MAYA_API_VERSION >= 201500
+
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaDocumentExporter.h"
 
@@ -73,5 +75,6 @@ namespace COLLADAMaya
 		void exportTexture(const MString & filename);
     };
 }
+#endif // #if MAYA_API_VERSION >= 201500
 
 #endif // __COLLADA_MAYA_SHADERFX_SHADER_EXPORTER_H__

@@ -23,7 +23,9 @@
 #if MAYA_API_VERSION > 700 
 #include "COLLADAMayaHwShaderExporter.h"
 #endif
+#if MAYA_API_VERSION >= 201500
 #include "COLLADAMayaShaderFXShaderExporter.h"
+#endif
 
 #include "COLLADASWNode.h"
 #include "COLLADASWEffectProfile.h"
@@ -226,10 +228,12 @@ namespace COLLADAMaya
             MGlobal::displayError("Export HardwareShader not implemented!");
         }
 #endif
+#if MAYA_API_VERSION >= 201500
 		else if (shader.hasFn(MFn::kPluginHardwareShader) && shaderNodeTypeName == SHADERFX_SHADER.c_str())
 		{
 			exportShaderFXShader(colladaEffectId, &effectProfile, shader);
 		}
+#endif
 
         else
         {
@@ -262,6 +266,7 @@ namespace COLLADAMaya
     }
 
 	//-------------------------------------------------------------------------
+#if MAYA_API_VERSION >= 201500
 	void EffectExporter::exportShaderFXShader(
 		const String & effectId,
 		COLLADASW::EffectProfile* effectProfile,
@@ -270,6 +275,7 @@ namespace COLLADAMaya
 		ShaderFXShaderExporter shaderFXShaderExporter(*mDocumentExporter, *effectProfile, effectId);
 		shaderFXShaderExporter.exportShaderFXShader(shader);
 	}
+#endif
 
     //------------------------------------------------------
     void EffectExporter::exportConstantShader (
