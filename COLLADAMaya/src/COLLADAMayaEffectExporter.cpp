@@ -23,6 +23,9 @@
 #if MAYA_API_VERSION > 700 
 #include "COLLADAMayaHwShaderExporter.h"
 #endif
+#if MAYA_API_VERSION >= 201500
+#include "COLLADAMayaShaderFXShaderExporter.h"
+#endif
 
 #include "COLLADASWNode.h"
 #include "COLLADASWEffectProfile.h"
@@ -180,7 +183,7 @@ namespace COLLADAMaya
         if ( colladaEffectId.empty () ) return;
 
         // Push the effect id into the mExportedEffectMap
-        mExportedEffectMap [mayaMaterialId] = colladaEffectId;
+        mExportedEffectMap [mayaMaterialId] = colladaEffectId; 
 
         // Open a tag for the current effect in the collada document
         openEffect ( colladaEffectId );
@@ -193,16 +196,18 @@ namespace COLLADAMaya
         String shaderNodeName = shaderNode.name ().asChar ();
 //        exportExtraData ( &effectProfile, shader );
 
+		MString shaderNodeTypeName = shaderNode.typeName();
+
         // Export the shader attributes.
         if ( shader.hasFn ( MFn::kLambert ) )
         {
             exportStandardShader ( colladaEffectId, &effectProfile, shader );
         }
-        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_SHADER )
+		else if (shader.hasFn(MFn::kPluginHwShaderNode) && shaderNodeTypeName == COLLADA_FX_SHADER)
         {
             MGlobal::displayError("Export of ColladaFXShader not implemented!");
         }
-        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_PASSES )
+		else if (shader.hasFn(MFn::kPluginHwShaderNode) && shaderNodeTypeName == COLLADA_FX_PASSES)
         {
             MGlobal::displayError("Export of ColladaFXPasses not implemented!");
         }
@@ -222,6 +227,12 @@ namespace COLLADAMaya
         {
             MGlobal::displayError("Export HardwareShader not implemented!");
         }
+#endif
+#if MAYA_API_VERSION >= 201500
+		else if (shader.hasFn(MFn::kPluginHardwareShader) && shaderNodeTypeName == SHADERFX_SHADER.c_str())
+		{
+			exportShaderFXShader(colladaEffectId, &effectProfile, shader);
+		}
 #endif
 
         else
@@ -253,6 +264,18 @@ namespace COLLADAMaya
         hwShaderExporter.exportPluginHwShaderNode ( effectId, effectProfile, shader );
 #endif
     }
+
+	//-------------------------------------------------------------------------
+#if MAYA_API_VERSION >= 201500
+	void EffectExporter::exportShaderFXShader(
+		const String & effectId,
+		COLLADASW::EffectProfile* effectProfile,
+		MObject & shader)
+	{
+		ShaderFXShaderExporter shaderFXShaderExporter(*mDocumentExporter, *effectProfile, effectId);
+		shaderFXShaderExporter.exportShaderFXShader(shader);
+	}
+#endif
 
     //------------------------------------------------------
     void EffectExporter::exportConstantShader (
@@ -541,6 +564,31 @@ namespace COLLADAMaya
         return ( fileTextures.length() > 0 ) ? fileTextures[0] : MObject::kNullObj;
     }
 
+	void EffectExporter::exportTexturedParameter(
+		const String& effectId,
+		COLLADASW::EffectProfile* effectProfile,
+		int& nextTextureIndex,
+		const URI & fileURI)
+	{
+		String channelSemantic = TEXCOORD_BASE + COLLADASW::Utils::toString(nextTextureIndex);
+
+		// Create the texture element.
+		COLLADASW::Texture colladaTexture;
+
+		// Export the data of the texture.
+		mTextureExporter.exportTexture(&colladaTexture,
+			channelSemantic,
+			fileURI);
+
+		++nextTextureIndex;
+
+		mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_TEXTURE);
+		mSW->appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_TEXTURE, colladaTexture.getSamplerSid());
+		mSW->appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_TEXCOORD, colladaTexture.getTexcoord());
+		colladaTexture.addExtraTechniques(mSW);
+		mSW->closeElement();
+	}
+
     //---------------------------------------------------------------
     void EffectExporter::getShaderTextures (
         const MObject& shader,
@@ -677,12 +725,12 @@ namespace COLLADAMaya
     // ------------------------------------
     const String EffectExporter::findColladaImageId ( const String& mayaImageId )
     {
-        const StringToStringMap::const_iterator it = mMayaIdColladaImageIdMap.find ( mayaImageId );
-        if ( it != mMayaIdColladaImageIdMap.end () )
-        {
-            return it->second;
-        }
-        return EMPTY_STRING;
+		const StringToStringMap::const_iterator it = mTextureExporter.getMayaIdColladaImageId().find(mayaImageId);
+		if (it != mTextureExporter.getMayaIdColladaImageId().end())
+		{
+			return it->second;
+		}
+		return EMPTY_STRING;
     }
 
     // ------------------------------------

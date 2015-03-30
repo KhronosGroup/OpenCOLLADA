@@ -107,11 +107,6 @@ namespace COLLADAMaya
         /** The std::map which stores all already exported effects */
         EffectMap mExportedEffectMap;
 
-        /**
-         * The maya id with the collada id.
-         */
-        StringToStringMap mMayaIdColladaImageIdMap;
-
     public:
 
         /** A texture channel.
@@ -186,6 +181,12 @@ namespace COLLADAMaya
             int& nextTextureIndex, 
             bool animated = false );
 
+		void exportTexturedParameter(
+			const String& effectId,
+			COLLADASW::EffectProfile* effectProfile,
+			int& nextTextureIndex,
+			const URI & fileURI);
+
         /**
         * Retrieve any texture (file or layered) associated with a material attribute.
         * @param shader The maya shader object.
@@ -232,6 +233,14 @@ namespace COLLADAMaya
             const String &effectId, 
             COLLADASW::EffectProfile *effectProfile,
             MObject shadingNetwork );
+
+#if MAYA_API_VERSION >= 201500
+		/** Export a shaderfx shader node. */
+		void exportShaderFXShader(
+			const String & effectId,
+			COLLADASW::EffectProfile* effectProfile,
+			MObject & shader);
+#endif
 
         /**
          * Exports the transparency.

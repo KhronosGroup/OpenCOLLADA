@@ -14,6 +14,7 @@
 */
 
 #include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaEffectTextureExporter.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaConversion.h"
@@ -128,6 +129,76 @@ namespace COLLADAMaya
         sampler.setMagFilter ( COLLADASW::Sampler::SAMPLER_FILTER_NONE );
         sampler.setMipFilter ( COLLADASW::Sampler::SAMPLER_FILTER_NONE );
     }
+
+	void EffectTextureExporter::exportTexture(COLLADASW::Texture* colladaTexture, const String & channelSemantic, const URI & fileURI)
+	{
+		String mayaImageId = DocumentExporter::mayaNameToColladaName(fileURI.getPathFileBase().c_str());
+
+		COLLADAMaya::EffectExporter& effectExporter = *mDocumentExporter->getEffectExporter();
+		COLLADAMaya::EffectTextureExporter& textureExporter = *effectExporter.getTextureExporter();
+
+		String colladaImageId = effectExporter.findColladaImageId(mayaImageId);
+		if (colladaImageId.empty())
+		{
+			// Generate a COLLADA id for the new image object
+			colladaImageId = DocumentExporter::mayaNameToColladaName(fileURI.getPathFileBase().c_str());
+
+			// Make the id unique and store it in a map for refernences.
+			colladaImageId = textureExporter.getImageIdList().addId(colladaImageId);
+			textureExporter.getMayaIdColladaImageId()[mayaImageId] = colladaImageId;
+		}
+
+		// Set the image name
+		//String colladaImageId = exportImage(mayaImageId, colladaImageId, fileURI);
+		COLLADASW::Image* image = exportImage(mayaImageId, colladaImageId, fileURI);
+		colladaTexture->setImageId(colladaImageId);
+		colladaTexture->setTexcoord(channelSemantic);
+
+		// Get the current stream writer
+		COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+		// Create the sampler
+		String samplerSid = colladaImageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
+		String surfaceSid = colladaImageId + COLLADASW::Sampler::SURFACE_SID_SUFFIX;
+
+		COLLADASW::Sampler sampler(COLLADASW::Sampler::SAMPLER_TYPE_2D, samplerSid, surfaceSid);
+		sampler.setFormat(FORMAT);
+		sampler.setImageId(colladaImageId);
+
+		colladaTexture->setSampler(sampler);
+
+		// Add blend mode information
+		colladaTexture->addExtraTechniqueParameter(PROFILE_MAYA, MAYA_TEXTURE_BLENDMODE_PARAMETER, String(MAYA_BLENDMODE_NONE));
+
+		// Wrap elements
+		switch (colladaTexture->getSampler().getSamplerType())
+		{
+
+		case COLLADASW::Sampler::SAMPLER_TYPE_1D:
+			sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_WRAP);
+			break;
+
+		case COLLADASW::Sampler::SAMPLER_TYPE_2D:
+		{
+			sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_WRAP);
+			sampler.setWrapT(COLLADASW::Sampler::WRAP_MODE_WRAP);
+		}
+		break;
+
+		case COLLADASW::Sampler::SAMPLER_TYPE_3D:
+		case COLLADASW::Sampler::SAMPLER_TYPE_CUBE:
+		{
+			sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_WRAP);
+			sampler.setWrapT(COLLADASW::Sampler::WRAP_MODE_WRAP);
+			sampler.setWrapP(COLLADASW::Sampler::WRAP_MODE_WRAP);
+		}
+		break;
+		}
+
+		sampler.setMinFilter(COLLADASW::Sampler::SAMPLER_FILTER_NONE);
+		sampler.setMagFilter(COLLADASW::Sampler::SAMPLER_FILTER_NONE);
+		sampler.setMipFilter(COLLADASW::Sampler::SAMPLER_FILTER_NONE);
+	}
 
     //---------------------------------------------------------------
     String EffectTextureExporter::getBlendMode ( int blendMode )
