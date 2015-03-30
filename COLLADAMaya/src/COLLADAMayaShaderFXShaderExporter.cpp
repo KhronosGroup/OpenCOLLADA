@@ -285,96 +285,96 @@ namespace COLLADAMaya
 		switch (type)
 		{
 			//! Invalid value
-		case MFnData::Type::kInvalid:
+        case MFnData::kInvalid:
 			break;
 
 			//! Numeric, use MFnNumericData extract the node data.
-		case MFnData::Type::kNumeric:
+		case MFnData::kNumeric:
 			exportNumericData(node, attr);
 			break;
 
 			//! Plugin Blind Data, use MFnPluginData to extract the node data.
-		case MFnData::Type::kPlugin:
+		case MFnData::kPlugin:
 			// TODO
 			break;
 
 			//! Plugin Geometry, use MFnGeometryData to extract the node data.
-		case MFnData::Type::kPluginGeometry:
+		case MFnData::kPluginGeometry:
 			// TODO
 			break;
 
 			//! String, use MFnStringData to extract the node data.
-		case MFnData::Type::kString:
+		case MFnData::kString:
 			exportStringData(node, attr);
 			break;
 
 			//! Matrix, use MFnMatrixData to extract the node data.
-		case MFnData::Type::kMatrix:
+		case MFnData::kMatrix:
 			// TODO
 			break;
 
 			//! String Array, use MFnStringArrayData to extract the node data.
-		case MFnData::Type::kStringArray:
+		case MFnData::kStringArray:
 			// TODO
 			break;
 
 			//! Double Array, use MFnDoubleArrayData to extract the node data.
-		case MFnData::Type::kDoubleArray:
+		case MFnData::kDoubleArray:
 			// TODO
 			break;
 
 			//! Float Array, use MFnFloatArrayData to extract the node data.
-		case MFnData::Type::kFloatArray:
+		case MFnData::kFloatArray:
 			// TODO
 			break;
 
 			//! Int Array, use MFnIntArrayData to extract the node data.
-		case MFnData::Type::kIntArray:
+		case MFnData::kIntArray:
 			// TODO
 			break;
 
 			//! Point Array, use MFnPointArrayData to extract the node data.
-		case MFnData::Type::kPointArray:
+		case MFnData::kPointArray:
 			// TODO
 			break;
 
 			//! Vector Array, use MFnVectorArrayData to extract the node data.
-		case MFnData::Type::kVectorArray:
+		case MFnData::kVectorArray:
 			// TODO
 			break;
 
 			//! Component List, use MFnComponentListData to extract the node data.
-		case MFnData::Type::kComponentList:
+		case MFnData::kComponentList:
 			// TODO
 			break;
 
 			//! Mesh, use MFnMeshData to extract the node data.
-		case MFnData::Type::kMesh:
+		case MFnData::kMesh:
 			// TODO
 			break;
 
 			//! Lattice, use MFnLatticeData to extract the node data.
-		case MFnData::Type::kLattice:
+		case MFnData::kLattice:
 			// TODO
 			break;
 
 			//! Nurbs Curve, use MFnNurbsCurveData to extract the node data.
-		case MFnData::Type::kNurbsCurve:
+		case MFnData::kNurbsCurve:
 			// TODO
 			break;
 
 			//! Nurbs Surface, use MFnNurbsSurfaceData to extract the node data.
-		case MFnData::Type::kNurbsSurface:
+		case MFnData::kNurbsSurface:
 			// TODO
 			break;
 
 			//! Sphere, use MFnSphereData to extract the node data.
-		case MFnData::Type::kSphere:
+		case MFnData::kSphere:
 			// TODO
 			break;
 
 			//! ArrayAttrs, use MFnArrayAttrsData to extract the node data.
-		case MFnData::Type::kDynArrayAttrs:
+		case MFnData::kDynArrayAttrs:
 			// TODO
 			break;
 
@@ -382,27 +382,27 @@ namespace COLLADAMaya
 			node data. This data node is in OpenMayaFX which must be
 			linked to.
 			*/
-		case MFnData::Type::kDynSweptGeometry:
+		case MFnData::kDynSweptGeometry:
 			// TODO
 			break;
 
 			//! Subdivision Surface, use MFnSubdData to extract the node data.
-		case MFnData::Type::kSubdSurface:
+		case MFnData::kSubdSurface:
 			// TODO
 			break;
 
 			//! nObject data, use MFnNObjectData to extract node data
-		case MFnData::Type::kNObject:
+		case MFnData::kNObject:
 			// TODO
 			break;
 
 			//! nId data, use MFnNIdData to extract node data
-		case MFnData::Type::kNId:
+		case MFnData::kNId:
 			// TODO
 			break;
 
 			//! Typically used when the data can be one of several types.
-		case MFnData::Type::kAny:
+		case MFnData::kAny:
 			// TODO
 			break;
 
@@ -432,9 +432,9 @@ namespace COLLADAMaya
 
 		switch (type)
 		{
-		case MFnNumericData::Type::kInvalid:			//!< Invalid data.
+		case MFnNumericData::kInvalid:			//!< Invalid data.
 			break;
-		case MFnNumericData::Type::kBoolean:			//!< Boolean.
+		case MFnNumericData::kBoolean:			//!< Boolean.
 		{
 			bool value;
 			status = plug.getValue(value);
@@ -443,7 +443,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(value ? SHADERFX_TRUE : SHADERFX_FALSE);
 		}
 		break;
-		case MFnNumericData::Type::kByte:				//!< One byte.
+		case MFnNumericData::kByte:				//!< One byte.
 		{
 			char value;
 			status = plug.getValue(value);
@@ -454,7 +454,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::kChar:				//!< One character.
+		case MFnNumericData::kChar:				//!< One character.
 		{
 			char text[2] = { '\0' };
 			status = plug.getValue(text[0]);
@@ -463,7 +463,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::kShort:				//!< One short.
+		case MFnNumericData::kShort:				//!< One short.
 		{
 			short value;
 			status = plug.getValue(value);
@@ -474,7 +474,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::k2Short:			//!< Two shorts.
+		case MFnNumericData::k2Short:			//!< Two shorts.
 		{
 			short value[2];
 			MPlug plug0 = plug.child(0, &status);
@@ -491,7 +491,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::k3Short:			//!< Three shorts.
+		case MFnNumericData::k3Short:			//!< Three shorts.
 		{
 			short value[3];
 			MPlug plug0 = plug.child(0, &status);
@@ -512,7 +512,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::kLong:				//!< One long. Same as int since "long" is not platform-consistent.
+		case MFnNumericData::kLong:				//!< One long. Same as int since "long" is not platform-consistent.
 		{
 			int value;
 			status = plug.getValue(value);
@@ -525,7 +525,7 @@ namespace COLLADAMaya
 		break;
 		//case MFnNumericData::Type::kInt:		//!< One int.
 		//	break;
-		case MFnNumericData::Type::k2Long:				//!< Two longs. Same as 2 ints since "long" is not platform-consistent.
+		case MFnNumericData::k2Long:				//!< Two longs. Same as 2 ints since "long" is not platform-consistent.
 		{
 			int value[2];
 			MPlug plug0 = plug.child(0, &status);
@@ -544,7 +544,7 @@ namespace COLLADAMaya
 		break;
 		//case MFnNumericData::Type::k2Int:		//!< Two ints.
 		//	break;
-		case MFnNumericData::Type::k3Long:				//!< Three longs. Same as 3 ints since "long" is not platform-consistent.
+		case MFnNumericData::k3Long:				//!< Three longs. Same as 3 ints since "long" is not platform-consistent.
 		{
 			int value[3];
 			MPlug plug0 = plug.child(0, &status);
@@ -567,7 +567,7 @@ namespace COLLADAMaya
 		break;
 		//case MFnNumericData::Type::k3Int:		//!< Three ints.
 		//	break;
-		case MFnNumericData::Type::kFloat:				//!< One float.
+		case MFnNumericData::kFloat:				//!< One float.
 		{
 			float value;
 			status = plug.getValue(value);
@@ -578,7 +578,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::k2Float:			//!< Two floats.
+		case MFnNumericData::k2Float:			//!< Two floats.
 		{
 			float value[2];
 			MPlug plug0 = plug.child(0, &status);
@@ -595,7 +595,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::k3Float:			//!< Three floats.
+		case MFnNumericData::k3Float:			//!< Three floats.
 		{
 			float value[3];
 			MPlug plug0 = plug.child(0, &status);
@@ -616,7 +616,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::kDouble:			//!< One double.
+		case MFnNumericData::kDouble:			//!< One double.
 		{
 			double value;
 			status = plug.getValue(value);
@@ -627,7 +627,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::k2Double:			//!< Two doubles.
+		case MFnNumericData::k2Double:			//!< Two doubles.
 		{
 			double value[2];
 			MPlug plug0 = plug.child(0, &status);
@@ -644,7 +644,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::k3Double:			//!< Three doubles.
+		case MFnNumericData::k3Double:			//!< Three doubles.
 		{
 			double value[3];
 			MPlug plug0 = plug.child(0, &status);
@@ -665,7 +665,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::k4Double:			//!< Four doubles.
+		case MFnNumericData::k4Double:			//!< Four doubles.
 		{
 			double value[4];
 			MPlug plug0 = plug.child(0, &status);
@@ -690,7 +690,7 @@ namespace COLLADAMaya
 			mStreamWriter.appendText(text);
 		}
 		break;
-		case MFnNumericData::Type::kAddr:				//!< An address.
+		case MFnNumericData::kAddr:				//!< An address.
 			// TODO
 			break;
 		default:
@@ -742,7 +742,7 @@ namespace COLLADAMaya
 		MFnData::Type type = fnTypedAttr.attrType(&status);
 		if (!status) return;
 
-		if (type != MFnData::Type::kString)
+		if (type != MFnData::kString)
 			return;
 
 		MPlug plug = node.findPlug(attr, &status);
