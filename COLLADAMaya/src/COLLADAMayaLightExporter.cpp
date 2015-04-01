@@ -240,7 +240,15 @@ namespace COLLADAMaya
 
             float penumbraValue = COLLADABU::Math::Utils::radToDegF ( (float)spotFn.penumbraAngle( &status ) ); CHECK_STAT(status);
             animated = anim->addNodeAnimation ( lightNode, ATTR_PENUMBRA_ANGLE, ( SampleType ) ( kSingle | kAngle ) );
-            // TODO
+
+
+			// Export spot setting
+			float dropOff = (float)spotFn.dropOff(&status); CHECK_STAT(status);
+			light->addExtraTechniqueParameter(PROFILE_MAYA, MAYA_PENUMBRA_LIGHT_PARAMETER, penumbraValue);
+			light->addExtraTechniqueParameter(PROFILE_MAYA, MAYA_DROPOFF_LIGHT_PARAMETER, dropOff);
+
+
+			// TODO
 //            FCDLightTools::LoadPenumbra(light, penumbraValue, colladaLight->GetOuterAngle().GetAnimated());
 
             // TODO
