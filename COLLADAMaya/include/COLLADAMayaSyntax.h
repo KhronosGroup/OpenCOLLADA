@@ -331,7 +331,7 @@ namespace COLLADAMaya
 	static const String SHADERFX_DOUBLE								= "double";
 	static const String SHADERFX_DOUBLE2							= "double2";
 	static const String SHADERFX_DOUBLE3							= "double3";
-	static const String SHADERFX_DOUBLE4							= "double3";
+	static const String SHADERFX_DOUBLE4							= "double4";
     
     // COLLADA 1.4 Max-specific profile
     static const char* MAX_TARGET_CAMERA_PARAMETER                  = "target";
