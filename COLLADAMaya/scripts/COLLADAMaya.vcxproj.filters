@@ -164,6 +164,9 @@
     <ClCompile Include="..\src\COLLADAMayaShaderFXShaderExporter.cpp">
       <Filter>Source Files\Exporters</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaAttributeParser.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\COLLADAMayaConversion.h">
@@ -291,6 +294,9 @@
     </ClInclude>
     <ClInclude Include="..\include\COLLADAMayaShaderFXShaderExporter.h">
       <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaAttributeParser.h">
+      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
