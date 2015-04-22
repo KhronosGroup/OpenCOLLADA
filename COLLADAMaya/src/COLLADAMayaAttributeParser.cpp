@@ -154,10 +154,12 @@ namespace COLLADAMaya
 			// TODO
 			break;
 
+#if MAYA_API_VERSION >= 201400
 			//! Float Array, use MFnFloatArrayData to extract the node data.
 		case MFnData::kFloatArray:
 			// TODO
 			break;
+#endif
 
 			//! Int Array, use MFnIntArrayData to extract the node data.
 		case MFnData::kIntArray:
@@ -232,10 +234,12 @@ namespace COLLADAMaya
 			// TODO
 			break;
 
+#if MAYA_API_VERSION >= 201200
 			//! Typically used when the data can be one of several types.
 		case MFnData::kAny:
 			// TODO
 			break;
+#endif
 
 		default:
 			break;

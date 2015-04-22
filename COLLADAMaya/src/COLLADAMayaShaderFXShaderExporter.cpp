@@ -186,6 +186,8 @@ namespace COLLADAMaya
 				return MS::kFailure;
 
 			mShaderFXExporter.exportSamplerAndSurfaceInner(value);
+
+			return MS::kSuccess;
 		}
 	};
 
