@@ -1119,7 +1119,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
 				return MS::kSuccess;
 			}
 
@@ -1137,7 +1137,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onShort(MPlug & plug, const MString & name, short value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
 				return MS::kSuccess;
 			}
 
@@ -1155,7 +1155,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onLong(MPlug & plug, const MString & name, int value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
 				return MS::kSuccess;
 			}
 
@@ -1173,7 +1173,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onFloat(MPlug & plug, const MString & name, float value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
 				return MS::kSuccess;
 			}
 
@@ -1191,7 +1191,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onDouble(MPlug & plug, const MString & name, double value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
 				return MS::kSuccess;
 			}
 
