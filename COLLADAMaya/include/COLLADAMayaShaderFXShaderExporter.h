@@ -31,6 +31,8 @@ namespace COLLADAMaya
 
 	class ShaderFXShaderExporter
     {
+		friend class ShaderFXAttributeExporter;
+		friend class ShaderFXSamplerAndSurfaceExporter;
 
     private:
 
@@ -66,12 +68,6 @@ namespace COLLADAMaya
 
 		void exportSamplerAndSurface(const MFnDependencyNode & node, const MObject & attr);
 		void exportSamplerAndSurfaceInner(const MString & filename);
-		void exportAttribute(const MFnDependencyNode & node, const MObject & attr);
-		void exportNumericAttribute(const MFnDependencyNode & node, const MObject & attr);
-		void exportTypedAttribute(const MFnDependencyNode & node, const MObject & attr);
-		void exportNumericData(const MFnDependencyNode & node, const MObject & attr);
-		void exportNumeric(MPlug plug, MFnNumericData::Type type);
-		void exportStringData(const MFnDependencyNode & node, const MObject & attr);
 		void exportTexture(const MString & filename);
     };
 }

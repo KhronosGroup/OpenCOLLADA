@@ -276,6 +276,12 @@ namespace COLLADAMaya
          */
         void exportVisibility ( COLLADASW::Node* sceneNode );
 
+		/**
+		 * Exports all extra attributes.
+		 * @param sceneNode The collada scene node to export the attributes.
+		 */
+		void exportExtraAttributes(const SceneElement* sceneElement);
+
         /**
          * @todo documentation
          * @param sceneElement

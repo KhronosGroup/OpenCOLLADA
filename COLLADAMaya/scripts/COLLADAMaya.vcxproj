@@ -2819,6 +2819,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClCompile Include="..\src\COLLADAMayaEffectExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaEffectTextureExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaExportOptions.cpp" />
+    <ClCompile Include="..\src\COLLADAMayaAttributeParser.cpp" />
     <ClCompile Include="..\src\COLLADAMayaFileTranslator.cpp" />
     <ClCompile Include="..\src\COLLADAMayaGeometryExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaGeometryPolygonExporter.cpp" />
@@ -2899,6 +2900,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClInclude Include="..\include\COLLADAMayaEffectExporter.h" />
     <ClInclude Include="..\include\COLLADAMayaEffectTextureExporter.h" />
     <ClInclude Include="..\include\COLLADAMayaExportOptions.h" />
+    <ClInclude Include="..\include\COLLADAMayaAttributeParser.h" />
     <ClInclude Include="..\include\COLLADAMayaFileTranslator.h" />
     <ClInclude Include="..\include\COLLADAMayaGeometryExporter.h" />
     <ClInclude Include="..\include\COLLADAMayaGeometryPolygonExporter.h" />

@@ -30,6 +30,7 @@
 #include "COLLADAMayaCameraExporter.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaShaderHelper.h"
+#include "COLLADAMayaAttributeParser.h"
 
 #include <maya/MFnIkHandle.h>
 #include <maya/MFnSkinCluster.h>
@@ -40,6 +41,7 @@
 #include <maya/MDagPath.h>
 #include <maya/MFnCamera.h>
 #include <maya/MFileIO.h>
+#include <maya/MFnAttribute.h>
 
 #include "COLLADASWNode.h"
 #include "COLLADASWInstanceGeometry.h"
@@ -630,6 +632,8 @@ namespace COLLADAMaya
             mVisualSceneNode->addExtraTechniqueParameter ( PROFILE_MAYA, PARAMETER_MAYA_ID, nodeName );
         }
 
+		exportExtraAttributes(sceneElement);
+
         // TODO Export the imported extra tags, if there exist some.
         
 
@@ -1069,6 +1073,162 @@ namespace COLLADAMaya
             }
         }
     }
+
+	//---------------------------------------------------------------
+	void VisualSceneExporter::exportExtraAttributes(const SceneElement* sceneElement)
+	{
+		class ExtraAttributeExporter : public AttributeParser
+		{
+		public:
+			ExtraAttributeExporter(COLLADASW::Node & visualSceneNode)
+				: mVisualSceneNode(visualSceneNode)
+			{}
+
+		private:
+			COLLADASW::Node & mVisualSceneNode;
+
+		protected:
+			virtual MStatus onBeforeAttribute(MFnDependencyNode & node, MObject & attr)
+			{
+				MStatus status;
+				MFnAttribute fnAttr(attr, &status);
+				if (!status) return status;
+
+				MString attrName = fnAttr.name(&status);
+				if (!status) return status;
+
+				bool isDynamic = fnAttr.isDynamic(&status);
+				if (!status) return status;
+
+				if (!isDynamic)
+					return MS::kFailure;
+
+				bool isHidden = fnAttr.isHidden(&status);
+				if (!status) return status;
+
+				if (isHidden)
+					return MS::kFailure;
+
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onAfterAttribute(MFnDependencyNode & fnNode, MObject & attribute)
+			{
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value)
+			{
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onByte(MPlug & plug, const MString & name, char value)
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onChar(MPlug & plug, const MString & name, char value)
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onShort(MPlug & plug, const MString & name, short value)
+			{
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onShort2(MPlug & plug, const MString & name, short value[2])
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onShort3(MPlug & plug, const MString & name, short value[3])
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onLong(MPlug & plug, const MString & name, int value)
+			{
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onLong2(MPlug & plug, const MString & name, int value[2])
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onLong3(MPlug & plug, const MString & name, int value[3])
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onFloat(MPlug & plug, const MString & name, float value)
+			{
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onFloat2(MPlug & plug, const MString & name, float value[2])
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onFloat3(MPlug & plug, const MString & name, float value[3])
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onDouble(MPlug & plug, const MString & name, double value)
+			{
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onDouble2(MPlug & plug, const MString & name, double value[2])
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onDouble3(MPlug & plug, const MString & name, double value[3])
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onDouble4(MPlug & plug, const MString & name, double value[4])
+			{
+				// TODO
+				return MS::kSuccess;
+			}
+
+			virtual MStatus onString(MPlug & plug, const MString & name, const MString & value)
+			{
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), String(value.asChar()));
+				return MS::kSuccess;
+			}
+		};
+
+		MObject nodeObject = sceneElement->getNode();
+		
+		MStatus status;
+		MFnDependencyNode fnNode(nodeObject, &status);
+		if (!status) return;
+
+        ExtraAttributeExporter extraAttributeExporter(*mVisualSceneNode);
+		AttributeParser::parseAttributes(fnNode, extraAttributeExporter);
+	}
 
     //---------------------------------------------------------------
     void VisualSceneExporter::exportInstanceController(
