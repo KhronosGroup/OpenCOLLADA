@@ -1226,7 +1226,8 @@ namespace COLLADAMaya
 		MFnDependencyNode fnNode(nodeObject, &status);
 		if (!status) return;
 
-		AttributeParser::parseAttributes(fnNode, ExtraAttributeExporter(*mVisualSceneNode));
+        ExtraAttributeExporter extraAttributeExporter(*mVisualSceneNode);
+		AttributeParser::parseAttributes(fnNode, extraAttributeExporter);
 	}
 
     //---------------------------------------------------------------

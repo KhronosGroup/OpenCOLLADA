@@ -432,7 +432,8 @@ namespace COLLADAMaya
 			ScopedEffectProfile profile(mEffectProfile);
 			{
 				// Export samplers and surfaces
-				AttributeParser::parseAttributes(shaderNode, ShaderFXSamplerAndSurfaceExporter(*this));
+                ShaderFXSamplerAndSurfaceExporter SamplerAndSurfaceExporter(*this);
+				AttributeParser::parseAttributes(shaderNode, SamplerAndSurfaceExporter);
 
 				// Open a <extra><technique> section
 				ScopedExtraTechnique extraTechnique(mStreamWriter, PROFILE_MAYA);
@@ -441,7 +442,8 @@ namespace COLLADAMaya
 					ScopedElement shaderfx(mStreamWriter, SHADERFX);
 
 					// Parse attributes and export them
-					AttributeParser::parseAttributes(shaderNode, ShaderFXAttributeExporter(*this));
+                    ShaderFXAttributeExporter attributeExporter(*this);
+					AttributeParser::parseAttributes(shaderNode, attributeExporter);
 				}
 			}
 		}
