@@ -20,6 +20,12 @@ namespace COLLADASW
         mSW->openElement ( CSWC::CSW_ELEMENT_INSTANCE_GEOMETRY );
         mSW->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_URL, mUrl );
 
+		if (!mId.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_ID, mId);
+
+		if (!mName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_NAME, mName);
+
         mBindMaterial.add();
 
         mSW->closeElement();
