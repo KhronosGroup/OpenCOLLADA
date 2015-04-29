@@ -188,10 +188,18 @@ namespace COLLADAMaya
                                    const String& meshId,
                                    const MStringArray& uvSetNames );
 
+		/**
+		 * Checks if mesh contains vertices with no vertex color from given color set.
+		 */
+		bool GeometryExporter::hasMissingVertexColor(
+			/*const */MFnMesh & fnMesh,
+			const MString & colorSetName
+			);
+
         /**
         * Export the color sets. Returns true if we should proceed to export the given color set Ids.
          */
-        void exportColorSets ( const MFnMesh& fnMesh, const String& meshId, MStringArray& colorSetNames );
+        void exportColorSets ( /*const*/ MFnMesh& fnMesh, const String& meshId, MStringArray& colorSetNames );
 
         /** Export the vertices tag with a link to the positions. */
         void exportVertices ( const String& meshId );

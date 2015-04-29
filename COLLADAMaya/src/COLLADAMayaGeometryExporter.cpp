@@ -486,9 +486,35 @@ namespace COLLADAMaya
         return !perVertexNormals;
     }
 
+	// -------------------------------------------------------
+	bool GeometryExporter::hasMissingVertexColor(
+		// MFnMesh::getColorIndex() is not const for unknown reason
+		/*const */MFnMesh & fnMesh,
+		const MString & colorSetName
+		)
+	{
+		MItMeshPolygon iPolygon = fnMesh.object();
+		while (!iPolygon.isDone())
+		{
+			unsigned int vertexCount = iPolygon.polygonVertexCount();
+			for (unsigned iVertex = 0; iVertex < vertexCount; ++iVertex)
+			{
+				int colorIndex = -1;
+				fnMesh.getColorIndex(iPolygon.index(), iVertex, colorIndex, &colorSetName);
+				if (colorIndex == -1)
+				{
+					return true;
+				}
+			}
+
+			iPolygon.next();
+		}
+		return false;
+	}
+
     // -------------------------------------------------------
     void GeometryExporter::exportColorSets ( 
-        const MFnMesh& fnMesh,
+        /*const*/ MFnMesh& fnMesh,
         const String& meshId,
         MStringArray& colorSetNames )
     {
@@ -501,6 +527,20 @@ namespace COLLADAMaya
         // Process the color sets
         for ( unsigned int i=0; i<numColorSets; ++i )
         {
+			// Check all mesh vertices have a valid vertex color index. -1 is not supported by COLLADA.
+			// If at least one vertex has no vertex color then don't export that color set.
+			if (hasMissingVertexColor(fnMesh, colorSetNames[i]))
+			{
+				MGlobal::displayWarning(
+					MString("Mesh has vertices with invalid vertex color indices (") +
+					MString(meshId.c_str()) +
+					MString("). Color set not exported (") +
+					colorSetNames[i] +
+					MString(")")
+					);
+				continue;
+			}
+
             const MString mColorSetName = colorSetNames [i];
             String colorSetName = mColorSetName.asChar ();
             if ( colorSetName.length() == 0 ) continue;
