@@ -36,7 +36,8 @@ namespace COLLADAMaya
         kMatrix = 0x04,
         // Boolean
         kBoolean = 0x05,
-
+        // Vector2 value: U, V
+        kVector2 = 0x06,
         // Angle type, there will be rad <-> degree conversions
         kAngle = 0x10,
         kQualifiedAngle = 0x30,

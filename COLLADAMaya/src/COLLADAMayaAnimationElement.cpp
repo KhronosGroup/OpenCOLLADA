@@ -88,6 +88,9 @@ namespace COLLADAMaya
         if ( ( mSampleType & kBoolean ) == kBoolean )
             return 1;
 
+		else if ( ( mSampleType & kVector2 ) == kVector2 )
+            return 2;
+
         else if ( ( mSampleType & kMatrix ) == kMatrix )
             return 16;
 
