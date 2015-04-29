@@ -34,7 +34,15 @@ namespace COLLADASW
         /** The URL of the location of the object to instantiate.*/
         URI mUrl;
 
-    public:
+		/** A text string containing the name of the <instance_geometry> element. Optional. */
+		String mName;
+
+		/** A text string containing the unique identifier of the <instance_geometry>
+		element. This value must be unique within the instance document.
+		Optional. */
+		String mId;
+
+	public:
 
 		/** Constructor
 		@param The stream the instance geometry should be written to
@@ -56,6 +64,30 @@ namespace COLLADASW
         {
             return mUrl;
         }
+
+		/** Returns a reference to the instance geometry id*/
+		const String& getId() const 
+		{
+			return mId;
+		}
+
+		/** Sets the id of the element*/
+		void setId(const String& id)
+		{
+			mId = id;
+		}
+
+		/** A text string containing the name of the <instance_geometry> element. Optional. */
+		const String getName() const 
+		{ 
+			return mName; 
+		}
+
+		/** A text string containing the name of the <instance_geometry> element. Optional. */
+		void setName(const String name) 
+		{ 
+			mName = name; 
+		}
 
         BindMaterial& getBindMaterial()
         {
