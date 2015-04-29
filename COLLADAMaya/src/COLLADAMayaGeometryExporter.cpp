@@ -548,6 +548,26 @@ namespace COLLADAMaya
             // Retrieve the color set data
             MColorArray colorArray;
             fnMesh.getColors ( colorArray, &mColorSetName );
+			
+			// Set a default color to vertices with no color.
+			bool missingVertexColor = hasMissingVertexColor(fnMesh, mColorSetName);
+			if (missingVertexColor)
+			{
+				const MColor defaultVertexColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+				MGlobal::displayWarning(
+					MString("Mesh has vertices with invalid vertex color indices (") +
+					MString(meshId.c_str()) +
+					MString("). Using default color") +
+					" R=" + defaultVertexColor.r +
+					" G=" + defaultVertexColor.g +
+					" B=" + defaultVertexColor.b +
+					" A=" + defaultVertexColor.a
+					);
+
+				colorArray.append(defaultVertexColor);
+			}
+
             size_t numColorValues = colorArray.length ();
             if ( numColorValues == 0 ) continue;
 
