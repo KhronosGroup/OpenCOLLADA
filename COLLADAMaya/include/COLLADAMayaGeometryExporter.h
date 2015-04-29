@@ -191,7 +191,7 @@ namespace COLLADAMaya
 		/**
 		 * Checks if mesh contains vertices with no vertex color from given color set.
 		 */
-		bool GeometryExporter::hasMissingVertexColor(
+		static bool hasMissingVertexColor(
 			/*const */MFnMesh & fnMesh,
 			const MString & colorSetName
 			);
