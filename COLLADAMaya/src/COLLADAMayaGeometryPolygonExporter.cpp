@@ -936,7 +936,14 @@ namespace COLLADAMaya
                     int colorIndex = 0;
                     {
 #if MAYA_API_VERSION >= 700
-                        fnMesh.getColorIndex ( polyIndex, iteratorVertexIndex, colorIndex, &colorSetName );
+						MStatus status = fnMesh.getColorIndex ( polyIndex, iteratorVertexIndex, colorIndex, &colorSetName );
+						if (status && colorIndex == -1)
+						{
+							// if vertex has no color, use default color (last color in color source)
+							MColorArray colors;
+							fnMesh.getColors(colors, &colorSetName);
+							colorIndex = colors.length();
+						}
 #else
                         fnMesh.getFaceVertexColorIndex ( polyIndex, iteratorVertexIndex, colorIndex );
 #endif
