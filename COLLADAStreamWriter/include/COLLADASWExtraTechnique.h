@@ -30,7 +30,6 @@ namespace COLLADASW
         MATRIX
     };
 
-
     //---------------------------------------------------------------
     /** Structure with the parameter value. */
 
