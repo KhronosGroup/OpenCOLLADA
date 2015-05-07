@@ -42,19 +42,19 @@ namespace COLLADASW
         void addValue ( const String& value );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const String &value="", const String &sid="" );
+		void addParameter(const String &paramName, const String &value = "", const String &sid = "", int type = -1);
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const int &value, const String &sid="" );
+		void addParameter(const String &paramName, const int &value, const String &sid = "", int type = -1);
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const double &value, const String &sid="" );
+		void addParameter(const String &paramName, const double &value, const String &sid = "", int type = -1);
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const float &value, const String &sid="" );
+		void addParameter(const String &paramName, const float &value, const String &sid = "", int type = -1);
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const bool &value, const String &sid="" );
+		void addParameter(const String &paramName, const bool &value, const String &sid = "", int type = -1);
 
         /** Adds a parameter to the technique */
         void addMatrixParameter ( const String &paramName, const double matrix[][4], const String &sid="" ) const;

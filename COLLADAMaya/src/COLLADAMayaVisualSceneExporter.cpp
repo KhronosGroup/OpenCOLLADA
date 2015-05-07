@@ -1116,7 +1116,7 @@ namespace COLLADAMaya
 			{
 				return MS::kSuccess;
 			}
-
+			
 			virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value)
 			{
 				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value);
