@@ -512,6 +512,11 @@ namespace COLLADASW
         static const String CSW_FX_STATE_SCISSOR_TEST_ENABLE;
         static const String CSW_FX_STATE_STENCIL_TEST_ENABLE;
 
+		static const String VALUE_TYPE_BOOL;
+		static const String VALUE_TYPE_INTEGER;
+		static const String VALUE_TYPE_FLOAT;
+		static const String VALUE_TYPE_DOUBLE;
+		static const String VALUE_TYPE_STRING;
     };
 
 }

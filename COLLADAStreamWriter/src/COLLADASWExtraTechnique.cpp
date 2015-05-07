@@ -376,23 +376,23 @@ namespace COLLADASW
             {
 
             case STRING:
-				colladaTechnique.addParameter(paramName, paramData.stringValue, paramData.sid, (int)(paramData.paramType));
+				colladaTechnique.addParameter(paramName, paramData.stringValue, paramData.sid, CSWC::VALUE_TYPE_STRING);
                 break;
 
             case INTEGER:
-				colladaTechnique.addParameter(paramName, paramData.integerValue, paramData.sid, (int)(paramData.paramType));
+				colladaTechnique.addParameter(paramName, paramData.integerValue, paramData.sid, CSWC::VALUE_TYPE_INTEGER);
                 break;
 
             case DOUBLE:
-				colladaTechnique.addParameter(paramName, paramData.doubleValue, paramData.sid, (int)(paramData.paramType));
+				colladaTechnique.addParameter(paramName, paramData.doubleValue, paramData.sid, CSWC::VALUE_TYPE_DOUBLE);
                 break;
 
             case FLOAT:
-				colladaTechnique.addParameter(paramName, paramData.floatValue, paramData.sid, (int)(paramData.paramType));
+				colladaTechnique.addParameter(paramName, paramData.floatValue, paramData.sid, CSWC::VALUE_TYPE_FLOAT);
                 break;
 
             case BOOL:
-                colladaTechnique.addParameter ( paramName, paramData.boolValue, paramData.sid, (int)(paramData.paramType) );
+				colladaTechnique.addParameter(paramName, paramData.boolValue, paramData.sid, CSWC::VALUE_TYPE_BOOL);
                 break;
             }
 

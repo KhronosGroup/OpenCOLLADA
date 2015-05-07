@@ -13,7 +13,7 @@
 namespace COLLADASW
 {
 
-    const String CSWC::EMPTY_STRING = "";
+	const String CSWC::EMPTY_STRING = "";
     const String CSWC::CSW_ERR_UNKNOWN_INPUT = "UNKNOWN INPUT ERROR";
 
     const String CSWC::XML_START_ELEMENT = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
@@ -502,4 +502,9 @@ namespace COLLADASW
     const String CSWC::CSW_FX_STATE_SCISSOR_TEST_ENABLE = "scissor_test_enable";
     const String CSWC::CSW_FX_STATE_STENCIL_TEST_ENABLE = "stencil_test_enable";
 
+	const String CSWC::VALUE_TYPE_BOOL = "bool";
+	const String CSWC::VALUE_TYPE_INTEGER = "integer";
+	const String CSWC::VALUE_TYPE_FLOAT = "float";
+	const String CSWC::VALUE_TYPE_DOUBLE = "double";
+	const String CSWC::VALUE_TYPE_STRING = "string";
 }
