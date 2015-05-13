@@ -88,7 +88,8 @@ namespace COLLADAMaya
 
         bool exportSceneElement = false;
         SceneElement::Type sceneElementType = sceneElement->getType();
-        if ( sceneElementType == SceneElement::MESH ) 
+
+		if ( sceneElementType == SceneElement::MESH ) 
         {
             if ( sceneElement->getIsExportNode () ) exportSceneElement = true;
             else 

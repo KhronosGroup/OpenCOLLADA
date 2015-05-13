@@ -144,6 +144,7 @@ namespace COLLADAMaya
         bool isForced = sceneElement->getIsForced();
         bool isVisible = sceneElement->getIsVisible();
         bool isExportNode = sceneElement->getIsExportNode();
+		bool isPhysicNode = sceneElement->getIsPhysicNode();
 
         // Check for a file reference
         bool isLocal = sceneElement->getIsLocal();
@@ -172,7 +173,7 @@ namespace COLLADAMaya
             sceneElement->setType ( SceneElement::TRANSFORM );
 
             // Taken out of unvisible transforms. 
-            if ( !ExportOptions::exportInvisibleNodes () && !isVisible && !isExportNode ) return false;
+			if ((!ExportOptions::exportInvisibleNodes() && !isVisible && !isExportNode) || (ExportOptions::exportPhysic() && isPhysicNode)) return false;
 
             // Export the scene graph node for all transform-derivatives
             if ( dagPath.hasFn ( MFn::kJoint ) )
@@ -631,17 +632,6 @@ namespace COLLADAMaya
 
             // Export the original maya name.
             mVisualSceneNode->addExtraTechniqueParameter ( PROFILE_MAYA, PARAMETER_MAYA_ID, nodeName );
-
-			if (ExportOptions::exportPhysic())
-			{
-				if (sceneElement->getParentCount())
-				{
-					SceneElement* sceneParentElement = sceneElement->getParent(0);
-					if (sceneElement->getIsPhysic() /*|| sceneParentElement && sceneParentElement->getIsPhysic()*/)
-						mVisualSceneNode->addExtraTechniqueParameter(PROFILE_FL4RE, PARAMETER_PHYSIC_NODE, "true");
-				}
-			}
-			
         }
 
 		exportExtraAttributes(sceneElement);

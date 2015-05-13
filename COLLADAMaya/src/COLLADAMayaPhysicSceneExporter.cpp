@@ -35,10 +35,14 @@
 
 #include "COLLADAMayaPhysicsExporter.h"
 #include "COLLADASWInstancePhysicsModel.h"
+#include "COLLADAMayaSyntax.h"
 
 namespace COLLADAMaya
 {
 	
+	const String physicModelUrl("#" + String(PHYSIC_MODEL_ID));
+	const String physicWorldReferenceUrl("#" + String(PHYSIC_WORLD_REFERENCE));
+
     //---------------------------------------------------------------
     PhysicSceneExporter::PhysicSceneExporter (
         COLLADASW::StreamWriter* streamWriter,
@@ -54,7 +58,7 @@ namespace COLLADAMaya
 	{
 		if ( !ExportOptions::exportPhysic() ) return false;
 
-		//PhysicsExporter::RB_Map& myMap = PhysicsExporter::getRB_Map();
+		PhysicsExporter::RB_Map& bodyTargetMap = PhysicsExporter::getRB_Map();
 		std::map<std::string, PhysicsExporter::BodyTarget>::iterator iter;
 
 		// Get the streamWriter from the export document
@@ -64,22 +68,25 @@ namespace COLLADAMaya
 
 
 		//Physic_scene tag
-		libraryPhysicsScene.openPhysicsScene("collada_physics_scene");
+		libraryPhysicsScene.openPhysicsScene(PHYSIC_SCENE_NODE_ID);
+		
+		COLLADASW::InstancePhysicsModel instancePhysicModel(streamWriter, physicModelUrl);
+		
+		instancePhysicModel.openInstancePhysicsModel();
 
-		for (iter = PhysicsExporter::myMap.begin(); iter != PhysicsExporter::myMap.end(); ++iter)
+		for (iter = bodyTargetMap.begin(); iter != bodyTargetMap.end(); ++iter)
 		{
-			String url = iter->first;
-			COLLADASW::InstancePhysicsModel instancePhysicModel(streamWriter, url);
-			instancePhysicModel.openInstancePhysicsModel();
-
-
 			PhysicsExporter::BodyTarget bt = iter->second;
 			COLLADASW::InstanceRigidBody instanceRigidBody(streamWriter, bt.Body, bt.Target);
-			instanceRigidBody.openInstanceRigidBody();
-			instanceRigidBody.closeInstanceRigidBody();
-
-			instancePhysicModel.closeInstancePhysicsModel();
+			
+			if (bt.Target.compare(physicWorldReferenceUrl))
+			{
+				instanceRigidBody.openInstanceRigidBody();
+				instanceRigidBody.closeInstanceRigidBody();
+			}
 		}
+		instancePhysicModel.closeInstancePhysicsModel();
+
 
 		// Technique common gravity
 		libraryPhysicsScene.openTechniqueCommon();

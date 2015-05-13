@@ -22,6 +22,7 @@
 #include "COLLADAMayaRotateHelper.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADASWInstanceGeometry.h"
+#include "COLLADAMayaSceneElement.h"
 
 #include <algorithm>
 
@@ -37,7 +38,7 @@
 namespace COLLADAMaya
 {
 	static const char* NAME_SUFFIX_INVALID = "_MAKE_NAME_INVALID";
-	std::map<String, PhysicsExporter::BodyTarget> PhysicsExporter::myMap;
+	std::map<String, PhysicsExporter::BodyTarget> PhysicsExporter::bodyTargetMap;
 	MVector PhysicsExporter::gravityField;
 
     // --------------------------------------------------------
@@ -47,6 +48,8 @@ namespace COLLADAMaya
 		, mDocumentExporter(documentExporter)
 		, mIsFirstRotation(true)
     {
+			bodyTargetMap.clear();
+			firstimeOpenPhysModel = true;
     }
 
     // --------------------------------------------------------
@@ -72,6 +75,9 @@ namespace COLLADAMaya
 			exportAllPhysics(sceneElement, sceneElement->getIsVisible());
         }
 
+		if (!firstimeOpenPhysModel)
+			closePhysicsModel();
+
         endExport();
     }
 
@@ -83,7 +89,7 @@ namespace COLLADAMaya
 
         bool exportSceneElement = false;
         SceneElement::Type sceneElementType = sceneElement->getType();
-		if (sceneElementType == SceneElement::PHYSIK)
+		if (sceneElementType == SceneElement::PHYSIK || sceneElementType == SceneElement::PHYSIK_BULLET)
         {
             if ( sceneElement->getIsExportNode () ) exportSceneElement = true;
             else 
@@ -166,9 +172,6 @@ namespace COLLADAMaya
 
         // Set the node id.
         sceneElement->setNodeId ( colladaMeshId );
-
-//        bool isInstanced = dagPath.isInstanced();
-//        uint instanceNumber = dagPath.instanceNumber();
 
 		return exportPhysicModel(dagPath);
     }
@@ -331,40 +334,32 @@ namespace COLLADAMaya
 		exportTranslation(ATTR_ROTATE_PIVOT_INVERSE, rotatePivot * -1);
 	}
 
-
-	void PhysicsExporter::exportExtraTechniqueParameters(
-		const MDagPath& dagPath,
-		int shapeType)
-	{
-
-		String meshName = mDocumentExporter->dagPathToColladaName(dagPath);
-
-		COLLADASW::Extra extraSource(mSW);
-		extraSource.openExtra();
-
-		COLLADASW::Technique techniqueSource(mSW);
-		techniqueSource.openTechnique(PROFILE_MAYA);
-		techniqueSource.addParameter(PARAMETER_MAYA_ID, meshName);
-		techniqueSource.addParameter(PARAMETER_SHAPE_TYPE, shapeType);
-
-		techniqueSource.closeTechnique();
-
-		extraSource.closeExtra();
-	}
-	
 	void PhysicsExporter::createShape(MDagPath& childDagPath)
 	{
 			MFnDagNode fnChild(mTransformObject);
-			MString childName;
-			childName = fnChild.name();
+			MString childName(fnChild.name());
 
 			MObject childTransform = childDagPath.transform();
-			MFnTransform fn(childTransform);
-			mTransformMatrix = fn.transformation();
+			
 
+			MTransformationMatrix mTransformMatrix2(childDagPath.inclusiveMatrix());
+
+			double resultFinal2[4][4];
+			mTransformMatrix2.asMatrix().get(resultFinal2); 
+			MMatrix MatShape(mTransformMatrix2.asMatrix());
+
+			MFnTransform fnRB(mTransformObjectRB);
+			MTransformationMatrix mTransformMatrixRB(fnRB.transformation());
+			MMatrix MatRB(mTransformMatrixRB.asMatrixInverse());
+
+			MMatrix result = MatShape * MatRB;
+			double result2[4][4];
+			result.get(result2);
+			
+			mTransformMatrix = result;
 
 			//Get BoundingBox
-			childDagPath.extendToShape();
+			childDagPath.extendToShape(); 
 
 			const MObject& meshNode = childDagPath.node();
 			MFnMesh fnMesh(meshNode);
@@ -427,49 +422,97 @@ namespace COLLADAMaya
 				}
 
 				exportDecomposedTransform();
-
-				exportExtraTechniqueParameters(childDagPath, shape);
 				closeShape();
 			}
 	}
 
-	static bool firstTime = true;
+	
 
-	void getGravityField(MDagPath dagPath)
+	bool PhysicsExporter::isBulletRigidBodySolverNode(MDagPath& dagPath)
 	{
-		MObject node = dagPath.node();
-		MFnDagNode fnNode(node);
-		MString Name = fnNode.name();
+		MStatus status;
+		MObject node(dagPath.node());
+		MFnDependencyNode shaderNode(node, &status);
+		MString shaderNodeTypeName(shaderNode.typeName());
 
-		for (int i = 0; i < fnNode.childCount(); ++i) 
+		return (shaderNodeTypeName == BULLET_PHYSIKS_SOLVER_NODE);
+	}
+
+
+	bool PhysicsExporter::isBulletRigidBodyNode(MDagPath& dagPath)
+	{
+
+		MStatus status;
+		MObject node(dagPath.node());
+		MFnDependencyNode shaderNode(node, &status);
+		MString shaderNodeTypeName(shaderNode.typeName());
+
+		return (shaderNodeTypeName == BULLET_PHYSIKS_NODE);
+	}
+
+
+	void PhysicsExporter::getGravityField()
+	{
+		MItDag it(MItDag::kDepthFirst);
+
+		while (!it.isDone()) 
 		{
-			MObject child = fnNode.child(i);
-			MFnDagNode fnChild(child);
-			MString childName = fnChild.name();
+			MFnDagNode fn(it.item());
 
-			if (child.hasFn(MFn::kGravity))
+			MDagPath DagPath = MDagPath::getAPathTo(it.item());
+			if (isBulletRigidBodySolverNode(DagPath))
 			{
-				MFnGravityField GravityField(child);
-				MVector dir = GravityField.direction();
-				double mag = GravityField.magnitude();
-
-				PhysicsExporter::gravityField = dir * mag;
-				firstTime = false;
-			}
-			else
-			{
-				MFnDagNode DagNode(node);
-			
-				for (int i = 0; i < DagNode.parentCount(); ++i) 
+				MStatus status;
+				MPlug plug = MFnDependencyNode(DagPath.node()).findPlug(MString(COLLADASW::CSWC::CSW_ELEMENT_GRAVITY.c_str()), &status);
+				if (status == MStatus::kSuccess) 
+				if (plug.isCompound() && plug.numChildren() >= 3)
 				{
-					MObject parent = DagNode.parent(i);
-					MFnDagNode fnParent(parent);
-					MDagPath parentPath = MDagPath::getAPathTo(parent);
-
-					if (firstTime)
-						getGravityField(parentPath);
+					status = plug.child(0).getValue(PhysicsExporter::gravityField.x);
+					status = plug.child(1).getValue(PhysicsExporter::gravityField.y);
+					status = plug.child(2).getValue(PhysicsExporter::gravityField.z);
 				}
 			}
+
+			it.next();
+		}
+	}
+
+	static void searchAndUpdate(SceneElement* sceneElement, MDagPath& ChildPath, bool result, bool needExport)
+	{
+
+		if (sceneElement->getType() == SceneElement::Type::TRANSFORM && sceneElement->getPath() == ChildPath)
+		{
+			if (!result)
+				sceneElement->setIsPhysicNode(true);
+			else
+			{
+				if (needExport)
+					sceneElement->setIsPhysicNode(false);
+				else
+					sceneElement->setIsPhysicNode(true);
+			}
+		}
+
+		for (uint i = 0; i < sceneElement->getChildCount(); ++i)
+		{
+			SceneElement* childElement = sceneElement->getChild(i);
+			searchAndUpdate(childElement, ChildPath, result, needExport);
+		}
+	}
+
+
+	void PhysicsExporter::UpdateSceneElement(MObject& child, bool result, bool needExport)
+	{
+		MDagPath ChildPath = MDagPath::getAPathTo(child);
+
+		SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+		SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
+		
+		for (std::vector<SceneElement*>::iterator it = exportNodesTree->begin(); it != exportNodesTree->end(); ++it)
+		{
+			String childDagPath = (*it)->getPath().fullPathName().asChar();
+			SceneElement* sceneElement = (*it);
+			searchAndUpdate(sceneElement, ChildPath, result, needExport);
 		}
 	}
 
@@ -481,83 +524,91 @@ namespace COLLADAMaya
 		String meshName = mDocumentExporter->dagPathToColladaName(dagPath);
 
         // Opens the mesh tag in the collada document
-
+		MFnDagNode DagNode(dagPath.node());
+		MObject parent = DagNode.parent(0);
+		MFnDagNode fnParent(parent);
+		MString parentName = fnParent.name();
+		if (firstimeOpenPhysModel)
 		{
-			MFnDagNode DagNode(dagPath.node());
-			MObject parent = DagNode.parent(0);
-			MFnDagNode fnParent(parent);
-			MString parentName = fnParent.name();
-			openPhysicsModel(parentName.asChar(), colladaMeshId);
+			openPhysicsModel(PHYSIC_MODEL_ID, "");
+			firstimeOpenPhysModel = false;
 		}
-		
+				
 		openRigidBody(colladaMeshId, "");
 
 		openTechniqueCommon();
 
-		bool active;
-		DagHelper::getPlugValue(dagPath.node(), ATTR_ACTIVE, active);
-		addDynamic(active);
+		
+		// Get BodyType
+		int type;
+		DagHelper::getPlugValue(dagPath.node(), ATTR_BODY_TYPE, type);
+		
+		enum bodytype
+		{
+			Static,
+			Kinematic,
+			Dynamic
+		};
 
+		if (type == Kinematic || type == Dynamic)
+			addDynamic(true);
+		else if (type == Static)
+			addDynamic(false);
+
+
+		//Get Mass
 		float mass;
 		MObject node = dagPath.node();
 		
-///////TEST		
-		//MFnDagNode fnNode(node);
-		//MDagPath FnPath = fnNode.dagPath();  // not working
-		MDagPath FnPath = MDagPath::getAPathTo(node);
-		String pathName1 = FnPath.fullPathName().asChar();
-		String pathName = dagPath.fullPathName().asChar();
-///////TEST
-
-		if (node.hasFn(MFn::kRigid))
+		if (isBulletRigidBodyNode(dagPath))
 		{
 			DagHelper::getPlugValue(node, ATTR_MASS, mass);
 			addMass(mass);
 		}
 
+
+		//Get Inertia 
 		MVector inertia(1,1,1);
 		//DagHelper::getPlugValue(dagPath.node(), ATTR_INERTIA, inertia);
 		addInertia(inertia.x, inertia.y, inertia.z);
 		
 
-		// Add as many <shape> as childnode of the parent node of Rigidbody (except himself)
-		//MObject& node1 = dagPath.transform();
-		MFnDagNode DagNode(node);
-		for (int i = 0; i < DagNode.parentCount(); ++i) {
-
-			// get the MObject for the i'th parent
+		for (int i = 0; i < DagNode.parentCount(); ++i)
+		{
+			// Parent 1 level upper
 			MObject parent = DagNode.parent(i);
-
-			// attach a function set to it
 			MFnDagNode fnParent(parent);
 			MString parentName = fnParent.name();
-			
-			// Parent 2 Level Upper
+
+			bool needExportParent = false;
+			bool resultParent = DagHelper::getPlugValue(parent, ATTR_COLLISION_EXPORT_NODE, needExportParent);
+			UpdateSceneElement(parent, resultParent, needExportParent);
+
+			// Parent 2 level upper
 			MObject parent2 = fnParent.parent(0);
 			MFnDagNode fnParent2(parent2);
 			MString parentName2 = fnParent2.name();
+			
+			// Search for Solver, Gravity Field
+			getGravityField();
+			
+			//Transform of RB Bullet
+			if (!needExportParent)
+				mTransformObjectRB = fnParent.dagPath().transform();
+			else
+				mTransformObjectRB = dagPath.transform();
 
-			// search in top level for Gravity Field
-			getGravityField(MDagPath::getAPathTo(parent));
-
-			for (int i = 0; i < fnParent.childCount(); ++i) {
-
-				// get the MObject for the i'th child 
+			for (int i = 0; i < fnParent.childCount(); ++i)
+			{
 				MObject child = fnParent.child(i);
-
-///////TEST
 				MFnDagNode fnChild(child);
 				MString childName = fnChild.name();
 				MDagPath ChildPath = MDagPath::getAPathTo(child);
 				String childDagPath = ChildPath.fullPathName().asChar();
-///////TEST
-
-				mTransformObject = ChildPath.node();
-
-				if (mTransformObject.hasFn(MFn::kTransform))
-					createShape(ChildPath);
-
-				if (child.hasFn(MFn::kRigid))
+				
+				UpdateSceneElement(child, resultParent, needExportParent);
+				
+				if (isBulletRigidBodyNode(ChildPath))
 				{
 					MFnDagNode fnChild(child);
 					MString childName;
@@ -565,16 +616,26 @@ namespace COLLADAMaya
 					const String& colladaBodyId = generateColladaMeshId(ChildPath);
 
 					BodyTarget mBodyTarget;
-					mBodyTarget.Body = colladaBodyId;//childName.asChar();
-					mBodyTarget.Target = (MString("#") + parentName2).asChar();
-					myMap[(MString("#") + parentName).asChar()] = mBodyTarget;
+					mBodyTarget.Body = colladaBodyId;
+
+					if (!needExportParent)
+						mBodyTarget.Target = (MString("#") + parentName2).asChar();
+					else
+						mBodyTarget.Target = (MString("#") + parentName).asChar();
+					
+					bodyTargetMap[(MString("#") + parentName).asChar()] = mBodyTarget;
+				}
+				else
+				{
+					mTransformObject = ChildPath.transform();
+					createShape(ChildPath);
 				}
 			}
 		}
 
+
 		closeTechniqueCommon();
 		closeRigidBody();
-		closePhysicsModel();
 
         return true;
     }
@@ -596,46 +657,4 @@ namespace COLLADAMaya
         }
         return EMPTY_STRING;
     }
-
-   
-    // ------------------------------------
-    //const String& PhysicsExporter::getColladaPhysicsId ( MDagPath dagPath )
-    //{
-    //    // Get the node of the current mesh
-    //    MObject meshNode = dagPath.node();
-    //    if ( !meshNode.hasFn ( MFn::kMesh ) ) 
-    //    {
-    //        MGlobal::displayError ( "No mesh object!" );
-    //        return EMPTY_STRING;
-    //    }
-
-    //    // Attach a function set to the mesh node.
-    //    // We access all of the meshes data through the function set
-    //    MStatus status;
-    //    MFnMesh fnMesh ( meshNode, &status );
-    //    if ( status != MStatus::kSuccess ) 
-    //    {
-    //        MGlobal::displayError ( "No mesh object!" );
-    //        return EMPTY_STRING;
-    //    }
-
-    //    // Get the maya mesh id.
-    //    String mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPath );
-
-    //    // Check for instances.
-    //    bool isInstanced = fnMesh.isInstanced ( true );
-    //    if ( isInstanced )
-    //    {
-    //        // Take the first instance.
-    //        MDagPathArray dagPathes;
-    //        fnMesh.getAllPaths ( dagPathes );
-    //        mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPathes[0] );
-    //    }
-
-    //    // Get the geometry collada id.
-    //    const String& colladaMeshId = findColladaPhysicsId ( mayaMeshId );
-
-    //    return colladaMeshId;
-    //}
-
 }

@@ -44,7 +44,6 @@ namespace COLLADAMaya
     static const String PARAMETER_MAYA_ID                           = "originalMayaNodeId";
     static const String PARAMETER_DOUBLE_SIDED                      = "double_sided";
 	static const String PARAMETER_SHAPE_TYPE						= "shapeType";
-	static const String PARAMETER_PHYSIC_NODE						= "physicNode";
 
     /** Empty strings. */
     static const String EMPTY_STRING                                = "";
@@ -314,13 +313,19 @@ namespace COLLADAMaya
     /** Constants for the physical scenes. */
     static const char* NIMA_INTERNAL_PHYSIKS                        = "nimaInternalPhysics";
     static const char* AGEIA_PHYSIKS_MODEL                          = "AgeiaPhysicsModel";
+	static const char* BULLET_PHYSIKS_NODE							= "bulletRigidBodyShape";
+	static const char* BULLET_PHYSIKS_SOLVER_NODE					= "bulletSolverShape";
+	static const char* PHYSIC_MODEL_ID								= "PhysicModel";
+	static const char* PHYSIC_WORLD_REFERENCE						= "world";
 	static const char* ATTR_MASS									= "mass";
+	static const char* ATTR_BODY_TYPE								= "bodyType";
 	static const char* ATTR_DYNAMIC									= "dynamic";
 	static const char* ATTR_INERTIA									= "inertia";
 	static const char* ATTR_EXTENT									= "extent";
 	
 	static const char* ATTR_ACTIVE									= "active";
 	static const char* ATTR_COLLISION_SHAPE							= "collision_shape";
+	static const char* ATTR_COLLISION_EXPORT_NODE					= "export_node";
 	
 
     /** Shader constants */

@@ -95,10 +95,21 @@ namespace COLLADAMaya
         /** Returns the collada geometry id of the current physics node. */
         const String& getColladaPhysicsId ( MDagPath dagPath );
 
-	//	static RB_Map& getRB_Map() { return myMap; }
+		static RB_Map& getRB_Map() { return bodyTargetMap; }
 
-		static RB_Map myMap;
+		static RB_Map bodyTargetMap;
+
+		/** Returns if the node is a solver bullet node. */
+		bool isBulletRigidBodySolverNode(MDagPath& dagPath);
+		
+		/** Returns if the node is a rigid bullet node. */
+		bool isBulletRigidBodyNode(MDagPath& dagPath);
+		
+		/** Gravity field vector. */
 		static MVector gravityField;
+
+		/** Returns the gravity field from the solver bullet node. */
+		void getGravityField();
 
     private:
 
@@ -124,18 +135,24 @@ namespace COLLADAMaya
 
 		void createShape(MDagPath& childDagPath);
 
+		void UpdateSceneElement(MObject& child, bool result, bool needExport);
+
+		/** Export Transformation Stuff */
 		void exportDecomposedTransform();
 		void exportTranslation(const String name, const MPoint& translation);
 		void exportTranslation(const String name, const MVector& translation);
 		void exportRotation(const String name, const MEulerRotation& rotation);
 
+	private:
+
+		bool firstimeOpenPhysModel;
+
+		/** Export Transformation Stuff */
 		bool mIsJoint;
 		bool mIsFirstRotation;
 		MTransformationMatrix mTransformMatrix;
 		MObject mTransformObject;
-
-		/** Exports an extra tag. */
-		void exportExtraTechniqueParameters(const MDagPath& dagPath, int shapeType);
+		MObject mTransformObjectRB;
     };
 }
 

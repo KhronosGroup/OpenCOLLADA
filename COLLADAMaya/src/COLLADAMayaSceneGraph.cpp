@@ -265,11 +265,11 @@ namespace COLLADAMaya
         // tell the scene node to be transformed or not.
         bool isForced = false;
         bool isVisible = false;
-		bool isPhysic = false;
-        bool isExportNode = getIsExportNode ( dagPath, isForced, isVisible, isPhysic );
+		bool isPhysicNode = false;
+        bool isExportNode = getIsExportNode ( dagPath, isForced, isVisible, isPhysicNode );
         sceneElement->setIsForced ( isForced );
         sceneElement->setIsVisible ( isVisible );
-		sceneElement->setIsPhysic(isPhysic);
+		sceneElement->setIsPhysicNode(isPhysicNode);
 
         // Check for a file reference
         MFnDagNode dagFn ( dagPath );
@@ -368,37 +368,40 @@ namespace COLLADAMaya
         uint instanceNumber = dagPath.instanceNumber();
 		 
 		
-		// remove physic geometry if not convex
-		//int shape; 
-		//const MObject& transformNode = dagPath.transform();
-		//bool found = DagHelper::getPlugValue(transformNode, ATTR_COLLISION_SHAPE, shape);
-		//if (ExportOptions::exportPhysic() && (shape == PhysicsExporter::collisionShape::Box || shape == PhysicsExporter::collisionShape::Capsule) ||
-		//	!ExportOptions::exportPhysic() && found)
-		//{
-		//	isVisible = false;
-		//}
+		// remove physics's Node from Visual scene
+		int shape; 
+		const MObject& transformNode = dagPath.transform();
+		bool found = DagHelper::getPlugValue(transformNode, ATTR_COLLISION_SHAPE, shape);
 
+		MStatus status;
+		MObject node = dagPath.node();
 
-		// remove Physic Node from visual scene
-		if (ExportOptions::exportPhysic())
+		//Search if this node has a child which is a Solver Physic Bullet Node
+		MFnDagNode fnNode(node);
+		for (int i = 0; i < fnNode.childCount(); ++i) 
 		{
-			MFnDagNode fnNode(dagPath.node());
-			MString Name = fnNode.name();
+			MObject child = fnNode.child(i);
+			MFnDependencyNode shaderNode(child, &status);
+			MString shaderNodeTypeName = shaderNode.typeName();
+			if (shaderNodeTypeName == BULLET_PHYSIKS_SOLVER_NODE && ExportOptions::exportPhysic())
+				isPhysic = true;
+		}
 
-			for (int i = 0; i < fnNode.childCount(); ++i)
+		if (ExportOptions::exportPhysic() && (found)
+			|| !ExportOptions::exportPhysic() && found)
+		{
+			if (node.hasFn(MFn::kMesh))
 			{
-				MObject child = fnNode.child(i);
-				MFnDagNode fnChild(child);
-				MString childName = fnChild.name();
-
-				if (child.hasFn(MFn::kRigid))
-				{
-					isPhysic = true;
-				}
+				if (shape == PhysicsExporter::collisionShape::Box ||
+					shape == PhysicsExporter::collisionShape::Capsule)
+					return false;
+				else if (shape == PhysicsExporter::collisionShape::Mesh ||
+					shape == PhysicsExporter::collisionShape::Convex_mesh)
+					return true;
 			}
 		}
 
-
+		
         if ( !isForced )
         {
             // Check for visibility

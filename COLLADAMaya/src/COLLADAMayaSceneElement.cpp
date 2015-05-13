@@ -18,9 +18,11 @@
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaDocumentExporter.h"
+#include "COLLADAMayaSyntax.h"
 
 #include <maya/MFnDependencyNode.h>
 #include <maya/MFnDagNode.h>
+
 
 
 namespace COLLADAMaya
@@ -98,7 +100,16 @@ namespace COLLADAMaya
         if ( mType != UNDETERMINED ) return mType;
 
         MFn::Type mayaType = mDagPath.apiType();
-        switch ( mayaType )
+		
+		MStatus status;
+		MObject node = mDagPath.node();
+		MFnDependencyNode shaderNode(node, &status);
+		MString shaderNodeTypeName = shaderNode.typeName();
+
+		if ((shaderNodeTypeName == BULLET_PHYSIKS_NODE))
+			return PHYSIK_BULLET;
+		
+		switch ( mayaType )
         {
 
         case MFn::kLookAt:
