@@ -12,6 +12,9 @@
 #include "COLLADASWTechnique.h"
 #include "COLLADASWConstants.h"
 
+#include "COLLADASWParamBase.h"
+#include "COLLADASWParamTemplate.h"
+
 namespace COLLADASW
 {
     //---------------------------------------------------------------
@@ -48,87 +51,149 @@ namespace COLLADASW
             mSW->appendTextBlock ( value );
     }
 
-    //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const String &value, const String &sid, const String &type)
+
+	//---------------------------------------------------------------
+	void Technique::addParameter(const String &paramName, const String &value, const String &sid, const String &type, bool useNewFormat)
     {
-        mSW->openElement ( paramName );
+		if (useNewFormat)
+		{
+			NewParamString newParam(mSW);
 
-        if ( !sid.empty() )
-            mSW->appendAttribute( CSWC::CSW_ATTRIBUTE_SID, sid );
+			newParam.openParam(paramName);
+			newParam.appendValues(value);
 
-		if (!type.empty())
-			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+			newParam.closeParam();
+		}
+		else
+		{
+			mSW->openElement(paramName);
 
-        if ( !value.empty() )
-            mSW->appendText ( value );
+			if (!sid.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
 
-		mSW->closeElement();
+			if (!type.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
 
-		
+			if (!value.empty())
+				mSW->appendText(value);
+
+			mSW->closeElement();
+		}
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const bool &value, const String &sid, const String &type)
+	void Technique::addParameter(const String &paramName, const bool &value, const String &sid, const String &type, bool useNewFormat)
     {
-        mSW->openElement ( paramName );
+		if (useNewFormat)
+		{
+			NewParamBool newParam(mSW);
 
-        if ( !sid.empty() )
-            mSW->appendAttribute( CSWC::CSW_ATTRIBUTE_SID, sid );
+			newParam.openParam(paramName);
+			newParam.appendValues(value);
 
-		if (!type.empty())
-			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+			newParam.closeParam();
+		}
+		else
+		{
+			mSW->openElement(paramName);
 
-        mSW->appendValues ( value );
-        mSW->closeElement();
+			if (!sid.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+
+			if (!type.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+
+			mSW->appendValues(value);
+			mSW->closeElement();
+		}
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const int &value, const String &sid, const String &type)
+	void Technique::addParameter(const String &paramName, const int &value, const String &sid, const String &type, bool useNewFormat)
     {
-        mSW->openElement ( paramName );
+		if (useNewFormat)
+		{
+			NewParamInt newParam(mSW);
 
-        if ( !sid.empty() )
-            mSW->appendAttribute( CSWC::CSW_ATTRIBUTE_SID, sid );
+			newParam.openParam(paramName);
+			newParam.appendValues(value);
 
-		if (!type.empty())
-			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+			newParam.closeParam();
+		}
+		else
+		{
 
-        mSW->appendValues ( value );
-        mSW->closeElement();
+			mSW->openElement(paramName);
+
+			if (!sid.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+
+			if (!type.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+
+			mSW->appendValues(value);
+			mSW->closeElement();
+		}
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const double &value, const String &sid, const String &type)
+	void Technique::addParameter(const String &paramName, const double &value, const String &sid, const String &type, bool useNewFormat)
     {
-        mSW->openElement ( paramName );
+		if (useNewFormat)
+		{
+			NewParamDouble newParam(mSW);
 
-        if ( !sid.empty() )
-            mSW->appendAttribute( CSWC::CSW_ATTRIBUTE_SID, sid );
+			newParam.openParam(paramName);
+			newParam.appendValues(value);
 
-		if (!type.empty())
-			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+			newParam.closeParam();
+		}
+		else
+		{
 
-        mSW->appendValues ( value );
-        mSW->closeElement();
+			mSW->openElement(paramName);
+
+			if (!sid.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+
+			if (!type.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+
+			mSW->appendValues(value);
+			mSW->closeElement();
+		}
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const float &value, const String &sid, const String &type)
+	void Technique::addParameter(const String &paramName, const float &value, const String &sid, const String &type, bool useNewFormat)
     {
-        mSW->openElement ( paramName );
+		if (useNewFormat)
+		{
+			NewParamFloat newParam(mSW);
 
-        if ( !sid.empty() )
-            mSW->appendAttribute( CSWC::CSW_ATTRIBUTE_SID, sid );
+			newParam.openParam(paramName);
+			newParam.appendValues(value);
 
-		if (!type.empty())
-			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+			newParam.closeParam();
+		}
+		else
+		{
 
-        mSW->appendValues ( value );
-        mSW->closeElement();
+			mSW->openElement(paramName);
+
+			if (!sid.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+
+			if (!type.empty())
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+
+			mSW->appendValues(value);
+			mSW->closeElement();
+		}
     }
 
     //---------------------------------------------------------------
-    void Technique::addMatrixParameter ( const String &paramName, const double matrix[][4], const String &sid ) const
+	void Technique::addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid, bool useNewFormat) const
     {
         mSW->openElement ( paramName );
 

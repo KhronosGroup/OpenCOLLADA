@@ -288,6 +288,7 @@ namespace COLLADAMaya
     static const char* ATTR_VERTEX_FACE_COLOR                       = "vfcl";
     static const char* ATTR_VERTEX_FACE_COLOR_RGB                   = "frgb";
     static const char* ATTR_WEIGHT                                  = "w";
+	static const char* ATTR_EVENT_ANIMATION							= "animationEvent";
 
     /** Constants for the cameras */
     static const char* CAMERA_PERSP                                 = "persp";

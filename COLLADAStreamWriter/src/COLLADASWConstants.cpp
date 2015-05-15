@@ -290,6 +290,7 @@ namespace COLLADASW
     const String CSWC::CSW_VALUE_TYPE_INT2 = "int2";
     const String CSWC::CSW_VALUE_TYPE_INT3 = "int3";
     const String CSWC::CSW_VALUE_TYPE_INT4 = "int4";
+	const String CSWC::CSW_VALUE_TYPE_DOUBLE = "double";
     const String CSWC::CSW_VALUE_TYPE_FLOAT = "float";
     const String CSWC::CSW_VALUE_TYPE_FLOAT2 = "float2";
     const String CSWC::CSW_VALUE_TYPE_FLOAT3 = "float3";

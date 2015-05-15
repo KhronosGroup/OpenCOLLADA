@@ -65,7 +65,8 @@ namespace COLLADASW
         const String& profileName,
         const String& paramName,
         const String& value, 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -75,9 +76,10 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.stringValue = value;
         paramValue.paramType = STRING;
+		paramValue.newFormat = newFormat;
 
         // Insert the value into the parameters map of the current profile.
-        profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
+		profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
@@ -86,7 +88,8 @@ namespace COLLADASW
         const String& childName,
         const String& paramName,
         const String &value, 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -102,17 +105,19 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.stringValue = value;
         paramValue.paramType = STRING;
+		paramValue.newFormat = newFormat;
 
         // Add the given parameter into the parameter list of the child element
         childParameters.insert ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueParameter ( 
-        const String& profileName,
-        const String& paramName,
-        const int &value, 
-        const String &paramSid )
+	void BaseExtraTechnique::addExtraTechniqueParameter(
+		const String& profileName,
+		const String& paramName,
+		const int &value,
+		const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -122,6 +127,7 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.integerValue = value;
         paramValue.paramType = INTEGER;
+		paramValue.newFormat = newFormat;
 
         // Insert the value into the parameters map of the current profile.
         profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
@@ -133,7 +139,8 @@ namespace COLLADASW
         const String& childName,
         const String& paramName,
         const int &value, 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -146,6 +153,7 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.integerValue = value;
         paramValue.paramType = INTEGER;
+		paramValue.newFormat = newFormat;
 
         // Add the given parameter into the parameter list of the child element
         childParameters.insert ( Parameter ( paramName, paramValue ) );
@@ -156,7 +164,8 @@ namespace COLLADASW
         const String& profileName,
         const String& paramName,
         const double &value, 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -166,6 +175,7 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.doubleValue = value;
         paramValue.paramType = DOUBLE;
+		paramValue.newFormat = newFormat;
 
         // Insert the value into the parameters map of the current profile.
         profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
@@ -177,7 +187,8 @@ namespace COLLADASW
         const String& childName,
         const String& paramName,
         const double &value, 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -190,6 +201,7 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.doubleValue = value;
         paramValue.paramType = DOUBLE;
+		paramValue.newFormat = newFormat;
 
         // Add the given parameter into the parameter list of the child element
         childParameters.insert ( Parameter ( paramName, paramValue ) );
@@ -200,7 +212,8 @@ namespace COLLADASW
         const String& profileName,
         const String& paramName,
         const float &value, 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -210,6 +223,7 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.floatValue = value;
         paramValue.paramType = FLOAT;
+		paramValue.newFormat = newFormat;
 
         // Insert the value into the parameters map of the current profile.
         profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
@@ -221,7 +235,8 @@ namespace COLLADASW
         const String& childName,
         const String& paramName,
         const float &value, 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -234,6 +249,7 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.floatValue = value;
         paramValue.paramType = FLOAT;
+		paramValue.newFormat = newFormat;
 
         // Add the given parameter into the parameter list of the child element
         childParameters.insert ( Parameter ( paramName, paramValue ) );
@@ -244,7 +260,8 @@ namespace COLLADASW
         const String& profileName,
         const String& paramName,
         const bool &value, 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -254,6 +271,7 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.boolValue = value;
         paramValue.paramType = BOOL;
+		paramValue.newFormat = newFormat;
 
         // Insert the value into the parameters map of the current profile.
         profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
@@ -265,7 +283,8 @@ namespace COLLADASW
         const String& childName,
         const String& paramName,
         const bool &value, 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -278,6 +297,7 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.boolValue = value;
         paramValue.paramType = BOOL;
+		paramValue.newFormat = newFormat;
 
         // Add the given parameter into the parameter list of the child element
         childParameters.insert ( Parameter ( paramName, paramValue ) );
@@ -289,7 +309,8 @@ namespace COLLADASW
         const String& childName,
         const String& paramName,
         double matrix[][4], 
-        const String &paramSid )
+        const String &paramSid,
+		bool newFormat)
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -302,13 +323,14 @@ namespace COLLADASW
         paramValue.sid = paramSid;
         paramValue.matrix = matrix;
         paramValue.paramType = MATRIX;
+		paramValue.newFormat = newFormat;
 
         // Add the given parameter into the parameter list of the child element
         childParameters.insert ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniques ( StreamWriter* streamWriter ) const
+	void BaseExtraTechnique::addExtraTechniques(StreamWriter* streamWriter) const
     {
         if ( !mExtraTechniques.empty() )
         {
@@ -333,7 +355,7 @@ namespace COLLADASW
                 streamWriter->appendTextBlock ( profile.mText );
 
                 // Write the parameters for the current profile
-                addTechniqueParameters ( colladaTechnique, profile.mParameters );
+				addTechniqueParameters(colladaTechnique, profile.mParameters);
 
                 // Write the child elements
                 const ChildElementsMap& childElements = profile.mChildElements;
@@ -343,7 +365,7 @@ namespace COLLADASW
                     const String childElementName = ( *childIt ).first;
                     colladaTechnique.addChildElement ( childElementName );
 
-                    addTechniqueParameters ( colladaTechnique, ( *childIt ).second );
+					addTechniqueParameters(colladaTechnique, (*childIt).second);
 
                     colladaTechnique.closeChildElement ( childElementName );
 
@@ -363,7 +385,7 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void BaseExtraTechnique::addTechniqueParameters ( 
         COLLADASW::Technique &colladaTechnique,
-        const Parameters &parameters ) const
+        const Parameters &parameters) const
     {
         Parameters::const_iterator paramsIt = parameters.begin();
         while ( paramsIt != parameters.end() )
@@ -376,23 +398,23 @@ namespace COLLADASW
             {
 
             case STRING:
-				colladaTechnique.addParameter(paramName, paramData.stringValue, paramData.sid, CSWC::VALUE_TYPE_STRING);
+				colladaTechnique.addParameter(paramName, paramData.stringValue, paramData.sid, CSWC::VALUE_TYPE_STRING, paramData.newFormat);
                 break;
 
             case INTEGER:
-				colladaTechnique.addParameter(paramName, paramData.integerValue, paramData.sid, CSWC::VALUE_TYPE_INTEGER);
+				colladaTechnique.addParameter(paramName, paramData.integerValue, paramData.sid, CSWC::VALUE_TYPE_INTEGER, paramData.newFormat);
                 break;
 
             case DOUBLE:
-				colladaTechnique.addParameter(paramName, paramData.doubleValue, paramData.sid, CSWC::VALUE_TYPE_DOUBLE);
+				colladaTechnique.addParameter(paramName, paramData.doubleValue, paramData.sid, CSWC::VALUE_TYPE_DOUBLE, paramData.newFormat);
                 break;
 
             case FLOAT:
-				colladaTechnique.addParameter(paramName, paramData.floatValue, paramData.sid, CSWC::VALUE_TYPE_FLOAT);
+				colladaTechnique.addParameter(paramName, paramData.floatValue, paramData.sid, CSWC::VALUE_TYPE_FLOAT, paramData.newFormat);
                 break;
 
             case BOOL:
-				colladaTechnique.addParameter(paramName, paramData.boolValue, paramData.sid, CSWC::VALUE_TYPE_BOOL);
+				colladaTechnique.addParameter(paramName, paramData.boolValue, paramData.sid, CSWC::VALUE_TYPE_BOOL, paramData.newFormat);
                 break;
             }
 

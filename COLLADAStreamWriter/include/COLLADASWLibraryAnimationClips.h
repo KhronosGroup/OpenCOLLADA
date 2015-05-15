@@ -13,6 +13,7 @@
 
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWLibrary.h"
+#include "COLLADASWExtraTechnique.h"
 #include <vector>
 
 namespace COLLADASW
@@ -21,7 +22,7 @@ namespace COLLADASW
     typedef std::vector<String> AnimationInstances;
 
 
-    class ColladaAnimationClip
+	class ColladaAnimationClip: public BaseExtraTechnique
     {
 
     public:
@@ -79,6 +80,16 @@ namespace COLLADASW
             return mInstancedAnimations;
         }
 
+		bool isAnimationEvent() const
+		{
+			return mIsAnimationEvent;
+		}
+
+		void setAnimationEvent(bool val)
+		{
+			mIsAnimationEvent = val;
+		}
+
     private:
 
         /** The id of the current animation clip. */
@@ -92,12 +103,15 @@ namespace COLLADASW
 
         /** The list of animations, which use this clip. */
         AnimationInstances mInstancedAnimations;
+		
+		/** Is this animation clip is used as EventAnimation*/
+		bool mIsAnimationEvent;
     };
 
 
     /** Class to simply the creation of @a \<library_images\> and @a \<images\>'s*/
 
-    class LibraryAnimationClips : public Library
+	class LibraryAnimationClips : public Library
     {
 
     public:
