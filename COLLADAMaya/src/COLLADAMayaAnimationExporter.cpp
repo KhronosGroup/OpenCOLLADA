@@ -2006,7 +2006,15 @@ namespace COLLADAMaya
                 AnimationClip* clip = new AnimationClip();
                 clip->colladaClip = new COLLADASW::ColladaAnimationClip ( clipName, startTime, endTime );
                 clip->characterNode = characterNode;
-                clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );
+
+				bool isEventAnimation = false;
+				DagHelper::getPlugValue(clipNode, ATTR_EVENT_ANIMATION, isEventAnimation);
+				clip->colladaClip->setAnimationEvent(isEventAnimation);
+				
+				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation, "", true);
+
+
+				clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );
 
                 mAnimationClips.push_back ( clip );
                 characterClips.push_back ( clip );

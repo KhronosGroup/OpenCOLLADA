@@ -62,6 +62,9 @@ namespace COLLADASW
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_URL, "#" + instanceName );
             mSW->closeElement();
         }
+		
+		if (animationClip.isAnimationEvent())
+			animationClip.addExtraTechniques(mSW);
 
         mSW->closeElement();
     }
