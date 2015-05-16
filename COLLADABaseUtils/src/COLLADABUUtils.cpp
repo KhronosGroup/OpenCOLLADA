@@ -278,7 +278,7 @@ namespace COLLADABU
 
 		WideString path = pathString;
 
-		if (path.back() != '/' && path.back() != '\\')
+		if (path[path.length()-1] != '/' && path[path.length()-1] != '\\')
 			path.push_back('\\');
 
 		std::list<WideString> paths;
@@ -321,7 +321,7 @@ namespace COLLADABU
 
 		String path = pathString;
 
-		if (path.back() != '/' && path.back() != '\\')
+		if (path[path.length()-1] != '/' && path[path.length()-1] != '\\')
 			path.push_back('\\');
 
 		std::list<String> paths;
