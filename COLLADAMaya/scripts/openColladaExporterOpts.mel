@@ -76,6 +76,13 @@ global proc int openColladaExporterOpts ( string $parent,
 							
 					checkBoxGrp
 							-l " "
+							-ncb 1
+							-v1 false
+							-l1 "Preserve source tree"
+							colladaPreserveSourceTree;
+							
+					checkBoxGrp
+							-l " "
 							-l1 "Triangulate"
 							-v1 false
 							colladaExportTriangles;
@@ -280,6 +287,11 @@ global proc int openColladaExporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v2 $intVal colladaRelativePaths;
 				}
+				else if ( $optionBreakDown[0] == "preserveSourceTree" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaPreserveSourceTree;
+				}
 				else if ( $optionBreakDown[0] == "exportTriangles" )
 				{
 					$intVal = $optionBreakDown[1];
@@ -446,6 +458,7 @@ global proc int openColladaExporterOpts ( string $parent,
 		$currentOptions = $currentOptions + "bakeTransforms=" + `checkBoxGrp -q -v1 colladaBakeTransforms` + ";";
 		$currentOptions = $currentOptions + "relativePaths=" + `checkBoxGrp -q -v1 colladaRelativePaths` + ";";
 		$currentOptions = $currentOptions + "copyTextures=" + `checkBoxGrp -q -v2 colladaRelativePaths` + ";";
+		$currentOptions = $currentOptions + "preserveSourceTree=" + `checkBoxGrp -q -v1 colladaPreserveSourceTree` + ";";
 		$currentOptions = $currentOptions + "exportTriangles=" + `checkBoxGrp -q -v1 colladaExportTriangles` + ";";
 		$currentOptions = $currentOptions + "cgfxFileReferences=" + `checkBoxGrp -q -v1 colladaCgfxFileReferences` + ";";
  		$currentOptions = $currentOptions + "isSampling=" + `checkBoxGrp -q -v1 colladaIsSampling` + ";";

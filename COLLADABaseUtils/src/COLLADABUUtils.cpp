@@ -13,6 +13,7 @@
 #include "COLLADABUPlatform.h"
 
 #include <string.h>
+#include <list>
 
 namespace COLLADABU
 {
@@ -264,6 +265,125 @@ namespace COLLADABU
             pathExists = mkdir(testPath, 0755) == false;
         }
         chdir( currentPath );
+#endif
+		return pathExists;
+	}
+
+#ifdef COLLADABU_OS_WIN
+	//--------------------------------
+	bool Utils::createDirectoryRecursive( const WideString &pathString )
+	{
+		if (pathString.length() == 0)
+			return false;
+
+		WideString path = pathString;
+
+		if (path.back() != '/' && path.back() != '\\')
+			path.push_back('\\');
+
+		std::list<WideString> paths;
+		size_t offset = WideString::npos;
+		while ((offset = pathString.find_last_of(L"/\\", offset)) != WideString::npos)
+		{
+			paths.push_front(pathString.substr(0, offset + 1));
+		}
+
+		bool pathExists = true;
+		const wchar_t* currentPath = _wgetcwd(0, 0);
+
+		for (std::list<WideString>::const_iterator iPath = paths.begin(); iPath != paths.end(); ++iPath)
+		{
+			// if path exists
+			if (_wchdir((*iPath).c_str()) == 0)
+				continue;
+
+			// path does not exist, try to create it
+			_wmkdir((*iPath).c_str());
+			
+			if (_wchdir((*iPath).c_str()) != 0)
+			{
+				pathExists = false;
+				break;
+			}
+		}
+
+		// Restore current path
+		_wchdir(currentPath);
+		return pathExists;
+	}
+#endif
+    
+	//--------------------------------
+	bool Utils::createDirectoryRecursive( const String &pathString )
+	{
+		if (pathString.length() == 0)
+			return false;
+
+		String path = pathString;
+
+		if (path.back() != '/' && path.back() != '\\')
+			path.push_back('\\');
+
+		std::list<String> paths;
+		size_t offset = String::npos;
+		while ((offset = pathString.find_last_of("/\\", offset)) != String::npos)
+		{
+			paths.push_front(pathString.substr(0, offset + 1));
+			--offset;
+		}
+
+		bool pathExists = true;
+
+		SystemType type = getSystemType();
+
+#ifdef COLLADABU_OS_WIN
+		if( type != WINDOWS )
+			return false;
+
+		const char* currentPath = _getcwd(0, 0);
+
+		for (std::list<String>::const_iterator iPath = paths.begin(); iPath != paths.end(); ++iPath)
+		{
+			// if path exists
+			if (_chdir((*iPath).c_str()) == 0)
+				continue;
+
+			// path does not exist, try to create it
+			_mkdir((*iPath).c_str());
+			
+			if (_chdir((*iPath).c_str()) != 0)
+			{
+				pathExists = false;
+				break;
+			}
+		}
+
+		// Restore current path
+		_chdir(currentPath);
+#else
+		if( type != POSIX )
+			return false;
+
+		const char* currentPath = getcwd(0, 0);
+
+		for (std::list<String>::const_iterator iPath = paths.begin(); iPath != paths.end(); ++iPath)
+		{
+			// if path exists
+			if (chdir((*iPath).c_str()) == 0)
+				continue;
+
+			// path does not exist, try to create it
+			mkdir((*iPath).c_str(), 0755);
+			
+			if (chdir((*iPath).c_str()) != 0)
+			{
+				pathExists = false;
+				break;
+			}
+		}
+
+		// Restore current path
+		chdir(currentPath);
 #endif
 		return pathExists;
 	}

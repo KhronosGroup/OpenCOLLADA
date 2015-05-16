@@ -43,6 +43,9 @@ namespace COLLADAMaya
         /** True, if we should write relative pathes to external file references. */
         static bool mRelativePaths;
 
+		/** True, if we should keep source files tree. */
+		static bool mPreserveSourceTree;
+
         /** True, if the texture files should be copied to the destination folder. */
         static bool mCopyTextures;
         static bool mExportTriangles;
@@ -110,6 +113,7 @@ namespace COLLADAMaya
         primitive collada transforms (e.g. translate, rotate, scale)? Default: FALSE */
         static bool bakeTransforms();
         static bool relativePaths();
+		static bool preserveSourceTree();
 
         /** True, if the texture files should be copied to the destination folder. */
         static bool copyTextures();
