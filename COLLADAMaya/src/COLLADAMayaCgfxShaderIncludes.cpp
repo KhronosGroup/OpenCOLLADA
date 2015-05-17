@@ -19,12 +19,19 @@
 # pragma warning(disable: 4312)
 #endif
 
+
 // make this compileable under linux
 #ifdef LINUX
 #   define RedHat8_
 #endif
 
+#if defined(WIN64) && MAYA_API_VERSION >= 201600 && !defined(WIN32)
+/* define WIN32 to work around CFGX WIN64 compilation */
+#define WIN32
+#endif
+
 #include "cgfxAttrDef.cpp"
+
 #if MAYA_API_VERSION > 800
 #include "cgfxEffectDef.cpp"
 /* We undef the macros defined "cgfxEffectDef.cpp" to avoid compiler warning in "cgfxShaderNode.cpp"*/
@@ -35,10 +42,15 @@
 #endif
 
 #endif // MAYA_API_VERSION > 800
+
 #include "cgfxFindImage.cpp"
+
 #include "cgfxShaderCmd.cpp"
+
 #include "cgfxShaderNode.cpp"
+
 #include "cgfxVector.cpp"
+
 #include "nv_dds.cpp"
 
 #if MAYA_API_VERSION >= 201200
@@ -49,7 +61,6 @@
 #if MAYA_API_VERSION >= 201300
 #include "cgfxTextureCache.cpp"
 #endif
-
 
 #ifdef _WIN32
 # pragma warning(default: 4312)

@@ -40,13 +40,13 @@ class MGLFunctionTable;
 #include <iostream>
 #include <map>
 //#include <hash_map>
-
 // Maya SDK
 #include <maya/MBoundingBox.h>
 #include <maya/MColor.h>
 #include <maya/MColorArray.h>
 #include <maya/MDagPath.h>
 #include <maya/MDagPathArray.h>
+
 #include <maya/MDistance.h>
 #include <maya/MEulerRotation.h>
 #include <maya/MFloatArray.h>
@@ -54,15 +54,18 @@ class MGLFunctionTable;
 #include <maya/MFloatVectorArray.h>
 #include <maya/MGlobal.h>
 #include <maya/MIntArray.h>
+
 #include <maya/MMatrix.h>
 #include <maya/MObject.h>
 #include <maya/MObjectArray.h>
 #include <maya/MPlug.h>
 #include <maya/MPlugArray.h>
+
 #include <maya/MPoint.h>
 #include <maya/MPointArray.h>
 #include <maya/MPxData.h>
 #include <maya/MQuaternion.h>
+
 #include <maya/MFnSet.h>
 #include <maya/MFnStringData.h>
 #include <maya/MStatus.h>
@@ -71,6 +74,7 @@ class MGLFunctionTable;
 #include <maya/MTime.h>
 #include <maya/MTimeArray.h>
 #include <maya/MVector.h>
+
 #include <maya/MVectorArray.h>
 
 // base utils
