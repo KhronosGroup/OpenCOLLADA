@@ -27,7 +27,13 @@
 #include "COLLADASWOpenGLConstants.h"
 #include "COLLADASWConstants.h"
 
+#if defined(WIN64) && MAYA_API_VERSION >= 201600 && !defined(WIN32)
+/* define WIN32 to work around CFGX WIN64 compilation */
+#define WIN32
+#endif
+
 #include "cgfxShaderNode.h"
+
 #include "cgfxFindImage.h"
 
 #include <assert.h>
