@@ -385,7 +385,6 @@ namespace COLLADAMaya
 		if (ExportOptions::preserveSourceTree())
 		{
 			// Get the URI of the Maya source file.
-			// TODO test quand scene pas sauvegardée
 			MString mayaSourceFile = MFileIO::currentFile();
 			COLLADASW::URI mayaSourceFileUri(COLLADASW::URI::nativePathToUri(mayaSourceFile.asChar()));
 			if (mayaSourceFileUri.getScheme().empty())
@@ -626,7 +625,6 @@ namespace COLLADAMaya
 			if (ExportOptions::preserveSourceTree())
 			{
 				// Get the URI of the Maya source file.
-				// TODO test quand scene pas sauvegardée
 				MString mayaSourceFile = MFileIO::currentFile();
 				COLLADASW::URI mayaSourceFileUri(COLLADASW::URI::nativePathToUri(mayaSourceFile.asChar()));
 				if (mayaSourceFileUri.getScheme().empty())
