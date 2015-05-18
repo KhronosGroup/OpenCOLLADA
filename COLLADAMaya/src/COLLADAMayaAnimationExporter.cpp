@@ -2013,7 +2013,7 @@ namespace COLLADAMaya
 				DagHelper::getPlugValue(clipNode, ATTR_EVENT_ANIMATION, isEventAnimation);
 				clip->colladaClip->setAnimationEvent(isEventAnimation);
 				
-				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation, "", COLLADASW::TagType::NEW_PARAM);
+				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation, "", COLLADASW::NEW_PARAM);
 
 
 				clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );

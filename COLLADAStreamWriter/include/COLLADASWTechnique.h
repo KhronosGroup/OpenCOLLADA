@@ -43,22 +43,22 @@ namespace COLLADASW
         void addValue ( const String& value );
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const String &value = "", const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
+		void addParameter(const String &paramName, const String &value = "", const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const int &value, const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
+		void addParameter(const String &paramName, const int &value, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const double &value, const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
+		void addParameter(const String &paramName, const double &value, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const float &value, const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
+		void addParameter(const String &paramName, const float &value, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const bool &value, const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
+		void addParameter(const String &paramName, const bool &value, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM) const;
+		void addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid = "", const String &type = "", TagType tagType = CUSTOM) const;
 
         /** Opens a tag with the given name and adds the TagCloser to the child element into a map */
         void addChildElement ( const String &childElementName );
