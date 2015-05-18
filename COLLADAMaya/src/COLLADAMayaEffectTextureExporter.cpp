@@ -27,6 +27,7 @@
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWLibraryImages.h"
 
+#include <maya/MFileIO.h>
 
 namespace COLLADAMaya
 {
@@ -337,7 +338,7 @@ namespace COLLADAMaya
                         // Note: some systems (window$) requires the string to be 
                         // enclosed in quotes when a space is present.
                         COLLADASW::URI targetPathUri ( targetUri.getPathDir() );
-						exists = COLLADABU::Utils::createDirectoryIfNeeded( targetPathUri.toNativePath() );
+						exists = COLLADABU::Utils::createDirectoryRecursive( targetPathUri.toNativePath() );
 
 						if( exists )
 						{
@@ -379,18 +380,62 @@ namespace COLLADAMaya
     // ------------------------------------------------------------
     COLLADASW::URI EffectTextureExporter::createTargetURI ( const COLLADASW::URI& sourceUri )
     {
-        // Target file
-        String targetFile = mDocumentExporter->getFilename();
-        COLLADASW::URI targetUri ( COLLADASW::URI::nativePathToUri ( targetFile ) );
-        const String& targetScheme = targetUri.getScheme ();
+		COLLADASW::URI targetUri;
 
-        // Get the pure file name of the source file and set 
-        // the source file name to the target path
-        targetUri.setPathFile ( sourceUri.getPathFile () );
-        if ( !targetScheme.empty () )
-            targetUri.setScheme ( targetScheme );
-        else
-            targetUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+		if (ExportOptions::preserveSourceTree())
+		{
+			// Get the URI of the Maya source file.
+			// TODO test quand scene pas sauvegardée
+			MString mayaSourceFile = MFileIO::currentFile();
+			COLLADASW::URI mayaSourceFileUri(COLLADASW::URI::nativePathToUri(mayaSourceFile.asChar()));
+			if (mayaSourceFileUri.getScheme().empty())
+				mayaSourceFileUri.setScheme(COLLADASW::URI::SCHEME_FILE);
+
+			// Get the URI of the texture source file.
+			bool success = true;
+			COLLADASW::URI targetTextureRelativeUri = sourceUri.getRelativeTo(mayaSourceFileUri, success);
+			if (!success)
+			{
+				String message = "Not able to generate a relative path from " 
+					+ mayaSourceFileUri.getURIString() + " to " + sourceUri.getURIString() 
+					+ ". An absolute path will be written! ";
+				MGlobal::displayError ( message.c_str() );
+				targetUri = sourceUri;
+			}
+			else
+			{
+				// Get the URI of the COLLADA file.
+				String targetColladaFile = mDocumentExporter->getFilename();
+				COLLADASW::URI targetColladaUri ( COLLADASW::URI::nativePathToUri ( targetColladaFile ) );
+				if ( targetColladaUri.getScheme ().empty () )
+					targetColladaUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+
+				COLLADASW::URI targetColladaDirUri(targetColladaUri.getPathDir());
+				targetColladaDirUri.setScheme(targetColladaUri.getScheme());
+
+				String pathDir = targetColladaDirUri.getPathDir() + targetTextureRelativeUri.getPathDir();
+				COLLADASW::URI::normalizeURIPath(const_cast<char*>(pathDir.c_str()));
+
+				targetUri = targetColladaDirUri;
+				targetUri.setPathDir(pathDir);
+				targetUri.setPathFile(sourceUri.getPathFile());
+			}
+		}
+		else
+		{
+            // Target file
+            String targetFile = mDocumentExporter->getFilename();
+            targetUri = COLLADASW::URI::nativePathToUri ( targetFile );
+            const String& targetScheme = targetUri.getScheme ();
+
+            // Get the pure file name of the source file and set 
+            // the source file name to the target path
+            targetUri.setPathFile ( sourceUri.getPathFile () );
+            if ( !targetScheme.empty () )
+                targetUri.setScheme ( targetScheme );
+            else
+                targetUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+		}
 
         // Generate the target file name
         return targetUri;
@@ -571,15 +616,35 @@ namespace COLLADAMaya
         const COLLADASW::URI &sourceUri, 
         COLLADASW::URI &fullFileNameURI )
     {
-        bool returnValue = true;
+        bool success = true;
 
         // Check if the file exist!
         String sourceUriString = sourceUri.toNativePath();
 
         if ( ExportOptions::relativePaths() )
         {
+			if (ExportOptions::preserveSourceTree())
+			{
+				// Get the URI of the Maya source file.
+				// TODO test quand scene pas sauvegardée
+				MString mayaSourceFile = MFileIO::currentFile();
+				COLLADASW::URI mayaSourceFileUri(COLLADASW::URI::nativePathToUri(mayaSourceFile.asChar()));
+				if (mayaSourceFileUri.getScheme().empty())
+					mayaSourceFileUri.setScheme(COLLADASW::URI::SCHEME_FILE);
+
+				// Get the URI of the texture source file.
+				fullFileNameURI = sourceUri.getRelativeTo(mayaSourceFileUri, success);
+				if (!success)
+				{
+					String message = "Not able to generate a relative path from " 
+						+ mayaSourceFileUri.getURIString() + " to " + sourceUri.getURIString() 
+						+ ". An absolute path will be written! ";
+					MGlobal::displayError ( message.c_str() );
+					fullFileNameURI = sourceUri;
+				}
+			}
             // Different filename and URI, if we copy the textures to the destination directory!
-            if ( ExportOptions::copyTextures() )
+            else if ( ExportOptions::copyTextures() )
             {
                 // Get the URI of the COLLADA file.
                 String targetColladaFile = mDocumentExporter->getFilename();
@@ -591,20 +656,15 @@ namespace COLLADAMaya
                 COLLADASW::URI textureUri = createTargetURI ( sourceUri );
 
                 // Get the texture URI relative to the COLLADA file URI.
-                bool success = false;
-                COLLADASW::URI targetUri = textureUri.getRelativeTo ( targetColladaUri, success );
+                fullFileNameURI = textureUri.getRelativeTo ( targetColladaUri, success );
                 if ( !success ) 
                 {
                     String message = "Not able to generate a relative path from " 
-                        + textureUri.getURIString() + " to " + targetColladaUri.getURIString() 
+                        + targetColladaUri.getURIString() + " to " + textureUri.getURIString() 
                         + ". An absolute path will be written! ";
                     MGlobal::displayError ( message.c_str() );
-                    targetUri = textureUri;
-                    returnValue = false;
+                    fullFileNameURI = textureUri;
                 }
-
-                // Get the file URI
-                fullFileNameURI = targetUri;
             }
             else
             {
@@ -615,32 +675,23 @@ namespace COLLADAMaya
                     targetColladaUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
 
                 // Get the texture URI relative to the COLLADA file URI.
-                bool success = false;
-                COLLADASW::URI targetUri = sourceUri.getRelativeTo ( targetColladaUri, success );
+                fullFileNameURI = sourceUri.getRelativeTo ( targetColladaUri, success );
                 if ( !success ) 
                 {
                     String message = "Not able to generate a relative path from " 
-                        + sourceUri.getURIString() + " to " + targetColladaUri.getURIString() 
+                        + targetColladaUri.getURIString() + " to " + sourceUri.getURIString() 
                         + ". An absolute path will be written! ";
                     MGlobal::displayError ( message.c_str() );
-                    targetUri = sourceUri;
-                    returnValue = false;
+                    fullFileNameURI = sourceUri;
                 }
-
-                // Get the file URI
-                fullFileNameURI = targetUri;
             }
         }
         else
         {
             // Different filename and URI, if we copy the textures to the destination directory!
-            if ( ExportOptions::copyTextures() )
+			if ( ExportOptions::copyTextures() || ExportOptions::preserveSourceTree() )
             {
-                // Get the texture URI relative to the COLLADA file URI.
-                COLLADASW::URI targetUri = createTargetURI ( sourceUri );
-
-                // Get the file URI
-                fullFileNameURI = targetUri;
+                fullFileNameURI = createTargetURI ( sourceUri );
             }
             else
             {
@@ -649,6 +700,6 @@ namespace COLLADAMaya
             }
         }
 
-        return returnValue;
+        return success;
     }
 }

@@ -171,6 +171,8 @@ namespace COLLADABU
 
 		static bool createDirectoryIfNeeded( const WideString &pathString );
 		static bool createDirectoryIfNeeded( const String &pathString );
+		static bool createDirectoryRecursive( const WideString &pathString );
+		static bool createDirectoryRecursive( const String &pathString );
 		static bool directoryExists( const WideString &pathString );
 		static bool directoryExists( const String &pathString );
 

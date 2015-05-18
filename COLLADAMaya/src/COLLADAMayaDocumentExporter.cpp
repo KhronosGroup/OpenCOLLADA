@@ -232,9 +232,10 @@ namespace COLLADAMaya
         asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();
 
         // comments
-        MString optstr = MString ( "\n\t\t\tColladaMaya export options: " )
-            + "\n\t\t\tbakeTransforms=" + ExportOptions::bakeTransforms() 
-            + ";relativePaths=" + ExportOptions::relativePaths() 
+		MString optstr = MString("\n\t\t\tColladaMaya export options: ")
+			+ "\n\t\t\tbakeTransforms=" + ExportOptions::bakeTransforms()
+			+ ";relativePaths=" + ExportOptions::relativePaths()
+			+ ";preserveSourceTree=" + ExportOptions::preserveSourceTree() 
             + ";copyTextures=" + ExportOptions::copyTextures() 
             + ";exportTriangles=" + ExportOptions::exportTriangles() 
             + ";exportCgfxFileReferences=" + ExportOptions::exportCgfxFileReferences() 

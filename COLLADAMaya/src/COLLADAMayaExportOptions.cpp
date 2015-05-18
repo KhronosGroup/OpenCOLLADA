@@ -25,6 +25,7 @@ namespace COLLADAMaya
 
     bool ExportOptions::mBakeTransforms = true;
     bool ExportOptions::mRelativePaths = true;
+	bool ExportOptions::mPreserveSourceTree = false;
     bool ExportOptions::mCopyTextures = false;
     bool ExportOptions::mExportPolygonMeshes = true;
     bool ExportOptions::mExportLights  = true;
@@ -60,6 +61,7 @@ namespace COLLADAMaya
         // Reset everything to the default value
         mBakeTransforms = false;
         mRelativePaths = true;
+		mPreserveSourceTree = false;
 
         /** True, if the texture files should be copied to the destination folder. */
         mCopyTextures = false;
@@ -121,6 +123,7 @@ namespace COLLADAMaya
                 // Process options.
                 if ( optionName == "bakeTransforms" ) mBakeTransforms = value;
                 else if ( optionName == "relativePaths" ) mRelativePaths = value;
+				else if ( optionName == "preserveSourceTree" ) mPreserveSourceTree = value;
                 else if ( optionName == "exportTriangles" ) mExportTriangles = value;
                 else if ( optionName == "cgfxFileReferences" ) mExportCgfxFileReferences = value;
                 else if ( optionName == "copyTextures" ) mCopyTextures = value;
@@ -192,6 +195,11 @@ namespace COLLADAMaya
     {
         return mRelativePaths;
     }
+
+	bool ExportOptions::preserveSourceTree()
+	{
+		return mPreserveSourceTree;
+	}
 
     bool ExportOptions::exportLights()
     {
