@@ -14,12 +14,13 @@
 
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
+#include "COLLADASWExtraTechnique.h"
 #include <map>
 
 namespace COLLADASW
 {
-
-    /** A class to add an asset to the stream*/
+	
+	/** A class to add an asset to the stream*/
     class Technique : public ElementWriter
     {
 
@@ -42,22 +43,22 @@ namespace COLLADASW
         void addValue ( const String& value );
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const String &value = "", const String &sid = "", const String &type = "", bool useNewFormat = false);
+		void addParameter(const String &paramName, const String &value = "", const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const int &value, const String &sid = "", const String &type = "", bool useNewFormat = false);
+		void addParameter(const String &paramName, const int &value, const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const double &value, const String &sid = "", const String &type = "", bool useNewFormat = false);
+		void addParameter(const String &paramName, const double &value, const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const float &value, const String &sid = "", const String &type = "", bool useNewFormat = false);
+		void addParameter(const String &paramName, const float &value, const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const bool &value, const String &sid = "", const String &type = "", bool useNewFormat = false);
+		void addParameter(const String &paramName, const bool &value, const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM);
 
         /** Adds a parameter to the technique */
-		void addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid = "", bool useNewFormat = false) const;
+		void addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid = "", const String &type = "", TagType tagType = TagType::CUSTOM) const;
 
         /** Opens a tag with the given name and adds the TagCloser to the child element into a map */
         void addChildElement ( const String &childElementName );

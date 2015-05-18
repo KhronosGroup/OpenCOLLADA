@@ -53,158 +53,226 @@ namespace COLLADASW
 
 
 	//---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const String &value, const String &sid, const String &type, bool useNewFormat)
+	void Technique::addParameter(const String &paramName, const String &value, const String &sid, const String &type, TagType tagType)
     {
-		if (useNewFormat)
+		switch (tagType)
 		{
-			NewParamString newParam(mSW);
+			case CUSTOM:
+			{
+				mSW->openElement(paramName);
 
-			newParam.openParam(paramName);
-			newParam.appendValues(value);
+				if (!sid.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
 
-			newParam.closeParam();
-		}
-		else
-		{
-			mSW->openElement(paramName);
+				if (!type.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
 
-			if (!sid.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+				mSW->appendValues(value);
+				mSW->closeElement();
+			}
+			break;
 
-			if (!type.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+			case NEW_PARAM:
+			{
+				NewParamString newParam(mSW);
 
-			if (!value.empty())
-				mSW->appendText(value);
+				newParam.openParam(paramName);
+				newParam.appendValues(value);
 
-			mSW->closeElement();
+				newParam.closeParam();
+			}
+			break;
+
+			default:
+				break;
 		}
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const bool &value, const String &sid, const String &type, bool useNewFormat)
+	void Technique::addParameter(const String &paramName, const bool &value, const String &sid, const String &type, TagType tagType)
     {
-		if (useNewFormat)
+		switch (tagType)
 		{
-			NewParamBool newParam(mSW);
+			case CUSTOM:
+			{
+				mSW->openElement(paramName);
 
-			newParam.openParam(paramName);
-			newParam.appendValues(value);
+				if (!sid.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
 
-			newParam.closeParam();
-		}
-		else
-		{
-			mSW->openElement(paramName);
+				if (!type.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
 
-			if (!sid.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+				mSW->appendValues(value);
+				mSW->closeElement();
+			}
+			break;
 
-			if (!type.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+			case NEW_PARAM:
+			{
+				NewParamBool newParam(mSW);
 
-			mSW->appendValues(value);
-			mSW->closeElement();
+				newParam.openParam(paramName);
+				newParam.appendValues(value);
+
+				newParam.closeParam();
+			}
+			break;
+
+			default:
+				break;
 		}
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const int &value, const String &sid, const String &type, bool useNewFormat)
+	void Technique::addParameter(const String &paramName, const int &value, const String &sid, const String &type, TagType tagType)
     {
-		if (useNewFormat)
+		switch (tagType)
 		{
-			NewParamInt newParam(mSW);
+			case CUSTOM:
+			{
+				mSW->openElement(paramName);
 
-			newParam.openParam(paramName);
-			newParam.appendValues(value);
+				if (!sid.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
 
-			newParam.closeParam();
-		}
-		else
-		{
+				if (!type.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
 
-			mSW->openElement(paramName);
+				mSW->appendValues(value);
+				mSW->closeElement();
+			}
+			break;
 
-			if (!sid.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+			case NEW_PARAM:
+			{
+				NewParamInt newParam(mSW);
 
-			if (!type.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+				newParam.openParam(paramName);
+				newParam.appendValues(value);
 
-			mSW->appendValues(value);
-			mSW->closeElement();
+				newParam.closeParam();
+			}
+			break;
+
+			default:
+				break;
 		}
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const double &value, const String &sid, const String &type, bool useNewFormat)
+	void Technique::addParameter(const String &paramName, const double &value, const String &sid, const String &type, TagType tagType)
     {
-		if (useNewFormat)
+		switch (tagType)
 		{
-			NewParamDouble newParam(mSW);
+			case CUSTOM:
+			{
+				mSW->openElement(paramName);
 
-			newParam.openParam(paramName);
-			newParam.appendValues(value);
+				if (!sid.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
 
-			newParam.closeParam();
-		}
-		else
-		{
+				if (!type.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
 
-			mSW->openElement(paramName);
+				mSW->appendValues(value);
+				mSW->closeElement();
+			}
+			break;
 
-			if (!sid.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+			case NEW_PARAM:
+			{
+				NewParamDouble newParam(mSW);
 
-			if (!type.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+				newParam.openParam(paramName);
+				newParam.appendValues(value);
 
-			mSW->appendValues(value);
-			mSW->closeElement();
+				newParam.closeParam();
+			}
+			break;
+
+			default:
+				break;
 		}
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const float &value, const String &sid, const String &type, bool useNewFormat)
+	void Technique::addParameter(const String &paramName, const float &value, const String &sid, const String &type, TagType tagType)
     {
-		if (useNewFormat)
+		switch (tagType)
 		{
-			NewParamFloat newParam(mSW);
+			case CUSTOM:
+			{
+				mSW->openElement(paramName);
 
-			newParam.openParam(paramName);
-			newParam.appendValues(value);
+				if (!sid.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
 
-			newParam.closeParam();
-		}
-		else
-		{
+				if (!type.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
 
-			mSW->openElement(paramName);
+				mSW->appendValues(value);
+				mSW->closeElement();
+			}
+			break;
 
-			if (!sid.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+			case NEW_PARAM:
+			{
+				NewParamFloat newParam(mSW);
 
-			if (!type.empty())
-				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+				newParam.openParam(paramName);
+				newParam.appendValues(value);
 
-			mSW->appendValues(value);
-			mSW->closeElement();
+				newParam.closeParam();
+			}
+			break;
+
+			default:
+				break;
 		}
     }
 
     //---------------------------------------------------------------
-	void Technique::addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid, bool useNewFormat) const
+	void Technique::addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid, const String &type, TagType tagType) const
     {
-        mSW->openElement ( paramName );
+		switch (tagType)
+		{
+			case CUSTOM:
+			{
+				mSW->openElement(paramName);
 
-        if ( !sid.empty() )
-            mSW->appendAttribute( CSWC::CSW_ATTRIBUTE_SID, sid );
+				if (!sid.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
 
-        mSW->appendValues ( matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3] );
-        mSW->appendValues ( matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3] );
-        mSW->appendValues ( matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3] );
-        mSW->appendValues ( matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3] );
-        mSW->closeElement();
+				if (!type.empty())
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+
+				mSW->appendValues(matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3]);
+				mSW->appendValues(matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3]);
+				mSW->appendValues(matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3]);
+				mSW->appendValues(matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
+				mSW->closeElement();
+			}
+			break;
+			
+			case NEW_PARAM:
+			{
+				NewParamFloat4x4 newParam(mSW);
+
+				newParam.openParam(paramName);
+
+				newParam.appendValues(matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3]);
+				newParam.appendValues(matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3]);
+				newParam.appendValues(matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3]);
+				newParam.appendValues(matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
+
+				newParam.closeParam();
+			}
+			break;
+
+			default:
+				break;
+		}
     }
 
     //---------------------------------------------------------------

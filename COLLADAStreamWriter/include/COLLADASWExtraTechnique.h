@@ -13,11 +13,17 @@
 
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
+#include "COLLADASWTagType.h"
 #include "COLLADASWTechnique.h"
 #include <map>
 
+
+
 namespace COLLADASW
 {
+
+	class Technique;
+
     //---------------------------------------------------------------
     /** The different parameter types. */
     enum ParamType
@@ -30,12 +36,15 @@ namespace COLLADASW
         MATRIX
     };
 
+	
+	
+
     //---------------------------------------------------------------
     /** Structure with the parameter value. */
 
-    struct ParamData
+	struct ParamData
     {
-        String sid;
+		String sid;
 
         String stringValue;
         int integerValue;
@@ -45,8 +54,9 @@ namespace COLLADASW
         double ( *matrix ) [4];
 
         ParamType paramType;
-		bool newFormat;
-    };
+		TagType tagType;
+
+	};
 
 
     //---------------------------------------------------------------
@@ -120,19 +130,19 @@ namespace COLLADASW
         * Creates an extra and a technique tag with the profile name (if not already exist)
         * and writes the given parameter in the tags.
         */
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const String &value = "", const String &paramSid = "", bool newFormat = false);
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value, const String &paramSid = "", bool newFormat = false);
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value, const String &paramSid = "", bool newFormat = false);
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value, const String &paramSid = "", bool newFormat = false);
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const bool &value, const String &paramSid = "", bool newFormat = false);
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const String &value = "", const String &paramSid = "", TagType type = TagType::CUSTOM);
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value, const String &paramSid = "", TagType type = TagType::CUSTOM);
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value, const String &paramSid = "", TagType type = TagType::CUSTOM);
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value, const String &paramSid = "", TagType type = TagType::CUSTOM);
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const bool &value, const String &paramSid = "", TagType type = TagType::CUSTOM);
 
         /** Adds a child element under the given profile. */
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const String &value = "", const String &paramSid = "", bool newFormat = false);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const int &value, const String &paramSid = "", bool newFormat = false);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const double &value, const String &paramSid = "", bool newFormat = false);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const float &value, const String &paramSid = "", bool newFormat = false);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const bool &value, const String &paramSid = "", bool newFormat = false);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String &paramSid = "", bool newFormat = false);
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const String &value = "", const String &paramSid = "", TagType type = TagType::CUSTOM);
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const int &value, const String &paramSid = "", TagType type = TagType::CUSTOM);
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const double &value, const String &paramSid = "", TagType type = TagType::CUSTOM);
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const float &value, const String &paramSid = "", TagType type = TagType::CUSTOM);
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const bool &value, const String &paramSid = "", TagType type = TagType::CUSTOM);
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String &paramSid = "", TagType type = TagType::CUSTOM);
 
         /** Writes the extra techniques of the texture in the COLLADASW file. */
 		void addExtraTechniques(StreamWriter* streamWriter) const;

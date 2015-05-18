@@ -23,6 +23,7 @@
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaVisualSceneExporter.h"
 
+
 #include <maya/MFnDependencyNode.h>
 #include <maya/MFnDagNode.h>
 #include <maya/MPlug.h>
@@ -33,6 +34,7 @@
 #include "COLLADASWSource.h"
 #include "COLLADASWExtraTechnique.h"
 #include "COLLADASWLibraryAnimationClips.h"
+#include "COLLADASWTagType.h"
 
 #include "Math/COLLADABUMathUtils.h"
 
@@ -2011,7 +2013,7 @@ namespace COLLADAMaya
 				DagHelper::getPlugValue(clipNode, ATTR_EVENT_ANIMATION, isEventAnimation);
 				clip->colladaClip->setAnimationEvent(isEventAnimation);
 				
-				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation, "", true);
+				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation, "", COLLADASW::TagType::NEW_PARAM);
 
 
 				clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );

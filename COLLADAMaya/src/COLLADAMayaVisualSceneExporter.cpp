@@ -51,6 +51,7 @@
 #include "COLLADASWInstanceCamera.h"
 #include "COLLADASWInstanceNode.h"
 #include "COLLADASWConstants.h"
+#include "COLLADASWExtraTechnique.h"
 
 #include "Math/COLLADABUMathUtils.h"
 
@@ -1119,7 +1120,7 @@ namespace COLLADAMaya
 			
 			virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", true);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::TagType::NEW_PARAM);
 				return MS::kSuccess;
 			}
 
@@ -1137,7 +1138,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onShort(MPlug & plug, const MString & name, short value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", true);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::TagType::NEW_PARAM);
 				return MS::kSuccess;
 			}
 
@@ -1155,7 +1156,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onLong(MPlug & plug, const MString & name, int value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", true);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::TagType::NEW_PARAM);
 				return MS::kSuccess;
 			}
 
@@ -1173,7 +1174,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onFloat(MPlug & plug, const MString & name, float value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", true);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::TagType::NEW_PARAM);
 				return MS::kSuccess;
 			}
 
@@ -1191,7 +1192,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onDouble(MPlug & plug, const MString & name, double value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", true);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::TagType::NEW_PARAM);
 				return MS::kSuccess;
 			}
 
@@ -1215,7 +1216,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onString(MPlug & plug, const MString & name, const MString & value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), String(value.asChar()), "", true);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), String(value.asChar()), "", COLLADASW::TagType::NEW_PARAM);
 				return MS::kSuccess;
 			}
 		};
