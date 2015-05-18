@@ -480,7 +480,7 @@ namespace COLLADAMaya
 	static void searchAndUpdate(SceneElement* sceneElement, MDagPath& ChildPath, bool result, bool needExport)
 	{
 
-		if (sceneElement->getType() == SceneElement::Type::TRANSFORM && sceneElement->getPath() == ChildPath)
+		if (sceneElement->getType() == SceneElement::TRANSFORM && sceneElement->getPath() == ChildPath)
 		{
 			if (!result)
 				sceneElement->setIsPhysicNode(true);

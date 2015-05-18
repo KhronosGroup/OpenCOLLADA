@@ -392,11 +392,11 @@ namespace COLLADAMaya
 		{
 			if (node.hasFn(MFn::kMesh))
 			{
-				if (shape == PhysicsExporter::collisionShape::Box ||
-					shape == PhysicsExporter::collisionShape::Capsule)
+				if (shape == PhysicsExporter::Box ||
+					shape == PhysicsExporter::Capsule)
 					return false;
-				else if (shape == PhysicsExporter::collisionShape::Mesh ||
-					shape == PhysicsExporter::collisionShape::Convex_mesh)
+				else if (shape == PhysicsExporter::Mesh ||
+					shape == PhysicsExporter::Convex_mesh)
 					return true;
 			}
 		}
