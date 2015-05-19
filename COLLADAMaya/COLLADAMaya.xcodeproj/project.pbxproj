@@ -4319,7 +4319,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2008;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Debug 2008";
@@ -4331,7 +4333,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2008;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Release 2008";
@@ -4343,7 +4347,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2012;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Release 2012";
@@ -4537,6 +4543,405 @@
 			};
 			name = "Release 2012";
 		};
+		323857BF1B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MAYA_PATH = /Applications/Autodesk/maya2015;
+				New_Setting = "";
+				SDKROOT = macosx10.9;
+			};
+			name = "Debug 2016";
+		};
+		323857C01B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_EXTENSION = bundle;
+				FRAMEWORK_SEARCH_PATHS = "\"$(MAYA_PATH)/Maya.app/Contents/Frameworks\"";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CREATE_IMPORT_PLUGIN,
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					GLUT_NO_LIB_PRAGMA,
+					CM_EXPORTS,
+					GLUT_NO_WARNING_DISABLE,
+					_CRT_NONSTDC_NO_DEPRECATE,
+					DEBUG,
+					_BOOL,
+				);
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../Externals/MayaDataModel/include,
+					"$(MAYA_PATH)/devkit/plug-ins",
+					"$(MAYA_PATH)/devkit/include",
+					"$(MAYA_PATH)/devkit/plug-ins/cgFx",
+				);
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2014/plug-ins";
+				LIBRARY_SEARCH_PATHS = "$(MAYA_PATH)/Maya.app/Contents/MacOS";
+				MACH_O_TYPE = mh_dylib;
+				MAYA_PATH = /Applications/Autodesk/maya2015;
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_PATH)/Maya.app/Contents/MacOS",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-lOpenMayaUI",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lCOLLADAStreamWriter",
+					"-lCOLLADABaseUtils",
+					"-lCOLLADAFramework",
+					"-lCOLLADASaxFrameworkLoader",
+					"-lGeneratedSaxParser",
+					"-llibftoa",
+					"-llibBuffer",
+					"-ldae2ma",
+					"-lpcre",
+					"-lMathMLSolver",
+					"-lxml2",
+					"-shared",
+					"-framework",
+					Cg,
+				);
+				PRODUCT_NAME = COLLADAMaya;
+			};
+			name = "Debug 2016";
+		};
+		323857C11B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					DEBUG,
+				);
+				HEADER_SEARCH_PATHS = ../COLLADABaseUtils/include;
+				PRODUCT_NAME = COLLADAStreamWriter;
+			};
+			name = "Debug 2016";
+		};
+		323857C21B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					REQUIRE_IOSTREAM,
+					DEBUG,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../Externals/UTF/include,
+					../COLLADABaseUtils/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = COLLADABaseUtils;
+			};
+			name = "Debug 2016";
+		};
+		323857C31B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				PRODUCT_NAME = GeneratedSaxParser;
+			};
+			name = "Debug 2016";
+		};
+		323857C41B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../COLLADABaseUtils/include\"";
+				PRODUCT_NAME = COLLADAFramework;
+			};
+			name = "Debug 2016";
+		};
+		323857C51B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					_DEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include/,
+					/usr/include/libxml2,
+				);
+				PRODUCT_NAME = COLLADASaxFrameworkLoader;
+			};
+			name = "Debug 2016";
+		};
+		323857C61B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Debug 2016";
+		};
+		323857C71B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = "Debug 2016";
+		};
+		323857C81B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = libftoa;
+			};
+			name = "Debug 2016";
+		};
+		323857C91B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					../common/libftoa/include,
+					../Externals/UTF/include,
+				);
+				PRODUCT_NAME = libBuffer;
+			};
+			name = "Debug 2016";
+		};
+		323857CA1B09C04000571BB2 /* Debug 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					MAC_PLUGIN,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADASaxFrameworkLoader/include,
+					"\"$(SRCROOT)/../Externals/MayaDataModel/include/\"",
+				);
+				PRODUCT_NAME = dae2ma;
+			};
+			name = "Debug 2016";
+		};
+		323857CB1B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MAYA_PATH = /Applications/Autodesk/maya2016;
+				New_Setting = "";
+				SDKROOT = macosx10.9;
+			};
+			name = "Release 2016";
+		};
+		323857CC1B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_EXTENSION = bundle;
+				FRAMEWORK_SEARCH_PATHS = "\"$(MAYA_PATH)/Maya.app/Contents/Frameworks\"";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CREATE_IMPORT_PLUGIN,
+					MAC_PLUGIN,
+					NDEBUG,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					GLUT_NO_LIB_PRAGMA,
+					CM_EXPORTS,
+					GLUT_NO_WARNING_DISABLE,
+					_CRT_NONSTDC_NO_DEPRECATE,
+					_BOOL,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../Externals/MayaDataModel/include,
+					"$(MAYA_PATH)/devkit/plug-ins",
+					"$(MAYA_PATH)/devkit/include",
+					"$(MAYA_PATH)/devkit/plug-ins/cgFx",
+				);
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2015/plug-ins";
+				LIBRARY_SEARCH_PATHS = "$(MAYA_PATH)/Maya.app/Contents/MacOS";
+				MACH_O_TYPE = mh_dylib;
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_PATH)/Maya.app/Contents/MacOS",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-lOpenMayaUI",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lCOLLADAStreamWriter",
+					"-lCOLLADABaseUtils",
+					"-lCOLLADAFramework",
+					"-lCOLLADASaxFrameworkLoader",
+					"-lGeneratedSaxParser",
+					"-llibftoa",
+					"-llibBuffer",
+					"-ldae2ma",
+					"-lpcre",
+					"-lMathMLSolver",
+					"-lxml2",
+					"-shared",
+					"-framework",
+					Cg,
+				);
+				PRODUCT_NAME = COLLADAMaya;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = "Release 2016";
+		};
+		323857CD1B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+				);
+				HEADER_SEARCH_PATHS = ../COLLADABaseUtils/include;
+				PRODUCT_NAME = COLLADAStreamWriter;
+			};
+			name = "Release 2016";
+		};
+		323857CE1B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../Externals/UTF/include,
+					../COLLADABaseUtils/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = COLLADABaseUtils;
+			};
+			name = "Release 2016";
+		};
+		323857CF1B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				PRODUCT_NAME = GeneratedSaxParser;
+			};
+			name = "Release 2016";
+		};
+		323857D01B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../COLLADABaseUtils/include\"";
+				PRODUCT_NAME = COLLADAFramework;
+			};
+			name = "Release 2016";
+		};
+		323857D11B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include/,
+					/usr/include/libxml2,
+				);
+				PRODUCT_NAME = COLLADASaxFrameworkLoader;
+			};
+			name = "Release 2016";
+		};
+		323857D21B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Release 2016";
+		};
+		323857D31B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = "Release 2016";
+		};
+		323857D41B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = libftoa;
+			};
+			name = "Release 2016";
+		};
+		323857D51B09C04A00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					../common/libftoa/include,
+					../Externals/UTF/include,
+				);
+				PRODUCT_NAME = libBuffer;
+			};
+			name = "Release 2016";
+		};
+		323857D61B09C04B00571BB2 /* Release 2016 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					MAC_PLUGIN,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADASaxFrameworkLoader/include,
+					"\"$(SRCROOT)/../Externals/MayaDataModel/include/\"",
+				);
+				PRODUCT_NAME = dae2ma;
+			};
+			name = "Release 2016";
+		};
 		A3ED9FE417A63E660036CBBF /* Debug 2014 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4544,7 +4949,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2014;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Debug 2014";
@@ -4736,7 +5143,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2014;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Release 2014";
@@ -4938,8 +5347,10 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				MAYA_PATH = /Applications/Autodesk/maya2014;
-				SDKROOT = macosx;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MAYA_PATH = /Applications/Autodesk/maya2015;
+				New_Setting = "";
+				SDKROOT = macosx10.9;
 			};
 			name = "Debug 2015";
 		};
@@ -5131,8 +5542,10 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2015;
-				SDKROOT = macosx;
+				New_Setting = "";
+				SDKROOT = macosx10.9;
 			};
 			name = "Release 2015";
 		};
@@ -5725,7 +6138,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2010;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Debug 2010";
@@ -5878,7 +6293,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2010;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Release 2010";
@@ -6205,7 +6622,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2009;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Debug 2009";
@@ -6288,7 +6707,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2009;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Release 2009";
@@ -6371,7 +6792,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2013;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Release 2013";
@@ -6572,7 +6995,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2011;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Release 2011";
@@ -6776,7 +7201,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2011;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Debug 2011";
@@ -6967,7 +7394,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2012;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Debug 2012";
@@ -7158,7 +7587,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MAYA_PATH = /Applications/Autodesk/maya2013;
+				New_Setting = "";
 				SDKROOT = macosx;
 			};
 			name = "Debug 2013";
@@ -7356,6 +7787,7 @@
 				CEACFB8616D52479004EA121 /* Debug 2013 */,
 				A3ED9FE517A63E660036CBBF /* Debug 2014 */,
 				A5155DFE19F7881600D5D4DC /* Debug 2015 */,
+				323857C01B09C04000571BB2 /* Debug 2016 */,
 				1DEB916208733D950010E9CD /* Release 2008 */,
 				CE84B3340E9F96D600728F47 /* Release 2009 */,
 				CE7456E5104CF660000083A6 /* Release 2010 */,
@@ -7364,6 +7796,7 @@
 				CEACFB5616D52459004EA121 /* Release 2013 */,
 				A3ED9FF117A63E6F0036CBBF /* Release 2014 */,
 				A5155E0A19F7881D00D5D4DC /* Release 2015 */,
+				323857CC1B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7379,6 +7812,7 @@
 				CEACFB8516D52479004EA121 /* Debug 2013 */,
 				A3ED9FE417A63E660036CBBF /* Debug 2014 */,
 				A5155DFD19F7881600D5D4DC /* Debug 2015 */,
+				323857BF1B09C04000571BB2 /* Debug 2016 */,
 				1DEB916608733D950010E9CD /* Release 2008 */,
 				CE84B3330E9F96D600728F47 /* Release 2009 */,
 				CE7456E4104CF660000083A6 /* Release 2010 */,
@@ -7387,6 +7821,7 @@
 				CEACFB5516D52459004EA121 /* Release 2013 */,
 				A3ED9FF017A63E6F0036CBBF /* Release 2014 */,
 				A5155E0919F7881D00D5D4DC /* Release 2015 */,
+				323857CB1B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7402,6 +7837,7 @@
 				CEACFB8816D52479004EA121 /* Debug 2013 */,
 				A3ED9FE717A63E660036CBBF /* Debug 2014 */,
 				A5155E0019F7881600D5D4DC /* Debug 2015 */,
+				323857C21B09C04000571BB2 /* Debug 2016 */,
 				CE0B3F530F56B194004F8570 /* Release 2008 */,
 				CE0B3F540F56B194004F8570 /* Release 2009 */,
 				CE7456E7104CF660000083A6 /* Release 2010 */,
@@ -7410,6 +7846,7 @@
 				CEACFB5816D52459004EA121 /* Release 2013 */,
 				A3ED9FF317A63E6F0036CBBF /* Release 2014 */,
 				A5155E0C19F7881D00D5D4DC /* Release 2015 */,
+				323857CE1B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7425,6 +7862,7 @@
 				CEACFB8C16D52479004EA121 /* Debug 2013 */,
 				A3ED9FEB17A63E660036CBBF /* Debug 2014 */,
 				A5155E0419F7881600D5D4DC /* Debug 2015 */,
+				323857C61B09C04000571BB2 /* Debug 2016 */,
 				CE3E667E0FD54A21003D1AD2 /* Release 2008 */,
 				CE3E667F0FD54A21003D1AD2 /* Release 2009 */,
 				CE7456EB104CF660000083A6 /* Release 2010 */,
@@ -7433,6 +7871,7 @@
 				CEACFB5C16D52459004EA121 /* Release 2013 */,
 				A3ED9FF717A63E6F0036CBBF /* Release 2014 */,
 				A5155E1019F7881D00D5D4DC /* Release 2015 */,
+				323857D21B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7448,6 +7887,7 @@
 				CEACFB8716D52479004EA121 /* Debug 2013 */,
 				A3ED9FE617A63E660036CBBF /* Debug 2014 */,
 				A5155DFF19F7881600D5D4DC /* Debug 2015 */,
+				323857C11B09C04000571BB2 /* Debug 2016 */,
 				CE6095230E93CD6C007F776B /* Release 2008 */,
 				CE84B3350E9F96D600728F47 /* Release 2009 */,
 				CE7456E6104CF660000083A6 /* Release 2010 */,
@@ -7456,6 +7896,7 @@
 				CEACFB5716D52459004EA121 /* Release 2013 */,
 				A3ED9FF217A63E6F0036CBBF /* Release 2014 */,
 				A5155E0B19F7881D00D5D4DC /* Release 2015 */,
+				323857CD1B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7471,6 +7912,7 @@
 				CEACFB8D16D52479004EA121 /* Debug 2013 */,
 				A3ED9FEC17A63E660036CBBF /* Debug 2014 */,
 				A5155E0519F7881600D5D4DC /* Debug 2015 */,
+				323857C71B09C04000571BB2 /* Debug 2016 */,
 				CE615FD31020DBF600481492 /* Release 2008 */,
 				CE615FD41020DBF600481492 /* Release 2009 */,
 				CE7456EC104CF660000083A6 /* Release 2010 */,
@@ -7479,6 +7921,7 @@
 				CEACFB5D16D52459004EA121 /* Release 2013 */,
 				A3ED9FF817A63E6F0036CBBF /* Release 2014 */,
 				A5155E1119F7881D00D5D4DC /* Release 2015 */,
+				323857D31B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7494,6 +7937,7 @@
 				CEACFB8E16D52479004EA121 /* Debug 2013 */,
 				A3ED9FED17A63E660036CBBF /* Debug 2014 */,
 				A5155E0619F7881600D5D4DC /* Debug 2015 */,
+				323857C81B09C04000571BB2 /* Debug 2016 */,
 				CE728FE010AC6D5200AE5662 /* Release 2008 */,
 				CE728FE110AC6D5200AE5662 /* Release 2009 */,
 				CE728FE210AC6D5200AE5662 /* Release 2010 */,
@@ -7502,6 +7946,7 @@
 				CEACFB5E16D52459004EA121 /* Release 2013 */,
 				A3ED9FF917A63E6F0036CBBF /* Release 2014 */,
 				A5155E1219F7881D00D5D4DC /* Release 2015 */,
+				323857D41B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7517,6 +7962,7 @@
 				CEACFB8F16D52479004EA121 /* Debug 2013 */,
 				A3ED9FEE17A63E660036CBBF /* Debug 2014 */,
 				A5155E0719F7881600D5D4DC /* Debug 2015 */,
+				323857C91B09C04000571BB2 /* Debug 2016 */,
 				CE728FEB10AC6D7A00AE5662 /* Release 2008 */,
 				CE728FEC10AC6D7A00AE5662 /* Release 2009 */,
 				CE728FED10AC6D7A00AE5662 /* Release 2010 */,
@@ -7525,6 +7971,7 @@
 				CEACFB5F16D52459004EA121 /* Release 2013 */,
 				A3ED9FFA17A63E6F0036CBBF /* Release 2014 */,
 				A5155E1319F7881D00D5D4DC /* Release 2015 */,
+				323857D51B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7540,6 +7987,7 @@
 				CEACFB9016D52479004EA121 /* Debug 2013 */,
 				A3ED9FEF17A63E660036CBBF /* Debug 2014 */,
 				A5155E0819F7881600D5D4DC /* Debug 2015 */,
+				323857CA1B09C04000571BB2 /* Debug 2016 */,
 				CE728FFC10AC6E1F00AE5662 /* Release 2008 */,
 				CE728FFD10AC6E1F00AE5662 /* Release 2009 */,
 				CE728FFE10AC6E1F00AE5662 /* Release 2010 */,
@@ -7548,6 +7996,7 @@
 				CEACFB6016D52459004EA121 /* Release 2013 */,
 				A3ED9FFB17A63E6F0036CBBF /* Release 2014 */,
 				A5155E1419F7881D00D5D4DC /* Release 2015 */,
+				323857D61B09C04B00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7563,6 +8012,7 @@
 				CEACFB8916D52479004EA121 /* Debug 2013 */,
 				A3ED9FE817A63E660036CBBF /* Debug 2014 */,
 				A5155E0119F7881600D5D4DC /* Debug 2015 */,
+				323857C31B09C04000571BB2 /* Debug 2016 */,
 				CE787BD00F583F360019C2D7 /* Release 2008 */,
 				CE787BD10F583F360019C2D7 /* Release 2009 */,
 				CE7456E8104CF660000083A6 /* Release 2010 */,
@@ -7571,6 +8021,7 @@
 				CEACFB5916D52459004EA121 /* Release 2013 */,
 				A3ED9FF417A63E6F0036CBBF /* Release 2014 */,
 				A5155E0D19F7881D00D5D4DC /* Release 2015 */,
+				323857CF1B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7586,6 +8037,7 @@
 				CEACFB8A16D52479004EA121 /* Debug 2013 */,
 				A3ED9FE917A63E660036CBBF /* Debug 2014 */,
 				A5155E0219F7881600D5D4DC /* Debug 2015 */,
+				323857C41B09C04000571BB2 /* Debug 2016 */,
 				CE787C040F583FC90019C2D7 /* Release 2008 */,
 				CE787C050F583FC90019C2D7 /* Release 2009 */,
 				CE7456E9104CF660000083A6 /* Release 2010 */,
@@ -7594,6 +8046,7 @@
 				CEACFB5A16D52459004EA121 /* Release 2013 */,
 				A3ED9FF517A63E6F0036CBBF /* Release 2014 */,
 				A5155E0E19F7881D00D5D4DC /* Release 2015 */,
+				323857D01B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7609,6 +8062,7 @@
 				CEACFB8B16D52479004EA121 /* Debug 2013 */,
 				A3ED9FEA17A63E660036CBBF /* Debug 2014 */,
 				A5155E0319F7881600D5D4DC /* Debug 2015 */,
+				323857C51B09C04000571BB2 /* Debug 2016 */,
 				CE787D010F5840830019C2D7 /* Release 2008 */,
 				CE787D020F5840830019C2D7 /* Release 2009 */,
 				CE7456EA104CF660000083A6 /* Release 2010 */,
@@ -7617,6 +8071,7 @@
 				CEACFB5B16D52459004EA121 /* Release 2013 */,
 				A3ED9FF617A63E6F0036CBBF /* Release 2014 */,
 				A5155E0F19F7881D00D5D4DC /* Release 2015 */,
+				323857D11B09C04A00571BB2 /* Release 2016 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
