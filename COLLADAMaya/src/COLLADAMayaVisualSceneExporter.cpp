@@ -1216,7 +1216,7 @@ namespace COLLADAMaya
 
 			virtual MStatus onString(MPlug & plug, const MString & name, const MString & value)
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), String(value.asChar()), "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), COLLADABU::StringUtils::translateToXML(String(value.asChar())), "", COLLADASW::NEW_PARAM);
 				return MS::kSuccess;
 			}
 		};
