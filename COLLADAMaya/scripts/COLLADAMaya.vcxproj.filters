@@ -166,6 +166,7 @@
     </ClCompile>
     <ClCompile Include="..\src\COLLADAMayaAttributeParser.cpp">
       <Filter>Source Files\Helpers</Filter>
+	</ClCompile>
     <ClCompile Include="..\src\COLLADAMayaPhysicSceneExporter.cpp">
       <Filter>Source Files\Exporters</Filter>
     </ClCompile>
@@ -302,6 +303,7 @@
     </ClInclude>
     <ClInclude Include="..\include\COLLADAMayaAttributeParser.h">
       <Filter>Header Files\Helpers</Filter>
+	</ClInclude>
     <ClInclude Include="..\include\COLLADAMayaPhysicSceneExporter.h">
       <Filter>Header Files\Exporters</Filter>
     </ClInclude>

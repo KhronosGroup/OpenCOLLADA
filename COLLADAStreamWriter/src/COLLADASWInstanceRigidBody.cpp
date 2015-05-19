@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008-2009 NetAllied Systems GmbH
+    Copyright (c) 2015 Starbreeze
 
     This file is part of COLLADAStreamWriter.
 
