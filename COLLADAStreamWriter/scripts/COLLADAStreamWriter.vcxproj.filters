@@ -167,6 +167,18 @@
     <ClCompile Include="..\src\COLLADASWVertices.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\COLLADASWLibraryPhysicsModels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASWLibraryPhysicsScenes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASWInstanceRigidBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COLLADASWInstancePhysicsModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\COLLADASWAnnotation.h">
@@ -356,6 +368,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\COLLADASWTagType.h">
+      <Filter>Header Files</Filter>
+	</ClInclude>
+    <ClInclude Include="..\include\COLLADASWLibraryPhysicsModels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASWLibraryPhysicsScenes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASWInstanceRigidBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASWInstancePhysicsModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

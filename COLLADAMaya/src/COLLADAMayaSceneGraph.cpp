@@ -37,6 +37,7 @@
 #include "COLLADAMayaPlatform.h"
 #include "assert.h"
 
+#include "COLLADAMayaPhysicsExporter.h"
 
 namespace COLLADAMaya
 {
@@ -264,9 +265,11 @@ namespace COLLADAMaya
         // tell the scene node to be transformed or not.
         bool isForced = false;
         bool isVisible = false;
-        bool isExportNode = getIsExportNode ( dagPath, isForced, isVisible );
+		bool isPhysicNode = false;
+        bool isExportNode = getIsExportNode ( dagPath, isForced, isVisible, isPhysicNode );
         sceneElement->setIsForced ( isForced );
         sceneElement->setIsVisible ( isVisible );
+		sceneElement->setIsPhysicNode(isPhysicNode);
 
         // Check for a file reference
         MFnDagNode dagFn ( dagPath );
@@ -328,11 +331,13 @@ namespace COLLADAMaya
         mForcedNodes.clear();
     }
 
+
     // --------------------------------------------------------------------
     bool SceneGraph::getIsExportNode ( 
         const MDagPath& dagPath, 
         bool& isForced,
-        bool& isVisible )
+        bool& isVisible,
+		bool& isPhysic)
     {
         // Does this dagPath already exist? If so, only recurse if FollowInstancedChildren() is set.
         MFnDagNode dagFn ( dagPath );
@@ -361,7 +366,42 @@ namespace COLLADAMaya
         DagHelper::getPlugValue ( dagPath.node(), ATTR_VISIBILITY, isVisible );
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();
+		 
+		
+		// remove physics's Node from Visual scene
+		int shape; 
+		const MObject& transformNode = dagPath.transform();
+		bool found = DagHelper::getPlugValue(transformNode, ATTR_COLLISION_SHAPE, shape);
 
+		MStatus status;
+		MObject node = dagPath.node();
+
+		//Search if this node has a child which is a Solver Physic Bullet Node
+		MFnDagNode fnNode(node);
+		for (int i = 0; i < fnNode.childCount(); ++i) 
+		{
+			MObject child = fnNode.child(i);
+			MFnDependencyNode shaderNode(child, &status);
+			MString shaderNodeTypeName = shaderNode.typeName();
+			if (shaderNodeTypeName == BULLET_PHYSIKS_SOLVER_NODE && ExportOptions::exportPhysic())
+				isPhysic = true;
+		}
+
+		if (ExportOptions::exportPhysic() && (found)
+			|| !ExportOptions::exportPhysic() && found)
+		{
+			if (node.hasFn(MFn::kMesh))
+			{
+				if (shape == PhysicsExporter::Box ||
+					shape == PhysicsExporter::Capsule)
+					return false;
+				else if (shape == PhysicsExporter::Mesh ||
+					shape == PhysicsExporter::Convex_mesh)
+					return true;
+			}
+		}
+
+		
         if ( !isForced )
         {
             // Check for visibility

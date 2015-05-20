@@ -144,6 +144,7 @@ namespace COLLADAMaya
         bool isForced = sceneElement->getIsForced();
         bool isVisible = sceneElement->getIsVisible();
         bool isExportNode = sceneElement->getIsExportNode();
+		bool isPhysicNode = sceneElement->getIsPhysicNode();
 
         // Check for a file reference
         bool isLocal = sceneElement->getIsLocal();
@@ -172,7 +173,7 @@ namespace COLLADAMaya
             sceneElement->setType ( SceneElement::TRANSFORM );
 
             // Taken out of unvisible transforms. 
-            if ( !ExportOptions::exportInvisibleNodes () && !isVisible && !isExportNode ) return false;
+			if ((!ExportOptions::exportInvisibleNodes() && !isVisible && !isExportNode) || (ExportOptions::exportPhysic() && isPhysicNode)) return false;
 
             // Export the scene graph node for all transform-derivatives
             if ( dagPath.hasFn ( MFn::kJoint ) )
@@ -659,7 +660,7 @@ namespace COLLADAMaya
         {
             status.perror ( "MFnDagNode constructor" );
             return false;
-        }
+        } 
 
         // Get the transforms local translation
         MFnTransform fn ( transformNode );

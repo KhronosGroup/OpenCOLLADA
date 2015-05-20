@@ -38,17 +38,21 @@ namespace COLLADAMaya
     static const char* PROFILE_COLLADA                              = "COLLADA";
     static const char* PROFILE_MAYA                                 = "OpenCOLLADAMaya";
     static const char* PROFILE_MAX                                  = "OpenCOLLADA3dsMax";
-
+	
     /** Extra technique parameters. */
     static const String PARAMETER_MAYA_ID                           = "originalMayaNodeId";
     static const String PARAMETER_DOUBLE_SIDED                      = "double_sided";
-
+	
     /** Empty strings. */
     static const String EMPTY_STRING                                = "";
     static const char* EMPTY_CSTRING                                = "";
 
     /** The unique name for the visual scene node on export. */
     static const String VISUAL_SCENE_NODE_ID                        = "VisualSceneNode";
+
+	/** The unique name for the physic scene node on export. */
+	static const String PHYSIC_SCENE_NODE_ID						= "collada_physics_scene";
+
 
     /** The standard name for the collada id attribute. */
     static const String COLLADA_ID_ATTRIBUTE_NAME                   = "colladaId";
@@ -307,6 +311,20 @@ namespace COLLADAMaya
     /** Constants for the physical scenes. */
     static const char* NIMA_INTERNAL_PHYSIKS                        = "nimaInternalPhysics";
     static const char* AGEIA_PHYSIKS_MODEL                          = "AgeiaPhysicsModel";
+	static const char* BULLET_PHYSIKS_NODE							= "bulletRigidBodyShape";
+	static const char* BULLET_PHYSIKS_SOLVER_NODE					= "bulletSolverShape";
+	static const char* PHYSIC_MODEL_ID								= "PhysicModel";
+	static const char* PHYSIC_WORLD_REFERENCE						= "world";
+	static const char* ATTR_MASS									= "mass";
+	static const char* ATTR_BODY_TYPE								= "bodyType";
+	static const char* ATTR_DYNAMIC									= "dynamic";
+	static const char* ATTR_INERTIA									= "inertia";
+	static const char* ATTR_EXTENT									= "extent";
+	
+	static const char* ATTR_ACTIVE									= "active";
+	static const char* ATTR_COLLISION_SHAPE							= "collision_shape";
+	static const char* ATTR_COLLISION_EXPORT_NODE					= "export_node";
+	
 
     /** Shader constants */
     static const char* COLLADA_FX_SHADER                            = "colladafxShader";

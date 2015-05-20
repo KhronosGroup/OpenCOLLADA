@@ -61,7 +61,7 @@ namespace COLLADAMaya
         /****************************/
         /**     Filter export       */
         /****************************/
-
+		static bool mExportPhysic;
         static bool mExportPolygonMeshes;
         static bool mExportLights;
         static bool mExportCameras;
@@ -130,6 +130,7 @@ namespace COLLADAMaya
         /**     Filter export       */
         /****************************/
 
+		static bool exportPhysic();
         static bool exportPolygonMeshes();
         static bool exportLights();
         static bool exportCameras();

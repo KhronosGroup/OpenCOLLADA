@@ -135,7 +135,8 @@ namespace COLLADAMaya
         bool getIsExportNode ( 
             const MDagPath& dagPath,
             bool& isForced,
-            bool& isVisible );
+            bool& isVisible,
+			bool& isPhysic);
 
         /** Samples and caches the animation expressions. */
         void sampleAnimationExpressions ();

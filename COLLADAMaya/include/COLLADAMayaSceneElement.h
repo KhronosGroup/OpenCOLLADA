@@ -49,6 +49,7 @@ namespace COLLADAMaya
             CAMERA,
             LIGHT,
             PHYSIK,
+			PHYSIK_BULLET,
             SPLINE,
             NURBS,
             EMITTER,
@@ -96,6 +97,9 @@ namespace COLLADAMaya
 
         /** True, if the transform element has joints. */
         bool mHasJoint;
+
+		/** true, if the node is used as physic Node */
+		bool mIsPhysicNode;
 
         /** Set the list of skeleton-Ids. It indicates where a skin
             controller is to start to search for the joint nodes
@@ -257,6 +261,21 @@ namespace COLLADAMaya
          * @return bool True, if the transform element has joints.
          */
         bool getHasJoint () { return mHasJoint; }
+
+		/** Set physicNode on the current scene element. */
+		void setIsPhysicNode(bool val)
+		{
+			mIsPhysicNode = val;
+		}
+
+		/**
+		* True, if the element is used as a Physic Node.
+		* @return bool True, if the element is used as a Physic Node.
+		*/
+		bool getIsPhysicNode() const
+		{
+			return mIsPhysicNode;
+		}
 
         /** Set the skeleton uri. It indicates where a skin
         controller is to start to search for the joint nodes
