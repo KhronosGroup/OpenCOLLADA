@@ -958,7 +958,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2011)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -1067,7 +1067,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2011_X64%25\scripts\others"
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2011)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -1180,7 +1180,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2011_X64%25\scripts\others"
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2011)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -1256,7 +1256,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2011)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -1419,7 +1419,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2013)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -1471,7 +1471,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013%25\scripts\others"
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2014)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -1860,7 +1860,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2016_X64%25\scripts\others"
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2013)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -1897,7 +1897,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2015)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -1975,7 +1975,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2014)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -2176,7 +2176,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2013)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -2214,7 +2214,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2014)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -2256,7 +2256,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2015)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -2519,7 +2519,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2013)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -2578,7 +2578,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013%25\scripts\others"
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2014)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -2639,7 +2639,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2014%25\scripts\others"
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2015)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -2983,7 +2983,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2016_X64%25\scripts\others"
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -3091,7 +3091,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -3167,7 +3167,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -3249,7 +3249,7 @@ copy $(TargetPath) ..\testsuite &gt; nul
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaFX.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaRender.lib;OpenMayaUI.lib;cg.lib;cgGL.lib;OpenGL32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).mll</OutputFile>
       <Version>1.3</Version>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
