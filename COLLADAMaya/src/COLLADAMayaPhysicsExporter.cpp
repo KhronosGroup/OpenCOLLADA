@@ -279,17 +279,17 @@ namespace COLLADAMaya
 	void PhysicsExporter::exportDecomposedTransform()
 	{
 		double resultFinal[4][4];
-		mTransformMatrix.asMatrix().get(resultFinal);
+		mFinalTransformMatrix.asMatrix().get(resultFinal);
 
 		bool mIsJoint = false;
 
-		MVector translation = mTransformMatrix.translation(MSpace::kTransform);
-		MPoint rotatePivotTranslation = mTransformMatrix.rotatePivotTranslation(MSpace::kTransform);
-		MPoint rotatePivot = mTransformMatrix.rotatePivot(MSpace::kTransform, NULL);
-		MVector scalePivotTranslation = mTransformMatrix.scalePivotTranslation(MSpace::kTransform);
-		MVector scalePivot = mTransformMatrix.scalePivot(MSpace::kTransform);
+		MVector translation = mFinalTransformMatrix.translation(MSpace::kTransform);
+		MPoint rotatePivotTranslation = mFinalTransformMatrix.rotatePivotTranslation(MSpace::kTransform);
+		MPoint rotatePivot = mFinalTransformMatrix.rotatePivot(MSpace::kTransform, NULL);
+		MVector scalePivotTranslation = mFinalTransformMatrix.scalePivotTranslation(MSpace::kTransform);
+		MVector scalePivot = mFinalTransformMatrix.scalePivot(MSpace::kTransform);
 		double shear[3] = { 0, 0, 0 };
-		mTransformMatrix.getShear(shear, MSpace::kTransform);
+		mFinalTransformMatrix.getShear(shear, MSpace::kTransform);
 
 		MEulerRotation jointOrientation, rotation, rotationAxis;
 		if (mTransformObject != MObject::kNullObj)
@@ -299,13 +299,13 @@ namespace COLLADAMaya
 			if (!DagHelper::getPlugValue(mTransformObject, ATTR_ROTATE, rotation)) rotation.setValue(0, 0, 0);
 			if (!DagHelper::getPlugValue(mTransformObject, ATTR_ROTATE_AXIS, rotationAxis)) rotationAxis.setValue(0, 0, 0);
 
-			rotation.order = (MEulerRotation::RotationOrder) ((int)mTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ);
+			rotation.order = (MEulerRotation::RotationOrder) ((int)mFinalTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ);
 			rotationAxis.order = jointOrientation.order = MEulerRotation::kXYZ;
 		}
 		else
 		{
-			rotation = mTransformMatrix.eulerRotation();
-			rotation.order = (MEulerRotation::RotationOrder) ((int)mTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ);
+			rotation = mFinalTransformMatrix.eulerRotation();
+			rotation.order = (MEulerRotation::RotationOrder) ((int)mFinalTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ);
 			mIsJoint = false;
 		}
 
@@ -334,29 +334,29 @@ namespace COLLADAMaya
 		exportTranslation(ATTR_ROTATE_PIVOT_INVERSE, rotatePivot * -1);
 	}
 
-	void PhysicsExporter::createShape(MDagPath& childDagPath)
+	void PhysicsExporter::createShape(MDagPath& childDagPath, MTransformationMatrix mPhysicsShapeTransformMatrix, MTransformationMatrix mGraphicShapeTransformMatrix)
 	{
 			MFnDagNode fnChild(mTransformObject);
 			MString childName(fnChild.name());
 
 			MObject childTransform = childDagPath.transform();
-			
 
-			MTransformationMatrix mTransformMatrix2(childDagPath.inclusiveMatrix());
 
-			double resultFinal2[4][4];
-			mTransformMatrix2.asMatrix().get(resultFinal2); 
-			MMatrix MatShape(mTransformMatrix2.asMatrix());
+			double resultPhys[4][4];
+			mPhysicsShapeTransformMatrix.asMatrix().get(resultPhys);
+			MMatrix MatPhysShape(mPhysicsShapeTransformMatrix.asMatrix());
 
-			MFnTransform fnRB(mTransformObjectRB);
-			MTransformationMatrix mTransformMatrixRB(fnRB.transformation());
-			MMatrix MatRB(mTransformMatrixRB.asMatrixInverse());
+			double resultGraph[4][4];
+			mGraphicShapeTransformMatrix.asMatrix().get(resultGraph);
+			MMatrix MatGraphShape(mGraphicShapeTransformMatrix.asMatrixInverse());
 
-			MMatrix result = MatShape * MatRB;
+
+			// PhysicShape Matrix relative to Graphic Shape Space
+			MMatrix result = MatPhysShape * MatGraphShape;
 			double result2[4][4];
 			result.get(result2);
-			
-			mTransformMatrix = result;
+
+			mFinalTransformMatrix = result;
 
 			//Get BoundingBox
 			childDagPath.extendToShape(); 
@@ -572,7 +572,6 @@ namespace COLLADAMaya
 		//DagHelper::getPlugValue(dagPath.node(), ATTR_INERTIA, inertia);
 		addInertia(inertia.x, inertia.y, inertia.z);
 		
-
 		for (int i = 0; i < DagNode.parentCount(); ++i)
 		{
 			// Parent 1 level upper
@@ -588,15 +587,23 @@ namespace COLLADAMaya
 			MObject parent2 = fnParent.parent(0);
 			MFnDagNode fnParent2(parent2);
 			MString parentName2 = fnParent2.name();
-			
+
 			// Search for Solver, Gravity Field
 			getGravityField();
-			
-			//Transform of RB Bullet
+
+
+			MTransformationMatrix mGraphicShapeTransformMatrix;
 			if (!needExportParent)
-				mTransformObjectRB = fnParent.dagPath().transform();
+			{
+				MDagPath path;
+				fnParent2.getPath(path);
+				mGraphicShapeTransformMatrix = MTransformationMatrix(path.inclusiveMatrix());
+			}
 			else
-				mTransformObjectRB = dagPath.transform();
+			{
+				mGraphicShapeTransformMatrix = MTransformationMatrix(dagPath.inclusiveMatrix());
+			}
+
 
 			for (int i = 0; i < fnParent.childCount(); ++i)
 			{
@@ -605,9 +612,9 @@ namespace COLLADAMaya
 				MString childName = fnChild.name();
 				MDagPath ChildPath = MDagPath::getAPathTo(child);
 				String childDagPath = ChildPath.fullPathName().asChar();
-				
+
 				UpdateSceneElement(child, resultParent, needExportParent);
-				
+
 				if (isBulletRigidBodyNode(ChildPath))
 				{
 					MFnDagNode fnChild(child);
@@ -622,13 +629,14 @@ namespace COLLADAMaya
 						mBodyTarget.Target = (MString("#") + parentName2).asChar();
 					else
 						mBodyTarget.Target = (MString("#") + parentName).asChar();
-					
+
 					bodyTargetMap[(MString("#") + parentName).asChar()] = mBodyTarget;
 				}
 				else
 				{
 					mTransformObject = ChildPath.transform();
-					createShape(ChildPath);
+					MTransformationMatrix mPhysicShapeTransformMatrix(ChildPath.inclusiveMatrix());
+					createShape(ChildPath, mPhysicShapeTransformMatrix, mGraphicShapeTransformMatrix);
 				}
 			}
 		}

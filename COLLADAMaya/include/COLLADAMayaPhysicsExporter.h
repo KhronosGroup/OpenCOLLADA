@@ -133,7 +133,7 @@ namespace COLLADAMaya
         /** Exports all physics data of the current mesh. */
 		bool exportPhysicModel(MDagPath& dagPath);
 
-		void createShape(MDagPath& childDagPath);
+		void createShape(MDagPath& childDagPath, MTransformationMatrix mPhysicsShapeTransformMatrix, MTransformationMatrix mGraphicShapeTransformMatrix);
 
 		void UpdateSceneElement(MObject& child, bool result, bool needExport);
 
@@ -150,9 +150,9 @@ namespace COLLADAMaya
 		/** Export Transformation Stuff */
 		bool mIsJoint;
 		bool mIsFirstRotation;
-		MTransformationMatrix mTransformMatrix;
+
+		MTransformationMatrix mFinalTransformMatrix;
 		MObject mTransformObject;
-		MObject mTransformObjectRB;
     };
 }
 
