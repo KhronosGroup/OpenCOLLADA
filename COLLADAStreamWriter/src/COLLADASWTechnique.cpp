@@ -51,6 +51,18 @@ namespace COLLADASW
             mSW->appendTextBlock ( value );
     }
 
+    //---------------------------------------------------------------
+    void Technique::addElement(const String & tagName, const String & attributeName, const String & attributeValue)
+    {
+        mSW->openElement(tagName);
+
+        if (!attributeName.empty())
+        {
+            mSW->appendAttribute(attributeName, attributeValue);
+        }
+
+		mSW->closeElement();
+    }
 
 	//---------------------------------------------------------------
 	void Technique::addParameter(const String &paramName, const String &value, const String &sid, const String &type, TagType tagType)

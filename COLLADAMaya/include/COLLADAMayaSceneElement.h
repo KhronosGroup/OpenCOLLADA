@@ -54,7 +54,8 @@ namespace COLLADAMaya
             NURBS,
             EMITTER,
             CONSTRAINT,
-            BONE
+            BONE,
+            LIGHT_PROBE
         };
 
     private:

@@ -36,7 +36,7 @@ namespace COLLADAMaya
 
     /** Profile specific extra attribute parameters. */
     static const char* PROFILE_COLLADA                              = "COLLADA";
-    static const char* PROFILE_MAYA                                 = "OpenCOLLADAMaya";
+    static const String PROFILE_MAYA                                 = "OpenCOLLADAMaya";
     static const char* PROFILE_MAX                                  = "OpenCOLLADA3dsMax";
 	
     /** Extra technique parameters. */
@@ -325,6 +325,11 @@ namespace COLLADAMaya
 	static const char* ATTR_COLLISION_SHAPE							= "collision_shape";
 	static const char* ATTR_COLLISION_EXPORT_NODE					= "export_node";
 	
+    /** Constants for light probes. */
+    static const char* ATTR_LIGHT_PROBE                             = "light_probe";
+    static const String CSW_ELEMENT_INSTANCE_LIGHT_PROBE            = "instance_light_probe";
+    static const String CSW_ELEMENT_LIGHT_PROBE                     = "light_probe";
+    static const String CSW_ELEMENT_LIBRARY_LIGHT_PROBES            = "library_light_probes";
 
     /** Shader constants */
     static const char* COLLADA_FX_SHADER                            = "colladafxShader";

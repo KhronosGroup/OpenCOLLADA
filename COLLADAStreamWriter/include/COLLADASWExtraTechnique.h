@@ -58,6 +58,12 @@ namespace COLLADASW
 
 	};
 
+    struct CustomTagData
+    {
+        String attributeName;
+        String attributeValue;
+    };
+
 
     //---------------------------------------------------------------
     /** Map with the parameter names and the value */
@@ -67,6 +73,9 @@ namespace COLLADASW
     /** The child elements with their parameters under the current profile */
     typedef std::map<String, Parameters> ChildElementsMap;
     typedef std::pair<String, Parameters> ChildElement;
+
+    typedef std::map<String, CustomTagData> CustomTags;
+    typedef std::pair<String, CustomTagData> CustomTag;
 
     //---------------------------------------------------------------
 
@@ -88,6 +97,8 @@ namespace COLLADASW
 
         /** The child elements with their parameters under the current profile */
         ChildElementsMap mChildElements;
+
+        CustomTags mCustomTags;
     };
 
 
@@ -144,10 +155,14 @@ namespace COLLADASW
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const bool &value, const String &paramSid = "", TagType type = CUSTOM);
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String &paramSid = "", TagType type = CUSTOM);
 
+        void addExtraTechniqueElement(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue);
+
         /** Writes the extra techniques of the texture in the COLLADASW file. */
 		void addExtraTechniques(StreamWriter* streamWriter) const;
 
     private:
+
+        void addCustomTags(COLLADASW::Technique & technique, const CustomTags & customTags) const;
 
         /** Adds the parameters in the list to the given technique tag. */
 		void addTechniqueParameters(COLLADASW::Technique &colladaTechnique, const Parameters &parameters) const;

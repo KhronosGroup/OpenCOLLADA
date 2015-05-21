@@ -13,6 +13,8 @@
 
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
+#include "COLLADASWExtra.h"
+#include "COLLADASWTechnique.h"
 
 namespace COLLADASW
 {
@@ -38,12 +40,19 @@ namespace COLLADASW
         This function must be called before the first geometry is added*/
         void openLibrary();
 
+        /** Opens the library as an extra. */
+        void openExtraLibrary(const String & profile);
+
+        /** Closes the extra library. */
+        void closeExtraLibrary();
+
     private:
         TagCloser mLibraryCloser;    ///< Used to close the library  tag
         bool mLibraryOpen;      ///< true, if a library has been open and not closed. false otherwise.
         const String& mName;
 
-
+        COLLADASW::Extra mExtra;
+        COLLADASW::Technique mTechnique;
     };
 
 } //namespace COLLADASW

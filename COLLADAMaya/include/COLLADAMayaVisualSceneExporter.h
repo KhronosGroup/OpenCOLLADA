@@ -196,6 +196,12 @@ namespace COLLADAMaya
             const bool hasMorphController );
 
         /**
+         * Exports the light probe instances of the given transform scene element.
+         * @param childElement The transform scene element.
+         */
+        void exportInstanceLightProbe ( const SceneElement* childElement );
+
+        /**
         * Exports the light instances of the given transform scene element.
         * @param childElement The transform scene element.
          */
