@@ -275,7 +275,7 @@ namespace COLLADAMaya
         bool isLightProbe = false;
         DagHelper::getPlugValue(dagPath.node(), ATTR_LIGHT_PROBE, isLightProbe);
         if (isLightProbe) {
-            sceneElement->setType(COLLADAMaya::SceneElement::Type::LIGHT_PROBE);
+            sceneElement->setType(COLLADAMaya::SceneElement::LIGHT_PROBE);
         }
 
         // Check for a file reference
