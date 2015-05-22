@@ -39,10 +39,11 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void Library::closeLibrary()
     {
-        if ( mLibraryOpen )
+        if (mLibraryOpen)
+        {
             mLibraryCloser.close();
-
-        mLibraryOpen = false;
+            mLibraryOpen = false;
+        }
     }
 
     //---------------------------------------------------------------
@@ -66,9 +67,8 @@ namespace COLLADASW
             mLibraryCloser.close();
             mTechnique.closeTechnique();
             mExtra.closeExtra();
+            mLibraryOpen = false;
         }
-
-        mLibraryOpen = false;
     }
 
 } //namespace COLLADASW
