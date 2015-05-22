@@ -381,7 +381,7 @@ namespace COLLADAMaya
 				else if (shape == COLLADAMaya::PhysicsExporter::Capsule)
 				{
 					float radius = MDistance::internalToUI(bb.width() / 2);
-					float height = MDistance::internalToUI(bb.depth()) - 2 * radius;
+					float height = MDistance::internalToUI(bb.height()) - 2 * radius;
 					AddCapsuleShape(radius, radius, radius, height);
 				}
 				else if (shape == COLLADAMaya::PhysicsExporter::Convex_mesh)
