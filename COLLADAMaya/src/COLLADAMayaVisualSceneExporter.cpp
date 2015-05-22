@@ -27,6 +27,7 @@
 #include "COLLADAMayaReferenceManager.h"
 #include "COLLADAMayaMaterialExporter.h"
 #include "COLLADAMayaLightExporter.h"
+#include "COLLADAMayaLightProbeExporter.h"
 #include "COLLADAMayaCameraExporter.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaShaderHelper.h"
@@ -1329,6 +1330,26 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
+    void VisualSceneExporter::exportInstanceLightProbe(const SceneElement* sceneElement)
+    {
+        // Get the collada light probe id.
+        MDagPath dagPath = sceneElement->getPath();
+        String mayaLightProbeId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        LightProbeExporter* lightProbeExporter = mDocumentExporter->getLightProbeExporter ();
+        String colladaLightProbeId = lightProbeExporter->findColladaLightProbeId ( mayaLightProbeId );
+
+        // Get the uri of the current scene
+        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaLightProbeId ) );
+
+        // Create and write the light probe instance
+        //COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        //COLLADASW::InstanceLightProbe instanceLightProbe ( streamWriter, uri );
+        //instanceLightProbe.add();
+
+        mVisualSceneNode->addExtraTechniqueElement(COLLADAMaya::PROFILE_MAYA, COLLADAMaya::CSW_ELEMENT_INSTANCE_LIGHT_PROBE, COLLADASW::CSWC::CSW_ATTRIBUTE_URL, uri.getURIString());
+    }
+
+    //---------------------------------------------------------------
     void VisualSceneExporter::exportInstanceLight( const SceneElement* sceneElement )
     {
         // Get the collada light id.
@@ -1480,6 +1501,11 @@ namespace COLLADAMaya
                 {
                     exportInstanceGeometry ( childElement );
                 }
+            }
+            else if (childElement->getType() == SceneElement::LIGHT_PROBE &&
+                childElement->getIsExportNode())
+            {
+                exportInstanceLightProbe(childElement);
             }
             else if ( childElement->getType() == SceneElement::LIGHT &&
                 childElement->getIsExportNode() )

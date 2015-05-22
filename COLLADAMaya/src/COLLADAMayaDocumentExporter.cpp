@@ -28,6 +28,7 @@
 #include "COLLADAMayaAnimationSampleCache.h"
 #include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaLightExporter.h"
+#include "COLLADAMayaLightProbeExporter.h"
 #include "COLLADAMayaCameraExporter.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
@@ -64,6 +65,7 @@ namespace COLLADAMaya
             , mAnimationClipExporter ( NULL )
             , mControllerExporter ( NULL )
             , mLightExporter ( NULL )
+            , mLightProbeExporter( NULL )
             , mCameraExporter ( NULL )
             , mSceneId ( "MayaScene" )
             , mDigitTolerance (FLOAT_TOLERANCE)
@@ -110,6 +112,7 @@ namespace COLLADAMaya
         mAnimationClipExporter = new AnimationClipExporter ( &mStreamWriter );
         mControllerExporter = new ControllerExporter ( &mStreamWriter, this );
         mLightExporter = new LightExporter ( &mStreamWriter, this );
+        mLightProbeExporter = new LightProbeExporter(&mStreamWriter, this);
         mCameraExporter = new CameraExporter ( &mStreamWriter, this );
     }
 
@@ -128,6 +131,7 @@ namespace COLLADAMaya
         delete mAnimationClipExporter;
         delete mControllerExporter;
         delete mLightExporter;
+        delete mLightProbeExporter;
         delete mCameraExporter;
     }
 
@@ -197,6 +201,9 @@ namespace COLLADAMaya
 
                 // Export the scene
                 exportScene(visualSceneExported, physicSceneExported);
+
+                // Export the light probes.
+                mLightProbeExporter->exportLightProbes();
             }
             else
             {
@@ -487,6 +494,12 @@ namespace COLLADAMaya
     LightExporter* DocumentExporter::getLightExporter()
     {
         return mLightExporter;
+    }
+
+    //---------------------------
+    LightProbeExporter* DocumentExporter::getLightProbeExporter()
+    {
+        return mLightProbeExporter;
     }
 
     //---------------------------

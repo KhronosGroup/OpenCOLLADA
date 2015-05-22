@@ -42,6 +42,7 @@ namespace COLLADAMaya
     class AnimationSampleCache;
     class ControllerExporter;
     class LightExporter;
+    class LightProbeExporter;
     class CameraExporter;
 
 
@@ -94,6 +95,9 @@ namespace COLLADAMaya
 
         /** Exports the lights. */
         LightExporter* mLightExporter;
+
+        /** Exports the light probes. */
+        LightProbeExporter* mLightProbeExporter;
 
         /** Exports the cameras. */
         CameraExporter* mCameraExporter;
@@ -238,6 +242,12 @@ namespace COLLADAMaya
         * @return LightExporter* Pointer to the light exporter
         */
         LightExporter* getLightExporter();
+
+        /**
+        * Returns a pointer to the light probe exporter.
+        * @return LightProbeExporter* Pointer to the light probe exporter
+        */
+        LightProbeExporter* getLightProbeExporter();
 
         /**
         * Returns a pointer to the camera exporter.

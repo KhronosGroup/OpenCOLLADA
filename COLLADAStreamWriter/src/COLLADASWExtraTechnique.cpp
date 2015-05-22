@@ -330,6 +330,18 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueElement(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue)
+    {
+        Profile& profile = getProfile(profileName);
+
+        CustomTagData customTagData;
+        customTagData.attributeName = attributeName;
+        customTagData.attributeValue = attributeValue;
+
+        profile.mCustomTags.insert(CustomTag(tagName, customTagData));
+    }
+
+    //---------------------------------------------------------------
 	void BaseExtraTechnique::addExtraTechniques(StreamWriter* streamWriter) const
     {
         if ( !mExtraTechniques.empty() )
@@ -353,6 +365,9 @@ namespace COLLADASW
 
                 // Write the textblock.
                 streamWriter->appendTextBlock ( profile.mText );
+
+                // Write custom tags
+                addCustomTags(colladaTechnique, profile.mCustomTags);
 
                 // Write the parameters for the current profile
 				addTechniqueParameters(colladaTechnique, profile.mParameters);
@@ -379,6 +394,17 @@ namespace COLLADASW
             }
 
             colladaExtra.closeExtra();
+        }
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addCustomTags(COLLADASW::Technique & technique, const CustomTags & customTags) const
+    {
+        for (CustomTags::const_iterator it = customTags.begin(); it != customTags.end(); ++it)
+        {
+            const String & tagName = it->first;
+            const CustomTagData & customTagData = it->second;
+            technique.addElement(tagName, customTagData.attributeName, customTagData.attributeValue);
         }
     }
 

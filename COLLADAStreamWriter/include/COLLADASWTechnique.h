@@ -42,6 +42,8 @@ namespace COLLADASW
         /** Writes the given string to the collada document. */
         void addValue ( const String& value );
 
+        void addElement(const String & tagName, const String & attributeName, const String & attributeValue);
+
         /** Adds a parameter to the technique */
 		void addParameter(const String &paramName, const String &value = "", const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
 

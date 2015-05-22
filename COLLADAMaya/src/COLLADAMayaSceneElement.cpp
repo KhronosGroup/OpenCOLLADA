@@ -37,6 +37,7 @@ namespace COLLADAMaya
             , mIsForced ( false )
             , mIsVisible ( false )
             , mHasJoint ( false )
+            , mIsPhysicNode(false)
             , mInstantiatedSceneElement ( NULL )
             , mBindShapeMatrix ( MMatrix::identity )
     {}
@@ -108,6 +109,12 @@ namespace COLLADAMaya
 
 		if ((shaderNodeTypeName == BULLET_PHYSIKS_NODE))
 			return PHYSIK_BULLET;
+
+        bool isLightProbe = false;
+        DagHelper::getPlugValue(node, ATTR_LIGHT_PROBE, isLightProbe);
+        if (isLightProbe) {
+            return LIGHT_PROBE;
+        }
 		
 		switch ( mayaType )
         {

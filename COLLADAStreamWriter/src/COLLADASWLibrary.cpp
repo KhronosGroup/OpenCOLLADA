@@ -19,7 +19,9 @@ namespace COLLADASW
     Library::Library ( COLLADASW::StreamWriter *streamWriter, const String &name )
             : ElementWriter ( streamWriter ),
             mLibraryOpen ( false ),
-            mName ( name )
+            mName ( name ),
+            mExtra(streamWriter),
+            mTechnique(streamWriter)
     {}
 
 
@@ -37,11 +39,36 @@ namespace COLLADASW
     //---------------------------------------------------------------
     void Library::closeLibrary()
     {
-        if ( mLibraryOpen )
+        if (mLibraryOpen)
+        {
             mLibraryCloser.close();
-
-        mLibraryOpen = false;
+            mLibraryOpen = false;
+        }
     }
 
+    //---------------------------------------------------------------
+    void Library::openExtraLibrary(const String & profile)
+    {
+        if ( !mLibraryOpen )
+        {
+            mExtra.openExtra();
+            mTechnique.openTechnique(profile);
+            mLibraryCloser = mSW->openElement ( mName );
+            mLibraryOpen = true;
+        }
+    }
+
+
+    //---------------------------------------------------------------
+    void Library::closeExtraLibrary()
+    {
+        if (mLibraryOpen)
+        {
+            mLibraryCloser.close();
+            mTechnique.closeTechnique();
+            mExtra.closeExtra();
+            mLibraryOpen = false;
+        }
+    }
 
 } //namespace COLLADASW

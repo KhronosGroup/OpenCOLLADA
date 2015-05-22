@@ -271,6 +271,13 @@ namespace COLLADAMaya
         sceneElement->setIsVisible ( isVisible );
 		sceneElement->setIsPhysicNode(isPhysicNode);
 
+        // Check wether this node is used as a light probe
+        bool isLightProbe = false;
+        DagHelper::getPlugValue(dagPath.node(), ATTR_LIGHT_PROBE, isLightProbe);
+        if (isLightProbe) {
+            sceneElement->setType(COLLADAMaya::SceneElement::LIGHT_PROBE);
+        }
+
         // Check for a file reference
         MFnDagNode dagFn ( dagPath );
         bool isLocal = !dagFn.isFromReferencedFile();
@@ -366,7 +373,6 @@ namespace COLLADAMaya
         DagHelper::getPlugValue ( dagPath.node(), ATTR_VISIBILITY, isVisible );
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();
-		 
 		
 		// remove physics's Node from Visual scene
 		int shape; 
