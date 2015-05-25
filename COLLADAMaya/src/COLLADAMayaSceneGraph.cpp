@@ -373,12 +373,7 @@ namespace COLLADAMaya
         DagHelper::getPlugValue ( dagPath.node(), ATTR_VISIBILITY, isVisible );
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();
-		
-		// remove physics's Node from Visual scene
-		int shape; 
-		const MObject& transformNode = dagPath.transform();
-		bool found = DagHelper::getPlugValue(transformNode, ATTR_COLLISION_SHAPE, shape);
-
+		 
 		MStatus status;
 		MObject node = dagPath.node();
 
@@ -393,21 +388,6 @@ namespace COLLADAMaya
 				isPhysic = true;
 		}
 
-		if (ExportOptions::exportPhysic() && (found)
-			|| !ExportOptions::exportPhysic() && found)
-		{
-			if (node.hasFn(MFn::kMesh))
-			{
-				if (shape == PhysicsExporter::Box ||
-					shape == PhysicsExporter::Capsule)
-					return false;
-				else if (shape == PhysicsExporter::Mesh ||
-					shape == PhysicsExporter::Convex_mesh)
-					return true;
-			}
-		}
-
-		
         if ( !isForced )
         {
             // Check for visibility

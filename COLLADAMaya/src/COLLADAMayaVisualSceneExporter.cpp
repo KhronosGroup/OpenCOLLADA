@@ -30,6 +30,7 @@
 #include "COLLADAMayaLightProbeExporter.h"
 #include "COLLADAMayaCameraExporter.h"
 #include "COLLADAMayaEffectExporter.h"
+#include "COLLADAMayaPhysicsExporter.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaAttributeParser.h"
 
@@ -1481,8 +1482,22 @@ namespace COLLADAMaya
             if ( !childElement->getIsExportNode() ) continue;
             if ( !ExportOptions::exportInvisibleNodes () && !childElement->getIsVisible () ) continue;
 
+            bool exportGeometry = true;
+            bool physicsExportNode = false;
+
+            const MObject& transformNode = sceneElement->getPath().transform();
+            DagHelper::getPlugValue(transformNode, ATTR_COLLISION_EXPORT_NODE, physicsExportNode);
+            
+            int shape;
+            if (DagHelper::getPlugValue(transformNode, ATTR_COLLISION_SHAPE, shape) && !physicsExportNode)
+            {
+                if (shape == PhysicsExporter::Box ||
+                    shape == PhysicsExporter::Capsule)
+                    exportGeometry = false;
+            }
+
             // Check if the child element is a mesh object and an export node
-            if ( childElement->getType() == SceneElement::MESH )
+            if ( childElement->getType() == SceneElement::MESH && exportGeometry)
             {
                 // Get the controller library
                 ControllerExporter* controller = mDocumentExporter->getControllerExporter();
