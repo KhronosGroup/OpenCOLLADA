@@ -2099,7 +2099,7 @@ namespace COLLADAMaya
         return equals;
     }
 
-    // ------------------------------------------------------------
+	// ------------------------------------------------------------
     // Export a plug's animations, if present
     bool AnimationExporter::createAnimationCurveFromClip (
         AnimationElement* animatedElement,
@@ -2145,9 +2145,9 @@ namespace COLLADAMaya
 				const String* parameters = animatedElement->getParameters();
 				bool convertUnits = animatedElement->getConvertUnits();
 				SampleType sampleType = animatedElement->getSampleType();
-			MEulerRotation::RotationOrder order = MEulerRotation::kXYZ;
+				MEulerRotation::RotationOrder order = MEulerRotation::kXYZ;
 
-			AnimationElement* animatedChild = new AnimationElement(plug, baseId, subId, nodeId, parameters, convertUnits, order, sampleType);
+				AnimationElement* animatedChild = new AnimationElement(plug, baseId, subId, nodeId, parameters, convertUnits, order, sampleType);
 
 				animatedChild->setOriginalBaseId(baseId);
 
@@ -2162,6 +2162,7 @@ namespace COLLADAMaya
 				AnimationCurve* curve = createAnimationCurveFromNode(animatedChild, animCurveNode, baseId, curveIndex);
 
 				if (curve == NULL) continue;
+
 
 				// Convert the values, for example if using angles.
 				curve->convertValues(conversion, conversion);
@@ -2355,10 +2356,50 @@ namespace COLLADAMaya
 
         // Create the animation keys
         createAnimationCurveKeys ( animCurveFn, curve, infoElement );
-
+		
+		// Verify that there is, in fact, an animation in this curve.
+		if (BezierAllKeysAreEqual(curve))
+		{
+			delete curve;
+			curve = NULL;
+		}
+		
         return curve;
     }
 
+	bool AnimationExporter::BezierAllKeysAreEqual(AnimationCurve* curve)
+	{
+		bool equals = true;
+		size_t valueCount = curve->getKeyCount();
+		if (valueCount > 1)
+		{
+			for (size_t j = 0; j < (valueCount - 1) && equals; ++j)
+			{
+				AnimationKeyBezier* key1 = ((AnimationKeyBezier*)curve->getKey(j));
+				AnimationKeyBezier* key2 = ((AnimationKeyBezier*)curve->getKey(j + 1));
+
+				if (j == 0)
+				{
+					equals = (COLLADABU::Math::Utils::equals(key1->output, key2->output, (float)getTolerance()) &&
+						COLLADABU::Math::Utils::equals(key1->output - key1->inTangent.y, key2->output - key2->inTangent.y, (float)getTolerance()));
+				}
+				else if (j == valueCount - 1)
+				{
+					equals = (COLLADABU::Math::Utils::equals(key1->output, key2->output, (float)getTolerance()) &&
+						COLLADABU::Math::Utils::equals(key1->input - key1->inTangent.x, key2->input - key2->inTangent.x, (float)getTolerance()));
+				}
+				else
+				{
+					equals = (COLLADABU::Math::Utils::equals(key1->output, key2->output, (float)getTolerance()) &&
+						COLLADABU::Math::Utils::equals(key1->input - key1->inTangent.x, key2->input - key2->inTangent.x, (float)getTolerance()) &&
+						COLLADABU::Math::Utils::equals(key1->output - key1->inTangent.y, key2->output - key2->inTangent.y, (float)getTolerance()));
+				}
+
+			}
+		}
+
+		return equals;
+	}
 
     // ------------------------------------------------------------
     AnimationElement* AnimationExporter::findAnimated ( const MPlug& plug, int& index )
