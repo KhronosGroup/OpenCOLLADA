@@ -1452,7 +1452,10 @@ namespace COLLADAMaya
 			COLLADASW::URI exportedFileDirURI = exportedFileURI.getPathDir();
 			exportedFileDirURI.setScheme(exportedFileURI.getScheme());
 			COLLADASW::URI referencedFileURI = referenceFilename;
-			referencedFileURI.makeRelativeTo(exportedFileDirURI);
+            if (ExportOptions::relativePaths())
+            {
+                referencedFileURI.makeRelativeTo(exportedFileDirURI);
+            }
 
 			COLLADASW::URI sceneElementURI(referencedFileURI);
 			const bool removeFirstNamespace = true;

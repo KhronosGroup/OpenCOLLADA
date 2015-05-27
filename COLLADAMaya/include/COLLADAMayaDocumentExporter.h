@@ -214,8 +214,14 @@ namespace COLLADAMaya
         VisualSceneExporter* getVisualSceneExporter();
 
         /**
+         * Returns a pointer to the physics exporter.
+         * @return PhysicsExporter* Pointer to the physics exporter
+         */
+        PhysicsExporter* getPhysicsExporter();
+
+        /**
 		* Returns a pointer to the physic scene exporter.
-		* @return PhysicSceneExporter* Pointer to the visual scene exporter
+		* @return PhysicSceneExporter* Pointer to the physics scene exporter
 		*/
 		PhysicSceneExporter* getPhysicSceneExporter();
 

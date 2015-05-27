@@ -21,7 +21,7 @@
 #include "maya/MFileIO.h"
 #include "maya/MFnDagNode.h"
 #include "maya/MFnTransform.h"
-
+#include "maya/MFnReference.h"
 
 namespace COLLADAMaya
 {
@@ -357,40 +357,54 @@ namespace COLLADAMaya
         return filename;
     }
 
-	bool ReferenceManager::isIn(const MDagPath & dagPath, const MObject & referenceNode)
-	{
-		MDagPathArray rootDagPaths;
-		MObjectArray subReferences;
-		ReferenceManager::getRootObjects(referenceNode, rootDagPaths, subReferences);
-		for (unsigned int i = 0; i < rootDagPaths.length(); ++i) {
-			if (rootDagPaths[i] == dagPath) {
-				return true;
-			}
-		}
-		for (unsigned int i = 0; i < subReferences.length(); ++i) {
-			if (isIn(dagPath, subReferences[i])) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	MStatus ReferenceManager::getTopLevelReferenceNode(const MDagPath & dagPath, MObject & outReferenceNode)
 	{
-		MStringArray references;
-		MStatus status = MFileIO::getReferences(references);
-		unsigned int referenceCount = references.length();
-		for (unsigned int referenceIndex = 0; referenceIndex < referenceCount; ++referenceIndex)
-		{
-			MString referenceFilename = references[referenceIndex];
-			MObject referenceNode = ReferenceManager::getReferenceNode(referenceFilename);
+        MStatus status;
 
-			if (isIn(dagPath, referenceNode)) {
-				outReferenceNode = referenceNode;
-				return MS::kSuccess;
-			}
-		}
-		return MS::kFailure;
+        MFnDagNode fnDagNode(dagPath, &status);
+        if (!status) return status;
+
+        bool isFromReferencedFile = fnDagNode.isFromReferencedFile(&status);
+        if (!status) return status;
+
+        if (!isFromReferencedFile) {
+            // dagPath is not a reference
+            return MS::kFailure;
+        }
+
+        // Get full dag path
+        MString fullPathName;
+        fullPathName = dagPath.fullPathName(&status);
+        if (!status) return status;
+
+        // Get nearest reference node
+        MString RNPath;
+        MString command = MString("referenceQuery -referenceNode ") + fullPathName;
+        status = MGlobal::executeCommand(command, RNPath);
+        if (!status) return status;
+
+        MObject RN = DagHelper::getNode(RNPath);
+        if (RN.isNull()) return MS::kFailure;
+
+        MFnReference fnRN(RN, &status);
+        if (!status) return status;
+
+        // Get parent most reference node
+        MObject parentRN = fnRN.parentReference(&status);
+        if (!status) return status;
+        while (!parentRN.isNull())
+        {
+            RN = parentRN;
+
+            status = fnRN.setObject(parentRN);
+            if (!status) return status;
+
+            parentRN = fnRN.parentReference(&status);
+            if (!status) return status;
+        }
+
+        outReferenceNode = RN;
+        return MS::kSuccess;
 	}
 
 	MStatus ReferenceManager::getReferenceFilename(const MObject & referenceNode, MString & referenceFilename)

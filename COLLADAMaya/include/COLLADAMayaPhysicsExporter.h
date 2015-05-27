@@ -40,6 +40,15 @@ namespace COLLADAMaya
     /************************************************************************/
 	class PhysicsExporter : public COLLADASW::LibraryPhysicsModels
     {
+    public:
+
+        typedef struct BodyTarget {
+            String Body;
+            String Target;
+        } BodyTarget;
+
+        // dae -> vector<InstanceRigidBody> map
+        typedef std::map<String, std::vector<BodyTarget> > DaeToIRBMap;
 
     private:
 
@@ -58,6 +67,7 @@ namespace COLLADAMaya
         */
         StringToStringMap mMayaIdColladaIdMap;
 
+        DaeToIRBMap mInstanceRigidBodies;
 
     public:
 
@@ -68,13 +78,6 @@ namespace COLLADAMaya
 			Convex_mesh = 2,
 			Mesh		= 3
 		};
-
-		typedef struct BodyTarget {
-			String Body;
-			String Target;
-		} BodyTarget;
-
-		typedef std::map<String, BodyTarget> RB_Map;
 
         /* @param streamWriter The stream the output will be written to                                                                     */
         PhysicsExporter ( COLLADASW::StreamWriter* streamWriter, DocumentExporter* documentExporter );
@@ -87,7 +90,7 @@ namespace COLLADAMaya
         void endExport();
 
         /** Generate the collada id, if not done before and stores it in the scene element. */
-        const String generateColladaMeshId ( const MDagPath dagPath );
+        const String generateColladaRigidBodyId ( const MDagPath dagPath, bool isLocal );
 
         /** export physic element */
         void exportPhysics ( SceneElement* sceneElement );
@@ -95,9 +98,7 @@ namespace COLLADAMaya
         /** Returns the collada geometry id of the current physics node. */
         const String& getColladaPhysicsId ( MDagPath dagPath );
 
-		static RB_Map& getRB_Map() { return bodyTargetMap; }
-
-		static RB_Map bodyTargetMap;
+        const DaeToIRBMap& getInstanceRigidBodies() { return mInstanceRigidBodies; }
 
 		/** Returns if the node is a solver bullet node. */
 		bool isBulletRigidBodySolverNode(MDagPath& dagPath);
@@ -112,6 +113,8 @@ namespace COLLADAMaya
 		void getGravityField();
 
     private:
+
+        static String GetRigidBodyReferenceFilename(const SceneElement* pSceneElement);
 
         /**
         * A collada id for every maya id.
@@ -131,7 +134,7 @@ namespace COLLADAMaya
 		bool exportPhysicsElement(SceneElement* sceneElement);
 
         /** Exports all physics data of the current mesh. */
-		bool exportPhysicModel(MDagPath& dagPath);
+        bool exportPhysicModel(SceneElement* sceneElement);
 
 		void createShape(MDagPath& childDagPath, MTransformationMatrix mPhysicsShapeTransformMatrix, MTransformationMatrix mGraphicShapeTransformMatrix);
 

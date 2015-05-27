@@ -58,8 +58,8 @@ namespace COLLADAMaya
 	{
 		if ( !ExportOptions::exportPhysic() ) return false;
 
-		PhysicsExporter::RB_Map& bodyTargetMap = PhysicsExporter::getRB_Map();
-		std::map<std::string, PhysicsExporter::BodyTarget>::iterator iter;
+        PhysicsExporter* pPhysicsExporter = mDocumentExporter->getPhysicsExporter();
+        const PhysicsExporter::DaeToIRBMap & instanceRigidBodies = pPhysicsExporter->getInstanceRigidBodies();
 
 		// Get the streamWriter from the export document
 		COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -69,24 +69,25 @@ namespace COLLADAMaya
 
 		//Physic_scene tag
 		libraryPhysicsScene.openPhysicsScene(PHYSIC_SCENE_NODE_ID);
-		
-		COLLADASW::InstancePhysicsModel instancePhysicModel(streamWriter, physicModelUrl);
-		
-		instancePhysicModel.openInstancePhysicsModel();
 
-		for (iter = bodyTargetMap.begin(); iter != bodyTargetMap.end(); ++iter)
+        for (PhysicsExporter::DaeToIRBMap::const_iterator iMap = instanceRigidBodies.begin(); iMap != instanceRigidBodies.end(); ++iMap)
 		{
-			PhysicsExporter::BodyTarget bt = iter->second;
-			COLLADASW::InstanceRigidBody instanceRigidBody(streamWriter, bt.Body, bt.Target);
-			
-			if (bt.Target.compare(physicWorldReferenceUrl))
-			{
-				instanceRigidBody.openInstanceRigidBody();
-				instanceRigidBody.closeInstanceRigidBody();
-			}
-		}
-		instancePhysicModel.closeInstancePhysicsModel();
+            COLLADASW::InstancePhysicsModel instancePhysicModel(streamWriter, iMap->first + physicModelUrl);
+            instancePhysicModel.openInstancePhysicsModel();
 
+            for (std::vector<PhysicsExporter::BodyTarget>::const_iterator iVec = iMap->second.begin(); iVec != iMap->second.end(); ++iVec)
+            {
+                // Don't export bodies linked to world
+                if ((*iVec).Target.compare(physicWorldReferenceUrl))
+                {
+                    COLLADASW::InstanceRigidBody instanceRigidBody(streamWriter, (*iVec).Body, (*iVec).Target);
+                    instanceRigidBody.openInstanceRigidBody();
+                    instanceRigidBody.closeInstanceRigidBody();
+                }
+            }
+
+            instancePhysicModel.closeInstancePhysicsModel();
+		}
 
 		// Technique common gravity
 		libraryPhysicsScene.openTechniqueCommon();

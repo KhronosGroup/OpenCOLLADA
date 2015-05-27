@@ -467,6 +467,12 @@ namespace COLLADAMaya
     }
 
     //---------------------------
+    PhysicsExporter* DocumentExporter::getPhysicsExporter()
+    {
+        return mPhysicsExporter;
+    }
+
+    //---------------------------
 	PhysicSceneExporter* DocumentExporter::getPhysicSceneExporter()
 	{
 		return mPhysicSceneExporter;
