@@ -44,13 +44,6 @@
 #include <maya/MFnCamera.h>
 #include <maya/MFileIO.h>
 #include <maya/MFnAttribute.h>
-#include <maya/MItEdits.h>
-#include <maya/MAddRemoveAttrEdit.h>
-#include <maya/MSetAttrEdit.h>
-#include <maya/MParentingEdit.h>
-#include <maya/MFcurveEdit.h>
-#include <maya/MConnectDisconnectAttrEdit.h>
-#include <maya/MFnReference.h>
 
 #include "COLLADASWNode.h"
 #include "COLLADASWInstanceGeometry.h"
@@ -681,80 +674,6 @@ namespace COLLADAMaya
             {
                 mTransformMatrix = MTransformationMatrix ( mTransformMatrix.asMatrix() * t.transformationMatrix() );
             }
-        }
-
-        if (!sceneElement->getIsLocal())
-        {
-            MObject referenceNode;
-            status = ReferenceManager::getTopLevelReferenceNode(sceneElement->getPath(), referenceNode);
-            MObject node = sceneElement->getNode();
-
-            MString referenceFileName;
-            status = ReferenceManager::getReferenceFilename(referenceNode, referenceFileName);
-
-            // TODO remove include
-            //MFnReference fnReference(node, &status);
-            //fnReference.
-
-            // Crash
-            //MFileIO::unloadReference(referenceFileName, &status);
-
-            MStringArray editStrings;
-
-            static bool removeEdit = false;
-
-            MItEdits itEdits(referenceNode, referenceNode);
-            for (; !itEdits.isDone(&status); itEdits.next())
-            {
-                MEdit edit = itEdits.edit(&status);
-                MEdit::EditType editType = edit.editType(&status);
-                MString editString = edit.getString(&status);
-                editStrings.append(editString);
-                switch (editType)
-                {
-                case MEdit::EditType::kAddRemoveAttrEdit:
-                {
-                    MAddRemoveAttrEdit addRemoveAttrEdit = itEdits.addRemoveAttrEdit(&status);
-                }
-                    break;
-                case MEdit::EditType::kConnectDisconnectEdit:
-                {
-                    MConnectDisconnectAttrEdit connectDisconnectAttrEdit = itEdits.connectDisconnectEdit(&status);
-                }
-                    break;
-                case MEdit::EditType::kFcurveEdit:
-                {
-                    MFcurveEdit fcurveEdit = itEdits.fcurveEdit(&status);
-                }
-                    break;
-                case MEdit::EditType::kNullEdit:
-                    break;
-                case MEdit::EditType::kParentEdit:
-                {
-                    MParentingEdit parentingEdit = itEdits.parentingEdit(&status);
-                }
-                    break;
-                case MEdit::EditType::kSetAttrEdit:
-                {
-                    MSetAttrEdit setAttrEdit = itEdits.setAttrEdit(&status);
-                }
-                    break;
-                default:
-                    break;
-                }
-
-                if (removeEdit)
-                {
-                    itEdits.removeCurrentEdit(&status);
-                }
-            }
-
-            for (unsigned int i = 0; i < editStrings.length(); ++i)
-            {
-                const MString & editString = editStrings[i];
-                MGlobal::executeCommand(editString, true);
-            }
-            //MFileIO::loadReference(referenceFileName, &status);
         }
 
         // Skins being exported from maya need to have the bindpose matrix 
