@@ -62,7 +62,7 @@ namespace COLLADAMaya
         const PhysicsExporter::DaeToIRBMap & instanceRigidBodies = pPhysicsExporter->getInstanceRigidBodies();
 
 
-		if (bodyTargetMap.empty())
+		if (instanceRigidBodies.empty())
 			return false;
 
 		// Get the streamWriter from the export document
