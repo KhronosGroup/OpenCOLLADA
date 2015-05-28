@@ -265,11 +265,11 @@ namespace COLLADAMaya
         // tell the scene node to be transformed or not.
         bool isForced = false;
         bool isVisible = false;
-		bool isPhysicNode = false;
-        bool isExportNode = getIsExportNode ( dagPath, isForced, isVisible, isPhysicNode );
+		bool isPhysicsNode = false;
+        bool isExportNode = getIsExportNode ( dagPath, isForced, isVisible, isPhysicsNode );
         sceneElement->setIsForced ( isForced );
         sceneElement->setIsVisible ( isVisible );
-		sceneElement->setIsPhysicNode(isPhysicNode);
+		sceneElement->setIsPhysicsNode(isPhysicsNode);
 
         // Check wether this node is used as a light probe
         bool isLightProbe = false;
@@ -344,7 +344,7 @@ namespace COLLADAMaya
         const MDagPath& dagPath, 
         bool& isForced,
         bool& isVisible,
-		bool& isPhysic)
+		bool& isPhysics)
     {
         // Does this dagPath already exist? If so, only recurse if FollowInstancedChildren() is set.
         MFnDagNode dagFn ( dagPath );
@@ -377,15 +377,15 @@ namespace COLLADAMaya
 		MStatus status;
 		MObject node = dagPath.node();
 
-		//Search if this node has a child which is a Solver Physic Bullet Node
+		//Search if this node has a child which is a Solver Physics Bullet Node
 		MFnDagNode fnNode(node);
 		for (int i = 0; i < fnNode.childCount(); ++i) 
 		{
 			MObject child = fnNode.child(i);
 			MFnDependencyNode shaderNode(child, &status);
 			MString shaderNodeTypeName = shaderNode.typeName();
-			if (shaderNodeTypeName == BULLET_PHYSIKS_SOLVER_NODE && ExportOptions::exportPhysic())
-				isPhysic = true;
+			if (shaderNodeTypeName == BULLET_PHYSIKS_SOLVER_NODE && ExportOptions::exportPhysics())
+				isPhysics = true;
 		}
 
         if ( !isForced )

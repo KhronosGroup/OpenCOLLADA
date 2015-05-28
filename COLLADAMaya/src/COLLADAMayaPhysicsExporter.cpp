@@ -60,7 +60,7 @@ namespace COLLADAMaya
     // --------------------------------------------------------
 	void PhysicsExporter::exportAllPhysics()
     {
-        if ( !ExportOptions::exportPhysic() ) return;
+        if ( !ExportOptions::exportPhysics() ) return;
 
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
@@ -159,7 +159,7 @@ namespace COLLADAMaya
     // --------------------------------------------------------
 	bool PhysicsExporter::exportPhysicsElement(SceneElement* sceneElement)
     {
-		if (!ExportOptions::exportPhysic()) return false;
+		if (!ExportOptions::exportPhysics()) return false;
 
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
@@ -172,7 +172,7 @@ namespace COLLADAMaya
         // Set the node id.
         sceneElement->setNodeId ( colladaRBId );
 
-		return exportPhysicModel(sceneElement);
+		return exportPhysicsModel(sceneElement);
     }
 
     // --------------------------------------------------------
@@ -356,7 +356,7 @@ namespace COLLADAMaya
 			MMatrix MatGraphShape(mGraphicShapeTransformMatrix.asMatrixInverse());
 
 
-			// PhysicShape Matrix relative to Graphic Shape Space
+			// PhysicsShape Matrix relative to Graphic Shape Space
 			MMatrix result = MatPhysShape * MatGraphShape;
 			double result2[4][4];
 			result.get(result2);
@@ -488,13 +488,13 @@ namespace COLLADAMaya
 		if (sceneElement->getType() == SceneElement::TRANSFORM && sceneElement->getPath() == ChildPath)
 		{
 			if (!result)
-				sceneElement->setIsPhysicNode(true);
+				sceneElement->setIsPhysicsNode(true);
 			else
 			{
 				if (needExport)
-					sceneElement->setIsPhysicNode(false);
+					sceneElement->setIsPhysicsNode(false);
 				else
-					sceneElement->setIsPhysicNode(true);
+					sceneElement->setIsPhysicsNode(true);
 			}
 		}
 
@@ -522,7 +522,7 @@ namespace COLLADAMaya
 	}
 
     // --------------------------------------------------------
-	bool PhysicsExporter::exportPhysicModel(
+	bool PhysicsExporter::exportPhysicsModel(
         SceneElement* sceneElement)
     {
         MDagPath dagPath = sceneElement->getPath();
@@ -538,7 +538,7 @@ namespace COLLADAMaya
         {
             if (firstimeOpenPhysModel)
             {
-                openPhysicsModel(PHYSIC_MODEL_ID, "");
+                openPhysicsModel(PHYSICS_MODEL_ID, "");
                 firstimeOpenPhysModel = false;
             }
 
@@ -653,8 +653,8 @@ namespace COLLADAMaya
                 else if (sceneElement->getIsLocal())
 				{
 					mTransformObject = ChildPath.transform();
-					MTransformationMatrix mPhysicShapeTransformMatrix(ChildPath.inclusiveMatrix());
-					createShape(ChildPath, mPhysicShapeTransformMatrix, mGraphicShapeTransformMatrix);
+					MTransformationMatrix mPhysicsShapeTransformMatrix(ChildPath.inclusiveMatrix());
+					createShape(ChildPath, mPhysicsShapeTransformMatrix, mGraphicShapeTransformMatrix);
 				}
 			}
 		}

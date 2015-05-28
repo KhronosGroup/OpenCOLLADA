@@ -92,7 +92,7 @@ namespace COLLADAMaya
         /** Generate the collada id, if not done before and stores it in the scene element. */
         const String generateColladaRigidBodyId ( const MDagPath dagPath, bool isLocal );
 
-        /** export physic element */
+        /** export physics element */
         void exportPhysics ( SceneElement* sceneElement );
 
         /** Returns the collada geometry id of the current physics node. */
@@ -130,11 +130,11 @@ namespace COLLADAMaya
         /** Exports the current scene element and all it's children. */
         void exportAllPhysics ( SceneElement* sceneElement, bool isVisible );
 
-		/** export physic element */
+		/** export physics element */
 		bool exportPhysicsElement(SceneElement* sceneElement);
 
         /** Exports all physics data of the current mesh. */
-        bool exportPhysicModel(SceneElement* sceneElement);
+        bool exportPhysicsModel(SceneElement* sceneElement);
 
 		void createShape(MDagPath& childDagPath, MTransformationMatrix mPhysicsShapeTransformMatrix, MTransformationMatrix mGraphicShapeTransformMatrix);
 

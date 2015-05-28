@@ -13,8 +13,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADA_MAYA_PHYSIC_SCENE_EXPORTER_H__
-#define __COLLADA_MAYA_PHYSIC_SCENE_EXPORTER_H__
+#ifndef __COLLADA_MAYA_PHYSICS_SCENE_EXPORTER_H__
+#define __COLLADA_MAYA_PHYSICS_SCENE_EXPORTER_H__
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADASWLibraryPhysicsScenes.h"
@@ -43,7 +43,7 @@ namespace COLLADAMaya
      * (radians for rotations and centimeters for translations).
      * We have to translate them into the working units of the current scene!
      */
-	class PhysicSceneExporter : public COLLADASW::LibraryPhysicsScenes
+	class PhysicsSceneExporter : public COLLADASW::LibraryPhysicsScenes
     {
 
     private:
@@ -63,18 +63,18 @@ namespace COLLADAMaya
          * @param documentExporter Pointer to the main document exporter.
          * @param sceneId Name of the current scene to export. Has an empty string as default value.
          */
-        PhysicSceneExporter ( COLLADASW::StreamWriter* streamWriter,
+        PhysicsSceneExporter ( COLLADASW::StreamWriter* streamWriter,
                               DocumentExporter* documentExporter,
                               const String& sceneId = EMPTY_STRING );
         /**
          * Destructor.
          */
-        virtual ~PhysicSceneExporter() {};
+        virtual ~PhysicsSceneExporter() {};
 
         /** 
          * Exports the visual scene with the transforms of all included elements 
          */
-		bool exportPhysicScenes();
+		bool exportPhysicsScenes();
     };
 
 }
