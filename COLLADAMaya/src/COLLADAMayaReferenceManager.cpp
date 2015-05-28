@@ -21,7 +21,7 @@
 #include "maya/MFileIO.h"
 #include "maya/MFnDagNode.h"
 #include "maya/MFnTransform.h"
-#if MAYA_API_VERSION >= 201300
+#if MAYA_API_VERSION >= 201400
 #include "maya/MFnReference.h"
 #endif
 
@@ -361,7 +361,7 @@ namespace COLLADAMaya
 
 	MStatus ReferenceManager::getTopLevelReferenceNode(const MDagPath & dagPath, MObject & outReferenceNode)
 	{
-#if MAYA_API_VERSION >= 201300
+#if MAYA_API_VERSION >= 201400
         MStatus status;
 
         MFnDagNode fnDagNode(dagPath, &status);
