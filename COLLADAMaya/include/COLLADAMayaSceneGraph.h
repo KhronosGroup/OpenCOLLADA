@@ -136,7 +136,7 @@ namespace COLLADAMaya
             const MDagPath& dagPath,
             bool& isForced,
             bool& isVisible,
-			bool& isPhysic);
+			bool& isPhysics);
 
         /** Samples and caches the animation expressions. */
         void sampleAnimationExpressions ();

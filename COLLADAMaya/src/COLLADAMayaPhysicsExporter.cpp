@@ -23,6 +23,7 @@
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADASWInstanceGeometry.h"
 #include "COLLADAMayaSceneElement.h"
+#include "COLLADAMayaReferenceManager.h"
 
 #include <algorithm>
 
@@ -33,12 +34,11 @@
 #include <maya/MFnTransform.h>
 #include <maya/MFnGravityField.h>
 #include <maya/MFnAttribute.h>
-
+#include <maya/MFileIO.h>
 
 namespace COLLADAMaya
 {
 	static const char* NAME_SUFFIX_INVALID = "_MAKE_NAME_INVALID";
-	std::map<String, PhysicsExporter::BodyTarget> PhysicsExporter::bodyTargetMap;
 	MVector PhysicsExporter::gravityField;
 
     // --------------------------------------------------------
@@ -48,7 +48,6 @@ namespace COLLADAMaya
 		, mDocumentExporter(documentExporter)
 		, mIsFirstRotation(true)
     {
-			bodyTargetMap.clear();
 			firstimeOpenPhysModel = true;
     }
 
@@ -61,7 +60,7 @@ namespace COLLADAMaya
     // --------------------------------------------------------
 	void PhysicsExporter::exportAllPhysics()
     {
-        if ( !ExportOptions::exportPhysic() ) return;
+        if ( !ExportOptions::exportPhysics() ) return;
 
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
@@ -85,7 +84,7 @@ namespace COLLADAMaya
 	void PhysicsExporter::exportAllPhysics(SceneElement* sceneElement, bool isVisible)
     {
         // If we have a external reference, we don't need to export the data here.
-        if ( !sceneElement->getIsLocal() ) return;
+        if ( !sceneElement->getIsLocal() && !ExportOptions::exportXRefs()) return;
 
         bool exportSceneElement = false;
         SceneElement::Type sceneElementType = sceneElement->getType();
@@ -160,25 +159,31 @@ namespace COLLADAMaya
     // --------------------------------------------------------
 	bool PhysicsExporter::exportPhysicsElement(SceneElement* sceneElement)
     {
-		if (!ExportOptions::exportPhysic()) return false;
+		if (!ExportOptions::exportPhysics()) return false;
 
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
         String pathName = dagPath.fullPathName ().asChar ();
 
         // Generate the unique collada mesh id.
-        const String& colladaMeshId = generateColladaMeshId ( dagPath );
+        const String& colladaRBId = generateColladaRigidBodyId ( dagPath, sceneElement->getIsLocal() );
 //        if ( colladaMeshId.empty () ) return false;
 
         // Set the node id.
-        sceneElement->setNodeId ( colladaMeshId );
+        sceneElement->setNodeId ( colladaRBId );
 
-		return exportPhysicModel(dagPath);
+		return exportPhysicsModel(sceneElement);
     }
 
     // --------------------------------------------------------
-    const String PhysicsExporter::generateColladaMeshId ( const MDagPath dagPath )
+    const String PhysicsExporter::generateColladaRigidBodyId ( const MDagPath dagPath, bool isLocal )
     {
+        if (!isLocal)
+        {
+            const bool removeFirstNamespace = true;
+            return mDocumentExporter->dagPathToColladaName(dagPath);
+        }
+
         // Get the maya mesh id.
         String mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPath );
 
@@ -351,7 +356,7 @@ namespace COLLADAMaya
 			MMatrix MatGraphShape(mGraphicShapeTransformMatrix.asMatrixInverse());
 
 
-			// PhysicShape Matrix relative to Graphic Shape Space
+			// PhysicsShape Matrix relative to Graphic Shape Space
 			MMatrix result = MatPhysShape * MatGraphShape;
 			double result2[4][4];
 			result.get(result2);
@@ -483,13 +488,13 @@ namespace COLLADAMaya
 		if (sceneElement->getType() == SceneElement::TRANSFORM && sceneElement->getPath() == ChildPath)
 		{
 			if (!result)
-				sceneElement->setIsPhysicNode(true);
+				sceneElement->setIsPhysicsNode(true);
 			else
 			{
 				if (needExport)
-					sceneElement->setIsPhysicNode(false);
+					sceneElement->setIsPhysicsNode(false);
 				else
-					sceneElement->setIsPhysicNode(true);
+					sceneElement->setIsPhysicsNode(true);
 			}
 		}
 
@@ -517,10 +522,11 @@ namespace COLLADAMaya
 	}
 
     // --------------------------------------------------------
-	bool PhysicsExporter::exportPhysicModel(
-		MDagPath& dagPath)
+	bool PhysicsExporter::exportPhysicsModel(
+        SceneElement* sceneElement)
     {
-		const String& colladaMeshId = generateColladaMeshId(dagPath);
+        MDagPath dagPath = sceneElement->getPath();
+		const String& colladaMeshId = generateColladaRigidBodyId(dagPath, sceneElement->getIsLocal());
 		String meshName = mDocumentExporter->dagPathToColladaName(dagPath);
 
         // Opens the mesh tag in the collada document
@@ -528,56 +534,59 @@ namespace COLLADAMaya
 		MObject parent = DagNode.parent(0);
 		MFnDagNode fnParent(parent);
 		MString parentName = fnParent.name();
-		if (firstimeOpenPhysModel)
-		{
-			openPhysicsModel(PHYSIC_MODEL_ID, "");
-			firstimeOpenPhysModel = false;
-		}
-				
-		openRigidBody(colladaMeshId, "");
+        if (sceneElement->getIsLocal())
+        {
+            if (firstimeOpenPhysModel)
+            {
+                openPhysicsModel(PHYSICS_MODEL_ID, "");
+                firstimeOpenPhysModel = false;
+            }
 
-		openTechniqueCommon();
+            openRigidBody(colladaMeshId, "");
+            openTechniqueCommon();
 
-		
-		// Get BodyType
-		int type;
-		DagHelper::getPlugValue(dagPath.node(), ATTR_BODY_TYPE, type);
-		
-		enum bodytype
-		{
-			Static,
-			Kinematic,
-			Dynamic
-		};
+            // Get BodyType
+            int type;
+            DagHelper::getPlugValue(dagPath.node(), ATTR_BODY_TYPE, type);
 
-		if (type == Kinematic || type == Dynamic)
-			addDynamic(true);
-		else if (type == Static)
-			addDynamic(false);
+            enum bodytype
+            {
+                Static,
+                Kinematic,
+                Dynamic
+            };
 
-
-		//Get Mass
-		float mass;
-		MObject node = dagPath.node();
-		
-		if (isBulletRigidBodyNode(dagPath))
-		{
-			DagHelper::getPlugValue(node, ATTR_MASS, mass);
-			addMass(mass);
-		}
+            if (type == Kinematic || type == Dynamic)
+                addDynamic(true);
+            else if (type == Static)
+                addDynamic(false);
 
 
-		//Get Inertia 
-		MVector inertia(1,1,1);
-		//DagHelper::getPlugValue(dagPath.node(), ATTR_INERTIA, inertia);
-		addInertia(inertia.x, inertia.y, inertia.z);
+            //Get Mass
+            float mass;
+            MObject node = dagPath.node();
+
+            if (isBulletRigidBodyNode(dagPath))
+            {
+                DagHelper::getPlugValue(node, ATTR_MASS, mass);
+                addMass(mass);
+            }
+
+
+            //Get Inertia 
+            MVector inertia(1, 1, 1);
+            //DagHelper::getPlugValue(dagPath.node(), ATTR_INERTIA, inertia);
+            addInertia(inertia.x, inertia.y, inertia.z);
+        }
 		
 		for (int i = 0; i < DagNode.parentCount(); ++i)
 		{
 			// Parent 1 level upper
 			MObject parent = DagNode.parent(i);
 			MFnDagNode fnParent(parent);
-			MString parentName = fnParent.name();
+            MDagPath parentDagPath;
+            fnParent.getPath(parentDagPath);
+            String parentId = mDocumentExporter->dagPathToColladaId(parentDagPath);
 
 			bool needExportParent = false;
 			bool resultParent = DagHelper::getPlugValue(parent, ATTR_COLLISION_EXPORT_NODE, needExportParent);
@@ -586,7 +595,9 @@ namespace COLLADAMaya
 			// Parent 2 level upper
 			MObject parent2 = fnParent.parent(0);
 			MFnDagNode fnParent2(parent2);
-			MString parentName2 = fnParent2.name();
+            MDagPath parent2DagPath;
+            fnParent2.getPath(parent2DagPath);
+            String parent2Id = mDocumentExporter->dagPathToColladaId(parent2DagPath);
 
 			// Search for Solver, Gravity Field
 			getGravityField();
@@ -620,30 +631,39 @@ namespace COLLADAMaya
 					MFnDagNode fnChild(child);
 					MString childName;
 					childName = fnChild.name();
-					const String& colladaBodyId = generateColladaMeshId(ChildPath);
+                    const String& colladaBodyId = generateColladaRigidBodyId(ChildPath, sceneElement->getIsLocal());
 
-					BodyTarget mBodyTarget;
-					mBodyTarget.Body = colladaBodyId;
+					BodyTarget bodyTarget;
+					bodyTarget.Body = colladaBodyId;
 
 					if (!needExportParent)
-						mBodyTarget.Target = (MString("#") + parentName2).asChar();
+						bodyTarget.Target = String("#") + parent2Id;
 					else
-						mBodyTarget.Target = (MString("#") + parentName).asChar();
+						bodyTarget.Target = String("#") + parentId;
 
-					bodyTargetMap[(MString("#") + parentName).asChar()] = mBodyTarget;
+                    String filename = GetRigidBodyReferenceFilename(sceneElement);
+
+                    DaeToIRBMap::iterator it = mInstanceRigidBodies.find(filename);
+                    if (it == mInstanceRigidBodies.end()) {
+                        mInstanceRigidBodies[filename] = std::vector<BodyTarget>();
+                    }
+
+                    mInstanceRigidBodies[filename].push_back(bodyTarget);
 				}
-				else
+                else if (sceneElement->getIsLocal())
 				{
 					mTransformObject = ChildPath.transform();
-					MTransformationMatrix mPhysicShapeTransformMatrix(ChildPath.inclusiveMatrix());
-					createShape(ChildPath, mPhysicShapeTransformMatrix, mGraphicShapeTransformMatrix);
+					MTransformationMatrix mPhysicsShapeTransformMatrix(ChildPath.inclusiveMatrix());
+					createShape(ChildPath, mPhysicsShapeTransformMatrix, mGraphicShapeTransformMatrix);
 				}
 			}
 		}
 
-
-		closeTechniqueCommon();
-		closeRigidBody();
+        if (sceneElement->getIsLocal())
+        {
+            closeTechniqueCommon();
+            closeRigidBody();
+        }
 
         return true;
     }
@@ -654,6 +674,38 @@ namespace COLLADAMaya
         closeLibrary();
     }
 
+    // ------------------------------------------------------------------------
+    String PhysicsExporter::GetRigidBodyReferenceFilename(const SceneElement* pSceneElement)
+    {
+        if (pSceneElement->getIsLocal()) {
+            return "";
+        }
+
+        MString mayaReferenceFilename = ReferenceManager::getReferenceFilename(pSceneElement->getPath());
+        String referenceFilename = mayaReferenceFilename.asChar();
+
+        // Replace .mb by .dae
+        String::size_type dotPos = referenceFilename.rfind('.');
+        if (dotPos != String::npos) {
+            referenceFilename.resize(dotPos);
+            referenceFilename.append(".dae");
+        }
+
+        MString exportedFile = MFileIO::currentFile();
+
+        // Make referenced file path relative to exported file directory
+        COLLADASW::URI exportedFileURI = exportedFile.asChar();
+        COLLADASW::URI exportedFileDirURI = exportedFileURI.getPathDir();
+        exportedFileDirURI.setScheme(exportedFileURI.getScheme());
+        COLLADASW::URI referencedFileURI = referenceFilename;
+
+        if (ExportOptions::relativePaths())
+        {
+            referencedFileURI.makeRelativeTo(exportedFileDirURI);
+        }
+        
+        return referencedFileURI.getURIString();
+    }
 
     // ------------------------------------
     const String& PhysicsExporter::findColladaPhysicsId ( const String& mayaMeshId )

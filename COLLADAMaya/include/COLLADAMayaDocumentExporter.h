@@ -36,7 +36,7 @@ namespace COLLADAMaya
     class GeometryExporter;
 	class PhysicsExporter;
     class VisualSceneExporter;
-	class PhysicSceneExporter;
+	class PhysicsSceneExporter;
     class AnimationExporter;
     class AnimationClipExporter;
     class AnimationSampleCache;
@@ -81,8 +81,8 @@ namespace COLLADAMaya
         /** Exports the visual scene. */
         VisualSceneExporter* mVisualSceneExporter;
 
-		/** Exports the Physic scene */
-		PhysicSceneExporter* mPhysicSceneExporter;
+		/** Exports the Physics scene */
+		PhysicsSceneExporter* mPhysicsSceneExporter;
 
         /** Exports the animations. */
         AnimationExporter* mAnimationExporter;
@@ -214,10 +214,16 @@ namespace COLLADAMaya
         VisualSceneExporter* getVisualSceneExporter();
 
         /**
-		* Returns a pointer to the physic scene exporter.
-		* @return PhysicSceneExporter* Pointer to the visual scene exporter
+         * Returns a pointer to the physics exporter.
+         * @return PhysicsExporter* Pointer to the physics exporter
+         */
+        PhysicsExporter* getPhysicsExporter();
+
+        /**
+		* Returns a pointer to the physics scene exporter.
+		* @return PhysicsSceneExporter* Pointer to the physics scene exporter
 		*/
-		PhysicSceneExporter* getPhysicSceneExporter();
+		PhysicsSceneExporter* getPhysicsSceneExporter();
 
         /**
         * Returns a pointer to the animation exporter.
@@ -331,7 +337,7 @@ namespace COLLADAMaya
         void exportAsset();
 
         /** Exports the current scene. */
-        void exportScene(bool exportScene, bool exportPhysic);
+        void exportScene(bool exportScene, bool exportPhysics);
 
         /** Creates the import/export libraries */
         void createLibraries();

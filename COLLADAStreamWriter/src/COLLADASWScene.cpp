@@ -20,7 +20,7 @@ namespace COLLADASW
     void Scene::add()
     {
 
-		if (exportScene || exportPhysic)
+		if (exportScene || exportPhysics)
 		{
 		
 			mSW->openElement ( CSWC::CSW_ELEMENT_SCENE );
@@ -32,7 +32,7 @@ namespace COLLADASW
 				mSW->closeElement();
 			}
 
-			if (exportPhysic)
+			if (exportPhysics)
 			{
 				mSW->openElement(CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_SCENE);
 				mSW->appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, mInstancePhysicsSceneUrl);

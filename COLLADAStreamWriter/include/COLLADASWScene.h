@@ -31,7 +31,7 @@ namespace COLLADASW
         /** The url of the instance visual scene.*/
         COLLADABU::URI mInstanceVisualSceneUrl;
 
-		/** The url of the instance physic scene.*/
+		/** The url of the instance physics scene.*/
 		COLLADABU::URI mInstancePhysicsSceneUrl;
 
     public:
@@ -42,11 +42,11 @@ namespace COLLADASW
 		, mInstancePhysicsSceneUrl(instancePhysicsSceneURI)
         {
 			exportScene = true;
-			exportPhysic = false;
+			exportPhysics = false;
 		}
 
 		bool exportScene;
-		bool exportPhysic;
+		bool exportPhysics;
 
         /** Adds the scene to the stream, i.e. performes the actual writing*/
         void add();

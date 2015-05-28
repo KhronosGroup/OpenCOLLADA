@@ -74,8 +74,8 @@ namespace COLLADASW
 
         /** Writes the opening @a \<rigid_body\> tag and, if necessary the opening @a \<library_physics_models\> tag.
         closePhysicsModel() must be use to close the opened tags.
-        @param id The id of the physicModel.
-        @param name The name of the physicModel.*/
+        @param id The id of the physicsModel.
+        @param name The name of the physicsModel.*/
         void openPhysicsModel ( const String& id, const String& name = EMPTY_STRING );
 
         /** Closes the tag open by openPhysicsModel()*/

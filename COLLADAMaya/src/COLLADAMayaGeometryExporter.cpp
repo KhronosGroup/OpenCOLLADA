@@ -207,7 +207,7 @@ namespace COLLADAMaya
         String meshName = mDocumentExporter->dagPathToColladaName ( dagPath );
 		bool result = exportMesh(fnMesh, colladaMeshId, meshName);
 
-		if (ExportOptions::exportPhysic())
+		if (ExportOptions::exportPhysics())
 		{
 			MObject transform = dagPath.transform();
 			int shape;

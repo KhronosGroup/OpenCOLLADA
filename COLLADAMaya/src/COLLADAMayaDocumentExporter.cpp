@@ -19,7 +19,7 @@
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaPhysicsExporter.h"
 #include "COLLADAMayaVisualSceneExporter.h"
-#include "COLLADAMayaPhysicSceneExporter.h"
+#include "COLLADAMayaPhysicsSceneExporter.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaImageExporter.h"
 #include "COLLADAMayaMaterialExporter.h"
@@ -60,7 +60,7 @@ namespace COLLADAMaya
             , mImageExporter ( NULL )
             , mGeometryExporter ( NULL )
             , mVisualSceneExporter ( NULL )
-			, mPhysicSceneExporter(NULL)
+			, mPhysicsSceneExporter(NULL)
             , mAnimationExporter ( NULL )
             , mAnimationClipExporter ( NULL )
             , mControllerExporter ( NULL )
@@ -107,7 +107,7 @@ namespace COLLADAMaya
         mGeometryExporter = new GeometryExporter ( &mStreamWriter, this );
 		mPhysicsExporter = new PhysicsExporter(&mStreamWriter, this);
         mVisualSceneExporter = new VisualSceneExporter ( &mStreamWriter, this, mSceneId );
-		mPhysicSceneExporter = new PhysicSceneExporter(&mStreamWriter, this, mSceneId);
+		mPhysicsSceneExporter = new PhysicsSceneExporter(&mStreamWriter, this, mSceneId);
         mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
         mAnimationClipExporter = new AnimationClipExporter ( &mStreamWriter );
         mControllerExporter = new ControllerExporter ( &mStreamWriter, this );
@@ -126,7 +126,7 @@ namespace COLLADAMaya
         delete mImageExporter;
         delete mGeometryExporter;
         delete mVisualSceneExporter;
-		delete mPhysicSceneExporter;
+		delete mPhysicsSceneExporter;
         delete mAnimationExporter;
         delete mAnimationClipExporter;
         delete mControllerExporter;
@@ -184,8 +184,8 @@ namespace COLLADAMaya
 				mPhysicsExporter->exportAllPhysics();
 
 				
-				// Export the physic scene
-				bool physicSceneExported = mPhysicSceneExporter->exportPhysicScenes();
+				// Export the physics scene
+				bool physicsSceneExported = mPhysicsSceneExporter->exportPhysicsScenes();
 
                 // Export the visual scene
                 bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
@@ -200,7 +200,7 @@ namespace COLLADAMaya
 				}
 
                 // Export the scene
-                exportScene(visualSceneExported, physicSceneExported);
+                exportScene(visualSceneExported, physicsSceneExported);
 
                 // Export the light probes.
                 mLightProbeExporter->exportLightProbes();
@@ -262,7 +262,7 @@ namespace COLLADAMaya
             + ";\n\t\t\tisSampling=" + ExportOptions::isSampling() 
             + ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
             + ";removeStaticCurves=" + ExportOptions::removeStaticCurves() 
-			+ ";exportPhysic=" + ExportOptions::exportPhysic()
+			+ ";exportPhysics=" + ExportOptions::exportPhysics()
             + ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes() 
             + ";exportLights=" + ExportOptions::exportLights() 
             + ";\n\t\t\texportCameras=" + ExportOptions::exportCameras() 
@@ -316,11 +316,11 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void DocumentExporter::exportScene(bool exportScene, bool exportPhysic)
+    void DocumentExporter::exportScene(bool exportScene, bool exportPhysics)
     {
-		COLLADASW::Scene scene(&mStreamWriter, COLLADASW::URI(EMPTY_STRING, VISUAL_SCENE_NODE_ID), COLLADASW::URI(EMPTY_STRING, PHYSIC_SCENE_NODE_ID));
+		COLLADASW::Scene scene(&mStreamWriter, COLLADASW::URI(EMPTY_STRING, VISUAL_SCENE_NODE_ID), COLLADASW::URI(EMPTY_STRING, PHYSICS_SCENE_NODE_ID));
 		scene.exportScene = exportScene;
-		scene.exportPhysic = exportPhysic;
+		scene.exportPhysics = exportPhysics;
         scene.add();
     }
 
@@ -467,9 +467,15 @@ namespace COLLADAMaya
     }
 
     //---------------------------
-	PhysicSceneExporter* DocumentExporter::getPhysicSceneExporter()
+    PhysicsExporter* DocumentExporter::getPhysicsExporter()
+    {
+        return mPhysicsExporter;
+    }
+
+    //---------------------------
+	PhysicsSceneExporter* DocumentExporter::getPhysicsSceneExporter()
 	{
-		return mPhysicSceneExporter;
+		return mPhysicsSceneExporter;
 	}
 
     //---------------------------

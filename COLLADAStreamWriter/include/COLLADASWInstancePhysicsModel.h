@@ -24,7 +24,7 @@ namespace COLLADASW
 
     private:
 
-        /** The url to the physic model information (library_physics_models) */
+        /** The url to the physics model information (library_physics_models) */
         URI mUrl;
         String mSid;
         String mName;
@@ -43,12 +43,12 @@ namespace COLLADASW
         , mName ( name )
         {}
 
-		/** Writes the opening @a \<instance_physic_model\> tag.
+		/** Writes the opening @a \<instance_physics_model\> tag.
 		closeInstancePhysicsModel() must be use to close the opened tags.
 		@param id the id of the visual scene*/
 		void openInstancePhysicsModel(const String& nodeId = EMPTY_STRING, const String& nodeName = EMPTY_STRING);
 
-		/** Closes the tag opened by openInstancePhysicModel()*/
+		/** Closes the tag opened by openInstancePhysicsModel()*/
 		void closeInstancePhysicsModel();
 
 	private:

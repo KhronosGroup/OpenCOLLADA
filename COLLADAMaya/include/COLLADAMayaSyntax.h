@@ -50,8 +50,8 @@ namespace COLLADAMaya
     /** The unique name for the visual scene node on export. */
     static const String VISUAL_SCENE_NODE_ID                        = "VisualSceneNode";
 
-	/** The unique name for the physic scene node on export. */
-	static const String PHYSIC_SCENE_NODE_ID						= "collada_physics_scene";
+	/** The unique name for the physics scene node on export. */
+	static const String PHYSICS_SCENE_NODE_ID						= "collada_physics_scene";
 
 
     /** The standard name for the collada id attribute. */
@@ -313,8 +313,8 @@ namespace COLLADAMaya
     static const char* AGEIA_PHYSIKS_MODEL                          = "AgeiaPhysicsModel";
 	static const char* BULLET_PHYSIKS_NODE							= "bulletRigidBodyShape";
 	static const char* BULLET_PHYSIKS_SOLVER_NODE					= "bulletSolverShape";
-	static const char* PHYSIC_MODEL_ID								= "PhysicModel";
-	static const char* PHYSIC_WORLD_REFERENCE						= "world";
+	static const char* PHYSICS_MODEL_ID								= "PhysicsModel";
+	static const char* PHYSICS_WORLD_REFERENCE						= "world";
 	static const char* ATTR_MASS									= "mass";
 	static const char* ATTR_BODY_TYPE								= "bodyType";
 	static const char* ATTR_DYNAMIC									= "dynamic";

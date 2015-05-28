@@ -48,6 +48,9 @@ global proc int openColladaExporterOpts ( string $parent,
 	string	$optionList[];
 	string	$optionBreakDown[];
 	int		$index;
+    float   $version;
+    
+    $version = getApplicationVersionAsFloat();
 
 	if ($action == "post") 
 	{
@@ -141,14 +144,17 @@ global proc int openColladaExporterOpts ( string $parent,
 							-v1 true
 							-l1 "Animations"
 							colladaExportFilter3;
-							
-					checkBoxGrp
-							-l " "
-							-ncb 1
-							-v1 false
-							-l1 "Physic"
-							colladaExportFilter9;
 					
+                    if ($version >= 2014)
+                    {
+                        checkBoxGrp
+                                -l " "
+                                -ncb 1
+                                -v1 false
+                                -l1 "Physics"
+                                colladaExportFilter9;
+					}
+                    
 					checkBoxGrp
 							-l " "
 							-ncb 2
@@ -409,7 +415,7 @@ global proc int openColladaExporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v2 $intVal colladaExportFilter8;
 				}
-				else if ($optionBreakDown[0] == "exportPhysic")
+				else if ($version >= 2014 && $optionBreakDown[0] == "exportPhysics")
 				{
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaExportFilter9;
@@ -495,7 +501,10 @@ global proc int openColladaExporterOpts ( string $parent,
 		$currentOptions = $currentOptions + "exportTangents=" + `checkBoxGrp -q -v2 colladaExportFilter7` + ";";
 		$currentOptions = $currentOptions + "exportReferencedMaterials=" + `checkBoxGrp -q -v1 colladaExportFilter8` + ";";
 		$currentOptions = $currentOptions + "exportMaterialsOnly=" + `checkBoxGrp -q -v2 colladaExportFilter8` + ";";
-		$currentOptions = $currentOptions + "exportPhysic=" + `checkBoxGrp -q -v1 colladaExportFilter9` + ";";
+        if ($version >= 2014)
+        {
+            $currentOptions = $currentOptions + "exportPhysics=" + `checkBoxGrp -q -v1 colladaExportFilter9` + ";";
+        }
 		
 // External references options
 //

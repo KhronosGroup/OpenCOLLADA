@@ -99,8 +99,8 @@ namespace COLLADAMaya
         /** True, if the transform element has joints. */
         bool mHasJoint;
 
-		/** true, if the node is used as physic Node */
-		bool mIsPhysicNode;
+		/** true, if the node is used as physics Node */
+		bool mIsPhysicsNode;
 
         /** Set the list of skeleton-Ids. It indicates where a skin
             controller is to start to search for the joint nodes
@@ -263,19 +263,19 @@ namespace COLLADAMaya
          */
         bool getHasJoint () { return mHasJoint; }
 
-		/** Set physicNode on the current scene element. */
-		void setIsPhysicNode(bool val)
+		/** Set physicsNode on the current scene element. */
+		void setIsPhysicsNode(bool val)
 		{
-			mIsPhysicNode = val;
+			mIsPhysicsNode = val;
 		}
 
 		/**
-		* True, if the element is used as a Physic Node.
-		* @return bool True, if the element is used as a Physic Node.
+		* True, if the element is used as a Physics Node.
+		* @return bool True, if the element is used as a Physics Node.
 		*/
-		bool getIsPhysicNode() const
+		bool getIsPhysicsNode() const
 		{
-			return mIsPhysicNode;
+			return mIsPhysicsNode;
 		}
 
         /** Set the skeleton uri. It indicates where a skin

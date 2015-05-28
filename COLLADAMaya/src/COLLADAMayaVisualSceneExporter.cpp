@@ -146,7 +146,7 @@ namespace COLLADAMaya
         bool isForced = sceneElement->getIsForced();
         bool isVisible = sceneElement->getIsVisible();
         bool isExportNode = sceneElement->getIsExportNode();
-		bool isPhysicNode = sceneElement->getIsPhysicNode();
+		bool isPhysicsNode = sceneElement->getIsPhysicsNode();
 
         // Check for a file reference
         bool isLocal = sceneElement->getIsLocal();
@@ -175,7 +175,7 @@ namespace COLLADAMaya
             sceneElement->setType ( SceneElement::TRANSFORM );
 
             // Taken out of unvisible transforms. 
-			if ((!ExportOptions::exportInvisibleNodes() && !isVisible && !isExportNode) || (ExportOptions::exportPhysic() && isPhysicNode)) return false;
+			if ((!ExportOptions::exportInvisibleNodes() && !isVisible && !isExportNode) || (ExportOptions::exportPhysics() && isPhysicsNode)) return false;
 
             // Export the scene graph node for all transform-derivatives
             if ( dagPath.hasFn ( MFn::kJoint ) )
@@ -1452,7 +1452,10 @@ namespace COLLADAMaya
 			COLLADASW::URI exportedFileDirURI = exportedFileURI.getPathDir();
 			exportedFileDirURI.setScheme(exportedFileURI.getScheme());
 			COLLADASW::URI referencedFileURI = referenceFilename;
-			referencedFileURI.makeRelativeTo(exportedFileDirURI);
+            if (ExportOptions::relativePaths())
+            {
+                referencedFileURI.makeRelativeTo(exportedFileDirURI);
+            }
 
 			COLLADASW::URI sceneElementURI(referencedFileURI);
 			const bool removeFirstNamespace = true;

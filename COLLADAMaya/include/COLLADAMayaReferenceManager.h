@@ -142,15 +142,6 @@ namespace COLLADAMaya
 		static void getRootObjects(const MObject& referenceNode, MDagPathArray& rootPaths, MObjectArray& subReferences);
 
 		/**
-		* Checks if a node is in given reference node (supports nested reference nodes).
-		* @param dagPath DAG path of tested node.
-		* @param referenceNode reference node in which dagPath is searched.
-		* @return true if node is in reference node, false otherwise.
-		*/
-		// TODO use bool 	containsNode (const MObject &node, MStatus *ReturnStatus=NULL) const
-		static bool isIn(const MDagPath & dagPath, const MObject & referenceNode);
-
-		/**
 		* Retrieves the top level reference node of given DAG path in case of nested reference nodes.
 		* @param dagPath DAG path of a node
 		* @param outReferenceNode returned reference node

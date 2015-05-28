@@ -15,7 +15,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaSceneGraph.h"
-#include "COLLADAMayaPhysicSceneExporter.h"
+#include "COLLADAMayaPhysicsSceneExporter.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSyntax.h"
@@ -40,11 +40,11 @@
 namespace COLLADAMaya
 {
 	
-	const String physicModelUrl("#" + String(PHYSIC_MODEL_ID));
-	const String physicWorldReferenceUrl("#" + String(PHYSIC_WORLD_REFERENCE));
+	const String physicsModelUrl("#" + String(PHYSICS_MODEL_ID));
+	const String physicsWorldReferenceUrl("#" + String(PHYSICS_WORLD_REFERENCE));
 
     //---------------------------------------------------------------
-    PhysicSceneExporter::PhysicSceneExporter (
+    PhysicsSceneExporter::PhysicsSceneExporter (
         COLLADASW::StreamWriter* streamWriter,
         DocumentExporter* documentExporter,
         const String& sceneId )
@@ -54,12 +54,12 @@ namespace COLLADAMaya
     {
     }
 
-	bool PhysicSceneExporter::exportPhysicScenes()
+	bool PhysicsSceneExporter::exportPhysicsScenes()
 	{
-		if ( !ExportOptions::exportPhysic() ) return false;
+		if ( !ExportOptions::exportPhysics() ) return false;
 
-		PhysicsExporter::RB_Map& bodyTargetMap = PhysicsExporter::getRB_Map();
-		std::map<std::string, PhysicsExporter::BodyTarget>::iterator iter;
+        PhysicsExporter* pPhysicsExporter = mDocumentExporter->getPhysicsExporter();
+        const PhysicsExporter::DaeToIRBMap & instanceRigidBodies = pPhysicsExporter->getInstanceRigidBodies();
 
 		// Get the streamWriter from the export document
 		COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -67,26 +67,27 @@ namespace COLLADAMaya
 		COLLADASW::LibraryPhysicsScenes libraryPhysicsScene(streamWriter);
 
 
-		//Physic_scene tag
-		libraryPhysicsScene.openPhysicsScene(PHYSIC_SCENE_NODE_ID);
-		
-		COLLADASW::InstancePhysicsModel instancePhysicModel(streamWriter, physicModelUrl);
-		
-		instancePhysicModel.openInstancePhysicsModel();
+		//physics_scene tag
+		libraryPhysicsScene.openPhysicsScene(PHYSICS_SCENE_NODE_ID);
 
-		for (iter = bodyTargetMap.begin(); iter != bodyTargetMap.end(); ++iter)
+        for (PhysicsExporter::DaeToIRBMap::const_iterator iMap = instanceRigidBodies.begin(); iMap != instanceRigidBodies.end(); ++iMap)
 		{
-			PhysicsExporter::BodyTarget bt = iter->second;
-			COLLADASW::InstanceRigidBody instanceRigidBody(streamWriter, bt.Body, bt.Target);
-			
-			if (bt.Target.compare(physicWorldReferenceUrl))
-			{
-				instanceRigidBody.openInstanceRigidBody();
-				instanceRigidBody.closeInstanceRigidBody();
-			}
-		}
-		instancePhysicModel.closeInstancePhysicsModel();
+            COLLADASW::InstancePhysicsModel instancePhysicsModel(streamWriter, iMap->first + physicsModelUrl);
+            instancePhysicsModel.openInstancePhysicsModel();
 
+            for (std::vector<PhysicsExporter::BodyTarget>::const_iterator iVec = iMap->second.begin(); iVec != iMap->second.end(); ++iVec)
+            {
+                // Don't export bodies linked to world
+                if ((*iVec).Target.compare(physicsWorldReferenceUrl))
+                {
+                    COLLADASW::InstanceRigidBody instanceRigidBody(streamWriter, (*iVec).Body, (*iVec).Target);
+                    instanceRigidBody.openInstanceRigidBody();
+                    instanceRigidBody.closeInstanceRigidBody();
+                }
+            }
+
+            instancePhysicsModel.closeInstancePhysicsModel();
+		}
 
 		// Technique common gravity
 		libraryPhysicsScene.openTechniqueCommon();
