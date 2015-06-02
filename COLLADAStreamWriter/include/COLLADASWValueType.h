@@ -68,6 +68,7 @@ namespace COLLADASW
             case ValueType::FLOAT2x2: return CSWC::CSW_VALUE_TYPE_FLOAT2x2;
             case ValueType::FLOAT3x3: return CSWC::CSW_VALUE_TYPE_FLOAT3x3;
             case ValueType::FLOAT4x4: return CSWC::CSW_VALUE_TYPE_FLOAT4x4;
+			case ValueType::DOUBLE: return CSWC::CSW_VALUE_TYPE_DOUBLE;
             case ValueType::STRING: return CSWC::CSW_VALUE_TYPE_STRING;
             case ValueType::SURFACE: return CSWC::CSW_VALUE_TYPE_SURFACE;
             case ValueType::SAMPLER_1D: return CSWC::CSW_VALUE_TYPE_SAMPLER_1D;
