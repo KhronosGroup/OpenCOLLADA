@@ -222,19 +222,19 @@ namespace COLLADAMaya
 				// Export all animations, which aren't exported until now.
 				bool bNeedtoExport = postSampling();
 
-				if (bNeedtoExport)
+ 				if (bNeedtoExport)
 				{
 					// Open the animation library
-					if (indexCurrentInstancedClip == 0)
+					//if (indexCurrentInstancedClip == 0)
 						openLibrary();
 
 					// Export the curves of the animated element and of the child elements recursive
 					exportAnimatedElements(mAnimationElements);
 
 					// Close the collada animation tag
-					if (indexCurrentInstancedClip == (numberOfInstancedClip - 1))
-						closeLibrary();
-
+					//if (indexCurrentInstancedClip == (numberOfInstancedClip - 1))
+					//	closeLibrary();
+					
 					indexCurrentInstancedClip++;
 				}
 
@@ -242,6 +242,8 @@ namespace COLLADAMaya
 
 				createAnimationClip(clipFn1);
 			}
+
+			closeLibrary();
 
 		}
 		else
