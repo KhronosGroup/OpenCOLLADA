@@ -139,8 +139,9 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_INERTIA = "inertia";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE = "shape";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_BOX = "box";
+    const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_SPHERE = "sphere";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE = "capsule";
-	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS = "radius";
+	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_RADIUS = "radius";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_HEIGHT = "height";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CONVEX_MESH = "convex_mesh";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_BOX_EXTENTS = "half_extents";

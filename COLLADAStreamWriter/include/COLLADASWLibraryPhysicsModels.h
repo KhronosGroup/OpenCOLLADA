@@ -59,6 +59,7 @@ namespace COLLADASW
 		void closeShape();
 		void AddBoxShape(float x, float y, float z);
 		void AddCapsuleShape(float radiusX, float radiusY, float radiusZ, float height);
+        void AddSphereShape(float radius);
 		void AddConvexMeshShape(const String &convexHullOf);
 		//void closeBoxShape();
 
