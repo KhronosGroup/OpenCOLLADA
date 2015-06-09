@@ -76,7 +76,8 @@ namespace COLLADAMaya
 			Box			= 0,
 			Capsule		= 1,
 			Convex_mesh = 2,
-			Mesh		= 3
+			Mesh		= 3,
+            Sphere      = 4
 		};
 
         /* @param streamWriter The stream the output will be written to                                                                     */

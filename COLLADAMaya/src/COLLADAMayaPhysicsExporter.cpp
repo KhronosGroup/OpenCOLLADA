@@ -425,6 +425,24 @@ namespace COLLADAMaya
 
 					instanceGeometry.add();
 				}
+                else if (shape == COLLADAMaya::PhysicsExporter::Sphere)
+                {
+                    MPointArray vertexArray;
+                    if (fnMesh.getPoints(vertexArray))
+                    {
+                        MPoint center = bb.center();
+                        double maxDistance = 0.0;
+                        for (unsigned int iVertex = 0; iVertex < vertexArray.length(); ++iVertex)
+                        {
+                            const MPoint& vertex = vertexArray[iVertex];
+                            double distance = (vertex - center).length();
+                            maxDistance = std::max(distance, maxDistance);
+                        }
+
+                        float radius = MDistance::internalToUI(maxDistance);
+                        AddSphereShape(radius);
+                    }
+                }
 
 				exportDecomposedTransform();
 				closeShape();

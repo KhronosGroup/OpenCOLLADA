@@ -90,12 +90,23 @@ namespace COLLADASW
 		mSW->appendValues(height);
 		mSW->closeElement();
 		
-		mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS);
+		mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_RADIUS);
 		mSW->appendValues(radiusX, radiusY, radiusZ);
 		mSW->closeElement();
 		
 		mSW->closeElement();
 	}
+
+    void LibraryPhysicsModels::AddSphereShape(float radius)
+    {
+        mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_SPHERE);
+
+        mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_RADIUS);
+        mSW->appendValues(radius);
+        mSW->closeElement();
+
+        mSW->closeElement();
+    }
 
 	void LibraryPhysicsModels::AddConvexMeshShape(const String &convexHullOf)
 	{
