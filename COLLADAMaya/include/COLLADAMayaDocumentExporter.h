@@ -137,6 +137,8 @@ namespace COLLADAMaya
         /** Tolerance value in double to compare values. */
         double mDigitTolerance;
 
+		std::vector<MIntArray> ParamClipVec;
+
     public:
 
         /**
@@ -302,6 +304,10 @@ namespace COLLADAMaya
          * Do all stuff to end the export.
          */
         void endExport();
+
+		void saveParamClip();
+
+		void restoreParamClip();
 
 //         /**
 //          * Exports the user defined extra data of the node.
