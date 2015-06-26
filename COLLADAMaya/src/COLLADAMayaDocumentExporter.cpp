@@ -45,6 +45,11 @@
 #include <maya/MFnAttribute.h>
 
 
+#include <maya/MFnDependencyNode.h>
+#include <maya/MFnCharacter.h>
+#include <maya/MFnClip.h>
+#include <maya/MItDependencyNodes.h>
+
 namespace COLLADAMaya
 {
 
@@ -80,6 +85,7 @@ namespace COLLADAMaya
     DocumentExporter::~DocumentExporter()
     {
         releaseLibraries(); // The libraries should already have been released
+		ParamClipVec.clear();
     }
 
     //---------------------------------------------------------------
@@ -135,6 +141,53 @@ namespace COLLADAMaya
         delete mCameraExporter;
     }
 
+	void DocumentExporter::restoreParamClip()
+	{
+		MItDependencyNodes clipItr(MFn::kClip);
+		MFnClip clipFn;
+		for (int i1 = 0; !clipItr.isDone(); clipItr.next(), i1++)
+		{
+			if (!clipFn.setObject(clipItr.item())) continue;
+			clipFn.setAbsoluteChannelSettings(ParamClipVec.at(i1));
+		}
+	}
+
+	void DocumentExporter::saveParamClip()
+	{
+		int length = 0;
+		
+		MItDependencyNodes CharacterItr(MFn::kCharacter);
+		for (int i1 = 0; !CharacterItr.isDone(); CharacterItr.next(), i1++)
+		{
+			MFnCharacter character;
+			if (!character.setObject(CharacterItr.item())) continue;
+
+			MPlugArray array;
+			character.getMemberPlugs(array);
+
+			length = array.length();
+		}
+
+		MIntArray  arrayChannelAttribute(length, 0);
+
+
+		MItDependencyNodes clipItr(MFn::kClip);
+		MFnClip clipFn;
+		for (int i1 = 0; !clipItr.isDone(); clipItr.next(), i1++)
+		{
+
+			if (!clipFn.setObject(clipItr.item())) continue;
+
+			// save original param
+			MIntArray  arrayOriginalChannelAttribute(length);
+			clipFn.getAbsoluteChannelSettings(arrayOriginalChannelAttribute);
+			ParamClipVec.push_back(arrayOriginalChannelAttribute);
+
+			// set relativeClip on
+			clipFn.setAbsoluteChannelSettings(arrayChannelAttribute);
+		}
+	}
+	
 
     //---------------------------------------------------------------
     void DocumentExporter::exportCurrentScene ( bool selectionOnly )
@@ -187,6 +240,9 @@ namespace COLLADAMaya
 				// Export the physics scene
 				bool physicsSceneExported = mPhysicsSceneExporter->exportPhysicsScenes();
 
+
+				saveParamClip();
+
                 // Export the visual scene
                 bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
 
@@ -198,6 +254,8 @@ namespace COLLADAMaya
 					// Export the animation clips
 					mAnimationClipExporter->exportAnimationClips(animationClips);
 				}
+
+				restoreParamClip();
 
                 // Export the scene
                 exportScene(visualSceneExported, physicsSceneExported);
