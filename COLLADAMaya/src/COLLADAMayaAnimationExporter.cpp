@@ -124,8 +124,10 @@ namespace COLLADAMaya
 	void AnimationExporter::createAnimationClip(MFnClip &currentMfnclip)
 	{
 		String clipName = DocumentExporter::mayaNameToColladaName(currentMfnclip.name());
-		float startTime = (float)currentMfnclip.getSourceStart().as(MTime::kSeconds);
-		float endTime = startTime + (float)currentMfnclip.getSourceDuration().as(MTime::kSeconds);
+		
+
+		float startTime = currentMfnclip.getStartFrame().as(MTime::kSeconds);
+		float endTime = startTime + (clipSourceEnd - clipSourceStart).as(MTime::kSeconds);
 
 		AnimationClip* clip = new AnimationClip();
 		clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, startTime, endTime);
@@ -149,9 +151,18 @@ namespace COLLADAMaya
 	{
 		AnimationHelper::mSamplingTimes.clear();
 
-		// Avoid any potential precision accumulation problems by using the MTime class as an iterator
-		MTime startT = clipFn.getSourceStart();
-		MTime endT = startT + clipFn.getSourceDuration();
+		// Avoid any potential precision accumulation problems by using the MTime class as an iterator		
+		float start;
+		DagHelper::getPlugValue(clipFn.object(), ATTR_CLIP_SOURCE_START, start);
+		clipSourceStart = MTime(start, MTime::kSeconds);
+
+		float end;
+		DagHelper::getPlugValue(clipFn.object(), ATTR_CLIP_SOURCE_END, end);
+		clipSourceEnd = MTime(end, MTime::kSeconds);
+		
+		MTime startT = clipFn.getStartFrame();
+		MTime endT = startT + clipSourceEnd - clipSourceStart;
+
 		for (MTime currentT = startT; currentT <= endT; ++currentT)
 		{
 			AnimationHelper::mSamplingTimes.push_back((float)currentT.as(MTime::kSeconds));

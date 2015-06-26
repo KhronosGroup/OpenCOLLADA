@@ -98,6 +98,12 @@ namespace COLLADAMaya
 		/* Number of instancied Clip*/
 		int numberOfInstancedClip;
 
+		/* Clip Source Start*/
+		MTime clipSourceStart;
+
+		/* Clip Source End*/
+		MTime clipSourceEnd;
+
 
     public:
 
