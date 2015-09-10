@@ -1526,12 +1526,14 @@ namespace COLLADAMaya
                 exportInstanceLightProbe(childElement);
             }
             else if ( childElement->getType() == SceneElement::LIGHT &&
-                childElement->getIsExportNode() )
+                childElement->getIsExportNode() &&
+                ExportOptions::exportLights())
             {
                 exportInstanceLight ( childElement );
             }
             else if ( childElement->getType() == SceneElement::CAMERA &&
-                childElement->getIsExportNode() )
+                childElement->getIsExportNode() &&
+                ExportOptions::exportCameras())
             {
                 exportInstanceCamera ( childElement );
             }
