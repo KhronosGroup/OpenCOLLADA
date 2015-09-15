@@ -36,7 +36,7 @@ namespace COLLADASW
 
     public:
         /** Constructor that sets the stream the scene should be written to*/
-		Scene(StreamWriter * streamWriter, COLLADABU::URI instanceVisualSceneURI, COLLADABU::URI instancePhysicsSceneURI)
+		Scene(StreamWriter * streamWriter, COLLADABU::URI instanceVisualSceneURI, COLLADABU::URI instancePhysicsSceneURI = COLLADASW::URI())
         : ElementWriter ( streamWriter ) 
 		, mInstanceVisualSceneUrl(instanceVisualSceneURI)
 		, mInstancePhysicsSceneUrl(instancePhysicsSceneURI)
