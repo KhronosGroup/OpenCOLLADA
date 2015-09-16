@@ -1663,7 +1663,7 @@ namespace DAE2MA
 					
 					//--- @Workaround for maya 2013 with single face geometries
 					String versionString = getDocumentImporter()->getMayaVersion();
-					if(groupedVtxCount == 1 && versionString == "2013")
+					if(groupedVtxCount == 1 && versionString >= "2013")
 					{
 						if( globalFaceIndex == 0 && endPosition == globalFaceIndex )
 						{
