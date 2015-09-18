@@ -616,10 +616,8 @@ namespace COLLADAMaya
         String fileName = mayaFileName.asChar ();
         
         // Get the image path
-        COLLADASW::URI shaderFxFileUri = getShaderFxFileUri ();
-
         // Take the filename for the unique image name 
-        COLLADASW::URI sourceFileUri ( shaderFxFileUri, fileName );
+        COLLADASW::URI sourceFileUri(COLLADASW::URI::nativePathToUri(fileName));
         if ( sourceFileUri.getScheme ().empty () )
             sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
         String mayaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );
