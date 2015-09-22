@@ -2358,7 +2358,7 @@ namespace COLLADAMaya
         createAnimationCurveKeys ( animCurveFn, curve, infoElement );
 		
 		// Verify that there is, in fact, an animation in this curve.
-		if (BezierAllKeysAreEqual(curve))
+		if (ExportOptions::exportOptimizedBezierAnimations() && BezierAllKeysAreEqual(curve))
 		{
 			delete curve;
 			curve = NULL;

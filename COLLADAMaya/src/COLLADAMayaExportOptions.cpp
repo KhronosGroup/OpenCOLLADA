@@ -36,6 +36,7 @@ namespace COLLADAMaya
     bool ExportOptions::mExportMaterialsOnly = false;
     bool ExportOptions::mExportReferencedMaterials = true;
     bool ExportOptions::mExportAnimations = true;
+	bool ExportOptions::mExportOptimizedBezierAnimations = false;
     bool ExportOptions::mRemoveStaticCurves = true;
     bool ExportOptions::mExportInvisibleNodes = false;
     bool ExportOptions::mExportDefaultCameras = false;
@@ -81,6 +82,7 @@ namespace COLLADAMaya
         mExportReferencedMaterials = true;
         mExportJointsAndSkin = true;
         mExportAnimations = true;
+		mExportOptimizedBezierAnimations = false;
         mExportInvisibleNodes = false;
         mExportDefaultCameras = false;
         mExportNormals = true;
@@ -121,7 +123,7 @@ namespace COLLADAMaya
                         decomposedOption[1] != "true" &&
                         decomposedOption[1] != "1" )
                     value = false;
-
+				
                 // Process options.
                 if ( optionName == "bakeTransforms" ) mBakeTransforms = value;
                 else if ( optionName == "relativePaths" ) mRelativePaths = value;
@@ -137,6 +139,7 @@ namespace COLLADAMaya
                 else if ( optionName == "exportMaterialsOnly" ) mExportMaterialsOnly = value;
                 else if ( optionName == "exportReferencedMaterials" ) mExportReferencedMaterials = value;
                 else if ( optionName == "exportAnimations" ) mExportAnimations = value;
+				else if ( optionName == "exportOptimizedBezierAnimation") mExportOptimizedBezierAnimations = value;
                 else if ( optionName == "exportInvisibleNodes" ) mExportInvisibleNodes = value;
                 else if ( optionName == "exportDefaultCameras" ) mExportDefaultCameras = value;
                 else if ( optionName == "exportNormals" ) mExportNormals = value;
@@ -238,6 +241,11 @@ namespace COLLADAMaya
     {
         return mExportAnimations;
     }
+
+	bool ExportOptions::exportOptimizedBezierAnimations()
+	{
+		return mExportOptimizedBezierAnimations;
+	}
 
     bool ExportOptions::exportTriangles()
     {
