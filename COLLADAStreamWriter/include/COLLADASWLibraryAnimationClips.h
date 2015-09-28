@@ -26,7 +26,7 @@ namespace COLLADASW
     {
 
     public:
-        ColladaAnimationClip ( const String& animationClipId = ElementWriter::EMPTY_STRING );
+        ColladaAnimationClip ( const String& animationClipId = ElementWriter::EMPTY_STRING, const String& name = ElementWriter::EMPTY_STRING );
         ColladaAnimationClip ( const String& animationClipId, float& startTime, float& endTime );
         ColladaAnimationClip ( float& startTime, float& endTime );
 
@@ -34,6 +34,11 @@ namespace COLLADASW
         const String& getAnimationClipId() const
         {
             return mAnimationClipId;
+        }
+
+        const String& getName() const
+        {
+            return mName;
         }
 
         /** Retrieves the start time marker position for this animation clip.
@@ -94,6 +99,9 @@ namespace COLLADASW
 
         /** The id of the current animation clip. */
         String mAnimationClipId;
+
+        /** The name of the current clip, optional */
+        String mName;
 
         /** The start time of the current clip. */
         float mStartTime;
