@@ -1114,14 +1114,19 @@ namespace COLLADABU
             //        cz*sx*sy+cx*sz  cx*cz-sx*sy*sz -cy*sx
             //       -cx*cz*sy+sx*sz  cz*sx+cx*sy*sz  cx*cy
 
-            rfPAngle_radian = asin( m[ 0 ][ 2 ] ) ;
+			// Fixed
+			// http://staff.city.ac.uk/~sbbh653/publications/euler.pdf
+
+            rfPAngle_radian = -asin( m[ 0 ][ 2 ] ) ;
+			Real cos_rfPAngle_radian = cos(rfPAngle_radian);
+			Real inv_cos_rfPAngle_radian = 1.0f / cos_rfPAngle_radian;
 
             if ( rfPAngle_radian <  Math::HALF_PI  )
             {
                 if ( rfPAngle_radian >  -Math::HALF_PI  )
                 {
-                    rfYAngle_radian = atan2( -m[ 1 ][ 2 ], m[ 2 ][ 2 ] );
-                    rfRAngle_radian = atan2( -m[ 0 ][ 1 ], m[ 0 ][ 0 ] );
+					rfYAngle_radian = atan2(m[1][2] * inv_cos_rfPAngle_radian, m[2][2] * inv_cos_rfPAngle_radian);
+					rfRAngle_radian = atan2(m[0][1] * inv_cos_rfPAngle_radian, m[0][0] * inv_cos_rfPAngle_radian);
                     return true;
                 }
 

@@ -296,7 +296,7 @@ namespace DAE2MA
     {
         // To get the rotation, we have to remove the scale from the matrix. After this, we have to 
         // check if there is also a shear on the matrix. If not, we can get the rotation.
-        COLLADABU::Math::Matrix3 m3x3 = extract3x3MatrixWithNormalizedColumns ( transformMatrix );
+		COLLADABU::Math::Matrix3 m3x3 = extract3x3MatrixWithNormalizedColumns(transformMatrix).transpose();
 
         // Get the scale.
         COLLADABU::Math::Vector3 scale = transformMatrix.getScale ();
