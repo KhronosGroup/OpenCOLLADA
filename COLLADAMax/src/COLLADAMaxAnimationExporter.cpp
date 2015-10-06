@@ -157,7 +157,8 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     AnimationExporter::AnimationExporter ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter )
             : COLLADASW::LibraryAnimations ( streamWriter ),
-            mDocumentExporter ( documentExporter )
+            mDocumentExporter ( documentExporter ),
+			mClipExporter( streamWriter)
     {}
 
     //---------------------------------------------------------------
@@ -222,20 +223,51 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void AnimationExporter::doExport()
     {
-        if ( !mAnimationList.empty() )
-        {
-            openAnimation();
+		if (!mAnimationList.empty() || !mAnimationMap.empty())
+		{
+			if (!mAnimationList.empty()) {
+				openAnimation();
 
-            for ( AnimationList::iterator it = mAnimationList.begin(); it != mAnimationList.end();++it )
-                exportSources ( *it );
+				for (AnimationList::iterator it = mAnimationList.begin(); it != mAnimationList.end(); ++it)
+					exportSources(*it);
 
-            for ( AnimationList::iterator it = mAnimationList.begin(); it != mAnimationList.end();++it )
-                exportSampler ( *it );
+				for (AnimationList::iterator it = mAnimationList.begin(); it != mAnimationList.end(); ++it)
+					exportSampler(*it);
 
-            for ( AnimationList::iterator it = mAnimationList.begin(); it != mAnimationList.end();++it )
-                exportChannel ( *it );
+				for (AnimationList::iterator it = mAnimationList.begin(); it != mAnimationList.end(); ++it)
+					exportChannel(*it);
 
+
+				closeAnimation();
+			}
+	
+			for (auto& animPair : mAnimationMap) {
+				String animName = animPair.first;
+				openAnimation(animName + "_animation", animName);
+				for (auto& anim : animPair.second) {
+					exportSources(anim);
+				}
+				for (auto& anim : animPair.second) {
+					exportSampler(anim);
+				}
+				for (auto& anim : animPair.second) {
+					exportChannel(anim);
+				}
+				closeAnimation();
+			}
             closeLibrary();
+
+			// Export the animation clips to go with the named animations
+			if (mAnimationMap.size() != 0) {
+				mClipExporter.open();
+				for (auto& animPair : mAnimationMap) {
+					String animName = animPair.first;
+					COLLADASW::ColladaAnimationClip clip(animName + "_clip", animName);
+					clip.setInstancedAnimation(animName + "_animation");
+					mClipExporter.addClip(clip);
+				}
+				mClipExporter.close();
+			}
         }
     }
 
@@ -276,7 +308,7 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    bool AnimationExporter::addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck, ConversionFunctor* conversionFunctor )
+    bool AnimationExporter::addAnimatedPoint3 ( Control * controller, const String& layerName, const String & id, const String & sid, const String parameters[], bool forceFullCheck, ConversionFunctor* conversionFunctor )
     {
 		if ( !isAnimated(controller))
 			return false;
@@ -296,7 +328,11 @@ namespace COLLADAMax
                     Animation animation ( subControllers[ i ], id, sid, parameters + i, Animation::FLOAT, conversionFunctor );
 					if ( !forceFullCheck || isAnimated(animation, true) )
 					{
-						addAnimation ( animation );
+						if (layerName == "")
+							addAnimation(animation);
+						else
+							addNamedAnimation(animation, layerName);
+
 						animated = true;
 					}
                 }
@@ -308,7 +344,11 @@ namespace COLLADAMax
             Animation animation ( controller, id, sid, parameters, Animation::FLOAT3, conversionFunctor );
 			if ( !forceFullCheck || isAnimated(animation, true) )
 			{
-				addAnimation ( animation );
+				if (layerName == "")
+					addAnimation(animation);
+				else
+					addNamedAnimation(animation, layerName);
+
 				animated = true;
 			}
         }
@@ -357,7 +397,7 @@ namespace COLLADAMax
 
 	
 	//---------------------------------------------------------------
-    bool AnimationExporter::addAnimatedAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int animatedAngle, bool forceFullCheck  )
+    bool AnimationExporter::addAnimatedAngle ( Control * controller, const String& layerName, const String & id, const String & sid, const String parameters[], int animatedAngle, bool forceFullCheck  )
     {
         if ( !isAnimated ( controller ) )
 			return false;
@@ -388,7 +428,11 @@ namespace COLLADAMax
 
 		if ( !forceFullCheck || isAnimated(animation, true) )
 		{
-			addAnimation ( animation );
+			if (layerName == "")
+				addAnimation(animation);
+			else
+				addNamedAnimation(animation, layerName);
+
 			return true;
 		}
 
