@@ -176,6 +176,12 @@ namespace COLLADAMax
 			EnableDlgControl(hWnd, IDC_ANIM_SAMPLE, mAnimations);
 			EnableDlgControl(hWnd, IDC_ANIM_CLIP, mAnimations);
 
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
+			EnableDlgControl(hWnd, IDC_LAYERS_TO_CLIPS, mAnimations);
+#else
+			EnableDlgControl(hWnd, IDC_LAYERS_TO_CLIPS, false);
+#endif
+
 			// setup spinners
 			spin = GetISpinner(GetDlgItem(hWnd, IDC_ANIM_START_SPIN)); 
 			spin->LinkToEdit(GetDlgItem(hWnd,IDC_ANIM_START), EDITTYPE_TIME);
@@ -204,7 +210,11 @@ namespace COLLADAMax
 			mAnimations = IsDlgButtonChecked(hWnd, IDC_ANIM_ENABLE) == BST_CHECKED;
 			EnableDlgControl(hWnd, IDC_ANIM_SAMPLE, mAnimations);
 			EnableDlgControl(hWnd, IDC_ANIM_CLIP, mAnimations);
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
 			EnableDlgControl(hWnd, IDC_LAYERS_TO_CLIPS, mAnimations);
+#else
+			EnableDlgControl(hWnd, IDC_LAYERS_TO_CLIPS, false);
+#endif
 
 			/*spin = GetISpinner(GetDlgItem(hWnd, IDC_ANIM_START_SPIN)); 
 			//spin->LinkToEdit(GetDlgItem(hWnd,IDC_ANIM_START), EDITTYPE_INT);

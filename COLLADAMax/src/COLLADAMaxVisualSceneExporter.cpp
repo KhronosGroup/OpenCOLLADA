@@ -387,8 +387,10 @@ namespace COLLADAMax
 				// Animated
 
 				ILayerControl* ilc = GetILayerControlInterface(translationController);
-				if (options.getExportLayersAsClips() && ilc != nullptr && ilc->GetLayerCount() > 1)
+				if (options.getExportLayersAsClips() && ilc != NULL && ilc->GetLayerCount() > 1)
 				{
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
+
 					for (int i = 0; i < ilc->GetLayerCount(); ++i) {
 						// Export layers as named animations
 						NativeString layerName(i == 0 ? L"" : ilc->GetLayerName(i).data()); // Leave the base layer without a name
@@ -403,7 +405,7 @@ namespace COLLADAMax
 
 						animationExporter->addAnimatedPoint3(layerControl, layerName, fullNodeId, TRANSLATE_SID + "_" + layerName, TRANSLATION_PARAMETERS, true);
 					}
-
+#endif
 				}
 				else
 				{
@@ -439,8 +441,10 @@ namespace COLLADAMax
 				// Animated
 
 				ILayerControl* ilc = GetILayerControlInterface(rotationController);
-				if (options.getExportLayersAsClips() && ilc != nullptr && ilc->GetLayerCount() > 1)
+				if (options.getExportLayersAsClips() && ilc != NULL && ilc->GetLayerCount() > 1)
 				{
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
+
 					for (int i = 0; i < ilc->GetLayerCount(); ++i) {
 						// Export layers as named animations
 						NativeString layerName(i == 0 ? L"" : ilc->GetLayerName(i).data()); // Leave the base layer without a name
@@ -463,6 +467,7 @@ namespace COLLADAMax
 						animationExporter->addAnimatedAngle(layerControl, layerName, fullNodeId, ROTATE_Y_SID + sidAppend, ROTATION_PARAMETER, Animation::ROTATION_Y, true);
 						animationExporter->addAnimatedAngle(layerControl, layerName, fullNodeId, ROTATE_X_SID + sidAppend, ROTATION_PARAMETER, Animation::ROTATION_X, true);
 					}
+#endif
 				}
 				else
 				{

@@ -240,7 +240,7 @@ namespace COLLADAMax
 
 				closeAnimation();
 			}
-	
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
 			for (auto& animPair : mAnimationMap) {
 				String animName = animPair.first;
 				openAnimation(animName + "_animation", animName);
@@ -268,7 +268,8 @@ namespace COLLADAMax
 				}
 				mClipExporter.close();
 			}
-        }
+#endif
+		}
     }
 
 
