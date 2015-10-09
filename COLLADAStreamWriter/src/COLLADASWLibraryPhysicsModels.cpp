@@ -99,10 +99,11 @@ namespace COLLADASW
 
 	void LibraryPhysicsModels::AddConvexMeshShape(const String &convexHullOf)
 	{
-		mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CONVEX_MESH);
-		if (!convexHullOf.empty())
-			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_CONVEX_HULL_OF, String("#") + convexHullOf);
-		mSW->closeElement();
+        // This is not correct
+		//mSW->openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CONVEX_MESH);
+		//if (!convexHullOf.empty())
+		//	mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_CONVEX_HULL_OF, String("#") + convexHullOf);
+		//mSW->closeElement();
 	}
 
 	void LibraryPhysicsModels::addTranslate(const String &sid, float x, float y, float z) const 

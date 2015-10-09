@@ -18,6 +18,7 @@
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaPhysicsExporter.h"
+#include "COLLADAMayaPhysXExporter.h"
 #include "COLLADAMayaVisualSceneExporter.h"
 #include "COLLADAMayaPhysicsSceneExporter.h"
 #include "COLLADAMayaEffectExporter.h"
@@ -66,6 +67,7 @@ namespace COLLADAMaya
             , mGeometryExporter ( NULL )
             , mVisualSceneExporter ( NULL )
 			, mPhysicsSceneExporter(NULL)
+            , mPhysXExporter(NULL)
             , mAnimationExporter ( NULL )
             , mAnimationClipExporter ( NULL )
             , mControllerExporter ( NULL )
@@ -112,6 +114,7 @@ namespace COLLADAMaya
         mImageExporter = new ImageExporter ( &mStreamWriter );
         mGeometryExporter = new GeometryExporter ( &mStreamWriter, this );
 		mPhysicsExporter = new PhysicsExporter(&mStreamWriter, this);
+        mPhysXExporter = new PhysXExporter(mStreamWriter, *this);
         mVisualSceneExporter = new VisualSceneExporter ( &mStreamWriter, this, mSceneId );
 		mPhysicsSceneExporter = new PhysicsSceneExporter(&mStreamWriter, this, mSceneId);
         mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
@@ -133,6 +136,7 @@ namespace COLLADAMaya
         delete mGeometryExporter;
         delete mVisualSceneExporter;
 		delete mPhysicsSceneExporter;
+        delete mPhysXExporter;
         delete mAnimationExporter;
         delete mAnimationClipExporter;
         delete mControllerExporter;
@@ -236,9 +240,11 @@ namespace COLLADAMaya
 				// Export Physics
 				mPhysicsExporter->exportAllPhysics();
 
+                // Export PhysX
+                bool physicsSceneExported = mPhysXExporter->exportPhysicsLibraries();
 				
 				// Export the physics scene
-				bool physicsSceneExported = mPhysicsSceneExporter->exportPhysicsScenes();
+				physicsSceneExported |= mPhysicsSceneExporter->exportPhysicsScenes();
 
 
 				saveParamClip();
@@ -528,6 +534,12 @@ namespace COLLADAMaya
     PhysicsExporter* DocumentExporter::getPhysicsExporter()
     {
         return mPhysicsExporter;
+    }
+
+    //---------------------------
+    PhysXExporter* DocumentExporter::getPhysXExporter()
+    {
+        return mPhysXExporter;
     }
 
     //---------------------------

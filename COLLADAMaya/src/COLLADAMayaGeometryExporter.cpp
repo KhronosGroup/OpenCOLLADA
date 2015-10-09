@@ -15,6 +15,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaGeometryExporter.h"
+#include "COLLADAMayaPhysXExporter.h"
 #include "COLLADAMayaGeometryPolygonExporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSyntax.h"
@@ -63,7 +64,10 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     void GeometryExporter::exportGeometries()
     {
-        if ( !ExportOptions::exportPolygonMeshes() ) return;
+        if (!ExportOptions::exportPolygonMeshes() &&
+            // PhysX may reference geometry
+            !ExportOptions::exportPhysics())
+            return;
 
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
@@ -89,13 +93,33 @@ namespace COLLADAMaya
         bool exportSceneElement = false;
         SceneElement::Type sceneElementType = sceneElement->getType();
 
-		if ( sceneElementType == SceneElement::MESH ) 
+		if (ExportOptions::exportPolygonMeshes() &&
+            sceneElementType == SceneElement::MESH ) 
         {
             if ( sceneElement->getIsExportNode () ) exportSceneElement = true;
             else 
             {
                 if ( sceneElement->getIsForced () ) exportSceneElement = true;
                 else if ( !isVisible && ExportOptions::exportInvisibleNodes () ) exportSceneElement = true;
+            }
+        }
+        else if (ExportOptions::exportPhysics() &&
+            sceneElementType == SceneElement::PHYSX_SHAPE)
+        {
+            const MObject & shape = sceneElement->getNode();
+
+            MString shapeType;
+            PhysXShape::GetType(shape, shapeType);
+
+            if (shapeType == SHAPE_TYPE_CONVEX_HULL ||
+                shapeType == SHAPE_TYPE_TRIANGLE_MESH)
+            {
+                MObject mesh;
+                PhysXShape::GetConnectedInMesh(shape, mesh);
+                if (mesh.isNull() || !ExportOptions::exportPolygonMeshes())
+                {
+                    exportSceneElement = true;
+                }
             }
         }
 
@@ -178,8 +202,6 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     bool GeometryExporter::exportGeometry ( SceneElement* sceneElement )
     {
-        if ( !ExportOptions::exportPolygonMeshes() ) return false;
-
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
         String pathName = dagPath.fullPathName ().asChar ();
@@ -195,7 +217,17 @@ namespace COLLADAMaya
         uint instanceNumber = dagPath.instanceNumber();
 
         //  Get the node of the current mesh
-        MObject meshNode = dagPath.node();
+        MObject meshNode;
+        if (sceneElement->getType() == SceneElement::PHYSX_SHAPE) {
+            PhysXShape::GetConnectedInMesh(sceneElement->getNode(), meshNode);
+            if (meshNode.isNull())
+            {
+                PhysXShape::GetInMesh(sceneElement->getNode(), meshNode);
+            }
+        }
+        else {
+            meshNode = dagPath.node();
+        }
 
         // Attach a function set to the mesh node.
         // We access all of the meshes data through the function set
@@ -209,6 +241,7 @@ namespace COLLADAMaya
 
 		if (ExportOptions::exportPhysics())
 		{
+            // Bullet ---------------------------------------------------------
 			MObject transform = dagPath.transform();
 			int shape;
 			bool shapeResult = DagHelper::getPlugValue(transform, ATTR_COLLISION_SHAPE, shape);
@@ -221,6 +254,14 @@ namespace COLLADAMaya
 					closeConvexMesh();
 				}
 			}
+
+            // PhysX ----------------------------------------------------------
+            PhysXExporter& physXExporter = *mDocumentExporter->getPhysXExporter();
+            if (physXExporter.needsConvexHullOf(*sceneElement))
+            {
+                openConvexMesh(colladaMeshId, meshName);
+                closeConvexMesh();
+            }
 		}
 			
 		return result;
@@ -244,7 +285,7 @@ namespace COLLADAMaya
         // Attach a function set to the mesh node.
         // We access all of the meshes data through the function set
         MStatus status;
-        MFnMesh fnMesh ( meshNode, &status );
+        MFnDependencyNode fnMesh(meshNode, &status);
         if ( status != MStatus::kSuccess ) return colladaMeshId;
 
         // Check if there is an extra attribute "colladaId" and use this as export id.
