@@ -2559,32 +2559,32 @@ namespace COLLADAMaya
         for (size_t i = 0; i < exportNodesTree.size(); ++i)
         {
             SceneElement& sceneElement = *exportNodesTree[i];
-            if (ElementHas(sceneElement, type)) {
-                switch (filter)
-                {
-                case Filter::All:
-                    return true;
-                case Filter::Local:
-                    return sceneElement.getIsLocal();
-                case Filter::Reference:
-                    return !sceneElement.getIsLocal();
-                }
+            if (ElementHas(sceneElement, type, filter)) {
+                return true;
             }
         }
         return false;
     }
 
-    bool PhysXExporter::ElementHas(const SceneElement & element, SceneElement::Type type)
+    bool PhysXExporter::ElementHas(const SceneElement & element, SceneElement::Type type, PhysXExporter::Filter filter)
     {
         if (element.getType() == type) {
-            return true;
+            switch (filter)
+            {
+            case Filter::All:
+                return true;
+            case Filter::Local:
+                return element.getIsLocal();
+            case Filter::Reference:
+                return !element.getIsLocal();
+            }
         }
 
         // Recursive call for all the child elements
         for (uint i = 0; i<element.getChildCount(); ++i)
         {
             const SceneElement& childElement = *element.getChild(i);
-            if (ElementHas(childElement, type)) {
+            if (ElementHas(childElement, type, filter)) {
                 return true;
             }
         }

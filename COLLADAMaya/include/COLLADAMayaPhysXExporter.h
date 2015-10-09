@@ -121,7 +121,7 @@ namespace COLLADAMaya
     private:
         void exportRotate(const MVector & axis, double angle, const String & sid = "");
 
-        static bool ElementHas(const SceneElement & element, SceneElement::Type type);
+        static bool ElementHas(const SceneElement & element, SceneElement::Type type, Filter filter);
 
         const String & findColladaId(const String & mayaId);
 
