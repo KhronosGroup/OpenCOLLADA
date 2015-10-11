@@ -27,6 +27,8 @@
 #include "COLLADAMaxDocumentExporter.h"
 #include "COLLADAMaxConversionFunctor.h"
 
+#include "COLLADAMaxAnimationClipExporter.h"
+
 class Control;
 
 namespace COLLADAMax
@@ -108,6 +110,7 @@ namespace COLLADAMax
         ConversionFunctor* mConversionFunctor;
 
     public:
+
         /**
         @param controller the controller used for the animation
         @param id The id of the element to animate
@@ -219,6 +222,8 @@ namespace COLLADAMax
         /** List of animations*/
         typedef std::vector<Animation> AnimationList;
 
+		typedef std::map<String, AnimationList> AnimationMap;
+
         /** Function pointer to a function that fills the float buffer @a keyValues with the @a keyIndex'th output value
         of @a animation. */
         typedef void ( AnimationExporter::*OutputValueFunctionPtr ) ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation );
@@ -259,6 +264,10 @@ namespace COLLADAMax
         /** List of all animations to export*/
         AnimationList mAnimationList;
 
+		AnimationMap mAnimationMap;
+
+		AnimationClipExporter mClipExporter;
+
         /** Factor to multiply the key time with to get the real time.*/
         static const float mTimeFactor;
 
@@ -290,6 +299,11 @@ namespace COLLADAMax
         {
             mAnimationList.push_back ( animation );
         }
+
+		void addNamedAnimation(const Animation& animation, const String& name) {
+			AnimationList& list = mAnimationMap[name];
+			list.push_back(animation);
+		}
 
 
 		/** Adds an animation that animates a float.
@@ -323,7 +337,7 @@ namespace COLLADAMax
 		exists until the animation has been exported.
 		@return Returns true if the Point3 is animated, false otherwise.
         */
-        bool addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0);
+		bool addAnimatedPoint3(Control * controller, const String& layerName, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0);
 
 
 		/** Adds an animation that animates a Point4, i.e. a parameter that has 4 values, e.g. color
@@ -334,7 +348,7 @@ namespace COLLADAMax
 		exists until the animation has been exported.
 		@return Returns true if the Point3 is animated, false otherwise.
 		*/
-		bool addAnimatedPoint4 ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0);
+		bool addAnimatedPoint4(Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0);
 
 		
 		/** Adds an animation that animates an angle.
@@ -347,7 +361,7 @@ namespace COLLADAMax
 		@param forceFullCheck If true, a full check will be performed f the animations is not constant.
 		@return Returns true if the angle is animated, false otherwise.
         */
-        bool addAnimatedAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int animatedAngle, bool forceFullCheck = true );
+        bool addAnimatedAngle ( Control * controller, const String& layerName, const String & id, const String & sid, const String parameters[], int animatedAngle, bool forceFullCheck = true );
 
 
 		/** Adds an animation that animates an axis angle rotation

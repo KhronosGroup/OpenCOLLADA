@@ -16,8 +16,8 @@ namespace COLLADASW
 {
 
     //---------------------------------------------------------------
-    ColladaAnimationClip::ColladaAnimationClip ( const String& animationClipId )
-            : mAnimationClipId ( animationClipId ), mStartTime ( -1.0f ), mEndTime ( -1.0f )
+    ColladaAnimationClip::ColladaAnimationClip(const String& animationClipId, const String& name)
+            : mAnimationClipId ( animationClipId ), mName(name), mStartTime ( -1.0f ), mEndTime ( -1.0f )
     {}
 
     //---------------------------------------------------------------
@@ -45,6 +45,9 @@ namespace COLLADASW
 
         if ( !animationClip.getAnimationClipId().empty() )
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_ID, animationClip.getAnimationClipId() );
+
+        if (!animationClip.getName().empty())
+            mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_NAME, animationClip.getName());
 
         if ( animationClip.getStartTime() != ( -1.0f ) )
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_START, animationClip.getStartTime() );

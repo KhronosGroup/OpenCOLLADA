@@ -2696,6 +2696,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\COLLADAMaxAnimationAssigner.cpp" />
+    <ClCompile Include="..\src\COLLADAMaxAnimationClipExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMaxAnimationCreator.cpp" />
     <ClCompile Include="..\src\COLLADAMaxAnimationExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMaxAnimationImporter.cpp" />
@@ -2998,6 +2999,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\COLLADAMaxAnimationAssigner.h" />
+    <ClInclude Include="..\include\COLLADAMaxAnimationClipExporter.h" />
     <ClInclude Include="..\include\COLLADAMaxAnimationCreator.h" />
     <ClInclude Include="..\include\COLLADAMaxAnimationExporter.h" />
     <ClInclude Include="..\include\COLLADAMaxAnimationImporter.h" />

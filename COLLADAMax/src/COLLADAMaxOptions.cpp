@@ -93,6 +93,7 @@ namespace COLLADAMax
 		mAnimations(true),
 		mSampleAnimation(false),
 		mCreateClip(false),
+		mLayersAsClips(false),
 		mBakeMatrices(false),
 		mRelativePaths(false),
 		mCopyImages(true),
@@ -165,6 +166,7 @@ namespace COLLADAMax
 			CheckDlgButton(hWnd, IDC_ANIM_ENABLE, mAnimations);
 			CheckDlgButton(hWnd, IDC_ANIM_SAMPLE, mSampleAnimation);
 			CheckDlgButton(hWnd, IDC_ANIM_CLIP, mCreateClip);
+			CheckDlgButton(hWnd, IDC_LAYERS_TO_CLIPS, mLayersAsClips);
 			CheckDlgButton(hWnd, IDC_BAKE_MATRICES, mBakeMatrices);
 			CheckDlgButton(hWnd, IDC_RELATIVE_PATHS, mRelativePaths);
 			CheckDlgButton(hWnd, IDC_COPY_IMAGES, mCopyImages);
@@ -173,6 +175,12 @@ namespace COLLADAMax
 			// Animation checkboxes depend on the enable button.
 			EnableDlgControl(hWnd, IDC_ANIM_SAMPLE, mAnimations);
 			EnableDlgControl(hWnd, IDC_ANIM_CLIP, mAnimations);
+
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
+			EnableDlgControl(hWnd, IDC_LAYERS_TO_CLIPS, mAnimations);
+#else
+			EnableDlgControl(hWnd, IDC_LAYERS_TO_CLIPS, false);
+#endif
 
 			// setup spinners
 			spin = GetISpinner(GetDlgItem(hWnd, IDC_ANIM_START_SPIN)); 
@@ -202,6 +210,11 @@ namespace COLLADAMax
 			mAnimations = IsDlgButtonChecked(hWnd, IDC_ANIM_ENABLE) == BST_CHECKED;
 			EnableDlgControl(hWnd, IDC_ANIM_SAMPLE, mAnimations);
 			EnableDlgControl(hWnd, IDC_ANIM_CLIP, mAnimations);
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
+			EnableDlgControl(hWnd, IDC_LAYERS_TO_CLIPS, mAnimations);
+#else
+			EnableDlgControl(hWnd, IDC_LAYERS_TO_CLIPS, false);
+#endif
 
 			/*spin = GetISpinner(GetDlgItem(hWnd, IDC_ANIM_START_SPIN)); 
 			//spin->LinkToEdit(GetDlgItem(hWnd,IDC_ANIM_START), EDITTYPE_INT);
@@ -237,6 +250,7 @@ namespace COLLADAMax
 			mAnimations = IsDlgButtonChecked(hWnd, IDC_ANIM_ENABLE) == BST_CHECKED;
 			mSampleAnimation = IsDlgButtonChecked(hWnd, IDC_ANIM_SAMPLE) == BST_CHECKED;
 			mCreateClip = IsDlgButtonChecked(hWnd, IDC_ANIM_CLIP) == BST_CHECKED;
+			mLayersAsClips = IsDlgButtonChecked(hWnd, IDC_LAYERS_TO_CLIPS) == BST_CHECKED;
 			mNormals = IsDlgButtonChecked(hWnd, IDC_GEOM_NORMALS) == BST_CHECKED;
 			mTriangulate = IsDlgButtonChecked(hWnd, IDC_GEOM_TRIANGLES) == BST_CHECKED;
 			mIncludeXrefs = IsDlgButtonChecked(hWnd, IDC_GEOM_XREFS) == BST_CHECKED;
