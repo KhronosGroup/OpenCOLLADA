@@ -1760,23 +1760,74 @@ namespace COLLADAMaya
 
             MMatrix constraintLocalToWorld = constraintDagPath.inclusiveMatrix();
             MMatrix attachmentLocalToWorld = attachmentDagPath.inclusiveMatrix();
-            MMatrix constraintLocalToAttachment = constraintLocalToWorld * attachmentLocalToWorld.inverse();
 
-            MTransformationMatrix constraintLocalToAttachmentTM(constraintLocalToAttachment);
-            MVector translation = constraintLocalToAttachmentTM.getTranslation(MSpace::kTransform);
-            double angles[3];
-            MTransformationMatrix::RotationOrder rotationOrder;
-            constraintLocalToAttachmentTM.getRotation(angles, rotationOrder);
-            MEulerRotation rotation;
-            rotation.x = angles[0];
-            rotation.y = angles[1];
-            rotation.z = angles[2];
-            rotation.order = static_cast<MEulerRotation::RotationOrder>(
-                static_cast<int>(rotationOrder)-MTransformationMatrix::kXYZ + MEulerRotation::kXYZ
-                );
+            MTransformationMatrix constraintLocalToWorldTM(constraintLocalToWorld);
+            MTransformationMatrix attachmentLocalToWorldTM(attachmentLocalToWorld);
+            
+            int dummy = 0;
+            MString orientationMode;
+            DagHelper::getPlugValue(rigidConstraint, ATTR_ORIENTATION_MODE, dummy, orientationMode);
+            if (orientationMode == TARGET_ORIGIN)
+            {
+                // World space target origin
+                MVector targetOrigin = attachmentLocalToWorldTM.translation(MSpace::kTransform);
 
-            getPhysXExporter().exportTranslation(translation, ATTR_TRANSLATE);
-            getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
+                // World space constraint origin
+                MVector constraintOrigin = constraintLocalToWorldTM.translation(MSpace::kTransform);
+
+                MVector x = targetOrigin - constraintOrigin;
+
+                // if target origin and constraint origin are at the same place, we'll get wrong results
+                if (x.length() < getPhysXExporter().getDocumentExporter().getTolerance()) {
+                    MGlobal::displayWarning("constraint origin and target origin too close");
+                }
+
+                x.normalize();
+
+                MVector z = constraintLocalToWorld[2];
+                
+                MVector y = z ^ x;
+                y.normalize();
+
+                z = x ^ y;
+                z.normalize();
+                
+                MMatrix adjustedConstraintLocalToWorld = MMatrix::identity;
+                adjustedConstraintLocalToWorld(0, 0) = x.x;
+                adjustedConstraintLocalToWorld(0, 1) = x.y;
+                adjustedConstraintLocalToWorld(0, 2) = x.z;
+                adjustedConstraintLocalToWorld(1, 0) = y.x;
+                adjustedConstraintLocalToWorld(1, 1) = y.y;
+                adjustedConstraintLocalToWorld(1, 2) = y.z;
+                adjustedConstraintLocalToWorld(2, 0) = z.x;
+                adjustedConstraintLocalToWorld(2, 1) = z.y;
+                adjustedConstraintLocalToWorld(2, 2) = z.z;
+                adjustedConstraintLocalToWorld(3, 0) = constraintOrigin.x;
+                adjustedConstraintLocalToWorld(3, 1) = constraintOrigin.y;
+                adjustedConstraintLocalToWorld(3, 2) = constraintOrigin.z;
+
+                MMatrix constraintLocalToAttachment = adjustedConstraintLocalToWorld * attachmentLocalToWorld.inverse();
+                MTransformationMatrix constraintLocalToAttachmentTM(constraintLocalToAttachment);
+                MVector translation = constraintLocalToAttachmentTM.getTranslation(MSpace::kTransform);
+
+                double angles[3];
+                MTransformationMatrix::RotationOrder rotationOrder;
+                constraintLocalToAttachmentTM.getRotation(angles, rotationOrder);
+                MEulerRotation rotation;
+                rotation.x = angles[0];
+                rotation.y = angles[1];
+                rotation.z = angles[2];
+                rotation.order = static_cast<MEulerRotation::RotationOrder>(
+                    static_cast<int>(rotationOrder)-MTransformationMatrix::kXYZ + MEulerRotation::kXYZ
+                    );
+
+                getPhysXExporter().exportTranslation(translation, ATTR_TRANSLATE);
+                getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
+            }
+            else if (orientationMode == CENTERED)
+            {
+                // TODO
+            }
         }
     };
 
@@ -1804,6 +1855,7 @@ namespace COLLADAMaya
                 mAttributes.insert(ATTR_RADIUS_SCALE);
                 mAttributes.insert(ATTR_ORIENTATION_MODE);
                 mAttributes.insert(ATTR_MOTION_SWING_Y);
+                mAttributes.insert(ATTR_MOTION_SWING_Z);
                 mAttributes.insert(ATTR_SWING_1_LIMIT_VALUE);
                 mAttributes.insert(ATTR_SWING_1_LIMIT_RESTITUTION);
                 mAttributes.insert(ATTR_SWING_1_LIMIT_SPRING);

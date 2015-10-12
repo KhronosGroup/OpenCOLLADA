@@ -121,7 +121,7 @@ namespace COLLADAMaya
         * Exports the data of all polygons from the shaders in the mesh.
         */
         void exportPolygonSources ( 
-            MFnMesh& fnMesh,
+            const MObject& mesh,
             const String& meshId,
             MStringArray& uvSetNames,
             MStringArray& colorSetNames,
@@ -135,14 +135,14 @@ namespace COLLADAMaya
         * Exports the data of all polygons of the current shader.
         * @param fnMesh The current mesh object.
         */
-        void exportShaderPolygons ( MFnMesh &fnMesh );
+        void exportShaderPolygons(const MObject& mesh);
 
         /**
          * Verify the polygons of the meshes shader for holes.
          * @param fnMesh The current mesh object.
          * @return bool True, if the shader has a holed polygon.
          */
-        bool verifyPolygonsForHoles( const MFnMesh &fnMesh );
+        bool verifyPolygonsForHoles(const MObject& mesh);
 
         /**
          * Prepares the polylist in the collada file to add the list values.
@@ -152,7 +152,7 @@ namespace COLLADAMaya
          * @return COLLADASW::PrimitivesBase* Pointer to the created Template object.
          */
         COLLADASW::PrimitivesBase* preparePrimitivesBase( 
-            const MFnMesh& fnMesh, 
+            const MObject& mesh,
             const uint numPolygons, 
             const uint currentShapeIsHoled );
         
@@ -164,7 +164,7 @@ namespace COLLADAMaya
         void writeShaderPolygons( 
             COLLADASW::PrimitivesBase* primitivesBasePoly,
             const uint baseExportType,
-            MFnMesh &fnMesh );
+            const MObject& mesh);
 
         /**
          * Retrieve the vertex indices and establish the number of polygons (in case of
@@ -177,7 +177,7 @@ namespace COLLADAMaya
          * @param numVertices Number of vertices in the current mesh.
          */
         void initializePolygonSource(
-            const MFnMesh &fnMesh, 
+            const MObject& mesh,
             MItMeshPolygon &meshPolygonsIter,
             PolygonSource &polygon,
             MIntArray &vertexIndices, 
@@ -198,7 +198,7 @@ namespace COLLADAMaya
         void writeElementVertexIndices( 
             COLLADASW::PrimitivesBase* primitivesBasePoly,
             PolygonSource* polygon, 
-            MFnMesh &fnMesh, 
+            const MObject& mesh,
             MItMeshPolygon &meshPolygonsIter,
             const uint baseExportType,
             const MIntArray &vertexIndices, 
@@ -218,7 +218,7 @@ namespace COLLADAMaya
          * @param fnMesh The current mesh object.
          * @return bool True, if all polygons in the mesh are triangles.
          */
-        bool verifyTriangulation ( MFnMesh &fnMesh );
+        bool verifyTriangulation(const MObject& mesh);
 
         /**
         * Create the real Polylist/Polygons/Triangles element.
@@ -265,7 +265,7 @@ namespace COLLADAMaya
             const MIntArray &normalIndices, 
             const int iteratorVertexIndex, 
             MItMeshPolygon &meshPolygonsIter, 
-            MFnMesh &fnMesh, 
+            const MObject& mesh,
             const int polyIndex );
 
         /**
@@ -305,14 +305,14 @@ namespace COLLADAMaya
          */
         void writeVertexCountList( 
             COLLADASW::PrimitivesBase* primitivesBase, 
-            const MFnMesh &fnMesh );
+            const MObject& mesh);
         
         /**
          * Counts the number of polygons in the current shape.
          * @param fnMesh The mesh object.
          * @return uint Number of polygons in the current shape.
          */
-        uint getShaderPolygonsCount( const MFnMesh &fnMesh );
+        uint getShaderPolygonsCount(const MObject& mesh);
 
         /**
          * Establish the number of vertexes in the polygon.

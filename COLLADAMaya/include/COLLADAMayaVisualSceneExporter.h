@@ -233,7 +233,7 @@ namespace COLLADAMaya
          * If not, we don't need to write the current material instance.
          */
         const bool meshContainsShaderPolygons ( 
-            const MFnMesh& fnMesh, 
+            const MObject& mesh,
             const MObjectArray& shaders, 
             const MIntArray& shaderIndices, 
             const uint shaderPosition );

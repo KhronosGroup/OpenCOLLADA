@@ -474,7 +474,7 @@ namespace COLLADAMaya
 
                 // Check if the current mesh has some polygons for the connected shader.
                 // If not, we don't need to write the current material instance.
-                if ( !meshContainsShaderPolygons ( fnMesh, shaders, shaderIndices, shaderPosition ) ) continue;
+                if ( !meshContainsShaderPolygons ( meshNode, shaders, shaderIndices, shaderPosition ) ) continue;
 
                 // To get the right shader name, we have to take the correct mesh instance.
                 MStatus status;
@@ -541,13 +541,13 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     const bool VisualSceneExporter::meshContainsShaderPolygons ( 
-        const MFnMesh& fnMesh, 
+        const MObject& mesh, 
         const MObjectArray& shaders, 
         const MIntArray& shaderIndices, 
         const uint shaderPosition )
     {
         // Iterate through all polygons of the current mesh.
-        MItMeshPolygon meshPolygonsIter ( fnMesh.object() );
+        MItMeshPolygon meshPolygonsIter ( mesh );
         for ( meshPolygonsIter.reset(); !meshPolygonsIter.isDone(); meshPolygonsIter.next() )
         {
             // Is this polygon shaded by this shader?
