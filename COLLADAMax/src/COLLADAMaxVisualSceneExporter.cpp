@@ -41,6 +41,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include <decomp.h>
 #include <iInstanceMgr.h>
 
+#include <ILayerControl.h>
+
 namespace COLLADAMax
 {
 
@@ -352,8 +354,9 @@ namespace COLLADAMax
 		}
 
 		AnimationExporter * animationExporter = mDocumentExporter->getAnimationExporter();
+		const Options& options = mDocumentExporter->getOptions();
 
-		if ( mDocumentExporter->getOptions().getBakeMatrices() || AnimationExporter::forceSampleMatrices(iNode))
+		if ( options.getBakeMatrices() || AnimationExporter::forceSampleMatrices(iNode) )
 		{
 			double matrix[ 4 ][ 4 ] ;
 			matrix3ToDouble4x4 ( matrix, transformationMatrix );
@@ -376,19 +379,47 @@ namespace COLLADAMax
 			// Translation
 			Control * translationController = ( transformationController ) ? transformationController->GetPositionController() : 0 ;
 
-			if ( animationExporter->addAnimatedPoint3 ( translationController, fullNodeId, TRANSLATE_SID, TRANSLATION_PARAMETERS, true ) )
-			{
-				colladaNode.addTranslate ( TRANSLATE_SID, affineParts.t.x, affineParts.t.y, affineParts.t.z );
+			if (!AnimationExporter::isAnimated(translationController)) {
+				if (!affineParts.t.Equals(Point3::Origin, TOLERANCE))
+					colladaNode.addTranslate(affineParts.t.x, affineParts.t.y, affineParts.t.z);
+			}
+			else {
+				// Animated
+
+				ILayerControl* ilc = GetILayerControlInterface(translationController);
+				if (options.getExportLayersAsClips() && ilc != NULL && ilc->GetLayerCount() > 1)
+				{
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
+
+					for (int i = 0; i < ilc->GetLayerCount(); ++i) {
+						// Export layers as named animations
+						NativeString layerName(i == 0 ? L"" : ilc->GetLayerName(i).data()); // Leave the base layer without a name
+
+						Control* layerControl = ilc->GetSubCtrl(i);
+						Point3 translation;
+						layerControl->GetValue(mDocumentExporter->getOptions().getAnimationStart(), &translation, FOREVER, CTRL_ABSOLUTE);
+
+						String sidAppend = (i == 0) ? "" : "_" + layerName;
+
+						colladaNode.addTranslate(TRANSLATE_SID + sidAppend, translation.x, translation.y, translation.z);
+
+						animationExporter->addAnimatedPoint3(layerControl, layerName, fullNodeId, TRANSLATE_SID + "_" + layerName, TRANSLATION_PARAMETERS, true);
+					}
+#endif
+				}
+				else
+				{
+					// No layers
+					colladaNode.addTranslate(TRANSLATE_SID, affineParts.t.x, affineParts.t.y, affineParts.t.z);
+					animationExporter->addAnimatedPoint3(translationController, "", fullNodeId, TRANSLATE_SID, TRANSLATION_PARAMETERS, true);
+				}
+
 			}
 
-			else
-				if ( !affineParts.t.Equals ( Point3::Origin, TOLERANCE ) )
-					colladaNode.addTranslate ( affineParts.t.x, affineParts.t.y, affineParts.t.z );
 
 			// Rotation
 
-			// first try with the Rotation controller
-			Control * rotationController = ( transformationController ) ? transformationController->GetRotationController() : 0;
+			Control * rotationController = (transformationController) ? transformationController->GetRotationController() : 0;
 
 			if ( !AnimationExporter::isAnimated(rotationController) )
 			{
@@ -407,26 +438,56 @@ namespace COLLADAMax
 
 			else
 			{
-				float eulerAngles[ 3 ];
-				Quat quaternion;
-				rotationController->GetValue ( mDocumentExporter->getOptions().getAnimationStart(), &quaternion, FOREVER, CTRL_ABSOLUTE );
-				QuatToEuler ( quaternion, eulerAngles, EULERTYPE_XYZ );
+				// Animated
 
-				// Export XYZ euler rotation in Z Y X order in the file
-				if ( animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_Z_SID, ROTATION_PARAMETER, Animation::ROTATION_Z, true ))
-					colladaNode.addRotateZ ( ROTATE_Z_SID, COLLADASW::MathUtils::radToDeg ( eulerAngles[ 2 ] ) );
-				else
-					colladaNode.addRotateZ ( COLLADASW::MathUtils::radToDeg ( eulerAngles[ 2 ] ) );
+				ILayerControl* ilc = GetILayerControlInterface(rotationController);
+				if (options.getExportLayersAsClips() && ilc != NULL && ilc->GetLayerCount() > 1)
+				{
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
 
-				if ( animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_Y_SID, ROTATION_PARAMETER, Animation::ROTATION_Y, true ) )
-					colladaNode.addRotateY ( ROTATE_Y_SID, COLLADASW::MathUtils::radToDeg ( eulerAngles[ 1 ] ) );
-				else
-					colladaNode.addRotateY ( COLLADASW::MathUtils::radToDeg ( eulerAngles[ 1 ] ) );
+					for (int i = 0; i < ilc->GetLayerCount(); ++i) {
+						// Export layers as named animations
+						NativeString layerName(i == 0 ? L"" : ilc->GetLayerName(i).data()); // Leave the base layer without a name
 
-				if ( animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_X_SID, ROTATION_PARAMETER, Animation::ROTATION_X, true ) )
-					colladaNode.addRotateX ( ROTATE_X_SID, COLLADASW::MathUtils::radToDeg ( eulerAngles[ 0 ] ) );
+						Control* layerControl = ilc->GetSubCtrl(i);
+
+						float eulerAngles[3];
+						Quat quaternion;
+						layerControl->GetValue(mDocumentExporter->getOptions().getAnimationStart(), &quaternion, FOREVER, CTRL_ABSOLUTE);
+						QuatToEuler(quaternion, eulerAngles, EULERTYPE_XYZ);
+
+						String sidAppend = (i == 0) ? "" : "_" + layerName;
+
+						// Add nodes for the additive animations to target
+						colladaNode.addRotateZ(ROTATE_Z_SID + sidAppend, 0);
+						colladaNode.addRotateY(ROTATE_Y_SID + sidAppend, 0);
+						colladaNode.addRotateX(ROTATE_X_SID + sidAppend, 0);
+
+						animationExporter->addAnimatedAngle(layerControl, layerName, fullNodeId, ROTATE_Z_SID + sidAppend, ROTATION_PARAMETER, Animation::ROTATION_Z, true);
+						animationExporter->addAnimatedAngle(layerControl, layerName, fullNodeId, ROTATE_Y_SID + sidAppend, ROTATION_PARAMETER, Animation::ROTATION_Y, true);
+						animationExporter->addAnimatedAngle(layerControl, layerName, fullNodeId, ROTATE_X_SID + sidAppend, ROTATION_PARAMETER, Animation::ROTATION_X, true);
+					}
+#endif
+				}
 				else
-					colladaNode.addRotateX ( COLLADASW::MathUtils::radToDeg ( eulerAngles[ 0 ] ) );
+				{
+
+					float eulerAngles[3];
+					Quat quaternion;
+					rotationController->GetValue(mDocumentExporter->getOptions().getAnimationStart(), &quaternion, FOREVER, CTRL_ABSOLUTE);
+					QuatToEuler(quaternion, eulerAngles, EULERTYPE_XYZ);
+
+					// Add the scene nodes
+					colladaNode.addRotateZ(ROTATE_Z_SID, COLLADASW::MathUtils::radToDeg(eulerAngles[2]));
+					colladaNode.addRotateY(ROTATE_Y_SID, COLLADASW::MathUtils::radToDeg(eulerAngles[1]));
+					colladaNode.addRotateX(ROTATE_X_SID, COLLADASW::MathUtils::radToDeg(eulerAngles[0]));
+
+					// Export the entire rotation as a single animation
+					animationExporter->addAnimatedAngle(rotationController, "", fullNodeId, ROTATE_Z_SID, ROTATION_PARAMETER, Animation::ROTATION_Z, true);
+					animationExporter->addAnimatedAngle(rotationController, "", fullNodeId, ROTATE_Y_SID, ROTATION_PARAMETER, Animation::ROTATION_Y, true);
+					animationExporter->addAnimatedAngle(rotationController, "", fullNodeId, ROTATE_X_SID, ROTATION_PARAMETER, Animation::ROTATION_X, true);
+				}
+
 			}
 
 			//Scaling
@@ -438,7 +499,7 @@ namespace COLLADAMax
 			SClass_ID scid = scaleController ? scaleController->SuperClassID() : 0;
 			Class_ID cid = scaleController ? scaleController->ClassID() : Class_ID();
 
-			bool hasAnimatedScale = animationExporter->addAnimatedPoint3( scaleController, fullNodeId, SCALE_SID, TRANSLATION_PARAMETERS, true );
+			bool hasAnimatedScale = animationExporter->addAnimatedPoint3( scaleController, "", fullNodeId, SCALE_SID, TRANSLATION_PARAMETERS, true );
 
 			if ( hasAnimatedScale || !affineParts.k.Equals ( Point3 ( 1.0f, 1.0f, 1.0f ), TOLERANCE ) )
 			{

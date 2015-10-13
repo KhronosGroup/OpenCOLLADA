@@ -63,6 +63,7 @@ namespace COLLADAMax
 		bool mAnimations;					//!< export animations;
 		bool mSampleAnimation;				//!< export sampled animation
 		bool mCreateClip;					//!< create one animation clip with all the animations of the scene
+		bool mLayersAsClips;				//!< export each animation layer as a unique animation, and create a clip for each layer
 		bool mBakeMatrices;					//!< export transforms as matrices
 		bool mRelativePaths;				//!< export relative paths
 		bool mCopyImages;			     	//!< copy images
@@ -112,6 +113,9 @@ namespace COLLADAMax
 
         /** Returns, if an animation clip is exported.*/
         bool getExportAnimClip() const { return mCreateClip; }
+
+        /** Returns, if animation layers should be exported as animations clips.*/
+        bool getExportLayersAsClips() const { return mLayersAsClips; }
 
         /** Returns, if the transformations are exported as matrices.*/
         bool getBakeMatrices() const { return mBakeMatrices; }
