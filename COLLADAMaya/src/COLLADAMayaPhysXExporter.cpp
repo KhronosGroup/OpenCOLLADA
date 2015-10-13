@@ -1480,7 +1480,7 @@ namespace COLLADAMaya
 
             MVector inertiaMatrixDiagonal = MVector::zero;
             inertiaMatrixDiagonal.x = mass * (bb.y * bb.y + bb.z * bb.z) / 12.0;
-            inertiaMatrixDiagonal.z = mass * (bb.x * bb.x + bb.z * bb.z) / 12.0;
+            inertiaMatrixDiagonal.y = mass * (bb.x * bb.x + bb.z * bb.z) / 12.0;
             inertiaMatrixDiagonal.z = mass * (bb.x * bb.x + bb.y * bb.y) / 12.0;
 
             Inertia e(getPhysXExporter(), inertiaMatrixDiagonal);
