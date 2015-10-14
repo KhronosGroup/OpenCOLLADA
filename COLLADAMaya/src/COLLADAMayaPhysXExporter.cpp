@@ -754,11 +754,14 @@ namespace COLLADAMaya
     private:
         void exportHalfExtents(const MObject & shape)
         {
+            double inflate = 0.0;
+            DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+
             MVector size;
             DagHelper::getPlugValue(shape, ATTR_SIZE, size);
-            size.x = MDistance::internalToUI(size.x);
-            size.y = MDistance::internalToUI(size.y);
-            size.z = MDistance::internalToUI(size.z);
+            size.x = MDistance::internalToUI(size.x) + inflate * 2.0;
+            size.y = MDistance::internalToUI(size.y) + inflate * 2.0;
+            size.z = MDistance::internalToUI(size.z) + inflate * 2.0;
             HalfExtents e(getPhysXExporter(), size / 2.0);
         }
     };
@@ -785,9 +788,12 @@ namespace COLLADAMaya
     private:
         void exportRadius(const MObject & shape)
         {
+            double inflate = 0.0;
+            DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
-            radius = MDistance::internalToUI(radius);
+            radius = MDistance::internalToUI(radius) + inflate;
             Radius e(getPhysXExporter(), radius);
         }
     };
@@ -815,9 +821,12 @@ namespace COLLADAMaya
     private:
         void exportRadius(const MObject & shape)
         {
+            double inflate = 0.0;
+            DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
-            radius = MDistance::internalToUI(radius);
+            radius = MDistance::internalToUI(radius) + inflate;
             Radius e(getPhysXExporter(), radius);
         }
 
@@ -1004,7 +1013,6 @@ namespace COLLADAMaya
             {
                 // If connected mesh doesn't exist anymore then we use the PhysX shape internal geometry
                 // This should rarely happen but this is possible...
-
                 // Also use shape internal geometry if we don't export polygon meshes.
                 meshObject = shape;
             }
