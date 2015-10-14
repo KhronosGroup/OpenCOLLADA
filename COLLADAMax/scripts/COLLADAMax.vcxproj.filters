@@ -203,6 +203,9 @@
     <ClCompile Include="..\src\COLLADAMaxGoogleWarehouseActionItem.cpp">
       <Filter>Source Files\warehouse</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\COLLADAMaxAnimationClipExporter.cpp">
+      <Filter>Source Files\exporter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\COLLADAMaxColladaPlugin.h">
@@ -396,6 +399,9 @@
     </ClInclude>
     <ClInclude Include="..\res\resource.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMaxAnimationClipExporter.h">
+      <Filter>Header Files\exporter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

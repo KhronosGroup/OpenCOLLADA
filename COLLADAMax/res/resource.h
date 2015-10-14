@@ -85,12 +85,13 @@
 #define IDC_COPYI_MAGES                 1061
 #define IDC_COPY_IMAGES                 1061
 #define IDC_EXPORT_USER_PROPERTIES      1062
+#define IDC_CHECK1                      1063
+#define IDC_LAYERS_TO_CLIPS             1063
 #define IDC_EDIT_FENTRY                 1065
 #define IDC_ANIM_START                  1161
 #define IDC_ANIM_START_SPIN             1162
 #define IDC_ANIM_END                    1163
 #define IDC_ANIM_END_SPIN               1164
-
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -99,7 +100,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        115
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1063
+#define _APS_NEXT_CONTROL_VALUE         1064
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
