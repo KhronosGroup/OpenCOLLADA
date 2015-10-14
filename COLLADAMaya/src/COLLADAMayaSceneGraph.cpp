@@ -367,6 +367,16 @@ namespace COLLADAMaya
             return false;
         }
 
+        MObject object = dagPath.node();
+        MFnDependencyNode fnDependencyNode(object);
+        MString nodeTypeName = fnDependencyNode.typeName();
+        if (nodeTypeName == NX_RIGID_SOLVER ||
+            nodeTypeName == NX_RIGID_BODY ||
+            nodeTypeName == NX_RIGID_CONSTRAINT ||
+            nodeTypeName == NX_SHAPE) {
+            return false;
+        }
+
         // If we are not already forcing this node, its children
         // check whether we should be forcing it (skinning of hidden joints).
         isForced = isForcedNode ( dagPath );

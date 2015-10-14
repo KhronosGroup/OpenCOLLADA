@@ -45,7 +45,7 @@ namespace COLLADAMaya
          * Constructor.
          * @param rotation The euler rotation.
          */
-        RotateHelper( MEulerRotation rotation );
+        RotateHelper( const MEulerRotation & rotation );
 
         /**
          * Returns the rotation vector (2x3 matrix).
