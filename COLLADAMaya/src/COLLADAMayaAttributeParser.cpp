@@ -410,7 +410,7 @@ namespace COLLADAMaya
 
         switch (unitType)
         {
-        case MFnUnitAttribute::Type::kAngle:
+        case MFnUnitAttribute::kAngle:
         {
             MAngle angle;
             status = plug.getValue(angle);
@@ -418,7 +418,7 @@ namespace COLLADAMaya
             return onAngle(plug, name, angle);
         }
 
-        case MFnUnitAttribute::Type::kDistance:
+        case MFnUnitAttribute::kDistance:
         {
             MDistance distance;
             status = plug.getValue(distance);
@@ -426,7 +426,7 @@ namespace COLLADAMaya
             return onDistance(plug, name, distance);
         }
 
-        case MFnUnitAttribute::Type::kTime:
+        case MFnUnitAttribute::kTime:
         {
             MTime time;
             status = plug.getValue(time);

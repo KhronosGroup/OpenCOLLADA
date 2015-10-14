@@ -18,6 +18,8 @@
 		24FFE6D314A526D600D718C2 /* COLLADAFWInstanceKinematicsScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */; };
 		870E79C91B17203600590717 /* COLLADAMayaPhysicsSceneExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 870E79C81B17203600590717 /* COLLADAMayaPhysicsSceneExporter.h */; };
 		870E79CB1B17204F00590717 /* COLLADAMayaPhysicsSceneExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 870E79CA1B17204F00590717 /* COLLADAMayaPhysicsSceneExporter.cpp */; };
+		871C5B3A1BCEC138008B84FF /* COLLADAMayaPhysXExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 871C5B391BCEC138008B84FF /* COLLADAMayaPhysXExporter.h */; };
+		871C5B3C1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 871C5B3B1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp */; };
 		873516D81AC99C0A009300AC /* COLLADAMayaShaderFXShaderExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873516D71AC99C0A009300AC /* COLLADAMayaShaderFXShaderExporter.cpp */; };
 		8776CF011AC9975C00032EE7 /* COLLADAMayaShaderFXShaderExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8776CF001AC9975C00032EE7 /* COLLADAMayaShaderFXShaderExporter.h */; };
 		879D18E01AE8070F005C246C /* COLLADAMayaAttributeParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 879D18DF1AE8070F005C246C /* COLLADAMayaAttributeParser.h */; };
@@ -939,6 +941,8 @@
 		24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWInstanceKinematicsScene.h; path = ../COLLADAFramework/include/COLLADAFWInstanceKinematicsScene.h; sourceTree = "<group>"; };
 		870E79C81B17203600590717 /* COLLADAMayaPhysicsSceneExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaPhysicsSceneExporter.h; path = include/COLLADAMayaPhysicsSceneExporter.h; sourceTree = "<group>"; };
 		870E79CA1B17204F00590717 /* COLLADAMayaPhysicsSceneExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaPhysicsSceneExporter.cpp; path = src/COLLADAMayaPhysicsSceneExporter.cpp; sourceTree = "<group>"; };
+		871C5B391BCEC138008B84FF /* COLLADAMayaPhysXExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaPhysXExporter.h; path = include/COLLADAMayaPhysXExporter.h; sourceTree = "<group>"; };
+		871C5B3B1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaPhysXExporter.cpp; path = src/COLLADAMayaPhysXExporter.cpp; sourceTree = "<group>"; };
 		873516D71AC99C0A009300AC /* COLLADAMayaShaderFXShaderExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaShaderFXShaderExporter.cpp; path = src/COLLADAMayaShaderFXShaderExporter.cpp; sourceTree = "<group>"; };
 		8776CF001AC9975C00032EE7 /* COLLADAMayaShaderFXShaderExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaShaderFXShaderExporter.h; path = include/COLLADAMayaShaderFXShaderExporter.h; sourceTree = "<group>"; };
 		879D18DF1AE8070F005C246C /* COLLADAMayaAttributeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaAttributeParser.h; path = include/COLLADAMayaAttributeParser.h; sourceTree = "<group>"; };
@@ -2377,6 +2381,7 @@
 		CE72910410AC800500AE5662 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				871C5B3B1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp */,
 				870E79CA1B17204F00590717 /* COLLADAMayaPhysicsSceneExporter.cpp */,
 				87D7EAFC1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp */,
 				879D18E11AE8071E005C246C /* COLLADAMayaAttributeParser.cpp */,
@@ -2422,6 +2427,7 @@
 		CE72910510AC800C00AE5662 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				871C5B391BCEC138008B84FF /* COLLADAMayaPhysXExporter.h */,
 				870E79C81B17203600590717 /* COLLADAMayaPhysicsSceneExporter.h */,
 				87D7EAFA1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h */,
 				879D18DF1AE8070F005C246C /* COLLADAMayaAttributeParser.h */,
@@ -3488,6 +3494,7 @@
 				CE0B3F080F56AFD8004F8570 /* COLLADAMayaSourceInput.h in Headers */,
 				CE0B3F090F56AFD8004F8570 /* COLLADAMayaStableHeaders.h in Headers */,
 				CE0B3F0A0F56AFD8004F8570 /* COLLADAMayaSyntax.h in Headers */,
+				871C5B3A1BCEC138008B84FF /* COLLADAMayaPhysXExporter.h in Headers */,
 				CE0B3F0B0F56AFD8004F8570 /* COLLADAMayaTangentPoint.h in Headers */,
 				CE0B3F0C0F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h in Headers */,
 				879D18E01AE8070F005C246C /* COLLADAMayaAttributeParser.h in Headers */,
@@ -4135,6 +4142,7 @@
 				CE72917810ACA1F800AE5662 /* COLLADAMayaExportOptions.cpp in Sources */,
 				87D7EAFD1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp in Sources */,
 				CE72917910ACA1F800AE5662 /* COLLADAMayaFileTranslator.cpp in Sources */,
+				871C5B3C1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp in Sources */,
 				CE72917A10ACA1F800AE5662 /* COLLADAMayaGeometryExporter.cpp in Sources */,
 				CE72917B10ACA1F800AE5662 /* COLLADAMayaGeometryPolygonExporter.cpp in Sources */,
 				CE72917C10ACA1F800AE5662 /* COLLADAMayaHwShaderExporter.cpp in Sources */,

@@ -17,6 +17,7 @@
 
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneElement.h"
+#include "COLLADAMayaSceneGraph.h"
 #include "COLLADASWLibraryPhysicsModels.h"
 
 namespace COLLADAMaya

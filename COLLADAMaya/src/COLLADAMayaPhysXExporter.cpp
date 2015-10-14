@@ -37,7 +37,7 @@
 double infinite()
 {
     union ieee754 {
-        __int64 i;
+        int64_t i;
         double d;
     };
     ieee754 inf;
@@ -349,7 +349,7 @@ namespace COLLADAMaya
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
-            mPhysXExporter.getStreamWriter().appendValues(time.as(MTime::Unit::kSeconds));
+            mPhysXExporter.getStreamWriter().appendValues(time.as(MTime::kSeconds));
             return MS::kSuccess;
         }
 
@@ -2109,72 +2109,74 @@ namespace COLLADAMaya
         }
 
     private:
+        class RigidBodyParser
+        {
+        public:
+            RigidBodyParser(PhysXExporter & exporter)
+            : mPhysXExporter(exporter)
+            {}
+            
+            bool operator()(SceneElement & element)
+            {
+                if (element.getType() == SceneElement::PHYSX_RIGID_BODY &&
+                    element.getIsLocal())
+                {
+                    const MObject & rigidBody = element.getNode();
+                    
+                    MObject target;
+                    PhysXExporter::GetPluggedObject(rigidBody, ATTR_TARGET, target);
+                    MDagPath targetDagPath;
+                    MDagPath::getAPathTo(target, targetDagPath);
+                    SceneElement* targetElement = mPhysXExporter.getDocumentExporter().getSceneGraph()->findElement(targetDagPath);
+                    if (targetElement)
+                    {
+                        String rigidBodySid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
+                        URI targetURI = mPhysXExporter.getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(targetElement);
+                        InstanceRigidBody e(mPhysXExporter, rigidBody, rigidBodySid, targetURI);
+                    }
+                }
+                return true;
+            }
+            
+        private:
+            PhysXExporter & mPhysXExporter;
+        };
+        
         void exportInstanceRigidBodies()
         {
-            class RigidBodyParser
-            {
-            public:
-                RigidBodyParser(PhysXExporter & exporter)
-                    : mPhysXExporter(exporter)
-                {}
-
-                bool operator()(SceneElement & element)
-                {
-                    if (element.getType() == SceneElement::PHYSX_RIGID_BODY &&
-                        element.getIsLocal())
-                    {
-                        const MObject & rigidBody = element.getNode();
-
-                        MObject target;
-                        PhysXExporter::GetPluggedObject(rigidBody, ATTR_TARGET, target);
-                        MDagPath targetDagPath;
-                        MDagPath::getAPathTo(target, targetDagPath);
-                        SceneElement* targetElement = mPhysXExporter.getDocumentExporter().getSceneGraph()->findElement(targetDagPath);
-                        if (targetElement)
-                        {
-                            String rigidBodySid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
-                            URI targetURI = mPhysXExporter.getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(targetElement);
-                            InstanceRigidBody e(mPhysXExporter, rigidBody, rigidBodySid, targetURI);
-                        }
-                    }
-                    return true;
-                }
-
-            private:
-                PhysXExporter & mPhysXExporter;
-            };
-
-            getPhysXExporter().parseSceneElements(RigidBodyParser(getPhysXExporter()));
+            RigidBodyParser rigidBodyParser(getPhysXExporter());
+            getPhysXExporter().parseSceneElements(rigidBodyParser);
         }
 
+        class RigidConstraintParser
+        {
+        public:
+            RigidConstraintParser(PhysXExporter & exporter)
+            : mPhysXExporter(exporter)
+            {}
+            
+            bool operator()(SceneElement & element)
+            {
+                if (element.getType() == SceneElement::PHYSX_RIGID_CONSTRAINT &&
+                    element.getIsLocal())
+                {
+                    const MObject & rigidConstraint = element.getNode();
+                    
+                    String rigidConstraintSid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
+                    
+                    InstanceRigidConstraint e(mPhysXExporter, rigidConstraintSid);
+                }
+                return true;
+            }
+            
+        private:
+            PhysXExporter & mPhysXExporter;
+        };
+        
         void exportInstanceRigidConstraints()
         {
-            class RigidConstraintParser
-            {
-            public:
-                RigidConstraintParser(PhysXExporter & exporter)
-                    : mPhysXExporter(exporter)
-                {}
-
-                bool operator()(SceneElement & element)
-                {
-                    if (element.getType() == SceneElement::PHYSX_RIGID_CONSTRAINT &&
-                        element.getIsLocal())
-                    {
-                        const MObject & rigidConstraint = element.getNode();
-
-                        String rigidConstraintSid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
-
-                        InstanceRigidConstraint e(mPhysXExporter, rigidConstraintSid);
-                    }
-                    return true;
-                }
-
-            private:
-                PhysXExporter & mPhysXExporter;
-            };
-
-            getPhysXExporter().parseSceneElements(RigidConstraintParser(getPhysXExporter()));
+            RigidConstraintParser rigidConstraintParser(getPhysXExporter());
+            getPhysXExporter().parseSceneElements(rigidConstraintParser);
         }
     };
 
@@ -2193,66 +2195,68 @@ namespace COLLADAMaya
         }
 
     private:
+        class RigidBodyParser
+        {
+        public:
+            RigidBodyParser(PhysXExporter & exporter)
+            : mPhysXExporter(exporter)
+            {}
+            
+            bool operator()(SceneElement & element)
+            {
+                if (element.getType() == SceneElement::PHYSX_RIGID_BODY &&
+                    element.getIsLocal())
+                {
+                    String rigidBodySid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
+                    String rigidBodyName = mPhysXExporter.generateColladaName(element.getPath());
+                    
+                    const MObject & rigidBody = element.getNode();
+                    
+                    RigidBody e(mPhysXExporter, rigidBody, rigidBodySid, rigidBodyName);
+                }
+                return true;
+            }
+            
+        private:
+            PhysXExporter & mPhysXExporter;
+        };
+        
         void exportRigidBodies()
         {
-            class RigidBodyParser
-            {
-            public:
-                RigidBodyParser(PhysXExporter & exporter)
-                    : mPhysXExporter(exporter)
-                {}
-
-                bool operator()(SceneElement & element)
-                {
-                    if (element.getType() == SceneElement::PHYSX_RIGID_BODY &&
-                        element.getIsLocal())
-                    {
-                        String rigidBodySid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
-                        String rigidBodyName = mPhysXExporter.generateColladaName(element.getPath());
-
-                        const MObject & rigidBody = element.getNode();
-
-                        RigidBody e(mPhysXExporter, rigidBody, rigidBodySid, rigidBodyName);
-                    }
-                    return true;
-                }
-
-            private:
-                PhysXExporter & mPhysXExporter;
-            };
-            
-            getPhysXExporter().parseSceneElements(RigidBodyParser(getPhysXExporter()));
+            RigidBodyParser rigidBodyParser(getPhysXExporter());
+            getPhysXExporter().parseSceneElements(rigidBodyParser);
         }
 
+        class RigidConstraintParser
+        {
+        public:
+            RigidConstraintParser(PhysXExporter & exporter)
+            : mPhysXExporter(exporter)
+            {}
+            
+            bool operator()(SceneElement & element)
+            {
+                if (element.getType() == SceneElement::PHYSX_RIGID_CONSTRAINT &&
+                    element.getIsLocal())
+                {
+                    String rigidConstraintSid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
+                    String rigidConstraintName = mPhysXExporter.generateColladaName(element.getPath());
+                    
+                    const MObject & rigidConstraint = element.getNode();
+                    
+                    RigidConstraint e(mPhysXExporter, rigidConstraint, rigidConstraintSid, rigidConstraintName);
+                }
+                return true;
+            }
+            
+        private:
+            PhysXExporter & mPhysXExporter;
+        };
+        
         void exportRigidConstraints()
         {
-            class RigidConstraintParser
-            {
-            public:
-                RigidConstraintParser(PhysXExporter & exporter)
-                    : mPhysXExporter(exporter)
-                {}
-
-                bool operator()(SceneElement & element)
-                {
-                    if (element.getType() == SceneElement::PHYSX_RIGID_CONSTRAINT &&
-                        element.getIsLocal())
-                    {
-                        String rigidConstraintSid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
-                        String rigidConstraintName = mPhysXExporter.generateColladaName(element.getPath());
-
-                        const MObject & rigidConstraint = element.getNode();
-
-                        RigidConstraint e(mPhysXExporter, rigidConstraint, rigidConstraintSid, rigidConstraintName);
-                    }
-                    return true;
-                }
-
-            private:
-                PhysXExporter & mPhysXExporter;
-            };
-
-            getPhysXExporter().parseSceneElements(RigidConstraintParser(getPhysXExporter()));
+            RigidConstraintParser rigidConstraintParser(getPhysXExporter());
+            getPhysXExporter().parseSceneElements(rigidConstraintParser);
         }
     };
 
@@ -2316,36 +2320,36 @@ namespace COLLADAMaya
             
         }
 
+        class RigidSolverParser
+        {
+        public:
+            RigidSolverParser(PhysXExporter & exporter)
+            : mPhysXExporter(exporter)
+            {}
+            
+            bool operator()(SceneElement & element)
+            {
+                if (element.getType() == SceneElement::PHYSX_RIGID_SOLVER &&
+                    element.getIsLocal())
+                {
+                    mRigidSolver = element.getNode();
+                    return false;
+                }
+                return true;
+            }
+            
+            const MObject & getRigidSolver()
+            {
+                return mRigidSolver;
+            }
+            
+        private:
+            PhysXExporter & mPhysXExporter;
+            MObject mRigidSolver;
+        };
+        
         bool getRigidSolver(MObject & rigidSolver)
         {
-            class RigidSolverParser
-            {
-            public:
-                RigidSolverParser(PhysXExporter & exporter)
-                    : mPhysXExporter(exporter)
-                {}
-
-                bool operator()(SceneElement & element)
-                {
-                    if (element.getType() == SceneElement::PHYSX_RIGID_SOLVER &&
-                        element.getIsLocal())
-                    {
-                        mRigidSolver = element.getNode();
-                        return false;
-                    }
-                    return true;
-                }
-
-                const MObject & getRigidSolver()
-                {
-                    return mRigidSolver;
-                }
-
-            private:
-                PhysXExporter & mPhysXExporter;
-                MObject mRigidSolver;
-            };
-
             RigidSolverParser parser(getPhysXExporter());
             getPhysXExporter().parseSceneElements(parser);
             rigidSolver = parser.getRigidSolver();
@@ -2367,11 +2371,52 @@ namespace COLLADAMaya
         }
 
     private:
+        // External physics models
+        class RigidParser
+        {
+        public:
+            RigidParser(PhysXExporter& exporter)
+            : mPhysXExporter(exporter)
+            {}
+            
+            bool operator()(SceneElement & element)
+            {
+                if (element.getIsLocal()) {
+                    return true;
+                }
+                
+                if (element.getType() != SceneElement::PHYSX_RIGID_BODY &&
+                    element.getType() != SceneElement::PHYSX_RIGID_CONSTRAINT) {
+                    return true;
+                }
+                
+                URI physicsModelURI = mPhysXExporter.getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(element.getPath());
+                physicsModelURI.setFragment(PhysXExporter::GetDefaultPhysicsModelId());
+                mExternalPhysicsModelURIs.insert(physicsModelURI);
+                
+                return true;
+            }
+            
+            ~RigidParser()
+            {
+                for (std::set<URI>::const_iterator iURI = mExternalPhysicsModelURIs.begin(); iURI != mExternalPhysicsModelURIs.end(); ++iURI)
+                {
+                    const URI& uri = *iURI;
+                    const bool exportInstanceRigidBodiesAndConstraints = false;
+                    InstancePhysicsModel e(mPhysXExporter, uri, exportInstanceRigidBodiesAndConstraints);
+                }
+            }
+            
+        private:
+            PhysXExporter& mPhysXExporter;
+            std::set<URI> mExternalPhysicsModelURIs;
+        };
+        
         void exportInstancePhysicsModels()
         {
             // Local physics model
-            if (getPhysXExporter().sceneHas(SceneElement::PHYSX_RIGID_BODY, PhysXExporter::Filter::Local) ||
-                getPhysXExporter().sceneHas(SceneElement::PHYSX_RIGID_CONSTRAINT, PhysXExporter::Filter::Local))
+            if (getPhysXExporter().sceneHas(SceneElement::PHYSX_RIGID_BODY, PhysXExporter::Local) ||
+                getPhysXExporter().sceneHas(SceneElement::PHYSX_RIGID_CONSTRAINT, PhysXExporter::Local))
             {
                 String physicsModelId = PhysXExporter::GetDefaultPhysicsModelId();
                 URI uri;
@@ -2380,47 +2425,8 @@ namespace COLLADAMaya
                 InstancePhysicsModel e(getPhysXExporter(), uri);
             }
             
-            // External physics models
-            class RigidParser
-            {
-            public:
-                RigidParser(PhysXExporter& exporter)
-                    : mPhysXExporter(exporter)
-                {}
-
-                bool operator()(SceneElement & element)
-                {
-                    if (element.getIsLocal()) {
-                        return true;
-                    }
-
-                    if (element.getType() != SceneElement::PHYSX_RIGID_BODY &&
-                        element.getType() != SceneElement::PHYSX_RIGID_CONSTRAINT) {
-                        return true;
-                    }
-
-                    URI physicsModelURI = mPhysXExporter.getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(element.getPath());
-                    physicsModelURI.setFragment(PhysXExporter::GetDefaultPhysicsModelId());
-                    mExternalPhysicsModelURIs.insert(physicsModelURI);
-
-                    return true;
-                }
-
-                ~RigidParser()
-                {
-                    for (std::set<URI>::const_iterator iURI = mExternalPhysicsModelURIs.begin(); iURI != mExternalPhysicsModelURIs.end(); ++iURI)
-                    {
-                        const URI& uri = *iURI;
-                        const bool exportInstanceRigidBodiesAndConstraints = false;
-                        InstancePhysicsModel e(mPhysXExporter, uri, exportInstanceRigidBodiesAndConstraints);
-                    }
-                }
-
-            private:
-                PhysXExporter& mPhysXExporter;
-                std::set<URI> mExternalPhysicsModelURIs;
-            };
-            getPhysXExporter().parseSceneElements(RigidParser(getPhysXExporter()));
+            RigidParser rigidParser(getPhysXExporter());
+            getPhysXExporter().parseSceneElements(rigidParser);
         }
 
         void exportTechniqueCommon()
@@ -2472,60 +2478,60 @@ namespace COLLADAMaya
         : mStreamWriter(streamWriter)
         , mDocumentExporter(documentExporter)
     {}
+    
+    class RigidBodyParser
+    {
+    public:
+        RigidBodyParser(const SceneElement & meshElement)
+        : mMeshElement(meshElement)
+        , mNeedsConvexHullOfMeshElement(false)
+        {}
+        
+        bool operator()(SceneElement & element)
+        {
+            if (element.getType() == SceneElement::PHYSX_RIGID_BODY)
+            {
+                std::vector<MObject> shapes;
+                PhysXExporter::GetRigidBodyShapes(element.getNode(), shapes);
+                
+                for (size_t i = 0; i < shapes.size(); ++i)
+                {
+                    const MObject & shape = shapes[i];
+                    int dummy = 0;
+                    MString shapeType;
+                    DagHelper::getPlugValue(shape, ATTR_SHAPE_TYPE, dummy, shapeType);
+                    if (shapeType == SHAPE_TYPE_CONVEX_HULL)
+                    {
+                        MObject connectedMesh;
+                        PhysXShape::GetConnectedInMesh(shape, connectedMesh);
+                        
+                        if (mMeshElement.getNode() == connectedMesh ||
+                            mMeshElement.getNode() == shape)
+                        {
+                            mNeedsConvexHullOfMeshElement = true;
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        
+        bool needsConvexHullOfMeshElement() const
+        {
+            return mNeedsConvexHullOfMeshElement;
+        }
+        
+    private:
+        const SceneElement & mMeshElement;
+        bool mNeedsConvexHullOfMeshElement;
+    };
 
     bool PhysXExporter::needsConvexHullOf(const SceneElement & meshElement)
     {
         if (!ExportOptions::exportPhysics())
             return false;
-
-        class RigidBodyParser
-        {
-        public:
-            RigidBodyParser(const SceneElement & meshElement)
-                : mMeshElement(meshElement)
-                , mNeedsConvexHullOfMeshElement(false)
-            {}
-
-            bool operator()(SceneElement & element)
-            {
-                if (element.getType() == SceneElement::PHYSX_RIGID_BODY)
-                {
-                    std::vector<MObject> shapes;
-                    GetRigidBodyShapes(element.getNode(), shapes);
-
-                    for (size_t i = 0; i < shapes.size(); ++i)
-                    {
-                        const MObject & shape = shapes[i];
-                        int dummy = 0;
-                        MString shapeType;
-                        DagHelper::getPlugValue(shape, ATTR_SHAPE_TYPE, dummy, shapeType);
-                        if (shapeType == SHAPE_TYPE_CONVEX_HULL)
-                        {
-                            MObject connectedMesh;
-                            PhysXShape::GetConnectedInMesh(shape, connectedMesh);
-
-                            if (mMeshElement.getNode() == connectedMesh ||
-                                mMeshElement.getNode() == shape)
-                            {
-                                mNeedsConvexHullOfMeshElement = true;
-                                return false;
-                            }
-                        }
-                    }
-                }
-                return true;
-            }
-
-            bool needsConvexHullOfMeshElement() const
-            {
-                return mNeedsConvexHullOfMeshElement;
-            }
-
-        private:
-            const SceneElement & mMeshElement;
-            bool mNeedsConvexHullOfMeshElement;
-        };
-
+        
         RigidBodyParser parser(meshElement);
         parseSceneElements(parser);
         return parser.needsConvexHullOfMeshElement();
@@ -2539,12 +2545,12 @@ namespace COLLADAMaya
             return hasPhysicsScene;
         }
 
-        if (sceneHas(SceneElement::PHYSX_RIGID_BODY, Filter::Local) ||
-            sceneHas(SceneElement::PHYSX_RIGID_CONSTRAINT, Filter::Local)) {
+        if (sceneHas(SceneElement::PHYSX_RIGID_BODY, Local) ||
+            sceneHas(SceneElement::PHYSX_RIGID_CONSTRAINT, Local)) {
             LibraryPhysicsModels(*this);
         }
         
-        if (sceneHas(SceneElement::PHYSX_RIGID_SOLVER, Filter::Local)) {
+        if (sceneHas(SceneElement::PHYSX_RIGID_SOLVER, Local)) {
             hasPhysicsScene = true;
             LibraryPhysicsScenes(*this);
         }
@@ -2603,7 +2609,8 @@ namespace COLLADAMaya
     void PhysXExporter::exportAttributes(const MObject & object, const std::set<MString, MStringComp> & attributes)
     {
         AttributeExporter attributeExporter(*this, attributes);
-        AttributeParser::parseAttributes(MFnDependencyNode(object), attributeExporter);
+        MFnDependencyNode fnDependencyNode(object);
+        AttributeParser::parseAttributes(fnDependencyNode, attributeExporter);
     }
 
     void PhysXExporter::exportRotate(const MVector & axis, double angle, const String & sid)
@@ -2632,11 +2639,11 @@ namespace COLLADAMaya
         if (element.getType() == type) {
             switch (filter)
             {
-            case Filter::All:
+            case All:
                 return true;
-            case Filter::Local:
+            case Local:
                 return element.getIsLocal();
-            case Filter::Reference:
+            case Reference:
                 return !element.getIsLocal();
             }
         }
