@@ -995,6 +995,7 @@ namespace COLLADAMaya
 
         void exportConvexHull(const MObject & shape)
         {
+            // TODO PhysX: apply "inflate" attribute to convex hull geometry
             exportInstanceGeometry(shape, "_");
         }
 
