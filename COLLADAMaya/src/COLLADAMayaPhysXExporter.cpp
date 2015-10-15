@@ -37,7 +37,12 @@
 double infinite()
 {
     union ieee754 {
+#if defined(_MSC_VER)
+        // int64_t only available since Visual Studio 2010
+        __int64 i;
+#else
         int64_t i;
+#endif
         double d;
     };
     ieee754 inf;
