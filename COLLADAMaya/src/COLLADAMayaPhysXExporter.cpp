@@ -995,7 +995,9 @@ namespace COLLADAMaya
 
         void exportConvexHull(const MObject & shape)
         {
-            // TODO PhysX: apply "inflate" attribute to convex hull geometry
+            // TODO PhysX: apply "inflate" attribute to convex hull geometry.
+            // Note: apply inflation like done for box shape. See ShapeBox::exportHalfExtents().
+            // However "inflate" attribute is limited to [0; 0.839] for some unknown reason.
             exportInstanceGeometry(shape, "_");
         }
 
