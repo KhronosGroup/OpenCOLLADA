@@ -31,11 +31,39 @@ namespace COLLADAMaya
     This class is the base for every animation key.
     */
 
-    class BaseAnimationKey
+	enum StepTransform : int
+	{
+		NO_Transformation = 0,
+		TransX = 1,
+		TransY = 2,
+		TransZ = 4,
+		RotX = 8,
+		RotY = 16,
+		RotZ = 32,
+		ScaleX = 64,
+		ScaleY = 128,
+		ScaleZ = 256
+	};
+
+	enum StepType
+	{
+		NO_STEP,
+		STEPPED,
+		STEPPED_NEXT
+	};
+
+	struct Step
+	{
+		StepType		_type;
+		StepTransform	_transform;
+	};
+
+
+	class BaseAnimationKey
     {
 
     public:
-        BaseAnimationKey() : input (-1) {}
+		BaseAnimationKey();
 
         /** The key input. Typically, this will be a time value, in seconds.
         For driven curves, the dimension of this value will depend on the driver. */
@@ -43,6 +71,7 @@ namespace COLLADAMaya
 
         /** The key interpolation type. */
         COLLADASW::LibraryAnimations::InterpolationType interpolation;
+		Step transformTypeStep;
     };
 
     // ----------------------------------------------------------

@@ -21,12 +21,16 @@
 #include "COLLADAMayaSyntax.h"
 
 #include <maya/MFnTransform.h>
+#include <maya/MFnAttribute.h>
 #include <maya/MFnAnimCurve.h>
 #include <maya/MPlugArray.h>
 #include <maya/MFnIkHandle.h>
 #include <maya/MFnMatrixData.h>
 #include <maya/MGlobal.h>
 #include <maya/MItDependencyGraph.h>
+
+#include <maya/MFnCharacter.h>
+#include <maya/MFnClip.h>
 
 
 namespace COLLADAMaya
@@ -92,7 +96,8 @@ namespace COLLADAMaya
     // --------------------------------------------
     bool AnimationSampleCache::findCachePlug ( const MPlug& plug,
             std::vector<float>*& inputs,
-            std::vector<float>*& outputs )
+            std::vector<float>*& outputs,
+			std::vector< std::pair<bool, Step> >*& interpolation)
     {
         inputs = NULL;
         outputs = NULL;
@@ -106,8 +111,9 @@ namespace COLLADAMaya
             {
                 if ( ( *it ).isAnimated )
                 {
-                    inputs = &AnimationHelper::mSamplingTimes;
+					inputs = &(*it).times;  //&AnimationHelper::mSamplingTimes;
                     outputs = & ( *it ).values;
+					interpolation = &(*it).stepInterpolation;
                 }
 
                 return true;
@@ -296,8 +302,157 @@ namespace COLLADAMaya
         MStatus stat;
         AnimationHelper::getCurrentTime ( originalTime );
 
-        std::vector<float>& times = AnimationHelper::mSamplingTimes;
-        uint sampleCount = ( uint ) times.size();
+		for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
+		{
+			CacheNode* c = (*it).second;
+			for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
+			{
+				CacheNode::Part& part = (*it2);
+
+				std::vector<float>& times = AnimationHelper::mSamplingTimes;
+				std::vector< std::pair<float, Step> > interpolationStepTiming;
+				
+
+				if (part.isMatrix)
+				{
+					MStatus status;
+
+					MFnDependencyNode node1(part.plug.node());
+					String name = node1.name().asChar();
+
+					MPlug plug = MFnDependencyNode(part.plug.node()).findPlug("translateX", false, &status);
+					
+					MObject characterNode = AnimationHelper::getAnimatingNode(plug);
+					MFnCharacter characterFn(characterNode, &status);
+
+					if (status == MStatus::kSuccess)
+					{
+						int clipCount = characterFn.getSourceClipCount();
+						for (int i = 0; i < clipCount; ++i)
+						{
+							// Export any source clip, including poses, which are simply 1-key curves.
+							MObject clipNode = characterFn.getSourceClip(i);
+
+							MFnClip clipFn(clipNode, &status);
+							if (status != MStatus::kSuccess) continue;
+
+							MObjectArray animCurves;
+							MPlugArray plugs;
+							clipFn.getMemberAnimCurves(animCurves, plugs);
+
+							int Length = animCurves.length();
+
+							for (int j = 0; j < animCurves.length(); j++)
+							{
+								// To get what track this curve
+								MObject plugNode = plugs[j].node();
+								MFnAttribute attrib(plugs[j].attribute());
+								String nameAttrib = attrib.name().asChar();
+								
+								MObject animCurveNode = animCurves[j];
+								MFnAnimCurve animCurveFn(animCurveNode, &status);
+
+								uint keyCount = animCurveFn.numKeys();
+
+								Step step;
+								step._transform = NO_Transformation;
+								
+								for (uint keyPosition = 0; keyPosition < keyCount; ++keyPosition)
+								{
+									COLLADASW::LibraryAnimations::InterpolationType interpolationType;
+									interpolationType = AnimationHelper::toInterpolation(animCurveFn.outTangentType(keyPosition));
+
+									if (interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP || 
+										interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP_NEXT)
+									{
+										
+										float stepTime;
+
+										if (interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP)
+										{
+											if (keyPosition != (keyCount - 1))
+												stepTime = animCurveFn.time(keyPosition + 1).as(MTime::kSeconds);
+											else
+												stepTime = animCurveFn.time(keyPosition).as(MTime::kSeconds);
+										}
+										else if (interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP_NEXT)
+										{
+											stepTime = animCurveFn.time(keyPosition).as(MTime::kSeconds);
+										}
+
+										std::vector<float>::iterator itFound;
+										
+										itFound = find(times.begin(), times.end(), stepTime);
+										{
+											auto itLower = lower_bound(times.begin(), times.end(), stepTime);
+											int element = itLower - times.begin();
+											
+											step._type = interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP ? STEPPED : STEPPED_NEXT;
+
+											if ((nameAttrib.compare("translateX") == 0))
+												step._transform = TransX;
+											else if ((nameAttrib.compare("translateY") == 0))
+												step._transform = TransY;
+											else if ((nameAttrib.compare("translateZ") == 0))
+												step._transform = TransZ;
+											else if ((nameAttrib.compare("rotateX") == 0))
+												step._transform = RotX;
+											else if ((nameAttrib.compare("rotateY") == 0))
+												step._transform = RotY;
+											else if ((nameAttrib.compare("rotateZ") == 0))
+												step._transform = RotZ;
+											else if ((nameAttrib.compare("scaleX") == 0))
+												step._transform = ScaleX;
+											else if ((nameAttrib.compare("scaleY") == 0))
+												step._transform = ScaleY;
+											else if ((nameAttrib.compare("scaleZ") == 0))
+												step._transform = ScaleZ;
+
+											auto itFoundInterpolation = find_if(interpolationStepTiming.begin(), interpolationStepTiming.end(),
+												[=](const std::pair<float, Step>& step){ return step.first == stepTime; });
+
+											if ((itFoundInterpolation != interpolationStepTiming.end()))
+											{
+												(*itFoundInterpolation).second._transform = (StepTransform)((int)((*itFoundInterpolation).second._transform) | (int)(step._transform));
+											}
+											else
+												interpolationStepTiming.push_back(std::make_pair(stepTime, step));
+
+
+											if (!(itFound != times.end()))
+											{
+												times.insert(times.begin() + element, stepTime);
+											}
+												
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				part.times = times;
+
+				part.stepInterpolation.resize(part.times.size());
+				for (int i = 0; i < part.times.size(); i++)
+				{
+					Step step;
+					step._type = NO_STEP;
+					step._transform = NO_Transformation;
+					part.stepInterpolation[i] = std::make_pair(false, step);
+				}
+
+				for (int j = 0; j < interpolationStepTiming.size(); j++)
+				{
+					auto itLower = lower_bound(times.begin(), times.end(), interpolationStepTiming[j].first);
+					int element = itLower - times.begin();
+
+					part.stepInterpolation[element] = std::make_pair(true, interpolationStepTiming[j].second);
+				}
+			}
+		}
+
 
         // Allocate the necessary memory in all the plug timing buffers
         for ( CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it )
@@ -308,72 +463,89 @@ namespace COLLADAMaya
                 CacheNode::Part& part = ( *it2 );
                 if ( part.isWanted )
                 {
+					uint sampleCount = (uint)part.times.size();
                     part.values.resize ( ( !part.isMatrix ) ? sampleCount : 16 * sampleCount );
                 }
             }
         }
 
-        // Sample all the wanted plugs
-        for ( uint i = 0; i < sampleCount; ++i )
-        {
-            MTime t ( times[i], MTime::kSeconds );
-            AnimationHelper::setCurrentTime ( t );
+		
+		/*std::vector<float>& times = AnimationHelper::mSamplingTimes;
+		uint sampleCount = (uint)times.size();
+		for (uint i = 0; i < sampleCount; ++i)
+		{
+			MTime t(times[i], MTime::kSeconds);
+			AnimationHelper::setCurrentTime(t);
+			float timing = t.as(MTime::kSeconds);*/
+		
+			for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
+			{
+				CacheNode* c = (*it).second;
 
-            for ( CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it )
-            {
-                CacheNode* c = ( *it ).second;
+				for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
+				{
+					CacheNode::Part& part = (*it2);
 
-                for ( CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2 )
-                {
-                    CacheNode::Part& part = ( *it2 );
-                    if ( part.isWanted )
-                    {
-                        if ( !part.isMatrix )
-                        {
-                            part.plug.getValue ( part.values[i] );
+					for (uint i = 0; i < part.times.size(); ++i)
+					{
+						MTime t(part.times[i], MTime::kSeconds);
+						AnimationHelper::setCurrentTime(t);
 
-                            if ( i > 0 && part.values[i-1] != part.values[i] ) part.isAnimated = true;
-                        }
-                        else
-                        {
-                            MObject val;
-                            part.plug.getValue ( val );
+					if (part.isWanted)
+					{
+						if (!part.isMatrix)
+						{
+							part.plug.getValue(part.values[i]);
 
-                            stat = matrixData.setObject ( val );
-                            if ( stat != MStatus::kSuccess ) MGlobal::displayWarning ( "Unable to set matrixData on sampled transform." );
+							if (i > 0 && part.values[i - 1] != part.values[i]) part.isAnimated = true;
+						}
+						else
+						{
+							MFnDependencyNode node1(part.plug.node());
+							String name = node1.name().asChar();
 
-                            MMatrix matrix = matrixData.matrix ( &stat );
-                            if ( stat != MStatus::kSuccess ) MGlobal::displayWarning ( "Unable to retrieve sampled matrixData." );
+							MTime Mtiming2;
+							AnimationHelper::getCurrentTime(Mtiming2);
+							float timing2 = Mtiming2.as(MTime::kSeconds);
+
+							MObject val;
+							part.plug.getValue(val);
+
+							stat = matrixData.setObject(val);
+							if (stat != MStatus::kSuccess) MGlobal::displayWarning("Unable to set matrixData on sampled transform.");
+
+							MMatrix matrix = matrixData.matrix(&stat);
+							if (stat != MStatus::kSuccess) MGlobal::displayWarning("Unable to retrieve sampled matrixData.");
 
 #define PV(a,b,c) part.values[16*i+a] = (float) matrix[b][c]
-                            PV ( 0, 0, 0 );
-                            PV ( 1, 1, 0 );
-                            PV ( 2, 2, 0 );
-                            PV ( 3, 3, 0 );
-                            PV ( 4, 0, 1 );
-                            PV ( 5, 1, 1 );
-                            PV ( 6, 2, 1 );
-                            PV ( 7, 3, 1 );
-                            PV ( 8, 0, 2 );
-                            PV ( 9, 1, 2 );
-                            PV ( 10,2, 2 );
-                            PV ( 11,3, 2 );
-                            PV ( 12,0, 3 );
-                            PV ( 13,1, 3 );
-                            PV ( 14,2, 3 );
-                            PV ( 15,3, 3 );
+							PV(0, 0, 0);
+							PV(1, 1, 0);
+							PV(2, 2, 0);
+							PV(3, 3, 0);
+							PV(4, 0, 1);
+							PV(5, 1, 1);
+							PV(6, 2, 1);
+							PV(7, 3, 1);
+							PV(8, 0, 2);
+							PV(9, 1, 2);
+							PV(10, 2, 2);
+							PV(11, 3, 2);
+							PV(12, 0, 3);
+							PV(13, 1, 3);
+							PV(14, 2, 3);
+							PV(15, 3, 3);
 #undef PV
 
 #define PD(a) part.values[16*i+a] != part.values[16*(i-1)+a]
-                            if ( i > 0 && ( PD ( 0 ) || PD ( 1 ) || PD ( 2 ) || PD ( 3 ) || PD ( 4 )
-                                            || PD ( 5 ) || PD ( 6 ) || PD ( 7 ) || PD ( 8 ) || PD ( 9 ) || PD ( 10 )
-                                            || PD ( 11 ) || PD ( 12 ) || PD ( 13 ) || PD ( 14 ) || PD ( 15 ) ) )
-                                part.isAnimated = true;
-                        }
-                    }
-                }
-            }
-        }
+							if (i > 0 && (PD(0) || PD(1) || PD(2) || PD(3) || PD(4)
+								|| PD(5) || PD(6) || PD(7) || PD(8) || PD(9) || PD(10)
+								|| PD(11) || PD(12) || PD(13) || PD(14) || PD(15)))
+								part.isAnimated = true;
+						}
+					}
+									}
+				}
+			}
 
         AnimationHelper::setCurrentTime ( originalTime );
     }

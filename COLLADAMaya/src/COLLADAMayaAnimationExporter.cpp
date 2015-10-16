@@ -22,7 +22,7 @@
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaVisualSceneExporter.h"
-
+#include "COLLADASWConstants.h"
 
 #include <maya/MFnDependencyNode.h>
 #include <maya/MFnDagNode.h>
@@ -39,6 +39,8 @@
 #include "Math/COLLADABUMathUtils.h"
 
 #include <maya/MItDependencyNodes.h>
+
+
 
 namespace COLLADAMaya
 {
@@ -342,13 +344,13 @@ namespace COLLADAMaya
 
 				// TODO id preservation
 				// Open an animation node and add the channel of the current animation
-				const String& originalColladaId = animatedElement->getOriginalColladaId();
+/*				const String& originalColladaId = animatedElement->getOriginalColladaId();
 				if (!originalColladaId.empty())
 				{
 					openAnimation(originalColladaId);
 				}
 				else
-				{
+*/				{
 					const String& baseId = animatedElement->getBaseId();
 					openAnimation(baseId);
 				}
@@ -434,6 +436,7 @@ namespace COLLADAMaya
         // Calculate the merged input keys and their wanted interpolations.
         std::vector<float> mergedInputs;
         std::vector<int> mergedInterpolations;
+		std::vector<Step> mergedStepInterpolations;
         AnimationCurveList::iterator curveIter = curves.begin();
         for ( ; curveIter!=curves.end(); ++curveIter )
         {
@@ -462,6 +465,7 @@ namespace COLLADAMaya
                     // Insert this new key within the merged list.
                     mergedInputs.insert ( mergedInputs.begin() + m, curveKeys[c]->input );
                     mergedInterpolations.insert ( mergedInterpolations.begin() + m, curveKeys[c]->interpolation );
+					mergedStepInterpolations.insert(mergedStepInterpolations.begin() + m, curveKeys[c]->transformTypeStep);
                     ++multiCurveKeyCount;
                     ++m; ++c;
                 }
@@ -472,6 +476,7 @@ namespace COLLADAMaya
                 // Insert all these extra keys at the end of the merged list.
                 mergedInputs.push_back ( curveKeys[c]->input );
                 mergedInterpolations.push_back ( curveKeys[c]->interpolation );
+				mergedStepInterpolations.push_back(curveKeys[c]->transformTypeStep);
                 ++c;
             }
         }
@@ -482,6 +487,7 @@ namespace COLLADAMaya
         {
             AnimationMKey* key = multiCurve->addKey ( ( COLLADASW::LibraryAnimations::InterpolationType ) mergedInterpolations[curvePosition] );
             key->input = mergedInputs[curvePosition];
+			key->transformTypeStep = mergedStepInterpolations[curvePosition];
         }
 
         // Get the keys
@@ -871,6 +877,7 @@ namespace COLLADAMaya
         // The value lists for the collada sources
         std::vector<float> input, output, inTangents, outTangents, tcbs, eases;
         std::vector<String> interpolations;
+		std::vector<String> stepInterpolations;
 
         bool hasTangents = animationCurve.hasTangents();
         bool hasTCB = animationCurve.hasTCB();
@@ -953,7 +960,7 @@ namespace COLLADAMaya
         }
 
         // Write the input, output, tangents, tcbs and eases in the collada document
-        writeAnimationSource ( animationCurve, input, output, interpolations,
+		writeAnimationSource(animationCurve, input, output, interpolations, stepInterpolations,
                                inTangents, outTangents, tcbs, eases );
     }
 
@@ -964,6 +971,7 @@ namespace COLLADAMaya
         const std::vector<float> &input,
         const std::vector<float> &output,
         const std::vector<String> &interpolations,
+		const std::vector<String> &stepInterpolations,
         const std::vector<float> &inTangents,
         const std::vector<float> &outTangents,
         const std::vector<float> &tcbs,
@@ -985,9 +993,9 @@ namespace COLLADAMaya
 
         // Get the dimension
         uint dimension = animationCurve.getDimension();
-
+		
         writeOutputSource ( sourceId, parameters+index, dimension, output );
-        writeInterpolationSource ( sourceId, interpolations );
+        writeInterpolationSource ( sourceId, interpolations, stepInterpolations );
 
         bool hasTangents = animationCurve.hasTangents();
         if ( hasTangents )
@@ -1004,6 +1012,29 @@ namespace COLLADAMaya
         }
     }
 
+
+	const String AnimationExporter::getNameOfStepInterpolation(const Step & type)
+	{
+		String FinalStep = "";
+
+		String step = type._type == STEPPED ? "STEP" : "STEPNEXT";
+
+		if ((type._transform & 0x20) >> 5)
+			FinalStep += String((FinalStep.size() != 0 ? "|" : "") + step + String("_RZ"));
+		if ((type._transform & 0x10) >> 4)
+			FinalStep += String((FinalStep.size() != 0 ? "|" : "") + step + String("_RY"));
+		if ((type._transform & 0x8) >> 3)
+			FinalStep += String((FinalStep.size() != 0 ? "|" : "") + step + String("_RX"));
+		if ((type._transform & 0x4) >> 2)
+			FinalStep += String((FinalStep.size() != 0 ? "|" : "") + step + String("_TZ"));
+		if ((type._transform & 0x2) >> 1)
+			FinalStep += String((FinalStep.size() != 0 ? "|" : "") + step + String("_TY"));
+		if ((type._transform & 0x1) >> 0)
+			FinalStep += String((FinalStep.size() != 0 ? "|" : "") + step + String("_TX"));
+
+		return FinalStep;
+	}
+
     // ---------------------------------------------------------------------
     void AnimationExporter::exportAnimationSource ( AnimationMultiCurve &animationCurve )
     {
@@ -1017,6 +1048,7 @@ namespace COLLADAMaya
         // The value lists for the collada sources
         std::vector<float> input, output, inTangents, outTangents, tcbs, eases;
         std::vector<String> interpolations;
+		std::vector<String> stepInterpolations;
 
         bool hasTangents = animationCurve.hasTangents();
         bool hasTCB = animationCurve.hasTCB();
@@ -1058,6 +1090,9 @@ namespace COLLADAMaya
 
             // Set the interpolation
             interpolations.push_back ( COLLADASW::LibraryAnimations::getNameOfInterpolation ( key->interpolation ) );
+			
+			if (key->interpolation == STEP && key->transformTypeStep._transform != NO_Transformation)
+				stepInterpolations.push_back(getNameOfStepInterpolation(key->transformTypeStep));
 
             // Handle Tangents
             if ( hasTangents )
@@ -1069,7 +1104,7 @@ namespace COLLADAMaya
         }
 
         // Write the input, output, tangents, tcbs and eases in the collada document
-        writeAnimationSource ( animationCurve, input, output, interpolations,
+		writeAnimationSource(animationCurve, input, output, interpolations, stepInterpolations,
                                inTangents, outTangents, tcbs, eases );
     }
 
@@ -1274,7 +1309,8 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     void AnimationExporter::writeInterpolationSource ( const String sourceId,
-            const std::vector<String> interpolations )
+            const std::vector<String> interpolations,
+			const std::vector<String> stepInterpolations)
     {
         // Just export if there are values
         if ( interpolations.size() > 0 )
@@ -1288,7 +1324,22 @@ namespace COLLADAMaya
             source.setAccessorCount ( ( unsigned long ) interpolations.size() );
             source.prepareToAppendValues();
             source.appendValues ( interpolations );
-            source.finish();
+            
+			bool stepInterpolation = stepInterpolations.size() ? true : false;
+			source.finish(!stepInterpolation);
+
+			if (stepInterpolation)
+			{
+				mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE);
+				mSW->appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_PROFILE, PROFILE_MAYA);
+
+					mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_STEP);
+					mSW->appendValues(stepInterpolations);
+
+				mSW->closeElement();
+				mSW->closeElement();
+			}
+			
         }
     }
 
@@ -1946,12 +1997,12 @@ namespace COLLADAMaya
             // Assign the new curve to the animation clip.
             // Open an animation node and add the channel of the current animation
             const String& originalColladaId = animatedElement->getOriginalColladaId ();
-            if ( !originalColladaId.empty () )
+/*            if ( !originalColladaId.empty () )
             {
                 clip->colladaClip->setInstancedAnimation ( originalColladaId );
             }
             else
-            {
+ */           {
                 clip->colladaClip->setInstancedAnimation ( curve->getBaseId() );
             }
 

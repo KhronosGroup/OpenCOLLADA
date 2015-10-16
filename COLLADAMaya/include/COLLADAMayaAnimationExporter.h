@@ -525,6 +525,7 @@ namespace COLLADAMaya
                                     const std::vector<float>& input,
                                     const std::vector<float>& output,
                                     const std::vector<String>& interpolations,
+									const std::vector<String>& stepInterpolations,
                                     const std::vector<float>& inTangents,
                                     const std::vector<float>& outTangents,
                                     const std::vector<float>& tcbs,
@@ -587,7 +588,8 @@ namespace COLLADAMaya
          * @param interpolations List of export values.
          */
         void writeInterpolationSource ( const String sourceId,
-                                         const std::vector<String> interpolations );
+                                         const std::vector<String> interpolations,
+										 const std::vector<String> stepInterpolations);
 
         /**
          * Writes a in tangent source in the collada document.
@@ -667,6 +669,8 @@ namespace COLLADAMaya
 
 
 		void generateSamplingFunctionForClip(MFnClip& clipFn);
+
+		static const String getNameOfStepInterpolation(const Step & type);
     };
 
 }

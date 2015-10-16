@@ -112,6 +112,7 @@ namespace COLLADASW
             BSPLINE,
             STEP,  /**< No interpolation. Uses the output value of the previous key until the
        next key time is reached. */
+			STEP_NEXT,
             TCB,  /**< TCB interpolation. Uses Tension, Continuity and Bias values to generate
        Hermite tangents. This interpolation type is not standard COLLADASW. */
             DEFAULT = STEP

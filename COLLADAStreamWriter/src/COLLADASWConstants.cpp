@@ -233,6 +233,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_ZFAR = "zfar";
     const String CSWC::CSW_ELEMENT_ZNEAR = "znear";
 	const String CSWC::CSW_ELEMENT_GRAVITY = "gravity";
+	const String CSWC::CSW_ELEMENT_STEP = "step";
 
 	const String CSWC::CSW_ATTRIBUTE_CLOSED = "closed";
     const String CSWC::CSW_ATTRIBUTE_COUNT = "count";
