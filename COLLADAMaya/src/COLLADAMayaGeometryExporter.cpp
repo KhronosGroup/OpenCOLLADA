@@ -14,6 +14,7 @@
 */
 
 #include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaAttributeParser.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaPhysXExporter.h"
 #include "COLLADAMayaGeometryPolygonExporter.h"
@@ -30,6 +31,7 @@
 #include <algorithm>
 
 #include <maya/MItDependencyNodes.h>
+#include <maya/MFnAttribute.h>
 #include <maya/MFnMesh.h>
 #include <maya/MItMeshPolygon.h>
 #include <maya/MItMeshVertex.h>
@@ -405,6 +407,179 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
+    template<typename T>
+    class Element
+    {
+    public:
+        Element(COLLADASW::StreamWriter & streamWriter, const MString & name, const T & value)
+            : mStreamWriter(streamWriter)
+        {
+            mStreamWriter.openElement(name.asChar());
+            mStreamWriter.appendValues(value);
+        }
+
+        Element(COLLADASW::StreamWriter & streamWriter, const MString & name, const T & value, uint numValues)
+            : mStreamWriter(streamWriter)
+        {
+            mStreamWriter.openElement(name.asChar());
+            for (uint i = 0; i < numValues; ++i) {
+                mStreamWriter.appendValues(value[i]);
+            }
+        }
+
+        ~Element()
+        {
+            mStreamWriter.closeElement();
+        }
+
+    private:
+        COLLADASW::StreamWriter & mStreamWriter;
+    };
+
+    class ExtraAttributeExporter : public AttributeParser
+    {
+    public:
+        ExtraAttributeExporter(COLLADASW::StreamWriter& sw)
+            : mSW(sw)
+        {}
+
+    protected:
+        // AttributeParser overrides
+        
+        virtual MStatus onBeforeAttribute(MFnDependencyNode & fnNode, MObject & attr)
+        {
+            MStatus status;
+            MFnAttribute fnAttr(attr, &status);
+            if (!status) return status;
+
+            MString attrName = fnAttr.name(&status);
+            if (!status) return status;
+
+            bool isDynamic = fnAttr.isDynamic(&status);
+            if (!status) return status;
+
+            if (!isDynamic)
+                return MS::kFailure;
+
+            bool isHidden = fnAttr.isHidden(&status);
+            if (!status) return status;
+
+            if (isHidden)
+                return MS::kFailure;
+
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value)
+        {
+            Element<bool> e(mSW, name, value);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onByte(MPlug & plug, const MString & name, char value)
+        {
+            char text[5];
+            sprintf(text, "0x%X", value);
+            Element<String> e(mSW, name, text);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onChar(MPlug & plug, const MString & name, char value)
+        {
+            char text[2] = { value, '\0' };
+            Element<String> e(mSW, name, text);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onShort(MPlug & plug, const MString & name, short value)
+        {
+            Element<short> e(mSW, name, value);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onShort2(MPlug & plug, const MString & name, short value[2])
+        {
+            Element<short*> e(mSW, name, value, 2);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onShort3(MPlug & plug, const MString & name, short value[3])
+        {
+            Element<short*> e(mSW, name, value, 3);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onLong(MPlug & plug, const MString & name, int value)
+        {
+            Element<int> e(mSW, name, value);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onLong2(MPlug & plug, const MString & name, int value[2])
+        {
+            Element<int*> e(mSW, name, value, 2);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onLong3(MPlug & plug, const MString & name, int value[3])
+        {
+            Element<int*> e(mSW, name, value, 3);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onFloat(MPlug & plug, const MString & name, float value)
+        {
+            Element<float> e(mSW, name, value);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onFloat2(MPlug & plug, const MString & name, float value[2])
+        {
+            Element<float*> e(mSW, name, value, 2);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onFloat3(MPlug & plug, const MString & name, float value[3])
+        {
+            Element<float*> e(mSW, name, value, 3);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onDouble(MPlug & plug, const MString & name, double value)
+        {
+            Element<double> e(mSW, name, value);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onDouble2(MPlug & plug, const MString & name, double value[2])
+        {
+            Element<double*> e(mSW, name, value, 2);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onDouble3(MPlug & plug, const MString & name, double value[3])
+        {
+            Element<double*> e(mSW, name, value, 3);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onDouble4(MPlug & plug, const MString & name, double value[4])
+        {
+            Element<double*> e(mSW, name, value, 4);
+            return MS::kSuccess;
+        }
+
+        virtual MStatus onString(MPlug & plug, const MString & name, const MString & value)
+        {
+            Element<String> e(mSW, name, value.asChar());
+            return MS::kSuccess;
+        }
+
+    private:
+        COLLADASW::StreamWriter& mSW;
+    };
+
+    // --------------------------------------------------------
     void GeometryExporter::exportExtraTechniqueParameters ( 
         const MObject& mesh,
         const String& mayaMeshName )
@@ -418,6 +593,12 @@ namespace COLLADAMaya
         techniqueSource.openTechnique ( PROFILE_MAYA );
         techniqueSource.addParameter ( PARAMETER_MAYA_ID, mayaMeshName );
         techniqueSource.addParameter ( PARAMETER_DOUBLE_SIDED, doubleSided );
+        
+        // Also export extra attributes
+        MFnDependencyNode fnDependencyNode(fnMesh.object());
+        ExtraAttributeExporter extraAttributeExporter(*mSW);
+        AttributeParser::parseAttributes(fnDependencyNode, extraAttributeExporter);
+
         techniqueSource.closeTechnique();
 
         extraSource.closeExtra();
