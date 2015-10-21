@@ -470,26 +470,18 @@ namespace COLLADAMaya
         }
 
 		
-		/*std::vector<float>& times = AnimationHelper::mSamplingTimes;
-		uint sampleCount = (uint)times.size();
-		for (uint i = 0; i < sampleCount; ++i)
+		for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
 		{
-			MTime t(times[i], MTime::kSeconds);
-			AnimationHelper::setCurrentTime(t);
-			float timing = t.as(MTime::kSeconds);*/
-		
-			for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
+			CacheNode* c = (*it).second;
+
+			for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
 			{
-				CacheNode* c = (*it).second;
+				CacheNode::Part& part = (*it2);
 
-				for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
+				for (uint i = 0; i < part.times.size(); ++i)
 				{
-					CacheNode::Part& part = (*it2);
-
-					for (uint i = 0; i < part.times.size(); ++i)
-					{
-						MTime t(part.times[i], MTime::kSeconds);
-						AnimationHelper::setCurrentTime(t);
+					MTime t(part.times[i], MTime::kSeconds);
+					AnimationHelper::setCurrentTime(t);
 
 					if (part.isWanted)
 					{
@@ -543,9 +535,9 @@ namespace COLLADAMaya
 								part.isAnimated = true;
 						}
 					}
-									}
 				}
 			}
+		}
 
         AnimationHelper::setCurrentTime ( originalTime );
     }

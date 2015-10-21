@@ -1348,6 +1348,8 @@ namespace COLLADAMaya
 				mSW->closeElement();
 				mSW->closeElement();
 			}
+
+			source.closeSourceElement();
 			
         }
     }
