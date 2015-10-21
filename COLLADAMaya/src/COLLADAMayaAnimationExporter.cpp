@@ -899,6 +899,15 @@ namespace COLLADAMaya
 
             interpolations.push_back ( COLLADASW::LibraryAnimations::getNameOfInterpolation ( key->interpolation ) );
 
+			if (key->interpolation == STEP)
+			{
+				if (key->transformTypeStep._type == STEPPED_NEXT)
+					stepInterpolations.push_back("STEP_NEXT");
+				else
+					stepInterpolations.push_back("STEP");
+			}
+
+
             // Handle Tangents
             if ( hasTangents )
             {
@@ -2195,7 +2204,11 @@ namespace COLLADAMaya
         {
             InterpolationType interpolationType;
             interpolationType = AnimationHelper::toInterpolation ( animCurveFn.outTangentType ( keyPosition ) );
-            AnimationKey* key = ( ( AnimationKey* ) curve->addKey ( interpolationType ) );
+
+			AnimationKey* key = ((AnimationKey*)curve->addKey(interpolationType == STEP_NEXT ? STEP : interpolationType));
+
+			if (interpolationType == STEP_NEXT)
+				key->transformTypeStep._type = STEPPED_NEXT;
 
             // Gather the key time values
             if ( animCurveFn.isTimeInput() )
