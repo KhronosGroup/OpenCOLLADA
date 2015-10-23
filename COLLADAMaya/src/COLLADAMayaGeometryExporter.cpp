@@ -413,8 +413,10 @@ namespace COLLADAMaya
     public:
         Element(COLLADASW::StreamWriter & streamWriter, const MString & name, const T & value)
             : mStreamWriter(streamWriter)
+            // String must survive until Element destruction
+            , mElementName(name.asChar())
         {
-            mStreamWriter.openElement(name.asChar());
+            mStreamWriter.openElement(mElementName);
             mStreamWriter.appendValues(value);
         }
 
@@ -434,6 +436,7 @@ namespace COLLADAMaya
 
     private:
         COLLADASW::StreamWriter & mStreamWriter;
+        String mElementName;
     };
 
     class ExtraAttributeExporter : public AttributeParser
