@@ -14,12 +14,15 @@
 */
 
 #include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaAttributeParser.h"
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaLightExporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaAnimationExporter.h"
 
+#include <maya/MFnAttribute.h>
+#include <maya/MFnCompoundAttribute.h>
 #include <maya/MFnLight.h>
 #include <maya/MFnNonAmbientLight.h>
 #include <maya/MFnAmbientLight.h>
@@ -256,10 +259,160 @@ namespace COLLADAMaya
 //             light->setDropOff ( (float) spotFn.dropOff ( &status ), animated ); CHECK_MSTATUS(status);
         }
         
+        SceneElement* sceneElement = NULL;
+        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+        sceneElement = sceneGraph->findElement(dagPath);
+        exportExtraAttributes(sceneElement, light);
+
         addLight ( *light );
         delete light;
 
         return true;
+    }
+
+    //---------------------------------------------------------------
+    void LightExporter::exportExtraAttributes(const SceneElement* sceneElement, COLLADASW::Light* light)
+    {
+        class ExtraAttributeExporter : public AttributeParser
+        {
+        public:
+            ExtraAttributeExporter(COLLADASW::Light& light)
+                : mLight(light)
+                , mAttributeLevel(0)
+            {}
+
+        private:
+            COLLADASW::Light& mLight;
+            int mAttributeLevel;
+
+        protected:
+            virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
+            {
+                ++mAttributeLevel;
+
+                MStatus status;
+                MFnAttribute fnAttr(attr, &status);
+                if (!status) return false;
+
+                MString attrName = fnAttr.name(&status);
+                if (!status) return false;
+
+                bool isDynamic = fnAttr.isDynamic(&status);
+                if (!status) return false;
+
+                if (!isDynamic)
+                    return false;
+
+                bool isHidden = fnAttr.isHidden(&status);
+                if (!status) return false;
+
+                if (isHidden)
+                    return false;
+
+                if (mAttributeLevel > 1) {
+                    // Don't export compound attribute internal attributes as standalone newparam.
+                    // Compound internal attributes are exported in onCompoundAttribute().
+                    return false;
+                }
+
+                return true;
+            }
+
+            virtual void onAfterAttribute(MFnDependencyNode& node, MObject& attr) override
+            {
+                --mAttributeLevel;
+            }
+
+            virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onLong(MPlug & plug, const MString & name, int value) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onLong2(MPlug & plug, const MString & name, int value[2]) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onLong3(MPlug & plug, const MString & name, int value[3]) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onFloat(MPlug & plug, const MString & name, float value) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onDouble(MPlug & plug, const MString & name, double value) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], value[3], "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onString(MPlug & plug, const MString & name, const MString & value) override
+            {
+                mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(value.asChar())), "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
+            {
+                // TODO export all possible enum values to be able to re-import them?
+                mLight.addExtraTechniqueEnumParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(enumName.asChar())), "", COLLADASW::NEW_PARAM);
+            }
+
+            virtual void onCompoundAttribute(MPlug & plug, const MString & name) override
+            {
+                MObject object = plug.node();
+                MFnDependencyNode node(object);
+                MFnCompoundAttribute compoundAttribute(plug.attribute());
+                // Compound extra attributes are always Vector of 3 doubles
+                double values[3] = { 0.0 };
+                for (uint i = 0; i < compoundAttribute.numChildren(); ++i) {
+                    MObject child = compoundAttribute.child(i);
+                    MPlug childPlug = node.findPlug(child);
+                    childPlug.getValue(values[i]);
+                }
+                return onDouble3(plug, name, values);
+            }
+        };
+
+        MObject nodeObject = sceneElement->getNode();
+
+        MStatus status;
+        MFnDependencyNode fnNode(nodeObject, &status);
+        if (!status) return;
+
+        ExtraAttributeExporter extraAttributeExporter(*light);
+        AttributeParser::parseAttributes(fnNode, extraAttributeExporter);
     }
 
     // ------------------------------------
