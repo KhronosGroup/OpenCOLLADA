@@ -151,43 +151,41 @@ namespace COLLADAMaya
 		ShaderFXShaderExporter & mShaderFXExporter;
 
 	protected:
-		virtual MStatus onBeforeAttribute(MFnDependencyNode & node, MObject & attr)
+		virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
 		{
 			MStatus status;
 			MFnAttribute fnAttr(attr, &status);
-			if (!status) return status;
+			if (!status) return false;
 
 			MString attrName = fnAttr.name(&status);
-			if (!status) return status;
+			if (!status) return false;
 
 			// Skip irrelevant attributes
 			if (shouldSkipAttribute(attrName))
-				return MS::kFailure;
+				return false;
 
-			return MS::kSuccess;
+			return true;
 		}
 
 	protected:
-		virtual MStatus onString(MPlug & plug, const MString & name, const MString & value)
+		virtual void onString(MPlug & plug, const MString & name, const MString & value) override
 		{
 			MStatus status;
 
 			if (value.length() == 0)
-				return MS::kFailure;
+				return;
 
 			MObject attr = plug.attribute(&status);
-			if (!status) return status;
+			if (!status) return;
 
 			bool isUsedAsFilename = MFnAttribute(attr).isUsedAsFilename(&status);
-			if (!status) return MS::kFailure;
+			if (!status) return;
 
 			// Filename are treated as texture filenames.
 			if (!isUsedAsFilename)
-				return MS::kFailure;
+				return;
 
 			mShaderFXExporter.exportSamplerAndSurfaceInner(value);
-
-			return MS::kSuccess;
 		}
 	};
 
@@ -202,184 +200,167 @@ namespace COLLADAMaya
 		ShaderFXShaderExporter & mShaderFXExporter;
 
 	protected:
-		virtual MStatus onBeforeAttribute(MFnDependencyNode & node, MObject & attr)
+        virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
 		{
 			MStatus status;
 			MFnAttribute fnAttr(attr, &status);
-			if (!status) return status;
+			if (!status) return false;
 
 			MString attrName = fnAttr.name(&status);
-			if (!status) return status;
+			if (!status) return false;
 
 			// Skip irrelevant attributes
 			if (shouldSkipAttribute(attrName))
-				return MS::kFailure;
+				return false;
 
 			mShaderFXExporter.mStreamWriter.openElement(SHADERFX_ATTRIBUTE);
 			mShaderFXExporter.mStreamWriter.appendAttribute("name", attrName.asChar());
 
-			return MS::kSuccess;
+            return true;
 		}
 
-		virtual MStatus onAfterAttribute(MFnDependencyNode & fnNode, MObject & attribute)
+        virtual void onAfterAttribute(MFnDependencyNode & fnNode, MObject & attribute) override
 		{
 			mShaderFXExporter.mStreamWriter.closeElement();
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value)
+        virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
 		{
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_BOOLEAN);
 			mShaderFXExporter.mStreamWriter.appendText(value ? SHADERFX_TRUE : SHADERFX_FALSE);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onByte(MPlug & plug, const MString & name, char value)
+        virtual void onByte(MPlug & plug, const MString & name, char value) override
 		{
 			char text[5];
 			sprintf(text, "0x%X", value);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_BYTE);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onChar(MPlug & plug, const MString & name, char value)
+        virtual void onChar(MPlug & plug, const MString & name, char value) override
 		{
 			char text[2] = { value, '\0' };
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_BYTE);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onShort(MPlug & plug, const MString & name, short value)
+        virtual void onShort(MPlug & plug, const MString & name, short value) override
 		{
 			char text[512];
 			sprintf(text, "%i", value);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_SHORT);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onShort2(MPlug & plug, const MString & name, short value[2])
+        virtual void onShort2(MPlug & plug, const MString & name, short value[2]) override
 		{
 			char text[512];
 			sprintf(text, "%i %i", value[0], value[1]);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_SHORT2);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onShort3(MPlug & plug, const MString & name, short value[3])
+        virtual void onShort3(MPlug & plug, const MString & name, short value[3]) override
 		{
 			char text[512];
 			sprintf(text, "%i %i %i", value[0], value[1], value[2]);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_SHORT3);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onLong(MPlug & plug, const MString & name, int value)
+        virtual void onLong(MPlug & plug, const MString & name, int value) override
 		{
 			char text[512];
 			sprintf(text, "%i", value);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_LONG);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onLong2(MPlug & plug, const MString & name, int value[2])
+        virtual void onLong2(MPlug & plug, const MString & name, int value[2]) override
 		{
 			char text[512];
 			sprintf(text, "%i %i", value[0], value[1]);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_LONG2);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onLong3(MPlug & plug, const MString & name, int value[3])
+        virtual void onLong3(MPlug & plug, const MString & name, int value[3]) override
 		{
 			char text[512];
 			sprintf(text, "%i %i %i", value[0], value[1], value[2]);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_LONG3);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onFloat(MPlug & plug, const MString & name, float value)
+        virtual void onFloat(MPlug & plug, const MString & name, float value) override
 		{
 			char text[512];
 			sprintf(text, "%f", value);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_FLOAT);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onFloat2(MPlug & plug, const MString & name, float value[2])
+        virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
 		{
 			char text[512];
 			sprintf(text, "%f %f", value[0], value[1]);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_FLOAT2);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onFloat3(MPlug & plug, const MString & name, float value[3])
+        virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
 		{
 			char text[512];
 			sprintf(text, "%f %f %f", value[0], value[1], value[2]);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_FLOAT3);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onDouble(MPlug & plug, const MString & name, double value)
+        virtual void onDouble(MPlug & plug, const MString & name, double value) override
 		{
 			char text[512];
 			sprintf(text, "%f", value);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_DOUBLE);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onDouble2(MPlug & plug, const MString & name, double value[2])
+        virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
 		{
 			char text[512];
 			sprintf(text, "%f %f", value[0], value[1]);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_DOUBLE2);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onDouble3(MPlug & plug, const MString & name, double value[3])
+        virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
 		{
 			char text[512];
 			sprintf(text, "%f %f %f", value[0], value[1], value[2]);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_DOUBLE3);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onDouble4(MPlug & plug, const MString & name, double value[4])
+        virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
 		{
 			char text[512];
 			sprintf(text, "%f %f %f %f", value[0], value[1], value[2], value[3]);
 			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_DOUBLE4);
 			mShaderFXExporter.mStreamWriter.appendText(text);
-			return MS::kSuccess;
 		}
 
-		virtual MStatus onString(MPlug & plug, const MString & name, const MString & value)
+        virtual void onString(MPlug & plug, const MString & name, const MString & value) override
 		{
 			MStatus status;
 
 			MObject attr = plug.attribute(&status);
-			if (!status) return status;
+			if (!status) return;
 
 			if (value.length() == 0)
-				return MS::kFailure;
+				return;
 
 			bool isUsedAsFilename = MFnAttribute(attr).isUsedAsFilename(&status);
-			if (!status) return MS::kFailure;
+			if (!status) return;
 
 			// Filename are treated as texture filenames.
 			if (isUsedAsFilename)
@@ -393,7 +374,6 @@ namespace COLLADAMaya
 				ScopedElement string(mShaderFXExporter.mStreamWriter, SHADERFX_STRING);
 				mShaderFXExporter.mStreamWriter.appendText(value.asChar());
 			}
-			return MS::kSuccess;
 		}
 	};
 

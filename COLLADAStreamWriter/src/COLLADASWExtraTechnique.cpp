@@ -79,7 +79,29 @@ namespace COLLADASW
 		paramValue.tagType = tagType;
 
         // Insert the value into the parameters map of the current profile.
-		profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
+		profile.mParameters.push_back ( Parameter ( paramName, paramValue ) );
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueEnumParameter(
+        const String& profileName,
+        const String& paramName,
+        const String &enumStr,
+        const String &paramSid,
+        TagType type)
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile(profileName);
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.stringValue = enumStr;
+        paramValue.paramType = ENUM;
+        paramValue.tagType = type;
+
+        // Insert the value into the parameters map of the current profile.
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
     }
 
     //---------------------------------------------------------------
@@ -108,7 +130,7 @@ namespace COLLADASW
 		paramValue.tagType = tagType;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( paramName, paramValue ) );
+        childParameters.push_back ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
@@ -125,12 +147,62 @@ namespace COLLADASW
         // Create the value
         ParamData paramValue;
         paramValue.sid = paramSid;
-        paramValue.integerValue = value;
+        paramValue.integerValue[0] = value;
         paramValue.paramType = INTEGER;
 		paramValue.tagType = tagType;
 
         // Insert the value into the parameters map of the current profile.
-        profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
+        profile.mParameters.push_back ( Parameter ( paramName, paramValue ) );
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueParameter(
+        const String& profileName,
+        const String& paramName,
+        const int &value0,
+        const int &value1,
+        const String &paramSid,
+        TagType type)
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile(profileName);
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.integerValue[0] = value0;
+        paramValue.integerValue[1] = value1;
+        paramValue.paramType = INTEGER2;
+        paramValue.tagType = type;
+
+        // Insert the value into the parameters map of the current profile.
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueParameter(
+        const String& profileName,
+        const String& paramName,
+        const int &value0,
+        const int &value1,
+        const int &value2,
+        const String &paramSid,
+        TagType type)
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile(profileName);
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.integerValue[0] = value0;
+        paramValue.integerValue[1] = value1;
+        paramValue.integerValue[2] = value2;
+        paramValue.paramType = INTEGER3;
+        paramValue.tagType = type;
+
+        // Insert the value into the parameters map of the current profile.
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
     }
 
     //---------------------------------------------------------------
@@ -151,12 +223,12 @@ namespace COLLADASW
         // Create the value
         ParamData paramValue;
         paramValue.sid = paramSid;
-        paramValue.integerValue = value;
+        paramValue.integerValue[0] = value;
         paramValue.paramType = INTEGER;
 		paramValue.tagType = tagType;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( paramName, paramValue ) );
+        childParameters.push_back( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
@@ -173,12 +245,90 @@ namespace COLLADASW
         // Create the value
         ParamData paramValue;
         paramValue.sid = paramSid;
-        paramValue.doubleValue = value;
+        paramValue.doubleValue[0] = value;
         paramValue.paramType = DOUBLE;
 		paramValue.tagType = tagType;
 
         // Insert the value into the parameters map of the current profile.
-        profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
+        profile.mParameters.push_back( Parameter ( paramName, paramValue ) );
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueParameter(
+        const String& profileName,
+        const String& paramName,
+        const double &value0,
+        const double &value1,
+        const String &paramSid,
+        TagType type)
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile(profileName);
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.doubleValue[0] = value0;
+        paramValue.doubleValue[1] = value1;
+        paramValue.paramType = DOUBLE2;
+        paramValue.tagType = type;
+
+        // Insert the value into the parameters map of the current profile.
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueParameter(
+        const String& profileName,
+        const String& paramName,
+        const double &value0,
+        const double &value1,
+        const double &value2,
+        const String &paramSid,
+        TagType type)
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile(profileName);
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.doubleValue[0] = value0;
+        paramValue.doubleValue[1] = value1;
+        paramValue.doubleValue[2] = value2;
+        paramValue.paramType = DOUBLE3;
+        paramValue.tagType = type;
+
+        // Insert the value into the parameters map of the current profile.
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueParameter(
+        const String& profileName,
+        const String& paramName,
+        const double &value0,
+        const double &value1,
+        const double &value2,
+        const double &value3,
+        const String &paramSid,
+        TagType type)
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile(profileName);
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.doubleValue[0] = value0;
+        paramValue.doubleValue[1] = value1;
+        paramValue.doubleValue[2] = value2;
+        paramValue.doubleValue[3] = value3;
+        paramValue.paramType = DOUBLE4;
+        paramValue.tagType = type;
+
+        // Insert the value into the parameters map of the current profile.
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
     }
 
     //---------------------------------------------------------------
@@ -199,12 +349,12 @@ namespace COLLADASW
         // Create the value
         ParamData paramValue;
         paramValue.sid = paramSid;
-        paramValue.doubleValue = value;
+        paramValue.doubleValue[0] = value;
         paramValue.paramType = DOUBLE;
 		paramValue.tagType = tagType;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( paramName, paramValue ) );
+        childParameters.push_back(Parameter(paramName, paramValue));
     }
 
     //---------------------------------------------------------------
@@ -221,12 +371,62 @@ namespace COLLADASW
         // Create the value
         ParamData paramValue;
         paramValue.sid = paramSid;
-        paramValue.floatValue = value;
+        paramValue.floatValue[0] = value;
         paramValue.paramType = FLOAT;
 		paramValue.tagType = tagType;
 
         // Insert the value into the parameters map of the current profile.
-        profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueParameter(
+        const String& profileName,
+        const String& paramName,
+        const float &value0,
+        const float &value1,
+        const String &paramSid,
+        TagType type)
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile(profileName);
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.floatValue[0] = value0;
+        paramValue.floatValue[1] = value1;
+        paramValue.paramType = FLOAT2;
+        paramValue.tagType = type;
+
+        // Insert the value into the parameters map of the current profile.
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueParameter(
+        const String& profileName,
+        const String& paramName,
+        const float &value0,
+        const float &value1,
+        const float &value2,
+        const String &paramSid,
+        TagType type)
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile(profileName);
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.floatValue[0] = value0;
+        paramValue.floatValue[1] = value1;
+        paramValue.floatValue[2] = value2;
+        paramValue.paramType = FLOAT3;
+        paramValue.tagType = type;
+
+        // Insert the value into the parameters map of the current profile.
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
     }
 
     //---------------------------------------------------------------
@@ -247,12 +447,12 @@ namespace COLLADASW
         // Create the value
         ParamData paramValue;
         paramValue.sid = paramSid;
-        paramValue.floatValue = value;
+        paramValue.floatValue[0] = value;
         paramValue.paramType = FLOAT;
 		paramValue.tagType = tagType;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( paramName, paramValue ) );
+        childParameters.push_back(Parameter(paramName, paramValue));
     }
 
     //---------------------------------------------------------------
@@ -274,7 +474,7 @@ namespace COLLADASW
 		paramValue.tagType = tagType;
 
         // Insert the value into the parameters map of the current profile.
-        profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
+        profile.mParameters.push_back(Parameter(paramName, paramValue));
     }
 
     //---------------------------------------------------------------
@@ -300,7 +500,7 @@ namespace COLLADASW
 		paramValue.tagType = tagType;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( paramName, paramValue ) );
+        childParameters.push_back(Parameter(paramName, paramValue));
     }
 
     //---------------------------------------------------------------
@@ -326,7 +526,7 @@ namespace COLLADASW
 		paramValue.tagType = tagType;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( paramName, paramValue ) );
+        childParameters.push_back(Parameter(paramName, paramValue));
     }
 
     //---------------------------------------------------------------
@@ -428,19 +628,51 @@ namespace COLLADASW
                 break;
 
             case INTEGER:
-				colladaTechnique.addParameter(paramName, paramData.integerValue, paramData.sid, CSWC::VALUE_TYPE_INTEGER, paramData.tagType);
+                colladaTechnique.addParameter(paramName, paramData.integerValue[0], paramData.sid, CSWC::CSW_VALUE_TYPE_INT, paramData.tagType);
+                break;
+
+            case INTEGER2:
+                colladaTechnique.addParameter(paramName, paramData.integerValue[0], paramData.integerValue[1], paramData.sid, CSWC::CSW_VALUE_TYPE_INT2, paramData.tagType);
+                break;
+
+            case INTEGER3:
+                colladaTechnique.addParameter(paramName, paramData.integerValue[0], paramData.integerValue[1], paramData.integerValue[2], paramData.sid, CSWC::CSW_VALUE_TYPE_INT3, paramData.tagType);
                 break;
 
             case DOUBLE:
-				colladaTechnique.addParameter(paramName, paramData.doubleValue, paramData.sid, CSWC::VALUE_TYPE_DOUBLE, paramData.tagType);
+				colladaTechnique.addParameter(paramName, paramData.doubleValue[0], paramData.sid, CSWC::CSW_VALUE_TYPE_DOUBLE, paramData.tagType);
+                break;
+
+            case DOUBLE2:
+                colladaTechnique.addParameter(paramName, paramData.doubleValue[0], paramData.doubleValue[1], paramData.sid, CSWC::CSW_VALUE_TYPE_DOUBLE2, paramData.tagType);
+                break;
+
+            case DOUBLE3:
+                colladaTechnique.addParameter(paramName, paramData.doubleValue[0], paramData.doubleValue[1], paramData.doubleValue[2], paramData.sid, CSWC::CSW_VALUE_TYPE_DOUBLE3, paramData.tagType);
+                break;
+
+            case DOUBLE4:
+                colladaTechnique.addParameter(paramName, paramData.doubleValue[0], paramData.doubleValue[1], paramData.doubleValue[2], paramData.doubleValue[3], paramData.sid, CSWC::CSW_VALUE_TYPE_DOUBLE4, paramData.tagType);
                 break;
 
             case FLOAT:
-				colladaTechnique.addParameter(paramName, paramData.floatValue, paramData.sid, CSWC::VALUE_TYPE_FLOAT, paramData.tagType);
+				colladaTechnique.addParameter(paramName, paramData.floatValue[0], paramData.sid, CSWC::CSW_VALUE_TYPE_FLOAT, paramData.tagType);
+                break;
+
+            case FLOAT2:
+                colladaTechnique.addParameter(paramName, paramData.floatValue[0], paramData.floatValue[1], paramData.sid, CSWC::CSW_VALUE_TYPE_FLOAT2, paramData.tagType);
+                break;
+
+            case FLOAT3:
+                colladaTechnique.addParameter(paramName, paramData.floatValue[0], paramData.floatValue[1], paramData.floatValue[2], paramData.sid, CSWC::CSW_VALUE_TYPE_FLOAT3, paramData.tagType);
                 break;
 
             case BOOL:
 				colladaTechnique.addParameter(paramName, paramData.boolValue, paramData.sid, CSWC::VALUE_TYPE_BOOL, paramData.tagType);
+                break;
+
+            case ENUM:
+                colladaTechnique.addParameter(paramName, paramData.stringValue, paramData.sid, "enum", paramData.tagType);
                 break;
             }
 

@@ -112,8 +112,13 @@ namespace COLLADASW
 
     typedef NewParam < ValueType::BOOL > NewParamBool;
     typedef NewParam < ValueType::INT > NewParamInt;
+    typedef NewParam < ValueType::INT2 > NewParamInt2;
+    typedef NewParam < ValueType::INT3 > NewParamInt3;
     typedef NewParam < ValueType::STRING > NewParamString;
    	typedef NewParam < ValueType::DOUBLE > NewParamDouble;
+    typedef NewParam < ValueType::DOUBLE2 > NewParamDouble2;
+    typedef NewParam < ValueType::DOUBLE3 > NewParamDouble3;
+    typedef NewParam < ValueType::DOUBLE4 > NewParamDouble4;
 	typedef NewParam < ValueType::FLOAT > NewParamFloat;
 	typedef NewParam < ValueType::FLOAT2 > NewParamFloat2;
     typedef NewParam < ValueType::FLOAT3 > NewParamFloat3;

@@ -580,6 +580,19 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
+    void StreamWriter::appendValues(int number, int number2, int number3)
+    {
+        prepareToAddContents();
+        if (mOpenTags.back().mHasText) appendChar(' ');
+        appendNumber(number);
+        appendChar(' ');
+        appendNumber(number2);
+        appendChar(' ');
+        appendNumber(number3);
+        mOpenTags.back().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
     void StreamWriter::appendValues ( unsigned int number )
     {
         prepareToAddContents();

@@ -350,6 +350,9 @@ namespace COLLADASW
         static const String CSW_VALUE_TYPE_INT3;
         static const String CSW_VALUE_TYPE_INT4;
 		static const String CSW_VALUE_TYPE_DOUBLE;
+        static const String CSW_VALUE_TYPE_DOUBLE2;
+        static const String CSW_VALUE_TYPE_DOUBLE3;
+        static const String CSW_VALUE_TYPE_DOUBLE4;
         static const String CSW_VALUE_TYPE_FLOAT;
         static const String CSW_VALUE_TYPE_FLOAT2;
         static const String CSW_VALUE_TYPE_FLOAT3;

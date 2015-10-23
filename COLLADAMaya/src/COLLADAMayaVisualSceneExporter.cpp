@@ -34,6 +34,7 @@
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaAttributeParser.h"
 
+#include <maya/MFnCompoundAttribute.h>
 #include <maya/MFnIkHandle.h>
 #include <maya/MFnSkinCluster.h>
 #include <maya/MItDag.h>
@@ -1084,144 +1085,133 @@ namespace COLLADAMaya
 		class ExtraAttributeExporter : public AttributeParser
 		{
 		public:
-			ExtraAttributeExporter(COLLADASW::Node & visualSceneNode)
-				: mVisualSceneNode(visualSceneNode)
+            ExtraAttributeExporter(COLLADASW::Node & visualSceneNode)
+                : mVisualSceneNode(visualSceneNode)
+                , mAttributeLevel(0)
 			{}
 
 		private:
 			COLLADASW::Node & mVisualSceneNode;
+            int mAttributeLevel;
 
 		protected:
-			virtual MStatus onBeforeAttribute(MFnDependencyNode & node, MObject & attr)
+			virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
 			{
+                ++mAttributeLevel;
+
 				MStatus status;
 				MFnAttribute fnAttr(attr, &status);
-				if (!status) return status;
+				if (!status) return false;
 
 				MString attrName = fnAttr.name(&status);
-				if (!status) return status;
+				if (!status) return false;
 
 				bool isDynamic = fnAttr.isDynamic(&status);
-				if (!status) return status;
+				if (!status) return false;
 
 				if (!isDynamic)
-					return MS::kFailure;
+					return false;
 
 				bool isHidden = fnAttr.isHidden(&status);
-				if (!status) return status;
+				if (!status) return false;
 
 				if (isHidden)
-					return MS::kFailure;
+					return false;
 
-				return MS::kSuccess;
-			}
+                if (mAttributeLevel > 1) {
+                    // Don't export compound attribute internal attributes as standalone newparam.
+                    // Compound internal attributes are exported in onCompoundAttribute().
+                    return false;
+                }
 
-			virtual MStatus onAfterAttribute(MFnDependencyNode & fnNode, MObject & attribute)
-			{
-				return MS::kSuccess;
-			}
-			
-			virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value)
-			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+				return true;
 			}
 
-			virtual MStatus onByte(MPlug & plug, const MString & name, char value)
+            virtual void onAfterAttribute(MFnDependencyNode& node, MObject& attr) override
+            {
+                --mAttributeLevel;
+            }
+
+            virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onChar(MPlug & plug, const MString & name, char value)
+            virtual void onLong(MPlug & plug, const MString & name, int value) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onShort(MPlug & plug, const MString & name, short value)
+            virtual void onLong2(MPlug & plug, const MString & name, int value[2]) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onShort2(MPlug & plug, const MString & name, short value[2])
+            virtual void onLong3(MPlug & plug, const MString & name, int value[3]) override
 			{
-				// TODO
-				return MS::kSuccess;
+                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onShort3(MPlug & plug, const MString & name, short value[3])
+            virtual void onFloat(MPlug & plug, const MString & name, float value) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onLong(MPlug & plug, const MString & name, int value)
+            virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onLong2(MPlug & plug, const MString & name, int value[2])
+            virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
 			{
-				// TODO
-				return MS::kSuccess;
+                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onLong3(MPlug & plug, const MString & name, int value[3])
+            virtual void onDouble(MPlug & plug, const MString & name, double value) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onFloat(MPlug & plug, const MString & name, float value)
+            virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onFloat2(MPlug & plug, const MString & name, float value[2])
+            virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
 			{
-				// TODO
-				return MS::kSuccess;
+                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onFloat3(MPlug & plug, const MString & name, float value[3])
+            virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
 			{
-				// TODO
-				return MS::kSuccess;
+                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], value[3], "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onDouble(MPlug & plug, const MString & name, double value)
+            virtual void onString(MPlug & plug, const MString & name, const MString & value) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(value.asChar())), "", COLLADASW::NEW_PARAM);
 			}
 
-			virtual MStatus onDouble2(MPlug & plug, const MString & name, double value[2])
-			{
-				// TODO
-				return MS::kSuccess;
-			}
+            virtual void onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
+            {
+                // TODO export all possible enum values to be able to re-import them?
+                mVisualSceneNode.addExtraTechniqueEnumParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(enumName.asChar())), "", COLLADASW::NEW_PARAM);
+            }
 
-			virtual MStatus onDouble3(MPlug & plug, const MString & name, double value[3])
-			{
-				// TODO
-				return MS::kSuccess;
-			}
-
-			virtual MStatus onDouble4(MPlug & plug, const MString & name, double value[4])
-			{
-				// TODO
-				return MS::kSuccess;
-			}
-
-			virtual MStatus onString(MPlug & plug, const MString & name, const MString & value)
-			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), COLLADABU::StringUtils::translateToXML(String(value.asChar())), "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
-			}
+            virtual void onCompoundAttribute(MPlug & plug, const MString & name) override
+            {
+                MObject object = plug.node();
+                MFnDependencyNode node(object);
+                MFnCompoundAttribute compoundAttribute(plug.attribute());
+                // Compound extra attributes are always Vector of 3 doubles
+                double values[3] = { 0.0 };
+                for (uint i = 0; i < compoundAttribute.numChildren(); ++i) {
+                    MObject child = compoundAttribute.child(i);
+                    MPlug childPlug = node.findPlug(child);
+                    childPlug.getValue(values[i]);
+                }
+                return onDouble3(plug, name, values);
+            }
 		};
 
 		MObject nodeObject = sceneElement->getNode();

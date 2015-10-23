@@ -32,6 +32,7 @@
 
 #include <maya/MItDependencyNodes.h>
 #include <maya/MFnAttribute.h>
+#include <maya/MFnCompoundAttribute.h>
 #include <maya/MFnMesh.h>
 #include <maya/MItMeshPolygon.h>
 #include <maya/MItMeshVertex.h>
@@ -407,25 +408,15 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    template<typename T>
     class Element
     {
     public:
-        Element(COLLADASW::StreamWriter & streamWriter, const MString & name, const T & value)
-            : mStreamWriter(streamWriter)
-            // String must survive until Element destruction
-            , mElementName(name.asChar())
-        {
-            mStreamWriter.openElement(mElementName);
-            mStreamWriter.appendValues(value);
-        }
-
-        Element(COLLADASW::StreamWriter & streamWriter, const MString & name, const T & value, uint numValues)
+        Element(COLLADASW::StreamWriter& streamWriter, const String& mName, const String& mSID = "")
             : mStreamWriter(streamWriter)
         {
-            mStreamWriter.openElement(name.asChar());
-            for (uint i = 0; i < numValues; ++i) {
-                mStreamWriter.appendValues(value[i]);
+            mStreamWriter.openElement(mName);
+            if (!mSID.empty()) {
+                mStreamWriter.appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_SID, mSID);
             }
         }
 
@@ -435,8 +426,43 @@ namespace COLLADAMaya
         }
 
     private:
-        COLLADASW::StreamWriter & mStreamWriter;
-        String mElementName;
+        COLLADASW::StreamWriter& mStreamWriter;
+    };
+
+    template<typename T>
+    class Type : public Element
+    {
+    public:
+        Type(COLLADASW::StreamWriter& streamWriter, const String& typeName, const T& value)
+            : Element(streamWriter, typeName)
+        {
+            streamWriter.appendValues(value);
+        }
+
+        Type(COLLADASW::StreamWriter& streamWriter, const String& typeName, const T& value, uint numValues)
+            : Element(streamWriter, typeName)
+        {
+            for (uint i = 0; i < numValues; ++i) {
+                streamWriter.appendValues(value[i]);
+            }
+        }
+    };
+
+    template<typename T>
+    class NewParam : public Element
+    {
+    public:
+        NewParam(COLLADASW::StreamWriter& streamWriter, const String& sid, const String& typeName, const T & value)
+            : Element(streamWriter, COLLADASW::CSWC::CSW_ELEMENT_NEWPARAM, sid)
+        {
+            Type<T> type(streamWriter, typeName, value);
+        }
+
+        NewParam(COLLADASW::StreamWriter& streamWriter, const String& sid, const String& typeName, const T & value, uint numValues)
+            : Element(streamWriter, COLLADASW::CSWC::CSW_ELEMENT_NEWPARAM, sid)
+        {
+            Type<T> type(streamWriter, typeName, value, numValues);
+        }
     };
 
     class ExtraAttributeExporter : public AttributeParser
@@ -444,138 +470,157 @@ namespace COLLADAMaya
     public:
         ExtraAttributeExporter(COLLADASW::StreamWriter& sw)
             : mSW(sw)
+            , mAttributeLevel(0)
         {}
 
     protected:
+        int mAttributeLevel;
+
         // AttributeParser overrides
         
-        virtual MStatus onBeforeAttribute(MFnDependencyNode & fnNode, MObject & attr)
+        virtual bool onBeforeAttribute(MFnDependencyNode & fnNode, MObject & attr) override
         {
+            ++mAttributeLevel;
+
             MStatus status;
             MFnAttribute fnAttr(attr, &status);
-            if (!status) return status;
+            if (!status) return false;
 
             MString attrName = fnAttr.name(&status);
-            if (!status) return status;
+            if (!status) return false;
 
             bool isDynamic = fnAttr.isDynamic(&status);
-            if (!status) return status;
+            if (!status) return false;
 
             if (!isDynamic)
-                return MS::kFailure;
+                return false;
 
             bool isHidden = fnAttr.isHidden(&status);
-            if (!status) return status;
+            if (!status) return false;
 
             if (isHidden)
-                return MS::kFailure;
+                return false;
 
-            return MS::kSuccess;
+            if (mAttributeLevel > 1) {
+                // Don't export compound attribute internal attributes as standalone newparam.
+                // Compound internal attributes are exported in onCompoundAttribute().
+                return false;
+            }
+
+            return true;
         }
 
-        virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value)
+        virtual void onAfterAttribute(MFnDependencyNode& node, MObject& attr) override
         {
-            Element<bool> e(mSW, name, value);
-            return MS::kSuccess;
+            --mAttributeLevel;
         }
 
-        virtual MStatus onByte(MPlug & plug, const MString & name, char value)
+        virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
+        {
+            NewParam<bool> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_BOOL, value);
+        }
+
+        virtual void onByte(MPlug & plug, const MString & name, char value) override
         {
             char text[5];
             sprintf(text, "0x%X", value);
-            Element<String> e(mSW, name, text);
-            return MS::kSuccess;
+            NewParam<String> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_STRING, text);
         }
 
-        virtual MStatus onChar(MPlug & plug, const MString & name, char value)
+        virtual void onChar(MPlug & plug, const MString & name, char value) override
         {
             char text[2] = { value, '\0' };
-            Element<String> e(mSW, name, text);
-            return MS::kSuccess;
+            NewParam<String> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_STRING, text);
         }
 
-        virtual MStatus onShort(MPlug & plug, const MString & name, short value)
+        virtual void onShort(MPlug & plug, const MString & name, short value) override
         {
-            Element<short> e(mSW, name, value);
-            return MS::kSuccess;
+            NewParam<short> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT, value);
         }
 
-        virtual MStatus onShort2(MPlug & plug, const MString & name, short value[2])
+        virtual void onShort2(MPlug & plug, const MString & name, short value[2]) override
         {
-            Element<short*> e(mSW, name, value, 2);
-            return MS::kSuccess;
+            NewParam<short*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT2, value, 2);
         }
 
-        virtual MStatus onShort3(MPlug & plug, const MString & name, short value[3])
+        virtual void onShort3(MPlug & plug, const MString & name, short value[3]) override
         {
-            Element<short*> e(mSW, name, value, 3);
-            return MS::kSuccess;
+            NewParam<short*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT3, value, 3);
         }
 
-        virtual MStatus onLong(MPlug & plug, const MString & name, int value)
+        virtual void onLong(MPlug & plug, const MString & name, int value) override
         {
-            Element<int> e(mSW, name, value);
-            return MS::kSuccess;
+            NewParam<int> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT, value);
         }
 
-        virtual MStatus onLong2(MPlug & plug, const MString & name, int value[2])
+        virtual void onLong2(MPlug & plug, const MString & name, int value[2]) override
         {
-            Element<int*> e(mSW, name, value, 2);
-            return MS::kSuccess;
+            NewParam<int*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT2, value, 2);
         }
 
-        virtual MStatus onLong3(MPlug & plug, const MString & name, int value[3])
+        virtual void onLong3(MPlug & plug, const MString & name, int value[3]) override
         {
-            Element<int*> e(mSW, name, value, 3);
-            return MS::kSuccess;
+            NewParam<int*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT3, value, 3);
         }
 
-        virtual MStatus onFloat(MPlug & plug, const MString & name, float value)
+        virtual void onFloat(MPlug & plug, const MString & name, float value) override
         {
-            Element<float> e(mSW, name, value);
-            return MS::kSuccess;
+            NewParam<float> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT, value);
         }
 
-        virtual MStatus onFloat2(MPlug & plug, const MString & name, float value[2])
+        virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
         {
-            Element<float*> e(mSW, name, value, 2);
-            return MS::kSuccess;
+            NewParam<float*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT2, value, 2);
         }
 
-        virtual MStatus onFloat3(MPlug & plug, const MString & name, float value[3])
+        virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
         {
-            Element<float*> e(mSW, name, value, 3);
-            return MS::kSuccess;
+            NewParam<float*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT3, value, 3);
         }
 
-        virtual MStatus onDouble(MPlug & plug, const MString & name, double value)
+        virtual void onDouble(MPlug & plug, const MString & name, double value) override
         {
-            Element<double> e(mSW, name, value);
-            return MS::kSuccess;
+            NewParam<double> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_DOUBLE, value);
         }
 
-        virtual MStatus onDouble2(MPlug & plug, const MString & name, double value[2])
+        virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
         {
-            Element<double*> e(mSW, name, value, 2);
-            return MS::kSuccess;
+            NewParam<double*> e(mSW, name.asChar(), "double2", value, 2);
         }
 
-        virtual MStatus onDouble3(MPlug & plug, const MString & name, double value[3])
+        virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
         {
-            Element<double*> e(mSW, name, value, 3);
-            return MS::kSuccess;
+            NewParam<double*> e(mSW, name.asChar(), "double3", value, 3);
         }
 
-        virtual MStatus onDouble4(MPlug & plug, const MString & name, double value[4])
+        virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
         {
-            Element<double*> e(mSW, name, value, 4);
-            return MS::kSuccess;
+            NewParam<double*> e(mSW, name.asChar(), "double4", value, 4);
         }
 
-        virtual MStatus onString(MPlug & plug, const MString & name, const MString & value)
+        virtual void onString(MPlug & plug, const MString & name, const MString & value) override
         {
-            Element<String> e(mSW, name, value.asChar());
-            return MS::kSuccess;
+            NewParam<String> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_STRING, value.asChar());
+        }
+
+        virtual void onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
+        {
+            NewParam<String> e(mSW, name.asChar(), "enum", enumName.asChar());
+        }
+
+        virtual void onCompoundAttribute(MPlug & plug, const MString & name) override
+        {
+            MObject object = plug.node();
+            MFnDependencyNode node(object);
+            MFnCompoundAttribute compoundAttribute(plug.attribute());
+            // Compound extra attributes are always Vector of 3 doubles
+            double values[3] = { 0.0 };
+            for (uint i = 0; i < compoundAttribute.numChildren(); ++i) {
+                MObject child = compoundAttribute.child(i);
+                MPlug childPlug = node.findPlug(child);
+                childPlug.getValue(values[i]);
+            }
+            return onDouble3(plug, name, values);
         }
 
     private:
@@ -598,7 +643,7 @@ namespace COLLADAMaya
         techniqueSource.addParameter ( PARAMETER_DOUBLE_SIDED, doubleSided );
         
         // Also export extra attributes
-        MFnDependencyNode fnDependencyNode(fnMesh.object());
+        MFnDependencyNode fnDependencyNode(mesh);
         ExtraAttributeExporter extraAttributeExporter(*mSW);
         AttributeParser::parseAttributes(fnDependencyNode, extraAttributeExporter);
 

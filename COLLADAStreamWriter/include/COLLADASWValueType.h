@@ -30,7 +30,7 @@ namespace COLLADASW
         {
             BOOL, BOOL2, BOOL3, BOOL4,
             INT, INT2, INT3, INT4,
-			DOUBLE,
+			DOUBLE, DOUBLE2, DOUBLE3, DOUBLE4,
             FLOAT, FLOAT2, FLOAT3, FLOAT4,
             FLOAT2x2, FLOAT3x3, FLOAT4x4, 
             STRING,
@@ -69,6 +69,9 @@ namespace COLLADASW
             case ValueType::FLOAT3x3: return CSWC::CSW_VALUE_TYPE_FLOAT3x3;
             case ValueType::FLOAT4x4: return CSWC::CSW_VALUE_TYPE_FLOAT4x4;
 			case ValueType::DOUBLE: return CSWC::CSW_VALUE_TYPE_DOUBLE;
+            case ValueType::DOUBLE2: return CSWC::CSW_VALUE_TYPE_DOUBLE2;
+            case ValueType::DOUBLE3: return CSWC::CSW_VALUE_TYPE_DOUBLE3;
+            case ValueType::DOUBLE4: return CSWC::CSW_VALUE_TYPE_DOUBLE4;
             case ValueType::STRING: return CSWC::CSW_VALUE_TYPE_STRING;
             case ValueType::SURFACE: return CSWC::CSW_VALUE_TYPE_SURFACE;
             case ValueType::SAMPLER_1D: return CSWC::CSW_VALUE_TYPE_SAMPLER_1D;

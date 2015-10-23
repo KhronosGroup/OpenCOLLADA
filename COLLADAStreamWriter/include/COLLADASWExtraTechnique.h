@@ -30,10 +30,18 @@ namespace COLLADASW
     {
         STRING = 0,
         INTEGER,
+        INTEGER2,
+        INTEGER3,
         DOUBLE,
-        FLOAT, 
+        DOUBLE2,
+        DOUBLE3,
+        DOUBLE4,
+        FLOAT,
+        FLOAT2,
+        FLOAT3,
         BOOL,
-        MATRIX
+        MATRIX,
+        ENUM
     };
 
 	
@@ -47,9 +55,9 @@ namespace COLLADASW
 		String sid;
 
         String stringValue;
-        int integerValue;
-        double doubleValue;
-        float floatValue;
+        int integerValue[3];
+        double doubleValue[4];
+        float floatValue[3];
         bool boolValue;
         double ( *matrix ) [4];
 
@@ -67,8 +75,8 @@ namespace COLLADASW
 
     //---------------------------------------------------------------
     /** Map with the parameter names and the value */
-    typedef std::map<String, ParamData> Parameters;
     typedef std::pair<String, ParamData> Parameter;
+    typedef std::vector<Parameter> Parameters;
 
     /** The child elements with their parameters under the current profile */
     typedef std::map<String, Parameters> ChildElementsMap;
@@ -143,9 +151,17 @@ namespace COLLADASW
         */
 		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const String &value = "", const String &paramSid = "", TagType type = CUSTOM);
 		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value, const String &paramSid = "", TagType type = CUSTOM);
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value0, const int &value1, const String &paramSid = "", TagType type = CUSTOM);
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value0, const int &value1, const int &value2, const String &paramSid = "", TagType type = CUSTOM);
 		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value, const String &paramSid = "", TagType type = CUSTOM);
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value0, const double &value1, const String &paramSid = "", TagType type = CUSTOM);
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value0, const double &value1, const double &value2, const String &paramSid = "", TagType type = CUSTOM);
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value0, const double &value1, const double &value2, const double &value3, const String &paramSid = "", TagType type = CUSTOM);
 		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value, const String &paramSid = "", TagType type = CUSTOM);
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value0, const float &value1, const String &paramSid = "", TagType type = CUSTOM);
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value0, const float &value1, const float &value2, const String &paramSid = "", TagType type = CUSTOM);
 		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const bool &value, const String &paramSid = "", TagType type = CUSTOM);
+        void addExtraTechniqueEnumParameter(const String& profileName, const String& paramName, const String &enumStr = "", const String &paramSid = "", TagType type = CUSTOM);
 
         /** Adds a child element under the given profile. */
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const String &value = "", const String &paramSid = "", TagType type = CUSTOM);
