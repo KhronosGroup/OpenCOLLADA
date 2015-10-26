@@ -69,6 +69,8 @@ namespace COLLADAMaya
         /** The sample type of the current attribute. Could be for example a single one or a vector. */
         SampleType mSampleType;
 
+		MEulerRotation::RotationOrder mOrder;
+
         /** The list of the animated curves of the current element. */
         AnimationCurveList mAnimatedCurves;
 
@@ -102,7 +104,9 @@ namespace COLLADAMaya
             const String& nodeId,
             const String parameters[],
             const bool convertUnits,
-            SampleType sampleType = kSingle );
+			MEulerRotation::RotationOrder euler,
+            SampleType sampleType = kSingle
+			);
 
         /** Destructor. */
         virtual ~AnimationElement();
@@ -175,6 +179,11 @@ namespace COLLADAMaya
         {
             mSampleType = sampleType;
         }
+
+		MEulerRotation::RotationOrder getOrder() const
+		{
+			return mOrder;
+		}
 
         /** The conversion functor, for example to convert radians to degrees */
         ConversionFunctor* getConversion()

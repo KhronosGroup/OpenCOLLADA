@@ -54,8 +54,14 @@ namespace COLLADAMaya
 
 	struct Step
 	{
-		StepType		_type;
+		StepType		_type[9];
 		StepTransform	_transform;
+		MEulerRotation::RotationOrder _order;
+
+		Step::Step() : _transform(NO_Transformation), _order(MEulerRotation::RotationOrder::kXYZ)
+		{
+			std::fill(_type, _type+9, NO_STEP);
+		}
 	};
 
 

@@ -342,7 +342,9 @@ namespace COLLADAMaya
 
 							int Length = animCurves.length();
 
-							for (int j = 0; j < animCurves.length(); j++)
+							Step step;
+
+							for (unsigned int j = 0; j < animCurves.length(); j++)
 							{
 								// To get what track this curve
 								MObject plugNode = plugs[j].node();
@@ -354,7 +356,6 @@ namespace COLLADAMaya
 
 								uint keyCount = animCurveFn.numKeys();
 
-								Step step;
 								step._transform = NO_Transformation;
 								
 								for (uint keyPosition = 0; keyPosition < keyCount; ++keyPosition)
@@ -366,47 +367,62 @@ namespace COLLADAMaya
 										interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP_NEXT)
 									{
 										
-										float stepTime;
-
-										if (interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP)
-										{
-											if (keyPosition != (keyCount - 1))
-												stepTime = animCurveFn.time(keyPosition + 1).as(MTime::kSeconds);
-											else
-												stepTime = animCurveFn.time(keyPosition).as(MTime::kSeconds);
-										}
-										else if (interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP_NEXT)
-										{
-											stepTime = animCurveFn.time(keyPosition).as(MTime::kSeconds);
-										}
-
+										float stepTime = (float)animCurveFn.time(keyPosition).as(MTime::kSeconds);
+										
 										std::vector<float>::iterator itFound;
 										
 										itFound = find(times.begin(), times.end(), stepTime);
 										{
 											auto itLower = lower_bound(times.begin(), times.end(), stepTime);
-											int element = itLower - times.begin();
+											int element = (int)(itLower - times.begin());
 											
-											step._type = interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP ? STEPPED : STEPPED_NEXT;
+											StepType type =	interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP ? STEPPED : STEPPED_NEXT;
 
 											if ((nameAttrib.compare("translateX") == 0))
+											{
 												step._transform = TransX;
+												step._type[0] = type;
+											}
 											else if ((nameAttrib.compare("translateY") == 0))
+											{
 												step._transform = TransY;
+												step._type[1] = type;
+											}
 											else if ((nameAttrib.compare("translateZ") == 0))
+											{
 												step._transform = TransZ;
+												step._type[2] = type;
+											}
 											else if ((nameAttrib.compare("rotateX") == 0))
+											{
 												step._transform = RotX;
+												step._type[3] = type;
+											}
 											else if ((nameAttrib.compare("rotateY") == 0))
+											{
 												step._transform = RotY;
+												step._type[4] = type;
+											}
 											else if ((nameAttrib.compare("rotateZ") == 0))
+											{
 												step._transform = RotZ;
+												step._type[5] = type;
+											}
 											else if ((nameAttrib.compare("scaleX") == 0))
+											{
 												step._transform = ScaleX;
+												step._type[6] = type;
+											}
 											else if ((nameAttrib.compare("scaleY") == 0))
+											{
 												step._transform = ScaleY;
+												step._type[7] = type;
+											}
 											else if ((nameAttrib.compare("scaleZ") == 0))
+											{
 												step._transform = ScaleZ;
+												step._type[8] = type;
+											}
 
 											auto itFoundInterpolation = find_if(interpolationStepTiming.begin(), interpolationStepTiming.end(),
 												[=](const std::pair<float, Step>& step){ return step.first == stepTime; });
@@ -414,6 +430,9 @@ namespace COLLADAMaya
 											if ((itFoundInterpolation != interpolationStepTiming.end()))
 											{
 												(*itFoundInterpolation).second._transform = (StepTransform)((int)((*itFoundInterpolation).second._transform) | (int)(step._transform));
+												
+												for (int i = 0; i < 9; i ++)
+													(*itFoundInterpolation).second._type[i] = step._type[i];
 											}
 											else
 												interpolationStepTiming.push_back(std::make_pair(stepTime, step));
@@ -438,15 +457,13 @@ namespace COLLADAMaya
 				for (int i = 0; i < part.times.size(); i++)
 				{
 					Step step;
-					step._type = NO_STEP;
-					step._transform = NO_Transformation;
 					part.stepInterpolation[i] = std::make_pair(false, step);
 				}
 
 				for (int j = 0; j < interpolationStepTiming.size(); j++)
 				{
 					auto itLower = lower_bound(times.begin(), times.end(), interpolationStepTiming[j].first);
-					int element = itLower - times.begin();
+					int element = (int)(itLower - times.begin());
 
 					part.stepInterpolation[element] = std::make_pair(true, interpolationStepTiming[j].second);
 				}
@@ -498,7 +515,7 @@ namespace COLLADAMaya
 
 							MTime Mtiming2;
 							AnimationHelper::getCurrentTime(Mtiming2);
-							float timing2 = Mtiming2.as(MTime::kSeconds);
+							float timing2 = (float)Mtiming2.as(MTime::kSeconds);
 
 							MObject val;
 							part.plug.getValue(val);

@@ -309,7 +309,11 @@ namespace COLLADAMaya
 				{
 					key->interpolation = COLLADASW::LibraryAnimations::STEP;
 					key->transformTypeStep._transform = interpolation->at(j).second._transform;
-					key->transformTypeStep._type = interpolation->at(j).second._type;
+					
+					for (int k = 0; k < 9; k++)
+						key->transformTypeStep._type[k] = interpolation->at(j).second._type[k];
+					
+					key->transformTypeStep._order = curves[i]->getParent()->getOrder();
 				}
 
                 // Either here with flag "convertUnits" or in method 

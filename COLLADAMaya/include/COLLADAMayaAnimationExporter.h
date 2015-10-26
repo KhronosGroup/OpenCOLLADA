@@ -26,6 +26,7 @@
 #include "COLLADAMayaSyntax.h"
 
 #include <maya/MFnAnimCurve.h>
+#include <maya/MEulerRotation.h>
 
 #include "COLLADASWLibraryAnimations.h"
 #include "COLLADASWSource.h"
@@ -194,11 +195,13 @@ namespace COLLADAMaya
             MPlug& plug,
             const String& targetSubId,
             const SampleType& sampleType,
+			const MEulerRotation::RotationOrder& order = MEulerRotation::RotationOrder::NO_ROTATION,
             const String* parameters = EMPTY_PARAMETER,
             const bool convertUnits = false, 
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
-            ConversionFunctor* conversion = NULL );
+            ConversionFunctor* conversion = NULL
+			);
 
         /**
          * Adds the plug with the given sample type to the list of animations,
@@ -217,6 +220,7 @@ namespace COLLADAMaya
             MPlug& plug,
             const String& targetSubId,
             const uint sampleType,
+			const MEulerRotation::RotationOrder& order = MEulerRotation::RotationOrder::NO_ROTATION,
             const String* parameters = EMPTY_PARAMETER,
             const bool convertUnits = false, 
             const int arrayElement = -1,
@@ -526,6 +530,7 @@ namespace COLLADAMaya
                                     const std::vector<float>& output,
                                     const std::vector<String>& interpolations,
 									const std::vector<String>& stepInterpolations,
+									const std::vector<String>& orders,
                                     const std::vector<float>& inTangents,
                                     const std::vector<float>& outTangents,
                                     const std::vector<float>& tcbs,
@@ -589,7 +594,8 @@ namespace COLLADAMaya
          */
         void writeInterpolationSource ( const String sourceId,
                                          const std::vector<String> interpolations,
-										 const std::vector<String> stepInterpolations);
+										 const std::vector<String> stepInterpolations,
+										 const std::vector<String> orders );
 
         /**
          * Writes a in tangent source in the collada document.
@@ -671,6 +677,7 @@ namespace COLLADAMaya
 		void generateSamplingFunctionForClip(MFnClip& clipFn);
 
 		static const String getNameOfStepInterpolation(const Step & type);
+		static const String getNameOfOrder(const MEulerRotation::RotationOrder & order);
     };
 
 }

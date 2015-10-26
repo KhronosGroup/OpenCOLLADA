@@ -23,8 +23,6 @@ namespace COLLADAMaya
 	BaseAnimationKey::BaseAnimationKey()
 	{
 		input = -1;
-		transformTypeStep._transform = StepTransform::NO_Transformation;
-		transformTypeStep._type = StepType::NO_STEP;
 	}
 
     // --------------------------------------------
