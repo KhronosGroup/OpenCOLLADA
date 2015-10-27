@@ -474,7 +474,7 @@ namespace COLLADAMaya
 
                 // Check if the current mesh has some polygons for the connected shader.
                 // If not, we don't need to write the current material instance.
-                if ( !meshContainsShaderPolygons ( fnMesh, shaders, shaderIndices, shaderPosition ) ) continue;
+                if ( !meshContainsShaderPolygons ( meshNode, shaders, shaderIndices, shaderPosition ) ) continue;
 
                 // To get the right shader name, we have to take the correct mesh instance.
                 MStatus status;
@@ -541,13 +541,13 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     const bool VisualSceneExporter::meshContainsShaderPolygons ( 
-        const MFnMesh& fnMesh, 
+        const MObject& mesh, 
         const MObjectArray& shaders, 
         const MIntArray& shaderIndices, 
         const uint shaderPosition )
     {
         // Iterate through all polygons of the current mesh.
-        MItMeshPolygon meshPolygonsIter ( fnMesh.object() );
+        MItMeshPolygon meshPolygonsIter ( mesh );
         for ( meshPolygonsIter.reset(); !meshPolygonsIter.isDone(); meshPolygonsIter.next() )
         {
             // Is this polygon shaded by this shader?
@@ -1413,62 +1413,65 @@ namespace COLLADAMaya
         const SceneElement* sceneElement,
         const String& elementId /** = EMPTY_STRING */ )
     {
-        // Get the path of the element
-        MDagPath dagPath = sceneElement->getPath();
+        return getSceneElementURI(sceneElement->getPath(), elementId);
+    }
 
-        // Check if the element is instanced.
-        uint instanceNumber = 0;
-        if ( dagPath.isInstanced() )
-        {
-            SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-            SceneElement* exportedElement = sceneGraph->findElement( dagPath );
-            dagPath = exportedElement->getPath();
+    //---------------------------------------------------------------
+    COLLADASW::URI VisualSceneExporter::getSceneElementURI(const MDagPath& dagPath, const String& id /*= EMPTY_STRING*/)
+    {
+        MFnDagNode dagFn(dagPath);
+        bool isLocal = !dagFn.isFromReferencedFile();
+        if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
+            isLocal = true;
         }
 
         // Get the Uri of the element.
-        if ( !sceneElement->getIsLocal() )
+        if (!isLocal)
         {
-			MObject referenceNode;
-			MStatus status = ReferenceManager::getTopLevelReferenceNode(dagPath, referenceNode);
-			if (status == MS::kFailure) {
-				return COLLADASW::URI();
-			}
+            MObject referenceNode;
+            MStatus status = ReferenceManager::getTopLevelReferenceNode(dagPath, referenceNode);
+            if (status == MS::kFailure) {
+                return COLLADASW::URI();
+            }
 
-			MString mayaReferenceFilename;
-			status = ReferenceManager::getReferenceFilename(referenceNode, mayaReferenceFilename);
+            MString mayaReferenceFilename;
+            status = ReferenceManager::getReferenceFilename(referenceNode, mayaReferenceFilename);
 
-			String referenceFilename = mayaReferenceFilename.asChar();
+            String referenceFilename = mayaReferenceFilename.asChar();
 
-			// Replace .mb by .dae
-			String::size_type dotPos = referenceFilename.rfind('.');
-			if (dotPos != String::npos) {
-				referenceFilename.resize(dotPos);
-				referenceFilename.append(".dae");
-			}
-			MString exportedFile = MFileIO::currentFile();
+            // Replace .mb by .dae
+            String::size_type dotPos = referenceFilename.rfind('.');
+            if (dotPos != String::npos) {
+                referenceFilename.resize(dotPos);
+                referenceFilename.append(".dae");
+            }
+            MString exportedFile = MFileIO::currentFile();
 
-			// Make referenced file path relative to exported file directory
-			COLLADASW::URI exportedFileURI = exportedFile.asChar();
-			COLLADASW::URI exportedFileDirURI = exportedFileURI.getPathDir();
-			exportedFileDirURI.setScheme(exportedFileURI.getScheme());
-			COLLADASW::URI referencedFileURI = referenceFilename;
+            // Make referenced file path relative to exported file directory
+            COLLADASW::URI exportedFileURI = exportedFile.asChar();
+            COLLADASW::URI exportedFileDirURI = exportedFileURI.getPathDir();
+            exportedFileDirURI.setScheme(exportedFileURI.getScheme());
+            COLLADASW::URI referencedFileURI = referenceFilename;
             if (ExportOptions::relativePaths())
             {
                 referencedFileURI.makeRelativeTo(exportedFileDirURI);
             }
 
-			COLLADASW::URI sceneElementURI(referencedFileURI);
-			const bool removeFirstNamespace = true;
-			String refNodeId = getColladaNodeId(dagPath, removeFirstNamespace);
-			sceneElementURI.setFragment(refNodeId);
-			return sceneElementURI;
+            COLLADASW::URI sceneElementURI(referencedFileURI);
+            const bool removeFirstNamespace = true;
+            String refNodeId = getColladaNodeId(dagPath, removeFirstNamespace);
+            sceneElementURI.setFragment(refNodeId);
+            return sceneElementURI;
         }
         else
         {
             // Get the id of the element
-            if ( !elementId.empty() )
-                return COLLADASW::URI ( EMPTY_STRING, elementId );
-            else return COLLADASW::URI ( EMPTY_STRING, mDocumentExporter->dagPathToColladaId ( dagPath ) );
+            if (!id.empty()) {
+                return COLLADASW::URI(EMPTY_STRING, id);
+            }
+            else {
+                return COLLADASW::URI(EMPTY_STRING, mDocumentExporter->dagPathToColladaId(dagPath));
+            }
         }
     }
 

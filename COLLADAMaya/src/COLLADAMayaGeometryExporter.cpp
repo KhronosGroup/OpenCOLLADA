@@ -15,6 +15,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaGeometryExporter.h"
+#include "COLLADAMayaPhysXExporter.h"
 #include "COLLADAMayaGeometryPolygonExporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSyntax.h"
@@ -63,7 +64,10 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     void GeometryExporter::exportGeometries()
     {
-        if ( !ExportOptions::exportPolygonMeshes() ) return;
+        if (!ExportOptions::exportPolygonMeshes() &&
+            // PhysX may reference geometry
+            !ExportOptions::exportPhysics())
+            return;
 
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
@@ -89,13 +93,33 @@ namespace COLLADAMaya
         bool exportSceneElement = false;
         SceneElement::Type sceneElementType = sceneElement->getType();
 
-		if ( sceneElementType == SceneElement::MESH ) 
+		if (ExportOptions::exportPolygonMeshes() &&
+            sceneElementType == SceneElement::MESH ) 
         {
             if ( sceneElement->getIsExportNode () ) exportSceneElement = true;
             else 
             {
                 if ( sceneElement->getIsForced () ) exportSceneElement = true;
                 else if ( !isVisible && ExportOptions::exportInvisibleNodes () ) exportSceneElement = true;
+            }
+        }
+        else if (ExportOptions::exportPhysics() &&
+            sceneElementType == SceneElement::PHYSX_SHAPE)
+        {
+            const MObject & shape = sceneElement->getNode();
+
+            MString shapeType;
+            PhysXShape::GetType(shape, shapeType);
+
+            if (shapeType == SHAPE_TYPE_CONVEX_HULL ||
+                shapeType == SHAPE_TYPE_TRIANGLE_MESH)
+            {
+                MObject mesh;
+                PhysXShape::GetConnectedInMesh(shape, mesh);
+                if (mesh.isNull() || !ExportOptions::exportPolygonMeshes())
+                {
+                    exportSceneElement = true;
+                }
             }
         }
 
@@ -178,8 +202,6 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     bool GeometryExporter::exportGeometry ( SceneElement* sceneElement )
     {
-        if ( !ExportOptions::exportPolygonMeshes() ) return false;
-
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
         String pathName = dagPath.fullPathName ().asChar ();
@@ -195,20 +217,25 @@ namespace COLLADAMaya
         uint instanceNumber = dagPath.instanceNumber();
 
         //  Get the node of the current mesh
-        MObject meshNode = dagPath.node();
-
-        // Attach a function set to the mesh node.
-        // We access all of the meshes data through the function set
-        MStatus status;
-        MFnMesh fnMesh ( meshNode, &status );
-        if ( status != MStatus::kSuccess ) return false;
+        MObject meshNode;
+        if (sceneElement->getType() == SceneElement::PHYSX_SHAPE) {
+            PhysXShape::GetConnectedInMesh(sceneElement->getNode(), meshNode);
+            if (meshNode.isNull())
+            {
+                PhysXShape::GetInMesh(sceneElement->getNode(), meshNode);
+            }
+        }
+        else {
+            meshNode = dagPath.node();
+        }
 
         // Write the mesh data
         String meshName = mDocumentExporter->dagPathToColladaName ( dagPath );
-		bool result = exportMesh(fnMesh, colladaMeshId, meshName);
+		bool result = exportMesh(meshNode, colladaMeshId, meshName);
 
 		if (ExportOptions::exportPhysics())
 		{
+            // Bullet ---------------------------------------------------------
 			MObject transform = dagPath.transform();
 			int shape;
 			bool shapeResult = DagHelper::getPlugValue(transform, ATTR_COLLISION_SHAPE, shape);
@@ -221,6 +248,14 @@ namespace COLLADAMaya
 					closeConvexMesh();
 				}
 			}
+
+            // PhysX ----------------------------------------------------------
+            PhysXExporter& physXExporter = *mDocumentExporter->getPhysXExporter();
+            if (physXExporter.needsConvexHullOf(*sceneElement))
+            {
+                openConvexMesh(colladaMeshId, meshName);
+                closeConvexMesh();
+            }
 		}
 			
 		return result;
@@ -244,7 +279,7 @@ namespace COLLADAMaya
         // Attach a function set to the mesh node.
         // We access all of the meshes data through the function set
         MStatus status;
-        MFnMesh fnMesh ( meshNode, &status );
+        MFnDependencyNode fnMesh(meshNode, &status);
         if ( status != MStatus::kSuccess ) return colladaMeshId;
 
         // Check if there is an extra attribute "colladaId" and use this as export id.
@@ -270,7 +305,7 @@ namespace COLLADAMaya
 
     // --------------------------------------------------------
     bool GeometryExporter::exportMesh ( 
-        MFnMesh& fnMesh, 
+        MObject & mesh, 
         const String& colladaMeshId, 
         const String& mayaMeshName )
     {
@@ -280,31 +315,31 @@ namespace COLLADAMaya
 
         // Retrieve all uv set names for this mesh.
         MStringArray uvSetNames;
-        getUVSetNames ( fnMesh, uvSetNames );
+        getUVSetNames ( mesh, uvSetNames );
 
         // Opens the mesh tag in the collada document
         openMesh ( colladaMeshId, mayaMeshName );
 
         // Export the vertex positions
-        exportVertexPositions ( fnMesh, colladaMeshId );
+        exportVertexPositions ( mesh, colladaMeshId );
 
         // Export the vertex normals
-        bool hasFaceVertexNormals = exportVertexNormals ( fnMesh, colladaMeshId );
+        bool hasFaceVertexNormals = exportVertexNormals ( mesh, colladaMeshId );
         
         // Export the texture coordinates
-        exportTextureCoords ( fnMesh, colladaMeshId, uvSetNames );
+        exportTextureCoords ( mesh, colladaMeshId, uvSetNames );
         
         // The list for the color sets. We have to clean!
         MStringArray colorSetNames;
 
         // Export the color sets
-        exportColorSets ( fnMesh, colladaMeshId, colorSetNames );
+        exportColorSets ( mesh, colladaMeshId, colorSetNames );
         
         // Export the texture tangents and binormals.
         // For texturing std::map channels, export the texture tangents and bi-normals, on request
         if ( ExportOptions::exportTexTangents() )
         {
-            exportTextureTangentsAndBinormals ( fnMesh, colladaMeshId );
+            exportTextureTangentsAndBinormals ( mesh, colladaMeshId );
         }
 
         // Export the vertexes
@@ -313,12 +348,12 @@ namespace COLLADAMaya
         // Create a polygon exporter and export the polygon sources.
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
         GeometryPolygonExporter polygonExporter ( streamWriter, mDocumentExporter );
-        polygonExporter.exportPolygonSources ( fnMesh, colladaMeshId, uvSetNames, colorSetNames, &mPolygonSources, &mVertexSources, hasFaceVertexNormals );
+        polygonExporter.exportPolygonSources ( mesh, colladaMeshId, uvSetNames, colorSetNames, &mPolygonSources, &mVertexSources, hasFaceVertexNormals );
 
         closeMesh();
 
         // Export the original maya name and the double sided value in an extra tag.
-        exportExtraTechniqueParameters ( fnMesh, mayaMeshName );
+        exportExtraTechniqueParameters ( mesh, mayaMeshName );
 
         closeGeometry();
 
@@ -326,8 +361,10 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    void GeometryExporter::getUVSetNames ( const MFnMesh& fnMesh, MStringArray& uvSetNames )
+    void GeometryExporter::getUVSetNames(const MObject& mesh, MStringArray& uvSetNames)
     {
+        MFnMesh fnMesh(mesh);
+
 		std::set<std::wstring> duplicateLookup;
 
         MPlug uvSetPlug = fnMesh.findPlug ( ATTR_UV_SET );
@@ -369,10 +406,10 @@ namespace COLLADAMaya
 
     // --------------------------------------------------------
     void GeometryExporter::exportExtraTechniqueParameters ( 
-        const MFnMesh& fnMesh, 
+        const MObject& mesh,
         const String& mayaMeshName )
     {
-        bool doubleSided = isDoubleSided ( fnMesh );
+        bool doubleSided = isDoubleSided ( mesh );
 
         COLLADASW::Extra extraSource ( mSW );
         extraSource.openExtra();
@@ -387,8 +424,10 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    bool GeometryExporter::isDoubleSided ( const MFnMesh &fnMesh )
+    bool GeometryExporter::isDoubleSided(const MObject& mesh)
     {
+        MFnMesh fnMesh(mesh);
+
         MPlug doubleSidedPlug = fnMesh.findPlug ( ATTR_DOUBLE_SIDED );
         bool doubleSided;
         doubleSidedPlug.getValue ( doubleSided );
@@ -407,8 +446,10 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void GeometryExporter::exportVertexPositions ( const MFnMesh &fnMesh, const String &meshId )
+    void GeometryExporter::exportVertexPositions(const MObject& mesh, const String &meshId)
     {
+        MFnMesh fnMesh(mesh);
+
         COLLADASW::FloatSource vertexSource ( mSW );
         vertexSource.setId ( meshId + POSITIONS_SOURCE_ID_SUFFIX );
         vertexSource.setNodeName ( meshId + POSITIONS_SOURCE_ID_SUFFIX );
@@ -491,30 +532,32 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     bool GeometryExporter::exportVertexNormals ( 
-        const MFnMesh& fnMesh, 
+        MObject& mesh,
         const String& meshId )
     {
         if ( !ExportOptions::exportNormals () ) return false;
 
+        MFnMesh fnMesh(mesh);
+
         // Export the normals
         uint normalCount = fnMesh.numNormals ();
         MFloatVectorArray normals ( normalCount );
-        bool perVertexNormals = exportNormals ( fnMesh, meshId, normals );
+        bool perVertexNormals = exportNormals ( mesh, meshId, normals );
 
         // Export the tangents
-        exportTangentsAndBinormals ( fnMesh, meshId, perVertexNormals, normals );
+        exportTangentsAndBinormals ( mesh, meshId, perVertexNormals, normals );
 
         return !perVertexNormals;
     }
 
 	// -------------------------------------------------------
 	bool GeometryExporter::hasMissingVertexColor(
-		// MFnMesh::getColorIndex() is not const for unknown reason
-		/*const */MFnMesh & fnMesh,
+        const MObject & mesh,
 		const MString & colorSetName
 		)
 	{
-		MItMeshPolygon iPolygon = fnMesh.object();
+        MFnMesh fnMesh(mesh);
+        MItMeshPolygon iPolygon(mesh);
 		while (!iPolygon.isDone())
 		{
 			unsigned int vertexCount = iPolygon.polygonVertexCount();
@@ -535,11 +578,13 @@ namespace COLLADAMaya
 
     // -------------------------------------------------------
     void GeometryExporter::exportColorSets ( 
-        /*const*/ MFnMesh& fnMesh,
+        const MObject& mesh,
         const String& meshId,
         MStringArray& colorSetNames )
     {
         if ( !ExportOptions::exportVertexColors() ) return;
+
+        MFnMesh fnMesh(mesh);
 
         //MStringArray colorSetNames;
         fnMesh.getColorSetNames ( colorSetNames );
@@ -557,7 +602,7 @@ namespace COLLADAMaya
             fnMesh.getColors ( colorArray, &mColorSetName );
 			
 			// Set a default color to vertices with no color.
-			bool missingVertexColor = hasMissingVertexColor(fnMesh, mColorSetName);
+			bool missingVertexColor = hasMissingVertexColor(mesh, mColorSetName);
 			if (missingVertexColor)
 			{
 				const MColor defaultVertexColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -658,11 +703,13 @@ namespace COLLADAMaya
 
     // --------------------------------------------------------------------
     void GeometryExporter::exportTextureCoords ( 
-        const MFnMesh& fnMesh,
+        const MObject& mesh,
         const String& meshId,
         const MStringArray& uvSetNames )
     {
         if ( !ExportOptions::exportTexCoords() ) return;
+
+        MFnMesh fnMesh(mesh);
 
         uint texCoordsCount = uvSetNames.length();
         for ( uint iTexCoords=0; iTexCoords<texCoordsCount; ++iTexCoords )
@@ -724,10 +771,12 @@ namespace COLLADAMaya
 
     // --------------------------------------------------
     bool GeometryExporter::exportNormals( 
-        const MFnMesh &fnMesh, 
+        const MObject & mesh,
         const String &meshId,
         MFloatVectorArray &normals )
     {
+        MFnMesh fnMesh(mesh);
+
         uint normalCount = normals.length();
 
         // Implement NormalSource
@@ -759,7 +808,7 @@ namespace COLLADAMaya
             fnMesh.getNormals ( unindexedNormals, MSpace::kObject );
 
             // Index the normals to match the vertex indices
-            for ( MItMeshPolygon meshPolygonIter ( fnMesh.object() ); 
+            for ( MItMeshPolygon meshPolygonIter ( mesh ); 
                 !meshPolygonIter.isDone(); meshPolygonIter.next() )
             {
                 uint vertexCount = meshPolygonIter.polygonVertexCount();
@@ -800,9 +849,11 @@ namespace COLLADAMaya
 
     // --------------------------------------------------------
     void GeometryExporter::exportTextureTangentsAndBinormals (
-        const MFnMesh &fnMesh,
+        const MObject& mesh,
         const String& meshId ) 
     {
+        MFnMesh fnMesh(mesh);
+
         // Get the names of the used uv sets.
         MStringArray uvSetNames;
         fnMesh.getUVSetNames ( uvSetNames );
@@ -887,7 +938,7 @@ namespace COLLADAMaya
 
     // --------------------------------------------------
     void GeometryExporter::exportTangentsAndBinormals ( 
-        const MFnMesh &fnMesh, 
+        MObject& mesh,
         const String &meshId, 
         const bool perVertexNormals,
         const MFloatVectorArray &normals )
@@ -895,6 +946,8 @@ namespace COLLADAMaya
         // Implement TangentSource and BinormalSource
        if ( ExportOptions::exportTangents() )
        {
+           MFnMesh fnMesh(mesh);
+
             // Geo-tangent and -binormal
             COLLADASW::FloatSource tangentSource ( mSW );
             COLLADASW::FloatSource binormalSource ( mSW );
@@ -923,7 +976,7 @@ namespace COLLADAMaya
             if ( perVertexNormals )
             {
                 // Calculate the geometric tangents and binormals(T/Bs)
-                getPerVertexNormalsTangents ( fnMesh, normals, tangents, binormals );
+                getPerVertexNormalsTangents ( mesh, normals, tangents, binormals );
 
                if ( !SourceInput::containsSourceBase ( &mVertexSources, &tangentSource ) )
                    mVertexSources.push_back ( SourceInput ( tangentSource, COLLADASW::InputSemantic::TANGENT ) );
@@ -934,7 +987,7 @@ namespace COLLADAMaya
             else
             {
                 // Calculate the geometric tangents and binormals(T/Bs)
-                getTangents ( fnMesh, normals, normalCount, binormals, tangents );
+                getTangents ( mesh, normals, normalCount, binormals, tangents );
 
                 // Erase the normal source from the list of vertex sources, if it is inside
                 SourceInput::eraseSourceBase ( &mVertexSources, &tangentSource );
@@ -977,19 +1030,20 @@ namespace COLLADAMaya
 
     // --------------------------------------------------
     void GeometryExporter::getPerVertexNormalsTangents( 
-        const MFnMesh &fnMesh, 
+        MObject & mesh, 
         const MFloatVectorArray &normals, 
         MVectorArray &tangents, 
         MVectorArray &binormals )
     {
+        MFnMesh fnMesh(mesh);
+
         // Calculate and export the geometric tangents and binormals(T/Bs)
         // Retrieve all the vertex positions for our calculations
         MPointArray vertexPositions;
         fnMesh.getPoints ( vertexPositions );
         uint vertexCount = vertexPositions.length();
-        MObject meshObject ( fnMesh.object() );
 
-        for ( MItMeshVertex vertexIt ( meshObject ); !vertexIt.isDone(); vertexIt.next() )
+        for ( MItMeshVertex vertexIt ( mesh ); !vertexIt.isDone(); vertexIt.next() )
         {
             MIntArray vertexNeighbors;
             int vertexIndex = vertexIt.index();
@@ -1014,12 +1068,14 @@ namespace COLLADAMaya
 
     // --------------------------------------------------
     void GeometryExporter::getTangents ( 
-        const MFnMesh &fnMesh, 
+        const MObject &mesh, 
         const MFloatVectorArray &normals, 
         uint normalCount, 
         MVectorArray &binormals, 
         MVectorArray &tangents )
     {
+        MFnMesh fnMesh(mesh);
+
         // Retrieve all the vertex positions for our calculations
         MPointArray vertexPositions;
         fnMesh.getPoints ( vertexPositions );
@@ -1029,7 +1085,7 @@ namespace COLLADAMaya
             binormals[i] = tangents[i] = MFloatVector::zero;
         }
 
-        for ( MItMeshPolygon faceIt ( fnMesh.object() ); !faceIt.isDone(); faceIt.next() )
+        for ( MItMeshPolygon faceIt ( mesh ); !faceIt.isDone(); faceIt.next() )
         {
             int faceVertexCount = faceIt.polygonVertexCount();
             for ( int i = 0; i < faceVertexCount; ++i )

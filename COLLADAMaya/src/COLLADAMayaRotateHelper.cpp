@@ -24,7 +24,7 @@ namespace COLLADAMaya
 {
 
     // --------------------------------------------
-    RotateHelper::RotateHelper( MEulerRotation rotation )
+    RotateHelper::RotateHelper( const MEulerRotation & rotation )
     :	rotation ( rotation )
     {
         createRotation ();
