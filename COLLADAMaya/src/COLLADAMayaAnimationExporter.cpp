@@ -127,9 +127,8 @@ namespace COLLADAMaya
 	{
 		String clipName = DocumentExporter::mayaNameToColladaName(currentMfnclip.name());
 		
-
-		float startTime = currentMfnclip.getStartFrame().as(MTime::kSeconds);
-		float endTime = startTime + (clipSourceEnd - clipSourceStart).as(MTime::kSeconds);
+		float startTime = (float)(currentMfnclip.getStartFrame().as(MTime::kSeconds));
+		float endTime = (float)(startTime + (clipSourceEnd - clipSourceStart).as(MTime::kSeconds));
 
 		AnimationClip* clip = new AnimationClip();
 		clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, startTime, endTime);
@@ -1708,7 +1707,7 @@ namespace COLLADAMaya
             plug,
             targetSid,
 			sampleType,
-			MEulerRotation::RotationOrder::NO_ROTATION,
+			MEulerRotation::RotationOrder::kXYZ,
 			parameters,
             convertUnits, 
             arrayElement,

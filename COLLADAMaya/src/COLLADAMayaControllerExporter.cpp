@@ -387,7 +387,7 @@ namespace COLLADAMaya
 
             String subId = colladaControllerId + MORPH_WEIGHTS_SOURCE_ID_SUFFIX;
             AnimationExporter* animExport = mDocumentExporter->getAnimationExporter();
-			animExport->addPlugAnimation(weightPlug, subId, kSingle, MEulerRotation::RotationOrder::NO_ROTATION, XY_PARAMETERS, false, (int)j);
+			animExport->addPlugAnimation(weightPlug, subId, kSingle, MEulerRotation::RotationOrder::kXYZ, XY_PARAMETERS, false, (int)j);
         }
 
         // Write the controller data into the COLLADA document

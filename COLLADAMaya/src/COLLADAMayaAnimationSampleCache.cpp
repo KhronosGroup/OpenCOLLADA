@@ -373,7 +373,7 @@ namespace COLLADAMaya
 										
 										itFound = find(times.begin(), times.end(), stepTime);
 										{
-											auto itLower = lower_bound(times.begin(), times.end(), stepTime);
+											std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), stepTime);
 											int element = (int)(itLower - times.begin());
 											
 											StepType type =	interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP ? STEPPED : STEPPED_NEXT;
@@ -424,7 +424,7 @@ namespace COLLADAMaya
 												step._type[8] = type;
 											}
 
-											auto itFoundInterpolation = find_if(interpolationStepTiming.begin(), interpolationStepTiming.end(),
+											std::vector< std::pair<float, Step> >::iterator itFoundInterpolation = find_if(interpolationStepTiming.begin(), interpolationStepTiming.end(),
 												[=](const std::pair<float, Step>& step){ return step.first == stepTime; });
 
 											if ((itFoundInterpolation != interpolationStepTiming.end()))
@@ -462,7 +462,7 @@ namespace COLLADAMaya
 
 				for (int j = 0; j < interpolationStepTiming.size(); j++)
 				{
-					auto itLower = lower_bound(times.begin(), times.end(), interpolationStepTiming[j].first);
+					std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), interpolationStepTiming[j].first);
 					int element = (int)(itLower - times.begin());
 
 					part.stepInterpolation[element] = std::make_pair(true, interpolationStepTiming[j].second);
