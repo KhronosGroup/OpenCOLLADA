@@ -424,8 +424,30 @@ namespace COLLADAMaya
 												step._type[8] = type;
 											}
 
+
+											class CompareStep
+											{
+											public:
+
+												float stepTime;
+
+												CompareStep(float step)
+												{
+													stepTime = step;
+												}
+
+												bool operator()(const std::pair<float, Step>& step)
+												{
+													return (step.first == stepTime);
+												}
+
+											};
+											
+
+											CompareStep  myStepComparaison(stepTime);
+
 											std::vector< std::pair<float, Step> >::iterator itFoundInterpolation = find_if(interpolationStepTiming.begin(), interpolationStepTiming.end(),
-												[=](const std::pair<float, Step>& step){ return step.first == stepTime; });
+												/*[=](const std::pair<float, Step>& step){ return step.first == stepTime; }*/ myStepComparaison);
 
 											if ((itFoundInterpolation != interpolationStepTiming.end()))
 											{
