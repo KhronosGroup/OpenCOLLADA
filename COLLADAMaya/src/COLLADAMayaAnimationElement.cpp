@@ -29,6 +29,7 @@ namespace COLLADAMaya
         const String& nodeId,
         const String parameters[],
         const bool convertUnits,
+		MEulerRotation::RotationOrder order,
         SampleType sampleType )
     : mBaseId ( baseId )
     , mNodeId ( nodeId )
@@ -36,6 +37,7 @@ namespace COLLADAMaya
     , mPlug ( plug )
     , mIsSampling ( false )
     , mParameters ( parameters )
+	, mOrder(order)
     , mSampleType ( sampleType )
     , mAnimatedCurves ( NULL )
     , mConversion ( NULL )

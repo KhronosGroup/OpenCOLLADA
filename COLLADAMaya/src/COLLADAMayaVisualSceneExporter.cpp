@@ -976,9 +976,12 @@ namespace COLLADAMaya
         MPlug plug = MFnDagNode ( mTransformObject ).findPlug ( ATTR_MATRIX );
         mDocumentExporter->getAnimationCache()->cachePlug ( plug, true );
 
+		MEulerRotation rotation;
+		rotation.order = (MEulerRotation::RotationOrder) ((int)mTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ);
+
         // Export the animations
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-        animationExporter->addPlugAnimation ( plug, ATTR_TRANSFORM, kMatrix, TRANSFORM_PARAMETER, true );
+		animationExporter->addPlugAnimation(plug, ATTR_TRANSFORM, kMatrix, rotation.order, TRANSFORM_PARAMETER, true );
     }
 
     //---------------------------------------------------------------

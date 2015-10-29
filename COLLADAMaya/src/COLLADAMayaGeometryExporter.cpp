@@ -510,7 +510,7 @@ namespace COLLADAMaya
 
                 // TODO Parameters??? TEST!
                 AnimationExporter* animExporter = mDocumentExporter->getAnimationExporter();
-                animExporter->addPlugAnimation ( childPlug, VERTEX_SID, kSingle | kLength, XYZW_PARAMETERS, true, -1, true );
+				animExporter->addPlugAnimation(childPlug, VERTEX_SID, kSingle | kLength, MEulerRotation::kXYZ, XYZW_PARAMETERS, true, -1, true);
             }
         }
 

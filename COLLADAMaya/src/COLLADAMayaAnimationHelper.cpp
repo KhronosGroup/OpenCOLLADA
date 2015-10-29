@@ -216,9 +216,10 @@ namespace COLLADAMaya
 
         std::vector<float>* inputs = NULL;
         std::vector<float>* outputs = NULL;
+		std::vector< std::pair<bool, Step> >* interpolation = NULL;
 
         // Buffer temporarly the inputs and outputs, so they can be sorted
-        if ( !cache->findCachePlug ( plug, inputs, outputs ) || inputs == NULL || outputs == NULL ) return false;
+        if ( !cache->findCachePlug ( plug, inputs, outputs, interpolation ) || inputs == NULL || outputs == NULL || interpolation == NULL) return false;
 
         uint inputCount = ( uint ) inputs->size();
 
@@ -288,8 +289,10 @@ namespace COLLADAMaya
     {
         if ( curves.size() != 16 ) return false;
 
-        std::vector<float>* inputs = NULL,* outputs = NULL;
-        if ( !cache->findCachePlug ( plug, inputs, outputs ) || inputs == NULL || outputs == NULL ) 
+		std::vector<float>* inputs = NULL, *outputs = NULL;
+		std::vector< std::pair<bool, Step> >* interpolation = NULL;
+
+		if (!cache->findCachePlug(plug, inputs, outputs, interpolation) || inputs == NULL || outputs == NULL || interpolation == NULL)
             return false;
 
         size_t keyCount = inputs->size();
@@ -301,6 +304,17 @@ namespace COLLADAMaya
                 AnimationKey* key = ( AnimationKey* ) curves[i]->getKey ( j );
                 key->input = inputs->at ( j );
                 key->output = outputs->at ( j*16 + i );
+
+				if (interpolation->at(j).first)
+				{
+					key->interpolation = COLLADASW::LibraryAnimations::STEP;
+					key->transformTypeStep._transform = interpolation->at(j).second._transform;
+					
+					for (int k = 0; k < 9; k++)
+						key->transformTypeStep._type[k] = interpolation->at(j).second._type[k];
+					
+					key->transformTypeStep._order = curves[i]->getParent()->getOrder();
+				}
 
                 // Either here with flag "convertUnits" or in method 
                 // AnimationExporter::exportAnimationSource ( AnimationMultiCurve &animationCurve )
@@ -409,6 +423,9 @@ namespace COLLADAMaya
 
         case MFnAnimCurve::kTangentStep:
             return COLLADASW::LibraryAnimations::STEP;
+
+		case MFnAnimCurve::kTangentStepNext:
+			return COLLADASW::LibraryAnimations::STEP_NEXT;
 
         case MFnAnimCurve::kTangentClamped:
             return COLLADASW::LibraryAnimations::BEZIER;
