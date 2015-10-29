@@ -1027,6 +1027,63 @@ namespace COLLADAMaya
 	{
 		String FinalStep = "";
 
+		/*
+		Collada specification 1.5 only support STEP semantic (not STEP_NEXT)
+		So <step> marker will provide this information inside a technique profile:
+
+		<technique profile="OpenCOLLADAMaya">
+		<step>STEP_RZ|STEP_RX|STEP_TZ|STEP_TY|STEPNEXT_TX  STEP_RZ|STEP_RY|STEP_RX|STEP_TZ|STEP_TY|STEP_TX </step>
+		<order>ZYX </order>
+		</technique>
+
+		If source interpolation is "BEZIER STEP BEZIER STEP"
+
+		We know the first STEP will be: STEP_RZ|STEP_RX|STEP_TZ|STEP_TY|STEPNEXT_TX
+		This means this step is:
+		- a step for rotationZ,X and translationZ,Y 
+		- a step_next for translationX
+		- and there is no step for rotationY, ScaleX,Y,Z
+
+		This is useful for baked animation so we can recreate step keyframe matrix during engine import
+
+		If we do not bake (Bezier) this information is still usefull (it will be only STEP or STEPNEXT)
+		During baking inside your engine you can recreate keyframe at step timing
+
+		
+		<order> marker let you know how to recreate rotation part of your matrix from Rx,Ry,Rz when
+		you import baked animation in your engine
+
+
+
+		Example of a step animation curve for 1 parameter (Tx or Ty or Tz or Rx or Ry or Rz or Sx or Sy or Sz)
+
+		STEP_NEXT: the value remains constant to the value of the second point of the segment, until the next segment
+
+						 	 B       C
+							 --------x---------------------x
+							 |
+							 |
+		x--------------------x
+							A
+
+		0                  2.5      2.54                   5       >> timing
+
+
+		STEP: the value remains constant to the value of the first point of the segment, until the next segment
+
+		                             C
+                                     x---------------------x
+                                     |
+                                     |
+		x--------------------x--------
+                             A       B
+
+		0                  2.5      2.54                   5       >> timing
+
+
+		When you bake this Step Bezier animation in your engine, you will need to create keyframe at point A,B and C
+
+		*/
 		
 
 		if ((type._transform & 0x20) >> 5)
@@ -1089,7 +1146,7 @@ namespace COLLADAMaya
 				break;
 			default:
 				// Export XYZ euler rotation in Z Y X order in the file.
-				// The rotation order is set to XYZ, Collada reads the parameter from behind.
+				// The rotation order is set to XYZ, Collada reads backward the parameter.
 				FinalOrder = "ZYX";
 				break;
 		}
