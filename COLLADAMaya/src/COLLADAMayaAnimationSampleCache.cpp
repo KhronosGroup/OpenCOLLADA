@@ -362,9 +362,9 @@ namespace COLLADAMaya
 								{
 									COLLADASW::LibraryAnimations::InterpolationType interpolationType;
 									interpolationType = AnimationHelper::toInterpolation(animCurveFn.outTangentType(keyPosition));
-
-									if (interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP || 
-										interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP_NEXT)
+                                    
+									if (interpolationType == COLLADASW::LibraryAnimations::STEP ||
+										interpolationType == COLLADASW::LibraryAnimations::STEP_NEXT)
 									{
 										
 										float stepTime = (float)animCurveFn.time(keyPosition).as(MTime::kSeconds);
@@ -376,7 +376,7 @@ namespace COLLADAMaya
 											std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), stepTime);
 											int element = (int)(itLower - times.begin());
 											
-											StepType type =	interpolationType == COLLADASW::LibraryAnimations::InterpolationType::STEP ? STEPPED : STEPPED_NEXT;
+											StepType type =	interpolationType == COLLADASW::LibraryAnimations::STEP ? STEPPED : STEPPED_NEXT;
 
 											if ((nameAttrib.compare("translateX") == 0))
 											{

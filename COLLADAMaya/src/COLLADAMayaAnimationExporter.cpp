@@ -1707,7 +1707,7 @@ namespace COLLADAMaya
             plug,
             targetSid,
 			sampleType,
-			MEulerRotation::RotationOrder::kXYZ,
+			MEulerRotation::kXYZ,
 			parameters,
             convertUnits, 
             arrayElement,
@@ -2063,7 +2063,7 @@ namespace COLLADAMaya
             const String* parameters = animatedElement->getParameters();
             bool convertUnits = animatedElement->getConvertUnits ();
             SampleType sampleType = animatedElement->getSampleType();
-			MEulerRotation::RotationOrder order = MEulerRotation::RotationOrder::kXYZ;
+			MEulerRotation::RotationOrder order = MEulerRotation::kXYZ;
 
 			AnimationElement* animatedChild = new AnimationElement(plug, baseId, subId, nodeId, parameters, convertUnits, order, sampleType);
 	

@@ -20,6 +20,7 @@
 #include "COLLADAMayaTangentPoint.h"
 #include "COLLADASWLibraryAnimations.h"
 
+
 namespace COLLADAMaya
 {
     /**
@@ -31,7 +32,7 @@ namespace COLLADAMaya
     This class is the base for every animation key.
     */
 
-	enum StepTransform : int
+	enum StepTransform
 	{
 		NO_Transformation = 0,
 		TransX = 1,
@@ -58,7 +59,7 @@ namespace COLLADAMaya
 		StepTransform	_transform;
 		MEulerRotation::RotationOrder _order;
 
-		Step::Step() : _transform(NO_Transformation), _order(MEulerRotation::RotationOrder::kXYZ)
+		Step() : _transform(NO_Transformation), _order(MEulerRotation::kXYZ)
 		{
 			std::fill(_type, _type+9, NO_STEP);
 		}
