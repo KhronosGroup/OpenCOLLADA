@@ -411,6 +411,8 @@ namespace COLLADAMaya
     static const char* ATTR_SHAPE_TYPE                              = "shapeType";
     static const char* ATTR_SIZE                                    = "size";
     static const char* ATTR_RADIUS                                  = "radius";
+    static const char* ATTR_POINT_1                                 = "point1";
+    static const char* ATTR_POINT_2                                 = "point2";
     static const char* ATTR_HEIGHT                                  = "height";
     static const char* ATTR_BEST_FIT                                = "bestFit";
     static const char* ATTR_OUT_PHYSICS_SHAPE                       = "outPhysicsShape";
