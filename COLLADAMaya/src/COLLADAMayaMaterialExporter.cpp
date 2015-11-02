@@ -687,8 +687,6 @@ namespace COLLADAMaya
         COLLADASW::InstanceEffect& effectInstance, 
         cgfxShaderNode* shaderNodeCgfx )
     {
-		// Disabled for Maya2012, the raw CGeffect is no-longer directly accessible from the cgfxShaderNode class.
-#if MAYA_API_VERSION < 201200
         // Get the filename of the current cgfx file
 		MString shaderFxFile = cgfxFindFile(shaderNodeCgfx->shaderFxFile());
         String shaderFxFileName = shaderFxFile.asChar(); // check3d.cgfx
@@ -703,6 +701,7 @@ namespace COLLADAMaya
         // Clear the samplers setParam list.
         mSamplers.clear ();
 
+#if MAYA_API_VERSION < 201200
         // Get the setParams attributes
         CGeffect cgEffect = shaderNodeCgfx->effect();
         CGtechnique cgTechnique = cgGetNamedTechnique( cgEffect, techniqueName.c_str() );
@@ -714,7 +713,26 @@ namespace COLLADAMaya
             cgfxAttrDef* effectAttribute = *effectIt;
             setSetParam ( shaderNodeCgfx, effectAttribute );
         }
-#endif
+#else // MAYA_API_VERSION < 201200
+        // Get the setParams attributes
+        const cgfxRCPtr<const cgfxEffect>& cgEffect = shaderNodeCgfx->effect();
+        if( cgEffect.isNull() )
+        {
+            MGlobal::displayError ( "cgEffect is null." );
+            throw "cgEffect is null.";
+            return;
+        }
+
+        cgfxRCPtr<cgfxAttrDefList> effectAttributes = cgEffect->attrsFromEffect();
+
+        MString sResult, sTemp;
+        cgfxAttrDefList::iterator effectIt;
+        for ( effectIt=effectAttributes->begin(); effectIt; ++effectIt )
+        {
+            cgfxAttrDef* effectAttribute = *effectIt;
+            setSetParam ( shaderNodeCgfx, effectAttribute );
+        }
+#endif // MAYA_API_VERSION < 201200
     }
 
     // --------------------------------------
