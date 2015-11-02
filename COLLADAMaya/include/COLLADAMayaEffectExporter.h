@@ -210,6 +210,9 @@ namespace COLLADAMaya
         /** Exports the effects of a shader */
         void exportEffect ( MObject& shadingEngine );
 
+		/** Exports material extra attributes. */
+		void exportExtraAttributes(const MObject& shader, COLLADASW::EffectProfile& effectProfile);
+
         /** Generated the collada effect id. */
         const String generateColladaEffectId ( 
             const MObject& shader, 
