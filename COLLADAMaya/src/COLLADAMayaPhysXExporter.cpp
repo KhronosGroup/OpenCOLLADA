@@ -1074,6 +1074,66 @@ namespace COLLADAMaya
             if (isJoint)
                 getPhysXExporter().exportRotation(rotationAxis, ATTR_ROTATE_AXIS);
             getPhysXExporter().exportTranslation(rotatePivot * -1, ATTR_ROTATE_PIVOT_INVERSE);
+
+            // Special case for capsules.
+            // PhysX capsules are not oriented along any particular axis.
+            // Use the 2 extremity spheres to compute orientation.
+            int dummy = 0;
+            MString shapeType;
+            DagHelper::getPlugValue(shape, ATTR_SHAPE_TYPE, dummy, shapeType);
+            if (shapeType == SHAPE_TYPE_CAPSULE) {
+                MVector point1 = MVector::zero;
+                MVector point2 = MVector::zero;
+                DagHelper::getPlugValue(shape, ATTR_POINT_1, point1);
+                DagHelper::getPlugValue(shape, ATTR_POINT_2, point2);
+
+                MVector x(1.0, 0.0, 0.0);
+                MVector y(0.0, 1.0, 0.0);
+                MVector z(0.0, 0.0, 1.0);
+                MVector t(0.0, 0.0, 0.0);
+
+                t = (point1 + point2) / 2.0;
+
+                // COLLADA capsules are oriented along Y axis.
+                y = point2 - point1;
+                if (y.length() > 0.0) {
+                    y.normalize();
+
+                    x = MVector(1.0, 0.0, 0.0);
+                    z = MVector(0.0, 0.0, 1.0);
+
+                    // Check y axis alignment with (1, 0, 0) or (0, 0, 1) to avoid cross product singularity.
+                    double y_dot_x = y * x;
+                    double y_dot_z = y * z;
+
+                    // Choose dot product closer to 0
+                    if (abs(y_dot_x) < abs(y_dot_z)) { // Choose x for first cross product with y
+                        z = x ^ y;
+                        z.normalize();
+
+                        x = y ^ z;
+                        x.normalize();
+                    }
+                    else { // Choose z for first cross product with y
+                        x = y ^ z;
+                        x.normalize();
+
+                        z = x ^ y;
+                        z.normalize();
+                    }
+
+                    double m[4][4] = {
+                        { x.x, x.y, x.z, 0.0 },
+                        { y.x, y.y, y.z, 0.0 },
+                        { z.x, z.y, z.z, 0.0 },
+                        { t.x, t.y, t.z, 1.0 }
+                    };
+                    MMatrix matrix(m);
+                    MTransformationMatrix transform(matrix);
+                    getPhysXExporter().exportTranslation(transform.getTranslation(MSpace::kTransform));
+                    getPhysXExporter().exportRotation(transform.eulerRotation());
+                }
+            }
         }
 
         void exportExtra(const MObject & shape)
