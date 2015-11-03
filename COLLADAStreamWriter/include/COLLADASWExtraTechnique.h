@@ -13,7 +13,6 @@
 
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
-#include "COLLADASWTagType.h"
 #include "COLLADASWTechnique.h"
 #include <map>
 
@@ -62,7 +61,7 @@ namespace COLLADASW
         double ( *matrix ) [4];
 
         ParamType paramType;
-		TagType tagType;
+		String tagName;
 
 	};
 
@@ -149,27 +148,27 @@ namespace COLLADASW
         * Creates an extra and a technique tag with the profile name (if not already exist)
         * and writes the given parameter in the tags.
         */
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const String &value = "", const String &paramSid = "", TagType type = CUSTOM);
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value, const String &paramSid = "", TagType type = CUSTOM);
-        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value0, const int &value1, const String &paramSid = "", TagType type = CUSTOM);
-        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value0, const int &value1, const int &value2, const String &paramSid = "", TagType type = CUSTOM);
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value, const String &paramSid = "", TagType type = CUSTOM);
-        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value0, const double &value1, const String &paramSid = "", TagType type = CUSTOM);
-        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value0, const double &value1, const double &value2, const String &paramSid = "", TagType type = CUSTOM);
-        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value0, const double &value1, const double &value2, const double &value3, const String &paramSid = "", TagType type = CUSTOM);
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value, const String &paramSid = "", TagType type = CUSTOM);
-        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value0, const float &value1, const String &paramSid = "", TagType type = CUSTOM);
-        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value0, const float &value1, const float &value2, const String &paramSid = "", TagType type = CUSTOM);
-		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const bool &value, const String &paramSid = "", TagType type = CUSTOM);
-        void addExtraTechniqueEnumParameter(const String& profileName, const String& paramName, const String &enumStr = "", const String &paramSid = "", TagType type = CUSTOM);
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const String &value = "", const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value, const String &paramSid = "", const String& tagName = "");
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value0, const int &value1, const String &paramSid = "", const String& tagName = "");
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const int &value0, const int &value1, const int &value2, const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value, const String &paramSid = "", const String& tagName = "");
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value0, const double &value1, const String &paramSid = "", const String& tagName = "");
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value0, const double &value1, const double &value2, const String &paramSid = "", const String& tagName = "");
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const double &value0, const double &value1, const double &value2, const double &value3, const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value, const String &paramSid = "", const String& tagName = "");
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value0, const float &value1, const String &paramSid = "", const String& tagName = "");
+        void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value0, const float &value1, const float &value2, const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const bool &value, const String &paramSid = "", const String& tagName = "");
+        void addExtraTechniqueEnumParameter(const String& profileName, const String& paramName, const String &enumStr = "", const String &paramSid = "", const String& tagName = "");
 
         /** Adds a child element under the given profile. */
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const String &value = "", const String &paramSid = "", TagType type = CUSTOM);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const int &value, const String &paramSid = "", TagType type = CUSTOM);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const double &value, const String &paramSid = "", TagType type = CUSTOM);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const float &value, const String &paramSid = "", TagType type = CUSTOM);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const bool &value, const String &paramSid = "", TagType type = CUSTOM);
-		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String &paramSid = "", TagType type = CUSTOM);
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const String &value = "", const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const int &value, const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const double &value, const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const float &value, const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const bool &value, const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String &paramSid = "", const String& tagName = "");
 
         void addExtraTechniqueElement(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue);
 

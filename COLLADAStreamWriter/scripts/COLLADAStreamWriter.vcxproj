@@ -1259,7 +1259,6 @@
     <ClInclude Include="..\include\COLLADASWSource.h" />
     <ClInclude Include="..\include\COLLADASWStreamWriter.h" />
     <ClInclude Include="..\include\COLLADASWSurfaceInitOption.h" />
-    <ClInclude Include="..\include\COLLADASWTagType.h" />
     <ClInclude Include="..\include\COLLADASWTechnique.h" />
     <ClInclude Include="..\include\COLLADASWTechniqueFX.h" />
     <ClInclude Include="..\include\COLLADASWTexture.h" />

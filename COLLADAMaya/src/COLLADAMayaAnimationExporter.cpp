@@ -34,7 +34,6 @@
 #include "COLLADASWSource.h"
 #include "COLLADASWExtraTechnique.h"
 #include "COLLADASWLibraryAnimationClips.h"
-#include "COLLADASWTagType.h"
 
 #include "Math/COLLADABUMathUtils.h"
 
@@ -2017,7 +2016,7 @@ namespace COLLADAMaya
 				DagHelper::getPlugValue(clipNode, ATTR_EVENT_ANIMATION, isEventAnimation);
 				clip->colladaClip->setAnimationEvent(isEventAnimation);
 				
-				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation, "", COLLADASW::NEW_PARAM);
+				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation);
 
 
 				clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );

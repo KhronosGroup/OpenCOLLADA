@@ -226,7 +226,7 @@ namespace COLLADAMaya
 
         virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
 		{
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_BOOLEAN);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_BOOL);
 			mShaderFXExporter.mStreamWriter.appendText(value ? SHADERFX_TRUE : SHADERFX_FALSE);
 		}
 
@@ -235,14 +235,14 @@ namespace COLLADAMaya
 			const size_t size = 5;
 			char text[size];
 			snprintf(text, size, "0x%X", value);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_BYTE);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_BYTE);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
         virtual void onChar(MPlug & plug, const MString & name, char value) override
 		{
 			char text[2] = { value, '\0' };
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_BYTE);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_BYTE);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -250,7 +250,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%i", value);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_SHORT);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_SHORT);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -258,7 +258,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%i %i", value[0], value[1]);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_SHORT2);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_SHORT2);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -266,7 +266,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%i %i %i", value[0], value[1], value[2]);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_SHORT3);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_SHORT3);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -274,7 +274,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%i", value);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_LONG);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_LONG);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -282,7 +282,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%i %i", value[0], value[1]);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_LONG2);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_LONG2);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -290,7 +290,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%i %i %i", value[0], value[1], value[2]);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_LONG3);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_LONG3);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -298,7 +298,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%f", value);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_FLOAT);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_FLOAT);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -306,7 +306,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%f %f", value[0], value[1]);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_FLOAT2);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_FLOAT2);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -314,7 +314,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%f %f %f", value[0], value[1], value[2]);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_FLOAT3);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_FLOAT3);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -322,7 +322,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%f", value);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_DOUBLE);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_DOUBLE);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -330,7 +330,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%f %f", value[0], value[1]);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_DOUBLE2);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_DOUBLE2);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -338,7 +338,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%f %f %f", value[0], value[1], value[2]);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_DOUBLE3);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_DOUBLE3);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -346,7 +346,7 @@ namespace COLLADAMaya
 		{
 			char text[512];
 			sprintf(text, "%f %f %f %f", value[0], value[1], value[2], value[3]);
-			ScopedElement element(mShaderFXExporter.mStreamWriter, SHADERFX_DOUBLE4);
+			ScopedElement element(mShaderFXExporter.mStreamWriter, PARAM_TYPE_DOUBLE4);
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
@@ -372,7 +372,7 @@ namespace COLLADAMaya
 			else
 			{
 				// Export string
-				ScopedElement string(mShaderFXExporter.mStreamWriter, SHADERFX_STRING);
+				ScopedElement string(mShaderFXExporter.mStreamWriter, PARAM_TYPE_STRING);
 				mShaderFXExporter.mStreamWriter.appendText(value.asChar());
 			}
 		}

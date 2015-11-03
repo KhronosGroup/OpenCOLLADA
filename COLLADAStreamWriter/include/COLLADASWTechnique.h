@@ -45,29 +45,29 @@ namespace COLLADASW
         void addElement(const String & tagName, const String & attributeName, const String & attributeValue);
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const String &value = "", const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
+		void addParameter(const String &paramName, const String &value = "", const String &sid = "", const String &type = "", const String& tagName = "");
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const int &value, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
-        void addParameter(const String &paramName, const int &value0, const int &value1, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
-        void addParameter(const String &paramName, const int &value0, const int &value1, const int &value2, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
+		void addParameter(const String &paramName, const int &value, const String &sid = "", const String &type = "", const String& tagName = "");
+        void addParameter(const String &paramName, const int &value0, const int &value1, const String &sid = "", const String &type = "", const String& tagName = "");
+        void addParameter(const String &paramName, const int &value0, const int &value1, const int &value2, const String &sid = "", const String &type = "", const String& tagName = "");
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const double &value, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
-        void addParameter(const String &paramName, const double &value0, const double &value1, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
-        void addParameter(const String &paramName, const double &value0, const double &value1, const double &value2, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
-        void addParameter(const String &paramName, const double &value0, const double &value1, const double &value2, const double &value3, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
+		void addParameter(const String &paramName, const double &value, const String &sid = "", const String &type = "", const String& tagName = "");
+        void addParameter(const String &paramName, const double &value0, const double &value1, const String &sid = "", const String &type = "", const String& tagName = "");
+        void addParameter(const String &paramName, const double &value0, const double &value1, const double &value2, const String &sid = "", const String &type = "", const String& tagName = "");
+        void addParameter(const String &paramName, const double &value0, const double &value1, const double &value2, const double &value3, const String &sid = "", const String &type = "", const String& tagName = "");
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const float &value, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
-        void addParameter(const String &paramName, const float &value0, const float &value1, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
-        void addParameter(const String &paramName, const float &value0, const float &value1, const float &value2, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
+		void addParameter(const String &paramName, const float &value, const String &sid = "", const String &type = "", const String& tagName = "");
+        void addParameter(const String &paramName, const float &value0, const float &value1, const String &sid = "", const String &type = "", const String& tagName = "");
+        void addParameter(const String &paramName, const float &value0, const float &value1, const float &value2, const String &sid = "", const String &type = "", const String& tagName = "");
 
         /** Adds a parameter to the technique */
-		void addParameter(const String &paramName, const bool &value, const String &sid = "", const String &type = "", TagType tagType = CUSTOM);
+		void addParameter(const String &paramName, const bool &value, const String &sid = "", const String &type = "", const String& tagName = "");
 
         /** Adds a parameter to the technique */
-		void addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid = "", const String &type = "", TagType tagType = CUSTOM) const;
+		void addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid = "", const String &type = "", const String& tagName = "") const;
 
         /** Opens a tag with the given name and adds the TagCloser to the child element into a map */
         void addChildElement ( const String &childElementName );

@@ -448,33 +448,17 @@ namespace COLLADAMaya
         }
     };
 
-    template<typename T>
-    class NewParam : public Element
-    {
-    public:
-        NewParam(COLLADASW::StreamWriter& streamWriter, const String& sid, const String& typeName, const T & value)
-            : Element(streamWriter, COLLADASW::CSWC::CSW_ELEMENT_NEWPARAM, sid)
-        {
-            Type<T> type(streamWriter, typeName, value);
-        }
-
-        NewParam(COLLADASW::StreamWriter& streamWriter, const String& sid, const String& typeName, const T & value, uint numValues)
-            : Element(streamWriter, COLLADASW::CSWC::CSW_ELEMENT_NEWPARAM, sid)
-        {
-            Type<T> type(streamWriter, typeName, value, numValues);
-        }
-    };
-
     class ExtraAttributeExporter : public AttributeParser
     {
     public:
-        ExtraAttributeExporter(COLLADASW::StreamWriter& sw)
-            : mSW(sw)
+		ExtraAttributeExporter(COLLADASW::Technique& technique)
+            : mTechnique(technique)
             , mAttributeLevel(0)
         {}
 
-    protected:
+	private:
         int mAttributeLevel;
+		COLLADASW::Technique& mTechnique;
 
         // AttributeParser overrides
         
@@ -517,7 +501,7 @@ namespace COLLADAMaya
 
         virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
         {
-            NewParam<bool> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_BOOL, value);
+			mTechnique.addParameter(name.asChar(), value, "", PARAM_TYPE_BOOL, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onByte(MPlug & plug, const MString & name, char value) override
@@ -525,88 +509,88 @@ namespace COLLADAMaya
 			const size_t size = 5;
             char text[size];
             snprintf(text, size, "0x%X", value);
-            NewParam<String> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_STRING, text);
+			mTechnique.addParameter(name.asChar(), COLLADABU::StringUtils::translateToXML(text), "", PARAM_TYPE_BYTE, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onChar(MPlug & plug, const MString & name, char value) override
         {
             char text[2] = { value, '\0' };
-            NewParam<String> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_STRING, text);
+			mTechnique.addParameter(name.asChar(), COLLADABU::StringUtils::translateToXML(text), "", PARAM_TYPE_CHAR, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onShort(MPlug & plug, const MString & name, short value) override
         {
-            NewParam<short> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT, value);
+			mTechnique.addParameter(name.asChar(), value, "", PARAM_TYPE_SHORT, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onShort2(MPlug & plug, const MString & name, short value[2]) override
         {
-            NewParam<short*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT2, value, 2);
+			mTechnique.addParameter(name.asChar(), value[0], value[1], "", PARAM_TYPE_SHORT2, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onShort3(MPlug & plug, const MString & name, short value[3]) override
         {
-            NewParam<short*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT3, value, 3);
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], "", PARAM_TYPE_SHORT3, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onLong(MPlug & plug, const MString & name, int value) override
         {
-            NewParam<int> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT, value);
+			mTechnique.addParameter(name.asChar(), value, "", PARAM_TYPE_LONG, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onLong2(MPlug & plug, const MString & name, int value[2]) override
         {
-            NewParam<int*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT2, value, 2);
+			mTechnique.addParameter(name.asChar(), value[0], value[1], "", PARAM_TYPE_LONG2, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onLong3(MPlug & plug, const MString & name, int value[3]) override
         {
-            NewParam<int*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_INT3, value, 3);
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], "", PARAM_TYPE_LONG3, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onFloat(MPlug & plug, const MString & name, float value) override
         {
-            NewParam<float> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT, value);
+			mTechnique.addParameter(name.asChar(), value, "", "float", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
         {
-            NewParam<float*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT2, value, 2);
+			mTechnique.addParameter(name.asChar(), value[0], value[1], "", PARAM_TYPE_FLOAT2, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
         {
-            NewParam<float*> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT3, value, 3);
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], "", PARAM_TYPE_FLOAT3, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onDouble(MPlug & plug, const MString & name, double value) override
         {
-            NewParam<double> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_DOUBLE, value);
+			mTechnique.addParameter(name.asChar(), value, "", PARAM_TYPE_DOUBLE, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
         {
-            NewParam<double*> e(mSW, name.asChar(), "double2", value, 2);
+			mTechnique.addParameter(name.asChar(), value[0], value[1], "", PARAM_TYPE_DOUBLE2, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
         {
-            NewParam<double*> e(mSW, name.asChar(), "double3", value, 3);
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], "", PARAM_TYPE_DOUBLE3, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
         {
-            NewParam<double*> e(mSW, name.asChar(), "double4", value, 4);
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], value[3], "", PARAM_TYPE_DOUBLE4, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onString(MPlug & plug, const MString & name, const MString & value) override
         {
-            NewParam<String> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_STRING, value.asChar());
+			mTechnique.addParameter(name.asChar(), COLLADABU::StringUtils::translateToXML(value.asChar()), "", PARAM_TYPE_STRING, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
         {
-            NewParam<String> e(mSW, name.asChar(), "enum", enumName.asChar());
+			mTechnique.addParameter(name.asChar(), COLLADABU::StringUtils::translateToXML(enumName.asChar()), "", PARAM_TYPE_ENUM, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
         }
 
         virtual void onCompoundAttribute(MPlug & plug, const MString & name) override
@@ -623,9 +607,6 @@ namespace COLLADAMaya
             }
             return onDouble3(plug, name, values);
         }
-
-    private:
-        COLLADASW::StreamWriter& mSW;
     };
 
     // --------------------------------------------------------
@@ -645,7 +626,7 @@ namespace COLLADAMaya
         
         // Also export extra attributes
         MFnDependencyNode fnDependencyNode(mesh);
-        ExtraAttributeExporter extraAttributeExporter(*mSW);
+		ExtraAttributeExporter extraAttributeExporter(techniqueSource);
         AttributeParser::parseAttributes(fnDependencyNode, extraAttributeExporter);
 
         techniqueSource.closeTechnique();

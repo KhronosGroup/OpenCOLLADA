@@ -1134,68 +1134,68 @@ namespace COLLADAMaya
 
             virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onLong(MPlug & plug, const MString & name, int value) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onLong2(MPlug & plug, const MString & name, int value[2]) override
 			{
-                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onLong3(MPlug & plug, const MString & name, int value[3]) override
 			{
-                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onFloat(MPlug & plug, const MString & name, float value) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
 			{
-                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
 			{
-                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onDouble(MPlug & plug, const MString & name, double value) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
 			{
-                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
 			{
-                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
 			{
-                mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], value[3], "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], value[3], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onString(MPlug & plug, const MString & name, const MString & value) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(value.asChar())), "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(value.asChar())), "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
             virtual void onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
             {
                 // TODO export all possible enum values to be able to re-import them?
-                mVisualSceneNode.addExtraTechniqueEnumParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(enumName.asChar())), "", COLLADASW::NEW_PARAM);
+				mVisualSceneNode.addExtraTechniqueEnumParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(enumName.asChar())), "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
             }
 
             virtual void onCompoundAttribute(MPlug & plug, const MString & name) override
