@@ -98,7 +98,33 @@ namespace COLLADAMaya
 		MString attrName = fnAttr.name(&status);
 		if (!status) return;
 
-		if (attr.hasFn(MFn::kCompoundAttribute)) {
+		MPlug plug = node.findPlug(attr, &status);
+		if (!status) return;
+
+		// First handle numeric compound types
+		MFnNumericData::Type type;
+		if (IsNumericCompoundAttribute(attr, type))
+		{
+			parseNumeric(plug, type);
+
+			// Mark children as parsed
+			MFnCompoundAttribute fnCompoundAttribute(attr, &status);
+			if (!status) return;
+
+			unsigned int numChildren = fnCompoundAttribute.numChildren(&status);
+			if (!status) return;
+
+			for (unsigned int i = 0; i < fnCompoundAttribute.numChildren(); ++i)
+			{
+				MObject child = fnCompoundAttribute.child(i, &status);
+				if (!status) return;
+
+				MFnAttribute childFnAttr(child);
+				parsedAttributes.insert(childFnAttr.name().asChar());
+			}
+		}
+		// Other cases
+		else if (attr.hasFn(MFn::kCompoundAttribute)) {
             parseCompoundAttribute(node, attr, parsedAttributes);
 		}
 		else if (attr.hasFn(MFn::kEnumAttribute)) {
@@ -369,7 +395,7 @@ namespace COLLADAMaya
         MFnCompoundAttribute fnCompoundAttribute(attr, &status);
         if (!status) return;
 
-        uint numChildren = fnCompoundAttribute.numChildren(&status);
+        unsigned int numChildren = fnCompoundAttribute.numChildren(&status);
         if (!status) return;
 
         MPlug plug = node.findPlug(attr, &status);
@@ -384,7 +410,7 @@ namespace COLLADAMaya
         onCompoundAttribute(plug, name);
 
         // Recurse children
-        for (uint i = 0; i < fnCompoundAttribute.numChildren(); ++i)
+        for (unsigned int i = 0; i < fnCompoundAttribute.numChildren(); ++i)
         {
             MObject child = fnCompoundAttribute.child(i, &status);
             if (!status) return;
@@ -478,7 +504,7 @@ namespace COLLADAMaya
 		case MFnNumericData::kBoolean:			//!< Boolean.
 		{
 			bool value;
-			MStatus status = plug.getValue(value);
+			status = plug.getValue(value);
 			if (!status) return;
 			onBoolean(plug, name, value);
 		}
@@ -486,7 +512,7 @@ namespace COLLADAMaya
 		case MFnNumericData::kByte:				//!< One byte.
 		{
 			char value;
-			MStatus status = plug.getValue(value);
+			status = plug.getValue(value);
 			if (!status) return;
 			onByte(plug, name, value);
 		}
@@ -494,7 +520,7 @@ namespace COLLADAMaya
 		case MFnNumericData::kChar:				//!< One character.
 		{
 			char value;
-			MStatus status = plug.getValue(value);
+			status = plug.getValue(value);
 			if (!status) return;
 			onChar(plug, name, value);
 		}
@@ -502,131 +528,101 @@ namespace COLLADAMaya
 		case MFnNumericData::kShort:				//!< One short.
 		{
 			short value;
-			MStatus status = plug.getValue(value);
+			status = plug.getValue(value);
 			if (!status) return;
 			onShort(plug, name, value);
 		}
 		break;
 		case MFnNumericData::k2Short:			//!< Two shorts.
 		{
-			MStatus status;
+			MObject object;
+			status = plug.getValue(object);
+			if (!status) return;
+			MFnNumericData fnNumericData(object, &status);
+			if (!status) return;
 			short value[2];
-			MPlug plug0 = plug.child(0, &status);
-			if (!status) return;
-			MPlug plug1 = plug.child(1, &status);
-			if (!status) return;
-			status = plug0.getValue(value[0]);
-			if (!status) return;
-			status = plug1.getValue(value[1]);
+			status = fnNumericData.getData(value[0], value[1]);
 			if (!status) return;
 			onShort2(plug, name, value);
 		}
 		break;
 		case MFnNumericData::k3Short:			//!< Three shorts.
 		{
-			MStatus status;
+			MObject object;
+			status = plug.getValue(object);
+			if (!status) return;
+			MFnNumericData fnNumericData(object, &status);
+			if (!status) return;
 			short value[3];
-			MPlug plug0 = plug.child(0, &status);
-			if (!status) return;
-			MPlug plug1 = plug.child(1, &status);
-			if (!status) return;
-			MPlug plug2 = plug.child(2, &status);
-			if (!status) return;
-			status = plug0.getValue(value[0]);
-			if (!status) return;
-			status = plug1.getValue(value[1]);
-			if (!status) return;
-			status = plug2.getValue(value[2]);
+			status = fnNumericData.getData(value[0], value[1], value[2]);
 			if (!status) return;
 			onShort3(plug, name, value);
 		}
 		break;
-		case MFnNumericData::kLong:				//!< One long. Same as int since "long" is not platform-consistent.
+		case MFnNumericData::kInt:				//!< One long. Same as int since "long" is not platform-consistent.
 		{
 			int value;
-			MStatus status = plug.getValue(value);
+			status = plug.getValue(value);
 			if (!status) return;
-			onLong(plug, name, value);
+			onInteger(plug, name, value);
 		}
 		break;
-		//case MFnNumericData::Type::kInt:		//!< One int.
-		//	break;
-		case MFnNumericData::k2Long:				//!< Two longs. Same as 2 ints since "long" is not platform-consistent.
+		case MFnNumericData::k2Int:				//!< Two longs. Same as 2 ints since "long" is not platform-consistent.
 		{
-			MStatus status;
+			MObject object;
+			status = plug.getValue(object);
+			if (!status) return;
+			MFnNumericData fnNumericData(object, &status);
+			if (!status) return;
 			int value[2];
-			MPlug plug0 = plug.child(0, &status);
+			status = fnNumericData.getData(value[0], value[1]);
 			if (!status) return;
-			MPlug plug1 = plug.child(1, &status);
-			if (!status) return;
-			status = plug0.getValue(value[0]);
-			if (!status) return;
-			status = plug1.getValue(value[1]);
-			if (!status) return;
-			onLong2(plug, name, value);
+			onInteger2(plug, name, value);
 		}
 		break;
-		//case MFnNumericData::Type::k2Int:		//!< Two ints.
-		//	break;
-		case MFnNumericData::k3Long:				//!< Three longs. Same as 3 ints since "long" is not platform-consistent.
+		case MFnNumericData::k3Int:				//!< Three longs. Same as 3 ints since "long" is not platform-consistent.
 		{
-			MStatus status;
+			MObject object;
+			status = plug.getValue(object);
+			if (!status) return;
+			MFnNumericData fnNumericData(object, &status);
+			if (!status) return;
 			int value[3];
-			MPlug plug0 = plug.child(0, &status);
+			status = fnNumericData.getData(value[0], value[1], value[2]);
 			if (!status) return;
-			MPlug plug1 = plug.child(1, &status);
-			if (!status) return;
-			MPlug plug2 = plug.child(2, &status);
-			if (!status) return;
-			status = plug0.getValue(value[0]);
-			if (!status) return;
-			status = plug1.getValue(value[1]);
-			if (!status) return;
-			status = plug2.getValue(value[2]);
-			if (!status) return;
-			onLong3(plug, name, value);
+			onInteger3(plug, name, value);
 		}
 		break;
-		//case MFnNumericData::Type::k3Int:		//!< Three ints.
-		//	break;
 		case MFnNumericData::kFloat:				//!< One float.
 		{
 			float value;
-			MStatus status = plug.getValue(value);
+			status = plug.getValue(value);
 			if (!status) return;
 			onFloat(plug, name, value);
 		}
 		break;
 		case MFnNumericData::k2Float:			//!< Two floats.
 		{
-			MStatus status;
+			MObject object;
+			status = plug.getValue(object);
+			if (!status) return;
+			MFnNumericData fnNumericData(object, &status);
+			if (!status) return;
 			float value[2];
-			MPlug plug0 = plug.child(0, &status);
-			if (!status) return;
-			MPlug plug1 = plug.child(1, &status);
-			if (!status) return;
-			status = plug0.getValue(value[0]);
-			if (!status) return;
-			status = plug1.getValue(value[1]);
+			status = fnNumericData.getData(value[0], value[1]);
 			if (!status) return;
 			onFloat2(plug, name, value);
 		}
 		break;
 		case MFnNumericData::k3Float:			//!< Three floats.
 		{
-			MStatus status;
+			MObject object;
+			status = plug.getValue(object);
+			if (!status) return;
+			MFnNumericData fnNumericData(object, &status);
+			if (!status) return;
 			float value[3];
-			MPlug plug0 = plug.child(0, &status);
-			if (!status) return;
-			MPlug plug1 = plug.child(1, &status);
-			if (!status) return;
-			MPlug plug2 = plug.child(2, &status);
-			if (!status) return;
-			status = plug0.getValue(value[0]);
-			if (!status) return;
-			status = plug1.getValue(value[1]);
-			if (!status) return;
-			status = plug2.getValue(value[2]);
+			status = fnNumericData.getData(value[0], value[1], value[2]);
 			if (!status) return;
 			onFloat3(plug, name, value);
 		}
@@ -634,64 +630,46 @@ namespace COLLADAMaya
 		case MFnNumericData::kDouble:			//!< One double.
 		{
 			double value;
-			MStatus status = plug.getValue(value);
+			status = plug.getValue(value);
 			if (!status) return;
 			onDouble(plug, name, value);
 		}
 		break;
 		case MFnNumericData::k2Double:			//!< Two doubles.
 		{
-			MStatus status;
+			MObject object;
+			status = plug.getValue(object);
+			if (!status) return;
+			MFnNumericData fnNumericData(object, &status);
+			if (!status) return;
 			double value[2];
-			MPlug plug0 = plug.child(0, &status);
-			if (!status) return;
-			MPlug plug1 = plug.child(1, &status);
-			if (!status) return;
-			status = plug0.getValue(value[0]);
-			if (!status) return;
-			status = plug1.getValue(value[1]);
+			status = fnNumericData.getData(value[0], value[1]);
 			if (!status) return;
 			onDouble2(plug, name, value);
 		}
 		break;
 		case MFnNumericData::k3Double:			//!< Three doubles.
 		{
-			MStatus status;
+			MObject object;
+			status = plug.getValue(object);
+			if (!status) return;
+			MFnNumericData fnNumericData(object, &status);
+			if (!status) return;
 			double value[3];
-			MPlug plug0 = plug.child(0, &status);
-			if (!status) return;
-			MPlug plug1 = plug.child(1, &status);
-			if (!status) return;
-			MPlug plug2 = plug.child(2, &status);
-			if (!status) return;
-			status = plug0.getValue(value[0]);
-			if (!status) return;
-			status = plug1.getValue(value[1]);
-			if (!status) return;
-			status = plug2.getValue(value[2]);
+			status = fnNumericData.getData(value[0], value[1], value[2]);
 			if (!status) return;
 			onDouble3(plug, name, value);
 		}
 		break;
 		case MFnNumericData::k4Double:			//!< Four doubles.
 		{
-			MStatus status;
+			MObject object;
+			status = plug.getValue(object);
+			if (!status) return;
+			MFnNumericData fnNumericData(object, &status);
+			if (!status) return;
 			double value[4];
-			MPlug plug0 = plug.child(0, &status);
-			if (!status) return;
-			MPlug plug1 = plug.child(1, &status);
-			if (!status) return;
-			MPlug plug2 = plug.child(2, &status);
-			if (!status) return;
-			MPlug plug3 = plug.child(3, &status);
-			if (!status) return;
-			status = plug0.getValue(value[0]);
-			if (!status) return;
-			status = plug1.getValue(value[1]);
-			if (!status) return;
-			status = plug2.getValue(value[2]);
-			if (!status) return;
-			status = plug3.getValue(value[3]);
+			status = fnNumericData.getData(value[0], value[1], value[2], value[3]);
 			if (!status) return;
 			onDouble4(plug, name, value);
 		}
@@ -776,4 +754,40 @@ namespace COLLADAMaya
 
         onMesh(plug, name, meshNode);
     }
+
+	bool AttributeParser::IsNumericCompoundAttribute(const MObject& attr, MFnNumericData::Type& type)
+	{
+		MFn::Type apiType = attr.apiType();
+		switch (apiType)
+		{
+		case MFn::kAttribute2Double:
+			type = MFnNumericData::k2Double;
+			return true;
+		case MFn::kAttribute2Float:
+			type = MFnNumericData::k2Float;
+			return true;
+		case MFn::kAttribute2Int:
+			type = MFnNumericData::k2Int;
+			return true;
+		case MFn::kAttribute2Short:
+			type = MFnNumericData::k2Short;
+			return true;
+		case MFn::kAttribute3Double:
+			type = MFnNumericData::k3Double;
+			return true;
+		case MFn::kAttribute3Float:
+			type = MFnNumericData::k3Float;
+			return true;
+		case MFn::kAttribute3Int:
+			type = MFnNumericData::k3Int;
+			return true;
+		case MFn::kAttribute3Short:
+			type = MFnNumericData::k3Short;
+			return true;
+		case MFn::kAttribute4Double:
+			type = MFnNumericData::k4Double;
+			return true;
+		}
+		return false;
+	}
 }

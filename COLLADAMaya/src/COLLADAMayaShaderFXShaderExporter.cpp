@@ -270,7 +270,7 @@ namespace COLLADAMaya
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
-        virtual void onLong(MPlug & plug, const MString & name, int value) override
+        virtual void onInteger(MPlug & plug, const MString & name, int value) override
 		{
 			char text[512];
 			sprintf(text, "%i", value);
@@ -278,7 +278,7 @@ namespace COLLADAMaya
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
-        virtual void onLong2(MPlug & plug, const MString & name, int value[2]) override
+        virtual void onInteger2(MPlug & plug, const MString & name, int value[2]) override
 		{
 			char text[512];
 			sprintf(text, "%i %i", value[0], value[1]);
@@ -286,7 +286,7 @@ namespace COLLADAMaya
 			mShaderFXExporter.mStreamWriter.appendText(text);
 		}
 
-        virtual void onLong3(MPlug & plug, const MString & name, int value[3]) override
+        virtual void onInteger3(MPlug & plug, const MString & name, int value[3]) override
 		{
 			char text[512];
 			sprintf(text, "%i %i %i", value[0], value[1], value[2]);

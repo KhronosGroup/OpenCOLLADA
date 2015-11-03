@@ -22,7 +22,6 @@
 #include "COLLADAMayaAnimationExporter.h"
 
 #include <maya/MFnAttribute.h>
-#include <maya/MFnCompoundAttribute.h>
 #include <maya/MFnLight.h>
 #include <maya/MFnNonAmbientLight.h>
 #include <maya/MFnAmbientLight.h>
@@ -278,18 +277,14 @@ namespace COLLADAMaya
         public:
             ExtraAttributeExporter(COLLADASW::Light& light)
                 : mLight(light)
-                , mAttributeLevel(0)
             {}
 
         private:
             COLLADASW::Light& mLight;
-            int mAttributeLevel;
 
         protected:
             virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
             {
-                ++mAttributeLevel;
-
                 MStatus status;
                 MFnAttribute fnAttr(attr, &status);
                 if (!status) return false;
@@ -309,18 +304,7 @@ namespace COLLADAMaya
                 if (isHidden)
                     return false;
 
-                if (mAttributeLevel > 1) {
-                    // Don't export compound attribute internal attributes as standalone newparam.
-                    // Compound internal attributes are exported in onCompoundAttribute().
-                    return false;
-                }
-
                 return true;
-            }
-
-            virtual void onAfterAttribute(MFnDependencyNode& node, MObject& attr) override
-            {
-                --mAttributeLevel;
             }
 
             virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
@@ -328,17 +312,17 @@ namespace COLLADAMaya
 				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
             }
 
-            virtual void onLong(MPlug & plug, const MString & name, int value) override
+            virtual void onInteger(MPlug & plug, const MString & name, int value) override
             {
 				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
             }
 
-            virtual void onLong2(MPlug & plug, const MString & name, int value[2]) override
+            virtual void onInteger2(MPlug & plug, const MString & name, int value[2]) override
             {
 				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
             }
 
-            virtual void onLong3(MPlug & plug, const MString & name, int value[3]) override
+            virtual void onInteger3(MPlug & plug, const MString & name, int value[3]) override
             {
 				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
             }
@@ -387,21 +371,6 @@ namespace COLLADAMaya
             {
                 // TODO export all possible enum values to be able to re-import them?
 				mLight.addExtraTechniqueEnumParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(enumName.asChar())), "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
-            }
-
-            virtual void onCompoundAttribute(MPlug & plug, const MString & name) override
-            {
-                MObject object = plug.node();
-                MFnDependencyNode node(object);
-                MFnCompoundAttribute compoundAttribute(plug.attribute());
-                // Compound extra attributes are always Vector of 3 doubles
-                double values[3] = { 0.0 };
-                for (uint i = 0; i < compoundAttribute.numChildren(); ++i) {
-                    MObject child = compoundAttribute.child(i);
-                    MPlug childPlug = node.findPlug(child);
-                    childPlug.getValue(values[i]);
-                }
-                return onDouble3(plug, name, values);
             }
         };
 

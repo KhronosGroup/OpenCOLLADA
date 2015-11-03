@@ -67,9 +67,9 @@ namespace COLLADAMaya
 		virtual void onShort			    (MPlug & plug, const MString & name, short value)			                    { }
 		virtual void onShort2			    (MPlug & plug, const MString & name, short value[2])		                    { }
 		virtual void onShort3			    (MPlug & plug, const MString & name, short value[3])		                    { }
-		virtual void onLong				    (MPlug & plug, const MString & name, int value)				                    { }
-		virtual void onLong2				(MPlug & plug, const MString & name, int value[2])			                    { }
-		virtual void onLong3				(MPlug & plug, const MString & name, int value[3])			                    { }
+		virtual void onInteger				(MPlug & plug, const MString & name, int value)				                    { }
+		virtual void onInteger2				(MPlug & plug, const MString & name, int value[2])			                    { }
+		virtual void onInteger3				(MPlug & plug, const MString & name, int value[3])			                    { }
 		virtual void onFloat				(MPlug & plug, const MString & name, float value)			                    { }
 		virtual void onFloat2			    (MPlug & plug, const MString & name, float value[2])		                    { }
 		virtual void onFloat3			    (MPlug & plug, const MString & name, float value[3])		                    { }
@@ -99,6 +99,8 @@ namespace COLLADAMaya
 		void parseNumeric           (MPlug plug, MFnNumericData::Type type);
 		void parseStringData        (MFnDependencyNode & fnNode, MObject & attribute);
         void parseMeshData          (MFnDependencyNode & fnNode, MObject & attribute);
+
+		static bool IsNumericCompoundAttribute(const MObject& attribute, MFnNumericData::Type& type);
 
         friend class AutoOnAfterAttribute;
     };

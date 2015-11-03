@@ -30,7 +30,6 @@
 #include <maya/MAngle.h>
 #include <maya/MDistance.h>
 #include <maya/MFnAttribute.h>
-#include <maya/MFnCompoundAttribute.h>
 #include <maya/MFnTransform.h>
 #include <maya/MString.h>
 #include <maya/MTime.h>
@@ -108,7 +107,6 @@ namespace COLLADAMaya
         AttributeExporter(PhysXExporter& exporter, const std::set<MString, MStringComp> & attributes)
             : mPhysXExporter(exporter)
             , mAttributes(attributes)
-            , mAttributeLevel(0)
         {}
 
     protected:
@@ -121,23 +119,12 @@ namespace COLLADAMaya
             MString attrName = fnAttr.name(&status);
             if (!status) return false;
 
-            if (mAttributeLevel > 1) {
-                // Don't export compound attribute internal attributes as standalone newparam.
-                // Compound internal attributes are exported in onCompoundAttribute().
-                return false;
-            }
-
             std::set<MString, MStringComp>::const_iterator it = mAttributes.find(attrName);
             if (it == mAttributes.end()) {
                 return false;
             }
 
             return true;
-        }
-
-        virtual void onAfterAttribute(MFnDependencyNode& node, MObject& attr) override
-        {
-            --mAttributeLevel;
         }
 
         virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
@@ -189,21 +176,21 @@ namespace COLLADAMaya
             mPhysXExporter.getStreamWriter().appendValues(values, 3);
         }
 
-        virtual void onLong(MPlug & plug, const MString & name, int value) override
+        virtual void onInteger(MPlug & plug, const MString & name, int value) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value);
         }
 
-        virtual void onLong2(MPlug & plug, const MString & name, int value[2]) override
+        virtual void onInteger2(MPlug & plug, const MString & name, int value[2]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value, 2);
         }
 
-        virtual void onLong3(MPlug & plug, const MString & name, int value[3]) override
+        virtual void onInteger3(MPlug & plug, const MString & name, int value[3]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
@@ -280,35 +267,6 @@ namespace COLLADAMaya
             mPhysXExporter.getMeshURI(meshObject, meshURI);
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, meshURI);
-        }
-
-        // TODO if needed
-        //virtual MStatus onConnection(MPlug & plug, const MString & name, MPlug & externalPlug) override
-        //{
-        //    //String nameStr(name.asChar());
-        //    //URI objectURI;
-        //    //MObject attr = externalPlug.attribute();
-        //    //MFnAttribute fnAttr(attr);
-        //    //MString attrName = fnAttr.name();
-        //    //Element e(mPhysXExporter, nameStr);
-        //    //mPhysXExporter.getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, objectURI);
-        //    //mPhysXExporter.getStreamWriter().appendText(attrName.asChar());
-        //    return MS::kSuccess;
-        //}
-
-        virtual void onCompoundAttribute(MPlug & plug, const MString & name) override
-        {
-            MObject object = plug.node();
-            MFnDependencyNode node(object);
-            MFnCompoundAttribute compoundAttribute(plug.attribute());
-            // Compound extra attributes are always Vector of 3 doubles
-            double values[3] = { 0.0 };
-            for (uint i = 0; i < compoundAttribute.numChildren(); ++i) {
-                MObject child = compoundAttribute.child(i);
-                MPlug childPlug = node.findPlug(child);
-                childPlug.getValue(values[i]);
-            }
-            return onDouble3(plug, name, values);
         }
 
         virtual void onAngle(MPlug & plug, const MString & name, MAngle & angle) override
