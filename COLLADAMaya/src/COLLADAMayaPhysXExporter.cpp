@@ -150,8 +150,9 @@ namespace COLLADAMaya
         virtual void onByte(MPlug & plug, const MString & name, char value) override
         {
             String nameStr(name.asChar());
-            char text[5];
-            sprintf(text, "0x%X", value);
+			const size_t size = 5;
+			char text[size];
+			snprintf(text, size, "0x%X", value);
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(text);
         }

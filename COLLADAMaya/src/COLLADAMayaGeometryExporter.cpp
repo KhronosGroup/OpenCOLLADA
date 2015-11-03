@@ -522,8 +522,9 @@ namespace COLLADAMaya
 
         virtual void onByte(MPlug & plug, const MString & name, char value) override
         {
-            char text[5];
-            sprintf(text, "0x%X", value);
+			const size_t size = 5;
+            char text[size];
+            snprintf(text, size, "0x%X", value);
             NewParam<String> e(mSW, name.asChar(), COLLADASW::CSWC::CSW_VALUE_TYPE_STRING, text);
         }
 
