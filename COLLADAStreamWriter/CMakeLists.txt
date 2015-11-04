@@ -65,7 +65,6 @@ set(INST_SRC
 	include/COLLADASWSource.h
 	include/COLLADASWStreamWriter.h
 	include/COLLADASWSurfaceInitOption.h
-	include/COLLADASWTagType.h
 	include/COLLADASWTechnique.h
 	include/COLLADASWTechniqueFX.h
 	include/COLLADASWTexture.h
