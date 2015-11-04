@@ -98,13 +98,13 @@ namespace COLLADAMaya
 		MString attrName = fnAttr.name(&status);
 		if (!status) return;
 
-		MPlug plug = node.findPlug(attr, &status);
-		if (!status) return;
-
 		// First handle numeric compound types
 		MFnNumericData::Type type;
 		if (IsNumericCompoundAttribute(attr, type))
 		{
+			MPlug plug = node.findPlug(attr, &status);
+			if (!status) return;
+
 			parseNumeric(plug, type);
 
 			// Mark children as parsed
