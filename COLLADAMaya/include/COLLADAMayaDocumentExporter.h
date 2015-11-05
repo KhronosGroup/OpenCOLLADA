@@ -35,6 +35,7 @@ namespace COLLADAMaya
     class ImageExporter;
     class GeometryExporter;
 	class PhysicsExporter;
+    class PhysXExporter;
     class VisualSceneExporter;
 	class PhysicsSceneExporter;
     class AnimationExporter;
@@ -77,6 +78,9 @@ namespace COLLADAMaya
 
 		/** Exports the geometry. */
 		PhysicsExporter* mPhysicsExporter;
+
+        /** Exports PhysX. */
+        PhysXExporter* mPhysXExporter;
 
         /** Exports the visual scene. */
         VisualSceneExporter* mVisualSceneExporter;
@@ -220,6 +224,12 @@ namespace COLLADAMaya
          * @return PhysicsExporter* Pointer to the physics exporter
          */
         PhysicsExporter* getPhysicsExporter();
+
+        /**
+         * Returns a pointer to the PhysX exporter.
+         * @return PhysXExporter* Pointer to the PhysX exporter
+         */
+        PhysXExporter* getPhysXExporter();
 
         /**
 		* Returns a pointer to the physics scene exporter.

@@ -20,6 +20,7 @@
 #include <maya/MFnAttribute.h>
 #include <maya/MFnComponentListData.h>
 #include <maya/MFnDependencyNode.h>
+#include <maya/MFnEnumAttribute.h>
 #include <maya/MFnMatrixData.h>
 #include <maya/MFnNumericData.h>
 #include <maya/MFnSet.h>
@@ -820,6 +821,24 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
+    bool DagHelper::getPlugValue(const MObject& node, const String attributeName, int& enumValue, MString& enumName)
+    {
+        MStatus status;
+        MPlug plug = MFnDependencyNode(node).findPlug(attributeName.c_str(), &status);
+        if (!status) return false;
+        return getPlugValue(plug, enumValue, enumName);
+    }
+
+    //---------------------------------------------------
+    bool DagHelper::getPlugValue(const MObject& node, const String attributeName, MObject& value)
+    {
+        MStatus status;
+        MPlug plug = MFnDependencyNode(node).findPlug(attributeName.c_str(), &status);
+        if (!status) return false;
+        return getPlugValue(plug, value);
+    }
+
+    //---------------------------------------------------
     bool DagHelper::getPlugValue ( const MPlug& plug, MVector& value )
     {
         MObject obj;
@@ -834,6 +853,35 @@ namespace COLLADAMaya
 		COLLADABU_ASSERT ( status );
         value = MVector ( x,y,z );
 
+        return true;
+    }
+
+    //---------------------------------------------------
+    bool DagHelper::getPlugValue(const MPlug& plug, int& enumValue, MString& enumName)
+    {
+        MStatus status;
+
+        MObject attr;
+        attr = plug.attribute(&status);
+        if (!status) return false;
+
+        MFnEnumAttribute fnEnum(attr, &status);
+        if (!status) return false;
+
+        status = plug.getValue(enumValue);
+        if (!status) return false;
+
+        enumName = fnEnum.fieldName(enumValue, &status);
+        if (!status) return status;
+
+        return true;
+    }
+
+    //---------------------------------------------------
+    bool DagHelper::getPlugValue(const MPlug& plug, MObject& value)
+    {
+        MStatus status = plug.getValue(value);
+        if (!status) return false;
         return true;
     }
 

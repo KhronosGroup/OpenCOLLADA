@@ -65,226 +65,189 @@ namespace COLLADASW
     }
 
 	//---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const String &value, const String &sid, const String &type, TagType tagType)
+	void Technique::addParameter(const String &paramName, const String &value, const String &sid, const String &type, const String& tagName)
     {
-		switch (tagType)
-		{
-			case CUSTOM:
-			{
-				mSW->openElement(paramName);
-
-				if (!sid.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
-
-				if (!type.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
-
-				mSW->appendValues(value);
-				mSW->closeElement();
-			}
-			break;
-
-			case NEW_PARAM:
-			{
-				NewParamString newParam(mSW);
-
-				newParam.openParam(paramName);
-				newParam.appendValues(value);
-
-				newParam.closeParam();
-			}
-			break;
-
-			default:
-				break;
-		}
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value);
+		mSW->closeElement();
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const bool &value, const String &sid, const String &type, TagType tagType)
+	void Technique::addParameter(const String &paramName, const bool &value, const String &sid, const String &type, const String& tagName)
     {
-		switch (tagType)
-		{
-			case CUSTOM:
-			{
-				mSW->openElement(paramName);
-
-				if (!sid.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
-
-				if (!type.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
-
-				mSW->appendValues(value);
-				mSW->closeElement();
-			}
-			break;
-
-			case NEW_PARAM:
-			{
-				NewParamBool newParam(mSW);
-
-				newParam.openParam(paramName);
-				newParam.appendValues(value);
-
-				newParam.closeParam();
-			}
-			break;
-
-			default:
-				break;
-		}
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value);
+		mSW->closeElement();
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const int &value, const String &sid, const String &type, TagType tagType)
+	void Technique::addParameter(const String &paramName, const int &value, const String &sid, const String &type, const String& tagName)
     {
-		switch (tagType)
-		{
-			case CUSTOM:
-			{
-				mSW->openElement(paramName);
-
-				if (!sid.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
-
-				if (!type.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
-
-				mSW->appendValues(value);
-				mSW->closeElement();
-			}
-			break;
-
-			case NEW_PARAM:
-			{
-				NewParamInt newParam(mSW);
-
-				newParam.openParam(paramName);
-				newParam.appendValues(value);
-
-				newParam.closeParam();
-			}
-			break;
-
-			default:
-				break;
-		}
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value);
+		mSW->closeElement();
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const double &value, const String &sid, const String &type, TagType tagType)
+    void Technique::addParameter(const String &paramName, const int &value0, const int &value1, const String &sid, const String &type, const String& tagName)
     {
-		switch (tagType)
-		{
-			case CUSTOM:
-			{
-				mSW->openElement(paramName);
-
-				if (!sid.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
-
-				if (!type.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
-
-				mSW->appendValues(value);
-				mSW->closeElement();
-			}
-			break;
-
-			case NEW_PARAM:
-			{
-				NewParamDouble newParam(mSW);
-
-				newParam.openParam(paramName);
-				newParam.appendValues(value);
-
-				newParam.closeParam();
-			}
-			break;
-
-			default:
-				break;
-		}
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value0, value1);
+		mSW->closeElement();
     }
 
     //---------------------------------------------------------------
-	void Technique::addParameter(const String &paramName, const float &value, const String &sid, const String &type, TagType tagType)
+    void Technique::addParameter(const String &paramName, const int &value0, const int &value1, const int &value2, const String &sid, const String &type, const String& tagName)
     {
-		switch (tagType)
-		{
-			case CUSTOM:
-			{
-				mSW->openElement(paramName);
-
-				if (!sid.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
-
-				if (!type.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
-
-				mSW->appendValues(value);
-				mSW->closeElement();
-			}
-			break;
-
-			case NEW_PARAM:
-			{
-				NewParamFloat newParam(mSW);
-
-				newParam.openParam(paramName);
-				newParam.appendValues(value);
-
-				newParam.closeParam();
-			}
-			break;
-
-			default:
-				break;
-		}
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		int values[] = { value0, value1, value2 };
+		mSW->appendValues(values, 3);
+		mSW->closeElement();
     }
 
     //---------------------------------------------------------------
-	void Technique::addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid, const String &type, TagType tagType) const
+	void Technique::addParameter(const String &paramName, const double &value, const String &sid, const String &type, const String& tagName)
     {
-		switch (tagType)
-		{
-			case CUSTOM:
-			{
-				mSW->openElement(paramName);
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value);
+		mSW->closeElement();
+    }
 
-				if (!sid.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+    //---------------------------------------------------------------
+    void Technique::addParameter(const String &paramName, const double &value0, const double &value1, const String &sid, const String &type, const String& tagName)
+    {
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value0, value1);
+		mSW->closeElement();
+    }
 
-				if (!type.empty())
-					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+    //---------------------------------------------------------------
+    void Technique::addParameter(const String &paramName, const double &value0, const double &value1, const double &value2, const String &sid, const String &type, const String& tagName)
+    {
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value0, value1, value2);
+		mSW->closeElement();
+    }
 
-				mSW->appendValues(matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3]);
-				mSW->appendValues(matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3]);
-				mSW->appendValues(matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3]);
-				mSW->appendValues(matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
-				mSW->closeElement();
-			}
-			break;
-			
-			case NEW_PARAM:
-			{
-				NewParamFloat4x4 newParam(mSW);
+    //---------------------------------------------------------------
+    void Technique::addParameter(const String &paramName, const double &value0, const double &value1, const double &value2, const double &value3, const String &sid, const String &type, const String& tagName)
+    {
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value0, value1, value2, value3);
+		mSW->closeElement();
+    }
 
-				newParam.openParam(paramName);
+    //---------------------------------------------------------------
+	void Technique::addParameter(const String &paramName, const float &value, const String &sid, const String &type, const String& tagName)
+    {
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value);
+		mSW->closeElement();
+    }
 
-				newParam.appendValues(matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3]);
-				newParam.appendValues(matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3]);
-				newParam.appendValues(matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3]);
-				newParam.appendValues(matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
+    //---------------------------------------------------------------
+    void Technique::addParameter(const String &paramName, const float &value0, const float &value1, const String &sid, const String &type, const String& tagName)
+    {
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value0, value1);
+		mSW->closeElement();
+    }
 
-				newParam.closeParam();
-			}
-			break;
+    //---------------------------------------------------------------
+    void Technique::addParameter(const String &paramName, const float &value0, const float &value1, const float &value2, const String &sid, const String &type, const String& tagName)
+    {
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(value0, value1, value2);
+		mSW->closeElement();
+    }
 
-			default:
-				break;
-		}
+    //---------------------------------------------------------------
+	void Technique::addMatrixParameter(const String &paramName, const double matrix[][4], const String &sid, const String &type, const String& tagName) const
+    {
+		mSW->openElement(tagName == "" ? paramName : tagName);
+		if (!sid.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+		else if (!paramName.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_SID, paramName);
+		if (!type.empty())
+			mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, type);
+		mSW->appendValues(matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3]);
+		mSW->appendValues(matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3]);
+		mSW->appendValues(matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3]);
+		mSW->appendValues(matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
+		mSW->closeElement();
     }
 
     //---------------------------------------------------------------

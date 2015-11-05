@@ -50,6 +50,10 @@ namespace COLLADAMaya
             LIGHT,
             PHYSIK,
 			PHYSIK_BULLET,
+            PHYSX_RIGID_SOLVER,
+            PHYSX_RIGID_BODY,
+            PHYSX_RIGID_CONSTRAINT,
+            PHYSX_SHAPE,
             SPLINE,
             NURBS,
             EMITTER,
@@ -117,7 +121,7 @@ namespace COLLADAMaya
         virtual ~SceneElement ();
 
         /** Returns the node path */
-        const MDagPath getPath () const;
+        const MDagPath& getPath () const;
 
         /** Returns the node */
         const MObject& getNode () const;

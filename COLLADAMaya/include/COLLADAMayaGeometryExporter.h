@@ -123,37 +123,37 @@ namespace COLLADAMaya
         bool exportGeometry ( SceneElement* sceneElement );
 
         /** Exports all geometry data of the current mesh. */
-        bool exportMesh ( MFnMesh& fnMesh, const String& meshId, const String& meshName );
+        bool exportMesh ( MObject& fnMesh, const String& meshId, const String& meshName );
 
         /**
          * Get the uv set names of the current mesh.
          * @param fnMesh The mesh object.
          * @param uvSetNames String array for the uv set names.
          */
-        void getUVSetNames( const MFnMesh &fnMesh, MStringArray &uvSetNames );
+        void getUVSetNames( const MObject &mesh, MStringArray &uvSetNames );
 
         /** Exports an extra tag. */
-        void exportExtraTechniqueParameters ( const MFnMesh& fnMesh, const String& mayaMeshName );
+        void exportExtraTechniqueParameters ( const MObject& mesh, const String& mayaMeshName );
 
         /** Exports the double sided extra tag. */
-        bool isDoubleSided ( const MFnMesh& fnMesh );
+        bool isDoubleSided(const MObject& mesh);
 
         /** Export the vertex positions of the current mesh */
-        void exportVertexPositions ( const MFnMesh& fnMesh, const String& meshId );
+        void exportVertexPositions(const MObject& mesh, const String& meshId);
 
         /** Export the vertex normals of the current mesh */
-        bool exportVertexNormals ( const MFnMesh& fnMesh, const String& meshId );
+        bool exportVertexNormals(MObject& mesh, const String& meshId);
 
         /** Implement TangentSource and BinormalSource. */
         void exportTangentsAndBinormals( 
-            const MFnMesh& fnMesh, 
+            MObject& mesh,
             const String& meshId, 
             const bool perVertexNormals, 
             const MFloatVectorArray& normals );
 
         /** Calculate the geometric tangents and binormals(T/Bs). */
         void getTangents( 
-            const MFnMesh& fnMesh, 
+            const MObject& mesh, 
             const MFloatVectorArray& normals, 
             uint normalCount, 
             MVectorArray& binormals, 
@@ -161,14 +161,14 @@ namespace COLLADAMaya
 
         /** Calculate the geometric tangents and binormals(T/Bs) in case of "per vertex normals". */
         void getPerVertexNormalsTangents( 
-            const MFnMesh& fnMesh, 
+            MObject& mesh,
             const MFloatVectorArray& normals, 
             MVectorArray& tangents, 
             MVectorArray& binormals );
 
         /** Implement NormalSource. */
         bool exportNormals( 
-            const MFnMesh& fnMesh, 
+            const MObject& mesh, 
             const String& meshId, 
             MFloatVectorArray& normals );
 
@@ -184,7 +184,7 @@ namespace COLLADAMaya
          * Export the texture coordinates listed in the two arrays given in argument,
          * that correspond respectively to the Maya uv set name and the collada texcoord id.
          */
-        void exportTextureCoords ( const MFnMesh& fnMesh,
+        void exportTextureCoords(const MObject& mesh,
                                    const String& meshId,
                                    const MStringArray& uvSetNames );
 
@@ -192,14 +192,14 @@ namespace COLLADAMaya
 		 * Checks if mesh contains vertices with no vertex color from given color set.
 		 */
 		static bool hasMissingVertexColor(
-			/*const */MFnMesh & fnMesh,
+			const MObject & mesh,
 			const MString & colorSetName
 			);
 
         /**
         * Export the color sets. Returns true if we should proceed to export the given color set Ids.
          */
-        void exportColorSets ( /*const*/ MFnMesh& fnMesh, const String& meshId, MStringArray& colorSetNames );
+        void exportColorSets(const MObject& mesh, const String& meshId, MStringArray& colorSetNames);
 
         /** Export the vertices tag with a link to the positions. */
         void exportVertices ( const String& meshId );
@@ -207,7 +207,7 @@ namespace COLLADAMaya
         /**
          * Export the texture tangents and binormals.
          */
-        void exportTextureTangentsAndBinormals ( const MFnMesh &fnMesh, const String& meshId );
+        void exportTextureTangentsAndBinormals(const MObject& mesh, const String& meshId);
 
     };
 }

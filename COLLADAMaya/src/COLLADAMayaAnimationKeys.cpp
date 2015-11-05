@@ -20,6 +20,11 @@
 namespace COLLADAMaya
 {
 
+	BaseAnimationKey::BaseAnimationKey()
+	{
+		input = -1;
+	}
+
     // --------------------------------------------
     AnimationMKey::AnimationMKey ( uint _dimension )
             : BaseAnimationKey (), dimension ( _dimension )

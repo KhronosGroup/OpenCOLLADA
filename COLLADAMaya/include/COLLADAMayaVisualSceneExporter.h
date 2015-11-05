@@ -124,6 +124,11 @@ namespace COLLADAMaya
         COLLADASW::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = EMPTY_STRING );
 
         /**
+        * Creates the uri for the given DagPath.
+        */
+        COLLADASW::URI getSceneElementURI(const MDagPath& dagPath, const String& id = EMPTY_STRING);
+
+        /**
          * Returns the collada id of the current node, if it is a transform node.
 		 *
 		 * removeFirstNamespace allows to create id without first part of namespace:
@@ -228,7 +233,7 @@ namespace COLLADAMaya
          * If not, we don't need to write the current material instance.
          */
         const bool meshContainsShaderPolygons ( 
-            const MFnMesh& fnMesh, 
+            const MObject& mesh,
             const MObjectArray& shaders, 
             const MIntArray& shaderIndices, 
             const uint shaderPosition );

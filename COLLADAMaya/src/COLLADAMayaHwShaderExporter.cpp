@@ -133,8 +133,96 @@ namespace COLLADAMaya
             cgTechnique = cgGetNextTechnique ( cgTechnique );
         }
         mEffectProfile->closeProfile ();
-#endif
+#else // MAYA_API_VERSION < 201200
+        // Set the current shader scope to CG
+        setShaderScope ( COLLADASW::Shader::SCOPE_CG );
+
+        // Writes the current effect profile into the collada document
+        mEffectProfile->setProfileType ( COLLADASW::EffectProfile::CG );
+        mEffectProfile->openProfile ();
+
+        // Get a pointer to the current stream writer
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        // Get the filename of the current cgfx file
+        MString shaderFxFile = cgfxFindFile(shaderNodeCgfx->shaderFxFile());
+        String shaderFxFileName = shaderFxFile.asChar (); // check3d.cgfx
+        COLLADASW::URI  shaderFxFileUri ( COLLADASW::URI::nativePathToUri ( shaderFxFileName ) );
+        setShaderFxFileUri ( shaderFxFileUri );
+
+        // Get the current CGeffect
+        const cgfxRCPtr<const cgfxEffect>& cgEffect = shaderNodeCgfx->effect();
+        if( cgEffect.isNull() )
+        {
+            MGlobal::displayError ("cgEffect is null.");
+            throw "cgEffect is null.";
+            return;
+        }
+
+		// Set the current include file
+        if ( ExportOptions::exportCgfxFileReferences () )
+            mEffectProfile->setInclude ( shaderFxFileUri, shaderFxFileUri.getPathFileBase() );
+        else
+        {
+#if 1
+            String sourceString = "dummy.";
+            // Get the code sid
+            String codeSid = shaderFxFileUri.getPathFileBase ();
+            // Set the code into the collada effect profile
+            mEffectProfile->setCode ( sourceString, codeSid );
+#else //1
+            // Add the source code
+            CGcontext cgContext = cgGetEffectContext ( cgEffect );
+            CGprogram cgProgram = cgGetFirstProgram ( cgContext );
+            const char* programSourceCG = cgGetProgramString ( cgProgram, CG_PROGRAM_SOURCE );
+            String sourceString = getProgramSourceString ( programSourceCG );
+            // Get the code sid
+            String codeSid = shaderFxFileUri.getPathFileBase ();
+            // Set the code into the collada effect profile
+            mEffectProfile->setCode ( sourceString, codeSid );
+#endif //1
+        }
+
+        // Add the source code and the include file
+        mEffectProfile->addProfileElements ();
+
+        // Export the effects parameter
+        MObject shaderNode = shaderNodeCgfx->thisMObject();
+        exportEffectParameters ( shaderNode, cgEffect );
+
+        // Find if effect parameter is used by any program of the selected technique
+        const cgfxTechnique* technique = cgEffect->getFirstTechnique();
+        while( technique )
+        {
+            exportTechnique ( technique );
+            technique = technique->getNext();
+        }
+#endif // MAYA_API_VERSION < 201200
     }
+
+#if MAYA_API_VERSION >= 201200
+    void HwShaderExporter::exportTechnique (
+        const cgfxTechnique* technique
+        )
+    {
+        mEffectProfile->setTechniqueSid ( technique->getName().asChar() );
+        String techniqueName = technique->getName().asChar();
+        // Open the current technique element
+        mEffectProfile->openTechnique ( techniqueName );
+
+        // Go through the passes and write it into the collada file.
+        const cgfxPass* pass = technique->getFirstPass();
+        while ( pass )
+        {
+            CGpass cgPass = pass->getCgPass();
+            exportPass ( cgPass );
+            pass = pass->getNext();
+        }
+
+        // Close the current technique element
+        mEffectProfile->closeTechnique ();
+    }
+#endif//MAYA_API_VERSION >= 201200
 
     // --------------------------------
     void HwShaderExporter::exportTechnique (
@@ -468,15 +556,29 @@ namespace COLLADAMaya
 
     // --------------------------------------
     void HwShaderExporter::exportEffectParameters ( 
-        MObject shaderNode, 
-        const CGeffect& cgEffect )
+        MObject shaderNode,
+#if MAYA_API_VERSION < 201200
+        const CGeffect& cgEffect
+#else // MAYA_API_VERSION < 201200
+        const cgfxRCPtr<const cgfxEffect>& cgEffect
+#endif // MAYA_API_VERSION < 201200
+        )
     {
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Write the parameters
+#if MAYA_API_VERSION < 201200
         CGparameter cgParameter = cgGetFirstEffectParameter ( cgEffect );
         while (cgParameter)
         {
+#else // MAYA_API_VERSION < 201200	
+        cgfxRCPtr<cgfxAttrDefList> effectAttributes = cgEffect->attrsFromEffect();
+        cgfxAttrDefList::iterator effectIt;
+        for ( effectIt=effectAttributes->begin(); effectIt; ++effectIt )
+        {
+            cgfxAttrDef* effectAttribute = *effectIt;
+            CGparameter cgParameter = effectAttribute->fParameterHandle;
+#endif // MAYA_API_VERSION < 201200
             const char* paramName = cgGetParameterName ( cgParameter );
             CGresource resource = cgGetParameterBaseResource ( cgParameter );
             CGtype paramBaseType = cgGetParameterBaseType ( cgParameter );
@@ -1132,10 +1234,8 @@ namespace COLLADAMaya
         if ( !fileName.empty () )
         {
             // Get the image path
-            COLLADASW::URI shaderFxFileUri = getShaderFxFileUri();
-
             // Take the filename for the unique image name
-            COLLADASW::URI sourceFileUri ( shaderFxFileUri, fileName );
+            COLLADASW::URI sourceFileUri(COLLADASW::URI::nativePathToUri(fileName));
             if ( sourceFileUri.getScheme ().empty () )
                 sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
             String mayaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );

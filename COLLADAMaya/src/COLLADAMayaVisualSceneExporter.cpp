@@ -474,7 +474,7 @@ namespace COLLADAMaya
 
                 // Check if the current mesh has some polygons for the connected shader.
                 // If not, we don't need to write the current material instance.
-                if ( !meshContainsShaderPolygons ( fnMesh, shaders, shaderIndices, shaderPosition ) ) continue;
+                if ( !meshContainsShaderPolygons ( meshNode, shaders, shaderIndices, shaderPosition ) ) continue;
 
                 // To get the right shader name, we have to take the correct mesh instance.
                 MStatus status;
@@ -541,13 +541,13 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     const bool VisualSceneExporter::meshContainsShaderPolygons ( 
-        const MFnMesh& fnMesh, 
+        const MObject& mesh, 
         const MObjectArray& shaders, 
         const MIntArray& shaderIndices, 
         const uint shaderPosition )
     {
         // Iterate through all polygons of the current mesh.
-        MItMeshPolygon meshPolygonsIter ( fnMesh.object() );
+        MItMeshPolygon meshPolygonsIter ( mesh );
         for ( meshPolygonsIter.reset(); !meshPolygonsIter.isDone(); meshPolygonsIter.next() )
         {
             // Is this polygon shaded by this shader?
@@ -976,9 +976,12 @@ namespace COLLADAMaya
         MPlug plug = MFnDagNode ( mTransformObject ).findPlug ( ATTR_MATRIX );
         mDocumentExporter->getAnimationCache()->cachePlug ( plug, true );
 
+		MEulerRotation rotation;
+		rotation.order = (MEulerRotation::RotationOrder) ((int)mTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ);
+
         // Export the animations
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-        animationExporter->addPlugAnimation ( plug, ATTR_TRANSFORM, kMatrix, TRANSFORM_PARAMETER, true );
+		animationExporter->addPlugAnimation(plug, ATTR_TRANSFORM, kMatrix, rotation.order, TRANSFORM_PARAMETER, true );
     }
 
     //---------------------------------------------------------------
@@ -1084,144 +1087,103 @@ namespace COLLADAMaya
 		class ExtraAttributeExporter : public AttributeParser
 		{
 		public:
-			ExtraAttributeExporter(COLLADASW::Node & visualSceneNode)
-				: mVisualSceneNode(visualSceneNode)
+            ExtraAttributeExporter(COLLADASW::Node & visualSceneNode)
+                : mVisualSceneNode(visualSceneNode)
 			{}
 
 		private:
 			COLLADASW::Node & mVisualSceneNode;
 
 		protected:
-			virtual MStatus onBeforeAttribute(MFnDependencyNode & node, MObject & attr)
+			virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
 			{
 				MStatus status;
 				MFnAttribute fnAttr(attr, &status);
-				if (!status) return status;
+				if (!status) return false;
 
 				MString attrName = fnAttr.name(&status);
-				if (!status) return status;
+				if (!status) return false;
 
 				bool isDynamic = fnAttr.isDynamic(&status);
-				if (!status) return status;
+				if (!status) return false;
 
 				if (!isDynamic)
-					return MS::kFailure;
+					return false;
 
 				bool isHidden = fnAttr.isHidden(&status);
-				if (!status) return status;
+				if (!status) return false;
 
 				if (isHidden)
-					return MS::kFailure;
+					return false;
 
-				return MS::kSuccess;
-			}
-
-			virtual MStatus onAfterAttribute(MFnDependencyNode & fnNode, MObject & attribute)
-			{
-				return MS::kSuccess;
-			}
-			
-			virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value)
-			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+				return true;
 			}
 
-			virtual MStatus onByte(MPlug & plug, const MString & name, char value)
+            virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onChar(MPlug & plug, const MString & name, char value)
+            virtual void onInteger(MPlug & plug, const MString & name, int value) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onShort(MPlug & plug, const MString & name, short value)
+            virtual void onInteger2(MPlug & plug, const MString & name, int value[2]) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onShort2(MPlug & plug, const MString & name, short value[2])
+            virtual void onInteger3(MPlug & plug, const MString & name, int value[3]) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onShort3(MPlug & plug, const MString & name, short value[3])
+            virtual void onFloat(MPlug & plug, const MString & name, float value) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onLong(MPlug & plug, const MString & name, int value)
+            virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onLong2(MPlug & plug, const MString & name, int value[2])
+            virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onLong3(MPlug & plug, const MString & name, int value[3])
+            virtual void onDouble(MPlug & plug, const MString & name, double value) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onFloat(MPlug & plug, const MString & name, float value)
+            virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onFloat2(MPlug & plug, const MString & name, float value[2])
+            virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onFloat3(MPlug & plug, const MString & name, float value[3])
+            virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
 			{
-				// TODO
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], value[3], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onDouble(MPlug & plug, const MString & name, double value)
+            virtual void onString(MPlug & plug, const MString & name, const MString & value) override
 			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), value, "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
+				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(value.asChar())), "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
 			}
 
-			virtual MStatus onDouble2(MPlug & plug, const MString & name, double value[2])
-			{
-				// TODO
-				return MS::kSuccess;
-			}
-
-			virtual MStatus onDouble3(MPlug & plug, const MString & name, double value[3])
-			{
-				// TODO
-				return MS::kSuccess;
-			}
-
-			virtual MStatus onDouble4(MPlug & plug, const MString & name, double value[4])
-			{
-				// TODO
-				return MS::kSuccess;
-			}
-
-			virtual MStatus onString(MPlug & plug, const MString & name, const MString & value)
-			{
-				mVisualSceneNode.addExtraTechniqueParameter(PROFILE_MAYA, String(name.asChar()), COLLADABU::StringUtils::translateToXML(String(value.asChar())), "", COLLADASW::NEW_PARAM);
-				return MS::kSuccess;
-			}
+            virtual void onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
+            {
+                // TODO export all possible enum values to be able to re-import them?
+				mVisualSceneNode.addExtraTechniqueEnumParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(enumName.asChar())), "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
 		};
 
 		MObject nodeObject = sceneElement->getNode();
@@ -1413,62 +1375,65 @@ namespace COLLADAMaya
         const SceneElement* sceneElement,
         const String& elementId /** = EMPTY_STRING */ )
     {
-        // Get the path of the element
-        MDagPath dagPath = sceneElement->getPath();
+        return getSceneElementURI(sceneElement->getPath(), elementId);
+    }
 
-        // Check if the element is instanced.
-        uint instanceNumber = 0;
-        if ( dagPath.isInstanced() )
-        {
-            SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-            SceneElement* exportedElement = sceneGraph->findElement( dagPath );
-            dagPath = exportedElement->getPath();
+    //---------------------------------------------------------------
+    COLLADASW::URI VisualSceneExporter::getSceneElementURI(const MDagPath& dagPath, const String& id /*= EMPTY_STRING*/)
+    {
+        MFnDagNode dagFn(dagPath);
+        bool isLocal = !dagFn.isFromReferencedFile();
+        if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
+            isLocal = true;
         }
 
         // Get the Uri of the element.
-        if ( !sceneElement->getIsLocal() )
+        if (!isLocal)
         {
-			MObject referenceNode;
-			MStatus status = ReferenceManager::getTopLevelReferenceNode(dagPath, referenceNode);
-			if (status == MS::kFailure) {
-				return COLLADASW::URI();
-			}
+            MObject referenceNode;
+            MStatus status = ReferenceManager::getTopLevelReferenceNode(dagPath, referenceNode);
+            if (status == MS::kFailure) {
+                return COLLADASW::URI();
+            }
 
-			MString mayaReferenceFilename;
-			status = ReferenceManager::getReferenceFilename(referenceNode, mayaReferenceFilename);
+            MString mayaReferenceFilename;
+            status = ReferenceManager::getReferenceFilename(referenceNode, mayaReferenceFilename);
 
-			String referenceFilename = mayaReferenceFilename.asChar();
+            String referenceFilename = mayaReferenceFilename.asChar();
 
-			// Replace .mb by .dae
-			String::size_type dotPos = referenceFilename.rfind('.');
-			if (dotPos != String::npos) {
-				referenceFilename.resize(dotPos);
-				referenceFilename.append(".dae");
-			}
-			MString exportedFile = MFileIO::currentFile();
+            // Replace .mb by .dae
+            String::size_type dotPos = referenceFilename.rfind('.');
+            if (dotPos != String::npos) {
+                referenceFilename.resize(dotPos);
+                referenceFilename.append(".dae");
+            }
+            MString exportedFile = MFileIO::currentFile();
 
-			// Make referenced file path relative to exported file directory
-			COLLADASW::URI exportedFileURI = exportedFile.asChar();
-			COLLADASW::URI exportedFileDirURI = exportedFileURI.getPathDir();
-			exportedFileDirURI.setScheme(exportedFileURI.getScheme());
-			COLLADASW::URI referencedFileURI = referenceFilename;
+            // Make referenced file path relative to exported file directory
+            COLLADASW::URI exportedFileURI = exportedFile.asChar();
+            COLLADASW::URI exportedFileDirURI = exportedFileURI.getPathDir();
+            exportedFileDirURI.setScheme(exportedFileURI.getScheme());
+            COLLADASW::URI referencedFileURI = referenceFilename;
             if (ExportOptions::relativePaths())
             {
                 referencedFileURI.makeRelativeTo(exportedFileDirURI);
             }
 
-			COLLADASW::URI sceneElementURI(referencedFileURI);
-			const bool removeFirstNamespace = true;
-			String refNodeId = getColladaNodeId(dagPath, removeFirstNamespace);
-			sceneElementURI.setFragment(refNodeId);
-			return sceneElementURI;
+            COLLADASW::URI sceneElementURI(referencedFileURI);
+            const bool removeFirstNamespace = true;
+            String refNodeId = getColladaNodeId(dagPath, removeFirstNamespace);
+            sceneElementURI.setFragment(refNodeId);
+            return sceneElementURI;
         }
         else
         {
             // Get the id of the element
-            if ( !elementId.empty() )
-                return COLLADASW::URI ( EMPTY_STRING, elementId );
-            else return COLLADASW::URI ( EMPTY_STRING, mDocumentExporter->dagPathToColladaId ( dagPath ) );
+            if (!id.empty()) {
+                return COLLADASW::URI(EMPTY_STRING, id);
+            }
+            else {
+                return COLLADASW::URI(EMPTY_STRING, mDocumentExporter->dagPathToColladaId(dagPath));
+            }
         }
     }
 

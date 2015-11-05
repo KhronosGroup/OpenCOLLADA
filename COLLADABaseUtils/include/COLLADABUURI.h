@@ -179,7 +179,7 @@ namespace COLLADABU
 		URI();
 
 		/** Returns if the URi is valid.*/
-		bool isValid() { return mIsValid; }
+		bool isValid() const { return mIsValid; }
 
 		// Returns the fully resolved URI as a string
 		const String& getURIString() const;

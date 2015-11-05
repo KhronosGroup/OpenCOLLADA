@@ -45,6 +45,9 @@ namespace COLLADAMaya
             struct Part
             {
                 MPlug plug;
+
+				std::vector< std::pair<bool, Step> > stepInterpolation;
+				std::vector<float> times;
                 std::vector<float> values;
                 bool isMatrix, isWanted, isAnimated;
 
@@ -108,7 +111,7 @@ namespace COLLADAMaya
          * @param outputs
          * @return bool
          */
-        bool findCachePlug ( const MPlug& plug, std::vector<float>*& inputs, std::vector<float>*& outputs );
+		bool findCachePlug(const MPlug& plug, std::vector<float>*& inputs, std::vector<float>*& outputs, std::vector< std::pair<bool, Step> >*& interpolation);
 
         /**
          * @todo documentation

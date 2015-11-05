@@ -24,7 +24,7 @@ namespace COLLADAMaya
 {
 
     // --------------------------------------------
-    RotateHelper::RotateHelper( MEulerRotation rotation )
+    RotateHelper::RotateHelper( const MEulerRotation & rotation )
     :	rotation ( rotation )
     {
         createRotation ();
@@ -55,7 +55,7 @@ namespace COLLADAMaya
             break;
         default: 
             // Export XYZ euler rotation in Z Y X order in the file.
-            // The rotation order is set to XYZ, Collada reads the parameter from behind.
+            // The rotation order is set to XYZ, Collada reads backward the parameter.
             createZ(0); createY(1); createX(2); 
             break;
         }
